@@ -111,7 +111,7 @@ Public Class UpdateGrid
         Try
             Label1.Text = "Downloading " + Type + ", please wait..."
             'Label3.Text = "File Size: " & Math.Round((length / 1024), 2) & " KB"
-            Label2.Text = "Downloaded " & Math.Round((position / 1024), 2) & " KB of " & Math.Round((length / 1024), 2) & "KB "
+            Label2.Text = "Downloaded " & Math.Round((position / 1024), 2) & " KB of " & Math.Round((length / 1024), 0) & " KBytes "
 
             Application.DoEvents()
             If speed = -1 Then
@@ -171,13 +171,12 @@ Public Class UpdateGrid
         Dim readStream As Stream = theResponse.GetResponseStream
         Dim lastTickCount As Integer = Environment.TickCount
         Dim bytesReadPerInterval As Integer
-        Dim readBytes(32 * 1024) As Byte
+        Dim readBytes(16 * 1024) As Byte
         Dim bytesread As Integer
         Dim newTickCount As Integer
         Dim percent As Short
-
+        Dim tickDiff As Double
         Do
-            Application.DoEvents()
 
             If BackgroundWorker1.CancellationPending Then 'If user abort download
                 Cancelled = True
@@ -186,14 +185,11 @@ Public Class UpdateGrid
 
             bytesread = readStream.Read(readBytes, 0, readBytes.Length)
 
-            Application.DoEvents()
-
             nRead += bytesread
             bytesReadPerInterval += bytesread
 
             percent = nRead / length
 
-            Invoke(safedelegate, length, nRead, percent, currentspeed)
             Application.DoEvents()
             If bytesread = 0 Then
                 Debug.Print("Exit do")
@@ -203,12 +199,12 @@ Public Class UpdateGrid
             writeStream.Write(readBytes, 0, bytesread)
 
             newTickCount = Environment.TickCount
-            If newTickCount - lastTickCount > 2000 Then
-                'BackgroundWorker1.ReportProgress(nRead, "Downloading...")
-                Dim tickDiff As Double = newTickCount - lastTickCount
+            tickDiff = newTickCount - lastTickCount
+            If tickDiff > 100 Then ' 1/10 a second update
                 lastTickCount = newTickCount
                 currentspeed = bytesReadPerInterval / (tickDiff / 1000.0)
                 bytesReadPerInterval = 0
+                Invoke(safedelegate, length, nRead, percent, currentspeed) ' print it
             End If
         Loop
 
