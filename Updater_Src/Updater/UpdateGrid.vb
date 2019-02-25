@@ -167,9 +167,14 @@ Public Class UpdateGrid
 
         'To calculate the download speed
         Dim nRead As Integer
-        Dim speedtimer As New Stopwatch
         Dim currentspeed As Double = -1
-        Dim readings As Integer = 0
+        Dim readStream As Stream = theResponse.GetResponseStream
+        Dim lastTickCount As Integer = Environment.TickCount
+        Dim bytesReadPerInterval As Integer
+        Dim readBytes(32 * 1024) As Byte
+        Dim bytesread As Integer
+        Dim newTickCount As Integer
+        Dim percent As Short
 
         Do
             Application.DoEvents()
@@ -178,15 +183,15 @@ Public Class UpdateGrid
                 Cancelled = True
                 Exit Do
             End If
-            speedtimer.Start()
 
-            Dim readBytes(20000) As Byte
-            Dim bytesread As Integer = theResponse.GetResponseStream.Read(readBytes, 0, 20000)
+            bytesread = readStream.Read(readBytes, 0, readBytes.Length)
 
             Application.DoEvents()
 
             nRead += bytesread
-            Dim percent As Short = nRead / length
+            bytesReadPerInterval += bytesread
+
+            percent = nRead / length
 
             Invoke(safedelegate, length, nRead, percent, currentspeed)
             Application.DoEvents()
@@ -197,18 +202,18 @@ Public Class UpdateGrid
 
             writeStream.Write(readBytes, 0, bytesread)
 
-            readings += 1
-            If readings >= 50 Then 'For increase precision, the speed it's calculated only every 50 cycles
+            newTickCount = Environment.TickCount
+            If newTickCount - lastTickCount > 2000 Then
                 'BackgroundWorker1.ReportProgress(nRead, "Downloading...")
-                currentspeed = bytesread / (speedtimer.ElapsedMilliseconds / 1000)
-                speedtimer.Stop()
-                speedtimer.Reset()
-                readings = 0
+                Dim tickDiff As Double = newTickCount - lastTickCount
+                lastTickCount = newTickCount
+                currentspeed = bytesReadPerInterval / (tickDiff / 1000.0)
+                bytesReadPerInterval = 0
             End If
         Loop
 
         Log("Close stream")
-        theResponse.GetResponseStream.Close()
+        readStream.Close()
         writeStream.Close()
 
         If Cancelled Then
