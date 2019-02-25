@@ -174,180 +174,195 @@ Public Class RegionList
 
 #Region "Load List View"
     Public Sub LoadMyListView()
+        Try
+            ViewNotBusy = False
 
-        ViewNotBusy = False
+            ListView1.BeginUpdate()
 
-        ListView1.BeginUpdate()
+            imageListLarge = New ImageList()
+            If pixels = 0 Then pixels = 20
+            imageListLarge.ImageSize = New Size(pixels, pixels)
+            ListView1.Clear()
+            ListView1.Items.Clear()
 
-        imageListLarge = New ImageList()
-        If pixels = 0 Then pixels = 20
-        imageListLarge.ImageSize = New Size(pixels, pixels)
-        ListView1.Clear()
-        ListView1.Items.Clear()
-
-        ' Create columns for the items and subitems.
-        ' Width of -2 indicates auto-size.
-        ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Status", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
-        ' optional
-        ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
+            ' Create columns for the items and subitems.
+            ' Width of -2 indicates auto-size.
+            ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
+            ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Status", 80, HorizontalAlignment.Center)
+            ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
+            ' optional
+            ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
+            ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
 
 
-        Dim Num As Integer = 0
+            Dim Num As Integer = 0
 
-        ' have to get maps by http port + region UUID, not region port + uuid
-        ' RegionClass.DebugGroup() ' show the list of groups and http ports.
+            ' have to get maps by http port + region UUID, not region port + uuid
+            ' RegionClass.DebugGroup() ' show the list of groups and http ports.
 
-        For Each X In RegionClass.RegionNumbers
+            For Each X In RegionClass.RegionNumbers
 
-            Dim Letter As String = ""
-            If RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING Then
-                Letter = "Recycling Down"
-                Num = 5
-            ElseIf RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
-                Letter = "Recycling Up"
-                Num = 5
-            ElseIf RegionClass.WarmingUp(X) Then
-                Letter = "Booting"
-                Num = 0
-            ElseIf RegionClass.ShuttingDown(X) Then
-                Letter = "Stopping"
-                Num = 1
-            ElseIf RegionClass.Booted(X) Then
-                Letter = "Running"
-                Num = 2
-            ElseIf Not RegionClass.RegionEnabled(X) Then
-                Letter = "Disabled"
-                Num = 3
-            ElseIf RegionClass.RegionEnabled(X) Then
-                Letter = "Stopped"
-                Num = 4
-            Else
-                Num = 6 ' warning
-            End If
-
-            If TheView = 2 Then
-
-                If RegionClass.Booted(X) Then
-                    Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
-                    Debug.Print(img)
-
-                    Dim bmp As Image = LoadImage(img)
-                    If bmp Is Nothing Then
-                        imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
-                    Else
-                        imageListLarge.Images.Add(bmp)
-
-                    End If
+                Dim Letter As String = ""
+                If RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING Then
+                    Letter = "Recycling Down"
+                    Num = 5
+                ElseIf RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
+                    Letter = "Recycling Up"
+                    Num = 5
+                ElseIf RegionClass.WarmingUp(X) Then
+                    Letter = "Booting"
+                    Num = 0
+                ElseIf RegionClass.ShuttingDown(X) Then
+                    Letter = "Stopping"
+                    Num = 1
+                ElseIf RegionClass.Booted(X) Then
+                    Letter = "Running"
+                    Num = 2
+                ElseIf Not RegionClass.RegionEnabled(X) Then
+                    Letter = "Disabled"
+                    Num = 3
+                ElseIf RegionClass.RegionEnabled(X) Then
+                    Letter = "Stopped"
+                    Num = 4
                 Else
-                    imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                    Num = 6 ' warning
                 End If
-                Num = X
-            End If
 
-            ' Create  items and subitems for each item.
-            Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num)
-            ' Place a check mark next to the item.
-            item1.Checked = RegionClass.RegionEnabled(X)
-            item1.SubItems.Add(RegionClass.GroupName(X).ToString)
-            item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
-            item1.SubItems.Add(Letter)
-            item1.SubItems.Add(RegionClass.CoordX(X).ToString)
-            item1.SubItems.Add(RegionClass.CoordY(X).ToString)
-            item1.SubItems.Add(RegionClass.SizeX(X).ToString)
+                If TheView = 2 Then
 
-            'Map
-            If RegionClass.MapType(X).Length > 0 Then
-                item1.SubItems.Add(RegionClass.MapType(X))
-            Else
-                item1.SubItems.Add(Form1.MySetting.MapType)
-            End If
+                    If RegionClass.Booted(X) Then
+                        Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
+                        Debug.Print(img)
 
-            ' physics
-            Select Case RegionClass.Physics(X)
-                Case "0"
-                    item1.SubItems.Add("None")
-                Case "1"
-                    item1.SubItems.Add("ODE")
-                Case "2"
-                    item1.SubItems.Add("Bullet")
-                Case "3"
-                    item1.SubItems.Add("Bullet/Threaded")
-                Case "4"
-                    item1.SubItems.Add("ubODE")
-                Case Else
-                    Select Case Form1.MySetting.Physics
-                        Case "0"
-                            item1.SubItems.Add("None")
-                        Case "1"
-                            item1.SubItems.Add("ODE")
-                        Case "2"
-                            item1.SubItems.Add("Bullet")
-                        Case "3"
-                            item1.SubItems.Add("Bullet/Threaded")
-                        Case "4"
-                            item1.SubItems.Add("ubODE")
-                        Case Else
-                            item1.SubItems.Add("?")
-                    End Select
-            End Select
+                        Dim bmp As Image = LoadImage(img)
+                        If bmp Is Nothing Then
+                            imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                        Else
+                            imageListLarge.Images.Add(bmp)
 
-            'birds
+                        End If
+                    Else
+                        imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                    End If
+                    Num = X
+                End If
 
-            If RegionClass.Birds(X) = "True" Then
-                item1.SubItems.Add("Birds")
-            Else
-                item1.SubItems.Add("")
-            End If
+                ' Create  items and subitems for each item.
+                Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num)
+                ' Place a check mark next to the item.
+                item1.Checked = RegionClass.RegionEnabled(X)
+                item1.SubItems.Add(RegionClass.GroupName(X).ToString)
+                item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
+                item1.SubItems.Add(Letter)
+                item1.SubItems.Add(RegionClass.CoordX(X).ToString)
+                item1.SubItems.Add(RegionClass.CoordY(X).ToString)
 
-            'Tides
-            If RegionClass.Tides(X) = "True" Then
-                item1.SubItems.Add("Tides")
-            Else
-                item1.SubItems.Add("")
-            End If
+                Dim size As String = ""
+                If RegionClass.SizeX(X) = 256 Then
+                    size = "1X1"
+                ElseIf RegionClass.SizeX(X) = 512 Then
+                    size = "2X2"
+                ElseIf RegionClass.SizeX(X) = 768 Then
+                    size = "3X3"
+                ElseIf RegionClass.SizeX(X) = 1024 Then
+                    size = "4X4"
+                Else
+                    size = RegionClass.SizeX(X).ToString
+                End If
+                item1.SubItems.Add(size)
 
-            'teleport
-            If RegionClass.Teleport(X) = "True" Then
-                item1.SubItems.Add("Teleport")
-            Else
-                item1.SubItems.Add("")
-            End If
+                'Map
+                If RegionClass.MapType(X).Length > 0 Then
+                    item1.SubItems.Add(RegionClass.MapType(X))
+                Else
+                    item1.SubItems.Add(Form1.MySetting.MapType)
+                End If
 
+                ' physics
+                Select Case RegionClass.Physics(X)
+                    Case "0"
+                        item1.SubItems.Add("None")
+                    Case "1"
+                        item1.SubItems.Add("ODE")
+                    Case "2"
+                        item1.SubItems.Add("Bullet")
+                    Case "3"
+                        item1.SubItems.Add("Bullet/Threaded")
+                    Case "4"
+                        item1.SubItems.Add("ubODE")
+                    Case Else
+                        Select Case Form1.MySetting.Physics
+                            Case "0"
+                                item1.SubItems.Add("None")
+                            Case "1"
+                                item1.SubItems.Add("ODE")
+                            Case "2"
+                                item1.SubItems.Add("Bullet")
+                            Case "3"
+                                item1.SubItems.Add("Bullet/Threaded")
+                            Case "4"
+                                item1.SubItems.Add("ubODE")
+                            Case Else
+                                item1.SubItems.Add("?")
+                        End Select
+                End Select
 
-            ListView1.Items.AddRange(New ListViewItem() {item1})
+                'birds
 
+                If RegionClass.Birds(X) = "True" Then
+                    item1.SubItems.Add("Birds")
+                Else
+                    item1.SubItems.Add("")
+                End If
 
-        Next
+                'Tides
+                If RegionClass.Tides(X) = "True" Then
+                    item1.SubItems.Add("Tides")
+                Else
+                    item1.SubItems.Add("")
+                End If
 
-        'Assign the ImageList objects to the ListView.
-        ListView1.LargeImageList = imageListLarge
-        ListView1.SmallImageList = imageListSmall
+                'teleport
+                If RegionClass.Teleport(X) = "True" Then
+                    item1.SubItems.Add("Teleport")
+                Else
+                    item1.SubItems.Add("")
+                End If
 
-        Me.ListView1.TabIndex = 0
+                ListView1.Items.AddRange(New ListViewItem() {item1})
 
-        ListView1.EndUpdate()
-        ListView1.Show()
-        ViewNotBusy = True
+            Next
 
-        For i As Integer = 0 To ListView1.Items.Count - 1
-            If ListView1.Items(i).Checked Then
-                ListView1.Items(i).ForeColor = SystemColors.ControlText
-            Else
-                ListView1.Items(i).ForeColor = SystemColors.GrayText
-            End If
-        Next i
+            'Assign the ImageList objects to the ListView.
+            ListView1.LargeImageList = imageListLarge
+            ListView1.SmallImageList = imageListSmall
 
-        UpdateView() = False
+            Me.ListView1.TabIndex = 0
+
+            ListView1.EndUpdate()
+            ListView1.Show()
+            ViewNotBusy = True
+
+            For i As Integer = 0 To ListView1.Items.Count - 1
+                If ListView1.Items(i).Checked Then
+                    ListView1.Items(i).ForeColor = SystemColors.ControlText
+                Else
+                    ListView1.Items(i).ForeColor = SystemColors.GrayText
+                End If
+            Next i
+
+            UpdateView() = False
+        Catch ex As Exception
+            Form1.Log("Error: RegionList " & ex.Message)
+        End Try
+
 
     End Sub 'listView1
 
