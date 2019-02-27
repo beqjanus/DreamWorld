@@ -3813,7 +3813,13 @@ Public Class Form1
         Dim Grid As String = "Grid"
         If MySetting.StandAlone() Then Grid = "Standalone"
 
-        Dim data As String = "&MachineID=" + MySetting.MachineID() _
+        ' no DNS password used if DNS name is null
+        Dim m = MySetting.MachineID()
+        If MySetting.DNSName = "" Then
+            m = ""
+        End If
+
+        Dim data As String = "&MachineID=" + m _
             + "&V=" + gMyVersion.ToString _
             + "&OV=" + gSimVersion.ToString _
             + "&uPnp=" + UPnp.ToString _
