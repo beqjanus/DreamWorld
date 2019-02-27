@@ -138,14 +138,11 @@ Public Class NetServer
             'Debug.Print("Client data content length {0}", request.ContentLength64)
             Dim responseString As String = ""
             ' process the input
-            If (Not request.HasEntityBody) Then
-                Debug.Print("No client data was sent with the request.")
-                Dim Uri = request.Url.OriginalString
-                If Uri.Contains("teleports.htm") Then
-                    responseString = RegionClass.RegionListHTML(Setting)
-                Else
-                    responseString = "Test Passed"
-                End If
+
+            Debug.Print("No client data was sent with the request.")
+            Dim Uri = request.Url.OriginalString
+            If Uri.Contains("teleports.htm") Then
+                responseString = RegionClass.RegionListHTML(Setting)
             Else
                 'Debug.Print("Start of client data:")
                 'Convert the data to a string And display it on the console.
@@ -154,9 +151,9 @@ Public Class NetServer
                 'Debug.Print("End of client data:")
                 ' process the data
                 responseString = RegionClass.ParsePost(POST, Setting)
-            End If
 
-            body.Close()
+                body.Close()
+            End If
 
             ''''''''''''''''''''''''''''''''''''''''''''''
 

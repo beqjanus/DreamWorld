@@ -1061,7 +1061,7 @@ Public Class RegionMaker
                     Return "<html><head></head><body>Welcome! You can close this window.</html>"
 
                 Else
-                    Return "<html><head></head><body>Error</html>"
+                    Return "<html><head></head><body>Test Passed</html>"
                 End If
 
             Catch ex As Exception
