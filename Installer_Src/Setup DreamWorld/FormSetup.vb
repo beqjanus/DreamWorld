@@ -33,7 +33,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    Dim gMyVersion As String = "2.75"
+    Dim gMyVersion As String = "2.77"
     Dim gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
@@ -491,7 +491,7 @@ Public Class Form1
         End If
 
         If Not MySetting.RunOnce Then
-            RobustCommand("create user{ENTER}" + vbCrLf)
+            RobustCommand("create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
             MySetting.RunOnce = True
             MySetting.SaveSettings()
@@ -4506,17 +4506,17 @@ Public Class Form1
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
-        RobustCommand("create user{ENTER}" + vbCrLf)
+        RobustCommand("create user{ENTER}")
     End Sub
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-        RobustCommand("reset user password{ENTER}" + vbCrLf)
+        RobustCommand("reset user password{ENTER}")
     End Sub
 
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox("Enter the first and last name of the user:")
         If person.Length > 0 Then
-            RobustCommand("show account " + person + "{ENTER}" + vbCrLf)
+            RobustCommand("show account " + person + "{ENTER}")
         End If
     End Sub
 
