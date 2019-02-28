@@ -150,17 +150,23 @@ Public Class NetServer
                 ' Debug.Print(POST)
                 'Debug.Print("End of client data:")
                 ' process the data
-                responseString = RegionClass.ParsePost(POST, Setting)
+
+                If (request.HasEntityBody) Then
+                    responseString = RegionClass.ParsePost(POST, Setting)
+                Else
+                    responseString = RegionClass.ParsePost(Uri, Setting)
+                End If
+
 
                 body.Close()
-            End If
+                End If
 
-            ''''''''''''''''''''''''''''''''''''''''''''''
+                ''''''''''''''''''''''''''''''''''''''''''''''
 
-            'Log(responseString)
+                'Log(responseString)
 
-            ' Get the response object to send our confirmation.
-            Dim response As HttpListenerResponse = context.Response
+                ' Get the response object to send our confirmation.
+                Dim response As HttpListenerResponse = context.Response
 
             ' Construct a minimal response string.
             Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)
