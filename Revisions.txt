@@ -1,3 +1,12 @@
+2.77
+Fix for Partners
+Firewall Ports on PC are opened for you.
+Robust create user sent extra CRLF making it impossible to create the initial owner
+
+2.76
+Blank DNS name needs no password, becomes LAN IP.
+Restart Region patch
+
 2.75
 Region Panel added some of the the overrides and global region settings. These can be sorted as well.
 Also, the Height and Width you last used are saved and restored.
