@@ -371,9 +371,11 @@ Public Class Form1
 
         If Not SetIniData() Then Return
 
+
         FormPersonality = New FormPersonality
 
         RegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+        SetFirewall()   ' must be after UpdateAllRegionPorts
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -421,6 +423,39 @@ Public Class Form1
 
     End Sub
 
+    Public Sub SetFirewall()
+
+        Dim Command As String = "netsh http add urlacl url=http://" + MySetting.PrivateURL + ":" + MySetting.HttpPort + "/ user=everyone" & vbCrLf _
+                                & "netsh http add urlacl url=http://" + MySetting.PrivateURL + ":" + MySetting.DiagnosticPort + "/ user=everyone" & vbCrLf
+
+        Dim RegionNumber As Integer = 0
+        Dim start = CInt(MySetting.FirstRegionPort)
+
+        For RegionNumber = start To gMaxPortUsed
+            Command = "netsh http add urlacl url=http://" & MySetting.PrivateURL & ":" & RegionNumber & "/ user=everyone" & vbCrLf + Command
+        Next
+
+        Dim ns As StreamWriter = New StreamWriter(Application.StartupPath + "\fw.bat", False)
+        ns.WriteLine(Command)
+        ns.Close()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.Arguments = ""
+        pi.FileName = Application.StartupPath + "\fw.bat"
+        pi.WindowStyle = ProcessWindowStyle.Hidden
+        pi.Verb = "runas"
+        Dim ProcessFirewall As Process = New Process()
+        ProcessFirewall.StartInfo = pi
+
+        Try
+            ProcessFirewall.Start()
+        Catch ex As Exception
+            Log("Error:Could not set firewall:" + ex.Message)
+        End Try
+
+
+    End Sub
+
     ''' <summary>
     ''' Start Button on main form
     ''' </summary>
@@ -449,6 +484,7 @@ Public Class Form1
         Buttons(BusyButton)
 
         RegionClass.UpdateAllRegionPorts() ' must be donbe before we are running
+        SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
 
@@ -3715,7 +3751,7 @@ Public Class Form1
     Function OpenRouterPorts() As Boolean
 
         If Not MyUPnpMap.UPnpEnabled And MySetting.UPnPEnabled Then
-            Print("UPnP is not working in the router")
+            Log("UPnP is not working in the router")
             MySetting.UPnPEnabled = False
             MySetting.SaveSettings()
             Return False
