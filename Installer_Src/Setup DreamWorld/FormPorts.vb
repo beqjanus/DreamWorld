@@ -36,7 +36,7 @@ Public Class FormPorts
         DiagnosticPort.Text = Form1.MySetting.DiagnosticPort
         PrivatePort.Text = Form1.MySetting.PrivatePort
         HTTPPort.Text = Form1.MySetting.HttpPort
-        DiagnosticPort.Text = Form1.MySetting.DiagnosticPort
+
         Form1.HelpOnce("Ports")
         initted = True
 
