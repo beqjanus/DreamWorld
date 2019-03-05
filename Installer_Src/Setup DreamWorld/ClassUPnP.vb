@@ -6,9 +6,9 @@ Imports System.Runtime.InteropServices
 Public Class UPnp
     Implements IDisposable
 
-    Private UPnpnat As NATUPNPLib.UPnPNAT
-    Private staticMapping As NATUPNPLib.IStaticPortMappingCollection
-    Private dynamicMapping As NATUPNPLib.IDynamicPortMappingCollection
+    Dim UPnpnat As NATUPNPLib.UPnPNAT
+    Dim staticMapping As NATUPNPLib.IStaticPortMappingCollection
+    Dim dynamicMapping As NATUPNPLib.IDynamicPortMappingCollection
 
     Private staticEnabled As Boolean = True
     Private dynamicEnabled As Boolean = True

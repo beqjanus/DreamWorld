@@ -138,14 +138,11 @@ Public Class NetServer
             'Debug.Print("Client data content length {0}", request.ContentLength64)
             Dim responseString As String = ""
             ' process the input
-            If (Not request.HasEntityBody) Then
-                Debug.Print("No client data was sent with the request.")
-                Dim Uri = request.Url.OriginalString
-                If Uri.Contains("teleports.htm") Then
-                    responseString = RegionClass.RegionListHTML(Setting)
-                Else
-                    responseString = "Test Passed"
-                End If
+
+            Debug.Print("No client data was sent with the request.")
+            Dim Uri = request.Url.OriginalString
+            If Uri.Contains("teleports.htm") Then
+                responseString = RegionClass.RegionListHTML(Setting)
             Else
                 'Debug.Print("Start of client data:")
                 'Convert the data to a string And display it on the console.
@@ -153,17 +150,23 @@ Public Class NetServer
                 ' Debug.Print(POST)
                 'Debug.Print("End of client data:")
                 ' process the data
-                responseString = RegionClass.ParsePost(POST, Setting)
-            End If
 
-            body.Close()
+                If (request.HasEntityBody) Then
+                    responseString = RegionClass.ParsePost(POST, Setting)
+                Else
+                    responseString = RegionClass.ParsePost(Uri, Setting)
+                End If
 
-            ''''''''''''''''''''''''''''''''''''''''''''''
 
-            'Log(responseString)
+                body.Close()
+                End If
 
-            ' Get the response object to send our confirmation.
-            Dim response As HttpListenerResponse = context.Response
+                ''''''''''''''''''''''''''''''''''''''''''''''
+
+                'Log(responseString)
+
+                ' Get the response object to send our confirmation.
+                Dim response As HttpListenerResponse = context.Response
 
             ' Construct a minimal response string.
             Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)

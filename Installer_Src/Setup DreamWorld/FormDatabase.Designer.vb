@@ -24,6 +24,8 @@ Partial Class FormDatabase
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDatabase))
         Me.StandaloneGroup = New System.Windows.Forms.GroupBox()
+        Me.MysqlRegionPort = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.RegionServer = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
@@ -44,8 +46,6 @@ Partial Class FormDatabase
         Me.RobustDBPassword = New System.Windows.Forms.TextBox()
         Me.RobustDBUsername = New System.Windows.Forms.TextBox()
         Me.DBHelp = New System.Windows.Forms.PictureBox()
-        Me.RegionPort = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +53,7 @@ Partial Class FormDatabase
         '
         'StandaloneGroup
         '
-        Me.StandaloneGroup.Controls.Add(Me.RegionPort)
+        Me.StandaloneGroup.Controls.Add(Me.MysqlRegionPort)
         Me.StandaloneGroup.Controls.Add(Me.Label2)
         Me.StandaloneGroup.Controls.Add(Me.Label1)
         Me.StandaloneGroup.Controls.Add(Me.RegionServer)
@@ -69,6 +69,22 @@ Partial Class FormDatabase
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
         Me.StandaloneGroup.Text = "Local Region Database"
+        '
+        'MysqlRegionPort
+        '
+        Me.MysqlRegionPort.Location = New System.Drawing.Point(94, 130)
+        Me.MysqlRegionPort.Name = "MysqlRegionPort"
+        Me.MysqlRegionPort.Size = New System.Drawing.Size(47, 20)
+        Me.MysqlRegionPort.TabIndex = 43
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(18, 132)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(58, 13)
+        Me.Label2.TabIndex = 42
+        Me.Label2.Text = "MySql Port"
         '
         'Label1
         '
@@ -244,22 +260,6 @@ Partial Class FormDatabase
         Me.DBHelp.TabIndex = 1859
         Me.DBHelp.TabStop = False
         '
-        'RegionPort
-        '
-        Me.RegionPort.Location = New System.Drawing.Point(94, 130)
-        Me.RegionPort.Name = "RegionPort"
-        Me.RegionPort.Size = New System.Drawing.Size(47, 20)
-        Me.RegionPort.TabIndex = 43
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(18, 132)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 13)
-        Me.Label2.TabIndex = 42
-        Me.Label2.Text = "MySql Port"
-        '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -302,6 +302,6 @@ Partial Class FormDatabase
     Friend WithEvents DBHelp As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents RegionServer As TextBox
-    Friend WithEvents RegionPort As TextBox
+    Friend WithEvents MysqlRegionPort As TextBox
     Friend WithEvents Label2 As Label
 End Class

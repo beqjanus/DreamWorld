@@ -34,7 +34,7 @@ Public Class FormDatabase
         RegionDBUsername.Text = Form1.MySetting.RegionDBUsername
         RegionMySqlPassword.Text = Form1.MySetting.RegionDbPassword
         RegionServer.Text = Form1.MySetting.RegionServer
-        RegionPort.Text = Form1.MySetting.RegionPort
+        MysqlRegionPort.Text = Form1.MySetting.RegionPort
 
         ' Robust DB
         RobustServer.Text = Form1.MySetting.RobustServer
@@ -85,7 +85,7 @@ Public Class FormDatabase
         RegionMySqlPassword.UseSystemPasswordChar = False
 
     End Sub
-    
+
     Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
 
         If Not initted Then Return
@@ -143,9 +143,9 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles RegionPort.TextChanged
+    Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
         If Not initted Then Return
-        Form1.MySetting.RegionPort = RegionPort.Text
+        Form1.MySetting.RegionPort = MysqlRegionPort.Text
         Form1.MySetting.SaveSettings()
     End Sub
 

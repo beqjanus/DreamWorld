@@ -139,9 +139,6 @@ Public Class RegionMaker
 
     Public Property GroupName(n As Integer) As String
         Get
-            If RegionList(n)._RegionPath.ToString = "" Then
-                Form1.ErrorLog("Error: Region name is null")
-            End If
             Return CType(RegionList(n)._Group, String)
         End Get
         Set(ByVal Value As String)
@@ -645,8 +642,6 @@ Public Class RegionMaker
                                     WarmingUp(n) = CType(Backup(o)._WarmingUp, Boolean)
                                     ShuttingDown(n) = CType(Backup(o)._ShuttingDown, Boolean)
                                     Timer(n) = CType(Backup(o)._Timer, Integer)
-                                Else
-                                    Form1.ErrorLog("Error: Could not find backup name:" + fName)
                                 End If
 
                             Catch
@@ -1061,7 +1056,7 @@ Public Class RegionMaker
                     Return "<html><head></head><body>Welcome! You can close this window.</html>"
 
                 Else
-                    Return "<html><head></head><body>Error</html>"
+                    Return "<html><head></head><body>Test Passed</html>"
                 End If
 
             Catch ex As Exception
@@ -1069,24 +1064,29 @@ Public Class RegionMaker
             End Try
 
         ElseIf POST.Contains("get_partner") Then
-
+            Debug.Print("get Partner")
             Dim PWok As Boolean = CheckPassword(POST, MySetting.MachineID().ToLower)
             If Not PWok Then Return ""
 
-            Dim pattern1 As Regex = New Regex("User=(.*?) ")
+            Dim pattern1 As Regex = New Regex("User=(.*)")
             Dim match1 As Match = pattern1.Match(POST)
             Dim p1 As String = ""
             If match1.Success Then
                 p1 = match1.Groups(1).Value
+                Dim s = GetPartner(p1, MySetting)
+                Debug.Print(s)
+                Return s
+            Else
+                Debug.Print("No partner")
+                Return "00000000-0000-0000-0000-000000000000"
             End If
 
-            Return GetPartner(p1, MySetting)
+
 
         ElseIf POST.Contains("set_partner") Then
-
+            Debug.Print("set Partner")
             Dim PWok As Boolean = CheckPassword(POST, MySetting.MachineID().ToLower)
             If Not PWok Then Return ""
-
 
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
             Dim match1 As Match = pattern1.Match(POST)
@@ -1126,13 +1126,14 @@ Public Class RegionMaker
 
                         myCommand1.ExecuteScalar()
                         myConnection.Close()
-
+                        Debug.Print(Partner)
                         Return Partner
                     Catch ex As Exception
                         Debug.Print(ex.Message)
                     End Try
                 End If
             End If
+            Debug.Print("NULL response")
             Return ""
 
         Else

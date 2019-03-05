@@ -237,6 +237,8 @@ Public Class FormRegion
                         RegionList.LoadMyListView()
                     End If
 
+                    Form1.SetFirewall()
+
                 End If
             End If
         End If
@@ -264,10 +266,10 @@ Public Class FormRegion
             Form1.CopyOpensimProto()
 
             If RegionList.InstanceExists Then
-
                 RegionList.LoadMyListView()
             End If
 
+            Form1.SetFirewall()
 
             changed = False
             Me.Close()
