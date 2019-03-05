@@ -169,6 +169,24 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormDisplacement2x2.Designer.vb">
+      <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplacement2x2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDisplacement3x3.Designer.vb">
+      <DependentUpon>FormDisplacement3x3.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplacement3x3.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDisplacement4x4.Designer.vb">
+      <DependentUpon>FormDisplacement4x4.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplacement4x4.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormRegionPopup.Designer.vb">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </Compile>
@@ -355,6 +373,15 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormDisplacement2x2.resx">
+      <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDisplacement3x3.resx">
+      <DependentUpon>FormDisplacement3x3.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDisplacement4x4.resx">
+      <DependentUpon>FormDisplacement4x4.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </EmbeddedResource>
