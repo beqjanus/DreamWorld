@@ -815,7 +815,7 @@ Public Class RegionList
                     RegionClass.WarmingUp(Y) = False
                     RegionClass.ShuttingDown(Y) = True
                 Next
-                Form1.gManualRestart = True
+                Form1.gRestartNow = True
 
                 UpdateView = True ' make form refresh
                 Form1.Sleep(1000)
