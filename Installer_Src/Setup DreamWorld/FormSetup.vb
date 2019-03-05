@@ -129,7 +129,8 @@ Public Class Form1
 
     Dim gWindowCounter As Integer = 0
     Public gRestartNow As Boolean = False ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
-    Public gManualRestart As Boolean = False
+
+    Public gSelectedBox As String = ""
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId:="1")>
     <CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")>
@@ -425,23 +426,27 @@ Public Class Form1
 
     Public Sub SetFirewall()
 
-        Dim Command As String = "netsh http add urlacl url=http://" + MySetting.PrivateURL + ":" + MySetting.HttpPort + "/ user=everyone" & vbCrLf _
-                                & "netsh http add urlacl url=http://" + MySetting.PrivateURL + ":" + MySetting.DiagnosticPort + "/ user=everyone" & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
+                              & "netsh advfirewall firewall add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
+
 
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
         For RegionNumber = start To gMaxPortUsed
-            Command = "netsh http add urlacl url=http://" & MySetting.PrivateURL & ":" & RegionNumber & "/ user=everyone" & vbCrLf + Command
+            Command = Command + "netsh advfirewall firewall add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
+                    & "netsh advfirewall firewall add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
         Next
 
-        Dim ns As StreamWriter = New StreamWriter(Application.StartupPath + "\fw.bat", False)
+        Dim ns As StreamWriter = New StreamWriter(MyFolder + "\fw.bat", False)
         ns.WriteLine(Command)
         ns.Close()
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
         pi.Arguments = ""
-        pi.FileName = Application.StartupPath + "\fw.bat"
+        pi.FileName = MyFolder + "\fw.bat"
         pi.WindowStyle = ProcessWindowStyle.Hidden
         pi.Verb = "runas"
         Dim ProcessFirewall As Process = New Process()
@@ -2640,7 +2645,7 @@ Public Class Form1
     ''' </summary>
     Private Sub RegionRestart()
 
-        If MySetting.AutoRestartInterval() = 0 Or gManualRestart And Not gRestartNow Then Return
+        If MySetting.AutoRestartInterval() = 0 And Not gRestartNow Then Return
 
         For Each X As Integer In RegionClass.RegionNumbers
 
@@ -3049,7 +3054,30 @@ Public Class Form1
         Return chosen
 
     End Function
+    Public Function VarChooser(RegionName As String) As String
 
+        Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+        Dim size = RegionClass.SizeX(RegionNumber)
+        If size = 512 Then  ' 2x2
+            Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            VarForm.ShowDialog()
+        ElseIf size = 768 Then ' 3x3
+            Dim VarForm As New FormDisplacement3x3 ' form for choosing a  region in  a var
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            VarForm.ShowDialog()
+        ElseIf size = 1024 Then ' 4x4
+            Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            VarForm.ShowDialog()
+        Else
+            Return ""
+        End If
+
+        Dim displacement As String = gSelectedBox
+        Return displacement
+
+    End Function
     Private Function LoadOARContent(thing As String) As Boolean
 
         If Not OpensimIsRunning() Then
@@ -3059,6 +3087,8 @@ Public Class Form1
 
         Dim region = ChooseRegion(True)
         If region.Length = 0 Then Return False
+
+        Dim offset = VarChooser(region)
 
         Dim backMeUp = MsgBox("Make a backup first?", vbYesNo, "Backup?")
         Dim num = RegionClass.FindRegionByName(region)
@@ -3073,10 +3103,10 @@ Public Class Form1
                     ConsoleCommand(RegionClass.GroupName(Y), "change region " + region + "{ENTER}" + vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionClass.GroupName(Y), "alert CPU Intensive Backup Started {ENTER}" + vbCrLf)
-                        ConsoleCommand(RegionClass.GroupName(Y), "save oar " + """" + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
+                        ConsoleCommand(RegionClass.GroupName(Y), "save oar " + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
                     End If
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content Is loading ...{ENTER}" + vbCrLf)
-                    ConsoleCommand(RegionClass.GroupName(Y), "load oar --force-terrain --force-parcels " + """" + thing + """" + "{ENTER}" + vbCrLf)
+                    ConsoleCommand(RegionClass.GroupName(Y), "load oar --force-terrain --force-parcels " + offset + """" + thing + """" + "{ENTER}" + vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded. {ENTER}" + vbCrLf)
                     once = True
                 End If
@@ -3111,12 +3141,14 @@ Public Class Form1
             Return False
         End If
 
-        Dim user = InputBox("User name that will get this IAR?")
+        Dim Path As String = InputBox("Folder to save in Inventory (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+
+        Dim user = InputBox("First and Last name that will get this IAR?")
         Dim password = InputBox("Password for user " + user + "?")
         If user.Length > 0 And password.Length > 0 Then
-            ConsoleCommand(RegionClass.GroupName(num), "load iar --merge " + user + " /Objects " + password + " " + """" + thing + """" + "{ENTER}" + vbCrLf)
+            ConsoleCommand(RegionClass.GroupName(num), "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
             ConsoleCommand(RegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" + vbCrLf)
-            Print("Opensim is loading your item. You will find it in Inventory in /Objects soon.")
+            Print("Opensim Is loading your item. You will find it in Inventory in " & Path & " soon.")
         Else
             Print("Load IAR cancelled - must use the full user name and password.")
         End If
@@ -3141,7 +3173,7 @@ Public Class Form1
                     Print("Opensimulator will load " + pathname + ".  This may take time to load.")
                 End If
             Else
-                Print("Unrecognized file type:" + extension + ".  Drag and drop any OAR, GZ, TGZ, or IAR files to load them when the sim starts")
+                Print("Unrecognized file type:  " + extension + ".  Drag And drop any OAR, GZ, TGZ, Or IAR files to load them when the sim starts")
             End If
         Next
 
@@ -3171,7 +3203,7 @@ Public Class Form1
                     Print("Opensimulator will load " + pathname + ".  This may take time to load.")
                 End If
             Else
-                Print("Unrecognized file type:" + extension + ".  Drag and drop any OAR, GZ, TGZ, or IAR files to load them when the sim starts")
+                Print("Unrecognized file type:" + extension + ".  Drag And drop any OAR, GZ, TGZ, Or IAR files to load them when the sim starts")
             End If
         Next
 
@@ -3190,12 +3222,12 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
 
-        Print("Dreaming up new content for your sim")
+        Print("Dreaming up New content for your sim")
         Dim oars As String = ""
         Try
             oars = client.DownloadString(gDomain + "/Outworldz_Installer/Content.plx?type=OAR&r=" + Random())
         Catch ex As Exception
-            ErrorLog("No Oars, dang, something is wrong with the Internet :-(")
+            ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
             Return
         End Try
 
