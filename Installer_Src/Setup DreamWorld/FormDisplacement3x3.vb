@@ -70,5 +70,29 @@
         Form1.gSelectedBox = " --displacement <0,512,0> "
         Me.Close()
     End Sub
+
+    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+    End Sub
 End Class
 

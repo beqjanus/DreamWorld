@@ -129,8 +129,10 @@ Public Class Form1
 
     Dim gWindowCounter As Integer = 0
     Public gRestartNow As Boolean = False ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
-
     Public gSelectedBox As String = ""
+    Public gForceParcel As Boolean = True
+    Public gForceTerrain As Boolean = True
+    Public gForceMerge As Boolean = True
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId:="1")>
     <CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")>
@@ -3101,13 +3103,21 @@ Public Class Form1
                         ConsoleCommand(RegionClass.GroupName(Y), "save oar " + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
                     End If
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content Is loading ...{ENTER}" + vbCrLf)
-                    ConsoleCommand(RegionClass.GroupName(Y), "load oar --force-terrain --force-parcels " + offset + """" + thing + """" + "{ENTER}" + vbCrLf)
+
+                    Dim ForceParcel As String = ""
+                    If gForceParcel Then ForceParcel = " --force-parcels "
+                    Dim ForceTerrain As String = ""
+                    If gForceTerrain Then ForceTerrain = " --force-terrain "
+                    Dim ForceMerge As String = ""
+                    If gForceMerge Then ForceMerge = " --merge "
+
+                    ConsoleCommand(RegionClass.GroupName(Y), "load oar " & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded. {ENTER}" + vbCrLf)
                     once = True
                 End If
 
             Catch ex As Exception
-                ErrorLog("Error: " + ex.Message)
+                ErrorLog("Error:  " + ex.Message)
             End Try
         Next
 

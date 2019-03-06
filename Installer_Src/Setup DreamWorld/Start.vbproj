@@ -639,6 +639,7 @@
     <None Include="Resources\media_play.png" />
     <None Include="Resources\media_stop_red1.png" />
     <None Include="Resources\recycle1.png" />
+    <None Include="Resources\text_align_justified.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />
