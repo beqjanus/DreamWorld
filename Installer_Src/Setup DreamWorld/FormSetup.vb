@@ -119,15 +119,9 @@ Public Class Form1
     Public RegionClass As RegionMaker   ' Global RegionClass
     Public RegionForm As RegionList
     Dim ExitList As New List(Of String)
-
-    ' Mysql
     Dim gStopMysql As Boolean = True    'lets us detct if Mysql is a service so we do not shut it down
-
     Public gUpdateView As Boolean = True 'Region Form Refresh
-
     Dim gInitted As Boolean = False
-
-    Dim gWindowCounter As Integer = 0
     Public gRestartNow As Boolean = False ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Public gSelectedBox As String = ""
     Public gForceParcel As Boolean = True
@@ -142,37 +136,28 @@ Public Class Form1
     Shared Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-
-
     ''' <summary>
     ''' SetWindowTextCall is here to wrap the SetWindowtext API call.  This call fails when there is no 
-    ''' hwnd as Windows takes its sweet time to get that. It has a global timer to make sure we do not get stuck
+    ''' hwnd as Windows takes its sweet time to get that. It has a  timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
-    ''' <param name="windowName">the name of the DOS Window such asRobust, or a region name</param>
+    ''' <param name="windowName">the name of the Window </param>
     ''' 
-    Public Function SetWindowTextCall(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
+    Public Function SetWindowTextCall(hwnd As IntPtr, windowName As String) As Boolean
 
         Dim status As Boolean = False
-        Try
+        Dim WindowCounter As Integer = 0
+        While Not status
+
+            Sleep(100)
             status = SetWindowText(hwnd, windowName)
-        Catch ex As Exception
-            ' can fail to be a window
-        End Try
 
-
-        If Not status Then
-            '
-            gWindowCounter = gWindowCounter + 1
-            If gWindowCounter > 20 Then
-                gWindowCounter = 0 ' prep for next window
+            WindowCounter = WindowCounter + 1
+            If WindowCounter > 200 Then '  20 seconds
                 status = True
             End If
-        Else ' if true, we did it
-            gWindowCounter = 0 ' prep for next window
-        End If
-
-        Return status
+        End While
+        Return True
 
     End Function
 

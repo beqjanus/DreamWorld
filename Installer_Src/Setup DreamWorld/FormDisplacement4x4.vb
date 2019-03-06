@@ -22,7 +22,7 @@
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetScreen()
         Form1.gSelectedBox = ""
-        Form1.gSelectedBox = ""
+
         If Form1.gForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
