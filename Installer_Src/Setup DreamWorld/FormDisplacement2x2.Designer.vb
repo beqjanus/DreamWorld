@@ -131,19 +131,19 @@ Partial Class FormDisplacement2x2
         Me.MergeOARToolStripMenuItem.Checked = True
         Me.MergeOARToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
-        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.MergeOARToolStripMenuItem.Text = "Merge OAR"
         '
         'ClearOARToolStripMenuItem
         '
         Me.ClearOARToolStripMenuItem.Name = "ClearOARToolStripMenuItem"
-        Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ClearOARToolStripMenuItem.Text = "Clear OAR"
+        Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.ClearOARToolStripMenuItem.Text = "Clear and Load"
         '
         'TerrainToolStripMenuItem
         '
         Me.TerrainToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceTerrainToolStripMenuItem, Me.OriginalTererainToolStripMenuItem})
-        Me.TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Simple
+        Me.TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
         Me.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem"
         Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.TerrainToolStripMenuItem.Text = "Terrain"
@@ -153,13 +153,13 @@ Partial Class FormDisplacement2x2
         Me.ForceTerrainToolStripMenuItem.Checked = True
         Me.ForceTerrainToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ForceTerrainToolStripMenuItem.Name = "ForceTerrainToolStripMenuItem"
-        Me.ForceTerrainToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ForceTerrainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.ForceTerrainToolStripMenuItem.Text = "Load Terrain"
         '
         'OriginalTererainToolStripMenuItem
         '
         Me.OriginalTererainToolStripMenuItem.Name = "OriginalTererainToolStripMenuItem"
-        Me.OriginalTererainToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.OriginalTererainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.OriginalTererainToolStripMenuItem.Text = "Ignore Terrain"
         '
         'ParcelsToolStripMenuItem
@@ -175,20 +175,20 @@ Partial Class FormDisplacement2x2
         Me.LoadParcelToolStripMenuItem.Checked = True
         Me.LoadParcelToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.LoadParcelToolStripMenuItem.Name = "LoadParcelToolStripMenuItem"
-        Me.LoadParcelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LoadParcelToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
         Me.LoadParcelToolStripMenuItem.Text = "Load Parcel"
         '
         'IgnoreParcelToolStripMenuItem
         '
         Me.IgnoreParcelToolStripMenuItem.Name = "IgnoreParcelToolStripMenuItem"
         Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.IgnoreParcelToolStripMenuItem.Text = "Ignore Paercel"
+        Me.IgnoreParcelToolStripMenuItem.Text = "Ignore Parcel"
         '
         'FormDisplacement2x2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(208, 217)
+        Me.ClientSize = New System.Drawing.Size(208, 221)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.PictureBox2)

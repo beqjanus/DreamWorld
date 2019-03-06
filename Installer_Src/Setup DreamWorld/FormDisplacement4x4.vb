@@ -22,6 +22,31 @@
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetScreen()
         Form1.gSelectedBox = ""
+        Form1.gSelectedBox = ""
+        If Form1.gForceParcel Then
+            LoadParcelToolStripMenuItem.Checked = True
+            IgnoreParcelToolStripMenuItem.Checked = False
+        Else
+            LoadParcelToolStripMenuItem.Checked = False
+            IgnoreParcelToolStripMenuItem.Checked = True
+
+        End If
+
+        If Form1.gForceTerrain Then
+            ForceTerrainToolStripMenuItem.Checked = True
+            ClearTerrainToolStripMenuItem.Checked = False
+        Else
+            ForceTerrainToolStripMenuItem.Checked = False
+            ClearTerrainToolStripMenuItem.Checked = True
+        End If
+
+        If Form1.gForceMerge Then
+            MergeOARToolStripMenuItem.Checked = True
+            ClearOARToolStripMenuItem.Checked = False
+        Else
+            MergeOARToolStripMenuItem.Checked = False
+            ClearOARToolStripMenuItem.Checked = True
+        End If
 
     End Sub
 
@@ -44,14 +69,8 @@
         Form1.gSelectedBox = " --displacement <768,768,0> "
         Me.Close()
     End Sub
-
-    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
-        Form1.gSelectedBox = " --displacement <0,512,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
-        Form1.gSelectedBox = " --displacement <256,512,0> "
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        Form1.gSelectedBox = " --displacement <768,512,0> "
         Me.Close()
     End Sub
 
@@ -60,23 +79,13 @@
         Me.Close()
     End Sub
 
-    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
-        Form1.gSelectedBox = " --displacement <768,512,0> "
+    Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles PictureBox7.Click
+        Form1.gSelectedBox = " --displacement <256,512,0> "
         Me.Close()
     End Sub
 
-    Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
-        Form1.gSelectedBox = " --displacement <0,256,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
-        Form1.gSelectedBox = " --displacement <256,256,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
-        Form1.gSelectedBox = " --displacement <512,256,0> "
+    Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox8.Click
+        Form1.gSelectedBox = " --displacement <0,512,0> "
         Me.Close()
     End Sub
 
@@ -85,8 +94,30 @@
         Me.Close()
     End Sub
 
-    Private Sub PictureBox16_Click(sender As Object, e As EventArgs) Handles PictureBox16.Click
-        Form1.gSelectedBox = " --displacement <0,0,0> "
+    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+        Form1.gSelectedBox = " --displacement <512,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
+        Form1.gSelectedBox = " --displacement <256,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
+        Form1.gSelectedBox = " --displacement <0,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
+        Form1.gSelectedBox = " --displacement <768,0,0> "
+        Me.Close()
+    End Sub
+
+
+
+    Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles PictureBox14.Click
+        Form1.gSelectedBox = " --displacement <512,0,0> "
         Me.Close()
     End Sub
 
@@ -95,13 +126,58 @@
         Me.Close()
     End Sub
 
-    Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles PictureBox14.Click
-        Form1.gSelectedBox = " --displacement <512,0,0> "
+    Private Sub PictureBox16_Click(sender As Object, e As EventArgs) Handles PictureBox16.Click
+        Form1.gSelectedBox = "  "
         Me.Close()
     End Sub
 
-    Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
-        Form1.gSelectedBox = " --displacement <768,0,0> "
-        Me.Close()
+
+    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
+
+        Form1.gForceMerge = False
+        MergeOARToolStripMenuItem.Checked = False
+        ClearOARToolStripMenuItem.Checked = True
+
     End Sub
+
+    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
+
+        Form1.gForceMerge = True
+        MergeOARToolStripMenuItem.Checked = True
+        ClearOARToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
+
+        Form1.gForceTerrain = True
+        ForceTerrainToolStripMenuItem.Checked = True
+        ClearTerrainToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearTerrainToolStripMenuItem.Click
+
+        Form1.gForceTerrain = False
+        ForceTerrainToolStripMenuItem.Checked = False
+        ClearTerrainToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
+
+        Form1.gForceParcel = True
+        LoadParcelToolStripMenuItem.Checked = True
+        IgnoreParcelToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
+
+        Form1.gForceParcel = False
+        LoadParcelToolStripMenuItem.Checked = False
+        IgnoreParcelToolStripMenuItem.Checked = True
+
+    End Sub
+
 End Class

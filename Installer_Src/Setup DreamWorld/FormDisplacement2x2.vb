@@ -64,7 +64,7 @@
         End Sub
 
         Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.gSelectedBox = " --displacement <0,0,0> "
+        Form1.gSelectedBox = "  "
         Me.Close()
         End Sub
 

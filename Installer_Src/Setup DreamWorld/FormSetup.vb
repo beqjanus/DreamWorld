@@ -133,6 +133,7 @@ Public Class Form1
     Public gForceParcel As Boolean = True
     Public gForceTerrain As Boolean = True
     Public gForceMerge As Boolean = True
+    Dim cpu As New PerformanceCounter()
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId:="1")>
     <CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")>
@@ -141,7 +142,6 @@ Public Class Form1
     Shared Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-    Dim cpu As New PerformanceCounter()
 
 
     ''' <summary>
@@ -534,7 +534,7 @@ Public Class Form1
         End If
 
         If Not MySetting.RunOnce Then
-            RobustCommand("create user{ENTER}")
+            ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
             MySetting.RunOnce = True
             MySetting.SaveSettings()
@@ -666,8 +666,6 @@ Public Class Form1
                 If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
 
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                ConsoleCommand(RegionClass.GroupName(X), "Q{ENTER}" + vbCrLf)
-
 
                 RegionClass.ShuttingDown(X) = True
                 RegionClass.Booted(X) = False
@@ -749,7 +747,6 @@ Public Class Form1
 
         If gRobustProcID > 0 Then
             ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
-            ConsoleCommand("Robust", "Q{ENTER}" + vbCrLf)
         End If
 
         ' cannot load OAR or IAR, either
@@ -1823,18 +1820,7 @@ Public Class Form1
 
 #Region "Robust"
 
-    Public Sub RobustCommand(command As String)
 
-        Try
-            Dim p = Process.GetProcessById(gRobustProcID)
-            ShowWindow(p.MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-            AppActivate(gRobustProcID)
-            SendKeys.SendWait(command)
-        Catch ex As Exception
-            Log("Warn:" + ex.Message)
-        End Try
-
-    End Sub
 
     Public Sub StartIcecast()
 
@@ -2451,8 +2437,8 @@ Public Class Form1
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
             AppActivate(name)
-            SendKeys.SendWait("{ENTER}" + vbCrLf)
-            SendKeys.SendWait(command)
+            SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
+            SendKeys.SendWait(SendableKeys(command))
 
         Catch ex As Exception
             ErrorLog("Error:" + ex.Message)
@@ -2660,9 +2646,6 @@ Public Class Form1
 
                         Dim hwnd = getHwnd(Groupname)
                         If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
-
-                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                        ConsoleCommand(RegionClass.GroupName(X), "Q{ENTER}" + vbCrLf)
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                         Print("AutoRestarting " + Groupname)
                         RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING
@@ -4585,17 +4568,17 @@ Public Class Form1
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
-        RobustCommand("create user{ENTER}")
+        ConsoleCommand("Robust", "create user{ENTER}")
     End Sub
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-        RobustCommand("reset user password{ENTER}")
+        ConsoleCommand("Robust", "reset user password{ENTER}")
     End Sub
 
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox("Enter the first and last name of the user:")
         If person.Length > 0 Then
-            RobustCommand("show account " + person + "{ENTER}")
+            ConsoleCommand("Robust", "show account " + person + "{ENTER}")
         End If
     End Sub
 
@@ -4869,6 +4852,23 @@ Public Class Form1
     End Sub
 
 #End Region
+
+#Region "Capslock"
+    Private Function SendableKeys(Str As String) As String
+
+        If My.Computer.Keyboard.CapsLock Then
+            For Pos = 1 To Len(Str)
+                Dim C As String = Mid(Str, Pos, 1)
+                Mid(Str, Pos) = CType(IIf(UCase(C) = C, LCase(C), UCase(C)), String)
+            Next
+        End If
+        Return Str
+
+    End Function
+
+#End Region
+
+
 
 End Class
 

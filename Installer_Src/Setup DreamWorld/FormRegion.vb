@@ -1039,7 +1039,7 @@ Public Class FormRegion
                 End While
 
                 If loopctr > 0 Then
-                    Form1.RobustCommand("deregister region id " + UUID.Text + "{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand("Robust", "deregister region id " + UUID.Text + "{ENTER}" + vbCrLf)
                     Form1.Print("Region deregistered")
                 End If
             End If
