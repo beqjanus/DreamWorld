@@ -2107,16 +2107,11 @@ Public Class Form1
             Try
                 RegionName = ExitList(LOOPVAR) ' recover the PID as integer
                 If RegionName <> "Form1" Then
-                    Log("Info:Shutdown of " & Name & " Detected")
+                    Log("Info:Shutdown of " & RegionName & " Detected")
                 End If
 
             Catch
-                Try
-                    ExitList.RemoveAt(LOOPVAR)
-                Catch ex As Exception
-                    ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-                End Try
+                ExitList.Clear()
                 Return
             End Try
 

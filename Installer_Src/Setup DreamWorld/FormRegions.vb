@@ -159,12 +159,36 @@ Public Class FormRegions
 
             Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
 
+            ' Check for illegal stuff
             Dim RegionNum = RegionClass.FindRegionByName(chosen)
             Dim X = RegionClass.CoordX(RegionNum)
             Dim Y = RegionClass.CoordY(RegionNum)
-
+            Dim Err As Boolean = False
+            Dim Failed As String = ""
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
+            For Each RegionNumber In RegionClass.RegionNumbers
+                If (RegionClass.CoordX(RegionNumber) + DeltaX) <= 0 Then
+                    Err = True
+                    Failed = RegionClass.RegionName(RegionNumber)
+                End If
+                If (RegionClass.CoordY(RegionNumber) + DeltaY) <= 0 Then
+                    Err = True
+                    Failed = RegionClass.RegionName(RegionNumber)
+                End If
+            Next
+
+            If (Err) Then
+                MsgBox("Cannot normalize map as a Region will be less than 0 ")
+                Return
+            End If
+
+            RegionNum = RegionClass.FindRegionByName(chosen)
+            X = RegionClass.CoordX(RegionNum)
+            Y = RegionClass.CoordY(RegionNum)
+
+            DeltaX = 1000 - X
+            DeltaY = 1000 - Y
             For Each RegionNumber In RegionClass.RegionNumbers
                 RegionClass.CoordX(RegionNumber) = RegionClass.CoordX(RegionNumber) + DeltaX
                 RegionClass.CoordY(RegionNumber) = RegionClass.CoordY(RegionNumber) + DeltaY
