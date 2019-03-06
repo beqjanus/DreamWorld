@@ -183,12 +183,6 @@ Public Class FormRegions
                 Return
             End If
 
-            RegionNum = RegionClass.FindRegionByName(chosen)
-            X = RegionClass.CoordX(RegionNum)
-            Y = RegionClass.CoordY(RegionNum)
-
-            DeltaX = 1000 - X
-            DeltaY = 1000 - Y
             For Each RegionNumber In RegionClass.RegionNumbers
                 RegionClass.CoordX(RegionNumber) = RegionClass.CoordX(RegionNumber) + DeltaX
                 RegionClass.CoordY(RegionNumber) = RegionClass.CoordY(RegionNumber) + DeltaY
