@@ -1,9 +1,18 @@
+2.78
+Capslock used to interfere with consoles
+Load OAR options: 2x2, 3X3 and 4X4 clickable forms for --displacement, --merge --forceterrain and --foreceparcel switched
+Abort Normalize if region will go negative
+Reposition Maps
+Log level for robust set to INFO, not DEBUG
+1st draft of calcite maps
+
 2.77
 Fix for Partners
 Firewall Ports on PC are opened for you.
 Robust create user sent extra CRLF making it impossible to create the initial owner
 
 2.76
+
 Blank DNS name needs no password, becomes LAN IP.
 Restart Region patch
 
