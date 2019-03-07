@@ -46,7 +46,7 @@
             MergeOARToolStripMenuItem.Checked = False
             ClearOARToolStripMenuItem.Checked = True
         End If
-
+        Form1.HelpOnce("Load OAR")
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -143,5 +143,12 @@
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        Form1.Help("Load OAR")
+    End Sub
+
+    Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
+        Form1.gUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+    End Sub
 End Class
 

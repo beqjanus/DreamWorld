@@ -51,6 +51,8 @@ Partial Class FormDisplacement
         Me.ParcelsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoadParcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IgnoreParcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HrlpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SetOwnerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -296,7 +298,7 @@ Partial Class FormDisplacement
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem, Me.HrlpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(414, 24)
@@ -305,7 +307,7 @@ Partial Class FormDisplacement
         '
         'OptionsToolStripMenuItem
         '
-        Me.OptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ObjectMergeToolStripMenuItem, Me.TerrainToolStripMenuItem, Me.ParcelsToolStripMenuItem})
+        Me.OptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ObjectMergeToolStripMenuItem, Me.TerrainToolStripMenuItem, Me.ParcelsToolStripMenuItem, Me.SetOwnerToolStripMenuItem})
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
         Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
         Me.OptionsToolStripMenuItem.Text = "Options"
@@ -369,6 +371,19 @@ Partial Class FormDisplacement
         Me.IgnoreParcelToolStripMenuItem.Name = "IgnoreParcelToolStripMenuItem"
         Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
         Me.IgnoreParcelToolStripMenuItem.Text = "Ignore Parcel"
+        '
+        'HrlpToolStripMenuItem
+        '
+        Me.HrlpToolStripMenuItem.Name = "HrlpToolStripMenuItem"
+        Me.HrlpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HrlpToolStripMenuItem.Text = "Help"
+        '
+        'SetOwnerToolStripMenuItem
+        '
+        Me.SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user3
+        Me.SetOwnerToolStripMenuItem.Name = "SetOwnerToolStripMenuItem"
+        Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SetOwnerToolStripMenuItem.Text = "Set Owner"
         '
         'FormDisplacement
         '
@@ -447,4 +462,6 @@ Partial Class FormDisplacement
     Friend WithEvents ParcelsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadParcelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IgnoreParcelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HrlpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SetOwnerToolStripMenuItem As ToolStripMenuItem
 End Class

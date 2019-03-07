@@ -127,6 +127,8 @@ Public Class Form1
     Public gForceParcel As Boolean = True
     Public gForceTerrain As Boolean = True
     Public gForceMerge As Boolean = True
+    Public gUserName As String = ""
+
     Dim cpu As New PerformanceCounter()
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId:="1")>
@@ -2809,6 +2811,9 @@ Public Class Form1
 
             ' Process input if the user clicked OK.
             If UserClickedOK = DialogResult.OK Then
+
+                Dim offset = VarChooser(openFileDialog1.FileName)
+
                 Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                 Dim thing = openFileDialog1.FileName
                 If thing.Length > 0 Then
@@ -2823,7 +2828,17 @@ Public Class Form1
                             ConsoleCommand(RegionClass.GroupName(Y), "save oar  " + """" + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
                         End If
                         ConsoleCommand(RegionClass.GroupName(Y), "alert New content Is loading..{ENTER}" + vbCrLf)
-                        ConsoleCommand(RegionClass.GroupName(Y), "load oar --force-terrain --force-parcels " + """" + thing + """" + "{ENTER}" + vbCrLf)
+
+                        Dim ForceParcel As String = ""
+                        If gForceParcel Then ForceParcel = " --force-parcels "
+                        Dim ForceTerrain As String = ""
+                        If gForceTerrain Then ForceTerrain = " --force-terrain "
+                        Dim ForceMerge As String = ""
+                        If gForceMerge Then ForceMerge = " --merge "
+                        Dim UserName As String = ""
+                        If gUserName.Length > 0 Then UserName = " --default-user " & """" & gUserName & """" & " "
+
+                        ConsoleCommand(RegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                         ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded." + "{ENTER}" + vbCrLf)
 
                     Next
@@ -3076,11 +3091,13 @@ Public Class Form1
                     If gForceTerrain Then ForceTerrain = " --force-terrain "
                     Dim ForceMerge As String = ""
                     If gForceMerge Then ForceMerge = " --merge "
+                    Dim UserName As String = ""
+                    If gUserName.Length > 0 Then UserName = " --default-user & """" & gUserName &  """"" & " "
 
-                    ConsoleCommand(RegionClass.GroupName(Y), "load oar " & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded. {ENTER}" + vbCrLf)
-                    once = True
-                End If
+                        once = True
+                    End If
 
             Catch ex As Exception
                 ErrorLog("Error:  " + ex.Message)

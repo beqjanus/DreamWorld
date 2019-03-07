@@ -39,6 +39,8 @@ Partial Class FormDisplacement2x2
         Me.ParcelsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoadParcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IgnoreParcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SetOwnerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -104,7 +106,7 @@ Partial Class FormDisplacement2x2
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(208, 24)
@@ -113,7 +115,7 @@ Partial Class FormDisplacement2x2
         '
         'ToolStripMenuItem1
         '
-        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MergingToolStripMenuItem, Me.TerrainToolStripMenuItem, Me.ParcelsToolStripMenuItem})
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MergingToolStripMenuItem, Me.TerrainToolStripMenuItem, Me.ParcelsToolStripMenuItem, Me.SetOwnerToolStripMenuItem})
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(61, 20)
         Me.ToolStripMenuItem1.Text = "Options"
@@ -131,7 +133,7 @@ Partial Class FormDisplacement2x2
         Me.MergeOARToolStripMenuItem.Checked = True
         Me.MergeOARToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
-        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
         Me.MergeOARToolStripMenuItem.Text = "Merge OAR"
         '
         'ClearOARToolStripMenuItem
@@ -175,14 +177,27 @@ Partial Class FormDisplacement2x2
         Me.LoadParcelToolStripMenuItem.Checked = True
         Me.LoadParcelToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.LoadParcelToolStripMenuItem.Name = "LoadParcelToolStripMenuItem"
-        Me.LoadParcelToolStripMenuItem.Size = New System.Drawing.Size(149, 22)
+        Me.LoadParcelToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
         Me.LoadParcelToolStripMenuItem.Text = "Load Parcel"
         '
         'IgnoreParcelToolStripMenuItem
         '
         Me.IgnoreParcelToolStripMenuItem.Name = "IgnoreParcelToolStripMenuItem"
-        Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
         Me.IgnoreParcelToolStripMenuItem.Text = "Ignore Parcel"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'SetOwnerToolStripMenuItem
+        '
+        Me.SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user3
+        Me.SetOwnerToolStripMenuItem.Name = "SetOwnerToolStripMenuItem"
+        Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SetOwnerToolStripMenuItem.Text = "Set Owner"
         '
         'FormDisplacement2x2
         '
@@ -225,4 +240,6 @@ Partial Class FormDisplacement2x2
     Friend WithEvents ParcelsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadParcelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IgnoreParcelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SetOwnerToolStripMenuItem As ToolStripMenuItem
 End Class
