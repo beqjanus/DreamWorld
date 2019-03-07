@@ -12,6 +12,37 @@ Public Class Mysql
         MysqlConn = New MySqlConnection(connStr)
 
     End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
+    Public Function GetAgentList() As Dictionary(Of String, String)
+
+        Dim stm As String = "SELECT avatars.Name, regions.regionName _
+FROM (presence INNER JOIN avatars ON presence.UserID = avatars.PrincipalID) _
+INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+
+        Dim Dict As Dictionary(Of String, String) = Nothing
+
+        Try
+            MysqlConn.Open()
+
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+                Debug.Print(reader.GetString(0) & ": " & reader.GetString(1))
+                Dict.Add(reader.GetString(0), reader.GetString(1))
+            End While
+
+            reader.Close()
+
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
+        End Try
+        Return Dict
+
+    End Function
     Public Function IsUserPresent(regionUUID As String) As Integer
 
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")
@@ -38,7 +69,7 @@ Public Class Mysql
             'Debug.Print("Connecting to MySQL...")
             MysqlConn.Open()
         Catch ex As Exception
-            Debug.Print("Error: " & ex.ToString())
+            Debug.Print("Error: " & ex.Message)
             MysqlConn.Close()
             Return Nothing
         End Try

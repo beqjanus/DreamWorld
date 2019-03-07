@@ -3092,7 +3092,7 @@ Public Class Form1
                     Dim ForceMerge As String = ""
                     If gForceMerge Then ForceMerge = " --merge "
                     Dim UserName As String = ""
-                    If gUserName.Length > 0 Then UserName = " --default-user & """" & gUserName &  """"" & " "
+                    If gUserName.Length > 0 Then UserName = " --default-user " & """" & gUserName & """" & " "
 
                     ConsoleCommand(RegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded. {ENTER}" + vbCrLf)
