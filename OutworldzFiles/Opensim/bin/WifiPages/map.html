@@ -24,7 +24,7 @@ html, body {
 		var gridname = "<!-- #get var=GridName -->";
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 70, lng: 0, noWrap : false},
+				center: {lat: 70, lng: 0, noWrap : true},
 				zoom: 3,
 				streetViewControl: false,
 				mapTypeControlOptions: {
@@ -44,9 +44,9 @@ html, body {
 					return url;
 				}, 
 				tileSize: new google.maps.Size(64, 64),
-				maxZoom: 5,
-				minZoom: 0,
-				radius: 1738000,
+				maxZoom: 3,
+				minZoom: 3,
+				radius: 17380000,
 				name: gridname
 			});
 				
@@ -56,8 +56,8 @@ html, body {
 		
 	function calcPos(posX, posY)
 	{
-		var offsetY = 1008;
-		var offsetX = 995;
+		var offsetY = 1007;
+		var offsetX = 985;
 
 		return {x: (offsetX + posX), y: (offsetY - posY)}
 	}
