@@ -1,10 +1,9 @@
 2.78
-Capslock used to interfere with consoles
-Load OAR options: 2x2, 3X3 and 4X4 clickable forms for --displacement, --merge --forceterrain and --foreceparcel switched
-Abort Normalize if region will go negative
-Reposition Maps
-Log level for robust set to INFO, not DEBUG
-1st draft of calcite maps
+Capslock no longer interferes with console typing
+Load OAR options: 2x2, 3X3 and 4X4 clickable forms, with options for UserName & ForceMerge & ForceTerrain & ForceParcel & Displacement
+Abort region Normalize if region will go negative or zero
+Repositioned Maps for better fit to normnalized region
+Log level for robust set to INFO, instead of DEBUG
 
 2.77
 Fix for Partners
