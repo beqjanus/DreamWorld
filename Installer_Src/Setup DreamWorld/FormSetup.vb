@@ -2842,8 +2842,6 @@ Public Class Form1
             BackupPath = gCurSlashDir + "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
-                MkDir(BackupPath + "MySQL")
-                MkDir(BackupPath + "Regions")
             End If
         Else
             BackupPath = MySetting.BackupFolder + "/"
