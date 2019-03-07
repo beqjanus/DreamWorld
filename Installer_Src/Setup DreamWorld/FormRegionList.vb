@@ -4,7 +4,7 @@ Imports System.IO
 Public Class RegionList
 
     Dim ViewNotBusy As Boolean
-    Dim TheView As Integer = 1
+    Dim TheView As Integer = ViewType.Details
     Private Shared FormExists As Boolean = False
     Dim pixels As Integer = 70
     Dim imageListSmall As New ImageList
@@ -13,6 +13,14 @@ Public Class RegionList
     Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
     Dim Timertick As Integer = 0
 
+    Private Enum ViewType As Integer
+        Maps = 0
+        Icons = 1
+        Details = 2
+        Avatars = 3
+    End Enum
+
+
     <Flags()>
     Private Enum REGION_TIMER As Integer
         STOPPED = -3
@@ -20,7 +28,6 @@ Public Class RegionList
         RESTART_PENDING = -1
         START_COUNTING = 0
     End Enum
-
 
     Public Property UpdateView() As Boolean
         Get
@@ -78,7 +85,7 @@ Public Class RegionList
 
     Private Sub Panel1_MouseWheel(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseWheel
 
-        If TheView = 2 And ViewNotBusy Then
+        If TheView = ViewType.Maps And ViewNotBusy Then
             ' Update the drawing based upon the mouse wheel scrolling.
             Dim numberOfTextLinesToMove As Integer = CInt(e.Delta * SystemInformation.MouseWheelScrollLines / 120)
 
@@ -97,7 +104,7 @@ Public Class RegionList
         Dim X = Me.Width - 45
         Dim Y = Me.Height - 125
         ListView1.Size = New System.Drawing.Size(X, Y)
-        ListView2.Size = New System.Drawing.Size(X, Y)
+        AvatarView.Size = New System.Drawing.Size(X, Y)
 
     End Sub
 #End Region
@@ -109,26 +116,28 @@ Public Class RegionList
 
         RegionList.FormExists = True
 
+        AvatarView.Hide()
+
         ' ListView Setup
         ListView1.AllowDrop = True
         ' Set the view to show details.
         ListView1.View = View.Details
-        ListView2.View = View.Details
+        AvatarView.View = View.Details
         ' Allow the user to edit item text.
         ListView1.LabelEdit = True
         ' Allow the user to rearrange columns.
         ListView1.AllowColumnReorder = True
         ' Display check boxes.
         ListView1.CheckBoxes = True
-        ListView2.CheckBoxes = False
+        AvatarView.CheckBoxes = False
         ' Select the item and subitems when selection is made.
         ListView1.FullRowSelect = True
         ' Display grid lines.
         ListView1.GridLines = True
-        ListView2.GridLines = True
+        AvatarView.GridLines = True
         ' Sort the items in the list in ascending order.
         ListView1.Sorting = SortOrder.Ascending
-        ListView2.Sorting = SortOrder.Ascending
+        AvatarView.Sorting = SortOrder.Ascending
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -147,12 +156,12 @@ Public Class RegionList
 
         Form1.UpdateView = True ' make form refresh
         LoadMyListView()
+
         ListView1.Show()
         Timer1.Interval = 1000 ' check for Form1.UpdateView every second
         Timer1.Start() 'Timer starts functioning
         SetScreen()
-        ListView1.Show()
-        ListView2.Hide()
+
         Form1.HelpOnce("RegionList")
 
     End Sub
@@ -175,24 +184,23 @@ Public Class RegionList
 
 #Region "Load List View"
     Public Sub LoadMyListView()
-        Try
-            ViewNotBusy = False
 
-            ListView1.BeginUpdate()
-            ListView2.BeginUpdate()
+        If TheView = ViewType.Avatars Then
+            ShowAvatars()
+        Else
+            ListView1.Show()
+            AvatarView.Hide()
 
-            imageListLarge = New ImageList()
-            If pixels = 0 Then pixels = 20
-            imageListLarge.ImageSize = New Size(pixels, pixels)
-            ListView1.Clear()
-            ListView1.Items.Clear()
-            ListView2.Clear()
-            ListView2.Items.Clear()
+            Try
+                ViewNotBusy = False
+                ListView1.BeginUpdate()
 
-            If TheView = 3 Then
-                ListView2.Columns.Add("Agent", 150, HorizontalAlignment.Left)
-                ListView2.Columns.Add("Region", 100, HorizontalAlignment.Center)
-            Else
+                imageListLarge = New ImageList()
+                If pixels = 0 Then pixels = 20
+                imageListLarge.ImageSize = New Size(pixels, pixels)
+                ListView1.Clear()
+                ListView1.Items.Clear()
+
                 ' Create columns for the items and subitems.
                 ' Width of -2 indicates auto-size.
                 ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
@@ -208,61 +216,64 @@ Public Class RegionList
                 ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
                 ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
                 ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
-            End If
 
-            Dim Num As Integer = 0
 
-            ' have to get maps by http port + region UUID, not region port + uuid
-            ' RegionClass.DebugGroup() ' show the list of groups and http ports.
+                Dim Num As Integer = 0
 
-            For Each X In RegionClass.RegionNumbers
+                ' have to get maps by http port + region UUID, not region port + uuid
+                ' RegionClass.DebugGroup() ' show the list of groups and http ports.
 
-                Dim Letter As String = ""
-                If RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING Then
-                    Letter = "Recycling Down"
-                    Num = 5
-                ElseIf RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
-                    Letter = "Recycling Up"
-                    Num = 5
-                ElseIf RegionClass.WarmingUp(X) Then
-                    Letter = "Booting"
-                    Num = 0
-                ElseIf RegionClass.ShuttingDown(X) Then
-                    Letter = "Stopping"
-                    Num = 1
-                ElseIf RegionClass.Booted(X) Then
-                    Letter = "Running"
-                    Num = 2
-                ElseIf Not RegionClass.RegionEnabled(X) Then
-                    Letter = "Disabled"
-                    Num = 3
-                ElseIf RegionClass.RegionEnabled(X) Then
-                    Letter = "Stopped"
-                    Num = 4
-                Else
-                    Num = 6 ' warning
-                End If
+                For Each X In RegionClass.RegionNumbers
 
-                If TheView <> 3 Then
-
-                    If RegionClass.Booted(X) Then
-                        Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
-                        Debug.Print(img)
-
-                        Dim bmp As Image = LoadImage(img)
-                        If bmp Is Nothing Then
-                            imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
-                        Else
-                            imageListLarge.Images.Add(bmp)
-
-                        End If
+                    Dim Letter As String = ""
+                    If RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING Then
+                        Letter = "Recycling Down"
+                        Num = 5
+                    ElseIf RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
+                        Letter = "Recycling Up"
+                        Num = 5
+                    ElseIf RegionClass.WarmingUp(X) Then
+                        Letter = "Booting"
+                        Num = 0
+                    ElseIf RegionClass.ShuttingDown(X) Then
+                        Letter = "Stopping"
+                        Num = 1
+                    ElseIf RegionClass.Booted(X) Then
+                        Letter = "Running"
+                        Num = 2
+                    ElseIf Not RegionClass.RegionEnabled(X) Then
+                        Letter = "Disabled"
+                        Num = 3
+                    ElseIf RegionClass.RegionEnabled(X) Then
+                        Letter = "Stopped"
+                        Num = 4
                     Else
-                        imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                        Num = 6 ' warning
                     End If
-                    Num = X
+
+                    ' maps
+                    If TheView = ViewType.Maps Then
+
+                        If RegionClass.Booted(X) Then
+                            Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
+                            Debug.Print(img)
+
+                            Dim bmp As Image = LoadImage(img)
+                            If bmp Is Nothing Then
+                                imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                            Else
+                                imageListLarge.Images.Add(bmp)
+
+                            End If
+                        Else
+                            imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                        End If
+                        Num = X
+
+                    End If
 
 
-                    ' Create  items and subitems for each item.
+                    ' Create items and subitems for each item.
                     Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num)
                     ' Place a check mark next to the item.
                     item1.Checked = RegionClass.RegionEnabled(X)
@@ -346,61 +357,77 @@ Public Class RegionList
 
                     ListView1.Items.AddRange(New ListViewItem() {item1})
 
-                ElseIf TheView = 3 Then
-                    Try
-                        ' Create  items and subitems for each item.
-                        Dim Index = 0
-                        Dim L As New Dictionary(Of String, String)
-                        L = Form1.MysqlConn.GetAgentList()
+                Next
 
-                        If L Is Nothing Then
-                        Else
-                            For Each Agent In L
-                                Dim item1 As New ListViewItem(Agent.Key, Index)
-                                item1.SubItems.Add(Agent.Value)
-                                ListView2.Items.AddRange(New ListViewItem() {item1})
-                                Index = Index + 1
-                            Next
-                        End If
+                'Assign the ImageList objects to the ListView.
+                ListView1.LargeImageList = imageListLarge
+                ListView1.SmallImageList = imageListSmall
+
+                Me.ListView1.TabIndex = 0
+
+                For i As Integer = 0 To ListView1.Items.Count - 1
+                    If ListView1.Items(i).Checked Then
+                        ListView1.Items(i).ForeColor = SystemColors.ControlText
+                    Else
+                        ListView1.Items(i).ForeColor = SystemColors.GrayText
+                    End If
+                Next i
+
+                ListView1.EndUpdate()
+                ViewNotBusy = True
+                UpdateView() = False
+
+            Catch ex As Exception
+                Form1.Log("Error: RegionList " & ex.Message)
+            End Try
+        End If
 
 
-                    Catch ex As Exception
-                        Console.WriteLine("Error: " & ex.Message)
-                    End Try
+    End Sub 'listView1
+    Private Sub ShowAvatars()
+        Try
+            ViewNotBusy = False
 
+            AvatarView.Show()
+            ListView1.Hide()
+
+            AvatarView.BeginUpdate()
+
+            imageListLarge = New ImageList()
+            If pixels = 0 Then pixels = 20
+            imageListLarge.ImageSize = New Size(pixels, pixels)
+
+            AvatarView.Clear()
+            AvatarView.Items.Clear()
+
+            AvatarView.Columns.Add("Agent", 150, HorizontalAlignment.Left)
+            AvatarView.Columns.Add("Region", 100, HorizontalAlignment.Center)
+
+            Try
+                ' Create items and subitems for each item.
+                Dim Index = 0
+                Dim L As New Dictionary(Of String, String)
+                L = Form1.MysqlConn.GetAgentList()
+
+                If L Is Nothing Then
+                Else
+                    For Each Agent In L
+                        Dim item1 As New ListViewItem(Agent.Key, Index)
+                        item1.SubItems.Add(Agent.Value)
+                        AvatarView.Items.AddRange(New ListViewItem() {item1})
+                        Index = Index + 1
+                    Next
                 End If
 
-            Next
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.Message)
+            End Try
 
-            'Assign the ImageList objects to the ListView.
-            ListView1.LargeImageList = imageListLarge
-            ListView1.SmallImageList = imageListSmall
-
-            ListView2.SmallImageList = imageListSmall
-
-            Me.ListView1.TabIndex = 0
-
-            ListView1.EndUpdate()
-            ListView2.EndUpdate()
-
-            If TheView = 3 Then
-                ListView2.Show()
-                ListView1.Hide()
-            Else
-                ListView1.Show()
-                ListView2.Hide()
-            End If
+            Me.AvatarView.TabIndex = 0
+            AvatarView.EndUpdate()
+            AvatarView.Show()
 
             ViewNotBusy = True
-
-            For i As Integer = 0 To ListView1.Items.Count - 1
-                If ListView1.Items(i).Checked Then
-                    ListView1.Items(i).ForeColor = SystemColors.ControlText
-                Else
-                    ListView1.Items(i).ForeColor = SystemColors.GrayText
-                End If
-            Next i
-
             UpdateView() = False
         Catch ex As Exception
             Form1.Log("Error: RegionList " & ex.Message)
@@ -632,32 +659,29 @@ Public Class RegionList
         End While
 
         Debug.Print(Form1.MySetting.MapType)
-        If Form1.MySetting.MapType = "None" And TheView = 1 Then TheView = 2
+        If Form1.MySetting.MapType = "None" And TheView = ViewType.Maps Then TheView = ViewType.Avatars
 
         TheView = TheView + 1
-        If TheView > 3 Then TheView = 0
+        If TheView > ViewType.Avatars Then TheView = ViewType.Maps
 
-        If TheView = 0 Then
+        If TheView = ViewType.Icons Then     '  Just an icon
+            ListView1.View = View.SmallIcon
             ListView1.Show()
-            ListView2.Hide()
+            AvatarView.Hide()
             ListView1.CheckBoxes = False
-            ListView1.View = View.List
             Timer1.Start()
-        ElseIf TheView = 1 Then
-            ListView1.Show()
-            ListView2.Hide()
-            ListView1.CheckBoxes = False
+        ElseIf TheView = ViewType.Maps Then ' Maps
             ListView1.View = View.LargeIcon
-            Timer1.Stop()
-        ElseIf TheView = 2 Then
             ListView1.Show()
-            ListView2.Hide()
-            ListView1.CheckBoxes = True
+            AvatarView.Hide()
+            ListView1.CheckBoxes = False
+            Timer1.Stop()
+        ElseIf TheView = ViewType.Details Then ' Grid list
             ListView1.View = View.Details
+            ListView1.Show()
+            AvatarView.Hide()
+            ListView1.CheckBoxes = True
             Timer1.Start()
-        ElseIf TheView = 3 Then
-            ListView1.Hide()
-            ListView2.Show()
         End If
 
 

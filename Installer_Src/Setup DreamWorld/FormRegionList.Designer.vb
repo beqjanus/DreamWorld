@@ -37,7 +37,7 @@ Partial Class RegionList
         Me.RunAllButton = New System.Windows.Forms.Button()
         Me.StopAllButton = New System.Windows.Forms.Button()
         Me.RestartButton = New System.Windows.Forms.Button()
-        Me.ListView2 = New System.Windows.Forms.ListView()
+        Me.AvatarView = New System.Windows.Forms.ListView()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -150,32 +150,32 @@ Partial Class RegionList
         Me.ToolTip1.SetToolTip(Me.RestartButton, "restarts all Checked Regions")
         Me.RestartButton.UseVisualStyleBackColor = True
         '
-        'ListView2
+        'AvatarView
         '
-        Me.ListView2.AllowColumnReorder = True
-        Me.ListView2.FullRowSelect = True
-        Me.ListView2.GridLines = True
-        Me.ListView2.HideSelection = False
+        Me.AvatarView.AllowColumnReorder = True
+        Me.AvatarView.FullRowSelect = True
+        Me.AvatarView.GridLines = True
+        Me.AvatarView.HideSelection = False
         ListViewItem2.ToolTipText = "Click to Start or Stop Robust"
-        Me.ListView2.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
-        Me.ListView2.Location = New System.Drawing.Point(13, 66)
-        Me.ListView2.MultiSelect = False
-        Me.ListView2.Name = "ListView2"
-        Me.ListView2.ShowItemToolTips = True
-        Me.ListView2.Size = New System.Drawing.Size(461, 316)
-        Me.ListView2.TabIndex = 18597
-        Me.ToolTip1.SetToolTip(Me.ListView2, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
+        Me.AvatarView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
+        Me.AvatarView.Location = New System.Drawing.Point(13, 66)
+        Me.AvatarView.MultiSelect = False
+        Me.AvatarView.Name = "AvatarView"
+        Me.AvatarView.ShowItemToolTips = True
+        Me.AvatarView.Size = New System.Drawing.Size(461, 316)
+        Me.AvatarView.TabIndex = 18597
+        Me.ToolTip1.SetToolTip(Me.AvatarView, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
         "rganized.")
-        Me.ListView2.UseCompatibleStateImageBehavior = False
-        Me.ListView2.View = System.Windows.Forms.View.Details
-        Me.ListView2.Visible = False
+        Me.AvatarView.UseCompatibleStateImageBehavior = False
+        Me.AvatarView.View = System.Windows.Forms.View.Details
+        Me.AvatarView.Visible = False
         '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(517, 408)
-        Me.Controls.Add(Me.ListView2)
+        Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.RestartButton)
         Me.Controls.Add(Me.StopAllButton)
         Me.Controls.Add(Me.RunAllButton)
@@ -205,5 +205,5 @@ Partial Class RegionList
     Friend WithEvents RunAllButton As Button
     Friend WithEvents StopAllButton As Button
     Friend WithEvents RestartButton As Button
-    Friend WithEvents ListView2 As ListView
+    Friend WithEvents AvatarView As ListView
 End Class

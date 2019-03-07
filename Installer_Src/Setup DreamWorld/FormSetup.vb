@@ -59,6 +59,7 @@ Public Class Form1
     Public Event Exited As EventHandler
     Private WithEvents RobustProcess As New Process()
     Public Event RobustExited As EventHandler
+    Public ExitList As New List(Of String)
 
     Dim Data As IniParser.Model.IniData
     Dim parser As IniParser.FileIniDataParser
@@ -118,7 +119,7 @@ Public Class Form1
     ' Region 
     Public RegionClass As RegionMaker   ' Global RegionClass
     Public RegionForm As RegionList
-    Dim ExitList As New List(Of String)
+
     Dim gStopMysql As Boolean = True    'lets us detct if Mysql is a service so we do not shut it down
     Public gUpdateView As Boolean = True 'Region Form Refresh
     Dim gInitted As Boolean = False
@@ -2167,10 +2168,10 @@ Public Class Form1
     ''' Creates and exit handler for each region
     ''' </summary>
     ''' <returns>a process handle</returns>
-    Public Function GetNewProcess() As Process
+    Public Function GetNewProcess(Name As String) As Process
 
         Dim handle = New Handler
-        Return handle.Init(RegionHandles, ExitList)
+        Return handle.Init(Name)
 
     End Function
     ''' <summary>
@@ -2215,7 +2216,7 @@ Public Class Form1
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", gPath + "bin\Regions\" + RegionClass.GroupName(RegionNumber))
 
-        Dim myProcess As Process = GetNewProcess()
+        Dim myProcess As Process = GetNewProcess(BootName)
         Dim Groupname = RegionClass.GroupName(RegionNumber)
         Print("Starting " + Groupname)
         Try
