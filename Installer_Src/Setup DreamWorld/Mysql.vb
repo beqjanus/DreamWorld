@@ -16,11 +16,9 @@ Public Class Mysql
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
-        Dim stm As String = "SELECT avatars.Name, regions.regionName _
-FROM (presence INNER JOIN avatars ON presence.UserID = avatars.PrincipalID) _
-INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+        Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
 
-        Dim Dict As Dictionary(Of String, String) = Nothing
+        Dim Dict As New Dictionary(Of String, String)
 
         Try
             MysqlConn.Open()
@@ -29,8 +27,8 @@ INNER JOIN regions  ON presence.RegionID = regions.uuid;"
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
             While reader.Read()
-                Debug.Print(reader.GetString(0) & ": " & reader.GetString(1))
-                Dict.Add(reader.GetString(0), reader.GetString(1))
+                Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
+                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
             End While
 
             reader.Close()
@@ -40,6 +38,7 @@ INNER JOIN regions  ON presence.RegionID = regions.uuid;"
         Finally
             MysqlConn.Close()
         End Try
+
         Return Dict
 
     End Function

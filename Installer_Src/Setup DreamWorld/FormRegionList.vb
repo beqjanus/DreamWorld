@@ -419,6 +419,11 @@ Public Class RegionList
                     Next
                 End If
 
+                If Index = 0 Then
+                    Dim item1 As New ListViewItem("No Avatars", 0)
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                End If
+
             Catch ex As Exception
                 Console.WriteLine("Error: " & ex.Message)
             End Try
@@ -479,6 +484,24 @@ Public Class RegionList
 
         UpdateView() = True
     End Sub
+
+    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
+        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
+        Dim item As ListViewItem
+
+        For Each item In regions
+            Dim RegionName = item.SubItems(1).Text
+            Debug.Print("Clicked row " + RegionName)
+            Dim R = RegionClass.FindRegionByName(RegionName)
+            If R >= 0 Then
+                Dim webAddress As String = "hop://" & Form1.MySetting.DNSName & ":" & Form1.MySetting.HttpPort & "/" & RegionName
+                Process.Start(webAddress)
+            End If
+        Next
+
+        UpdateView() = True
+    End Sub
+
 
     Private Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
 

@@ -144,14 +144,9 @@ Public Class NetServer
             If Uri.Contains("teleports.htm") Then
                 responseString = RegionClass.RegionListHTML(Setting)
             Else
-                'Debug.Print("Start of client data:")
-                'Convert the data to a string And display it on the console.
-                Dim POST As String = reader.ReadToEnd()
-                ' Debug.Print(POST)
-                'Debug.Print("End of client data:")
-                ' process the data
 
                 If (request.HasEntityBody) Then
+                    Dim POST As String = reader.ReadToEnd()
                     responseString = RegionClass.ParsePost(POST, Setting)
                 Else
                     responseString = RegionClass.ParsePost(Uri, Setting)

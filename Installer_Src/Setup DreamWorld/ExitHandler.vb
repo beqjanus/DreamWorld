@@ -7,7 +7,7 @@
 
         ' Handle any process that exits by stacking it. DoExitHandlerPoll will clean up stack
         Try
-            Form1.ExitList.Add(gName)
+            'Form1.ExitList.Add(gName)
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try

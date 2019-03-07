@@ -1846,9 +1846,7 @@ Public Class Form1
             IcecastProcess.Start()
             gIcecastProcID = IcecastProcess.Id
 
-            While Not SetWindowTextCall(IcecastProcess.MainWindowHandle, "Icecast")
-                Sleep(1000)
-            End While
+            SetWindowTextCall(IcecastProcess.MainWindowHandle, "Icecast")
 
             Try
                 ShowWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
@@ -1886,9 +1884,7 @@ Public Class Form1
 
             Sleep(1000)
 
-            While Not SetWindowTextCall(RobustProcess.MainWindowHandle, "Robust")
-                Sleep(1000)
-            End While
+            SetWindowTextCall(RobustProcess.MainWindowHandle, "Robust")
 
 
         Catch ex As Exception
@@ -2105,46 +2101,50 @@ Public Class Form1
                 Log("impossible error")
             Else
 
-                Dim Groupname = RegionClass.GroupName(RegionNumber)
-                Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
-                Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
-                UpdateView = True ' make form refresh
-                ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
-                        ShouldIRestart = RegionClass.Timer(RegionNumber)
-                    End If
-                    StopGroup(Groupname)
-
-                ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
-                    ' prompt if crashed.  Skip prompt if auto restarting
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
-                        ShouldIRestart = RegionClass.Timer(RegionNumber)
-                    End If
-                    StopGroup(Groupname)
-                Else
-                    StopGroup(Groupname)
-                End If
-
-                ' Auto restart if negative 1
-                If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
-                    UpdateView = True ' make form refresh
-                    PrintFast("Restart Queued for " + Groupname)
-                    RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
-                Else
-                    PrintFast(Groupname + " stopped")
-                End If
-
                 Try
-                    ExitList.RemoveAt(LOOPVAR)
-                Catch ex As Exception
-                    ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+                    Dim Groupname = RegionClass.GroupName(RegionNumber)
+                    Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
+                    Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
+                    UpdateView = True ' make form refresh
+                    ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+                    If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
+                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                        If (yesno = vbYes) Then
+                            System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                            ShouldIRestart = RegionClass.Timer(RegionNumber)
+                        End If
+                        StopGroup(Groupname)
+
+                    ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
+                        ' prompt if crashed.  Skip prompt if auto restarting
+                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                        If (yesno = vbYes) Then
+                            System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                            ShouldIRestart = RegionClass.Timer(RegionNumber)
+                        End If
+                        StopGroup(Groupname)
+                    Else
+                        StopGroup(Groupname)
+                    End If
+
+                    ' Auto restart if negative 1
+                    If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
+                        UpdateView = True ' make form refresh
+                        PrintFast("Restart Queued for " + Groupname)
+                        RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
+                    Else
+                        PrintFast(Groupname + " stopped")
+                    End If
+
+                    Try
+                        ExitList.RemoveAt(LOOPVAR)
+                    Catch ex As Exception
+                        ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
+                        ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+                    End Try
+                Catch
                 End Try
+
             End If
 
         Next
@@ -2264,9 +2264,7 @@ Public Class Form1
                 UpdateView = True ' make form refresh
 
                 Sleep(1000)
-                While Not SetWindowTextCall(myProcess.MainWindowHandle, RegionClass.GroupName(RegionNumber))
-                    Sleep(1000)
-                End While
+                SetWindowTextCall(myProcess.MainWindowHandle, RegionClass.GroupName(RegionNumber))
 
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
@@ -2869,9 +2867,8 @@ Public Class Form1
 
                 If Not Directory.Exists(BackupPath) Then
                     MkDir(BackupPath)
-                    MkDir(BackupPath + "MySQL")
-                    MkDir(BackupPath + "Regions")
                 End If
+
                 MsgBox("Autoback folder cannot be located, so It has been reset to the default:" + BackupPath)
                 MySetting.BackupFolder = "AutoBackup"
                 MySetting.SaveSettings()

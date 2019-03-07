@@ -64,9 +64,13 @@ Public Class FormCaches
                 For Each script As String In folders
                     Dim ext = Path.GetExtension(script)
                     If ext.ToLower <> ".state" And ext.ToLower <> ".keep" Then
-                        My.Computer.FileSystem.DeleteFile(script)
+                        Try
+                            My.Computer.FileSystem.DeleteFile(script)
+                        Catch
+                        End Try
+
                         ctr = ctr + 1
-                        Form1.PrintFast("Deleteing " & ctr.ToString + " of " + fCount.ToString & " scripts")
+                        Form1.PrintFast("Deleting " & ctr.ToString + " of " + fCount.ToString & " scripts")
                         Application.DoEvents()
                     End If
                 Next

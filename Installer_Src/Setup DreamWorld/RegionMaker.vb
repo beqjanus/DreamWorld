@@ -916,7 +916,7 @@ Public Class RegionMaker
                         If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_MINIMIZE)
 
                     End If
-                ElseIf json.login = "shutdownXXX" Then  '' XXX added to disable
+                ElseIf json.login = "shutdown" Then  '' XXX added to disable
                     ' does not work as expected - get this during bootup!
                     Form1.PrintFast("Region " & json.region_name & " shutting down")
 
@@ -930,6 +930,7 @@ Public Class RegionMaker
                     ShuttingDown(n) = True
                     UUID(n) = ""
                     Form1.UpdateView() = True
+                    Form1.ExitList.Add(json.region_name)
 
                 End If
                 Try
