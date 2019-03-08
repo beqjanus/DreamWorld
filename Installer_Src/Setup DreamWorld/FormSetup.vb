@@ -141,25 +141,42 @@ Public Class Form1
 
     ''' <summary>
     ''' SetWindowTextCall is here to wrap the SetWindowtext API call.  This call fails when there is no 
-    ''' hwnd as Windows takes its sweet time to get that. It has a  timer to make sure we do not get stuck
+    ''' hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a  timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
     ''' <param name="windowName">the name of the Window </param>
     ''' 
-    Public Function SetWindowTextCall(hwnd As IntPtr, windowName As String) As Boolean
+    Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
 
         Dim status As Boolean = False
         Dim WindowCounter As Integer = 0
+        While myProcess.MainWindowHandle = CType(0, IntPtr) And Not status
+            Diagnostics.Debug.Print(windowName & " Handle = 0")
+            WindowCounter = WindowCounter + 1
+            If WindowCounter > 100 Then '  10 seconds for process to start
+                status = True
+            End If
+            Sleep(100)
+        End While
+
+        status = False
+        WindowCounter = 0
+
+        Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While Not status
-            Sleep(1000)
-            status = SetWindowText(hwnd, windowName)
-            Sleep(1000)
+            Sleep(100)
             status = SetWindowText(hwnd, windowName)
             WindowCounter = WindowCounter + 1
-            If WindowCounter > 10 Then '  20 seconds
+            If WindowCounter > 100 Then '  10 seconds
                 status = True
             End If
         End While
+
+        If Not status Then
+            ErrorLog("Cannot get handle for " & windowName)
+            Return False
+        End If
+
         Return True
 
     End Function
@@ -1853,7 +1870,8 @@ Public Class Form1
             IcecastProcess.Start()
             gIcecastProcID = IcecastProcess.Id
 
-            SetWindowTextCall(IcecastProcess.MainWindowHandle, "Icecast")
+
+            SetWindowTextCall(IcecastProcess, "Icecast")
 
             Try
                 ShowWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
@@ -1889,7 +1907,7 @@ Public Class Form1
             RobustProcess.Start()
             gRobustProcID = RobustProcess.Id
 
-            SetWindowTextCall(RobustProcess.MainWindowHandle, "Robust")
+            SetWindowTextCall(RobustProcess, "Robust")
 
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
@@ -2100,62 +2118,57 @@ Public Class Form1
                 Log("Cannot Locate group name for region " & RegionName)
             Else
 
-
+                ' get the last region in the group.
                 For Each R In LNames
                     RegionNumber = R
                 Next
-                ' must have been found, its possible none was found, and that would be 0, the first one, so we skip that.
-                If LNames.Count < 0 Then
-                    Log("impossible error")
-                Else
+
+                Try
+                    Dim Groupname = RegionClass.GroupName(RegionNumber)
+                    Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
+                    Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
+                    UpdateView = True ' make form refresh
+                    ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+                    If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
+                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                        If (yesno = vbYes) Then
+                            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                            ShouldIRestart = RegionClass.Timer(RegionNumber)
+                        End If
+                        StopGroup(Groupname)
+
+                    ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
+                        ' prompt if crashed.  Skip prompt if auto restarting
+                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                        If (yesno = vbYes) Then
+                            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                            ShouldIRestart = RegionClass.Timer(RegionNumber)
+                        End If
+                        StopGroup(Groupname)
+                    Else
+                        StopGroup(Groupname)
+                    End If
+
+                    ' Auto restart if negative 1
+                    If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
+                        UpdateView = True ' make form refresh
+                        PrintFast("Restart Queued for " + Groupname)
+                        RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
+                    Else
+                        PrintFast(Groupname + " stopped")
+                    End If
 
                     Try
-                        Dim Groupname = RegionClass.GroupName(RegionNumber)
-                        Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
-                        Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
-                        UpdateView = True ' make form refresh
-                        ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                        If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
-                            Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                            If (yesno = vbYes) Then
-                                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                                ShouldIRestart = RegionClass.Timer(RegionNumber)
-                            End If
-                            StopGroup(Groupname)
-
-                        ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
-                            ' prompt if crashed.  Skip prompt if auto restarting
-                            Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                            If (yesno = vbYes) Then
-                                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                                ShouldIRestart = RegionClass.Timer(RegionNumber)
-                            End If
-                            StopGroup(Groupname)
-                        Else
-                            StopGroup(Groupname)
-                        End If
-
-                        ' Auto restart if negative 1
-                        If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
-                            UpdateView = True ' make form refresh
-                            PrintFast("Restart Queued for " + Groupname)
-                            RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
-                        Else
-                            PrintFast(Groupname + " stopped")
-                        End If
-
-                        Try
-                            ExitList.RemoveAt(LOOPVAR)
-                        Catch ex As Exception
-                            ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                            ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-                        End Try
+                        ExitList.RemoveAt(LOOPVAR)
                     Catch ex As Exception
-                        ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
+                        ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
                         ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
                     End Try
+                Catch ex As Exception
+                    ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
+                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+                End Try
 
-                End If
             End If
 
         Next
@@ -2274,7 +2287,7 @@ Public Class Form1
 
                 UpdateView = True ' make form refresh
 
-                SetWindowTextCall(myProcess.MainWindowHandle, RegionClass.GroupName(RegionNumber))
+                SetWindowTextCall(myProcess, RegionClass.GroupName(RegionNumber))
 
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
