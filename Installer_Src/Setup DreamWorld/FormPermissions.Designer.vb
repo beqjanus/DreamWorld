@@ -65,6 +65,7 @@ Partial Class FormPermissions
         Me.AllowGods.Size = New System.Drawing.Size(85, 17)
         Me.AllowGods.TabIndex = 14
         Me.AllowGods.Text = "Allow Gods?"
+        Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'GodHelp
@@ -85,6 +86,8 @@ Partial Class FormPermissions
         Me.ManagerGod.Size = New System.Drawing.Size(141, 17)
         Me.ManagerGod.TabIndex = 16
         Me.ManagerGod.Text = "Region manager is god?"
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, "Region Manager is God - Estate managers can become gods, but just for this estate" &
+        ".")
         Me.ManagerGod.UseVisualStyleBackColor = True
         '
         'RegionGod
@@ -95,6 +98,8 @@ Partial Class FormPermissions
         Me.RegionGod.Size = New System.Drawing.Size(132, 17)
         Me.RegionGod.TabIndex = 15
         Me.RegionGod.Text = "Region owner is god? "
+        Me.ToolTip1.SetToolTip(Me.RegionGod, " Region Owner is God - When you first create a region, you are prompted for the o" &
+        "wner name. If checked, this person has God mode rights to any regions they own.")
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'LimitsBox
