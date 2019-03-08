@@ -2036,7 +2036,7 @@ Public Class Form1
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log"
-            System.Diagnostics.Process.Start("notepad.exe", MysqlLog)
+            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & MysqlLog & """")
         End If
 
     End Sub
@@ -2053,7 +2053,7 @@ Public Class Form1
             Dim files() As String
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
             For Each FileName As String In files
-                System.Diagnostics.Process.Start("notepad.exe", FileName)
+                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & FileName & """")
             Next
         End If
     End Sub
@@ -2064,7 +2064,7 @@ Public Class Form1
         Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim IceCastLog As String = MyFolder + "\Outworldzfiles\Icecast\log\error.log"
-            System.Diagnostics.Process.Start("notepad.exe", IceCastLog)
+            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & IceCastLog & """")
         End If
 
     End Sub
@@ -2099,7 +2099,10 @@ Public Class Form1
             Dim RegionNumber As Integer = -1
             Dim LNames As New List(Of Integer)
             LNames = RegionClass.RegionListByGroupNum(RegionClass.GroupName(RegionClass.FindRegionByName(RegionName)))
-            If LNames.Count > 0 Then
+            If LNames.Count < 0 Then
+                Log("Cannot Locate group name for region " & RegionName)
+            Else
+
 
                 For Each R In LNames
                     RegionNumber = R
@@ -2118,7 +2121,7 @@ Public Class Form1
                         If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
                             Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
                             If (yesno = vbYes) Then
-                                System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                                 ShouldIRestart = RegionClass.Timer(RegionNumber)
                             End If
                             StopGroup(Groupname)
@@ -2127,7 +2130,7 @@ Public Class Form1
                             ' prompt if crashed.  Skip prompt if auto restarting
                             Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
                             If (yesno = vbYes) Then
-                                System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                                 ShouldIRestart = RegionClass.Timer(RegionNumber)
                             End If
                             StopGroup(Groupname)
@@ -2290,7 +2293,7 @@ Public Class Form1
             UpdateView = True ' make form refresh
             Dim yesno = MsgBox("Oops! " + BootName + " in DOS box " + Groupname + " did not boot. Do you want to see the log file?", vbYesNo, "Error")
             If (yesno = vbYes) Then
-                System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
             End If
 
             Return False
@@ -4134,7 +4137,7 @@ Public Class Form1
                     Dim files() As String
                     files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                     For Each FileName As String In files
-                        System.Diagnostics.Process.Start("notepad.exe", FileName)
+                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & FileName & """")
                     Next
                 End If
                 Buttons(StartButton)
@@ -4814,6 +4817,10 @@ Public Class Form1
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
         Dim name = sender.text.ToString()
+        Viewlog(name)
+    End Sub
+    Public Sub Viewlog(name As String)
+
         Dim path = MyFolder + "\Outworldzfiles\Opensim\bin\Regions\" + name + "\Opensim.log"
         If name = "Robust" Then path = MyFolder + "\Outworldzfiles\Opensim\bin\Robust.log"
         If name = "Outworldz" Then path = MyFolder + "\Outworldzfiles\Outworldz.log"
@@ -4827,12 +4834,18 @@ Public Class Form1
             Dim files() As String
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
             For Each FileName As String In files
-                System.Diagnostics.Process.Start("notepad.exe", FileName)
+                Try
+                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & FileName & """")
+                Catch
+                End Try
             Next
             Return
         End If
+        Try
+            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & path & """")
+        Catch
+        End Try
 
-        System.Diagnostics.Process.Start("notepad.exe", path)
 
     End Sub
 

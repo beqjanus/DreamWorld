@@ -29,7 +29,8 @@
     Public Sub init(RegionName As String)
 
         Dim X = Form1.RegionClass.FindRegionByName(RegionName)
-        GroupBox1.Text = RegionName & vbCrLf & "in " & Form1.RegionClass.GroupName(X)
+        Me.Text = RegionName
+        GroupBox1.Text = Form1.RegionClass.GroupName(X)
 
         If Not Form1.RegionClass.RegionEnabled(X) Then
             StartButton3.Enabled = False
@@ -88,4 +89,7 @@
         DialogResult = DialogResult.OK
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Form1.Viewlog(Me.Text)
+    End Sub
 End Class
