@@ -141,6 +141,8 @@ Public Class NetServer
 
             Debug.Print("No client data was sent with the request.")
             Dim Uri = request.Url.OriginalString
+            Uri = LCase(Uri)
+
             If Uri.Contains("teleports.htm") Then
                 responseString = RegionClass.RegionListHTML(Setting)
             Else
