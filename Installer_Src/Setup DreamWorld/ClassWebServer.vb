@@ -179,7 +179,7 @@ Public Class NetServer
             response.Close()
 
         Catch ex As Exception
-            Application.Exit()
+            Debug.Print(ex.Message)
         End Try
 
     End Sub

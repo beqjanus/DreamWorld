@@ -27,7 +27,6 @@ Public Class RegionMaker
         START_COUNTING = 0
     End Enum
 
-
     Public Sub DebugGroup()
         For Each pair In Grouplist
             Debug.Print("Group name: {0}, httpport: {1}", pair.Key, pair.Value)
@@ -237,7 +236,6 @@ Public Class RegionMaker
             Return RegionList(n)._IniPath.ToString
         End Get
         Set(ByVal Value As String)
-
             RegionList(n)._IniPath = Value
         End Set
     End Property
@@ -446,15 +444,19 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Function RegionListByGroupNum(GroupName As String) As List(Of Integer)
+    Public Function RegionListByGroupNum(Gname As String) As List(Of Integer)
+
         Dim L As New List(Of Integer)
         Dim ctr = 0
         For Each n As Region_data In RegionList
-            If n._Group = GroupName Or GroupName = "*" Then
+            If n._Group = Gname Or Gname = "*" Then
                 L.Add(ctr)
             End If
             ctr = ctr + 1
         Next
+        If (L.Count = 0) Then
+            Debug.Print(" Not found:" & Gname)
+        End If
         Return L
 
     End Function
@@ -540,8 +542,6 @@ Public Class RegionMaker
         r._MaxPrims = "45000"
         r._MaxAgents = 100
 
-        'RegionList.Insert(RegionList.Count, r)
-
         RegionList.Add(r)
         RegionDump()
         Return RegionList.Count - 1
@@ -597,7 +597,9 @@ Public Class RegionMaker
                         ' need folder name in case there are more than 1 ini
                         Dim theStart = FolderPath(n).IndexOf("Regions\") + 8
                         theEnd = FolderPath(n).LastIndexOf("\")
-                        GroupName(n) = FolderPath(n).Substring(theStart, theEnd - theStart)
+                        Dim gname = FolderPath(n).Substring(theStart, theEnd - theStart)
+
+                        GroupName(n) = gname
 
                         UUID(n) = Form1.MySetting.GetIni(fName, "RegionUUID")
                         SizeX(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "SizeX"))
@@ -995,7 +997,7 @@ Public Class RegionMaker
 
         ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
 
-        If (POST.Contains("alert")) Then
+        If (POST.Contains("""alert"":""region_ready""")) Then
 
             WebserverList.Add(POST)
 

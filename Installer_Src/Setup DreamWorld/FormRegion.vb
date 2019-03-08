@@ -213,7 +213,6 @@ Public Class FormRegion
 
         If changed Then
 
-
             Dim v = MsgBox("Save changes?", vbYesNo, "Region Save")
             If v = vbYes Then
                 Dim message = RegionValidate()
@@ -230,7 +229,7 @@ Public Class FormRegion
                 Else
                     WriteRegion()
 
-                    Form1.CopyOpensimProto()
+                    Form1.CopyOpensimProto(RegionName.Text)
 
                     If RegionList.InstanceExists Then
                         RegionClass.GetAllRegions()
@@ -263,13 +262,14 @@ Public Class FormRegion
             WriteRegion()
 
             RegionClass.GetAllRegions()
-            Form1.CopyOpensimProto()
+
+            Form1.CopyOpensimProto(RegionName.Text)
+
+            Form1.SetFirewall()
 
             If RegionList.InstanceExists Then
                 RegionList.LoadMyListView()
             End If
-
-            Form1.SetFirewall()
 
             changed = False
             Me.Close()

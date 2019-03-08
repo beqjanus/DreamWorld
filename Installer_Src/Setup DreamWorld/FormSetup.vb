@@ -1345,45 +1345,52 @@ Public Class Form1
 
     End Sub
 
-    Function CopyOpensimProto() As Boolean
+    Sub CopyOpensimProto(Optional name As String = "")
 
-        ' COPY OPENSIM.INI prototype to all region folders and set the Sim Name
+        If name.Length > 0 Then
+            Dim X = RegionClass.FindRegionByName(name)
+            Opensimproto(X)
+        Else
+            ' COPY OPENSIM.INI prototype to all region folders and set the Sim Name
+            For Each X As Integer In RegionClass.RegionNumbers
+                Opensimproto(X)
+            Next
+        End If
 
-        For Each X As Integer In RegionClass.RegionNumbers
-            Diagnostics.Debug.Print("Count " + X.ToString)
-            Dim regionName = RegionClass.RegionName(X)
-            Dim pathname = RegionClass.IniPath(X)
-            Diagnostics.Debug.Print(regionName)
+    End Sub
 
-            Try
-                MySetting.LoadOtherIni(gPath + "bin\Opensim.proto", ";")
-                MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
-                MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
-                MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
-                MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString) ' varies with region
-                Dim name = RegionClass.RegionName(X)
+    Sub Opensimproto(X As Integer)
 
-                ' save the http listener port away for the group
-                RegionClass.GroupPort(X) = RegionClass.RegionPort(X)
+        Dim regionName = RegionClass.RegionName(X)
+        Dim pathname = RegionClass.IniPath(X)
+        Diagnostics.Debug.Print(regionName)
 
-                MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
-                MySetting.SetOtherIni("Const", "RegionFolderName", RegionClass.GroupName(X))
-                MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
-                MySetting.SaveOtherINI()
+        Try
+            MySetting.LoadOtherIni(gPath + "bin\Opensim.proto", ";")
+            MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
+            MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
+            MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
+            MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString) ' varies with region
+            Dim name = RegionClass.RegionName(X)
 
-                My.Computer.FileSystem.CopyFile(gPath + "bin\Opensim.proto", pathname + "Opensim.ini", True)
+            ' save the http listener port away for the group
+            RegionClass.GroupPort(X) = RegionClass.RegionPort(X)
 
-            Catch ex As Exception
-                Print("Error:CopyOpensimProto failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
-                ErrorLog("Error:CopyOpensimProto Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
-                Return False
-            End Try
+            MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
+            MySetting.SetOtherIni("Const", "RegionFolderName", RegionClass.GroupName(X))
+            MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
+            MySetting.SaveOtherINI()
 
-        Next
+            My.Computer.FileSystem.CopyFile(gPath + "bin\Opensim.proto", pathname + "Opensim.ini", True)
 
-        Return True
+        Catch ex As Exception
+            Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
+            ErrorLog("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
+        End Try
 
-    End Function
+
+    End Sub
+
 #End Region
 
 #Region "Regions"
@@ -2091,60 +2098,64 @@ Public Class Form1
             ' find any region in the dos box that exited.
             Dim RegionNumber As Integer = -1
             Dim LNames As New List(Of Integer)
-            LNames = RegionClass.RegionListByGroupNum(RegionName)
+            LNames = RegionClass.RegionListByGroupNum(RegionClass.GroupName(RegionClass.FindRegionByName(RegionName)))
+            If LNames.Count > 0 Then
 
-            For Each R In LNames
-                RegionNumber = R
-            Next
-            ' must have been found, its possible none was found, and that would be 0, the first one, so we skip that.
-            If LNames.Count < 0 Then
-                Log("impossible error")
-            Else
-
-                Try
-                    Dim Groupname = RegionClass.GroupName(RegionNumber)
-                    Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
-                    Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
-                    UpdateView = True ' make form refresh
-                    ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                    If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
-                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                        If (yesno = vbYes) Then
-                            System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
-                            ShouldIRestart = RegionClass.Timer(RegionNumber)
-                        End If
-                        StopGroup(Groupname)
-
-                    ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
-                        ' prompt if crashed.  Skip prompt if auto restarting
-                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                        If (yesno = vbYes) Then
-                            System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
-                            ShouldIRestart = RegionClass.Timer(RegionNumber)
-                        End If
-                        StopGroup(Groupname)
-                    Else
-                        StopGroup(Groupname)
-                    End If
-
-                    ' Auto restart if negative 1
-                    If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
-                        UpdateView = True ' make form refresh
-                        PrintFast("Restart Queued for " + Groupname)
-                        RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
-                    Else
-                        PrintFast(Groupname + " stopped")
-                    End If
+                For Each R In LNames
+                    RegionNumber = R
+                Next
+                ' must have been found, its possible none was found, and that would be 0, the first one, so we skip that.
+                If LNames.Count < 0 Then
+                    Log("impossible error")
+                Else
 
                     Try
-                        ExitList.RemoveAt(LOOPVAR)
+                        Dim Groupname = RegionClass.GroupName(RegionNumber)
+                        Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
+                        Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
+                        UpdateView = True ' make form refresh
+                        ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+                        If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
+                            Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                            If (yesno = vbYes) Then
+                                System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                                ShouldIRestart = RegionClass.Timer(RegionNumber)
+                            End If
+                            StopGroup(Groupname)
+
+                        ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
+                            ' prompt if crashed.  Skip prompt if auto restarting
+                            Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                            If (yesno = vbYes) Then
+                                System.Diagnostics.Process.Start("notepad.exe", RegionClass.IniPath(RegionNumber) + "Opensim.log")
+                                ShouldIRestart = RegionClass.Timer(RegionNumber)
+                            End If
+                            StopGroup(Groupname)
+                        Else
+                            StopGroup(Groupname)
+                        End If
+
+                        ' Auto restart if negative 1
+                        If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
+                            UpdateView = True ' make form refresh
+                            PrintFast("Restart Queued for " + Groupname)
+                            RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
+                        Else
+                            PrintFast(Groupname + " stopped")
+                        End If
+
+                        Try
+                            ExitList.RemoveAt(LOOPVAR)
+                        Catch ex As Exception
+                            ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
+                            ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+                        End Try
                     Catch ex As Exception
-                        ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
+                        ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
                         ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
                     End Try
-                Catch
-                End Try
 
+                End If
             End If
 
         Next
@@ -3510,7 +3521,6 @@ Public Class Form1
         Try
             ClientSocket.Connect(ServerAddress, Port)
         Catch ex As Exception
-            Log("Info:Unable to connect to server:" + ex.Message)
             Return False
         End Try
 
