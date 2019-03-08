@@ -151,12 +151,12 @@ Public Class Form1
         Dim status As Boolean = False
         Dim WindowCounter As Integer = 0
         While Not status
-
-            Sleep(100)
+            Sleep(1000)
             status = SetWindowText(hwnd, windowName)
-
+            Sleep(1000)
+            status = SetWindowText(hwnd, windowName)
             WindowCounter = WindowCounter + 1
-            If WindowCounter > 200 Then '  20 seconds
+            If WindowCounter > 10 Then '  20 seconds
                 status = True
             End If
         End While
@@ -1889,10 +1889,7 @@ Public Class Form1
             RobustProcess.Start()
             gRobustProcID = RobustProcess.Id
 
-            Sleep(1000)
-
             SetWindowTextCall(RobustProcess.MainWindowHandle, "Robust")
-
 
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
@@ -2277,7 +2274,6 @@ Public Class Form1
 
                 UpdateView = True ' make form refresh
 
-                Sleep(1000)
                 SetWindowTextCall(myProcess.MainWindowHandle, RegionClass.GroupName(RegionNumber))
 
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
