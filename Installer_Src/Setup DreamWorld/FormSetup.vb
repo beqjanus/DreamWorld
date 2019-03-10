@@ -33,7 +33,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    Dim gMyVersion As String = "2.77"
+    Dim gMyVersion As String = "2.79"
     Dim gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
@@ -181,22 +181,15 @@ Public Class Form1
 
     End Function
 
-    <Flags()>
-    Private Enum REGION_TIMER As Integer
-        STOPPED = -3
-        RESTARTING = -2
-        RESTART_PENDING = -1
-        START_COUNTING = 0
-    End Enum
 
 #End Region
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
@@ -431,24 +424,50 @@ Public Class Form1
 
     End Sub
 
-    Public Sub SetFirewall()
+    Private Function DeleteFirewallRules() As String
 
-        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.DiagnosticPort & vbCrLf _
-                              & "netsh advfirewall firewall add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
-                              & "netsh advfirewall firewall add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
-                              & "netsh advfirewall firewall add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf
+
+        Dim RegionNumber As Integer = 0
+        Dim start = CInt(MySetting.FirstRegionPort)
+
+        For RegionNumber = start To gMaxPortUsed
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Region TCP Port " & RegionNumber.ToString & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & RegionNumber.ToString & """" & vbCrLf
+        Next
+
+        Return Command
+
+    End Function
+
+    Private Function AddFirewallRules() As String
+
+        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
 
 
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
         For RegionNumber = start To gMaxPortUsed
-            Command = Command + "netsh advfirewall firewall add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
-                    & "netsh advfirewall firewall add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
+            Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
         Next
 
+        Return Command
+
+    End Function
+    Public Sub SetFirewall()
+
+        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
+
         Dim ns As StreamWriter = New StreamWriter(MyFolder + "\fw.bat", False)
-        ns.WriteLine(Command)
+        ns.WriteLine(CMD)
         ns.Close()
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
@@ -556,10 +575,10 @@ Public Class Form1
             'Log(ex.Message)
         End Try
 
-
         ' make sure all regions are stopped
         For Each X As Integer In RegionClass.RegionNumbers
-            RegionClass.Timer(X) = REGION_TIMER.STOPPED
+            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+            RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
         Next
 
         ' Launch the rockets
@@ -618,10 +637,13 @@ Public Class Form1
 
     End Sub
 
-    Private Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
+    Public Sub ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW)
+        If handle <> IntPtr.Zero Then ShowWindow(handle, command)
+    End Sub
 
-    <Flags()>
-    Private Enum SHOW_WINDOW As Integer
+    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
+
+    Public Enum SHOW_WINDOW As Integer
         SW_HIDE = 0
         SW_SHOWNORMAL = 1
         SW_NORMAL = 1
@@ -655,8 +677,8 @@ Public Class Form1
 
         Dim TotalRunningRegions As Integer
         ' shows all windows during shutdown
-        For Each X As Integer In RegionClass.RegionNumbers
-            If RegionClass.Booted(X) Then
+        For Each Regionnumber As Integer In RegionClass.RegionNumbers
+            If RegionClass.IsBooted(Regionnumber) Then
                 TotalRunningRegions = TotalRunningRegions + 1
             End If
         Next
@@ -666,17 +688,15 @@ Public Class Form1
         For Each X As Integer In RegionClass.RegionNumbers
             Application.DoEvents()
 
-            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And Not RegionClass.ShuttingDown(X) Then
-                Dim hwnd = getHwnd(RegionClass.GroupName(X))
-                If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
+                Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
 
+                ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE)
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
-                RegionClass.ShuttingDown(X) = True
-                RegionClass.Booted(X) = False
-                RegionClass.WarmingUp(X) = False
-
-                RegionClass.Timer(X) = REGION_TIMER.STOPPED
+                RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
+                RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
                 UpdateView = True ' make form refresh
                 Sleep(1000)
             End If
@@ -694,22 +714,18 @@ Public Class Form1
                 Dim CountisRunning As Integer = 0
 
                 For Each X In RegionClass.RegionNumbers
-                    If RegionClass.ShuttingDown(X) = True Then
+                    If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped Then
                         PrintFast("Checking " + RegionClass.RegionName(X))
 
                         If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
                         Else
                             For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                                RegionClass.ShuttingDown(Y) = False
-                                RegionClass.Booted(Y) = False
-                                RegionClass.WarmingUp(Y) = False
-                                If RegionClass.Timer(Y) >= 0 Then
-                                    RegionClass.Timer(Y) = REGION_TIMER.STOPPED
-                                End If
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
                             Next
                         End If
-
+                        Sleep(100)
                         UpdateView = True ' make form refresh
                     End If
                     Application.DoEvents()
@@ -735,18 +751,13 @@ Public Class Form1
 
         RegionHandles.Clear()
 
-        For Each X As Integer In RegionClass.RegionNumbers
-            RegionClass.ShuttingDown(X) = False
-            RegionClass.Booted(X) = False
-            RegionClass.WarmingUp(X) = False
-            RegionClass.ProcessID(X) = 0
-            RegionClass.Timer(X) = REGION_TIMER.STOPPED
-        Next
+        StopAllRegions()
+
         UpdateView = True ' make form refresh
 
         ' show robust last, try-catch in case it crashed.
         Try
-            ShowWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         Catch
         End Try
 
@@ -1762,19 +1773,26 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub StopAllRegions()
+        For Each X As Integer In RegionClass.RegionNumbers
+            RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
+            RegionClass.ProcessID(X) = 0
+            RegionClass.UUID(X) = ""
+            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.STOPPED
+        Next
+
+        ExitList.Clear()
+
+    End Sub
+
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         If gStopping = True Then
 
             Print("Stopped")
-            For Each X As Integer In RegionClass.RegionNumbers
-                RegionClass.ShuttingDown(X) = False
-                RegionClass.Booted(X) = False
-                RegionClass.WarmingUp(X) = False
-                RegionClass.ProcessID(X) = 0
-                RegionClass.Timer(X) = REGION_TIMER.STOPPED
-            Next
 
+            StopAllRegions()
+            Timer1.Stop()
             Buttons(StartButton)
 
             Print("Opensim Is Stopped")
@@ -1787,7 +1805,7 @@ Public Class Form1
         Application.DoEvents()
 
         Buttons(StartButton)
-        Print("Opensim Is Aborted")
+        Print("GUI is Stopped")
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
 
@@ -1874,7 +1892,7 @@ Public Class Form1
             SetWindowTextCall(IcecastProcess, "Icecast")
 
             Try
-                ShowWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
+                ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
             Catch
             End Try
 
@@ -1945,7 +1963,7 @@ Public Class Form1
         If MySetting.ConsoleShow = False Then
             Try
                 Dim p = Process.GetProcessById(gRobustProcID)
-                ShowWindow(p.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
+                ShowDOSWindow(p.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
             Catch
             End Try
 
@@ -1967,13 +1985,8 @@ Public Class Form1
 
         'If OpensimIsRunning() = False Then Return True
         gStopping = False
-        For Each X As Integer In RegionClass.RegionNumbers
-            RegionClass.ShuttingDown(X) = False
-            RegionClass.Booted(X) = False
-            RegionClass.WarmingUp(X) = False
-            RegionClass.ProcessID(X) = 0
-            RegionClass.Timer(X) = REGION_TIMER.STOPPED
-        Next
+
+        StopAllRegions()
 
         Try
             ' Boot them up
@@ -1991,9 +2004,8 @@ Public Class Form1
 
                             If RegionClass.RegionEnabled(x) _
                                 And Not gStopping _
-                                And RegionClass.WarmingUp(x) _
-                                And Not RegionClass.ShuttingDown(x) _
-                                And Not RegionClass.Booted(x) Then
+                                And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting _
+                                Or RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp) Then
                                 WaitForIt = True
                             Else
                                 WaitForIt = False
@@ -2089,7 +2101,6 @@ Public Class Form1
 
     Private Sub DoExitHandlerPoll()
 
-
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
 
@@ -2109,7 +2120,6 @@ Public Class Form1
                 Return
             End Try
 
-
             ' find any region in the dos box that exited.
             Dim RegionNumber As Integer = -1
             Dim LNames As New List(Of Integer)
@@ -2125,35 +2135,37 @@ Public Class Form1
 
                 Try
                     Dim Groupname = RegionClass.GroupName(RegionNumber)
-                    Dim ShouldIRestart = RegionClass.Timer(RegionNumber)
-                    Log("Info:" + Groupname + " Exited with Timer status " + ShouldIRestart.ToString)
+
                     UpdateView = True ' make form refresh
                     ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                    If RegionClass.WarmingUp(RegionNumber) = True And ShouldIRestart >= 0 Then
+                    If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
+                            Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
+                            And RegionClass.Timer(RegionNumber) >= 0 Then
                         Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
                         If (yesno = vbYes) Then
                             System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                            ShouldIRestart = RegionClass.Timer(RegionNumber)
                         End If
                         StopGroup(Groupname)
 
-                    ElseIf RegionClass.Booted(RegionNumber) = True And ShouldIRestart > 0 Then
+                    ElseIf RegionClass.IsBooted(Regionnumber) _
+                        And RegionClass.Timer(RegionNumber) > 0 Then
                         ' prompt if crashed.  Skip prompt if auto restarting
                         Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
                         If (yesno = vbYes) Then
                             System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                            ShouldIRestart = RegionClass.Timer(RegionNumber)
                         End If
                         StopGroup(Groupname)
-                    Else
-                        StopGroup(Groupname)
+                        'Else
+                        'StopGroup(Groupname)
                     End If
 
-                    ' Auto restart if negative 1
-                    If ShouldIRestart = REGION_TIMER.RESTART_PENDING And OpensimIsRunning() And Not gExiting Then
+                    ' Auto restart phase begins
+                    If OpensimIsRunning() And Not gExiting _
+                            And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
                         UpdateView = True ' make form refresh
                         PrintFast("Restart Queued for " + Groupname)
-                        RegionClass.Timer(RegionNumber) = REGION_TIMER.RESTARTING ' signal a restart is needed (-2)
+                        RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+                        RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
                     Else
                         PrintFast(Groupname + " stopped")
                     End If
@@ -2177,12 +2189,12 @@ Public Class Form1
 
     Private Sub StopGroup(Groupname As String)
 
-        Log(Groupname + " Group is now stopped, time is unchanged")
+        Log(Groupname + " Group is now stopped")
+
         For Each X In RegionClass.RegionListByGroupNum(Groupname)
             Log(RegionClass.RegionName(X) + " Stopped")
-            RegionClass.Booted(X) = False
-            RegionClass.WarmingUp(X) = False
-            RegionClass.ShuttingDown(X) = False
+            RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
+            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.STOPPED
         Next
 
         UpdateView = True ' make form refresh
@@ -2214,27 +2226,35 @@ Public Class Form1
         Log("Region: Starting Region " + BootName)
 
         Dim RegionNumber = RegionClass.FindRegionByName(BootName)
-        If RegionClass.Booted(RegionNumber) Then
-            Log("Region " + BootName + " skipped as it is already booted")
+        If RegionClass.IsBooted(RegionNumber) Then
+            Log("Region " + BootName + " skipped as it is already Booted")
             Return True
         End If
 
-        If RegionClass.WarmingUp(RegionNumber) Then
-            Log("Region " + BootName + " skipped as it is already WarmingUp")
+        If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp Then
+            Log("Region " + BootName + " skipped as it is already Warming Up")
             Return True
         End If
 
-        If RegionClass.ShuttingDown(RegionNumber) Then
-            Log("Region " + BootName + " skipped as it is already ShuttingDown")
+        If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting Then
+            Log("Region " + BootName + " skipped as it is already Booted Up")
+            Return True
+        End If
+
+        If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.ShuttingDown Then
+            Log("Region " + BootName + " skipped as it is already Shutting Down")
+            Return True
+        End If
+
+        If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+            Log("Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
 
         Dim isRegionRunning = CheckPort("127.0.0.1", RegionClass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Log("Region " + BootName + "failed to start as it is already running")
-            RegionClass.WarmingUp(RegionNumber) = False
-            RegionClass.Booted(RegionNumber) = True
-            RegionClass.ShuttingDown(RegionNumber) = False
+            RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booted ' force it up
             Return False
         End If
 
@@ -2242,7 +2262,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess(BootName)
         Dim Groupname = RegionClass.GroupName(RegionNumber)
-        Print("Starting " + Groupname)
+        PrintFast("Starting " + Groupname)
         Try
             myProcess.EnableRaisingEvents = True
             myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -2278,11 +2298,9 @@ Public Class Form1
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
                     Log("PID:Setting booted status for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
-                    RegionClass.WarmingUp(num) = True
-                    RegionClass.Booted(num) = False
-                    RegionClass.ShuttingDown(num) = False
+                    RegionClass.Status(num) = RegionMaker.SIM_STATUS.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
-                    RegionClass.Timer(num) = REGION_TIMER.START_COUNTING
+                    RegionClass.Timer(num) = RegionMaker.REGION_TIMER.START_COUNTING
                 Next
 
                 UpdateView = True ' make form refresh
@@ -2410,7 +2428,7 @@ Public Class Form1
 
 #Region "Subs"
 
-    Public Function getHwnd(name As String) As IntPtr
+    Public Function GetHwnd(name As String) As IntPtr
 
         For Each pList As Process In Process.GetProcesses()
             If pList.MainWindowTitle.Contains(name) Then
@@ -2431,13 +2449,7 @@ Public Class Form1
     Public Function ConsoleCommand(name As String, command As String) As Boolean
 
         Try
-            Dim hwnd = getHwnd(name)
-            If hwnd <> IntPtr.Zero Then
-                ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
-            Else
-                Return False
-            End If
-
+            ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE)
 
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
             command = command.Replace("+", "{+}")
@@ -2604,9 +2616,10 @@ Public Class Form1
         Dim HTMLFILE = MyFolder & "\OutworldzFiles\Opensim\bin\data\teleports.htm"
         HTML = "Welcome to |" + MySetting.SimName + "||" + MySetting.PublicIP + ":" + MySetting.HttpPort + ":" + MySetting.WelcomeRegion + "||" + vbCrLf
         Dim ToSort As New List(Of String)
-        For Each X As Integer In RegionClass.RegionNumbers
-            If RegionClass.Booted(X) And RegionClass.Teleport(X) = "True" Then
-                ToSort.Add(RegionClass.RegionName(X))
+        For Each Regionnumber As Integer In RegionClass.RegionNumbers
+            If RegionClass.IsBooted(Regionnumber) _
+                And RegionClass.Teleport(Regionnumber) = "True" Then
+                ToSort.Add(RegionClass.RegionName(Regionnumber))
             End If
         Next
 
@@ -2643,8 +2656,7 @@ Public Class Form1
 
             Application.DoEvents()
 
-            If OpensimIsRunning() And Not gExiting And RegionClass.Timer(X) >= REGION_TIMER.START_COUNTING _
-                And (RegionClass.Booted(X) Or RegionClass.WarmingUp(X) Or RegionClass.ShuttingDown(X)) Then
+            If OpensimIsRunning() And Not gExiting And RegionClass.Timer(X) >= 0 Then
 
                 Dim timervalue As Integer = RegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
@@ -2652,19 +2664,14 @@ Public Class Form1
                 If timervalue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
-
-                        Dim hwnd = getHwnd(Groupname)
-                        If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+                        ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                         Print("AutoRestarting " + Groupname)
-                        RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING
 
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                            RegionClass.Timer(Y) = REGION_TIMER.RESTART_PENDING
-                            RegionClass.Booted(Y) = False
-                            RegionClass.WarmingUp(Y) = False
-                            RegionClass.ShuttingDown(Y) = True
+                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                         Next
 
                         UpdateView = True ' make form refresh
@@ -2674,10 +2681,8 @@ Public Class Form1
 
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                            RegionClass.Timer(Y) = REGION_TIMER.RESTART_PENDING
-                            RegionClass.Booted(Y) = False
-                            RegionClass.WarmingUp(Y) = False
-                            RegionClass.ShuttingDown(Y) = False
+                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                         Next
 
                     End Try
@@ -2685,7 +2690,7 @@ Public Class Form1
                 End If
 
                 ' count up to auto restart , when high enough, restart the sim
-                If RegionClass.Timer(X) >= REGION_TIMER.START_COUNTING Then
+                If RegionClass.Timer(X) >= 0 Then
                     RegionClass.Timer(X) = RegionClass.Timer(X) + 1
                 End If
 
@@ -2695,7 +2700,7 @@ Public Class Form1
 
         For Each X As Integer In RegionClass.RegionNumbers
             ' if a restart is signalled, boot it up
-            If RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
+            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
                 Boot(RegionClass.RegionName(X))
                 gRestartNow = False
             End If
@@ -2796,13 +2801,11 @@ Public Class Form1
             ' If user has clicked Cancel, set myValue to defaultValue 
             If myValue.Length = 0 Then Return
 
-            If RegionClass.Booted(RegionNumber) Then
+            If RegionClass.IsBooted(RegionNumber) Then
                 Dim Group = RegionClass.GroupName(RegionNumber)
-
                 ConsoleCommand(RegionClass.GroupName(RegionNumber), "alert CPU Intensive Backup Started{ENTER}" + vbCrLf)
                 ConsoleCommand(RegionClass.GroupName(RegionNumber), "change region " + """" + chosen + """" + "{ENTER}" + vbCrLf)
                 ConsoleCommand(RegionClass.GroupName(RegionNumber), "save oar " + """" + BackupPath() + myValue + """" + "{ENTER}" + vbCrLf)
-
             End If
             Me.Focus()
             Print("Saving " + myValue + " to " + BackupPath())
@@ -2911,10 +2914,8 @@ Public Class Form1
         Dim L As New List(Of String)
 
         For Each RegionNumber In RegionClass.RegionNumbers
-            If RegionClass.Booted(RegionNumber) Then
-
+            If RegionClass.IsBooted(RegionNumber) Then
                 Dim Group = RegionClass.GroupName(RegionNumber)
-
                 For Each Y In RegionClass.RegionListByGroupNum(Group)
                     If Not L.Contains(RegionClass.RegionName(Y)) Then
                         ConsoleCommand(RegionClass.GroupName(RegionNumber), "change region " + """" + RegionClass.RegionName(Y) + """" + "{ENTER}" + vbCrLf)
@@ -2922,11 +2923,8 @@ Public Class Form1
                         L.Add(RegionClass.RegionName(Y))
                     End If
                 Next
-
             End If
-
             n = n + 1
-
         Next
 
     End Sub
@@ -3014,14 +3012,13 @@ Public Class Form1
             ' Display message, title, and default value.
             Password = InputBox(Message, title, defaultValue)
 
-            Dim r As Integer = 0
-            For Each d As Integer In RegionClass.RegionNumbers
-                Dim GName = RegionClass.GroupName(d)
+            Dim flag As Boolean = False
+            For Each RegionNumber As Integer In RegionClass.RegionNumbers
+                Dim GName = RegionClass.GroupName(RegionNumber)
                 Dim RNUm = RegionClass.FindRegionByName(GName)
-                If RegionClass.Booted(d) And r = 0 Then
-                    ConsoleCommand(RegionClass.GroupName(d), "save iar " + Name + " """ + itemName + """" + " " + Password + " " + """" + BackupPath() + backupName + """" + "{ENTER}" + vbCrLf)
-                    r = r + 1
-                    Me.Focus()
+                If RegionClass.IsBooted(RegionNumber) And Not flag Then
+                    ConsoleCommand(RegionClass.GroupName(RegionNumber), "save iar " + Name + " """ + itemName + """" + " " + Password + " " + """" + BackupPath() + backupName + """" + "{ENTER}" + vbCrLf)
+                    flag = True
                     Print("Saving " + backupName + " to " + BackupPath())
                 End If
             Next
@@ -3141,7 +3138,7 @@ Public Class Form1
 
         ' find one that is running
         For Each RegionNum In RegionClass.RegionNumbers
-            If RegionClass.Booted(RegionNum) Then
+            If RegionClass.IsBooted(RegionNum) Then
                 num = RegionNum
             End If
         Next
@@ -3231,7 +3228,7 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
 
-        Print("Dreaming up New content for your sim")
+        Print("Dreaming up content for your reams")
         Dim oars As String = ""
         Try
             oars = client.DownloadString(gDomain + "/Outworldz_Installer/Content.plx?type=OAR&r=" + Random())
@@ -4384,7 +4381,7 @@ Public Class Form1
             Menu.Text = RegionClass.RegionName(RegionNum)
             Menu.ToolTipText = "Click to view stats on " + RegionClass.RegionName(RegionNum)
             Menu.DisplayStyle = ToolStripItemDisplayStyle.Text
-            If RegionClass.Booted(RegionNum) Then
+            If RegionClass.IsBooted(RegionNum) Then
                 Menu.Enabled = True
             Else
                 Menu.Enabled = False
@@ -4425,12 +4422,12 @@ Public Class Form1
     Private Sub ScanAgents()
         ' Scan all the regions
 
-        For Each X As Integer In RegionClass.RegionNumbers
-            If RegionClass.Booted(X) Then
-                RegionClass.AvatarCount(X) = MysqlConn.IsUserPresent(RegionClass.UUID(X))
+        For Each RegionNum As Integer In RegionClass.RegionNumbers
+            If RegionClass.IsBooted(RegionNum) Then
+                RegionClass.AvatarCount(RegionNum) = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
                 'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
             Else
-                RegionClass.AvatarCount(X) = 0
+                RegionClass.AvatarCount(RegionNum) = 0
             End If
         Next
 
@@ -4444,9 +4441,9 @@ Public Class Form1
 
         If Not OpensimIsRunning() Then Print("Opensim is not running")
 
-        For Each X As Integer In RegionClass.RegionNumbers
-            If RegionClass.Booted(X) Then
-                ConsoleCommand(RegionClass.GroupName(X), "set log level " + msg + "{ENTER}" + vbCrLf)
+        For Each Regionnumber As Integer In RegionClass.RegionNumbers
+            If RegionClass.IsBooted(Regionnumber) Then
+                ConsoleCommand(RegionClass.GroupName(Regionnumber), "set log level " + msg + "{ENTER}" + vbCrLf)
             End If
         Next
 
@@ -4457,7 +4454,7 @@ Public Class Form1
     Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
         SendMsg("info")
     End Sub
-    Private Sub debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
+    Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
         SendMsg("debug")
     End Sub
     Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click

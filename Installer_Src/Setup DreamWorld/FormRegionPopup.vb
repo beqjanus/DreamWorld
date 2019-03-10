@@ -5,10 +5,10 @@
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
@@ -26,7 +26,7 @@
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
     End Sub
-    Public Sub init(RegionName As String)
+    Public Sub Init(RegionName As String)
 
         Dim X = Form1.RegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
@@ -37,26 +37,27 @@
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
         Else
-            If Form1.RegionClass.Booted(X) Then
+            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booted Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
             End If
 
-            If Form1.RegionClass.ShuttingDown(X) Then
+            If (Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Or
+                Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
             End If
 
-            If Form1.RegionClass.WarmingUp(X) Then
+            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
             End If
 
             ' stopped
-            If Not Form1.RegionClass.ShuttingDown(X) And Not Form1.RegionClass.Booted(X) And Not Form1.RegionClass.WarmingUp(X) Then
+            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped Then
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False

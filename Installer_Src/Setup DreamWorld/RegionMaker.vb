@@ -19,13 +19,35 @@ Public Class RegionMaker
 
     Dim WebserverList As New List(Of String)
 
-    <Flags()>
-    Private Enum REGION_TIMER As Integer
-        STOPPED = -3
-        RESTARTING = -2
-        RESTART_PENDING = -1
-        START_COUNTING = 0
+
+    Public Enum SIM_STATUS As Integer
+        Stopped = 0
+        Booting = 1
+        Booted = 2
+        RecyclingUp = 3
+        RecyclingDown = 4
+        ShuttingDown = 5
+        RestartPending = 6
+        RetartingNow = 7
+
     End Enum
+
+    Public Enum REGION_TIMER As Integer
+        Stopped = -1
+        Start_Counting = 0
+    End Enum
+
+    ''' <summary>
+    ''' Regionclass.IsBooted() checks if a region is up
+    ''' </summary>
+    ''' <param name="RegionNumber"></param>
+    ''' <returns>boolean</returns>
+    Public Function IsBooted(RegionNumber As Integer) As Boolean
+        If Status(RegionNumber) = SIM_STATUS.Booted Then
+            Return True
+        End If
+        Return False
+    End Function
 
     Public Sub DebugGroup()
         For Each pair In Grouplist
@@ -114,9 +136,7 @@ Public Class RegionMaker
         ' RAM vars, not from files
         Public _AvatarCount As Integer = 0
         Public _ProcessID As Integer = 0
-        Public _Ready As Boolean = False       ' is up
-        Public _WarmingUp As Boolean = False    ' booting up
-        Public _ShuttingDown As Boolean = False ' shutting down
+        Public _Status As Integer = 0
         Public _Timer As Integer
 
         'extended vars
@@ -197,34 +217,16 @@ Public Class RegionMaker
             RegionList(n)._Timer = Value.ToString
         End Set
     End Property
-    Public Property ShuttingDown(n As Integer) As Boolean
+
+    Public Property Status(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._ShuttingDown, Boolean)
+            Return CType(RegionList(n)._Status, Integer)
         End Get
-        Set(ByVal Value As Boolean)
-            Debug.Print(RegionList(n)._RegionName.ToString + " ShuttingDown set to " + Value.ToString)
-            RegionList(n)._ShuttingDown = Value.ToString
+        Set(ByVal Value As Integer)
+            RegionList(n)._Status = Value
         End Set
     End Property
-    Public Property Booted(n As Integer) As Boolean
-        Get
-            'Debug.Print(RegionList(n)._RegionName + "<" + RegionList(n)._Ready.ToString)
-            Return CType(RegionList(n)._Ready, Boolean)
-        End Get
-        Set(ByVal Value As Boolean)
-            Debug.Print(RegionList(n)._RegionName.ToString + " Ready set to " + Value.ToString)
-            RegionList(n)._Ready = Value.ToString
-        End Set
-    End Property
-    Public Property WarmingUp(n As Integer) As Boolean
-        Get
-            Return CType(RegionList(n)._WarmingUp, Boolean)
-        End Get
-        Set(ByVal Value As Boolean)
-            Debug.Print(RegionList(n)._RegionName.ToString + " WarmingUp set to " + Value.ToString)
-            RegionList(n)._WarmingUp = Value.ToString
-        End Set
-    End Property
+
     Public ReadOnly Property RegionCount() As Integer
         Get
             Return RegionList.Count
@@ -241,7 +243,6 @@ Public Class RegionMaker
     End Property
     Public Property RegionPath(n As Integer) As String
         Get
-
             Return RegionList(n)._RegionPath.ToString
         End Get
         Set(ByVal Value As String)
@@ -418,7 +419,6 @@ Public Class RegionMaker
 
 #Region "Functions"
 
-
     Public Sub RegionDump()
 
         If Not Form1.gDebug Then Return
@@ -436,9 +436,7 @@ Public Class RegionMaker
             " PID:" + RegionList(n)._ProcessID.ToString + vbCrLf +
             " Group:" + RegionList(n)._Group.ToString + vbCrLf +
             " Region:" + RegionList(n)._RegionName.ToString + vbCrLf +
-            " WarmingUp=" + RegionList(n)._WarmingUp.ToString + vbCrLf +
-           " ShuttingDown=" + RegionList(n)._ShuttingDown.ToString + vbCrLf +
-            " Ready=" + RegionList(n)._Ready.ToString + vbCrLf +
+            " Status=" + RegionList(n)._Status.ToString + vbCrLf +
            " RegionEnabled=" + RegionList(n)._RegionEnabled.ToString + vbCrLf +
            " Timer=" + RegionList(n)._Timer.ToString)
 
@@ -532,9 +530,7 @@ Public Class RegionMaker
         r._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1 '8003 + 1
         r._ProcessID = 0
         r._AvatarCount = 0
-        r._Ready = False
-        r._WarmingUp = False
-        r._ShuttingDown = False
+        r._Status = SIM_STATUS.Stopped
         r._Timer = 0
         r._NonPhysicalPrimMax = 1024
         r._PhysicalPrimMax = 64
@@ -640,9 +636,7 @@ Public Class RegionMaker
                                 If o >= 0 Then
                                     AvatarCount(n) = CType(Backup(o)._AvatarCount, Integer)
                                     ProcessID(n) = CType(Backup(o)._ProcessID, Integer)
-                                    Booted(n) = CType(Backup(o)._Ready, Boolean)
-                                    WarmingUp(n) = CType(Backup(o)._WarmingUp, Boolean)
-                                    ShuttingDown(n) = CType(Backup(o)._ShuttingDown, Boolean)
+                                    Status(n) = CType(Backup(o)._Status, Integer)
                                     Timer(n) = CType(Backup(o)._Timer, Integer)
                                 End If
 
@@ -682,7 +676,7 @@ Public Class RegionMaker
                 Try
                     Directory.CreateDirectory(pathtoWelcome)
                 Catch ex As Exception
-
+                    Form1.ErrorLog("WriteRegionObject " & ex.Message)
                 End Try
             End If
         Else
@@ -720,11 +714,11 @@ Public Class RegionMaker
         + "Tides = " + Tides(n) + vbCrLf _
         + "Teleport = " + Teleport(n) + vbCrLf
 
-
         Try
             My.Computer.FileSystem.DeleteFile(fname)
         Catch
         End Try
+
         Using outputFile As New StreamWriter(fname, True)
             outputFile.WriteLine(proto)
         End Using
@@ -843,26 +837,7 @@ Public Class RegionMaker
         Next
 
     End Sub
-    Private Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
 
-    <Flags()>
-    Private Enum SHOW_WINDOW As Integer
-        SW_HIDE = 0
-        SW_SHOWNORMAL = 1
-        SW_NORMAL = 1
-        SW_SHOWMINIMIZED = 2
-        SW_SHOWMAXIMIZED = 3
-        SW_MAXIMIZE = 3
-        SW_SHOWNOACTIVATE = 4
-        SW_SHOW = 5
-        SW_MINIMIZE = 6
-        SW_SHOWMINNOACTIVE = 7
-        SW_SHOWNA = 8
-        SW_RESTORE = 9
-        SW_SHOWDEFAULT = 10
-        SW_FORCEMINIMIZE = 11
-        SW_MAX = 11
-    End Enum
 
     Public Sub CheckPost()
 
@@ -905,31 +880,34 @@ Public Class RegionMaker
                     End If
 
                     RegionEnabled(n) = True
-                    Booted(n) = True
-                    WarmingUp(n) = False
-                    ShuttingDown(n) = False
+                    Status(n) = SIM_STATUS.Booted
                     UUID(n) = json.region_id
 
                     Form1.UpdateView() = True
 
                     If Form1.MySetting.ConsoleShow = False Then
 
-                        Dim hwnd = Form1.getHwnd(GroupName(n))
-                        If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_MINIMIZE)
+                        Dim hwnd = Form1.GetHwnd(GroupName(n))
+                        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_MINIMIZE)
 
                     End If
-                ElseIf json.login = "shutdown" Then  '' XXX added to disable
-                    ' does not work as expected - get this during bootup!
-                    Form1.PrintFast("Region " & json.region_name & " shutting down")
+                ElseIf json.login = "shutdown" Then
+
+                    Form1.PrintFast("Region " & json.region_name & " Stopped")
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
                         Return
                     End If
+                    Timer(n) = REGION_TIMER.Stopped
+                    If Status(n) = SIM_STATUS.RecyclingDown Then
+                        Status(n) = SIM_STATUS.RestartPending
+                        Form1.UpdateView = True ' make form refresh
+                    Else
+                        Status(n) = SIM_STATUS.Stopped
+                    End If
 
-                    Booted(n) = False
-                    WarmingUp(n) = False
-                    ShuttingDown(n) = True
+
                     UUID(n) = ""
                     Form1.UpdateView() = True
                     Form1.ExitList.Add(json.region_name)
@@ -1001,9 +979,12 @@ Public Class RegionMaker
 
             WebserverList.Add(POST)
 
+            ' proto for testing AutoStart Region mode
         ElseIf POST.Contains("UUID") Then
             Debug.Print("UUID:" + POST)
             Return POST
+
+            ' currently unused as is only in standalones
         ElseIf POST.Contains("TOS") Then
             Debug.Print("UUID:" + POST)
             '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.9" & vbCrLf & vbCrLf & 
@@ -1055,9 +1036,7 @@ Public Class RegionMaker
                     myCommand1.Parameters.AddWithValue("p1", uid.ToString())
                     myCommand1.ExecuteScalar()
                     myConnection.Close()
-
                     Return "<html><head></head><body>Welcome! You can close this window.</html>"
-
                 Else
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
@@ -1084,8 +1063,7 @@ Public Class RegionMaker
                 Return "00000000-0000-0000-0000-000000000000"
             End If
 
-
-
+            ' Partner prim
         ElseIf POST.Contains("set_partner") Then
             Debug.Print("set Partner")
             Dim PWok As Boolean = CheckPassword(POST, MySetting.MachineID().ToLower)
@@ -1158,7 +1136,7 @@ Public Class RegionMaker
         HTML = "Welcome to |" + Setting.SimName + "||" + Setting.PublicIP + ":" + Setting.HttpPort + ":" + Setting.WelcomeRegion + "||" + vbCrLf
         Dim ToSort As New List(Of String)
         For Each X As Integer In RegionNumbers()
-            If Booted(X) And Teleport(X) = "True" Then
+            If IsBooted(X) And Teleport(X) = "True" Then
                 ToSort.Add(RegionName(X))
             End If
         Next
@@ -1173,6 +1151,7 @@ Public Class RegionMaker
         Return HTML
 
     End Function
+
     Function Right(value As String, length As Integer) As String
         ' Get rightmost characters of specified length.
         Return value.Substring(value.Length - length)

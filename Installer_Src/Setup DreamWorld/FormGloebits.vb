@@ -6,10 +6,10 @@
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub

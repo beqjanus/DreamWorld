@@ -22,15 +22,6 @@ Public Class RegionList
         Avatars = 3
     End Enum
 
-
-    <Flags()>
-    Private Enum REGION_TIMER As Integer
-        STOPPED = -3
-        RESTARTING = -2
-        RESTART_PENDING = -1
-        START_COUNTING = 0
-    End Enum
-
 #End Region
 
 #Region "Properties"
@@ -53,10 +44,10 @@ Public Class RegionList
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
@@ -115,6 +106,17 @@ Public Class RegionList
     End Sub
 #End Region
 
+    Enum ICONS
+        ' index of 0-4 to display icons
+        bootingup = 0
+        shuttingdown = 1
+        up = 2
+        disabled = 3
+        stopped = 4
+        recyclingdown = 5
+        recyclingup = 6
+        warning = 7
+    End Enum
 #Region "Loader"
 
     Private Sub _Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -151,13 +153,14 @@ Public Class RegionList
         Me.Name = "Region List"
         Me.Text = "Region List"
 
-        ' index of 0-4 to display icons
+        ' index  to display icons
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2"))   ' 0 booting up
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2")) ' 1 shutting down
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2")) ' 2 okay, up
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red")) ' 3 disabled
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop"))  ' 4 enabled, stopped
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("replace2"))  ' 5 Restarting
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down"))  ' 5 Recycling down
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up"))  ' 6 Recycling Up
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning"))  ' 6 Unknown
 
         Form1.UpdateView = True ' make form refresh
@@ -236,37 +239,39 @@ Public Class RegionList
             ' RegionClass.DebugGroup() ' show the list of groups and http ports.
 
             For Each X In RegionClass.RegionNumbers
-
+                If RegionClass.RegionName(X) = "Welcome" Then
+                    Debug.Print("Welcome")
+                End If
                 Dim Letter As String = ""
-                If RegionClass.Timer(X) = REGION_TIMER.RESTART_PENDING Then
+                If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Then
                     Letter = "Recycling Down"
-                    Num = 5
-                ElseIf RegionClass.Timer(X) = REGION_TIMER.RESTARTING Then
+                    Num = ICONS.recyclingdown
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingUp Then
                     Letter = "Recycling Up"
-                    Num = 5
-                ElseIf RegionClass.WarmingUp(X) Then
+                    Num = ICONS.recyclingup
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Then
                     Letter = "Booting"
-                    Num = 0
-                ElseIf RegionClass.ShuttingDown(X) Then
+                    Num = ICONS.bootingup
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Then
                     Letter = "Stopping"
-                    Num = 1
-                ElseIf RegionClass.Booted(X) Then
+                    Num = ICONS.shuttingdown
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booted Then
                     Letter = "Running"
-                    Num = 2
+                    Num = ICONS.up
                 ElseIf Not RegionClass.RegionEnabled(X) Then
                     Letter = "Disabled"
-                    Num = 3
+                    Num = ICONS.disabled
                 ElseIf RegionClass.RegionEnabled(X) Then
                     Letter = "Stopped"
-                    Num = 4
+                    Num = ICONS.stopped
                 Else
-                    Num = 6 ' warning
+                    Num = ICONS.warning ' warning
                 End If
 
                 ' maps
                 If TheView = ViewType.Maps Then
 
-                    If RegionClass.Booted(X) Then
+                    If RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booted Then
                         Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
                         Debug.Print(img)
 
@@ -275,7 +280,6 @@ Public Class RegionList
                             imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
                         Else
                             imageListLarge.Images.Add(bmp)
-
                         End If
                     Else
                         imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
@@ -514,33 +518,11 @@ Public Class RegionList
     End Sub
 
 
-    Private Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
-
-    <Flags()>
-    Private Enum SHOW_WINDOW As Integer
-        SW_HIDE = 0
-        SW_SHOWNORMAL = 1
-        SW_NORMAL = 1
-        SW_SHOWMINIMIZED = 2
-        SW_SHOWMAXIMIZED = 3
-        SW_MAXIMIZE = 3
-        SW_SHOWNOACTIVATE = 4
-        SW_SHOW = 5
-        SW_MINIMIZE = 6
-        SW_SHOWMINNOACTIVE = 7
-        SW_SHOWNA = 8
-        SW_RESTORE = 9
-        SW_SHOWDEFAULT = 10
-        SW_FORCEMINIMIZE = 11
-        SW_MAX = 11
-    End Enum
-
-
     Private Sub StartStopEdit(checked As Boolean, n As Integer, RegionName As String)
 
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.getHwnd(RegionClass.GroupName(n))
-        If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
 
         Dim Choices As New FormRegionPopup
         Dim chosen As String
@@ -595,11 +577,11 @@ Public Class RegionList
                 UpdateView = True ' make form refresh
 
             ElseIf chosen = "Recycle" Then
-                RegionClass.Timer(n) = REGION_TIMER.RESTART_PENDING  ' request a recycle.
+
                 UpdateView = True ' make form refresh
 
                 Dim h As IntPtr = Form1.getHwnd(RegionClass.GroupName(n))
-                If h <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
 
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
 
@@ -608,11 +590,10 @@ Public Class RegionList
                 Form1.gRestartNow = True
 
                 ' shut down all regions in the DOS box
+
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
-                    RegionClass.Timer(Y) = REGION_TIMER.RESTART_PENDING
-                    RegionClass.Booted(Y) = False
-                    RegionClass.WarmingUp(Y) = False
-                    RegionClass.ShuttingDown(Y) = False
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.STOPPED
+                    RegionClass.Status(n) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
                 Next
 
             End If
@@ -629,17 +610,13 @@ Public Class RegionList
 
     Private Sub StopRegionNum(num As Integer)
 
-
-        If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
-            RegionClass.Booted(num) = False
-            RegionClass.WarmingUp(num) = False
-            RegionClass.ShuttingDown(num) = True
-        Else
-            RegionClass.Booted(num) = False
-            RegionClass.WarmingUp(num) = False
-            RegionClass.ShuttingDown(num) = False
-        End If
         Form1.Log("Region:Stopping Region " + RegionClass.RegionName(num))
+        If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
+            RegionClass.Status(num) = RegionMaker.SIM_STATUS.ShuttingDown
+        Else
+            RegionClass.Status(num) = RegionMaker.SIM_STATUS.Stopped
+        End If
+
     End Sub
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
@@ -855,9 +832,9 @@ Public Class RegionList
 
                             If RegionClass.RegionEnabled(x) _
                                 And Not Form1.gStopping _
-                                And RegionClass.WarmingUp(x) _
-                                And Not RegionClass.ShuttingDown(x) _
-                                And Not RegionClass.Booted(x) Then
+                                And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
+                                    RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
+
                                 WaitForIt = True
                             Else
                                 WaitForIt = False
@@ -875,7 +852,6 @@ Public Class RegionList
                 Application.DoEvents()
             Next
 
-
         Catch ex As Exception
             Diagnostics.Debug.Print(ex.Message)
             Form1.Print("Unable to boot some regions")
@@ -887,19 +863,20 @@ Public Class RegionList
         For Each X As Integer In RegionClass.RegionNumbers
             Application.DoEvents()
 
-            If Form1.OpensimIsRunning() And RegionClass.RegionEnabled(X) And Not RegionClass.ShuttingDown(X) Then
-                Dim hwnd = Form1.getHwnd(RegionClass.GroupName(X))
-                If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+            If Form1.OpensimIsRunning() _
+                And RegionClass.RegionEnabled(X) _
+                And Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Or
+                RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown) Then
+                Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
+                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
 
                 Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
                 Form1.PrintFast("Stopping " & RegionClass.GroupName(X))
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = REGION_TIMER.STOPPED
-                    RegionClass.Booted(Y) = False
-                    RegionClass.WarmingUp(Y) = False
-                    RegionClass.ShuttingDown(Y) = True
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.ShuttingDown
                 Next
 
                 UpdateView = True ' make form refresh
@@ -912,24 +889,26 @@ Public Class RegionList
 
         For Each X As Integer In RegionClass.RegionNumbers
 
-            If Form1.OpensimIsRunning() And RegionClass.RegionEnabled(X) And Not RegionClass.ShuttingDown(X) Then
-                Dim hwnd = Form1.getHwnd(RegionClass.GroupName(X))
-                If hwnd <> IntPtr.Zero Then ShowWindow(hwnd, SHOW_WINDOW.SW_RESTORE)
+            If Form1.OpensimIsRunning() _
+                And RegionClass.RegionEnabled(X) _
+                And Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown) Then
+
+                Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
+                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
 
                 Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
                 Form1.PrintFast("Restarting " & RegionClass.GroupName(X))
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = REGION_TIMER.RESTART_PENDING
-                    RegionClass.Booted(Y) = False
-                    RegionClass.WarmingUp(Y) = False
-                    RegionClass.ShuttingDown(Y) = True
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.STOPPED
+                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                 Next
                 Form1.gRestartNow = True
 
                 UpdateView = True ' make form refresh
-                Form1.Sleep(1000)
+
             End If
 
         Next

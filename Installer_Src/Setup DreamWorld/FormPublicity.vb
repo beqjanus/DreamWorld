@@ -7,10 +7,10 @@ Public Class FormPublicity
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
@@ -81,7 +81,8 @@ Public Class FormPublicity
                 PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
                     My.Computer.FileSystem.DeleteFile(Form1.MyFolder & "\OutworldzFiles\Photo.png")
-                Catch
+                Catch ex As Exception
+                    Form1.Log(ex.Message)
                 End Try
                 Try
                     PictureBox9.Image.Save(Form1.MyFolder & "\OutworldzFiles\Photo.png", System.Drawing.Imaging.ImageFormat.Png)

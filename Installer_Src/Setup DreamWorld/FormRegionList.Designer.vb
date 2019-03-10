@@ -113,7 +113,7 @@ Partial Class RegionList
         'RegionHelp
         '
         Me.RegionHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.RegionHelp.Location = New System.Drawing.Point(397, 12)
+        Me.RegionHelp.Location = New System.Drawing.Point(427, 9)
         Me.RegionHelp.Name = "RegionHelp"
         Me.RegionHelp.Size = New System.Drawing.Size(28, 27)
         Me.RegionHelp.TabIndex = 1858
@@ -144,7 +144,7 @@ Partial Class RegionList
         '
         Me.RestartButton.Location = New System.Drawing.Point(324, 13)
         Me.RestartButton.Name = "RestartButton"
-        Me.RestartButton.Size = New System.Drawing.Size(57, 23)
+        Me.RestartButton.Size = New System.Drawing.Size(70, 23)
         Me.RestartButton.TabIndex = 18596
         Me.RestartButton.Text = "Restart All"
         Me.ToolTip1.SetToolTip(Me.RestartButton, "restarts all Checked Regions")

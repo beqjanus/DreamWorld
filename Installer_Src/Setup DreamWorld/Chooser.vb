@@ -5,10 +5,10 @@ Public Class Choice
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf resize_page)
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private Sub resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
@@ -50,16 +50,16 @@ Public Class Choice
             DataGridView.Rows.Add("! Add New Name")
         End If
 
-        For Each X As Integer In RegionClass.RegionNumbers
+        For Each RegionNumber As Integer In RegionClass.RegionNumbers
             Dim name As String
             If type = "Group" Then
-                name = RegionClass.GroupName(X)
+                name = RegionClass.GroupName(RegionNumber)
             Else
-                name = RegionClass.RegionName(X)
+                name = RegionClass.RegionName(RegionNumber)
             End If
 
             ' Only show running sims option
-            If (JustRunning And RegionClass.Booted(X)) Then
+            If (JustRunning And RegionClass.IsBooted(RegionNumber)) Then
                 If L.Contains(name) Then
                 Else
                     If name <> "" Then DataGridView.Rows.Add(name)
