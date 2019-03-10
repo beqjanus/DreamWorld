@@ -1,3 +1,9 @@
+2.79
+
+Regions panel has an avatar view that shows a list of avatar names and the regions they are in.
+Double-clicking a name will start a teleport sequence to that avatar in your viewer.
+More icons for recycling regions. Recycle up and recycle down are single blue arrows
+
 2.78
 Capslock no longer interferes with console typing
 Load OAR options: 2x2, 3X3 and 4X4 clickable forms, with options for UserName & ForceMerge & ForceTerrain & ForceParcel & Displacement

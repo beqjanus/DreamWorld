@@ -91,7 +91,7 @@ Public Class FormPersonality
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        If (Form1.MySetting.TimerInterval > 0) And Form1.OpensimIsRunning And Not Form1.gExiting Then
+        If (Form1.MySetting.TimerInterval > 0) And Form1.OpensimIsRunning And Not Form1.gAborting Then
             Form1.PaintImage()
         End If
 

@@ -415,8 +415,8 @@ Public Class RegionList
             AvatarView.Clear()
             AvatarView.Items.Clear()
 
-            AvatarView.Columns.Add("Agent", 150, HorizontalAlignment.Left)
-            AvatarView.Columns.Add("Region", 100, HorizontalAlignment.Center)
+            AvatarView.Columns.Add("Agent", 200, HorizontalAlignment.Left)
+            AvatarView.Columns.Add("Region", 200, HorizontalAlignment.Center)
 
             Try
                 ' Create items and subitems for each item.
@@ -440,7 +440,8 @@ Public Class RegionList
                 End If
 
             Catch ex As Exception
-                Console.WriteLine("Error: " & ex.Message)
+                Dim item1 As New ListViewItem("No Avatars", 0)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
             End Try
 
             Me.AvatarView.TabIndex = 0
@@ -726,15 +727,12 @@ Public Class RegionList
         Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
 
         Dim dirpathname = ""
-        'Dim yesNo As MsgBoxResult = MsgBox("New regions can be combined with other regions in an existing DOS box (Yes), or run in their own Dos Box (No)", vbYesNo, "Grouping Regions")
-        'If yesNo = vbYes Then
-        dirpathname = PickGroup()
-            If dirpathname = "" Then
-                Form1.PrintFast("Aborted")
-                Return
-            End If
-        'End If
 
+        dirpathname = PickGroup()
+        If dirpathname = "" Then
+            Form1.PrintFast("Aborted")
+            Return
+        End If
 
 
         For Each pathname As String In files
@@ -816,73 +814,12 @@ Public Class RegionList
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        Try
-            ' Boot them up
-            For Each x In RegionClass.RegionNumbers()
-                If RegionClass.RegionEnabled(x) And Not Form1.gStopping Then
-                    If Not Form1.Boot(RegionClass.RegionName(x)) Then
-                        'Print("Boot skipped for " + RegionClass.RegionName(x))
-                    End If
-
-                    If Form1.MySetting.Sequential Then
-                        Dim ctr = 60 * 3 ' 3 minute max to start a region
-                        Dim WaitForIt = True
-                        While WaitForIt
-                            Form1.Sleep(1000)
-
-                            If RegionClass.RegionEnabled(x) _
-                                And Not Form1.gStopping _
-                                And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
-                                    RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
-
-                                WaitForIt = True
-                            Else
-                                WaitForIt = False
-                            End If
-                            ctr = ctr - 1
-                            If ctr <= 0 Then WaitForIt = False
-
-                        End While
-                    Else
-                        Form1.Sleep(1000)
-                    End If
-
-                End If
-
-                Application.DoEvents()
-            Next
-
-        Catch ex As Exception
-            Diagnostics.Debug.Print(ex.Message)
-            Form1.Print("Unable to boot some regions")
-        End Try
+        Form1.Start_Opensimulator()
 
     End Sub
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
-        For Each X As Integer In RegionClass.RegionNumbers
-            Application.DoEvents()
-
-            If Form1.OpensimIsRunning() _
-                And RegionClass.RegionEnabled(X) _
-                And Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Or
-                RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown) Then
-                Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
-                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
-
-                Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-
-                Form1.PrintFast("Stopping " & RegionClass.GroupName(X))
-                ' shut down all regions in the DOS box
-                For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.ShuttingDown
-                Next
-
-                UpdateView = True ' make form refresh
-                Form1.Sleep(1000)
-            End If
-        Next
+        Form1.KillAll()
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
@@ -915,6 +852,9 @@ Public Class RegionList
         UpdateView = True ' make form refresh
     End Sub
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        Form1.Help("RegionList")
+    End Sub
 
 #End Region
 
@@ -927,7 +867,7 @@ Class ListViewItemComparer
     Private col As Integer
 
     Public Sub New()
-        col = 0
+        col = 1
     End Sub
 
     Public Sub New(ByVal column As Integer)

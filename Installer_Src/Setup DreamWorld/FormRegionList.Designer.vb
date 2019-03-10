@@ -38,7 +38,10 @@ Partial Class RegionList
         Me.StopAllButton = New System.Windows.Forms.Button()
         Me.RestartButton = New System.Windows.Forms.Button()
         Me.AvatarView = New System.Windows.Forms.ListView()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Timer1
@@ -65,7 +68,7 @@ Partial Class RegionList
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(13, 13)
+        Me.Button1.Location = New System.Drawing.Point(80, 28)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(53, 23)
         Me.Button1.TabIndex = 1
@@ -75,7 +78,7 @@ Partial Class RegionList
         '
         'ViewButton
         '
-        Me.ViewButton.Location = New System.Drawing.Point(72, 13)
+        Me.ViewButton.Location = New System.Drawing.Point(139, 28)
         Me.ViewButton.Name = "ViewButton"
         Me.ViewButton.Size = New System.Drawing.Size(57, 23)
         Me.ViewButton.TabIndex = 2
@@ -91,7 +94,7 @@ Partial Class RegionList
         '
         'Addregion
         '
-        Me.Addregion.Location = New System.Drawing.Point(135, 13)
+        Me.Addregion.Location = New System.Drawing.Point(202, 28)
         Me.Addregion.Name = "Addregion"
         Me.Addregion.Size = New System.Drawing.Size(57, 23)
         Me.Addregion.TabIndex = 18593
@@ -102,7 +105,7 @@ Partial Class RegionList
         'AllNome
         '
         Me.AllNome.AutoSize = True
-        Me.AllNome.Location = New System.Drawing.Point(13, 42)
+        Me.AllNome.Location = New System.Drawing.Point(6, 34)
         Me.AllNome.Name = "AllNome"
         Me.AllNome.Size = New System.Drawing.Size(68, 17)
         Me.AllNome.TabIndex = 4
@@ -113,7 +116,7 @@ Partial Class RegionList
         'RegionHelp
         '
         Me.RegionHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.RegionHelp.Location = New System.Drawing.Point(427, 9)
+        Me.RegionHelp.Location = New System.Drawing.Point(46, 1)
         Me.RegionHelp.Name = "RegionHelp"
         Me.RegionHelp.Size = New System.Drawing.Size(28, 27)
         Me.RegionHelp.TabIndex = 1858
@@ -122,7 +125,7 @@ Partial Class RegionList
         '
         'RunAllButton
         '
-        Me.RunAllButton.Location = New System.Drawing.Point(198, 13)
+        Me.RunAllButton.Location = New System.Drawing.Point(265, 28)
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Size = New System.Drawing.Size(57, 23)
         Me.RunAllButton.TabIndex = 18594
@@ -132,7 +135,7 @@ Partial Class RegionList
         '
         'StopAllButton
         '
-        Me.StopAllButton.Location = New System.Drawing.Point(261, 13)
+        Me.StopAllButton.Location = New System.Drawing.Point(328, 28)
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Size = New System.Drawing.Size(57, 23)
         Me.StopAllButton.TabIndex = 18595
@@ -142,7 +145,7 @@ Partial Class RegionList
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(324, 13)
+        Me.RestartButton.Location = New System.Drawing.Point(391, 28)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(70, 23)
         Me.RestartButton.TabIndex = 18596
@@ -158,11 +161,11 @@ Partial Class RegionList
         Me.AvatarView.HideSelection = False
         ListViewItem2.ToolTipText = "Click to Start or Stop Robust"
         Me.AvatarView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
-        Me.AvatarView.Location = New System.Drawing.Point(13, 66)
+        Me.AvatarView.Location = New System.Drawing.Point(12, 66)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(461, 316)
+        Me.AvatarView.Size = New System.Drawing.Size(461, 340)
         Me.AvatarView.TabIndex = 18597
         Me.ToolTip1.SetToolTip(Me.AvatarView, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
         "rganized.")
@@ -170,11 +173,26 @@ Partial Class RegionList
         Me.AvatarView.View = System.Windows.Forms.View.Details
         Me.AvatarView.Visible = False
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(500, 24)
+        Me.MenuStrip1.TabIndex = 18598
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(517, 408)
+        Me.ClientSize = New System.Drawing.Size(500, 430)
         Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.RestartButton)
         Me.Controls.Add(Me.StopAllButton)
@@ -185,10 +203,14 @@ Partial Class RegionList
         Me.Controls.Add(Me.ViewButton)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ListView1)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "RegionList"
         Me.Text = "Region List"
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -206,4 +228,6 @@ Partial Class RegionList
     Friend WithEvents StopAllButton As Button
     Friend WithEvents RestartButton As Button
     Friend WithEvents AvatarView As ListView
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
 End Class

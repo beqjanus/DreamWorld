@@ -28,6 +28,8 @@ Imports IWshRuntimeLibrary
 Imports System.Threading
 Imports System.Runtime.InteropServices
 Imports System.Text
+Imports System.Windows.Forms.DataVisualization.Charting
+
 
 Public Class Form1
 
@@ -39,6 +41,7 @@ Public Class Form1
     ' edit this to compile and run in the correct folder root
     Dim gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when in a debugger
+    Private exitIsBusy As Boolean = False
 
     Dim gCPUMAX As Double = 80 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
@@ -96,16 +99,15 @@ Public Class Form1
                             }
 
     Dim gContentAvailable As Boolean = False ' assume there is no OAR and IAR data available
-    Public MyUPnpMap As UPnp        ' UPNP Declaration
+    Public MyUPnpMap As UPnp        ' UPNP gAborting
     Dim ws As NetServer             ' Port 8001 Webserver
-    Public gStopping As Boolean = False    ' Allows an Abort when Stopping is clicked
+    Public gAborting As Boolean = False    ' Allows an Abort when Stopping is clicked
     Dim Timertick As Integer        ' counts the seconds until wallpaper changes
 
     Dim gDNSSTimer As Integer = 0    ' ping server every hour
     Dim gUseIcons As Boolean = True     ' if 8001 is blocked
     Dim gIPv4Address As String          ' global IPV4
     Public MySetting As New MySettings  ' all settings from Settings.ini
-    Public gExiting As Boolean = False  ' we are quitting
 
     ' Shoutcast
     Dim gIcecastProcID As Integer = 0
@@ -501,7 +503,6 @@ Public Class Form1
     ''' </summary>
     Private Sub Startup()
 
-
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -509,7 +510,7 @@ Public Class Form1
         End With
 
         PrintFast("Starting...")
-        gExiting = False  ' suppress exit warning messages
+        gAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
         Buttons(BusyButton)
@@ -575,6 +576,7 @@ Public Class Form1
             'Log(ex.Message)
         End Try
 
+
         ' make sure all regions are stopped
         For Each X As Integer In RegionClass.RegionNumbers
             RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
@@ -606,36 +608,25 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        Shutdown()
-        End
-
+        ReallyQuit()
     End Sub
 
     Private Sub MnuExit_Click(sender As System.Object, e As System.EventArgs) Handles mnuExit.Click
-
-        Shutdown()
-        End
-
+        ReallyQuit()
     End Sub
-    Private Sub Shutdown()
 
-        Try
-            Log("Stopping Webserver")
-            ws.StopWebServer()
-        Catch
-        End Try
+    Private Sub ReallyQuit()
 
-        ProgressBar1.Value = 95
+        ws.StopWebServer()
         KillAll()
-        ProgressBar1.Value = 10
         StopMysql()
         Print("I'll tell you my next dream when I wake up.")
         ProgressBar1.Value = 5
         Print("Zzzz...")
-        ProgressBar1.Value = 0
+
 
     End Sub
+
 
     Public Sub ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW)
         If handle <> IntPtr.Zero Then ShowWindow(handle, command)
@@ -661,11 +652,9 @@ Public Class Form1
         SW_MAX = 11
     End Enum
 
-    Private Sub KillAll()
+    Public Sub KillAll()
 
-        gExiting = True ' force msgbox is anything exists
-
-        gStopping = True
+        gAborting = True
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
         ' close everything as gracefully as possible.
@@ -683,7 +672,6 @@ Public Class Form1
             End If
         Next
         Log("Total Enabled Regions=" + TotalRunningRegions.ToString)
-
 
         For Each X As Integer In RegionClass.RegionNumbers
             Application.DoEvents()
@@ -723,6 +711,13 @@ Public Class Form1
                             For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
                                 RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
                                 RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                Try
+                                    ProgressBar1.Value = ProgressBar1.Value - 5
+                                Catch
+                                    ProgressBar1.Value = 0
+                                End Try
+
+
                             Next
                         End If
                         Sleep(100)
@@ -773,6 +768,7 @@ Public Class Form1
         Me.AllowDrop = False
 
         ProgressBar1.Value = 0
+        ProgressBar1.Visible = False
 
     End Sub
 
@@ -856,14 +852,12 @@ Public Class Form1
     Private Sub StopButton_Click_1(sender As System.Object, e As System.EventArgs) Handles StopButton.Click
 
         Print("Stopping")
-        ProgressBar1.Value = 100
         Buttons(BusyButton)
-
         KillAll()
         Buttons(StartButton)
         Print("Stopped")
-        ProgressBar1.Value = 0
         ProgressBar1.Visible = False
+
     End Sub
 
     Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuShow.Click
@@ -1774,11 +1768,12 @@ Public Class Form1
     End Sub
 
     Private Sub StopAllRegions()
+
         For Each X As Integer In RegionClass.RegionNumbers
             RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
             RegionClass.ProcessID(X) = 0
             RegionClass.UUID(X) = ""
-            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.STOPPED
+            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
         Next
 
         ExitList.Clear()
@@ -1787,28 +1782,8 @@ Public Class Form1
 
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
-        If gStopping = True Then
-
-            Print("Stopped")
-
-            StopAllRegions()
-            Timer1.Stop()
-            Buttons(StartButton)
-
-            Print("Opensim Is Stopped")
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = False
-            Return
-        End If
-
-        Print("Stopping")
-        Application.DoEvents()
-
-        Buttons(StartButton)
-        Print("GUI is Stopped")
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = False
-
+        Print("Aborting")
+        KillAll()
 
     End Sub
 
@@ -1930,6 +1905,8 @@ Public Class Form1
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
             ErrorLog("Error: Robust did not start: " + ex.Message)
+
+            gAborting = True
             KillAll()
             Buttons(StartButton)
             Return False
@@ -1945,7 +1922,6 @@ Public Class Form1
             ' wait a minute for it to start
             If counter > 100 Then
                 Print("Error:Robust failed to start")
-                KillAll()
                 Buttons(StartButton)
                 Dim yesno = MsgBox("Robust did not start. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
@@ -1983,59 +1959,19 @@ Public Class Form1
 
     Public Function Start_Opensimulator() As Boolean
 
-        'If OpensimIsRunning() = False Then Return True
-        gStopping = False
-
-        StopAllRegions()
+        gAborting = False
+        Timer1.Start() 'Timer starts functioning
+        Start_Robust()
 
         Try
             ' Boot them up
             For Each x In RegionClass.RegionNumbers()
-                If RegionClass.RegionEnabled(x) And Not gStopping Then
+                If RegionClass.RegionEnabled(x) Then
                     If Not Boot(RegionClass.RegionName(x)) Then
                         'Print("Boot skipped for " + RegionClass.RegionName(x))
                     End If
-
-                    If MySetting.Sequential Then
-                        Dim ctr = 60 * 3 ' 3 minute max to start a region
-                        Dim WaitForIt = True
-                        While WaitForIt
-                            Sleep(1000)
-
-                            If RegionClass.RegionEnabled(x) _
-                                And Not gStopping _
-                                And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting _
-                                Or RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp) Then
-                                WaitForIt = True
-                            Else
-                                WaitForIt = False
-                            End If
-                            ctr = ctr - 1
-                            If ctr <= 0 Then WaitForIt = False
-
-                        End While
-                    Else
-
-                        Dim ctr = 60 * 3 ' 3 minute max to start a region
-                        Dim WaitForIt = True
-                        While WaitForIt
-                            Sleep(1000)
-                            Dim CPUTime = cpu.NextValue()
-                            Diagnostics.Debug.Print(CPUTime.ToString)
-
-                            If CPUTime < gCPUMAX Then
-                                WaitForIt = False
-                            End If
-
-                            ctr = ctr - 1
-                            If ctr <= 0 Then WaitForIt = False
-
-                        End While
-                    End If
-
+                    SequentialPause(x)
                 End If
-
-                Application.DoEvents()
             Next
 
 
@@ -2059,7 +1995,7 @@ Public Class Form1
 
         gRobustProcID = Nothing
 
-        If gExiting Then Return
+        If gAborting Then Return
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log"
@@ -2070,7 +2006,7 @@ Public Class Form1
 
     Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles ProcessMySql.Exited
 
-        If gExiting Then Return
+        If gAborting Then Return
 
         OpensimIsRunning() = False
 
@@ -2087,7 +2023,7 @@ Public Class Form1
 
     Private Sub IceCast_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles IcecastProcess.Exited
 
-        If gExiting Then Return
+        If gAborting Then Return
         Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim IceCastLog As String = MyFolder + "\Outworldzfiles\Icecast\log\error.log"
@@ -2101,89 +2037,92 @@ Public Class Form1
 
     Private Sub DoExitHandlerPoll()
 
+        If exitIsBusy Then Return
+        exitIsBusy = True
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
-
+        Dim LOOPVAR = ExitList.Count - 1
         ExitList.Reverse()
 
-        ' do first to last by counting backwards
-        For LOOPVAR = ExitList.Count - 1 To 0 Step -1
-            Dim RegionName As String
-            Try
-                RegionName = ExitList(LOOPVAR) ' recover the PID as integer
-                If RegionName <> "Form1" Then
-                    Log("Info:Shutdown of " & RegionName & " Detected")
-                End If
+        Dim RegionName As String
+        Try
+            RegionName = ExitList(LOOPVAR) ' recover the PID as integer
 
-            Catch
-                ExitList.Clear()
-                Return
-            End Try
-
-            ' find any region in the dos box that exited.
-            Dim RegionNumber As Integer = -1
-            Dim LNames As New List(Of Integer)
-            LNames = RegionClass.RegionListByGroupNum(RegionClass.GroupName(RegionClass.FindRegionByName(RegionName)))
-            If LNames.Count < 0 Then
-                Log("Cannot Locate group name for region " & RegionName)
+            If RegionName = "Form1" Then
+                ErrorLog("Form 1 exited")
             Else
-
-                ' get the last region in the group.
-                For Each R In LNames
-                    RegionNumber = R
-                Next
-
-                Try
-                    Dim Groupname = RegionClass.GroupName(RegionNumber)
-
-                    UpdateView = True ' make form refresh
-                    ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                    If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
-                            Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
-                            And RegionClass.Timer(RegionNumber) >= 0 Then
-                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                        If (yesno = vbYes) Then
-                            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                        End If
-                        StopGroup(Groupname)
-
-                    ElseIf RegionClass.IsBooted(Regionnumber) _
-                        And RegionClass.Timer(RegionNumber) > 0 Then
-                        ' prompt if crashed.  Skip prompt if auto restarting
-                        Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                        If (yesno = vbYes) Then
-                            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                        End If
-                        StopGroup(Groupname)
-                        'Else
-                        'StopGroup(Groupname)
-                    End If
-
-                    ' Auto restart phase begins
-                    If OpensimIsRunning() And Not gExiting _
-                            And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
-                        UpdateView = True ' make form refresh
-                        PrintFast("Restart Queued for " + Groupname)
-                        RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
-                        RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
-                    Else
-                        PrintFast(Groupname + " stopped")
-                    End If
-
-                    Try
-                        ExitList.RemoveAt(LOOPVAR)
-                    Catch ex As Exception
-                        ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                        ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-                    End Try
-                Catch ex As Exception
-                    ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
-                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-                End Try
-
+                Log("Info:Shutdown of " & RegionName & " Detected")
             End If
 
-        Next
+        Catch ex As Exception
+            ExitList.Clear()
+            exitIsBusy = False
+            Return
+        End Try
+
+        ' find any region in the dos box that exited.
+        Dim RegionNumber As Integer = -1
+        Dim LNames As New List(Of Integer)
+        LNames = RegionClass.RegionListByGroupNum(RegionClass.GroupName(RegionClass.FindRegionByName(RegionName)))
+        If LNames.Count < 0 Then
+            Log("Cannot Locate group name for region " & RegionName)
+        Else
+
+            ' get the last region in the group.
+            For Each R In LNames
+                RegionNumber = R
+            Next
+
+            Try
+                Dim Groupname = RegionClass.GroupName(RegionNumber)
+
+                UpdateView = True ' make form refresh
+                ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+                If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
+                        Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
+                        And RegionClass.Timer(RegionNumber) >= 0 Then
+                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                    If (yesno = vbYes) Then
+                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                    End If
+                    StopGroup(Groupname)
+
+                ElseIf RegionClass.IsBooted(RegionNumber) _
+                    And RegionClass.Timer(RegionNumber) > 0 Then
+                    ' prompt if crashed.  Skip prompt if auto restarting
+                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                    If (yesno = vbYes) Then
+                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                    End If
+                    StopGroup(Groupname)
+                    'Else
+                    'StopGroup(Groupname)
+                End If
+
+                ' Auto restart phase begins
+                If OpensimIsRunning() And Not gAborting _
+                        And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+                    UpdateView = True ' make form refresh
+                    PrintFast("Restart Queued for " + Groupname)
+                    RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
+                Else
+                    PrintFast(Groupname + " stopped")
+                End If
+
+                Try
+                    ExitList.RemoveAt(LOOPVAR)
+                Catch ex As Exception
+                    ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
+                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+                End Try
+            Catch ex As Exception
+                ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
+                ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+            End Try
+
+        End If
+        exitIsBusy = False
 
     End Sub
 
@@ -2194,7 +2133,7 @@ Public Class Form1
         For Each X In RegionClass.RegionListByGroupNum(Groupname)
             Log(RegionClass.RegionName(X) + " Stopped")
             RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
-            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.STOPPED
+            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
         Next
 
         UpdateView = True ' make form refresh
@@ -2217,10 +2156,10 @@ Public Class Form1
     ''' <returns>success = true</returns>
     Public Function Boot(BootName As String) As Boolean
 
-        If gStopping Then Return True
+        If gAborting Then Return True
 
         OpensimIsRunning() = True
-        gExiting = False
+        gAborting = False
         Buttons(StopButton)
 
         Log("Region: Starting Region " + BootName)
@@ -2251,6 +2190,7 @@ Public Class Form1
             Return True
         End If
 
+        Application.DoEvents()
         Dim isRegionRunning = CheckPort("127.0.0.1", RegionClass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Log("Region " + BootName + "failed to start as it is already running")
@@ -2300,7 +2240,7 @@ Public Class Form1
                     Log("PID:Setting booted status for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
                     RegionClass.Status(num) = RegionMaker.SIM_STATUS.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
-                    RegionClass.Timer(num) = RegionMaker.REGION_TIMER.START_COUNTING
+                    RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
                 Next
 
                 UpdateView = True ' make form refresh
@@ -2314,6 +2254,7 @@ Public Class Form1
             End If
 
         Catch ex As Exception
+            Application.DoEvents()
             If ex.Message.Contains("Process has exited") Then Return False
             Print("Oops! " + BootName + " did Not start")
             ErrorLog(ex.Message)
@@ -2586,14 +2527,14 @@ Public Class Form1
             RegisterDNS()
         End If
 
-        If Not gExiting Then RegionClass.CheckPost()
+        If Not gAborting Then RegionClass.CheckPost()
+        DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
 
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
 
-            DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            If Not gExiting Then
+            If Not gAborting Then
                 RegionRestart() ' check for reboot 
                 ScanAgents() ' update agent count
             End If
@@ -2656,7 +2597,7 @@ Public Class Form1
 
             Application.DoEvents()
 
-            If OpensimIsRunning() And Not gExiting And RegionClass.Timer(X) >= 0 Then
+            If OpensimIsRunning() And Not gAborting And RegionClass.Timer(X) >= 0 Then
 
                 Dim timervalue As Integer = RegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
@@ -3114,8 +3055,8 @@ Public Class Form1
 
                     ConsoleCommand(RegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content just loaded. {ENTER}" + vbCrLf)
-                        once = True
-                    End If
+                    once = True
+                End If
 
             Catch ex As Exception
                 ErrorLog("Error:  " + ex.Message)
@@ -3305,7 +3246,6 @@ Public Class Form1
                 ContentSeen = True
             End If
         End While
-
 
         Log("Info: IARS loaded")
 
@@ -3734,9 +3674,7 @@ Public Class Form1
         End If
         Log("Diagnostics set the Grid address to " + MySetting.PublicIP)
 
-
     End Sub
-
 
     Private Sub CheckDiagPort()
         gUseIcons = True
@@ -4130,7 +4068,7 @@ Public Class Form1
 
         ' wait for MySql to come up
         Dim MysqlOk As Boolean
-        While Not MysqlOk And OpensimIsRunning And Not gExiting
+        While Not MysqlOk And OpensimIsRunning And Not gAborting
 
             BumpProgress(1)
             Application.DoEvents()
@@ -4421,15 +4359,17 @@ Public Class Form1
 
     Private Sub ScanAgents()
         ' Scan all the regions
-
-        For Each RegionNum As Integer In RegionClass.RegionNumbers
-            If RegionClass.IsBooted(RegionNum) Then
-                RegionClass.AvatarCount(RegionNum) = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
-                'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
-            Else
-                RegionClass.AvatarCount(RegionNum) = 0
-            End If
-        Next
+        Try
+            For Each RegionNum As Integer In RegionClass.RegionNumbers
+                If RegionClass.IsBooted(RegionNum) Then
+                    RegionClass.AvatarCount(RegionNum) = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
+                    'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
+                Else
+                    RegionClass.AvatarCount(RegionNum) = 0
+                End If
+            Next
+        Catch
+        End Try
 
     End Sub
 
@@ -4895,6 +4835,35 @@ Public Class Form1
 
 #End Region
 
+    Public Sub SequentialPause(x As Integer)
+
+        If MySetting.Sequential Then
+            Dim ctr = 60 * 3 ' 3 minute max to start a region
+            Dim WaitForIt = True
+            While WaitForIt
+                Sleep(1000)
+
+                If RegionClass.RegionEnabled(x) _
+                    And Not gAborting _
+                    And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
+                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
+
+                    WaitForIt = True
+                Else
+                    WaitForIt = False
+                End If
+                ctr = ctr - 1
+                If ctr <= 0 Then WaitForIt = False
+
+            End While
+        Else
+
+            While cpu.NextValue() > gCPUMAX
+                Sleep(1000)
+            End While
+        End If
+
+    End Sub
 
 
 End Class
