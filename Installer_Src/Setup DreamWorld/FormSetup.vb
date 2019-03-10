@@ -2193,7 +2193,7 @@ Public Class Form1
         Application.DoEvents()
         Dim isRegionRunning = CheckPort("127.0.0.1", RegionClass.GroupPort(RegionNumber))
         If isRegionRunning Then
-            Log("Region " + BootName + "failed to start as it is already running")
+            Log("Region " + BootName + " failed to start as it is already running")
             RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booted ' force it up
             Return False
         End If
