@@ -836,8 +836,8 @@ Public Class RegionList
 
             If Form1.OpensimIsRunning() _
                 And RegionClass.RegionEnabled(X) _
-                And Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
-                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown) Then
+                And Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
+                And Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
                 Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
@@ -847,7 +847,7 @@ Public Class RegionList
                 Form1.PrintFast("Restarting " & RegionClass.GroupName(X))
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.STOPPED
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
                     RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                 Next
                 Form1.gRestartNow = True

@@ -60,7 +60,7 @@ Public Class FormRegion
             oldname = RegionClass.RegionName(n) ' backup in case of rename
             EnabledCheckBox.Checked = RegionClass.RegionEnabled(n)
             RegionName.Text = Name
-            Me.Text = Name ' on screen
+            Me.Text = Name & " Region" ' on screen
             RegionName.Text = RegionClass.RegionName(n) ' on form
             UUID.Text = RegionClass.UUID(n)   ' on screen
             NonphysicalPrimMax.Text = RegionClass.NonPhysicalPrimMax(n).ToString

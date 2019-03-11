@@ -578,10 +578,10 @@ Public Class Form1
 
 
         ' make sure all regions are stopped
-        For Each X As Integer In RegionClass.RegionNumbers
-            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
-            RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
-        Next
+        'For Each X As Integer In RegionClass.RegionNumbers
+        ' RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+        'RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
+        'Next
 
         ' Launch the rockets
         If Not Start_Opensimulator() Then
@@ -2176,25 +2176,31 @@ Public Class Form1
         Dim RegionNumber = RegionClass.FindRegionByName(BootName)
         If RegionClass.IsBooted(RegionNumber) Then
             Log("Region " + BootName + " skipped as it is already Booted")
+
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp Then
             Log("Region " + BootName + " skipped as it is already Warming Up")
+
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting Then
             Log("Region " + BootName + " skipped as it is already Booted Up")
+
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.ShuttingDown Then
             Log("Region " + BootName + " skipped as it is already Shutting Down")
+
+
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+
             Log("Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
@@ -2204,6 +2210,7 @@ Public Class Form1
         If isRegionRunning Then
             Log("Region " + BootName + " failed to start as it is already running")
             RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booted ' force it up
+
             Return False
         End If
 
@@ -2259,11 +2266,11 @@ Public Class Form1
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
 
+
                 Return True
             End If
 
         Catch ex As Exception
-            Application.DoEvents()
             If ex.Message.Contains("Process has exited") Then Return False
             Print("Oops! " + BootName + " did Not start")
             ErrorLog(ex.Message)
@@ -2275,6 +2282,8 @@ Public Class Form1
 
             Return False
         End Try
+
+
 
         Return False
 
@@ -2379,11 +2388,12 @@ Public Class Form1
 #Region "Subs"
 
     Public Function GetHwnd(name As String) As IntPtr
-
+        '!!!
         For Each pList As Process In Process.GetProcesses()
             If pList.MainWindowTitle.Contains(name) Then
                 Return pList.MainWindowHandle
             End If
+            Application.DoEvents()
         Next
         Return IntPtr.Zero
 
@@ -2399,14 +2409,14 @@ Public Class Form1
     Public Function ConsoleCommand(name As String, command As String) As Boolean
 
         Try
-            ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE)
-
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
             command = command.Replace("+", "{+}")
             command = command.Replace("^", "{^}")
             command = command.Replace("%", "{%}")
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
+
+            ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE)
             AppActivate(name)
             SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
             SendKeys.SendWait(SendableKeys(command))
@@ -2415,9 +2425,10 @@ Public Class Form1
             ErrorLog("Error:" + ex.Message)
             Diagnostics.Debug.Print("Cannot find window " + name)
             RegionClass.RegionDump()
+            Me.Focus()
             Return False
         End Try
-
+        Me.Focus()
         Application.DoEvents()
         Return True
 
