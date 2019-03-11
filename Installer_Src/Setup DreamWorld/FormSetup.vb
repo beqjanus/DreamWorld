@@ -2417,7 +2417,7 @@ Public Class Form1
             RegionClass.RegionDump()
             Return False
         End Try
-        Me.Focus()
+
         Application.DoEvents()
         Return True
 
