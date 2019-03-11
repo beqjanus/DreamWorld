@@ -249,6 +249,12 @@ Public Class RegionList
                 ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingUp Then
                     Letter = "Recycling Up"
                     Num = ICONS.recyclingup
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
+                    Letter = "Restart Pending"
+                    Num = ICONS.recyclingup
+                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RetartingNow Then
+                    Letter = "Restarting Now"
+                    Num = ICONS.recyclingup
                 ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Then
                     Letter = "Booting"
                     Num = ICONS.bootingup
