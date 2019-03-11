@@ -716,8 +716,6 @@ Public Class Form1
                                 Catch
                                     ProgressBar1.Value = 0
                                 End Try
-
-
                             Next
                         End If
                         Sleep(100)
@@ -1959,6 +1957,7 @@ Public Class Form1
 
     Public Function Start_Opensimulator() As Boolean
 
+        exitIsBusy = False
         gAborting = False
         Timer1.Start() 'Timer starts functioning
         Start_Robust()
@@ -2076,28 +2075,6 @@ Public Class Form1
             Try
                 Dim Groupname = RegionClass.GroupName(RegionNumber)
 
-                UpdateView = True ' make form refresh
-                ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
-                        Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
-                        And RegionClass.Timer(RegionNumber) >= 0 Then
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                    End If
-                    StopGroup(Groupname)
-
-                ElseIf RegionClass.IsBooted(RegionNumber) _
-                    And RegionClass.Timer(RegionNumber) > 0 Then
-                    ' prompt if crashed.  Skip prompt if auto restarting
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                    End If
-                    StopGroup(Groupname)
-                    'Else
-                    'StopGroup(Groupname)
-                End If
 
                 ' Auto restart phase begins
                 If OpensimIsRunning() And Not gAborting _
@@ -2106,9 +2083,36 @@ Public Class Form1
                     PrintFast("Restart Queued for " + Groupname)
                     RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
                     RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
+                    UpdateView = True ' make form refresh
+                    Return
                 Else
                     PrintFast(Groupname + " stopped")
                 End If
+
+
+                ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+                If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
+                        Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
+                        And RegionClass.Timer(RegionNumber) >= 0 Then
+
+                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                    If (yesno = vbYes) Then
+                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                    End If
+                    StopGroup(Groupname)
+
+                ElseIf RegionClass.IsBooted(RegionNumber) _
+                    And RegionClass.Timer(RegionNumber) > 0 Then
+
+                    StopGroup(Groupname)
+                    ' prompt if crashed. after boot
+                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                    If (yesno = vbYes) Then
+                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                    End If
+
+                End If
+
 
                 Try
                     ExitList.RemoveAt(LOOPVAR)
@@ -2130,10 +2134,15 @@ Public Class Form1
 
         Log(Groupname + " Group is now stopped")
 
-        For Each X In RegionClass.RegionListByGroupNum(Groupname)
-            Log(RegionClass.RegionName(X) + " Stopped")
-            RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
-            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+        For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
+            Log(RegionClass.RegionName(RegionNumber) + " Stopped")
+
+            ' Called by a sim restart, do not change status 
+            If Not RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+                RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Stopped
+            End If
+
+            RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
         Next
 
         UpdateView = True ' make form refresh
