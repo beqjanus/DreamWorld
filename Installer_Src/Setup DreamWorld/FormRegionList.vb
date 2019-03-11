@@ -619,6 +619,8 @@ Public Class RegionList
 
         Form1.Log("Region:Stopping Region " + RegionClass.RegionName(num))
         If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
+
+
             RegionClass.Status(num) = RegionMaker.SIM_STATUS.ShuttingDown
         Else
             RegionClass.Status(num) = RegionMaker.SIM_STATUS.Stopped

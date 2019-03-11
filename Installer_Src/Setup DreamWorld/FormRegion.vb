@@ -37,7 +37,7 @@ Public Class FormRegion
         RegionClass = RegionMaker.Instance(Form1.MysqlConn)
         If Name = "" Then
             isNew = True
-            RegionName.Text = Name
+            RegionName.Text = Name & " Region"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString
             SizeY.Text = 256.ToString
