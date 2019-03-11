@@ -857,12 +857,12 @@ Public Class RegionMaker
                 Dim first As Integer = POST.IndexOf("{")
                 Dim last As Integer = POST.LastIndexOf("}")
                 Dim rawJSON = POST.Substring(first, last - first + 1)
+                WebserverList.RemoveAt(LOOPVAR)
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSON_result)(rawJSON)
                 Catch ex As Exception
                     Debug.Print(ex.Message)
-                    WebserverList.RemoveAt(LOOPVAR)
                     Continue For
                     Return
                 End Try
@@ -913,11 +913,7 @@ Public Class RegionMaker
                     Form1.ExitList.Add(json.region_name)
 
                 End If
-                Try
-                    WebserverList.RemoveAt(LOOPVAR)
-                Catch
-                    Debug.Print("Something fucky in region exit")
-                End Try
+
             Catch ex As Exception
                 Debug.Print(ex.Message)
             End Try

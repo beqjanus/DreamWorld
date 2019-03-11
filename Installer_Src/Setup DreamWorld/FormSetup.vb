@@ -835,7 +835,7 @@ Public Class Form1
         PictureBox1.Visible = False
         TextBox1.Visible = True
         TextBox1.Text = Value
-        'Application.DoEvents()
+        ' No DoEvents
 
     End Sub
 
@@ -2616,7 +2616,7 @@ Public Class Form1
                     Try
                         ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                        Print("AutoRestarting " + Groupname)
+                        PrintFast("AutoRestarting " + Groupname)
 
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(Groupname)
