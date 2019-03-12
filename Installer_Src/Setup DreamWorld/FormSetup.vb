@@ -2275,7 +2275,6 @@ Public Class Form1
                     RegionClass.ProcessID(num) = myProcess.Id
                     RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
                 Next
-                SequentialPause(RegionNumber)
 
                 UpdateView = True ' make form refresh
 
@@ -2283,6 +2282,8 @@ Public Class Form1
 
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
+                SequentialPause(RegionNumber)
+
 
                 Return True
             End If
@@ -4876,20 +4877,21 @@ Public Class Form1
 
 #End Region
 
+#Region "Sequential"
     Public Sub SequentialPause(x As Integer)
 
         If MySetting.Sequential Then
-            Dim ctr = 60  ' 1 minute max to start a region
+            Dim ctr = 600 ' 1 minute max to start a region
             Dim WaitForIt = True
             While WaitForIt
-                Sleep(1000)
+                Sleep(100)
 
                 If RegionClass.RegionEnabled(x) _
-                    And Not gAborting _
-                    And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
-                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.ShuttingDown Or
-                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingDown Or
-                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting ) Then
+                And Not gAborting _
+                And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
+                    RegionClass.Status(x) = RegionMaker.SIM_STATUS.ShuttingDown Or
+                    RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingDown Or
+                    RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
 
                     WaitForIt = True
                 Else
@@ -4907,6 +4909,7 @@ Public Class Form1
         End If
 
     End Sub
+#End Region
 
 
 End Class
