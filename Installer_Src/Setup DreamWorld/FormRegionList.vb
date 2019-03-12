@@ -129,8 +129,8 @@ Public Class RegionList
         ' ListView Setup
         ListView1.AllowDrop = True
         ' Set the view to show details.
-        ListView1.View = View.Details
-        AvatarView.View = View.Details
+        ListView1.View = View.SmallIcon
+        AvatarView.View = View.SmallIcon
         ' Allow the user to edit item text.
         ListView1.LabelEdit = True
         ' Allow the user to rearrange columns.
@@ -592,15 +592,15 @@ Public Class RegionList
 
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
 
-                Form1.Print("Shutdown " + RegionClass.GroupName(n))
+                Form1.PrintFast("Shutdown " + RegionClass.GroupName(n))
 
                 Form1.gRestartNow = True
 
                 ' shut down all regions in the DOS box
 
-                For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.STOPPED
-                    RegionClass.Status(n) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
+                For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
+                    RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
                 Next
 
             End If
@@ -619,8 +619,6 @@ Public Class RegionList
 
         Form1.Log("Region:Stopping Region " + RegionClass.RegionName(num))
         If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
-
-
             RegionClass.Status(num) = RegionMaker.SIM_STATUS.ShuttingDown
         Else
             RegionClass.Status(num) = RegionMaker.SIM_STATUS.Stopped
@@ -688,7 +686,7 @@ Public Class RegionList
             ListView1.View = View.SmallIcon
             ListView1.Show()
             AvatarView.Hide()
-            ListView1.CheckBoxes = False
+            ListView1.CheckBoxes = True
             Timer1.Start()
         ElseIf TheView = ViewType.Maps Then ' Maps
             ListView1.View = View.LargeIcon
@@ -872,7 +870,9 @@ End Class
 ' Implements the manual sorting of items by columns.
 Class ListViewItemComparer
     Implements IComparer
+#Disable Warning IDE0044 ' Add readonly modifier
     Private col As Integer
+#Enable Warning IDE0044 ' Add readonly modifier
 
     Public Sub New()
         col = 1
