@@ -8,7 +8,10 @@ Imports System.Net
 Public Class RegionMaker
 
 #Region "Declarations"
+
+#Disable Warning IDE0044 ' Add readonly modifier
     Private MysqlConn As Mysql    ' object lets us query Mysql database
+#Enable Warning IDE0044 ' Add readonly modifier
     Public RegionList As New ArrayList()
     Public Grouplist As New Dictionary(Of String, Integer)
 
@@ -886,11 +889,10 @@ Public Class RegionMaker
                     Form1.UpdateView() = True
 
                     If Form1.MySetting.ConsoleShow = False Then
-
                         Dim hwnd = Form1.GetHwnd(GroupName(n))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_MINIMIZE)
-
                     End If
+
                 ElseIf json.login = "shutdown" Then
 
                     Form1.PrintFast("Region " & json.region_name & " Stopped")
