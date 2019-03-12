@@ -28,22 +28,21 @@ Imports IWshRuntimeLibrary
 Imports System.Threading
 Imports System.Runtime.InteropServices
 Imports System.Text
-Imports System.Windows.Forms.DataVisualization.Charting
 
 
 Public Class Form1
 
 #Region "Declarations"
 
-    Dim gMyVersion As String = "2.79"
-    Dim gSimVersion As String = "0.9.1"
+    ReadOnly gMyVersion As String = "2.79"
+    ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    Dim gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when in a debugger
     Private exitIsBusy As Boolean = False
 
-    Dim gCPUMAX As Double = 80 ' max CPU % can be used when booting or we wait til it gets lower 
+    ReadOnly gCPUMAX As Single = 80 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
     Public gDomain As String = "http://www.outworldz.com"
     Public gPath As String ' Holds path to Opensim folder
@@ -73,7 +72,7 @@ Public Class Form1
 
     Public gMaxPortUsed As Integer = 0  'Max number of port used past 8004
 
-    Private images As List(Of Image) = New List(Of Image) From {My.Resources.tangled, My.Resources.wp_habitat, My.Resources.wp_Mooferd,
+    ReadOnly images As List(Of Image) = New List(Of Image) From {My.Resources.tangled, My.Resources.wp_habitat, My.Resources.wp_Mooferd,
                              My.Resources.wp_To_Piers_Anthony,
                              My.Resources.wp_wavy_love_of_animals, My.Resources.wp_zebra,
                              My.Resources.wp_Que, My.Resources.wp_1, My.Resources.wp_2,
@@ -154,11 +153,12 @@ Public Class Form1
         Dim WindowCounter As Integer = 0
         While myProcess.MainWindowHandle = CType(0, IntPtr) And Not status
             Diagnostics.Debug.Print(windowName & " Handle = 0")
+            Sleep(100)
             WindowCounter = WindowCounter + 1
             If WindowCounter > 100 Then '  10 seconds for process to start
                 status = True
             End If
-            Sleep(100)
+
         End While
 
         status = False
@@ -172,6 +172,7 @@ Public Class Form1
             If WindowCounter > 100 Then '  10 seconds
                 status = True
             End If
+            Application.DoEvents()
         End While
 
         If Not status Then
@@ -629,7 +630,21 @@ Public Class Form1
 
 
     Public Sub ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW)
-        If handle <> IntPtr.Zero Then ShowWindow(handle, command)
+
+        Try
+            If handle <> IntPtr.Zero Then
+                Dim x = False
+                Dim ctr = 100
+                While Not x And ctr > 0
+                    Sleep(100)
+                    x = ShowWindow(handle, command)
+                    ctr = ctr - 1
+                End While
+            End If
+        Catch
+        End Try
+
+
     End Sub
 
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
@@ -680,11 +695,13 @@ Public Class Form1
                 Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
                 Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
 
+                RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
+                RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+                SequentialPause(X)
+
                 ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE)
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
-                RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
-                RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
                 UpdateView = True ' make form refresh
                 Sleep(1000)
             End If
@@ -767,7 +784,7 @@ Public Class Form1
 
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
-
+        gAborting = False
     End Sub
 
     Private Function Zap(processName As String) As Boolean
@@ -1864,10 +1881,8 @@ Public Class Form1
 
             SetWindowTextCall(IcecastProcess, "Icecast")
 
-            Try
-                ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
-            Catch
-            End Try
+
+            ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
 
         Catch ex As Exception
             Print("Error: Icecast did not start: " + ex.Message)
@@ -1969,7 +1984,7 @@ Public Class Form1
                     If Not Boot(RegionClass.RegionName(x)) Then
                         'Print("Boot skipped for " + RegionClass.RegionName(x))
                     End If
-                    SequentialPause(x)
+
                 End If
             Next
 
@@ -2251,6 +2266,8 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
+
+
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
                     Log("PID:Setting booted status for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
@@ -2258,6 +2275,7 @@ Public Class Form1
                     RegionClass.ProcessID(num) = myProcess.Id
                     RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
                 Next
+                SequentialPause(RegionNumber)
 
                 UpdateView = True ' make form refresh
 
@@ -2265,7 +2283,6 @@ Public Class Form1
 
                 Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-
 
                 Return True
             End If
@@ -2625,15 +2642,17 @@ Public Class Form1
                 If timervalue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
-                        ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
-                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                        PrintFast("AutoRestarting " + Groupname)
 
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(Groupname)
                             RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
                             RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                         Next
+
+                        SequentialPause(X)
+                        ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
+                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                        PrintFast("AutoRestarting " + Groupname)
 
                         UpdateView = True ' make form refresh
                     Catch ex As Exception
@@ -3850,15 +3869,17 @@ Public Class Form1
             m = ""
         End If
 
+
         Dim data As String = "&MachineID=" + m _
-            + "&V=" + gMyVersion.ToString _
-            + "&OV=" + gSimVersion.ToString _
-            + "&uPnp=" + UPnp.ToString _
-            + "&Loop=" + Loopb.ToString _
-            + "&Type=" + Grid.ToString _
-            + "&Ver=" + gMyVersion.ToString _
-            + "&isPublic=" + MySetting.GDPR().ToString _
-            + "&r=" + Random()
+            & "&FriendlyName=" & MySetting.SimName _
+            & "&V=" & gMyVersion.ToString _
+            & "&OV=" & gSimVersion.ToString _
+            & "&uPnp=" & UPnp.ToString _
+            & "&Loop=" & Loopb.ToString _
+            & "&Type=" & Grid.ToString _
+            & "&Ver=" & gMyVersion.ToString _
+            & "&isPublic=" & MySetting.GDPR().ToString _
+            & "&r=" & Random()
         Return data
 
     End Function
@@ -4858,7 +4879,7 @@ Public Class Form1
     Public Sub SequentialPause(x As Integer)
 
         If MySetting.Sequential Then
-            Dim ctr = 60 * 3 ' 3 minute max to start a region
+            Dim ctr = 60  ' 1 minute max to start a region
             Dim WaitForIt = True
             While WaitForIt
                 Sleep(1000)
@@ -4866,7 +4887,9 @@ Public Class Form1
                 If RegionClass.RegionEnabled(x) _
                     And Not gAborting _
                     And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
-                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
+                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.ShuttingDown Or
+                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingDown Or
+                        RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting ) Then
 
                     WaitForIt = True
                 Else
