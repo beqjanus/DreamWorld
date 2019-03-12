@@ -82,6 +82,8 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
+        Form1.MySetting.SaveSettings()
+
         If setpassword And Form1.OpensimIsRunning() Then
             Form1.ConsoleCommand("Robust", "reset user password " & Form1.MySetting.AdminFirst & " " & Form1.MySetting.AdminLast & " " & Form1.MySetting.Password & "{ENTER}" + vbCrLf)
         End If
@@ -229,14 +231,12 @@ Public Class FormDiva
 
         If Not initted Then Return
         Form1.MySetting.SplashPage = SplashPage.Text
-        Form1.MySetting.SaveSettings()
 
     End Sub
 
     Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
 
         Form1.MySetting.SimName = GridName.Text
-        Form1.MySetting.SaveSettings()
 
     End Sub
 
@@ -247,7 +247,6 @@ Public Class FormDiva
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
             Form1.MySetting.Theme = "Black"
-            Form1.MySetting.SaveSettings()
         End If
 
 
@@ -258,7 +257,6 @@ Public Class FormDiva
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
             Form1.MySetting.Theme = "White"
-            Form1.MySetting.SaveSettings()
         End If
 
     End Sub
@@ -268,7 +266,6 @@ Public Class FormDiva
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
             Form1.MySetting.Theme = "Custom"
-            Form1.MySetting.SaveSettings()
         End If
 
     End Sub

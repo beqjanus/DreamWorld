@@ -64,8 +64,6 @@ Public Class FormDNSName
 
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
-
-
         If DNSNameBox.Text <> String.Empty Then
 
             DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
@@ -146,7 +144,6 @@ Public Class FormDNSName
 
         If Not initted Then Return
         Form1.MySetting.MachineID() = UniqueId.Text
-        Form1.MySetting.SaveSettings()
 
     End Sub
 
@@ -154,7 +151,7 @@ Public Class FormDNSName
 
         If Not initted Then Return
         Form1.MySetting.EnableHypergrid = EnableHypergrid.Checked
-        Form1.MySetting.SaveSettings()
+
 
     End Sub
 
@@ -162,7 +159,7 @@ Public Class FormDNSName
 
         If Not initted Then Return
         Form1.MySetting.Suitcase() = SuitcaseCheckbox.Checked
-        Form1.MySetting.SaveSettings()
+
 
         If Not SuitcaseCheckbox.Checked Then
             MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")
