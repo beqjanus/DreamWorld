@@ -373,6 +373,8 @@ Public Class Form1
 
         OpenPorts()
 
+        SetQuickEditOff()
+
         If Not SetIniData() Then Return
 
 
@@ -424,6 +426,26 @@ Public Class Form1
         HelpOnce("License")
 
         ProgressBar1.Value = 100
+
+    End Sub
+
+    Private Sub SetQuickEditOff()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0"
+        pi.FileName = "powershell.exe"
+        pi.WindowStyle = ProcessWindowStyle.Minimized
+        pi.Verb = "runas"
+        Dim PowerShell As Process = New Process()
+        PowerShell.StartInfo = pi
+
+        Try
+            PowerShell.Start()
+        Catch ex As Exception
+            Log("Error:Could not set Quickedit Off:" + ex.Message)
+        End Try
+
+
 
     End Sub
 
@@ -2150,11 +2172,11 @@ Public Class Form1
         Log(Groupname + " Group is now stopped")
 
         For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
-            Log(RegionClass.RegionName(RegionNumber) + " Stopped")
 
             ' Called by a sim restart, do not change status 
             If Not RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
                 RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Stopped
+                Log(RegionClass.RegionName(RegionNumber) + " Stopped")
             End If
 
             RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
@@ -4910,6 +4932,7 @@ Public Class Form1
 
     End Sub
 #End Region
+
 
 
 End Class

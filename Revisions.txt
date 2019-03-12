@@ -2,6 +2,7 @@
 
 Regions panel has an avatar view that shows a list of avatar names and the regions they are in.
 Double-clicking a name will start a teleport sequence to that avatar in your viewer.
+Many cchanges to Recycling and Auto restart.  
 More icons for recycling regions. Recycle up and recycle down are single blue arrows
 
 2.78
