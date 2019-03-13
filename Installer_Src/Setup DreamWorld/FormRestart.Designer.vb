@@ -25,6 +25,7 @@ Partial Class FormRestart
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRestart))
         Me.AutoStart = New System.Windows.Forms.GroupBox()
+        Me.SequentialCheckBox1 = New System.Windows.Forms.CheckBox()
         Me.ARTimerBox = New System.Windows.Forms.CheckBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.AutoRestartBox = New System.Windows.Forms.TextBox()
@@ -33,7 +34,6 @@ Partial Class FormRestart
         Me.BootStart = New System.Windows.Forms.CheckBox()
         Me.AutoStartCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.SequentialCheckBox1 = New System.Windows.Forms.CheckBox()
         Me.AutoStart.SuspendLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -54,6 +54,18 @@ Partial Class FormRestart
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
         Me.AutoStart.Text = "Auto Restart"
+        '
+        'SequentialCheckBox1
+        '
+        Me.SequentialCheckBox1.AutoSize = True
+        Me.SequentialCheckBox1.Location = New System.Drawing.Point(25, 104)
+        Me.SequentialCheckBox1.Name = "SequentialCheckBox1"
+        Me.SequentialCheckBox1.Size = New System.Drawing.Size(150, 17)
+        Me.SequentialCheckBox1.TabIndex = 1864
+        Me.SequentialCheckBox1.Text = "Start Regions Sequentially"
+        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, "if enabled, there is no need to click the Start button. It will start when launch" &
+        "ed.")
+        Me.SequentialCheckBox1.UseVisualStyleBackColor = True
         '
         'ARTimerBox
         '
@@ -124,23 +136,11 @@ Partial Class FormRestart
         "ed.")
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '
-        'SequentialCheckBox1
-        '
-        Me.SequentialCheckBox1.AutoSize = True
-        Me.SequentialCheckBox1.Location = New System.Drawing.Point(25, 104)
-        Me.SequentialCheckBox1.Name = "SequentialCheckBox1"
-        Me.SequentialCheckBox1.Size = New System.Drawing.Size(150, 17)
-        Me.SequentialCheckBox1.TabIndex = 1864
-        Me.SequentialCheckBox1.Text = "Start Regions Sequentially"
-        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
-        Me.SequentialCheckBox1.UseVisualStyleBackColor = True
-        '
         'FormRestart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(249, 207)
+        Me.ClientSize = New System.Drawing.Size(250, 217)
         Me.Controls.Add(Me.AutoStart)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False

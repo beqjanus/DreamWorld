@@ -396,7 +396,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info:Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it 
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -408,7 +408,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info:Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
             MyData(section)(key) = value ' replace it 
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -424,7 +424,7 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
         Try
-            Form1.Log("Loading Settings.ini")
+            Form1.Log("Info", "Loading Settings.ini")
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
         Catch ex As Exception
             Form1.ErrorLog("Failed to load Settings.ini")

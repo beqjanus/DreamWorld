@@ -724,7 +724,7 @@ Public Class FormRegion
     Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
 
         If Maps_Use_Default.Checked Then
-            Form1.Log("Region " + Name + " Map is set to Default")
+            Form1.Log("Info", "Region " + Name + " Map is set to Default")
             MapNone.Checked = False
             MapSimple.Checked = False
             MapGood.Checked = False
@@ -751,7 +751,7 @@ Public Class FormRegion
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
-            Form1.Log("Region " + Name + " Map is set to None")
+            Form1.Log("Info", "Region " + Name + " Map is set to None")
             MapPicture.Image = My.Resources.blankbox
         End If
         If initted Then changed = True
@@ -761,7 +761,7 @@ Public Class FormRegion
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         If MapSimple.Checked Then
-            Form1.Log("Region " + Name + " Map is set to Simple")
+            Form1.Log("Info", "Region " + Name + " Map is set to Simple")
             MapPicture.Image = My.Resources.Simple
         End If
         If initted Then changed = True
@@ -771,7 +771,7 @@ Public Class FormRegion
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         If MapGood.Checked Then
-            Form1.Log("Region " + Name + " Map is set to Good")
+            Form1.Log("Info", "Region " + Name + " Map is set to Good")
             MapPicture.Image = My.Resources.Good
         End If
         If initted Then changed = True
@@ -781,7 +781,7 @@ Public Class FormRegion
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         If MapBetter.Checked Then
-            Form1.Log("Region " + Name + " Map is set to Better")
+            Form1.Log("Info", "Region " + Name + " Map is set to Better")
             MapPicture.Image = My.Resources.Better
         End If
         If initted Then changed = True
@@ -791,7 +791,7 @@ Public Class FormRegion
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         If MapBest.Checked Then
-            Form1.Log("Region " + Name + " Map is set to Best")
+            Form1.Log("Info", "Region " + Name + " Map is set to Best")
             MapPicture.Image = My.Resources.Best
         End If
         If initted Then changed = True
@@ -802,7 +802,7 @@ Public Class FormRegion
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to default")
+            Form1.Log("Info", "Region " + Name + " Physics is set to default")
             PhysicsNone.Checked = False
             PhysicsODE.Checked = False
             PhysicsubODE.Checked = False
@@ -817,7 +817,7 @@ Public Class FormRegion
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
 
         If PhysicsNone.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to None")
+            Form1.Log("Info", "Region " + Name + " Physics Is set to None")
         End If
         If initted Then changed = True
 
@@ -826,7 +826,7 @@ Public Class FormRegion
     Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
 
         If PhysicsODE.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to ODE")
+            Form1.Log("Info","Region " + Name + " Physics Is set to ODE")
         End If
         If initted Then changed = True
 
@@ -835,7 +835,7 @@ Public Class FormRegion
     Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
 
         If PhysicsBullet.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to Bullet")
+            Form1.Log("Info", "Region " + Name + " Physics Is set to Bullet")
         End If
         If initted Then changed = True
 
@@ -844,7 +844,7 @@ Public Class FormRegion
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
 
         If PhysicsSeparate.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to Bullet in a Thread")
+            Form1.Log("Info", "Region " + Name + " Physics Is set to Bullet in a Thread")
         End If
         If initted Then changed = True
 
@@ -853,7 +853,7 @@ Public Class FormRegion
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
 
         If PhysicsubODE.Checked Then
-            Form1.Log("Region " + Name + " Physics is set to Ubit's ODE")
+            Form1.Log("Info", "Region " + Name + " Physics Is set to Ubit's ODE")
         End If
         If initted Then changed = True
 
@@ -873,7 +873,7 @@ Public Class FormRegion
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
-            Form1.Log("Region " + Name + " is set to default for Gods")
+            Form1.Log("Info", "Region " + Name + " is set to default for Gods")
         End If
 
         If initted Then changed = True
@@ -884,9 +884,9 @@ Public Class FormRegion
 
         If AllowGods.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Region " + Name + " is allowing Gods")
+            Form1.Log("Info", "Region " + Name + " is allowing Gods")
         Else
-            Form1.Log("Region " + Name + " is not allowing Gods")
+            Form1.Log("Info", "Region " + Name + " is not allowing Gods")
         End If
 
         If initted Then changed = True
@@ -897,9 +897,9 @@ Public Class FormRegion
 
         If RegionGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Region " + Name + " is allowing Region Gods")
+            Form1.Log("Info", "Region " + Name + " is allowing Region Gods")
         Else
-            Form1.Log("Region " + Name + " is not allowing Region Gods")
+            Form1.Log("Info", "Region " + Name + " is not allowing Region Gods")
         End If
 
         If initted Then changed = True
@@ -910,9 +910,9 @@ Public Class FormRegion
 
         If ManagerGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Region " + Name + " is allowing Manager Gods")
+            Form1.Log("Info", "Region " + Name + " is allowing Manager Gods")
         Else
-            Form1.Log("Region " + Name + " is not allowing Manager Gods")
+            Form1.Log("Info", "Region " + Name + " is not allowing Manager Gods")
         End If
         If initted Then changed = True
 
@@ -921,7 +921,7 @@ Public Class FormRegion
     Private Sub PublishDefault_CheckedChanged(sender As Object, e As EventArgs) Handles PublishDefault.CheckedChanged
 
         If PublishDefault.Checked Then
-            Form1.Log("Region " + Name + " is set to default for snapshots")
+            Form1.Log("Info", "Region " + Name + " is set to default for snapshots")
         End If
         If initted Then changed = True
 
@@ -930,7 +930,7 @@ Public Class FormRegion
     Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
 
         If NoPublish.Checked Then
-            Form1.Log("Region " + Name + " is not set to publish snapshots")
+            Form1.Log("Info", "Region " + Name + " is not set to publish snapshots")
         End If
         If initted Then changed = True
 
@@ -939,9 +939,9 @@ Public Class FormRegion
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
         If Publish.Checked Then
-            Form1.Log("Region " + Name + " is publishing snapshots")
+            Form1.Log("Info", "Region " + Name + " is publishing snapshots")
         Else
-            Form1.Log("Region " + Name + " is not publishing snapshots")
+            Form1.Log("Info", "Region " + Name + " is not publishing snapshots")
         End If
         If initted Then changed = True
 
@@ -950,7 +950,7 @@ Public Class FormRegion
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
-            Form1.Log("Region " + Name + " has birds enabled")
+            Form1.Log("Info", "Region " + Name + " has birds enabled")
         End If
         If initted Then changed = True
 
@@ -959,7 +959,7 @@ Public Class FormRegion
     Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
 
         If TidesCheckbox.Checked Then
-            Form1.Log("Region " + Name + " has tides enabled")
+            Form1.Log("Info", "Region " + Name + " has tides enabled")
         End If
         If initted Then changed = True
 
@@ -968,7 +968,7 @@ Public Class FormRegion
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
-            Form1.Log("Region " + Name + " has Teleport Board enabled")
+            Form1.Log("Info", "Region " + Name + " has Teleport Board enabled")
         End If
         If initted Then changed = True
 

@@ -161,7 +161,12 @@ Public Class RegionMaker
 
     Public Property GroupName(n As Integer) As String
         Get
-            Return CType(RegionList(n)._Group, String)
+            Try
+                Return CType(RegionList(n)._Group, String)
+            Catch
+                Return ""
+            End Try
+
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Group = Value
@@ -435,7 +440,7 @@ Public Class RegionMaker
 
     Public Sub DebugRegions(n As Integer)
 
-        Form1.Log("RegionNumber:" + n.ToString + vbCrLf +
+        Form1.Log("RegionNumber", n.ToString + vbCrLf +
             " PID:" + RegionList(n)._ProcessID.ToString + vbCrLf +
             " Group:" + RegionList(n)._Group.ToString + vbCrLf +
             " Region:" + RegionList(n)._RegionName.ToString + vbCrLf +
@@ -483,8 +488,24 @@ Public Class RegionMaker
             End If
             i = i + 1
         Next
+
+        RegionDump()
         Return -1
 
+    End Function
+
+
+    Public Function FindGroupNamebyRegionName(RegionName As String) As String
+
+        Dim i As Integer = 0
+        For Each obj As Region_data In RegionList
+            If RegionName = obj._Group Then
+                Return obj._Group
+            End If
+            i = i + 1
+        Next
+
+        Return ""
     End Function
 
     Public Function FindRegionByProcessID(PID As Integer) As Integer
@@ -562,13 +583,13 @@ Public Class RegionMaker
         Dim n As Integer = 0
         folders = Directory.GetDirectories(Form1.gPath + "bin\Regions")
         For Each FolderName As String In folders
-            'Form1.Log("Info:Region Path:" + FolderName)
+            'Form1.Log("Info","Region Path:" + FolderName)
             regionfolders = Directory.GetDirectories(FolderName)
             For Each FileName As String In regionfolders
 
                 Dim fName = ""
                 Try
-                    'Form1.Log("Info:Loading region from " + FolderName)
+                    'Form1.Log("Info","Loading region from " + FolderName)
                     Dim inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
 
                     For Each ini As String In inis
@@ -875,7 +896,7 @@ Public Class RegionMaker
                 '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
 
                 If json.login = "enabled" Then
-                    Form1.PrintFast("Region " & json.region_name & " is ready for logins")
+                    Form1.PrintFast("Region " & json.region_name & " is ready")
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -893,9 +914,10 @@ Public Class RegionMaker
                         Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_MINIMIZE)
                     End If
 
+
                 ElseIf json.login = "shutdown" Then
 
-                    Form1.PrintFast("Region " & json.region_name & " Stopped")
+                    Form1.PrintFast("Region " & json.region_name & " shutdown")
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -909,12 +931,11 @@ Public Class RegionMaker
                         Status(n) = SIM_STATUS.Stopped
                     End If
 
-
                     UUID(n) = ""
                     Form1.UpdateView() = True
                     Form1.ExitList.Add(json.region_name)
 
-                End If
+                    End If
 
             Catch ex As Exception
                 Debug.Print(ex.Message)

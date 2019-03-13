@@ -82,7 +82,7 @@ Public Class FormPublicity
                 Try
                     My.Computer.FileSystem.DeleteFile(Form1.MyFolder & "\OutworldzFiles\Photo.png")
                 Catch ex As Exception
-                    Form1.Log(ex.Message)
+                    Form1.Log("Warn", ex.Message)
                 End Try
                 Try
                     PictureBox9.Image.Save(Form1.MyFolder & "\OutworldzFiles\Photo.png", System.Drawing.Imaging.ImageFormat.Png)

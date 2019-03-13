@@ -27,8 +27,6 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
-        Me.WebBrowser2 = New System.Windows.Forms.WebBrowser()
         Me.StopButton = New System.Windows.Forms.Button()
         Me.StartButton = New System.Windows.Forms.Button()
         Me.InstallButton = New System.Windows.Forms.Button()
@@ -126,27 +124,11 @@ Partial Class Form1
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.LogButton = New System.Windows.Forms.Button()
         Me.IgnoreButton = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'WebBrowser1
-        '
-        Me.WebBrowser1.Location = New System.Drawing.Point(215, 341)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(105, 53)
-        Me.WebBrowser1.TabIndex = 2
-        '
-        'WebBrowser2
-        '
-        Me.WebBrowser2.Location = New System.Drawing.Point(53, 341)
-        Me.WebBrowser2.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser2.Name = "WebBrowser2"
-        Me.WebBrowser2.Size = New System.Drawing.Size(125, 53)
-        Me.WebBrowser2.TabIndex = 8
         '
         'StopButton
         '
@@ -786,8 +768,8 @@ Partial Class Form1
         '
         'UpdaterGo
         '
-        Me.UpdaterGo.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UpdaterGo.Location = New System.Drawing.Point(62, 169)
+        Me.UpdaterGo.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.UpdaterGo.Location = New System.Drawing.Point(35, 59)
         Me.UpdaterGo.Name = "UpdaterGo"
         Me.UpdaterGo.Size = New System.Drawing.Size(115, 30)
         Me.UpdaterGo.TabIndex = 25
@@ -796,8 +778,8 @@ Partial Class Form1
         '
         'UpdaterCancel
         '
-        Me.UpdaterCancel.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UpdaterCancel.Location = New System.Drawing.Point(200, 169)
+        Me.UpdaterCancel.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.UpdaterCancel.Location = New System.Drawing.Point(182, 59)
         Me.UpdaterCancel.Name = "UpdaterCancel"
         Me.UpdaterCancel.Size = New System.Drawing.Size(51, 30)
         Me.UpdaterCancel.TabIndex = 26
@@ -818,17 +800,19 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(12, 49)
+        Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(0, 49)
+        Me.TextBox1.MaxLength = 15000
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(296, 150)
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(322, 59)
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
         'LogButton
         '
-        Me.LogButton.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LogButton.Location = New System.Drawing.Point(62, 169)
+        Me.LogButton.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.LogButton.Location = New System.Drawing.Point(35, 59)
         Me.LogButton.Name = "LogButton"
         Me.LogButton.Size = New System.Drawing.Size(115, 30)
         Me.LogButton.TabIndex = 30
@@ -837,8 +821,8 @@ Partial Class Form1
         '
         'IgnoreButton
         '
-        Me.IgnoreButton.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.IgnoreButton.Location = New System.Drawing.Point(183, 169)
+        Me.IgnoreButton.Font = New System.Drawing.Font("Tahoma", 9.75!)
+        Me.IgnoreButton.Location = New System.Drawing.Point(166, 59)
         Me.IgnoreButton.Name = "IgnoreButton"
         Me.IgnoreButton.Size = New System.Drawing.Size(85, 30)
         Me.IgnoreButton.TabIndex = 31
@@ -847,18 +831,12 @@ Partial Class Form1
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.White
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PictureBox1.ErrorImage = Global.Outworldz.My.Resources.Resources.wp_51
-        Me.PictureBox1.InitialImage = Nothing
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.PictureBox1.Location = New System.Drawing.Point(6, 16)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(320, 206)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 27
+        Me.PictureBox1.Size = New System.Drawing.Size(316, 92)
+        Me.PictureBox1.TabIndex = 32
         Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Visible = False
         '
         'Form1
         '
@@ -867,7 +845,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(320, 206)
+        Me.ClientSize = New System.Drawing.Size(320, 120)
         Me.Controls.Add(Me.IgnoreButton)
         Me.Controls.Add(Me.LogButton)
         Me.Controls.Add(Me.ProgressBar1)
@@ -878,18 +856,16 @@ Partial Class Form1
         Me.Controls.Add(Me.StopButton)
         Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.InstallButton)
-        Me.Controls.Add(Me.WebBrowser2)
-        Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(336, 245)
-        Me.MinimumSize = New System.Drawing.Size(336, 245)
+        Me.MinimumSize = New System.Drawing.Size(336, 159)
         Me.Name = "Form1"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DreamGrid"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -907,8 +883,6 @@ Partial Class Form1
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
-    Friend WithEvents WebBrowser1 As System.Windows.Forms.WebBrowser
-    Friend WithEvents WebBrowser2 As System.Windows.Forms.WebBrowser
     Friend WithEvents BusyButton As System.Windows.Forms.Button
     Friend WithEvents StopButton As System.Windows.Forms.Button
     Friend WithEvents StartButton As System.Windows.Forms.Button
@@ -938,7 +912,6 @@ Partial Class Form1
     Friend WithEvents DiagnosticsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents UpdaterGo As Button
     Friend WithEvents UpdaterCancel As Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Timer1 As Timer
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents OpenFileDialog2 As OpenFileDialog
@@ -1010,4 +983,5 @@ Partial Class Form1
     Friend WithEvents ThreadpoolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents XengineToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents JobEngineToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

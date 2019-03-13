@@ -440,6 +440,9 @@
     <EmbeddedResource Include="FormRestart.resx">
       <DependentUpon>FormRestart.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormSetup.en.resx">
+      <DependentUpon>FormSetup.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSetup.resx">
       <DependentUpon>FormSetup.vb</DependentUpon>
       <SubType>Designer</SubType>

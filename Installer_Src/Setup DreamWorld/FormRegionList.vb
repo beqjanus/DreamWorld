@@ -61,8 +61,6 @@ Public Class RegionList
         Me.Top = xy.Item(1)
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
-        ' Me.Size = New System.Drawing.Size(500, 390)
-
         If hw.Item(0) = 0 Then
             Me.Height = 400
         Else
@@ -400,7 +398,7 @@ Public Class RegionList
             UpdateView() = False
 
         Catch ex As Exception
-            Form1.Log("Error: RegionList " & ex.Message)
+            Form1.Log("Error", " RegionList " & ex.Message)
         End Try
 
     End Sub
@@ -457,7 +455,7 @@ Public Class RegionList
             ViewNotBusy = True
             UpdateView() = False
         Catch ex As Exception
-            Form1.Log("Error: RegionList " & ex.Message)
+            Form1.Log("Error", " RegionList " & ex.Message)
         End Try
 
 
@@ -476,7 +474,7 @@ Public Class RegionList
 
             responseStream.Dispose()
         Catch ex As Exception
-            Form1.Log("Maps: " + ex.Message + ":" + url)
+            Form1.Log("Maps", ex.Message + ":" + url)
         End Try
 
         Return bmp
@@ -547,7 +545,7 @@ Public Class RegionList
                     Form1.Print("Stopped")
                 End If
                 Form1.Start_Robust()
-                Form1.Log("Starting " + RegionClass.RegionName(n))
+                Form1.Log("Starting", RegionClass.RegionName(n))
                 Form1.CopyOpensimProto(RegionClass.RegionName(n))
                 Form1.Boot(RegionClass.RegionName(n))
                 UpdateView() = True ' force a refresh
@@ -617,7 +615,7 @@ Public Class RegionList
 
     Private Sub StopRegionNum(num As Integer)
 
-        Form1.Log("Region:Stopping Region " + RegionClass.RegionName(num))
+        Form1.Log("Region", "Stopping Region " + RegionClass.RegionName(num))
         If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
             RegionClass.Status(num) = RegionMaker.SIM_STATUS.ShuttingDown
         Else

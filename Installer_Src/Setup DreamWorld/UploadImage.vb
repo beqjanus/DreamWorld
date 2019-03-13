@@ -14,7 +14,7 @@ Public Class UploadImage
     Private Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
         If Data <> "1" Then
-            Form1.Log("Upload Failed. " & Data)
+            Form1.Log("Error", "Upload Failed. " & Data)
         End If
 
     End Sub
@@ -149,7 +149,7 @@ Public Class UploadImage
                 New HttpRequestState(req, params, File))
 
         Catch ex As Exception
-            Form1.Log("Error: & ex.message")
+            Form1.Log("Error", " & ex.message")
         End Try
 
     End Sub

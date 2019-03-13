@@ -31,20 +31,20 @@ Public Class NetServer
         If running Then Return
 
         Try
-            Log("Info:Starting Diagnostic Webserver")
+            Log("Info","Starting Diagnostic Webserver")
             WebThread = New Thread(AddressOf Looper)
             WebThread.SetApartmentState(ApartmentState.STA)
             WebThread.Start()
             running = True
         Catch ex As Exception
-            Log(ex.Message)
+            Log("Error", ex.Message)
         End Try
 
     End Sub
 
     Private Sub Looper()
 
-        Log("Info:IP:" + LocalAddress.ToString)
+        Log("Info","IP:" + LocalAddress.ToString)
         listen = True
 
         Dim listener = New System.Net.HttpListener()
@@ -73,12 +73,12 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log("Info:Stopping Webserver")
+        Log("Info","Stopping Webserver")
         listen = False
         Application.DoEvents()
         WebThread.Abort()
         'WebThread.Join()
-        Log("Info:Shutdown Complete")
+        Log("Info","Shutdown Complete")
 
     End Sub
 
@@ -94,11 +94,11 @@ Public Class NetServer
 
     End Function
 
-    Public Sub Log(message As String)
+    Private Sub Log(category As String, message As String)
         Debug.Print(message)
         Try
             Using outputFile As New StreamWriter(Myfolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" & category & ":" & message)
             End Using
         Catch ex As Exception
             Debug.Print(ex.Message)

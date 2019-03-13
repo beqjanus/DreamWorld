@@ -109,7 +109,7 @@ Public Class ScreenPos
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info:Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it 
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -120,7 +120,7 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-            Form1.Log("Loading " + myINI)
+            Form1.Log("Info", "Loading " + myINI)
             Data = parser.ReadFile(myINI, System.Text.Encoding.ASCII)
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)

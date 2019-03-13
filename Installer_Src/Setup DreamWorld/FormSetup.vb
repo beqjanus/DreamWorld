@@ -40,7 +40,7 @@ Public Class Form1
     ' edit this to compile and run in the correct folder root
     ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when in a debugger
-    Private exitIsBusy As Boolean = False
+    Private gExitIsBusy As Boolean = False
 
     ReadOnly gCPUMAX As Single = 80 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
@@ -133,6 +133,25 @@ Public Class Form1
 
     Dim cpu As New PerformanceCounter()
 
+
+    Public Enum SHOW_WINDOW As Integer
+        SW_HIDE = 0
+        SW_SHOWNORMAL = 1
+        SW_NORMAL = 1
+        SW_SHOWMINIMIZED = 2
+        SW_SHOWMAXIMIZED = 3
+        SW_MAXIMIZE = 3
+        SW_SHOWNOACTIVATE = 4
+        SW_SHOW = 5
+        SW_MINIMIZE = 6
+        SW_SHOWMINNOACTIVE = 7
+        SW_SHOWNA = 8
+        SW_RESTORE = 9
+        SW_SHOWDEFAULT = 10
+        SW_FORCEMINIMIZE = 11
+        SW_MAX = 11
+    End Enum
+
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId:="1")>
     <CodeAnalysis.SuppressMessage("Microsoft.Interoperability", "CA1401:PInvokesShouldNotBeVisible")>
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")>
@@ -157,28 +176,32 @@ Public Class Form1
             WindowCounter = WindowCounter + 1
             If WindowCounter > 100 Then '  10 seconds for process to start
                 status = True
+                ErrorLog("Cannot get MainWindowHandle for " & windowName)
+                Return False
             End If
 
         End While
+
 
         status = False
         WindowCounter = 0
 
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
+        If CType(hwnd, Integer) = 0 Then
+            ErrorLog("hwnd = 0")
+        End If
         While Not status
             Sleep(100)
+            SetWindowText(hwnd, windowName)
             status = SetWindowText(hwnd, windowName)
             WindowCounter = WindowCounter + 1
             If WindowCounter > 100 Then '  10 seconds
                 status = True
+                ErrorLog("Cannot get handle for " & windowName)
             End If
             Application.DoEvents()
         End While
 
-        If Not status Then
-            ErrorLog("Cannot get handle for " & windowName)
-            Return False
-        End If
 
         Return True
 
@@ -195,6 +218,7 @@ Public Class Form1
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
+        ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
     Private Sub SetScreen()
         Me.Show()
@@ -203,6 +227,29 @@ Public Class Form1
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+
+        Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+
+        If hw.Item(0) = 0 Then
+            Me.Height = 265
+        Else
+            Me.Height = hw.Item(0)
+        End If
+        If hw.Item(1) = 0 Then
+            Me.Width = 340
+        Else
+            Me.Width = hw.Item(1)
+        End If
+
+    End Sub
+
+    Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
+
+        Dim X = Me.Width - 40
+        Dim Y = Me.Height - 100
+        TextBox1.Size = New System.Drawing.Size(X, Y)
+        PictureBox1.Size = New System.Drawing.Size(X, Y)
+
     End Sub
 
 #End Region
@@ -251,6 +298,14 @@ Public Class Form1
         Application.EnableVisualStyles()
 
         PictureBox1.Size = TextBox1.Size
+
+        Dim ln As Integer = TextBox1.Text.Length
+
+        TextBox1.SelectionStart = 0
+        TextBox1.ScrollToCaret()
+        SaySomething()
+        TextBox1.SelectionStart = ln
+        TextBox1.ScrollToCaret()
 
         MyFolder = My.Application.Info.DirectoryPath
 
@@ -361,7 +416,7 @@ Public Class Form1
 
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
-        Log("Info:Starting Web Server ")
+        Log("Info", "Starting Web Server ")
 
         ws.StartServer(MyFolder, MySetting, MySetting.PrivateURL, CType(MySetting.DiagnosticPort, Integer))
 
@@ -427,89 +482,23 @@ Public Class Form1
 
         ProgressBar1.Value = 100
 
-    End Sub
-
-    Private Sub SetQuickEditOff()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0"
-        pi.FileName = "powershell.exe"
-        pi.WindowStyle = ProcessWindowStyle.Minimized
-        pi.Verb = "runas"
-        Dim PowerShell As Process = New Process()
-        PowerShell.StartInfo = pi
-
-        Try
-            PowerShell.Start()
-        Catch ex As Exception
-            Log("Error:Could not set Quickedit Off:" + ex.Message)
-        End Try
-
+        ' test max textbox1
+        If (False) Then
+            Dim ctr = 15000
+            While ctr > 0
+                PrintFast("012345678901234567890123456789 " & ctr.ToString)
+                ctr = ctr - 1
+                Application.DoEvents()
+            End While
+        End If
 
 
     End Sub
 
-    Private Function DeleteFirewallRules() As String
-
-        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
-                              & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
-                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
-                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf
-
-        Dim RegionNumber As Integer = 0
-        Dim start = CInt(MySetting.FirstRegionPort)
-
-        For RegionNumber = start To gMaxPortUsed
-            Command = Command + "netsh advfirewall firewall  delete rule name=""Region TCP Port " & RegionNumber.ToString & """" & vbCrLf _
-                              & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & RegionNumber.ToString & """" & vbCrLf
-        Next
-
-        Return Command
-
-    End Function
-
-    Private Function AddFirewallRules() As String
-
-        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
-
-
-        Dim RegionNumber As Integer = 0
-        Dim start = CInt(MySetting.FirstRegionPort)
-
-        For RegionNumber = start To gMaxPortUsed
-            Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
-        Next
-
-        Return Command
-
-    End Function
-    Public Sub SetFirewall()
-
-        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
-
-        Dim ns As StreamWriter = New StreamWriter(MyFolder + "\fw.bat", False)
-        ns.WriteLine(CMD)
-        ns.Close()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = ""
-        pi.FileName = MyFolder + "\fw.bat"
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        pi.Verb = "runas"
-        Dim ProcessFirewall As Process = New Process()
-        ProcessFirewall.StartInfo = pi
-
-        Try
-            ProcessFirewall.Start()
-        Catch ex As Exception
-            Log("Error:Could not set firewall:" + ex.Message)
-        End Try
-
-
+    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox1.TextChanged
+        Dim ln As Integer = TextBox1.Text.Length
+        TextBox1.SelectionStart = ln
+        TextBox1.ScrollToCaret()
     End Sub
 
     ''' <summary>
@@ -533,6 +522,7 @@ Public Class Form1
         End With
 
         PrintFast("Starting...")
+        gExitIsBusy = False
         gAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
@@ -653,41 +643,32 @@ Public Class Form1
 
     Public Sub ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW)
 
-        Try
-            If handle <> IntPtr.Zero Then
-                Dim x = False
-                Dim ctr = 100
-                While Not x And ctr > 0
-                    Sleep(100)
+        Dim ctr = 50
+        If handle <> IntPtr.Zero Then
+            Dim x = False
+
+            While Not x And ctr > 0
+                Sleep(100)
+                Try
                     x = ShowWindow(handle, command)
-                    ctr = ctr - 1
-                End While
-            End If
-        Catch
-        End Try
+                Catch ex As Exception
+                    ErrorLog("Cannot locate window " & ex.Message)
+                End Try
+                ctr = ctr - 1
+            End While
+        Else
+            ErrorLog("No hwnd in ShowWindow")
+        End If
+
+        If ctr = 0 Then
+            ErrorLog("Cannot Localate window for handle " & handle.ToString)
+        End If
 
 
     End Sub
 
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
 
-    Public Enum SHOW_WINDOW As Integer
-        SW_HIDE = 0
-        SW_SHOWNORMAL = 1
-        SW_NORMAL = 1
-        SW_SHOWMINIMIZED = 2
-        SW_SHOWMAXIMIZED = 3
-        SW_MAXIMIZE = 3
-        SW_SHOWNOACTIVATE = 4
-        SW_SHOW = 5
-        SW_MINIMIZE = 6
-        SW_SHOWMINNOACTIVE = 7
-        SW_SHOWNA = 8
-        SW_RESTORE = 9
-        SW_SHOWDEFAULT = 10
-        SW_FORCEMINIMIZE = 11
-        SW_MAX = 11
-    End Enum
 
     Public Sub KillAll()
 
@@ -708,7 +689,7 @@ Public Class Form1
                 TotalRunningRegions = TotalRunningRegions + 1
             End If
         Next
-        Log("Total Enabled Regions=" + TotalRunningRegions.ToString)
+        Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
 
         For Each X As Integer In RegionClass.RegionNumbers
             Application.DoEvents()
@@ -725,7 +706,7 @@ Public Class Form1
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
                 UpdateView = True ' make form refresh
-                Sleep(1000)
+                Sleep(100)
             End If
         Next
 
@@ -747,17 +728,11 @@ Public Class Form1
                         If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
                         Else
-                            For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                                Try
-                                    ProgressBar1.Value = ProgressBar1.Value - 5
-                                Catch
-                                    ProgressBar1.Value = 0
-                                End Try
-                            Next
+                            StopGroup(RegionClass.GroupName(X))
                         End If
                         Sleep(100)
+                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+
                         UpdateView = True ' make form refresh
                     End If
                     Application.DoEvents()
@@ -806,18 +781,18 @@ Public Class Form1
 
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
-        gAborting = False
+
     End Sub
 
     Private Function Zap(processName As String) As Boolean
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
             Try
-                Log("Info:Stopping process " + processName)
+                Log("Info", "Stopping process " + processName)
                 P.Kill()
                 Return True
             Catch ex As Exception
-                Log("Info:failed to stop " + processName)
+                Log("Info", "failed to stop " + processName)
                 Return False
             End Try
         Next
@@ -846,7 +821,7 @@ Public Class Form1
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
         Dim MyShortcut As IWshRuntimeLibrary.IWshShortcut
-        Log("Info:creating shortcut on desktop")
+        Log("Info", "creating shortcut on desktop")
         ' The shortcut will be created on the desktop
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         MyShortcut = CType(WshShell.CreateShortcut(DesktopFolder & "\Outworldz.lnk"), IWshRuntimeLibrary.IWshShortcut)
@@ -859,9 +834,10 @@ Public Class Form1
 
     Public Sub Print(Value As String)
 
-        Log("Info:" + Value)
+        Log("Info", "" + Value)
         PictureBox1.Visible = False
-        TextBox1.Text = Value
+        TextBox1.Text = TextBox1.Text & vbCrLf & Value
+        trim()
         TextBox1.Visible = True
         Application.DoEvents()
         Sleep(gChatTime)  ' time to read
@@ -870,14 +846,18 @@ Public Class Form1
     End Sub
     Public Sub PrintFast(Value As String)
 
-        'Log("Info:" + Value)
+        'Log("Info","" + Value)
         PictureBox1.Visible = False
         TextBox1.Visible = True
-        TextBox1.Text = Value
+        TextBox1.Text = TextBox1.Text & vbCrLf & Value
+        trim()
         ' No DoEvents
-
     End Sub
-
+    Private Sub trim()
+        If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
+            TextBox1.Text = Mid(TextBox1.Text, 500)
+        End If
+    End Sub
     Private Sub MnuAbout_Click(sender As System.Object, e As System.EventArgs) Handles mnuAbout.Click
 
         Print("(c) 2017 Outworldz,LLC" + vbCrLf + "Version " + gMyVersion)
@@ -948,14 +928,14 @@ Public Class Form1
             System.IO.Directory.Delete(gPath + "WifiPages", True)
             System.IO.Directory.Delete(gPath + "bin\WifiPages", True)
         Catch ex As Exception
-            Log("Info:" & ex.Message)
+            Log("Info", "" & ex.Message)
         End Try
 
         Try
             My.Computer.FileSystem.CopyDirectory(gPath + "WifiPages-" + Page, gPath + "WifiPages", True)
             My.Computer.FileSystem.CopyDirectory(gPath + "bin\WifiPages-" + Page, gPath + "\bin\WifiPages", True)
         Catch ex As Exception
-            Log("Info:" & ex.Message)
+            Log("Info", "" & ex.Message)
         End Try
 
 
@@ -1042,9 +1022,9 @@ Public Class Form1
         mnuHide.Checked = Not MySetting.ConsoleShow
 
         If MySetting.ConsoleShow Then
-            Log("Info:Console will be shown")
+            Log("Info", "Console will be shown")
         Else
-            Log("Info:Console will not be shown")
+            Log("Info", "Console will not be shown")
         End If
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1271,10 +1251,10 @@ Public Class Form1
 
         ' Autobackup
         If MySetting.AutoBackup Then
-            Log("Info:Auto backup is On")
+            Log("Info", "Auto backup is On")
             MySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "true")
         Else
-            Log("Info:Auto backup is Off")
+            Log("Info", "Auto backup is Off")
             MySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "false")
         End If
 
@@ -1980,7 +1960,7 @@ Public Class Form1
 
         End If
 
-        Log("Info:Robust is running")
+        Log("Info", "Robust is running")
 
 
         Return True
@@ -1994,7 +1974,7 @@ Public Class Form1
 
     Public Function Start_Opensimulator() As Boolean
 
-        exitIsBusy = False
+        gExitIsBusy = False
         gAborting = False
         Timer1.Start() 'Timer starts functioning
         Start_Robust()
@@ -2073,10 +2053,12 @@ Public Class Form1
 
     Private Sub DoExitHandlerPoll()
 
-        If exitIsBusy Then Return
-        exitIsBusy = True
+        If gExitIsBusy Then Return
+
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
+
+        gExitIsBusy = True
         Dim LOOPVAR = ExitList.Count - 1
         ExitList.Reverse()
 
@@ -2087,96 +2069,93 @@ Public Class Form1
             If RegionName = "Form1" Then
                 ErrorLog("Form 1 exited")
             Else
-                Log("Info:Shutdown of " & RegionName & " Detected")
+                Print(RegionName & " shutdown")
             End If
 
         Catch ex As Exception
-            ExitList.Clear()
-            exitIsBusy = False
+            ExitList.RemoveAt(LOOPVAR)
+            gExitIsBusy = False
             Return
         End Try
 
         ' find any region in the dos box that exited.
-        Dim RegionNumber As Integer = -1
-        Dim LNames As New List(Of Integer)
-        LNames = RegionClass.RegionListByGroupNum(RegionClass.GroupName(RegionClass.FindRegionByName(RegionName)))
-        If LNames.Count < 0 Then
-            Log("Cannot Locate group name for region " & RegionName)
-        Else
 
-            ' get the last region in the group.
-            For Each R In LNames
-                RegionNumber = R
-            Next
+
+        'Dim RegionName = RegionClass.FindGroupNamebyRegionName(RegionName)
+        Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+        If RegionNumber < 0 Then
+            ExitList.RemoveAt(LOOPVAR)
+            gExitIsBusy = False
+            Return
+        End If
+
+        Try
+            Dim Groupname = RegionClass.GroupName(RegionNumber)
+
+
+            ' Auto restart phase begins
+            If OpensimIsRunning() And Not gAborting _
+                    And (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown _
+                            Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp) Then
+                UpdateView = True ' make form refresh
+                PrintFast("Restart Queued for " + Groupname)
+                RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+                RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
+                UpdateView = True ' make form refresh
+                Return
+
+            End If
+
+
+            ' Maybe we crashed during warmup.  Skip prompt if auto restarting
+            If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
+                    Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
+                    And RegionClass.Timer(RegionNumber) >= 0 Then
+
+                Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                If (yesno = vbYes) Then
+                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                End If
+                StopGroup(Groupname)
+
+            ElseIf RegionClass.IsBooted(RegionNumber) And RegionClass.Timer(RegionNumber) > 0 Then
+
+                StopGroup(Groupname)
+                ' prompt if crashed. after boot
+                Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                If (yesno = vbYes) Then
+                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                End If
+
+            End If
+
 
             Try
-                Dim Groupname = RegionClass.GroupName(RegionNumber)
-
-
-                ' Auto restart phase begins
-                If OpensimIsRunning() And Not gAborting _
-                        And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
-                    UpdateView = True ' make form refresh
-                    PrintFast("Restart Queued for " + Groupname)
-                    RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
-                    UpdateView = True ' make form refresh
-                    Return
-                Else
-                    PrintFast(Groupname + " stopped")
-                End If
-
-
-                ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-                If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
-                        Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
-                        And RegionClass.Timer(RegionNumber) >= 0 Then
-
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                    End If
-                    StopGroup(Groupname)
-
-                ElseIf RegionClass.IsBooted(RegionNumber) _
-                    And RegionClass.Timer(RegionNumber) > 0 Then
-
-                    StopGroup(Groupname)
-                    ' prompt if crashed. after boot
-                    Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                    If (yesno = vbYes) Then
-                        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                    End If
-
-                End If
-
-
-                Try
-                    ExitList.RemoveAt(LOOPVAR)
-                Catch ex As Exception
-                    ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                    ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-                End Try
+                ExitList.RemoveAt(LOOPVAR)
             Catch ex As Exception
-                ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
+                ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
                 ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
             End Try
+        Catch ex As Exception
+            ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
+            ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+        End Try
 
-        End If
-        exitIsBusy = False
+
+        gExitIsBusy = False
 
     End Sub
 
     Private Sub StopGroup(Groupname As String)
 
-        Log(Groupname + " Group is now stopped")
+        Log("Info", Groupname + " Group is now stopped")
 
         For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
 
             ' Called by a sim restart, do not change status 
             If Not RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
                 RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Stopped
-                Log(RegionClass.RegionName(RegionNumber) + " Stopped")
+                Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
             End If
 
             RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
@@ -2192,7 +2171,7 @@ Public Class Form1
     Public Function GetNewProcess(Name As String) As Process
 
         Dim handle = New Handler
-        Return handle.Init(Name)
+        Return handle.Init(RegionHandles, ExitList)
 
     End Function
     ''' <summary>
@@ -2205,49 +2184,43 @@ Public Class Form1
         If gAborting Then Return True
 
         OpensimIsRunning() = True
-        gAborting = False
+
         Buttons(StopButton)
 
-        Log("Region: Starting Region " + BootName)
+        Log("Info", "Region: Starting Region " + BootName)
 
         Dim RegionNumber = RegionClass.FindRegionByName(BootName)
         If RegionClass.IsBooted(RegionNumber) Then
-            Log("Region " + BootName + " skipped as it is already Booted")
-
+            Log("Info", "Region " + BootName + " skipped as it is already Booted")
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp Then
-            Log("Region " + BootName + " skipped as it is already Warming Up")
-
+            Log("Info", "Region " + BootName + " skipped as it is already Warming Up")
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting Then
-            Log("Region " + BootName + " skipped as it is already Booted Up")
-
+            Log("Info", "Region " + BootName + " skipped as it is already Booted Up")
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.ShuttingDown Then
-            Log("Region " + BootName + " skipped as it is already Shutting Down")
-
-
+            Log("Info", "Region " + BootName + " skipped as it is already Shutting Down")
             Return True
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
 
-            Log("Region " + BootName + " skipped as it is already Recycling Down")
+            Log("Info", "Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
 
         Application.DoEvents()
         Dim isRegionRunning = CheckPort("127.0.0.1", RegionClass.GroupPort(RegionNumber))
         If isRegionRunning Then
-            Log("Region " + BootName + " failed to start as it is already running")
+            Log("Info", "Region " + BootName + " failed to start as it is already running")
             RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booted ' force it up
-
             Return False
         End If
 
@@ -2263,9 +2236,7 @@ Public Class Form1
 
             myProcess.StartInfo.FileName = """" + gPath + "bin\OpenSim.exe" + """"
             myProcess.StartInfo.CreateNoWindow = False
-
             myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-
             myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & RegionClass.GroupName(RegionNumber) + """"
 
             Try
@@ -2292,20 +2263,19 @@ Public Class Form1
 
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
-                    Log("PID:Setting booted status for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
+                    Log("debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
                     RegionClass.Status(num) = RegionMaker.SIM_STATUS.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
                     RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
                 Next
 
                 UpdateView = True ' make form refresh
-
+                Application.DoEvents()
                 SetWindowTextCall(myProcess, RegionClass.GroupName(RegionNumber))
 
-                Log("Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
+                Log("Debug", "Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
                 SequentialPause(RegionNumber)
-
 
                 Return True
             End If
@@ -2381,17 +2351,17 @@ Public Class Form1
     ''' Log(string) to Outworldz.log
     ''' </summary>
     ''' <param name="message"></param>
-    Public Sub Log(message As String)
-        Logger(message, "Outworldz")
+    Public Sub Log(category As String, message As String)
+        Logger(category, message, "Outworldz")
     End Sub
     Public Sub ErrorLog(message As String)
-        Logger(message, "Error")
+        Logger("Error", message, "Error")
     End Sub
 
-    Sub Logger(message As String, file As String)
+    Sub Logger(category As String, message As String, file As String)
         Try
             Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\" + file + ".log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
         Catch
@@ -2427,13 +2397,27 @@ Public Class Form1
 
 #Region "Subs"
 
-    Public Function GetHwnd(name As String) As IntPtr
-        '!!!
-        For Each pList As Process In Process.GetProcesses()
-            If pList.MainWindowTitle.Contains(name) Then
-                Return pList.MainWindowHandle
-            End If
-            Application.DoEvents()
+    Public Function GetHwnd(Groupname As String) As IntPtr
+
+
+        Dim Regionlist = RegionClass.RegionListByGroupNum(Groupname)
+
+        For Each X In Regionlist
+            Dim pid = RegionClass.ProcessID(X)
+
+            Dim ctr = 20   ' 2 seconds
+            Dim found As Boolean = False
+            While Not found And ctr > 0
+                Sleep(100)
+
+                For Each pList As Process In Process.GetProcesses()
+                    If pList.Id = pid Then
+                        Return pList.MainWindowHandle
+                    End If
+                    Application.DoEvents()
+                    ctr = ctr - 1
+                Next
+            End While
         Next
         Return IntPtr.Zero
 
@@ -2618,8 +2602,7 @@ Public Class Form1
         HTML = "Welcome to |" + MySetting.SimName + "||" + MySetting.PublicIP + ":" + MySetting.HttpPort + ":" + MySetting.WelcomeRegion + "||" + vbCrLf
         Dim ToSort As New List(Of String)
         For Each Regionnumber As Integer In RegionClass.RegionNumbers
-            If RegionClass.IsBooted(Regionnumber) _
-                And RegionClass.Teleport(Regionnumber) = "True" Then
+            If RegionClass.IsBooted(Regionnumber) And RegionClass.Teleport(Regionnumber) = "True" Then
                 ToSort.Add(RegionClass.RegionName(Regionnumber))
             End If
         Next
@@ -2734,7 +2717,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
 
         Dim randomFruit = images(Arnd.Next(0, images.Count))
         ProgressBar1.Visible = False
@@ -3196,7 +3179,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub PictureBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles PictureBox1.DragDrop
+    Private Sub PictureBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs)
 
         Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
         For Each pathname As String In files
@@ -3218,7 +3201,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub PictureBox1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles PictureBox1.DragEnter
+    Private Sub PictureBox1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs)
 
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
@@ -3231,7 +3214,7 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
 
-        Print("Dreaming up content for your reams")
+        Print("Coughing up content for your dreams")
         Dim oars As String = ""
         Try
             oars = client.DownloadString(gDomain + "/Outworldz_Installer/Content.plx?type=OAR&r=" + Random())
@@ -3249,7 +3232,7 @@ Public Class Form1
         While Not ContentSeen
             line = oarreader.ReadLine()
             If line <> Nothing Then
-                Log("Info:" + line)
+                Log("Info", "" + line)
                 Dim OarMenu As New ToolStripMenuItem
                 OarMenu.Text = line
                 OarMenu.ToolTipText = "Click to load this content"
@@ -3270,7 +3253,7 @@ Public Class Form1
 
         For Each aline As String In folders
             aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-            Log("Loading Help:" + aline)
+
             Dim HelpMenu As New ToolStripMenuItem
             HelpMenu.Text = aline
             HelpMenu.ToolTipText = "Click to load this content"
@@ -3280,7 +3263,7 @@ Public Class Form1
             HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
         Next
 
-        Log("Info:OARS loaded")
+        Log("Info", "OARS loaded")
         Print("Dreaming up some clothes and items for your avatar")
         Dim iars As String = ""
         Try
@@ -3295,7 +3278,7 @@ Public Class Form1
         While Not ContentSeen
             line = iarreader.ReadLine()
             If line <> Nothing Then
-                Log("Info:" + line)
+                Log("Info", "" + line)
                 Dim IarMenu As New ToolStripMenuItem
                 IarMenu.Text = line
                 IarMenu.ToolTipText = "Click to load this content the next time the simulator is started"
@@ -3309,7 +3292,7 @@ Public Class Form1
             End If
         End While
 
-        Log("Info: IARS loaded")
+        Log("Info", " IARS loaded")
 
         BumpProgress10()
 
@@ -3446,7 +3429,7 @@ Public Class Form1
             pUpdate.StartInfo = pi
             Try
                 Print("I'll see you again when I wake up all fresh and new!")
-                Log("Info:Launch Updater and exiting")
+                Log("Info", "Launch Updater and exiting")
                 pUpdate.Start()
             Catch ex As Exception
                 ErrorLog("Error: Could not launch " + fileloaded + ". Perhaps you can can exit this program and launch it manually.")
@@ -3468,24 +3451,24 @@ Public Class Form1
         Try
             My.Computer.FileSystem.DeleteFile(MyFolder + "\" + fileName)
         Catch
-            Log("Warn:Could not delete " + MyFolder + "\" + fileName)
+            Log("Error", " Could Not delete " + MyFolder + "\" + fileName)
         End Try
 
         Try
             fileName = client.DownloadString(gDomain + "/Outworldz_Installer/GetUpdaterGrid.plx?fill=1" + GetPostData())
         Catch
-            MsgBox("Could not fetch an update. Please try again, later", vbInformation, "Info")
+            MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
             Return ""
         End Try
 
         Try
             Dim myWebClient As New WebClient()
-            Print("Downloading new updater, this will take a moment")
+            Print("Downloading New updater, this will take a moment")
             ' The DownloadFile() method downloads the Web resource and saves it into the current file-system folder.
             myWebClient.DownloadFile(gDomain + "/Outworldz_Installer/" + fileName, fileName)
         Catch e As Exception
-            MsgBox("Could not fetch an update. Please try again, later", vbInformation, "Info")
-            Log("Warn:" + e.Message)
+            MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
+            Log("Warn", e.Message)
             Return ""
         End Try
         Return fileName
@@ -3536,7 +3519,7 @@ Public Class Form1
         End Try
 
         If ClientSocket.Connected Then
-            Log("Info: port probe success on port " + Port.ToString)
+            Log("Info", " port probe success on port " + Port.ToString)
             ClientSocket.Close()
             Return True
         End If
@@ -3590,7 +3573,7 @@ Public Class Form1
 
         Try
 
-            Log("Info:Public IP=" + MySetting.PublicIP)
+            Log("Info", "Public IP=" + MySetting.PublicIP)
             If TestPublicLoopback() Then
                 ' Set Public IP
                 Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Random())
@@ -3604,7 +3587,7 @@ Public Class Form1
         Catch ex As Exception
             ErrorLog("Hmm, I cannot reach the Internet? Uh. Okay, continuing." + ex.Message)
             MySetting.DiagFailed = True
-            Log("Info:Public IP=" + "127.0.0.1")
+            Log("Info", "Public IP=" + "127.0.0.1")
         End Try
 
         MySetting.PublicIP = MyUPnpMap.LocalIP
@@ -3626,7 +3609,7 @@ Public Class Form1
         Dim result As String = ""
         Dim loopbacktest As String = "http://" + MySetting.PublicIP + ":" + MySetting.DiagnosticPort + "/?_TestLoopback=" + Random()
         Try
-            Log(loopbacktest)
+            Log("Info", loopbacktest)
             result = client.DownloadString(loopbacktest)
         Catch ex As Exception
             ErrorLog("Err:Loopback fail:" + result + ":" + ex.Message)
@@ -3638,7 +3621,7 @@ Public Class Form1
         If MySetting.PublicIP = MyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
-            Log("Passed:" + result)
+            Log("Info", "Passed:" + result)
             MySetting.LoopBackDiag = True
             MySetting.SaveSettings()
             Return True
@@ -3698,18 +3681,18 @@ Public Class Form1
 
         If isPortOpen = "yes" Then
             MySetting.PublicIP = MySetting.PublicIP
-            Log("Public IP set to " + MySetting.PublicIP)
+            Log("Info", "Public IP set to " + MySetting.PublicIP)
             MySetting.SaveSettings()
             Return True
         Else
-            Log("Failed:" + isPortOpen)
+            Log("Warn", "Failed:" + isPortOpen)
             MySetting.DiagFailed = True
             Print("Internet address " + MySetting.PublicIP + ":" + MySetting.DiagnosticPort + " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             MySetting.PublicIP = MyUPnpMap.LocalIP() ' failed, so try the machine address
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             MySetting.SaveSettings()
-            Log("IP set to " + MySetting.PublicIP)
+            Log("Info", "IP set to " + MySetting.PublicIP)
             Return False
         End If
 
@@ -3734,7 +3717,7 @@ Public Class Form1
         Else
             NewDNSName()
         End If
-        Log("Diagnostics set the Grid address to " + MySetting.PublicIP)
+        Log("Info", "Diagnostics set the Grid address to " + MySetting.PublicIP)
 
     End Sub
 
@@ -3788,7 +3771,7 @@ Public Class Form1
     Function OpenRouterPorts() As Boolean
 
         If Not MyUPnpMap.UPnpEnabled And MySetting.UPnPEnabled Then
-            Log("UPnP is not working in the router")
+            Log("UPnP", "UPnP is not working in the router")
             MySetting.UPnPEnabled = False
             MySetting.SaveSettings()
             Return False
@@ -3799,7 +3782,7 @@ Public Class Form1
             Return True
         End If
 
-        Log("Local IP seems to be " + MyUPnpMap.LocalIP)
+        Log("UPnP", "Local IP seems to be " + MyUPnpMap.LocalIP)
 
         Try
 
@@ -3864,7 +3847,7 @@ Public Class Form1
             BumpProgress10()
 
         Catch e As Exception
-            Log("UPnP: UPnP Exception caught:  " + e.Message)
+            Log("UPnP", "UPnP Exception caught:  " + e.Message)
             Return False
         End Try
         Return True 'successfully added
@@ -3911,13 +3894,13 @@ Public Class Form1
 
         Try
             If OpenRouterPorts() Then ' open UPnp port
-                Log("UPnP: Ok")
+                Log("Info", "UPnP: Ok")
                 MySetting.UPnpDiag = True
                 MySetting.SaveSettings()
                 BumpProgress10()
                 Return True
             Else
-                Log("UPnP: fail")
+                Log("UPnP", "Fail")
                 MySetting.UPnpDiag = False
                 MySetting.SaveSettings()
 
@@ -3925,7 +3908,7 @@ Public Class Form1
                 Return False
             End If
         Catch e As Exception
-            Log("Error: UPnP Exception: " + e.Message)
+            Log("Error", " UPnP Exception: " + e.Message)
             MySetting.UPnpDiag = False
             MySetting.SaveSettings()
             BumpProgress10()
@@ -4211,7 +4194,7 @@ Public Class Form1
         Try
             version = MysqlConn.IsMySqlRunning()
         Catch
-            Log("MySQL was not running")
+            Log("Info", "MySQL was not running")
         End Try
 
         If version Is Nothing Then
@@ -4450,6 +4433,7 @@ Public Class Form1
                 ConsoleCommand(RegionClass.GroupName(Regionnumber), "set log level " + msg + "{ENTER}" + vbCrLf)
             End If
         Next
+        ConsoleCommand("Robust", "set log level " + msg + "{ENTER}" + vbCrLf)
 
     End Sub
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
@@ -4613,7 +4597,7 @@ Public Class Form1
         ''' Loads OAR and IAR from the menu
         ''' </summary>
         ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
-        Log("Local OAR")
+
         Dim MaxFileNum As Integer = 10
         Dim counter = MaxFileNum
         Dim Filename = MyFolder + "\OutworldzFiles\OAR\"
@@ -4630,7 +4614,7 @@ Public Class Form1
                 AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
                 LoadLocalOARSToolStripMenuItem.Visible = True
                 LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                Log(Name)
+                Log("Info", "Set OAR " & Name)
             End If
 
         Next
@@ -4641,7 +4625,7 @@ Public Class Form1
             Filename = MySetting.BackupFolder
         End If
 
-        Log("Auto OAR")
+        Log("Info", "Auto OAR")
         Try
             Dim AutoOARs As Array = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
             counter = MaxFileNum
@@ -4657,7 +4641,7 @@ Public Class Form1
                     AddHandler OarMenu.Click, New EventHandler(AddressOf BackupOarClick)
                     LoadLocalOARSToolStripMenuItem.Visible = True
                     LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                    Log(Name)
+                    Log("Info", Name)
                 End If
 
             Next
@@ -4665,7 +4649,7 @@ Public Class Form1
         End Try
         ' now for the IARs
 
-        Log("Local IAR")
+        Log("Info", "Local IAR")
         Filename = MyFolder + "\OutworldzFiles\IAR\"
         Dim IARs As Array = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
         counter = MaxFileNum
@@ -4680,7 +4664,7 @@ Public Class Form1
                 AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                 LoadLocalIARsToolStripMenuItem.Visible = True
                 LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                Log(Name)
+                Log("Info", Name)
             End If
 
         Next
@@ -4692,7 +4676,7 @@ Public Class Form1
         End If
 
         Try
-            Log("Auto IAR")
+            Log("Info", "Auto IAR")
             Dim AutoIARs As Array = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
             counter = MaxFileNum
             For Each IAR As String In AutoIARs
@@ -4706,7 +4690,7 @@ Public Class Form1
                     AddHandler IarMenu.Click, New EventHandler(AddressOf BackupIarClick)
                     LoadLocalIARsToolStripMenuItem.Visible = True
                     LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                    Log(Name)
+                    Log("Info",Name)
                 End If
 
             Next
@@ -4899,6 +4883,29 @@ Public Class Form1
 
 #End Region
 
+
+#Region "QuickEdit"
+
+    Private Sub SetQuickEditOff()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0"
+        pi.FileName = "powershell.exe"
+        pi.WindowStyle = ProcessWindowStyle.Minimized
+        pi.Verb = "runas"
+        Dim PowerShell As Process = New Process()
+        PowerShell.StartInfo = pi
+
+        Try
+            PowerShell.Start()
+        Catch ex As Exception
+            Log("Error", "Could not set Quickedit Off:" + ex.Message)
+        End Try
+
+    End Sub
+#End Region
+
+
 #Region "Sequential"
     Public Sub SequentialPause(x As Integer)
 
@@ -4907,32 +4914,107 @@ Public Class Form1
             Dim WaitForIt = True
             While WaitForIt
                 Sleep(100)
-
                 If RegionClass.RegionEnabled(x) _
                 And Not gAborting _
                 And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
                     RegionClass.Status(x) = RegionMaker.SIM_STATUS.ShuttingDown Or
                     RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingDown Or
                     RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
-
                     WaitForIt = True
                 Else
                     WaitForIt = False
                 End If
                 ctr = ctr - 1
                 If ctr <= 0 Then WaitForIt = False
-
             End While
+
         Else
 
-            While cpu.NextValue() > gCPUMAX
-                Sleep(1000)
+            Dim ctr = 600 ' 1 minute max to start a region
+            Dim WaitForIt = True
+            While WaitForIt
+                Sleep(100)
+                If cpu.NextValue() < gCPUMAX Then
+                    WaitForIt = False
+                    ctr = ctr - 1
+                    If ctr <= 0 Then WaitForIt = False
+                End If
             End While
         End If
 
     End Sub
 #End Region
 
+#Region "Firewall"
+
+
+    Private Function DeleteFirewallRules() As String
+
+        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf
+
+        Dim RegionNumber As Integer = 0
+        Dim start = CInt(MySetting.FirstRegionPort)
+
+        For RegionNumber = start To gMaxPortUsed
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Region TCP Port " & RegionNumber.ToString & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & RegionNumber.ToString & """" & vbCrLf
+        Next
+
+        Return Command
+
+    End Function
+
+    Private Function AddFirewallRules() As String
+
+        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
+
+
+        Dim RegionNumber As Integer = 0
+        Dim start = CInt(MySetting.FirstRegionPort)
+
+        For RegionNumber = start To gMaxPortUsed
+            Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
+        Next
+
+        Return Command
+
+    End Function
+    Public Sub SetFirewall()
+
+        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
+
+        Dim ns As StreamWriter = New StreamWriter(MyFolder + "\fw.bat", False)
+        ns.WriteLine(CMD)
+        ns.Close()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.Arguments = ""
+        pi.FileName = MyFolder + "\fw.bat"
+        pi.WindowStyle = ProcessWindowStyle.Hidden
+        pi.Verb = "runas"
+        Dim ProcessFirewall As Process = New Process()
+        ProcessFirewall.StartInfo = pi
+
+        Try
+            ProcessFirewall.Start()
+        Catch ex As Exception
+            Log("Error", "Could not set firewall:" + ex.Message)
+        End Try
+
+
+    End Sub
+
+
+
+
+#End Region
 
 
 End Class

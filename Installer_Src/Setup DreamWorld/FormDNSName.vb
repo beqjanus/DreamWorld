@@ -79,7 +79,7 @@ Public Class FormDNSName
             Try
                 Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?GridName=" + DNSNameBox.Text + "&r=" + Random())
             Catch ex As Exception
-                Form1.Log("Cannot check the DNS Name, no connection to the Internet or www.Outworldz.com is down. " + ex.Message)
+                Form1.Log("Warn", "Cannot check the DNS Name, no connection to the Internet or www.Outworldz.com is down. " + ex.Message)
             End Try
             If (Checkname = DNSNameBox.Text) Then
                 DNSNameBox.Text = Checkname
