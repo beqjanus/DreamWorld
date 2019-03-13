@@ -2079,7 +2079,7 @@ Public Class Form1
         End Try
 
         ' find any region in the dos box that exited.
-
+        ExitList.RemoveAt(LOOPVAR)
 
         'Dim RegionName = RegionClass.FindGroupNamebyRegionName(RegionName)
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
@@ -2092,18 +2092,15 @@ Public Class Form1
         Try
             Dim Groupname = RegionClass.GroupName(RegionNumber)
 
-
             ' Auto restart phase begins
             If OpensimIsRunning() And Not gAborting _
-                    And (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown _
-                            Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp) Then
+                    And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
                 UpdateView = True ' make form refresh
                 PrintFast("Restart Queued for " + Groupname)
                 RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
                 RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
                 UpdateView = True ' make form refresh
                 Return
-
             End If
 
 
