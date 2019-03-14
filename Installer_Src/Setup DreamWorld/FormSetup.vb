@@ -603,7 +603,7 @@ Public Class Form1
         End If
 
         If ctr = 0 Then
-            ErrorLog("Cannot Localate window for handle " & handle.ToString)
+
         End If
 
 
