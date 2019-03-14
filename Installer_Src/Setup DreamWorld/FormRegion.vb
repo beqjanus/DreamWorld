@@ -413,7 +413,7 @@ Public Class FormRegion
             'If yesNo = vbYes Then
             NewGroup = RegionChosen()
             If NewGroup = "" Then
-                Form1.PrintFast("Aborted")
+                Form1.Print("Aborted")
                 Return
             End If
             'End If

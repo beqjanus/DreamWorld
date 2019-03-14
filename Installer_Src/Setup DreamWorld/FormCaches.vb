@@ -70,7 +70,7 @@ Public Class FormCaches
                         End Try
 
                         ctr = ctr + 1
-                        Form1.PrintFast("Deleting " & ctr.ToString + " of " + fCount.ToString & " scripts")
+                        Form1.Print("Deleting " & ctr.ToString + " of " + fCount.ToString & " scripts")
                         Application.DoEvents()
                     End If
                 Next
@@ -96,7 +96,7 @@ Public Class FormCaches
                 For Each folder As String In folders
                     My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                     ctr = ctr + 1
-                    Form1.PrintFast("Deleteing " & ctr.ToString + " of " + fCount.ToString & " assets")
+                    Form1.Print("Deleteing " & ctr.ToString + " of " + fCount.ToString & " assets")
                     Application.DoEvents()
                 Next
             Catch
@@ -114,7 +114,7 @@ Public Class FormCaches
                 For Each folder As String In folders
                     My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                     ctr = ctr + 1
-                    Form1.PrintFast("Deleteing " & ctr.ToString + " of " + fCount.ToString & " images")
+                    Form1.Print("Deleteing " & ctr.ToString + " of " + fCount.ToString & " images")
                     Application.DoEvents()
                 Next
 
@@ -131,7 +131,7 @@ Public Class FormCaches
                 For Each folder As String In folders
                     My.Computer.FileSystem.DeleteDirectory(Form1.gPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                     ctr = ctr + 1
-                    Form1.PrintFast(ctr.ToString + " of " + fCount.ToString)
+                    Form1.Print(ctr.ToString + " of " + fCount.ToString)
                     Application.DoEvents()
                 Next
             Catch

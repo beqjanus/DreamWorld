@@ -260,12 +260,6 @@
     <Compile Include="FormPermissions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPersonality.Designer.vb">
-      <DependentUpon>FormPersonality.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormPersonality.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormPhysics.Designer.vb">
       <DependentUpon>FormPhysics.vb</DependentUpon>
     </Compile>
@@ -418,9 +412,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPermissions.resx">
       <DependentUpon>FormPermissions.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormPersonality.resx">
-      <DependentUpon>FormPersonality.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPhysics.resx">
       <DependentUpon>FormPhysics.vb</DependentUpon>

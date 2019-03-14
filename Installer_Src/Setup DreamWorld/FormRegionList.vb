@@ -590,7 +590,7 @@ Public Class RegionList
 
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
 
-                Form1.PrintFast("Shutdown " + RegionClass.GroupName(n))
+                Form1.Print("Shutdown " + RegionClass.GroupName(n))
 
                 Form1.gRestartNow = True
 
@@ -734,7 +734,7 @@ Public Class RegionList
 
         dirpathname = PickGroup()
         If dirpathname = "" Then
-            Form1.PrintFast("Aborted")
+            Form1.Print("Aborted")
             Return
         End If
 
@@ -840,7 +840,7 @@ Public Class RegionList
 
                 Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
-                Form1.PrintFast("Restarting " & RegionClass.GroupName(X))
+                Form1.Print("Restarting " & RegionClass.GroupName(X))
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
                     RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped

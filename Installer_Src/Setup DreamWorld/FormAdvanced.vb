@@ -253,18 +253,6 @@ Public Class AdvancedForm
 
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
-
-        ' Set the new form's desktop location so it appears below and
-        ' to the right of the current form.
-        Form1.FormPersonality.Close()
-        Form1.FormPersonality = New FormPersonality
-        Form1.FormPersonality.Init()
-        Form1.FormPersonality.Help()
-        Form1.FormPersonality.Activate()
-        Form1.FormPersonality.Visible = True
-
-    End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
@@ -274,6 +262,10 @@ Public Class AdvancedForm
         FormPublicity = New FormPublicity
         FormPublicity.Activate()
         FormPublicity.Visible = True
+
+    End Sub
+
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
 
     End Sub
 

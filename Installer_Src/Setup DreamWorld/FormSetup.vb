@@ -40,7 +40,7 @@ Public Class Form1
     ' edit this to compile and run in the correct folder root
     ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when in a debugger
-    Private gExitIsBusy As Boolean = False
+    Private gExitHandlerIsBusy As Boolean = False
 
     ReadOnly gCPUMAX As Single = 80 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
@@ -72,30 +72,6 @@ Public Class Form1
 
     Public gMaxPortUsed As Integer = 0  'Max number of port used past 8004
 
-    ReadOnly images As List(Of Image) = New List(Of Image) From {My.Resources.tangled, My.Resources.wp_habitat, My.Resources.wp_Mooferd,
-                             My.Resources.wp_To_Piers_Anthony,
-                             My.Resources.wp_wavy_love_of_animals, My.Resources.wp_zebra,
-                             My.Resources.wp_Que, My.Resources.wp_1, My.Resources.wp_2,
-                             My.Resources.wp_3, My.Resources.wp_4, My.Resources.wp_5,
-                             My.Resources.wp_6, My.Resources.wp_7, My.Resources.wp_8,
-                             My.Resources.wp_9, My.Resources.wp_10, My.Resources.wp_11,
-                             My.Resources.wp_12, My.Resources.wp_13, My.Resources.wp_14,
-                             My.Resources.wp_15, My.Resources.wp_16, My.Resources.wp_17,
-                             My.Resources.wp_18, My.Resources.wp_19, My.Resources.wp_20,
-                             My.Resources.wp_21, My.Resources.wp_22, My.Resources.wp_23,
-                             My.Resources.wp_24, My.Resources.wp_25, My.Resources.wp_26,
-                             My.Resources.wp_27, My.Resources.wp_28, My.Resources.wp_29,
-                             My.Resources.wp_30, My.Resources.wp_31, My.Resources.wp_32,
-                             My.Resources.wp_33, My.Resources.wp_34, My.Resources.wp_35,
-                             My.Resources.wp_36, My.Resources.wp_37, My.Resources.wp_38,
-                             My.Resources.wp_39, My.Resources.wp_40, My.Resources.wp_41,
-                             My.Resources.wp_42, My.Resources.wp_43, My.Resources.wp_44,
-                             My.Resources.wp_45, My.Resources.wp_46, My.Resources.wp_47,
-                             My.Resources.wp_48, My.Resources.wp_49, My.Resources.wp_50,
-                             My.Resources.wp_51, My.Resources.wp_52, My.Resources.wp_53,
-                             My.Resources.wp_54, My.Resources.wp_55, My.Resources.wp_56,
-                             My.Resources.wp_57, My.Resources.fairy
-                            }
 
     Dim gContentAvailable As Boolean = False ' assume there is no OAR and IAR data available
     Public MyUPnpMap As UPnp        ' UPNP gAborting
@@ -115,7 +91,6 @@ Public Class Form1
     ' Help Form for RTF files
     Public FormHelp As New FormHelp
     Dim FormCaches As New FormCaches
-    Public FormPersonality As FormPersonality
 
     ' Region 
     Public RegionClass As RegionMaker   ' Global RegionClass
@@ -248,7 +223,6 @@ Public Class Form1
         Dim X = Me.Width - 40
         Dim Y = Me.Height - 100
         TextBox1.Size = New System.Drawing.Size(X, Y)
-        PictureBox1.Size = New System.Drawing.Size(X, Y)
 
     End Sub
 
@@ -297,14 +271,9 @@ Public Class Form1
 
         Application.EnableVisualStyles()
 
-        PictureBox1.Size = TextBox1.Size
-
-        Dim ln As Integer = TextBox1.Text.Length
-
         TextBox1.SelectionStart = 0
         TextBox1.ScrollToCaret()
-        SaySomething()
-        TextBox1.SelectionStart = ln
+        TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
         MyFolder = My.Application.Info.DirectoryPath
@@ -352,16 +321,7 @@ Public Class Form1
         TextBox1.BackColor = Me.BackColor
         TextBox1.AllowDrop = True
 
-        PictureBox1.Enabled = True
-        PictureBox1.AllowDrop = True
-
-        LogButton.Hide()
-        IgnoreButton.Hide()
         Buttons(BusyButton)
-
-        ' hide updater
-        UpdaterGo.Visible = False
-        UpdaterCancel.Visible = False
 
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
@@ -377,8 +337,6 @@ Public Class Form1
 
         Adv = New AdvancedForm
         gInitted = True
-
-        SaySomething()
 
         ClearLogFiles() ' clear log fles
 
@@ -408,16 +366,13 @@ Public Class Form1
         ProgressBar1.Value = 100
         ProgressBar1.Value = 0
 
-        If Not MySetting.SkipUpdateCheck Then
-            CheckForUpdates()
-        End If
+        CheckForUpdates()
 
         CheckDefaultPorts()
 
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
         Log("Info", "Starting Web Server ")
-
         ws.StartServer(MyFolder, MySetting, MySetting.PrivateURL, CType(MySetting.DiagnosticPort, Integer))
 
         ' Run diagnostics, maybe
@@ -431,9 +386,6 @@ Public Class Form1
         SetQuickEditOff()
 
         If Not SetIniData() Then Return
-
-
-        FormPersonality = New FormPersonality
 
         RegionClass.UpdateAllRegionPorts() ' must be after SetIniData
         SetFirewall()   ' must be after UpdateAllRegionPorts
@@ -482,16 +434,6 @@ Public Class Form1
 
         ProgressBar1.Value = 100
 
-        ' test max textbox1
-        If (False) Then
-            Dim ctr = 15000
-            While ctr > 0
-                PrintFast("012345678901234567890123456789 " & ctr.ToString)
-                ctr = ctr - 1
-                Application.DoEvents()
-            End While
-        End If
-
 
     End Sub
 
@@ -521,8 +463,8 @@ Public Class Form1
             .InstanceName = "_Total"
         End With
 
-        PrintFast("Starting...")
-        gExitIsBusy = False
+        Print("Starting...")
+        gExitHandlerIsBusy = False
         gAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
@@ -723,7 +665,7 @@ Public Class Form1
 
                 For Each X In RegionClass.RegionNumbers
                     If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped Then
-                        PrintFast("Checking " + RegionClass.RegionName(X))
+                        Print("Checking " + RegionClass.RegionName(X))
 
                         If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
@@ -835,24 +777,11 @@ Public Class Form1
     Public Sub Print(Value As String)
 
         Log("Info", "" + Value)
-        PictureBox1.Visible = False
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         trim()
-        TextBox1.Visible = True
-        Application.DoEvents()
-        Sleep(gChatTime)  ' time to read
-
 
     End Sub
-    Public Sub PrintFast(Value As String)
 
-        'Log("Info","" + Value)
-        PictureBox1.Visible = False
-        TextBox1.Visible = True
-        TextBox1.Text = TextBox1.Text & vbCrLf & Value
-        trim()
-        ' No DoEvents
-    End Sub
     Private Sub trim()
         If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
             TextBox1.Text = Mid(TextBox1.Text, 500)
@@ -1974,7 +1903,7 @@ Public Class Form1
 
     Public Function Start_Opensimulator() As Boolean
 
-        gExitIsBusy = False
+        gExitHandlerIsBusy = False
         gAborting = False
         Timer1.Start() 'Timer starts functioning
         Start_Robust()
@@ -2053,59 +1982,38 @@ Public Class Form1
 
     Private Sub DoExitHandlerPoll()
 
-        If gExitIsBusy Then Return
+        If gExitHandlerIsBusy Then Return
 
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
 
-        gExitIsBusy = True
+        gExitHandlerIsBusy = True
         Dim LOOPVAR = ExitList.Count - 1
         ExitList.Reverse()
+        Dim RegionName As String = ExitList(LOOPVAR) ' recover the PID as integer
+        ExitList.RemoveAt(LOOPVAR)
 
-        Dim RegionName As String
-        Try
-            RegionName = ExitList(LOOPVAR) ' recover the PID as integer
-
-            If RegionName = "Form1" Then
-                ErrorLog("Form 1 exited")
-            Else
-                Print(RegionName & " shutdown")
-            End If
-
-        Catch ex As Exception
-            ExitList.RemoveAt(LOOPVAR)
-            gExitIsBusy = False
-            Return
-        End Try
-
-        ' find any region in the dos box that exited.
-
-
-        'Dim RegionName = RegionClass.FindGroupNamebyRegionName(RegionName)
+        Print(RegionName & " shutdown")
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
         If RegionNumber < 0 Then
-            ExitList.RemoveAt(LOOPVAR)
-            gExitIsBusy = False
+            gExitHandlerIsBusy = False
             Return
         End If
 
         Try
             Dim Groupname = RegionClass.GroupName(RegionNumber)
 
-
             ' Auto restart phase begins
-            If OpensimIsRunning() And Not gAborting _
-                    And (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown _
-                            Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp) Then
-                UpdateView = True ' make form refresh
-                PrintFast("Restart Queued for " + Groupname)
+            If OpensimIsRunning() _
+                And Not gAborting _
+                And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+
+                Print("Restart Queued for " + Groupname)
                 RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
                 RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
                 UpdateView = True ' make form refresh
                 Return
-
             End If
-
 
             ' Maybe we crashed during warmup.  Skip prompt if auto restarting
             If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
@@ -2129,20 +2037,13 @@ Public Class Form1
 
             End If
 
-
-            Try
-                ExitList.RemoveAt(LOOPVAR)
-            Catch ex As Exception
-                ErrorLog("Error:Something fucky in region RemoveAt:" + ex.Message)
-                ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
-            End Try
         Catch ex As Exception
             ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
             ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
         End Try
 
 
-        gExitIsBusy = False
+        gExitHandlerIsBusy = False
 
     End Sub
 
@@ -2228,7 +2129,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess(BootName)
         Dim Groupname = RegionClass.GroupName(RegionNumber)
-        PrintFast("Starting " + Groupname)
+        Print("Starting " + Groupname)
         Try
             myProcess.EnableRaisingEvents = True
             myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -2372,26 +2273,10 @@ Public Class Form1
     ''' </summary>
     Private Sub ShowLog()
 
-        LogButton.Show()
-        IgnoreButton.Show()
-
-    End Sub
-
-    Private Sub ShowLogButton_Click(sender As Object, e As EventArgs) Handles LogButton.Click
-
         System.Diagnostics.Process.Start("wordpad.exe", """" + MyFolder + "/OutworldzFiles/Outworldz.log" + """")
 
-        LogButton.Hide()
-        IgnoreButton.Hide()
-
     End Sub
 
-    Private Sub IgnoreButton_Click(sender As Object, e As EventArgs) Handles IgnoreButton.Click
-
-        LogButton.Hide()
-        IgnoreButton.Hide()
-
-    End Sub
 
 #End Region
 
@@ -2459,60 +2344,6 @@ Public Class Form1
     End Function
 
 
-    Private Sub SaySomething()
-        Dim Prefix() As String = {
-                                  "Mmmm?  Yawns ...",
-                                  "Yawns, and stretches ...",
-                                  "Wakes up and rolls over ...",
-                                  "You look more beautiful every time I wake up.",
-                                  "Zzzz...  Ooooh, I need coffee before I go to work.",
-                                  "Nooo... is it already time to wake up?",
-                                  "Mmmm, I was sleeping...",
-                                  "What a dream that was!",
-                                  "Do you ever dream of better worlds? I just did.",
-                                  "Huh?",
-                                  "Mumbles...",
-                                  "Hello beautiful",
-                                  "Act on dreams with an open mind.",
-                                  "Believe in the beauty of your dreams.",
-                                  "A dream doesn't become reality through magic"
-                                }
-
-        Dim Array() As String = {
-                 "I dreamt we were both flying a dragon in the Outworldz. You flamed me. I tried to get even.  I lost LOL ",
-                 "I dreamt we were chatting at OsGrid.org. It's the largest hypergrid-enabled virtual world.",
-                 "I dreamt some friends and you were riding a rollercoaster in the Great Canadian Grid.",
-                 "I dreamt I was watching a pretty particle exhibit with you on the Metropolis grid.",
-                 "I dreamt we walked into a bar discussing politics in Hebrew and Arabic using a free translator.",
-                 "I dreamt you took the hypergrid safari to visit the mountains of Africa in the Virunga sim.",
-                 "I dreamt you won a race while riding a silly cow at the Outworldz 'Frankie' sim.",
-                 "I dreamt you are a wonderful singer. I loved to hear your voice singing into the voice-chat system.",
-                 "I remember in my dream that the spaceport at Gravity sim in OsGrid was really hopping. And floating. And then I fell. ",
-                 "I was dreaming that you were a mermaid in the Lost Worlds.",
-                 "I deamt that you made a pile of prims that you simply will not believe!",
-                 "I dreamed that I asked when you were going to straighten out the castle. You said, 'Why? Is it tilted?'",
-                 "I saw a dog in my dream. I dreamt you made a 'mesh' of it.",
-                 "I dreamt I saw a man without any pants firmly attached to an eagle flying in the air. Always rez before you attach!",
-                 "I forgot the dream already. I remember I woke up in it.",
-                 "I was thinking I had no clothes on. No shirt, shoes, or hair. The worst part was there was no facelight! I looked hideous!",
-                 "I dreamt that I was floating in a river and a scripted mesh crocodile chased me.",
-                 "I dreamt I drove our car into the ocean. You found a pose ball, and we both grabbed onto it and were saved.",
-                 "I dreamed that there was a animated mesh zebra in my bathtub.",
-                 "I had dreamed a fairy was my best friend.",
-                 "I dreamed that there were non-player characters living in my house, so I decided to fly away. ",
-                 "I had a dream that there were pimples all over my face. So I switched skins and looked perfect!",
-                 "I had a dream where I had lost my free mesh boots, so I was asking everybody where I got them on the hypergrid.",
-                 "I had a dream that we were sitting on my roof and we stood up and both fell off. But I hit Page Up and flew away."
-                  }
-
-        Randomize()
-
-        Dim value1 As Integer = CInt(Int((Prefix.Length - 1) * Rnd()))
-        Dim value2 As Integer = CInt(Int((Array.Length - 1) * Rnd()))
-        Dim whattosay = Prefix(value1) + vbCrLf + vbCrLf + Array(value2) + " ... and then I woke up."
-        Print(whattosay)
-
-    End Sub
     ''' <summary>
     ''' Sleep(ms)
     ''' </summary>
@@ -2529,24 +2360,7 @@ Public Class Form1
         End While
 
     End Sub
-    ''' <summary>
-    ''' Draws a gif
-    ''' </summary>
-    Public Sub PaintImage()
 
-        If MySetting.TimerInterval > 0 Then  ' is it enabled?
-
-            Dim randomFruit = images(Arnd.Next(0, images.Count))
-            ProgressBar1.Visible = False
-            TextBox1.Visible = False
-            PictureBox1.Enabled = True
-            PictureBox1.Image = randomFruit
-            PictureBox1.Visible = True
-        Else
-            PictureBox1.Visible = False
-        End If
-
-    End Sub
 
     ''' <summary>
     ''' Timer runs every second
@@ -2572,13 +2386,13 @@ Public Class Form1
         End If
 
         If Not gAborting Then RegionClass.CheckPost()
-        DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
 
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
 
             If Not gAborting Then
+                DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
                 RegionRestart() ' check for reboot 
                 ScanAgents() ' update agent count
             End If
@@ -2658,7 +2472,7 @@ Public Class Form1
                         SequentialPause(X)
                         ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                        PrintFast("AutoRestarting " + Groupname)
+                        Print("AutoRestarting " + Groupname)
 
                         UpdateView = True ' make form refresh
                     Catch ex As Exception
@@ -2711,23 +2525,6 @@ Public Class Form1
         Return CType(present, Boolean)
 
     End Function
-
-    ''' <summary>
-    '''  get next picture
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
-
-        Dim randomFruit = images(Arnd.Next(0, images.Count))
-        ProgressBar1.Visible = False
-        TextBox1.Visible = False
-        PictureBox1.Enabled = True
-        PictureBox1.Image = randomFruit
-        PictureBox1.Visible = True
-        Timertick = 0   ' rest for next pass
-
-    End Sub
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
@@ -3358,21 +3155,6 @@ Public Class Form1
 
 #Region "Updates"
 
-    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
-        CheckForUpdates()
-        MySetting.SkipUpdateCheck = False
-        ' check for updates is on if we ever check for updates 
-    End Sub
-
-    Private Sub UpdaterCancel_Click(sender As Object, e As EventArgs) Handles UpdaterCancel.Click
-
-        UpdaterGo.Visible = False
-        UpdaterCancel.Visible = False
-        MySetting.SkipUpdateCheck = True
-        Print("Update scan is off. You can still check for updates in the Help Menu.")
-
-    End Sub
-
     Private Function MakeBackup() As Boolean
 
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss")   ' Set default folder
@@ -3402,12 +3184,12 @@ Public Class Form1
             ErrorLog("Err:" + ex.Message)
             Return False
         End Try
-        PrintFast("Finished with backup at " + Dest)
+        Print("Finished with backup at " + Dest)
         Return True
 
     End Function
 
-    Private Sub UpdaterGo_Click(sender As Object, e As EventArgs) Handles UpdaterGo.Click
+    Private Sub UpdaterGo()
 
         Dim msg = MsgBox("Make a backup of important files and the database first? ", vbYesNo)
         Dim okay As Boolean
@@ -3415,11 +3197,8 @@ Public Class Form1
             okay = MakeBackup()
         End If
 
-
         StopMysql()
 
-        UpdaterGo.Enabled = False
-        UpdaterCancel.Visible = False
         Dim fileloaded As String = Download()
         If fileloaded.Length > 0 Then
             Dim pUpdate As Process = New Process()
@@ -3438,8 +3217,6 @@ Public Class Form1
             End ' program
         Else
             Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them!   Please check later.")
-            UpdaterGo.Visible = False
-            UpdaterGo.Enabled = True
         End If
 
     End Sub
@@ -3480,8 +3257,6 @@ Public Class Form1
         Dim Update As String = ""
         Dim isPortOpen As String = ""
 
-        MySetting.SkipUpdateCheck = False
-
         Try
             Update = client.DownloadString(gDomain + "/Outworldz_Installer/UpdateGrid.plx?fill=1" + GetPostData())
         Catch ex As Exception
@@ -3489,17 +3264,10 @@ Public Class Form1
         End Try
         If (Update = "") Then Update = "0"
 
-        Try
-            If Convert.ToSingle(Update) > Convert.ToSingle(gMyVersion) Then
-                Print("A dreamier version " + Update + " is available.")
-                UpdaterGo.Visible = True
-                UpdaterGo.Enabled = True
-                UpdaterCancel.Visible = True
-            Else
-                Print("I am the dreamiest version available, at V " + gMyVersion)
-            End If
-        Catch
-        End Try
+        If Convert.ToSingle(Update) > Convert.ToSingle(gMyVersion) Then
+            If MsgBox("A dreamier version " + Update + " is available. Update Now?", vbYesNo) = vbYes Then UpdaterGo()
+        End If
+
         BumpProgress10()
 
     End Sub
@@ -3792,7 +3560,7 @@ Public Class Form1
                     MyUPnpMap.Remove(Convert.ToInt16(MySetting.SC_PortBase), UPnp.Protocol.TCP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, CType(MySetting.SC_PortBase, Integer), UPnp.Protocol.TCP, "Icecast TCP Public " + MySetting.SC_PortBase.ToString)
-                PrintFast("Icecast Port is set to " + MySetting.SC_PortBase.ToString)
+                Print("Icecast Port is set to " + MySetting.SC_PortBase.ToString)
                 BumpProgress10()
             End If
 
@@ -3801,7 +3569,7 @@ Public Class Form1
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.DiagnosticPort), UPnp.Protocol.TCP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.DiagnosticPort), UPnp.Protocol.TCP, "Opensim TCP Public " + MySetting.DiagnosticPort)
-            PrintFast("Diagnostic Port is set to " + MySetting.DiagnosticPort)
+            Print("Diagnostic Port is set to " + MySetting.DiagnosticPort)
             BumpProgress10()
 
             ' 8002 for TCP and UDP
@@ -3809,14 +3577,14 @@ Public Class Form1
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP, "Opensim TCP Grid " + MySetting.HttpPort)
-            PrintFast("Grid Port is set to " + MySetting.HttpPort)
+            Print("Grid Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
             If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP) Then
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP, "Opensim UDP Grid " + MySetting.HttpPort)
-            PrintFast("Grid Port is set to " + MySetting.HttpPort)
+            Print("Grid Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
             For Each X In RegionClass.RegionNumbers
@@ -3826,14 +3594,14 @@ Public Class Form1
                     MyUPnpMap.Remove(R, UPnp.Protocol.UDP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.UDP, "Opensim UDP Region " & RegionClass.RegionName(X) & " ")
-                PrintFast("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
                 BumpProgress(1)
 
                 If MyUPnpMap.Exists(R, UPnp.Protocol.TCP) Then
                     MyUPnpMap.Remove(R, UPnp.Protocol.TCP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.TCP, "Opensim TCP Region " & RegionClass.RegionName(X) & " ")
-                PrintFast("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
                 BumpProgress(1)
             Next
 
@@ -3841,7 +3609,7 @@ Public Class Form1
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.SC_PortBase), UPnp.Protocol.TCP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, MySetting.SC_PortBase, UPnp.Protocol.TCP, "Icecast TCP" + MySetting.SC_PortBase.ToString)
-            PrintFast("Icecast Port is set to " + MySetting.SC_PortBase.ToString)
+            Print("Icecast Port is set to " + MySetting.SC_PortBase.ToString)
 
 
             BumpProgress10()
@@ -4261,7 +4029,7 @@ Public Class Form1
             Return True
         End If
 
-        PrintFast("Checking " + "http://" + MySetting.DNSName + ":" + MySetting.HttpPort)
+        Print("Checking " + "http://" + MySetting.DNSName + ":" + MySetting.HttpPort)
 
         Dim client As New System.Net.WebClient
         Dim Checkname As String = String.Empty

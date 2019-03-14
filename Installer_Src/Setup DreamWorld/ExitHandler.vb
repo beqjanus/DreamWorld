@@ -11,10 +11,7 @@
         Try
             Dim pid = CType(sender.Id, Integer)
             Dim name = RegionHandles1.Item(pid)
-            If Not RegionHandles1.Remove(pid) Then
-                Debug.Print("Cannot locate key for PID " + pid.ToString)
-            End If
-
+            RegionHandles1.Remove(pid)
             Exitlist1.Add(name)
         Catch ex As Exception
             Debug.Print(ex.Message)

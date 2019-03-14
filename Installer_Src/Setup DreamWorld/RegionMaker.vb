@@ -896,7 +896,7 @@ Public Class RegionMaker
                 '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
 
                 If json.login = "enabled" Then
-                    Form1.PrintFast("Region " & json.region_name & " is ready")
+                    Form1.Print("Region " & json.region_name & " is ready")
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -917,7 +917,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Form1.PrintFast("Region " & json.region_name & " shutdown")
+                    Form1.Print("Region " & json.region_name & " shutdown")
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
