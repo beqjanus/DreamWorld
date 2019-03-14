@@ -1,7 +1,7 @@
 *.pid
 **/WifiPages-Custom
 OutworldzFiles/mysql/data/mysql/*.*
-
+fw.bat
 Outworldzfiles/Photo.png
 UDProxy
 /OutworldzFiles/mysql/data/*.err
