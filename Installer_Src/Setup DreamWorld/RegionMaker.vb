@@ -917,6 +917,8 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
+                    Return ' does not work as expected
+
                     Form1.Print("Region " & json.region_name & " shutdown")
 
                     Dim n = FindRegionByName(json.region_name)

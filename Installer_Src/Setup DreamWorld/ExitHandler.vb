@@ -11,8 +11,8 @@
         Try
             Dim pid = CType(sender.Id, Integer)
             Dim name = RegionHandles1.Item(pid)
-            RegionHandles1.Remove(pid)
             Exitlist1.Add(name)
+            RegionHandles1.Remove(pid)
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try

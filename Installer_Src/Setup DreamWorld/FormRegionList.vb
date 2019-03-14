@@ -134,7 +134,7 @@ Public Class RegionList
         ' Allow the user to rearrange columns.
         ListView1.AllowColumnReorder = True
         ' Display check boxes.
-        ListView1.CheckBoxes = True
+        ListView1.CheckBoxes = False
         AvatarView.CheckBoxes = False
         ' Select the item and subitems when selection is made.
         ListView1.FullRowSelect = True
@@ -167,6 +167,9 @@ Public Class RegionList
         ListView1.Show()
         Timer1.Interval = 1000 ' check for Form1.UpdateView every second
         Timer1.Start() 'Timer starts functioning
+
+        If Form1.MySetting.MapType = "None" Then MapsToolStripMenuItem.Visible = False
+
         SetScreen()
 
         Form1.HelpOnce("RegionList")
@@ -488,6 +491,7 @@ Public Class RegionList
         LoadMyListView()
 
     End Sub
+
     Private Sub ListCLick(sender As Object, e As EventArgs) Handles ListView1.Click
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
         Dim item As ListViewItem
@@ -666,44 +670,6 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
-
-        ' It may be busy refreshing so lets wait
-        While Not ViewNotBusy
-            Form1.Sleep(100)
-            Application.DoEvents()
-        End While
-
-        Debug.Print(Form1.MySetting.MapType)
-        If Form1.MySetting.MapType = "None" And TheView = ViewType.Maps Then TheView = ViewType.Avatars
-
-        TheView = TheView + 1
-        If TheView > ViewType.Avatars Then TheView = ViewType.Maps
-
-        If TheView = ViewType.Icons Then     '  Just an icon
-            ListView1.View = View.SmallIcon
-            ListView1.Show()
-            AvatarView.Hide()
-            ListView1.CheckBoxes = True
-            Timer1.Start()
-        ElseIf TheView = ViewType.Maps Then ' Maps
-            ListView1.View = View.LargeIcon
-            ListView1.Show()
-            AvatarView.Hide()
-            ListView1.CheckBoxes = False
-            Timer1.Stop()
-        ElseIf TheView = ViewType.Details Then ' Grid list
-            ListView1.View = View.Details
-            ListView1.Show()
-            AvatarView.Hide()
-            ListView1.CheckBoxes = True
-            Timer1.Start()
-        End If
-
-
-        LoadMyListView()
-
-    End Sub
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
 
@@ -791,11 +757,6 @@ Public Class RegionList
 
     End Function
 
-    Private Sub RegionHelp_Click(sender As Object, e As EventArgs) Handles RegionHelp.Click
-
-        Form1.Help("RegionList")
-
-    End Sub
 
     Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNome.CheckedChanged
 
@@ -858,6 +819,47 @@ Public Class RegionList
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         Form1.Help("RegionList")
+    End Sub
+
+    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+        TheView = ViewType.Details
+        ListView1.View = View.Details
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = True
+        Timer1.Start()
+        LoadMyListView()
+
+    End Sub
+
+    Private Sub SmallListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SmallListToolStripMenuItem.Click
+        TheView = ViewType.Icons
+        ListView1.View = View.SmallIcon
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = False
+        Timer1.Start()
+        LoadMyListView()
+
+    End Sub
+
+    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
+        TheView = ViewType.Maps
+        ListView1.View = View.LargeIcon
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = False
+        Timer1.Stop()
+        LoadMyListView()
+    End Sub
+
+    Private Sub AvatarsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AvatarsToolStripMenuItem.Click
+        TheView = ViewType.Avatars
+        ListView1.View = View.Details
+        ListView1.Hide()
+        AvatarView.Show()
+        LoadMyListView()
+        Timer1.Start()
     End Sub
 
 #End Region

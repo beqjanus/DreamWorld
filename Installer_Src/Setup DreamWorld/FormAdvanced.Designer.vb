@@ -49,7 +49,7 @@ Partial Class AdvancedForm
         '
         'TOSButton
         '
-        Me.TOSButton.Location = New System.Drawing.Point(166, 209)
+        Me.TOSButton.Location = New System.Drawing.Point(175, 192)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(145, 23)
         Me.TOSButton.TabIndex = 15
@@ -59,7 +59,7 @@ Partial Class AdvancedForm
         '
         'TideButton
         '
-        Me.TideButton.Location = New System.Drawing.Point(166, 180)
+        Me.TideButton.Location = New System.Drawing.Point(175, 163)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(145, 23)
         Me.TideButton.TabIndex = 14
@@ -69,7 +69,7 @@ Partial Class AdvancedForm
         '
         'GloebitsButton
         '
-        Me.GloebitsButton.Location = New System.Drawing.Point(6, 123)
+        Me.GloebitsButton.Location = New System.Drawing.Point(15, 106)
         Me.GloebitsButton.Name = "GloebitsButton"
         Me.GloebitsButton.Size = New System.Drawing.Size(143, 23)
         Me.GloebitsButton.TabIndex = 4
@@ -79,7 +79,7 @@ Partial Class AdvancedForm
         '
         'VoiceButton1
         '
-        Me.VoiceButton1.Location = New System.Drawing.Point(166, 238)
+        Me.VoiceButton1.Location = New System.Drawing.Point(175, 221)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
         Me.VoiceButton1.TabIndex = 16
@@ -89,7 +89,7 @@ Partial Class AdvancedForm
         '
         'Shoutcast
         '
-        Me.Shoutcast.Location = New System.Drawing.Point(6, 181)
+        Me.Shoutcast.Location = New System.Drawing.Point(15, 164)
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
@@ -99,7 +99,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(6, 210)
+        Me.MapsButton.Location = New System.Drawing.Point(15, 193)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -109,7 +109,7 @@ Partial Class AdvancedForm
         '
         'Birds
         '
-        Me.Birds.Location = New System.Drawing.Point(6, 65)
+        Me.Birds.Location = New System.Drawing.Point(15, 48)
         Me.Birds.Name = "Birds"
         Me.Birds.Size = New System.Drawing.Size(145, 23)
         Me.Birds.TabIndex = 2
@@ -119,7 +119,7 @@ Partial Class AdvancedForm
         '
         'BackupButton1
         '
-        Me.BackupButton1.Location = New System.Drawing.Point(6, 36)
+        Me.BackupButton1.Location = New System.Drawing.Point(15, 19)
         Me.BackupButton1.Name = "BackupButton1"
         Me.BackupButton1.Size = New System.Drawing.Size(145, 23)
         Me.BackupButton1.TabIndex = 1
@@ -129,7 +129,7 @@ Partial Class AdvancedForm
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(166, 122)
+        Me.RegionsButton1.Location = New System.Drawing.Point(175, 105)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
@@ -139,7 +139,7 @@ Partial Class AdvancedForm
         '
         'DivaButton1
         '
-        Me.DivaButton1.Location = New System.Drawing.Point(166, 267)
+        Me.DivaButton1.Location = New System.Drawing.Point(175, 250)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(145, 23)
         Me.DivaButton1.TabIndex = 18
@@ -149,7 +149,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(6, 238)
+        Me.PortsButton1.Location = New System.Drawing.Point(15, 221)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -160,7 +160,7 @@ Partial Class AdvancedForm
         'PhysicsButton1
         '
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(166, 65)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(175, 48)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
@@ -170,7 +170,7 @@ Partial Class AdvancedForm
         '
         'DatabaseButton2
         '
-        Me.DatabaseButton2.Location = New System.Drawing.Point(6, 94)
+        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 77)
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(145, 23)
         Me.DatabaseButton2.TabIndex = 3
@@ -180,7 +180,7 @@ Partial Class AdvancedForm
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(166, 151)
+        Me.Button3.Location = New System.Drawing.Point(175, 134)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(143, 23)
         Me.Button3.TabIndex = 13
@@ -190,7 +190,7 @@ Partial Class AdvancedForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(166, 36)
+        Me.Button2.Location = New System.Drawing.Point(175, 19)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(143, 23)
         Me.Button2.TabIndex = 9
@@ -200,7 +200,7 @@ Partial Class AdvancedForm
         '
         'DNSButton
         '
-        Me.DNSButton.Location = New System.Drawing.Point(6, 152)
+        Me.DNSButton.Location = New System.Drawing.Point(15, 135)
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(143, 23)
         Me.DNSButton.TabIndex = 5
@@ -210,7 +210,7 @@ Partial Class AdvancedForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(6, 267)
+        Me.Button1.Location = New System.Drawing.Point(15, 250)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(145, 23)
         Me.Button1.TabIndex = 17
@@ -220,7 +220,7 @@ Partial Class AdvancedForm
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(166, 93)
+        Me.Button4.Location = New System.Drawing.Point(175, 76)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 23)
         Me.Button4.TabIndex = 11
@@ -248,9 +248,9 @@ Partial Class AdvancedForm
         Me.GroupBox8.Controls.Add(Me.GloebitsButton)
         Me.GroupBox8.Controls.Add(Me.TOSButton)
         Me.GroupBox8.Controls.Add(Me.Shoutcast)
-        Me.GroupBox8.Location = New System.Drawing.Point(23, 13)
+        Me.GroupBox8.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(331, 295)
+        Me.GroupBox8.Size = New System.Drawing.Size(331, 292)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Global Settings"

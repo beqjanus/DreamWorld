@@ -29,18 +29,20 @@ Partial Class RegionList
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.ViewButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Addregion = New System.Windows.Forms.Button()
         Me.AllNome = New System.Windows.Forms.CheckBox()
-        Me.RegionHelp = New System.Windows.Forms.PictureBox()
         Me.RunAllButton = New System.Windows.Forms.Button()
         Me.StopAllButton = New System.Windows.Forms.Button()
         Me.RestartButton = New System.Windows.Forms.Button()
         Me.AvatarView = New System.Windows.Forms.ListView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SmallListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MapsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AvatarsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -59,7 +61,7 @@ Partial Class RegionList
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(461, 316)
+        Me.ListView1.Size = New System.Drawing.Size(393, 188)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
         "rganized.")
@@ -76,16 +78,6 @@ Partial Class RegionList
         Me.ToolTip1.SetToolTip(Me.Button1, "Reload the grid")
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'ViewButton
-        '
-        Me.ViewButton.Location = New System.Drawing.Point(139, 28)
-        Me.ViewButton.Name = "ViewButton"
-        Me.ViewButton.Size = New System.Drawing.Size(57, 23)
-        Me.ViewButton.TabIndex = 2
-        Me.ViewButton.Text = "View"
-        Me.ToolTip1.SetToolTip(Me.ViewButton, "Change the Grid View")
-        Me.ViewButton.UseVisualStyleBackColor = True
-        '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
@@ -94,7 +86,7 @@ Partial Class RegionList
         '
         'Addregion
         '
-        Me.Addregion.Location = New System.Drawing.Point(202, 28)
+        Me.Addregion.Location = New System.Drawing.Point(139, 28)
         Me.Addregion.Name = "Addregion"
         Me.Addregion.Size = New System.Drawing.Size(57, 23)
         Me.Addregion.TabIndex = 18593
@@ -113,19 +105,9 @@ Partial Class RegionList
         Me.ToolTip1.SetToolTip(Me.AllNome, "Selects all or none of the checkboxes")
         Me.AllNome.UseVisualStyleBackColor = True
         '
-        'RegionHelp
-        '
-        Me.RegionHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.RegionHelp.Location = New System.Drawing.Point(46, 1)
-        Me.RegionHelp.Name = "RegionHelp"
-        Me.RegionHelp.Size = New System.Drawing.Size(28, 27)
-        Me.RegionHelp.TabIndex = 1858
-        Me.RegionHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.RegionHelp, "Get Help")
-        '
         'RunAllButton
         '
-        Me.RunAllButton.Location = New System.Drawing.Point(265, 28)
+        Me.RunAllButton.Location = New System.Drawing.Point(202, 28)
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Size = New System.Drawing.Size(57, 23)
         Me.RunAllButton.TabIndex = 18594
@@ -135,7 +117,7 @@ Partial Class RegionList
         '
         'StopAllButton
         '
-        Me.StopAllButton.Location = New System.Drawing.Point(328, 28)
+        Me.StopAllButton.Location = New System.Drawing.Point(263, 28)
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Size = New System.Drawing.Size(57, 23)
         Me.StopAllButton.TabIndex = 18595
@@ -145,7 +127,7 @@ Partial Class RegionList
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(391, 28)
+        Me.RestartButton.Location = New System.Drawing.Point(326, 28)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(70, 23)
         Me.RestartButton.TabIndex = 18596
@@ -165,7 +147,7 @@ Partial Class RegionList
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(461, 340)
+        Me.AvatarView.Size = New System.Drawing.Size(393, 188)
         Me.AvatarView.TabIndex = 18597
         Me.ToolTip1.SetToolTip(Me.AvatarView, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
         "rganized.")
@@ -175,32 +157,66 @@ Partial Class RegionList
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(500, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(424, 24)
         Me.MenuStrip1.TabIndex = 18598
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'HelpToolStripMenuItem
         '
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DetailsToolStripMenuItem, Me.SmallListToolStripMenuItem, Me.MapsToolStripMenuItem, Me.AvatarsToolStripMenuItem})
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ViewToolStripMenuItem.Text = "View"
+        '
+        'DetailsToolStripMenuItem
+        '
+        Me.DetailsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_align_justified
+        Me.DetailsToolStripMenuItem.Name = "DetailsToolStripMenuItem"
+        Me.DetailsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DetailsToolStripMenuItem.Text = "Details"
+        '
+        'SmallListToolStripMenuItem
+        '
+        Me.SmallListToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.navigate_check
+        Me.SmallListToolStripMenuItem.Name = "SmallListToolStripMenuItem"
+        Me.SmallListToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SmallListToolStripMenuItem.Text = "Compact"
+        '
+        'MapsToolStripMenuItem
+        '
+        Me.MapsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.water
+        Me.MapsToolStripMenuItem.Name = "MapsToolStripMenuItem"
+        Me.MapsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.MapsToolStripMenuItem.Text = "Maps"
+        '
+        'AvatarsToolStripMenuItem
+        '
+        Me.AvatarsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users1
+        Me.AvatarsToolStripMenuItem.Name = "AvatarsToolStripMenuItem"
+        Me.AvatarsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AvatarsToolStripMenuItem.Text = "Avatars"
         '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(500, 430)
+        Me.ClientSize = New System.Drawing.Size(424, 269)
         Me.Controls.Add(Me.AvatarView)
         Me.Controls.Add(Me.RestartButton)
         Me.Controls.Add(Me.StopAllButton)
         Me.Controls.Add(Me.RunAllButton)
         Me.Controls.Add(Me.AllNome)
         Me.Controls.Add(Me.Addregion)
-        Me.Controls.Add(Me.RegionHelp)
-        Me.Controls.Add(Me.ViewButton)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -208,7 +224,6 @@ Partial Class RegionList
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "RegionList"
         Me.Text = "Region List"
-        CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -219,8 +234,6 @@ Partial Class RegionList
     Friend WithEvents Timer1 As Timer
     Friend WithEvents ListView1 As ListView
     Friend WithEvents Button1 As Button
-    Friend WithEvents ViewButton As Button
-    Friend WithEvents RegionHelp As PictureBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Addregion As Button
     Friend WithEvents AllNome As CheckBox
@@ -230,4 +243,9 @@ Partial Class RegionList
     Friend WithEvents AvatarView As ListView
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ViewToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DetailsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SmallListToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MapsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AvatarsToolStripMenuItem As ToolStripMenuItem
 End Class

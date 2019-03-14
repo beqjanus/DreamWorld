@@ -1990,7 +1990,8 @@ Public Class Form1
         gExitHandlerIsBusy = True
         Dim LOOPVAR = ExitList.Count - 1
         ExitList.Reverse()
-        Dim RegionName As String = ExitList(LOOPVAR) ' recover the PID as integer
+
+        Dim RegionName As String = ExitList(LOOPVAR) ' recover the Name
         ExitList.RemoveAt(LOOPVAR)
 
         Print(RegionName & " shutdown")
@@ -2012,6 +2013,7 @@ Public Class Form1
                 RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
                 RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
                 UpdateView = True ' make form refresh
+                gExitHandlerIsBusy = False
                 Return
             End If
 
@@ -2034,14 +2036,12 @@ Public Class Form1
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
-
             End If
 
         Catch ex As Exception
             ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
             ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
         End Try
-
 
         gExitHandlerIsBusy = False
 
@@ -2386,13 +2386,13 @@ Public Class Form1
         End If
 
         If Not gAborting Then RegionClass.CheckPost()
-
+        DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
 
             If Not gAborting Then
-                DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+
                 RegionRestart() ' check for reboot 
                 ScanAgents() ' update agent count
             End If
@@ -3011,7 +3011,7 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
 
-        Print("Coughing up content for your dreams")
+        Print("Refreshing OAR Downloadable Content")
         Dim oars As String = ""
         Try
             oars = client.DownloadString(gDomain + "/Outworldz_Installer/Content.plx?type=OAR&r=" + Random())
@@ -3061,7 +3061,7 @@ Public Class Form1
         Next
 
         Log("Info", "OARS loaded")
-        Print("Dreaming up some clothes and items for your avatar")
+        Print("Refreshing IAR Inventory Content")
         Dim iars As String = ""
         Try
             iars = client.DownloadString(gDomain + "/Outworldz_Installer/Content.plx?type=IAR&r=" + Random())
