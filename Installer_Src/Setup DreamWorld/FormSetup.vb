@@ -38,8 +38,8 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
-    Public gDebug As Boolean = False  ' set by code to log some events in when in a debugger
+    ReadOnly gDebugPath As String = "F:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
     ReadOnly gCPUMAX As Single = 80 ' max CPU % can be used when booting or we wait til it gets lower 
@@ -106,8 +106,9 @@ Public Class Form1
     Public gForceMerge As Boolean = True
     Public gUserName As String = ""
 
-    Dim cpu As New PerformanceCounter()
-
+    ' Graph
+    Dim cpu As New PerformanceCounter
+    Dim MyCollection As New Collection
 
     Public Enum SHOW_WINDOW As Integer
         SW_HIDE = 0
@@ -134,59 +135,11 @@ Public Class Form1
     Shared Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-    ''' <summary>
-    ''' SetWindowTextCall is here to wrap the SetWindowtext API call.  This call fails when there is no 
-    ''' hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a  timer to make sure we do not get stuck
-    ''' </summary>
-    ''' <param name="hwnd">Handle to the window to change the text on</param>
-    ''' <param name="windowName">the name of the Window </param>
-    ''' 
-    Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
-
-        Dim status As Boolean = False
-        Dim WindowCounter As Integer = 0
-        While myProcess.MainWindowHandle = CType(0, IntPtr) And Not status
-            Diagnostics.Debug.Print(windowName & " Handle = 0")
-            Sleep(100)
-            WindowCounter = WindowCounter + 1
-            If WindowCounter > 100 Then '  10 seconds for process to start
-                status = True
-                ErrorLog("Cannot get MainWindowHandle for " & windowName)
-                Return False
-            End If
-
-        End While
-
-
-        status = False
-        WindowCounter = 0
-
-        Dim hwnd As IntPtr = myProcess.MainWindowHandle
-        If CType(hwnd, Integer) = 0 Then
-            ErrorLog("hwnd = 0")
-        End If
-        While Not status
-            Sleep(100)
-            SetWindowText(hwnd, windowName)
-            status = SetWindowText(hwnd, windowName)
-            WindowCounter = WindowCounter + 1
-            If WindowCounter > 100 Then '  10 seconds
-                status = True
-                ErrorLog("Cannot get handle for " & windowName)
-            End If
-            Application.DoEvents()
-        End While
-
-
-        Return True
-
-    End Function
-
 
 #End Region
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
@@ -197,7 +150,7 @@ Public Class Form1
     End Sub
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -220,9 +173,8 @@ Public Class Form1
 
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
 
-        Dim X = Me.Width - 40
         Dim Y = Me.Height - 100
-        TextBox1.Size = New System.Drawing.Size(X, Y)
+        TextBox1.Size = New System.Drawing.Size(TextBox1.Size.Width, Y)
 
     End Sub
 
@@ -271,11 +223,29 @@ Public Class Form1
 
         Application.EnableVisualStyles()
 
+        ' Graph fill
+        Dim i = 180
+        While i > 0
+            MyCollection.Add(0)
+            i = i - 1
+        End While
+
+        Dim msChart = ChartWrapper1.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        ChartWrapper1.AddMarkers = True
+        ChartWrapper1.MarkerFreq = 60
+
+        ' init the scrolling text box
         TextBox1.SelectionStart = 0
         TextBox1.ScrollToCaret()
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
+        ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
         If MyFolder.Contains("Source") Then
@@ -412,7 +382,7 @@ Public Class Form1
                 Startup()
             Else
                 MySetting.SaveSettings()
-                Print("Ready to Launch! Click 'Start' to begin your adventure in Opensimulator.")
+                Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
             End If
 
         Else
@@ -462,6 +432,7 @@ Public Class Form1
             .CounterName = "% Processor Time"
             .InstanceName = "_Total"
         End With
+
 
         Print("Starting...")
         gExitHandlerIsBusy = False
@@ -639,7 +610,7 @@ Public Class Form1
             If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
                 Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
                 Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
-
+                Print(RegionClass.RegionName(X) & " is going down now")
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
                 SequentialPause(X)
@@ -672,7 +643,7 @@ Public Class Form1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
-                        Sleep(100)
+                        SequentialPause(X)
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
                         UpdateView = True ' make form refresh
@@ -720,7 +691,7 @@ Public Class Form1
         Timer1.Stop()
         OpensimIsRunning() = False
         Me.AllowDrop = False
-
+        gAborting = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
 
@@ -1368,15 +1339,12 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
 
         Dim BirdFile = MyFolder + "\OutworldzFiles\Opensim\bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
-        Try
-            System.IO.File.Delete(BirdFile)
-        Catch ex As Exception
-        End Try
+
+        System.IO.File.Delete(BirdFile)
+
         Dim TideFile = MyFolder + "\OutworldzFiles\Opensim\bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
-        Try
-            System.IO.File.Delete(TideFile)
-        Catch ex As Exception
-        End Try
+
+        System.IO.File.Delete(TideFile)
 
         ' has to be bound late so regions data is there.
 
@@ -1389,6 +1357,8 @@ Public Class Form1
 
         ' Self setting Region Ports
         Dim FirstPort As Integer = CType(MySetting.FirstRegionPort(), Integer)
+        Dim BirdData As String = ""
+        Dim TideData As String = ""
 
         For Each RegionNum As Integer In RegionClass.RegionNumbers
 
@@ -1556,20 +1526,13 @@ Public Class Form1
 
             MySetting.SaveOtherINI()
 
-            If MySetting.BirdsModuleStartup Then
-                Dim Birds As String = ""
-                If RegionClass.Birds(RegionNum) = "True" Then
-                    Birds = "True"
-                Else
-                    Birds = "False"
-                End If
+            If MySetting.BirdsModuleStartup And RegionClass.Birds(RegionNum) = "True" Then
 
-
-                Dim BirdData As String = "[" + simName + "]" + vbCrLf &
+                BirdData = BirdData & "[" + simName + "]" + vbCrLf &
                 ";this Is the default And determines whether the module does anything" & vbCrLf &
                 "BirdsModuleStartup = True" & vbCrLf & vbCrLf &
                 ";set to false to disable the birds from appearing in this region" & vbCrLf &
-                "BirdsEnabled = " & Birds & vbCrLf & vbCrLf &
+                "BirdsEnabled = True" & vbCrLf & vbCrLf &
                 ";which channel do we listen on for in world commands" & vbCrLf &
                 "BirdsChatChannel = " + MySetting.BirdsChatChannel.ToString() & vbCrLf & vbCrLf &
                 ";the number of birds to flock" & vbCrLf &
@@ -1596,61 +1559,50 @@ Public Class Form1
                 ";Or everyone if Not specified" & vbCrLf &
                 "BirdsAllowedControllers = ESTATE_OWNER, ESTATE_MANAGER" & vbCrLf & vbCrLf & vbCrLf
 
-
-                IO.File.AppendAllText(BirdFile, BirdData, Encoding.Default) 'The text file will be created if it does not already exist  
-
             End If
 
-            If MySetting.TideEnabled Then
+            If MySetting.TideEnabled And RegionClass.Tides(RegionNum) = "True" Then
 
-                Dim Tides As String = ""
-                If RegionClass.Tides(RegionNum) = "True" Then
-                    Tides = "True"
-                Else
-                    Tides = "False"
-                End If
-
-                Dim TideData As String = ";; Set the Tide settings per named region" & vbCrLf &
-                "[" + simName + "]" + vbCrLf &
-            ";this determines whether the module does anything in this region" & vbCrLf &
-            ";# {TideEnabled} {} {Enable the tide to come in and out?} {true false} false" & vbCrLf &
-            "TideEnabled = " & Tides & vbCrLf &
-                vbCrLf &
-            ";; Tides currently only work on single regions And varregions (non megaregions) " & vbCrLf &
-            ";# surrounded completely by water" & vbCrLf &
-            ";; Anything else will produce weird results where you may see a big" & vbCrLf &
-            ";; vertical 'step' in the ocean" & vbCrLf &
-            ";; update the tide every x simulator frames" & vbCrLf &
-            "TideUpdateRate = 50" & vbCrLf &
-                vbCrLf &
-            ";; low And high water marks in metres" & vbCrLf &
-            "TideHighWater = " & MySetting.TideHighLevel() & vbCrLf &
-            "TideLowWater = " & MySetting.TideLowLevel() & vbCrLf &
+                TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
+            "[" + simName + "]" + vbCrLf &
+        ";this determines whether the module does anything in this region" & vbCrLf &
+        ";# {TideEnabled} {} {Enable the tide to come in and out?} {true false} false" & vbCrLf &
+        "TideEnabled = True" & vbCrLf &
             vbCrLf &
-            ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-            "TideCycleTime = " & MySetting.CycleTime() & vbCrLf &
-                vbCrLf &
-            ";; provide tide information on the console?" & vbCrLf &
-            "TideInfoDebug = " & MySetting.TideInfoDebug.ToString & vbCrLf &
-                vbCrLf &
-            ";; chat tide info to the whole region?" & vbCrLf &
-            "TideInfoBroadcast = " & MySetting.BroadcastTideInfo() & vbCrLf &
-                vbCrLf &
-            ";; which channel to region chat on for the full tide info" & vbCrLf &
-            "TideInfoChannel = " & MySetting.TideInfoChannel & vbCrLf &
+        ";; Tides currently only work on single regions And varregions (non megaregions) " & vbCrLf &
+        ";# surrounded completely by water" & vbCrLf &
+        ";; Anything else will produce weird results where you may see a big" & vbCrLf &
+        ";; vertical 'step' in the ocean" & vbCrLf &
+        ";; update the tide every x simulator frames" & vbCrLf &
+        "TideUpdateRate = 50" & vbCrLf &
             vbCrLf &
-            ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-            "TideLevelChannel = " & MySetting.TideLevelChannel() & vbCrLf &
-                vbCrLf &
-            ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
-            "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
-
-
-                IO.File.AppendAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist 
-
+        ";; low And high water marks in metres" & vbCrLf &
+        "TideHighWater = " & MySetting.TideHighLevel() & vbCrLf &
+        "TideLowWater = " & MySetting.TideLowLevel() & vbCrLf &
+        vbCrLf &
+        ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
+        "TideCycleTime = " & MySetting.CycleTime() & vbCrLf &
+            vbCrLf &
+        ";; provide tide information on the console?" & vbCrLf &
+        "TideInfoDebug = " & MySetting.TideInfoDebug.ToString & vbCrLf &
+            vbCrLf &
+        ";; chat tide info to the whole region?" & vbCrLf &
+        "TideInfoBroadcast = " & MySetting.BroadcastTideInfo() & vbCrLf &
+            vbCrLf &
+        ";; which channel to region chat on for the full tide info" & vbCrLf &
+        "TideInfoChannel = " & MySetting.TideInfoChannel & vbCrLf &
+        vbCrLf &
+        ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
+        "TideLevelChannel = " & MySetting.TideLevelChannel() & vbCrLf &
+            vbCrLf &
+        ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
+        "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
             End If
 
         Next
+        Diagnostics.Debug.Print(BirdFile)
+        IO.File.WriteAllText(BirdFile, BirdData, Encoding.Default) 'The text file will be created if it does not already exist  
+        IO.File.WriteAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist 
 
     End Sub
 
@@ -1995,14 +1947,20 @@ Public Class Form1
         ExitList.RemoveAt(LOOPVAR)
 
         Print(RegionName & " shutdown")
+
+        ' Need a region number and a Name
+        ' name is either a region or a Group. For groups we need to get a region name from the group
+        Dim Groupname As String = RegionName ' assume a group
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
-        If RegionNumber < 0 Then
-            gExitHandlerIsBusy = False
-            Return
+        If RegionNumber >= 0 Then
+            Groupname = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
+        Else
+            ' Nope, grab the first region, Group name is already set
+            Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
+            RegionNumber = RegionList(0)
         End If
 
         Try
-            Dim Groupname = RegionClass.GroupName(RegionNumber)
 
             ' Auto restart phase begins
             If OpensimIsRunning() _
@@ -2047,9 +2005,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub StopGroup(Groupname As String)
-
-        Log("Info", Groupname + " Group is now stopped")
+    Public Sub StopGroup(Groupname As String)
 
         For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
 
@@ -2061,7 +2017,25 @@ Public Class Form1
 
             RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
         Next
+        Log("Info", Groupname + " Group is now stopped")
+        UpdateView = True ' make form refresh
 
+        End
+    End Sub
+
+    Public Sub ForceStopGroup(Groupname As String)
+
+        For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
+
+            ' Called by a sim restart, do not change status 
+            'If Not RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+            RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Stopped
+            Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
+            ' End If
+
+            RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+        Next
+        Log("Info", Groupname + " Group is now stopped")
         UpdateView = True ' make form refresh
 
     End Sub
@@ -2282,6 +2256,55 @@ Public Class Form1
 
 #Region "Subs"
 
+
+    ''' <summary>
+    ''' SetWindowTextCall is here to wrap the SetWindowtext API call.  This call fails when there is no 
+    ''' hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a  timer to make sure we do not get stuck
+    ''' </summary>
+    ''' <param name="hwnd">Handle to the window to change the text on</param>
+    ''' <param name="windowName">the name of the Window </param>
+    ''' 
+    Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
+
+        Dim status As Boolean = False
+        Dim WindowCounter As Integer = 0
+        While myProcess.MainWindowHandle = CType(0, IntPtr) And Not status
+            Diagnostics.Debug.Print(windowName & " Handle = 0")
+            Sleep(100)
+            WindowCounter = WindowCounter + 1
+            If WindowCounter > 100 Then '  10 seconds for process to start
+                status = True
+                ErrorLog("Cannot get MainWindowHandle for " & windowName)
+                Return False
+            End If
+
+        End While
+
+
+        status = False
+        WindowCounter = 0
+
+        Dim hwnd As IntPtr = myProcess.MainWindowHandle
+        If CType(hwnd, Integer) = 0 Then
+            ErrorLog("hwnd = 0")
+        End If
+        While Not status
+            Sleep(100)
+            SetWindowText(hwnd, windowName)
+            status = SetWindowText(hwnd, windowName)
+            WindowCounter = WindowCounter + 1
+            If WindowCounter > 100 Then '  10 seconds
+                status = True
+                ErrorLog("Cannot get handle for " & windowName)
+            End If
+            Application.DoEvents()
+        End While
+
+
+        Return True
+
+    End Function
+
     Public Function GetHwnd(Groupname As String) As IntPtr
 
 
@@ -2372,6 +2395,22 @@ Public Class Form1
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+
+        ' Graph https://github.com/sinairv/MSChartWrapper
+        Dim speed = cpu.NextValue()
+        MyCollection.Add(speed)
+        MyCollection.Remove(1) ' drop 1st, older  item
+
+        Dim series() As Double = Nothing
+        Dim i = 1
+        While i <= 180
+            ReDim Preserve series(i)
+            series(i) = CType(MyCollection(i), Double)
+            i = i + 1
+        End While
+
+        ChartWrapper1.ClearChart()
+        ChartWrapper1.AddLinePlot("CPU", series)
 
         If Not OpensimIsRunning() Then
             Timer1.Stop()
@@ -4029,7 +4068,7 @@ Public Class Form1
             Return True
         End If
 
-        Print("Checking " + "http://" + MySetting.DNSName + ":" + MySetting.HttpPort)
+        'Print("Checking " + "http://" + MySetting.DNSName + ":" + MySetting.HttpPort)
 
         Dim client As New System.Net.WebClient
         Dim Checkname As String = String.Empty
@@ -4551,18 +4590,15 @@ Public Class Form1
 
     Public Sub HelpOnce(Webpage As String)
 
-        ScreenPosition = New ScreenPos(Webpage)
+        ' Set the new form's desktop location so it appears below and
+        ' to the right of the current form.
+        FormHelp.Close()
+        FormHelp = New FormHelp
+        FormHelp.Activate()
+        FormHelp.Visible = True
+        FormHelp.Init(Webpage)
 
-        If Not ScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and
-            ' to the right of the current form.
-            FormHelp.Close()
-            FormHelp = New FormHelp
-            FormHelp.Activate()
-            FormHelp.Visible = True
-            FormHelp.Init(Webpage)
 
-        End If
     End Sub
 
     Private Sub HelpStartingUpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpStartingUpToolStripMenuItem1.Click
@@ -4783,7 +4819,6 @@ Public Class Form1
 
 
 #End Region
-
 
 End Class
 

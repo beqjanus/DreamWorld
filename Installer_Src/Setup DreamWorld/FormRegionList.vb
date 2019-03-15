@@ -54,7 +54,7 @@ Public Class RegionList
     End Sub
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ScreenPos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -506,7 +506,6 @@ Public Class RegionList
             End If
         Next
 
-        UpdateView() = True
     End Sub
 
     Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
@@ -552,29 +551,44 @@ Public Class RegionList
                 Form1.Log("Starting", RegionClass.RegionName(n))
                 Form1.CopyOpensimProto(RegionClass.RegionName(n))
                 Form1.Boot(RegionClass.RegionName(n))
+                Form1.Timer1.Start() 'Timer starts functioning
                 UpdateView() = True ' force a refresh
 
             ElseIf chosen = "Stop" Then
 
+                ' if any avatars in any region, give them a choice.
+                Dim StopIt As Boolean = True
                 For Each num In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
                     ' Ask before killing any people
                     If RegionClass.AvatarCount(num) > 0 Then
                         Dim response As MsgBoxResult
-
                         If RegionClass.AvatarCount(num) = 1 Then
                             response = MsgBox("There is one avatar in " + RegionClass.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         Else
                             response = MsgBox("There are " + RegionClass.AvatarCount(num).ToString + " avatars in " + RegionClass.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         End If
-                        If response = vbYes Then
-                            StopRegionNum(num)
+                        If response = vbNo Then
+                            StopIt = False
                         End If
-                    Else
-                        StopRegionNum(num)
                     End If
                 Next
-                UpdateView = True ' make form refresh
 
+                If (StopIt) Then
+                    Dim regionNum = RegionClass.FindRegionByName(RegionName)
+                    Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
+                    Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
+                    Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
+                    Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
+
+                    ' shut down all regions in the DOS box
+                    For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
+                        RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
+                        RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown ' request a recycle.
+                    Next
+                    UpdateView = True ' make form refresh
+                End If
+
+                UpdateView = True ' make form refresh
 
             ElseIf chosen = "Edit" Then
 
@@ -587,15 +601,10 @@ Public Class RegionList
 
             ElseIf chosen = "Recycle" Then
 
-                UpdateView = True ' make form refresh
-
-                Dim h As IntPtr = Form1.getHwnd(RegionClass.GroupName(n))
+                Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
                 Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
-
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
-
                 Form1.Print("Shutdown " + RegionClass.GroupName(n))
-
                 Form1.gRestartNow = True
 
                 ' shut down all regions in the DOS box
@@ -604,6 +613,7 @@ Public Class RegionList
                     RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
                     RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
                 Next
+                UpdateView = True ' make form refresh
 
             End If
 
@@ -619,12 +629,14 @@ Public Class RegionList
 
     Private Sub StopRegionNum(num As Integer)
 
-        Form1.Log("Region", "Stopping Region " + RegionClass.RegionName(num))
-        If Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf) Then
-            RegionClass.Status(num) = RegionMaker.SIM_STATUS.ShuttingDown
-        Else
-            RegionClass.Status(num) = RegionMaker.SIM_STATUS.Stopped
+        Form1.SequentialPause(num)
+        Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(num))
+        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
+        If (CType(hwnd, Integer) <> 0) Then
+            Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
+            Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
         End If
+        Form1.StopGroup(RegionClass.GroupName(num))
 
     End Sub
 

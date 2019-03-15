@@ -139,7 +139,7 @@ Public Class NetServer
             Dim responseString As String = ""
             ' process the input
 
-            Debug.Print("No client data was sent with the request.")
+            'Debug.Print("No client data was sent with the request.")
             Dim Uri = request.Url.OriginalString
             Uri = LCase(Uri)
 

@@ -121,6 +121,8 @@ Partial Class Form1
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -590,7 +592,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(378, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(582, 24)
         Me.MenuStrip1.TabIndex = 21
         '
         'MnuContent
@@ -783,6 +785,30 @@ Partial Class Form1
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(283, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(0, 13)
+        Me.Label1.TabIndex = 30
+        '
+        'ChartWrapper1
+        '
+        Me.ChartWrapper1.AddMarkers = True
+        Me.ChartWrapper1.AxisXTitle = "Seconds"
+        Me.ChartWrapper1.AxisYTitle = "CPU %"
+        Me.ChartWrapper1.LegendVisible = False
+        Me.ChartWrapper1.Location = New System.Drawing.Point(282, 0)
+        Me.ChartWrapper1.MarkerCount = 15
+        Me.ChartWrapper1.MarkerFreq = 0
+        Me.ChartWrapper1.MarkerSize = 8
+        Me.ChartWrapper1.Name = "ChartWrapper1"
+        Me.ChartWrapper1.SideLegendVisible = True
+        Me.ChartWrapper1.Size = New System.Drawing.Size(266, 218)
+        Me.ChartWrapper1.TabIndex = 31
+        Me.ChartWrapper1.Title = ""
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -790,7 +816,9 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(378, 142)
+        Me.ClientSize = New System.Drawing.Size(582, 253)
+        Me.Controls.Add(Me.ChartWrapper1)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.WebBrowser3)
         Me.Controls.Add(Me.BusyButton)
@@ -918,4 +946,6 @@ Partial Class Form1
     Friend WithEvents ThreadpoolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents XengineToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents JobEngineToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label1 As Label
+    Friend WithEvents ChartWrapper1 As MSChartWrapper.ChartWrapper
 End Class

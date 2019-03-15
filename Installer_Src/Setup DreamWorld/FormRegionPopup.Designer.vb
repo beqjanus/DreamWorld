@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormRegionPopup
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,10 +20,9 @@ Partial Class FormRegionPopup
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.EditButton1 = New System.Windows.Forms.Button()
         Me.StartButton3 = New System.Windows.Forms.Button()
         Me.RecycleButton2 = New System.Windows.Forms.Button()
@@ -33,28 +32,16 @@ Partial Class FormRegionPopup
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.EditButton1)
         Me.GroupBox1.Controls.Add(Me.StartButton3)
         Me.GroupBox1.Controls.Add(Me.RecycleButton2)
         Me.GroupBox1.Controls.Add(Me.StopButton1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(147, 188)
+        Me.GroupBox1.Size = New System.Drawing.Size(157, 157)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Text"
-        '
-        'Button1
-        '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.document_view1
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(20, 144)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(121, 23)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "View Log"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'EditButton1
         '
@@ -119,5 +106,4 @@ Partial Class FormRegionPopup
     Friend WithEvents StartButton3 As Button
     Friend WithEvents RecycleButton2 As Button
     Friend WithEvents StopButton1 As Button
-    Friend WithEvents Button1 As Button
 End Class

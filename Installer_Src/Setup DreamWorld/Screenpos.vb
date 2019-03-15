@@ -6,10 +6,11 @@ Public Class ScreenPos
     Dim myINI As String
     Dim parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
-    Dim Name As String
+    Dim gName As String
 
-    Public Sub New(aName As String)
-        Name = aName ' save name for this form
+    Public Sub New(Name As String)
+
+        gName = Name ' save gName for this form
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -30,12 +31,8 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        Dim ValueXOld = CType(Data("Data")(Name + "_X"), Integer)
-        Dim ValueYOld = CType(Data("Data")(Name + "_Y"), Integer)
-
-        LoadXYIni()
-        SetXYIni("Data", Name + "_X", ValueX.ToString)
-        SetXYIni("Data", Name + "_Y", ValueY.ToString)
+        SetXYIni("Data", gName + "_X", ValueX.ToString)
+        SetXYIni("Data", gName + "_Y", ValueY.ToString)
         SaveXYSettings()
         Debug.Print("X>" + ValueX.ToString)
         Debug.Print("Y>" + ValueY.ToString)
@@ -43,12 +40,8 @@ Public Class ScreenPos
     End Sub
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        Dim ValueHOld = CType(Data("Data")(Name + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data")(Name + "_W"), Integer)
-
-        LoadXYIni()
-        SetXYIni("Data", Name + "_H", ValueH.ToString)
-        SetXYIni("Data", Name + "_W", ValueW.ToString)
+        SetXYIni("Data", gName + "_H", ValueH.ToString)
+        SetXYIni("Data", gName + "_W", ValueW.ToString)
         SaveXYSettings()
         Debug.Print("H>" + ValueH.ToString)
         Debug.Print("W>" + ValueW.ToString)
@@ -56,8 +49,8 @@ Public Class ScreenPos
     End Sub
 
     Public Function Exists() As Boolean
-        Dim Value = CType(Data("Data")(Name + "_Initted"), Integer)
-        SetXYIni("Data", Name + "_Initted", "1")
+        Dim Value = CType(Data("Data")(gName + "_Initted"), Integer)
+        SetXYIni("Data", gName + "_Initted", "1")
         SaveXYSettings()
         If Value = 0 Then Return False
         Return True
@@ -67,8 +60,8 @@ Public Class ScreenPos
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
 
-        Dim ValueXOld = CType(Data("Data")(Name + "_X"), Integer)
-        Dim ValueYOld = CType(Data("Data")(Name + "_Y"), Integer)
+        Dim ValueXOld = CType(Data("Data")(gName + "_X"), Integer)
+        Dim ValueYOld = CType(Data("Data")(gName + "_Y"), Integer)
         If ValueXOld <= 0 Then
             ValueXOld = 100
         End If
@@ -94,8 +87,8 @@ Public Class ScreenPos
     End Function
     Public Function GetHW() As List(Of Integer)
 
-        Dim ValueHOld = CType(Data("Data")(Name + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data")(Name + "_W"), Integer)
+        Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
+        Dim ValueWOld = CType(Data("Data")(gName + "_W"), Integer)
 
         Dim r As New List(Of Integer)
         r.Add(ValueHOld)

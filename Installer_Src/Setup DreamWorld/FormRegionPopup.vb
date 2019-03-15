@@ -4,6 +4,7 @@
 
 
 #Region "ScreenSize"
+
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -14,7 +15,7 @@
     End Sub
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ScreenPos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -90,7 +91,4 @@
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Form1.Viewlog(Me.Text)
-    End Sub
 End Class
