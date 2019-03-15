@@ -602,7 +602,12 @@ Public Class RegionList
                     ' shut down all regions in the DOS box
                     For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
                         RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
-                        RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown ' request a recycle.
+                        If RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown Then
+                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.Stopped ' already shutting down
+                        Else
+                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown ' request a recycle.
+                        End If
+
                     Next
                     UpdateView = True ' make form refresh
                 End If

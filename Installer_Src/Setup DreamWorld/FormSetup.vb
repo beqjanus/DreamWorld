@@ -289,7 +289,7 @@ Public Class Form1
         ProgressBar1.Value = 0
 
         TextBox1.BackColor = Me.BackColor
-        TextBox1.AllowDrop = True
+
 
         Buttons(BusyButton)
 
@@ -431,6 +431,8 @@ Public Class Form1
     ''' </summary>
     Private Sub Startup()
 
+        TextBox1.AllowDrop = True
+
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -533,7 +535,7 @@ Public Class Form1
         ' done with bootup
         ProgressBar1.Visible = False
 
-        Me.AllowDrop = True
+
 
     End Sub
 
@@ -1951,7 +1953,7 @@ Public Class Form1
         ExitList.RemoveAt(LOOPVAR)
 
         Print(RegionName & " shutdown")
-
+        Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
         ' Need a region number and a Name
         ' name is either a region or a Group. For groups we need to get a region name from the group
         Dim Groupname As String = RegionName ' assume a group
@@ -1960,7 +1962,6 @@ Public Class Form1
             Groupname = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
         Else
             ' Nope, grab the first region, Group name is already set
-            Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
             RegionNumber = RegionList(0)
         End If
 
@@ -1973,7 +1974,12 @@ Public Class Form1
 
                 Print("Restart Queued for " + Groupname)
                 RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
-                RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RestartPending
+
+                For Each R In RegionList
+                    RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
+                Next
+
+
                 UpdateView = True ' make form refresh
                 gExitHandlerIsBusy = False
                 Return
@@ -2989,7 +2995,7 @@ Public Class Form1
 
     End Function
 
-    Private Sub TextBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles TextBox1.DragDrop
+    Private Sub TextBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles TextBox1.DragEnter
 
         Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
         For Each pathname As String In files
@@ -3016,28 +3022,6 @@ Public Class Form1
         If e.Data.GetDataPresent(DataFormats.FileDrop) Then
             e.Effect = DragDropEffects.Copy
         End If
-
-    End Sub
-
-    Private Sub PictureBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs)
-
-        Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
-        For Each pathname As String In files
-            pathname = pathname.Replace("\", "/")
-            Dim extension = Path.GetExtension(pathname)
-            extension = Mid(extension, 2, 5)
-            If extension.ToLower = "iar" Then
-                If LoadIARContent(pathname) Then
-                    Print("Opensimulator will load " + pathname + ".  This may take time to load.")
-                End If
-            ElseIf extension.ToLower = "oar" Or extension.ToLower = "gz" Or extension.ToLower = "tgz" Then
-                If LoadOARContent(pathname) Then
-                    Print("Opensimulator will load " + pathname + ".  This may take time to load.")
-                End If
-            Else
-                Print("Unrecognized file type:" + extension + ".  Drag And drop any OAR, GZ, TGZ, Or IAR files to load them when the sim starts")
-            End If
-        Next
 
     End Sub
 
