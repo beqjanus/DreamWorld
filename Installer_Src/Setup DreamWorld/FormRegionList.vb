@@ -122,13 +122,28 @@ Public Class RegionList
 
         RegionList.FormExists = True
 
+        Form1.MySetting.RegionListVisible = True
+        Form1.MySetting.SaveSettings()
+
         AvatarView.Hide()
 
         ' ListView Setup
         ListView1.AllowDrop = True
         ' Set the view to show details.
-        ListView1.View = View.SmallIcon
-        AvatarView.View = View.SmallIcon
+        Dim V As Integer = Form1.MySetting.RegionListView()
+        Dim W As View
+        If V = ViewType.Avatars Then
+            W = View.List
+        ElseIf V = ViewType.Details Then
+            W = View.Details
+        ElseIf V = Viewtype.Icons Then
+            W = View.SmallIcon
+        ElseIf V = ViewType.Maps Then
+            W = View.LargeIcon
+        End If
+
+        ListView1.View = W
+        AvatarView.View = W
         ' Allow the user to edit item text.
         ListView1.LabelEdit = True
         ' Allow the user to rearrange columns.
@@ -177,7 +192,11 @@ Public Class RegionList
     End Sub
 
     Private Sub SingletonForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
         RegionList.FormExists = False
+        Form1.MySetting.RegionListVisible = False
+        Form1.MySetting.SaveSettings()
+
     End Sub
 #End Region
 
@@ -834,6 +853,10 @@ Public Class RegionList
     End Sub
 
     Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Details
+        Form1.MySetting.SaveSettings()
+
         TheView = ViewType.Details
         ListView1.View = View.Details
         ListView1.Show()
@@ -845,6 +868,9 @@ Public Class RegionList
     End Sub
 
     Private Sub SmallListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SmallListToolStripMenuItem.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Icons
+        Form1.MySetting.SaveSettings()
         TheView = ViewType.Icons
         ListView1.View = View.SmallIcon
         ListView1.Show()
@@ -856,6 +882,9 @@ Public Class RegionList
     End Sub
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Maps
+        Form1.MySetting.SaveSettings()
         TheView = ViewType.Maps
         ListView1.View = View.LargeIcon
         ListView1.Show()
@@ -866,6 +895,9 @@ Public Class RegionList
     End Sub
 
     Private Sub AvatarsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AvatarsToolStripMenuItem.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Avatars
+        Form1.MySetting.SaveSettings()
         TheView = ViewType.Avatars
         ListView1.View = View.Details
         ListView1.Hide()

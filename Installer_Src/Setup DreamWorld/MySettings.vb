@@ -384,6 +384,18 @@ Public Class MySettings
             Sequential() = False
         End Try
 
+        Try
+            Dim x = RegionListView()
+        Catch ex As Exception
+            RegionListView() = 2
+        End Try
+
+        Try
+            Dim x = RegionListVisible()
+        Catch ex As Exception
+            RegionListVisible() = False
+        End Try
+
 
     End Sub
 
@@ -526,7 +538,22 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
-
+    Public Property RegionListVisible() As Boolean
+        Get
+            Return CType(GetMySetting("RegionListVisible"), Boolean)
+        End Get
+        Set
+            SetMySetting("RegionListVisible", Value.ToString)
+        End Set
+    End Property
+    Public Property RegionListView() As Integer
+        Get
+            Return CType(GetMySetting("RegionListView"), Integer)
+        End Get
+        Set
+            SetMySetting("RegionListView", Value.ToString)
+        End Set
+    End Property
     Public Property Sequential() As Boolean
         Get
             Return CType(GetMySetting("Sequential"), Boolean)

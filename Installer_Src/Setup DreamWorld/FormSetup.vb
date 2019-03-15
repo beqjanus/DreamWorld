@@ -402,6 +402,10 @@ Public Class Form1
         HelpOnce("Startup")
         HelpOnce("License")
 
+        If MySetting.RegionListVisible Then
+            ShowRegionform()
+        End If
+
         ProgressBar1.Value = 100
 
 
@@ -4197,8 +4201,7 @@ Public Class Form1
             Print("Opensim is not running. Cannot open the Web Interface.")
         End If
     End Sub
-
-    Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
+    Private Sub ShowRegionform()
 
         If RegionList.InstanceExists = False Then
             RegionForm = New RegionList
@@ -4208,6 +4211,11 @@ Public Class Form1
             RegionForm.Show()
             RegionForm.Activate()
         End If
+
+    End Sub
+    Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
+
+        ShowRegionform()
 
     End Sub
 
@@ -4590,14 +4598,18 @@ Public Class Form1
 
     Public Sub HelpOnce(Webpage As String)
 
-        ' Set the new form's desktop location so it appears below and
-        ' to the right of the current form.
-        FormHelp.Close()
-        FormHelp = New FormHelp
-        FormHelp.Activate()
-        FormHelp.Visible = True
-        FormHelp.Init(Webpage)
+        ScreenPosition = New ScreenPos(Webpage)
 
+        If Not ScreenPosition.Exists() Then
+            ' Set the new form's desktop location so it appears below and
+            ' to the right of the current form.
+            FormHelp.Close()
+            FormHelp = New FormHelp
+            FormHelp.Activate()
+            FormHelp.Visible = True
+            FormHelp.Init(Webpage)
+
+        End If
 
     End Sub
 
