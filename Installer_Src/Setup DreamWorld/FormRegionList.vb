@@ -134,11 +134,19 @@ Public Class RegionList
         Dim W As View
         If V = ViewType.Avatars Then
             W = View.List
+            ListView1.CheckBoxes = False
+            AvatarView.CheckBoxes = False
         ElseIf V = ViewType.Details Then
             W = View.Details
+            ListView1.CheckBoxes = True
+            AvatarView.CheckBoxes = False
         ElseIf V = Viewtype.Icons Then
             W = View.SmallIcon
+            ListView1.CheckBoxes = False
+            AvatarView.CheckBoxes = False
         ElseIf V = ViewType.Maps Then
+            ListView1.CheckBoxes = False
+            AvatarView.CheckBoxes = False
             W = View.LargeIcon
         End If
 
@@ -148,9 +156,9 @@ Public Class RegionList
         ListView1.LabelEdit = True
         ' Allow the user to rearrange columns.
         ListView1.AllowColumnReorder = True
-        ' Display check boxes.
-        ListView1.CheckBoxes = False
-        AvatarView.CheckBoxes = False
+
+        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(2)
+
         ' Select the item and subitems when selection is made.
         ListView1.FullRowSelect = True
         ' Display grid lines.
@@ -159,6 +167,21 @@ Public Class RegionList
         ' Sort the items in the list in ascending order.
         ListView1.Sorting = SortOrder.Ascending
         AvatarView.Sorting = SortOrder.Ascending
+        ' Create columns for the items and subitems.
+        ' Width of -2 indicates auto-size.
+        ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Status", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
+        ' optional
+        ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -233,24 +256,9 @@ Public Class RegionList
             imageListLarge = New ImageList()
             If pixels = 0 Then pixels = 20
             imageListLarge.ImageSize = New Size(pixels, pixels)
-            ListView1.Clear()
+            ' ListView1.Clear()
             ListView1.Items.Clear()
 
-            ' Create columns for the items and subitems.
-            ' Width of -2 indicates auto-size.
-            ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
-            ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Status", 80, HorizontalAlignment.Center)
-            ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
-            ' optional
-            ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-            ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
 
 
             Dim Num As Integer = 0
@@ -530,15 +538,18 @@ Public Class RegionList
     Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
         Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
         Dim item As ListViewItem
-
+        '!!! help and double click msg
         For Each item In regions
-            Dim RegionName = item.SubItems(1).Text
-            Debug.Print("Clicked row " + RegionName)
-            Dim R = RegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
-                Dim webAddress As String = "hop://" & Form1.MySetting.DNSName & ":" & Form1.MySetting.HttpPort & "/" & RegionName
-                Process.Start(webAddress)
-            End If
+            Try
+                Dim RegionName = item.SubItems(1).Text
+                Debug.Print("Clicked row " + RegionName)
+                Dim R = RegionClass.FindRegionByName(RegionName)
+                If R >= 0 Then
+                    Dim webAddress As String = "hop://" & Form1.MySetting.DNSName & ":" & Form1.MySetting.HttpPort & "/" & RegionName
+                    Process.Start(webAddress)
+                End If
+            Catch
+            End Try
         Next
 
         UpdateView() = True
@@ -595,20 +606,23 @@ Public Class RegionList
                 If (StopIt) Then
                     Dim regionNum = RegionClass.FindRegionByName(RegionName)
                     Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
-                    Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
-                    Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
-                    Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
-
-                    ' shut down all regions in the DOS box
-                    For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
-                        RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
-                        If RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown Then
-                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.Stopped ' already shutting down
-                        Else
+                    If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                        Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
+                        Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
+                        ' shut down all regions in the DOS box
+                        For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
+                            RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
                             RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown ' request a recycle.
-                        End If
+                        Next
+                    Else
+                        ' shut down all regions in the DOS box
+                        For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
+                            RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.Stopped ' already shutting down
+                        Next
+                    End If
 
-                    Next
+
                     UpdateView = True ' make form refresh
                 End If
 
@@ -706,7 +720,6 @@ Public Class RegionList
 
     End Sub
 
-
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
 
         Dim RegionForm As New FormRegion
@@ -739,7 +752,6 @@ Public Class RegionList
             Form1.Print("Aborted")
             Return
         End If
-
 
         For Each pathname As String In files
             pathname = pathname.Replace("\", "/")
@@ -815,7 +827,7 @@ Public Class RegionList
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        Form1.Start_Opensimulator()
+        Form1.Startup()
 
     End Sub
 
@@ -846,9 +858,7 @@ Public Class RegionList
                 Form1.gRestartNow = True
 
                 UpdateView = True ' make form refresh
-
             End If
-
         Next
         UpdateView = True ' make form refresh
     End Sub

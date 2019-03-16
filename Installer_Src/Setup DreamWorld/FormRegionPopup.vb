@@ -44,14 +44,15 @@
                 RecycleButton2.Enabled = True
             End If
 
-            If (Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Or
-                Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
+            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Or
+                Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
             End If
 
-            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Then
+            If Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Or
+                Form1.RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingUp Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
@@ -63,6 +64,10 @@
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
             End If
+        End If
+
+        If Not Form1.OpensimIsRunning() Then
+            StartButton3.Enabled = False
         End If
 
 

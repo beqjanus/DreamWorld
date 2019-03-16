@@ -61,7 +61,7 @@ Public Class Form1
     Public Event Exited As EventHandler
     Private WithEvents RobustProcess As New Process()
     Public Event RobustExited As EventHandler
-    Public ExitList As New List(Of String)
+    Public ExitList As New ArrayList()
 
     Dim Data As IniParser.Model.IniData
     Dim parser As IniParser.FileIniDataParser
@@ -429,7 +429,7 @@ Public Class Form1
     ''' Startup() Starts opensimulator system
     ''' Called by Start Button or by AutoStart
     ''' </summary>
-    Private Sub Startup()
+    Public Sub Startup()
 
         TextBox1.AllowDrop = True
 
@@ -497,6 +497,7 @@ Public Class Form1
             MySetting.SaveSettings()
         End If
 
+        ' old files to clean up
         Try
             If MySetting.BirdsModuleStartup Then
                 My.Computer.FileSystem.CopyFile(gPath + "\bin\OpenSimBirds.Module.bak", gPath + "\bin\OpenSimBirds.Module.dll")
@@ -505,15 +506,7 @@ Public Class Form1
             End If
 
         Catch ex As Exception
-            'Log(ex.Message)
         End Try
-
-
-        ' make sure all regions are stopped
-        'For Each X As Integer In RegionClass.RegionNumbers
-        ' RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
-        'RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped
-        'Next
 
         ' Launch the rockets
         If Not Start_Opensimulator() Then
@@ -534,9 +527,6 @@ Public Class Form1
 
         ' done with bootup
         ProgressBar1.Visible = False
-
-
-
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -556,11 +546,10 @@ Public Class Form1
         ProgressBar1.Value = 5
         Print("Zzzz...")
 
-
     End Sub
 
 
-    Public Sub ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW)
+    Public Function ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW) As Boolean
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -570,21 +559,15 @@ Public Class Form1
                 Sleep(100)
                 Try
                     x = ShowWindow(handle, command)
+                    If x Then Return True
                 Catch ex As Exception
-                    ErrorLog("Cannot locate window " & ex.Message)
                 End Try
                 ctr = ctr - 1
             End While
-        Else
-            ErrorLog("No hwnd in ShowWindow")
         End If
+        Return False
 
-        If ctr = 0 Then
-
-        End If
-
-
-    End Sub
+    End Function
 
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
 
@@ -641,7 +624,8 @@ Public Class Form1
                 Dim CountisRunning As Integer = 0
 
                 For Each X In RegionClass.RegionNumbers
-                    If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped Then
+                    If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped And RegionClass.RegionEnabled(X) Then
+
                         Print("Checking " + RegionClass.RegionName(X))
 
                         If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
@@ -682,10 +666,7 @@ Public Class Form1
         UpdateView = True ' make form refresh
 
         ' show robust last, try-catch in case it crashed.
-        Try
-            ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-        Catch
-        End Try
+        ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
 
         If gRobustProcID > 0 Then
             ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
@@ -702,7 +683,11 @@ Public Class Form1
         ProgressBar1.Visible = False
 
     End Sub
-
+    ''' <summary>
+    ''' Unused now
+    ''' </summary>
+    ''' <param name="processName"></param>
+    ''' <returns></returns>
     Private Function Zap(processName As String) As Boolean
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
@@ -841,7 +826,7 @@ Public Class Form1
             My.Computer.FileSystem.CopyDirectory(gPath + "WifiPages-" + Page, gPath + "WifiPages", True)
             My.Computer.FileSystem.CopyDirectory(gPath + "bin\WifiPages-" + Page, gPath + "\bin\WifiPages", True)
         Catch ex As Exception
-            Log("Info", "" & ex.Message)
+            ErrorLog(ex.Message)
         End Try
 
 
@@ -916,7 +901,7 @@ Public Class Form1
             End Try
 
         Catch ex As Exception
-            MsgBox("Could not set default sim for visitors. Check the Common Settings panel.", vbInformation, "Settings")
+            MsgBox("Could not set default sim for visitors. ", vbInformation, "Settings")
         End Try
 
     End Sub
@@ -1767,10 +1752,7 @@ Public Class Form1
             IcecastProcess.Start()
             gIcecastProcID = IcecastProcess.Id
 
-
             SetWindowTextCall(IcecastProcess, "Icecast")
-
-
             ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
 
         Catch ex As Exception
@@ -1866,14 +1848,16 @@ Public Class Form1
         Timer1.Start() 'Timer starts functioning
         Start_Robust()
 
+        Dim Len = RegionClass.RegionCount()
+        Dim counter = 1
+        ProgressBar1.Value = CType(counter / Len, Integer)
         Try
             ' Boot them up
             For Each x In RegionClass.RegionNumbers()
                 If RegionClass.RegionEnabled(x) Then
-                    If Not Boot(RegionClass.RegionName(x)) Then
-                        'Print("Boot skipped for " + RegionClass.RegionName(x))
-                    End If
-
+                    Boot(RegionClass.RegionName(x))
+                    ProgressBar1.Value = CType(counter / Len * 100, Integer)
+                    counter = counter + 1
                 End If
             Next
 
@@ -1946,11 +1930,8 @@ Public Class Form1
         If ExitList.Count = 0 Then Return
 
         gExitHandlerIsBusy = True
-        Dim LOOPVAR = ExitList.Count - 1
-        ExitList.Reverse()
-
-        Dim RegionName As String = ExitList(LOOPVAR) ' recover the Name
-        ExitList.RemoveAt(LOOPVAR)
+        Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
+        ExitList.RemoveAt(0)
 
         Print(RegionName & " shutdown")
         Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
@@ -1958,19 +1939,22 @@ Public Class Form1
         ' name is either a region or a Group. For groups we need to get a region name from the group
         Dim Groupname As String = RegionName ' assume a group
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+
         If RegionNumber >= 0 Then
             Groupname = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
         Else
             ' Nope, grab the first region, Group name is already set
             RegionNumber = RegionList(0)
         End If
+        Dim Status = RegionClass.Status(RegionNumber)
+        Dim TimerValue = RegionClass.Timer(RegionNumber)
 
         Try
 
             ' Auto restart phase begins
             If OpensimIsRunning() _
                 And Not gAborting _
-                And RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
+                And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Print("Restart Queued for " + Groupname)
                 RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
@@ -1979,36 +1963,35 @@ Public Class Form1
                     RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
                 Next
 
-
                 UpdateView = True ' make form refresh
                 gExitHandlerIsBusy = False
                 Return
             End If
 
             ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-            If (RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingUp _
-                    Or RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.Booting) _
-                    And RegionClass.Timer(RegionNumber) >= 0 Then
+            If (Status = RegionMaker.SIM_STATUS.RecyclingUp _
+                    Or Status = RegionMaker.SIM_STATUS.Booting) _
+                    And TimerValue >= 0 Then
 
-                Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
                 StopGroup(Groupname)
 
-            ElseIf RegionClass.IsBooted(RegionNumber) And RegionClass.Timer(RegionNumber) > 0 Then
+            ElseIf RegionClass.IsBooted(RegionNumber) And TimerValue > 0 Then
 
                 StopGroup(Groupname)
                 ' prompt if crashed. after boot
-                Dim yesno = MsgBox(RegionClass.RegionName(RegionNumber) + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
             End If
 
         Catch ex As Exception
-            ErrorLog("Error:Something else is fucky in region RemoveAt:" + ex.Message)
-            ErrorLog("LOOPVAR:" & LOOPVAR.ToString & " Count: " & ExitList.Count)
+            ErrorLog("Error:Something else is region exited:" + ex.Message)
+            ErrorLog("RegionNumber:" & RegionName & ", Count: " & ExitList.Count)
         End Try
 
         gExitHandlerIsBusy = False
@@ -2029,8 +2012,7 @@ Public Class Form1
         Next
         Log("Info", Groupname + " Group is now stopped")
         UpdateView = True ' make form refresh
-
-        End
+        
     End Sub
 
     Public Sub ForceStopGroup(Groupname As String)
@@ -2144,8 +2126,6 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
-
-
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
                     Log("debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
@@ -2191,7 +2171,7 @@ Public Class Form1
 
         Dim Up As String = String.Empty
         Try
-            Up = client.DownloadString("http://127.0.0.1:" + MySetting.HttpPort + "/?_Opensim=" + Random())
+            Up = client.DownloadString("http://" & MySetting.RobustServer & ":" & MySetting.HttpPort + "/?_Opensim=" + Random())
         Catch ex As Exception
             If ex.Message.Contains("404") Then Return True
             Return False
@@ -2358,10 +2338,11 @@ Public Class Form1
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
 
-            ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE)
-            AppActivate(name)
-            SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
-            SendKeys.SendWait(SendableKeys(command))
+            If ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE) Then
+                AppActivate(name)
+                SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
+                SendKeys.SendWait(SendableKeys(command))
+            End If
 
         Catch ex As Exception
             ErrorLog("Error:" + ex.Message)
@@ -2394,22 +2375,15 @@ Public Class Form1
 
     End Sub
 
-
-    ''' <summary>
-    ''' Timer runs every second
-    ''' registers DNS,looks for web server stuff that arrives,
-    ''' restarts any sims , updates lists of agents
-    ''' builds teleports.html for older teleports
-    ''' checks for crashesd regions
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-
+    Private Sub Chart()
         ' Graph https://github.com/sinairv/MSChartWrapper
-        Dim speed = cpu.NextValue()
-        MyCollection.Add(speed)
-        MyCollection.Remove(1) ' drop 1st, older  item
+        Try
+            Dim speed = cpu.NextValue()
+            MyCollection.Add(speed)
+            MyCollection.Remove(1) ' drop 1st, older  item
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+        End Try
 
         Dim series() As Double = Nothing
         Dim i = 1
@@ -2421,6 +2395,19 @@ Public Class Form1
 
         ChartWrapper1.ClearChart()
         ChartWrapper1.AddLinePlot("CPU", series)
+    End Sub
+    ''' <summary>
+    ''' Timer runs every second
+    ''' registers DNS,looks for web server stuff that arrives,
+    ''' restarts any sims , updates lists of agents
+    ''' builds teleports.html for older teleports
+    ''' checks for crashesd regions
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+
+        Chart()
 
         If Not OpensimIsRunning() Then
             Timer1.Stop()
@@ -2441,7 +2428,6 @@ Public Class Form1
         If gDNSSTimer Mod 10 = 0 Then
 
             If Not gAborting Then
-
                 RegionRestart() ' check for reboot 
                 ScanAgents() ' update agent count
             End If
@@ -2511,22 +2497,28 @@ Public Class Form1
                 If timervalue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
-
-                        ' shut down all regions in the DOS box
-                        For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                        Next
-
                         SequentialPause(X)
-                        ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE)
-                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                        Print("AutoRestarting " + Groupname)
+                        If ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE) Then
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                            Print("AutoRestarting " + Groupname)
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                            Next
+                        Else
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
+                            Next
+                        End If
+
 
                         UpdateView = True ' make form refresh
                     Catch ex As Exception
                         ErrorLog(ex.Message)
-                        RegionClass.RegionDump()
+                        '                   RegionClass.RegionDump()
 
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(Groupname)
@@ -2979,7 +2971,7 @@ Public Class Form1
             Return False
         End If
 
-        Dim Path As String = InputBox("Folder to save in Inventory (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+        Dim Path As String = InputBox("Folder to save  Inventory (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
         Dim user = InputBox("First and Last name that will get this IAR?")
         Dim password = InputBox("Password for user " + user + "?")
@@ -3239,11 +3231,10 @@ Public Class Form1
                 pUpdate.Start()
             Catch ex As Exception
                 ErrorLog("Error: Could not launch " + fileloaded + ". Perhaps you can can exit this program and launch it manually.")
-
             End Try
             End ' program
         Else
-            Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them!   Please check later.")
+            Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them! Please check later.")
         End If
 
     End Sub

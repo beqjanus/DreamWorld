@@ -37,12 +37,12 @@ Partial Class RegionList
         Me.RestartButton = New System.Windows.Forms.Button()
         Me.AvatarView = New System.Windows.Forms.ListView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SmallListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MapsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AvatarsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -164,18 +164,12 @@ Partial Class RegionList
         Me.MenuStrip1.TabIndex = 18598
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
         'ViewToolStripMenuItem
         '
         Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DetailsToolStripMenuItem, Me.SmallListToolStripMenuItem, Me.MapsToolStripMenuItem, Me.AvatarsToolStripMenuItem})
+        Me.ViewToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_align_justified
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ViewToolStripMenuItem.Text = "View"
         '
         'DetailsToolStripMenuItem
@@ -205,6 +199,13 @@ Partial Class RegionList
         Me.AvatarsToolStripMenuItem.Name = "AvatarsToolStripMenuItem"
         Me.AvatarsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.AvatarsToolStripMenuItem.Text = "Avatars"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'RegionList
         '
