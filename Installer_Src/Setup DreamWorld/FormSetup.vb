@@ -602,14 +602,15 @@ Public Class Form1
                 Print(RegionClass.RegionName(X) & " is going down now")
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
-                SequentialPause(X)
 
-                ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE)
-                ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
+                    SequentialPause(X)
+                    ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                End If
 
                 UpdateView = True ' make form refresh
-                Sleep(100)
-            End If
+                    Sleep(100)
+                End If
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
@@ -633,9 +634,9 @@ Public Class Form1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
-                        SequentialPause(X)
 
                         If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
+                            SequentialPause(X)
                             ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                             UpdateView = True ' make form refresh
                         End If
@@ -1931,7 +1932,8 @@ Public Class Form1
 
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
-
+        'Return
+        '!!!!!!!!!!!!!!!!!!
         gExitHandlerIsBusy = True
         Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
         ExitList.RemoveAt(0)
@@ -1953,22 +1955,16 @@ Public Class Form1
         Dim TimerValue = RegionClass.Timer(RegionNumber)
 
         Try
-
             ' Auto restart phase begins
             If OpensimIsRunning() _
                 And Not gAborting _
                 And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Print("Restart Queued for " + Groupname)
-                RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
-
                 For Each R In RegionList
                     RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
                 Next
-
-                UpdateView = True ' make form refresh
-                gExitHandlerIsBusy = False
-                Return
+                UpdateView = True ' make form refresh              
             End If
 
             ' Maybe we crashed during warmup.  Skip prompt if auto restarting
@@ -1996,6 +1992,61 @@ Public Class Form1
             ErrorLog("Error:Something else is region exited:" + ex.Message)
             ErrorLog("RegionNumber:" & RegionName & ", Count: " & ExitList.Count)
         End Try
+
+        ' check for automatic restart
+        For Each X As Integer In RegionClass.RegionNumbers
+            If OpensimIsRunning() And Not gAborting And RegionClass.Timer(X) >= 0 Then
+                TimerValue = RegionClass.Timer(X)
+                ' if it is past time and no one is in the sim...
+                Groupname = RegionClass.GroupName(X)
+                If TimerValue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
+                    ' shut down the group when one minute has gone by, or multiple thereof.
+                    Try
+                        If ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE) Then
+                            SequentialPause(X)
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                            Print("AutoRestarting " + Groupname)
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                            Next
+                        Else
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
+                            Next
+                        End If
+                        UpdateView = True ' make form refresh
+                    Catch ex As Exception
+                        ErrorLog(ex.Message)
+                        ' shut down all regions in the DOS box
+                        For Each Y In RegionClass.RegionListByGroupNum(Groupname)
+                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                        Next
+                    End Try
+                End If
+
+                ' count up to auto restart , when high enough, restart the sim
+                If RegionClass.Timer(X) >= 0 Then
+                    RegionClass.Timer(X) = RegionClass.Timer(X) + 1
+                End If
+
+            End If
+
+        Next
+
+        ' boot up any that made it all the way down.
+        For Each X As Integer In RegionClass.RegionNumbers
+            ' if a restart is signalled, boot it up
+            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
+                Boot(RegionClass.RegionName(X))
+                gRestartNow = False
+            End If
+
+        Next
 
         gExitHandlerIsBusy = False
 
@@ -2081,7 +2132,6 @@ Public Class Form1
         End If
 
         If RegionClass.Status(RegionNumber) = RegionMaker.SIM_STATUS.RecyclingDown Then
-
             Log("Info", "Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
@@ -2431,7 +2481,6 @@ Public Class Form1
         If gDNSSTimer Mod 10 = 0 Then
 
             If Not gAborting Then
-                RegionRestart() ' check for reboot 
                 ScanAgents() ' update agent count
             End If
 
@@ -2481,78 +2530,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' restarts and regions that have timed out
-    ''' </summary>
-    Private Sub RegionRestart()
 
-        If MySetting.AutoRestartInterval() = 0 And Not gRestartNow Then Return
-
-        For Each X As Integer In RegionClass.RegionNumbers
-
-            Application.DoEvents()
-
-            If OpensimIsRunning() And Not gAborting And RegionClass.Timer(X) >= 0 Then
-
-                Dim timervalue As Integer = RegionClass.Timer(X)
-                ' if it is past time and no one is in the sim...
-                Dim Groupname = RegionClass.GroupName(X)
-                If timervalue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
-                    ' shut down the group when one minute has gone by, or multiple thereof.
-                    Try
-                        SequentialPause(X)
-                        If ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE) Then
-                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                            Print("AutoRestarting " + Groupname)
-                            ' shut down all regions in the DOS box
-                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                            Next
-                        Else
-                            ' shut down all regions in the DOS box
-                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
-                            Next
-                        End If
-
-
-                        UpdateView = True ' make form refresh
-                    Catch ex As Exception
-                        ErrorLog(ex.Message)
-                        '                   RegionClass.RegionDump()
-
-                        ' shut down all regions in the DOS box
-                        For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                        Next
-
-                    End Try
-
-                End If
-
-                ' count up to auto restart , when high enough, restart the sim
-                If RegionClass.Timer(X) >= 0 Then
-                    RegionClass.Timer(X) = RegionClass.Timer(X) + 1
-                End If
-
-            End If
-
-        Next
-
-        For Each X As Integer In RegionClass.RegionNumbers
-            ' if a restart is signalled, boot it up
-            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
-                Boot(RegionClass.RegionName(X))
-                gRestartNow = False
-            End If
-
-        Next
-
-
-    End Sub
 
     ''' <summary>
     ''' quiery MySQL to find any avatars in the DOS bos so we can stop it, or not

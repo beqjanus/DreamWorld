@@ -1030,6 +1030,7 @@ Public Class FormRegion
             If X > -1 Then
 
                 If Form1.CheckPort(Form1.MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
+                    Form1.SequentialPause(X)
                     Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute

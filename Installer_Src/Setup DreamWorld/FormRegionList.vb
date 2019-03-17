@@ -140,7 +140,7 @@ Public Class RegionList
             W = View.Details
             ListView1.CheckBoxes = True
             AvatarView.CheckBoxes = False
-        ElseIf V = Viewtype.Icons Then
+        ElseIf V = ViewType.Icons Then
             W = View.SmallIcon
             ListView1.CheckBoxes = False
             AvatarView.CheckBoxes = False
@@ -559,12 +559,12 @@ Public Class RegionList
     Private Sub StartStopEdit(checked As Boolean, n As Integer, RegionName As String)
 
         ' show it, stop it, start it, or edit it
-        Dim hwnd = Form1.getHwnd(RegionClass.GroupName(n))
+        Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(n))
         Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
 
         Dim Choices As New FormRegionPopup
         Dim chosen As String
-        Choices.init(RegionName)
+        Choices.Init(RegionName)
         Choices.ShowDialog()
         Try
             ' Read the chosen sim name
@@ -607,6 +607,7 @@ Public Class RegionList
                     Dim regionNum = RegionClass.FindRegionByName(RegionName)
                     Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
                     If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                        Form1.SequentialPause(regionNum)
                         Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
                         Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
                         ' shut down all regions in the DOS box
@@ -640,22 +641,26 @@ Public Class RegionList
             ElseIf chosen = "Recycle" Then
 
                 Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
-                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
-                Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
-                Form1.Print("Shutdown " + RegionClass.GroupName(n))
+
+                If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                    Form1.SequentialPause(n)
+                    Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
+                    Form1.Print("Recycle " + RegionClass.GroupName(n))
+                End If
+
                 Form1.gRestartNow = True
 
-                ' shut down all regions in the DOS box
+                    ' shut down all regions in the DOS box
 
-                For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
-                    RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
-                Next
-                UpdateView = True ' make form refresh
+                    For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
+                        RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
+                        RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
+                    Next
+                    UpdateView = True ' make form refresh
 
-            End If
+                End If
 
-            If chosen.Length > 0 Then
+                If chosen.Length > 0 Then
                 Choices.Dispose()
             End If
         Catch ex As Exception
@@ -672,9 +677,10 @@ Public Class RegionList
         Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
         If (CType(hwnd, Integer) <> 0) Then
             Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
+            Form1.SequentialPause(num)
             Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
         End If
-        Form1.StopGroup(RegionClass.GroupName(num))
+            Form1.StopGroup(RegionClass.GroupName(num))
 
     End Sub
 
@@ -845,20 +851,21 @@ Public Class RegionList
                 And Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
-                Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
+                If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                    Form1.SequentialPause(X)
+                    Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Form1.Print("Restarting " & RegionClass.GroupName(X))
+                End If
 
-                Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-
-                Form1.Print("Restarting " & RegionClass.GroupName(X))
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                Next
-                Form1.gRestartNow = True
+                        RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                        RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                    Next
+                    Form1.gRestartNow = True
 
-                UpdateView = True ' make form refresh
-            End If
+                    UpdateView = True ' make form refresh
+                End If
         Next
         UpdateView = True ' make form refresh
     End Sub
