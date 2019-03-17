@@ -38,11 +38,11 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "O:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "F:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
-    ReadOnly gCPUMAX As Single = 80 ' max CPU % can be used when booting or we wait til it gets lower 
+    ReadOnly gCPUMAX As Single = 75 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
     Public gDomain As String = "http://www.outworldz.com"
     Public gPath As String ' Holds path to Opensim folder
@@ -223,32 +223,10 @@ Public Class Form1
 
         Application.EnableVisualStyles()
 
-        ' Graph fill
-        Dim i = 180
-        While i > 0
-            MyCollection.Add(0)
-            i = i - 1
-        End While
-
-        Dim msChart = ChartWrapper1.TheChart
-        msChart.ChartAreas(0).AxisX.Maximum = 180
-        msChart.ChartAreas(0).AxisX.Minimum = 0
-        msChart.ChartAreas(0).AxisY.Maximum = 100
-        msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
-        ChartWrapper1.AddMarkers = True
-        ChartWrapper1.MarkerFreq = 60
-
-        ' init the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
-
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
-        If MyFolder.Contains("Source") Then
+        If MyFolder.Contains("Outworldz Dreamgrid Source") Then
             ' for debugging when compiling
             gDebug = True
             MyFolder = gDebugPath ' for testing, as the compiler buries itself in ../../../debug
@@ -256,7 +234,15 @@ Public Class Form1
         gCurSlashDir = MyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
         gPath = MyFolder & "\OutworldzFiles\Opensim\"
 
+        Log("Info", "Running")
+
         SetScreen()     ' move Form to fit screen from SetXY.ini
+
+        ' init the scrolling text box
+        TextBox1.SelectionStart = 0
+        TextBox1.ScrollToCaret()
+        TextBox1.SelectionStart = TextBox1.Text.Length
+        TextBox1.ScrollToCaret()
 
         ' Kill Shoutcast
         Try
@@ -369,6 +355,23 @@ Public Class Form1
             Dim Password = New PassGen
             MySetting.Password = Password.GeneratePass()
         End If
+
+        ' Graph fill
+        Dim i = 180
+        While i > 0
+            MyCollection.Add(0)
+            i = i - 1
+        End While
+
+        Dim msChart = ChartWrapper1.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        ChartWrapper1.AddMarkers = True
+        ChartWrapper1.MarkerFreq = 60
+
 
         ' Find out if the viewer is installed
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
