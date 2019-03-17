@@ -1,9 +1,10 @@
 2.79
 Scrolling text in Status panel.
-Resizeble main form
-Opens all necessary firewall ports
-Turns off the DOS box Quickedit mode. If you clicked a DOS box, it paused which eventually crashes the sim.
-Regions panel now has an Avatar view that shows a list of avatar names and the regions they are in. Double-clicking a name will start a teleport sequence to that avatar in your viewer.
+Resizeble main form and CPU speed graph
+Opens PC firewall ports with powershell on start.
+Turns off the DOS box Quickedit mode. If you clicked a DOS box, it paused which eventually crashes the sim. Works on Private or Public Networks, not Domain.
+Regions panel added an Avatar view that shows a list of avatar names and the regions they are in. Double-clicking a name will start a teleport sequence to that avatar in your viewer.
+Region Panel remembers the last view set, and will reappear after a restart if it was open. 
 Many changes to Recycling and Auto restart. More icons for recycling regions. Recycle up and recycle down are single blue arrows, Bootup and Shytdown are double Blue arrows.
 
 2.78
