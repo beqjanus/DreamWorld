@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.77' ;  # '-Beta-V1.5';
+my $type  = '-V2.79' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -77,7 +77,7 @@ my @files = io->dir($dir)->all(0);
 
 foreach my $file (@files) {
     my $name = $file->name;
-    next if $name =~ /Installer_Src|\.git/;
+    next if $name =~ /Installer_Src|\.git|baretail/;
     if ($name =~ /dll$|exe$/ ) {
         
         my $r = qq!../Certs/sigcheck64.exe "$name"!;
