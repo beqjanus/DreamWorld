@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "F:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "O:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -585,7 +585,7 @@ Public Class Form1
         Diagnostics.Debug.Print("N=" + n.ToString())
 
         Dim TotalRunningRegions As Integer
-        ' shows all windows during shutdown
+
         For Each Regionnumber As Integer In RegionClass.RegionNumbers
             If RegionClass.IsBooted(Regionnumber) Then
                 TotalRunningRegions = TotalRunningRegions + 1
@@ -634,11 +634,14 @@ Public Class Form1
                             StopGroup(RegionClass.GroupName(X))
                         End If
                         SequentialPause(X)
-                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
 
-                        UpdateView = True ' make form refresh
+                        If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                            UpdateView = True ' make form refresh
+                        End If
+
                     End If
-                    Application.DoEvents()
+                        Application.DoEvents()
                 Next
 
                 If CountisRunning = 0 Then
@@ -2012,7 +2015,7 @@ Public Class Form1
         Next
         Log("Info", Groupname + " Group is now stopped")
         UpdateView = True ' make form refresh
-        
+
     End Sub
 
     Public Sub ForceStopGroup(Groupname As String)
