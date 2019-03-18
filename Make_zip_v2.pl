@@ -101,6 +101,8 @@ foreach my $file (@files) {
 say("Mysql");
 chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 print `mysqladmin.exe --port 3309 -u root shutdown`;
+print `mysqladmin.exe --port 3306 -u root shutdown`;
+
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
