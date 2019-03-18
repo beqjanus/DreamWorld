@@ -100,7 +100,7 @@ Public Class RegionMaker
             Form1.MySetting.WelcomeRegion = "Welcome"
             Form1.MySetting.SaveSettings()
         End If
-        RegionDump()
+        ' RegionDump()
 
         Debug.Print("Loaded " + RegionCount.ToString + " Regions")
 
@@ -489,7 +489,7 @@ Public Class RegionMaker
             i = i + 1
         Next
 
-        RegionDump()
+        'RegionDump()
         Return -1
 
     End Function
@@ -563,7 +563,7 @@ Public Class RegionMaker
         r._MaxAgents = 100
 
         RegionList.Add(r)
-        RegionDump()
+        'RegionDump()
         Return RegionList.Count - 1
 
     End Function

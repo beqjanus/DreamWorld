@@ -2403,9 +2403,9 @@ Public Class Form1
 
 
         Catch ex As Exception
-            ErrorLog("Error:" + ex.Message)
+            ' ErrorLog("Error:" + ex.Message)
             Diagnostics.Debug.Print("Cannot find window " + name)
-            RegionClass.RegionDump()
+            'RegionClass.RegionDump()
             Me.Focus()
             Return False
         End Try
