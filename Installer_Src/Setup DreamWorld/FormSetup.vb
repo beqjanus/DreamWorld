@@ -89,7 +89,7 @@ Public Class Form1
     Private WithEvents IcecastProcess As New Process()
     Dim Adv As AdvancedForm
     ' Help Form for RTF files
-    Public FormHelp As New FormHelp
+
     Dim FormCaches As New FormCaches
 
     ' Region 
@@ -408,8 +408,9 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
         If isMySqlRunning Then gStopMysql = False
 
+        HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-        HelpOnce("License")
+
 
         If MySetting.RegionListVisible Then
             ShowRegionform()
@@ -605,23 +606,14 @@ Public Class Form1
         Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
 
         For Each X As Integer In RegionClass.RegionNumbers
-            Application.DoEvents()
-
             If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
                 Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
                 Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
                 Print(RegionClass.RegionName(X) & " is going down now")
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
-
-                If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
-                    SequentialPause(X)
-                    ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                End If
-
                 UpdateView = True ' make form refresh
-                    Sleep(100)
-                End If
+            End If
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
@@ -645,15 +637,11 @@ Public Class Form1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
-
-                        If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
-                            SequentialPause(X)
-                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                            UpdateView = True ' make form refresh
-                        End If
-
+                        SequentialPause(X)
+                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                        UpdateView = True ' make form refresh                       
                     End If
-                        Application.DoEvents()
+                    Application.DoEvents()
                 Next
 
                 If CountisRunning = 0 Then
@@ -680,8 +668,7 @@ Public Class Form1
 
         UpdateView = True ' make form refresh
 
-        ' show robust last, try-catch in case it crashed.
-        ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+        ' show robust last, try-catch in case it crashed        
 
         If gRobustProcID > 0 Then
             ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
@@ -2393,6 +2380,13 @@ Public Class Form1
     ''' <param name="command">String</param>
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
+
+        Dim ID = RegionClass.FindRegionByName(name)
+        Try
+            If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(RegionClass.ProcessID(ID)).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+        Catch
+        End Try
+
 
         Try
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
@@ -4561,8 +4555,7 @@ Public Class Form1
     Public Sub Help(page As String)
         ' Set the new form's desktop location so it appears below and
         ' to the right of the current form.
-        FormHelp.Close()
-        FormHelp = New FormHelp
+        Dim FormHelp As New FormHelp
         FormHelp.Activate()
         FormHelp.Visible = True
         FormHelp.Init(page)
@@ -4571,18 +4564,18 @@ Public Class Form1
 
     Public Sub HelpOnce(Webpage As String)
 
-        ScreenPosition = New ScreenPos(Webpage)
 
+        ScreenPosition = New ScreenPos(Webpage)
         If Not ScreenPosition.Exists() Then
             ' Set the new form's desktop location so it appears below and
             ' to the right of the current form.
-            FormHelp.Close()
-            FormHelp = New FormHelp
+            Dim FormHelp As New FormHelp
+
             FormHelp.Activate()
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
-
         End If
+
 
     End Sub
 
