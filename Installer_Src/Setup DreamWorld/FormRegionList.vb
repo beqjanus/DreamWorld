@@ -641,13 +641,9 @@ Public Class RegionList
             ElseIf chosen = "Recycle" Then
 
                 Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
-
-                If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
-                    Form1.SequentialPause(n)
-                    Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
-                    Form1.Print("Recycle " + RegionClass.GroupName(n))
-                End If
-
+                Form1.SequentialPause(n)
+                Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
+                Form1.Print("Recycle " + RegionClass.GroupName(n))
                 Form1.gRestartNow = True
 
                     ' shut down all regions in the DOS box
@@ -674,14 +670,9 @@ Public Class RegionList
 
         Form1.SequentialPause(num)
         Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(num))
-        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
-        If (CType(hwnd, Integer) <> 0) Then
-            Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
-            Form1.SequentialPause(num)
-            Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
-        End If
-            Form1.StopGroup(RegionClass.GroupName(num))
-
+        Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
+        Form1.SequentialPause(num)
+        Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
     End Sub
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
