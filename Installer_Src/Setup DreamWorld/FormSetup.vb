@@ -108,6 +108,12 @@ Public Class Form1
 
     ' Graph
     Dim cpu As New PerformanceCounter
+    Dim speed As Single
+    Dim speed1 As Single
+    Dim speed2 As Single
+    Dim speed3 As Single
+
+
     Dim MyCollection As New Collection
 
     Public Enum SHOW_WINDOW As Integer
@@ -544,10 +550,12 @@ Public Class Form1
 
         ws.StopWebServer()
         KillAll()
+        gAborting = True
         StopMysql()
         Print("I'll tell you my next dream when I wake up.")
         ProgressBar1.Value = 5
         Print("Zzzz...")
+        End
 
     End Sub
 
@@ -2394,11 +2402,11 @@ Public Class Form1
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
 
-            If ShowDOSWindow(GetHwnd(name), SHOW_WINDOW.SW_RESTORE) Then
-                AppActivate(name)
-                SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
-                SendKeys.SendWait(SendableKeys(command))
-            End If
+
+            AppActivate(name)
+            SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
+            SendKeys.SendWait(SendableKeys(command))
+
 
         Catch ex As Exception
             ErrorLog("Error:" + ex.Message)
@@ -2434,8 +2442,15 @@ Public Class Form1
     Private Sub Chart()
         ' Graph https://github.com/sinairv/MSChartWrapper
         Try
-            Dim speed = cpu.NextValue()
-            MyCollection.Add(speed)
+            '  running average
+            speed3 = speed2
+            speed2 = speed1
+            speed1 = speed
+            speed = cpu.NextValue()
+
+            Dim newspeed = (speed + speed1 + speed2 + speed3) / 4
+
+            MyCollection.Add(newspeed)
             MyCollection.Remove(1) ' drop 1st, older  item
         Catch ex As Exception
             ErrorLog(ex.Message)
@@ -3990,7 +4005,6 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
 
         If Not isMySqlRunning Then Return
-
 
         Print("Stopping MySql")
 
