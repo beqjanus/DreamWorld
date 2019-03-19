@@ -165,12 +165,12 @@ Public Class Form1
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 265
+            Me.Height = 180
         Else
             Me.Height = hw.Item(0)
         End If
         If hw.Item(1) = 0 Then
-            Me.Width = 340
+            Me.Width = 320
         Else
             Me.Width = hw.Item(1)
         End If
@@ -606,8 +606,8 @@ Public Class Form1
         Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
 
         For Each X As Integer In RegionClass.RegionNumbers
-            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
-                Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
+            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And Not gAborting And
+                                Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
                 Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
                 Print(RegionClass.RegionName(X) & " is going down now")
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
@@ -622,17 +622,19 @@ Public Class Form1
         If gUseIcons Then
             If OpensimIsRunning Then Print("Waiting for all regions to exit")
 
-            While (counter > 0 And OpensimIsRunning())
+            While (counter > 0 And OpensimIsRunning() And Not gAborting)
                 ' decrement progress bar according to the ratio of what we had / what we have now
                 counter = counter - 1
                 Dim CountisRunning As Integer = 0
 
+
                 For Each X In RegionClass.RegionNumbers
-                    If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped And RegionClass.RegionEnabled(X) Then
+                    If (Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) And RegionClass.RegionEnabled(X) Then
 
                         Print("Checking " + RegionClass.RegionName(X))
+                        If RegionHandles.ContainsKey(RegionClass.ProcessID(X)) Then
 
-                        If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
+                            'If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
@@ -641,7 +643,7 @@ Public Class Form1
                         ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                         UpdateView = True ' make form refresh                       
                     End If
-                    Application.DoEvents()
+                    Sleep(100)
                 Next
 
                 If CountisRunning = 0 Then
@@ -668,10 +670,12 @@ Public Class Form1
 
         UpdateView = True ' make form refresh
 
-        ' show robust last, try-catch in case it crashed        
-
-        If gRobustProcID > 0 Then
-            ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+        If Not gAborting Then
+            ' show robust last, try-catch in case it crashed        
+            gAborting = True
+            If gRobustProcID > 0 Then
+                ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+            End If
         End If
 
         ' cannot load OAR or IAR, either
@@ -680,7 +684,6 @@ Public Class Form1
         Timer1.Stop()
         OpensimIsRunning() = False
         Me.AllowDrop = False
-        gAborting = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
 
@@ -721,6 +724,8 @@ Public Class Form1
         StartButton.Visible = False
         InstallButton.Visible = False
         button.Visible = True
+        Application.DoEvents()
+
     End Sub
 
     Private Sub Create_ShortCut(ByVal sTargetPath As String)
@@ -1673,8 +1678,22 @@ Public Class Form1
 
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
-        Print("Aborting")
-        KillAll()
+        StopAllRegions()
+
+        UpdateView = True ' make form refresh
+        ' cannot load OAR or IAR, either
+        IslandToolStripMenuItem.Visible = False
+        ClothingInventoryToolStripMenuItem.Visible = False
+        Timer1.Stop()
+        OpensimIsRunning() = False
+        Me.AllowDrop = False
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = False
+
+        Print("Dreamgrid Stopped/Aborted")
+        Buttons(StopButton)
+        Timer1.Enabled = False
+        gAborting = True
 
     End Sub
 
@@ -1931,7 +1950,7 @@ Public Class Form1
         ' Delete off end of list so we don't skip over one
         If ExitList.Count = 0 Then Return
         'Return
-        '!!!!!!!!!!!!!!!!!!
+
         gExitHandlerIsBusy = True
         Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
         ExitList.RemoveAt(0)
