@@ -432,7 +432,6 @@ Public Class Form1
     ''' </summary>
     Private Sub StartButton_Click(sender As System.Object, e As System.EventArgs) Handles StartButton.Click
         Startup()
-        'Print("")
     End Sub
 
     ''' <summary>
@@ -586,7 +585,7 @@ Public Class Form1
 
     Public Sub KillAll()
 
-        gAborting = True
+
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
         ' close everything as gracefully as possible.
@@ -606,10 +605,13 @@ Public Class Form1
         Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
 
         For Each X As Integer In RegionClass.RegionNumbers
-            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And Not gAborting And
-                                Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
-                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
+            If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
+                Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) Then
                 Print(RegionClass.RegionName(X) & " is going down now")
+                SequentialPause(X)
+                ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
                 UpdateView = True ' make form refresh
@@ -622,25 +624,23 @@ Public Class Form1
         If gUseIcons Then
             If OpensimIsRunning Then Print("Waiting for all regions to exit")
 
-            While (counter > 0 And OpensimIsRunning() And Not gAborting)
+            While (counter > 0 And OpensimIsRunning())
                 ' decrement progress bar according to the ratio of what we had / what we have now
                 counter = counter - 1
                 Dim CountisRunning As Integer = 0
-
 
                 For Each X In RegionClass.RegionNumbers
                     If (Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) And RegionClass.RegionEnabled(X) Then
 
                         Print("Checking " + RegionClass.RegionName(X))
                         If RegionHandles.ContainsKey(RegionClass.ProcessID(X)) Then
-
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                             'If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
-                        SequentialPause(X)
-                        ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+
                         UpdateView = True ' make form refresh                       
                     End If
                     Sleep(100)
@@ -656,11 +656,8 @@ Public Class Form1
                     ProgressBar1.Value = CType(v, Integer)
                     Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString)
                 End If
-
                 UpdateView = True ' make form refresh
-
                 Application.DoEvents()
-
             End While
         End If
 
@@ -689,7 +686,7 @@ Public Class Form1
 
     End Sub
     ''' <summary>
-    ''' Unused now
+    ''' For Shoutcast only
     ''' </summary>
     ''' <param name="processName"></param>
     ''' <returns></returns>
@@ -2400,11 +2397,14 @@ Public Class Form1
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
 
-        Dim ID = RegionClass.FindRegionByName(name)
-        Try
-            If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(RegionClass.ProcessID(ID)).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-        Catch
-        End Try
+        If name <> "Robust" Then
+            Dim ID = RegionClass.FindRegionByName(name)
+            Dim PID = RegionClass.ProcessID(ID)
+            Try
+                If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            Catch
+            End Try
+        End If
 
 
         Try
