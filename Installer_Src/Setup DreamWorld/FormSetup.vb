@@ -498,7 +498,7 @@ Public Class Form1
         If Not Start_Robust() Then
             Return
         End If
-
+        ConsoleCommand("Robust", "create user{ENTER}")
         If Not MySetting.RunOnce Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
@@ -1839,12 +1839,7 @@ Public Class Form1
         End While
 
         If MySetting.ConsoleShow = False Then
-            Try
-                Dim p = Process.GetProcessById(gRobustProcID)
-                ShowDOSWindow(p.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
-            Catch
-            End Try
-
+            ShowDOSWindow("Robust", SHOW_WINDOW.SW_MINIMIZE)
         End If
 
         Log("Info", "Robust is running")
@@ -2364,7 +2359,6 @@ Public Class Form1
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
-
         Dim Regionlist = RegionClass.RegionListByGroupNum(Groupname)
 
         For Each X In Regionlist
@@ -2400,10 +2394,9 @@ Public Class Form1
         If name <> "Robust" Then
             Dim ID = RegionClass.FindRegionByName(name)
             Dim PID = RegionClass.ProcessID(ID)
-            Try
-                If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-            Catch
-            End Try
+            If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+        Else
+            ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         End If
 
 
