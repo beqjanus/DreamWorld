@@ -498,7 +498,7 @@ Public Class Form1
         If Not Start_Robust() Then
             Return
         End If
-        ConsoleCommand("Robust", "create user{ENTER}")
+
         If Not MySetting.RunOnce Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
@@ -1839,7 +1839,7 @@ Public Class Form1
         End While
 
         If MySetting.ConsoleShow = False Then
-            ShowDOSWindow("Robust", SHOW_WINDOW.SW_MINIMIZE)
+            ShowDOSWindow(GetHwnd("Robust"), SHOW_WINDOW.SW_MINIMIZE)
         End If
 
         Log("Info", "Robust is running")
@@ -2666,7 +2666,7 @@ Public Class Form1
             ' Process input if the user clicked OK.
             If UserClickedOK = DialogResult.OK Then
 
-                Dim offset = VarChooser(openFileDialog1.FileName)
+                Dim offset = VarChooser(chosen)
 
                 Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                 Dim thing = openFileDialog1.FileName
@@ -2882,6 +2882,7 @@ Public Class Form1
     Public Function VarChooser(RegionName As String) As String
 
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+
         Dim size = RegionClass.SizeX(RegionNumber)
         If size = 512 Then  ' 2x2
             Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
@@ -2917,6 +2918,10 @@ Public Class Form1
 
         Dim backMeUp = MsgBox("Make a backup first?", vbYesNo, "Backup?")
         Dim num = RegionClass.FindRegionByName(region)
+        If num < 0 Then
+            MsgBox("Cannot find region")
+            Return False
+        End If
         Dim GroupName = RegionClass.GroupName(num)
         Dim once As Boolean = False
         For Each Y In RegionClass.RegionListByGroupNum(GroupName)
