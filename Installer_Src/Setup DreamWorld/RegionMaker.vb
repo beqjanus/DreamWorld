@@ -275,7 +275,12 @@ Public Class RegionMaker
     End Property
     Public Property ProcessID(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._ProcessID, Integer)
+            Try
+                Return CType(RegionList(n)._ProcessID, Integer)
+            Catch
+                Return 0
+            End Try
+
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._ProcessID = Value.ToString
