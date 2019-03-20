@@ -26,8 +26,6 @@ Public Class FormRegion
     End Sub
 #End Region
 
-    ' Regions does not use the ScreenSet even or functions to make it play across the screen
-
 #Region "Start_Stop"
 
     Public Sub Init(Name As String)

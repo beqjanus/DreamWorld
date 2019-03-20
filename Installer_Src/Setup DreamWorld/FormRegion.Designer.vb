@@ -50,6 +50,9 @@ Partial Class FormRegion
         Me.TPCheckBox1 = New System.Windows.Forms.CheckBox()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.GodHelp = New System.Windows.Forms.PictureBox()
+        Me.AllowGods = New System.Windows.Forms.CheckBox()
+        Me.ManagerGod = New System.Windows.Forms.CheckBox()
+        Me.RegionGod = New System.Windows.Forms.CheckBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -73,9 +76,6 @@ Partial Class FormRegion
         Me.PublishDefault = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Gods_Use_Default = New System.Windows.Forms.CheckBox()
-        Me.AllowGods = New System.Windows.Forms.CheckBox()
-        Me.ManagerGod = New System.Windows.Forms.CheckBox()
-        Me.RegionGod = New System.Windows.Forms.CheckBox()
         Me.MapBox = New System.Windows.Forms.GroupBox()
         Me.Maps_Use_Default = New System.Windows.Forms.RadioButton()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
@@ -353,6 +353,41 @@ Partial Class FormRegion
         Me.GodHelp.TabStop = False
         Me.ToolTip1.SetToolTip(Me.GodHelp, "Allow or disallow  Gods in the one region")
         '
+        'AllowGods
+        '
+        Me.AllowGods.AutoSize = True
+        Me.AllowGods.Location = New System.Drawing.Point(14, 52)
+        Me.AllowGods.Name = "AllowGods"
+        Me.AllowGods.Size = New System.Drawing.Size(141, 17)
+        Me.AllowGods.TabIndex = 1858
+        Me.AllowGods.Text = "Allow Gods in this region"
+        Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
+        Me.AllowGods.UseVisualStyleBackColor = True
+        '
+        'ManagerGod
+        '
+        Me.ManagerGod.AutoSize = True
+        Me.ManagerGod.Location = New System.Drawing.Point(14, 99)
+        Me.ManagerGod.Name = "ManagerGod"
+        Me.ManagerGod.Size = New System.Drawing.Size(138, 17)
+        Me.ManagerGod.TabIndex = 6
+        Me.ManagerGod.Text = "Estate Manager is god?"
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, "Estate  Manager is God - Estate managers can become gods, but just for this estat" &
+        "e.")
+        Me.ManagerGod.UseVisualStyleBackColor = True
+        '
+        'RegionGod
+        '
+        Me.RegionGod.AutoSize = True
+        Me.RegionGod.Location = New System.Drawing.Point(14, 75)
+        Me.RegionGod.Name = "RegionGod"
+        Me.RegionGod.Size = New System.Drawing.Size(132, 17)
+        Me.RegionGod.TabIndex = 1855
+        Me.RegionGod.Text = "Region owner is god? "
+        Me.ToolTip1.SetToolTip(Me.RegionGod, "Region Owner is God - When you first create a region, you are prompted for the ow" &
+        "ner name. If checked, this person has God mode rights to any regions they own.")
+        Me.RegionGod.UseVisualStyleBackColor = True
+        '
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
@@ -414,7 +449,6 @@ Partial Class FormRegion
         Me.UUID.Name = "UUID"
         Me.UUID.Size = New System.Drawing.Size(215, 20)
         Me.UUID.TabIndex = 15
-        Me.UUID.Text = "ae823f8a-edcc-4351-b797-0e10711312a8"
         '
         'Label21
         '
@@ -613,41 +647,6 @@ Partial Class FormRegion
         Me.Gods_Use_Default.TabIndex = 1859
         Me.Gods_Use_Default.Text = "Use Default"
         Me.Gods_Use_Default.UseVisualStyleBackColor = True
-        '
-        'AllowGods
-        '
-        Me.AllowGods.AutoSize = True
-        Me.AllowGods.Location = New System.Drawing.Point(14, 52)
-        Me.AllowGods.Name = "AllowGods"
-        Me.AllowGods.Size = New System.Drawing.Size(141, 17)
-        Me.AllowGods.TabIndex = 1858
-        Me.AllowGods.Text = "Allow Gods in this region"
-        Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
-        Me.AllowGods.UseVisualStyleBackColor = True
-        '
-        'ManagerGod
-        '
-        Me.ManagerGod.AutoSize = True
-        Me.ManagerGod.Location = New System.Drawing.Point(14, 99)
-        Me.ManagerGod.Name = "ManagerGod"
-        Me.ManagerGod.Size = New System.Drawing.Size(138, 17)
-        Me.ManagerGod.TabIndex = 6
-        Me.ManagerGod.Text = "Estate Manager is god?"
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, "Estate  Manager is God - Estate managers can become gods, but just for this estat" &
-        "e.")
-        Me.ManagerGod.UseVisualStyleBackColor = True
-        '
-        'RegionGod
-        '
-        Me.RegionGod.AutoSize = True
-        Me.RegionGod.Location = New System.Drawing.Point(14, 75)
-        Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(132, 17)
-        Me.RegionGod.TabIndex = 1855
-        Me.RegionGod.Text = "Region owner is god? "
-        Me.ToolTip1.SetToolTip(Me.RegionGod, "Region Owner is God - When you first create a region, you are prompted for the ow" &
-        "ner name. If checked, this person has God mode rights to any regions they own.")
-        Me.RegionGod.UseVisualStyleBackColor = True
         '
         'MapBox
         '
