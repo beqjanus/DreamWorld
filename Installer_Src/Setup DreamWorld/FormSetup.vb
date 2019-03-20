@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "F:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -232,7 +232,7 @@ Public Class Form1
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
-        If MyFolder.Contains("Outworldz Dreamgrid Source") Then
+        If MyFolder.Contains("Outworldz Dreamgrid") Then
             ' for debugging when compiling
             gDebug = True
             MyFolder = gDebugPath ' for testing, as the compiler buries itself in ../../../debug
@@ -392,7 +392,7 @@ Public Class Form1
             Else
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-            End If
+        End If
 
         Else
 
@@ -585,7 +585,7 @@ Public Class Form1
 
     Public Sub KillAll()
 
-
+        gAborting = True
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
         ' close everything as gracefully as possible.
@@ -667,13 +667,7 @@ Public Class Form1
 
         UpdateView = True ' make form refresh
 
-        If Not gAborting Then
-            ' show robust last, try-catch in case it crashed        
-            gAborting = True
-            If gRobustProcID > 0 Then
-                ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
-            End If
-        End If
+        ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
@@ -1807,8 +1801,6 @@ Public Class Form1
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
             ErrorLog("Error: Robust did not start: " + ex.Message)
-
-            gAborting = True
             KillAll()
             Buttons(StartButton)
             Return False
@@ -1938,10 +1930,8 @@ Public Class Form1
     Private Sub DoExitHandlerPoll()
 
         If gExitHandlerIsBusy Then Return
-
-        ' Delete off end of list so we don't skip over one
+        If gAborting Then Return
         If ExitList.Count = 0 Then Return
-        'Return
 
         gExitHandlerIsBusy = True
         Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
@@ -1966,7 +1956,6 @@ Public Class Form1
         Try
             ' Auto restart phase begins
             If OpensimIsRunning() _
-                And Not gAborting _
                 And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Print("Restart Queued for " + Groupname)
@@ -1988,7 +1977,6 @@ Public Class Form1
                 StopGroup(Groupname)
 
             ElseIf RegionClass.IsBooted(RegionNumber) And TimerValue > 0 Then
-
                 StopGroup(Groupname)
                 ' prompt if crashed. after boot
                 Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
@@ -2050,7 +2038,7 @@ Public Class Form1
         ' boot up any that made it all the way down.
         For Each X As Integer In RegionClass.RegionNumbers
             ' if a restart is signalled, boot it up
-            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
+            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
                 Boot(RegionClass.RegionName(X))
                 gRestartNow = False
             End If
@@ -2394,7 +2382,7 @@ Public Class Form1
         If name <> "Robust" Then
             Dim ID = RegionClass.FindRegionByName(name)
             Dim PID = RegionClass.ProcessID(ID)
-            If ID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            If ID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         Else
             ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         End If
@@ -2498,16 +2486,15 @@ Public Class Form1
             RegisterDNS()
         End If
 
-        If Not gAborting Then RegionClass.CheckPost()
+        If gAborting Then Return
+
+        RegionClass.CheckPost()
+
         DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
-
-            If Not gAborting Then
-                ScanAgents() ' update agent count
-            End If
-
+            ScanAgents() ' update agent count
         End If
 
         If gDNSSTimer Mod 60 = 0 Then
