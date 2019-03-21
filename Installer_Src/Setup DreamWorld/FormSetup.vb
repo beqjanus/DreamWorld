@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "F:\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -89,7 +89,7 @@ Public Class Form1
     Private WithEvents IcecastProcess As New Process()
     Dim Adv As AdvancedForm
     ' Help Form for RTF files
-    Public FormHelp As New FormHelp
+
     Dim FormCaches As New FormCaches
 
     ' Region 
@@ -165,12 +165,12 @@ Public Class Form1
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 265
+            Me.Height = 180
         Else
             Me.Height = hw.Item(0)
         End If
         If hw.Item(1) = 0 Then
-            Me.Width = 340
+            Me.Width = 320
         Else
             Me.Width = hw.Item(1)
         End If
@@ -232,7 +232,7 @@ Public Class Form1
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
-        If MyFolder.Contains("Outworldz Dreamgrid Source") Then
+        If MyFolder.Contains("Outworldz Dreamgrid") Then
             ' for debugging when compiling
             gDebug = True
             MyFolder = gDebugPath ' for testing, as the compiler buries itself in ../../../debug
@@ -392,7 +392,7 @@ Public Class Form1
             Else
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-            End If
+        End If
 
         Else
 
@@ -408,8 +408,9 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
         If isMySqlRunning Then gStopMysql = False
 
+        HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-        HelpOnce("License")
+
 
         If MySetting.RegionListVisible Then
             ShowRegionform()
@@ -431,7 +432,6 @@ Public Class Form1
     ''' </summary>
     Private Sub StartButton_Click(sender As System.Object, e As System.EventArgs) Handles StartButton.Click
         Startup()
-        'Print("")
     End Sub
 
     ''' <summary>
@@ -605,23 +605,17 @@ Public Class Form1
         Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
 
         For Each X As Integer In RegionClass.RegionNumbers
-            Application.DoEvents()
-
             If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
                 Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
-                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown) Then
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
+                Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) Then
                 Print(RegionClass.RegionName(X) & " is going down now")
+                SequentialPause(X)
+                ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
-
-                If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
-                    SequentialPause(X)
-                    ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                End If
-
                 UpdateView = True ' make form refresh
-                    Sleep(100)
-                End If
+            End If
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
@@ -636,24 +630,20 @@ Public Class Form1
                 Dim CountisRunning As Integer = 0
 
                 For Each X In RegionClass.RegionNumbers
-                    If Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped And RegionClass.RegionEnabled(X) Then
+                    If (Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) And RegionClass.RegionEnabled(X) Then
 
                         Print("Checking " + RegionClass.RegionName(X))
-
-                        If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
+                        If RegionHandles.ContainsKey(RegionClass.ProcessID(X)) Then
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                            'If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning = CountisRunning + 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
 
-                        If ShowDOSWindow(GetHwnd(RegionClass.GroupName(X)), SHOW_WINDOW.SW_RESTORE) Then
-                            SequentialPause(X)
-                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                            UpdateView = True ' make form refresh
-                        End If
-
+                        UpdateView = True ' make form refresh                       
                     End If
-                        Application.DoEvents()
+                    Sleep(100)
                 Next
 
                 If CountisRunning = 0 Then
@@ -666,11 +656,8 @@ Public Class Form1
                     ProgressBar1.Value = CType(v, Integer)
                     Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString)
                 End If
-
                 UpdateView = True ' make form refresh
-
                 Application.DoEvents()
-
             End While
         End If
 
@@ -680,12 +667,7 @@ Public Class Form1
 
         UpdateView = True ' make form refresh
 
-        ' show robust last, try-catch in case it crashed.
-        ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-
-        If gRobustProcID > 0 Then
-            ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
-        End If
+        ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
@@ -693,13 +675,12 @@ Public Class Form1
         Timer1.Stop()
         OpensimIsRunning() = False
         Me.AllowDrop = False
-        gAborting = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
 
     End Sub
     ''' <summary>
-    ''' Unused now
+    ''' For Shoutcast only
     ''' </summary>
     ''' <param name="processName"></param>
     ''' <returns></returns>
@@ -734,6 +715,8 @@ Public Class Form1
         StartButton.Visible = False
         InstallButton.Visible = False
         button.Visible = True
+        Application.DoEvents()
+
     End Sub
 
     Private Sub Create_ShortCut(ByVal sTargetPath As String)
@@ -1686,8 +1669,22 @@ Public Class Form1
 
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
-        Print("Aborting")
-        KillAll()
+        StopAllRegions()
+
+        UpdateView = True ' make form refresh
+        ' cannot load OAR or IAR, either
+        IslandToolStripMenuItem.Visible = False
+        ClothingInventoryToolStripMenuItem.Visible = False
+        Timer1.Stop()
+        OpensimIsRunning() = False
+        Me.AllowDrop = False
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = False
+
+        Print("Dreamgrid Stopped/Aborted")
+        Buttons(StopButton)
+        Timer1.Enabled = False
+        gAborting = True
 
     End Sub
 
@@ -1804,8 +1801,6 @@ Public Class Form1
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
             ErrorLog("Error: Robust did not start: " + ex.Message)
-
-            gAborting = True
             KillAll()
             Buttons(StartButton)
             Return False
@@ -1836,12 +1831,7 @@ Public Class Form1
         End While
 
         If MySetting.ConsoleShow = False Then
-            Try
-                Dim p = Process.GetProcessById(gRobustProcID)
-                ShowDOSWindow(p.MainWindowHandle, SHOW_WINDOW.SW_MINIMIZE)
-            Catch
-            End Try
-
+            ShowDOSWindow(GetHwnd("Robust"), SHOW_WINDOW.SW_MINIMIZE)
         End If
 
         Log("Info", "Robust is running")
@@ -1940,11 +1930,9 @@ Public Class Form1
     Private Sub DoExitHandlerPoll()
 
         If gExitHandlerIsBusy Then Return
-
-        ' Delete off end of list so we don't skip over one
+        If gAborting Then Return
         If ExitList.Count = 0 Then Return
-        'Return
-        '!!!!!!!!!!!!!!!!!!
+
         gExitHandlerIsBusy = True
         Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
         ExitList.RemoveAt(0)
@@ -1968,7 +1956,6 @@ Public Class Form1
         Try
             ' Auto restart phase begins
             If OpensimIsRunning() _
-                And Not gAborting _
                 And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
 
                 Print("Restart Queued for " + Groupname)
@@ -1990,7 +1977,6 @@ Public Class Form1
                 StopGroup(Groupname)
 
             ElseIf RegionClass.IsBooted(RegionNumber) And TimerValue > 0 Then
-
                 StopGroup(Groupname)
                 ' prompt if crashed. after boot
                 Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
@@ -2052,7 +2038,7 @@ Public Class Form1
         ' boot up any that made it all the way down.
         For Each X As Integer In RegionClass.RegionNumbers
             ' if a restart is signalled, boot it up
-            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
+            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
                 Boot(RegionClass.RegionName(X))
                 gRestartNow = False
             End If
@@ -2361,7 +2347,6 @@ Public Class Form1
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
-
         Dim Regionlist = RegionClass.RegionListByGroupNum(Groupname)
 
         For Each X In Regionlist
@@ -2394,6 +2379,15 @@ Public Class Form1
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
 
+        If name <> "Robust" Then
+            Dim ID = RegionClass.FindRegionByName(name)
+            Dim PID = RegionClass.ProcessID(ID)
+            If ID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+        Else
+            ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+        End If
+
+
         Try
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
             command = command.Replace("+", "{+}")
@@ -2409,9 +2403,9 @@ Public Class Form1
 
 
         Catch ex As Exception
-            ErrorLog("Error:" + ex.Message)
+            ' ErrorLog("Error:" + ex.Message)
             Diagnostics.Debug.Print("Cannot find window " + name)
-            RegionClass.RegionDump()
+            'RegionClass.RegionDump()
             Me.Focus()
             Return False
         End Try
@@ -2492,16 +2486,15 @@ Public Class Form1
             RegisterDNS()
         End If
 
-        If Not gAborting Then RegionClass.CheckPost()
+        If gAborting Then Return
+
+        RegionClass.CheckPost()
+
         DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
-
-            If Not gAborting Then
-                ScanAgents() ' update agent count
-            End If
-
+            ScanAgents() ' update agent count
         End If
 
         If gDNSSTimer Mod 60 = 0 Then
@@ -2660,7 +2653,7 @@ Public Class Form1
             ' Process input if the user clicked OK.
             If UserClickedOK = DialogResult.OK Then
 
-                Dim offset = VarChooser(openFileDialog1.FileName)
+                Dim offset = VarChooser(chosen)
 
                 Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                 Dim thing = openFileDialog1.FileName
@@ -2876,6 +2869,7 @@ Public Class Form1
     Public Function VarChooser(RegionName As String) As String
 
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+
         Dim size = RegionClass.SizeX(RegionNumber)
         If size = 512 Then  ' 2x2
             Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
@@ -2911,6 +2905,10 @@ Public Class Form1
 
         Dim backMeUp = MsgBox("Make a backup first?", vbYesNo, "Backup?")
         Dim num = RegionClass.FindRegionByName(region)
+        If num < 0 Then
+            MsgBox("Cannot find region")
+            Return False
+        End If
         Dim GroupName = RegionClass.GroupName(num)
         Dim once As Boolean = False
         For Each Y In RegionClass.RegionListByGroupNum(GroupName)
@@ -4561,8 +4559,7 @@ Public Class Form1
     Public Sub Help(page As String)
         ' Set the new form's desktop location so it appears below and
         ' to the right of the current form.
-        FormHelp.Close()
-        FormHelp = New FormHelp
+        Dim FormHelp As New FormHelp
         FormHelp.Activate()
         FormHelp.Visible = True
         FormHelp.Init(page)
@@ -4571,18 +4568,18 @@ Public Class Form1
 
     Public Sub HelpOnce(Webpage As String)
 
-        ScreenPosition = New ScreenPos(Webpage)
 
+        ScreenPosition = New ScreenPos(Webpage)
         If Not ScreenPosition.Exists() Then
             ' Set the new form's desktop location so it appears below and
             ' to the right of the current form.
-            FormHelp.Close()
-            FormHelp = New FormHelp
+            Dim FormHelp As New FormHelp
+
             FormHelp.Activate()
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
-
         End If
+
 
     End Sub
 

@@ -217,6 +217,7 @@ Partial Class AdvancedForm
         Me.Button1.Text = "Map Tiles"
         Me.ToolTip1.SetToolTip(Me.Button1, "Click to set up the Fairy chat & wallpaper")
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'Button4
         '

@@ -128,7 +128,7 @@ Partial Class Form1
         '
         'StopButton
         '
-        Me.StopButton.Location = New System.Drawing.Point(213, 0)
+        Me.StopButton.Location = New System.Drawing.Point(214, -1)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(63, 23)
         Me.StopButton.TabIndex = 17
@@ -180,7 +180,7 @@ Partial Class Form1
         Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.RegionsToolStripMenuItem.Text = "Regions"
         '
         'ConsoleToolStripMenuItem1
@@ -188,7 +188,7 @@ Partial Class Form1
         Me.ConsoleToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHide, Me.mnuShow})
         Me.ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ConsoleToolStripMenuItem1.Name = "ConsoleToolStripMenuItem1"
-        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(157, 22)
         Me.ConsoleToolStripMenuItem1.Text = "Consoles"
         Me.ConsoleToolStripMenuItem1.ToolTipText = "The Opensim Dos Box can be minimized automatically"
         '
@@ -211,7 +211,7 @@ Partial Class Form1
         Me.AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.AdvancedSettingsToolStripMenuItem.Name = "AdvancedSettingsToolStripMenuItem"
         Me.AdvancedSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.AdvancedSettingsToolStripMenuItem.Text = "Settings"
         Me.AdvancedSettingsToolStripMenuItem.ToolTipText = "Deep stuff."
         '
@@ -755,7 +755,7 @@ Partial Class Form1
         '
         'BusyButton
         '
-        Me.BusyButton.Location = New System.Drawing.Point(213, 1)
+        Me.BusyButton.Location = New System.Drawing.Point(214, -1)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(63, 23)
         Me.BusyButton.TabIndex = 18
@@ -800,13 +800,13 @@ Partial Class Form1
         Me.ChartWrapper1.AxisXTitle = "Seconds"
         Me.ChartWrapper1.AxisYTitle = "CPU %"
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(282, 0)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(304, 0)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(266, 218)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(225, 159)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -831,7 +831,7 @@ Partial Class Form1
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(336, 181)
+        Me.MinimumSize = New System.Drawing.Size(320, 180)
         Me.Name = "Form1"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

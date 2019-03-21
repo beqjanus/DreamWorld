@@ -1,4 +1,5 @@
 2.79
+Baretail logging system: colorized text, live scrolling
 Scrolling text in Status panel.
 Resizeble main form and CPU speed graph
 Opens PC firewall ports with powershell on start.
