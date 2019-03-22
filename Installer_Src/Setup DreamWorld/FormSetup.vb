@@ -34,7 +34,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.79"
+    ReadOnly gMyVersion As String = "2.8"
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
@@ -90,7 +90,7 @@ Public Class Form1
     Dim Adv As AdvancedForm
     ' Help Form for RTF files
 
-    Dim FormCaches As New FormCaches
+    Public FormCaches As New FormCaches
 
     ' Region 
     Public RegionClass As RegionMaker   ' Global RegionClass

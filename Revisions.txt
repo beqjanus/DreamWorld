@@ -1,8 +1,16 @@
-2.79
-Baretail logging system: colorized text, live scrolling
+2.8 Release 
+
+2.79A through E:
+Avatar count shown on main form at upper right.
+Prompts before shutting down if any avatars are in any region. So you can deliberately kill then all! bwuhahaha
+Clear Caches was in Help, now is a Settings Button for consistency.
+Baretail logging system with colorized text, live scrolling.
+"View All Logs" loads all logs into Baretail as tabs. Baretail.exe in the root folder remembers them.
+"View Region Log" fixed to show the DOS box log instead of the region, which only worked on the last region in a DOS box.
 Scrolling text in Status panel.
-Resizeble main form and CPU speed graph
-Opens PC firewall ports with powershell on start.
+Resizable main form.
+CPU speed graph for last 3 minutes.
+Improved PC firewall ports opened on start.
 Turns off the DOS box Quickedit mode. If you clicked a DOS box, it paused which eventually crashes the sim. Works on Private or Public Networks, not Domain.
 Regions panel added an Avatar view that shows a list of avatar names and the regions they are in. Double-clicking a name will start a teleport sequence to that avatar in your viewer.
 Region Panel remembers the last view set, and will reappear after a restart if it was open. 
@@ -12,7 +20,7 @@ Many changes to Recycling and Auto restart. More icons for recycling regions. Re
 The Log viewer 'baretail' is included. It lets you colorize text, is zippy fast, and auto-scrolls to the latest entry, like Unix tail does.
 Capslock no longer interferes with console typing. I hate the CapLock Key.  
 Load OAR options: 2x2, 3X3 and 4X4 clickable forms, with options for UserName & ForceMerge & ForceTerrain & ForceParcel & Displacement
-Will abort any region Normalize if region locationms will go negative or zero in X or Y.
+Will abort Normalize regions if region locations will go negative or zero in X or Y.
 Repositioned Web Maps for better fit to normalized region
 Log level for robust set to INFO, instead of DEBUG, less spam, more speed.
 
@@ -22,7 +30,6 @@ Firewall Ports on PC are opened for you.
 Robust 'create user' sent extra CRLF making it impossible to create the initial owner
 
 2.76
-
 Blank DNS name needs no password, becomes LAN IP.
 Restart Region patch
 
@@ -36,7 +43,7 @@ Region Chooser fixed to have New Name at top.
 Teleports 2.4 fix - these do not spam the console.  Does not require any settings to be set such as allow LSL scripts.  
 Allow LSL when checked, scripts lets you manually edit the Allowed IP Addresses in Opensim.proto
 Start Regions Sequentially:  Unchecked, the system starts a new region every few seconds. This can overwhelm the memory and CPU on slower systems.
-UnChecked normally starts a new region if CPU is 80% or less. 
+UnChecked normally starts a new region if CPU is 75% or less. 
 Checking this box will start them one at a time and wait for it to boot completely.  It will wait up up to 3 minutes per region, then move on.
 Changes to Icecast ports or settings did not 'stick' would not overwrite file.
 More Help on Loopback, Regions, Start/Stop
