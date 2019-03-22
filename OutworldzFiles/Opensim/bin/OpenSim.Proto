@@ -43,14 +43,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=7004
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=!DWSims
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=Alien.Outworldz.net
+BaseHostname=127.0.0.1
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -58,14 +58,14 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=7002
+PublicPort=8002
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
-PrivatePort=7003
+PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://192.168.2.155
+PrivURL=http://127.0.0.1
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -74,7 +74,7 @@ GridName=DreamGrid
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
-DiagnosticsPort=7001
+DiagnosticsPort=8001
 
 [Startup]
 
@@ -239,7 +239,7 @@ PhysicalPrimMax=128
 ;; Default is Meshmerizer
 ; meshing = Meshmerizer
 ; meshing = ZeroMesher
-meshing=ubODEMeshmerizer
+meshing=Meshmerizer
 
 ;; Choose one of the physics engines below
 ;# {physics} {} {Select physics engine} {OpenDynamicsEngine BulletSim basicphysics POS} BulletSim
@@ -253,10 +253,10 @@ meshing=ubODEMeshmerizer
 ; physics = BulletSim
 ; physics = basicphysics
 ; physics = POS
-physics=ubODE
+physics=BulletSim
 
 ;
-UseSeparatePhysicsThread=false
+UseSeparatePhysicsThread=true
 
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
 ;; Default script engine to use. Currently, we only have XEngine
@@ -363,7 +363,7 @@ GenerateMaptiles=true
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
-MapImageModule=Warp3DImageModule
+MapImageModule=MapImageModule
 
 ;; generate better images.
 ;MapImageModule = "MapImageModule"
@@ -378,23 +378,23 @@ MapImageModule=Warp3DImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=true
+TextureOnMapTile=false
 
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=true
+DrawPrimOnMapTile=false
 
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=true
+TexturePrims=false
 
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
 ;; Only texture prims that have a diagonal size greater than this number
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=true
+RenderMeshes=false
 
 [PrimLimitsModule]
 
@@ -476,7 +476,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=Alien.Outworldz.net
+host_domain_header_from=127.0.0.1
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -525,7 +525,7 @@ http_listener_port=${Const|http_listener_port}
 ; If you need to allow scripts to make some LAN calls use the OutboundDisallowForUserScriptsExcept parameter below.
 ; We recommend that you do not override OutboundDisallowForUserScripts directly unless you are very sure about what you're doing.
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.155:7001
+OutboundDisallowForUserScriptsExcept=127.0.0.1/32
 
 ; You can whitelist individual endpoints by IP or FQDN, e.g.
 ;
@@ -561,7 +561,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.155:7001
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=Alien.Outworldz.net
+ExternalHostNameForLSL=127.0.0.1
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -822,7 +822,7 @@ enable_windlight=true
 ;; searchable data.
 ;; If false, no data will be exposed, DataSnapshot module will be off,
 ;; and you can ignore the rest of these search-related configs.
-index_sims=True
+index_sims=False
 
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
@@ -854,7 +854,7 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
 data_services=http://www.hyperica.com/Search/register.php
-indexsims=true
+indexsims=false
 
 [Search]
 Module=OpenSimSearch
@@ -1299,14 +1299,15 @@ Include-Architecture="config-include/GridHypergrid.ini"
 ;the bin directory for your auto backups for this reason.
 ; Automatically changed by Dreamworld - do not change this
 AutoBackupModuleEnabled=true
-AutoBackup=true
+AutoBackup=false
 AutoBackupInterval=720
 AutoBackupBusyCheck=false
 AutoBackupThreshold=1
 AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
-AutoBackupDir=/Opensim/Outworldz DreamGrid Source/OutworldzFiles/AutoBackup/
+AutoBackupDilationThreshold=0.8
+AutoBackupDir=F:/Opensim/Outworldz DreamGrid Source/OutworldzFiles/AutoBackup/
 
 [CameraOnlyModeModule]
 
