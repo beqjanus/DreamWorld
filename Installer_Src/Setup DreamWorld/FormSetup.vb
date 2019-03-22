@@ -548,8 +548,8 @@ Public Class Form1
 
     Private Sub ReallyQuit()
 
+        If Not KillAll() Then Return
         ws.StopWebServer()
-        KillAll()
         gAborting = True
         StopMysql()
         Print("I'll tell you my next dream when I wake up.")
@@ -583,8 +583,16 @@ Public Class Form1
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOW_WINDOW) As Boolean
 
 
-    Public Sub KillAll()
+    Public Function KillAll() As Boolean
 
+        If AvatarLabel.Text <> "" Then
+            If CType(AvatarLabel.Text, Integer) > 0 Then
+                Dim response = MsgBox("There are " & AvatarLabel.Text & " avatars in world! Do you really wish to quit?", vbYesNo)
+                If response = vbNo Then Return False
+            End If
+        End If
+
+        AvatarLabel.Text = ""
         gAborting = True
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
@@ -677,8 +685,10 @@ Public Class Form1
         Me.AllowDrop = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
+        Return True
 
-    End Sub
+
+    End Function
     ''' <summary>
     ''' For Shoutcast only
     ''' </summary>
@@ -759,7 +769,7 @@ Public Class Form1
 
         Print("Stopping")
         Buttons(BusyButton)
-        KillAll()
+        If Not KillAll() Then Return
         Buttons(StartButton)
         Print("Stopped")
         ProgressBar1.Visible = False
@@ -4185,10 +4195,13 @@ Public Class Form1
 
     Private Sub ScanAgents()
         ' Scan all the regions
+        Dim sbttl As Integer = 0
         Try
             For Each RegionNum As Integer In RegionClass.RegionNumbers
                 If RegionClass.IsBooted(RegionNum) Then
-                    RegionClass.AvatarCount(RegionNum) = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
+                    Dim count As Integer = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
+                    sbttl += count
+                    RegionClass.AvatarCount(RegionNum) = count
                     'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
                 Else
                     RegionClass.AvatarCount(RegionNum) = 0
@@ -4197,6 +4210,7 @@ Public Class Form1
         Catch
         End Try
 
+        AvatarLabel.Text = sbttl.ToString & " Avatars"
     End Sub
 
 #End Region
@@ -4776,7 +4790,6 @@ Public Class Form1
                               & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
-
 
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
