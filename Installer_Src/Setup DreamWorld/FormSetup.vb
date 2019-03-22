@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -3108,17 +3108,17 @@ Public Class Form1
         Log("Info", " IARS loaded")
 
         BumpProgress10()
-
+        AddLog("All Logs")
         AddLog("Robust")
         AddLog("Outworldz")
         AddLog("UPnP")
         AddLog("Icecast")
         AddLog("MySQL")
         AddLog("All Settings")
-        AddLog("-------")
+        AddLog("--- Regions ---")
         For Each X In RegionClass.RegionNumbers
             Dim Name = RegionClass.RegionName(X)
-            AddLog(Name)
+            AddLog("Region " & Name)
         Next
 
         BumpProgress10()
@@ -3138,13 +3138,17 @@ Public Class Form1
     End Sub
 
     Private Sub AddLog(name As String)
+
         Dim LogMenu As New ToolStripMenuItem
         LogMenu.Text = name
         LogMenu.ToolTipText = "Click to view this log"
+        LogMenu.Size = New System.Drawing.Size(269, 26)
+        LogMenu.Image = My.Resources.Resources.document_view
         LogMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
         AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
         ViewLogsToolStripMenuItem.Visible = True
         ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
+
     End Sub
 
     Private Sub OarClick(sender As Object, e As EventArgs)
@@ -4596,33 +4600,51 @@ Public Class Form1
     End Sub
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
-        Dim name = sender.text.ToString()
+
+        Dim name As String = sender.text.ToString()
+
         Viewlog(name)
     End Sub
     Public Sub Viewlog(name As String)
 
-        Dim path = MyFolder + "\Outworldzfiles\Opensim\bin\Regions\" + name + "\Opensim.log"
-        If name = "Robust" Then path = MyFolder + "\Outworldzfiles\Opensim\bin\Robust.log"
-        If name = "Outworldz" Then path = MyFolder + "\Outworldzfiles\Outworldz.log"
-        If name = "UPnP" Then path = MyFolder + "\Outworldzfiles\Upnp.log"
-        If name = "Icecast" Then path = MyFolder + "\Outworldzfiles\Icecast\log\error.log"
-        If name = "All Settings" Then path = MyFolder + "\Outworldzfiles\Settings.ini"
-        If name = "-------" Then Return
+        Dim AllLogs As Boolean = False
+        Dim path As String = ""
 
-        If name = "MySQL" Then
-            Dim MysqlLog As String = MyFolder + "\OutworldzFiles\mysql\data"
-            Dim files() As String
-            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-            For Each FileName As String In files
-                Try
-                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & FileName & """")
-                Catch
-                End Try
-            Next
-            Return
+        If name.StartsWith("Region ") Then
+            name = Replace(name, "Region ", "", 1, 1)
+            name = RegionClass.GroupName(RegionClass.FindRegionByName(name))
+            path = """" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """"
+        Else
+            If name = "All Logs" Then AllLogs = True
+            If name = "Robust" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Opensim\bin\Robust.log" & """"
+            If name = "Outworldz" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Outworldz.log" & """"
+            If name = "UPnP" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Upnp.log" & """"
+            If name = "Icecast" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Icecast\log\error.log" & """"
+            If name = "All Settings" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Settings.ini" & """"
+            If name = "--- Regions ---" Then Return
+
+            If AllLogs Then
+                For Each Regionnumber In RegionClass.RegionNumbers
+                    name = RegionClass.GroupName(Regionnumber)
+                    path = path & " " & """" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """"
+                Next
+            End If
+
+            If name = "MySQL" Or AllLogs Then
+                Dim MysqlLog As String = MyFolder & "\OutworldzFiles\mysql\data"
+                Dim files() As String
+                files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+                For Each FileName As String In files
+                    path = path & " " & """" & FileName & """"
+                Next
+
+            End If
         End If
+
+        Log("Info", path)
+
         Try
-            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & path & """")
+            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", path)
         Catch
         End Try
 
@@ -4793,11 +4815,7 @@ Public Class Form1
         Catch ex As Exception
             Log("Error", "Could not set firewall:" + ex.Message)
         End Try
-
-
     End Sub
-
-
 
 
 #End Region
