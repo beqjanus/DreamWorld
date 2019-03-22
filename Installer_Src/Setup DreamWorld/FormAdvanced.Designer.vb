@@ -41,9 +41,9 @@ Partial Class AdvancedForm
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.DNSButton = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.CacheButton1 = New System.Windows.Forms.Button()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -69,7 +69,7 @@ Partial Class AdvancedForm
         '
         'GloebitsButton
         '
-        Me.GloebitsButton.Location = New System.Drawing.Point(15, 106)
+        Me.GloebitsButton.Location = New System.Drawing.Point(15, 134)
         Me.GloebitsButton.Name = "GloebitsButton"
         Me.GloebitsButton.Size = New System.Drawing.Size(143, 23)
         Me.GloebitsButton.TabIndex = 4
@@ -89,7 +89,7 @@ Partial Class AdvancedForm
         '
         'Shoutcast
         '
-        Me.Shoutcast.Location = New System.Drawing.Point(15, 164)
+        Me.Shoutcast.Location = New System.Drawing.Point(15, 192)
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
@@ -99,7 +99,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(15, 193)
+        Me.MapsButton.Location = New System.Drawing.Point(15, 221)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -149,7 +149,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(15, 221)
+        Me.PortsButton1.Location = New System.Drawing.Point(15, 249)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -170,7 +170,7 @@ Partial Class AdvancedForm
         '
         'DatabaseButton2
         '
-        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 77)
+        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 105)
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(145, 23)
         Me.DatabaseButton2.TabIndex = 3
@@ -200,24 +200,13 @@ Partial Class AdvancedForm
         '
         'DNSButton
         '
-        Me.DNSButton.Location = New System.Drawing.Point(15, 135)
+        Me.DNSButton.Location = New System.Drawing.Point(15, 163)
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(143, 23)
         Me.DNSButton.TabIndex = 5
         Me.DNSButton.Text = "Hypergrid & DNS Name"
         Me.ToolTip1.SetToolTip(Me.DNSButton, "Click to Enable Hypergrid or change DNS Name")
         Me.DNSButton.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(15, 250)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(145, 23)
-        Me.Button1.TabIndex = 17
-        Me.Button1.Text = "Map Tiles"
-        Me.ToolTip1.SetToolTip(Me.Button1, "Click to set up the Fairy chat & wallpaper")
-        Me.Button1.UseVisualStyleBackColor = True
-        Me.Button1.Visible = False
         '
         'Button4
         '
@@ -231,8 +220,8 @@ Partial Class AdvancedForm
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.CacheButton1)
         Me.GroupBox8.Controls.Add(Me.Button4)
-        Me.GroupBox8.Controls.Add(Me.Button1)
         Me.GroupBox8.Controls.Add(Me.Button3)
         Me.GroupBox8.Controls.Add(Me.PhysicsButton1)
         Me.GroupBox8.Controls.Add(Me.VoiceButton1)
@@ -255,6 +244,16 @@ Partial Class AdvancedForm
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Global Settings"
+        '
+        'CacheButton1
+        '
+        Me.CacheButton1.Location = New System.Drawing.Point(15, 76)
+        Me.CacheButton1.Name = "CacheButton1"
+        Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
+        Me.CacheButton1.TabIndex = 19
+        Me.CacheButton1.Text = "Caches"
+        Me.ToolTip1.SetToolTip(Me.CacheButton1, "Click to set up the Database")
+        Me.CacheButton1.UseVisualStyleBackColor = True
         '
         'AdvancedForm
         '
@@ -290,6 +289,6 @@ Partial Class AdvancedForm
     Friend WithEvents DNSButton As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents Button4 As Button
+    Friend WithEvents CacheButton1 As Button
 End Class

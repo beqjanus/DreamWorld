@@ -1627,14 +1627,8 @@ Public Class Form1
 
 #Region "ToolBars"
 
-    Private Sub ClearCachesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearCachesToolStripMenuItem.Click
+    Private Sub ClearCachesToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
-        ' Set the new form's desktop location so it appears below and
-        ' to the right of the current form.
-        FormCaches.Close()
-        FormCaches = New FormCaches
-        FormCaches.Activate()
-        FormCaches.Visible = True
 
     End Sub
 
@@ -3723,11 +3717,6 @@ Public Class Form1
         ChDir(MyFolder & "\OutworldzFiles\mysql\bin")
         pi.WindowStyle = ProcessWindowStyle.Normal
         pi.Arguments = MySetting.MySqlPort
-        pi.FileName = "Repair_ISAM.bat"
-        Dim pMySqlDiag As Process = New Process()
-        pMySqlDiag.StartInfo = pi
-        pMySqlDiag.Start()
-        pMySqlDiag.WaitForExit()
 
         pi.FileName = "CheckAndRepair.bat"
         Dim pMySqlDiag1 As Process = New Process()
@@ -4608,25 +4597,25 @@ Public Class Form1
     Public Sub Viewlog(name As String)
 
         Dim AllLogs As Boolean = False
-        Dim path As String = ""
+        Dim path As New List(Of String)
 
         If name.StartsWith("Region ") Then
             name = Replace(name, "Region ", "", 1, 1)
             name = RegionClass.GroupName(RegionClass.FindRegionByName(name))
-            path = """" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """"
+            path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """")
         Else
             If name = "All Logs" Then AllLogs = True
-            If name = "Robust" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Opensim\bin\Robust.log" & """"
-            If name = "Outworldz" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Outworldz.log" & """"
-            If name = "UPnP" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Upnp.log" & """"
-            If name = "Icecast" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Icecast\log\error.log" & """"
-            If name = "All Settings" Or AllLogs Then path = path & " " & """" & MyFolder & "\Outworldzfiles\Settings.ini" & """"
+            If name = "Robust" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Robust.log" & """")
+            If name = "Outworldz" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Outworldz.log" & """")
+            If name = "UPnP" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Upnp.log" & """")
+            If name = "Icecast" Or AllLogs Then path.Add(" " & """" & MyFolder & "\Outworldzfiles\Icecast\log\error.log" & """")
+            If name = "All Settings" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Settings.ini" & """")
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
                 For Each Regionnumber In RegionClass.RegionNumbers
                     name = RegionClass.GroupName(Regionnumber)
-                    path = path & " " & """" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """"
+                    path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """")
                 Next
             End If
 
@@ -4635,16 +4624,22 @@ Public Class Form1
                 Dim files() As String
                 files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                 For Each FileName As String In files
-                    path = path & " " & """" & FileName & """"
+                    path.Add("""" & FileName & """")
                 Next
 
             End If
         End If
+        ' Filter distinct elements, and convert back into list.
+        Dim result As List(Of String) = path.Distinct().ToList
 
-        Log("Info", path)
+        Dim logs As String = ""
+        For Each item In result
+            Log("View", item)
+            logs = logs & " " & item
+        Next
 
         Try
-            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", path)
+            System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", logs)
         Catch
         End Try
 

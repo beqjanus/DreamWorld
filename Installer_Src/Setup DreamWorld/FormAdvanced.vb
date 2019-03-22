@@ -265,9 +265,16 @@ Public Class AdvancedForm
 
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub CacheButton1_Click(sender As Object, e As EventArgs) Handles CacheButton1.Click
+        ' Set the new form's desktop location so it appears below and
+        ' to the right of the current form.
+        FormCaches.Close()
+        FormCaches = New FormCaches
+        FormCaches.Activate()
+        FormCaches.Visible = True
 
     End Sub
+
 
 
 
