@@ -72,9 +72,10 @@ Public Class UPnp
     ''' <remarks></remarks>
     Private Sub GetStaticMappings()
         Try
+
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
-                Log("No UPnP mappings found. ")
+                Log("Router does not support Static mappings.")
                 staticEnabled = False
                 Return
             End If
