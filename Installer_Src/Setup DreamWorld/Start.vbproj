@@ -644,6 +644,7 @@
     <None Include="Resources\redo.png" />
     <None Include="Resources\navigate_up.png" />
     <None Include="Resources\navigate_down.png" />
+    <None Include="Resources\package.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

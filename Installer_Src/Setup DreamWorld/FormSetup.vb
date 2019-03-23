@@ -169,11 +169,15 @@ Public Class Form1
         Else
             Me.Height = hw.Item(0)
         End If
+
         If hw.Item(1) = 0 Then
             Me.Width = 320
         Else
             Me.Width = hw.Item(1)
         End If
+
+        ScreenPosition.SaveHW(Me.Width, Me.Height)
+
 
     End Sub
 
@@ -241,8 +245,6 @@ Public Class Form1
         gPath = MyFolder & "\OutworldzFiles\Opensim\"
 
         Log("Info", "Running")
-
-        SetScreen()     ' move Form to fit screen from SetXY.ini
 
         ' init the scrolling text box
         TextBox1.SelectionStart = 0
@@ -410,7 +412,7 @@ Public Class Form1
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-
+        SetScreen()     ' move Form to fit screen from SetXY.ini
 
         If MySetting.RegionListVisible Then
             ShowRegionform()
@@ -4824,6 +4826,13 @@ Public Class Form1
             Log("Error", "Could not set firewall:" + ex.Message)
         End Try
     End Sub
+
+    Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
+        Dim webAddress As String = MyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
+        Process.Start(webAddress)
+    End Sub
+
+
 
 
 #End Region

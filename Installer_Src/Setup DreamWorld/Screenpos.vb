@@ -33,7 +33,7 @@ Public Class ScreenPos
 
         SetXYIni("Data", gName + "_X", ValueX.ToString)
         SetXYIni("Data", gName + "_Y", ValueY.ToString)
-        SaveXYSettings()
+        SaveFormSettings()
         Debug.Print("X>" + ValueX.ToString)
         Debug.Print("Y>" + ValueY.ToString)
 
@@ -42,7 +42,7 @@ Public Class ScreenPos
 
         SetXYIni("Data", gName + "_H", ValueH.ToString)
         SetXYIni("Data", gName + "_W", ValueW.ToString)
-        SaveXYSettings()
+        SaveFormSettings()
         Debug.Print("H>" + ValueH.ToString)
         Debug.Print("W>" + ValueW.ToString)
 
@@ -51,7 +51,7 @@ Public Class ScreenPos
     Public Function Exists() As Boolean
         Dim Value = CType(Data("Data")(gName + "_Initted"), Integer)
         SetXYIni("Data", gName + "_Initted", "1")
-        SaveXYSettings()
+        SaveFormSettings()
         If Value = 0 Then Return False
         Return True
     End Function
@@ -121,7 +121,7 @@ Public Class ScreenPos
 
     End Sub
 
-    Public Sub SaveXYSettings()
+    Public Sub SaveFormSettings()
 
         Try
             parser.WriteFile(myINI, Data, System.Text.Encoding.ASCII)
