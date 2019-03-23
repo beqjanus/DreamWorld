@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -3145,15 +3145,18 @@ Public Class Form1
         Dim folders() = IO.Directory.GetFiles(MyFolder & "\Outworldzfiles\Help")
 
         For Each aline As String In folders
-            aline = System.IO.Path.GetFileNameWithoutExtension(aline)
 
-            Dim HelpMenu As New ToolStripMenuItem
-            HelpMenu.Text = aline
-            HelpMenu.ToolTipText = "Click to load this content"
-            HelpMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
-            HelpMenu.Image = My.Resources.question_and_answer
-            AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
-            HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+            If aline.EndsWith(".rtf") Then
+                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
+                Dim HelpMenu As New ToolStripMenuItem
+                HelpMenu.Text = aline
+                HelpMenu.ToolTipText = "Click to load this content"
+                HelpMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                HelpMenu.Image = My.Resources.question_and_answer
+                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
+                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+            End If
+
         Next
 
         Log("Info", "OARS loaded")
@@ -4677,7 +4680,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        Help(sender.text.ToString)
+        If sender.text.ToString.EndsWith(".rtf") Then Help(sender.text.ToString)
 
     End Sub
 
