@@ -28,7 +28,7 @@ Imports IWshRuntimeLibrary
 Imports System.Threading
 Imports System.Runtime.InteropServices
 Imports System.Text
-
+Imports System.Management
 
 Public Class Form1
 
@@ -112,9 +112,11 @@ Public Class Form1
     Dim speed1 As Single
     Dim speed2 As Single
     Dim speed3 As Single
+    Dim MyCPUCollection As New Collection
 
-
-    Dim MyCollection As New Collection
+    Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
+    Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
+    Dim MyRAMCollection As New Collection
 
     Public Enum SHOW_WINDOW As Integer
         SW_HIDE = 0
@@ -176,7 +178,7 @@ Public Class Form1
             Me.Width = hw.Item(1)
         End If
 
-        ScreenPosition.SaveHW(Me.Width, Me.Height)
+        ScreenPosition.SaveHW(Me.Height, Me.Width)
 
 
     End Sub
@@ -367,7 +369,7 @@ Public Class Form1
         ' Graph fill
         Dim i = 180
         While i > 0
-            MyCollection.Add(0)
+            MyCPUCollection.Add(0)
             i = i - 1
         End While
 
@@ -376,10 +378,26 @@ Public Class Form1
         msChart.ChartAreas(0).AxisX.Minimum = 0
         msChart.ChartAreas(0).AxisY.Maximum = 100
         msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = False
         ChartWrapper1.AddMarkers = True
         ChartWrapper1.MarkerFreq = 60
+        'msChart.ChartAreas(0).AxisY.CLabels.RemoveAt(0)
 
+        i = 180
+        While i > 0
+            MyRAMCollection.Add(0)
+            i = i - 1
+        End While
+
+        msChart = ChartWrapper2.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = False
+        ChartWrapper2.AddMarkers = True
+        ChartWrapper2.MarkerFreq = 60
+        'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
         ' Find out if the viewer is installed
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
@@ -394,7 +412,7 @@ Public Class Form1
             Else
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-        End If
+            End If
 
         Else
 
@@ -449,7 +467,6 @@ Public Class Form1
             .CounterName = "% Processor Time"
             .InstanceName = "_Total"
         End With
-
 
         Print("Starting...")
         gExitHandlerIsBusy = False
@@ -2345,13 +2362,16 @@ Public Class Form1
             End If
             Application.DoEvents()
         End While
-
-
         Return True
 
     End Function
 
     Public Function GetHwnd(Groupname As String) As IntPtr
+
+        If Groupname = "Robust" Then
+            Return RobustProcess.MainWindowHandle
+        End If
+
 
         Dim Regionlist = RegionClass.RegionListByGroupNum(Groupname)
 
@@ -2388,7 +2408,7 @@ Public Class Form1
         If name <> "Robust" Then
             Dim ID = RegionClass.FindRegionByName(name)
             Dim PID = RegionClass.ProcessID(ID)
-            If ID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         Else
             ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
         End If
@@ -2439,6 +2459,12 @@ Public Class Form1
 
     End Sub
 
+    'Private Sub Chart1_Customize(ByVal sender As Object, ByVal e As System.EventArgs) Handles ChartWrapper1.TheChart.Customize
+
+    '   ChartWrapper1.ChartAreas(0).AxisY.CustomLabels.RemoveAt(2) 'Will remove the third label
+
+    'End Sub
+
     Private Sub Chart()
         ' Graph https://github.com/sinairv/MSChartWrapper
         Try
@@ -2450,8 +2476,8 @@ Public Class Form1
 
             Dim newspeed = (speed + speed1 + speed2 + speed3) / 4
 
-            MyCollection.Add(newspeed)
-            MyCollection.Remove(1) ' drop 1st, older  item
+            MyCPUCollection.Add(newspeed)
+            MyCPUCollection.Remove(1) ' drop 1st, older  item
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -2460,12 +2486,40 @@ Public Class Form1
         Dim i = 1
         While i <= 180
             ReDim Preserve series(i)
-            series(i) = CType(MyCollection(i), Double)
+            series(i) = CType(MyCPUCollection(i), Double)
             i = i + 1
         End While
 
         ChartWrapper1.ClearChart()
         ChartWrapper1.AddLinePlot("CPU", series)
+
+        'RAM
+
+        Dim ramseries() As Double = Nothing
+
+
+        Dim results As ManagementObjectCollection = searcher.Get()
+        For Each result In results
+            Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
+            MyRAMCollection.Add(value)
+            MyRAMCollection.Remove(1) ' drop 1st, older  item
+        Next
+
+        Dim j = 1
+        While j <= 180
+            ReDim Preserve ramseries(j)
+            If (j = 180) Then
+                Dim y = 0
+            End If
+            ramseries(j) = CType(MyRAMCollection(j), Double)
+            j = j + 1
+        End While
+
+        ChartWrapper2.ClearChart()
+        ChartWrapper2.AddLinePlot("RAM", ramseries)
+
+
+
     End Sub
     ''' <summary>
     ''' Timer runs every second
@@ -4485,7 +4539,7 @@ Public Class Form1
                     AddHandler IarMenu.Click, New EventHandler(AddressOf BackupIarClick)
                     LoadLocalIARsToolStripMenuItem.Visible = True
                     LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                    Log("Info",Name)
+                    Log("Info", Name)
                 End If
 
             Next
@@ -4831,7 +4885,6 @@ Public Class Form1
         Dim webAddress As String = MyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
         Process.Start(webAddress)
     End Sub
-
 
 
 
