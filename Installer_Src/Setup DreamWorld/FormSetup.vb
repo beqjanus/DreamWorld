@@ -235,6 +235,8 @@ Public Class Form1
 
         Application.EnableVisualStyles()
 
+        ToolBar(False)  ' hide the avatar, RAM, CPU toolbar
+
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
@@ -280,15 +282,13 @@ Public Class Form1
 
         'hide progress
         ProgressBar1.Visible = True
-        Label3.Hide()
-        AvatarLabel.Hide()
+        ToolBar(False)
 
         ProgressBar1.Minimum = 0
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = 0
 
         TextBox1.BackColor = Me.BackColor
-
 
         Buttons(BusyButton)
 
@@ -476,8 +476,7 @@ Public Class Form1
         gAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
-        AvatarLabel.Hide()
-        Label3.Hide()
+        ToolBar(False)
         Buttons(BusyButton)
 
         RegionClass.UpdateAllRegionPorts() ' must be donbe before we are running
@@ -510,8 +509,7 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
-            Label3.Hide()
-            AvatarLabel.Hide()
+            ToolBar(False)
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -562,8 +560,7 @@ Public Class Form1
 
         ' done with bootup
         ProgressBar1.Visible = False
-        Label3.Visible = True
-        AvatarLabel.Visible = True
+        ToolBar(True)
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -624,8 +621,7 @@ Public Class Form1
         gAborting = True
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
-        Label3.Hide()
-        AvatarLabel.Hide()
+        ToolBar(False)
         ' close everything as gracefully as possible.
 
         StopIcecast()
@@ -715,6 +711,7 @@ Public Class Form1
         Me.AllowDrop = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
+        ToolBar(False)
         Return True
 
 
@@ -803,8 +800,8 @@ Public Class Form1
         Buttons(StartButton)
         Print("Stopped")
         ProgressBar1.Visible = False
-        Label3.Visible = True
-        AvatarLabel.Visible = True
+        ToolBar(False)
+
     End Sub
 
     Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuShow.Click
@@ -1702,6 +1699,16 @@ Public Class Form1
 
     End Sub
 
+    Public Sub ToolBar(visible As Boolean)
+
+        Label2.Visible = visible
+        Label3.Visible = visible
+        Label4.Visible = visible
+        AvatarLabel.Visible = visible
+        PercentCPU.Visible = visible
+        PercentRAM.Visible = visible
+
+    End Sub
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         StopAllRegions()
@@ -1715,8 +1722,7 @@ Public Class Form1
         Me.AllowDrop = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
-        Label3.Visible = True
-        AvatarLabel.Visible = True
+        ToolBar(False)
 
         Print("Dreamgrid Stopped/Aborted")
         Buttons(StopButton)
@@ -2488,9 +2494,10 @@ Public Class Form1
             speed1 = speed
             speed = cpu.NextValue()
 
-            Dim newspeed = (speed + speed1 + speed2 + speed3) / 4
+            Dim newspeed As Single = (speed + speed1 + speed2 + speed3) / 4
 
             MyCPUCollection.Add(newspeed)
+            PercentCPU.Text = String.Format("{0: 0}", newspeed)
             MyCPUCollection.Remove(1) ' drop 1st, older  item
         Catch ex As Exception
             ErrorLog(ex.Message)
@@ -2510,12 +2517,11 @@ Public Class Form1
         'RAM
 
         Dim ramseries() As Double = Nothing
-
-
         Dim results As ManagementObjectCollection = searcher.Get()
         For Each result In results
             Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
             MyRAMCollection.Add(value)
+            PercentRAM.Text = String.Format("{0: 0}", value)
             MyRAMCollection.Remove(1) ' drop 1st, older  item
         Next
 
@@ -3787,8 +3793,7 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
-            Label3.Hide()
-            AvatarLabel.Hide()
+            ToolBar(False)
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -3821,8 +3826,7 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
-            Label3.Hide()
-            AvatarLabel.Hide()
+            ToolBar(False)
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -3889,8 +3893,7 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
-            Label3.Hide()
-            AvatarLabel.Hide()
+            ToolBar(False)
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -4286,7 +4289,7 @@ Public Class Form1
         Catch
         End Try
 
-        AvatarLabel.Text = sbttl.ToString & " Avatars"
+        AvatarLabel.Text = sbttl.ToString
     End Sub
 
 #End Region
@@ -4907,6 +4910,14 @@ Public Class Form1
     End Sub
 
     Private Sub AvatarLabel_Click(sender As Object, e As EventArgs) Handles AvatarLabel.Click
+
+    End Sub
+
+    Private Sub ChartWrapper1_Load(sender As Object, e As EventArgs) Handles ChartWrapper1.Load
+
+    End Sub
+
+    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
 
     End Sub
 

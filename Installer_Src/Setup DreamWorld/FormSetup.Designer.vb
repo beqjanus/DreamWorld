@@ -113,7 +113,6 @@ Partial Class Form1
         Me.RestoreDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupCriticalFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.WebBrowser3 = New System.Windows.Forms.WebBrowser()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.BusyButton = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
@@ -126,6 +125,10 @@ Partial Class Form1
         Me.AvatarLabel = New System.Windows.Forms.Label()
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.PercentCPU = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.PercentRAM = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -596,7 +599,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(752, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -743,14 +746,6 @@ Partial Class Form1
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
         Me.ToolStripSeparator6.Size = New System.Drawing.Size(270, 6)
         '
-        'WebBrowser3
-        '
-        Me.WebBrowser3.Location = New System.Drawing.Point(339, 341)
-        Me.WebBrowser3.MinimumSize = New System.Drawing.Size(20, 20)
-        Me.WebBrowser3.Name = "WebBrowser3"
-        Me.WebBrowser3.Size = New System.Drawing.Size(105, 53)
-        Me.WebBrowser3.TabIndex = 23
-        '
         'ProgressBar1
         '
         Me.ProgressBar1.Location = New System.Drawing.Point(15, 30)
@@ -805,7 +800,7 @@ Partial Class Form1
         Me.ChartWrapper1.AxisXTitle = "Seconds"
         Me.ChartWrapper1.AxisYTitle = "CPU %"
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(286, 27)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(301, 30)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
@@ -818,7 +813,7 @@ Partial Class Form1
         'AvatarLabel
         '
         Me.AvatarLabel.AutoSize = True
-        Me.AvatarLabel.Location = New System.Drawing.Point(214, 30)
+        Me.AvatarLabel.Location = New System.Drawing.Point(23, 30)
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(13, 13)
         Me.AvatarLabel.TabIndex = 32
@@ -830,7 +825,7 @@ Partial Class Form1
         Me.ChartWrapper2.AxisXTitle = "Seconds"
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(517, 27)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(301, 195)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
@@ -843,11 +838,47 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(233, 30)
+        Me.Label3.Location = New System.Drawing.Point(42, 30)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 34
         Me.Label3.Text = "Avatars"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(120, 30)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(40, 13)
+        Me.Label2.TabIndex = 36
+        Me.Label2.Text = "% CPU"
+        '
+        'PercentCPU
+        '
+        Me.PercentCPU.AutoSize = True
+        Me.PercentCPU.Location = New System.Drawing.Point(101, 30)
+        Me.PercentCPU.Name = "PercentCPU"
+        Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
+        Me.PercentCPU.TabIndex = 35
+        Me.PercentCPU.Text = "0"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(187, 30)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(42, 13)
+        Me.Label4.TabIndex = 38
+        Me.Label4.Text = "% RAM"
+        '
+        'PercentRAM
+        '
+        Me.PercentRAM.AutoSize = True
+        Me.PercentRAM.Location = New System.Drawing.Point(168, 30)
+        Me.PercentRAM.Name = "PercentRAM"
+        Me.PercentRAM.Size = New System.Drawing.Size(13, 13)
+        Me.PercentRAM.TabIndex = 37
+        Me.PercentRAM.Text = "0"
         '
         'Form1
         '
@@ -856,14 +887,17 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(752, 253)
+        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.PercentRAM)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ChartWrapper2)
         Me.Controls.Add(Me.AvatarLabel)
         Me.Controls.Add(Me.ChartWrapper1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ProgressBar1)
-        Me.Controls.Add(Me.WebBrowser3)
         Me.Controls.Add(Me.BusyButton)
         Me.Controls.Add(Me.StopButton)
         Me.Controls.Add(Me.StartButton)
@@ -906,7 +940,6 @@ Partial Class Form1
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuAbout As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents WebBrowser3 As WebBrowser
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents ViewWebUI As ToolStripMenuItem
     Friend WithEvents MnuContent As ToolStripMenuItem
@@ -994,4 +1027,8 @@ Partial Class Form1
     Friend WithEvents PDFManualToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
     Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents PercentCPU As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents PercentRAM As Label
 End Class
