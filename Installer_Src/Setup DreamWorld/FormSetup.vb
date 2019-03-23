@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz DreamGrid"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -280,6 +280,9 @@ Public Class Form1
 
         'hide progress
         ProgressBar1.Visible = True
+        Label3.Hide()
+        AvatarLabel.Hide()
+
         ProgressBar1.Minimum = 0
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = 0
@@ -473,6 +476,8 @@ Public Class Form1
         gAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
+        AvatarLabel.Hide()
+        Label3.Hide()
         Buttons(BusyButton)
 
         RegionClass.UpdateAllRegionPorts() ' must be donbe before we are running
@@ -505,6 +510,8 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
+            Label3.Hide()
+            AvatarLabel.Hide()
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -555,6 +562,8 @@ Public Class Form1
 
         ' done with bootup
         ProgressBar1.Visible = False
+        Label3.Visible = True
+        AvatarLabel.Visible = True
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -615,6 +624,8 @@ Public Class Form1
         gAborting = True
         ProgressBar1.Value = 100
         ProgressBar1.Visible = True
+        Label3.Hide()
+        AvatarLabel.Hide()
         ' close everything as gracefully as possible.
 
         StopIcecast()
@@ -792,7 +803,8 @@ Public Class Form1
         Buttons(StartButton)
         Print("Stopped")
         ProgressBar1.Visible = False
-
+        Label3.Visible = True
+        AvatarLabel.Visible = True
     End Sub
 
     Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles mnuShow.Click
@@ -1703,6 +1715,8 @@ Public Class Form1
         Me.AllowDrop = False
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
+        Label3.Visible = True
+        AvatarLabel.Visible = True
 
         Print("Dreamgrid Stopped/Aborted")
         Buttons(StopButton)
@@ -3773,6 +3787,8 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
+            Label3.Hide()
+            AvatarLabel.Hide()
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -3805,6 +3821,8 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
+            Label3.Hide()
+            AvatarLabel.Hide()
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -3871,6 +3889,8 @@ Public Class Form1
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
+            Label3.Hide()
+            AvatarLabel.Hide()
             Buttons(StartButton)
             Print("Stopped")
             Return
@@ -4886,6 +4906,9 @@ Public Class Form1
         Process.Start(webAddress)
     End Sub
 
+    Private Sub AvatarLabel_Click(sender As Object, e As EventArgs) Handles AvatarLabel.Click
+
+    End Sub
 
 
 #End Region

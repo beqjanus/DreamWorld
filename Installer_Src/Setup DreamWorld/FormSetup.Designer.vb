@@ -125,6 +125,7 @@ Partial Class Form1
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -597,6 +598,7 @@ Partial Class Form1
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(752, 24)
         Me.MenuStrip1.TabIndex = 21
+        Me.MenuStrip1.Text = "0"
         '
         'MnuContent
         '
@@ -803,7 +805,7 @@ Partial Class Form1
         Me.ChartWrapper1.AxisXTitle = "Seconds"
         Me.ChartWrapper1.AxisYTitle = "CPU %"
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(286, 30)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(286, 27)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
@@ -816,10 +818,11 @@ Partial Class Form1
         'AvatarLabel
         '
         Me.AvatarLabel.AutoSize = True
-        Me.AvatarLabel.Location = New System.Drawing.Point(304, 8)
+        Me.AvatarLabel.Location = New System.Drawing.Point(214, 30)
         Me.AvatarLabel.Name = "AvatarLabel"
-        Me.AvatarLabel.Size = New System.Drawing.Size(0, 13)
+        Me.AvatarLabel.Size = New System.Drawing.Size(13, 13)
         Me.AvatarLabel.TabIndex = 32
+        Me.AvatarLabel.Text = "0"
         '
         'ChartWrapper2
         '
@@ -827,7 +830,7 @@ Partial Class Form1
         Me.ChartWrapper2.AxisXTitle = "Seconds"
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(517, 30)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(517, 27)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
@@ -837,6 +840,15 @@ Partial Class Form1
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(233, 30)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(43, 13)
+        Me.Label3.TabIndex = 34
+        Me.Label3.Text = "Avatars"
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -845,6 +857,7 @@ Partial Class Form1
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(752, 253)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ChartWrapper2)
         Me.Controls.Add(Me.AvatarLabel)
         Me.Controls.Add(Me.ChartWrapper1)
@@ -980,4 +993,5 @@ Partial Class Form1
     Friend WithEvents AvatarLabel As Label
     Friend WithEvents PDFManualToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
+    Friend WithEvents Label3 As Label
 End Class
