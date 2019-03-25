@@ -1,4 +1,11 @@
-2.8 Release 
+2.81
+Add Memory used for each region to Region panel
+Add RAM graph
+Add Avatar, CPU and RAM to front panel
+Save width for Main Form
+
+2.8 Release  
+2.79E = 2.8
 
 2.79A through E:
 Avatar count shown on main form at upper right.
