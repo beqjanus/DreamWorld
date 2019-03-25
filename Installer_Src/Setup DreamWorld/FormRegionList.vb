@@ -173,6 +173,7 @@ Public Class RegionList
         ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
         ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Status", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("RAM", 80, HorizontalAlignment.Center)
         ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
@@ -330,6 +331,18 @@ Public Class RegionList
                 item1.SubItems.Add(RegionClass.GroupName(X).ToString)
                 item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
                 item1.SubItems.Add(Letter)
+
+                ' RAM
+                Dim PID = RegionClass.ProcessID(X)
+                Dim component1 As Process = Process.GetProcessById(PID)
+                If Form1.RegionHandles.ContainsKey(PID) Then
+                    Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
+                    item1.SubItems.Add(FormatNumber(NotepadMemory, 1) & " MB")
+                Else
+                    item1.SubItems.Add("?")
+                End If
+                component1 = Nothing
+
                 item1.SubItems.Add(RegionClass.CoordX(X).ToString)
                 item1.SubItems.Add(RegionClass.CoordY(X).ToString)
 
