@@ -38,7 +38,7 @@ Public Class Form1
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz-Source"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -240,7 +240,7 @@ Public Class Form1
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
 
-        If MyFolder.Contains("Outworldz-Source") Then
+        If Debugger.IsAttached = True Then
             ' for debugging when compiling
             gDebug = True
             MyFolder = gDebugPath ' for testing, as the compiler buries itself in ../../../debug
