@@ -333,15 +333,19 @@ Public Class RegionList
                 item1.SubItems.Add(Letter)
 
                 ' RAM
-                Dim PID = RegionClass.ProcessID(X)
-                Dim component1 As Process = Process.GetProcessById(PID)
-                If Form1.RegionHandles.ContainsKey(PID) Then
-                    Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                    item1.SubItems.Add(FormatNumber(NotepadMemory, 1) & " MB")
-                Else
+                Try
+                    Dim PID = RegionClass.ProcessID(X)
+                    Dim component1 As Process = Process.GetProcessById(PID)
+                    If Form1.RegionHandles.ContainsKey(PID) Then
+                        Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
+                        item1.SubItems.Add(FormatNumber(NotepadMemory, 1) & " MB")
+                    Else
+                        item1.SubItems.Add("?")
+                    End If
+                Catch ex As Exception
+                    'Form1.ErrorLog(ex.Message)
                     item1.SubItems.Add("?")
-                End If
-                component1 = Nothing
+                End Try
 
                 item1.SubItems.Add(RegionClass.CoordX(X).ToString)
                 item1.SubItems.Add(RegionClass.CoordY(X).ToString)

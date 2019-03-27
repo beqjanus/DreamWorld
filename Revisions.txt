@@ -1,3 +1,6 @@
+2.82 
+Disabling a region while shutting it down caused the Regions panel to not render.
+
 2.81
 Add Memory used for each region to Region panel
 Add RAM graph
