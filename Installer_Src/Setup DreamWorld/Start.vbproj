@@ -192,6 +192,12 @@
     <Compile Include="FormDisplacement4x4.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormDisplacement1X1.Designer.vb">
+      <DependentUpon>FormDisplacement1X1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDisplacement1X1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormRegionPopup.Designer.vb">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </Compile>
@@ -380,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement4x4.resx">
       <DependentUpon>FormDisplacement4x4.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDisplacement1X1.resx">
+      <DependentUpon>FormDisplacement1X1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>

@@ -2949,9 +2949,12 @@ Public Class Form1
     Public Function VarChooser(RegionName As String) As String
 
         Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
-
         Dim size = RegionClass.SizeX(RegionNumber)
-        If size = 512 Then  ' 2x2
+        If size = 256 Then  ' 1x1
+            Dim VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            VarForm.ShowDialog()
+        ElseIf size = 512 Then  ' 2x2
             Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
             ' Show testDialog as a modal dialog and determine if DialogResult = OK.
             VarForm.ShowDialog()
