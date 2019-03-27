@@ -52,9 +52,9 @@ Public Class RegionList
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
-    Private Sub SetScreen()
+    Private Sub SetScreen(View As Integer)
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name)
+        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -207,9 +207,7 @@ Public Class RegionList
         Timer1.Interval = 1000 ' check for Form1.UpdateView every second
         Timer1.Start() 'Timer starts functioning
 
-        If Form1.MySetting.MapType = "None" Then MapsToolStripMenuItem.Visible = False
-
-        SetScreen()
+        SetScreen(TheView)
 
         Form1.HelpOnce("RegionList")
 
@@ -466,8 +464,10 @@ Public Class RegionList
             AvatarView.Clear()
             AvatarView.Items.Clear()
 
-            AvatarView.Columns.Add("Agent", 200, HorizontalAlignment.Left)
-            AvatarView.Columns.Add("Region", 200, HorizontalAlignment.Center)
+            AvatarView.Columns.Add("Agent", 150, HorizontalAlignment.Left)
+            AvatarView.Columns.Add("Region", 150, HorizontalAlignment.Center)
+            AvatarView.Columns.Add("Type", 200, HorizontalAlignment.Center)
+
 
             Try
                 ' Create items and subitems for each item.
@@ -480,18 +480,48 @@ Public Class RegionList
                     For Each Agent In L
                         Dim item1 As New ListViewItem(Agent.Key, Index)
                         item1.SubItems.Add(Agent.Value)
+                        item1.SubItems.Add("Local")
                         AvatarView.Items.AddRange(New ListViewItem() {item1})
                         Index = Index + 1
                     Next
                 End If
 
                 If Index = 0 Then
-                    Dim item1 As New ListViewItem("No Avatars", 0)
+                    Dim item1 As New ListViewItem("No Local Avatars", 0)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                 End If
 
             Catch ex As Exception
-                Dim item1 As New ListViewItem("No Avatars", 0)
+                Dim item1 As New ListViewItem("No Local Avatars", 0)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+            End Try
+
+
+            ' Hypergrid
+            Try
+                ' Create items and subitems for each item.
+                Dim Index = 0
+                Dim L As New Dictionary(Of String, String)
+                L = Form1.MysqlConn.GetHGAgentList()
+
+                If L Is Nothing Then
+                Else
+                    For Each Agent In L
+                        Dim item1 As New ListViewItem(Agent.Key, Index)
+                        item1.SubItems.Add(Agent.Value)
+                        item1.SubItems.Add("Local")
+                        AvatarView.Items.AddRange(New ListViewItem() {item1})
+                        Index = Index + 1
+                    Next
+                End If
+
+                If Index = 0 Then
+                    Dim item1 As New ListViewItem("No Hypergrid Avatars", 0)
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                End If
+
+            Catch ex As Exception
+                Dim item1 As New ListViewItem("No Hypergrid Avatars", 0)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
             End Try
 
@@ -882,7 +912,7 @@ Public Class RegionList
         Form1.Help("RegionList")
     End Sub
 
-    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetailsToolStripMenuItem.Click
+    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Form1.MySetting.RegionListView() = ViewType.Details
         Form1.MySetting.SaveSettings()
@@ -897,7 +927,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub SmallListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SmallListToolStripMenuItem.Click
+    Private Sub SmallListToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Form1.MySetting.RegionListView() = ViewType.Icons
         Form1.MySetting.SaveSettings()
@@ -911,7 +941,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
+    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Form1.MySetting.RegionListView() = ViewType.Maps
         Form1.MySetting.SaveSettings()
@@ -924,11 +954,66 @@ Public Class RegionList
         LoadMyListView()
     End Sub
 
-    Private Sub AvatarsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AvatarsToolStripMenuItem.Click
+    Private Sub AvatarsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Form1.MySetting.RegionListView() = ViewType.Avatars
         Form1.MySetting.SaveSettings()
         TheView = ViewType.Avatars
+        ListView1.View = View.Details
+        ListView1.Hide()
+        AvatarView.Show()
+        LoadMyListView()
+        Timer1.Start()
+    End Sub
+
+    Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles ViewDetail.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Details
+        Form1.MySetting.SaveSettings()
+        TheView = ViewType.Details
+        SetScreen(TheView)
+        ListView1.View = View.Details
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = True
+        Timer1.Start()
+        LoadMyListView()
+    End Sub
+
+    Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles ViewCompact.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Icons
+        Form1.MySetting.SaveSettings()
+        TheView = ViewType.Icons
+        SetScreen(TheView)
+        ListView1.View = View.SmallIcon
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = False
+        Timer1.Start()
+        LoadMyListView()
+    End Sub
+
+    Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles ViewMaps.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Maps
+        Form1.MySetting.SaveSettings()
+        TheView = ViewType.Maps
+        SetScreen(TheView)
+        ListView1.View = View.LargeIcon
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = False
+        Timer1.Stop()
+        LoadMyListView()
+    End Sub
+
+    Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles ViewAvatars.Click
+
+        Form1.MySetting.RegionListView() = ViewType.Avatars
+        Form1.MySetting.SaveSettings()
+        TheView = ViewType.Avatars
+        SetScreen(TheView)
         ListView1.View = View.Details
         ListView1.Hide()
         AvatarView.Show()

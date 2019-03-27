@@ -24,6 +24,7 @@ Partial Class FormMaps
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
         Me.MapBox = New System.Windows.Forms.GroupBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.ViewMap = New System.Windows.Forms.Button()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
@@ -32,7 +33,6 @@ Partial Class FormMaps
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.MapBox.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,6 +55,15 @@ Partial Class FormMaps
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(15, 253)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(125, 23)
+        Me.Button2.TabIndex = 1859
+        Me.Button2.Text = "View Map Web Page"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'ViewMap
         '
@@ -139,15 +148,6 @@ Partial Class FormMaps
         Me.MapGood.TabStop = True
         Me.MapGood.Text = "Good (Warp3D)"
         Me.MapGood.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(15, 253)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(125, 23)
-        Me.Button2.TabIndex = 1859
-        Me.Button2.Text = "View Map Web Page"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'FormMaps
         '

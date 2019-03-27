@@ -1,5 +1,8 @@
 2.82 
 Disabling a region while shutting it down caused the Regions panel to not render.
+Help always appeared for Load Oar 2X2
+Added a PopUp for 1X1 so you can set more options.
+Added back the View buttons to Regionlist and made them resize and re-position the list
 
 2.81
 Add Memory used for each region to Region panel

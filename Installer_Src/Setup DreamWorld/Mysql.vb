@@ -42,7 +42,39 @@ Public Class Mysql
         Return Dict
 
     End Function
+
+    Public Function GetHGAgentList() As Dictionary(Of String, String)
+
+        Return Nothing
+        Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+
+        Dim Dict As New Dictionary(Of String, String)
+
+        Try
+            MysqlConn.Open()
+
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+                Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
+                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+            End While
+
+            reader.Close()
+
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
+        End Try
+
+        Return Dict
+
+    End Function
+
     Public Function IsUserPresent(regionUUID As String) As Integer
+
 
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")
         If UserCount = Nothing Then Return 0

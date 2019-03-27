@@ -34,7 +34,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.81"
+    ReadOnly gMyVersion As String = "2.82"
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
@@ -2734,6 +2734,7 @@ Public Class Form1
             If UserClickedOK = DialogResult.OK Then
 
                 Dim offset = VarChooser(chosen)
+                If offset.Length = 0 Then Return
 
                 Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                 Dim thing = openFileDialog1.FileName
@@ -2953,6 +2954,7 @@ Public Class Form1
         If size = 256 Then  ' 1x1
             Dim VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
             ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            VarForm.Init(RegionNumber)
             VarForm.ShowDialog()
         ElseIf size = 512 Then  ' 2x2
             Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
@@ -2970,10 +2972,11 @@ Public Class Form1
             Return ""
         End If
 
-        Dim displacement As String = gSelectedBox
-        Return displacement
+        Return gSelectedBox
 
     End Function
+
+
     Private Function LoadOARContent(thing As String) As Boolean
 
         If Not OpensimIsRunning() Then
@@ -2985,6 +2988,7 @@ Public Class Form1
         If region.Length = 0 Then Return False
 
         Dim offset = VarChooser(region)
+        If offset.Length = 0 Then Return False
 
         Dim backMeUp = MsgBox("Make a backup first?", vbYesNo, "Backup?")
         Dim num = RegionClass.FindRegionByName(region)
