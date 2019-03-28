@@ -2436,9 +2436,15 @@ Public Class Form1
         If name <> "Robust" Then
             Dim ID = RegionClass.FindRegionByName(name)
             Dim PID = RegionClass.ProcessID(ID)
-            If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            Try
+                If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            Catch
+            End Try
         Else
-            ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            Try
+                ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
+            Catch
+            End Try
         End If
 
 
@@ -2450,11 +2456,9 @@ Public Class Form1
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
 
-
             AppActivate(name)
             SendKeys.SendWait(SendableKeys("{ENTER}" + vbCrLf))
             SendKeys.SendWait(SendableKeys(command))
-
 
         Catch ex As Exception
             ' ErrorLog("Error:" + ex.Message)
