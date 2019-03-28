@@ -33,6 +33,7 @@
             Case "2" : PhysicsBullet.Checked = True
             Case "3" : PhysicsSeparate.Checked = True
             Case "4" : PhysicsubODE.Checked = True
+            Case "5" : PhysicsHybrid.Checked = True
             Case Else : PhysicsSeparate.Checked = True
         End Select
 
@@ -40,8 +41,6 @@
         initted = True
 
     End Sub
-
-
 
 #Region "Physics"
 
@@ -85,10 +84,17 @@
         End If
     End Sub
 
+    Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
+        If Not initted Then Return
+        If PhysicsHybrid.Checked Then
+            Form1.MySetting.Physics = "5"
+            Form1.MySetting.SaveSettings()
+        End If
+    End Sub
+
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
         Form1.Help("Physics")
     End Sub
-
 #End Region
 
 

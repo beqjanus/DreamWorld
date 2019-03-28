@@ -93,6 +93,7 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Physicsubhybrid = New System.Windows.Forms.RadioButton()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -411,7 +412,7 @@ Partial Class FormRegion
         Me.Advanced.Controls.Add(Me.CoordX)
         Me.Advanced.Location = New System.Drawing.Point(14, 242)
         Me.Advanced.Name = "Advanced"
-        Me.Advanced.Size = New System.Drawing.Size(254, 256)
+        Me.Advanced.Size = New System.Drawing.Size(254, 268)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Advanced"
@@ -553,7 +554,7 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
         Me.GroupBox6.Location = New System.Drawing.Point(265, 20)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(423, 478)
+        Me.GroupBox6.Size = New System.Drawing.Size(423, 496)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Region Specific Settings"
@@ -631,7 +632,7 @@ Partial Class FormRegion
         Me.GroupBox4.Controls.Add(Me.GodHelp)
         Me.GroupBox4.Controls.Add(Me.ManagerGod)
         Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(23, 165)
+        Me.GroupBox4.Location = New System.Drawing.Point(23, 156)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(186, 135)
         Me.GroupBox4.TabIndex = 1882
@@ -751,15 +752,16 @@ Partial Class FormRegion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Physicsubhybrid)
         Me.GroupBox1.Controls.Add(Me.Physics_Default)
         Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
         Me.GroupBox1.Controls.Add(Me.PhysicsNone)
         Me.GroupBox1.Controls.Add(Me.PhysicsubODE)
         Me.GroupBox1.Controls.Add(Me.PhysicsBullet)
         Me.GroupBox1.Controls.Add(Me.PhysicsODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(23, 310)
+        Me.GroupBox1.Location = New System.Drawing.Point(23, 297)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 164)
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 186)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
@@ -778,7 +780,7 @@ Partial Class FormRegion
         'PhysicsSeparate
         '
         Me.PhysicsSeparate.AutoSize = True
-        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 141)
+        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 164)
         Me.PhysicsSeparate.Name = "PhysicsSeparate"
         Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
         Me.PhysicsSeparate.TabIndex = 37
@@ -811,7 +813,7 @@ Partial Class FormRegion
         'PhysicsBullet
         '
         Me.PhysicsBullet.AutoSize = True
-        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 118)
+        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 141)
         Me.PhysicsBullet.Name = "PhysicsBullet"
         Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
         Me.PhysicsBullet.TabIndex = 136
@@ -838,6 +840,17 @@ Partial Class FormRegion
         Me.Button2.TabIndex = 1880
         Me.Button2.Text = "Deregister"
         Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Physicsubhybrid
+        '
+        Me.Physicsubhybrid.AutoSize = True
+        Me.Physicsubhybrid.Location = New System.Drawing.Point(6, 118)
+        Me.Physicsubhybrid.Name = "Physicsubhybrid"
+        Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
+        Me.Physicsubhybrid.TabIndex = 138
+        Me.Physicsubhybrid.TabStop = True
+        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.Physicsubhybrid.UseVisualStyleBackColor = True
         '
         'FormRegion
         '
@@ -952,4 +965,5 @@ Partial Class FormRegion
     Friend WithEvents TidesCheckbox As CheckBox
     Friend WithEvents TPCheckBox1 As CheckBox
     Friend WithEvents Button2 As Button
+    Friend WithEvents Physicsubhybrid As RadioButton
 End Class

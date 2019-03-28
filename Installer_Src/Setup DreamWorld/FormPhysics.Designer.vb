@@ -30,12 +30,14 @@ Partial Class FormPhysics
         Me.PhysicsubODE = New System.Windows.Forms.RadioButton()
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
+        Me.PhysicsHybrid = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.PhysicsHybrid)
         Me.GroupBox1.Controls.Add(Me.GodHelp)
         Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
         Me.GroupBox1.Controls.Add(Me.PhysicsNone)
@@ -44,7 +46,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Controls.Add(Me.PhysicsODE)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 21)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 115)
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 151)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
@@ -61,7 +63,7 @@ Partial Class FormPhysics
         'PhysicsSeparate
         '
         Me.PhysicsSeparate.AutoSize = True
-        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 92)
+        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 120)
         Me.PhysicsSeparate.Name = "PhysicsSeparate"
         Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
         Me.PhysicsSeparate.TabIndex = 13
@@ -72,7 +74,7 @@ Partial Class FormPhysics
         'PhysicsNone
         '
         Me.PhysicsNone.AutoSize = True
-        Me.PhysicsNone.Location = New System.Drawing.Point(6, 19)
+        Me.PhysicsNone.Location = New System.Drawing.Point(6, 20)
         Me.PhysicsNone.Name = "PhysicsNone"
         Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
         Me.PhysicsNone.TabIndex = 9
@@ -83,7 +85,7 @@ Partial Class FormPhysics
         'PhysicsubODE
         '
         Me.PhysicsubODE.AutoSize = True
-        Me.PhysicsubODE.Location = New System.Drawing.Point(6, 56)
+        Me.PhysicsubODE.Location = New System.Drawing.Point(6, 60)
         Me.PhysicsubODE.Name = "PhysicsubODE"
         Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
         Me.PhysicsubODE.TabIndex = 11
@@ -94,7 +96,7 @@ Partial Class FormPhysics
         'PhysicsBullet
         '
         Me.PhysicsBullet.AutoSize = True
-        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 74)
+        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 100)
         Me.PhysicsBullet.Name = "PhysicsBullet"
         Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
         Me.PhysicsBullet.TabIndex = 12
@@ -105,7 +107,7 @@ Partial Class FormPhysics
         'PhysicsODE
         '
         Me.PhysicsODE.AutoSize = True
-        Me.PhysicsODE.Location = New System.Drawing.Point(6, 38)
+        Me.PhysicsODE.Location = New System.Drawing.Point(6, 40)
         Me.PhysicsODE.Name = "PhysicsODE"
         Me.PhysicsODE.Size = New System.Drawing.Size(136, 17)
         Me.PhysicsODE.TabIndex = 10
@@ -113,11 +115,22 @@ Partial Class FormPhysics
         Me.PhysicsODE.Text = "Open Dynamics Engine"
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
+        'PhysicsHybrid
+        '
+        Me.PhysicsHybrid.AutoSize = True
+        Me.PhysicsHybrid.Location = New System.Drawing.Point(6, 80)
+        Me.PhysicsHybrid.Name = "PhysicsHybrid"
+        Me.PhysicsHybrid.Size = New System.Drawing.Size(134, 17)
+        Me.PhysicsHybrid.TabIndex = 1859
+        Me.PhysicsHybrid.TabStop = True
+        Me.PhysicsHybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.PhysicsHybrid.UseVisualStyleBackColor = True
+        '
         'FormPhysics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(239, 160)
+        Me.ClientSize = New System.Drawing.Size(239, 184)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -137,4 +150,5 @@ Partial Class FormPhysics
     Friend WithEvents PhysicsBullet As RadioButton
     Friend WithEvents PhysicsODE As RadioButton
     Friend WithEvents GodHelp As PictureBox
+    Friend WithEvents PhysicsHybrid As RadioButton
 End Class

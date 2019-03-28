@@ -1134,6 +1134,10 @@ Public Class Form1
                 MySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
                 MySetting.SetOtherIni("Startup", "physics", "ubODE")
                 MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+            Case "5"
+                MySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
+                MySetting.SetOtherIni("Startup", "physics", "ubODE")
+                MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
             Case Else
                 MySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                 MySetting.SetOtherIni("Startup", "physics", "BulletSim")
@@ -1520,6 +1524,10 @@ Public Class Form1
                     MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
                 Case "4"
                     MySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
+                    MySetting.SetOtherIni("Startup", "physics", "ubODE")
+                    MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                Case "5"
+                    MySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     MySetting.SetOtherIni("Startup", "physics", "ubODE")
                     MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case Else

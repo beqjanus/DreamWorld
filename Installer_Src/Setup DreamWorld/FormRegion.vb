@@ -167,6 +167,7 @@ Public Class FormRegion
             Case "2" : PhysicsBullet.Checked = True
             Case "3" : PhysicsSeparate.Checked = True
             Case "4" : PhysicsubODE.Checked = True
+            Case "5" : Physicsubhybrid.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 
@@ -857,6 +858,14 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles Physicsubhybrid.CheckedChanged
+        If Physicsubhybrid.Checked Then
+            Form1.Log("Info", "Region " + Name + " Physics Is set to Ubit's Hybrid ")
+        End If
+        If initted Then changed = True
+    End Sub
+
+
     Private Sub EnableMaxPrims_text(sender As Object, e As EventArgs) Handles MaxPrims.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
@@ -1045,6 +1054,7 @@ Public Class FormRegion
 
         End If
     End Sub
+
 
 #End Region
 End Class
