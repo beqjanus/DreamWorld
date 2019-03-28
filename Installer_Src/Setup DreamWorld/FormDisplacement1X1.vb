@@ -49,12 +49,33 @@
             ClearOARToolStripMenuItem.Checked = True
         End If
 
-        Form1.Help("Load OAR")
+        Form1.HelpOnce("Load OAR")
+
+    End Sub
+
+    Public Sub Init(RegionNumber As Integer)
+
+        'Dim RegionPhoto = New RegionPhoto(Name)
+
+        'map-1-1000-1000-objects
+        Dim Xcoord = Form1.RegionClass.CoordX(RegionNumber)
+        Dim Ycoord = Form1.RegionClass.CoordY(RegionNumber)
+
+        Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
+        Dim RegionPhoto = Form1.gPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Try
+            Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
+            PictureBox3.Image = Pic
+            Pic = Nothing
+        Catch ex As Exception
+            PictureBox3.Image = My.Resources.water
+        End Try
+
 
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.gSelectedBox = "  "
+        Form1.gSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
     End Sub
 

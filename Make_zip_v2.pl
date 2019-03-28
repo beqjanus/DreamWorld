@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.81' ;  # '-Beta-V1.5';
+my $type  = '-V2.82' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -155,6 +155,16 @@ print "Server Copy Update\n";
 unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";
 if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
 
+
+if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+
+say ("Dropbox");
+unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
+if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
+unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
+if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
+
 if ($publish)
 {
 	say ("Publishing now");
@@ -162,17 +172,6 @@ if ($publish)
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
 	if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-	
-	say ("Dropbox");
-	unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
-	if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
-	unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
-	if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
-	
-	
-	# lastly revisions file
-	if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
-	if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 
 }
 

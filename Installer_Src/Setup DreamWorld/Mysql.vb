@@ -1,14 +1,18 @@
 ﻿
-Imports Mysql.Data.MySqlClient
+Imports MySql.Data.MySqlClient
 Imports System.Net.Sockets
+Imports System.Text.RegularExpressions
 
 Public Class Mysql
+
+
     Implements IDisposable
 
     Dim MysqlConn As MySqlConnection
+    Dim gConnStr As String = ""
 
     Public Sub New(connStr As String)
-
+        gConnStr = connStr
         MysqlConn = New MySqlConnection(connStr)
 
     End Sub
@@ -17,7 +21,6 @@ Public Class Mysql
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
-
         Dim Dict As New Dictionary(Of String, String)
 
         Try
@@ -42,6 +45,70 @@ Public Class Mysql
         Return Dict
 
     End Function
+
+    Public Function GetHGAgentList() As Dictionary(Of String, String)
+
+        ' griduse table column UserID
+        '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
+        Dim Dict As New Dictionary(Of String, String)
+        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser;"
+        Dim pattern As String = "(.*?);.*;(.*)$"
+        Dim Avatar As String = ""
+        Dim UUID As String = ""
+        Try
+            MysqlConn.Open()
+
+            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.HasRows
+                reader.Read()
+                Debug.Print(reader.GetString(0))
+                Dim LongName = reader.GetString(0)
+                UUID = reader.GetString(1)
+                For Each m In Regex.Matches(LongName, pattern)
+                    Debug.Print("Avatar {0}", m.Groups(2).Value)
+                    Debug.Print("Region UUID {0}", m.Groups(1).Value)
+                    Avatar = m.Groups(2).Value.ToString
+                    Dict.Add(Avatar, GetRegionName(UUID))
+                Next
+            End While
+
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
+        End Try
+
+        Return Dict
+    End Function
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
+    Private Function GetRegionName(UUID As String) As String
+        Try
+            Dim MysqlConn = New MySqlConnection(gConnStr)
+            MysqlConn.Open()
+
+            Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.HasRows
+                reader.Read()
+                Debug.Print("Region Name = {0}", reader.GetString(0))
+                Return reader.GetString(0)
+            End While
+
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
+        End Try
+
+        Return Nothing
+
+    End Function
+
     Public Function IsUserPresent(regionUUID As String) As Integer
 
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")

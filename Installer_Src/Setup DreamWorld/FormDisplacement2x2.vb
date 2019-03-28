@@ -49,7 +49,7 @@
             ClearOARToolStripMenuItem.Checked = True
         End If
 
-        Form1.Help("Load OAR")
+        Form1.HelpOnce("Load OAR")
 
     End Sub
 
@@ -64,7 +64,7 @@
         End Sub
 
         Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.gSelectedBox = "  "
+        Form1.gSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
         End Sub
 
