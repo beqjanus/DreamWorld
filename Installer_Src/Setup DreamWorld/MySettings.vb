@@ -10,6 +10,8 @@ Public Class MySettings
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim gFolder As String
+    Dim Apachein As New List(Of String)
+    Dim Apacheout As New List(Of String)
 
 #Region "New"
     Public Sub New()
@@ -396,6 +398,11 @@ Public Class MySettings
             RegionListVisible() = False
         End Try
 
+        Try
+            Dim x = ApacheEnable()
+        Catch ex As Exception
+            ApacheEnable() = False
+        End Try
 
     End Sub
 
@@ -408,7 +415,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it 
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -420,7 +427,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
             MyData(section)(key) = value ' replace it 
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -538,6 +545,16 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property ApacheEnable() As Boolean
+        Get
+            Return CType(GetMySetting("ApacheEnabled"), Boolean)
+        End Get
+        Set
+            SetMySetting("ApacheEnabled", Value.ToString)
+        End Set
+    End Property
+
     Public Property RegionListVisible() As Boolean
         Get
             Return CType(GetMySetting("RegionListVisible"), Boolean)
@@ -1547,7 +1564,57 @@ Public Class MySettings
         End Set
     End Property
 
-
-End Class
-
 #End Region
+
+#Region "Apache"
+    ' reader ApacheStrings
+    Public Sub LoadApacheIni(ini As String)
+
+        Apachein.Clear()
+        Using Reader As New StreamReader(ini, System.Text.Encoding.ASCII)
+            While Reader.EndOfStream = False
+                Apachein.Add(Reader.ReadLine())
+            End While
+        End Using
+
+    End Sub
+
+    Public Sub SetApacheIni(Name As String, value As String)
+
+        Apacheout.Clear()
+
+        For Each Item As String In Apachein
+            If Item.StartsWith(Name) Then
+                Apacheout.Add(Name & " " & value)
+            Else
+                Apacheout.Add(Item)
+            End If
+        Next
+
+        Apachein.Clear()
+        For Each item In Apacheout
+            Apachein.Add(item)
+        Next
+    End Sub
+
+    'writer of ApacheStrings
+    Public Sub SaveApacheINI(ini As String, name As String)
+
+        ' make a backup
+        Try
+            My.Computer.FileSystem.DeleteFile(ini & ".bak")
+        Catch ex As Exception
+            Debug.Print(ex.Message)
+        End Try
+
+        My.Computer.FileSystem.RenameFile(ini, name & ".bak")
+        Dim file As System.IO.StreamWriter
+        file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+        For Each Item As String In Apachein
+            file.WriteLine(Item)
+        Next
+        file.Close()
+
+    End Sub
+#End Region
+End Class

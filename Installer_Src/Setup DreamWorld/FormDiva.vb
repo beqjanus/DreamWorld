@@ -75,6 +75,7 @@ Public Class FormDiva
             AdminPassword.Enabled = False
         End If
 
+        ApacheCheckbox.Checked = Form1.MySetting.ApacheEnable
 
         initted = True
 
@@ -267,6 +268,18 @@ Public Class FormDiva
             Form1.CopyWifi("Custom")
             Form1.MySetting.Theme = "Custom"
         End If
+
+    End Sub
+
+    Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.MySetting.ApacheEnable = ApacheCheckbox.Checked
+
+    End Sub
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        Form1.Help("Apache")
 
     End Sub
 

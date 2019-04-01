@@ -942,7 +942,7 @@ Public Class RegionMaker
                     Form1.UpdateView() = True
                     Form1.ExitList.Add(json.region_name)
 
-                    End If
+                End If
 
             Catch ex As Exception
                 Debug.Print(ex.Message)
