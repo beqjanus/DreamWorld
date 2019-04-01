@@ -525,6 +525,8 @@ Public Class Form1
             Return
         End If
 
+        StartApache()
+
         If Not MySetting.RunOnce Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
@@ -549,7 +551,7 @@ Public Class Form1
         End If
 
         StartIcecast()
-        StartApache()
+
 
         ' show the IAR and OAR menu when we are up 
         If gContentAvailable Then
@@ -1230,7 +1232,7 @@ Public Class Form1
         MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
-        MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
+        MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
         MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""")
         MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""" & " common env=!dontlog")
         MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
@@ -1239,7 +1241,7 @@ Public Class Form1
         ' lean rightward paths for Apache
         ini = MyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         MySetting.LoadApacheIni(ini)
-        MySetting.SetApacheIni("Listen", MySetting.PublicIP & ":" & "443")
+        MySetting.SetApacheIni("Listen", MySetting.PrivateURL & ":" & "443")
         MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
         MySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & gCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
@@ -1808,7 +1810,7 @@ Public Class Form1
             Return
         End If
 
-        Dim ApacheRunning = CheckPort(MySetting.PublicIP, 80)
+        Dim ApacheRunning = CheckPort(MySetting.PrivateURL, 80)
         If ApacheRunning Then Return
 
         gApacheProcID = 0
@@ -1827,7 +1829,7 @@ Public Class Form1
                 MsgBox("Apache failed to install and start as a service:" & code.ToString, vbInformation, "Error")
             End If
             Sleep(100)
-            ApacheRunning = CheckPort(MySetting.PublicIP, 80)
+            ApacheRunning = CheckPort(MySetting.PrivateURL, 80)
             If Not ApacheRunning Then
                 MsgBox("Apache installed but port 80 is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
             End If
@@ -1838,6 +1840,7 @@ Public Class Form1
 
     End Sub
 #End Region
+
 #Region "Icecast"
 
     Public Sub StartIcecast()
@@ -2052,11 +2055,63 @@ Public Class Form1
         If gExitHandlerIsBusy Then Return
         If gAborting Then Return
 
+        Dim GroupName As String
+        Dim RegionNumber As Integer
+        Dim TimerValue As Integer
+
         For Each X As Integer In RegionClass.RegionNumbers
+            Application.DoEvents()
             ' count up to auto restart , when high enough, restart the sim
             If RegionClass.Timer(X) >= 0 Then
                 RegionClass.Timer(X) = RegionClass.Timer(X) + 1
             End If
+
+            If OpensimIsRunning() And Not gAborting And RegionClass.Timer(X) >= 0 Then
+                TimerValue = RegionClass.Timer(X)
+                ' if it is past time and no one is in the sim...
+                GroupName = RegionClass.GroupName(X)
+                If (TimerValue * 6) >= (MySetting.AutoRestartInterval() * 60) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
+                    ' shut down the group when one minute has gone by, or multiple thereof.
+                    Try
+                        If ShowDOSWindow(GetHwnd(GroupName), SHOW_WINDOW.SW_RESTORE) Then
+                            SequentialPause(X)
+                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                            Print("AutoRestarting " + GroupName)
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(GroupName)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                            Next
+                        Else
+                            ' shut down all regions in the DOS box
+                            For Each Y In RegionClass.RegionListByGroupNum(GroupName)
+                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
+                            Next
+                        End If
+                        UpdateView = True ' make form refresh
+                    Catch ex As Exception
+                        ErrorLog(ex.Message)
+                        ' shut down all regions in the DOS box
+                        For Each Y In RegionClass.RegionListByGroupNum(GroupName)
+                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                        Next
+                    End Try
+                End If
+
+            End If
+
+        Next
+
+        ' boot up any that made it all the way down.
+        For Each X As Integer In RegionClass.RegionNumbers
+            ' if a restart is signalled, boot it up
+            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
+                Boot(RegionClass.RegionName(X))
+                gRestartNow = False
+            End If
+
         Next
 
         If ExitList.Count = 0 Then Return
@@ -2069,8 +2124,8 @@ Public Class Form1
         Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
         ' Need a region number and a Name
         ' name is either a region or a Group. For groups we need to get a region name from the group
-        Dim Groupname As String = RegionName ' assume a group
-        Dim RegionNumber = RegionClass.FindRegionByName(RegionName)
+        Groupname = RegionName ' assume a group
+        RegionNumber = RegionClass.FindRegionByName(RegionName)
 
         If RegionNumber >= 0 Then
             Groupname = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
@@ -2079,7 +2134,7 @@ Public Class Form1
             RegionNumber = RegionList(0)
         End If
         Dim Status = RegionClass.Status(RegionNumber)
-        Dim TimerValue = RegionClass.Timer(RegionNumber)
+        TimerValue = RegionClass.Timer(RegionNumber)
 
         Try
             ' Auto restart phase begins
@@ -2118,55 +2173,6 @@ Public Class Form1
             ErrorLog("RegionNumber:" & RegionName & ", Count: " & ExitList.Count)
         End Try
 
-        ' check for automatic restart
-        For Each X As Integer In RegionClass.RegionNumbers
-            If OpensimIsRunning() And Not gAborting And RegionClass.Timer(X) >= 0 Then
-                TimerValue = RegionClass.Timer(X)
-                ' if it is past time and no one is in the sim...
-                Groupname = RegionClass.GroupName(X)
-                If TimerValue / 6 >= MySetting.AutoRestartInterval() And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(Groupname) Then
-                    ' shut down the group when one minute has gone by, or multiple thereof.
-                    Try
-                        If ShowDOSWindow(GetHwnd(Groupname), SHOW_WINDOW.SW_RESTORE) Then
-                            SequentialPause(X)
-                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                            Print("AutoRestarting " + Groupname)
-                            ' shut down all regions in the DOS box
-                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                            Next
-                        Else
-                            ' shut down all regions in the DOS box
-                            For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                                RegionClass.Status(Y) = RegionMaker.SIM_STATUS.Stopped
-                            Next
-                        End If
-                        UpdateView = True ' make form refresh
-                    Catch ex As Exception
-                        ErrorLog(ex.Message)
-                        ' shut down all regions in the DOS box
-                        For Each Y In RegionClass.RegionListByGroupNum(Groupname)
-                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                            RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                        Next
-                    End Try
-                End If
-
-            End If
-
-        Next
-
-        ' boot up any that made it all the way down.
-        For Each X As Integer In RegionClass.RegionNumbers
-            ' if a restart is signalled, boot it up
-            If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
-                Boot(RegionClass.RegionName(X))
-                gRestartNow = False
-            End If
-
-        Next
 
         gExitHandlerIsBusy = False
 
@@ -2510,12 +2516,14 @@ Public Class Form1
             Dim PID = RegionClass.ProcessID(ID)
             Try
                 If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-            Catch
+            Catch ex As exception
+                Diagnostics.Debug.Print("Catch:" & ex.message)
             End Try
         Else
             Try
                 ShowDOSWindow(Process.GetProcessById(gRobustProcID).MainWindowHandle, SHOW_WINDOW.SW_RESTORE)
-            Catch
+            Catch ex As Exception
+                Diagnostics.Debug.Print("Catch:" & ex.Message)
             End Try
         End If
 
@@ -2540,7 +2548,7 @@ Public Class Form1
             Return False
         End Try
         Me.Focus()
-        Application.DoEvents()
+        'Application.DoEvents()
         Return True
 
     End Function
@@ -2654,10 +2662,10 @@ Public Class Form1
 
         RegionClass.CheckPost()
 
-        DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
+            DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             ScanAgents() ' update agent count
         End If
 
