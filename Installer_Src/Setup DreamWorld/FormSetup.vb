@@ -1982,6 +1982,14 @@ Public Class Form1
 
         If gExitHandlerIsBusy Then Return
         If gAborting Then Return
+
+        For Each X As Integer In RegionClass.RegionNumbers
+            ' count up to auto restart , when high enough, restart the sim
+            If RegionClass.Timer(X) >= 0 Then
+                RegionClass.Timer(X) = RegionClass.Timer(X) + 1
+            End If
+        Next
+
         If ExitList.Count = 0 Then Return
 
         gExitHandlerIsBusy = True
@@ -2075,11 +2083,6 @@ Public Class Form1
                             RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
                         Next
                     End Try
-                End If
-
-                ' count up to auto restart , when high enough, restart the sim
-                If RegionClass.Timer(X) >= 0 Then
-                    RegionClass.Timer(X) = RegionClass.Timer(X) + 1
                 End If
 
             End If
