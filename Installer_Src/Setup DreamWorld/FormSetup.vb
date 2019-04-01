@@ -49,7 +49,7 @@ Public Class Form1
 
     Public RegionHandles As New Dictionary(Of Integer, String)
     Public MyFolder As String   ' Holds the current folder that we are running in
-    Dim gCurSlashDir As String '  holds the current directory info in Unix format for MySQL
+    Public gCurSlashDir As String '  holds the current directory info in Unix format for MySQL and Apache
     Public gIsRunning As Boolean = False ' used in OpensimIsRunning property
     Dim Arnd As Random = New Random()
     Public gChatTime As Integer     'amount of coffee the fairy had. Time for the chatty fairy to be read
@@ -88,7 +88,9 @@ Public Class Form1
     Dim gIcecastProcID As Integer = 0
     Private WithEvents IcecastProcess As New Process()
     Dim Adv As AdvancedForm
-    ' Help Form for RTF files
+
+    Dim gApacheProcID As Integer = 0
+    Dim ApacheProcess As New Process()
 
     Public FormCaches As New FormCaches
 
@@ -547,6 +549,7 @@ Public Class Form1
         End If
 
         StartIcecast()
+        StartApache()
 
         ' show the IAR and OAR menu when we are up 
         If gContentAvailable Then
@@ -775,11 +778,11 @@ Public Class Form1
 
         Log("Info", "" + Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
-        trim()
+        Trim()
 
     End Sub
 
-    Private Sub trim()
+    Private Sub Trim()
         If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
             TextBox1.Text = Mid(TextBox1.Text, 500)
         End If
@@ -1205,23 +1208,44 @@ Public Class Form1
         MySetting.SaveOtherINI()
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' Wifi Settings
-
+        ' Other Settings
         DoWifi()
-
         DoGloebits()
-
         CopyOpensimProto()
-
         DoRegions()
+        DoApache()
 
         Return True
 
-
     End Function
 
+    Private Sub DoApache()
 
+        If Not MySetting.ApacheEnable Then Return
 
+        ' lean rightward paths for Apache
+        Dim ini = MyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
+        MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("ServerRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache" & """")
+        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
+        MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
+        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""")
+        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""" & " common env=!dontlog")
+        MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
+        MySetting.SaveApacheINI(ini, "httpd.conf")
+
+        ' lean rightward paths for Apache
+        ini = MyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
+        MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("Listen", MySetting.PublicIP & ":" & "443")
+        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
+        MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
+        MySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & gCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+        MySetting.SaveApacheINI(ini, "httpd-ssl.conf")
+
+    End Sub
 
     Public Sub DoGloebits()
 
@@ -1286,8 +1310,8 @@ Public Class Form1
         End If
 
         MySetting.SetOtherIni("WifiService", "GridName", MySetting.SimName)
-        MySetting.SetOtherIni("WifiService", "LoginURL", "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort)
-        MySetting.SetOtherIni("WifiService", "WebAddress", "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort)
+        MySetting.SetOtherIni("WifiService", "LoginURL", "http://" & MySetting.PublicIP & ":" & MySetting.HttpPort)
+        MySetting.SetOtherIni("WifiService", "WebAddress", "http://" & MySetting.PublicIP & ":" & MySetting.HttpPort)
 
         ' Wifi Admin'
         MySetting.SetOtherIni("WifiService", "AdminFirst", MySetting.AdminFirst)    ' Wifi
@@ -1773,17 +1797,57 @@ Public Class Form1
         Dim webAddress As String = gDomain + "/Outworldz_Installer/PortForwarding.htm"
         Process.Start(webAddress)
     End Sub
+
 #End Region
 
-#Region "Robust"
+#Region "Apache"
 
+    Public Sub StartApache()
 
+        If Not MySetting.ApacheEnable Then
+            Return
+        End If
+
+        Dim ApacheRunning = CheckPort(MySetting.PublicIP, 80)
+        If ApacheRunning Then Return
+
+        gApacheProcID = 0
+        Print("Installing Apache as a service")
+        Try
+            ApacheProcess.EnableRaisingEvents = True
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            ApacheProcess.Start()
+            ApacheProcess.WaitForExit()
+            Dim code = ApacheProcess.ExitCode
+            If code <> 0 Then
+                MsgBox("Apache failed to install and start as a service:" & code.ToString, vbInformation, "Error")
+            End If
+            Sleep(100)
+            ApacheRunning = CheckPort(MySetting.PublicIP, 80)
+            If Not ApacheRunning Then
+                MsgBox("Apache installed but port 80 is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
+            End If
+
+        Catch ex As Exception
+            Print("Error InstallApache did Not start " + ex.Message)
+        End Try
+
+    End Sub
+#End Region
+#Region "Icecast"
 
     Public Sub StartIcecast()
 
         If Not MySetting.SC_Enable Then
             Return
         End If
+
+        Dim IceCastRunning = CheckPort(MySetting.PublicIP, MySetting.SC_PortBase)
+        If IceCastRunning Then Return
 
         Try
             My.Computer.FileSystem.DeleteFile(MyFolder + "\Outworldzfiles\Icecast\log\access.log")
@@ -1824,7 +1888,9 @@ Public Class Form1
         End Try
 
     End Sub
+#End Region
 
+#Region "Robust"
     Public Function Start_Robust() As Boolean
 
         If IsRobustRunning() Then
@@ -1974,6 +2040,9 @@ Public Class Form1
         End If
 
     End Sub
+
+
+
 #End Region
 
 #Region "ExitHandlers"
@@ -4871,7 +4940,11 @@ Public Class Form1
         Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
                               & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
                               & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
-                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf
+                              & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & MySetting.SC_PortBase & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SC_PortBase1 & """" & vbCrLf _
+                              & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SC_PortBase1 & """" & vbCrLf
 
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
@@ -4890,7 +4963,16 @@ Public Class Form1
         Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf
+
+
+        If MySetting.SC_Enable Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase1 & vbCrLf _
+                              & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase1 & vbCrLf
+        End If
 
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)

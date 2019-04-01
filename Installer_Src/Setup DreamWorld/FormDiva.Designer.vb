@@ -23,6 +23,9 @@ Partial Class FormDiva
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDiva))
         Me.Web = New System.Windows.Forms.GroupBox()
         Me.WiFi = New System.Windows.Forms.PictureBox()
@@ -55,10 +58,17 @@ Partial Class FormDiva
         Me.WhiteRadioButton = New System.Windows.Forms.RadioButton()
         Me.BlackRadioButton = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Web
@@ -76,7 +86,7 @@ Partial Class FormDiva
         Me.Web.Controls.Add(Me.AdminPassword)
         Me.Web.Location = New System.Drawing.Point(12, 12)
         Me.Web.Name = "Web"
-        Me.Web.Size = New System.Drawing.Size(200, 173)
+        Me.Web.Size = New System.Drawing.Size(200, 204)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
         Me.Web.Text = "Wifi Interface Admin"
@@ -84,7 +94,7 @@ Partial Class FormDiva
         'WiFi
         '
         Me.WiFi.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.WiFi.Location = New System.Drawing.Point(148, 6)
+        Me.WiFi.Location = New System.Drawing.Point(143, 11)
         Me.WiFi.Name = "WiFi"
         Me.WiFi.Size = New System.Drawing.Size(30, 34)
         Me.WiFi.TabIndex = 1858
@@ -93,17 +103,17 @@ Partial Class FormDiva
         'WifiEnabled
         '
         Me.WifiEnabled.AutoSize = True
-        Me.WifiEnabled.Location = New System.Drawing.Point(26, 19)
+        Me.WifiEnabled.Location = New System.Drawing.Point(19, 28)
         Me.WifiEnabled.Name = "WifiEnabled"
-        Me.WifiEnabled.Size = New System.Drawing.Size(65, 17)
+        Me.WifiEnabled.Size = New System.Drawing.Size(111, 17)
         Me.WifiEnabled.TabIndex = 26
-        Me.WifiEnabled.Text = "Enabled"
+        Me.WifiEnabled.Text = "Diva Wifi Enabled"
         Me.WifiEnabled.UseVisualStyleBackColor = True
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(4, 119)
+        Me.Label17.Location = New System.Drawing.Point(4, 139)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(62, 13)
         Me.Label17.TabIndex = 15
@@ -111,7 +121,7 @@ Partial Class FormDiva
         '
         'AdminEmail
         '
-        Me.AdminEmail.Location = New System.Drawing.Point(86, 112)
+        Me.AdminEmail.Location = New System.Drawing.Point(86, 132)
         Me.AdminEmail.Name = "AdminEmail"
         Me.AdminEmail.Size = New System.Drawing.Size(100, 20)
         Me.AdminEmail.TabIndex = 30
@@ -119,7 +129,7 @@ Partial Class FormDiva
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(4, 69)
+        Me.Label12.Location = New System.Drawing.Point(4, 89)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(58, 13)
         Me.Label12.TabIndex = 13
@@ -128,7 +138,7 @@ Partial Class FormDiva
         'AccountConfirmationRequired
         '
         Me.AccountConfirmationRequired.AutoSize = True
-        Me.AccountConfirmationRequired.Location = New System.Drawing.Point(21, 139)
+        Me.AccountConfirmationRequired.Location = New System.Drawing.Point(19, 173)
         Me.AccountConfirmationRequired.Name = "AccountConfirmationRequired"
         Me.AccountConfirmationRequired.Size = New System.Drawing.Size(175, 17)
         Me.AccountConfirmationRequired.TabIndex = 31
@@ -137,14 +147,14 @@ Partial Class FormDiva
         '
         'AdminLast
         '
-        Me.AdminLast.Location = New System.Drawing.Point(86, 66)
+        Me.AdminLast.Location = New System.Drawing.Point(86, 86)
         Me.AdminLast.Name = "AdminLast"
         Me.AdminLast.Size = New System.Drawing.Size(100, 20)
         Me.AdminLast.TabIndex = 28
         '
         'AdminFirst
         '
-        Me.AdminFirst.Location = New System.Drawing.Point(86, 44)
+        Me.AdminFirst.Location = New System.Drawing.Point(86, 64)
         Me.AdminFirst.Name = "AdminFirst"
         Me.AdminFirst.Size = New System.Drawing.Size(100, 20)
         Me.AdminFirst.TabIndex = 27
@@ -152,7 +162,7 @@ Partial Class FormDiva
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(4, 47)
+        Me.Label11.Location = New System.Drawing.Point(4, 67)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(57, 13)
         Me.Label11.TabIndex = 10
@@ -161,7 +171,7 @@ Partial Class FormDiva
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(4, 93)
+        Me.Label10.Location = New System.Drawing.Point(4, 113)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(53, 13)
         Me.Label10.TabIndex = 9
@@ -169,7 +179,7 @@ Partial Class FormDiva
         '
         'AdminPassword
         '
-        Me.AdminPassword.Location = New System.Drawing.Point(86, 90)
+        Me.AdminPassword.Location = New System.Drawing.Point(86, 110)
         Me.AdminPassword.Name = "AdminPassword"
         Me.AdminPassword.Size = New System.Drawing.Size(100, 20)
         Me.AdminPassword.TabIndex = 29
@@ -186,9 +196,9 @@ Partial Class FormDiva
         Me.GroupBox6.Controls.Add(Me.Label18)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.GmailUsername)
-        Me.GroupBox6.Location = New System.Drawing.Point(504, 18)
+        Me.GroupBox6.Location = New System.Drawing.Point(230, 191)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(200, 132)
+        Me.GroupBox6.Size = New System.Drawing.Size(259, 132)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
@@ -349,18 +359,66 @@ Partial Class FormDiva
         Me.BlackRadioButton.Text = "Black"
         Me.BlackRadioButton.UseVisualStyleBackColor = True
         '
+        'Chart1
+        '
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
+        Me.Chart1.Location = New System.Drawing.Point(349, 0)
+        Me.Chart1.Name = "Chart1"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Chart1.Series.Add(Series1)
+        Me.Chart1.Size = New System.Drawing.Size(16, 8)
+        Me.Chart1.TabIndex = 186737
+        Me.Chart1.Text = "Chart1"
+        '
+        'ApacheCheckbox
+        '
+        Me.ApacheCheckbox.AutoSize = True
+        Me.ApacheCheckbox.Location = New System.Drawing.Point(19, 30)
+        Me.ApacheCheckbox.Name = "ApacheCheckbox"
+        Me.ApacheCheckbox.Size = New System.Drawing.Size(133, 17)
+        Me.ApacheCheckbox.TabIndex = 1866
+        Me.ApacheCheckbox.Text = "Apache+PHP Enabled"
+        Me.ApacheCheckbox.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.PictureBox1)
+        Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 228)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(200, 95)
+        Me.GroupBox2.TabIndex = 186738
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Apache and PHP Web Server"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox1.Location = New System.Drawing.Point(164, 0)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 34)
+        Me.PictureBox1.TabIndex = 1859
+        Me.PictureBox1.TabStop = False
+        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(752, 189)
+        Me.ClientSize = New System.Drawing.Size(518, 350)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Web)
         Me.Controls.Add(Me.GroupBox6)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
-        Me.Text = "Diva Wifi Panel"
+        Me.Text = "Web Server Panel"
         Me.Web.ResumeLayout(False)
         Me.Web.PerformLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).EndInit()
@@ -368,6 +426,10 @@ Partial Class FormDiva
         Me.GroupBox6.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -403,4 +465,8 @@ Partial Class FormDiva
     Friend WithEvents Label1 As Label
     Friend WithEvents CustomButton1 As RadioButton
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents ApacheCheckbox As CheckBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
