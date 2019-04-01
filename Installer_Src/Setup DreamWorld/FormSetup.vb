@@ -30,6 +30,7 @@ Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Management
 
+
 Public Class Form1
 
 #Region "Declarations"
@@ -88,9 +89,6 @@ Public Class Form1
     Dim gIcecastProcID As Integer = 0
     Private WithEvents IcecastProcess As New Process()
     Dim Adv As AdvancedForm
-
-    Dim gApacheProcID As Integer = 0
-    Dim ApacheProcess As New Process()
 
     Public FormCaches As New FormCaches
 
@@ -404,6 +402,11 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
+        If MySetting.DataSnapshot And Not MySetting.SearchInstalled Then
+            SetupSearch()
+        End If
+
+
         ' Find out if the viewer is installed
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
             Application.DoEvents()
@@ -551,7 +554,6 @@ Public Class Form1
         End If
 
         StartIcecast()
-
 
         ' show the IAR and OAR menu when we are up 
         If gContentAvailable Then
@@ -1242,6 +1244,7 @@ Public Class Form1
         ini = MyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         MySetting.LoadApacheIni(ini)
         MySetting.SetApacheIni("Listen", MySetting.PrivateURL & ":" & "443")
+        MySetting.SetApacheIni("extension_dir", """" & gCurSlashDir & "/OutworldzFiles/PHP5/ext""")
         MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
         MySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & gCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
@@ -1813,7 +1816,7 @@ Public Class Form1
         Dim ApacheRunning = CheckPort(MySetting.PrivateURL, 80)
         If ApacheRunning Then Return
 
-        gApacheProcID = 0
+        Dim ApacheProcess As New Process()
         Print("Installing Apache as a service")
         Try
             ApacheProcess.EnableRaisingEvents = True
@@ -1821,7 +1824,7 @@ Public Class Form1
             ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
             ApacheProcess.StartInfo.CreateNoWindow = True
             ApacheProcess.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             ApacheProcess.Start()
             ApacheProcess.WaitForExit()
             Dim code = ApacheProcess.ExitCode
@@ -2052,6 +2055,7 @@ Public Class Form1
 
     Private Sub DoExitHandlerPoll()
 
+        ' 10 Second ticker
         If gExitHandlerIsBusy Then Return
         If gAborting Then Return
 
@@ -2070,7 +2074,7 @@ Public Class Form1
                 TimerValue = RegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
                 GroupName = RegionClass.GroupName(X)
-                If (TimerValue * 6) >= (MySetting.AutoRestartInterval() * 60) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
+                If (TimerValue / 6) >= (MySetting.AutoRestartInterval() * 60) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
                         If ShowDOSWindow(GetHwnd(GroupName), SHOW_WINDOW.SW_RESTORE) Then
@@ -2651,10 +2655,8 @@ Public Class Form1
             Return
         End If
 
-        gDNSSTimer = gDNSSTimer + 1
-
         ' hourly
-        If gDNSSTimer Mod 3600 = 0 Then
+        If gDNSSTimer Mod 3600 = 0 And gDNSSTimer <> 0 Then
             RegisterDNS()
         End If
 
@@ -2673,7 +2675,14 @@ Public Class Form1
             RegionListHTML() ' create HTML for region teleporters
         End If
 
+        If gDNSSTimer Mod 300 = 0 Then
+            RunDataSnapshot() ' Fetch assets marked for search every 5 minutes
+        End If
+
+        gDNSSTimer = gDNSSTimer + 1
+
     End Sub
+
 
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
@@ -4889,7 +4898,7 @@ Public Class Form1
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
         pi.Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0"
         pi.FileName = "powershell.exe"
-        pi.WindowStyle = ProcessWindowStyle.Minimized
+        pi.WindowStyle = ProcessWindowStyle.Hidden
         pi.Verb = "runas"
         Dim PowerShell As Process = New Process()
         PowerShell.StartInfo = pi
@@ -5036,6 +5045,55 @@ Public Class Form1
 
     End Sub
 
+
+#End Region
+
+#Region "Search"
+    Private Sub SetupSearch()
+
+        Print("Installing Search")
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+        FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\mysql\bin\"
+        pi.FileName = "Create_OsSearch.bat"
+
+        pi.WindowStyle = ProcessWindowStyle.Normal
+        Dim ProcessMysql As Process = New Process()
+        ProcessMysql.StartInfo = pi
+
+        Try
+            ProcessMysql.Start()
+            ProcessMysql.waitforexit
+        Catch ex As Exception
+            ErrorLog("Error ProcessMysql failed to launch: " + ex.Message)
+            FileIO.FileSystem.CurrentDirectory = MyFolder
+            Return
+        End Try
+        FileIO.FileSystem.CurrentDirectory = MyFolder
+        MySetting.SearchInstalled = True
+        MySetting.SaveSettings()
+
+    End Sub
+    Private Sub RunDataSnapshot()
+
+        Diagnostics.Debug.Print("Scanning Datasnapshot")
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+        FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\PHP5\"
+        pi.FileName = "Run_parser.bat"
+
+        pi.WindowStyle = ProcessWindowStyle.Hidden
+        Dim ProcessPHP As Process = New Process()
+        ProcessPHP.StartInfo = pi
+
+        Try
+            ProcessPHP.Start()
+            ProcessPHP.WaitForExit()
+        Catch ex As Exception
+            ErrorLog("Error ProcessPHP failed to launch: " + ex.Message)
+            FileIO.FileSystem.CurrentDirectory = MyFolder
+        End Try
+    End Sub
 
 #End Region
 

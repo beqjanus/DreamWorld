@@ -404,6 +404,12 @@ Public Class MySettings
             ApacheEnable() = False
         End Try
 
+        Try
+            Dim x = SearchInstalled()
+        Catch ex As Exception
+            SearchInstalled() = False
+        End Try
+
     End Sub
 
 
@@ -545,6 +551,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+    Public Property SearchInstalled() As Boolean
+        Get
+            Return CType(GetMySetting("SearchInstalled"), Boolean)
+        End Get
+        Set
+            SetMySetting("SearchInstalled", Value.ToString)
+        End Set
+    End Property
+
 
     Public Property ApacheEnable() As Boolean
         Get

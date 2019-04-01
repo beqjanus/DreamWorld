@@ -31,7 +31,7 @@ Public Class FormPublicity
         SetScreen()
 
         GDPRCheckBox.Checked = Form1.MySetting.GDPR()
-        DataSnapshotCheckBox.Checked = Form1.MySetting.DataSnapshot()
+
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.MyFolder & "\OutworldzFiles\Photo.png")
         Catch
@@ -42,14 +42,6 @@ Public Class FormPublicity
 
     End Sub
 
-    Private Sub DataSnapshotCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DataSnapshotCheckBox.CheckedChanged
-
-        If initted Then
-            Form1.MySetting.DataSnapshot() = DataSnapshotCheckBox.Checked
-            Form1.MySetting.SaveSettings()
-        End If
-
-    End Sub
 
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 

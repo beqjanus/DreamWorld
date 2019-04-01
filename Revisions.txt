@@ -1,3 +1,6 @@
+2.83
+Apache 2.4 and PHP 5 added
+
 2.82 
 Disabling a region while shutting it down caused the Regions panel to not render.
 Help always appeared for Load Oar 2X2

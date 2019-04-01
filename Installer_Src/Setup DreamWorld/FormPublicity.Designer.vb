@@ -24,7 +24,6 @@ Partial Class FormPublicity
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPublicity))
         Me.GroupBox11 = New System.Windows.Forms.GroupBox()
-        Me.DataSnapshotCheckBox = New System.Windows.Forms.CheckBox()
         Me.PublicPhoto = New System.Windows.Forms.PictureBox()
         Me.GDPRCheckBox = New System.Windows.Forms.CheckBox()
         Me.PictureBox9 = New System.Windows.Forms.PictureBox()
@@ -35,26 +34,15 @@ Partial Class FormPublicity
         '
         'GroupBox11
         '
-        Me.GroupBox11.Controls.Add(Me.DataSnapshotCheckBox)
         Me.GroupBox11.Controls.Add(Me.PublicPhoto)
         Me.GroupBox11.Controls.Add(Me.GDPRCheckBox)
         Me.GroupBox11.Controls.Add(Me.PictureBox9)
         Me.GroupBox11.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(207, 178)
+        Me.GroupBox11.Size = New System.Drawing.Size(207, 166)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Public Photo"
-        '
-        'DataSnapshotCheckBox
-        '
-        Me.DataSnapshotCheckBox.AutoSize = True
-        Me.DataSnapshotCheckBox.Location = New System.Drawing.Point(14, 148)
-        Me.DataSnapshotCheckBox.Name = "DataSnapshotCheckBox"
-        Me.DataSnapshotCheckBox.Size = New System.Drawing.Size(176, 17)
-        Me.DataSnapshotCheckBox.TabIndex = 8
-        Me.DataSnapshotCheckBox.Text = "Publish Items marked for search"
-        Me.DataSnapshotCheckBox.UseVisualStyleBackColor = True
         '
         'PublicPhoto
         '
@@ -104,7 +92,6 @@ Partial Class FormPublicity
     End Sub
 
     Friend WithEvents GroupBox11 As GroupBox
-    Friend WithEvents DataSnapshotCheckBox As CheckBox
     Friend WithEvents PublicPhoto As PictureBox
     Friend WithEvents GDPRCheckBox As CheckBox
     Friend WithEvents PictureBox9 As PictureBox
