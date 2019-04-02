@@ -38,8 +38,6 @@
         If (var < 0) Then var = 0
         DomainUpDown1.SelectedIndex = v
 
-        DataSnapshotCheckBox1.Checked = Form1.MySetting.DataSnapshot()
-
         SetScreen()
         Form1.HelpOnce("Permissions")
         initted = True
@@ -121,16 +119,6 @@
         End If
 
     End Sub
-
-    Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles DataSnapshotCheckBox1.CheckedChanged
-
-        If initted Then
-            Form1.MySetting.DataSnapshot() = DataSnapshotCheckBox1.Checked
-            Form1.MySetting.SaveSettings()
-        End If
-
-    End Sub
-
 
 
 

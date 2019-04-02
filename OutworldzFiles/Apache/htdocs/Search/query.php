@@ -8,8 +8,6 @@
 //include the source file
 require( "flog.php" );
 
-
-
 include("databaseinfo.php");
 
 // Attempt to connect to the database
@@ -20,7 +18,7 @@ try {
 catch(PDOException $e)
 {
   echo "Error connecting to database\n";
-  file_put_contents('PDOErrors.txt', $e->getMessage() . "\n-----\n", FILE_APPEND);
+  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
 }
 

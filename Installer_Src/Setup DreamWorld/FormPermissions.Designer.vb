@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormPermissions
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormPermissions
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPermissions))
@@ -37,14 +37,11 @@ Partial Class FormPermissions
         Me.Clouds = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.DataSnapshotCheckBox1 = New System.Windows.Forms.CheckBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LimitsBox.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox4
@@ -108,7 +105,7 @@ Partial Class FormPermissions
         'LimitsBox
         '
         Me.LimitsBox.Controls.Add(Me.EnableMaxPrims)
-        Me.LimitsBox.Location = New System.Drawing.Point(12, 187)
+        Me.LimitsBox.Location = New System.Drawing.Point(9, 137)
         Me.LimitsBox.Name = "LimitsBox"
         Me.LimitsBox.Size = New System.Drawing.Size(189, 49)
         Me.LimitsBox.TabIndex = 1861
@@ -130,7 +127,7 @@ Partial Class FormPermissions
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.LSLCheckbox)
-        Me.GroupBox8.Location = New System.Drawing.Point(12, 242)
+        Me.GroupBox8.Location = New System.Drawing.Point(12, 192)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(189, 48)
         Me.GroupBox8.TabIndex = 1862
@@ -164,7 +161,7 @@ Partial Class FormPermissions
         '
         Me.GroupBox7.Controls.Add(Me.DomainUpDown1)
         Me.GroupBox7.Controls.Add(Me.Clouds)
-        Me.GroupBox7.Location = New System.Drawing.Point(12, 296)
+        Me.GroupBox7.Location = New System.Drawing.Point(12, 246)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(189, 56)
         Me.GroupBox7.TabIndex = 1863
@@ -190,34 +187,11 @@ Partial Class FormPermissions
         Me.DomainUpDown1.Size = New System.Drawing.Size(66, 20)
         Me.DomainUpDown1.TabIndex = 18
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.DataSnapshotCheckBox1)
-        Me.GroupBox1.Location = New System.Drawing.Point(9, 131)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 50)
-        Me.GroupBox1.TabIndex = 1862
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Data Search"
-        '
-        'DataSnapshotCheckBox1
-        '
-        Me.DataSnapshotCheckBox1.AutoSize = True
-        Me.DataSnapshotCheckBox1.Location = New System.Drawing.Point(12, 19)
-        Me.DataSnapshotCheckBox1.Name = "DataSnapshotCheckBox1"
-        Me.DataSnapshotCheckBox1.Size = New System.Drawing.Size(96, 17)
-        Me.DataSnapshotCheckBox1.TabIndex = 19
-        Me.DataSnapshotCheckBox1.Text = "Enable Search"
-        Me.ToolTip1.SetToolTip(Me.DataSnapshotCheckBox1, "Maxprims limits the number of prims on a parcel.  if disabled, there are no limit" &
-        "s.")
-        Me.DataSnapshotCheckBox1.UseVisualStyleBackColor = True
-        '
         'FormPermissions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 371)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(222, 314)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.LimitsBox)
@@ -235,8 +209,6 @@ Partial Class FormPermissions
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -254,6 +226,4 @@ Partial Class FormPermissions
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents DomainUpDown1 As DomainUpDown
     Friend WithEvents Clouds As CheckBox
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents DataSnapshotCheckBox1 As CheckBox
 End Class

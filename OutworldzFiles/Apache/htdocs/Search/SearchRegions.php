@@ -45,21 +45,18 @@ catch(PDOException $e)
         
         <table class="striped">
             <tr class="header">
-                <td>parcel_id</td>
-                <td>Name</td>
-                <td>Description</td>
-                <td>Landing Point</td>
-                <td>searchcategory</td>
-                <td>build</td>
-                <td>script</td>
-                <td>public</td>
-                <td>dwell</td>
-                <td>Mature</td>
+                <td>regionname </td>
+                <td>regionUUID </td>
+                <td>regionhandle </td>
+                <td>url</td>
+                <td>owner</td>
+                <td>owneruuid </td>
+                
             </tr>
             <?php
              
              
-             $query = "SELECT * FROM parcels where public = 'true'  order by parcelname ";
+             $query = "SELECT * FROM regions order by regionname ";
              $sqldata = array();
              
              $query = $db->prepare($query);
@@ -69,17 +66,13 @@ catch(PDOException $e)
                while ($row = $query->fetch(PDO::FETCH_ASSOC))
                {
                 echo "<tr valign=\"top\">";
-                 echo "<td nowrap> InfoUUID:<br>". $row["infouuid"] . "<br>Region UUID:<br>" . $row["regionUUID"] . "<br>ParcelUUID:<br>" . $row["parcelUUID"] . "</td>";
-                 echo "<td>" .$row["parcelname"] . "</td>";
-                 echo "<td>" .$row["description"] . "</td>";
-                 echo "<td>" .$row["landingpoint"] . "</td>";
-                 echo "<td>" . $row["mature"] . "</td>";
-                 echo "<td>" . $row["searchcategory"] . "</td>";
-                 echo "<td>" . $row["build"] . "</td>";
-                 echo "<td>" . $row["script"] . "</td>";
-                 echo "<td>" . $row["public"] . "</td>";
-                 echo "<td>" . $row["dwell"] . "</td>";
                  
+                 echo "<td>" .$row["regionname"] . "</td>";
+                 echo "<td>" .$row["regionUUID"] . "</td>";
+                 echo "<td>" .$row["regionhandle"] . "</td>";
+                 echo "<td>" . $row["url"] . "</td>";
+                 echo "<td>" . $row["owner"] . "</td>";
+                 echo "<td>" . $row["owneruuid"] . "</td>";
                  echo "</tr>";
                }
             ?>

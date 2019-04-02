@@ -35,7 +35,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.82"
+    ReadOnly gMyVersion As String = "2.83"
     ReadOnly gSimVersion As String = "0.9.1"
 
     ' edit this to compile and run in the correct folder root
@@ -402,7 +402,7 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
-        If MySetting.DataSnapshot And Not MySetting.SearchInstalled Then
+        If Not MySetting.SearchInstalled Then
             SetupSearch()
         End If
 
@@ -1042,7 +1042,7 @@ Public Class Form1
         End If
         MySetting.SetOtherIni("Network", "ExternalHostNameForLSL", MySetting.PublicIP)
 
-        MySetting.SetOtherIni("DataSnapshot", "index_sims", MySetting.DataSnapshot().ToString)
+        MySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
 
         MySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(MySetting.Primlimits, String))
 
@@ -1050,12 +1050,6 @@ Public Class Form1
             MySetting.SetOtherIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
         Else
             MySetting.SetOtherIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
-        End If
-
-        If MySetting.GDPR Then
-            MySetting.SetOtherIni("DataSnapshot", "indexsims", "true")
-        Else
-            MySetting.SetOtherIni("DataSnapshot", "indexsims", "false")
         End If
 
 
@@ -2106,10 +2100,7 @@ Public Class Form1
 
             End If
 
-        Next
 
-        ' boot up any that made it all the way down.
-        For Each X As Integer In RegionClass.RegionNumbers
             ' if a restart is signalled, boot it up
             If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
                 Boot(RegionClass.RegionName(X))

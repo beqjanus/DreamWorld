@@ -206,11 +206,6 @@ Public Class MySettings
             AutoRestartInterval() = 0
         End Try
 
-        Try
-            Dim x = DataSnapshot()
-        Catch ex As Exception
-            DataSnapshot() = False
-        End Try
 
         Try
             Dim x = LSL_HTTP()
@@ -849,14 +844,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property DataSnapshot() As Boolean
-        Get
-            Return CType(GetMySetting("DataSnapshot"), Boolean)
-        End Get
-        Set
-            SetMySetting("DataSnapshot", Value.ToString)
-        End Set
-    End Property
     Public Property AutoRestartInterval() As Integer
         Get
             Return CType(GetMySetting("AutoRestartInterval"), Integer)

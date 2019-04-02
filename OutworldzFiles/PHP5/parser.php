@@ -15,7 +15,7 @@ try {
 catch(PDOException $e)
 {
   echo "Error connecting to the search database\n";
-  file_put_contents('../PDOErrors.txt', $e->getMessage() . "\n-----\n", FILE_APPEND);
+  file_put_contents('../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
 }
 

@@ -12,7 +12,7 @@ try {
 catch(PDOException $e)
 {
   echo "Error connecting to database\n";
-  file_put_contents('../PDOErrors.txt', $e->getMessage() . "\n-----\n", FILE_APPEND);
+  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
 }
 
@@ -45,10 +45,17 @@ catch(PDOException $e)
       <form action="SearchParcel.php">
         <input type="Submit" name="Parcels" value = "List Parcels">
       </form>
+      <form action="ShowHosts.php">
+        <input type="Submit" name="Parcels" value = "Region Ports">
+      </form>
+      <form action="SearchRegions.php">
+        <input type="Submit" name="Parcels" value = "List Regions">
+      </form>
+      
         <h1>Search</h1>
-        <form action="search.php">
-          <input type="text" >
-            <input type ="Submit" name = "Search">
+        <form action="search.php" method="POST">
+          <input type="text" name="SearchTerm" >
+            <input type="Submit" name="Search">
         </form>
        
     </body>

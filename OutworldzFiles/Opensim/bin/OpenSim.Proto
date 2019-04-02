@@ -43,11 +43,11 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8064
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=!DWSims
+RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
 BaseHostname=127.0.0.1
@@ -69,7 +69,7 @@ PrivURL=http://127.0.0.1
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=DreamGrid
+GridName=Alienware
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
@@ -420,13 +420,13 @@ permissionmodules=DefaultPermissionsModule
 ;# {allow_grid_gods} {} {Allow grid gods?} {true false} false
 ;; This allows users with a UserLevel of 200 or more to assume god
 ;; powers in the regions in this simulator.
-allow_grid_gods=false
+allow_grid_gods=true
 
 ;; This allows some control over permissions
 ;; please note that this still doesn't duplicate SL, and is not intended to
 ;# {region_owner_is_god} {} {Allow region owner gods} {true false} true
 ;; Allow region owners to assume god powers in their regions
-region_owner_is_god=false
+region_owner_is_god=true
 
 ;# {region_manager_is_god} {} {Allow region manager gods} {true false} false
 ;; Allow region managers to assume god powers in regions they manage
@@ -644,9 +644,7 @@ Cap_GetDisplayNames="localhost"
 ;; and will override that value if set here. The Robust setting
 ;; provides a working default for the grid and setting here is
 ;; optional.
-;SearchServerURI = "http://127.0.0.1:9000/"
-SearchServerURI="http://www.hyperica.com/Search/query.php/"
-
+;;SearchServerURI="http://127.0.0.1/Search/query.php/"
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
 ;; This serves the same purpose as the DestinationGuideURI in the
@@ -822,7 +820,7 @@ enable_windlight=true
 ;; searchable data.
 ;; If false, no data will be exposed, DataSnapshot module will be off,
 ;; and you can ignore the rest of these search-related configs.
-index_sims=False
+index_sims=True
 
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
@@ -840,7 +838,7 @@ gridname="${Const|GridName}"
 ;; Period between data snapshots, in seconds. 20 minutes, for starters,
 ;; so that you see the initial changes fast.
 ;; Later, you may want to increase this to 3600 (1 hour) or more
-default_snapshot_period=3600
+default_snapshot_period=300
 
 ;; This will be created in bin, if it doesn't exist already. It will hold
 ;; the data snapshots.
@@ -852,21 +850,17 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
 ;; New way of specifying data services, one per service
-DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
-data_services=http://www.hyperica.com/Search/register.php
-indexsims=false
+;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
+;data_services=http://www.hyperica.com/Search/register.php
+data_services=http://127.0.01/Search/register.php
+indexsims=true
 
 [Search]
 Module=OpenSimSearch
 
-;///////////////////////////////////////////////////////////////////////////
-;// The SearchURL is important. It must be correct or search won't work.  //
-;//                                                                       //
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=http://www.hyperica.com/Search/query.php
+SearchURL=http://http://127.0.01/Search/
 
-;//                                                                       //
-;///////////////////////////////////////////////////////////////////////////
 [Economy]
 
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
@@ -1307,7 +1301,7 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=F:/Opensim/Outworldz DreamGrid Source/OutworldzFiles/AutoBackup/
+AutoBackupDir=/Opensim/Outworldz Dreamgrid/OutworldzFiles/AutoBackup/
 
 [CameraOnlyModeModule]
 
@@ -1336,7 +1330,7 @@ enabled=True
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=false
+enabled=true
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
 density=0.5

@@ -8,10 +8,8 @@
 // When the date is older, make a request to the Parser to grab new data    //
 //////////////////////////////////////////////////////////////////////////////
 
-//include the source file
+//include the log file
 require( "flog.php" );
-
-
 include("databaseinfo.php");
 
 $hostname = "";
@@ -42,13 +40,13 @@ try {
 catch(PDOException $e)
 {
   echo "Error connecting to database\n";
-  file_put_contents('PDOErrors.txt', $e->getMessage() . "\n-----\n", FILE_APPEND);
+  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
 }
 
 if ($service == "online")
 {
-    
+    file_put_contents('../../../PHPLog.log', "online:" . $hostname . ":" . $port, FILE_APPEND);
     flog("online:" . $hostname . ":" . $port);
     // Check if there is already a database row for this host
     $query = $db->prepare("SELECT register FROM hostsregister WHERE host = ? AND port = ?");
