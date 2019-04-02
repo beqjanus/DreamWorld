@@ -46,12 +46,14 @@ catch(PDOException $e)
         <input type="Submit" name="Parcels" value = "List Parcels">
       </form>
       <form action="ShowHosts.php">
-        <input type="Submit" name="Parcels" value = "Region Ports">
+        <input type="Submit" name="Ports" value = "Region Ports">
       </form>
       <form action="SearchRegions.php">
-        <input type="Submit" name="Parcels" value = "List Regions">
+        <input type="Submit" name="Regions" value = "List Regions">
       </form>
-      
+      <form action="SearchObjects.php">
+        <input type="Submit" name="Objects" value = "List Objects">
+      </form>
         <h1>Search</h1>
         <form action="search.php" method="POST">
           <input type="text" name="SearchTerm" >

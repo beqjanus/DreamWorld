@@ -43,7 +43,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8064
+http_listener_port=8021
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -69,7 +69,7 @@ PrivURL=http://127.0.0.1
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Alienware
+GridName=DreamGrid
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
@@ -359,7 +359,7 @@ alert_uri=${Const|PrivURL}:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=true
+GenerateMaptiles=false
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -420,13 +420,13 @@ permissionmodules=DefaultPermissionsModule
 ;# {allow_grid_gods} {} {Allow grid gods?} {true false} false
 ;; This allows users with a UserLevel of 200 or more to assume god
 ;; powers in the regions in this simulator.
-allow_grid_gods=true
+allow_grid_gods=false
 
 ;; This allows some control over permissions
 ;; please note that this still doesn't duplicate SL, and is not intended to
 ;# {region_owner_is_god} {} {Allow region owner gods} {true false} true
 ;; Allow region owners to assume god powers in their regions
-region_owner_is_god=true
+region_owner_is_god=false
 
 ;# {region_manager_is_god} {} {Allow region manager gods} {true false} false
 ;; Allow region managers to assume god powers in regions they manage
@@ -859,7 +859,7 @@ indexsims=true
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=http://http://127.0.01/Search/
+SearchURL=http://http://127.0.01/Search/query.php
 
 [Economy]
 
@@ -1294,7 +1294,7 @@ Include-Architecture="config-include/GridHypergrid.ini"
 ; Automatically changed by Dreamworld - do not change this
 AutoBackupModuleEnabled=true
 AutoBackup=false
-AutoBackupInterval=720
+AutoBackupInterval=7200
 AutoBackupBusyCheck=false
 AutoBackupThreshold=1
 AutoBackupSkipAssets=false
@@ -1330,7 +1330,7 @@ enabled=True
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=true
+enabled=false
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
 density=0.5
