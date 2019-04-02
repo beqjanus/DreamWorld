@@ -2068,7 +2068,7 @@ Public Class Form1
                 TimerValue = RegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
                 GroupName = RegionClass.GroupName(X)
-                If (TimerValue / 6) >= (MySetting.AutoRestartInterval() * 60) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
+                If (TimerValue / 6) >= (MySetting.AutoRestartInterval()) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
                         If ShowDOSWindow(GetHwnd(GroupName), SHOW_WINDOW.SW_RESTORE) Then
@@ -5052,7 +5052,7 @@ Public Class Form1
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\mysql\bin\"
         pi.FileName = "Create_OsSearch.bat"
 
-        pi.WindowStyle = ProcessWindowStyle.Normal
+        pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessMysql As Process = New Process()
         ProcessMysql.StartInfo = pi
 
