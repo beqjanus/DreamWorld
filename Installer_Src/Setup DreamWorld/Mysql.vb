@@ -5,7 +5,6 @@ Imports System.Text.RegularExpressions
 
 Public Class Mysql
 
-
     Implements IDisposable
 
     Dim MysqlConn As MySqlConnection
