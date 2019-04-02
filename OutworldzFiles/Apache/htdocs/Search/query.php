@@ -588,6 +588,8 @@ function dir_classified_query ($method_name, $params, $app_data)
            " LIMIT $query_start,101";
     $query = $db->prepare($sql);
 
+    flog($sql);
+    
     $result = $query->execute($sqldata);
 
     $data = array();
@@ -601,7 +603,7 @@ function dir_classified_query ($method_name, $params, $app_data)
                 "expiration_date" => $row["expirationdate"],
                 "priceforlisting" => $row["priceforlisting"]);
     }
-
+    flog($data);
     $response_xml = xmlrpc_encode(array(
             'success'      => True,
             'errorMessage' => "",
@@ -727,6 +729,13 @@ function classifieds_info_query($method_name, $params, $app_data)
 #
 
 $request_xml = file_get_contents("php://input");
+
+#flog('Request' . $request_xml);
+if ($request_xml == "") {
+ # flog("Search");
+  echo "<meta http-equiv=\"refresh\" content=\"0;URL='/Search/index.php'\" />";
+  
+}
 
 xmlrpc_server_call_method($xmlrpc_server, $request_xml, '');
 xmlrpc_server_destroy($xmlrpc_server);

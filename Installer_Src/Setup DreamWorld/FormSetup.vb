@@ -2590,12 +2590,13 @@ Public Class Form1
             ErrorLog(ex.Message)
         End Try
 
-        Dim series() As Double = Nothing
-        Dim i = 1
-        While i <= 180
-            ReDim Preserve series(i)
-            series(i) = CType(MyCPUCollection(i), Double)
-            i = i + 1
+        Dim series(180) As Double
+        Dim j = 180
+        Dim k = 1
+        While j > 0
+            series(k) = CType(MyCPUCollection(j), Double)
+            j = j - 1
+            k = k + 1
         End While
 
         ChartWrapper1.ClearChart()
@@ -2603,7 +2604,8 @@ Public Class Form1
 
         'RAM
 
-        Dim ramseries() As Double = Nothing
+        Dim ramseries(180) As Double
+
         Dim results As ManagementObjectCollection = searcher.Get()
         For Each result In results
             Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
@@ -2612,14 +2614,16 @@ Public Class Form1
             MyRAMCollection.Remove(1) ' drop 1st, older  item
         Next
 
-        Dim j = 1
-        While j <= 180
-            ReDim Preserve ramseries(j)
-            If (j = 180) Then
-                Dim y = 0
-            End If
-            ramseries(j) = CType(MyRAMCollection(j), Double)
-            j = j + 1
+        j = 180
+        k = 1
+        While j > 0
+
+            'If (j = 180) Then
+            'Dim y = 0
+            'End If
+            ramseries(k) = CType(MyRAMCollection(j), Double)
+            j = j - 1
+            k = k + 1
         End While
 
         ChartWrapper2.ClearChart()

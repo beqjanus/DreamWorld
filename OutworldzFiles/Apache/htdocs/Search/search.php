@@ -48,7 +48,8 @@ catch(PDOException $e)
             <tr class="header">
                 <td>Name</td>
                 <td>Description</td>
-                <td>Teleport</td>
+                <td>Region</td>
+                <td>Location</td>
             </tr>
             <?php
             
@@ -69,12 +70,13 @@ catch(PDOException $e)
             while ($row = $query->fetch(PDO::FETCH_ASSOC))
             {
                 $counter++;
-                $hop = "<a href=\"hop://127.0.0.1:8002/" . $row["regionname"] . "\"><img src=\"images/hop.png\" width=\"48\"></a>";
-                
+                $location = $row["location"];
+                $location = str_replace("/"," ", $location );
                 echo "<tr valign=\"top\" >";
                 echo "<td>" . $row["Name"] . "</td>";
                 echo "<td>" . $row["Description"] . "</td>";
-                echo "<td>" . $hop . "</td>";
+                echo "<td>" . $row["regionname"] . "</td>";
+                echo "<td>" . $location . "</td>";
                 echo "</tr>";
             }
             if ($counter == 0) {
