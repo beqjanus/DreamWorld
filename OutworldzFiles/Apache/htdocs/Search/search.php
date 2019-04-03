@@ -61,7 +61,7 @@ catch(PDOException $e)
             $q = "SELECT Name, Description, location, Regions.regionname
                 FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid
                 where Name like :text1 or Description like :text2
-                order by Name, Description ";
+                order by Name, Description";
             
             $query = $db->prepare($q);
             $result = $query->execute($sqldata);
@@ -86,7 +86,7 @@ catch(PDOException $e)
                 echo "</tr>";
             }
             echo "</table>";
-            echo "<input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />";
+            echo "<input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
             
             ?>
         </table>

@@ -9,6 +9,7 @@
             var max = el.attributes.maxLength.value;
             el.onkeypress = function () {
                 if (this.value.length >= max) return false;
+                return true;
             };
         }
     }

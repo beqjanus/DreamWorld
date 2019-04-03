@@ -30,7 +30,7 @@ catch(PDOException $e)
       <form action="SearchClassifieds.php">
         <input type="Submit" name="Classified" value = "Dump Classified Ad">
       </form>
-      <!--<form action="SearchParcel.php">
+      <form action="SearchParcel.php">
         <input type="Submit" name="Parcels" value = "List Parcels">
       </form>
       <form action="ShowHosts.php">
@@ -41,7 +41,7 @@ catch(PDOException $e)
       </form>
       <form action="SearchObjects.php">
         <input type="Submit" name="Objects" value = "Dump Objects">
-      </form>-->
+      </form>
         <h1>Search</h1>
         <form action="search.php" method="POST">
           <input type="text" name="SearchTerm" >
