@@ -402,9 +402,9 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
-        If Not MySetting.SearchInstalled Then
-            SetupSearch()
-        End If
+
+        SetupSearch()
+
 
 
         ' Find out if the viewer is installed
@@ -5046,6 +5046,7 @@ Public Class Form1
 #Region "Search"
     Private Sub SetupSearch()
 
+        If MySetting.SearchInstalled Then Return
         Print("Installing Search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
