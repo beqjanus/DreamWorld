@@ -114,8 +114,7 @@ Public Class Form1
     Dim speed3 As Single
     Dim MyCPUCollection As New Collection
 
-    Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
-    Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
+
     Dim MyRAMCollection As New Collection
 
     Public Enum SHOW_WINDOW As Integer
@@ -2605,7 +2604,8 @@ Public Class Form1
         'RAM
 
         Dim ramseries(180) As Double
-
+        Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
+        Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
         For Each result In results
             Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
@@ -2613,14 +2613,12 @@ Public Class Form1
             PercentRAM.Text = String.Format("{0: 0}", value)
             MyRAMCollection.Remove(1) ' drop 1st, older  item
         Next
+        searcher.Dispose()
+        results.Dispose()
 
         j = 180
         k = 1
         While j > 0
-
-            'If (j = 180) Then
-            'Dim y = 0
-            'End If
             ramseries(k) = CType(MyRAMCollection(j), Double)
             j = j - 1
             k = k + 1
@@ -2628,7 +2626,6 @@ Public Class Form1
 
         ChartWrapper2.ClearChart()
         ChartWrapper2.AddLinePlot("RAM", ramseries)
-
 
 
     End Sub
