@@ -1,12 +1,65 @@
 <html>
 <head>
+
+<title>Classified Ad</title>
+
+<script type="text/javascript">
+    function maxLength(el) {    
+        if (!('maxLength' in el)) {
+            var max = el.attributes.maxLength.value;
+            el.onkeypress = function () {
+                if (this.value.length >= max) return false;
+            };
+        }
+    }
+    maxLength(document.getElementById("text"));
+</script>
+
 </head>
 <body>
-<form action=Classified.php">
+    
+<form action="Classifieds.php" method="post">
 
-<input type ="text" name = "category">
+<table style="border:1px solid black">
+    <tr>
+        <td>Name of Ad</td>
+        <td><textarea id="name" name="name" maxlength="255"  rows="5" cols="30"></textarea></textarea></td>
+    </tr>
+    <tr>
+        <td>Category</td>
+        <td><select name="category">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="fiat">Fiat</option>
+            <option value="audi">Audi</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td><textarea name="description" rows="10" cols="30"></textarea></td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td><input type ="text" name="price" value="0" size="5"></td>
+    </tr>
+    <tr>
+        <td>Snapshot UUID</td>
+        <td><input type ="text" name="snapshotuuid" value="" size="36"></td>
+    </tr>
+    <tr>
+        <td>Region Name</td>
+        <td><input type ="text" name = "simname"></td>
+    </tr>
+    <tr>
+        <td></td><td><input type="submit" name="Submit" value="Post Classified Ad"></td>
+    </tr>
+</table>
 
 
 </form>
+
+<a rel="license" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a>
+
 </body
 </html>

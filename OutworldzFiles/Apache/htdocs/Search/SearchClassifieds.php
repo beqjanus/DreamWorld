@@ -55,7 +55,6 @@ catch(PDOException $e)
                 <td>parceluuid</td>
                 <td>parentestate</td>
                 <td>snapshotuuid</td>
-                <td>snapshotuuid</td>
                 <td>simname</td>
                 <td>posglobal</td>
                 <td>parcelname</td>

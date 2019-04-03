@@ -32,6 +32,7 @@ my @deletions = (
 	"$dir/OutworldzFiles/mysql/data/robust",
 	"$dir/OutworldzFiles/mysql/data/addin-db-002",
 	"$dir/OutworldzFiles/mysql/data/fsassets",
+	"$dir/OutworldzFiles/Apache/logs/",
 );
 
 foreach my $path ( @deletions) {
@@ -43,6 +44,8 @@ foreach my $path ( @deletions) {
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
+unlink "$dir/OutworldzFiles/PHPLog.log" ;
+
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";
 unlink "$dir/Icecast/error.log" ;
