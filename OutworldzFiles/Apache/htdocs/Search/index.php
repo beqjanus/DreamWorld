@@ -24,22 +24,22 @@ catch(PDOException $e)
         <title>Search Opensimulator</title>
     </head>
     <body>
-      <form action="Classifieds.htm">
+      <form action="Classifieds.htm" method="post">
         <input type="Submit" name="Classified" value = "Create Classified Ad">
       </form>
-      <form action="SearchClassifieds.php">
+      <form action="SearchClassifieds.php" method="post">
         <input type="Submit" name="Classified" value = "Dump Classified Ad">
       </form>
-      <form action="SearchParcel.php">
+      <form action="SearchParcel.php" method="post">
         <input type="Submit" name="Parcels" value = "List Parcels">
       </form>
-      <form action="ShowHosts.php">
+      <form action="ShowHosts.php" method="post">
         <input type="Submit" name="Ports" value = "Dump Region Ports">
       </form>
-      <form action="SearchRegions.php">
+      <form action="SearchRegions.php" method="post">
         <input type="Submit" name="Regions" value = "Dump Regions">
       </form>
-      <form action="SearchObjects.php">
+      <form action="SearchObjects.php" method="post">
         <input type="Submit" name="Objects" value = "Dump Objects">
       </form>
         <h1>Search</h1>
