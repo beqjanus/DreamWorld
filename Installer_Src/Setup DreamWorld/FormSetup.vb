@@ -1229,8 +1229,8 @@ Public Class Form1
         MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
         MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
-        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""")
-        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""" & " common env=!dontlog")
+        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
         MySetting.SaveApacheINI(ini, "httpd.conf")
 
