@@ -113,7 +113,7 @@ Public Class Form1
     Dim speed2 As Single
     Dim speed3 As Single
     Dim MyCPUCollection As New Collection
-
+    Public ViewedSettings As Boolean = False
 
     Dim MyRAMCollection As New Collection
 
@@ -156,7 +156,7 @@ Public Class Form1
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
@@ -231,7 +231,7 @@ Public Class Form1
     ''' <param name="e">Unused</param>
     ''' 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        Me.Hide()
         Application.EnableVisualStyles()
 
         ToolBar(False)  ' hide the avatar, RAM, CPU toolbar
@@ -290,7 +290,8 @@ Public Class Form1
         TextBox1.BackColor = Me.BackColor
 
         Buttons(BusyButton)
-
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+        Me.Show()
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
 
@@ -437,7 +438,7 @@ Public Class Form1
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-        SetScreen()     ' move Form to fit screen from SetXY.ini
+
 
         If MySetting.RegionListVisible Then
             ShowRegionform()
@@ -502,13 +503,15 @@ Public Class Form1
 
         OpensimIsRunning() = True
 
-        RegionClass.GetAllRegions()
+        If ViewedSettings Then
+            RegionClass.GetAllRegions()
 
-        If SetPublicIP() Then
-            OpenPorts()
+            If SetPublicIP() Then
+                OpenPorts()
+            End If
+
+            If Not SetIniData() Then Return   ' set up the INI files
         End If
-
-        If Not SetIniData() Then Return   ' set up the INI files
 
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
@@ -518,7 +521,6 @@ Public Class Form1
             Print("Stopped")
             Return
         End If
-
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
@@ -589,7 +591,6 @@ Public Class Form1
         End
 
     End Sub
-
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW) As Boolean
 
@@ -2953,69 +2954,60 @@ Public Class Form1
     Private Sub SaveInventoryIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem.Click
 
         If OpensimIsRunning() Then
-            Dim Message, title, defaultValue As String
 
-            '''''''''''''''''''''''
-            ' Object Name to back up
-            Dim itemName As String
-            ' Set prompt.
-            Message = "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back up box in folder Objects) :"
-            title = "Backup Name?"
-            defaultValue = "/"   ' Set default value.
+            Dim SaveIAR As New FormIARSave
+            SaveIAR.ShowDialog()
+            Dim chosen = SaveIAR.DialogResult()
+            If chosen = DialogResult.OK Then
 
-            ' Display message, title, and default value.
-            itemName = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If itemName.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Name of the IAR
-            Dim backupName As String
-            Message = "Backup name? :"
-            title = "Backup Name?"
-            defaultValue = "backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".iar"   ' Set default value.
-
-            ' Display message, title, and default value.
-            backupName = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If itemName.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Avatar
-            Dim Name As String
-            Message = "Avatar FirstName and Lastname:"
-            title = "FirstName LastName"
-            defaultValue = ""   ' Set default value.
-
-            ' Display message, title, and default value.
-            Name = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If Name.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Password
-            Dim Password As String
-            Message = "Avatar's Password?:"
-            title = "Password needed"
-            defaultValue = ""   ' Set default value.
-
-            ' Display message, title, and default value.
-            Password = InputBox(Message, title, defaultValue)
-
-            Dim flag As Boolean = False
-            For Each RegionNumber As Integer In RegionClass.RegionNumbers
-                Dim GName = RegionClass.GroupName(RegionNumber)
-                Dim RNUm = RegionClass.FindRegionByName(GName)
-                If RegionClass.IsBooted(RegionNumber) And Not flag Then
-                    ConsoleCommand(RegionClass.GroupName(RegionNumber), "save iar " + Name + " """ + itemName + """" + " " + Password + " " + """" + BackupPath() + backupName + """" + "{ENTER}" + vbCrLf)
-                    flag = True
-                    Print("Saving " + backupName + " to " + BackupPath())
+                Dim itemName = SaveIAR.gObject
+                If itemName.Length = 0 Then
+                    MsgBox("Must have an object to save")
+                    Return
                 End If
-            Next
+
+                Dim ToBackup = ""
+
+                Dim BackupName = SaveIAR.gBackupName
+                If Not BackupName.ToLower.EndsWith(".iar") Then
+                    BackupName += ".iar"
+                End If
+
+
+                If SaveIAR.gBackupPath = "" Then
+                    ToBackup = BackupPath() & "" & BackupName
+                Else
+                    ToBackup = SaveIAR.gBackupPath & BackupName
+                End If
+
+                Dim Name = SaveIAR.gAvatarName
+
+                Dim Password = SaveIAR.gPassword
+
+                Dim flag As Boolean = False
+                For Each RegionNumber As Integer In RegionClass.RegionNumbers
+                    Dim GName = RegionClass.GroupName(RegionNumber)
+                    Dim RNUm = RegionClass.FindRegionByName(GName)
+                    If RegionClass.IsBooted(RegionNumber) And Not flag Then
+                        ConsoleCommand(RegionClass.GroupName(RegionNumber), "save iar " _
+                                       & Name & " " _
+                                       & """" & itemName & """" _
+                                       & " " & """" & Password & """" & " " _
+                                       & """" + ToBackup + """" _
+                                       & "{ENTER}" + vbCrLf
+                                      )
+                        flag = True
+                        Print("Saving " + backupName + " to " + BackupPath())
+                    End If
+                Next
+            End If
+
+            SaveIAR.Dispose()
 
         Else
-            Print("Opensim Is Not running. Cannot make a backup now.")
+            Print("Opensim Is not running. Cannot make an IAR now.")
         End If
+
 
     End Sub
 
@@ -3309,7 +3301,7 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Upload in a sperate tyhred the photo, if any.  Cannot be called unless main web server is known to be online.
+    ''' Upload in a seperate thraed the photo, if any.  Cannot be called unless main web server is known to be online.
     ''' </summary>
     Private Sub UploadPhoto()
 
