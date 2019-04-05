@@ -7,7 +7,7 @@ Usable with 3rd party programs such as PHPmyadmin, Strawberry Perl, Wordpress, J
 Predefined Baretail colors can be anabled by setting Options to 
 Bugs:
 Sort order for X,Y and RAM in Region Panel by adding leading zeros
-
+Added a Region's-in-use map from Metropolis Grid at http://localhost/
 
 2.82 
 Disabling a region while shutting it down caused the Regions panel to not render.
