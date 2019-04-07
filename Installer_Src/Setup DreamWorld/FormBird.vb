@@ -1,7 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 
 Public Class BirdForm
-
+    Dim changed As Boolean = False
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
@@ -24,7 +24,6 @@ Public Class BirdForm
 
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-
 
         ' This call is required by the designer.
         'InitializeComponent()
@@ -57,19 +56,25 @@ Public Class BirdForm
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
+        If changed Then
+            MsgBox("These changes go into effect only when Opensim and Robust are both restarted", vbInformation)
+        End If
         Form1.MySetting.BirdsFlockSize = BirdsFlockSizeDomain.Text
         Form1.MySetting.SaveSettings()
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
         Dim thing As String = Form1.MyFolder + "/Outworldzfiles/IAR/OpenSimBirds.iar"
         Form1.LoadIARContent(thing)
+
     End Sub
 
     Private Sub BirdHelp_Click(sender As Object, e As EventArgs) Handles BirdHelp.Click
+
         Form1.Help("Birds")
+
     End Sub
 
     Private Sub BirdsModuleStartupbox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsModuleStartupbox.CheckedChanged
@@ -79,6 +84,7 @@ Public Class BirdForm
         Else
             Form1.MySetting.BirdsModuleStartup = False
         End If
+        changed = True
 
     End Sub
 
@@ -87,110 +93,113 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ChatChanelTextBox.Text = digitsOnly.Replace(ChatChanelTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            ChatChanelTextBox.Text = rgx.Replace(ChatChanelTextBox.Text, "")
             Form1.MySetting.BirdsChatChannel = CInt(ChatChanelTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
 
     Private Sub MaxSpeedTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxSpeedTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
-
         Try
-            Dim rgx As New Regex("[^0-9]")
-            MaxSpeedTextBox.Text = rgx.Replace(MaxSpeedTextBox.Text, "")
             Form1.MySetting.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
 
     Private Sub MaxForceTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxForceTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
         Try
             Form1.MySetting.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
 
     Private Sub BirdsNeighbourDistanceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsNeighbourDistanceTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            BirdsNeighbourDistanceTextBox.Text = rgx.Replace(BirdsNeighbourDistanceTextBox.Text, "")
             Form1.MySetting.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
 
     Private Sub DesiredSeparationTextBox_TextChanged(sender As Object, e As EventArgs) Handles DesiredSeparationTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            DesiredSeparationTextBox.Text = rgx.Replace(DesiredSeparationTextBox.Text, "")
             Form1.MySetting.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
 
     Private Sub BirdsToleranceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsToleranceTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            BirdsToleranceTextBox.Text = rgx.Replace(BirdsToleranceTextBox.Text, "")
             Form1.MySetting.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
+
 
     End Sub
 
     Private Sub BirdsBorderSizeTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsBorderSizeTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            BirdsBorderSizeTextBox.Text = rgx.Replace(BirdsBorderSizeTextBox.Text, "")
             Form1.MySetting.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
+
 
     End Sub
 
     Private Sub BirdsMaxHeightTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsMaxHeightTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
         Try
-            Dim rgx As New Regex("[^0-9]")
-            BirdsMaxHeightTextBox.Text = rgx.Replace(BirdsMaxHeightTextBox.Text, "")
             Form1.MySetting.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text)
-        Catch
+            changed = True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation)
         End Try
+
 
     End Sub
 
     Private Sub PrimNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles PrimNameTextBox.TextChanged
 
         Form1.MySetting.BirdsPrim = PrimNameTextBox.Text
+        changed = True
 
     End Sub
-
-
 
 End Class

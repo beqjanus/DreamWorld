@@ -1,7 +1,6 @@
 <?php
-//include the source file
+//include the log and database files
 require( "flog.php" );
-
 include("databaseinfo.php");
 
 // Attempt to connect to the database
@@ -16,47 +15,20 @@ catch(PDOException $e)
   exit;
 }
 
-    
 ?>
-
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-        <style type="text/css">
-            tr.header
-            {
-                font-weight:bold;
-            }
-            tr.alt
-            {
-                background-color: #777777;
-            }
-        </style>
-        <script type="text/javascript">
-            $(document).ready(function(){
-               $('.striped tr:even').addClass('alt');
-            });
-        </script>
-        <title></title>
+        <title>Search Opensimulator</title>
     </head>
     <body>
-      <form action="SearchParcel.php">
-        <input type="Submit" name="Parcels" value = "List Parcels">
-      </form>
-      <form action="ShowHosts.php">
-        <input type="Submit" name="Parcels" value = "Region Ports">
-      </form>
-      <form action="SearchRegions.php">
-        <input type="Submit" name="Parcels" value = "List Regions">
-      </form>
-      
         <h1>Search</h1>
         <form action="search.php" method="POST">
           <input type="text" name="SearchTerm" >
             <input type="Submit" name="Search">
         </form>
-       
+       <a rel="license" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a>
     </body>
 </html>

@@ -1,5 +1,13 @@
 2.83
-Apache 2.4 and PHP 5 added
+Apache 2.4 and PHP 5 added and may be enabled by a new switch in Web Control panel. Installs Apache as as service
+You can host your own Web pages.
+When enabled, objects and regions marked as Show in Search are shown in the Viewer menu (Ctrl-F in Firestorm)
+Create Classified Ads and view them in the viewer.
+Usable with 3rd party programs such as PHPmyadmin, Strawberry Perl, Wordpress, Joomla JOpensim and others.
+Predefined Baretail colors can be anabled by setting Options to 
+Bugs:
+Sort order for X,Y and RAM in Region Panel by adding leading zeros
+Added a Region's-in-use map from Metropolis Grid at http://localhost/
 
 2.82 
 Disabling a region while shutting it down caused the Regions panel to not render.

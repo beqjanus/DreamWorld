@@ -51,7 +51,7 @@ Public Class AdvancedForm
 
         SetScreen()
         Me.Visible = True
-
+        Form1.ViewedSettings = True
 
     End Sub
 

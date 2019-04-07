@@ -113,9 +113,8 @@ Public Class Form1
     Dim speed2 As Single
     Dim speed3 As Single
     Dim MyCPUCollection As New Collection
+    Public ViewedSettings As Boolean = False
 
-    Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
-    Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
     Dim MyRAMCollection As New Collection
 
     Public Enum SHOW_WINDOW As Integer
@@ -157,7 +156,7 @@ Public Class Form1
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
@@ -232,7 +231,7 @@ Public Class Form1
     ''' <param name="e">Unused</param>
     ''' 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        Me.Hide()
         Application.EnableVisualStyles()
 
         ToolBar(False)  ' hide the avatar, RAM, CPU toolbar
@@ -291,7 +290,8 @@ Public Class Form1
         TextBox1.BackColor = Me.BackColor
 
         Buttons(BusyButton)
-
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+        Me.Show()
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
 
@@ -402,9 +402,9 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
-        If Not MySetting.SearchInstalled Then
-            SetupSearch()
-        End If
+
+        SetupSearch()
+
 
 
         ' Find out if the viewer is installed
@@ -438,7 +438,7 @@ Public Class Form1
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-        SetScreen()     ' move Form to fit screen from SetXY.ini
+
 
         If MySetting.RegionListVisible Then
             ShowRegionform()
@@ -503,13 +503,15 @@ Public Class Form1
 
         OpensimIsRunning() = True
 
-        RegionClass.GetAllRegions()
+        If ViewedSettings Then
+            RegionClass.GetAllRegions()
 
-        If SetPublicIP() Then
-            OpenPorts()
+            If SetPublicIP() Then
+                OpenPorts()
+            End If
+
+            If Not SetIniData() Then Return   ' set up the INI files
         End If
-
-        If Not SetIniData() Then Return   ' set up the INI files
 
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
@@ -519,7 +521,6 @@ Public Class Form1
             Print("Stopped")
             Return
         End If
-
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
@@ -590,7 +591,6 @@ Public Class Form1
         End
 
     End Sub
-
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOW_WINDOW) As Boolean
 
@@ -1229,8 +1229,8 @@ Public Class Form1
         MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
         MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
-        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""")
-        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l " & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log 86400""" & " common env=!dontlog")
+        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
         MySetting.SaveApacheINI(ini, "httpd.conf")
 
@@ -2068,7 +2068,7 @@ Public Class Form1
                 TimerValue = RegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
                 GroupName = RegionClass.GroupName(X)
-                If (TimerValue / 6) >= (MySetting.AutoRestartInterval() * 60) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
+                If (TimerValue / 6) >= (MySetting.AutoRestartInterval()) And MySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
                         If ShowDOSWindow(GetHwnd(GroupName), SHOW_WINDOW.SW_RESTORE) Then
@@ -2590,12 +2590,13 @@ Public Class Form1
             ErrorLog(ex.Message)
         End Try
 
-        Dim series() As Double = Nothing
-        Dim i = 1
-        While i <= 180
-            ReDim Preserve series(i)
-            series(i) = CType(MyCPUCollection(i), Double)
-            i = i + 1
+        Dim series(180) As Double
+        Dim j = 180
+        Dim k = 1
+        While j > 0
+            series(k) = CType(MyCPUCollection(j), Double)
+            j = j - 1
+            k = k + 1
         End While
 
         ChartWrapper1.ClearChart()
@@ -2603,7 +2604,9 @@ Public Class Form1
 
         'RAM
 
-        Dim ramseries() As Double = Nothing
+        Dim ramseries(180) As Double
+        Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
+        Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
         For Each result In results
             Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
@@ -2611,20 +2614,19 @@ Public Class Form1
             PercentRAM.Text = String.Format("{0: 0}", value)
             MyRAMCollection.Remove(1) ' drop 1st, older  item
         Next
+        searcher.Dispose()
+        results.Dispose()
 
-        Dim j = 1
-        While j <= 180
-            ReDim Preserve ramseries(j)
-            If (j = 180) Then
-                Dim y = 0
-            End If
-            ramseries(j) = CType(MyRAMCollection(j), Double)
-            j = j + 1
+        j = 180
+        k = 1
+        While j > 0
+            ramseries(k) = CType(MyRAMCollection(j), Double)
+            j = j - 1
+            k = k + 1
         End While
 
         ChartWrapper2.ClearChart()
         ChartWrapper2.AddLinePlot("RAM", ramseries)
-
 
 
     End Sub
@@ -2952,69 +2954,60 @@ Public Class Form1
     Private Sub SaveInventoryIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem.Click
 
         If OpensimIsRunning() Then
-            Dim Message, title, defaultValue As String
 
-            '''''''''''''''''''''''
-            ' Object Name to back up
-            Dim itemName As String
-            ' Set prompt.
-            Message = "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back up box in folder Objects) :"
-            title = "Backup Name?"
-            defaultValue = "/"   ' Set default value.
+            Dim SaveIAR As New FormIARSave
+            SaveIAR.ShowDialog()
+            Dim chosen = SaveIAR.DialogResult()
+            If chosen = DialogResult.OK Then
 
-            ' Display message, title, and default value.
-            itemName = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If itemName.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Name of the IAR
-            Dim backupName As String
-            Message = "Backup name? :"
-            title = "Backup Name?"
-            defaultValue = "backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".iar"   ' Set default value.
-
-            ' Display message, title, and default value.
-            backupName = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If itemName.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Avatar
-            Dim Name As String
-            Message = "Avatar FirstName and Lastname:"
-            title = "FirstName LastName"
-            defaultValue = ""   ' Set default value.
-
-            ' Display message, title, and default value.
-            Name = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue 
-            If Name.Length = 0 Then Return
-
-            '''''''''''''''''''''''
-            ' Password
-            Dim Password As String
-            Message = "Avatar's Password?:"
-            title = "Password needed"
-            defaultValue = ""   ' Set default value.
-
-            ' Display message, title, and default value.
-            Password = InputBox(Message, title, defaultValue)
-
-            Dim flag As Boolean = False
-            For Each RegionNumber As Integer In RegionClass.RegionNumbers
-                Dim GName = RegionClass.GroupName(RegionNumber)
-                Dim RNUm = RegionClass.FindRegionByName(GName)
-                If RegionClass.IsBooted(RegionNumber) And Not flag Then
-                    ConsoleCommand(RegionClass.GroupName(RegionNumber), "save iar " + Name + " """ + itemName + """" + " " + Password + " " + """" + BackupPath() + backupName + """" + "{ENTER}" + vbCrLf)
-                    flag = True
-                    Print("Saving " + backupName + " to " + BackupPath())
+                Dim itemName = SaveIAR.gObject
+                If itemName.Length = 0 Then
+                    MsgBox("Must have an object to save")
+                    Return
                 End If
-            Next
+
+                Dim ToBackup = ""
+
+                Dim BackupName = SaveIAR.gBackupName
+                If Not BackupName.ToLower.EndsWith(".iar") Then
+                    BackupName += ".iar"
+                End If
+
+
+                If SaveIAR.gBackupPath = "" Then
+                    ToBackup = BackupPath() & "" & BackupName
+                Else
+                    ToBackup = SaveIAR.gBackupPath & BackupName
+                End If
+
+                Dim Name = SaveIAR.gAvatarName
+
+                Dim Password = SaveIAR.gPassword
+
+                Dim flag As Boolean = False
+                For Each RegionNumber As Integer In RegionClass.RegionNumbers
+                    Dim GName = RegionClass.GroupName(RegionNumber)
+                    Dim RNUm = RegionClass.FindRegionByName(GName)
+                    If RegionClass.IsBooted(RegionNumber) And Not flag Then
+                        ConsoleCommand(RegionClass.GroupName(RegionNumber), "save iar " _
+                                       & Name & " " _
+                                       & """" & itemName & """" _
+                                       & " " & """" & Password & """" & " " _
+                                       & """" + ToBackup + """" _
+                                       & "{ENTER}" + vbCrLf
+                                      )
+                        flag = True
+                        Print("Saving " + backupName + " to " + BackupPath())
+                    End If
+                Next
+            End If
+
+            SaveIAR.Dispose()
 
         Else
-            Print("Opensim Is Not running. Cannot make a backup now.")
+            Print("Opensim Is not running. Cannot make an IAR now.")
         End If
+
 
     End Sub
 
@@ -3308,7 +3301,7 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Upload in a sperate tyhred the photo, if any.  Cannot be called unless main web server is known to be online.
+    ''' Upload in a seperate thraed the photo, if any.  Cannot be called unless main web server is known to be online.
     ''' </summary>
     Private Sub UploadPhoto()
 
@@ -5042,13 +5035,14 @@ Public Class Form1
 #Region "Search"
     Private Sub SetupSearch()
 
+        If MySetting.SearchInstalled Then Return
         Print("Installing Search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\mysql\bin\"
         pi.FileName = "Create_OsSearch.bat"
 
-        pi.WindowStyle = ProcessWindowStyle.Normal
+        pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessMysql As Process = New Process()
         ProcessMysql.StartInfo = pi
 

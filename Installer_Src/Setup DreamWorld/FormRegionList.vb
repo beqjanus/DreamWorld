@@ -333,14 +333,15 @@ Public Class RegionList
                 item1.SubItems.Add(RegionClass.GroupName(X).ToString)
                 item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
                 item1.SubItems.Add(Letter)
-
+                Dim fmtXY = "00000" ' 65536
+                Dim fmtRam = "0000" ' 9999 MB
                 ' RAM
                 Try
                     Dim PID = RegionClass.ProcessID(X)
                     Dim component1 As Process = Process.GetProcessById(PID)
                     If Form1.RegionHandles.ContainsKey(PID) Then
                         Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(NotepadMemory, 1) & " MB")
+                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam)))
                     Else
                         item1.SubItems.Add("0")
                     End If
@@ -348,9 +349,8 @@ Public Class RegionList
                     'Form1.ErrorLog(ex.Message)
                     item1.SubItems.Add("0")
                 End Try
-
-                item1.SubItems.Add(RegionClass.CoordX(X).ToString)
-                item1.SubItems.Add(RegionClass.CoordY(X).ToString)
+                item1.SubItems.Add(RegionClass.CoordX(X).ToString(fmtXY))
+                item1.SubItems.Add(RegionClass.CoordY(X).ToString(fmtXY))
 
                 Dim size As String = ""
                 If RegionClass.SizeX(X) = 256 Then
@@ -754,10 +754,12 @@ Public Class RegionList
 
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
+
         ' Set the ListViewItemSorter property to a new ListViewItemComparer 
         ' object. Setting this property immediately sorts the 
         ' ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
+
         ListView1.ResumeLayout()
 
     End Sub
@@ -1030,7 +1032,6 @@ Class ListViewItemComparer
 #Disable Warning IDE0044 ' Add readonly modifier
     Private col As Integer
 #Enable Warning IDE0044 ' Add readonly modifier
-
     Public Sub New()
         col = 1
     End Sub

@@ -258,14 +258,12 @@ Public Class FormRegion
             End If
         Else
 
+            Form1.ViewedSettings = True ' set this so it will force a rescan of the regions on startup
+
             WriteRegion()
-
             RegionClass.GetAllRegions()
-
             Form1.CopyOpensimProto(RegionName.Text)
-
             Form1.SetFirewall()
-
             If RegionList.InstanceExists Then
                 RegionList.LoadMyListView()
             End If
