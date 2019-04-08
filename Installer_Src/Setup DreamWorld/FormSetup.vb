@@ -4826,7 +4826,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.text.ToString.EndsWith(".rtf") Then Help(sender.text.ToString)
+        If sender.text.ToString <> "Dreamgrid Manual.pdf" Then Help(sender.text.ToString)
 
     End Sub
 
@@ -4889,12 +4889,7 @@ Public Class Form1
     End Sub
 
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
-        Dim path = MyFolder + "/revisions.rtf"
-        Try
-            System.Diagnostics.Process.Start("wordpad.exe", path)
-        Catch
-        End Try
-
+        Help("Revisions")
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
