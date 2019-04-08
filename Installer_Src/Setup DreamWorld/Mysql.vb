@@ -32,13 +32,12 @@ Public Class Mysql
                 Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                 Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
             End While
-
-            reader.Close()
+            MysqlConn.Close()
+            MysqlConn.Dispose()
+            reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            MysqlConn.Close()
         End Try
 
         Return Dict
@@ -53,16 +52,17 @@ Public Class Mysql
         ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
-        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true';"
+        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String = ""
         Dim UUID As String = ""
+
+        MysqlConn.Open()
+        Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
         Try
-            MysqlConn.Open()
 
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
+            Dim ctr = 0
             While reader.HasRows
                 reader.Read()
                 Debug.Print(reader.GetString(0))
@@ -74,12 +74,15 @@ Public Class Mysql
                     Avatar = m.Groups(2).Value.ToString
                     Dict.Add(Avatar, GetRegionName(UUID))
                 Next
+                ctr += 1
+
             End While
+            MysqlConn.Close()
+            MysqlConn.Dispose()
+            reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            MysqlConn.Close()
         End Try
 
         Return Dict
@@ -100,11 +103,14 @@ Public Class Mysql
                 Debug.Print("Region Name = {0}", reader.GetString(0))
                 Return reader.GetString(0)
             End While
+            MysqlConn.Close()
+            MysqlConn.Dispose()
+            reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         Finally
-            MysqlConn.Close()
+
         End Try
 
         Return Nothing
@@ -139,6 +145,7 @@ Public Class Mysql
         Catch ex As Exception
             Debug.Print("Error: " & ex.Message)
             MysqlConn.Close()
+            MysqlConn.Dispose()
             Return Nothing
         End Try
 
@@ -150,6 +157,7 @@ Public Class Mysql
             Debug.Print(ex.Message)
         Finally
             MysqlConn.Close()
+            MysqlConn.Dispose()
         End Try
         Return Nothing
 
