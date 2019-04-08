@@ -25,7 +25,6 @@ Partial Class FormRegion
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegion))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.RegionPort = New System.Windows.Forms.TextBox()
         Me.CoordY = New System.Windows.Forms.TextBox()
         Me.CoordX = New System.Windows.Forms.TextBox()
         Me.RegionName = New System.Windows.Forms.TextBox()
@@ -58,7 +57,6 @@ Partial Class FormRegion
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UUID = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -86,6 +84,7 @@ Partial Class FormRegion
         Me.MapGood = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Physicsubhybrid = New System.Windows.Forms.RadioButton()
         Me.Physics_Default = New System.Windows.Forms.RadioButton()
         Me.PhysicsSeparate = New System.Windows.Forms.RadioButton()
         Me.PhysicsNone = New System.Windows.Forms.RadioButton()
@@ -93,7 +92,7 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Physicsubhybrid = New System.Windows.Forms.RadioButton()
+        Me.RegionPort = New System.Windows.Forms.TextBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -106,15 +105,6 @@ Partial Class FormRegion
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'RegionPort
-        '
-        Me.RegionPort.Location = New System.Drawing.Point(97, 39)
-        Me.RegionPort.Name = "RegionPort"
-        Me.RegionPort.ReadOnly = True
-        Me.RegionPort.Size = New System.Drawing.Size(40, 20)
-        Me.RegionPort.TabIndex = 14
-        Me.ToolTip1.SetToolTip(Me.RegionPort, "The UDP port the region will operate on. Must be unique")
         '
         'CoordY
         '
@@ -206,7 +196,7 @@ Partial Class FormRegion
         '
         'MaxAgents
         '
-        Me.MaxAgents.Location = New System.Drawing.Point(181, 208)
+        Me.MaxAgents.Location = New System.Drawing.Point(181, 198)
         Me.MaxAgents.Name = "MaxAgents"
         Me.MaxAgents.Size = New System.Drawing.Size(40, 20)
         Me.MaxAgents.TabIndex = 20
@@ -216,7 +206,7 @@ Partial Class FormRegion
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 114)
+        Me.Label5.Location = New System.Drawing.Point(6, 104)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(137, 13)
         Me.Label5.TabIndex = 30
@@ -227,7 +217,7 @@ Partial Class FormRegion
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(9, 138)
+        Me.Label9.Location = New System.Drawing.Point(9, 128)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(115, 13)
         Me.Label9.TabIndex = 31
@@ -236,7 +226,7 @@ Partial Class FormRegion
         '
         'PhysicalPrimMax
         '
-        Me.PhysicalPrimMax.Location = New System.Drawing.Point(181, 133)
+        Me.PhysicalPrimMax.Location = New System.Drawing.Point(181, 123)
         Me.PhysicalPrimMax.Name = "PhysicalPrimMax"
         Me.PhysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.PhysicalPrimMax.TabIndex = 17
@@ -245,7 +235,7 @@ Partial Class FormRegion
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(9, 163)
+        Me.Label10.Location = New System.Drawing.Point(9, 153)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(88, 13)
         Me.Label10.TabIndex = 34
@@ -255,7 +245,7 @@ Partial Class FormRegion
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(9, 186)
+        Me.Label11.Location = New System.Drawing.Point(9, 176)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(160, 13)
         Me.Label11.TabIndex = 36
@@ -264,7 +254,7 @@ Partial Class FormRegion
         '
         'MaxPrims
         '
-        Me.MaxPrims.Location = New System.Drawing.Point(181, 179)
+        Me.MaxPrims.Location = New System.Drawing.Point(181, 169)
         Me.MaxPrims.Name = "MaxPrims"
         Me.MaxPrims.Size = New System.Drawing.Size(40, 20)
         Me.MaxPrims.TabIndex = 19
@@ -274,7 +264,7 @@ Partial Class FormRegion
         '
         'NonphysicalPrimMax
         '
-        Me.NonphysicalPrimMax.Location = New System.Drawing.Point(181, 107)
+        Me.NonphysicalPrimMax.Location = New System.Drawing.Point(181, 97)
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
         Me.NonphysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.NonphysicalPrimMax.TabIndex = 16
@@ -283,7 +273,7 @@ Partial Class FormRegion
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(9, 211)
+        Me.Label12.Location = New System.Drawing.Point(9, 201)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(120, 13)
         Me.Label12.TabIndex = 38
@@ -294,7 +284,7 @@ Partial Class FormRegion
         'ClampPrimSize
         '
         Me.ClampPrimSize.AutoSize = True
-        Me.ClampPrimSize.Location = New System.Drawing.Point(181, 159)
+        Me.ClampPrimSize.Location = New System.Drawing.Point(181, 149)
         Me.ClampPrimSize.Name = "ClampPrimSize"
         Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
         Me.ClampPrimSize.TabIndex = 18
@@ -392,6 +382,7 @@ Partial Class FormRegion
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Advanced.Controls.Add(Me.RegionPort)
         Me.Advanced.Controls.Add(Me.ClampPrimSize)
         Me.Advanced.Controls.Add(Me.Label12)
         Me.Advanced.Controls.Add(Me.Label10)
@@ -406,8 +397,6 @@ Partial Class FormRegion
         Me.Advanced.Controls.Add(Me.Label4)
         Me.Advanced.Controls.Add(Me.Label1)
         Me.Advanced.Controls.Add(Me.UUID)
-        Me.Advanced.Controls.Add(Me.RegionPort)
-        Me.Advanced.Controls.Add(Me.Label21)
         Me.Advanced.Controls.Add(Me.CoordY)
         Me.Advanced.Controls.Add(Me.CoordX)
         Me.Advanced.Location = New System.Drawing.Point(14, 242)
@@ -420,7 +409,7 @@ Partial Class FormRegion
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 65)
+        Me.Label6.Location = New System.Drawing.Point(6, 55)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(34, 13)
         Me.Label6.TabIndex = 22
@@ -446,19 +435,10 @@ Partial Class FormRegion
         '
         'UUID
         '
-        Me.UUID.Location = New System.Drawing.Point(9, 81)
+        Me.UUID.Location = New System.Drawing.Point(9, 71)
         Me.UUID.Name = "UUID"
         Me.UUID.Size = New System.Drawing.Size(215, 20)
         Me.UUID.TabIndex = 15
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(5, 42)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(63, 13)
-        Me.Label21.TabIndex = 19
-        Me.Label21.Text = "Region Port"
         '
         'Label8
         '
@@ -766,6 +746,17 @@ Partial Class FormRegion
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
         '
+        'Physicsubhybrid
+        '
+        Me.Physicsubhybrid.AutoSize = True
+        Me.Physicsubhybrid.Location = New System.Drawing.Point(6, 118)
+        Me.Physicsubhybrid.Name = "Physicsubhybrid"
+        Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
+        Me.Physicsubhybrid.TabIndex = 138
+        Me.Physicsubhybrid.TabStop = True
+        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.Physicsubhybrid.UseVisualStyleBackColor = True
+        '
         'Physics_Default
         '
         Me.Physics_Default.AutoSize = True
@@ -841,16 +832,14 @@ Partial Class FormRegion
         Me.Button2.Text = "Deregister"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'Physicsubhybrid
+        'RegionPort
         '
-        Me.Physicsubhybrid.AutoSize = True
-        Me.Physicsubhybrid.Location = New System.Drawing.Point(6, 118)
-        Me.Physicsubhybrid.Name = "Physicsubhybrid"
-        Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
-        Me.Physicsubhybrid.TabIndex = 138
-        Me.Physicsubhybrid.TabStop = True
-        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
-        Me.Physicsubhybrid.UseVisualStyleBackColor = True
+        Me.RegionPort.Location = New System.Drawing.Point(97, 39)
+        Me.RegionPort.Name = "RegionPort"
+        Me.RegionPort.Size = New System.Drawing.Size(40, 20)
+        Me.RegionPort.TabIndex = 39
+        Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
+        Me.RegionPort.Visible = False
         '
         'FormRegion
         '
@@ -901,8 +890,6 @@ Partial Class FormRegion
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents UUID As TextBox
-    Friend WithEvents RegionPort As TextBox
-    Friend WithEvents Label21 As Label
     Friend WithEvents CoordY As TextBox
     Friend WithEvents CoordX As TextBox
     Friend WithEvents RegionName As TextBox
@@ -966,4 +953,5 @@ Partial Class FormRegion
     Friend WithEvents TPCheckBox1 As CheckBox
     Friend WithEvents Button2 As Button
     Friend WithEvents Physicsubhybrid As RadioButton
+    Friend WithEvents RegionPort As TextBox
 End Class

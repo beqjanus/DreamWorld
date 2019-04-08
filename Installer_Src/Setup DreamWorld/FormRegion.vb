@@ -464,6 +464,8 @@ Public Class FormRegion
             Phys = "3"
         ElseIf PhysicsubODE.Checked Then
             Phys = "4"
+        ElseIf Physicsubhybrid.Checked Then
+            Phys = "5"
         End If
 
         RegionClass.Physics(n) = Phys
