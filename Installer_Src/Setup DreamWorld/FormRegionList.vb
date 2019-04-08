@@ -115,6 +115,7 @@ Public Class RegionList
         recyclingup = 6
         warning = 7
     End Enum
+
 #Region "Loader"
 
     Private Sub _Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -501,11 +502,13 @@ Public Class RegionList
                 L = Form1.MysqlConn.GetHGAgentList()
 
                 For Each Agent In L
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add("Hypergrid")
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index = Index + 1
+                    If Agent.Value.Length > 0 Then
+                        Dim item1 As New ListViewItem(Agent.Key, Index)
+                        item1.SubItems.Add(Agent.Value)
+                        item1.SubItems.Add("Hypergrid")
+                        AvatarView.Items.AddRange(New ListViewItem() {item1})
+                        Index = Index + 1
+                    End If
                 Next
 
                 If L.Count = 0 Then
