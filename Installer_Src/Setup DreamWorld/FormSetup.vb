@@ -101,9 +101,9 @@ Public Class Form1
     Dim gInitted As Boolean = False
     Public gRestartNow As Boolean = False ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Public gSelectedBox As String = ""
-    Public gForceParcel As Boolean = True
-    Public gForceTerrain As Boolean = True
-    Public gForceMerge As Boolean = True
+    Public gForceParcel As Boolean = False
+    Public gForceTerrain As Boolean = False
+    Public gForceMerge As Boolean = False
     Public gUserName As String = ""
 
     ' Graph
@@ -320,6 +320,12 @@ Public Class Form1
         Catch
         End Try
 
+        If Not IO.File.Exists(MyFolder & "\BareTail.udm") Then
+            IO.File.Copy(MyFolder & "\BareTail.udm.bak", MyFolder & "\BareTail.udm")
+        End If
+
+
+
         MyUPnpMap = New UPnp(MyFolder)
 
         MySetting.PublicIP = MyUPnpMap.LocalIP
@@ -422,7 +428,7 @@ Public Class Form1
             Else
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-            End If
+        End If
 
         Else
 
@@ -2112,10 +2118,14 @@ Public Class Form1
         Next
 
         If ExitList.Count = 0 Then Return
-
+        If gExitHandlerIsBusy Then Return
         gExitHandlerIsBusy = True
         Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
-        ExitList.RemoveAt(0)
+        Try
+            ExitList.RemoveAt(0)
+        Catch
+            Log("Error", "This should not happen as exitlist was not zero")
+        End Try
 
         Print(RegionName & " shutdown")
         Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)

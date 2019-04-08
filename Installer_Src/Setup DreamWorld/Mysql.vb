@@ -45,12 +45,15 @@ Public Class Mysql
 
     End Function
 
+    Private Sub DeletAvatarList()
+
+    End Sub
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
-        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser;"
+        Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true';"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String = ""
         Dim UUID As String = ""
