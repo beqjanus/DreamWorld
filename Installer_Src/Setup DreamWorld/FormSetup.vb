@@ -264,6 +264,7 @@ Public Class Form1
         Try
             My.Computer.FileSystem.DeleteFile(gPath + "\bin\OpenSim.Additional.AutoRestart.dll")
         Catch
+
         End Try
         Try
             My.Computer.FileSystem.DeleteFile(gPath + "\bin\OpenSim.Additional.AutoRestart.pdb")
@@ -292,6 +293,7 @@ Public Class Form1
         Buttons(BusyButton)
         SetScreen()     ' move Form to fit screen from SetXY.ini
         Me.Show()
+
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
 
@@ -2647,19 +2649,20 @@ Public Class Form1
             Timer1.Stop()
             Return
         End If
+        gDNSSTimer = gDNSSTimer + 1
+
 
         ' hourly
-        If gDNSSTimer Mod 3600 = 0 And gDNSSTimer <> 0 Then
+        If gDNSSTimer Mod 3600 = 0 Or gDNSSTimer = 1 Then
             RegisterDNS()
         End If
 
         If gAborting Then Return
 
-        RegionClass.CheckPost()
-
         ' 10 seconds check for a restart
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
+            RegionClass.CheckPost()
             DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             ScanAgents() ' update agent count
         End If
@@ -2672,7 +2675,7 @@ Public Class Form1
             RunDataSnapshot() ' Fetch assets marked for search every 5 minutes
         End If
 
-        gDNSSTimer = gDNSSTimer + 1
+
 
     End Sub
 
