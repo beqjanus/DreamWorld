@@ -1,4 +1,8 @@
-﻿Public Class FormHelp
+﻿
+
+Public Class FormHelp
+
+    Dim Document As String
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
     'The following detects  the location of the form in screen coordinates
@@ -8,6 +12,7 @@
     End Sub
     Private Sub SetScreen(Webpage As String)
         Me.Show()
+        Document = Webpage
         Me.Name = Webpage
         ScreenPosition = New ScreenPos(Me.Name)
         AddHandler ResizeEnd, Handler
@@ -74,4 +79,19 @@
         Process.Start(webAddress)
     End Sub
 
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
+    Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
+
+
+        Dim info = New ProcessStartInfo(Form1.MyFolder + "\Outworldzfiles\Help\" + Document + ".rtf")
+        info.Verb = "Print"
+        info.CreateNoWindow = True
+        info.WindowStyle = ProcessWindowStyle.Hidden
+        Process.Start(info)
+
+
+    End Sub
 End Class

@@ -4,10 +4,16 @@
  </head>
  <body>
  
-Divi Wifi Pages: <a href="http://localhost:8002">http://localhost:8002</a>
 <p>
- 
-Map examples:</p>
+Divi Wifi Pages: <a href="http://localhost:8002">http://localhost:8002</a>
+</p>
+
+<p>
+    Search: <a href="http://localhost/Search">http://localhost:80/Search</a>
+</p>
+<p>
+Map examples:
+</p>
 
  <ul>
   <li><a href="/Metromap/map.php">Metropolis-style Map</a>
@@ -15,22 +21,22 @@ Map examples:</p>
   <li><a href="http://localhost:8002/wifi/map.html">Google Map</a>
 </ul>
 
- <form action="Classifieds.htm" method="post">
+ <form action="/Search/Classifieds.htm" method="post">
     <input type="Submit" name="Classified" value = "Create Classified Ad">
 </form>
-<form action="SearchClassifieds.php" method="post">
+<form action="/Search/SearchClassifieds.php" method="post">
     <input type="Submit" name="Classified" value = "Dump Classified Ad">
 </form>
-<form action="SearchParcel.php" method="post">
+<form action="/Search/SearchParcel.php" method="post">
     <input type="Submit" name="Parcels" value = "List Parcels">
 </form>
-<form action="ShowHosts.php" method="post">
+<form action="/Search/ShowHosts.php" method="post">
     <input type="Submit" name="Ports" value = "Dump Region Ports">
 </form>
-<form action="SearchRegions.php" method="post">
+<form action="/Search/SearchRegions.php" method="post">
     <input type="Submit" name="Regions" value = "Dump Regions">
 </form>
-<form action="SearchObjects.php" method="post">
+<form action="/Search/SearchObjects.php" method="post">
     <input type="Submit" name="Objects" value = "Dump Objects">
 </form>
 

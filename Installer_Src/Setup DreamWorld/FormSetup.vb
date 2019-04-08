@@ -37,6 +37,7 @@ Public Class Form1
 
     ReadOnly gMyVersion As String = "2.83"
     ReadOnly gSimVersion As String = "0.9.1"
+    ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
     ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid"  ' no slash at end
@@ -255,21 +256,7 @@ Public Class Form1
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
-        ' Kill Shoutcast
-        Try
-            My.Computer.FileSystem.DeleteDirectory(MyFolder + "\Shoutcast", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        Catch
-        End Try
-
-        Try
-            My.Computer.FileSystem.DeleteFile(gPath + "\bin\OpenSim.Additional.AutoRestart.dll")
-        Catch
-
-        End Try
-        Try
-            My.Computer.FileSystem.DeleteFile(gPath + "\bin\OpenSim.Additional.AutoRestart.pdb")
-        Catch
-        End Try
+        KillOldFiles()
 
         MySetting.Init(MyFolder)
 
@@ -311,19 +298,10 @@ Public Class Form1
 
         ClearLogFiles() ' clear log fles
 
-        Try
-            System.IO.Directory.Delete(MyFolder + "\Icecast", True)
-        Catch
-        End Try
-        Try
-            System.IO.Directory.Delete(MyFolder + "\Outworldzfiles\Opensim\bin\config-include\Birds.ini", True)
-        Catch
-        End Try
 
         If Not IO.File.Exists(MyFolder & "\BareTail.udm") Then
             IO.File.Copy(MyFolder & "\BareTail.udm.bak", MyFolder & "\BareTail.udm")
         End If
-
 
 
         MyUPnpMap = New UPnp(MyFolder)
@@ -428,7 +406,7 @@ Public Class Form1
             Else
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-        End If
+            End If
 
         Else
 
@@ -454,9 +432,71 @@ Public Class Form1
 
         ProgressBar1.Value = 100
 
+    End Sub
+    Private Sub KillFolder(AL As List(Of String))
+
+        For Each folder As String In AL
+            Try
+                System.IO.Directory.Delete(MyFolder & folder, True)
+            Catch ex As Exception
+                Diagnostics.Debug.Print(ex.Message)
+            End Try
+        Next
 
     End Sub
 
+    Private Sub KillFiles(AL As List(Of String))
+
+        For Each filename As String In AL
+            Try
+                My.Computer.FileSystem.DeleteFile(MyFolder & filename)
+            Catch ex As Exception
+                Diagnostics.Debug.Print(ex.Message)
+            End Try
+        Next
+
+    End Sub
+    Private Sub KillOldFiles()
+
+
+        Dim files As New List(Of String)
+        files.Add("\Shoutcast") ' deprecated
+        files.Add("\Icecast")   ' moved to Outworldzfiles
+
+        If KillSource Then
+            files.Add("Outworldzfiles\Opensim\.nant")
+            files.Add("Outworldzfiles\Opensim\addon-modules")
+            files.Add("Outworldzfiles\Opensim\doc")
+            files.Add("Outworldzfiles\Opensim\Opensim")
+            files.Add("Outworldzfiles\Opensim\Prebuild")
+            files.Add("Outworldzfiles\Opensim\share")
+            files.Add("Outworldzfiles\Opensim\Thirdparty")
+        End If
+
+        KillFolder(files)   ' wipe these folders out
+        files.Clear() ' now do a list of files to clean up
+
+        ' necessary to kill these off  as it is a badly behaved 
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll")
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb")
+        files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
+
+        If KillSource Then
+            files.Add("\Outworldzfiles\Opensim\BUILDING.md")
+            files.Add("\Outworldzfiles\Opensim\compile.bat")
+            files.Add("\Outworldzfiles\Opensim\Makefile")
+            files.Add("\Outworldzfiles\Opensim\nant-color")
+            files.Add("\Outworldzfiles\Opensim\OpenSim.build")
+            files.Add("\Outworldzfiles\Opensim\OpenSim.sln")
+            files.Add("\Outworldzfiles\Opensim\prebuild.xml")
+            files.Add("\Outworldzfiles\Opensim\runprebuild.bat")
+            files.Add("\Outworldzfiles\Opensim\runprebuild.sh")
+            files.Add("\Outworldzfiles\Opensim\TESTING.txt")
+        End If
+
+        KillFiles(files)   ' wipe these files  out
+
+    End Sub
     Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox1.TextChanged
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
@@ -2386,6 +2426,7 @@ Public Class Form1
             MyFolder + "\OutworldzFiles\UPnp.log",
             MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log",
             MyFolder + "\OutworldzFiles\http.log",
+            MyFolder + "\OutworldzFiles\PHPLog.log",
             MyFolder + "\http.log"      ' an old mistake
         }
 
@@ -4785,7 +4826,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.text.ToString.EndsWith(".rtf") Then Help(sender.text.ToString)
+        If sender.text.ToString <> "Dreamgrid Manual.pdf" Then Help(sender.text.ToString)
 
     End Sub
 
@@ -4848,8 +4889,7 @@ Public Class Form1
     End Sub
 
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
-        Dim path = MyFolder + "/revisions.txt"
-        System.Diagnostics.Process.Start("notepad.exe", path)
+        Help("Revisions")
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
@@ -5030,17 +5070,7 @@ Public Class Form1
         Process.Start(webAddress)
     End Sub
 
-    Private Sub AvatarLabel_Click(sender As Object, e As EventArgs) Handles AvatarLabel.Click
 
-    End Sub
-
-    Private Sub ChartWrapper1_Load(sender As Object, e As EventArgs) Handles ChartWrapper1.Load
-
-    End Sub
-
-    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
-
-    End Sub
 
 
 #End Region
