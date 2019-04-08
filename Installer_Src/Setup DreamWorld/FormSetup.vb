@@ -5030,17 +5030,7 @@ Public Class Form1
         Process.Start(webAddress)
     End Sub
 
-    Private Sub AvatarLabel_Click(sender As Object, e As EventArgs) Handles AvatarLabel.Click
 
-    End Sub
-
-    Private Sub ChartWrapper1_Load(sender As Object, e As EventArgs) Handles ChartWrapper1.Load
-
-    End Sub
-
-    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
-
-    End Sub
 
 
 #End Region
