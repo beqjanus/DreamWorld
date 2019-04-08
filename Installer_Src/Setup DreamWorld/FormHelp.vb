@@ -85,13 +85,13 @@ Public Class FormHelp
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
 
-        Dim pd As New Printing.PrintDocument
-        PrintDialog1.PrinterSettings = pd.PrinterSettings
-        If PrintDialog1.ShowDialog() <> DialogResult.Cancel Then
-            pd.DocumentName = Form1.MyFolder + "\Outworldzfiles\Help\" + Document + ".rtf"
-            pd.Print()
-        End If
-        pd.Dispose()
+
+        Dim info = New ProcessStartInfo(Form1.MyFolder + "\Outworldzfiles\Help\" + Document + ".rtf")
+        info.Verb = "Print"
+        info.CreateNoWindow = True
+        info.WindowStyle = ProcessWindowStyle.Hidden
+        Process.Start(info)
+
 
     End Sub
 End Class
