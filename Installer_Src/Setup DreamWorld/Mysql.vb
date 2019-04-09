@@ -8,7 +8,7 @@ Public Class Mysql
     Implements IDisposable
 
     Dim MysqlConn As MySqlConnection
-    Dim gConnStr As String = ""
+    Public gConnStr As String = ""
 
     Public Sub New(connStr As String)
         gConnStr = connStr
