@@ -115,8 +115,10 @@ Public Class Form1
     Dim speed3 As Single
     Dim MyCPUCollection As New Collection
     Public ViewedSettings As Boolean = False
-
     Dim MyRAMCollection As New Collection
+
+    'Crashing
+    Dim LogSearch As New CrashDetector()
 
     Public Enum SHOW_WINDOW As Integer
         SW_HIDE = 0
@@ -458,10 +460,10 @@ Public Class Form1
     End Sub
     Private Sub KillOldFiles()
 
-
-        Dim files As New List(Of String)
-        files.Add("\Shoutcast") ' deprecated
-        files.Add("\Icecast")   ' moved to Outworldzfiles
+        Dim files As New List(Of String) From {
+            "\Shoutcast", ' deprecated
+            "\Icecast"   ' moved to Outworldzfiles
+            }
 
         If KillSource Then
             files.Add("Outworldzfiles\Opensim\.nant")
@@ -2095,7 +2097,7 @@ Public Class Form1
 
 #Region "ExitHandlers"
 
-    Private Sub DoExitHandlerPoll()
+    Private Sub ExitHandlerPoll()
 
         ' 10 Second ticker
         If gExitHandlerIsBusy Then Return
@@ -2171,11 +2173,11 @@ Public Class Form1
         Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
         ' Need a region number and a Name
         ' name is either a region or a Group. For groups we need to get a region name from the group
-        Groupname = RegionName ' assume a group
+        GroupName = RegionName ' assume a group
         RegionNumber = RegionClass.FindRegionByName(RegionName)
 
         If RegionNumber >= 0 Then
-            Groupname = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
+            GroupName = RegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
         Else
             ' Nope, grab the first region, Group name is already set
             RegionNumber = RegionList(0)
@@ -2188,7 +2190,7 @@ Public Class Form1
             If OpensimIsRunning() _
                 And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
 
-                Print("Restart Queued for " + Groupname)
+                Print("Restart Queued for " + GroupName)
                 For Each R In RegionList
                     RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
                 Next
@@ -2200,16 +2202,16 @@ Public Class Form1
                     Or Status = RegionMaker.SIM_STATUS.Booting) _
                     And TimerValue >= 0 Then
 
-                Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+                Dim yesno = MsgBox(RegionName + " in DOS Box " + GroupName + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
-                StopGroup(Groupname)
+                StopGroup(GroupName)
 
             ElseIf RegionClass.IsBooted(RegionNumber) And TimerValue > 0 Then
-                StopGroup(Groupname)
+                StopGroup(GroupName)
                 ' prompt if crashed. after boot
-                Dim yesno = MsgBox(RegionName + " in DOS Box " + Groupname + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
+                Dim yesno = MsgBox(RegionName + " in DOS Box " + GroupName + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
@@ -2714,12 +2716,13 @@ Public Class Form1
         ' RegionRestart requires this MOD 10 as it changed there to one minute
         If gDNSSTimer Mod 10 = 0 Then
             RegionClass.CheckPost()
-            DoExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             ScanAgents() ' update agent count
         End If
 
         If gDNSSTimer Mod 60 = 0 Then
             RegionListHTML() ' create HTML for region teleporters
+            LogSearch.Find()
         End If
 
         If gDNSSTimer Mod 300 = 0 Then

@@ -13,7 +13,6 @@ Public Class Mysql
     Public Sub New(connStr As String)
         gConnStr = connStr
         MysqlConn = New MySqlConnection(connStr)
-
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
@@ -32,10 +31,6 @@ Public Class Mysql
                 Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                 Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
             End While
-            MysqlConn.Close()
-            MysqlConn.Dispose()
-            reader.Dispose()
-
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         End Try
@@ -44,9 +39,6 @@ Public Class Mysql
 
     End Function
 
-    Private Sub DeletAvatarList()
-        '!!!!!!!!!!!!!!!!!!
-    End Sub
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         ' griduse table column UserID
@@ -74,9 +66,6 @@ Public Class Mysql
                 Next
 
             End While
-            MysqlConn.Close()
-            MysqlConn.Dispose()
-            reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
@@ -100,9 +89,6 @@ Public Class Mysql
                 Debug.Print("Region Name = {0}", reader.GetString(0))
                 Val = reader.GetString(0)
             End If
-            MysqlConn.Close()
-            MysqlConn.Dispose()
-            reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
@@ -139,8 +125,6 @@ Public Class Mysql
             MysqlConn.Open()
         Catch ex As Exception
             Debug.Print("Error: " & ex.Message)
-            MysqlConn.Close()
-            MysqlConn.Dispose()
             Return Nothing
         End Try
 
@@ -150,9 +134,6 @@ Public Class Mysql
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)
-        Finally
-            MysqlConn.Close()
-            MysqlConn.Dispose()
         End Try
         Return Nothing
 

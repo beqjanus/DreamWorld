@@ -688,7 +688,7 @@ Public Class RegionList
 
             ElseIf chosen = "Recycle" Then
 
-                Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
+                'Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
                 Form1.SequentialPause(n)
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
                 Form1.Print("Recycle " + RegionClass.GroupName(n))

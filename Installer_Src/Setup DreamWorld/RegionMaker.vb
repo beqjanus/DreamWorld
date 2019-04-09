@@ -141,6 +141,7 @@ Public Class RegionMaker
         Public _ProcessID As Integer = 0
         Public _Status As Integer = 0
         Public _Timer As Integer
+        Public _LineCounter As Integer
 
         'extended vars
         Public _RegionSnapShot As String
@@ -225,7 +226,14 @@ Public Class RegionMaker
             RegionList(n)._Timer = Value.ToString
         End Set
     End Property
-
+    Public Property LineCounter(n As Integer) As Integer
+        Get
+            Return CType(RegionList(n)._LineCounter, Integer)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._LineCounter = Value
+        End Set
+    End Property
     Public Property Status(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._Status, Integer)
@@ -450,6 +458,7 @@ Public Class RegionMaker
             " Group:" + RegionList(n)._Group.ToString + vbCrLf +
             " Region:" + RegionList(n)._RegionName.ToString + vbCrLf +
             " Status=" + RegionList(n)._Status.ToString + vbCrLf +
+            " LineCtr=" + RegionList(n)._LineCounter.ToString + vbCrLf +
            " RegionEnabled=" + RegionList(n)._RegionEnabled.ToString + vbCrLf +
            " Timer=" + RegionList(n)._Timer.ToString)
 
@@ -560,6 +569,7 @@ Public Class RegionMaker
         r._ProcessID = 0
         r._AvatarCount = 0
         r._Status = SIM_STATUS.Stopped
+        r._LineCounter = 0
         r._Timer = 0
         r._NonPhysicalPrimMax = 1024
         r._PhysicalPrimMax = 64
@@ -666,6 +676,7 @@ Public Class RegionMaker
                                     AvatarCount(n) = CType(Backup(o)._AvatarCount, Integer)
                                     ProcessID(n) = CType(Backup(o)._ProcessID, Integer)
                                     Status(n) = CType(Backup(o)._Status, Integer)
+                                    LineCounter(n) = CType(Backup(o)._LineCounter, Integer)
                                     Timer(n) = CType(Backup(o)._Timer, Integer)
                                 End If
 
