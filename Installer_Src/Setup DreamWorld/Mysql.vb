@@ -45,7 +45,7 @@ Public Class Mysql
     End Function
 
     Private Sub DeletAvatarList()
-
+        '!!!!!!!!!!!!!!!!!!
     End Sub
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
@@ -61,10 +61,8 @@ Public Class Mysql
         Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
         Dim reader As MySqlDataReader = cmd.ExecuteReader()
         Try
+            While reader.Read
 
-            Dim ctr = 0
-            While reader.HasRows
-                reader.Read()
                 Debug.Print(reader.GetString(0))
                 Dim LongName = reader.GetString(0)
                 UUID = reader.GetString(1)
@@ -74,7 +72,6 @@ Public Class Mysql
                     Avatar = m.Groups(2).Value.ToString
                     Dict.Add(Avatar, GetRegionName(UUID))
                 Next
-                ctr += 1
 
             End While
             MysqlConn.Close()
@@ -90,6 +87,7 @@ Public Class Mysql
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Private Function GetRegionName(UUID As String) As String
+        Dim Val As String = ""
         Try
             Dim MysqlConn = New MySqlConnection(gConnStr)
             MysqlConn.Open()
@@ -98,22 +96,19 @@ Public Class Mysql
             Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            While reader.HasRows
-                reader.Read()
+            If reader.Read() Then
                 Debug.Print("Region Name = {0}", reader.GetString(0))
-                Return reader.GetString(0)
-            End While
+                Val = reader.GetString(0)
+            End If
             MysqlConn.Close()
             MysqlConn.Dispose()
             reader.Dispose()
 
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
-        Finally
-
         End Try
 
-        Return Nothing
+        Return Val
 
     End Function
 
