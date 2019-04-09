@@ -1267,9 +1267,36 @@ Public Class Form1
 
     End Function
 
+    Private Sub MapSetup()
+
+        Dim phptext = "<?php" & vbCrLf &
+"/* General Domain */" & vbCrLf &
+"$CONF_domain        = " & """" & MySetting.PublicIP & """" & "; " & vbCrLf &
+"$CONF_port          = " & """" & MySetting.HttpPort & """" & "; " & vbCrLf &
+"$CONF_sim_domain    = " & """" & "http//" & MySetting.PublicIP & "/" & """" & ";" & vbCrLf &
+"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
+"/* MySQL Database */ " & vbCrLf &
+"$CONF_db_server     = " & """" & MySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_user       = " & """" & MySetting.RobustUsername & """" & ";  // login " & vbCrLf &
+"$CONF_db_pass       = " & """" & MySetting.RobustPassword & """" & ";  // password " & vbCrLf &
+"$CONF_db_database   = " & """" & MySetting.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
+"/* The Coordinates Of the Grid-Center */ " & vbCrLf &
+"$CONF_center_coord_x = " & """" & MySetting.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
+"$CONF_center_coord_y = " & """" & MySetting.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
+"// style-sheet items" & vbCrLf &
+"$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
+"?>"
+
+        Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+
+    End Sub
     Private Sub DoApache()
 
         If Not MySetting.ApacheEnable Then Return
+
+        MapSetup()
 
         ' lean rightward paths for Apache
         Dim ini = MyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
@@ -1279,7 +1306,7 @@ Public Class Form1
         MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
         MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
-        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
         MySetting.SaveApacheINI(ini, "httpd.conf")

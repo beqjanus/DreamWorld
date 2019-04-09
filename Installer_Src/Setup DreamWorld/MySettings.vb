@@ -546,6 +546,26 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property MapCenterY() As String
+        Get
+            Return GetMySetting("MapCenterY", "1000")
+        End Get
+        Set
+            SetMySetting("MapCenterY", Value)
+        End Set
+    End Property
+
+    Public Property MapCenterX() As String
+        Get
+            Return GetMySetting("MapCenterX", "1000")
+        End Get
+        Set
+            SetMySetting("MapCenterX", Value)
+        End Set
+    End Property
+
+
     Public Property SearchInstalled() As Boolean
         Get
             Return CType(GetMySetting("SearchInstalled"), Boolean)
