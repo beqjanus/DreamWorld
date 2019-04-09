@@ -2489,7 +2489,7 @@ Public Class Form1
             Diagnostics.Debug.Print(windowName & " Handle = 0")
             Sleep(100)
             WindowCounter = WindowCounter + 1
-            If WindowCounter > 100 Then '  10 seconds for process to start
+            If WindowCounter > 600 Then '  60 seconds for process to start
                 status = True
                 ErrorLog("Cannot get MainWindowHandle for " & windowName)
                 Return False
@@ -2510,7 +2510,7 @@ Public Class Form1
             SetWindowText(hwnd, windowName)
             status = SetWindowText(hwnd, windowName)
             WindowCounter = WindowCounter + 1
-            If WindowCounter > 100 Then '  10 seconds
+            If WindowCounter > 600 Then '  60 seconds
                 status = True
                 ErrorLog("Cannot get handle for " & windowName)
             End If
