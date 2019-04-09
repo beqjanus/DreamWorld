@@ -386,6 +386,8 @@ Public Class RegionList
                         item1.SubItems.Add("Bullet/Threaded")
                     Case "4"
                         item1.SubItems.Add("ubODE")
+                    Case "5"
+                        item1.SubItems.Add("ubODE Hybrid")
                     Case Else
                         Select Case Form1.MySetting.Physics
                             Case "0"
@@ -398,6 +400,8 @@ Public Class RegionList
                                 item1.SubItems.Add("Bullet/Threaded")
                             Case "4"
                                 item1.SubItems.Add("ubODE")
+                            Case "5"
+                                item1.SubItems.Add("ubODE Hybrid")
                             Case Else
                                 item1.SubItems.Add("?")
                         End Select
@@ -449,6 +453,7 @@ Public Class RegionList
 
         Catch ex As Exception
             Form1.Log("Error", " RegionList " & ex.Message)
+            RegionClass.GetAllRegions()
         End Try
 
     End Sub
