@@ -5,6 +5,8 @@
     <link rel="shortcut icon" href="/wifi/images/favicon.ico" />
     <link rel="stylesheet" media="screen" type="text/css" href="/wifi/fluid.css" />
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+
   </head>
 
   <body>
@@ -18,6 +20,10 @@
         <br />
 
         <div class="right-nav-divider"></div>
+		<ul>
+		  <li><a href="/wifi/map.html">GLOBAL MAP</a></li>
+		  <li><a href="#" id="map">LARGE MAP</a></li>
+		</ul>
         <!--#call method=GetAddonsMenu -->
         <br />
 		<div class="right-nav-divider"></div>
@@ -51,6 +57,12 @@
       </div>
       <!-- #include file=footer.html -->
     </div>
+	
+<script type="text/javascript">
+  var link = "http://" + window.location.hostname + "/Metromap/map.php";
+  var yourElement = document.getElementById('map');
+  yourElement.setAttribute('href', link);
+</script>
 
   </body>
 </html>

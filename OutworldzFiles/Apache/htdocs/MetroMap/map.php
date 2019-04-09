@@ -46,7 +46,7 @@
   $CONF_txt_center =     "Center";
   $CONF_txt_refresh =    "Refresh";
   $CONF_txt_occupied =   "Occupied";
-  $CONF_txt_free =       "FREE";
+  $CONF_txt_free =       "Unused";
   $CONF_txt_coords =     "Coordinate";
 // Konfiguration einbinden
   include("./includes/config.php");
@@ -63,16 +63,16 @@
 
   if (isset($_POST['x']) && ($_POST['y']))
   {
-  $grid_x = $_POST['x'];
-  $grid_y = $_POST['y'];
+	$grid_x = $_POST['x'];
+	$grid_y = $_POST['y'];
   }
   else
   {
-  if (isset($_GET['x']) && ($_GET['y']))
-  {
-  $grid_x = $_GET['x'];
-  $grid_y = $_GET['y'];
-  } 
+	if (isset($_GET['x']) && ($_GET['y']))
+	{
+	  $grid_x = $_GET['x'];
+	  $grid_y = $_GET['y'];
+	} 
   }
 
   if ($grid_x == 0) {$grid_x = $CONF_center_coord_x;}
@@ -85,8 +85,8 @@
   $start_x = $grid_x - 20;
   $start_y = $grid_y + 10;
 
-  $end_x = $grid_x + 20;
-  $end_y = $grid_y - 10;
+  $end_x = $grid_x + 10;
+  $end_y = $grid_y - 6;
   
 // Datenbank anzapfen
 $con = mysqli_connect($dbort,$dbuser,$dbpw,$dbdb); 
@@ -97,7 +97,7 @@ $con = mysqli_connect($dbort,$dbuser,$dbpw,$dbdb);
 /* Datenbank prüfen */
 if (mysqli_connect_errno()) 
 {
-    printf("Datenbank Fehler: %s\n", mysqli_connect_error());
+    printf("Database Fail: %s\n", mysqli_connect_error());
     exit();
 }
   
@@ -110,9 +110,9 @@ if (mysqli_connect_errno())
   {
    if ((($region['sizeX'] == 256) && ($region['sizeY'] == 256)) || (($region['sizeX'] == 256) && ($region['sizeY'] == 0)))
       {
-      $work_reg = $region['uuid'].";".$region['regionName'].";".$region['locX'].";".$region['locY'].";".$region['serverURI'].";".$region['sizeX'].";".$region['sizeY'].";".$region['owner_uuid'].";SingleRegion";
-      $region_sg[$xx] = $work_reg;
-      $xx++;
+		$work_reg = $region['uuid'].";".$region['regionName'].";".$region['locX'].";".$region['locY'].";".$region['serverURI'].";".$region['sizeX'].";".$region['sizeY'].";".$region['owner_uuid'].";SingleRegion";
+		$region_sg[$xx] = $work_reg;
+		$xx++;
       }
       else
 		  
@@ -133,10 +133,10 @@ if (mysqli_connect_errno())
          {
            $varreg_key = $varreg_work_x."-".$varreg_work_y;
 
-$work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$varreg_work_y.";".$region['serverURI'].";".$region['sizeX'].";".$region['sizeY'].";".$region['owner_uuid'].";VarRegion";
+			$work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$varreg_work_y.";".$region['serverURI'].";".$region['sizeX'].";".$region['sizeY'].";".$region['owner_uuid'].";VarRegion";
 
-      $region_sg[$xx] = $work_reg;
-      $xx++;
+	      $region_sg[$xx] = $work_reg;
+	      $xx++;
 
          if (($varreg_work_y == $varreg_end_y)&& ($varreg_work_x == $varreg_end_x))
             {}
@@ -344,7 +344,7 @@ $work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$va
 ?>
 				
 				
-</td><td><A style="cursor:pointer" "><img src="./img/grid_mainland.png" alt= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10&#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10&#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10&#10 Status: <?php  echo $CONF_txt_occupied;?> &#10 Owner: <?php echo $firstname.' '.$lastname;?>" title= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10&#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10&#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Owner: <?php  echo $CONF_txt_occupied;?> &#10 Owner: <?php  echo $firstname.' '.$lastname;?>"></A><?php 
+</td><td><A href="hop://<?php echo $CONF_domain.":".$CONF_port."/".$region_name; ?>"   style="cursor:pointer"><img src="./img/grid_mainland.png" alt= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10&#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10&#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10&#10 Status: <?php  echo $CONF_txt_occupied;?> &#10 Owner: <?php echo $firstname.' '.$lastname;?>" title= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10&#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10&#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Owner: <?php  echo $CONF_txt_occupied;?> &#10 Owner: <?php  echo $firstname.' '.$lastname;?>"></A><?php 
                  $x++;
 
               }
@@ -362,7 +362,7 @@ $work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$va
 
 ?>
 
-</td><td><A style="cursor:pointer" "><img src="<?php print $reg_colour?>" alt= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Status: OCCUPIED  &#10 Owner: <?php echo $firstname.' '.$lastname;?>" title = " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type;?> &#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Status: OCCUPIED &#10 Owner: <?php  echo $firstname.' '.$lastname;?>"</A>
+</td><td><A href="hop://<?php echo $CONF_domain.":".$CONF_port."/".$region_name; ?>"  style="cursor:pointer" "><img src="<?php print $reg_colour?>" alt= " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type; ?> &#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Status: OCCUPIED  &#10 Owner: <?php echo $firstname.' '.$lastname;?>" title = " RegionName: <?php  print $region_name; ?> &#10 RegionType: <?php print $region_type;?> &#10 Dimension: <?php print $region_dimension ?> &#10 Total size: <?php print $region_totalsize ?> &#10 X-Coordinate: <?php print $x; ?> &#10 Y-Coordinate: <?php print $y; ?> &#10 Status: OCCUPIED &#10 Owner: <?php  echo $firstname.' '.$lastname;?>"</A>
 
 <?php 
                          $x++;
@@ -400,7 +400,7 @@ $work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$va
    </table>
 
 <img src = "./img/spacer.gif" width="350" height="1">
-<img src="./img/grid_frei.png"> = Freee Cortrdinate&nbsp;&nbsp;&nbsp;
+<img src="./img/grid_frei.png"> = Free Coordinate&nbsp;&nbsp;&nbsp;
 <img src="./img/grid_besetzt.png"> = Occupied(Single Region) &nbsp;&nbsp;&nbsp;
 <img src="./img/grid_varregion.png"> = Occupied (Var Region) &nbsp;&nbsp;&nbsp;
 <img src="./img/grid_mainland.png"> = Center of the grid&nbsp;&nbsp;&nbsp;

@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Text.RegularExpressions
 Public Class FormMaps
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
@@ -39,6 +40,11 @@ Public Class FormMaps
         Else
             Button2.Enabled = False
         End If
+
+        MapYStart.Text = Form1.MySetting.MapCenterY
+        MapXStart.Text = Form1.MySetting.MapCenterX
+
+
         Form1.HelpOnce("Maps")
         SetScreen()
 
@@ -104,12 +110,29 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
         Dim webAddress As String = "http://" + Form1.MySetting.PublicIP + ":" + Form1.MySetting.HttpPort & "/wifi/map.html"
         Process.Start(webAddress)
-
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
+        Dim webAddress As String = "http://" + Form1.MySetting.PublicIP & "/Metromap/index.php"
+        Process.Start(webAddress)
+    End Sub
 
+    Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
+        Dim webAddress As String = "http://" + Form1.MySetting.PublicIP & "/Metromap/indexmax.php"
+        Process.Start(webAddress)
+    End Sub
 
+    Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
+        Form1.MySetting.MapCenterX = MapXStart.Text
+    End Sub
+
+    Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
+        Form1.MySetting.MapCenterY = MapYStart.Text
+    End Sub
 End Class

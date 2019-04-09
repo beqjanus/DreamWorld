@@ -22,6 +22,7 @@ Partial Class FormMaps
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
         Me.MapBox = New System.Windows.Forms.GroupBox()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -33,14 +34,23 @@ Partial Class FormMaps
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
+        Me.LargeMapButton = New System.Windows.Forms.Button()
+        Me.SmallMapButton = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.MapYStart = New System.Windows.Forms.TextBox()
+        Me.MapXStart = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MapBox.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'MapBox
         '
-        Me.MapBox.Controls.Add(Me.Button2)
         Me.MapBox.Controls.Add(Me.ViewMap)
         Me.MapBox.Controls.Add(Me.MapHelp)
         Me.MapBox.Controls.Add(Me.MapPicture)
@@ -51,27 +61,29 @@ Partial Class FormMaps
         Me.MapBox.Controls.Add(Me.MapGood)
         Me.MapBox.Location = New System.Drawing.Point(12, 12)
         Me.MapBox.Name = "MapBox"
-        Me.MapBox.Size = New System.Drawing.Size(171, 333)
+        Me.MapBox.Size = New System.Drawing.Size(171, 300)
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(15, 253)
+        Me.Button2.Location = New System.Drawing.Point(30, 38)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(125, 23)
         Me.Button2.TabIndex = 1859
         Me.Button2.Text = "View Map Web Page"
+        Me.ToolTip1.SetToolTip(Me.Button2, "This is the standard Wifi Map page")
         Me.Button2.UseVisualStyleBackColor = True
         '
         'ViewMap
         '
-        Me.ViewMap.Location = New System.Drawing.Point(15, 304)
+        Me.ViewMap.Location = New System.Drawing.Point(15, 271)
         Me.ViewMap.Name = "ViewMap"
         Me.ViewMap.Size = New System.Drawing.Size(125, 23)
         Me.ViewMap.TabIndex = 1858
         Me.ViewMap.Text = "Delete All Maps"
+        Me.ToolTip1.SetToolTip(Me.ViewMap, "If you delete all maps, you need to regen them by restarting with a map setting ")
         Me.ViewMap.UseVisualStyleBackColor = True
         '
         'MapHelp
@@ -149,12 +161,89 @@ Partial Class FormMaps
         Me.MapGood.Text = "Good (Warp3D)"
         Me.MapGood.UseVisualStyleBackColor = True
         '
+        'LargeMapButton
+        '
+        Me.LargeMapButton.Location = New System.Drawing.Point(31, 99)
+        Me.LargeMapButton.Name = "LargeMapButton"
+        Me.LargeMapButton.Size = New System.Drawing.Size(125, 23)
+        Me.LargeMapButton.TabIndex = 1860
+        Me.LargeMapButton.Text = "Large Metro map"
+        Me.LargeMapButton.UseVisualStyleBackColor = True
+        '
+        'SmallMapButton
+        '
+        Me.SmallMapButton.Location = New System.Drawing.Point(30, 67)
+        Me.SmallMapButton.Name = "SmallMapButton"
+        Me.SmallMapButton.Size = New System.Drawing.Size(125, 23)
+        Me.SmallMapButton.TabIndex = 1867
+        Me.SmallMapButton.Text = "Small Metro map"
+        Me.SmallMapButton.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Button2)
+        Me.GroupBox2.Controls.Add(Me.MapYStart)
+        Me.GroupBox2.Controls.Add(Me.MapXStart)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.Label1)
+        Me.GroupBox2.Controls.Add(Me.SmallMapButton)
+        Me.GroupBox2.Controls.Add(Me.LargeMapButton)
+        Me.GroupBox2.Location = New System.Drawing.Point(189, 16)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(184, 203)
+        Me.GroupBox2.TabIndex = 1869
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = " Maps"
+        '
+        'MapYStart
+        '
+        Me.MapYStart.Location = New System.Drawing.Point(118, 155)
+        Me.MapYStart.Name = "MapYStart"
+        Me.MapYStart.Size = New System.Drawing.Size(39, 20)
+        Me.MapYStart.TabIndex = 1872
+        '
+        'MapXStart
+        '
+        Me.MapXStart.Location = New System.Drawing.Point(49, 155)
+        Me.MapXStart.Name = "MapXStart"
+        Me.MapXStart.Size = New System.Drawing.Size(39, 20)
+        Me.MapXStart.TabIndex = 1871
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(98, 155)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(14, 13)
+        Me.Label3.TabIndex = 1870
+        Me.Label3.Text = "Y"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(28, 155)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(14, 13)
+        Me.Label2.TabIndex = 1869
+        Me.Label2.Text = "X"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(28, 134)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(112, 13)
+        Me.Label1.TabIndex = 1868
+        Me.Label1.Text = "Map Center  Location:"
+        '
         'FormMaps
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(201, 357)
+        Me.ClientSize = New System.Drawing.Size(400, 345)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MapBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -164,6 +253,8 @@ Partial Class FormMaps
         Me.MapBox.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -178,4 +269,13 @@ Partial Class FormMaps
     Friend WithEvents MapGood As RadioButton
     Friend WithEvents ViewMap As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents LargeMapButton As Button
+    Friend WithEvents SmallMapButton As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents MapYStart As TextBox
+    Friend WithEvents MapXStart As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

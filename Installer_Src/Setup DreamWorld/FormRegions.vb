@@ -1,5 +1,5 @@
 ﻿Option Explicit On
-
+Imports System.Text.RegularExpressions
 Public Class FormRegions
 
     Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
@@ -142,14 +142,20 @@ Public Class FormRegions
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        X.Text = digitsOnly.Replace(X.Text, "")
         Form1.MySetting.HomeVectorX = X.Text
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Y.Text = digitsOnly.Replace(Y.Text, "")
         Form1.MySetting.HomeVectorY = Y.Text
     End Sub
 
     Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Z.Text = digitsOnly.Replace(Z.Text, "")
         Form1.MySetting.HomeVectorZ = Z.Text
     End Sub
 

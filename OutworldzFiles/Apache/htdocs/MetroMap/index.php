@@ -14,7 +14,7 @@
 <!-- Anfang -->
 <iframe 
 frameborder="1" src="./map.php" width="100%" height="100%" style="padding:1px; border:2px solid #000000;
-position:absolute; top:10px; left:10px; zoom: 0.90; -moz-transform: scale(0.90); -moz-transform-origin: 0 0; -o-transform: scale(0.90); -o-transform-origin: 0 0; -webkit-transform: scale(0.90); -webkit-transform-origin: 0 0;">
+position:absolute; top:10px; left:10px; zoom: 1.0; -moz-transform: scale(1.00); -moz-transform-origin: 0 0; -o-transform: scale(1.00); -o-transform-origin: 0 0; -webkit-transform: scale(0.90); -webkit-transform-origin: 0 0;">
 </iframe>
 <!-- Ende -->
 
