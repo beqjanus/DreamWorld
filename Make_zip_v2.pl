@@ -40,7 +40,7 @@ foreach my $path ( @deletions) {
 	DeleteandKeep($path);
 }
 
-
+unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;

@@ -75,16 +75,16 @@ catch(PDOException $e)
                     $sqldata['creatoruuid']        = uniqid();
                     $sqldata['creationdate']       = $now;
                     $sqldata['expirationdate']     = $now + 86400;
-                    $sqldata['category']           = $_POST['category'];
+                    $sqldata['category']           = $_POST['category'];        // 0 = G rating?
                     $sqldata['name']               = $_POST['name'];
                     $sqldata['description']        = $_POST['description'];
                     $sqldata['parceluuid']         = uniqid();
-                    $sqldata['parentestate']       = "00000000-0000-0000-0000-000000000000";
+                    $sqldata['parentestate']       = "101";
                     $sqldata['snapshotuuid']       = $_POST['snapshotuuid'] || "00000000-0000-0000-0000-000000000000";
                     $sqldata['simname']            = $_POST['simname'];
                     $sqldata['parcelname']         = "";
                     $sqldata['posglobal']          = "";
-                    $sqldata['classifiedflags']    = "4"; 
+                    $sqldata['classifiedflags']    = $_POST['rating'];
                     $sqldata['priceforlisting']    = $_POST['price'];
                     
                     

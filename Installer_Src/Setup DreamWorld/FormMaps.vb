@@ -41,8 +41,19 @@ Public Class FormMaps
             Button2.Enabled = False
         End If
 
-        MapYStart.Text = Form1.MySetting.MapCenterY
-        MapXStart.Text = Form1.MySetting.MapCenterX
+        If Form1.MySetting.ApacheEnable Then
+            MapYStart.Text = Form1.MySetting.MapCenterY
+            MapXStart.Text = Form1.MySetting.MapCenterX
+            MapYStart.Enabled = True
+            MapXStart.Enabled = True
+            LargeMapButton.Enabled = True
+            SmallMapButton.Enabled = True
+        Else
+            MapYStart.Enabled = False
+            MapXStart.Enabled = False
+            LargeMapButton.Enabled = False
+            SmallMapButton.Enabled = False
+        End If
 
 
         Form1.HelpOnce("Maps")

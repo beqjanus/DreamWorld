@@ -145,7 +145,7 @@ Public Class Form1
     Shared Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-
+    Dim newScreenPosition As ScreenPos
 #End Region
 
 #Region "ScreenSize"
@@ -163,8 +163,8 @@ Public Class Form1
         ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
+        Left = xy.Item(0)
+        Top = xy.Item(1)
 
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
@@ -1092,7 +1092,7 @@ Public Class Form1
         End If
         MySetting.SetOtherIni("Network", "ExternalHostNameForLSL", MySetting.PublicIP)
 
-        MySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
+        MySetting.SetOtherIni("DataSnapshot", "index_sims", "true")
 
         MySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(MySetting.Primlimits, String))
 
@@ -1267,71 +1267,15 @@ Public Class Form1
 
     End Function
 
-    Private Sub MapSetup()
-
-        Dim phptext = "<?php" & vbCrLf &
-"/* General Domain */" & vbCrLf &
-"$CONF_domain        = " & """" & MySetting.PublicIP & """" & "; " & vbCrLf &
-"$CONF_port          = " & """" & MySetting.HttpPort & """" & "; " & vbCrLf &
-"$CONF_sim_domain    = " & """" & "http//" & MySetting.PublicIP & "/" & """" & ";" & vbCrLf &
-"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
-"/* MySQL Database */ " & vbCrLf &
-"$CONF_db_server     = " & """" & MySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
-"$CONF_db_user       = " & """" & MySetting.RobustUsername & """" & ";  // login " & vbCrLf &
-"$CONF_db_pass       = " & """" & MySetting.RobustPassword & """" & ";  // password " & vbCrLf &
-"$CONF_db_database   = " & """" & MySetting.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
-"/* The Coordinates Of the Grid-Center */ " & vbCrLf &
-"$CONF_center_coord_x = " & """" & MySetting.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
-"$CONF_center_coord_y = " & """" & MySetting.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
-"// style-sheet items" & vbCrLf &
-"$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"?>"
-
-        Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
-            outputFile.WriteLine(phptext)
-        End Using
-
-    End Sub
-    Private Sub DoApache()
-
-        If Not MySetting.ApacheEnable Then Return
-
-        MapSetup()
-
-        ' lean rightward paths for Apache
-        Dim ini = MyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
-        MySetting.LoadApacheIni(ini)
-        MySetting.SetApacheIni("ServerRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache" & """")
-        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
-        MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
-        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
-        MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
-        MySetting.SaveApacheINI(ini, "httpd.conf")
-
-        ' lean rightward paths for Apache
-        ini = MyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
-        MySetting.LoadApacheIni(ini)
-        MySetting.SetApacheIni("Listen", MySetting.PrivateURL & ":" & "443")
-        MySetting.SetApacheIni("extension_dir", """" & gCurSlashDir & "/OutworldzFiles/PHP5/ext""")
-        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
-        MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
-        MySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & gCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
-        MySetting.SaveApacheINI(ini, "httpd-ssl.conf")
-
-    End Sub
-
     Public Sub DoGloebits()
 
         'Gloebits.ini
         MySetting.LoadOtherIni(gPath + "bin\Gloebit.ini", ";")
         If MySetting.GloebitsEnable Then
 
-            MySetting.SetOtherIni("Gloebit", "Enabled", "True")
+            MySetting.SetOtherIni("Gloebit", "Enabled", "true")
         Else
-            MySetting.SetOtherIni("Gloebit", "Enabled", "False")
+            MySetting.SetOtherIni("Gloebit", "Enabled", "false")
         End If
 
         If MySetting.GloebitsMode Then
@@ -1913,6 +1857,87 @@ Public Class Form1
         End Try
 
     End Sub
+
+    Private Sub MapSetup()
+
+        Dim phptext = "<?php" & vbCrLf &
+"/* General Domain */" & vbCrLf &
+"$CONF_domain        = " & """" & MySetting.PublicIP & """" & "; " & vbCrLf &
+"$CONF_port          = " & """" & MySetting.HttpPort & """" & "; " & vbCrLf &
+"$CONF_sim_domain    = " & """" & "http//" & MySetting.PublicIP & "/" & """" & ";" & vbCrLf &
+"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
+"/* MySQL Database */ " & vbCrLf &
+"$CONF_db_server     = " & """" & MySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_user       = " & """" & MySetting.RobustUsername & """" & ";  // login " & vbCrLf &
+"$CONF_db_pass       = " & """" & MySetting.RobustPassword & """" & ";  // password " & vbCrLf &
+"$CONF_db_database   = " & """" & MySetting.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
+"/* The Coordinates Of the Grid-Center */ " & vbCrLf &
+"$CONF_center_coord_x = " & """" & MySetting.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
+"$CONF_center_coord_y = " & """" & MySetting.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
+"// style-sheet items" & vbCrLf &
+"$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
+"?>"
+
+        Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+
+    End Sub
+
+    Private Sub StopApache()
+
+        Dim ApacheProcess As New Process()
+        Print("Stopping Apache service")
+        Try
+            ApacheProcess.StartInfo.FileName = "net.exe"
+            ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            ApacheProcess.Start()
+            ApacheProcess.WaitForExit()
+            Dim code = ApacheProcess.ExitCode
+            If code <> 0 Then
+                Log("Info", "No Apache to stop")
+            End If
+        Catch ex As Exception
+            Print("Error Apache did not stop" + ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub DoApache()
+
+        If Not MySetting.ApacheEnable Then Return
+
+        MapSetup()
+
+        ' lean rightward paths for Apache
+        Dim ini = MyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
+        MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("ServerRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache" & """")
+        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        MySetting.SetApacheIni("PHPIniDir", """" & gCurSlashDir & "/Outworldzfiles/PHP5" & """")
+        MySetting.SetApacheIni("ServerName", MySetting.PrivateURL)
+        MySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        MySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & gCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
+        MySetting.SetApacheIni("LoadModule php5_module", """" & gCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
+        MySetting.SaveApacheINI(ini, "httpd.conf")
+
+        ' lean rightward paths for Apache
+        ini = MyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
+        MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("Listen", MySetting.PrivateURL & ":" & "443")
+        MySetting.SetApacheIni("extension_dir", """" & gCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
+        MySetting.SetApacheIni("ServerName", MySetting.PublicIP)
+        MySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & gCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+        MySetting.SaveApacheINI(ini, "httpd-ssl.conf")
+
+    End Sub
+
+
+
 #End Region
 
 #Region "Icecast"
@@ -2181,10 +2206,11 @@ Public Class Form1
             ' if a restart is signalled, boot it up
             If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending And Not gAborting Then
                 Boot(RegionClass.RegionName(X))
-                gRestartNow = False
             End If
 
         Next
+
+        gRestartNow = False
 
         If ExitList.Count = 0 Then Return
         If gExitHandlerIsBusy Then Return
@@ -2209,45 +2235,42 @@ Public Class Form1
             ' Nope, grab the first region, Group name is already set
             RegionNumber = RegionList(0)
         End If
+
+
         Dim Status = RegionClass.Status(RegionNumber)
         TimerValue = RegionClass.Timer(RegionNumber)
 
-        Try
-            ' Auto restart phase begins
-            If OpensimIsRunning() _
-                And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
+        'Auto restart phase begins
+        If OpensimIsRunning() And Status = RegionMaker.SIM_STATUS.RecyclingDown Then
+            Print("Restart Queued for " + GroupName)
+            For Each R In RegionList
+                RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
+            Next
+            UpdateView = True ' make form refresh              
+        End If
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ' Maybe we crashed during warmup or runniung.  Skip prompt if auto restart on crash and restart the beast
+        If (Status = RegionMaker.SIM_STATUS.RecyclingUp _
+                Or Status = RegionMaker.SIM_STATUS.Booting) _
+                Or RegionClass.IsBooted(RegionNumber) _
+                And TimerValue >= 0 Then
 
-                Print("Restart Queued for " + GroupName)
-                For Each R In RegionList
-                    RegionClass.Status(R) = RegionMaker.SIM_STATUS.RestartPending
+            If MySetting.RestartOnCrash Then
+                ' shut down all regions in the DOS box
+                Print("DOS Box " + GroupName + " quit unexpectedly.  Restarting now...")
+                For Each Y In RegionClass.RegionListByGroupNum(GroupName)
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RestartPending
                 Next
-                UpdateView = True ' make form refresh              
-            End If
-
-            ' Maybe we crashed during warmup.  Skip prompt if auto restarting
-            If (Status = RegionMaker.SIM_STATUS.RecyclingUp _
-                    Or Status = RegionMaker.SIM_STATUS.Booting) _
-                    And TimerValue >= 0 Then
-
-                Dim yesno = MsgBox(RegionName + " in DOS Box " + GroupName + " quit while booting up. Do you want to see the log file?", vbYesNo, "Error")
+            Else
+                Dim yesno = MsgBox("DOS Box " + GroupName + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
                 StopGroup(GroupName)
-
-            ElseIf RegionClass.IsBooted(RegionNumber) And TimerValue > 0 Then
-                StopGroup(GroupName)
-                ' prompt if crashed. after boot
-                Dim yesno = MsgBox(RegionName + " in DOS Box " + GroupName + " quit unexpectedly. Do you want to see the log file?", vbYesNo, "Error")
-                If (yesno = vbYes) Then
-                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-                End If
             End If
 
-        Catch ex As Exception
-            ErrorLog("Error:Something else is region exited:" + ex.Message)
-            ErrorLog("RegionNumber:" & RegionName & ", Count: " & ExitList.Count)
-        End Try
+        End If
 
 
         gExitHandlerIsBusy = False
@@ -2381,9 +2404,11 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
+            SequentialPause(RegionNumber)
+
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
-                    Log("debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
+                    Log("Debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
                     RegionClass.Status(num) = RegionMaker.SIM_STATUS.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
                     RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
@@ -2395,7 +2420,7 @@ Public Class Form1
 
                 Log("Debug", "Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-                SequentialPause(RegionNumber)
+
 
                 Return True
             End If
@@ -3476,6 +3501,7 @@ Public Class Form1
             okay = MakeBackup()
         End If
 
+        StopApache()
         StopMysql()
 
         Dim fileloaded As String = Download()
@@ -4834,8 +4860,8 @@ Public Class Form1
     Public Sub HelpOnce(Webpage As String)
 
 
-        ScreenPosition = New ScreenPos(Webpage)
-        If Not ScreenPosition.Exists() Then
+        newScreenPosition = New ScreenPos(Webpage)
+        If Not newScreenPosition.Exists() Then
             ' Set the new form's desktop location so it appears below and
             ' to the right of the current form.
             Dim FormHelp As New FormHelp

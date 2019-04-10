@@ -720,7 +720,6 @@ Public Class RegionList
     End Sub
 
     Private Sub StopRegionNum(num As Integer)
-
         Form1.SequentialPause(num)
         Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(num))
         Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
@@ -905,13 +904,13 @@ Public Class RegionList
 
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                        RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                        RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
-                    Next
-                    Form1.gRestartNow = True
+                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                Next
+                Form1.gRestartNow = True
 
-                    UpdateView = True ' make form refresh
-                End If
+                UpdateView = True ' make form refresh
+            End If
         Next
         UpdateView = True ' make form refresh
     End Sub

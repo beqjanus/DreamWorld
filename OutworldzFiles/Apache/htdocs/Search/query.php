@@ -144,6 +144,8 @@ function dir_places_query($method_name, $params, $app_data)
            " OR description LIKE :text2)" .
            $type . " ORDER BY $order parcelname" .
            " LIMIT $query_start,101";
+           
+    flog($sql);       
     $query = $db->prepare($sql);
     $result = $query->execute($sqldata);
 
@@ -324,6 +326,8 @@ function dir_land_query($method_name, $params, $app_data)
 
     $sql = "SELECT *,saleprice/area AS lsq FROM parcelsales" . $where .
            " ORDER BY " . $order . " LIMIT $query_start,101";
+           
+    flog($sql) ;    
     $query = $db->prepare($sql);
     $result = $query->execute($sqldata);
 
@@ -340,7 +344,7 @@ function dir_land_query($method_name, $params, $app_data)
                 "region_UUID" => $row["regionUUID"],
                 "area" => $row["area"]);
     }
-
+    
     $response_xml = xmlrpc_encode(array(
             'success'      => True,
             'errorMessage' => "",

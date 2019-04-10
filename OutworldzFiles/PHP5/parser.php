@@ -49,18 +49,22 @@ function CheckHost($hostname, $port)
     echo "Checking " . $hostname . ":" . $port . "\n";
     $xml = GetURL($hostname, $port, "collector/?method=collector");
     if ($xml == "") //No data was retrieved? (CURL may have timed out)
-        $failcounter = '$failcounter + 1';
+    
+      $sql = "UPDATE hostsregister SET nextcheck = ?," .
+                          " checked = 1, failcounter = failcounter+1" .
+                          " WHERE host = ? AND port = ?";
     else
-        $failcounter = "0";
         
+    $sql = "UPDATE hostsregister SET nextcheck = ?," .
+                          " checked = 1, failcounter = '0'" .
+                          " WHERE host = ? AND port = ?";
 
+        
     //Update nextcheck to be 10 minutes from now. The current OS instance
     //won't be checked again until at least this much time has gone by.
     $next = $now + 600;
-
-    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ?," .
-                          " checked = 1, failcounter = $failcounter" .
-                          " WHERE host = ? AND port = ?");
+    
+    $query = $db->prepare($sql);
     $query->execute( array($next, $hostname, $port) );
 
     if ($xml != "")

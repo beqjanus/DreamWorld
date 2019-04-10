@@ -405,6 +405,18 @@ Public Class MySettings
             SearchInstalled() = False
         End Try
 
+        Try
+            Dim x = RestartOnCrash()
+        Catch ex As Exception
+            RestartOnCrash() = True
+        End Try
+
+        Try
+            Dim x = RestartonPhysics()
+        Catch ex As Exception
+            RestartonPhysics() = True
+        End Try
+
     End Sub
 
 
@@ -546,6 +558,24 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property RestartOnCrash() As Boolean
+        Get
+            Return CType(GetMySetting("RestartOnCrash"), Boolean)
+        End Get
+        Set
+            SetMySetting("RestartOnCrash", Value.ToString)
+        End Set
+    End Property
+
+    Public Property RestartonPhysics() As Boolean
+        Get
+            Return CType(GetMySetting("RestartonPhysics"), Boolean)
+        End Get
+        Set
+            SetMySetting("RestartonPhysics", Value.ToString)
+        End Set
+    End Property
 
     Public Property MapCenterY() As String
         Get
