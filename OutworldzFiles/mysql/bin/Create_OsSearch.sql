@@ -12,7 +12,6 @@
 
 CREATE DATABASE ossearch ;
 USE ossearch;
-grant all on ossearch.* to 'robustuser'@'localhost';
 
 
 -- --------------------------------------------------------
@@ -192,3 +191,6 @@ CREATE TABLE IF NOT EXISTS `regions` (
   `owneruuid` char(36) NOT NULL,
   PRIMARY KEY  (`regionUUID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+grant all on ossearch.* to 'robustuser'@'localhost';
