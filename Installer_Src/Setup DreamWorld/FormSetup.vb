@@ -35,7 +35,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.83"
+    ReadOnly gMyVersion As String = "2.84"
     ReadOnly gSimVersion As String = "0.9.1"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -5073,13 +5073,12 @@ Public Class Form1
 
     Private Function AddFirewallRules() As String
 
-        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.DiagnosticPort & vbCrLf _
+        ' TCP only for 8001 (DiagnosticPort) and both for 8002
+        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.DiagnosticPort & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf _
-                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf
+                              & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
 
-
+        ' Icecast needs both ports for both protocols
         If MySetting.SC_Enable Then
             Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf _
@@ -5090,6 +5089,7 @@ Public Class Form1
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
+        ' regions need both
         For RegionNumber = start To gMaxPortUsed
             Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
                               & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
