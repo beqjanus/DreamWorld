@@ -1363,7 +1363,7 @@ Public Class Form1
 
         If name.Length > 0 Then
             Dim X = RegionClass.FindRegionByName(name)
-            Opensimproto(X)
+            If (X > -1) Then Opensimproto(X)
         Else
             ' COPY OPENSIM.INI prototype to all region folders and set the Sim Name
             For Each X As Integer In RegionClass.RegionNumbers

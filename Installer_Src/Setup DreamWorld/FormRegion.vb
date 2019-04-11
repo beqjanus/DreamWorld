@@ -7,7 +7,7 @@ Public Class FormRegion
 
 #Region "Declarations"
 
-    Dim n As Integer
+    Dim n As Integer = 0
     Dim oldname As String = ""
     Dim initted As Boolean = False ' needed a flag to see if we are initted as the dialogs change on start.
     Dim changed As Boolean    ' true if we need to save a form
@@ -35,7 +35,7 @@ Public Class FormRegion
         RegionClass = RegionMaker.Instance(Form1.MysqlConn)
         If Name = "" Then
             isNew = True
-            RegionName.Text = Name & " Region"
+            RegionName.Text = Name & " ????"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString
             SizeY.Text = 256.ToString
@@ -226,6 +226,7 @@ Public Class FormRegion
                         Me.Close()
                     End If
                 Else
+
                     WriteRegion()
 
                     Form1.CopyOpensimProto(RegionName.Text)
@@ -386,9 +387,8 @@ Public Class FormRegion
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim Filepath = RegionClass.RegionPath(n)
-        Dim Folderpath = RegionClass.FolderPath(n)
-
+        Dim Filepath As String = ""
+        Dim Folderpath As String = ""
 
         ' rename is possible
         If oldname <> RegionName.Text And Not isNew Then
@@ -399,29 +399,30 @@ Public Class FormRegion
             Catch ex As Exception
                 Debug.Print(ex.Message)
             End Try
-
         End If
 
         ' might be a new region, so give them a choice
 
         If isNew Then
             Dim NewGroup As String = RegionName.Text
-            'Dim yesNo As MsgBoxResult = MsgBox("New regions can be combined with other regions in an existing DOS box (Yes), Or run in their own Dos Box (No)", vbYesNo, "Combine Regions?")
-            'If yesNo = vbYes Then
+
             NewGroup = RegionChosen()
             If NewGroup = "" Then
                 Form1.Print("Aborted")
                 Return
             End If
-            'End If
 
             If Not Directory.Exists(Filepath) Or Filepath = "" Then
                 Directory.CreateDirectory(Form1.gPath & "bin\Regions\" + NewGroup + "\Region")
             End If
 
             RegionClass.RegionPath(n) = Form1.gPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            RegionClass.FolderPath(n) = Form1.gPath & "bin\Regions\" + NewGroup
 
         End If
+
+        Filepath = RegionClass.RegionPath(n)
+        Folderpath = RegionClass.FolderPath(n)
 
         Dim Snapshot As String = ""
         If PublishDefault.Checked Then

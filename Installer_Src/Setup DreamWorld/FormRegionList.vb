@@ -689,7 +689,7 @@ Public Class RegionList
                 RegionForm.Activate()
                 RegionForm.Visible = True
                 RegionForm.Select()
-                UpdateView = True ' make form refresh
+                ' UpdateView = True ' make form refresh
 
             ElseIf chosen = "Recycle" Then
 
