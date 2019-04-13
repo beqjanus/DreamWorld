@@ -5,10 +5,15 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.82' ;  # '-Beta-V1.5';
+my $type  = '-V2.83' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
+
+
+if (-e "../Zips/DreamGrid$type.zip") {
+	say("y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip")
+}
 
 say ('Making ' . $dir . ' ' .  $type);
 
@@ -16,8 +21,15 @@ say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
-say("Clean up opensim");
+
+
+my $x = `net stop ApacheHTTPServer`;
+$x =~ /was stopped|^$/  || die;
+
+	
+	say("Clean up opensim");
 my @deletions = (
+	"$dir/OutworldzFiles/AutoBackup",
 	"$dir/OutworldzFiles/Opensim/WifiPages-Custom",
 	"$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
 	"$dir/OutworldzFiles/Opensim/bin/datasnapshot",
@@ -40,6 +52,7 @@ foreach my $path ( @deletions) {
 	DeleteandKeep($path);
 }
 
+unlink ("$dir/BareTail.udm");
 unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
@@ -48,8 +61,8 @@ unlink "$dir/OutworldzFiles/PHPLog.log" ;
 
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";
-unlink "$dir/Icecast/error.log" ;
-unlink "$dir/Icecast/access.log" ;
+unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
+unlink "$dir/Outworldzfiles/Icecast/log/access.log" ;
 
 unlink "$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db" ;
@@ -72,6 +85,7 @@ unlink "../Zips/Outworldz-Update$type.zip" ;
 #unlink "$dir/Interop.IWshRuntimeLibrary.dll";
 if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Release/Start.exe", "$dir"))  {die $!;}
 #if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Interop.IWshRuntimeLibrary.dll", "$dir/Interop.IWshRuntimeLibrary.dll"))  {die $!;}
+
 
 say("Signing");
 use IO::All;
@@ -163,8 +177,8 @@ unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip
 if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
 
 
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 
 say ("Dropbox");
 unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
@@ -181,6 +195,8 @@ if ($publish)
 	if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 
 }
+
+$x = `net start ApacheHTTPServer`;
 
 say "Done!";
 
