@@ -29,6 +29,7 @@ Imports System.Threading
 Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Management
+Imports MySql.Data.MySqlClient
 
 
 Public Class Form1
@@ -117,6 +118,7 @@ Public Class Form1
     Public ViewedSettings As Boolean = False
     Dim MyRAMCollection As New Collection
 
+End Class
     'Crashing
     Dim LogSearch As New CrashDetector()
 
@@ -251,6 +253,7 @@ Public Class Form1
         gPath = MyFolder & "\OutworldzFiles\Opensim\"
 
         Log("Info", "Running")
+
 
         ' init the scrolling text box
         TextBox1.SelectionStart = 0
@@ -390,9 +393,7 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
-
         SetupSearch()
-
 
 
         ' Find out if the viewer is installed
@@ -2748,7 +2749,8 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        Chart()
+        Chart() ' do charts collection each second
+        getEvents() ' get the events from the Outworldz main server for all grids
 
         If Not OpensimIsRunning() Then
             Timer1.Stop()
@@ -5132,6 +5134,7 @@ Public Class Form1
 #End Region
 
 #Region "Search"
+
     Private Sub SetupSearch()
 
         If MySetting.SearchInstalled Then Return
@@ -5179,6 +5182,101 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub getEvents()
+
+        If Not MySetting.SearchInstalled Then Return
+
+        If gDNSSTimer Mod 3600 = 0 Then
+            Dim Simevents As New Dictionary(Of String, String)
+            Dim ossearch As String = "server=" + MySetting.RobustServer() _
+                + ";database=" + "ossearch" _
+                + ";port=" + MySetting.MySqlPort _
+                + ";user=" + MySetting.RobustUsername _
+                + ";password=" + MySetting.RobustPassword _
+                + ";Old Guids=true;Allow Zero Datetime=true;"
+
+            Dim osconnection As MySqlConnection = New MySqlConnection(ossearch)
+            osconnection.Open()
+
+            DeleteEvents(osconnection)
+
+            Using client As New WebClient()
+                Using Stream = client.OpenRead(gDomain + "/events.txt?r=" & Random())
+                    Using reader = New StreamReader(Stream)
+
+                        While reader.Peek <> -1
+                            Dim s = reader.ReadLine
+                            '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
+
+                            ' Split line on comma.
+                            Dim array As String() = s.Split("|".ToCharArray())
+                            Simevents.Clear()
+                            ' Loop over each string received.
+                            Dim part As String
+                            For Each part In array
+                                ' Display to console.
+                                Dim a As String() = part.Split("^".ToCharArray())
+
+                                If a.Count = 2 Then
+                                    a(1) = a(1).Replace("'", "\'")
+                                    a(1) = a(1).Replace("`", vbLf)
+                                    Console.WriteLine("{0}:{1}", a(0), a(1))
+                                    Simevents.Add(a(0), a(1))
+                                End If
+                            Next
+                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
+                            WriteEvent(osconnection, Simevents)
+                        End While
+                    End Using
+                End Using
+            End Using
+            osconnection.Close()
+
+        End If
+
+    End Sub
+
+    Private Sub DeleteEvents(Connection As MySqlConnection)
+
+        Dim stm = "delete from events"
+        Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
+        Dim rowsdeleted = cmd.ExecuteNonQuery()
+        Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString)
+
+    End Sub
+
+    Private Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
+
+        Try
+            Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags) values (" _
+                        & "'" & D.Item("simname") & "'," _
+                        & "'" & D.Item("category") & "'," _
+                        & "'" & D.Item("creatoruuid") & "'," _
+                        & "'" & D.Item("owneruuid") & "'," _
+                        & "'" & D.Item("name") & "'," _
+                        & "'" & D.Item("description") & "'," _
+                        & "'" & D.Item("dateUTC") & "'," _
+                        & "'" & D.Item("duration") & "'," _
+                        & "'" & D.Item("covercharge") & "'," _
+                        & "'" & D.Item("coveramount") & "'," _
+                        & "'" & D.Item("parcelUUID") & "'," _
+                        & "'" & D.Item("globalPos") & "'," _
+                        & "'" & D.Item("eventflags") & "')"
+
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
+            Dim rowsinserted = cmd.ExecuteNonQuery()
+            Diagnostics.Debug.Print("Insert: {0}", rowsinserted.ToString)
+
+        Catch ex As Exception
+
+            Diagnostics.Debug.Print(ex.Message)
+            For Each Keyvaluepair In D
+                Diagnostics.Debug.Print("Key = {0}, Value = {1}", Keyvaluepair.Key, Keyvaluepair.Value)
+            Next
+
+        End Try
+
+    End Sub
 #End Region
 
 End Class
