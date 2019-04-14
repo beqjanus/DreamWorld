@@ -230,12 +230,7 @@ Public Class FormRegion
                     WriteRegion()
 
                     Form1.CopyOpensimProto(RegionName.Text)
-
-                    If RegionList.InstanceExists Then
-                        RegionClass.GetAllRegions()
-                        RegionList.LoadMyListView()
-                    End If
-
+                    Form1.UpdateView() = True
                     Form1.SetFirewall()
 
                 End If

@@ -9,6 +9,7 @@
 -- 
 -- Tabel structuur voor tabel 'allparcels'
 -- 
+DROP DATABASE ossearch;
 
 CREATE DATABASE ossearch ;
 USE ossearch;

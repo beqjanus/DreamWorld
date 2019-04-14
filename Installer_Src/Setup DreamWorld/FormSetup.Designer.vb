@@ -41,9 +41,9 @@ Partial Class Form1
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowHyperGridAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.HelpStartingUpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpOnSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PDFManualToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpStartingUpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoopBackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpOnIARSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -242,6 +242,14 @@ Partial Class Form1
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(266, 6)
         '
+        'HelpStartingUpToolStripMenuItem1
+        '
+        Me.HelpStartingUpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        Me.HelpStartingUpToolStripMenuItem1.Name = "HelpStartingUpToolStripMenuItem1"
+        Me.HelpStartingUpToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.D1), System.Windows.Forms.Keys)
+        Me.HelpStartingUpToolStripMenuItem1.Size = New System.Drawing.Size(269, 26)
+        Me.HelpStartingUpToolStripMenuItem1.Text = "Help Starting Up"
+        '
         'HelpOnSettingsToolStripMenuItem
         '
         Me.HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PDFManualToolStripMenuItem})
@@ -257,14 +265,6 @@ Partial Class Form1
         Me.PDFManualToolStripMenuItem.Name = "PDFManualToolStripMenuItem"
         Me.PDFManualToolStripMenuItem.Size = New System.Drawing.Size(138, 22)
         Me.PDFManualToolStripMenuItem.Text = "PDF Manual"
-        '
-        'HelpStartingUpToolStripMenuItem1
-        '
-        Me.HelpStartingUpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.box_tall
-        Me.HelpStartingUpToolStripMenuItem1.Name = "HelpStartingUpToolStripMenuItem1"
-        Me.HelpStartingUpToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.D1), System.Windows.Forms.Keys)
-        Me.HelpStartingUpToolStripMenuItem1.Size = New System.Drawing.Size(269, 26)
-        Me.HelpStartingUpToolStripMenuItem1.Text = "Help Starting Up"
         '
         'LoopBackToolStripMenuItem
         '
