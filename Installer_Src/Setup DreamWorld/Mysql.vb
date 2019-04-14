@@ -126,14 +126,19 @@ Public Class Mysql
         Catch ex As Exception
             Debug.Print("Error: " & ex.Message)
             Return Nothing
+        Finally
+
         End Try
 
         Try
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
             Dim v = Convert.ToString(cmd.ExecuteScalar())
+            MysqlConn.Close()
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)
+        Finally
+            MysqlConn.Close()
         End Try
         Return Nothing
 

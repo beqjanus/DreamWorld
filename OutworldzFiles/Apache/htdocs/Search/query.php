@@ -633,6 +633,8 @@ function event_info_query($method_name, $params, $app_data)
     
     flog("User viewed event id :" .$eventID );
 
+                
+                
     $query = $db->prepare("SELECT * FROM events WHERE eventID = ?");
     $result = $query->execute( array($eventID) );
 
@@ -654,6 +656,23 @@ function event_info_query($method_name, $params, $app_data)
         if ($row['category'] == 28)    $category = "Charity/Support Groups";
         if ($row['category'] == 29)    $category = "Miscellaneous";
 
+
+$x =  "event_id ="    . $row["eventid"]. "\n".
+      "creator="      . $row["creatoruuid"]. "\n".
+      "name="         . $row["name"].  "\n".
+      "category="     . $category . "\n".
+      "description="  . $row["description"] . "\n".
+      "date="         . $date . "\n".
+      "dateUTC="      . $row["dateUTC"]. "\n".
+      "duration="     . $row["duration"]. "\n".
+      "covercharge="  . $row["covercharge"]. "\n".
+      "coveramount="  . $row["coveramount"]. "\n".
+      "simname="      . $row["simname"]. "\n".
+      "globalposition=" . $row["globalPos"]. "\n".
+      "eventflags ="  . $row["eventflags"] ."\n";
+      
+      flog($x);
+      
         $data[] = array(
                 "event_id" => $row["eventid"],
                 "creator" => $row["creatoruuid"],
