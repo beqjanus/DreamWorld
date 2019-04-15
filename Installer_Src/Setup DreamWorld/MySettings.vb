@@ -424,6 +424,12 @@ Public Class MySettings
             RestartonPhysics() = True
         End Try
 
+        Try
+            Dim x = SearchLocal()
+        Catch ex As Exception
+            SearchLocal() = True
+        End Try
+
     End Sub
 
 
@@ -565,7 +571,14 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
-
+    Public Property SearchLocal() As Boolean
+        Get
+            Return CType(GetMySetting("SearchLocal"), Boolean)
+        End Get
+        Set
+            SetMySetting("SearchLocal", Value.ToString)
+        End Set
+    End Property
     Public Property RestartOnCrash() As Boolean
         Get
             Return CType(GetMySetting("RestartOnCrash"), Boolean)

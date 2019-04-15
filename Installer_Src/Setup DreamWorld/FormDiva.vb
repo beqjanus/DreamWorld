@@ -305,6 +305,22 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub SearchLocalRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchLocalRadioButton.CheckedChanged
+
+        If Not initted Then Return
+        SearchAllRadioButton.Checked = False
+        Form1.MySetting.SearchLocal = True
+
+    End Sub
+
+    Private Sub SearchAllRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchAllRadioButton.CheckedChanged
+
+        If Not initted Then Return
+        SearchLocalRadioButton.Checked = False
+        Form1.MySetting.SearchLocal = False
+
+    End Sub
+
 #End Region
 
 End Class

@@ -69,6 +69,8 @@ Partial Class FormDiva
         Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.SearchLocalRadioButton = New System.Windows.Forms.RadioButton()
+        Me.SearchAllRadioButton = New System.Windows.Forms.RadioButton()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -405,6 +407,8 @@ Partial Class FormDiva
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.SearchAllRadioButton)
+        Me.GroupBox2.Controls.Add(Me.SearchLocalRadioButton)
         Me.GroupBox2.Controls.Add(Me.ApachePort)
         Me.GroupBox2.Controls.Add(Me.ApacheServiceCheckBox)
         Me.GroupBox2.Controls.Add(Me.Label3)
@@ -413,7 +417,7 @@ Partial Class FormDiva
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 228)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(200, 110)
+        Me.GroupBox2.Size = New System.Drawing.Size(200, 184)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache and PHP Web Server"
@@ -460,11 +464,33 @@ Partial Class FormDiva
         Me.PictureBox1.TabIndex = 1859
         Me.PictureBox1.TabStop = False
         '
+        'SearchLocalRadioButton
+        '
+        Me.SearchLocalRadioButton.AutoSize = True
+        Me.SearchLocalRadioButton.Location = New System.Drawing.Point(20, 114)
+        Me.SearchLocalRadioButton.Name = "SearchLocalRadioButton"
+        Me.SearchLocalRadioButton.Size = New System.Drawing.Size(110, 17)
+        Me.SearchLocalRadioButton.TabIndex = 186738
+        Me.SearchLocalRadioButton.TabStop = True
+        Me.SearchLocalRadioButton.Text = "Search Local Grid"
+        Me.SearchLocalRadioButton.UseVisualStyleBackColor = True
+        '
+        'SearchAllRadioButton
+        '
+        Me.SearchAllRadioButton.AutoSize = True
+        Me.SearchAllRadioButton.Location = New System.Drawing.Point(20, 137)
+        Me.SearchAllRadioButton.Name = "SearchAllRadioButton"
+        Me.SearchAllRadioButton.Size = New System.Drawing.Size(100, 17)
+        Me.SearchAllRadioButton.TabIndex = 186739
+        Me.SearchAllRadioButton.TabStop = True
+        Me.SearchAllRadioButton.Text = "Search All Grids"
+        Me.SearchAllRadioButton.UseVisualStyleBackColor = True
+        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(518, 350)
+        Me.ClientSize = New System.Drawing.Size(518, 424)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.GroupBox1)
@@ -529,4 +555,6 @@ Partial Class FormDiva
     Friend WithEvents ApacheServiceCheckBox As CheckBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Chart2 As DataVisualization.Charting.Chart
+    Friend WithEvents SearchAllRadioButton As RadioButton
+    Friend WithEvents SearchLocalRadioButton As RadioButton
 End Class
