@@ -394,6 +394,13 @@ Public Class MySettings
         End Try
 
         Try
+            Dim x = ApacheService()
+        Catch ex As Exception
+            ApacheService() = False
+        End Try
+
+
+        Try
             Dim x = ApacheEnable()
         Catch ex As Exception
             ApacheEnable() = False
@@ -605,6 +612,23 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property ApachePort() As String
+        Get
+            Return GetMySetting("ApachePort", "80")
+        End Get
+        Set
+            SetMySetting("ApachePort", Value)
+        End Set
+    End Property
+
+    Public Property ApacheService() As Boolean
+        Get
+            Return CType(GetMySetting("ApacheService"), Boolean)
+        End Get
+        Set
+            SetMySetting("ApacheService", Value.ToString)
+        End Set
+    End Property
 
     Public Property ApacheEnable() As Boolean
         Get

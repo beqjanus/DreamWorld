@@ -26,6 +26,9 @@ Partial Class FormDiva
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDiva))
         Me.Web = New System.Windows.Forms.GroupBox()
         Me.WiFi = New System.Windows.Forms.PictureBox()
@@ -58,9 +61,13 @@ Partial Class FormDiva
         Me.WhiteRadioButton = New System.Windows.Forms.RadioButton()
         Me.BlackRadioButton = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ApachePort = New System.Windows.Forms.TextBox()
+        Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
+        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,6 +75,7 @@ Partial Class FormDiva
         Me.GroupBox1.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -359,6 +367,16 @@ Partial Class FormDiva
         Me.BlackRadioButton.Text = "Black"
         Me.BlackRadioButton.UseVisualStyleBackColor = True
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(58, 82)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(52, 13)
+        Me.Label3.TabIndex = 186737
+        Me.Label3.Text = "Web Port"
+        Me.ToolTip1.SetToolTip(Me.Label3, "80 or 8000")
+        '
         'Chart1
         '
         ChartArea1.Name = "ChartArea1"
@@ -387,14 +405,51 @@ Partial Class FormDiva
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.ApachePort)
+        Me.GroupBox2.Controls.Add(Me.ApacheServiceCheckBox)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.Chart2)
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 228)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(200, 95)
+        Me.GroupBox2.Size = New System.Drawing.Size(200, 110)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache and PHP Web Server"
+        '
+        'ApachePort
+        '
+        Me.ApachePort.Location = New System.Drawing.Point(19, 79)
+        Me.ApachePort.Name = "ApachePort"
+        Me.ApachePort.Size = New System.Drawing.Size(33, 20)
+        Me.ApachePort.TabIndex = 186736
+        '
+        'ApacheServiceCheckBox
+        '
+        Me.ApacheServiceCheckBox.AutoSize = True
+        Me.ApacheServiceCheckBox.Location = New System.Drawing.Point(19, 53)
+        Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
+        Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(126, 17)
+        Me.ApacheServiceCheckBox.TabIndex = 1868
+        Me.ApacheServiceCheckBox.Text = "Apache As a Service"
+        Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
+        '
+        'Chart2
+        '
+        ChartArea2.Name = "ChartArea1"
+        Me.Chart2.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.Chart2.Legends.Add(Legend2)
+        Me.Chart2.Location = New System.Drawing.Point(116, 47)
+        Me.Chart2.Name = "Chart2"
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.Chart2.Series.Add(Series2)
+        Me.Chart2.Size = New System.Drawing.Size(8, 8)
+        Me.Chart2.TabIndex = 1867
+        Me.Chart2.Text = "Chart2"
         '
         'PictureBox1
         '
@@ -429,6 +484,7 @@ Partial Class FormDiva
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -469,4 +525,8 @@ Partial Class FormDiva
     Friend WithEvents ApacheCheckbox As CheckBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents ApachePort As TextBox
+    Friend WithEvents ApacheServiceCheckBox As CheckBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
 End Class

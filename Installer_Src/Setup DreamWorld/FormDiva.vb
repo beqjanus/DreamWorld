@@ -27,6 +27,8 @@ Public Class FormDiva
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        SetScreen()
+
         'Wifi
         WifiEnabled.Checked = Form1.MySetting.WifiEnabled
         AdminEmail.Text = Form1.MySetting.AdminEmail
@@ -52,9 +54,6 @@ Public Class FormDiva
         AdminLast.Text = Form1.MySetting.AdminLast
         AdminFirst.Text = Form1.MySetting.AdminFirst
 
-        SetScreen()
-        Form1.HelpOnce("Diva")
-
         If Form1.MySetting.Theme = "White" Then
             BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = True
@@ -76,6 +75,10 @@ Public Class FormDiva
         End If
 
         ApacheCheckbox.Checked = Form1.MySetting.ApacheEnable
+        ApachePort.Text = Form1.MySetting.ApachePort
+        ApacheServiceCheckBox.Checked = Form1.MySetting.ApacheService
+
+        Form1.HelpOnce("Diva")
 
         initted = True
 
@@ -241,12 +244,11 @@ Public Class FormDiva
 
     End Sub
 
-
-
     Private Sub BlackRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles BlackRadioButton.CheckedChanged
 
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
+            Form1.Print("Theme set to Black")
             Form1.MySetting.Theme = "Black"
         End If
 
@@ -257,6 +259,7 @@ Public Class FormDiva
 
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
+            Form1.Print("Theme set to White")
             Form1.MySetting.Theme = "White"
         End If
 
@@ -266,6 +269,7 @@ Public Class FormDiva
 
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
+            Form1.Print("Theme set to Custom")
             Form1.MySetting.Theme = "Custom"
         End If
 
@@ -277,9 +281,27 @@ Public Class FormDiva
         Form1.MySetting.ApacheEnable = ApacheCheckbox.Checked
 
     End Sub
+
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         Form1.Help("Apache")
+
+    End Sub
+
+    Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.MySetting.ApacheService = ApacheServiceCheckBox.Checked
+
+    End Sub
+
+    Private Sub ApachePort_TextChanged(sender As Object, e As EventArgs) Handles ApachePort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
+        Form1.MySetting.ApachePort = ApachePort.Text
 
     End Sub
 
