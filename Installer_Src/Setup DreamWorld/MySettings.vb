@@ -427,7 +427,7 @@ Public Class MySettings
         Try
             Dim x = SearchLocal()
         Catch ex As Exception
-            SearchLocal() = True
+            SearchLocal() = False
         End Try
 
     End Sub

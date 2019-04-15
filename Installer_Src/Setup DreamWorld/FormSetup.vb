@@ -687,7 +687,6 @@ Public Class Form1
         StopIcecast()
         StopApache()
 
-
         Dim n As Integer = RegionClass.RegionCount()
         Diagnostics.Debug.Print("N=" + n.ToString())
 
@@ -1966,15 +1965,13 @@ Public Class Form1
 
     End Sub
 
-    Private Sub StopApache()
+    Private Sub KillApache()
 
         If Not MySetting.ApacheEnable Then Return
 
-        Print("Stopping Apache ")
-
         If MySetting.ApacheService Then
             Dim ApacheProcess As New Process()
-            Print("Stopping Apache service")
+            Print("Stopping Apache ")
             Try
                 ApacheProcess.StartInfo.FileName = "net.exe"
                 ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
@@ -1990,6 +1987,20 @@ Public Class Form1
                 Print("Error Apache did not stop" + ex.Message)
             End Try
         Else
+            Zap("httpd")
+            Zap("rotatelogs")
+        End If
+
+    End Sub
+
+
+    Private Sub StopApache()
+
+        If Not MySetting.ApacheEnable Then Return
+
+        Print("Stopping Apache ")
+
+        If Not MySetting.ApacheService Then
             Zap("httpd")
             Zap("rotatelogs")
         End If
@@ -3617,7 +3628,7 @@ Public Class Form1
             okay = MakeBackup()
         End If
 
-        StopApache()
+        KillApache()
         StopMysql()
 
         Dim fileloaded As String = Download()

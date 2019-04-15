@@ -78,6 +78,16 @@ Public Class FormDiva
         ApachePort.Text = Form1.MySetting.ApachePort
         ApacheServiceCheckBox.Checked = Form1.MySetting.ApacheService
 
+        If Form1.MySetting.SearchLocal Then
+            SearchLocalRadioButton.Checked = True
+            SearchAllRadioButton.Checked = False
+        Else
+            SearchLocalRadioButton.Checked = False
+            SearchAllRadioButton.Checked = True
+        End If
+
+
+
         Form1.HelpOnce("Diva")
 
         initted = True
@@ -308,16 +318,21 @@ Public Class FormDiva
     Private Sub SearchLocalRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchLocalRadioButton.CheckedChanged
 
         If Not initted Then Return
-        SearchAllRadioButton.Checked = False
-        Form1.MySetting.SearchLocal = True
+        If SearchLocalRadioButton.Checked Then
+            Form1.MySetting.SearchLocal = False
+            SearchAllRadioButton.Checked = False
+        End If
+
 
     End Sub
 
     Private Sub SearchAllRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchAllRadioButton.CheckedChanged
 
         If Not initted Then Return
-        SearchLocalRadioButton.Checked = False
-        Form1.MySetting.SearchLocal = False
+        If SearchAllRadioButton.Checked Then
+            Form1.MySetting.SearchLocal = False
+            SearchLocalRadioButton.Checked = False
+        End If
 
     End Sub
 
