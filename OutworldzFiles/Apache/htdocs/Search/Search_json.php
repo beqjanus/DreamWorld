@@ -4,63 +4,72 @@ require( "flog.php" );
 
 include("databaseinfo.php");
 include("../Metromap/includes/config.php");
+  
+  // Attempt to connect to the database
+  try {
+    $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   
+  }
+  catch(PDOException $e)
+  {
+    echo "Error connecting to database\n";
+    file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
+    exit;
+  }
+  
+  $text = $_GET['query'];
+  $text = "%$text%";
+  $sqldata['text1'] = $text;
+  
+  
+  $rc = intval($_GET['rp']);
+  
+  if ($rc == "") {
+      $rc = 100;
+  }
+  
+  $sort = $_GET['sortname'];
+  if ($sort == 'Name') {
+    $sort = 'Name';
+  }else{
+    $sort = 'Description';
+  }
+  
+  $ord = $_GET['sortorder'];
+  if ($ord == 'asc') {
+    $ord = 'asc';
+  } else {
+    $ord = 'desc';
+  }
+  
+  $qtype = $_GET['qtype'];
+  if ($qtype == 'Name') {
+    $qtype = 'Name';
+  } else {
+    $qtype = 'Description';
+  }
+  
+  $total = 0;
+   
+  $page =  $_GET['page'];
+  if ($page == "" ) {
+    $page = 1;
+  }
+  
+  $stack = array();
 
-// Attempt to connect to the database
-try {
-  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- 
-}
-catch(PDOException $e)
-{
-  echo "Error connecting to database\n";
-  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
-  exit;
-}
-
-$text = $_GET['query'];
-$text = "%$text%";
-$sqldata['text1'] = $text;
-$lim1 = intval($_GET['page']-1);  // for sql injection, make it only ints
-$lim2 = intval($_GET['rp']);
-
-$sort = $_GET['sortname'];
-if ($sort == 'Name') {
-  $sort = 'Name';
-}else{
-  $sort = 'Description';
-}
-
-$ord = $_GET['sortorder'];
-if ($ord == 'asc') {
-  $ord = 'asc';
-} else {
-  $ord = 'desc';
-}
-
-$qtype = $_GET['qtype'];
-if ($qtype = 'Name') {
-  $qtype = 'Name';
-} else {
-  $qtype = 'Description';
-}
-
-$counter = 0;
- 
-$page = 1;
-$stack = array();
-
-$q = "SELECT Name, Description, Location, Regions.Regionname as  Regioname FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
+  $q = "SELECT Name, Description, Location, Regions.Regionname as  Regioname FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
     where " . $qtype . "  like :text1 
-    order by " . $sort . ' ' .  $ord 
-    . " limit " . $lim1 . "," . $lim2;     
+    order by " . $sort . ' ' .  $ord ;
+    //. " limit " . $lim1 . "," . $lim2;     
 
 #echo $q;
 
     $query = $db->prepare($q);
     $result = $query->execute($sqldata);
     
-    $counter = 0;
+   
     class OUT {}
     class Row {}
     
@@ -68,11 +77,12 @@ $q = "SELECT Name, Description, Location, Regions.Regionname as  Regioname FROM 
     
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        $counter++;
+        
         $location = $row["Location"];
         $location = str_replace("/"," ", $location );
         
         #$hop  = "<a href=\"". $url . "\"class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        $hop = "";
         
         $row = array("hop"=>$hop, "Name"=>$row["Name"],"Description"=>$row["Description"],"Regionname"=>$row["Regioname"],"Location"=>$location);
         
@@ -88,13 +98,23 @@ $q = "SELECT Name, Description, Location, Regions.Regionname as  Regioname FROM 
         
         #$myJSON = json_encode($rowobj);
         #echo $myJSON . "<br>";
-        array_push($stack, $rowobj);
+        if ($total >= (($page-1) *$rc) && $total < ($page) *$rc) {
+          array_push($stack, $rowobj);
+        }
+        $total++;
+        
+    }
+    if ($total == 0) {
+      $row = array("hop"=>$hop, "Name"=>"No records","Description"=>"No records","Regionname"=>"No records","Location"=>"No records");
+      $rowobj = new Row();
+      $rowobj->cell = $row;
+      array_push($stack, $rowobj);
     }
 
     $out->domain = $CONF_domain;
     $out->port = $CONF_port;
     $out->page  = $page;
-    $out->total = $counter;
+    $out->total = $total;
     $out->rows  = $stack;
         
     $myJSON = json_encode($out);

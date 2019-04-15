@@ -39,7 +39,7 @@ $(document).ready(function(){
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',
 		useRp: true,
-		rp: 50,
+		rp: 100,
 		showTableToggleBtn: false,
 		width: 700,
 		height: 400
