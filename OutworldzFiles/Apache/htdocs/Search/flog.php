@@ -33,7 +33,9 @@
  *  Email:  iliep@softconsultant.ro
  *  Date:   26-Nov-2011
  */
- 
+	
+define ("FLOG_IGNORE", true);	// comment this to get data in logs
+
 if( defined( "FLOG_HAS_BEEN_INCLUDED" ) ) return;
 define( "FLOG_HAS_BEEN_INCLUDED", true );
 
