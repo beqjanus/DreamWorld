@@ -1081,6 +1081,12 @@ Public Class Form1
         MySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", MySetting.SmtpUsername)
         MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", MySetting.SmtpPassword)
 
+
+        If MySetting.SearchLocal Then
+            MySetting.SetOtherIni("LoginService", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+        Else
+            MySetting.SetOtherIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
+        End If
         MySetting.SaveOtherINI()
 
 
@@ -1111,6 +1117,16 @@ Public Class Form1
             MySetting.SetOtherIni("Startup", "economymodule", "Gloebit")
         Else
             MySetting.SetOtherIni("Startup", "economymodule", "")
+        End If
+
+        If MySetting.SearchLocal Then
+            MySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/register.php")
+            MySetting.SetOtherIni("Search", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+            MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+        Else
+            MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+            MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+            MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
         End If
 
         ' LSL emails
@@ -1839,7 +1855,7 @@ Public Class Form1
 
         If MySetting.ApacheService Then
             Dim ApacheProcess As New Process()
-            Print("Installing Apache as a service")
+            Print("Checking Apache service")
             Try
                 ApacheProcess.EnableRaisingEvents = True
                 ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
