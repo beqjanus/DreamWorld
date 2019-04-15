@@ -102,12 +102,14 @@ if (mysqli_connect_errno())
 }
   
   
-  $xx=0;
-  if ($region['sizeX'] == 0) {$region['sizeX'] = 256; }
-  if ($region['sizeY'] == 0) {$region['sizeY'] = 256; }
+
 
   while($region=mysqli_fetch_array($z))
   {
+	  
+	if ($region['sizeX'] == 0) {$region['sizeX'] = 256; }
+	if ($region['sizeY'] == 0) {$region['sizeY'] = 256; }
+  
    if ((($region['sizeX'] == 256) && ($region['sizeY'] == 256)) || (($region['sizeX'] == 256) && ($region['sizeY'] == 0)))
       {
 		$work_reg = $region['uuid'].";".$region['regionName'].";".$region['locX'].";".$region['locY'].";".$region['serverURI'].";".$region['sizeX'].";".$region['sizeY'].";".$region['owner_uuid'].";SingleRegion";
