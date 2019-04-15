@@ -60,13 +60,13 @@ Public Class FormRestart
         If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
-        If initted Then
-            Try
-                Form1.MySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text)
-                Form1.MySetting.SaveSettings()
-            Catch
-            End Try
-        End If
+
+        Try
+            Form1.MySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text)
+            Form1.MySetting.SaveSettings()
+        Catch
+        End Try
+
 
     End Sub
 
