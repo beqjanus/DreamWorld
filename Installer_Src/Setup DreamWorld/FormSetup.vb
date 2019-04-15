@@ -41,7 +41,7 @@ Public Class Form1
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -60,10 +60,16 @@ Public Class Form1
     Public Shared MysqlConn As Mysql
 
     ' with events
+    Private WithEvents ApacheProcess As New Process()
+    Public Event ApacheExited As EventHandler
+    Dim gApacheProcessID As Integer = 0
+
     Private WithEvents ProcessMySql As Process = New Process()
     Public Event Exited As EventHandler
+
     Private WithEvents RobustProcess As New Process()
     Public Event RobustExited As EventHandler
+
     Public ExitList As New ArrayList()
 
     Dim Data As IniParser.Model.IniData
@@ -72,10 +78,7 @@ Public Class Form1
     ' robust global PID
     Public gRobustProcID As Integer
     Public gRobustConnStr As String = ""
-
     Public gMaxPortUsed As Integer = 0  'Max number of port used past 8004
-
-
     Dim gContentAvailable As Boolean = False ' assume there is no OAR and IAR data available
     Public MyUPnpMap As UPnp        ' UPNP gAborting
     Dim ws As NetServer             ' Port 8001 Webserver
@@ -118,9 +121,9 @@ Public Class Form1
     Public ViewedSettings As Boolean = False
     Dim MyRAMCollection As New Collection
 
-
     'Crashing
     Dim LogSearch As New CrashDetector()
+
 
     Public Enum SHOW_WINDOW As Integer
         SW_HIDE = 0
@@ -393,8 +396,6 @@ Public Class Form1
         ChartWrapper2.MarkerFreq = 60
         'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
-        SetupSearch()
-
 
         ' Find out if the viewer is installed
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
@@ -573,21 +574,8 @@ Public Class Form1
             Return
         End If
 
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
-
-        If Not Start_Robust() Then
-            Return
-        End If
-
+        SetupSearch()
         StartApache()
-
-        If Not MySetting.RunOnce Then
-            ConsoleCommand("Robust", "create user{ENTER}")
-            MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
-            MySetting.RunOnce = True
-            MySetting.SaveSettings()
-        End If
 
         ' old files to clean up
         Try
@@ -599,6 +587,20 @@ Public Class Form1
 
         Catch ex As Exception
         End Try
+
+        If Not Start_Robust() Then
+            Return
+        End If
+
+        If Not MySetting.RunOnce Then
+            ConsoleCommand("Robust", "create user{ENTER}")
+            MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
+            MySetting.RunOnce = True
+            MySetting.SaveSettings()
+        End If
+
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
 
         ' Launch the rockets
         If Not Start_Opensimulator() Then
@@ -683,6 +685,8 @@ Public Class Form1
         ' close everything as gracefully as possible.
 
         StopIcecast()
+        StopApache()
+
 
         Dim n As Integer = RegionClass.RegionCount()
         Diagnostics.Debug.Print("N=" + n.ToString())
@@ -775,24 +779,23 @@ Public Class Form1
 
     End Function
     ''' <summary>
-    ''' For Shoutcast only
+    ''' Kill processes by name
     ''' </summary>
     ''' <param name="processName"></param>
     ''' <returns></returns>
-    Private Function Zap(processName As String) As Boolean
+    Private Sub Zap(processName As String)
+
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
             Try
                 Log("Info", "Stopping process " + processName)
                 P.Kill()
-                Return True
             Catch ex As Exception
                 Log("Info", "failed to stop " + processName)
-                Return False
             End Try
         Next
-        Zap = False
-    End Function
+
+    End Sub
 
 #End Region
 
@@ -1262,6 +1265,8 @@ Public Class Form1
         DoGloebits()
         CopyOpensimProto()
         DoRegions()
+        MapSetup()
+        DoPHP()
         DoApache()
 
         Return True
@@ -1829,35 +1834,95 @@ Public Class Form1
             Return
         End If
 
-        Dim ApacheRunning = CheckPort(MySetting.PrivateURL, 80)
+        Dim ApacheRunning = CheckPort(MySetting.PrivateURL, CType(MySetting.ApachePort, Integer))
         If ApacheRunning Then Return
 
-        Dim ApacheProcess As New Process()
-        Print("Installing Apache as a service")
-        Try
-            ApacheProcess.EnableRaisingEvents = True
-            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            ApacheProcess.Start()
-            ApacheProcess.WaitForExit()
-            Dim code = ApacheProcess.ExitCode
-            If code <> 0 Then
-                MsgBox("Apache failed to install and start as a service:" & code.ToString, vbInformation, "Error")
-            End If
-            Sleep(100)
-            ApacheRunning = CheckPort(MySetting.PrivateURL, 80)
-            If Not ApacheRunning Then
-                MsgBox("Apache installed but port 80 is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
-            End If
+        If MySetting.ApacheService Then
+            Dim ApacheProcess As New Process()
+            Print("Installing Apache as a service")
+            Try
+                ApacheProcess.EnableRaisingEvents = True
+                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
+                ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
+                Dim code = ApacheProcess.ExitCode
+                If code <> 0 Then
+                    MsgBox("Apache failed to install and start as a service:" & code.ToString, vbInformation, "Error")
+                End If
+                Sleep(100)
+                ApacheRunning = CheckPort(MySetting.PublicIP, CType(MySetting.ApachePort, Integer))
+                If Not ApacheRunning Then
+                    MsgBox("Apache installed but port " & MySetting.ApachePort & " is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
+                End If
 
-        Catch ex As Exception
-            Print("Error InstallApache did Not start " + ex.Message)
-        End Try
+            Catch ex As Exception
+                Print("Error InstallApache did Not start " + ex.Message)
+            End Try
+        Else
+
+            ' Start Apache  manually
+            Try
+                ApacheProcess.EnableRaisingEvents = True
+                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
+                ApacheProcess.StartInfo.CreateNoWindow = False
+                ApacheProcess.StartInfo.WorkingDirectory = gPath + "bin"
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                ApacheProcess.StartInfo.Arguments = ""
+                ApacheProcess.Start()
+                gApacheProcessID = ApacheProcess.Id
+
+            Catch ex As Exception
+                Print("Error: Apache did not start: " + ex.Message)
+                ErrorLog("Error: Apache did not start: " + ex.Message)
+                Return
+            End Try
+
+            ' Wait for Apache to start listening 
+
+            Dim counter = 0
+            While Not IsApacheRunning() And OpensimIsRunning
+                Application.DoEvents()
+                BumpProgress(1)
+                counter = counter + 1
+                ' wait a minute for it to start
+                If counter > 100 Then
+                    Print("Error:Apache failed to start")
+                    Return
+                End If
+                Application.DoEvents()
+                Sleep(100)
+            End While
+
+            Print("Apache webserver is running")
+
+        End If
 
     End Sub
+    ''' <summary>
+    ''' Check is Apache  port 80 or 8000 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function IsApacheRunning() As Boolean
+
+        Dim Up As String = String.Empty
+        Try
+            Up = client.DownloadString("http://" & MySetting.PublicIP & ":" & MySetting.ApachePort + "/?_Opensim=" + Random())
+        Catch ex As Exception
+            If ex.Message.Contains("200 OK") Then Return True
+            Return False
+        End Try
+        If Up.Length = 0 And OpensimIsRunning() Then
+            Return False
+        End If
+
+        Return True
+
+    End Function
 
     Private Sub MapSetup()
 
@@ -1885,26 +1950,42 @@ Public Class Form1
 
     End Sub
 
-
-
     Private Sub StopApache()
 
-        Dim ApacheProcess As New Process()
-        Print("Stopping Apache service")
-        Try
-            ApacheProcess.StartInfo.FileName = "net.exe"
-            ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            ApacheProcess.Start()
-            ApacheProcess.WaitForExit()
-            Dim code = ApacheProcess.ExitCode
-            If code <> 0 Then
-                Log("Info", "No Apache to stop")
-            End If
-        Catch ex As Exception
-            Print("Error Apache did not stop" + ex.Message)
-        End Try
+        If Not MySetting.ApacheEnable Then Return
+
+        Print("Stopping Apache ")
+
+        If MySetting.ApacheService Then
+            Dim ApacheProcess As New Process()
+            Print("Stopping Apache service")
+            Try
+                ApacheProcess.StartInfo.FileName = "net.exe"
+                ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
+                ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
+                Dim code = ApacheProcess.ExitCode
+                If code <> 0 Then
+                    Log("Info", "No Apache to stop")
+                End If
+            Catch ex As Exception
+                Print("Error Apache did not stop" + ex.Message)
+            End Try
+        Else
+            Zap("httpd")
+            Zap("rotatelogs")
+        End If
+
+
+    End Sub
+    Private Sub DoPHP()
+
+        Dim ini = MyFolder & "\Outworldzfiles\PHP5\php.ini"
+        MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("extension_dir", " = """ & gCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        MySetting.SaveApacheINI(ini, "php.ini")
 
     End Sub
 
@@ -1912,11 +1993,10 @@ Public Class Form1
 
         If Not MySetting.ApacheEnable Then Return
 
-        MapSetup()
-
         ' lean rightward paths for Apache
         Dim ini = MyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         MySetting.LoadApacheIni(ini)
+        MySetting.SetApacheIni("Listen", MySetting.ApachePort)
         MySetting.SetApacheIni("ServerRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache" & """")
         MySetting.SetApacheIni("DocumentRoot", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         MySetting.SetApacheIni("Use VDir", """" & gCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
@@ -2104,6 +2184,16 @@ Public Class Form1
 #End Region
 
 #Region "Exited"
+
+    ' Handle Exited event and display process information.
+    Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles ApacheProcess.Exited
+
+        gApacheProcessID = Nothing
+
+        If gAborting Then Return
+        Dim yesno = MsgBox("Apache exited.", vbYesNo, "Error")
+
+    End Sub
     ' Handle Exited event and display process information.
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles RobustProcess.Exited
 
@@ -2546,7 +2636,7 @@ Public Class Form1
             Diagnostics.Debug.Print(windowName & " Handle = 0")
             Sleep(100)
             WindowCounter = WindowCounter + 1
-            If WindowCounter > 600 Then '  60 seconds for process to start
+            If WindowCounter > 200 Then '  20 seconds for process to start
                 status = True
                 ErrorLog("Cannot get MainWindowHandle for " & windowName)
                 Return False
@@ -2752,7 +2842,6 @@ Public Class Form1
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
         Chart() ' do charts collection each second
-        GetEvents() ' get the events from the Outworldz main server for all grids
 
         If Not OpensimIsRunning() Then
             Timer1.Stop()
@@ -2764,6 +2853,7 @@ Public Class Form1
         ' hourly
         If gDNSSTimer Mod 3600 = 0 Or gDNSSTimer = 1 Then
             RegisterDNS()
+            GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
         If gAborting Then Return
@@ -3496,6 +3586,12 @@ Public Class Form1
         Return True
 
     End Function
+
+    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
+
+        CheckForUpdates()
+
+    End Sub
 
     Private Sub UpdaterGo()
 
@@ -4289,14 +4385,13 @@ Public Class Form1
 
     Private Sub StopMysql()
 
+        Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
+        If Not isMySqlRunning Then Return
+
         If Not gStopMysql Then
             Print("MySQL was running when I woke up, so I am leaving MySQL on.")
             Return
         End If
-
-        Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
-
-        If Not isMySqlRunning Then Return
 
         Print("Stopping MySql")
 
@@ -5087,13 +5182,13 @@ Public Class Form1
 
         ' Icecast needs both ports for both protocols
         If MySetting.SC_Enable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
+                Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase1 & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase1 & vbCrLf
-        End If
+            End If
 
-        Dim RegionNumber As Integer = 0
+            Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
         ' regions need both
@@ -5142,8 +5237,8 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If MySetting.SearchInstalled Then Return
-        Print("Installing Search")
+        'If MySetting.SearchInstalled Then Return
+        Print("Setting up search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\mysql\bin\"
@@ -5190,57 +5285,61 @@ Public Class Form1
     <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub GetEvents()
 
-        'StartMySQL()
+        If Not MySetting.ApacheEnable Then Return
 
-        If Not MySetting.SearchInstalled Then Return
 
-        If gDNSSTimer Mod 3600 = 0 Then
-            Dim Simevents As New Dictionary(Of String, String)
-            Dim ossearch As String = "server=" + MySetting.RobustServer() _
-            + ";database=" + "ossearch" _
-            + ";port=" + MySetting.MySqlPort _
-            + ";user=" + MySetting.RobustUsername _
-            + ";password=" + MySetting.RobustPassword _
-            + ";Old Guids=true;Allow Zero Datetime=true;"
+        Dim Simevents As New Dictionary(Of String, String)
+        Dim ossearch As String = "server=" + MySetting.RobustServer() _
+        + ";database=" + "ossearch" _
+        + ";port=" + MySetting.MySqlPort _
+        + ";user=" + MySetting.RobustUsername _
+        + ";password=" + MySetting.RobustPassword _
+        + ";Old Guids=true;Allow Zero Datetime=true;"
 
-            Dim osconnection As MySqlConnection = New MySqlConnection(ossearch)
+        Dim osconnection As MySqlConnection = New MySqlConnection(ossearch)
+        Try
             osconnection.Open()
+        Catch ex As Exception
+            Log("Error", "Failed to Connect to OsSearch")
+            Return
+        End Try
 
-            DeleteEvents(osconnection)
+        DeleteEvents(osconnection)
+        Dim ctr As Integer = 0
+        Using client As New WebClient()
+            Using Stream = client.OpenRead(gDomain + "/events.txt?r=" & Random())
+                Using reader = New StreamReader(Stream)
 
-            Using client As New WebClient()
-                Using Stream = client.OpenRead(gDomain + "/events.txt?r=" & Random())
-                    Using reader = New StreamReader(Stream)
+                    While reader.Peek <> -1
+                        Dim s = reader.ReadLine
+                        '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
 
-                        While reader.Peek <> -1
-                            Dim s = reader.ReadLine
-                            '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
+                        ' Split line on comma.
+                        Dim array As String() = s.Split("|".ToCharArray())
+                        Simevents.Clear()
+                        ' Loop over each string received.
+                        Dim part As String
+                        For Each part In array
+                            ' Display to console.
+                            Dim a As String() = part.Split("^".ToCharArray())
+                            If a.Count = 2 Then
+                                a(1) = a(1).Replace("'", "\'")
+                                a(1) = a(1).Replace("`", vbLf)
+                                Console.WriteLine("{0}:{1}", a(0), a(1))
+                                Simevents.Add(a(0), a(1))
+                                ctr += 1
 
-                            ' Split line on comma.
-                            Dim array As String() = s.Split("|".ToCharArray())
-                            Simevents.Clear()
-                            ' Loop over each string received.
-                            Dim part As String
-                            For Each part In array
-                                ' Display to console.
-                                Dim a As String() = part.Split("^".ToCharArray())
-
-                                If a.Count = 2 Then
-                                    a(1) = a(1).Replace("'", "\'")
-                                    a(1) = a(1).Replace("`", vbLf)
-                                    Console.WriteLine("{0}:{1}", a(0), a(1))
-                                    Simevents.Add(a(0), a(1))
-                                End If
-                            Next
-                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
-                            WriteEvent(osconnection, Simevents)
-                        End While
-                    End Using
+                            End If
+                        Next
+                        Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
+                        WriteEvent(osconnection, Simevents)
+                    End While
                 End Using
             End Using
-            osconnection.Close()
+        End Using
+        osconnection.Close()
+        Print(ctr.ToString & " hypevents received")
 
-        End If
 
     End Sub
 
@@ -5287,9 +5386,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
-        CheckForUpdates()
-    End Sub
+
 #End Region
 
 End Class
