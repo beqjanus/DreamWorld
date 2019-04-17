@@ -27,6 +27,7 @@ Public Class NetServer
         MyPort = Port
         Myfolder = pathinfo
         LocalAddress = IPAddress.Parse(IP)
+        'LocalAddress = IPAddress.Parse("10.135.90.101")
 
         If running Then Return
 
@@ -44,20 +45,23 @@ Public Class NetServer
 
     Private Sub Looper()
 
-        Log("Info","IP:" + LocalAddress.ToString)
+        '  Log("Info","IP:" + LocalAddress.ToString)
         listen = True
 
         Dim listener = New System.Net.HttpListener()
-        listener.Start()
-        Dim prefixes(0) As String
-
-        prefixes(0) = "http://" + LocalAddress.ToString + ":" + MyPort.ToString + "/"
+        listener.Prefixes.Clear()
+        'listener.Prefixes.Add("http://" + LocalAddress.ToString + ":" + MyPort.ToString + "/")
+        listener.Prefixes.Add("http://+:" + MyPort.ToString + "/")
 
         Try
-            For Each s As String In prefixes
-                listener.Prefixes.Add(s)
-            Next
-        Catch
+            listener.Start() ' Throws Exception
+        Catch ex As Exception
+
+            If ex.Message.Contains("Access is denied") Then
+                Return
+            Else
+                Throw
+            End If
         End Try
 
         Dim result As IAsyncResult

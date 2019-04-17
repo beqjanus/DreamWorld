@@ -41,7 +41,7 @@ Public Class Form1
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
+    ReadOnly gDebugPath As String = "C:\Users\Administrator\Desktop\Dreamgrid\Src"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -337,12 +337,6 @@ Public Class Form1
         ws = NetServer.GetWebServer
         Log("Info", "Starting Web Server ")
         ws.StartServer(MyFolder, MySetting, MySetting.PrivateURL, CType(MySetting.DiagnosticPort, Integer))
-
-        ' Run diagnostics, maybe
-        If Not MySetting.RanAllDiags Then
-            DoDiag()
-            MySetting.RanAllDiags = True
-        End If
 
         OpenPorts()
 
@@ -1849,13 +1843,25 @@ Public Class Form1
             Return
         End If
 
+        ' Stop M<SFT server if we are on port 80 and enabled
+
+        ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        ApacheProcess.StartInfo.FileName = "net"
+        ApacheProcess.StartInfo.CreateNoWindow = True
+        ApacheProcess.StartInfo.Arguments = "stop W3SVC"
+        ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        ApacheProcess.Start()
+        ApacheProcess.WaitForExit()
+
+
         Dim ApacheRunning = CheckPort(MySetting.PrivateURL, CType(MySetting.ApachePort, Integer))
         If ApacheRunning Then Return
 
         If MySetting.ApacheService Then
-            Dim ApacheProcess As New Process()
+
             Print("Checking Apache service")
             Try
+                Dim ApacheProcess As New Process()
                 ApacheProcess.EnableRaisingEvents = True
                 ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
@@ -1881,15 +1887,16 @@ Public Class Form1
 
             ' Start Apache  manually
             Try
-                ApacheProcess.EnableRaisingEvents = True
-                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
-                ApacheProcess.StartInfo.CreateNoWindow = False
-                ApacheProcess.StartInfo.WorkingDirectory = gPath + "bin"
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                ApacheProcess.StartInfo.Arguments = ""
-                ApacheProcess.Start()
-                gApacheProcessID = ApacheProcess.Id
+                Dim ApacheProcess2 As New Process()
+                ApacheProcess2.EnableRaisingEvents = True
+                ApacheProcess2.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess2.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
+                ApacheProcess2.StartInfo.CreateNoWindow = False
+                ApacheProcess2.StartInfo.WorkingDirectory = gPath + "bin"
+                ApacheProcess2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                ApacheProcess2.StartInfo.Arguments = ""
+                ApacheProcess2.Start()
+                gApacheProcessID = ApacheProcess2.Id
 
             Catch ex As Exception
                 Print("Error: Apache did not start: " + ex.Message)
@@ -2149,7 +2156,7 @@ Public Class Form1
                 Dim yesno = MsgBox("Robust did not start. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
                     Dim Log As String = """" + MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log" + """"
-                    System.Diagnostics.Process.Start("wordpad.exe", Log)
+                    System.Diagnostics.Process.Start(MyFolder + "\baretail.exe " & Log)
                 End If
                 Buttons(StartButton)
                 Return False
@@ -2638,7 +2645,7 @@ Public Class Form1
     ''' </summary>
     Private Sub ShowLog()
 
-        System.Diagnostics.Process.Start("wordpad.exe", """" + MyFolder + "/OutworldzFiles/Outworldz.log" + """")
+        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" + MyFolder + "/OutworldzFiles/Outworldz.log" + """")
 
     End Sub
 
@@ -3809,7 +3816,7 @@ Public Class Form1
 
         'Print("Running Loopback Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" + MySetting.PublicIP + ":" + MySetting.DiagnosticPort + "/?_TestLoopback=" + Random()
+        Dim loopbacktest As String = "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort + "/?_TestLoopback=" + Random()
         Try
             Log("Info", loopbacktest)
             result = client.DownloadString(loopbacktest)
@@ -3843,8 +3850,8 @@ Public Class Form1
 
     Private Sub DiagnosticsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiagnosticsToolStripMenuItem.Click
 
-        If OpensimIsRunning() Then
-            Print("Cannot run dignostics while Opensimulator is running. Click 'Stop' and try again.")
+        If Not OpensimIsRunning() Then
+            Print("Cannot run diagnostics unless Opensimulator is running. Click 'Start' and try again.")
             Return
         End If
         ProgressBar1.Value = 0
@@ -3860,6 +3867,7 @@ Public Class Form1
 
     Private Function ProbePublicPort() As Boolean
 
+
         If IsPrivateIP(MySetting.DNSName) Then
             Return True
         End If
@@ -3871,8 +3879,8 @@ Public Class Form1
             ' Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test results 
             ' See my privacy policy at https://www.outworldz.com/privacy.htm
 
-            Dim Url = gDomain + "/cgi/probetest.plx?IP=" + MySetting.PublicIP + "&Port=" + MySetting.DiagnosticPort + GetPostData()
-            'Log(Url)
+            Dim Url = gDomain + "/cgi/probetest.plx?IP=" + MySetting.PublicIP + "&Port=" + MySetting.HttpPort + GetPostData()
+            Log("Info", Url)
             isPortOpen = client.DownloadString(Url)
         Catch ex As Exception
             ErrorLog("Dang:The Outworldz web site cannot find a path back")
@@ -3883,13 +3891,13 @@ Public Class Form1
 
         If isPortOpen = "yes" Then
             MySetting.PublicIP = MySetting.PublicIP
-            Log("Info", "Public IP set to " + MySetting.PublicIP)
+            Print("Public IP set to " + MySetting.PublicIP)
             MySetting.SaveSettings()
             Return True
         Else
             Log("Warn", "Failed:" + isPortOpen)
             MySetting.DiagFailed = True
-            Print("Internet address " + MySetting.PublicIP + ":" + MySetting.DiagnosticPort + " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
+            Print("Internet address " + MySetting.PublicIP + ":" + MySetting.HttpPort + " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             MySetting.PublicIP = MyUPnpMap.LocalIP() ' failed, so try the machine address
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
@@ -3915,7 +3923,8 @@ Public Class Form1
         ProbePublicPort()
         TestPublicLoopback()
         If MySetting.DiagFailed Then
-            ShowLog()
+            Dim answer = MsgBox("Diagnostics failed. Do you want to see the log?", vbYesNo)
+            If answer = vbOK Then ShowLog()
         Else
             NewDNSName()
         End If
@@ -3926,7 +3935,7 @@ Public Class Form1
     Private Sub CheckDiagPort()
         gUseIcons = True
 
-        Dim wsstarted = CheckPort(MyUPnpMap.LocalIP, CType(MySetting.DiagnosticPort, Integer))
+        Dim wsstarted = CheckPort("localhost", CType(MySetting.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox("Diagnostics port " + MySetting.DiagnosticPort + " is not working or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "Cannot HG")
             gUseIcons = False
@@ -3980,8 +3989,7 @@ Public Class Form1
         End If
 
         If Not MySetting.UPnPEnabled Then
-
-            Return True
+            Return False
         End If
 
         Log("UPnP", "Local IP seems to be " + MyUPnpMap.LocalIP)
@@ -4102,10 +4110,9 @@ Public Class Form1
                 BumpProgress10()
                 Return True
             Else
-                Log("UPnP", "Fail")
+                Log("UPnP", "Fail or disabled")
                 MySetting.UPnpDiag = False
                 MySetting.SaveSettings()
-
                 BumpProgress10()
                 Return False
             End If
@@ -5188,6 +5195,10 @@ Public Class Form1
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SC_PortBase1 & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SC_PortBase1 & """" & vbCrLf
 
+        If MySetting.ApacheEnable Then
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Opensim HTTP Web Port " & MySetting.HttpPort & """" & vbCrLf
+        End If
+
         Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
@@ -5206,6 +5217,10 @@ Public Class Form1
         Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & MySetting.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.DiagnosticPort & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.HttpPort & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & MySetting.HttpPort & vbCrLf
+
+        If MySetting.ApacheEnable Then
+            Command = Command + "netsh advfirewall firewall  add rule name=""Opensim HTTP Web Port " & MySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & MySetting.ApachePort & vbCrLf
+        End If
 
         ' Icecast needs both ports for both protocols
         If MySetting.SC_Enable Then
