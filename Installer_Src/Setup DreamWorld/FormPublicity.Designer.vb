@@ -39,7 +39,7 @@ Partial Class FormPublicity
         Me.GroupBox11.Controls.Add(Me.PictureBox9)
         Me.GroupBox11.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Size = New System.Drawing.Size(207, 166)
+        Me.GroupBox11.Size = New System.Drawing.Size(221, 183)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Public Photo"
@@ -65,10 +65,10 @@ Partial Class FormPublicity
         '
         'PictureBox9
         '
-        Me.PictureBox9.InitialImage = Global.Outworldz.My.Resources.Resources.blankbox
-        Me.PictureBox9.Location = New System.Drawing.Point(12, 42)
+        Me.PictureBox9.InitialImage = Global.Outworldz.My.Resources.Resources.ClicktoInsertPhoto
+        Me.PictureBox9.Location = New System.Drawing.Point(12, 45)
         Me.PictureBox9.Name = "PictureBox9"
-        Me.PictureBox9.Size = New System.Drawing.Size(180, 100)
+        Me.PictureBox9.Size = New System.Drawing.Size(203, 123)
         Me.PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox9.TabIndex = 1864
         Me.PictureBox9.TabStop = False

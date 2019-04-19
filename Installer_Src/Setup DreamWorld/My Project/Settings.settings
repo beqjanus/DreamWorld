@@ -194,9 +194,6 @@
     <Setting Name="RunOnce" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ConsoleShow" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="AvatarShow" Type="System.String" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -210,7 +207,7 @@
       <Value Profile="(Default)">8001</Value>
     </Setting>
     <Setting Name="MySqlPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)">3309</Value>
+      <Value Profile="(Default)">3306</Value>
     </Setting>
     <Setting Name="allow_grid_gods" Type="System.String" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -247,6 +244,9 @@
     </Setting>
     <Setting Name="EnableWindowsFormsHighDpiAutoResizing" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ConsoleShow" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
