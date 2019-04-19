@@ -41,7 +41,7 @@ Public Class Form1
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
