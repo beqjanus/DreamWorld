@@ -30,7 +30,7 @@ Public Class MySettings
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
-            Using outputFile As New StreamWriter(myINI, True)
+            Using outputFile As New StreamWriter(myINI, False)
                 outputFile.WriteLine(contents)
             End Using
 

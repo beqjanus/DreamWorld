@@ -668,6 +668,7 @@
     <None Include="Resources\PDF.1.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\printer3.png" />
+    <None Include="Resources\ClicktoInsertPhoto.jpg" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

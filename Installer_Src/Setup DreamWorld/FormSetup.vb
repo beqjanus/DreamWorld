@@ -36,12 +36,12 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.84"
+    ReadOnly gMyVersion As String = "2.85"
     ReadOnly gSimVersion As String = "0.9.1"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "C:\Users\Administrator\Desktop\Dreamgrid\Src"  ' no slash at end
+    ReadOnly gDebugPath As String = "O:\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
 
@@ -1800,12 +1800,23 @@ Public Class Form1
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If OpensimIsRunning() Then
-            Dim webAddress As String = "http://127.0.0.1:" + MySetting.HttpPort
-            Process.Start(webAddress)
-            Print("Log in as '" + MySetting.AdminFirst + " " + MySetting.AdminLast + "' with a password of " + MySetting.Password + " to add user accounts.")
+            If MySetting.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" + MySetting.ApachePort
+                Process.Start(webAddress)
+            Else
+                Dim webAddress As String = "http://127.0.0.1:" + MySetting.HttpPort
+                Process.Start(webAddress)
+                Print("Log in as '" + MySetting.AdminFirst + " " + MySetting.AdminLast + "' with a password of " + MySetting.Password + " to add user accounts.")
+            End If
         Else
-            Print("Opensim is not running. Cannot open the Web Interface.")
+            If MySetting.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" + MySetting.ApachePort
+                Process.Start(webAddress)
+            Else
+                Print("Opensim is not running. Cannot open the Web Interface.")
+            End If
         End If
+
     End Sub
 
     Private Sub LoopBackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopBackToolStripMenuItem.Click
