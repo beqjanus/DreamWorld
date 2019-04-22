@@ -31,7 +31,7 @@ Public Class CrashDetector
                                         ' Restart 
                                         Form1.Print("Restarting " & RegionName & " due to Bullet crash")
                                         Form1.gRestartNow = True
-                                        Form1.SequentialPause(RegionNum)
+                                        Form1.SequentialPause()
                                         Form1.ConsoleCommand(Form1.RegionClass.GroupName(RegionNum), "q{ENTER}" + vbCrLf)
                                         Form1.RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
                                         Form1.RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.

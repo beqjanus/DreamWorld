@@ -36,12 +36,12 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.85"
+    ReadOnly gMyVersion As String = "2.86"
     ReadOnly gSimVersion As String = "0.9.1"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid"  ' no slash at end
+    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
 
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
@@ -700,7 +700,7 @@ Public Class Form1
             Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
             Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) Then
                 Print(RegionClass.RegionName(X) & " is going down now")
-                SequentialPause(X)
+                SequentialPause()
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown
                 RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
@@ -2313,7 +2313,7 @@ Public Class Form1
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
                         If ShowDOSWindow(GetHwnd(GroupName), SHOW_WINDOW.SW_RESTORE) Then
-                            SequentialPause(X)
+                            SequentialPause()
                             ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                             Print("AutoRestarting " + GroupName)
                             ' shut down all regions in the DOS box
@@ -2543,7 +2543,7 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
-            SequentialPause(RegionNumber)
+            SequentialPause()
 
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
@@ -5155,29 +5155,36 @@ Public Class Form1
 
 
 #Region "Sequential"
-    Public Sub SequentialPause(x As Integer)
+    Public Sub SequentialPause()
 
         If MySetting.Sequential Then
-            Dim ctr = 600 ' 1 minute max to start a region
-            Dim WaitForIt = True
-            While WaitForIt
-                Sleep(100)
-                If RegionClass.RegionEnabled(x) _
-            And Not gAborting _
-            And (RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingUp Or
-                RegionClass.Status(x) = RegionMaker.SIM_STATUS.ShuttingDown Or
-                RegionClass.Status(x) = RegionMaker.SIM_STATUS.RecyclingDown Or
-                RegionClass.Status(x) = RegionMaker.SIM_STATUS.Booting) Then
-                    WaitForIt = True
-                Else
-                    WaitForIt = False
+
+            For Each X As Integer In RegionClass.RegionNumbers
+                If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
+                    Not (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown _
+                    Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
+                    Or RegionClass.Status(X) = RegionMaker.SIM_STATUS.Stopped) Then
+
+                    Dim ctr = 600 ' 1 minute max to start a region
+                    Dim WaitForIt = True
+                    While WaitForIt
+                        Sleep(100)
+                        If RegionClass.RegionEnabled(X) _
+                    And Not gAborting _
+                    And (RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingUp Or
+                        RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Or
+                        RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Or
+                        RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting) Then
+                            WaitForIt = True
+                        Else
+                            WaitForIt = False
+                        End If
+                        ctr = ctr - 1
+                        If ctr <= 0 Then WaitForIt = False
+                    End While
                 End If
-                ctr = ctr - 1
-                If ctr <= 0 Then WaitForIt = False
-            End While
-
+            Next
         Else
-
             Dim ctr = 600 ' 1 minute max to start a region
             Dim WaitForIt = True
             While WaitForIt
@@ -5188,6 +5195,7 @@ Public Class Form1
                     If ctr <= 0 Then WaitForIt = False
                 End If
             End While
+
         End If
 
     End Sub

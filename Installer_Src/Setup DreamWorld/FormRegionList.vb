@@ -660,7 +660,7 @@ Public Class RegionList
                     Dim regionNum = RegionClass.FindRegionByName(RegionName)
                     Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
                     If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
-                        Form1.SequentialPause(regionNum)
+                        Form1.SequentialPause()
                         Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
                         Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
                         ' shut down all regions in the DOS box
@@ -694,7 +694,7 @@ Public Class RegionList
             ElseIf chosen = "Recycle" Then
 
                 'Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
-                Form1.SequentialPause(n)
+                Form1.SequentialPause()
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
                 Form1.Print("Recycle " + RegionClass.GroupName(n))
                 Form1.gRestartNow = True
@@ -720,10 +720,9 @@ Public Class RegionList
     End Sub
 
     Private Sub StopRegionNum(num As Integer)
-        Form1.SequentialPause(num)
+        Form1.SequentialPause()
         Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(num))
         Form1.Log("Region", "Stopping Region " + RegionClass.GroupName(num))
-        Form1.SequentialPause(num)
         Form1.ConsoleCommand(RegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
     End Sub
 
@@ -897,7 +896,7 @@ Public Class RegionList
 
                 Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
-                    Form1.SequentialPause(X)
+                    Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                     Form1.Print("Restarting " & RegionClass.GroupName(X))
                 End If
