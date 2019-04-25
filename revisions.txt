@@ -1,0 +1,45 @@
+REVISIONS FOR DREAMGRID
+
+This is a high-level view of major changes.  For much more detail, install git. Then type 'git clone https://github.com/Outworldz/DreamWorld'.  Then run "gitk" to see every change ever made.
+
+V2.85 
+Link to web page takes you to http://yourgrid:80where the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache webserver enabled. 
+Apache port is movable. If your ISP blocks :80, try :8000
+Diagnostics loopback test reworked for Server 2016.  
+Icons fixed on Server 2016 by moving port 8001 to listen to localhost only.
+
+V2.84 
+Search local or remote grids is now a global setting. Global is still being edited, as it has no grid info yet.
+Paging, search, sort by columns in Search Objects.
+Events re-added by a pull from Outworldz e very hour and on startup
+
+V 2.83
+Apache 2.4 and PHP 5 added - may be enabled by a new switch in Web Control panel. You can run HTML and JavaScript with it or host your own Port 80 Web pages, assuming your ISP allows port 80.
+Hypergrid.org's "MetroMap" (large and small) added to the url http:://(grid):80/Metromap and to the Wifi Home Screen.
+You can run 3rd party programs such as PhpMyAdmin, Strawberry Perl and other CGI programs by adding the application.  
+Perl examples for Template::Toolkit and DBIX::Class to manipulate the database are included in the Apache\htdocs\PerlExamples folder.
+PHP Examples are in the Apache\htdocs\Search folder for Classifieds, Logging, Dumping Objects, Parcels, Regions, and Hosts.
+Objects and regions marked as 'Show in Search' are Searchable in the Viewer (Ctrl-F in Firestorm). Requires Apache and PHP Switch to be enabled in Web Pages. Classifieds do not work yet.
+Load OAR defaults to all options off.
+New Auto-Restart on Crash switch enabled by default.
+New Auto-Restart on Bulletsim Crash.
+Memory leak plugged 
+Sort order sorted for X,Y and RAM in Region Panel by adding leading zeros.
+Faster startup started faster by skipping phase II settings unless you have edited something.
+Predefined Colored logs
+Enable these colored logs by selecting Save on Exit option 'To File in Application Directory' 
+
+2.82 
+Disabling a region while shutting it down caused the Regions panel to not render.
+Help always appeared for Load Oar 2X2
+Added a PopUp for 1X1 so you can set more options.
+Added back the View buttons to Regionlist and made them resize and re-position the list
+
+2.81
+Add Memory used for each region to Region panel
+Add RAM graph
+Add Avatar, CPU and RAM to front panel
+Save width for Main Form
+
+2.8 Release  
+
