@@ -329,7 +329,7 @@ channel_notify=-800
 login_disable=true
 
 ; - send an alert as json to a service
-alert_uri=${Const|PrivURL}:${Const|DiagnosticsPort}
+alert_uri=http://localhost:${Const|DiagnosticsPort}
 
 [AccessControl]
 
