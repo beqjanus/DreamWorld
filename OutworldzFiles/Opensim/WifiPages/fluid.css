@@ -7,8 +7,8 @@ body {
   font-size:100%;
   font-family: Arial,'Lucida Grande',Verdana,sans-serif;
   text-align:center;
-  background:#000 repeat-y top center;
-  color:#929292;
+  background:#fff repeat-y top center;
+  color:#111111;
 }
 
 table th {
@@ -23,7 +23,7 @@ table th {
 }
 
 .textlogo {
-  color:#f67d15;
+  color:#111111;
 }
 p.textlogo {
   text-align:left;
@@ -32,7 +32,7 @@ p.textlogo {
 }
 
 .white {
-  color:#FFF;
+  color:#000;
 }
 
 .nowrap {
@@ -51,7 +51,7 @@ p.textlogo {
   position:relative;
 }
 
-a:link {color:#f8f8f8; text-decoration:none}
+a:link {color:#d9eef7; text-decoration:none}
 a:hover {color:#ff9933;text-decoration:none}
 a:active {color:#ff0000}
 
@@ -64,19 +64,19 @@ img {display:inline-block;}
 .box {
   font:14px Arial, Tahoma, Georgia, "Times New Roman", Times;
   background:#0F0F0F;
-  color:#929292;
+  color:#fff;
   text-align:justify;
   padding:0 2.25em;
 }
-.box a {color:#FFF; text-decoration:underline;}
-.box a:hover {color:#BD6B54; text-decoration:none;}
+.box a {color:#000; text-decoration:underline;}
+.box a:hover {color:#0000ff; text-decoration:none;}
 .box p {padding:0.4em 0;}
 .box li {list-style-position:inside;}
-.box h1,h2,h3,h4,h5 {font:36px Georgia, Arial, "Times New Roman", Times; color:#FFF; text-align:right;}
-.box-top {background:#0F0F0F; margin:0px 24px; height:24px;}
+.box h1,h2,h3,h4,h5 {font:36px Georgia, Arial, "Times New Roman", Times; color:#fff; text-align:center;}
+.box-top {background:#000000; margin:0px 24px; height:24px;}
 .box-top-left {background:url(images/box-top.gif) no-repeat 0% 0%; margin-left:-24px; height:24px; width:24px; float:left;}
 .box-top-right {background:url(images/box-top.gif) no-repeat 100% 0%; margin-right:-24px; height:24px; width:24px; float:right;}
-.box-bottom {background:#0F0F0F; margin:0px 24px; height:24px;}
+.box-bottom {background:#000000; margin:0px 24px; height:24px;}
 .box-bottom-left {background:url(images/box-bottom.gif) no-repeat 0% 100%; margin-left:-24px; height:24px; width:24px; float:left;}
 .box-bottom-right {background:url(images/box-bottom.gif) no-repeat 100% 100%; margin-right:-24px; height:24px; width:24px; float:right;}
 
@@ -145,7 +145,7 @@ table.entries {
 }
 
 .bodytext {
-  color:#FFF;
+  color:#fff;
   font-size:14px;
 }
 
@@ -158,7 +158,7 @@ td.userlevel {
 /*
 .date {
   font:18px Georgia, Arial, "Times New Roman", Times;
-  color:#FFF;
+  color:#000;
   padding:1.1em 0 1.1em 1.8em;
   text-align:left;
 }
@@ -179,7 +179,7 @@ td.userlevel {
 
 .image-text-right span {
   font:18px Georgia, Arial, "Times New Roman", Times;
-  color:#FFF;
+  color:#000;
   text-align:left;
 }
 
@@ -196,7 +196,7 @@ td.userlevel {
 
 .nav-headline {
   font:19px Georgia, Arial, "Times New Roman", Times;
-  color:#FFF;
+  color:#000;
   text-align:left;
   padding-bottom:0.55em;
 }
@@ -211,7 +211,7 @@ td.userlevel {
 #main-menu li a,
 #gridusers-menu li a,
 #addons-menu li a {
-  color:#FFF;
+  color:#000;
   font-family: Arial, "Times New Roman", Times, serif;
   font-size: 14px;
   text-decoration: none;
@@ -223,7 +223,7 @@ td.userlevel {
 #main-menu li a:hover,
 #gridusers-menu li a:hover,
 #addons-menu li a:hover {
-  color:#8C8D94;
+  color:#000000;
   text-decoration: underline;
 }
   
@@ -235,7 +235,7 @@ td.userlevel {
 }
   
 #posts {  
-  color:#929292;
+  color:#020202;
 }
   
 #posts ul {
@@ -244,7 +244,7 @@ td.userlevel {
 }
   
 #posts li a {
-  color:#929292;
+  color:#020202;
   font-family: Arial, "Times New Roman", Times, serif;
   font-size: 14px;
   text-decoration: underline;
@@ -252,7 +252,7 @@ td.userlevel {
 }
   
 #posts li a:hover {
-  color:#8C8D94;
+  color:#0000ff;
   background:#FFF;
   text-decoration: none;
 }
@@ -267,7 +267,7 @@ td.userlevel {
 }
 
 .inputstyle {
-  background:#090909;
+  background:#0095cd;
   border:1px solid #404040;
   width:13em;
   height:1.6em;
@@ -290,7 +290,7 @@ td.userlevel {
   padding-right:0.7em;
 }
 
-.button {
+/*.button {
   background:transparent url(images/button.gif) no-repeat top left;
   vertical-align:middle;
   padding-bottom:5px;
@@ -301,7 +301,7 @@ td.userlevel {
   font:bold 13px Arial, Georgia, "Times New Roman", Times;
   cursor:pointer;
   margin-left:0.385em;
-}
+}*/
 
 .avatar {
   margin-left:1em;
@@ -320,16 +320,16 @@ td.userlevel {
 
 #footer p {
   font:14px Arial, "Times New Roman", Times;
-  color:#929292;
+  color:#222222;
 }
 
 #footer a {
-  color:#FFF;
+  color:#000;
   text-decoration:underline;
 }
 
 #footer a:hover {
-  color:#BD6B54;
+  color:#000000;
   text-decoration:none;
 }
 
@@ -358,16 +358,75 @@ td.userlevel {
 }
 
 
-li {
-  list-style-position: inside;
+.button {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
-h5 {
-  font-size: large;
-  text-align:left;
-  margin-top: 20px;
-  color: #eeeeee;
+.button:hover {
+	text-decoration: none;
 }
-p{
-  margin-top: 10px;
-  color: #eeeeee;
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.bigrounded {
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+.medium {
+	font-size: 12px;
+	padding: .4em 1.5em .42em;
+}
+.small {
+	font-size: 11px;
+	padding: .2em 1em .275em;
+}
+
+/* blue */
+.blue {
+	color: #d9eef7;
+	border: solid 1px #0076a3;
+	background: #0095cd;
+	background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+	background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+}
+.blue:hover {
+	background: #007ead;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+	background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+}
+.blue:active {
+	color: #80bed6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+	background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+
+
+#iarlink a {
+  color :white;
+}
+
+.awhite a {
+  color :white;
 }
