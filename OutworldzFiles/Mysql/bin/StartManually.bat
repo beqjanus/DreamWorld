@@ -1,2 +1,2 @@
 @REM A program to run Mysql manually for troubleshooting.
-mysqld.exe --defaults-file="O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/mysql/my.ini"
+mysqld.exe --defaults-file="O:/Opensim/Outworldz Dreamgrid/OutworldzFiles/mysql/my.ini"
