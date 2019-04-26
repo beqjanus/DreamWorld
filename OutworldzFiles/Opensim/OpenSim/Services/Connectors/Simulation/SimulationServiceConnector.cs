@@ -100,14 +100,7 @@ namespace OpenSim.Services.Connectors.Simulation
 
         public bool CreateAgent(GridRegion source, GridRegion destination, AgentCircuitData aCircuit, uint flags, EntityTransferContext ctx, out string reason)
         {
-            string tmp = String.Empty;
-            return CreateAgent(source, destination, aCircuit, flags, ctx, out tmp, out reason);
-        }
-
-        public bool CreateAgent(GridRegion source, GridRegion destination, AgentCircuitData aCircuit, uint flags, EntityTransferContext ctx, out string myipaddress, out string reason)
-        {
             reason = String.Empty;
-            myipaddress = String.Empty;
 
             if (destination == null)
             {
@@ -134,7 +127,6 @@ namespace OpenSim.Services.Connectors.Simulation
 
                     reason = data["reason"].AsString();
                     success = data["success"].AsBoolean();
-                    myipaddress = data["your_ip"].AsString();
                     return success;
                 }
 
@@ -149,7 +141,6 @@ namespace OpenSim.Services.Connectors.Simulation
 
                         reason = data["reason"].AsString();
                         success = data["success"].AsBoolean();
-                        myipaddress = data["your_ip"].AsString();
                         m_log.WarnFormat(
                             "[REMOTE SIMULATION CONNECTOR]: Remote simulator {0} did not accept compressed transfer, suggest updating it.", destination.RegionName);
                         return success;
@@ -273,8 +264,8 @@ namespace OpenSim.Services.Connectors.Simulation
                 OSDMap result = WebUtil.PutToServiceCompressed(uri, args, timeout);
                 if (result["Success"].AsBoolean())
                     return true;
-
-                result = WebUtil.PutToService(uri, args, timeout);
+                if(ctx.OutboundVersion < 0.2)
+                    result = WebUtil.PutToService(uri, args, timeout);
 
                 return result["Success"].AsBoolean();
             }
@@ -323,7 +314,7 @@ namespace OpenSim.Services.Connectors.Simulation
 
             try
             {
-                OSDMap result = WebUtil.ServiceOSDRequest(uri, request, "QUERYACCESS", 30000, false, false);
+                OSDMap result = WebUtil.ServiceOSDRequest(uri, request, "QUERYACCESS", 30000, false, false, true);
                 bool success = result["success"].AsBoolean();
                 if (result.ContainsKey("_Result"))
                 {
@@ -347,8 +338,8 @@ namespace OpenSim.Services.Connectors.Simulation
                         String[] parts = versionString.Split(new char[] {'/'});
                         if (parts.Length > 1)
                         {
-                            ctx.InboundVersion = float.Parse(parts[1]);
-                            ctx.OutboundVersion = float.Parse(parts[1]);
+                            ctx.InboundVersion = float.Parse(parts[1], Culture.FormatProvider);
+                            ctx.OutboundVersion = float.Parse(parts[1], Culture.FormatProvider);
                         }
                     }
 

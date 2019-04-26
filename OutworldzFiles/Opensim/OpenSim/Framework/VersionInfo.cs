@@ -30,7 +30,7 @@ namespace OpenSim
     public class VersionInfo
     {
         public const string VersionNumber = "0.9.1.0";
-        public const string AssemblyVersionNumber = "0.9.1.*";
+        public const string AssemblyVersionNumber = "0.9.1.0";
 
         public const Flavour VERSION_FLAVOUR = Flavour.Dev;
 
@@ -53,7 +53,7 @@ namespace OpenSim
 
         public static string GetVersionString(string versionNumber, Flavour flavour)
         {
-            string versionString = "OpenSim " + versionNumber + " " + flavour;
+            string versionString = "OpenSim " + versionNumber + " Snail " + flavour;
             return versionString.PadRight(VERSIONINFO_VERSION_LENGTH);
         }
 
@@ -85,8 +85,8 @@ namespace OpenSim
         ///   - this is an older teleport protocol used in OpenSimulator 0.7.5 and before.
         /// </remarks>
         public readonly static float SimulationServiceVersionAcceptedMin = 0.3f;
-        public readonly static float SimulationServiceVersionAcceptedMax = 0.6f;
+        public readonly static float SimulationServiceVersionAcceptedMax = 0.7f;
         public readonly static float SimulationServiceVersionSupportedMin = 0.3f;
-        public readonly static float SimulationServiceVersionSupportedMax = 0.6f;
+        public readonly static float SimulationServiceVersionSupportedMax = 0.7f;
     }
 }

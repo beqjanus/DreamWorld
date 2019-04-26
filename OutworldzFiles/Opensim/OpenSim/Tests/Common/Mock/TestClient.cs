@@ -343,6 +343,8 @@ namespace OpenSim.Tests.Common
         public event GodlikeMessage onGodlikeMessage;
         public event GodUpdateRegionInfoUpdate OnGodUpdateRegionInfoUpdate;
         public event GenericCall2 OnUpdateThrottles;
+        public event AgentFOV OnAgentFOV;
+
 #pragma warning restore 67
 
         /// <value>
@@ -351,6 +353,8 @@ namespace OpenSim.Tests.Common
         private UUID m_agentId;
 
         public ISceneAgent SceneAgent { get; set; }
+
+        public bool SupportObjectAnimations { get; set; }
 
         /// <value>
         /// The last caps seed url that this client was given.
@@ -364,6 +368,8 @@ namespace OpenSim.Tests.Common
             get { return startPos; }
             set { }
         }
+
+        public float StartFar { get; set; }
 
         public virtual UUID AgentId
         {
@@ -439,6 +445,7 @@ namespace OpenSim.Tests.Common
         public virtual int NextAnimationSequenceNumber
         {
             get { return 1; }
+            set { }
         }
 
         public IScene Scene
@@ -571,10 +578,6 @@ namespace OpenSim.Tests.Common
         {
         }
 
-        public virtual void SendStartPingCheck(byte seq)
-        {
-        }
-
         public virtual void SendAvatarPickerReply(AvatarPickerReplyAgentDataArgs AgentData, List<AvatarPickerReplyDataArgs> Data)
         {
         }
@@ -648,14 +651,11 @@ namespace OpenSim.Tests.Common
             return false;
         }
 
-        public virtual void SendLayerData(float[] map)
+        public virtual void SendLayerData()
         {
         }
 
-        public virtual void SendLayerData(int px, int py, float[] map)
-        {
-        }
-        public virtual void SendLayerData(int px, int py, float[] map, bool track)
+        public void SendLayerData(int[] map)
         {
         }
 
@@ -878,7 +878,7 @@ namespace OpenSim.Tests.Common
         {
         }
 
-        public virtual void SendRegionHandshake(RegionInfo regionInfo, RegionHandshakeArgs args)
+        public virtual void SendRegionHandshake()
         {
             if (OnRegionHandShakeReply != null)
             {
@@ -1399,5 +1399,11 @@ namespace OpenSim.Tests.Common
         public void SendPartPhysicsProprieties(ISceneEntity entity)
         {
         }
+
+        public uint GetViewerCaps()
+        {
+            return 0x1000;
+        }
+
     }
 }

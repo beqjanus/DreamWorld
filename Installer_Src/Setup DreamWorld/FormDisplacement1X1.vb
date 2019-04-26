@@ -62,7 +62,7 @@
         Dim Ycoord = Form1.RegionClass.CoordY(RegionNumber)
 
         Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.gPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Dim RegionPhoto = Form1.gOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
         Try
             Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
             PictureBox3.Image = Pic

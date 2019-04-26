@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.83' ;  # '-Beta-V1.5';
+my $type  = '-V2.86' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -30,7 +30,9 @@ $x =~ /was stopped|^$/  || die;
 	say("Clean up opensim");
 my @deletions = (
 	"$dir/OutworldzFiles/AutoBackup",
+	
 	"$dir/OutworldzFiles/Opensim/WifiPages-Custom",
+	
 	"$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
 	"$dir/OutworldzFiles/Opensim/bin/datasnapshot",
 	"$dir/OutworldzFiles/Opensim/bin/assetcache",
@@ -40,10 +42,12 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
 	"$dir/OutworldzFiles/Opensim/bin/bakes",
+	"$dir/OutworldzFiles/Opensim/bin/addin-db-002",
+	"$dir/OutworldzFiles/Opensim/bin/fsassets",
+	
 	"$dir/OutworldzFiles/mysql/data/opensim",
 	"$dir/OutworldzFiles/mysql/data/robust",
-	"$dir/OutworldzFiles/mysql/data/addin-db-002",
-	"$dir/OutworldzFiles/mysql/data/fsassets",
+	
 	"$dir/OutworldzFiles/Apache/logs/",
 );
 
@@ -120,6 +124,7 @@ chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 print `mysqladmin.exe --port 3309 -u root shutdown`;
 print `mysqladmin.exe --port 3306 -u root shutdown`;
 
+sleep(5);
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
@@ -180,11 +185,11 @@ if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz
 if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
 if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 
-say ("Dropbox");
-unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
-if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
-unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
-if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
+#say ("Dropbox");
+#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
+#if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
+#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
+#if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
 
 if ($publish)
 {

@@ -52,7 +52,6 @@ namespace OpenSim.Services.FSAssetService
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         static System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-        static SHA256CryptoServiceProvider SHA256 = new SHA256CryptoServiceProvider();
 
         static byte[] ToCString(string s)
         {
@@ -329,7 +328,6 @@ namespace OpenSim.Services.FSAssetService
                                 using (GZipStream gz = new GZipStream(new FileStream(diskFile + ".gz", FileMode.Create), CompressionMode.Compress))
                                 {
                                     gz.Write(data, 0, data.Length);
-                                    gz.Close();
                                 }
                                 File.Delete(files[i]);
 
@@ -358,7 +356,9 @@ namespace OpenSim.Services.FSAssetService
 
         string GetSHA256Hash(byte[] data)
         {
-            byte[] hash = SHA256.ComputeHash(data);
+            byte[] hash;
+            using (SHA256CryptoServiceProvider SHA256 = new SHA256CryptoServiceProvider())
+                hash = SHA256.ComputeHash(data);
 
             return BitConverter.ToString(hash).Replace("-", String.Empty);
         }
@@ -619,6 +619,24 @@ namespace OpenSim.Services.FSAssetService
         {
             int tickCount = Environment.TickCount;
             string hash = GetSHA256Hash(asset.Data);
+
+            if (asset.Name.Length > AssetBase.MAX_ASSET_NAME)
+            {
+                string assetName = asset.Name.Substring(0, AssetBase.MAX_ASSET_NAME);
+                m_log.WarnFormat(
+                    "[FSASSETS]: Name '{0}' for asset {1} truncated from {2} to {3} characters on add",
+                    asset.Name, asset.ID, asset.Name.Length, assetName.Length);
+                asset.Name = assetName;
+            }
+
+            if (asset.Description.Length > AssetBase.MAX_ASSET_DESC)
+            {
+                string assetDescription = asset.Description.Substring(0, AssetBase.MAX_ASSET_DESC);
+                m_log.WarnFormat(
+                    "[FSASSETS]: Description '{0}' for asset {1} truncated from {2} to {3} characters on add",
+                    asset.Description, asset.ID, asset.Description.Length, assetDescription.Length);
+                asset.Description = assetDescription;
+            }
 
             if (!AssetExists(hash))
             {

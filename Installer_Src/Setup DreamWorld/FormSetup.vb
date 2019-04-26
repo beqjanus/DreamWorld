@@ -36,12 +36,9 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.86"
+    ReadOnly gMyVersion As String = "2.87"
     ReadOnly gSimVersion As String = "0.9.1"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
-
-    ' edit this to compile and run in the correct folder root
-    ReadOnly gDebugPath As String = "\Opensim\Outworldz Dreamgrid Master"  ' no slash at end
 
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
     Private gExitHandlerIsBusy As Boolean = False
@@ -49,7 +46,7 @@ Public Class Form1
     ReadOnly gCPUMAX As Single = 75 ' max CPU % can be used when booting or we wait til it gets lower 
     ' not https, which breaks stuff
     Public gDomain As String = "http://www.outworldz.com"
-    Public gPath As String ' Holds path to Opensim folder
+    Public gOpensimBinPath As String ' Holds path to Opensim folder
 
     Public RegionHandles As New Dictionary(Of Integer, String)
     Public MyFolder As String   ' Holds the current folder that we are running in
@@ -251,10 +248,12 @@ Public Class Form1
         If Debugger.IsAttached = True Then
             ' for debugging when compiling
             gDebug = True
-            MyFolder = gDebugPath ' for testing, as the compiler buries itself in ../../../debug
+            MyFolder = MyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
+            MyFolder = MyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
+            ' for testing, as the compiler buries itself in ../../../debug
         End If
         gCurSlashDir = MyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
-        gPath = MyFolder & "\OutworldzFiles\Opensim\"
+        gOpensimBinPath = MyFolder & "\OutworldzFiles\Opensim\"
 
         Log("Info", "Running")
 
@@ -575,9 +574,9 @@ Public Class Form1
         ' old files to clean up
         Try
             If MySetting.BirdsModuleStartup Then
-                My.Computer.FileSystem.CopyFile(gPath + "\bin\OpenSimBirds.Module.bak", gPath + "\bin\OpenSimBirds.Module.dll")
+                My.Computer.FileSystem.CopyFile(gOpensimBinPath + "\bin\OpenSimBirds.Module.bak", gOpensimBinPath + "\bin\OpenSimBirds.Module.dll")
             Else
-                My.Computer.FileSystem.DeleteFile(gPath + "\bin\OpenSimBirds.Module.dll")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "\bin\OpenSimBirds.Module.dll")
             End If
 
         Catch ex As Exception
@@ -907,15 +906,15 @@ Public Class Form1
 
     Public Sub CopyWifi(Page As String)
         Try
-            System.IO.Directory.Delete(gPath + "WifiPages", True)
-            System.IO.Directory.Delete(gPath + "bin\WifiPages", True)
+            System.IO.Directory.Delete(gOpensimBinPath + "WifiPages", True)
+            System.IO.Directory.Delete(gOpensimBinPath + "bin\WifiPages", True)
         Catch ex As Exception
             Log("Info", "" & ex.Message)
         End Try
 
         Try
-            My.Computer.FileSystem.CopyDirectory(gPath + "WifiPages-" + Page, gPath + "WifiPages", True)
-            My.Computer.FileSystem.CopyDirectory(gPath + "bin\WifiPages-" + Page, gPath + "\bin\WifiPages", True)
+            My.Computer.FileSystem.CopyDirectory(gOpensimBinPath + "WifiPages-" + Page, gOpensimBinPath + "WifiPages", True)
+            My.Computer.FileSystem.CopyDirectory(gOpensimBinPath + "bin\WifiPages-" + Page, gOpensimBinPath + "\bin\WifiPages", True)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -951,13 +950,13 @@ Public Class Form1
             Dim counter As Integer = 0
 
             Try
-                My.Computer.FileSystem.DeleteFile(gPath + "bin\Robust.tmp")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\Robust.tmp")
             Catch ex As Exception
                 'Nothing to do, this was just cleanup
             End Try
 
-            Using outputFile As New StreamWriter(gPath + "bin\Robust.tmp")
-                reader = System.IO.File.OpenText(gPath + "bin\Robust.HG.ini")
+            Using outputFile As New StreamWriter(gOpensimBinPath + "bin\Robust.tmp")
+                reader = System.IO.File.OpenText(gOpensimBinPath + "bin\Robust.HG.ini")
                 'now loop through each line
                 While reader.Peek <> -1
                     line = reader.ReadLine()
@@ -980,15 +979,15 @@ Public Class Form1
 
             Try
                 Try
-                    My.Computer.FileSystem.DeleteFile(gPath + "bin\Robust.HG.ini.bak")
+                    My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\Robust.HG.ini.bak")
                 Catch ex As Exception
                     'Nothing to do, this was just cleanup
                 End Try
-                My.Computer.FileSystem.RenameFile(gPath + "bin\Robust.HG.ini", "Robust.HG.ini.bak")
-                My.Computer.FileSystem.RenameFile(gPath + "bin\Robust.tmp", "Robust.HG.ini")
+                My.Computer.FileSystem.RenameFile(gOpensimBinPath + "bin\Robust.HG.ini", "Robust.HG.ini.bak")
+                My.Computer.FileSystem.RenameFile(gOpensimBinPath + "bin\Robust.tmp", "Robust.HG.ini")
             Catch ex As Exception
                 ErrorLog("Error:Set Default sims could not rename the file:" + ex.Message)
-                My.Computer.FileSystem.RenameFile(gPath + "bin\Robust.HG.ini.bak", "Robust.HG.ini")
+                My.Computer.FileSystem.RenameFile(gOpensimBinPath + "bin\Robust.HG.ini.bak", "Robust.HG.ini")
             End Try
 
         Catch ex As Exception
@@ -1016,20 +1015,22 @@ Public Class Form1
         ''''''''''''''''''''''''''''''''''''''''''''''''
 
         ' TOSModule
-        MySetting.LoadOtherIni(gPath + "bin\DivaTOS.ini", ";")
+        If (False) Then
+            MySetting.LoadOtherIni(gOpensimBinPath + "bin\DivaTOS.ini", ";")
 
-        'Disable it as it is broken for now.
+            'Disable it as it is broken for now.
 
-        'MySetting.SetOtherIni("TOSModule", "Enabled", MySetting.TOSEnabled)
-        MySetting.SetOtherIni("TOSModule", "Enabled", False.ToString)
-        'MySetting.SetOtherIni("TOSModule", "Message", MySetting.TOSMessage)
-        'MySetting.SetOtherIni("TOSModule", "Timeout", MySetting.TOSTimeout)
-        MySetting.SetOtherIni("TOSModule", "ShowToLocalUsers", MySetting.ShowToLocalUsers.ToString)
-        MySetting.SetOtherIni("TOSModule", "ShowToForeignUsers", MySetting.ShowToForeignUsers.ToString)
-        MySetting.SetOtherIni("TOSModule", "TOS_URL", "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort + "/wifi/termsofservice.html")
-        MySetting.SaveOtherINI()
+            'MySetting.SetOtherIni("TOSModule", "Enabled", MySetting.TOSEnabled)
+            MySetting.SetOtherIni("TOSModule", "Enabled", False.ToString)
+            'MySetting.SetOtherIni("TOSModule", "Message", MySetting.TOSMessage)
+            'MySetting.SetOtherIni("TOSModule", "Timeout", MySetting.TOSTimeout)
+            MySetting.SetOtherIni("TOSModule", "ShowToLocalUsers", MySetting.ShowToLocalUsers.ToString)
+            MySetting.SetOtherIni("TOSModule", "ShowToForeignUsers", MySetting.ShowToForeignUsers.ToString)
+            MySetting.SetOtherIni("TOSModule", "TOS_URL", "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort + "/wifi/termsofservice.html")
+            MySetting.SaveOtherINI()
+        End If
 
-        MySetting.LoadOtherIni(gPath + "bin\config-include\Gridcommon.ini", ";")
+        MySetting.LoadOtherIni(gOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
         Dim ConnectionString = """" _
         + "Data Source=" + MySetting.RegionServer _
         + ";Database=" + MySetting.RegionDBName _
@@ -1043,7 +1044,7 @@ Public Class Form1
 
         ''''''''''''''''''''''''''''''''''''''''''
         ' Robust Process
-        MySetting.LoadOtherIni(gPath + "bin\Robust.HG.ini", ";")
+        MySetting.LoadOtherIni(gOpensimBinPath + "bin\Robust.HG.ini", ";")
 
         ConnectionString = """" _
         + "Data Source=" + MySetting.RobustServer _
@@ -1087,7 +1088,7 @@ Public Class Form1
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
-        MySetting.LoadOtherIni(gPath + "bin\Opensim.proto", ";")
+        MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
 
         If MySetting.LSL_HTTP Then
             ' do nothing - let them edit it
@@ -1286,7 +1287,7 @@ Public Class Form1
     Public Sub DoGloebits()
 
         'Gloebits.ini
-        MySetting.LoadOtherIni(gPath + "bin\Gloebit.ini", ";")
+        MySetting.LoadOtherIni(gOpensimBinPath + "bin\Gloebit.ini", ";")
         If MySetting.GloebitsEnable Then
 
             MySetting.SetOtherIni("Gloebit", "Enabled", "true")
@@ -1324,7 +1325,7 @@ Public Class Form1
 
     Private Sub DoWifi()
 
-        MySetting.LoadOtherIni(gPath + "bin\Wifi.ini", ";")
+        MySetting.LoadOtherIni(gOpensimBinPath + "bin\Wifi.ini", ";")
 
         Dim ConnectionString = """" _
             + "Data Source=" + "127.0.0.1" _
@@ -1396,7 +1397,7 @@ Public Class Form1
         Diagnostics.Debug.Print(regionName)
 
         Try
-            MySetting.LoadOtherIni(gPath + "bin\Opensim.proto", ";")
+            MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
             MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
             MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
@@ -1411,7 +1412,7 @@ Public Class Form1
             MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
             MySetting.SaveOtherINI()
 
-            My.Computer.FileSystem.CopyFile(gPath + "bin\Opensim.proto", pathname + "Opensim.ini", True)
+            My.Computer.FileSystem.CopyFile(gOpensimBinPath + "bin\Opensim.proto", pathname + "Opensim.ini", True)
 
         Catch ex As Exception
             Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
@@ -1429,11 +1430,11 @@ Public Class Form1
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Regions - write all region.ini files with public IP and Public port
 
-        Dim BirdFile = MyFolder + "\OutworldzFiles\Opensim\bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
+        Dim BirdFile = gOpensimBinPath + "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
 
         System.IO.File.Delete(BirdFile)
 
-        Dim TideFile = MyFolder + "\OutworldzFiles\Opensim\bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
+        Dim TideFile = gOpensimBinPath + "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
 
         System.IO.File.Delete(TideFile)
 
@@ -1532,7 +1533,7 @@ Public Class Form1
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             ' region.ini
-            MySetting.LoadOtherIni(gPath + "bin\Regions\" + RegionClass.GroupName(RegionNum) + "\Opensim.ini", ";")
+            MySetting.LoadOtherIni(gOpensimBinPath + "bin\Regions\" + RegionClass.GroupName(RegionNum) + "\Opensim.ini", ";")
 
             If RegionClass.MapType(RegionNum) = "Simple" Then
                 MySetting.SetOtherIni("Map", "GenerateMaptiles", "True")
@@ -1904,7 +1905,7 @@ Public Class Form1
                 ApacheProcess2.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess2.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
                 ApacheProcess2.StartInfo.CreateNoWindow = False
-                ApacheProcess2.StartInfo.WorkingDirectory = gPath + "bin"
+                ApacheProcess2.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
                 ApacheProcess2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 ApacheProcess2.StartInfo.Arguments = ""
                 ApacheProcess2.Start()
@@ -2129,16 +2130,21 @@ Public Class Form1
             Return True
         End If
 
+        If MySetting.RobustServer <> "127.0.0.1" And MySetting.RobustServer <> "localhost" Then
+            Print("Using Robust on " & MySetting.RobustServer)
+            Return True
+        End If
+
         gRobustProcID = Nothing
         Print("Starting Robust")
 
         Try
             RobustProcess.EnableRaisingEvents = True
             RobustProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            RobustProcess.StartInfo.FileName = gPath + "bin\robust.exe"
+            RobustProcess.StartInfo.FileName = gOpensimBinPath + "bin\robust.exe"
 
             RobustProcess.StartInfo.CreateNoWindow = False
-            RobustProcess.StartInfo.WorkingDirectory = gPath + "bin"
+            RobustProcess.StartInfo.WorkingDirectory = gOpensimBinPath + "bin"
             RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
             RobustProcess.Start()
@@ -2167,7 +2173,7 @@ Public Class Form1
                 Buttons(StartButton)
                 Dim yesno = MsgBox("Robust did not start. Do you want to see the log file?", vbYesNo, "Error")
                 If (yesno = vbYes) Then
-                    Dim Log As String = """" + MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log" + """"
+                    Dim Log As String = """" + gOpensimBinPath + "bin\Robust.log" + """"
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe " & Log)
                 End If
                 Buttons(StartButton)
@@ -2248,7 +2254,7 @@ Public Class Form1
         If gAborting Then Return
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
-            Dim MysqlLog As String = MyFolder + "\OutworldzFiles\Opensim\bin\Robust.log"
+            Dim MysqlLog As String = gOpensimBinPath + "bin\Robust.log"
             System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & MysqlLog & """")
         End If
 
@@ -2508,7 +2514,7 @@ Public Class Form1
             Return False
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", gPath + "bin\Regions\" + RegionClass.GroupName(RegionNumber))
+        Environment.SetEnvironmentVariable("OSIM_LOGPATH", gOpensimBinPath + "bin\Regions\" + RegionClass.GroupName(RegionNumber))
 
         Dim myProcess As Process = GetNewProcess(BootName)
         Dim Groupname = RegionClass.GroupName(RegionNumber)
@@ -2516,30 +2522,30 @@ Public Class Form1
         Try
             myProcess.EnableRaisingEvents = True
             myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            myProcess.StartInfo.WorkingDirectory = gPath + "bin"
+            myProcess.StartInfo.WorkingDirectory = gOpensimBinPath + "bin"
 
-            myProcess.StartInfo.FileName = """" + gPath + "bin\OpenSim.exe" + """"
+            myProcess.StartInfo.FileName = """" + gOpensimBinPath + "bin\OpenSim.exe" + """"
             myProcess.StartInfo.CreateNoWindow = False
             myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & RegionClass.GroupName(RegionNumber) + """"
 
             Try
-                My.Computer.FileSystem.DeleteFile(gPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\Opensim.log")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\Opensim.log")
             Catch
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(gPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\PID.pid")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\PID.pid")
             Catch
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(gPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
             Catch ex As Exception
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(gPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
+                My.Computer.FileSystem.DeleteFile(gOpensimBinPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
             Catch ex As Exception
             End Try
 
@@ -2933,7 +2939,7 @@ Public Class Form1
         'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
-        Dim HTMLFILE = MyFolder & "\OutworldzFiles\Opensim\bin\data\teleports.htm"
+        Dim HTMLFILE = gOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" + MySetting.SimName + "||" + MySetting.PublicIP + ":" + MySetting.HttpPort + ":" + MySetting.WelcomeRegion + "||" + vbCrLf
         Dim ToSort As New List(Of String)
         For Each Regionnumber As Integer In RegionClass.RegionNumbers
@@ -5048,10 +5054,10 @@ Public Class Form1
         If name.StartsWith("Region ") Then
             name = Replace(name, "Region ", "", 1, 1)
             name = RegionClass.GroupName(RegionClass.FindRegionByName(name))
-            path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """")
+            path.Add("""" & gOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
         Else
             If name = "All Logs" Then AllLogs = True
-            If name = "Robust" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Robust.log" & """")
+            If name = "Robust" Or AllLogs Then path.Add("""" & gOpensimBinPath & "bin\Robust.log" & """")
             If name = "Outworldz" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Outworldz.log" & """")
             If name = "UPnP" Or AllLogs Then path.Add("""" & MyFolder & "\Outworldzfiles\Upnp.log" & """")
             If name = "Icecast" Or AllLogs Then path.Add(" " & """" & MyFolder & "\Outworldzfiles\Icecast\log\error.log" & """")
@@ -5061,7 +5067,7 @@ Public Class Form1
             If AllLogs Then
                 For Each Regionnumber In RegionClass.RegionNumbers
                     name = RegionClass.GroupName(Regionnumber)
-                    path.Add("""" & MyFolder & "\Outworldzfiles\Opensim\bin\Regions\" & name & "\Opensim.log" & """")
+                    path.Add("""" & gOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
                 Next
             End If
 
@@ -5330,11 +5336,13 @@ Public Class Form1
 
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\PHP5\"
         pi.FileName = "Run_parser.bat"
+        pi.UseShellExecute = False  ' needed to make window hidden
 
         pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessPHP As Process = New Process()
         ProcessPHP.StartInfo = pi
 
+    
         Try
             ProcessPHP.Start()
             ProcessPHP.WaitForExit()

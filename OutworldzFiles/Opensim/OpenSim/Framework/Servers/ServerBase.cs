@@ -31,6 +31,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -508,7 +509,11 @@ namespace OpenSim.Framework.Servers
         private void HandleForceGc(string module, string[] args)
         {
             Notice("Manually invoking runtime garbage collection");
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.Default;
         }
 
         public virtual void HandleShow(string module, string[] cmd)
@@ -923,9 +928,7 @@ namespace OpenSim.Framework.Servers
             }
             catch { }
 
-            if (
-                Util.FireAndForgetMethod == FireAndForgetMethod.QueueUserWorkItem
-                    || Util.FireAndForgetMethod == FireAndForgetMethod.UnsafeQueueUserWorkItem)
+            if (Util.FireAndForgetMethod == FireAndForgetMethod.QueueUserWorkItem)
             {
                 sb.AppendFormat("\nThread pool used: Framework main threadpool\n");
                 return sb.ToString();

@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>9.0.30729</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{456B7ED3-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Services.MuteListService</RootNamespace>
@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -41,6 +41,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -48,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE</DefineConstants>
+	  <DefineConstants>TRACE;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -61,6 +62,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Reference Include="log4net" >
@@ -78,11 +80,6 @@
 		<HintPath>..\..\..\bin\OpenMetaverse.dll</HintPath>
 		<Private>False</Private>
 	  </Reference>
-	  <Reference Include="OpenMetaverse.StructuredData" >
-		  <Name>OpenMetaverse.StructuredData</Name>
-		<HintPath>..\..\..\bin\OpenMetaverse.StructuredData.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
 	  <Reference Include="OpenMetaverseTypes" >
 		  <Name>OpenMetaverseTypes</Name>
 		<HintPath>..\..\..\bin\OpenMetaverseTypes.dll</HintPath>
@@ -90,10 +87,6 @@
 	  </Reference>
 	  <Reference Include="System" >
 		  <Name>System</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="System.Core" >
-		  <Name>System.Core</Name>
 		<Private>False</Private>
 	  </Reference>
 	</ItemGroup>
@@ -110,21 +103,9 @@
 		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
 		<Private>False</Private>
 	  </ProjectReference>
-	  <ProjectReference Include="..\..\Framework\Console\OpenSim.Framework.Console.csproj">
-		<Name>OpenSim.Framework.Console</Name>
-		<Project>{0ED8EBE8-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
 	  <ProjectReference Include="..\Base\OpenSim.Services.Base.csproj">
 		<Name>OpenSim.Services.Base</Name>
 		<Project>{A54AE47C-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\Connectors\OpenSim.Services.Connectors.csproj">
-		<Name>OpenSim.Services.Connectors</Name>
-		<Project>{B16DF9C1-0000-0000-0000-000000000000}</Project>
 		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
 		<Private>False</Private>
 	  </ProjectReference>
@@ -140,7 +121,7 @@
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 	<PropertyGroup>
 	  <PreBuildEvent>
 	  </PreBuildEvent>

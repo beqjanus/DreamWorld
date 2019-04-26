@@ -69,7 +69,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
         public int startTime;
         public bool responseSent;
         public string uri;
-        public bool allowResponseType = false;
         public UUID hostID;
         public Scene scene;
     }
@@ -258,7 +257,7 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                 string uri = "/lslhttp/" + urlcode.ToString() + "/";
 
                 PollServiceEventArgs args
-                    = new PollServiceEventArgs(HttpRequestHandler, uri, HasEvents, GetEvents, NoEvents, urlcode, 25000);
+                    = new PollServiceEventArgs(HttpRequestHandler, uri, HasEvents, GetEvents, NoEvents, Drop, urlcode, 25000);
                 args.Type = PollServiceEventArgs.EventType.LslHttp;
                 m_HttpServer.AddPollServiceHTTPHandler(uri, args);
 
@@ -316,7 +315,7 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                 string uri = "/lslhttps/" + urlcode.ToString() + "/";
 
                 PollServiceEventArgs args
-                    = new PollServiceEventArgs(HttpRequestHandler, uri, HasEvents, GetEvents, NoEvents, urlcode, 25000);
+                    = new PollServiceEventArgs(HttpRequestHandler, uri, HasEvents, GetEvents, NoEvents, Drop, urlcode, 25000);
                 args.Type = PollServiceEventArgs.EventType.LslHttp;
                 m_HttpsServer.AddPollServiceHTTPHandler(uri, args);
 
@@ -382,10 +381,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                     if (!urlData.requests[request].responseSent)
                     {
                         string responseBody = body;
-
-                        // If we have no OpenID from built-in browser, disable this
-                        if (!urlData.requests[request].allowResponseType)
-                            urlData.requests[request].responseType = "text/plain";
 
                         if (urlData.requests[request].responseType.Equals("text/plain"))
                         {
@@ -492,13 +487,12 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
             }
         }
 
-
         protected void RemoveUrl(UrlData data)
         {
             if (data.isSsl)
-                m_HttpsServer.RemoveHTTPHandler("", "/lslhttps/"+data.urlcode.ToString()+"/");
+                m_HttpsServer.RemovePollServiceHTTPHandler("", "/lslhttps/"+data.urlcode.ToString()+"/");
             else
-                m_HttpServer.RemoveHTTPHandler("", "/lslhttp/"+data.urlcode.ToString()+"/");
+                m_HttpServer.RemovePollServiceHTTPHandler("", "/lslhttp/"+data.urlcode.ToString()+"/");
         }
 
         protected Hashtable NoEvents(UUID requestID, UUID sessionID)
@@ -520,7 +514,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                 response["str_response_string"] = "Script timeout";
                 response["content_type"] = "text/plain";
                 response["keepalive"] = false;
-                response["reusecontext"] = false;
 
                 //remove from map
                 lock (url.requests)
@@ -570,6 +563,28 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                 }
             }
         }
+
+        protected void Drop(UUID requestID, UUID sessionID)
+        {
+            UrlData url = null;
+            lock (m_RequestMap)
+            {
+                if (m_RequestMap.ContainsKey(requestID))
+                {
+                    url = m_RequestMap[requestID];
+                    m_RequestMap.Remove(requestID);
+                    if(url != null)
+                    {
+                        lock (url.requests)
+                        {
+                            if(url.requests.ContainsKey(requestID))
+                                url.requests.Remove(requestID);
+                        }
+                    }
+                }
+            }
+        }
+
         protected Hashtable GetEvents(UUID requestID, UUID sessionID)
         {
             UrlData url = null;
@@ -597,7 +612,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                 response["str_response_string"] = "Script timeout";
                 response["content_type"] = "text/plain";
                 response["keepalive"] = false;
-                response["reusecontext"] = false;
                 return response;
             }
             //put response
@@ -605,7 +619,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
             response["str_response_string"] = requestData.responseBody;
             response["content_type"] = requestData.responseType;
             response["keepalive"] = false;
-            response["reusecontext"] = false;
 
             if (url.allowXss)
                 response["access_control_allow_origin"] = "*";
@@ -685,32 +698,6 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                         string key = (string)header.Key;
                         string value = (string)header.Value;
                         requestData.headers.Add(key, value);
-                        if (key == "cookie")
-                        {
-                            string[] parts = value.Split(new char[] {'='});
-                            if (parts[0] == "agni_sl_session_id" && parts.Length > 1)
-                            {
-                                string cookie = Uri.UnescapeDataString(parts[1]);
-                                string[] crumbs = cookie.Split(new char[] {':'});
-                                UUID owner;
-                                if (crumbs.Length == 2 && UUID.TryParse(crumbs[0], out owner))
-                                {
-                                    if (crumbs[1].Length == 32)
-                                    {
-                                        Scene scene = requestData.scene;
-                                        if (scene != null)
-                                        {
-                                            SceneObjectPart host = scene.GetSceneObjectPart(requestData.hostID);
-                                            if (host != null)
-                                            {
-                                                if (host.OwnerID == owner)
-                                                    requestData.allowResponseType = true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                     foreach (DictionaryEntry de in request)
                     {
@@ -729,8 +716,8 @@ namespace OpenSim.Region.CoreModules.Scripting.LSLHttp
                                     else
                                     {
                                         queryString = queryString + val + "&";
-                                    }
                                 }
+                            }
                             }
                             if (queryString.Length > 1)
                                 queryString = queryString.Substring(0, queryString.Length - 1);

@@ -817,12 +817,12 @@ Public Class RegionList
 
                 If dirpathname = "" Then dirpathname = filename
 
-                Dim NewFilepath = Form1.gPath & "bin\Regions\" + dirpathname + "\Region\"
+                Dim NewFilepath = Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
                 If Not Directory.Exists(NewFilepath) Then
-                    Directory.CreateDirectory(Form1.gPath & "bin\Regions\" + dirpathname + "\Region")
+                    Directory.CreateDirectory(Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
                 End If
 
-                File.Copy(pathname, Form1.gPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                File.Copy(pathname, Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
 
             Else
                 Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")

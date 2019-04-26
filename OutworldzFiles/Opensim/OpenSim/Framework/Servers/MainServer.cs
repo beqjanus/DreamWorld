@@ -42,6 +42,7 @@ namespace OpenSim.Framework.Servers
 //        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static BaseHttpServer instance = null;
+        private static BaseHttpServer unsecureinstance = null;
         private static Dictionary<uint, BaseHttpServer> m_Servers = new Dictionary<uint, BaseHttpServer>();
 
         /// <summary>
@@ -86,10 +87,26 @@ namespace OpenSim.Framework.Servers
             set
             {
                 lock (m_Servers)
+                {
                     if (!m_Servers.ContainsValue(value))
                         throw new Exception("HTTP server must already have been registered to be set as the main instance");
 
-                instance = value;
+                    instance = value;
+                }
+            }
+        }
+
+        public static BaseHttpServer UnSecureInstance
+        {
+            get { return unsecureinstance; }
+
+            set
+            {
+                lock (m_Servers)
+                    if (!m_Servers.ContainsValue(value))
+                        throw new Exception("HTTP server must already have been registered to be set as the main instance");
+
+                unsecureinstance = value;
             }
         }
 
@@ -360,10 +377,9 @@ namespace OpenSim.Framework.Servers
             {
                 foreach (BaseHttpServer httpServer in m_Servers.Values)
                 {
-                    httpServer.Stop();
+                    httpServer.Stop(true);
                 }
             }
         }
-
     }
 }

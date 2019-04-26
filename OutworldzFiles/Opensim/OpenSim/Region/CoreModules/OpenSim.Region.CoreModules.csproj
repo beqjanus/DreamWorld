@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>9.0.30729</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{B60B8DCD-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Region.CoreModules</RootNamespace>
@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -41,6 +41,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -48,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE</DefineConstants>
+	  <DefineConstants>TRACE;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -61,6 +62,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Reference Include="CSJ2K" >
@@ -71,11 +73,6 @@
 	  <Reference Include="DotNetOpenMail" >
 		  <Name>DotNetOpenMail</Name>
 		<HintPath>..\..\..\bin\DotNetOpenMail.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="GlynnTucker.Cache" >
-		  <Name>GlynnTucker.Cache</Name>
-		<HintPath>..\..\..\bin\GlynnTucker.Cache.dll</HintPath>
 		<Private>False</Private>
 	  </Reference>
 	  <Reference Include="Ionic.Zip" >
@@ -307,9 +304,6 @@
 	  <Compile Include="Asset\FlotsamAssetCache.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Asset\GlynnTuckerAssetCache.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\Attachments\AttachmentsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -367,16 +361,10 @@
 	  <Compile Include="Avatar\InstantMessage\MuteListModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\InstantMessage\MuteListModuleTst.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\InstantMessage\OfflineMessageModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\InstantMessage\PresenceModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Avatar\InstantMessage\XMuteModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Inventory\Archiver\InventoryArchiveReadRequest.cs">
@@ -955,9 +943,6 @@
 	  <Compile Include="World\Warp3DMap\TerrainSplat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Warp3DMap\Viewport.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\Warp3DMap\Warp3DImageModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -977,7 +962,7 @@
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 	<PropertyGroup>
 	  <PreBuildEvent>
 	  </PreBuildEvent>

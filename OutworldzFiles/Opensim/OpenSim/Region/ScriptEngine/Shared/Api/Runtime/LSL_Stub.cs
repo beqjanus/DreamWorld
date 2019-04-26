@@ -120,9 +120,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llAtan2(x, y);
         }
 
-        public void llAttachToAvatar(int attachment)
+        public void llAttachToAvatar(LSL_Integer attachment)
         {
             m_LSL_Functions.llAttachToAvatar(attachment);
+        }
+
+        public void llAttachToAvatarTemp(LSL_Integer attachment)
+        {
+            m_LSL_Functions.llAttachToAvatarTemp(attachment);
         }
 
         public LSL_Key llAvatarOnSitTarget()
@@ -130,7 +135,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llAvatarOnSitTarget();
         }
 
-        public LSL_Key llAvatarOnLinkSitTarget(int linknum)
+        public LSL_Key llAvatarOnLinkSitTarget(LSL_Integer linknum)
         {
             return m_LSL_Functions.llAvatarOnLinkSitTarget(linknum);
         }
@@ -205,7 +210,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llCos(f);
         }
 
-        public void llCreateLink(string target, int parent)
+        public void llCreateLink(LSL_String target, LSL_Integer parent)
         {
             m_LSL_Functions.llCreateLink(target, parent);
         }
@@ -310,7 +315,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llDetectedVel(number);
         }
 
-        public void llDialog(string avatar, string message, LSL_List buttons, int chat_channel)
+        public void llDialog(LSL_Key avatar, LSL_String message, LSL_List buttons, int chat_channel)
         {
             m_LSL_Functions.llDialog(avatar, message, buttons, chat_channel);
         }
@@ -331,7 +336,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llEdgeOfWorld(pos, dir);
         }
 
-        public void llEjectFromLand(string pest)
+        public void llEjectFromLand(LSL_Key pest)
         {
             m_LSL_Functions.llEjectFromLand(pest);
         }
@@ -456,7 +461,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGetColor(face);
         }
 
-        public LSL_String llGetCreator()
+        public LSL_Key llGetCreator()
         {
             return m_LSL_Functions.llGetCreator();
         }
@@ -611,7 +616,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             m_LSL_Functions.llGetNextEmail(address, subject);
         }
 
-        public LSL_String llGetNotecardLine(string name, int line)
+        public LSL_Key llGetNotecardLine(string name, int line)
         {
             return m_LSL_Functions.llGetNotecardLine(name, line);
         }
@@ -636,7 +641,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGetObjectDesc();
         }
 
-        public LSL_List llGetObjectDetails(string id, LSL_List args)
+        public LSL_List llGetObjectDetails(LSL_Key id, LSL_List args)
         {
             return m_LSL_Functions.llGetObjectDetails(id, args);
         }
@@ -656,7 +661,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGetObjectPermMask(mask);
         }
 
-        public LSL_Integer llGetObjectPrimCount(string object_id)
+        public LSL_Integer llGetObjectPrimCount(LSL_Key object_id)
         {
             return m_LSL_Functions.llGetObjectPrimCount(object_id);
         }
@@ -891,7 +896,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGiveMoney(destination, amount);
         }
 
-        public LSL_String llTransferLindenDollars(string destination, int amount)
+        public LSL_Key llTransferLindenDollars(string destination, int amount)
         {
             return m_LSL_Functions.llTransferLindenDollars(destination, amount);
         }
@@ -926,7 +931,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGroundSlope(offset);
         }
 
-        public LSL_String llHTTPRequest(string url, LSL_List parameters, string body)
+        public LSL_Key llHTTPRequest(string url, LSL_List parameters, string body)
         {
             return m_LSL_Functions.llHTTPRequest(url, parameters, body);
         }
@@ -961,7 +966,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGetUsername(id);
         }
 
-        public LSL_String llRequestUsername(string id)
+        public LSL_Key llRequestUsername(string id)
         {
             return m_LSL_Functions.llRequestUsername(id);
         }
@@ -971,7 +976,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llGetDisplayName(id);
         }
 
-        public LSL_String llRequestDisplayName(string id)
+        public LSL_Key llRequestDisplayName(string id)
         {
             return m_LSL_Functions.llRequestDisplayName(id);
         }
@@ -1176,6 +1181,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             m_LSL_Functions.llMoveToTarget(target, tau);
         }
 
+        public LSL_Key llName2Key(LSL_String name)
+        {
+            return m_LSL_Functions.llName2Key(name);
+        }
+
         public void llOffsetTexture(double u, double v, int face)
         {
             m_LSL_Functions.llOffsetTexture(u, v, face);
@@ -1346,7 +1356,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             m_LSL_Functions.llRequestPermissions(agent, perm);
         }
 
-        public LSL_String llRequestSecureURL()
+        public LSL_Key llRequestSecureURL()
         {
             return m_LSL_Functions.llRequestSecureURL();
         }
@@ -1826,6 +1836,21 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             m_LSL_Functions.llStopAnimation(anim);
         }
 
+        public void llStartObjectAnimation(string anim)
+        {
+            m_LSL_Functions.llStartObjectAnimation(anim);
+        }
+
+        public void llStopObjectAnimation(string anim)
+        {
+            m_LSL_Functions.llStopObjectAnimation(anim);
+        }
+
+        public LSL_List llGetObjectAnimationNames()
+        {
+            return m_LSL_Functions.llGetObjectAnimationNames();
+        }
+
         public void llStopHover()
         {
             m_LSL_Functions.llStopHover();
@@ -1861,7 +1886,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_LSL_Functions.llStringToBase64(str);
         }
 
-        public LSL_String llStringTrim(string src, int type)
+        public LSL_String llStringTrim(LSL_String src, LSL_Integer type)
         {
             return m_LSL_Functions.llStringTrim(src, type);
         }

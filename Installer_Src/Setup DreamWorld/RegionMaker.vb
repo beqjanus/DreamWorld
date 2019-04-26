@@ -596,7 +596,7 @@ Public Class RegionMaker
         Dim folders() As String
         Dim regionfolders() As String
         Dim n As Integer = 0
-        folders = Directory.GetDirectories(Form1.gPath + "bin\Regions")
+        folders = Directory.GetDirectories(Form1.gOpensimBinPath + "bin\Regions")
         For Each FolderName As String In folders
             'Form1.Log("Info","Region Path:" + FolderName)
             regionfolders = Directory.GetDirectories(FolderName)
@@ -710,7 +710,7 @@ Public Class RegionMaker
         Dim fname As String = RegionList(n)._FolderPath.ToString
 
         If (fname = "") Then
-            Dim pathtoWelcome As String = Form1.gPath + "bin\Regions\" + name + "\Region\"
+            Dim pathtoWelcome As String = Form1.gOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try

@@ -29,15 +29,16 @@ using System;
 using vector = OpenSim.Region.ScriptEngine.Shared.LSL_Types.Vector3;
 using rotation = OpenSim.Region.ScriptEngine.Shared.LSL_Types.Quaternion;
 using LSLInteger = OpenSim.Region.ScriptEngine.Shared.LSL_Types.LSLInteger;
-using LSLString = OpenSim.Region.ScriptEngine.Shared.LSL_Types.LSLString;
 
 namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
 {
     public partial class ScriptBaseClass
     {
-        // LSL CONSTANTS
-        public static readonly LSLInteger TRUE = new LSLInteger(1);
-        public static readonly LSLInteger FALSE = new LSLInteger(0);
+        // SCRIPTS CONSTANTS
+        public static readonly LSLInteger OS_APIVERSION = 3;
+
+        public static readonly LSLInteger TRUE = 1;
+        public static readonly LSLInteger FALSE = 0;
 
         public const int STATUS_PHYSICS = 1;
         public const int STATUS_ROTATE_X = 2;
@@ -55,6 +56,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int AGENT_BY_LEGACY_NAME = 1;
         public const int AGENT_BY_USERNAME = 0x10;
         public const int NPC = 0x20;
+        //ApiDesc Objects running a script or physically moving
         public const int ACTIVE = 2;
         public const int PASSIVE = 4;
         public const int SCRIPTED = 8;
@@ -85,20 +87,23 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int PERMISSION_TELEPORT = 4096;
         public const int PERMISSION_OVERRIDE_ANIMATIONS = 0x8000;
 
-        public const int AGENT_FLYING = 1;
-        public const int AGENT_ATTACHMENTS = 2;
-        public const int AGENT_SCRIPTED = 4;
-        public const int AGENT_MOUSELOOK = 8;
-        public const int AGENT_SITTING = 16;
-        public const int AGENT_ON_OBJECT = 32;
-        public const int AGENT_AWAY = 64;
-        public const int AGENT_WALKING = 128;
-        public const int AGENT_IN_AIR = 256;
-        public const int AGENT_TYPING = 512;
-        public const int AGENT_CROUCHING = 1024;
-        public const int AGENT_BUSY = 2048;
-        public const int AGENT_ALWAYS_RUN = 4096;
-        public const int AGENT_MALE = 8192;
+        public const int AGENT_FLYING = 0x1;
+        //ApiDesc The agent has attachments
+        public const int AGENT_ATTACHMENTS = 0x2;
+        //ApiDesc The agent has scripted attachments
+        public const int AGENT_SCRIPTED = 0x4;
+        public const int AGENT_MOUSELOOK = 0x8;
+        public const int AGENT_SITTING = 0x10;
+        public const int AGENT_ON_OBJECT = 0x20;
+        public const int AGENT_AWAY = 0x40;
+        public const int AGENT_WALKING = 0x80;
+        public const int AGENT_IN_AIR = 0x100;
+        public const int AGENT_TYPING = 0x200;
+        public const int AGENT_CROUCHING = 0x400;
+        public const int AGENT_BUSY = 0x800;
+        public const int AGENT_ALWAYS_RUN = 0x1000;
+        public const int AGENT_AUTOPILOT = 0x2000;
+        public const int AGENT_MALE = 0x40000000;
 
         //Particle Systems
         public const int PSYS_PART_INTERP_COLOR_MASK = 1;
@@ -373,7 +378,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int CHANGED_REGION_RESTART = 1024;
         public const int CHANGED_REGION_START = 1024; //LL Changed the constant from CHANGED_REGION_RESTART
         public const int CHANGED_MEDIA = 2048;
+        //ApiDesc opensim specific
         public const int CHANGED_ANIMATION = 16384;
+        //ApiDesc opensim specific
         public const int CHANGED_POSITION = 32768;
 
         public const int TYPE_INVALID = 0;
@@ -426,6 +433,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int PRIM_FLEXIBLE = 21;
         public const int PRIM_TEXGEN = 22;
         public const int PRIM_POINT_LIGHT = 23; // Huh?
+        //ApiDesc not supported
         public const int PRIM_CAST_SHADOWS = 24; // Not implemented, here for completeness sake
         public const int PRIM_GLOW = 25;
         public const int PRIM_TEXT = 26;
@@ -441,12 +449,20 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int PRIM_SPECULAR = 36;
         public const int PRIM_NORMAL = 37;
         public const int PRIM_ALPHA_MODE = 38;
+        //ApiDesc not supported
         public const int PRIM_ALLOW_UNSIT = 39; // experiences related. unsupported
+        //ApiDesc not supported
         public const int PRIM_SCRIPTED_SIT_ONLY = 40; // experiences related. unsupported
         public const int PRIM_SIT_TARGET = 41;
 
 
         // parameters
+
+        public const int PRIM_ALPHA_MODE_NONE = 0;
+        public const int PRIM_ALPHA_MODE_BLEND = 1;
+        public const int PRIM_ALPHA_MODE_MASK = 2;
+        public const int PRIM_ALPHA_MODE_EMISSIVE = 3;
+
         public const int PRIM_TEXGEN_DEFAULT = 0;
         public const int PRIM_TEXGEN_PLANAR = 1;
 
@@ -500,8 +516,10 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int PRIM_SCULPT_TYPE_TORUS = 2;
         public const int PRIM_SCULPT_TYPE_PLANE = 3;
         public const int PRIM_SCULPT_TYPE_CYLINDER = 4;
-        public const int PRIM_SCULPT_FLAG_INVERT = 64;
-        public const int PRIM_SCULPT_FLAG_MIRROR = 128;
+        public const int PRIM_SCULPT_FLAG_INVERT = 0x40;
+        public const int PRIM_SCULPT_FLAG_MIRROR = 0x80;
+        //ApiDesc Auxiliar to clear flags keeping scultp type
+        public const int PRIM_SCULPT_TYPE_MASK = 0x07;  // auxiliar mask
 
         public const int PRIM_PHYSICS_SHAPE_PRIM = 0;
         public const int PRIM_PHYSICS_SHAPE_NONE = 1;
@@ -571,8 +589,8 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int ESTATE_ACCESS_BANNED_AGENT_ADD = 4;
         public const int ESTATE_ACCESS_BANNED_AGENT_REMOVE = 5;
 
-        public static readonly LSLInteger PAY_HIDE = new LSLInteger(-1);
-        public static readonly LSLInteger PAY_DEFAULT = new LSLInteger(-2);
+        public static readonly LSLInteger PAY_HIDE = -1;
+        public static readonly LSLInteger PAY_DEFAULT = -2;
 
         public const string NULL_KEY = "00000000-0000-0000-0000-000000000000";
         public const string EOF = "\n\n\n";
@@ -647,20 +665,28 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int OBJECT_ATTACHED_SLOTS_AVAILABLE = 35;
 
         // Pathfinding types
+        //ApiDesc not supported
         public const int OPT_OTHER = -1;
+        //ApiDesc not supported
         public const int OPT_LEGACY_LINKSET = 0;
+        //ApiDesc not supported
         public const int OPT_AVATAR = 1;
+        //ApiDesc not supported
         public const int OPT_CHARACTER = 2;
+        //ApiDesc not supported
         public const int OPT_WALKABLE = 3;
+        //ApiDesc not supported
         public const int OPT_STATIC_OBSTACLE = 4;
+        //ApiDesc not supported
         public const int OPT_MATERIAL_VOLUME = 5;
+        //ApiDesc not supported
         public const int OPT_EXCLUSION_VOLUME = 6;
 
         // for llGetAgentList
-        public const int AGENT_LIST_PARCEL = 1;
+        public const int AGENT_LIST_PARCEL = 0x1;
         public const int AGENT_LIST_PARCEL_OWNER = 2;
         public const int AGENT_LIST_REGION = 4;
-        public const int AGENT_LIST_EXCLUDENPC = 0x4000000; // our flag, not SL and it is a bit mask
+        public const int AGENT_LIST_EXCLUDENPC = 0x4000000;
 
         // Can not be public const?
         public static readonly vector ZERO_VECTOR = new vector(0.0, 0.0, 0.0);
@@ -752,14 +778,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public const int GRAVITY_MULTIPLIER = 8;
 
         // extra constants for llSetPrimMediaParams
-        public static readonly LSLInteger LSL_STATUS_OK = new LSLInteger(0);
-        public static readonly LSLInteger LSL_STATUS_MALFORMED_PARAMS = new LSLInteger(1000);
-        public static readonly LSLInteger LSL_STATUS_TYPE_MISMATCH = new LSLInteger(1001);
-        public static readonly LSLInteger LSL_STATUS_BOUNDS_ERROR = new LSLInteger(1002);
-        public static readonly LSLInteger LSL_STATUS_NOT_FOUND = new LSLInteger(1003);
-        public static readonly LSLInteger LSL_STATUS_NOT_SUPPORTED = new LSLInteger(1004);
-        public static readonly LSLInteger LSL_STATUS_INTERNAL_ERROR = new LSLInteger(1999);
-        public static readonly LSLInteger LSL_STATUS_WHITELIST_FAILED = new LSLInteger(2001);
+        public static readonly LSLInteger LSL_STATUS_OK = 0;
+        public static readonly LSLInteger LSL_STATUS_MALFORMED_PARAMS = 1000;
+        public static readonly LSLInteger LSL_STATUS_TYPE_MISMATCH = 1001;
+        public static readonly LSLInteger LSL_STATUS_BOUNDS_ERROR = 1002;
+        public static readonly LSLInteger LSL_STATUS_NOT_FOUND = 1003;
+        public static readonly LSLInteger LSL_STATUS_NOT_SUPPORTED = 1004;
+        public static readonly LSLInteger LSL_STATUS_INTERNAL_ERROR = 1999;
+        public static readonly LSLInteger LSL_STATUS_WHITELIST_FAILED = 2001;
 
         // Constants for default textures
         public const string TEXTURE_BLANK = "5748decc-f629-461c-9a36-a35a221fe21f";
@@ -816,6 +842,8 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public static readonly LSLInteger RC_REJECT_PHYSICAL = 2;
         public static readonly LSLInteger RC_REJECT_NONPHYSICAL = 4;
         public static readonly LSLInteger RC_REJECT_LAND = 8;
+        public static readonly LSLInteger RC_REJECT_HOST = 0x20000000;
+        public static readonly LSLInteger RC_REJECT_HOSTGROUP = 0x40000000;
 
         public static readonly LSLInteger RC_GET_NORMAL = 1;
         public static readonly LSLInteger RC_GET_ROOT_KEY = 2;
@@ -859,11 +887,54 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         /// </summary>
         public const int OS_LISTEN_REGEX_MESSAGE = 0x2;
 
-        // for osTeleportObject
-        public const int OSTPOBJ_NONE           = 0x0;
-        public const int OSTPOBJ_STOPATTARGET   = 0x1; // stops at destination
-        public const int OSTPOBJ_STOPONFAIL     = 0x2; // stops at jump point if tp fails
-        public const int OSTPOBJ_SETROT         = 0x4; // the rotation is the final rotation, otherwise is a added rotation
+        // Constants for osTeleportObject
 
+        //ApiDesc osTeleportObject no flags
+        public const int OSTPOBJ_NONE           = 0x0;
+        //ApiDesc osTeleportObject flag: stop at destination
+        public const int OSTPOBJ_STOPATTARGET   = 0x1;
+        //ApiDesc osTeleportObject flag: stop at jump point if tp fails
+        public const int OSTPOBJ_STOPONFAIL     = 0x2;
+        //ApiDesc osTeleportObject flag: the rotation is the final rotation, otherwise is a added rotation
+        public const int OSTPOBJ_SETROT         = 0x4;
+
+        // Constants for Windlight
+        public const int WL_WATER_COLOR = 0;
+        public const int WL_WATER_FOG_DENSITY_EXPONENT = 1;
+        public const int WL_UNDERWATER_FOG_MODIFIER = 2;
+        public const int WL_REFLECTION_WAVELET_SCALE = 3;
+        public const int WL_FRESNEL_SCALE = 4;
+        public const int WL_FRESNEL_OFFSET = 5;
+        public const int WL_REFRACT_SCALE_ABOVE = 6;
+        public const int WL_REFRACT_SCALE_BELOW = 7;
+        public const int WL_BLUR_MULTIPLIER = 8;
+        public const int WL_BIG_WAVE_DIRECTION = 9;
+        public const int WL_LITTLE_WAVE_DIRECTION = 10;
+        public const int WL_NORMAL_MAP_TEXTURE = 11;
+        public const int WL_HORIZON = 12;
+        public const int WL_HAZE_HORIZON = 13;
+        public const int WL_BLUE_DENSITY = 14;
+        public const int WL_HAZE_DENSITY = 15;
+        public const int WL_DENSITY_MULTIPLIER = 16;
+        public const int WL_DISTANCE_MULTIPLIER = 17;
+        public const int WL_MAX_ALTITUDE = 18;
+        public const int WL_SUN_MOON_COLOR = 19;
+        public const int WL_AMBIENT = 20;
+        public const int WL_EAST_ANGLE = 21;
+        public const int WL_SUN_GLOW_FOCUS = 22;
+        public const int WL_SUN_GLOW_SIZE = 23;
+        public const int WL_SCENE_GAMMA = 24;
+        public const int WL_STAR_BRIGHTNESS = 25;
+        public const int WL_CLOUD_COLOR = 26;
+        public const int WL_CLOUD_XY_DENSITY = 27;
+        public const int WL_CLOUD_COVERAGE = 28;
+        public const int WL_CLOUD_SCALE = 29;
+        public const int WL_CLOUD_DETAIL_XY_DENSITY = 30;
+        public const int WL_CLOUD_SCROLL_X = 31;
+        public const int WL_CLOUD_SCROLL_Y = 32;
+        public const int WL_CLOUD_SCROLL_Y_LOCK = 33;
+        public const int WL_CLOUD_SCROLL_X_LOCK = 34;
+        public const int WL_DRAW_CLASSIC_CLOUDS = 35;
+        public const int WL_SUN_MOON_POSITION = 36;
     }
 }

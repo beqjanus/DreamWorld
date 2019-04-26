@@ -189,8 +189,10 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             // Process all the pending adds
             OutgoingPacket pendingAdd;
             while (m_pendingAdds.TryDequeue(out pendingAdd))
+            {
                 if (pendingAdd != null)
                     m_packets[pendingAdd.SequenceNumber] = pendingAdd;
+            }
 
             // Process all the pending removes, including updating statistics and round-trip times
             PendingAck pendingAcknowledgement;
@@ -204,20 +206,15 @@ namespace OpenSim.Region.ClientStack.LindenUDP
                     {
                         m_packets.Remove(pendingAcknowledgement.SequenceNumber);
 
-                        // As with other network applications, assume that an acknowledged packet is an
-                        // indication that the network can handle a little more load, speed up the transmission
-                        ackedPacket.Client.FlowThrottle.AcknowledgePackets(1);
-
                         // Update stats
                         Interlocked.Add(ref ackedPacket.Client.UnackedBytes, -ackedPacket.Buffer.DataLength);
 
-                        if (!pendingAcknowledgement.FromResend)
-                        {
-                            // Calculate the round-trip time for this packet and its ACK
-                            int rtt = pendingAcknowledgement.RemoveTime - ackedPacket.TickCount;
-                            if (rtt > 0)
-                                ackedPacket.Client.UpdateRoundTrip(rtt);
-                        }
+                        ackedPacket.Client.FreeUDPBuffer(ackedPacket.Buffer);
+                        ackedPacket.Buffer = null;
+
+                        // As with other network applications, assume that an acknowledged packet is an
+                        // indication that the network can handle a little more load, speed up the transmission
+                        ackedPacket.Client.FlowThrottle.AcknowledgePackets(1);
                     }
                     else
                     {
@@ -244,6 +241,9 @@ namespace OpenSim.Region.ClientStack.LindenUDP
 
                         // Update stats
                         Interlocked.Add(ref removedPacket.Client.UnackedBytes, -removedPacket.Buffer.DataLength);
+
+                        removedPacket.Client.FreeUDPBuffer(removedPacket.Buffer);
+                        removedPacket.Buffer = null;
                     }
                 }
             }

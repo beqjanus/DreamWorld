@@ -43,14 +43,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8021
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=127.0.0.1
+BaseHostname=10.6.1.103
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -65,7 +65,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://127.0.0.1
+PrivURL=http://10.6.1.103
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -329,7 +329,7 @@ channel_notify=-800
 login_disable=true
 
 ; - send an alert as json to a service
-alert_uri=${Const|PrivURL}:${Const|DiagnosticsPort}
+alert_uri=http://localhost:${Const|DiagnosticsPort}
 
 [AccessControl]
 
@@ -359,7 +359,7 @@ alert_uri=${Const|PrivURL}:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=false
+GenerateMaptiles=true
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -476,7 +476,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=127.0.0.1
+host_domain_header_from=10.6.1.103
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -525,7 +525,7 @@ http_listener_port=${Const|http_listener_port}
 ; If you need to allow scripts to make some LAN calls use the OutboundDisallowForUserScriptsExcept parameter below.
 ; We recommend that you do not override OutboundDisallowForUserScripts directly unless you are very sure about what you're doing.
 ;
-OutboundDisallowForUserScriptsExcept=127.0.0.1/32
+OutboundDisallowForUserScriptsExcept=10.6.1.103/32
 
 ; You can whitelist individual endpoints by IP or FQDN, e.g.
 ;
@@ -561,7 +561,7 @@ OutboundDisallowForUserScriptsExcept=127.0.0.1/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=127.0.0.1
+ExternalHostNameForLSL=10.6.1.103
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -821,7 +821,7 @@ enable_windlight=true
 ;; searchable data.
 ;; If false, no data will be exposed, DataSnapshot module will be off,
 ;; and you can ignore the rest of these search-related configs.
-index_sims=True
+index_sims=true
 
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
@@ -853,14 +853,15 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
 ;data_services=http://www.hyperica.com/Search/register.php
-data_services=${Const|PrivURL}/Search/register.php;http://www.hyperica.com/Search/register.php
+data_services=http://www.hyperica.com/Search/register.php
 indexsims=true
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=${Const|PrivURL}/Search/query.php
+SearchURL=http://www.hyperica.com/Search/query.php
+SimulatorFeatures=http://www.hyperica.com/Search/query.php
 
 [Economy]
 
@@ -1294,15 +1295,15 @@ Include-Architecture="config-include/GridHypergrid.ini"
 ;the bin directory for your auto backups for this reason.
 ; Automatically changed by Dreamworld - do not change this
 AutoBackupModuleEnabled=true
-AutoBackup=false
-AutoBackupInterval=7200
+AutoBackup=true
+AutoBackupInterval=720
 AutoBackupBusyCheck=false
 AutoBackupThreshold=1
 AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=/Opensim/Outworldz Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
 
 [CameraOnlyModeModule]
 

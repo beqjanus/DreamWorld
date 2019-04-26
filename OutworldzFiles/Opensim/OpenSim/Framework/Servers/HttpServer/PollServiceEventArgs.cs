@@ -37,6 +37,7 @@ namespace OpenSim.Framework.Servers.HttpServer
     public delegate Hashtable GetEventsMethod(UUID requestID, UUID pId);
 
     public delegate Hashtable NoEventsMethod(UUID requestID, UUID pId);
+    public delegate void DropMethod(UUID requestID, UUID pId);
 
     public class PollServiceEventArgs : EventArgs
     {
@@ -44,6 +45,7 @@ namespace OpenSim.Framework.Servers.HttpServer
         public GetEventsMethod GetEvents;
         public NoEventsMethod NoEvents;
         public RequestMethod Request;
+        public DropMethod Drop;
         public UUID Id;
         public int TimeOutms;
         public EventType Type;
@@ -54,7 +56,9 @@ namespace OpenSim.Framework.Servers.HttpServer
             LslHttp = 1,
             Inventory = 2,
             Texture = 3,
-            Mesh = 4
+            Mesh = 4,
+            Mesh2 = 5,
+            Asset = 6
         }
 
         public string Url { get; set; }
@@ -73,13 +77,14 @@ namespace OpenSim.Framework.Servers.HttpServer
             RequestMethod pRequest,
             string pUrl,
             HasEventsMethod pHasEvents, GetEventsMethod pGetEvents, NoEventsMethod pNoEvents,
-            UUID pId, int pTimeOutms)
+            DropMethod pDrop, UUID pId, int pTimeOutms)
         {
             Request = pRequest;
             Url = pUrl;
             HasEvents = pHasEvents;
             GetEvents = pGetEvents;
             NoEvents = pNoEvents;
+            Drop = pDrop;
             Id = pId;
             TimeOutms = pTimeOutms;
             Type = EventType.Poll;
