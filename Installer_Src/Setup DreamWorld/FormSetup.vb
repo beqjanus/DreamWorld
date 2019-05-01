@@ -36,8 +36,8 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.87"
-    ReadOnly gSimVersion As String = "0.9.1"
+    ReadOnly gMyVersion As String = "2.89"
+    ReadOnly gSimVersion As String = "0.9.0 2018-04-26"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
@@ -478,6 +478,18 @@ Public Class Form1
         files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll")
         files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb")
         files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
+        ' crapload of old DLLS have to be eliminated
+        files.Add("\Outworldzfiles\Opensim\bin\Diva.TOS.dll") ' no need for TOS, old version
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.JPEGConverter.dll") ' no need for birds yet
+        files.Add("\Outworldzfiles\Opensim\bin\GlynnTucker.Cache.dll") ' no need for this any more
+        files.Add("\Outworldzfiles\Opensim\bin\MsgPack.dll") ' no need for this old thing
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Addons.AutoRestart.dll") ' no need for this, is bad module
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.ServerReleaseNotes.dll") ' is in core
+        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.RegionsDataPublisher.dll") ' is old module and is unused
+        files.Add("\Outworldzfiles\Opensim\bin\Axiom.MathLib.dll")
+        files.Add("\Outworldzfiles\Opensim\bin\CookComputing.XmlRpcV2.dll")
+        files.Add("\Outworldzfiles\Opensim\bin\Diva.MISearchModules.dll")
+        files.Add("\Outworldzfiles\Opensim\bin\Diva.OnLook.dll")
 
         If KillSource Then
             files.Add("\Outworldzfiles\Opensim\BUILDING.md")
@@ -589,7 +601,7 @@ Public Class Form1
         If Not MySetting.RunOnce Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
-            MySetting.RunOnce = True
+        MySetting.RunOnce = True
             MySetting.SaveSettings()
         End If
 
@@ -1904,7 +1916,7 @@ Public Class Form1
                 ApacheProcess2.EnableRaisingEvents = True
                 ApacheProcess2.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess2.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
-                ApacheProcess2.StartInfo.CreateNoWindow = False
+                ApacheProcess2.StartInfo.CreateNoWindow = True
                 ApacheProcess2.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\Apache\bin\"
                 ApacheProcess2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 ApacheProcess2.StartInfo.Arguments = ""
@@ -5337,12 +5349,11 @@ Public Class Form1
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\PHP5\"
         pi.FileName = "Run_parser.bat"
         pi.UseShellExecute = False  ' needed to make window hidden
-
         pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessPHP As Process = New Process()
         ProcessPHP.StartInfo = pi
+        ProcessPHP.StartInfo.CreateNoWindow = True
 
-    
         Try
             ProcessPHP.Start()
             ProcessPHP.WaitForExit()
