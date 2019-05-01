@@ -249,9 +249,6 @@
 	  <Compile Include="Interfaces\IEntityInventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\IEntityTransferModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Interfaces\IEnvironmentModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -259,9 +256,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IEtcdModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IEventQueue.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IExternalCapsModule.cs">
@@ -277,9 +271,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IGroupsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IHttpRequests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IInventoryAccessModule.cs">
@@ -301,9 +292,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IMapImageUploadModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IMaterialsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IMessageTransferModule.cs">
@@ -387,9 +375,6 @@
 	  <Compile Include="Interfaces\ISnmpModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\ISoundModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Interfaces\ISunModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -438,13 +423,25 @@
 	  <Compile Include="Interfaces\IXmlRpcRouter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Interfaces\IMaterialsModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\ISoundModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IEventQueue.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IHttpRequests.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IEntityTransferModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\AsyncInventorySender.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\AsyncSceneObjectGroupDeleter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Cardinals.cs">
@@ -459,19 +456,7 @@
 	  <Compile Include="Scenes\EntityBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\EntityManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\EventManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scenes\GodController.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\KeyframeMotion.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\Prioritizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\RegionStatsHandler.cs">
@@ -480,7 +465,43 @@
 	  <Compile Include="Scenes\ReturnInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Scene.cs">
+	  <Compile Include="Scenes\Scene.Permissions.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SceneBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\ScenePresenceStateMachine.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\UndoState.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\KeyframeMotion.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SOPMaterial.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SOPVehicle.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SceneCommunicationService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SceneManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\AsyncSceneObjectGroupDeleter.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\EntityManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\EventManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\Prioritizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Scene.Inventory.cs">
@@ -489,46 +510,19 @@
 	  <Compile Include="Scenes\Scene.PacketHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Scene.Permissions.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SceneBase.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SceneCommunicationService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scenes\SceneGraph.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\SceneManager.cs">
+	  <Compile Include="Scenes\SceneObjectGroup.Inventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneObjectGroup.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SceneObjectGroup.Inventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneObjectPart.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneObjectPartInventory.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\ScenePresence.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\ScenePresenceStateMachine.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SimStatsReporter.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SOPMaterial.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SOPVehicle.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\TerrainChannel.cs">
@@ -540,19 +534,25 @@
 	  <Compile Include="Scenes\TerrainUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\UndoState.cs">
+	  <Compile Include="Scenes\UuidGatherer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\UuidGatherer.cs">
+	  <Compile Include="Scenes\Scene.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\ScenePresence.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SimStatsReporter.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\Animation\DefaultAvatarAnimations.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Animation\AnimationSet.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Animation\BinBVHAnimation.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\Animation\DefaultAvatarAnimations.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Animation\MovementAnimationOverrides.cs">
@@ -567,10 +567,10 @@
 	  <Compile Include="Scenes\Serialization\CoalescedSceneObjectsSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Serialization\SceneObjectSerializer.cs">
+	  <Compile Include="Scenes\Serialization\SceneXmlLoader.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Serialization\SceneXmlLoader.cs">
+	  <Compile Include="Scenes\Serialization\SceneObjectSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Types\UpdateQueue.cs">

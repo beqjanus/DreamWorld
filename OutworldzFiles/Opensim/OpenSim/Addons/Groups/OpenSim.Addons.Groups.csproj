@@ -205,10 +205,10 @@
 	  <Compile Include="Hypergrid\GroupsServiceHGConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Hypergrid\GroupsServiceHGConnectorModule.cs">
+	  <Compile Include="Hypergrid\HGGroupsServiceRobustConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Hypergrid\HGGroupsServiceRobustConnector.cs">
+	  <Compile Include="Hypergrid\GroupsServiceHGConnectorModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Local\GroupsServiceLocalConnectorModule.cs">
@@ -226,13 +226,13 @@
 	  <Compile Include="Remote\GroupsServiceRobustConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Service\GroupsService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Service\GroupsServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Service\HGGroupsService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Service\GroupsService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

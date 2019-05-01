@@ -145,9 +145,6 @@
 	  <Compile Include="Meshmerizer\Mesh.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Meshmerizer\Meshmerizer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Meshmerizer\PrimMesher.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -155,6 +152,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Meshmerizer\SculptMesh.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Meshmerizer\Meshmerizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

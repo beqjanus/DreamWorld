@@ -331,13 +331,13 @@
 	  <Compile Include="Avatar\Friends\FriendsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Avatar\Friends\HGStatusNotifier.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Avatar\Friends\FriendsRequestHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Friends\HGFriendsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Avatar\Friends\HGStatusNotifier.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Gestures\GesturesModule.cs">
@@ -358,13 +358,13 @@
 	  <Compile Include="Avatar\InstantMessage\MessageTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\InstantMessage\MuteListModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\InstantMessage\OfflineMessageModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\InstantMessage\PresenceModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Avatar\InstantMessage\MuteListModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Inventory\Archiver\InventoryArchiveReadRequest.cs">
@@ -406,13 +406,13 @@
 	  <Compile Include="Framework\DynamicAttributes\DOExampleModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Framework\EntityTransfer\EntityTransferStateMachine.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Framework\EntityTransfer\HGEntityTransferModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Framework\InterfaceCommander\Command.cs">
@@ -661,10 +661,10 @@
 	  <Compile Include="ServiceConnectorsOut\Presence\LocalPresenceServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ServiceConnectorsOut\Presence\PresenceDetector.cs">
+	  <Compile Include="ServiceConnectorsOut\Presence\RemotePresenceServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ServiceConnectorsOut\Presence\RemotePresenceServiceConnector.cs">
+	  <Compile Include="ServiceConnectorsOut\Presence\PresenceDetector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServiceConnectorsOut\Simulation\LocalSimulationConnector.cs">
@@ -688,28 +688,28 @@
 	  <Compile Include="World\Archiver\ArchiveHelpers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\ArchiveReadRequest.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\Archiver\ArchiverModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Archiver\ArchiveScenesGroup.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
+	  <Compile Include="World\Archiver\AssetsArchiver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\AssetsArchiver.cs">
+	  <Compile Include="World\Archiver\DearchiveScenesGroup.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\Archiver\ArchiveReadRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Archiver\AssetsDearchiver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\AssetsRequest.cs">
+	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\DearchiveScenesGroup.cs">
+	  <Compile Include="World\Archiver\AssetsRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Cloud\CloudModule.cs">
@@ -721,12 +721,6 @@
 	  <Compile Include="World\Estate\EstateManagementCommands.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Estate\EstateManagementModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="World\Estate\EstateModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\Estate\EstateRequestHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -736,7 +730,16 @@
 	  <Compile Include="World\Estate\TelehubManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="World\Estate\EstateManagementModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\Estate\EstateModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="World\Land\DwellModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\Land\PrimCountModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Land\LandChannel.cs">
@@ -748,13 +751,7 @@
 	  <Compile Include="World\Land\LandObject.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Land\PrimCountModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\LegacyMap\IMapTileTerrainRenderer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="World\LegacyMap\MapImageModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\LegacyMap\ShadedMapTileRenderer.cs">
@@ -763,10 +760,13 @@
 	  <Compile Include="World\LegacyMap\TexturedMapTileRenderer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\LightShare\EnvironmentModule.cs">
+	  <Compile Include="World\LegacyMap\MapImageModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\LightShare\LightShareModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\LightShare\EnvironmentModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Media\Moap\MoapModule.cs">
@@ -790,13 +790,13 @@
 	  <Compile Include="World\Serialiser\IFileSerialiser.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Serialiser\SerialiseObjects.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\Serialiser\SerialiserModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Serialiser\SerialiseTerrain.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\Serialiser\SerialiseObjects.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Sound\SoundModule.cs">

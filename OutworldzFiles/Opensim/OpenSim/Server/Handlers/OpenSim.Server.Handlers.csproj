@@ -307,10 +307,10 @@
 	  <Compile Include="Map\MapAddServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Map\MapGetServerConnector.cs">
+	  <Compile Include="Map\MapRemoveServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Map\MapRemoveServerConnector.cs">
+	  <Compile Include="Map\MapGetServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MuteList\MuteListServerConnector.cs">
@@ -340,9 +340,6 @@
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Simulation\AgentHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Simulation\ObjectHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -350,6 +347,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Simulation\Utils.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Simulation\AgentHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UserAccounts\UserAccountServerConnector.cs">

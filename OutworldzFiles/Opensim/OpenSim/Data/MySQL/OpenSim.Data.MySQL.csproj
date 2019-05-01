@@ -167,9 +167,6 @@
 	  <Compile Include="MySQLFSAssetData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLGenericTableHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="MySQLGridUserData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -197,10 +194,13 @@
 	  <Compile Include="MySQLRegionData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLSimulationData.cs">
+	  <Compile Include="MySQLUserAccountData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLUserAccountData.cs">
+	  <Compile Include="MySQLXInventoryData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="MySQLGenericTableHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MySQLUserProfilesData.cs">
@@ -209,7 +209,7 @@
 	  <Compile Include="MySQLXAssetData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLXInventoryData.cs">
+	  <Compile Include="MySQLSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
@@ -247,13 +247,13 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Presence.migrations">
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\RegionStore.migrations">
-	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\UserAccount.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\UserProfiles.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\XAssetStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\RegionStore.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

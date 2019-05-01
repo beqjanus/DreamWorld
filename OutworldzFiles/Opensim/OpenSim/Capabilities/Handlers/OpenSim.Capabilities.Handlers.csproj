@@ -170,19 +170,16 @@
 	  <Compile Include="AvatarPickerSearch\AvatarPickerSearchHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="FetchInventory\FetchInvDescHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="FetchInventory\FetchInvDescServerConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="FetchInventory\FetchInventory2Handler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="FetchInventory\FetchInventory2ServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GetAssets\GetAssetsHandler.cs">
+	  <Compile Include="FetchInventory\FetchInvDescHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="FetchInventory\FetchInventory2Handler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="GetDisplayNames\GetDisplayNamesHandler.cs">
@@ -191,19 +188,19 @@
 	  <Compile Include="GetDisplayNames\GetDisplayNamesServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="GetMesh\GetMeshServerConnector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="GetMesh\GetMeshHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GetMesh\GetMeshServerConnector.cs">
+	  <Compile Include="GetTexture\GetTextureServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="GetTexture\GetTextureHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="GetTexture\GetTextureRobustHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="GetTexture\GetTextureServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
@@ -213,6 +210,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UploadBakedTexture\UploadBakedTextureServerConnector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="GetAssets\GetAssetsHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

@@ -135,9 +135,6 @@
 	  <Compile Include="IAuthorizationService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="IAvatarService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="IBakedTextureService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -171,9 +168,6 @@
 	  <Compile Include="ILandService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ILibraryService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ILoginService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -198,13 +192,19 @@
 	  <Compile Include="IUserAccountService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="IUserManagement.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="IUserProfilesService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenProfileClient.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="IAvatarService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ILibraryService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="IUserManagement.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

@@ -111,16 +111,7 @@
 	  <Compile Include="AssetStatsCollector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="BaseStatsCollector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ChecksManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="JobEngine.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="MemoryWatchdog.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServerStatsCollector.cs">
@@ -136,6 +127,15 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UserStatsCollector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="BaseStatsCollector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="JobEngine.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="MemoryWatchdog.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Watchdog.cs">

@@ -139,10 +139,10 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="LibraryService.cs">
+	  <Compile Include="XInventoryService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="XInventoryService.cs">
+	  <Compile Include="LibraryService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

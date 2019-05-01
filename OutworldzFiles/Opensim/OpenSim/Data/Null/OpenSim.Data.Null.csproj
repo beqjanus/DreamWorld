@@ -139,13 +139,13 @@
 	  <Compile Include="NullRegionData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="NullSimulationData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="NullUserAccountData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="NullXGroupData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="NullSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

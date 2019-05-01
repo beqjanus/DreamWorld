@@ -118,10 +118,10 @@
 	  <Compile Include="Bot.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="BotManager.cs">
+	  <Compile Include="pCampBot.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="pCampBot.cs">
+	  <Compile Include="BotManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Behaviours\AbstractBehaviour.cs">

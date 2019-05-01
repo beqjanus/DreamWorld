@@ -130,9 +130,6 @@
 	  <Compile Include="ODEApi.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ODECharacter.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ODEDynamics.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -148,10 +145,13 @@
 	  <Compile Include="ODERayCastRequestManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="ODESitAvatar.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="ODEScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ODESitAvatar.cs">
+	  <Compile Include="ODECharacter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

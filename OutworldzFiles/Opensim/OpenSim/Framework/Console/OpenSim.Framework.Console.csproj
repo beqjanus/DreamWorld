@@ -136,13 +136,13 @@
 	  <Compile Include="ConsoleUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LocalConsole.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="MockConsole.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenSimAppender.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LocalConsole.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RemoteConsole.cs">

@@ -853,15 +853,15 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
 ;data_services=http://www.hyperica.com/Search/register.php
-data_services=${Const|PrivURL}:80/Search/register.php
+data_services=http://www.hyperica.com/Search/register.php
 indexsims=true
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=${Const|PrivURL}:80/Search/query.php
-SimulatorFeatures=${Const|PrivURL}:80/Search/query.php
+SearchURL=http://www.hyperica.com/Search/query.php
+SimulatorFeatures=http://www.hyperica.com/Search/query.php
 
 [Economy]
 
@@ -1303,7 +1303,7 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
 
 [CameraOnlyModeModule]
 

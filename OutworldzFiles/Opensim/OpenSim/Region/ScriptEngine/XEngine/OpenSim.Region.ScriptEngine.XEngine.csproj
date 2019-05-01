@@ -186,16 +186,16 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="EventManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ScriptEngineConsoleCommands.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="XEngine.cs">
+	  <Compile Include="XWorkItem.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="XWorkItem.cs">
+	  <Compile Include="EventManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="XEngine.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

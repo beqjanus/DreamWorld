@@ -197,19 +197,19 @@
 	  <Compile Include="PGSQLRegionData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PGSQLSimulationData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="PGSQLUserAccountData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PGSQLUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PGSQLXAssetData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PGSQLXInventoryData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PGSQLUserProfilesData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PGSQLSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
@@ -245,8 +245,6 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Presence.migrations">
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\RegionStore.migrations">
-	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\UserAccount.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\UserProfiles.migrations">
@@ -254,6 +252,8 @@
 	  <EmbeddedResource Include="Resources\UserStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\XAssetStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\RegionStore.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
