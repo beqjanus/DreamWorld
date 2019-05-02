@@ -1696,13 +1696,17 @@ Public Class MySettings
             Debug.Print(ex.Message)
         End Try
 
-        My.Computer.FileSystem.RenameFile(ini, name & ".bak")
-        Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
-        For Each Item As String In Apachein
-            file.WriteLine(Item)
-        Next
-        file.Close()
+        Try
+            My.Computer.FileSystem.RenameFile(ini, name & ".bak")
+            Dim file As System.IO.StreamWriter
+            file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+            For Each Item As String In Apachein
+                file.WriteLine(Item)
+            Next
+            file.Close()
+        Catch
+        End Try
+
 
     End Sub
 #End Region

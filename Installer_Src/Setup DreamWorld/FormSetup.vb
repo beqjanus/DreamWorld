@@ -458,7 +458,8 @@ Public Class Form1
 
         Dim files As New List(Of String) From {
         "\Shoutcast", ' deprecated
-        "\Icecast"   ' moved to Outworldzfiles
+        "\Icecast",   ' moved to Outworldzfiles
+        "\Outworldzfiles\Opensim\bin\addins"
         }
 
         If KillSource Then
@@ -469,7 +470,6 @@ Public Class Form1
             files.Add("Outworldzfiles\Opensim\Prebuild")
             files.Add("Outworldzfiles\Opensim\share")
             files.Add("Outworldzfiles\Opensim\Thirdparty")
-            files.Add("Outworldzfiles\Opensim\Thirdparty\bin\addins")
         End If
 
         KillFolder(files)   ' wipe these folders out
