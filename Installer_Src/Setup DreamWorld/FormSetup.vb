@@ -469,6 +469,7 @@ Public Class Form1
             files.Add("Outworldzfiles\Opensim\Prebuild")
             files.Add("Outworldzfiles\Opensim\share")
             files.Add("Outworldzfiles\Opensim\Thirdparty")
+            files.Add("Outworldzfiles\Opensim\Thirdparty\bin\addins")
         End If
 
         KillFolder(files)   ' wipe these folders out
