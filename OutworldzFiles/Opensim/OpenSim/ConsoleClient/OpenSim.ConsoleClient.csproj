@@ -132,10 +132,10 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="ConsoleClient.cs">
+	  <Compile Include="Requester.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Requester.cs">
+	  <Compile Include="ConsoleClient.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

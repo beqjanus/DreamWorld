@@ -187,37 +187,37 @@
 	  <Compile Include="ApiManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="AsyncCommandManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LSL_Api.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LS_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MOD_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="AsyncCommandManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="OSSL_Api.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LSL_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Plugins\Dataserver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Plugins\HttpRequest.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Plugins\Listener.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Plugins\SensorRepeat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Plugins\Timer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Plugins\XmlRequest.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Plugins\SensorRepeat.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Plugins\HttpRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

@@ -145,10 +145,10 @@
 	  <Compile Include="GridUserServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UserAccountService.cs">
+	  <Compile Include="UserAccountServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UserAccountServiceBase.cs">
+	  <Compile Include="UserAccountService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

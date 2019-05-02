@@ -179,9 +179,6 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="GatekeeperService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="HGAssetService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -200,16 +197,19 @@
 	  <Compile Include="HGRemoteAssetService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="HGSuitcaseInventoryService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="UserAccountCache.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UserAgentService.cs">
+	  <Compile Include="UserAgentServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UserAgentServiceBase.cs">
+	  <Compile Include="GatekeeperService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="HGSuitcaseInventoryService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="UserAgentService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

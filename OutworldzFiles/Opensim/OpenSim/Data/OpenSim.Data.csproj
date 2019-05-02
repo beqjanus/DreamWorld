@@ -124,9 +124,6 @@
 	  <Compile Include="AssetDataBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="DBGuids.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="IAgentPreferencesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -191,6 +188,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Migration.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="DBGuids.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

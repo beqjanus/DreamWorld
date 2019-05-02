@@ -2411,7 +2411,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             UUID textureID = new UUID();
             bool dotexture = true;
-            if(String.IsNullOrEmpty(texture) || texture == ScriptBaseClass.NULL_KEY)
+            if(String.IsNullOrEmpty(texture))
                 dotexture = false;
             else
             {

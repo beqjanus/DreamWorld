@@ -195,13 +195,16 @@
 	  <Compile Include="AvatarPickerSearchModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="MeshUploadFlagModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="UploadBakedTextureModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="FetchInventory2Module.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="GetAssetsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="MeshUploadFlagModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RegionConsoleModule.cs">
@@ -213,25 +216,22 @@
 	  <Compile Include="SimulatorFeaturesModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="UploadBakedTextureModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="WebFetchInvDescModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BunchOfCaps\BunchOfCaps.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BunchOfCaps\BunchOfCapsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="BunchOfCaps\BunchOfCaps.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="BunchOfCaps\MeshCost.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="EventQueue\EventQueueGetModule.cs">
+	  <Compile Include="EventQueue\EventQueueHelper.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="EventQueue\EventQueueHelper.cs">
+	  <Compile Include="EventQueue\EventQueueGetModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ObjectCaps\ObjectAdd.cs">

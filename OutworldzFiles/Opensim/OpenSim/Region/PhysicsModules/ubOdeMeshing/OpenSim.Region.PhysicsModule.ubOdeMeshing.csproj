@@ -145,19 +145,19 @@
 	  <Compile Include="HelperTypes.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mesh.cs">
+	  <Compile Include="SculptMap.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Meshmerizer.cs">
+	  <Compile Include="Mesh.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PrimMesher.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SculptMap.cs">
+	  <Compile Include="SculptMesh.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SculptMesh.cs">
+	  <Compile Include="Meshmerizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

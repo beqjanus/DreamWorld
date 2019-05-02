@@ -134,13 +134,13 @@
 	  <Compile Include="BirdsModule\FlockingModel.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="BirdsModule\FlockingModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="BirdsModule\FlockingView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BirdsModule\FlowMap.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BirdsModule\FlockingModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

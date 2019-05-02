@@ -153,10 +153,10 @@
 	  <Compile Include="Helpers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LSL_Types.cs">
+	  <Compile Include="ScriptException.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ScriptException.cs">
+	  <Compile Include="LSL_Types.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="..\Interfaces\ICompiler.cs">
@@ -174,13 +174,13 @@
 	  <Compile Include="..\Interfaces\IScriptInstance.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Api\Interface\ILSL_Api.cs">
+	  <Compile Include="Api\Interface\IMOD_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Api\Interface\ILS_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Api\Interface\IMOD_Api.cs">
+	  <Compile Include="Api\Interface\ILSL_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Api\Interface\IOSSL_Api.cs">

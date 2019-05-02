@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.87' ;  # '-Beta-V1.5';
+my $type  = '-V2.88' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -20,7 +20,6 @@ say ('Making ' . $dir . ' ' .  $type);
 say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
-
 
 
 my $x = `net stop ApacheHTTPServer`;
@@ -179,10 +178,7 @@ print "Copy Update\n";
 unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";
 if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
 
-print "Revisions\n";
-if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
-if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
+
 
 #say ("Dropbox");
 #unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
@@ -201,6 +197,12 @@ if ($publish)
 }
 
 $x = `net start ApacheHTTPServer`;
+
+print "Revisions\n";
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+
 
 say "Done!";
 
