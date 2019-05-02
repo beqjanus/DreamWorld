@@ -1,5 +1,6 @@
 .project
 .settings
+.gitignore
 *.csproj
 *.csproj.user
 *.build
@@ -9,6 +10,7 @@
 *.pdb
 *.pidb
 *.dll.build
+*.dll
 *.log
 
 # Ignore .user and .suo files as these are user preference specific
@@ -29,12 +31,14 @@
 */*/*/*/*/bin
 */*/*/*/*/*/bin
 */*/*/*/*/*/*/bin
-.vs/ 
+.vs/
+addon-modules/
 bin/Debug/*.dll
 bin/*.dll.mdb
 bin/*.db
 bin/*.db-journal
 bin/addin-db-*
+bin/*.dll
 bin/OpenSim.vshost.exe.config
 bin/OpenSim.32BitLaunch.vshost.exe.config
 bin/OpenSim.32BitLaunch.log
@@ -110,7 +114,3 @@ doc/html
 doc/doxygen.error.log
 
 *.patch
-
-
-
-

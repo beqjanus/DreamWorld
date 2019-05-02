@@ -199,9 +199,6 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="Application.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ConfigurationLoader.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -212,6 +209,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenSimBackground.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Application.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenSimBase.cs">

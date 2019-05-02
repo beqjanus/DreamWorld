@@ -289,16 +289,7 @@
 	  <Compile Include="Mock\MockGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\MockRegionDataPlugin.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Mock\MockScriptEngine.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Mock\TestClient.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Mock\TestEventQueueGetModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Mock\TestGroupsDataPlugin.cs">
@@ -316,22 +307,31 @@
 	  <Compile Include="Mock\TestInventoryDataPlugin.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\TestLandChannel.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Mock\TestLLUDPServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Mock\TestOSHttpRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\TestOSHttpResponse.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Mock\TestScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Mock\TestXInventoryDataPlugin.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Mock\TestOSHttpResponse.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Mock\MockRegionDataPlugin.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Mock\TestEventQueueGetModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Mock\TestLandChannel.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Mock\TestClient.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>
