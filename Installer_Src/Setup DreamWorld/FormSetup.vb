@@ -5376,40 +5376,43 @@ Public Class Form1
 
         DeleteEvents(osconnection)
         Dim ctr As Integer = 0
-        Using client As New WebClient()
-            Using Stream = client.OpenRead(gDomain + "/events.txt?r=" & Random())
-                Using reader = New StreamReader(Stream)
+        Try
 
-                    While reader.Peek <> -1
-                        Dim s = reader.ReadLine
-                        '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
+            Using client As New WebClient()
+                Using Stream = client.OpenRead(gDomain + "/events.txt?r=" & Random())
+                    Using reader = New StreamReader(Stream)
 
-                        ' Split line on comma.
-                        Dim array As String() = s.Split("|".ToCharArray())
-                        Simevents.Clear()
-                        ' Loop over each string received.
-                        Dim part As String
-                        For Each part In array
-                            ' Display to console.
-                            Dim a As String() = part.Split("^".ToCharArray())
-                            If a.Count = 2 Then
-                                a(1) = a(1).Replace("'", "\'")
-                                a(1) = a(1).Replace("`", vbLf)
-                                Console.WriteLine("{0}:{1}", a(0), a(1))
-                                Simevents.Add(a(0), a(1))
-                                ctr += 1
+                        While reader.Peek <> -1
+                            Dim s = reader.ReadLine
+                            '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
 
-                            End If
-                        Next
-                        Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
-                        WriteEvent(osconnection, Simevents)
-                    End While
+                            ' Split line on comma.
+                            Dim array As String() = s.Split("|".ToCharArray())
+                            Simevents.Clear()
+                            ' Loop over each string received.
+                            Dim part As String
+                            For Each part In array
+                                ' Display to console.
+                                Dim a As String() = part.Split("^".ToCharArray())
+                                If a.Count = 2 Then
+                                    a(1) = a(1).Replace("'", "\'")
+                                    a(1) = a(1).Replace("`", vbLf)
+                                    Console.WriteLine("{0}:{1}", a(0), a(1))
+                                    Simevents.Add(a(0), a(1))
+                                    ctr += 1
+
+                                End If
+                            Next
+                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
+                            WriteEvent(osconnection, Simevents)
+                        End While
+                    End Using
                 End Using
             End Using
-        End Using
-        osconnection.Close()
-        Print(ctr.ToString & " hypevents received")
-
+            osconnection.Close()
+            'Print(ctr.ToString & " hypevents received")
+        Catch
+        End Try
 
     End Sub
 
