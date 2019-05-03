@@ -491,6 +491,8 @@ Public Class Form1
         files.Add("\Outworldzfiles\Opensim\bin\CookComputing.XmlRpcV2.dll")
         files.Add("\Outworldzfiles\Opensim\bin\Diva.MISearchModules.dll")
         files.Add("\Outworldzfiles\Opensim\bin\Diva.OnLook.dll")
+        files.Add("\Outworldzfiles\Opensim\bin\Gloebit-b73--0.9.1.0-dev--2017-08-18--MASTER.dll")
+
 
         If KillSource Then
             files.Add("\Outworldzfiles\Opensim\BUILDING.md")
