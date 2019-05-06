@@ -10,8 +10,10 @@ Public Class MySettings
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim gFolder As String
+#Disable Warning IDE0044 ' Add readonly modifier
     Dim Apachein As New List(Of String)
     Dim Apacheout As New List(Of String)
+#Enable Warning IDE0044 ' Add readonly modifier
 
 #Region "New"
     Public Sub New()
@@ -571,6 +573,17 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+
+    Public Property ServerType() As String
+        Get
+            Return GetMySetting("ServerType", "Robust")
+        End Get
+        Set
+            SetMySetting("ServerType", Value)
+        End Set
+    End Property
+
     Public Property SearchLocal() As Boolean
         Get
             Return CType(GetMySetting("SearchLocal"), Boolean)

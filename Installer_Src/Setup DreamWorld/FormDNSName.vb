@@ -2,9 +2,11 @@
 Imports System.Net
 
 Public Class FormDNSName
-
+    Dim Portbackup As String = ""
+    Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
-
+    Dim changed As Boolean = False
+    Dim ServerType As String = ""
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
@@ -29,19 +31,37 @@ Public Class FormDNSName
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
         Me.Text = "DynDNS"
-
+        DNSNameBoxBackup = Form1.MySetting.DNSName
         DNSNameBox.Text = Form1.MySetting.DNSName
+        Portbackup = Form1.MySetting.HttpPort
+
         UniqueId.Text = Form1.MySetting.MachineID()
         EnableHypergrid.Checked = Form1.MySetting.EnableHypergrid
         SuitcaseCheckbox.Checked = Form1.MySetting.Suitcase
-
         NextNameButton.Enabled = True
 
-        If DNSNameBox.Text = String.Empty Then
-            MsgBox("Type in a 'name.outworldz.net' for a DYNDNS name, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
-        End If
-
         Form1.HelpOnce("DNS")
+
+        Select Case Form1.MySetting.ServerType
+            Case "Robust"
+                GridServerButton.Checked = True
+                Application.DoEvents()
+                If DNSNameBox.Text = String.Empty Then
+                    MsgBox("Type in a 'name.outworldz.net' for a DYNDNS name, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
+                End If
+            Case "Region"
+                GridRegionButton.Checked = True
+                If DNSNameBox.Text = String.Empty Then
+                    MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
+                End If
+            Case "OsGrid"
+                osGridRadioButton1.Checked = True
+            Case "Metro"
+                MetroRadioButton2.Checked = True
+            Case Else
+                GridServerButton.Checked = True
+        End Select
+
 
         initted = True
 
@@ -50,7 +70,6 @@ Public Class FormDNSName
 #End Region
 
 #Region "Functions"
-
 
     Public Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
@@ -85,9 +104,16 @@ Public Class FormDNSName
                 DNSNameBox.Text = Checkname
             End If
         End If
+
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+
+        SaveAll()
+
+    End Sub
+
+    Private Sub SaveAll()
 
         NextNameButton.Text = "Saving..."
         Form1.RegisterName(DNSNameBox.Text)
@@ -102,10 +128,38 @@ Public Class FormDNSName
 
         Form1.MySetting.SaveSettings()
 
+
+        ' Choose a GridCommon.ini to use.
+        Dim GridCommon As String = "GridcommonGridServer"
+
+
+        Select Case ServerType
+            Case "Robust"
+                GridCommon = "Gridcommon-GridServer"
+            Case "Region"
+                GridCommon = "Gridcommon-RegionServer"
+            Case "OsGrid"
+                GridCommon = "Gridcommon-OsGridServer"
+            Case "Metro"
+                GridCommon = "Gridcommon-MetroServer"
+        End Select
+
+        ' Put that gridcommin.ini file in place
+        IO.File.Copy(Form1.gOpensimBinPath + "bin\config-include\Gridcommon.ini", IO.Path.Combine(Form1.gOpensimBinPath, "bin\config-include\", GridCommon & ".ini"), True)
+
+        changed = False ' suppress prompts
+
         Me.Close()
 
     End Sub
+    Private Sub Closeme() Handles Me.Closed
 
+        If changed Then
+            Dim resp = MsgBox("Changes have been made! Save (Y/N)", vbYesNo)
+            If resp = vbYes Then SaveAll()
+        End If
+
+    End Sub
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
 
@@ -121,6 +175,8 @@ Public Class FormDNSName
             NextNameButton.Enabled = True
             DNSNameBox.Text = newname
         End If
+
+        changed = True
 
     End Sub
 
@@ -139,11 +195,11 @@ Public Class FormDNSName
     End Sub
 
 
-
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
         Form1.MySetting.MachineID() = UniqueId.Text
+        changed = True
 
     End Sub
 
@@ -151,7 +207,7 @@ Public Class FormDNSName
 
         If Not initted Then Return
         Form1.MySetting.EnableHypergrid = EnableHypergrid.Checked
-
+        changed = True
 
     End Sub
 
@@ -160,16 +216,74 @@ Public Class FormDNSName
         If Not initted Then Return
         Form1.MySetting.Suitcase() = SuitcaseCheckbox.Checked
 
-
         If Not SuitcaseCheckbox.Checked Then
             MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")
         End If
+        changed = True
 
     End Sub
 
     Private Sub DynDNSPassword_Click(sender As Object, e As EventArgs) Handles DynDNSHelp.Click
 
         Form1.Help("DNS")
+
+    End Sub
+
+    Private Sub GridServerButton_CheckedChanged(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
+
+        If Not initted Then Return
+        If Not GridServerButton.Checked Then Return
+        If DNSNameBox.Text = String.Empty Then
+            MsgBox("Type in a 'SomeNewName.outworldz.net' name to use Dreamgrid's free DYNDNS, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
+        Else
+            DNSNameBox.Text = DNSNameBoxBackup
+        End If
+        Form1.MySetting.ServerType = "Robust"
+        changed = True
+
+    End Sub
+
+    Private Sub GridRegionButton_CheckedChanged(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
+
+        If Not initted Then Return
+        If Not GridRegionButton.Checked Then Return
+        If DNSNameBox.Text = String.Empty Then
+            MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
+        Else
+            DNSNameBoxBackup = DNSNameBox.Text
+            Portbackup = Form1.MySetting.HttpPort
+        End If
+        ServerType = "Region"
+        changed = True
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
+
+        If Not initted Then Return
+        If Not osGridRadioButton1.Checked Then Return
+        ServerType = "OsGrid"
+
+        DNSNameBoxBackup = DNSNameBox.Text
+
+        DNSNameBox.Text = "http://hg.osgrid.org"
+        changed = True
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
+
+        If Not initted Then Return
+        If Not MetroRadioButton2.Checked Then Return
+        DNSNameBoxBackup = DNSNameBox.Text
+
+        Portbackup = Form1.MySetting.HttpPort
+
+        ServerType = "Metro"
+
+        DNSNameBox.Text = "http://hg.metro.land"
+        changed = True
+
 
     End Sub
 

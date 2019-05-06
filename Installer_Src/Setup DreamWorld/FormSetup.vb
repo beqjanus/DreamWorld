@@ -336,7 +336,7 @@ Public Class Form1
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
         Log("Info", "Starting Web Server ")
-        ws.StartServer(MyFolder, MySetting, MySetting.PrivateURL, CType(MySetting.DiagnosticPort, Integer))
+        ws.StartServer(MyFolder, MySetting)
 
         OpenPorts()
 
@@ -361,7 +361,7 @@ Public Class Form1
         Dim i = 180
         While i > 0
             MyCPUCollection.Add(0)
-            i = i - 1
+            i -= 1
         End While
 
         Dim msChart = ChartWrapper1.TheChart
@@ -377,7 +377,7 @@ Public Class Form1
         i = 180
         While i > 0
             MyRAMCollection.Add(0)
-            i = i - 1
+            i -= 1
         End While
 
         msChart = ChartWrapper2.TheChart
@@ -667,7 +667,7 @@ Public Class Form1
                     If x Then Return True
                 Catch ex As Exception
                 End Try
-                ctr = ctr - 1
+                ctr -= 1
             End While
         End If
         Return False
@@ -703,7 +703,7 @@ Public Class Form1
 
         For Each Regionnumber As Integer In RegionClass.RegionNumbers
             If RegionClass.IsBooted(Regionnumber) Then
-                TotalRunningRegions = TotalRunningRegions + 1
+                TotalRunningRegions += 1
             End If
         Next
         Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
@@ -730,7 +730,7 @@ Public Class Form1
 
             While (counter > 0 And OpensimIsRunning())
                 ' decrement progress bar according to the ratio of what we had / what we have now
-                counter = counter - 1
+                counter -= 1
                 Dim CountisRunning As Integer = 0
 
                 For Each X In RegionClass.RegionNumbers
@@ -740,7 +740,7 @@ Public Class Form1
                         If RegionHandles.ContainsKey(RegionClass.ProcessID(X)) Then
                             ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                             'If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
-                            CountisRunning = CountisRunning + 1
+                            CountisRunning += 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
@@ -941,7 +941,7 @@ Public Class Form1
 
         Dim reader As System.IO.StreamReader
         Dim line As String
-        Dim DefaultName As String = ""
+
 
         Try
             ' add this sim name as a default to the file as HG regions, and add the other regions as fallback
@@ -954,7 +954,7 @@ Public Class Form1
             End If
 
             ' save to disk
-            DefaultName = RegionClass.RegionName(o)
+            Dim DefaultName = RegionClass.RegionName(o)
             MySetting.WelcomeRegion = DefaultName
             MySetting.SaveSettings()
 
@@ -1045,6 +1045,8 @@ Public Class Form1
             MySetting.SaveOtherINI()
         End If
 
+
+        ' load and patch it up for MyzSQL
         MySetting.LoadOtherIni(gOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
         Dim ConnectionString = """" _
         + "Data Source=" + MySetting.RegionServer _
@@ -1729,8 +1731,7 @@ Public Class Form1
         Try
             If MySetting.DiagnosticPort = MySetting.HttpPort _
         Or MySetting.DiagnosticPort = MySetting.PrivatePort _
-        Or MySetting.HttpPort = MySetting.PrivatePort _
-        Or CType(MySetting.HttpPort, Double) < 1024 Then
+        Or MySetting.HttpPort = MySetting.PrivatePort Then
                 MySetting.DiagnosticPort = "8001"
                 MySetting.HttpPort = "8002"
                 MySetting.PrivatePort = "8003"
@@ -1757,12 +1758,14 @@ Public Class Form1
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
         Print("Starting UPnp Control Panel")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = ""
-        pi.FileName = MyFolder & "\UPnpPortForwardManager.exe"
-        pi.WindowStyle = ProcessWindowStyle.Normal
-        Dim ProcessUpnp As Process = New Process()
-        ProcessUpnp.StartInfo = pi
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "",
+            .FileName = MyFolder & "\UPnpPortForwardManager.exe",
+            .WindowStyle = ProcessWindowStyle.Normal
+        }
+        Dim ProcessUpnp As Process = New Process With {
+            .StartInfo = pi
+        }
         Try
             ProcessUpnp.Start()
         Catch ex As Exception
@@ -1889,8 +1892,9 @@ Public Class Form1
 
             Print("Checking Apache service")
             Try
-                Dim ApacheProcess As New Process()
-                ApacheProcess.EnableRaisingEvents = True
+                Dim ApacheProcess As New Process With {
+                    .EnableRaisingEvents = True
+                }
                 ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\InstallApache.bat"
                 ApacheProcess.StartInfo.CreateNoWindow = True
@@ -1915,8 +1919,9 @@ Public Class Form1
 
             ' Start Apache  manually
             Try
-                Dim ApacheProcess2 As New Process()
-                ApacheProcess2.EnableRaisingEvents = True
+                Dim ApacheProcess2 As New Process With {
+                    .EnableRaisingEvents = True
+                }
                 ApacheProcess2.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess2.StartInfo.FileName = MyFolder + "\Outworldzfiles\Apache\bin\httpd.exe"
                 ApacheProcess2.StartInfo.CreateNoWindow = True
@@ -1938,7 +1943,7 @@ Public Class Form1
             While Not IsApacheRunning() And OpensimIsRunning
                 Application.DoEvents()
                 BumpProgress(1)
-                counter = counter + 1
+                counter += 1
                 ' wait a minute for it to start
                 If counter > 100 Then
                     Print("Error:Apache failed to start")
@@ -1959,7 +1964,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsApacheRunning() As Boolean
 
-        Dim Up As String = String.Empty
+        Dim Up As String
         Try
             Up = client.DownloadString("http://" & MySetting.PublicIP & ":" & MySetting.ApachePort + "/?_Opensim=" + Random())
         Catch ex As Exception
@@ -2145,6 +2150,8 @@ Public Class Form1
             Return True
         End If
 
+        If MySetting.ServerType <> "Robust" Then Return True
+
         If MySetting.RobustServer <> "127.0.0.1" And MySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & MySetting.RobustServer)
             Return True
@@ -2181,7 +2188,7 @@ Public Class Form1
         While Not IsRobustRunning() And OpensimIsRunning
             Application.DoEvents()
             BumpProgress(1)
-            counter = counter + 1
+            counter += 1
             ' wait a minute for it to start
             If counter > 100 Then
                 Print("Error:Robust failed to start")
@@ -2231,7 +2238,7 @@ Public Class Form1
                 If RegionClass.RegionEnabled(x) Then
                     Boot(RegionClass.RegionName(x))
                     ProgressBar1.Value = CType(counter / Len * 100, Integer)
-                    counter = counter + 1
+                    counter += 1
                 End If
             Next
 
@@ -2609,7 +2616,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsRobustRunning() As Boolean
 
-        Dim Up As String = String.Empty
+        Dim Up As String
         Try
             Up = client.DownloadString("http://" & MySetting.RobustServer & ":" & MySetting.HttpPort + "/?_Opensim=" + Random())
         Catch ex As Exception
@@ -2697,36 +2704,33 @@ Public Class Form1
     ''' 
     Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
 
-        Dim status As Boolean = False
+
         Dim WindowCounter As Integer = 0
-        While myProcess.MainWindowHandle = CType(0, IntPtr) And Not status
+        While myProcess.MainWindowHandle = CType(0, IntPtr)
             Diagnostics.Debug.Print(windowName & " Handle = 0")
             Sleep(100)
-            WindowCounter = WindowCounter + 1
+            WindowCounter += 1
             If WindowCounter > 200 Then '  20 seconds for process to start
-                status = True
                 ErrorLog("Cannot get MainWindowHandle for " & windowName)
                 Return False
             End If
-
         End While
 
-
-        status = False
         WindowCounter = 0
 
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         If CType(hwnd, Integer) = 0 Then
             ErrorLog("hwnd = 0")
         End If
-        While Not status
+        Dim status = False
+        While status = False
             Sleep(100)
             SetWindowText(hwnd, windowName)
             status = SetWindowText(hwnd, windowName)
-            WindowCounter = WindowCounter + 1
+            WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
-                status = True
                 ErrorLog("Cannot get handle for " & windowName)
+                Exit While
             End If
             Application.DoEvents()
         End While
@@ -2756,7 +2760,7 @@ Public Class Form1
                         Return pList.MainWindowHandle
                     End If
                     Application.DoEvents()
-                    ctr = ctr - 1
+                    ctr -= 1
                 Next
             End While
         Next
@@ -2828,7 +2832,7 @@ Public Class Form1
         While counter > 0
             Application.DoEvents()
             Thread.Sleep(CType(sleeptime, Integer))
-            counter = counter - 1
+            counter -= 1
         End While
 
     End Sub
@@ -2862,8 +2866,8 @@ Public Class Form1
         Dim k = 1
         While j > 0
             series(k) = CType(MyCPUCollection(j), Double)
-            j = j - 1
-            k = k + 1
+            j -= 1
+            k += 1
         End While
 
         ChartWrapper1.ClearChart()
@@ -2888,8 +2892,8 @@ Public Class Form1
         k = 1
         While j > 0
             ramseries(k) = CType(MyRAMCollection(j), Double)
-            j = j - 1
-            k = k + 1
+            j -= 1
+            k += 1
         End While
 
         ChartWrapper2.ClearChart()
@@ -2914,7 +2918,7 @@ Public Class Form1
             Timer1.Stop()
             Return
         End If
-        gDNSSTimer = gDNSSTimer + 1
+        gDNSSTimer += 1
 
 
         ' hourly
@@ -2996,7 +3000,7 @@ Public Class Form1
 
         Dim present As Integer = 0
         For Each RegionNum As Integer In RegionClass.RegionListByGroupNum(groupname)
-            present = present + RegionClass.AvatarCount(RegionNum)
+            present += RegionClass.AvatarCount(RegionNum)
         Next
 
         Return CType(present, Boolean)
@@ -3083,13 +3087,13 @@ Public Class Form1
             Dim RegionNumber As Integer = RegionClass.FindRegionByName(chosen)
 
             ' Create an instance of the open file dialog box.
-            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog
-
             ' Set filter options and filter index.
-            openFileDialog1.InitialDirectory = BackupPath()
-            openFileDialog1.Filter = "Opensim OAR(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*"
-            openFileDialog1.FilterIndex = 1
-            openFileDialog1.Multiselect = False
+            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+                .InitialDirectory = BackupPath(),
+                .Filter = "Opensim OAR(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
+                .FilterIndex = 1,
+                .Multiselect = False
+            }
 
             ' Call the ShowDialog method to show the dialogbox.
             Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
@@ -3185,7 +3189,7 @@ Public Class Form1
                     End If
                 Next
             End If
-            n = n + 1
+            n += 1
         Next
 
     End Sub
@@ -3194,13 +3198,13 @@ Public Class Form1
 
         If OpensimIsRunning() Then
             ' Create an instance of the open file dialog box.
-            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog
-
             ' Set filter options and filter index.
-            openFileDialog1.InitialDirectory = """" + MyFolder + "/" + """"
-            openFileDialog1.Filter = "Inventory IAR (*.iar)|*.iar|All Files (*.*)|*.*"
-            openFileDialog1.FilterIndex = 1
-            openFileDialog1.Multiselect = False
+            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+                .InitialDirectory = """" + MyFolder + "/" + """",
+                .Filter = "Inventory IAR (*.iar)|*.iar|All Files (*.*)|*.*",
+                .FilterIndex = 1,
+                .Multiselect = False
+            }
 
             ' Call the ShowDialog method to show the dialogbox.
             Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
@@ -3236,7 +3240,7 @@ Public Class Form1
                     Return
                 End If
 
-                Dim ToBackup = ""
+                Dim ToBackup
 
                 Dim BackupName = SaveIAR.gBackupName
                 If Not BackupName.ToLower.EndsWith(".iar") Then
@@ -3244,7 +3248,7 @@ Public Class Form1
                 End If
 
 
-                If SaveIAR.gBackupPath = "" Then
+                If String.IsNullOrEmpty(SaveIAR.gBackupPath) Or SaveIAR.gBackupPath = "AutoBackup" Then
                     ToBackup = BackupPath() & "" & BackupName
                 Else
                     ToBackup = SaveIAR.gBackupPath & BackupName
@@ -3488,10 +3492,11 @@ Public Class Form1
             line = oarreader.ReadLine()
             If line <> Nothing Then
                 Log("Info", "" + line)
-                Dim OarMenu As New ToolStripMenuItem
-                OarMenu.Text = line
-                OarMenu.ToolTipText = "Click to load this content"
-                OarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                Dim OarMenu As New ToolStripMenuItem With {
+                    .Text = line,
+                    .ToolTipText = "Click to load this content",
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                }
                 AddHandler OarMenu.Click, New EventHandler(AddressOf OarClick)
                 IslandToolStripMenuItem.Visible = True
                 IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
@@ -3510,11 +3515,12 @@ Public Class Form1
 
             If aline.EndsWith(".rtf") Then
                 aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-                Dim HelpMenu As New ToolStripMenuItem
-                HelpMenu.Text = aline
-                HelpMenu.ToolTipText = "Click to load this content"
-                HelpMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
-                HelpMenu.Image = My.Resources.question_and_answer
+                Dim HelpMenu As New ToolStripMenuItem With {
+                    .Text = aline,
+                    .ToolTipText = "Click to load this content",
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.question_and_answer
+                }
                 AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
                 HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
             End If
@@ -3537,10 +3543,11 @@ Public Class Form1
             line = iarreader.ReadLine()
             If line <> Nothing Then
                 Log("Info", "" + line)
-                Dim IarMenu As New ToolStripMenuItem
-                IarMenu.Text = line
-                IarMenu.ToolTipText = "Click to load this content the next time the simulator is started"
-                IarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                Dim IarMenu As New ToolStripMenuItem With {
+                    .Text = line,
+                    .ToolTipText = "Click to load this content the next time the simulator is started",
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                }
                 AddHandler IarMenu.Click, New EventHandler(AddressOf IarClick)
                 ClothingInventoryToolStripMenuItem.Visible = True
                 ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
@@ -3583,13 +3590,13 @@ Public Class Form1
     End Sub
 
     Private Sub AddLog(name As String)
-
-        Dim LogMenu As New ToolStripMenuItem
-        LogMenu.Text = name
-        LogMenu.ToolTipText = "Click to view this log"
-        LogMenu.Size = New System.Drawing.Size(269, 26)
-        LogMenu.Image = My.Resources.Resources.document_view
-        LogMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+        Dim LogMenu As New ToolStripMenuItem With {
+            .Text = name,
+            .ToolTipText = "Click to view this log",
+            .Size = New System.Drawing.Size(269, 26),
+            .Image = My.Resources.Resources.document_view,
+            .DisplayStyle = ToolStripItemDisplayStyle.Text
+        }
         AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
         ViewLogsToolStripMenuItem.Visible = True
         ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
@@ -3674,9 +3681,10 @@ Public Class Form1
         Dim fileloaded As String = Download()
         If fileloaded.Length > 0 Then
             Dim pUpdate As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo()
-            pi.Arguments = ""
-            pi.FileName = """" + MyFolder + "\" + fileloaded + """"
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = "",
+                .FileName = """" + MyFolder + "\" + fileloaded + """"
+            }
             pUpdate.StartInfo = pi
             Try
                 Print("I'll see you again when I wake up all fresh and new!")
@@ -3726,14 +3734,13 @@ Public Class Form1
     Sub CheckForUpdates()
 
         Dim Update As String = ""
-        Dim isPortOpen As String = ""
 
         Try
             Update = client.DownloadString(gDomain + "/Outworldz_Installer/UpdateGrid.plx?fill=1" + GetPostData())
         Catch ex As Exception
             ErrorLog("Dang:The Outworldz web site is down")
         End Try
-        If (Update = "") Then Update = "0"
+        If (Update.Length = 0) Then Update = "0"
 
         Try
             If Convert.ToSingle(Update) > Convert.ToSingle(gMyVersion) Then
@@ -4181,8 +4188,9 @@ Public Class Form1
         pi.Arguments = MySetting.MySqlPort
 
         pi.FileName = "CheckAndRepair.bat"
-        Dim pMySqlDiag1 As Process = New Process()
-        pMySqlDiag1.StartInfo = pi
+        Dim pMySqlDiag1 As Process = New Process With {
+            .StartInfo = pi
+        }
         pMySqlDiag1.Start()
         pMySqlDiag1.WaitForExit()
 
@@ -4208,13 +4216,13 @@ Public Class Form1
         End If
 
         ' Create an instance of the open file dialog box.
-        Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog
-
         ' Set filter options and filter index.
-        openFileDialog1.InitialDirectory = BackupPath()
-        openFileDialog1.Filter = "BackupFile (*.sql)|*.sql|All Files (*.*)|*.*"
-        openFileDialog1.FilterIndex = 1
-        openFileDialog1.Multiselect = False
+        Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+            .InitialDirectory = BackupPath(),
+            .Filter = "BackupFile (*.sql)|*.sql|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+        }
 
         ' Call the ShowDialog method to show the dialogbox.
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
@@ -4246,13 +4254,12 @@ Public Class Form1
 
                     Print("Starting restore - do not interrupt!")
                     Dim pMySqlRestore As Process = New Process()
-                    Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
                     ' pi.Arguments = thing
-                    pi.WindowStyle = ProcessWindowStyle.Normal
-                    pi.WorkingDirectory = MyFolder & "\OutworldzFiles\mysql\bin\"
-
-                    pi.FileName = MyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat"
+                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                        .WindowStyle = ProcessWindowStyle.Normal,
+                        .WorkingDirectory = MyFolder & "\OutworldzFiles\mysql\bin\",
+                        .FileName = MyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat"
+                    }
                     pMySqlRestore.StartInfo = pi
                     pMySqlRestore.Start()
                     Print("")
@@ -4276,11 +4283,12 @@ Public Class Form1
 
         Print("Starting a slow but extensive Database Backup => Autobackup folder")
         Dim pMySqlBackup As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = ""
-        pi.WindowStyle = ProcessWindowStyle.Normal
-        pi.WorkingDirectory = MyFolder & "\OutworldzFiles\mysql\bin\"
-        pi.FileName = MyFolder & "\OutworldzFiles\mysql\bin\BackupMysql.bat"
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "",
+            .WindowStyle = ProcessWindowStyle.Normal,
+            .WorkingDirectory = MyFolder & "\OutworldzFiles\mysql\bin\",
+            .FileName = MyFolder & "\OutworldzFiles\mysql\bin\BackupMysql.bat"
+        }
         pMySqlBackup.StartInfo = pi
 
         pMySqlBackup.Start()
@@ -4344,11 +4352,11 @@ Public Class Form1
         BumpProgress(5)
 
         ' Mysql was not running, so lets start it up.
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-        pi.Arguments = "--defaults-file=" + """" + gCurSlashDir + "/OutworldzFiles/mysql/my.ini" + """"
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        pi.FileName = """" + MyFolder & "\OutworldzFiles\mysql\bin\mysqld.exe" + """"
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "--defaults-file=" + """" + gCurSlashDir + "/OutworldzFiles/mysql/my.ini" + """",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .FileName = """" + MyFolder & "\OutworldzFiles\mysql\bin\mysqld.exe" + """"
+        }
         ProcessMySql.StartInfo = pi
         ProcessMySql.EnableRaisingEvents = True
         ProcessMySql.Start()
@@ -4468,11 +4476,12 @@ Public Class Form1
         End Try
 
         Dim p As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = "--port " + MySetting.MySqlPort + " -u root shutdown"
-        pi.FileName = """" + MyFolder + "\OutworldzFiles\mysql\bin\mysqladmin.exe" + """"
-        pi.UseShellExecute = True ' so we can redirect streams and minimize
-        pi.WindowStyle = ProcessWindowStyle.Hidden
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "--port " + MySetting.MySqlPort + " -u root shutdown",
+            .FileName = """" + MyFolder + "\OutworldzFiles\mysql\bin\mysqladmin.exe" + """",
+            .UseShellExecute = True, ' so we can redirect streams and minimize
+            .WindowStyle = ProcessWindowStyle.Hidden
+        }
         p.StartInfo = pi
 
         Try
@@ -4502,9 +4511,10 @@ Public Class Form1
         'Print("Checking " + "http://" + MySetting.DNSName + ":" + MySetting.HttpPort)
 
         Dim client As New System.Net.WebClient
-        Dim Checkname As String = String.Empty
+        Dim Checkname As String
 
         Try
+            Application.DoEvents()
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" + MySetting.DNSName + GetPostData())
         Catch ex As Exception
             ErrorLog("Warn:Cannot check the DNS Name" + ex.Message)
@@ -4600,10 +4610,11 @@ Public Class Form1
 
         For Each RegionNum In RegionClass.RegionNumbers
 
-            Dim Menu As New ToolStripMenuItem
-            Menu.Text = RegionClass.RegionName(RegionNum)
-            Menu.ToolTipText = "Click to view stats on " + RegionClass.RegionName(RegionNum)
-            Menu.DisplayStyle = ToolStripItemDisplayStyle.Text
+            Dim Menu As New ToolStripMenuItem With {
+                .Text = RegionClass.RegionName(RegionNum),
+                .ToolTipText = "Click to view stats on " + RegionClass.RegionName(RegionNum),
+                .DisplayStyle = ToolStripItemDisplayStyle.Text
+            }
             If RegionClass.IsBooted(RegionNum) Then
                 Menu.Enabled = True
             Else
@@ -4803,7 +4814,7 @@ Public Class Form1
         If Message.Length > 0 Then
             For Each X As Integer In RegionClass.RegionNumbers
                 If RegionClass.AvatarCount(X) > 0 Then
-                    HowManyAreOnline = HowManyAreOnline + 1
+                    HowManyAreOnline += 1
                     ConsoleCommand(RegionClass.GroupName(X), "change region  " + RegionClass.RegionName(X) + "{ENTER}" + vbCrLf)
                     ConsoleCommand(RegionClass.GroupName(X), "alert " + Message + "{ENTER}" + vbCrLf)
                 End If
@@ -4850,13 +4861,14 @@ Public Class Form1
         Dim OARs As Array = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
 
         For Each OAR As String In OARs
-            counter = counter - 1
+            counter -= 1
             If counter > 0 Then
                 Dim Name = Path.GetFileName(OAR)
-                Dim OarMenu As New ToolStripMenuItem
-                OarMenu.Text = Name
-                OarMenu.ToolTipText = "Click to load this content"
-                OarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                Dim OarMenu As New ToolStripMenuItem With {
+                    .Text = Name,
+                    .ToolTipText = "Click to load this content",
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                }
                 AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
                 LoadLocalOARSToolStripMenuItem.Visible = True
                 LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
@@ -4877,13 +4889,14 @@ Public Class Form1
             counter = MaxFileNum
 
             For Each OAR As String In AutoOARs
-                counter = counter - 1
+                counter -= 1
                 If counter > 0 Then
                     Dim Name = Path.GetFileName(OAR)
-                    Dim OarMenu As New ToolStripMenuItem
-                    OarMenu.Text = Name
-                    OarMenu.ToolTipText = "Click to load this content"
-                    OarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                    Dim OarMenu As New ToolStripMenuItem With {
+                        .Text = Name,
+                        .ToolTipText = "Click to load this content",
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
                     AddHandler OarMenu.Click, New EventHandler(AddressOf BackupOarClick)
                     LoadLocalOARSToolStripMenuItem.Visible = True
                     LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
@@ -4900,13 +4913,14 @@ Public Class Form1
         Dim IARs As Array = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
         counter = MaxFileNum
         For Each IAR As String In IARs
-            counter = counter - 1
+            counter -= 1
             If counter > 0 Then
                 Dim Name = Path.GetFileName(IAR)
-                Dim IarMenu As New ToolStripMenuItem
-                IarMenu.Text = Name
-                IarMenu.ToolTipText = "Click to load this content"
-                IarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                Dim IarMenu As New ToolStripMenuItem With {
+                    .Text = Name,
+                    .ToolTipText = "Click to load this content",
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                }
                 AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                 LoadLocalIARsToolStripMenuItem.Visible = True
                 LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
@@ -4926,13 +4940,14 @@ Public Class Form1
             Dim AutoIARs As Array = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
             counter = MaxFileNum
             For Each IAR As String In AutoIARs
-                counter = counter - 1
+                counter -= 1
                 If counter > 0 Then
                     Dim Name = Path.GetFileName(IAR)
-                    Dim IarMenu As New ToolStripMenuItem
-                    IarMenu.Text = Name
-                    IarMenu.ToolTipText = "Click to load this content"
-                    IarMenu.DisplayStyle = ToolStripItemDisplayStyle.Text
+                    Dim IarMenu As New ToolStripMenuItem With {
+                        .Text = Name,
+                        .ToolTipText = "Click to load this content",
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
                     AddHandler IarMenu.Click, New EventHandler(AddressOf BackupIarClick)
                     LoadLocalIARsToolStripMenuItem.Visible = True
                     LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
@@ -5156,14 +5171,15 @@ Public Class Form1
 #Region "QuickEdit"
 
     Private Sub SetQuickEditOff()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0"
-        pi.FileName = "powershell.exe"
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        pi.Verb = "runas"
-        Dim PowerShell As Process = New Process()
-        PowerShell.StartInfo = pi
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
+            .FileName = "powershell.exe",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .Verb = "runas"
+        }
+        Dim PowerShell As Process = New Process With {
+            .StartInfo = pi
+        }
 
         Try
             PowerShell.Start()
@@ -5200,7 +5216,7 @@ Public Class Form1
                         Else
                             WaitForIt = False
                         End If
-                        ctr = ctr - 1
+                        ctr -= 1
                         If ctr <= 0 Then WaitForIt = False
                     End While
                 End If
@@ -5212,7 +5228,7 @@ Public Class Form1
                 Sleep(100)
                 If cpu.NextValue() < gCPUMAX Then
                     WaitForIt = False
-                    ctr = ctr - 1
+                    ctr -= 1
                     If ctr <= 0 Then WaitForIt = False
                 End If
             End While
@@ -5265,13 +5281,13 @@ Public Class Form1
 
         ' Icecast needs both ports for both protocols
         If MySetting.SC_Enable Then
-                Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
+            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SC_PortBase & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=UDP localport=" & MySetting.SC_PortBase1 & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SC_PortBase1 & """ dir=in action=allow protocol=TCP localport=" & MySetting.SC_PortBase1 & vbCrLf
-            End If
+        End If
 
-            Dim RegionNumber As Integer = 0
+        Dim RegionNumber As Integer = 0
         Dim start = CInt(MySetting.FirstRegionPort)
 
         ' regions need both
@@ -5291,13 +5307,15 @@ Public Class Form1
         ns.WriteLine(CMD)
         ns.Close()
 
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = ""
-        pi.FileName = MyFolder + "\fw.bat"
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        pi.Verb = "runas"
-        Dim ProcessFirewall As Process = New Process()
-        ProcessFirewall.StartInfo = pi
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "",
+            .FileName = MyFolder + "\fw.bat",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .Verb = "runas"
+        }
+        Dim ProcessFirewall As Process = New Process With {
+            .StartInfo = pi
+        }
 
         Try
             ProcessFirewall.Start()
@@ -5328,8 +5346,9 @@ Public Class Form1
         pi.FileName = "Create_OsSearch.bat"
 
         pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessMysql As Process = New Process()
-        ProcessMysql.StartInfo = pi
+        Dim ProcessMysql As Process = New Process With {
+            .StartInfo = pi
+        }
 
         Try
             ProcessMysql.Start()
@@ -5353,8 +5372,9 @@ Public Class Form1
         pi.FileName = "Run_parser.bat"
         pi.UseShellExecute = False  ' needed to make window hidden
         pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessPHP As Process = New Process()
-        ProcessPHP.StartInfo = pi
+        Dim ProcessPHP As Process = New Process With {
+            .StartInfo = pi
+        }
         ProcessPHP.StartInfo.CreateNoWindow = True
 
         Try
