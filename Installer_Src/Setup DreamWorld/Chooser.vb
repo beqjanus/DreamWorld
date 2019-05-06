@@ -32,9 +32,9 @@ Public Class Choice
     End Sub
 
     Public Sub FillGrid(type As String, Optional JustRunning As Boolean = False)
-
-        Dim columnHeaderStyle As New DataGridViewCellStyle
-        columnHeaderStyle.Font = New Font("Verdana", 10, FontStyle.Bold)
+        Dim columnHeaderStyle As New DataGridViewCellStyle With {
+            .Font = New Font("Verdana", 10, FontStyle.Bold)
+        }
         DataGridView.ColumnHeadersDefaultCellStyle = columnHeaderStyle
         OKButton1.Enabled = False
         DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect

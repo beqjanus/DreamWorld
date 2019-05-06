@@ -557,25 +557,26 @@ Public Class RegionMaker
             Return RegionList.Count - 1
         End If
         ' Debug.Print("Create Region " + name)
-        Dim r As New Region_data
-        r._RegionName = name
-        r._RegionEnabled = True
-        r._UUID = Guid.NewGuid().ToString
-        r._SizeX = 256
-        r._SizeY = 256
-        r._CoordX = LargestX() + 4
-        r._CoordY = LargestY() + 0
-        r._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1 '8003 + 1
-        r._ProcessID = 0
-        r._AvatarCount = 0
-        r._Status = SIM_STATUS.Stopped
-        r._LineCounter = 0
-        r._Timer = 0
-        r._NonPhysicalPrimMax = 1024
-        r._PhysicalPrimMax = 64
-        r._ClampPrimSize = False
-        r._MaxPrims = "45000"
-        r._MaxAgents = 100
+        Dim r As New Region_data With {
+            ._RegionName = name,
+            ._RegionEnabled = True,
+            ._UUID = Guid.NewGuid().ToString,
+            ._SizeX = 256,
+            ._SizeY = 256,
+            ._CoordX = LargestX() + 4,
+            ._CoordY = LargestY() + 0,
+            ._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1, '8003 + 1
+            ._ProcessID = 0,
+            ._AvatarCount = 0,
+            ._Status = SIM_STATUS.Stopped,
+            ._LineCounter = 0,
+            ._Timer = 0,
+            ._NonPhysicalPrimMax = 1024,
+            ._PhysicalPrimMax = 64,
+            ._ClampPrimSize = False,
+            ._MaxPrims = "45000",
+            ._MaxAgents = 100
+        }
 
         RegionList.Add(r)
         'RegionDump()
@@ -1066,8 +1067,9 @@ Public Class RegionMaker
                     Dim myConnection As MySqlConnection = New MySqlConnection(Str)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
-                    Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-                    myCommand1.Connection = myConnection
+                    Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                        .Connection = myConnection
+                    }
                     myConnection.Open()
                     myCommand1.Prepare()
                     myCommand1.Parameters.AddWithValue("p1", uid.ToString())
@@ -1134,8 +1136,9 @@ Public Class RegionMaker
                         Dim myConnection As MySqlConnection = New MySqlConnection(Str)
 
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-                        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-                        myCommand1.Connection = myConnection
+                        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                            .Connection = myConnection
+                        }
                         myConnection.Open()
                         myCommand1.Prepare()
 
@@ -1219,8 +1222,9 @@ Public Class RegionMaker
 
         Dim myConnection As MySqlConnection = New MySqlConnection(Str)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-        myCommand1.Connection = myConnection
+        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+            .Connection = myConnection
+        }
         myConnection.Open()
         myCommand1.Prepare()
         myCommand1.Parameters.AddWithValue("p1", p1)
