@@ -33,7 +33,6 @@ Public Class FormDNSName
         Me.Text = "DynDNS"
         DNSNameBoxBackup = Form1.MySetting.DNSName
         DNSNameBox.Text = Form1.MySetting.DNSName
-        Portbackup = Form1.MySetting.HttpPort
 
         UniqueId.Text = Form1.MySetting.MachineID()
         EnableHypergrid.Checked = Form1.MySetting.EnableHypergrid
@@ -45,20 +44,24 @@ Public Class FormDNSName
         Select Case Form1.MySetting.ServerType
             Case "Robust"
                 GridServerButton.Checked = True
-                Application.DoEvents()
+                ServerType = "Robust"
                 If DNSNameBox.Text = String.Empty Then
                     MsgBox("Type in a 'name.outworldz.net' for a DYNDNS name, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
                 End If
             Case "Region"
                 GridRegionButton.Checked = True
+                ServerType = "Region"
                 If DNSNameBox.Text = String.Empty Then
                     MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
                 End If
             Case "OsGrid"
+                ServerType = "OsGrid"
                 osGridRadioButton1.Checked = True
             Case "Metro"
+                ServerType = "Metro"
                 MetroRadioButton2.Checked = True
             Case Else
+                ServerType = "Robust"
                 GridServerButton.Checked = True
         End Select
 
@@ -119,34 +122,15 @@ Public Class FormDNSName
         Form1.RegisterName(DNSNameBox.Text)
 
         Form1.MySetting.DNSName = DNSNameBox.Text
-        If DNSNameBox.Text = String.Empty Then
-
+        If DNSNameBox.Text.Length = 0 Then
             Form1.MySetting.PublicIP = Form1.MySetting.PrivateURL
         Else
             Form1.MySetting.PublicIP = DNSNameBox.Text
         End If
 
+        Form1.MySetting.ServerType = ServerType
+
         Form1.MySetting.SaveSettings()
-
-
-        ' Choose a GridCommon.ini to use.
-        Dim GridCommon As String = "GridcommonGridServer"
-
-
-        Select Case ServerType
-            Case "Robust"
-                GridCommon = "Gridcommon-GridServer"
-            Case "Region"
-                GridCommon = "Gridcommon-RegionServer"
-            Case "OsGrid"
-                GridCommon = "Gridcommon-OsGridServer"
-            Case "Metro"
-                GridCommon = "Gridcommon-MetroServer"
-        End Select
-
-        ' Put that gridcommin.ini file in place
-        IO.File.Copy(Form1.gOpensimBinPath + "bin\config-include\Gridcommon.ini", IO.Path.Combine(Form1.gOpensimBinPath, "bin\config-include\", GridCommon & ".ini"), True)
-
         changed = False ' suppress prompts
 
         Me.Close()

@@ -1046,7 +1046,25 @@ Public Class Form1
         End If
 
 
-        ' load and patch it up for MyzSQL
+        ' Choose a GridCommon.ini to use.
+        Dim GridCommon As String = "GridcommonGridServer"
+
+        Select Case MySetting.ServerType
+            Case "Robust"
+                GridCommon = "Gridcommon-GridServer.ini"
+            Case "Region"
+                GridCommon = "Gridcommon-RegionServer.ini"
+            Case "OsGrid"
+                GridCommon = "Gridcommon-OsGridServer.ini"
+            Case "Metro"
+                GridCommon = "Gridcommon-MetroServer.ini"
+        End Select
+
+        ' Put that gridcommin.ini file in place
+        IO.File.Copy(gOpensimBinPath + "bin\config-include\" & GridCommon, IO.Path.Combine(gOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
+
+
+        ' load and patch it up for MySQL
         MySetting.LoadOtherIni(gOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
         Dim ConnectionString = """" _
         + "Data Source=" + MySetting.RegionServer _
@@ -1107,6 +1125,46 @@ Public Class Form1
         ' Opensim.ini
         MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
 
+        Select Case MySetting.ServerType
+            Case "Robust"
+                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
+                MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
+                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                MySetting.SetOtherIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
+                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
+                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
+                MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
+            Case "Region"
+                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
+                MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
+                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                MySetting.SetOtherIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
+                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
+                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
+                MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
+            Case "OSGrid"
+                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "http://im.osgrid.org/offline")
+                MySetting.SetOtherIni("Search", "SearchURL", "http://search.osgrid.org/v2/query.php")
+                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
+                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://search.osgrid.org/v2/register.php")
+                MySetting.SetOtherIni("Groups", "GroupsServerURI", "http://groups.osgrid.org/xmlrpc.php")
+                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "http://groups.osgrid.org/xmlrpc.php") ' may be deprecated
+                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "http://services.osgrid.org")
+                MySetting.SetOtherIni("XBakes", "URL", "http://xbakes.osgrid.org")
+            Case "Metro"
+                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "https://metro.land/messaging/offline.php")
+                MySetting.SetOtherIni("Search", "SearchURL", "https://metro.land/search/query.php")
+                MySetting.SetOtherIni("DataSnapshot", "gridname", "Metropolis")
+                MySetting.SetOtherIni("DataSnapshot", "data_services", "https://metro.land/search/register.php")
+                MySetting.SetOtherIni("Groups", "GroupsServerURI", "http://groups.metro.land")
+                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "http://groups.metro.land")
+                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "http://profile.metro.land")
+                MySetting.SetOtherIni("XBakes", "URL", "http://bts.metro.land")
+        End Select
+
+
         If MySetting.LSL_HTTP Then
             ' do nothing - let them edit it
         Else
@@ -1128,7 +1186,7 @@ Public Class Form1
         If MySetting.GloebitsEnable Then
             MySetting.SetOtherIni("Startup", "economymodule", "Gloebit")
         Else
-            MySetting.SetOtherIni("Startup", "economymodule", "")
+            MySetting.SetOtherIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         If MySetting.SearchLocal Then
@@ -5338,13 +5396,14 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        'If MySetting.SearchInstalled Then Return
+        If MySetting.ServerType = "Metro" Or MySetting.ServerType = "OSGrid" Then Return
+
         Print("Setting up search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
         FileIO.FileSystem.CurrentDirectory = MyFolder & "\Outworldzfiles\mysql\bin\"
         pi.FileName = "Create_OsSearch.bat"
-
+        pi.UseShellExecute = False
         pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessMysql As Process = New Process With {
             .StartInfo = pi
