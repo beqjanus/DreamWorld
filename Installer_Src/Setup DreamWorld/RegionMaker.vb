@@ -9,18 +9,17 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-#Disable Warning IDE0044 ' Add readonly modifier
-    Private MysqlConn As Mysql    ' object lets us query Mysql database
-#Enable Warning IDE0044 ' Add readonly modifier
     Public RegionList As New ArrayList()
     Public Grouplist As New Dictionary(Of String, Integer)
-
     Private initted As Boolean = False
     Private Shared FInstance As RegionMaker = Nothing
-    Dim Backup As New ArrayList()
     Dim json As JSON_result
 
+#Disable Warning IDE0044 ' Add readonly modifier
+    Dim Backup As New ArrayList()
     Dim WebserverList As New List(Of String)
+    Private MysqlConn As Mysql    ' object lets us query Mysql database
+#Enable Warning IDE0044 ' Add readonly modifier
 
 
     Public Enum SIM_STATUS As Integer
@@ -446,7 +445,7 @@ Public Class RegionMaker
         Dim ctr = 0
         For Each r As Region_data In RegionList
             DebugRegions(ctr)
-            ctr = ctr + 1
+            ctr += 1
         Next
 
     End Sub
@@ -472,7 +471,7 @@ Public Class RegionMaker
             If n._Group = Gname Or Gname = "*" Then
                 L.Add(ctr)
             End If
-            ctr = ctr + 1
+            ctr += 1
         Next
         If (L.Count = 0) Then
             Debug.Print(" Not found:" & Gname)
@@ -486,7 +485,7 @@ Public Class RegionMaker
         Dim ctr = 0
         For Each n As Region_data In RegionList
             L.Add(ctr)
-            ctr = ctr + 1
+            ctr += 1
         Next
         'Debug.Print("List Len = " + L.Count.ToString)
         Return L
@@ -500,7 +499,7 @@ Public Class RegionMaker
                 Debug.Print("Current Region is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
 
         'RegionDump()
@@ -516,7 +515,7 @@ Public Class RegionMaker
             If RegionName = obj._Group Then
                 Return obj._Group
             End If
-            i = i + 1
+            i += 1
         Next
 
         Return ""
@@ -530,7 +529,7 @@ Public Class RegionMaker
                 Debug.Print("Current Region is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
         Form1.ErrorLog("PID not found:" + PID.ToString)
         Return -1
@@ -545,7 +544,7 @@ Public Class RegionMaker
                 ' Debug.Print("Current Backup is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
         Return -1
 
@@ -686,7 +685,7 @@ Public Class RegionMaker
 
                         End If
 
-                        n = n + 1
+                        n += 1
                         Application.DoEvents()
                     Next
 
@@ -798,7 +797,6 @@ Public Class RegionMaker
         Dim Max As Integer = 0
         Dim Portlist As New Dictionary(Of Integer, String)
 
-        Dim counter As Integer = 0
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
@@ -830,7 +828,6 @@ Public Class RegionMaker
         Dim Min As Integer = 65536
         Dim Portlist As New Dictionary(Of Integer, String)
 
-        Dim counter As Integer = 0
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
@@ -874,7 +871,7 @@ Public Class RegionMaker
             ' Self setting Region Ports
             Form1.gMaxPortUsed = Portnumber
             Form1.MySetting.SaveOtherINI()
-            Portnumber = Portnumber + 1
+            Portnumber += 1
         Next
 
     End Sub
@@ -1091,7 +1088,7 @@ Public Class RegionMaker
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
             Dim match1 As Match = pattern1.Match(POST)
-            Dim p1 As String = ""
+            Dim p1 As String
             If match1.Success Then
                 p1 = match1.Groups(1).Value
                 Dim s = GetPartner(p1, MySetting)
@@ -1111,8 +1108,8 @@ Public Class RegionMaker
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
             Dim match1 As Match = pattern1.Match(POST)
             If match1.Success Then
-                Dim p1 As String = ""
-                Dim p2 As String = ""
+                Dim p1 As String
+                Dim p2 As String
                 p1 = match1.Groups(1).Value
                 Dim pattern2 As Regex = New Regex("Partner=(.*)")
                 Dim match2 As Match = pattern2.Match(POST)
