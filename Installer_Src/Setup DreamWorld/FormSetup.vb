@@ -1011,6 +1011,40 @@ Public Class Form1
 
     End Sub
 
+    ''' <summary>
+    '''  Loads the INI file for the proper grid type for parsing
+    ''' </summary>
+    ''' <returns>
+    ''' Returns the path to the proper Opensim.ini prototype.
+    ''' </returns>
+    Function GetProto() As String
+
+        Select Case MySetting.ServerType
+            Case "Robust"
+                MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
+                Return gOpensimBinPath + "bin\Opensim.proto"
+            Case "Region"
+                MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
+                Return gOpensimBinPath + "bin\Opensim.proto"
+            Case "OsGrid"
+                MySetting.LoadOtherIni(gOpensimBinPath + "bin\OpensimOsGrid.proto", ";")
+                Return gOpensimBinPath + "bin\OpensimOsGrid.proto"
+            Case "Metro"
+                MySetting.LoadOtherIni(gOpensimBinPath + "bin\OpensimMetro.proto", ";")
+                Return gOpensimBinPath + "bin\OpensimMetro.proto"
+        End Select
+        Return Nothing
+
+    End Function
+
+    Sub DelLibrary()
+
+        Try
+            System.IO.File.Delete(gOpensimBinPath + "bin\Library\Clothing Library (small).iar")
+            System.IO.File.Delete(gOpensimBinPath + "bin\Library\Objects Library (small).iar")
+        Catch
+        End Try
+    End Sub
     Private Function SetIniData() As Boolean
 
         'mnuShow shows the DOS box for Opensimulator
@@ -1051,12 +1085,16 @@ Public Class Form1
 
         Select Case MySetting.ServerType
             Case "Robust"
+                My.Computer.FileSystem.CopyDirectory(gOpensimBinPath + "bin\Library.proto", gOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
+                My.Computer.FileSystem.CopyDirectory(gOpensimBinPath + "bin\Library.proto", gOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-RegionServer.ini"
             Case "OsGrid"
+                DelLibrary()
                 GridCommon = "Gridcommon-OsGridServer.ini"
             Case "Metro"
+                DelLibrary()
                 GridCommon = "Gridcommon-MetroServer.ini"
         End Select
 
@@ -1123,7 +1161,8 @@ Public Class Form1
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
-        MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
+
+        GetProto()  ' get the default Opensim.ini Prototype
 
         Select Case MySetting.ServerType
             Case "Robust"
@@ -1135,6 +1174,19 @@ Public Class Form1
                 MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
                 MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
                 MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
+
+                If MySetting.SearchLocal Then
+                    MySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/register.php")
+                    MySetting.SetOtherIni("Search", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+                    MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+                Else
+                    MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                    MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                    MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                End If
+
+                MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
+
             Case "Region"
                 MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
                 MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
@@ -1144,25 +1196,14 @@ Public Class Form1
                 MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
                 MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
                 MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
+
             Case "OSGrid"
-                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "http://im.osgrid.org/offline")
-                MySetting.SetOtherIni("Search", "SearchURL", "http://search.osgrid.org/v2/query.php")
-                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
-                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://search.osgrid.org/v2/register.php")
-                MySetting.SetOtherIni("Groups", "GroupsServerURI", "http://groups.osgrid.org/xmlrpc.php")
-                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "http://groups.osgrid.org/xmlrpc.php") ' may be deprecated
-                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "http://services.osgrid.org")
-                MySetting.SetOtherIni("XBakes", "URL", "http://xbakes.osgrid.org")
             Case "Metro"
-                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "https://metro.land/messaging/offline.php")
-                MySetting.SetOtherIni("Search", "SearchURL", "https://metro.land/search/query.php")
-                MySetting.SetOtherIni("DataSnapshot", "gridname", "Metropolis")
-                MySetting.SetOtherIni("DataSnapshot", "data_services", "https://metro.land/search/register.php")
-                MySetting.SetOtherIni("Groups", "GroupsServerURI", "http://groups.metro.land")
-                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "http://groups.metro.land")
-                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "http://profile.metro.land")
-                MySetting.SetOtherIni("XBakes", "URL", "http://bts.metro.land")
+
         End Select
+
+        '' all grids requires these setting in Opensim.ini
+        MySetting.SetOtherIni("Const", "DiagnosticsPort", MySetting.DiagnosticPort)
 
 
         If MySetting.LSL_HTTP Then
@@ -1170,10 +1211,9 @@ Public Class Form1
         Else
             MySetting.SetOtherIni("Network", "OutboundDisallowForUserScriptsExcept", MySetting.PrivateURL + "/32")
         End If
+
         MySetting.SetOtherIni("Network", "ExternalHostNameForLSL", MySetting.PublicIP)
-
         MySetting.SetOtherIni("DataSnapshot", "index_sims", "true")
-
         MySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(MySetting.Primlimits, String))
 
         If MySetting.Primlimits Then
@@ -1187,16 +1227,6 @@ Public Class Form1
             MySetting.SetOtherIni("Startup", "economymodule", "Gloebit")
         Else
             MySetting.SetOtherIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-        End If
-
-        If MySetting.SearchLocal Then
-            MySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/register.php")
-            MySetting.SetOtherIni("Search", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
-            MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
-        Else
-            MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-            MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-            MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
         End If
 
         ' LSL emails
@@ -1285,8 +1315,6 @@ Public Class Form1
                 MySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "true")
         End Select
 
-        MySetting.SetOtherIni("Const", "DiagnosticsPort", MySetting.DiagnosticPort)
-        MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
 
         If MySetting.MapType = "None" Then
             MySetting.SetOtherIni("Map", "GenerateMaptiles", "false")
@@ -1400,6 +1428,7 @@ Public Class Form1
 
     Private Sub DoWifi()
 
+
         MySetting.LoadOtherIni(gOpensimBinPath + "bin\Wifi.ini", ";")
 
         Dim ConnectionString = """" _
@@ -1415,11 +1444,18 @@ Public Class Form1
 
         ' Wifi Section
 
-        If (MySetting.WifiEnabled) Then
-            MySetting.SetOtherIni("WifiService", "Enabled", "True")
-        Else
+        If MySetting.ServerType = "Robust" Then ' wifi could be on or off
+            If (MySetting.WifiEnabled) Then
+                MySetting.SetOtherIni("WifiService", "Enabled", "True")
+            Else
+                MySetting.SetOtherIni("WifiService", "Enabled", "False")
+            End If
+
+        Else ' it is always off
+            ' shutdown wifi in Attached mode
             MySetting.SetOtherIni("WifiService", "Enabled", "False")
         End If
+
 
         MySetting.SetOtherIni("WifiService", "GridName", MySetting.SimName)
         MySetting.SetOtherIni("WifiService", "LoginURL", "http://" & MySetting.PublicIP & ":" & MySetting.HttpPort)
@@ -1472,7 +1508,9 @@ Public Class Form1
         Diagnostics.Debug.Print(regionName)
 
         Try
-            MySetting.LoadOtherIni(gOpensimBinPath + "bin\Opensim.proto", ";")
+
+            Dim FileName = GetProto()
+
             MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
             MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
@@ -1487,7 +1525,8 @@ Public Class Form1
             MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
             MySetting.SaveOtherINI()
 
-            My.Computer.FileSystem.CopyFile(gOpensimBinPath + "bin\Opensim.proto", pathname + "Opensim.ini", True)
+
+            My.Computer.FileSystem.CopyFile(FileName, pathname + "Opensim.ini", True)
 
         Catch ex As Exception
             Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
@@ -5396,7 +5435,7 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If MySetting.ServerType = "Metro" Or MySetting.ServerType = "OSGrid" Then Return
+        If MySetting.ServerType = "Metro" Or MySetting.ServerType = "OsGrid" Then Return
 
         Print("Setting up search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
