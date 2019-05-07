@@ -222,7 +222,7 @@ Public Class FormDNSName
         Else
             DNSNameBox.Text = DNSNameBoxBackup
         End If
-        Form1.MySetting.ServerType = "Robust"
+        ServerType = "Robust"
         changed = True
 
     End Sub
@@ -235,7 +235,6 @@ Public Class FormDNSName
             MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
         Else
             DNSNameBoxBackup = DNSNameBox.Text
-            Portbackup = Form1.MySetting.HttpPort
         End If
         ServerType = "Region"
         changed = True
