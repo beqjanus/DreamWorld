@@ -84,12 +84,11 @@ Public Class FormHelp
     End Sub
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
-
-
-        Dim info = New ProcessStartInfo(Form1.MyFolder + "\Outworldzfiles\Help\" + Document + ".rtf")
-        info.Verb = "Print"
-        info.CreateNoWindow = True
-        info.WindowStyle = ProcessWindowStyle.Hidden
+        Dim info = New ProcessStartInfo(Form1.MyFolder + "\Outworldzfiles\Help\" + Document + ".rtf") With {
+            .Verb = "Print",
+            .CreateNoWindow = True,
+            .WindowStyle = ProcessWindowStyle.Hidden
+        }
         Process.Start(info)
 
 
