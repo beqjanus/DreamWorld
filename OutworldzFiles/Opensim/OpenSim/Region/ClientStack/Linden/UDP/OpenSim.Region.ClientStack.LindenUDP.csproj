@@ -203,10 +203,16 @@
 	  <Compile Include="OutgoingPacket.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLUDPServerCommands.cs">
+	  <Compile Include="LLClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLUDPZeroEncoder.cs">
+	  <Compile Include="LLUDPClient.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLUDPServer.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLUDPServerCommands.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenSimUDPBase.cs">
@@ -218,19 +224,13 @@
 	  <Compile Include="ThrottleRates.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLClientView.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLUDPServer.cs">
+	  <Compile Include="TokenBucket.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UnackedPacketCollection.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLUDPClient.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="TokenBucket.cs">
+	  <Compile Include="LLUDPZeroEncoder.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

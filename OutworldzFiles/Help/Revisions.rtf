@@ -6,6 +6,14 @@
 \pard\widctlpar\li720\ri720\sb100\tx810\cf0\expndtw0\caps0\f1\fs21\par
 This is a high-level view of major changes.  For much more detail, install git. Then type \lquote git clone {{\field{\*\fldinst{HYPERLINK https://github.com/Outworldz/DreamWorld }}{\fldrslt{https://github.com/Outworldz/DreamWorld\ul0\cf0}}}}\f1\fs21\rquote .  Then run \ldblquote gitk\rdblquote  to see every change ever made.\par
 \par
+V2.89\par
+Try-catch a possible crash on events load if Outworldz web site is offline. There should never be any dependencies on having an external PC running except for ns1.outworldz.net for dynamic DNS and that only applies to outworldz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Outworldz.com web site periodically, and these are dependent on Outworldz.com being online.\par
+Removed bin\\addins as it is old, unused, and may have old DLLS in it leading to myseriouds crashes about log4net because log4net is now Dot net 4.6.\par
+\par
+V.28\par
+Add Gloebit back in.\par
+Delete 11 DLL's left over from ancient updates.\par
+\par
 V2.87\par
 Compiled with Opensim Dev Master 4/24/2019  #11cad57c9cac5  \par
 You should clear the script cache before starting this version as the large jump in Opensim code will likely lead to Script errors.\par

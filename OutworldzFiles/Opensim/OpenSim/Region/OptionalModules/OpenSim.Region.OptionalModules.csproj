@@ -252,10 +252,10 @@
 	  <Compile Include="Agent\InternetRelayClientView\IRCStackModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Agent\TextureSender\J2KDecoderCommandModule.cs">

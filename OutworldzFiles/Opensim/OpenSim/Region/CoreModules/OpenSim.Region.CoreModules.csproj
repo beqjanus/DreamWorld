@@ -409,10 +409,10 @@
 	  <Compile Include="Framework\EntityTransfer\EntityTransferStateMachine.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\EntityTransfer\HGEntityTransferModule.cs">
+	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
+	  <Compile Include="Framework\EntityTransfer\HGEntityTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Framework\InterfaceCommander\Command.cs">
@@ -703,10 +703,10 @@
 	  <Compile Include="World\Archiver\ArchiveReadRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\AssetsDearchiver.cs">
+	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
+	  <Compile Include="World\Archiver\AssetsDearchiver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Archiver\AssetsRequest.cs">
