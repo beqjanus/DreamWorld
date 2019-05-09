@@ -235,15 +235,6 @@
 	  <Compile Include="ExtendedPhysics.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="BSPrimLinkable.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BSTerrainHeightmap.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BulletSimData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="BSAPIXNA.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -256,7 +247,16 @@
 	  <Compile Include="BSParam.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="BSPrimLinkable.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="BSScene.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="BSTerrainHeightmap.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="BulletSimData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

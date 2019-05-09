@@ -432,6 +432,12 @@ Public Class MySettings
             SearchLocal() = False
         End Try
 
+        Try
+            Dim x = DeleteScriptsOnStartup()
+        Catch ex As Exception
+            DeleteScriptsOnStartup() = False
+        End Try
+
     End Sub
 
 
@@ -570,10 +576,21 @@ Public Class MySettings
         SetMyIni("Data", key, value)
 
     End Sub
+
+
 #End Region
 
 #Region "Properties"
 
+
+    Public Property DeleteScriptsOnStartup() As Boolean
+        Get
+            Return CType(GetMySetting("DeleteScriptsOnStartup"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeleteScriptsOnStartup", Value.ToString)
+        End Set
+    End Property
 
     Public Property ServerType() As String
         Get
@@ -583,6 +600,7 @@ Public Class MySettings
             SetMySetting("ServerType", Value)
         End Set
     End Property
+
 
     Public Property SearchLocal() As Boolean
         Get

@@ -141,13 +141,13 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Include="BaseOpenSimServer.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="MainServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServerBase.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BaseOpenSimServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

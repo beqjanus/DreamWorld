@@ -36,8 +36,8 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.89"
-    ReadOnly gSimVersion As String = "0.9.0 2018-04-26"
+    ReadOnly gMyVersion As String = "2.9"
+    ReadOnly gSimVersion As String = "0.9.0 2018-05-04"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
     Public gDebug As Boolean = False  ' set by code to log some events in when running a debugger
@@ -257,7 +257,6 @@ Public Class Form1
 
         Log("Info", "Running")
 
-
         ' init the scrolling text box
         TextBox1.SelectionStart = 0
         TextBox1.ScrollToCaret()
@@ -330,8 +329,8 @@ Public Class Form1
         ProgressBar1.Value = 0
 
         CheckForUpdates()
-
         CheckDefaultPorts()
+
 
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
@@ -339,6 +338,9 @@ Public Class Form1
         ws.StartServer(MyFolder, MySetting)
 
         OpenPorts()
+
+        CheckDiagPort()
+
 
         SetQuickEditOff()
 
@@ -545,7 +547,7 @@ Public Class Form1
         ToolBar(False)
         Buttons(BusyButton)
 
-        RegionClass.UpdateAllRegionPorts() ' must be donbe before we are running
+        RegionClass.UpdateAllRegionPorts() ' must be done before we are running
         SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
@@ -560,7 +562,6 @@ Public Class Form1
                 Print("Upping AutoRestart Time to " + BTime.ToString + " + 30 Minutes.")
             End If
         End If
-
 
         OpensimIsRunning() = True
 
@@ -1204,6 +1205,15 @@ Public Class Form1
 
         '' all grids requires these setting in Opensim.ini
         MySetting.SetOtherIni("Const", "DiagnosticsPort", MySetting.DiagnosticPort)
+
+
+        ' once and only once toggle to get Opensim 2.9
+        If MySetting.DeleteScriptsOnStartup() Then
+            MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
+        Else
+            MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
+            MySetting.DeleteScriptsOnStartup = True
+        End If
 
 
         If MySetting.LSL_HTTP Then
@@ -1885,7 +1895,6 @@ Public Class Form1
 
     Public Sub ToolBar(visible As Boolean)
 
-        Label2.Visible = visible
         Label3.Visible = visible
         Label4.Visible = visible
         AvatarLabel.Visible = visible
@@ -2952,7 +2961,7 @@ Public Class Form1
             Dim newspeed As Single = (speed + speed1 + speed2 + speed3) / 4
 
             MyCPUCollection.Add(newspeed)
-            PercentCPU.Text = String.Format("{0: 0}", newspeed)
+            PercentCPU.Text = String.Format("{0: 0}% CPU", newspeed)
             MyCPUCollection.Remove(1) ' drop 1st, older  item
         Catch ex As Exception
             ErrorLog(ex.Message)
@@ -4056,7 +4065,7 @@ Public Class Form1
         MySetting.DiagFailed = False
 
         OpenPorts() ' Open router ports with UPnp
-        CheckDiagPort()
+
         ProbePublicPort()
         TestPublicLoopback()
         If MySetting.DiagFailed Then
@@ -4074,10 +4083,8 @@ Public Class Form1
 
         Dim wsstarted = CheckPort("localhost", CType(MySetting.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox("Diagnostics port " + MySetting.DiagnosticPort + " is not working or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "Cannot HG")
+            MsgBox("Diagnostics port " + MySetting.DiagnosticPort + " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
             gUseIcons = False
-            MySetting.DiagFailed = True
-            MySetting.SaveSettings()
         End If
 
     End Sub

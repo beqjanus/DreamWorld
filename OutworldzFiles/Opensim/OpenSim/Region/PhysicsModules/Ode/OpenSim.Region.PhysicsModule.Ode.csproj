@@ -139,10 +139,10 @@
 	  <Compile Include="ODEModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ODERayCastRequestManager.cs">
+	  <Compile Include="ODEPrim.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ODEPrim.cs">
+	  <Compile Include="ODERayCastRequestManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OdeScene.cs">

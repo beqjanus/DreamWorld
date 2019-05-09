@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.88' ;  # '-Beta-V1.5';
+my $type  = '-V2.9' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -17,7 +17,6 @@ chomp $publish;
 
 my $x = `net stop ApacheHTTPServer`;
 $x =~ /was stopped|^$/  || die;
-
 
 say("Clean up opensim");
 my @deletions = (
@@ -213,12 +212,11 @@ if ($publish)
 
 }
 
-$x = `net start ApacheHTTPServer`;
 
 print "Revisions\n";
 if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
 if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+if (!copy ('Revisions.txt', 			'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
 
 
 say "Done!";

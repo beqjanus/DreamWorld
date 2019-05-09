@@ -44,11 +44,11 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8006
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=Joe
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
 BaseHostname=10.6.1.103
@@ -947,7 +947,7 @@ SellEnabled=true
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=false
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts
@@ -1000,26 +1000,6 @@ KillTimedOutScripts=true
 ;; If this INI file is not included, the OSSL functions are disabled.
 Include-osslEnable="config-include/osslEnableDG.ini"
 
-[MRM]
-
-;; Enables the Mini Region Modules Script Engine.
-; Enabled = false
-;; Runs MRM in a Security Sandbox
-;; WARNING: DISABLING IS A SECURITY RISK.
-; Sandboxed = true
-;; The level sandbox to use, adjust at your OWN RISK.
-;; Valid values are:
-;; *  FullTrust
-;; *  SkipVerification
-;; *  Execution
-;; *  Nothing
-;; *  LocalIntranet
-;; *  Internet
-;; *  Everything
-; SandboxLevel = "Internet"
-;; Only allow Region Owners to run MRMs
-;; May represent a security risk if you disable this.
-; OwnerOnly = true
 [FreeSwitchVoice]
 
 ;; In order for this to work you need a functioning FreeSWITCH PBX set up.
