@@ -94,6 +94,7 @@ sub process_file {
 	}
 	my $fullpath = $_;
 	$fullpath =~ s/$dir//g;
+	$fullpath =~ s/\//\\/g;
 	
 	print OUT $fullpath . "\n";	
 }

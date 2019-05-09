@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.9"
+    ReadOnly gMyVersion As String = "2.91"
     ReadOnly gSimVersion As String = "0.9.0 2018-05-04"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -331,7 +331,6 @@ Public Class Form1
         CheckForUpdates()
         CheckDefaultPorts()
 
-
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
         Log("Info", "Starting Web Server ")
@@ -340,7 +339,6 @@ Public Class Form1
         OpenPorts()
 
         CheckDiagPort()
-
 
         SetQuickEditOff()
 
@@ -390,10 +388,15 @@ Public Class Form1
         msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = False
         ChartWrapper2.AddMarkers = True
         ChartWrapper2.MarkerFreq = 60
-        'msChart.ChartAreas(0).AxisY.CustomLabels.RemoveAt(0)
 
+        If MySetting.RegionListVisible Then
+            ShowRegionform()
+        End If
 
-        ' Find out if the viewer is installed
+        Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
+        If isMySqlRunning Then gStopMysql = False
+
+        ' Find out if the system is already installed
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
             Application.DoEvents()
 
@@ -419,16 +422,8 @@ Public Class Form1
 
         End If
 
-        Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
-        If isMySqlRunning Then gStopMysql = False
-
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-
-
-        If MySetting.RegionListVisible Then
-            ShowRegionform()
-        End If
 
         ProgressBar1.Value = 100
 
@@ -482,18 +477,22 @@ Public Class Form1
         files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb")
         files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
         ' crapload of old DLLS have to be eliminated
-        files.Add("\Outworldzfiles\Opensim\bin\Diva.TOS.dll") ' no need for TOS, old version
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.JPEGConverter.dll") ' no need for birds yet
-        files.Add("\Outworldzfiles\Opensim\bin\GlynnTucker.Cache.dll") ' no need for this any more
-        files.Add("\Outworldzfiles\Opensim\bin\MsgPack.dll") ' no need for this old thing
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Addons.AutoRestart.dll") ' no need for this, is bad module
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.ServerReleaseNotes.dll") ' is in core
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.RegionsDataPublisher.dll") ' is old module and is unused
-        files.Add("\Outworldzfiles\Opensim\bin\Axiom.MathLib.dll")
-        files.Add("\Outworldzfiles\Opensim\bin\CookComputing.XmlRpcV2.dll")
-        files.Add("\Outworldzfiles\Opensim\bin\Diva.MISearchModules.dll")
-        files.Add("\Outworldzfiles\Opensim\bin\Diva.OnLook.dll")
-        files.Add("\Outworldzfiles\Opensim\bin\Gloebit-b73--0.9.1.0-dev--2017-08-18--MASTER.dll")
+
+
+        CleanDLLs() ' drop old opensim dll's
+
+        ' files.Add("\Outworldzfiles\Opensim\bin\Diva.TOS.dll") ' no need for TOS, old version
+        ' files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.JPEGConverter.dll") ' no need for birds yet
+        'files.Add("\Outworldzfiles\Opensim\bin\GlynnTucker.Cache.dll") ' no need for this any more
+        'files.Add("\Outworldzfiles\Opensim\bin\MsgPack.dll") ' no need for this old thing
+        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Addons.AutoRestart.dll") ' no need for this, is bad module
+        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.ServerReleaseNotes.dll") ' is in core
+        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.RegionsDataPublisher.dll") ' is old module and is unused
+        'files.Add("\Outworldzfiles\Opensim\bin\Axiom.MathLib.dll")
+        'files.Add("\Outworldzfiles\Opensim\bin\CookComputing.XmlRpcV2.dll")
+        'files.Add("\Outworldzfiles\Opensim\bin\Diva.MISearchModules.dll")
+        'files.Add("\Outworldzfiles\Opensim\bin\Diva.OnLook.dll")
+        'files.Add("\Outworldzfiles\Opensim\bin\Gloebit-b73--0.9.1.0-dev--2017-08-18--MASTER.dll")
 
 
         If KillSource Then
@@ -805,6 +804,91 @@ Public Class Form1
         Next
 
     End Sub
+
+    Private Sub CleanDLLs()
+
+        Dim dlls As List(Of String) = GetDlls(MyFolder & "/dlls.txt")
+        Dim localdlls As List(Of String) = GetFilesRecursive(gOpensimBinPath & "bin")
+        For Each localdllname In localdlls
+
+            'Diagnostics.Debug.Print(localdllname)
+
+            'For Each thing In dlls
+            ' Diagnostics.Debug.Print(thing)
+            'Next
+
+            Dim x = localdllname.IndexOf("OutworldzFiles")
+            Dim newlocaldllname = Mid(localdllname, x)
+            If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
+                Log("INFO", "Deleting dll " & localdllname)
+                My.Computer.FileSystem.DeleteFile(localdllname)
+            End If
+        Next
+
+    End Sub
+
+    Private Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
+        For Each filename In dll
+            If tofind.ToLower = filename.ToLower Then Return True
+        Next
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' This method starts at the specified directory.
+    ''' It traverses all subdirectories.
+    ''' It returns a List of those directories.
+    ''' </summary>
+    Private Function GetFilesRecursive(ByVal initial As String) As List(Of String)
+        ' This list stores the results.
+        Dim result As New List(Of String)
+
+        ' This stack stores the directories to process.
+        Dim stack As New Stack(Of String)
+
+        ' Add the initial directory
+        stack.Push(initial)
+
+        ' Continue processing for each stacked directory
+        Do While (stack.Count > 0)
+            ' Get top directory string
+            Dim dir As String = stack.Pop
+            Try
+                ' Add all immediate file paths
+                result.AddRange(Directory.GetFiles(dir, "*.dll"))
+
+                ' Loop through all subdirectories and add them to the stack.
+                Dim directoryName As String
+                For Each directoryName In Directory.GetDirectories(dir)
+                    stack.Push(directoryName)
+                Next
+
+            Catch ex As Exception
+            End Try
+        Loop
+
+        ' Return the list
+        Return result
+    End Function
+
+    Private Function GetDlls(fname As String) As List(Of String)
+
+        Dim DllList As New List(Of String)
+
+        If System.IO.File.Exists(fname) Then
+            Dim reader As System.IO.StreamReader
+            Dim line As String
+
+            reader = System.IO.File.OpenText(fname)
+            'now loop through each line
+            While reader.Peek <> -1
+                line = reader.ReadLine()
+                DllList.Add(line)
+            End While
+        End If
+        Return DllList
+
+    End Function
 
 #End Region
 
@@ -5271,7 +5355,6 @@ Public Class Form1
 
 #End Region
 
-
 #Region "QuickEdit"
 
     Private Sub SetQuickEditOff()
@@ -5293,7 +5376,6 @@ Public Class Form1
 
     End Sub
 #End Region
-
 
 #Region "Sequential"
     Public Sub SequentialPause()
