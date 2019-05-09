@@ -10,13 +10,6 @@ my $type  = '-V2.88' ;  # '-Beta-V1.5';
 use Cwd;
 my $dir = getcwd;
 
-
-if (-e "../Zips/DreamGrid$type.zip") {
-	say("y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip")
-}
-
-say ('Making ' . $dir . ' ' .  $type);
-
 say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
@@ -25,8 +18,8 @@ chomp $publish;
 my $x = `net stop ApacheHTTPServer`;
 $x =~ /was stopped|^$/  || die;
 
-	
-	say("Clean up opensim");
+
+say("Clean up opensim");
 my @deletions = (
 	"$dir/OutworldzFiles/AutoBackup",
 	
@@ -83,6 +76,30 @@ unlink "$dir/OutworldzFiles/http.log" ;
 
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
+
+print "DLL List";
+use File::Find;
+
+open (OUT, ">", 'dlls.txt');
+
+find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/Outworldzfiles/opensim/bin/');
+
+sub process_file {
+   # if (-f $_) {
+       # print "This is a file: $_\n";
+    #} else {
+       # print "This is not file: $_\n";
+   # }
+	if ($_ !~ /dll$/) {
+		return;
+	}
+	my $fullpath = $_;
+	$fullpath =~ s/$dir//g;
+	
+	print OUT $fullpath . "\n";	
+}
+
+close OUT;
 
 if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Release/Start.exe", "$dir"))  {die $!;}
 
