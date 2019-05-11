@@ -87,7 +87,7 @@ Public Class FormDNSName
 
     End Sub
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs)
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton1.Click
 
         SaveAll()
 
@@ -189,6 +189,8 @@ Public Class FormDNSName
         Form1.Help("DNS")
 
     End Sub
+
+
 
 
 #End Region

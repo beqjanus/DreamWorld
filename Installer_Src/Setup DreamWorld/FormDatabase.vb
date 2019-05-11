@@ -50,6 +50,19 @@ Public Class FormDatabase
 
         SetScreen()
 
+        Select Case Form1.MySetting.ServerType
+            Case "Robust"
+                GridServerButton.Checked = True
+            Case "Region"
+                GridRegionButton.Checked = True
+            Case "OsGrid"
+                osGridRadioButton1.Checked = True
+            Case "Metro"
+                MetroRadioButton2.Checked = True
+            Case Else
+                GridServerButton.Checked = True
+        End Select
+
         initted = True
         Form1.HelpOnce("Database")
         MsgBox("Changes to this area may require special changes to MySQL. If you change these, you will probably break things. Please read the Help section bvefore making changes!", vbInformation)
@@ -60,6 +73,31 @@ Public Class FormDatabase
         If changed Then
             SaveAll()
         End If
+    End Sub
+
+    Private Sub SaveAll()
+
+        Select Case ServerType
+            Case "Robust"
+                Form1.MySetting.DNSName = DNSNameBoxBackup
+                If DNSNameBoxBackup.Length > 0 Then MsgBox("DNS Name changed to " & DNSNameBoxBackup)
+            Case "Region"
+                Form1.MySetting.DNSName = DNSNameBoxBackup
+                If DNSNameBoxBackup.Length > 0 Then MsgBox("DNS Name changed to " & DNSNameBoxBackup)
+            Case "OsGrid"
+                Form1.MySetting.DNSName = DNSName
+                MsgBox("DNS Name changed to " & DNSName)
+            Case "Metro"
+                Form1.MySetting.DNSName = DNSName
+                MsgBox("DNS Name changed to " & DNSName)
+            Case Else
+                My.Settings.DnsName = DNSNameBoxBackup
+        End Select
+        Form1.MySetting.ServerType = ServerType
+        Form1.MySetting.SaveSettings()
+        changed = False ' do not trigger the save a second time
+
+
     End Sub
 
 #End Region
@@ -165,74 +203,13 @@ Public Class FormDatabase
 #End Region
 
 #Region "Grid type"
-
-    Private Sub GridServerButton_CheckedChanged(sender As Object, e As EventArgs)
-
-        If Not initted Then Return
-        If Not GridServerButton.Checked Then Return
-
-        ServerType = "Robust"
-        changed = True
-
-    End Sub
-
-    Private Sub GridRegionButton_CheckedChanged(sender As Object, e As EventArgs)
-
-        If Not initted Then Return
-        If Not GridRegionButton.Checked Then Return
-
-        ServerType = "Region"
-        changed = True
-
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs)
-
-        If Not initted Then Return
-
-        ServerType = "OsGrid"
-        DNSNameBoxBackup = My.Settings.DnsName
-        DNSName = "http://hg.osgrid.org"
-        changed = True
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs)
-
-        If Not initted Then Return
-        If Not MetroRadioButton2.Checked Then Return
-        DNSNameBoxBackup = My.Settings.DnsName
-        ServerType = "Metro"
-        DNSName = "http://hg.metro.land"
-        changed = True
-
-    End Sub
-
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         SaveAll()
+        Me.Close()
 
     End Sub
 
-    Private Sub SaveAll()
-
-        Select Case Form1.MySetting.ServerType
-            Case "Robust"
-                My.Settings.DnsName = DNSNameBoxBackup
-            Case "Region"
-                My.Settings.DnsName = DNSNameBoxBackup
-            Case "OsGrid"
-                My.Settings.DnsName = DNSName
-                MsgBox("DNS Name changed to " & DNSName)
-            Case "Metro"
-                My.Settings.DnsName = DNSName
-                MsgBox("Dns Name changed to " & DNSName)
-            Case Else
-                My.Settings.DnsName = DNSNameBoxBackup
-        End Select
-        Form1.MySetting.SaveSettings()
-
-    End Sub
 
     Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
 
@@ -243,6 +220,76 @@ Public Class FormDatabase
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         Form1.Help("GridType")
+
+    End Sub
+
+    Private Sub GridServerButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
+
+        If Not initted Then Return
+        If Not GridServerButton.Checked Then Return
+
+        RobustServer.Enabled = True
+        RobustDbName.Enabled = True
+        RobustDBPassword.Enabled = True
+        RobustDbPort.Enabled = True
+        RobustDBUsername.Enabled = True
+        RobustDBPassword.Enabled = True
+
+        changed = True
+        ServerType = "Robust"
+
+    End Sub
+
+    Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
+
+        If Not initted Then Return
+        If Not GridRegionButton.Checked Then Return
+
+        RobustServer.Enabled = True
+        RobustDbName.Enabled = True
+        RobustDBPassword.Enabled = True
+        RobustDbPort.Enabled = True
+        RobustDBUsername.Enabled = True
+        RobustDBPassword.Enabled = True
+        ServerType = "Region"
+        changed = True
+
+    End Sub
+
+    Private Sub osGridRadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
+
+        If Not initted Then Return
+
+        RobustServer.Enabled = False
+        RobustDbName.Enabled = False
+        RobustDBPassword.Enabled = False
+        RobustDbPort.Enabled = False
+        RobustDBUsername.Enabled = False
+        RobustDBPassword.Enabled = False
+
+        ServerType = "OsGrid"
+        DNSNameBoxBackup = My.Settings.DnsName
+        DNSName = "http://hg.osgrid.org"
+        changed = True
+
+    End Sub
+
+    Private Sub MetroRadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
+
+        If Not initted Then Return
+        If Not MetroRadioButton2.Checked Then Return
+
+        RobustServer.Enabled = False
+        RobustDbName.Enabled = False
+        RobustDBPassword.Enabled = False
+        RobustDbPort.Enabled = False
+        RobustDBUsername.Enabled = False
+        RobustDBPassword.Enabled = False
+
+        DNSNameBoxBackup = My.Settings.DnsName
+        ServerType = "Metro"
+        DNSName = "http://hg.metro.land"
+        changed = True
 
     End Sub
 

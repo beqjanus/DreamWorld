@@ -398,7 +398,7 @@ Public Class MySettings
         Try
             Dim x = ApacheService()
         Catch ex As Exception
-            ApacheService() = False
+            ApacheService() = True
         End Try
 
 

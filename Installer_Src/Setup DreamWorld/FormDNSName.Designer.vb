@@ -36,6 +36,7 @@ Partial Class FormDNSName
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.SaveButton1 = New System.Windows.Forms.Button()
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OsGridButton.SuspendLayout()
         Me.SuspendLayout()
@@ -87,7 +88,7 @@ Partial Class FormDNSName
         '
         'TestButton1
         '
-        Me.TestButton1.Location = New System.Drawing.Point(180, 162)
+        Me.TestButton1.Location = New System.Drawing.Point(112, 162)
         Me.TestButton1.Name = "TestButton1"
         Me.TestButton1.Size = New System.Drawing.Size(75, 23)
         Me.TestButton1.TabIndex = 1872
@@ -115,6 +116,7 @@ Partial Class FormDNSName
         '
         'OsGridButton
         '
+        Me.OsGridButton.Controls.Add(Me.SaveButton1)
         Me.OsGridButton.Controls.Add(Me.Label2)
         Me.OsGridButton.Controls.Add(Me.SuitcaseCheckbox)
         Me.OsGridButton.Controls.Add(Me.Label1)
@@ -148,6 +150,16 @@ Partial Class FormDNSName
         Me.Label1.TabIndex = 1876
         Me.Label1.Text = "DynDNS password"
         '
+        'SaveButton1
+        '
+        Me.SaveButton1.Location = New System.Drawing.Point(206, 162)
+        Me.SaveButton1.Name = "SaveButton1"
+        Me.SaveButton1.Size = New System.Drawing.Size(63, 23)
+        Me.SaveButton1.TabIndex = 1879
+        Me.SaveButton1.Text = "Save"
+        Me.ToolTip1.SetToolTip(Me.SaveButton1, "test DNS and return IP address")
+        Me.SaveButton1.UseVisualStyleBackColor = True
+        '
         'FormDNSName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -177,4 +189,5 @@ Partial Class FormDNSName
     Friend WithEvents NextNameButton As Button
     Friend WithEvents DNSNameBox As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents SaveButton1 As Button
 End Class
