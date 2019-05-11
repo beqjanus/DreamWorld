@@ -2,12 +2,14 @@
 Imports System.Net
 
 Public Class FormDNSName
-    Dim Portbackup As String = ""
+
     Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
     Dim changed As Boolean = False
     Dim ServerType As String = ""
+
 #Region "ScreenSize"
+
     Public ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -26,6 +28,7 @@ Public Class FormDNSName
     End Sub
 
 #End Region
+
 #Region "Load"
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -40,31 +43,6 @@ Public Class FormDNSName
         NextNameButton.Enabled = True
 
         Form1.HelpOnce("DNS")
-
-        Select Case Form1.MySetting.ServerType
-            Case "Robust"
-                GridServerButton.Checked = True
-                ServerType = "Robust"
-                If DNSNameBox.Text = String.Empty Then
-                    MsgBox("Type in a 'name.outworldz.net' for a DYNDNS name, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
-                End If
-            Case "Region"
-                GridRegionButton.Checked = True
-                ServerType = "Region"
-                If DNSNameBox.Text = String.Empty Then
-                    MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
-                End If
-            Case "OsGrid"
-                ServerType = "OsGrid"
-                osGridRadioButton1.Checked = True
-            Case "Metro"
-                ServerType = "Metro"
-                MetroRadioButton2.Checked = True
-            Case Else
-                ServerType = "Robust"
-                GridServerButton.Checked = True
-        End Select
-
 
         initted = True
 
@@ -82,7 +60,6 @@ Public Class FormDNSName
 #End Region
 
 #Region "Buttons"
-
 
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
@@ -110,7 +87,7 @@ Public Class FormDNSName
 
     End Sub
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs)
 
         SaveAll()
 
@@ -213,63 +190,7 @@ Public Class FormDNSName
 
     End Sub
 
-    Private Sub GridServerButton_CheckedChanged(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
-
-        If Not initted Then Return
-        If Not GridServerButton.Checked Then Return
-        If DNSNameBox.Text = String.Empty Then
-            MsgBox("Type in a 'SomeNewName.outworldz.net' name to use Dreamgrid's free DYNDNS, or press 'Next'. You can also use a regular DNS name. Blank is the LAN IP.", vbInformation, "Name Needed")
-        Else
-            DNSNameBox.Text = DNSNameBoxBackup
-        End If
-        ServerType = "Robust"
-        changed = True
-
-    End Sub
-
-    Private Sub GridRegionButton_CheckedChanged(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
-
-        If Not initted Then Return
-        If Not GridRegionButton.Checked Then Return
-        If DNSNameBox.Text = String.Empty Then
-            MsgBox("Type in The DNS or IP address of your Robust server", vbInformation, "Name Needed")
-        Else
-            DNSNameBoxBackup = DNSNameBox.Text
-        End If
-        ServerType = "Region"
-        changed = True
-
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
-
-        If Not initted Then Return
-        If Not osGridRadioButton1.Checked Then Return
-        ServerType = "OsGrid"
-
-        DNSNameBoxBackup = DNSNameBox.Text
-
-        DNSNameBox.Text = "http://hg.osgrid.org"
-        changed = True
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
-
-        If Not initted Then Return
-        If Not MetroRadioButton2.Checked Then Return
-        DNSNameBoxBackup = DNSNameBox.Text
-
-        Portbackup = Form1.MySetting.HttpPort
-
-        ServerType = "Metro"
-
-        DNSNameBox.Text = "http://hg.metro.land"
-        changed = True
-
-
-    End Sub
-
 
 #End Region
+
 End Class

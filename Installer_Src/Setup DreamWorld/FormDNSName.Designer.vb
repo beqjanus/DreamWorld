@@ -31,20 +31,13 @@ Partial Class FormDNSName
         Me.UniqueId = New System.Windows.Forms.TextBox()
         Me.TestButton1 = New System.Windows.Forms.Button()
         Me.NextNameButton = New System.Windows.Forms.Button()
-        Me.SaveButton = New System.Windows.Forms.Button()
         Me.DNSNameBox = New System.Windows.Forms.TextBox()
         Me.OsGridButton = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.GridServerButton = New System.Windows.Forms.RadioButton()
-        Me.GridRegionButton = New System.Windows.Forms.RadioButton()
-        Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OsGridButton.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolTip1
@@ -112,16 +105,6 @@ Partial Class FormDNSName
         Me.ToolTip1.SetToolTip(Me.NextNameButton, "Get a free DYN DNS Name")
         Me.NextNameButton.UseVisualStyleBackColor = True
         '
-        'SaveButton
-        '
-        Me.SaveButton.Location = New System.Drawing.Point(316, 164)
-        Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(99, 23)
-        Me.SaveButton.TabIndex = 1871
-        Me.SaveButton.Text = "Save Settings"
-        Me.ToolTip1.SetToolTip(Me.SaveButton, "Save DNS name")
-        Me.SaveButton.UseVisualStyleBackColor = True
-        '
         'DNSNameBox
         '
         Me.DNSNameBox.Location = New System.Drawing.Point(16, 87)
@@ -165,82 +148,20 @@ Partial Class FormDNSName
         Me.Label1.TabIndex = 1876
         Me.Label1.Text = "DynDNS password"
         '
-        'GridServerButton
-        '
-        Me.GridServerButton.AutoSize = True
-        Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
-        Me.GridServerButton.Name = "GridServerButton"
-        Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
-        Me.GridServerButton.TabIndex = 1879
-        Me.GridServerButton.TabStop = True
-        Me.GridServerButton.Text = "Grid Server With Robust"
-        Me.GridServerButton.UseVisualStyleBackColor = True
-        '
-        'GridRegionButton
-        '
-        Me.GridRegionButton.AutoSize = True
-        Me.GridRegionButton.Location = New System.Drawing.Point(17, 55)
-        Me.GridRegionButton.Name = "GridRegionButton"
-        Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
-        Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.TabStop = True
-        Me.GridRegionButton.Text = "Region Server"
-        Me.GridRegionButton.UseVisualStyleBackColor = True
-        '
-        'osGridRadioButton1
-        '
-        Me.osGridRadioButton1.AutoSize = True
-        Me.osGridRadioButton1.Location = New System.Drawing.Point(17, 77)
-        Me.osGridRadioButton1.Name = "osGridRadioButton1"
-        Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
-        Me.osGridRadioButton1.TabIndex = 1881
-        Me.osGridRadioButton1.TabStop = True
-        Me.osGridRadioButton1.Text = "OSGrid Region Server"
-        Me.osGridRadioButton1.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
-        Me.GroupBox1.Controls.Add(Me.GridRegionButton)
-        Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
-        Me.GroupBox1.Controls.Add(Me.GridServerButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(305, 2)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(190, 142)
-        Me.GroupBox1.TabIndex = 1882
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Server Type"
-        '
-        'MetroRadioButton2
-        '
-        Me.MetroRadioButton2.AutoSize = True
-        Me.MetroRadioButton2.Location = New System.Drawing.Point(17, 100)
-        Me.MetroRadioButton2.Name = "MetroRadioButton2"
-        Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
-        Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.TabStop = True
-        Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
-        Me.MetroRadioButton2.UseVisualStyleBackColor = True
-        '
         'FormDNSName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(534, 227)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(320, 227)
         Me.Controls.Add(Me.OsGridButton)
-        Me.Controls.Add(Me.SaveButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
         Me.Name = "FormDNSName"
         Me.Text = "DNS Name & Hypergrid"
         Me.ToolTip1.SetToolTip(Me, "Get Help")
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -254,12 +175,6 @@ Partial Class FormDNSName
     Friend WithEvents UniqueId As TextBox
     Friend WithEvents TestButton1 As Button
     Friend WithEvents NextNameButton As Button
-    Friend WithEvents SaveButton As Button
     Friend WithEvents DNSNameBox As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents osGridRadioButton1 As RadioButton
-    Friend WithEvents GridRegionButton As RadioButton
-    Friend WithEvents GridServerButton As RadioButton
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents MetroRadioButton2 As RadioButton
 End Class

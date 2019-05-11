@@ -339,6 +339,22 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
+
+        Dim InstallProcess As New Process
+        InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        InstallProcess.StartInfo.FileName = Form1.MyFolder & "\MSFT_Runtimes\vcredist_x64.exe"
+        InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+        InstallProcess.Start()
+        InstallProcess.WaitForExit()
+        InstallProcess.StartInfo.FileName = Form1.MyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
+        InstallProcess.Start()
+        InstallProcess.WaitForExit()
+
+    End Sub
+
+
+
 #End Region
 
 End Class

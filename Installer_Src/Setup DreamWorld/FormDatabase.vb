@@ -2,7 +2,11 @@
 
 Public Class FormDatabase
 
-    Dim initted As Boolean
+    Dim initted As Boolean = False
+    Dim DNSNameBoxBackup As String = ""
+    Dim changed As Boolean = False
+    Dim ServerType As String = ""
+    Dim DNSName As String = ""
 
 #Region "ScreenSize"
     Public ScreenPosition As ScreenPos
@@ -48,12 +52,17 @@ Public Class FormDatabase
 
         initted = True
         Form1.HelpOnce("Database")
-        MsgBox("Changes to this area require special changes to MySQL.  If you change these, you will probably break things.", vbInformation)
+        MsgBox("Changes to this area may require special changes to MySQL. If you change these, you will probably break things. Please read the Help section bvefore making changes!", vbInformation)
 
     End Sub
 
-#End Region
+    Private Sub Form_exit() Handles Me.Closed
+        If changed Then
+            SaveAll()
+        End If
+    End Sub
 
+#End Region
 
 #Region "Database"
 
@@ -123,8 +132,10 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub BirdHelp_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
+    Private Sub Database_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
+
         Form1.Help("Database")
+
     End Sub
 
     Private Sub RobustDbPort_TextChanged(sender As Object, e As EventArgs) Handles RobustDbPort.TextChanged
@@ -144,13 +155,97 @@ Public Class FormDatabase
     End Sub
 
     Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
+
         If Not initted Then Return
         Form1.MySetting.RegionPort = MysqlRegionPort.Text
         Form1.MySetting.SaveSettings()
-    End Sub
 
+    End Sub
 
 #End Region
 
+#Region "Grid type"
+
+    Private Sub GridServerButton_CheckedChanged(sender As Object, e As EventArgs)
+
+        If Not initted Then Return
+        If Not GridServerButton.Checked Then Return
+
+        ServerType = "Robust"
+        changed = True
+
+    End Sub
+
+    Private Sub GridRegionButton_CheckedChanged(sender As Object, e As EventArgs)
+
+        If Not initted Then Return
+        If Not GridRegionButton.Checked Then Return
+
+        ServerType = "Region"
+        changed = True
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs)
+
+        If Not initted Then Return
+
+        ServerType = "OsGrid"
+        DNSNameBoxBackup = My.Settings.DnsName
+        DNSName = "http://hg.osgrid.org"
+        changed = True
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs)
+
+        If Not initted Then Return
+        If Not MetroRadioButton2.Checked Then Return
+        DNSNameBoxBackup = My.Settings.DnsName
+        ServerType = "Metro"
+        DNSName = "http://hg.metro.land"
+        changed = True
+
+    End Sub
+
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+
+        SaveAll()
+
+    End Sub
+
+    Private Sub SaveAll()
+
+        Select Case Form1.MySetting.ServerType
+            Case "Robust"
+                My.Settings.DnsName = DNSNameBoxBackup
+            Case "Region"
+                My.Settings.DnsName = DNSNameBoxBackup
+            Case "OsGrid"
+                My.Settings.DnsName = DNSName
+                MsgBox("DNS Name changed to " & DNSName)
+            Case "Metro"
+                My.Settings.DnsName = DNSName
+                MsgBox("Dns Name changed to " & DNSName)
+            Case Else
+                My.Settings.DnsName = DNSNameBoxBackup
+        End Select
+        Form1.MySetting.SaveSettings()
+
+    End Sub
+
+    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
+
+        Form1.Help("Database")
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        Form1.Help("GridType")
+
+    End Sub
+
+#End Region
 
 End Class

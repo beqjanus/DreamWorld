@@ -65,12 +65,14 @@ Partial Class FormDiva
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button64 = New System.Windows.Forms.Button()
+        Me.X86Button = New System.Windows.Forms.Button()
+        Me.SearchAllRadioButton = New System.Windows.Forms.RadioButton()
+        Me.SearchLocalRadioButton = New System.Windows.Forms.RadioButton()
         Me.ApachePort = New System.Windows.Forms.TextBox()
         Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.SearchLocalRadioButton = New System.Windows.Forms.RadioButton()
-        Me.SearchAllRadioButton = New System.Windows.Forms.RadioButton()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -96,7 +98,7 @@ Partial Class FormDiva
         Me.Web.Controls.Add(Me.AdminPassword)
         Me.Web.Location = New System.Drawing.Point(12, 12)
         Me.Web.Name = "Web"
-        Me.Web.Size = New System.Drawing.Size(200, 204)
+        Me.Web.Size = New System.Drawing.Size(200, 214)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
         Me.Web.Text = "Wifi Interface Admin"
@@ -206,9 +208,9 @@ Partial Class FormDiva
         Me.GroupBox6.Controls.Add(Me.Label18)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.GmailUsername)
-        Me.GroupBox6.Location = New System.Drawing.Point(230, 191)
+        Me.GroupBox6.Location = New System.Drawing.Point(12, 238)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(259, 132)
+        Me.GroupBox6.Size = New System.Drawing.Size(200, 150)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
@@ -281,7 +283,7 @@ Partial Class FormDiva
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(18, 84)
+        Me.Label2.Location = New System.Drawing.Point(18, 67)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(126, 13)
         Me.Label2.TabIndex = 1867
@@ -289,7 +291,7 @@ Partial Class FormDiva
         '
         'GridName
         '
-        Me.GridName.Location = New System.Drawing.Point(21, 100)
+        Me.GridName.Location = New System.Drawing.Point(21, 83)
         Me.GridName.Name = "GridName"
         Me.GridName.Size = New System.Drawing.Size(219, 20)
         Me.GridName.TabIndex = 1869
@@ -297,7 +299,7 @@ Partial Class FormDiva
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(18, 123)
+        Me.Label19.Location = New System.Drawing.Point(18, 106)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(139, 13)
         Me.Label19.TabIndex = 1868
@@ -305,7 +307,7 @@ Partial Class FormDiva
         '
         'SplashPage
         '
-        Me.SplashPage.Location = New System.Drawing.Point(18, 139)
+        Me.SplashPage.Location = New System.Drawing.Point(18, 122)
         Me.SplashPage.Name = "SplashPage"
         Me.SplashPage.Size = New System.Drawing.Size(222, 20)
         Me.SplashPage.TabIndex = 1866
@@ -322,7 +324,7 @@ Partial Class FormDiva
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Location = New System.Drawing.Point(230, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(259, 173)
+        Me.GroupBox1.Size = New System.Drawing.Size(279, 163)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Splash Screen"
@@ -330,7 +332,7 @@ Partial Class FormDiva
         'CustomButton1
         '
         Me.CustomButton1.AutoSize = True
-        Me.CustomButton1.Location = New System.Drawing.Point(84, 58)
+        Me.CustomButton1.Location = New System.Drawing.Point(184, 32)
         Me.CustomButton1.Name = "CustomButton1"
         Me.CustomButton1.Size = New System.Drawing.Size(60, 17)
         Me.CustomButton1.TabIndex = 1874
@@ -350,7 +352,7 @@ Partial Class FormDiva
         'WhiteRadioButton
         '
         Me.WhiteRadioButton.AutoSize = True
-        Me.WhiteRadioButton.Location = New System.Drawing.Point(84, 18)
+        Me.WhiteRadioButton.Location = New System.Drawing.Point(67, 32)
         Me.WhiteRadioButton.Name = "WhiteRadioButton"
         Me.WhiteRadioButton.Size = New System.Drawing.Size(53, 17)
         Me.WhiteRadioButton.TabIndex = 1873
@@ -361,7 +363,7 @@ Partial Class FormDiva
         'BlackRadioButton
         '
         Me.BlackRadioButton.AutoSize = True
-        Me.BlackRadioButton.Location = New System.Drawing.Point(84, 37)
+        Me.BlackRadioButton.Location = New System.Drawing.Point(126, 32)
         Me.BlackRadioButton.Name = "BlackRadioButton"
         Me.BlackRadioButton.Size = New System.Drawing.Size(52, 17)
         Me.BlackRadioButton.TabIndex = 1872
@@ -374,9 +376,9 @@ Partial Class FormDiva
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(58, 82)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(52, 13)
+        Me.Label3.Size = New System.Drawing.Size(73, 13)
         Me.Label3.TabIndex = 186737
-        Me.Label3.Text = "Web Port"
+        Me.Label3.Text = "Web Port (80)"
         Me.ToolTip1.SetToolTip(Me.Label3, "80 or 8000")
         '
         'Chart1
@@ -407,6 +409,8 @@ Partial Class FormDiva
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button64)
+        Me.GroupBox2.Controls.Add(Me.X86Button)
         Me.GroupBox2.Controls.Add(Me.SearchAllRadioButton)
         Me.GroupBox2.Controls.Add(Me.SearchLocalRadioButton)
         Me.GroupBox2.Controls.Add(Me.ApachePort)
@@ -415,12 +419,52 @@ Partial Class FormDiva
         Me.GroupBox2.Controls.Add(Me.Chart2)
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 228)
+        Me.GroupBox2.Location = New System.Drawing.Point(230, 185)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(200, 184)
+        Me.GroupBox2.Size = New System.Drawing.Size(279, 218)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache and PHP Web Server"
+        '
+        'Button64
+        '
+        Me.Button64.Location = New System.Drawing.Point(165, 106)
+        Me.Button64.Name = "Button64"
+        Me.Button64.Size = New System.Drawing.Size(108, 23)
+        Me.Button64.TabIndex = 186741
+        Me.Button64.Text = "Install Runtime 64"
+        Me.Button64.UseVisualStyleBackColor = True
+        '
+        'X86Button
+        '
+        Me.X86Button.Location = New System.Drawing.Point(165, 77)
+        Me.X86Button.Name = "X86Button"
+        Me.X86Button.Size = New System.Drawing.Size(108, 23)
+        Me.X86Button.TabIndex = 186740
+        Me.X86Button.Text = "Install Runtime x86"
+        Me.X86Button.UseVisualStyleBackColor = True
+        '
+        'SearchAllRadioButton
+        '
+        Me.SearchAllRadioButton.AutoSize = True
+        Me.SearchAllRadioButton.Location = New System.Drawing.Point(21, 148)
+        Me.SearchAllRadioButton.Name = "SearchAllRadioButton"
+        Me.SearchAllRadioButton.Size = New System.Drawing.Size(100, 17)
+        Me.SearchAllRadioButton.TabIndex = 186739
+        Me.SearchAllRadioButton.TabStop = True
+        Me.SearchAllRadioButton.Text = "Search All Grids"
+        Me.SearchAllRadioButton.UseVisualStyleBackColor = True
+        '
+        'SearchLocalRadioButton
+        '
+        Me.SearchLocalRadioButton.AutoSize = True
+        Me.SearchLocalRadioButton.Location = New System.Drawing.Point(19, 122)
+        Me.SearchLocalRadioButton.Name = "SearchLocalRadioButton"
+        Me.SearchLocalRadioButton.Size = New System.Drawing.Size(110, 17)
+        Me.SearchLocalRadioButton.TabIndex = 186738
+        Me.SearchLocalRadioButton.TabStop = True
+        Me.SearchLocalRadioButton.Text = "Search Local Grid"
+        Me.SearchLocalRadioButton.UseVisualStyleBackColor = True
         '
         'ApachePort
         '
@@ -458,39 +502,17 @@ Partial Class FormDiva
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(164, 0)
+        Me.PictureBox1.Location = New System.Drawing.Point(210, 21)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(30, 34)
         Me.PictureBox1.TabIndex = 1859
         Me.PictureBox1.TabStop = False
         '
-        'SearchLocalRadioButton
-        '
-        Me.SearchLocalRadioButton.AutoSize = True
-        Me.SearchLocalRadioButton.Location = New System.Drawing.Point(20, 114)
-        Me.SearchLocalRadioButton.Name = "SearchLocalRadioButton"
-        Me.SearchLocalRadioButton.Size = New System.Drawing.Size(110, 17)
-        Me.SearchLocalRadioButton.TabIndex = 186738
-        Me.SearchLocalRadioButton.TabStop = True
-        Me.SearchLocalRadioButton.Text = "Search Local Grid"
-        Me.SearchLocalRadioButton.UseVisualStyleBackColor = True
-        '
-        'SearchAllRadioButton
-        '
-        Me.SearchAllRadioButton.AutoSize = True
-        Me.SearchAllRadioButton.Location = New System.Drawing.Point(20, 137)
-        Me.SearchAllRadioButton.Name = "SearchAllRadioButton"
-        Me.SearchAllRadioButton.Size = New System.Drawing.Size(100, 17)
-        Me.SearchAllRadioButton.TabIndex = 186739
-        Me.SearchAllRadioButton.TabStop = True
-        Me.SearchAllRadioButton.Text = "Search All Grids"
-        Me.SearchAllRadioButton.UseVisualStyleBackColor = True
-        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(518, 424)
+        Me.ClientSize = New System.Drawing.Size(543, 424)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.GroupBox1)
@@ -557,4 +579,6 @@ Partial Class FormDiva
     Friend WithEvents Chart2 As DataVisualization.Charting.Chart
     Friend WithEvents SearchAllRadioButton As RadioButton
     Friend WithEvents SearchLocalRadioButton As RadioButton
+    Friend WithEvents Button64 As Button
+    Friend WithEvents X86Button As Button
 End Class

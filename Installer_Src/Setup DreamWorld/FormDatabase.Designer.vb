@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormDatabase
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormDatabase
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDatabase))
         Me.StandaloneGroup = New System.Windows.Forms.GroupBox()
@@ -46,9 +46,21 @@ Partial Class FormDatabase
         Me.RobustDBPassword = New System.Windows.Forms.TextBox()
         Me.RobustDBUsername = New System.Windows.Forms.TextBox()
         Me.DBHelp = New System.Windows.Forms.PictureBox()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.SaveButton = New System.Windows.Forms.Button()
+        Me.GridRegionButton = New System.Windows.Forms.RadioButton()
+        Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.GridServerButton = New System.Windows.Forms.RadioButton()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StandaloneGroup
@@ -63,9 +75,9 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Controls.Add(Me.RegionDBUsername)
         Me.StandaloneGroup.Controls.Add(Me.Label21)
         Me.StandaloneGroup.Controls.Add(Me.RegionMySqlPassword)
-        Me.StandaloneGroup.Location = New System.Drawing.Point(288, 12)
+        Me.StandaloneGroup.Location = New System.Drawing.Point(284, 37)
         Me.StandaloneGroup.Name = "StandaloneGroup"
-        Me.StandaloneGroup.Size = New System.Drawing.Size(222, 158)
+        Me.StandaloneGroup.Size = New System.Drawing.Size(222, 176)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
         Me.StandaloneGroup.Text = "Local Region Database"
@@ -163,9 +175,9 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.Label8)
         Me.GridGroup.Controls.Add(Me.RobustDBPassword)
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
-        Me.GridGroup.Location = New System.Drawing.Point(8, 10)
+        Me.GridGroup.Location = New System.Drawing.Point(25, 37)
         Me.GridGroup.Name = "GridGroup"
-        Me.GridGroup.Size = New System.Drawing.Size(223, 162)
+        Me.GridGroup.Size = New System.Drawing.Size(219, 177)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust Database"
@@ -254,20 +266,114 @@ Partial Class FormDatabase
         'DBHelp
         '
         Me.DBHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DBHelp.Location = New System.Drawing.Point(254, 49)
+        Me.DBHelp.Location = New System.Drawing.Point(250, 37)
         Me.DBHelp.Name = "DBHelp"
         Me.DBHelp.Size = New System.Drawing.Size(28, 32)
         Me.DBHelp.TabIndex = 1859
         Me.DBHelp.TabStop = False
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(747, 25)
+        Me.ToolStrip1.TabIndex = 1860
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ToolStripLabel1
+        '
+        Me.ToolStripLabel1.Name = "ToolStripLabel1"
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(32, 22)
+        Me.ToolStripLabel1.Text = "Help"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.PictureBox1)
+        Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
+        Me.GroupBox1.Controls.Add(Me.SaveButton)
+        Me.GroupBox1.Controls.Add(Me.GridRegionButton)
+        Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
+        Me.GroupBox1.Controls.Add(Me.GridServerButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(528, 32)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(190, 182)
+        Me.GroupBox1.TabIndex = 1884
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Server Type"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox1.Location = New System.Drawing.Point(151, 5)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(28, 32)
+        Me.PictureBox1.TabIndex = 1885
+        Me.PictureBox1.TabStop = False
+        '
+        'MetroRadioButton2
+        '
+        Me.MetroRadioButton2.AutoSize = True
+        Me.MetroRadioButton2.Location = New System.Drawing.Point(17, 100)
+        Me.MetroRadioButton2.Name = "MetroRadioButton2"
+        Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
+        Me.MetroRadioButton2.TabIndex = 1882
+        Me.MetroRadioButton2.TabStop = True
+        Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
+        Me.MetroRadioButton2.UseVisualStyleBackColor = True
+        '
+        'SaveButton
+        '
+        Me.SaveButton.Location = New System.Drawing.Point(37, 135)
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(62, 23)
+        Me.SaveButton.TabIndex = 1883
+        Me.SaveButton.Text = "Save"
+        Me.SaveButton.UseVisualStyleBackColor = True
+        '
+        'GridRegionButton
+        '
+        Me.GridRegionButton.AutoSize = True
+        Me.GridRegionButton.Location = New System.Drawing.Point(17, 55)
+        Me.GridRegionButton.Name = "GridRegionButton"
+        Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
+        Me.GridRegionButton.TabIndex = 1880
+        Me.GridRegionButton.TabStop = True
+        Me.GridRegionButton.Text = "Region Server"
+        Me.GridRegionButton.UseVisualStyleBackColor = True
+        '
+        'osGridRadioButton1
+        '
+        Me.osGridRadioButton1.AutoSize = True
+        Me.osGridRadioButton1.Location = New System.Drawing.Point(17, 77)
+        Me.osGridRadioButton1.Name = "osGridRadioButton1"
+        Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
+        Me.osGridRadioButton1.TabIndex = 1881
+        Me.osGridRadioButton1.TabStop = True
+        Me.osGridRadioButton1.Text = "OSGrid Region Server"
+        Me.osGridRadioButton1.UseVisualStyleBackColor = True
+        '
+        'GridServerButton
+        '
+        Me.GridServerButton.AutoSize = True
+        Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
+        Me.GridServerButton.Name = "GridServerButton"
+        Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
+        Me.GridServerButton.TabIndex = 1879
+        Me.GridServerButton.TabStop = True
+        Me.GridServerButton.Text = "Grid Server With Robust"
+        Me.GridServerButton.UseVisualStyleBackColor = True
+        '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(543, 182)
-        Me.Controls.Add(Me.DBHelp)
+        Me.ClientSize = New System.Drawing.Size(747, 225)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
+        Me.Controls.Add(Me.DBHelp)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
@@ -277,7 +383,13 @@ Partial Class FormDatabase
         Me.GridGroup.ResumeLayout(False)
         Me.GridGroup.PerformLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -304,4 +416,13 @@ Partial Class FormDatabase
     Friend WithEvents RegionServer As TextBox
     Friend WithEvents MysqlRegionPort As TextBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents ToolStripLabel1 As ToolStripLabel
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents MetroRadioButton2 As RadioButton
+    Friend WithEvents GridRegionButton As RadioButton
+    Friend WithEvents osGridRadioButton1 As RadioButton
+    Friend WithEvents GridServerButton As RadioButton
+    Friend WithEvents SaveButton As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
