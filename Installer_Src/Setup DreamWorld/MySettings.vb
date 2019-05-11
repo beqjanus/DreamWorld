@@ -10,8 +10,10 @@ Public Class MySettings
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim gFolder As String
+#Disable Warning IDE0044 ' Add readonly modifier
     Dim Apachein As New List(Of String)
     Dim Apacheout As New List(Of String)
+#Enable Warning IDE0044 ' Add readonly modifier
 
 #Region "New"
     Public Sub New()
@@ -430,6 +432,12 @@ Public Class MySettings
             SearchLocal() = False
         End Try
 
+        Try
+            Dim x = DeleteScriptsOnStartup()
+        Catch ex As Exception
+            DeleteScriptsOnStartup() = False
+        End Try
+
     End Sub
 
 
@@ -568,9 +576,32 @@ Public Class MySettings
         SetMyIni("Data", key, value)
 
     End Sub
+
+
 #End Region
 
 #Region "Properties"
+
+
+    Public Property DeleteScriptsOnStartup() As Boolean
+        Get
+            Return CType(GetMySetting("DeleteScriptsOnStartup"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeleteScriptsOnStartup", Value.ToString)
+        End Set
+    End Property
+
+    Public Property ServerType() As String
+        Get
+            Return GetMySetting("ServerType", "Robust")
+        End Get
+        Set
+            SetMySetting("ServerType", Value)
+        End Set
+    End Property
+
+
     Public Property SearchLocal() As Boolean
         Get
             Return CType(GetMySetting("SearchLocal"), Boolean)
@@ -1696,13 +1727,17 @@ Public Class MySettings
             Debug.Print(ex.Message)
         End Try
 
-        My.Computer.FileSystem.RenameFile(ini, name & ".bak")
-        Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
-        For Each Item As String In Apachein
-            file.WriteLine(Item)
-        Next
-        file.Close()
+        Try
+            My.Computer.FileSystem.RenameFile(ini, name & ".bak")
+            Dim file As System.IO.StreamWriter
+            file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+            For Each Item As String In Apachein
+                file.WriteLine(Item)
+            Next
+            file.Close()
+        Catch
+        End Try
+
 
     End Sub
 #End Region

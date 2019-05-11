@@ -1,15 +1,20 @@
 <script src="/wifi/scripts/inventorylist.js" type="text/javascript"></script>
 <script src="/wifi/scripts/forms.js" type="text/javascript"></script>
+  <!-- #include file=jsglobals.html -->
 
 <!-- #call method=GetIARTransfers -->
+<p>&nbsp;</p>
 
 <form id="inventory" action="/wifi/user/inventory" method="post" >
   <p>
     <select name="folder">
       <!-- #call method=GetFolders-->
     </select>
+    <p>
+    
+    <input type="text" name="newFolderName" class="inputstyle" />
     <input type="submit" name="action-new" value="&lsaquo;&ndash; new folder" class="button" /> 
-    <input type="text" name="newFolderName" class="inputstyle" /> 
+    </p>
   </p>
   <p>
     <input type="submit" name="action-move" value="&darr; move to &uarr;" class="button" />

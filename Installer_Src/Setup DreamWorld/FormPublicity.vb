@@ -53,11 +53,11 @@ Public Class FormPublicity
     End Sub
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
-
-        Dim ofd As New OpenFileDialog
-        ofd.Filter = "PNG Files (*.PNG,*.png)|*.png;|All Files (*.*)|*.*"
-        ofd.FilterIndex = 1
-        ofd.Multiselect = False
+        Dim ofd As New OpenFileDialog With {
+            .Filter = "PNG Files (*.PNG,*.png)|*.png;|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+        }
         If ofd.ShowDialog = DialogResult.OK Then
             If ofd.FileName <> String.Empty Then
 

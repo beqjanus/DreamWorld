@@ -26,7 +26,7 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,6 +64,8 @@ namespace OpenSim.Region.CoreModules.World.Estate
         /// If false, region restart requests from the client are blocked even if they are otherwise legitimate.
         /// </summary>
         public bool AllowRegionRestartFromClient { get; set; }
+        private bool m_ignoreEstateMinorAccessControl;
+        private bool m_ignoreEstatePaymentAccessControl;
 
         private EstateTerrainXferHandler TerrainUploader;
         public TelehubManager m_Telehub;
@@ -89,7 +91,11 @@ namespace OpenSim.Region.CoreModules.World.Estate
             IConfig config = source.Configs["EstateManagement"];
 
             if (config != null)
+            {
                 AllowRegionRestartFromClient = config.GetBoolean("AllowRegionRestartFromClient", true);
+                m_ignoreEstateMinorAccessControl = config.GetBoolean("IgnoreEstateMinorAccessControl", false);
+                m_ignoreEstatePaymentAccessControl = config.GetBoolean("IgnoreEstatePaymentAccessControl", false);
+            }
         }
 
         public void AddRegion(Scene scene)
@@ -118,6 +124,9 @@ namespace OpenSim.Region.CoreModules.World.Estate
             scene.TriggerEstateSunUpdate();
 
             UserManager = scene.RequestModuleInterface<IUserManagement>();
+
+            scene.RegionInfo.EstateSettings.DoDenyMinors = !m_ignoreEstateMinorAccessControl;
+            scene.RegionInfo.EstateSettings.DoDenyAnonymous = !m_ignoreEstateMinorAccessControl;
         }
 
         public void Close()
@@ -565,7 +574,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
             Scene.RegionInfo.RegionSettings.Save();
             TriggerRegionInfoChange();
             sendRegionHandshakeToAll();
-            sendRegionInfoPacketToAll();
+//            sendRegionInfoPacketToAll();
         }
 
         private void handleCommitEstateTerrainTextureRequest(IClientAPI remoteClient)
@@ -668,7 +677,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
             public UUID user;
         }
 
-        private OpenSim.Framework.BlockingQueue<EstateAccessDeltaRequest> deltaRequests = new OpenSim.Framework.BlockingQueue<EstateAccessDeltaRequest>();
+        private BlockingCollection<EstateAccessDeltaRequest> deltaRequests = new BlockingCollection<EstateAccessDeltaRequest>();
 
         private void handleEstateAccessDeltaRequest(IClientAPI _remote_client, UUID _invoice, int _estateAccessType, UUID _user)
         {
@@ -683,7 +692,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
             newreq.estateAccessType = _estateAccessType;
             newreq.user = _user;
 
-            deltaRequests.Enqueue(newreq);
+            deltaRequests.Add(newreq);
 
             lock(deltareqLock)
             {
@@ -713,9 +722,11 @@ namespace OpenSim.Region.CoreModules.World.Estate
             bool sentGroupsFull = false;
             bool sentManagersFull = false;
 
+            EstateAccessDeltaRequest req;
             while(Scene.IsRunning)
             {
-                EstateAccessDeltaRequest req = deltaRequests.Dequeue(500);
+                req = null;
+                deltaRequests.TryTake(out req, 500);
 
                 if(!Scene.IsRunning)
                     break;
@@ -757,7 +768,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
                     changed.Clear();
                     lock(deltareqLock)
                     {
-                        if(deltaRequests.Count() != 0)
+                        if(deltaRequests.Count != 0)
                             continue;
                         runnigDeltaExec = false;
                         return;
@@ -1193,28 +1204,33 @@ namespace OpenSim.Region.CoreModules.World.Estate
             }
         }
 
-        private void handleEstateTeleportOneUserHomeRequest(IClientAPI remover_client, UUID invoice, UUID senderID, UUID prey)
+        private void handleEstateTeleportOneUserHomeRequest(IClientAPI remover_client, UUID invoice, UUID senderID, UUID prey, bool kick)
         {
+            if (prey == UUID.Zero)
+                return;
+
              EstateTeleportOneUserHomeRequest evOverride = OnEstateTeleportOneUserHomeRequest;
              if(evOverride != null)
              {
-                evOverride(remover_client, invoice, senderID, prey);
+                evOverride(remover_client, invoice, senderID, prey, kick);
                 return;
              }
 
             if (!Scene.Permissions.CanIssueEstateCommand(remover_client.AgentId, false))
                 return;
 
-            if (prey != UUID.Zero)
+            ScenePresence s = Scene.GetScenePresence(prey);
+            if (s != null && !s.IsDeleted && !s.IsInTransit)
             {
-                ScenePresence s = Scene.GetScenePresence(prey);
-                if (s != null && !s.IsDeleted && !s.IsInTransit)
+                if (kick)
                 {
-                    if (!Scene.TeleportClientHome(prey, s.ControllingClient))
-                    {
-                        s.ControllingClient.Kick("You were teleported home by the region owner, but the TP failed - you have been logged out.");
-                        Scene.CloseAgent(s.UUID, false);
-                    }
+                    s.ControllingClient.Kick("You have been kicked");
+                    Scene.CloseAgent(s.UUID, false);
+                }
+                else if (!Scene.TeleportClientHome(prey, s.ControllingClient))
+                {
+                    s.ControllingClient.Kick("You were teleported home by the region owner, but the TP failed ");
+                    Scene.CloseAgent(s.UUID, false);
                 }
             }
         }
@@ -1502,42 +1518,7 @@ namespace OpenSim.Region.CoreModules.World.Estate
 
         public void sendRegionHandshake(IClientAPI remoteClient)
         {
-            RegionHandshakeArgs args = new RegionHandshakeArgs();
-
-            args.isEstateManager = Scene.RegionInfo.EstateSettings.IsEstateManagerOrOwner(remoteClient.AgentId);
-            if (Scene.RegionInfo.EstateSettings.EstateOwner != UUID.Zero && Scene.RegionInfo.EstateSettings.EstateOwner == remoteClient.AgentId)
-                args.isEstateManager = true;
-
-            args.billableFactor = Scene.RegionInfo.EstateSettings.BillableFactor;
-            args.terrainStartHeight0 = (float)Scene.RegionInfo.RegionSettings.Elevation1SW;
-            args.terrainHeightRange0 = (float)Scene.RegionInfo.RegionSettings.Elevation2SW;
-            args.terrainStartHeight1 = (float)Scene.RegionInfo.RegionSettings.Elevation1NW;
-            args.terrainHeightRange1 = (float)Scene.RegionInfo.RegionSettings.Elevation2NW;
-            args.terrainStartHeight2 = (float)Scene.RegionInfo.RegionSettings.Elevation1SE;
-            args.terrainHeightRange2 = (float)Scene.RegionInfo.RegionSettings.Elevation2SE;
-            args.terrainStartHeight3 = (float)Scene.RegionInfo.RegionSettings.Elevation1NE;
-            args.terrainHeightRange3 = (float)Scene.RegionInfo.RegionSettings.Elevation2NE;
-            args.simAccess = Scene.RegionInfo.AccessLevel;
-            args.waterHeight = (float)Scene.RegionInfo.RegionSettings.WaterHeight;
-            args.regionFlags = GetRegionFlags();
-            args.regionName = Scene.RegionInfo.RegionName;
-            args.SimOwner = Scene.RegionInfo.EstateSettings.EstateOwner;
-
-            args.terrainBase0 = UUID.Zero;
-            args.terrainBase1 = UUID.Zero;
-            args.terrainBase2 = UUID.Zero;
-            args.terrainBase3 = UUID.Zero;
-            args.terrainDetail0 = Scene.RegionInfo.RegionSettings.TerrainTexture1;
-            args.terrainDetail1 = Scene.RegionInfo.RegionSettings.TerrainTexture2;
-            args.terrainDetail2 = Scene.RegionInfo.RegionSettings.TerrainTexture3;
-            args.terrainDetail3 = Scene.RegionInfo.RegionSettings.TerrainTexture4;
-
-//            m_log.DebugFormat("[ESTATE MANAGEMENT MODULE]: Sending terrain texture 1 {0} for region {1}", args.terrainDetail0, Scene.RegionInfo.RegionName);
-//            m_log.DebugFormat("[ESTATE MANAGEMENT MODULE]: Sending terrain texture 2 {0} for region {1}", args.terrainDetail1, Scene.RegionInfo.RegionName);
-//            m_log.DebugFormat("[ESTATE MANAGEMENT MODULE]: Sending terrain texture 3 {0} for region {1}", args.terrainDetail2, Scene.RegionInfo.RegionName);
-//            m_log.DebugFormat("[ESTATE MANAGEMENT MODULE]: Sending terrain texture 4 {0} for region {1}", args.terrainDetail3, Scene.RegionInfo.RegionName);
-
-            remoteClient.SendRegionHandshake(Scene.RegionInfo,args);
+            remoteClient.SendRegionHandshake();
         }
 
         public void handleEstateChangeInfo(IClientAPI remoteClient, UUID invoice, UUID senderID, UInt32 parms1, UInt32 parms2)
@@ -1554,20 +1535,21 @@ namespace OpenSim.Region.CoreModules.World.Estate
                 // Warning: FixedSun should be set to True, otherwise this sun position won't be used.
             }
 
-            if ((parms1 & 0x00000010) != 0)
-                Scene.RegionInfo.EstateSettings.FixedSun = true;
-            else
-                Scene.RegionInfo.EstateSettings.FixedSun = false;
-
             if ((parms1 & 0x00008000) != 0)
                 Scene.RegionInfo.EstateSettings.PublicAccess = true;
             else
                 Scene.RegionInfo.EstateSettings.PublicAccess = false;
 
-            if ((parms1 & 0x10000000) != 0)
-                Scene.RegionInfo.EstateSettings.AllowVoice = true;
+            if ((parms1 & 0x00000010) != 0)
+                Scene.RegionInfo.EstateSettings.FixedSun = true;
             else
-                Scene.RegionInfo.EstateSettings.AllowVoice = false;
+                Scene.RegionInfo.EstateSettings.FixedSun = false;
+
+            // taxfree is now AllowAccessOverride
+            if ((parms1 & 0x00000020) != 0)
+                Scene.RegionInfo.EstateSettings.TaxFree = true;
+            else
+                Scene.RegionInfo.EstateSettings.TaxFree = false;
 
             if ((parms1 & 0x00100000) != 0)
                 Scene.RegionInfo.EstateSettings.AllowDirectTeleport = true;
@@ -1579,15 +1561,22 @@ namespace OpenSim.Region.CoreModules.World.Estate
             else
                 Scene.RegionInfo.EstateSettings.DenyAnonymous = false;
 
+            // no longer in used, may be reassigned
             if ((parms1 & 0x01000000) != 0)
                 Scene.RegionInfo.EstateSettings.DenyIdentified = true;
             else
                 Scene.RegionInfo.EstateSettings.DenyIdentified = false;
 
+            // no longer in used, may be reassigned
             if ((parms1 & 0x02000000) != 0)
                 Scene.RegionInfo.EstateSettings.DenyTransacted = true;
             else
                 Scene.RegionInfo.EstateSettings.DenyTransacted = false;
+
+            if ((parms1 & 0x10000000) != 0)
+                Scene.RegionInfo.EstateSettings.AllowVoice = true;
+            else
+                Scene.RegionInfo.EstateSettings.AllowVoice = false;
 
             if ((parms1 & 0x40000000) != 0)
                 Scene.RegionInfo.EstateSettings.DenyMinors = true;
@@ -1649,7 +1638,6 @@ namespace OpenSim.Region.CoreModules.World.Estate
             client.OnRegionInfoRequest += HandleRegionInfoRequest;
             client.OnEstateCovenantRequest += HandleEstateCovenantRequest;
             client.OnLandStatRequest += HandleLandStatRequest;
-            sendRegionHandshake(client);
         }
 
 
@@ -1657,39 +1645,43 @@ namespace OpenSim.Region.CoreModules.World.Estate
         {
             RegionFlags flags = RegionFlags.None;
 
-            if (Scene.RegionInfo.EstateSettings.FixedSun)
-                flags |= RegionFlags.SunFixed;
-            if (Scene.RegionInfo.EstateSettings.PublicAccess)
-                flags |= (RegionFlags.PublicAllowed |
-                          RegionFlags.ExternallyVisible);
-            if (Scene.RegionInfo.EstateSettings.AllowVoice)
-                flags |= RegionFlags.AllowVoice;
-            if (Scene.RegionInfo.EstateSettings.AllowDirectTeleport)
-                flags |= RegionFlags.AllowDirectTeleport;
-            if (Scene.RegionInfo.EstateSettings.DenyAnonymous)
-                flags |= RegionFlags.DenyAnonymous;
-            if (Scene.RegionInfo.EstateSettings.DenyIdentified)
-                flags |= RegionFlags.DenyIdentified;
-            if (Scene.RegionInfo.EstateSettings.DenyTransacted)
-                flags |= RegionFlags.DenyTransacted;
-            if (Scene.RegionInfo.EstateSettings.AbuseEmailToEstateOwner)
-                flags |= RegionFlags.AbuseEmailToEstateOwner;
-            if (Scene.RegionInfo.EstateSettings.BlockDwell)
-                flags |= RegionFlags.BlockDwell;
-            if (Scene.RegionInfo.EstateSettings.EstateSkipScripts)
-                flags |= RegionFlags.EstateSkipScripts;
-            if (Scene.RegionInfo.EstateSettings.ResetHomeOnTeleport)
-                flags |= RegionFlags.ResetHomeOnTeleport;
-            if (Scene.RegionInfo.EstateSettings.TaxFree)
-                flags |= RegionFlags.TaxFree;
             if (Scene.RegionInfo.EstateSettings.AllowLandmark)
                 flags |= RegionFlags.AllowLandmark;
-            if (Scene.RegionInfo.EstateSettings.AllowParcelChanges)
-                flags |= RegionFlags.AllowParcelChanges;
             if (Scene.RegionInfo.EstateSettings.AllowSetHome)
                 flags |= RegionFlags.AllowSetHome;
+            if (Scene.RegionInfo.EstateSettings.ResetHomeOnTeleport)
+                flags |= RegionFlags.ResetHomeOnTeleport;
+            if (Scene.RegionInfo.EstateSettings.FixedSun)
+                flags |= RegionFlags.SunFixed;
+            if (Scene.RegionInfo.EstateSettings.TaxFree) // this is now wrong means ALLOW_ACCESS_OVERRIDE
+                flags |= RegionFlags.TaxFree;
+
+            if (Scene.RegionInfo.EstateSettings.PublicAccess) //??
+                flags |= (RegionFlags.PublicAllowed | RegionFlags.ExternallyVisible);
+
+            if (Scene.RegionInfo.EstateSettings.BlockDwell)
+                flags |= RegionFlags.BlockDwell;
+            if (Scene.RegionInfo.EstateSettings.AllowDirectTeleport)
+                flags |= RegionFlags.AllowDirectTeleport;
+            if (Scene.RegionInfo.EstateSettings.EstateSkipScripts)
+                flags |= RegionFlags.EstateSkipScripts;
+
+            if (Scene.RegionInfo.EstateSettings.DenyAnonymous)
+                flags |= RegionFlags.DenyAnonymous;
+            if (Scene.RegionInfo.EstateSettings.DenyIdentified) // unused?
+                flags |= RegionFlags.DenyIdentified;
+            if (Scene.RegionInfo.EstateSettings.DenyTransacted) // unused?
+                flags |= RegionFlags.DenyTransacted;
+            if (Scene.RegionInfo.EstateSettings.AllowParcelChanges)
+                flags |= RegionFlags.AllowParcelChanges;
+            if (Scene.RegionInfo.EstateSettings.AbuseEmailToEstateOwner) // now is block fly
+                flags |= RegionFlags.AbuseEmailToEstateOwner;
+            if (Scene.RegionInfo.EstateSettings.AllowVoice)
+                flags |= RegionFlags.AllowVoice;
+
+
             if (Scene.RegionInfo.EstateSettings.DenyMinors)
-                flags |= (RegionFlags)(1 << 30);
+                flags |= RegionFlags.DenyAgeUnverified;
 
             return (uint)flags;
         }

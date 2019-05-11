@@ -63,7 +63,7 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
             String fixedData = ExternalRepresentationUtils.SanitizeXml(xmlData);
             using (XmlTextReader wrappedReader = new XmlTextReader(fixedData, XmlNodeType.Element, null))
             {
-                using (XmlReader reader = XmlReader.Create(wrappedReader, new XmlReaderSettings() { IgnoreWhitespace = true, ConformanceLevel = ConformanceLevel.Fragment, ProhibitDtd = true }))
+                using (XmlReader reader = XmlReader.Create(wrappedReader, new XmlReaderSettings() { IgnoreWhitespace = true, ConformanceLevel = ConformanceLevel.Fragment}))
                 {
                     try
                     {
@@ -235,7 +235,6 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
             if (doScriptStates)
                 sceneObject.SaveScriptedState(writer);
 
-
             if (!noRootElement)
                 writer.WriteEndElement(); // SceneObjectGroup
 
@@ -255,7 +254,6 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
             try
             {
                 XmlDocument doc = new XmlDocument();
-                doc.XmlResolver=null;
                 doc.LoadXml(xmlData);
 
                 XmlNodeList parts = doc.GetElementsByTagName("SceneObjectPart");
@@ -271,11 +269,7 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
                 using(StringReader sr = new StringReader(parts[0].OuterXml))
                 {
                     using(XmlTextReader reader = new XmlTextReader(sr))
-                    {
-                        reader.ProhibitDtd = true;
-
                         sceneObject = new SceneObjectGroup(SceneObjectPart.FromXml(reader));
-                    }
                 }
 
                 // Then deal with the rest
@@ -503,6 +497,8 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
             m_SOPXmlProcessors.Add("SoundFlags", ProcessSoundFlags);
             m_SOPXmlProcessors.Add("SoundRadius", ProcessSoundRadius);
             m_SOPXmlProcessors.Add("SoundQueueing", ProcessSoundQueueing);
+
+            m_SOPXmlProcessors.Add("SOPAnims", ProcessSOPAnims);
 
             #endregion
 
@@ -831,6 +827,27 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
             }
         }
 
+        private static void ProcessSOPAnims(SceneObjectPart obj, XmlReader reader)
+        {
+            obj.Animations = null;
+            try
+            {
+                string datastr;
+                datastr = reader.ReadElementContentAsString();
+                if(string.IsNullOrEmpty(datastr))
+                    return;
+
+                byte[] pdata = Convert.FromBase64String(datastr);
+                obj.DeSerializeAnimations(pdata);
+                return;
+            }
+            catch {}
+
+            m_log.DebugFormat(
+                    "[SceneObjectSerializer]: Parsing ProcessSOPAnims for object part {0} {1} encountered errors",
+                    obj.Name, obj.UUID);
+        }
+
         private static void ProcessShape(SceneObjectPart obj, XmlReader reader)
         {
             List<string> errorNodeNames;
@@ -972,7 +989,12 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
 
         private static void ProcessDynAttrs(SceneObjectPart obj, XmlReader reader)
         {
-            obj.DynAttrs.ReadXml(reader);
+            DAMap waste = new DAMap();
+            waste.ReadXml(reader);
+            if(waste.CountNamespaces > 0)
+                obj.DynAttrs = waste;
+            else
+                obj.DynAttrs = null;
         }
 
         private static void ProcessTextureAnimation(SceneObjectPart obj, XmlReader reader)
@@ -1400,7 +1422,7 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
                 value = reader.ReadElementContentAsString("Media", String.Empty);
                 shp.Media = PrimitiveBaseShape.MediaList.FromXml(value);
             }
-            catch (XmlException e)
+            catch (XmlException)
             {
                 // There are versions of OAR files that contain unquoted XML.
                 // ie ONE comercial fork that never wanted their oars to be read by our code
@@ -1542,7 +1564,7 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
                 writer.WriteElementString("MediaUrl", sop.MediaUrl.ToString());
             WriteVector(writer, "AttachedPos", sop.AttachedPos);
 
-            if (sop.DynAttrs.CountNamespaces > 0)
+            if (sop.DynAttrs != null && sop.DynAttrs.CountNamespaces > 0)
             {
                 writer.WriteStartElement("DynAttrs");
                 sop.DynAttrs.WriteXml(writer);
@@ -1592,6 +1614,13 @@ namespace OpenSim.Region.Framework.Scenes.Serialization
                 writer.WriteElementString("SoundRadius", sop.SoundRadius.ToString(Culture.FormatProvider));
             }
             writer.WriteElementString("SoundQueueing", sop.SoundQueueing.ToString().ToLower());
+
+            if (sop.Animations != null)
+            {
+                Byte[] data = sop.SerializeAnimations();
+                if(data != null && data.Length > 0)
+                    writer.WriteElementString("SOPAnims", Convert.ToBase64String(data));
+            }
 
             writer.WriteEndElement();
         }

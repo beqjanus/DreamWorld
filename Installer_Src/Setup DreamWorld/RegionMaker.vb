@@ -9,18 +9,17 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-#Disable Warning IDE0044 ' Add readonly modifier
-    Private MysqlConn As Mysql    ' object lets us query Mysql database
-#Enable Warning IDE0044 ' Add readonly modifier
     Public RegionList As New ArrayList()
     Public Grouplist As New Dictionary(Of String, Integer)
-
     Private initted As Boolean = False
     Private Shared FInstance As RegionMaker = Nothing
-    Dim Backup As New ArrayList()
     Dim json As JSON_result
 
+#Disable Warning IDE0044 ' Add readonly modifier
+    Dim Backup As New ArrayList()
     Dim WebserverList As New List(Of String)
+    Private MysqlConn As Mysql    ' object lets us query Mysql database
+#Enable Warning IDE0044 ' Add readonly modifier
 
 
     Public Enum SIM_STATUS As Integer
@@ -446,7 +445,7 @@ Public Class RegionMaker
         Dim ctr = 0
         For Each r As Region_data In RegionList
             DebugRegions(ctr)
-            ctr = ctr + 1
+            ctr += 1
         Next
 
     End Sub
@@ -472,7 +471,7 @@ Public Class RegionMaker
             If n._Group = Gname Or Gname = "*" Then
                 L.Add(ctr)
             End If
-            ctr = ctr + 1
+            ctr += 1
         Next
         If (L.Count = 0) Then
             Debug.Print(" Not found:" & Gname)
@@ -486,7 +485,7 @@ Public Class RegionMaker
         Dim ctr = 0
         For Each n As Region_data In RegionList
             L.Add(ctr)
-            ctr = ctr + 1
+            ctr += 1
         Next
         'Debug.Print("List Len = " + L.Count.ToString)
         Return L
@@ -500,7 +499,7 @@ Public Class RegionMaker
                 Debug.Print("Current Region is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
 
         'RegionDump()
@@ -516,7 +515,7 @@ Public Class RegionMaker
             If RegionName = obj._Group Then
                 Return obj._Group
             End If
-            i = i + 1
+            i += 1
         Next
 
         Return ""
@@ -530,7 +529,7 @@ Public Class RegionMaker
                 Debug.Print("Current Region is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
         Form1.ErrorLog("PID not found:" + PID.ToString)
         Return -1
@@ -545,7 +544,7 @@ Public Class RegionMaker
                 ' Debug.Print("Current Backup is " + obj._RegionName)
                 Return i
             End If
-            i = i + 1
+            i += 1
         Next
         Return -1
 
@@ -557,25 +556,26 @@ Public Class RegionMaker
             Return RegionList.Count - 1
         End If
         ' Debug.Print("Create Region " + name)
-        Dim r As New Region_data
-        r._RegionName = name
-        r._RegionEnabled = True
-        r._UUID = Guid.NewGuid().ToString
-        r._SizeX = 256
-        r._SizeY = 256
-        r._CoordX = LargestX() + 4
-        r._CoordY = LargestY() + 0
-        r._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1 '8003 + 1
-        r._ProcessID = 0
-        r._AvatarCount = 0
-        r._Status = SIM_STATUS.Stopped
-        r._LineCounter = 0
-        r._Timer = 0
-        r._NonPhysicalPrimMax = 1024
-        r._PhysicalPrimMax = 64
-        r._ClampPrimSize = False
-        r._MaxPrims = "45000"
-        r._MaxAgents = 100
+        Dim r As New Region_data With {
+            ._RegionName = name,
+            ._RegionEnabled = True,
+            ._UUID = Guid.NewGuid().ToString,
+            ._SizeX = 256,
+            ._SizeY = 256,
+            ._CoordX = LargestX() + 4,
+            ._CoordY = LargestY() + 0,
+            ._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1, '8003 + 1
+            ._ProcessID = 0,
+            ._AvatarCount = 0,
+            ._Status = SIM_STATUS.Stopped,
+            ._LineCounter = 0,
+            ._Timer = 0,
+            ._NonPhysicalPrimMax = 1024,
+            ._PhysicalPrimMax = 64,
+            ._ClampPrimSize = False,
+            ._MaxPrims = "45000",
+            ._MaxAgents = 100
+        }
 
         RegionList.Add(r)
         'RegionDump()
@@ -596,7 +596,7 @@ Public Class RegionMaker
         Dim folders() As String
         Dim regionfolders() As String
         Dim n As Integer = 0
-        folders = Directory.GetDirectories(Form1.gPath + "bin\Regions")
+        folders = Directory.GetDirectories(Form1.gOpensimBinPath + "bin\Regions")
         For Each FolderName As String In folders
             'Form1.Log("Info","Region Path:" + FolderName)
             regionfolders = Directory.GetDirectories(FolderName)
@@ -685,7 +685,7 @@ Public Class RegionMaker
 
                         End If
 
-                        n = n + 1
+                        n += 1
                         Application.DoEvents()
                     Next
 
@@ -710,7 +710,7 @@ Public Class RegionMaker
         Dim fname As String = RegionList(n)._FolderPath.ToString
 
         If (fname = "") Then
-            Dim pathtoWelcome As String = Form1.gPath + "bin\Regions\" + name + "\Region\"
+            Dim pathtoWelcome As String = Form1.gOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
@@ -797,7 +797,6 @@ Public Class RegionMaker
         Dim Max As Integer = 0
         Dim Portlist As New Dictionary(Of Integer, String)
 
-        Dim counter As Integer = 0
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
@@ -829,7 +828,6 @@ Public Class RegionMaker
         Dim Min As Integer = 65536
         Dim Portlist As New Dictionary(Of Integer, String)
 
-        Dim counter As Integer = 0
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
@@ -873,7 +871,7 @@ Public Class RegionMaker
             ' Self setting Region Ports
             Form1.gMaxPortUsed = Portnumber
             Form1.MySetting.SaveOtherINI()
-            Portnumber = Portnumber + 1
+            Portnumber += 1
         Next
 
     End Sub
@@ -1066,8 +1064,9 @@ Public Class RegionMaker
                     Dim myConnection As MySqlConnection = New MySqlConnection(Str)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
-                    Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-                    myCommand1.Connection = myConnection
+                    Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                        .Connection = myConnection
+                    }
                     myConnection.Open()
                     myCommand1.Prepare()
                     myCommand1.Parameters.AddWithValue("p1", uid.ToString())
@@ -1089,7 +1088,7 @@ Public Class RegionMaker
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
             Dim match1 As Match = pattern1.Match(POST)
-            Dim p1 As String = ""
+            Dim p1 As String
             If match1.Success Then
                 p1 = match1.Groups(1).Value
                 Dim s = GetPartner(p1, MySetting)
@@ -1109,8 +1108,8 @@ Public Class RegionMaker
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
             Dim match1 As Match = pattern1.Match(POST)
             If match1.Success Then
-                Dim p1 As String = ""
-                Dim p2 As String = ""
+                Dim p1 As String
+                Dim p2 As String
                 p1 = match1.Groups(1).Value
                 Dim pattern2 As Regex = New Regex("Partner=(.*)")
                 Dim match2 As Match = pattern2.Match(POST)
@@ -1134,8 +1133,9 @@ Public Class RegionMaker
                         Dim myConnection As MySqlConnection = New MySqlConnection(Str)
 
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-                        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-                        myCommand1.Connection = myConnection
+                        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                            .Connection = myConnection
+                        }
                         myConnection.Open()
                         myCommand1.Prepare()
 
@@ -1219,8 +1219,9 @@ Public Class RegionMaker
 
         Dim myConnection As MySqlConnection = New MySqlConnection(Str)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1)
-        myCommand1.Connection = myConnection
+        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+            .Connection = myConnection
+        }
         myConnection.Open()
         myCommand1.Prepare()
         myCommand1.Parameters.AddWithValue("p1", p1)

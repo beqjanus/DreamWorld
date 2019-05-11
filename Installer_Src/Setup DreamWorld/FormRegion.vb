@@ -408,11 +408,11 @@ Public Class FormRegion
             End If
 
             If Not Directory.Exists(Filepath) Or Filepath = "" Then
-                Directory.CreateDirectory(Form1.gPath & "bin\Regions\" + NewGroup + "\Region")
+                Directory.CreateDirectory(Form1.gOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
             End If
 
-            RegionClass.RegionPath(n) = Form1.gPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            RegionClass.FolderPath(n) = Form1.gPath & "bin\Regions\" + NewGroup
+            RegionClass.RegionPath(n) = Form1.gOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            RegionClass.FolderPath(n) = Form1.gOpensimBinPath & "bin\Regions\" + NewGroup
 
         End If
 
@@ -563,7 +563,7 @@ Public Class FormRegion
         Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
         If msg = vbYes Then
             Try
-                My.Computer.FileSystem.DeleteFile(Form1.gPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+                My.Computer.FileSystem.DeleteFile(Form1.gOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Catch
             End Try
 

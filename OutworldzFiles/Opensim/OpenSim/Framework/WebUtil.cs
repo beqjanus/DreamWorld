@@ -33,7 +33,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Net.Security;
 using System.Reflection;
 using System.Text;
 using System.Web;
@@ -43,9 +42,9 @@ using System.Xml.Linq;
 using log4net;
 using Nwc.XmlRpc;
 using OpenMetaverse.StructuredData;
+using OpenSim.Framework.ServiceAuth;
 using XMLResponseHelper = OpenSim.Framework.SynchronousRestObjectRequester.XMLResponseHelper;
 
-using OpenSim.Framework.ServiceAuth;
 
 namespace OpenSim.Framework
 {
@@ -177,7 +176,7 @@ namespace OpenSim.Framework
             LogOutgoingDetail(string.Format("RESPONSE {0}: ", reqnum), input);
         }
 
-        public static OSDMap ServiceOSDRequest(string url, OSDMap data, string method, int timeout, bool compressed, bool rpc)
+        public static OSDMap ServiceOSDRequest(string url, OSDMap data, string method, int timeout, bool compressed, bool rpc, bool keepalive = false)
         {
             int reqnum = RequestNumber++;
 
@@ -198,7 +197,7 @@ namespace OpenSim.Framework
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = method;
                 request.Timeout = timeout;
-                request.KeepAlive = false;
+                request.KeepAlive = keepalive;
                 request.MaximumAutomaticRedirections = 10;
                 request.ReadWriteTimeout = timeout / 2;
                 request.Headers[OSHeaderRequestID] = reqnum.ToString();
@@ -1334,16 +1333,42 @@ namespace OpenSim.Framework
             public static TResponse LogAndDeserialize<TRequest, TResponse>(int reqnum, Stream respStream, long contentLength)
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(TResponse));
-
                 if (WebUtil.DebugLevel >= 5)
                 {
-                    byte[] data = new byte[contentLength];
-                    Util.ReadStream(respStream, data);
+                    const int blockLength = 4096;
+                    byte[] dataBuffer = new byte[blockLength];
+                    int curcount;
+                    using (MemoryStream ms = new MemoryStream(4 * blockLength))
+                    {
+                        if(contentLength == -1)
+                        {
+                            while (true)
+                            {
+                                curcount = respStream.Read(dataBuffer, 0, blockLength);
+                                if (curcount <= 0)
+                                    break;
+                                ms.Write(dataBuffer, 0, curcount);
+                            }
+                        }
+                        else
+                        {
+                            int remaining = (int)contentLength;
+                            while (remaining > 0)
+                            {
+                                curcount = respStream.Read(dataBuffer, 0, remaining);
+                                if (curcount <= 0)
+                                    throw new EndOfStreamException(String.Format("End of stream reached with {0} bytes left to read", remaining));
+                                ms.Write(dataBuffer, 0, curcount);
+                                remaining -= curcount;
+                            }
+                        }
 
-                    WebUtil.LogResponseDetail(reqnum, System.Text.Encoding.UTF8.GetString(data));
+                        dataBuffer = ms.ToArray();
+                        WebUtil.LogResponseDetail(reqnum, System.Text.Encoding.UTF8.GetString(dataBuffer));
 
-                    using (MemoryStream temp = new MemoryStream(data))
-                        return (TResponse)deserializer.Deserialize(temp);
+                        ms.Position = 0;
+                        return (TResponse)deserializer.Deserialize(ms);
+                    }
                 }
                 else
                 {
@@ -1427,6 +1452,5 @@ namespace OpenSim.Framework
                 }
             }
         }
-
     }
 }

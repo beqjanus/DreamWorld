@@ -153,10 +153,23 @@ namespace OpenSim.Region.Framework.Scenes
         /// <param name="remoteClient"></param>
         public void RequestPrim(uint primLocalID, IClientAPI remoteClient)
         {
-            SceneObjectGroup sog = GetGroupByPrim(primLocalID);
+            SceneObjectPart part = GetSceneObjectPart(primLocalID);
+            if (part != null)
+            {
+                SceneObjectGroup sog = part.ParentGroup;
+                if(!sog.IsDeleted)
+                {
+                    PrimUpdateFlags update = PrimUpdateFlags.FullUpdate;
+                    if (sog.RootPart.Shape.MeshFlagEntry)
+                        update = PrimUpdateFlags.FullUpdatewithAnim;
+                    part.SendUpdate(remoteClient, update);
+                }
+            }
 
-            if (sog != null)
-                sog.SendFullUpdateToClient(remoteClient);
+            //SceneObjectGroup sog = GetGroupByPrim(primLocalID);
+
+            //if (sog != null)
+            //sog.SendFullAnimUpdateToClient(remoteClient);
         }
 
         /// <summary>
@@ -477,7 +490,7 @@ namespace OpenSim.Region.Framework.Scenes
                     if (sp.ControllingClient.AgentId != remoteClient.AgentId)
                     {
                         if (!discardableEffects ||
-                            (discardableEffects && ShouldSendDiscardableEffect(remoteClient, sp)))
+                           (discardableEffects && ShouldSendDiscardableEffect(remoteClient, sp)))
                         {
                             //m_log.DebugFormat("[YYY]: Sending to {0}", sp.UUID);
                             sp.ControllingClient.SendViewerEffect(effectBlockArray);
@@ -490,7 +503,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         private bool ShouldSendDiscardableEffect(IClientAPI thisClient, ScenePresence other)
         {
-            return Vector3.Distance(other.CameraPosition, thisClient.SceneAgent.AbsolutePosition) < 10;
+            return Vector3.DistanceSquared(other.CameraPosition, thisClient.SceneAgent.AbsolutePosition) < 100;
         }
 
         private class DescendentsRequestData
@@ -703,7 +716,7 @@ namespace OpenSim.Region.Framework.Scenes
         {
             InventoryFolderBase folder = new InventoryFolderBase(folderID, userID);
 
-            try
+           try
             {
                 if (InventoryService.PurgeFolder(folder))
                     m_log.DebugFormat("[AGENT INVENTORY]: folder {0} purged successfully", folderID);

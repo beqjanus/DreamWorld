@@ -125,7 +125,6 @@ Partial Class Form1
         Me.AvatarLabel = New System.Windows.Forms.Label()
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.PercentCPU = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
@@ -233,21 +232,21 @@ Partial Class Form1
         Me.ShowHyperGridAddressToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ShowHyperGridAddressToolStripMenuItem.Name = "ShowHyperGridAddressToolStripMenuItem"
         Me.ShowHyperGridAddressToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Shift Or System.Windows.Forms.Keys.F1), System.Windows.Forms.Keys)
-        Me.ShowHyperGridAddressToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.ShowHyperGridAddressToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.ShowHyperGridAddressToolStripMenuItem.Text = "Show Grid Address"
         Me.ShowHyperGridAddressToolStripMenuItem.ToolTipText = "You can give this address out to people and they can visit your grid"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(266, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(262, 6)
         '
         'HelpStartingUpToolStripMenuItem1
         '
         Me.HelpStartingUpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.HelpStartingUpToolStripMenuItem1.Name = "HelpStartingUpToolStripMenuItem1"
         Me.HelpStartingUpToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.D1), System.Windows.Forms.Keys)
-        Me.HelpStartingUpToolStripMenuItem1.Size = New System.Drawing.Size(269, 26)
+        Me.HelpStartingUpToolStripMenuItem1.Size = New System.Drawing.Size(265, 22)
         Me.HelpStartingUpToolStripMenuItem1.Text = "Help Starting Up"
         '
         'HelpOnSettingsToolStripMenuItem
@@ -256,7 +255,7 @@ Partial Class Form1
         Me.HelpOnSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.HelpOnSettingsToolStripMenuItem.Name = "HelpOnSettingsToolStripMenuItem"
         Me.HelpOnSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.HelpOnSettingsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.HelpOnSettingsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.HelpOnSettingsToolStripMenuItem.Text = "Help Manuals"
         '
         'PDFManualToolStripMenuItem
@@ -271,7 +270,7 @@ Partial Class Form1
         Me.LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
         Me.LoopBackToolStripMenuItem.Name = "LoopBackToolStripMenuItem"
         Me.LoopBackToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.L), System.Windows.Forms.Keys)
-        Me.LoopBackToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.LoopBackToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.LoopBackToolStripMenuItem.Text = "Help on LoopBack "
         Me.LoopBackToolStripMenuItem.ToolTipText = "How to fix Loopback on Windows"
         '
@@ -280,7 +279,7 @@ Partial Class Form1
         Me.ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.document_connection
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
         Me.ToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(269, 26)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(265, 22)
         Me.ToolStripMenuItem1.Text = "Help on Port Forwarding"
         Me.ToolStripMenuItem1.ToolTipText = "Web Help for Port Forwarding"
         '
@@ -289,7 +288,7 @@ Partial Class Form1
         Me.HelpOnIARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.HelpOnIARSToolStripMenuItem.Name = "HelpOnIARSToolStripMenuItem"
         Me.HelpOnIARSToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.HelpOnIARSToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.HelpOnIARSToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.HelpOnIARSToolStripMenuItem.Text = "Help on IARS"
         Me.HelpOnIARSToolStripMenuItem.ToolTipText = "Wiki Page on IAR's"
         '
@@ -298,7 +297,7 @@ Partial Class Form1
         Me.HelpOnOARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.HelpOnOARsToolStripMenuItem.Name = "HelpOnOARsToolStripMenuItem"
         Me.HelpOnOARsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.HelpOnOARsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.HelpOnOARsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.HelpOnOARsToolStripMenuItem.Text = "Help on OAR's"
         Me.HelpOnOARsToolStripMenuItem.ToolTipText = "Wiki Page on OARS"
         '
@@ -307,7 +306,7 @@ Partial Class Form1
         Me.TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
         Me.TroubleshootingToolStripMenuItem.Name = "TroubleshootingToolStripMenuItem"
         Me.TroubleshootingToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.TroubleshootingToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.TroubleshootingToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.TroubleshootingToolStripMenuItem.Text = "Help Troubleshooting"
         '
         'TechnicalInfoToolStripMenuItem
@@ -315,7 +314,7 @@ Partial Class Form1
         Me.TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.TechnicalInfoToolStripMenuItem.Name = "TechnicalInfoToolStripMenuItem"
         Me.TechnicalInfoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.Q), System.Windows.Forms.Keys)
-        Me.TechnicalInfoToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.TechnicalInfoToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.TechnicalInfoToolStripMenuItem.Text = "Help with Technical Info"
         Me.TechnicalInfoToolStripMenuItem.ToolTipText = "Technical Mumbo Jumnbio on how to configure things"
         '
@@ -324,7 +323,7 @@ Partial Class Form1
         Me.ConsoleCOmmandsToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.text_marked
         Me.ConsoleCOmmandsToolStripMenuItem1.Name = "ConsoleCOmmandsToolStripMenuItem1"
         Me.ConsoleCOmmandsToolStripMenuItem1.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.ConsoleCOmmandsToolStripMenuItem1.Size = New System.Drawing.Size(269, 26)
+        Me.ConsoleCOmmandsToolStripMenuItem1.Size = New System.Drawing.Size(265, 22)
         Me.ConsoleCOmmandsToolStripMenuItem1.Text = "Help on Console Commands"
         Me.ConsoleCOmmandsToolStripMenuItem1.ToolTipText = "Wiki Page on Console COmmands"
         '
@@ -333,7 +332,7 @@ Partial Class Form1
         Me.CommonConsoleCommandsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UsersToolStripMenuItem, Me.SendAlertToAllUsersToolStripMenuItem, Me.DebugToolStripMenuItem, Me.RestartRegionToolStripMenuItem, Me.ScriptsToolStripMenuItem, Me.ShowStatusToolStripMenuItem})
         Me.CommonConsoleCommandsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_new
         Me.CommonConsoleCommandsToolStripMenuItem.Name = "CommonConsoleCommandsToolStripMenuItem"
-        Me.CommonConsoleCommandsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.CommonConsoleCommandsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.CommonConsoleCommandsToolStripMenuItem.Text = "Issue Console Commands"
         '
         'UsersToolStripMenuItem
@@ -507,25 +506,25 @@ Partial Class Form1
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(266, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(262, 6)
         '
         'ToolStripSeparator7
         '
         Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(266, 6)
+        Me.ToolStripSeparator7.Size = New System.Drawing.Size(262, 6)
         '
         'ViewLogsToolStripMenuItem
         '
         Me.ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
         Me.ViewLogsToolStripMenuItem.Name = "ViewLogsToolStripMenuItem"
-        Me.ViewLogsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.ViewLogsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.ViewLogsToolStripMenuItem.Text = "View Logs"
         '
         'SimulatorStatsToolStripMenuItem
         '
         Me.SimulatorStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.SimulatorStatsToolStripMenuItem.Name = "SimulatorStatsToolStripMenuItem"
-        Me.SimulatorStatsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.SimulatorStatsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.SimulatorStatsToolStripMenuItem.Text = "View Simulator Stats"
         Me.SimulatorStatsToolStripMenuItem.Visible = False
         '
@@ -534,7 +533,7 @@ Partial Class Form1
         Me.ViewWebUI.Image = Global.Outworldz.My.Resources.Resources.document_view
         Me.ViewWebUI.Name = "ViewWebUI"
         Me.ViewWebUI.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.ViewWebUI.Size = New System.Drawing.Size(269, 26)
+        Me.ViewWebUI.Size = New System.Drawing.Size(265, 22)
         Me.ViewWebUI.Text = "View Web Interface"
         Me.ViewWebUI.ToolTipText = "The WIfi Interface can be used to add new users"
         '
@@ -543,19 +542,19 @@ Partial Class Form1
         Me.ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.ViewIcecastWebPageToolStripMenuItem.Name = "ViewIcecastWebPageToolStripMenuItem"
         Me.ViewIcecastWebPageToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
-        Me.ViewIcecastWebPageToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.ViewIcecastWebPageToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.ViewIcecastWebPageToolStripMenuItem.Text = "View Icecast Web Page"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(266, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(262, 6)
         '
         'DiagnosticsToolStripMenuItem
         '
         Me.DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
         Me.DiagnosticsToolStripMenuItem.Name = "DiagnosticsToolStripMenuItem"
-        Me.DiagnosticsToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.DiagnosticsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.DiagnosticsToolStripMenuItem.Text = "Network Diagnostics"
         Me.DiagnosticsToolStripMenuItem.ToolTipText = "Re-Run the installation diagnostics"
         '
@@ -563,26 +562,26 @@ Partial Class Form1
         '
         Me.ToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(269, 26)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(265, 22)
         Me.ToolStripMenuItem2.Text = "UPnP Setup Program"
         '
         'CHeckForUpdatesToolStripMenuItem
         '
         Me.CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
         Me.CHeckForUpdatesToolStripMenuItem.Name = "CHeckForUpdatesToolStripMenuItem"
-        Me.CHeckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.CHeckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.CHeckForUpdatesToolStripMenuItem.Text = "Check for Updates"
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(266, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(262, 6)
         '
         'RevisionHistoryToolStripMenuItem
         '
         Me.RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.RevisionHistoryToolStripMenuItem.Name = "RevisionHistoryToolStripMenuItem"
-        Me.RevisionHistoryToolStripMenuItem.Size = New System.Drawing.Size(269, 26)
+        Me.RevisionHistoryToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.RevisionHistoryToolStripMenuItem.Text = "Revision History"
         '
         'mnuAbout
@@ -590,7 +589,7 @@ Partial Class Form1
         Me.mnuAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.mnuAbout.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.mnuAbout.Name = "mnuAbout"
-        Me.mnuAbout.Size = New System.Drawing.Size(269, 26)
+        Me.mnuAbout.Size = New System.Drawing.Size(265, 22)
         Me.mnuAbout.Text = "About"
         '
         'MenuStrip1
@@ -844,19 +843,10 @@ Partial Class Form1
         Me.Label3.TabIndex = 34
         Me.Label3.Text = "Avatars"
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(120, 30)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 13)
-        Me.Label2.TabIndex = 36
-        Me.Label2.Text = "% CPU"
-        '
         'PercentCPU
         '
         Me.PercentCPU.AutoSize = True
-        Me.PercentCPU.Location = New System.Drawing.Point(101, 30)
+        Me.PercentCPU.Location = New System.Drawing.Point(117, 30)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
         Me.PercentCPU.TabIndex = 35
@@ -890,7 +880,6 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(304, 141)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.PercentRAM)
-        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ChartWrapper2)
@@ -1027,7 +1016,6 @@ Partial Class Form1
     Friend WithEvents PDFManualToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
     Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents PercentCPU As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents PercentRAM As Label

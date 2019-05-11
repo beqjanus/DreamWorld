@@ -59,7 +59,7 @@
         <property name="build.dir" value="${bin.dir}/${project.config}" />
     </target>
 
-<!-- included from E:\Opensim\Outworldz Dreamgrid Source\OutworldzFiles\Opensim\.nant\local.include -->
+<!-- included from C:\Opensim\Opensim Git Source\opensim\.nant\local.include -->
 <!-- -*- xml -*- -->
 <!-- please leave the top comment for us emacs folks -->
 <property name="nunitcmd" value="nunit-console" />
@@ -455,7 +455,6 @@
         <nant buildfile="OpenSim/Tools/Configger/OpenSim.Tools.Configger.exe.build" target="clean" />
         <nant buildfile="OpenSim/Tools/Compiler/OpenSim.Tools.lslc.exe.build" target="clean" />
         <nant buildfile="addon-modules/OpenSimBirds/Module/OpenSimBirds.Module.dll.build" target="clean" />
-        <nant buildfile="addon-modules/OpenSimSearch/Modules/OpenSimSearch.Modules.dll.build" target="clean" />
         <nant buildfile="addon-modules/OpenSimTide/Module/OpenSimTide.Module.dll.build" target="clean" />
         <nant buildfile="OpenSim/Tools/pCampBot/pCampBot.exe.build" target="clean" />
         <nant buildfile="OpenSim/Server/Robust.exe.build" target="clean" />
@@ -557,7 +556,6 @@
         <nant buildfile="OpenSim/Tests/Performance/OpenSim.Tests.Performance.dll.build" target="build" />
         <nant buildfile="OpenSim/Tests/Permissions/OpenSim.Tests.Permissions.dll.build" target="build" />
         <nant buildfile="addon-modules/OpenSimBirds/Module/OpenSimBirds.Module.dll.build" target="build" />
-        <nant buildfile="addon-modules/OpenSimSearch/Modules/OpenSimSearch.Modules.dll.build" target="build" />
         <nant buildfile="addon-modules/OpenSimTide/Module/OpenSimTide.Module.dll.build" target="build" />
     </target>
 
@@ -657,7 +655,6 @@
         <nant buildfile="OpenSim/Tools/Configger/OpenSim.Tools.Configger.exe.build" target="doc" />
         <nant buildfile="OpenSim/Tools/Compiler/OpenSim.Tools.lslc.exe.build" target="doc" />
         <nant buildfile="addon-modules/OpenSimBirds/Module/OpenSimBirds.Module.dll.build" target="doc" />
-        <nant buildfile="addon-modules/OpenSimSearch/Modules/OpenSimSearch.Modules.dll.build" target="doc" />
         <nant buildfile="addon-modules/OpenSimTide/Module/OpenSimTide.Module.dll.build" target="doc" />
         <nant buildfile="OpenSim/Tools/pCampBot/pCampBot.exe.build" target="doc" />
         <nant buildfile="OpenSim/Server/Robust.exe.build" target="doc" />

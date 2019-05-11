@@ -250,7 +250,7 @@ namespace OpenSim.Region.Framework.Scenes
             }
 
             foreach (TaskInventoryItem item in m_items.Values)
-                item.GroupID = groupID;
+                    item.GroupID = groupID;
 
             m_items.LockItemsForWrite(false);
         }
@@ -455,7 +455,6 @@ namespace OpenSim.Region.Framework.Scenes
             if (m_part.ParentGroup.m_savedScriptState.ContainsKey(stateID))
             {
                 XmlDocument doc = new XmlDocument();
-                doc.XmlResolver=null;
                 doc.LoadXml(m_part.ParentGroup.m_savedScriptState[stateID]);
 
                 ////////// CRUFT WARNING ///////////////////////////////////
@@ -816,10 +815,10 @@ namespace OpenSim.Region.Framework.Scenes
             m_items.LockItemsForWrite(true);
             m_items.Add(item.ItemID, item);
             m_items.LockItemsForWrite(false);
-                if (allowedDrop)
-                    m_part.TriggerScriptChangedEvent(Changed.ALLOWED_DROP);
-                else
-                    m_part.TriggerScriptChangedEvent(Changed.INVENTORY);
+            if (allowedDrop)
+                m_part.TriggerScriptChangedEvent(Changed.ALLOWED_DROP, item.ItemID);
+            else
+                m_part.TriggerScriptChangedEvent(Changed.INVENTORY);
 
             m_part.AggregateInnerPerms();
             m_inventorySerial++;
@@ -1454,7 +1453,7 @@ namespace OpenSim.Region.Framework.Scenes
             {
                 if (item.InvType == (int)InventoryType.LSL)
                     count++;
-            }
+                }
             m_items.LockItemsForRead(false);
             return count;
         }
@@ -1479,9 +1478,9 @@ namespace OpenSim.Region.Framework.Scenes
                     {
                         if (engine.GetScriptState(item.ItemID))
                             count++;
+                        }
                     }
                 }
-            }
             return count;
         }
 

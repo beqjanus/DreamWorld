@@ -149,10 +149,10 @@ Public Class FormBackups
     Private Sub Backup()
 
         'Create an instance of the open file dialog box.
-        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog
-
-        openFileDialog1.ShowNewFolderButton = True
-        openFileDialog1.Description = "Pick folder for backups"
+        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+            .ShowNewFolderButton = True,
+            .Description = "Pick folder for backups"
+        }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 
         ' Process input if the user clicked OK.

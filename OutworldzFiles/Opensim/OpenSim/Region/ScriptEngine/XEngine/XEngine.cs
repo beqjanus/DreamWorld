@@ -2079,8 +2079,7 @@ namespace OpenSim.Region.ScriptEngine.XEngine
             }
             else
             {
-                eq.Enqueue(eq.ScriptRunningEvent(objectID, itemID, GetScriptState(itemID), true),
-                           controllingClient.AgentId);
+                eq.ScriptRunningEvent(objectID, itemID, GetScriptState(itemID), controllingClient.AgentId);
             }
         }
 
@@ -2098,7 +2097,7 @@ namespace OpenSim.Region.ScriptEngine.XEngine
             string xml = instance.GetXMLState();
 
             XmlDocument sdoc = new XmlDocument();
-            sdoc.XmlResolver=null;
+
             bool loadedState = true;
             try
             {
@@ -2236,7 +2235,7 @@ namespace OpenSim.Region.ScriptEngine.XEngine
 
             stateData.AppendChild(mapData);
 
-//            m_log.DebugFormat("[XEngine]: Got XML state for {0}", itemID);
+            // m_log.DebugFormat("[XEngine]: Got XML state for {0}", itemID);
 
             return doc.InnerXml;
         }
@@ -2254,7 +2253,6 @@ namespace OpenSim.Region.ScriptEngine.XEngine
                 return false;
 
             XmlDocument doc = new XmlDocument();
-            doc.XmlResolver=null;
 
             try
             {

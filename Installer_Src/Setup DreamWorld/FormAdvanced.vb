@@ -107,8 +107,9 @@ Public Class AdvancedForm
         ' Set the new form's desktop location so it appears below and
         ' to the right of the current form.
         Icecast.Close()
-        Icecast = New Icecast
-        Icecast.Visible = True
+        Icecast = New Icecast With {
+            .Visible = True
+        }
         Icecast.Activate()
 
     End Sub

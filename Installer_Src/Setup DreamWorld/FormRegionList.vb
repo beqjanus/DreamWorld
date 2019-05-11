@@ -84,7 +84,7 @@ Public Class RegionList
             ' Update the drawing based upon the mouse wheel scrolling.
             Dim numberOfTextLinesToMove As Integer = CInt(e.Delta * SystemInformation.MouseWheelScrollLines / 120)
 
-            pixels = pixels + numberOfTextLinesToMove
+            pixels += numberOfTextLinesToMove
             'Debug.Print(pixels.ToString)
             If pixels > 256 Then pixels = 256
             If pixels < 10 Then pixels = 10
@@ -118,7 +118,7 @@ Public Class RegionList
 
 #Region "Loader"
 
-    Private Sub _Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         pixels = 70
         RegionList.FormExists = True
 
@@ -238,7 +238,7 @@ Public Class RegionList
         If UpdateView() Or Timertick Mod 120 = 0 Then ' force a refresh
             LoadMyListView()
         End If
-        Timertick = Timertick + 1
+        Timertick += 1
 
     End Sub
 #End Region
@@ -328,9 +328,10 @@ Public Class RegionList
 
 
                 ' Create items and subitems for each item.
-                Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num)
                 ' Place a check mark next to the item.
-                item1.Checked = RegionClass.RegionEnabled(X)
+                Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num) With {
+                    .Checked = RegionClass.RegionEnabled(X)
+                }
                 item1.SubItems.Add(RegionClass.GroupName(X).ToString)
                 item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
                 item1.SubItems.Add(Letter)
@@ -480,7 +481,7 @@ Public Class RegionList
                     item1.SubItems.Add(Agent.Value)
                     item1.SubItems.Add("Local")
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index = Index + 1
+                    Index += 1
                 Next
 
                 If Index = 0 Then
@@ -488,7 +489,7 @@ Public Class RegionList
                     item1.SubItems.Add("-")
                     item1.SubItems.Add("Local Grid")
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index = Index + 1
+                    Index += 1
                 End If
 
             Catch ex As Exception
@@ -496,7 +497,7 @@ Public Class RegionList
                 item1.SubItems.Add("-")
                 item1.SubItems.Add("Local Grid")
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index = Index + 1
+                Index += 1
             End Try
 
 
@@ -512,7 +513,7 @@ Public Class RegionList
                         item1.SubItems.Add(Agent.Value)
                         item1.SubItems.Add("Hypergrid")
                         AvatarView.Items.AddRange(New ListViewItem() {item1})
-                        Index = Index + 1
+                        Index += 1
                     End If
                 Next
 
@@ -699,21 +700,21 @@ Public Class RegionList
                 Form1.Print("Recycle " + RegionClass.GroupName(n))
                 Form1.gRestartNow = True
 
-                    ' shut down all regions in the DOS box
+                ' shut down all regions in the DOS box
 
-                    For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
-                        RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
-                        RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
-                    Next
-                    UpdateView = True ' make form refresh
+                For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
+                    RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
+                Next
+                UpdateView = True ' make form refresh
 
-                End If
+            End If
 
-                If chosen.Length > 0 Then
+            If chosen.Length > 0 Then
                 Choices.Dispose()
             End If
-        Catch ex As Exception
-            chosen = ""
+        Catch
+
         End Try
 
 
@@ -795,10 +796,8 @@ Public Class RegionList
 
         Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
 
-        Dim dirpathname = ""
-
-        dirpathname = PickGroup()
-        If dirpathname = "" Then
+        Dim dirpathname = PickGroup()
+        If dirpathname.Length = 0 Then
             Form1.Print("Aborted")
             Return
         End If
@@ -817,12 +816,12 @@ Public Class RegionList
 
                 If dirpathname = "" Then dirpathname = filename
 
-                Dim NewFilepath = Form1.gPath & "bin\Regions\" + dirpathname + "\Region\"
+                Dim NewFilepath = Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
                 If Not Directory.Exists(NewFilepath) Then
-                    Directory.CreateDirectory(Form1.gPath & "bin\Regions\" + dirpathname + "\Region")
+                    Directory.CreateDirectory(Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
                 End If
 
-                File.Copy(pathname, Form1.gPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                File.Copy(pathname, Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
 
             Else
                 Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Repository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>metaverseink.com</Name>
-  <Url>http://metaverseink.com/repo/main.mrep</Url>
-  <Repository>
-    <Url>root.mrep</Url>
-    <LastModified>2017-08-16T18:36:03.7487157-05:00</LastModified>
-  </Repository>
-</Repository>

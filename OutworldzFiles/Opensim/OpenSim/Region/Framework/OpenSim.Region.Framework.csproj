@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>9.0.30729</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{C98F6D97-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Region.Framework</RootNamespace>
@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -41,6 +41,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -48,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE</DefineConstants>
+	  <DefineConstants>TRACE;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -61,6 +62,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Reference Include="DotNetOpenMail" >
@@ -247,9 +249,6 @@
 	  <Compile Include="Interfaces\IEntityInventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\IEntityTransferModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Interfaces\IEnvironmentModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -257,9 +256,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IEtcdModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IEventQueue.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IExternalCapsModule.cs">
@@ -275,9 +271,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IGroupsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IHttpRequests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IInventoryAccessModule.cs">
@@ -382,9 +375,6 @@
 	  <Compile Include="Interfaces\ISnmpModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\ISoundModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Interfaces\ISunModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -433,13 +423,25 @@
 	  <Compile Include="Interfaces\IXmlRpcRouter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Interfaces\IEntityTransferModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IEventQueue.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IHttpRequests.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\ISoundModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IMaterialsModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\AsyncInventorySender.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\AsyncSceneObjectGroupDeleter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Cardinals.cs">
@@ -454,19 +456,7 @@
 	  <Compile Include="Scenes\EntityBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\EntityManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\EventManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scenes\GodController.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\KeyframeMotion.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\Prioritizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\RegionStatsHandler.cs">
@@ -475,7 +465,37 @@
 	  <Compile Include="Scenes\ReturnInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Scene.cs">
+	  <Compile Include="Scenes\Scene.Permissions.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SceneBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\ScenePresenceStateMachine.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\UndoState.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\AsyncSceneObjectGroupDeleter.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\EntityManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\EventManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\KeyframeMotion.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\Prioritizer.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SOPMaterial.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\SOPVehicle.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Scene.Inventory.cs">
@@ -484,10 +504,7 @@
 	  <Compile Include="Scenes\Scene.PacketHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\Scene.Permissions.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SceneBase.cs">
+	  <Compile Include="Scenes\Scene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneCommunicationService.cs">
@@ -499,10 +516,10 @@
 	  <Compile Include="Scenes\SceneManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\SceneObjectGroup.cs">
+	  <Compile Include="Scenes\SceneObjectGroup.Inventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\SceneObjectGroup.Inventory.cs">
+	  <Compile Include="Scenes\SceneObjectGroup.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneObjectPart.cs">
@@ -514,16 +531,7 @@
 	  <Compile Include="Scenes\ScenePresence.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\ScenePresenceStateMachine.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scenes\SimStatsReporter.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SOPMaterial.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\SOPVehicle.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\TerrainChannel.cs">
@@ -533,9 +541,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\TerrainUtil.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\UndoState.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\UuidGatherer.cs">
@@ -572,7 +577,7 @@
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 	<PropertyGroup>
 	  <PreBuildEvent>
 	  </PreBuildEvent>

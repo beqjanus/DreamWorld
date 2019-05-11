@@ -250,6 +250,8 @@ namespace OpenSim.Server.Base
                 }
             }
 
+            MainServer.Stop();
+
             MemoryWatchdog.Enabled = false;
             Watchdog.Enabled = false;
             WorkManager.Stop();
@@ -260,6 +262,8 @@ namespace OpenSim.Server.Base
 
         protected override void ShutdownSpecific()
         {
+            if(!m_Running)
+                return;
             m_Running = false;
             m_log.Info("[CONSOLE] Quitting");
 

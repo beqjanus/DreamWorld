@@ -319,8 +319,11 @@ Public Class FormDiva
 
         If Not initted Then Return
         If SearchLocalRadioButton.Checked Then
-            Form1.MySetting.SearchLocal = False
+            Form1.MySetting.SearchLocal = True
             SearchAllRadioButton.Checked = False
+        Else
+            Form1.MySetting.SearchLocal = False
+            SearchAllRadioButton.Checked = True
         End If
 
 

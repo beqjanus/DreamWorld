@@ -1,3 +1,4 @@
+;; ROBUST VERSION
 ;; This is the main configuration file for OpenSimulator.
 ;; If it's named OpenSim.ini then it will be loaded by OpenSimulator.
 ;; If it's named OpenSim.ini.example then you will need to copy it to
@@ -43,14 +44,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8021
+http_listener_port=8006
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=Joe
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=127.0.0.1
+BaseHostname=10.6.1.103
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -65,7 +66,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://127.0.0.1
+PrivURL=http://10.6.1.103
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -141,6 +142,7 @@ ConfigDirectory="."
 ;; these from the filesystem.
 ;; Defaults to bin/Regions in your OpenSimulator installation directory
 ; regionload_regionsdir="C:\somewhere\xmlfiles\"
+; Used by DreamGrid - do not change this
 regionload_regionsdir=./Regions/${Const|RegionFolderName}/Region/
 
 ;# {regionload_webserver_url} {region_info_source} {URL to load region from?} {}
@@ -167,6 +169,7 @@ MaxPrimUndos=20
 ;; Maximum size for non-physical prims.  Affects resizing of existing
 ;; prims. This can be overridden in the region config file (as
 ;; NonPhysicalPrimMax!).
+; Used by DreamGrid - do not change this
 NonPhysicalPrimMax=1024
 
 ;# {PhysicalPrimMin} {} {Minimum size of physical prims?} {} 0.01
@@ -176,6 +179,7 @@ NonPhysicalPrimMax=1024
 ;# {PhysicalPrimMax} {} {Maximum size of physical prims?} {} 64
 ;; Maximum size where a prim can be physical.  Affects resizing of
 ;; existing prims.  This can be overridden in the region config file.
+; Used by DreamGrid - do not change this
 PhysicalPrimMax=128
 
 ;# {ClampPrimSize} {} {Clamp viewer rezzed prims to max sizes?} {true false} false
@@ -209,7 +213,8 @@ PhysicalPrimMax=128
 ;; This is meant to be used on systems where some external system like
 ;; Monit will restart any instance that exits, thereby making the shutdown
 ;; into a restart.
-; InworldRestartShutsDown = false
+InworldRestartShutsDown=true
+
 ;# Persistence of changed objects happens during regular sweeps. The
 ;; following control that behaviour to prevent frequently changing objects
 ;; from heavily loading the region data store.
@@ -239,6 +244,7 @@ PhysicalPrimMax=128
 ;; Default is Meshmerizer
 ; meshing = Meshmerizer
 ; meshing = ZeroMesher
+; Used by DreamGrid - do not change this
 meshing=Meshmerizer
 
 ;; Choose one of the physics engines below
@@ -253,9 +259,10 @@ meshing=Meshmerizer
 ; physics = BulletSim
 ; physics = basicphysics
 ; physics = POS
+; Used by DreamGrid - do not change this
 physics=BulletSim
 
-;
+; Used by DreamGrid - do not change this
 UseSeparatePhysicsThread=true
 
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
@@ -309,7 +316,7 @@ Stats_URI="jsonSimStats"
 ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
-economymodule=
+economymodule=BetaGridLikeMoneyModule
 
 [RegionReady]
 
@@ -359,7 +366,7 @@ alert_uri=http://localhost:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=false
+GenerateMaptiles=true
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -476,7 +483,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=127.0.0.1
+host_domain_header_from=10.6.1.103
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -525,8 +532,6 @@ http_listener_port=${Const|http_listener_port}
 ; If you need to allow scripts to make some LAN calls use the OutboundDisallowForUserScriptsExcept parameter below.
 ; We recommend that you do not override OutboundDisallowForUserScripts directly unless you are very sure about what you're doing.
 ;
-OutboundDisallowForUserScriptsExcept=127.0.0.1/32
-
 ; You can whitelist individual endpoints by IP or FQDN, e.g.
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.3:8003
@@ -546,6 +551,8 @@ OutboundDisallowForUserScriptsExcept=127.0.0.1/32
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
+OutboundDisallowForUserScriptsExcept=10.6.1.103/32
+
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
 ;; By default, llHTTPRequest limits the response body to 2048 bytes.
@@ -561,7 +568,7 @@ OutboundDisallowForUserScriptsExcept=127.0.0.1/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=127.0.0.1
+ExternalHostNameForLSL=10.6.1.103
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -705,6 +712,7 @@ MuteListURL=http://www.outworldz.com/Mute.php
 ;; Default is true.
 ;; This applies to both core groups module.
 ForwardOfflineGroupMessages=true
+OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
 
 [BulletSim]
 
@@ -775,6 +783,21 @@ UseSeparatePhysicsThread=true
 ;; Path to default appearance XML file that specifies the look of the
 ;; default avatars
 ; default_appearance = default_appearance.xml
+[Sun]
+
+; number of wall clock hours for an opensim day.  24.0 would mean realtime
+day_length=24
+
+; Year length in days
+year_length=365
+
+; Day to Night Ratio
+day_night_offset=0.45
+
+; send a Sun update every update_interval # of frames.  A lower number will
+; make for smoother sun transition at the cost of network
+update_interval=100
+
 [Wind]
 
 ;# {enabled} {} {Enable wind module?} {true false} true
@@ -821,7 +844,7 @@ enable_windlight=true
 ;; searchable data.
 ;; If false, no data will be exposed, DataSnapshot module will be off,
 ;; and you can ignore the rest of these search-related configs.
-index_sims=True
+index_sims=true
 
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
@@ -832,7 +855,7 @@ data_exposure=minimum
 ;# {gridname} {index_sims:true} {Enter the name fo your grid} {} OSGrid
 ;; If search is on, change this to your grid name; will be ignored for
 ;; standalones
-gridname="${Const|GridName}"
+gridname=${Const|GridName}
 
 ;
 ;# {default_snapshot_period} {index_sims:true} {Period between data snapshots?} {} 1200
@@ -853,14 +876,14 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
 ;data_services=http://www.hyperica.com/Search/register.php
-data_services=${Const|PrivURL}/Search/register.php;http://www.hyperica.com/Search/register.php
-indexsims=true
+data_services=http://www.hyperica.com/Search/register.php
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=${Const|PrivURL}/Search/query.php
+SearchURL=http://www.hyperica.com/Search/query.php
+SimulatorFeatures=http://www.hyperica.com/Search/query.php
 
 [Economy]
 
@@ -924,7 +947,7 @@ SellEnabled=true
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=false
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts
@@ -977,26 +1000,6 @@ KillTimedOutScripts=true
 ;; If this INI file is not included, the OSSL functions are disabled.
 Include-osslEnable="config-include/osslEnableDG.ini"
 
-[MRM]
-
-;; Enables the Mini Region Modules Script Engine.
-; Enabled = false
-;; Runs MRM in a Security Sandbox
-;; WARNING: DISABLING IS A SECURITY RISK.
-; Sandboxed = true
-;; The level sandbox to use, adjust at your OWN RISK.
-;; Valid values are:
-;; *  FullTrust
-;; *  SkipVerification
-;; *  Execution
-;; *  Nothing
-;; *  LocalIntranet
-;; *  Internet
-;; *  Everything
-; SandboxLevel = "Internet"
-;; Only allow Region Owners to run MRMs
-;; May represent a security risk if you disable this.
-; OwnerOnly = true
 [FreeSwitchVoice]
 
 ;; In order for this to work you need a functioning FreeSWITCH PBX set up.
@@ -1131,6 +1134,7 @@ NoticesEnabled=true
 ; Should make large groups with few online members messaging faster, as the expense of more calls to presence service
 ; Applies Flotsam Group only. V2 has this always on, no other option
 MessageOnlineUsersOnly=true
+GroupsExternalURI=${Const|PrivURL}:${Const|PrivatePort}
 
 ;; This makes the Group module very chatty on the console.
 ; DebugEnabled = false
@@ -1145,8 +1149,7 @@ MessageOnlineUsersOnly=true
 ;# {UpdatePrioritizationScheme} {} {Update prioritization scheme?} {BestAvatarResponsiveness Time Distance SimpleAngularDistance FrontBack} BestAvatarResponsiveness
 ;; This section controls how state updates are prioritized for each client
 ;; Valid values are BestAvatarResponsiveness, Time, Distance,
-UpdatePrioritizationScheme=FrontBack
-
+; UpdatePrioritizationScheme=BestAvatarResponsiveness
 ; TEST OPTION KEEP AS FALSE
 ; if true, don't send object updates if outside view range
 ; ObjectsCullingByDistance = false
@@ -1294,36 +1297,19 @@ Include-Architecture="config-include/GridHypergrid.ini"
 ;the bin directory for your auto backups for this reason.
 ; Automatically changed by Dreamworld - do not change this
 AutoBackupModuleEnabled=true
-AutoBackup=false
-AutoBackupInterval=7200
+AutoBackup=true
+AutoBackupInterval=720
 AutoBackupBusyCheck=false
 AutoBackupThreshold=1
 AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=/Opensim/Outworldz Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
 
-[CameraOnlyModeModule]
-
-;# include the camera versus avatar settings.
-enabled=false
-
-; Automatically changed by Dreamworld - do not change this
-;; Users with UserLevel equal or less than this will be sent this mode.
-;; Others above will not.
-; Automatically changed by Dreamworld - do not change this
-UserLevel=0
-
-;
-[SpecialUIModule]
-
-; Automatically changed by Dreamworld - do not change this
-enabled=false
-
-; Automatically changed by Dreamworld - do not change this
+; Automatically changed by Dreamworld - do not change this - Should be True ( case snsitive)
 [WebStats]
-enabled=True
+enabled=False
 
 ;
 ;; Thankxx to a tip from Jeremy Westfall!
@@ -1340,14 +1326,8 @@ density=0.5
 ; default is 1000
 cloud_update_rate=1000
 
-; ##
-; ## SERVER RELEASE NOTES by Johan Neddings
-; ##
-[ServerReleaseNotesURL]
-enabled=true
-ServerReleaseNotesURL="https://www.outworldz.com/outworldz_installer/revisions.txt"
-
 [Modules]
-MIImageServiceModule=true
+
+;;LandServices module is required for ossearch to function properly in grid mode.
 LandServices="RemoteLandServicesConnector"
-LandServiceInConnector="true"
+LandServiceConnector="True"

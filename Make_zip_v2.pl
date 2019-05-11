@@ -5,32 +5,25 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.83' ;  # '-Beta-V1.5';
+my $type  = '-V2.9' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
-
-
-if (-e "../Zips/DreamGrid$type.zip") {
-	say("y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip")
-}
-
-say ('Making ' . $dir . ' ' .  $type);
 
 say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
 
-
 my $x = `net stop ApacheHTTPServer`;
 $x =~ /was stopped|^$/  || die;
 
-	
-	say("Clean up opensim");
+say("Clean up opensim");
 my @deletions = (
 	"$dir/OutworldzFiles/AutoBackup",
+	
 	"$dir/OutworldzFiles/Opensim/WifiPages-Custom",
+	
 	"$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
 	"$dir/OutworldzFiles/Opensim/bin/datasnapshot",
 	"$dir/OutworldzFiles/Opensim/bin/assetcache",
@@ -40,10 +33,12 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
 	"$dir/OutworldzFiles/Opensim/bin/bakes",
+	"$dir/OutworldzFiles/Opensim/bin/addin-db-002",
+	"$dir/OutworldzFiles/Opensim/bin/fsassets",
+	
 	"$dir/OutworldzFiles/mysql/data/opensim",
 	"$dir/OutworldzFiles/mysql/data/robust",
-	"$dir/OutworldzFiles/mysql/data/addin-db-002",
-	"$dir/OutworldzFiles/mysql/data/fsassets",
+	
 	"$dir/OutworldzFiles/Apache/logs/",
 );
 
@@ -81,16 +76,39 @@ unlink "$dir/OutworldzFiles/http.log" ;
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
 
-#unlink "$dir/Start.exe" ;
-#unlink "$dir/Interop.IWshRuntimeLibrary.dll";
+print "DLL List";
+use File::Find;
+
+open (OUT, ">", 'dlls.txt');
+
+find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/Outworldzfiles/opensim/bin/');
+
+sub process_file {
+   # if (-f $_) {
+       # print "This is a file: $_\n";
+    #} else {
+       # print "This is not file: $_\n";
+   # }
+	if ($_ !~ /dll$/) {
+		return;
+	}
+	my $fullpath = $_;
+	$fullpath =~ s/$dir//g;
+	$fullpath =~ s/\//\\/g;
+	
+	print OUT $fullpath . "\n";	
+}
+
+close OUT;
+
 if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Release/Start.exe", "$dir"))  {die $!;}
-#if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Interop.IWshRuntimeLibrary.dll", "$dir/Interop.IWshRuntimeLibrary.dll"))  {die $!;}
 
 
 say("Signing");
 use IO::All;
 
 my @files = io->dir($dir)->all(0);  
+
 
 foreach my $file (@files) {
     my $name = $file->name;
@@ -120,6 +138,7 @@ chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 print `mysqladmin.exe --port 3309 -u root shutdown`;
 print `mysqladmin.exe --port 3306 -u root shutdown`;
 
+sleep(5);
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
@@ -172,19 +191,17 @@ unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip";
 if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip"))  {die $!;}
 
 #web server
-print "Server Copy Update\n";
+print "Copy Update\n";
 unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";
 if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
 
 
-if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
-if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 
-say ("Dropbox");
-unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
-if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
-unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
-if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
+#say ("Dropbox");
+#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
+#if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
+#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
+#if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
 
 if ($publish)
 {
@@ -196,7 +213,12 @@ if ($publish)
 
 }
 
-$x = `net start ApacheHTTPServer`;
+
+print "Revisions\n";
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.rtf'))  {die $!;}
+if (!copy ('Outworldzfiles\Help\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+if (!copy ('Revisions.txt', 			'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+
 
 say "Done!";
 

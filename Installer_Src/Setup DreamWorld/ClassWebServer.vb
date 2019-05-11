@@ -8,31 +8,31 @@ Imports System.Xml
 
 Public Class NetServer
     Private running As Boolean = False
-    Private LocalTCPListener As TcpListener
+
     Dim listen As Boolean = True
-    Private LocalAddress As IPAddress
+
     Private WebThread As Thread
     Private Shared blnFlag As Boolean
     Private Shared singleWebserver As NetServer
     Private Myfolder As String
-    Private IP As String = Nothing
-    Private MyPort As Integer
+
+    Private MyPort As String
+#Disable Warning IDE0044 ' Add readonly modifier
     Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
+#Enable Warning IDE0044 ' Add readonly modifier
     Dim Setting As MySettings
 
-    Public Sub StartServer(pathinfo As String, MySetting As MySettings, IP As String, Port As Integer)
+    Public Sub StartServer(pathinfo As String, MySetting As MySettings)
 
         ' stash some globs
         Setting = MySetting
-        MyPort = Port
+        MyPort = MySetting.DiagnosticPort
         Myfolder = pathinfo
-        LocalAddress = IPAddress.Parse(IP)
-        'LocalAddress = IPAddress.Parse("10.135.90.101")
 
         If running Then Return
 
         Try
-            Log("Info","Starting Diagnostic Webserver")
+            Log("Info", "Starting Diagnostic Webserver")
             WebThread = New Thread(AddressOf Looper)
             WebThread.SetApartmentState(ApartmentState.STA)
             WebThread.Start()
@@ -51,7 +51,7 @@ Public Class NetServer
         Dim listener = New System.Net.HttpListener()
         listener.Prefixes.Clear()
         'listener.Prefixes.Add("http://" + LocalAddress.ToString + ":" + MyPort.ToString + "/")
-        listener.Prefixes.Add("http://+:" + MyPort.ToString + "/")
+        listener.Prefixes.Add("http://+:" + MyPort + "/")
 
         Try
             listener.Start() ' Throws Exception
@@ -77,12 +77,12 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log("Info","Stopping Webserver")
+        Log("Info", "Stopping Webserver")
         listen = False
         Application.DoEvents()
         WebThread.Abort()
         'WebThread.Join()
-        Log("Info","Shutdown Complete")
+        Log("Info", "Shutdown Complete")
 
     End Sub
 

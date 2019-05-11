@@ -1,7 +1,7 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 	<PropertyGroup>
 	  <ProjectType>Local</ProjectType>
-	  <ProductVersion>9.0.30729</ProductVersion>
+	  <ProductVersion>14.0.23107.0</ProductVersion>
 	  <SchemaVersion>2.0</SchemaVersion>
 	  <ProjectGuid>{FF56527B-0000-0000-0000-000000000000}</ProjectGuid>
 	  <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
 	  <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
 	  <DefaultTargetSchema>IE50</DefaultTargetSchema>
 	  <DelaySign>false</DelaySign>
-	  <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	  <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
 	  <OutputType>Library</OutputType>
 	  <AppDesignerFolder></AppDesignerFolder>
 	  <RootNamespace>OpenSim.Capabilities</RootNamespace>
@@ -28,7 +28,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE;DEBUG</DefineConstants>
+	  <DefineConstants>TRACE;DEBUG;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>True</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -41,6 +41,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -48,7 +49,7 @@
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
 	  </ConfigurationOverrideFile>
-	  <DefineConstants>TRACE</DefineConstants>
+	  <DefineConstants>TRACE;</DefineConstants>
 	  <DocumentationFile></DocumentationFile>
 	  <DebugSymbols>False</DebugSymbols>
 	  <FileAlignment>4096</FileAlignment>
@@ -61,6 +62,7 @@
 	  <NoStdLib>False</NoStdLib>
 	  <NoWarn></NoWarn>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
+	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Reference Include="log4net" >
@@ -129,13 +131,7 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="Caps.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="CapsHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSD.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDArray.cs">
@@ -157,15 +153,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDEmpty.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSDEnvironmentSettings.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSDHelpers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSDInventoryFolder.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDInventoryItem.cs">
@@ -192,9 +179,6 @@
 	  <Compile Include="LLSDParcelVoiceInfoResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLSDRemoteParcelResponse.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LLSDStreamHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -216,8 +200,20 @@
 	  <Compile Include="LLSDVoiceAccountResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Caps.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLSD.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLSDHelpers.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLSDInventoryFolder.cs">
+		<SubType>Code</SubType>
+	  </Compile>
   </ItemGroup>
-	<Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 	<PropertyGroup>
 	  <PreBuildEvent>
 	  </PreBuildEvent>

@@ -4,35 +4,16 @@
 <head>
 <title>Simulator statistics</title>
 <link rel="stylesheet" href="sim.css" type="text/css"/>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="jquery.js"></script> -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.0.min.js"></script> -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/libs/jQuery/jquery-1.9.0.min.js"></script> -->
 <noscript>
 <p color="red">
 Your browser does not support Javascript. This won't work for you.
 </p>
 </noscript>
 <script type="text/javascript">
-
-function gup( name ){
-	 name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	 var regexS = "[\\?&]"+name+"=([^&#]*)";
-	 var regex = new RegExp( regexS );
-	 var results = regex.exec( window.location.href );
-
-	 if( results == null )
-	 return "";
-else
-   results[1] = results[1].replace(/\+/g," ");
- 	return results[1];
-}
-
-var simName = "localhost";
-var simPort = "8200";
-
-var tmp = gup('port');
-if (tmp.length) {
-    simPort = tmp;
-}
-
 $(document).ready(function() {
     // Major divisions in the content accordioning
     $('.SimSection').show('slow');
@@ -40,8 +21,7 @@ $(document).ready(function() {
         $(this).next().slideToggle('slow');
         return false;
     });
-    TimerStatDisplay();
-    
+
     // Start the timed functions
     TimerDataStuff();
 });
@@ -75,7 +55,8 @@ function TimerStatDisplay() {
     doingStatDisplay = false;
 }
 
-
+var simName = "127.0.0.1";
+var simPort = "9000";
 function DisplaySimStats() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/?json=1";
     $.ajax({

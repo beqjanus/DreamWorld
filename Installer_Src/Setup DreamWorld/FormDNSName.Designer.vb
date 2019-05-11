@@ -33,11 +33,17 @@ Partial Class FormDNSName
         Me.NextNameButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.DNSNameBox = New System.Windows.Forms.TextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.OsGridButton = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.GridServerButton = New System.Windows.Forms.RadioButton()
+        Me.GridRegionButton = New System.Windows.Forms.RadioButton()
+        Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.OsGridButton.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -49,7 +55,7 @@ Partial Class FormDNSName
         'SuitcaseCheckbox
         '
         Me.SuitcaseCheckbox.AutoSize = True
-        Me.SuitcaseCheckbox.Location = New System.Drawing.Point(16, 56)
+        Me.SuitcaseCheckbox.Location = New System.Drawing.Point(16, 42)
         Me.SuitcaseCheckbox.Name = "SuitcaseCheckbox"
         Me.SuitcaseCheckbox.Size = New System.Drawing.Size(150, 17)
         Me.SuitcaseCheckbox.TabIndex = 1877
@@ -60,7 +66,7 @@ Partial Class FormDNSName
         'EnableHypergrid
         '
         Me.EnableHypergrid.AutoSize = True
-        Me.EnableHypergrid.Location = New System.Drawing.Point(16, 33)
+        Me.EnableHypergrid.Location = New System.Drawing.Point(16, 19)
         Me.EnableHypergrid.Name = "EnableHypergrid"
         Me.EnableHypergrid.Size = New System.Drawing.Size(107, 17)
         Me.EnableHypergrid.TabIndex = 1873
@@ -71,7 +77,7 @@ Partial Class FormDNSName
         'DynDNSHelp
         '
         Me.DynDNSHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DynDNSHelp.Location = New System.Drawing.Point(248, 62)
+        Me.DynDNSHelp.Location = New System.Drawing.Point(239, 47)
         Me.DynDNSHelp.Name = "DynDNSHelp"
         Me.DynDNSHelp.Size = New System.Drawing.Size(30, 34)
         Me.DynDNSHelp.TabIndex = 1874
@@ -80,7 +86,7 @@ Partial Class FormDNSName
         '
         'UniqueId
         '
-        Me.UniqueId.Location = New System.Drawing.Point(146, 135)
+        Me.UniqueId.Location = New System.Drawing.Point(137, 120)
         Me.UniqueId.Name = "UniqueId"
         Me.UniqueId.Size = New System.Drawing.Size(132, 20)
         Me.UniqueId.TabIndex = 1875
@@ -88,7 +94,7 @@ Partial Class FormDNSName
         '
         'TestButton1
         '
-        Me.TestButton1.Location = New System.Drawing.Point(124, 177)
+        Me.TestButton1.Location = New System.Drawing.Point(180, 162)
         Me.TestButton1.Name = "TestButton1"
         Me.TestButton1.Size = New System.Drawing.Size(75, 23)
         Me.TestButton1.TabIndex = 1872
@@ -98,7 +104,7 @@ Partial Class FormDNSName
         '
         'NextNameButton
         '
-        Me.NextNameButton.Location = New System.Drawing.Point(28, 177)
+        Me.NextNameButton.Location = New System.Drawing.Point(19, 162)
         Me.NextNameButton.Name = "NextNameButton"
         Me.NextNameButton.Size = New System.Drawing.Size(78, 23)
         Me.NextNameButton.TabIndex = 1870
@@ -108,44 +114,43 @@ Partial Class FormDNSName
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(217, 177)
+        Me.SaveButton.Location = New System.Drawing.Point(316, 164)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(64, 23)
+        Me.SaveButton.Size = New System.Drawing.Size(99, 23)
         Me.SaveButton.TabIndex = 1871
-        Me.SaveButton.Text = "Save"
+        Me.SaveButton.Text = "Save Settings"
         Me.ToolTip1.SetToolTip(Me.SaveButton, "Save DNS name")
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'DNSNameBox
         '
-        Me.DNSNameBox.Location = New System.Drawing.Point(25, 102)
+        Me.DNSNameBox.Location = New System.Drawing.Point(16, 87)
         Me.DNSNameBox.Name = "DNSNameBox"
         Me.DNSNameBox.Size = New System.Drawing.Size(253, 20)
         Me.DNSNameBox.TabIndex = 1869
         Me.ToolTip1.SetToolTip(Me.DNSNameBox, "Alpha-Numeric plus - ( no spaces or special chars)")
         '
-        'GroupBox1
+        'OsGridButton
         '
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.SuitcaseCheckbox)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.EnableHypergrid)
-        Me.GroupBox1.Controls.Add(Me.DynDNSHelp)
-        Me.GroupBox1.Controls.Add(Me.UniqueId)
-        Me.GroupBox1.Controls.Add(Me.TestButton1)
-        Me.GroupBox1.Controls.Add(Me.NextNameButton)
-        Me.GroupBox1.Controls.Add(Me.SaveButton)
-        Me.GroupBox1.Controls.Add(Me.DNSNameBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 2)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(303, 221)
-        Me.GroupBox1.TabIndex = 1869
-        Me.GroupBox1.TabStop = False
+        Me.OsGridButton.Controls.Add(Me.Label2)
+        Me.OsGridButton.Controls.Add(Me.SuitcaseCheckbox)
+        Me.OsGridButton.Controls.Add(Me.Label1)
+        Me.OsGridButton.Controls.Add(Me.EnableHypergrid)
+        Me.OsGridButton.Controls.Add(Me.DynDNSHelp)
+        Me.OsGridButton.Controls.Add(Me.UniqueId)
+        Me.OsGridButton.Controls.Add(Me.TestButton1)
+        Me.OsGridButton.Controls.Add(Me.NextNameButton)
+        Me.OsGridButton.Controls.Add(Me.DNSNameBox)
+        Me.OsGridButton.Location = New System.Drawing.Point(12, 2)
+        Me.OsGridButton.Name = "OsGridButton"
+        Me.OsGridButton.Size = New System.Drawing.Size(287, 213)
+        Me.OsGridButton.TabIndex = 1869
+        Me.OsGridButton.TabStop = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(25, 86)
+        Me.Label2.Location = New System.Drawing.Point(16, 71)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(224, 13)
         Me.Label2.TabIndex = 1878
@@ -154,18 +159,77 @@ Partial Class FormDNSName
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(26, 138)
+        Me.Label1.Location = New System.Drawing.Point(17, 123)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(97, 13)
         Me.Label1.TabIndex = 1876
         Me.Label1.Text = "DynDNS password"
         '
+        'GridServerButton
+        '
+        Me.GridServerButton.AutoSize = True
+        Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
+        Me.GridServerButton.Name = "GridServerButton"
+        Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
+        Me.GridServerButton.TabIndex = 1879
+        Me.GridServerButton.TabStop = True
+        Me.GridServerButton.Text = "Grid Server With Robust"
+        Me.GridServerButton.UseVisualStyleBackColor = True
+        '
+        'GridRegionButton
+        '
+        Me.GridRegionButton.AutoSize = True
+        Me.GridRegionButton.Location = New System.Drawing.Point(17, 55)
+        Me.GridRegionButton.Name = "GridRegionButton"
+        Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
+        Me.GridRegionButton.TabIndex = 1880
+        Me.GridRegionButton.TabStop = True
+        Me.GridRegionButton.Text = "Region Server"
+        Me.GridRegionButton.UseVisualStyleBackColor = True
+        '
+        'osGridRadioButton1
+        '
+        Me.osGridRadioButton1.AutoSize = True
+        Me.osGridRadioButton1.Location = New System.Drawing.Point(17, 77)
+        Me.osGridRadioButton1.Name = "osGridRadioButton1"
+        Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
+        Me.osGridRadioButton1.TabIndex = 1881
+        Me.osGridRadioButton1.TabStop = True
+        Me.osGridRadioButton1.Text = "OSGrid Region Server"
+        Me.osGridRadioButton1.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
+        Me.GroupBox1.Controls.Add(Me.GridRegionButton)
+        Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
+        Me.GroupBox1.Controls.Add(Me.GridServerButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(305, 2)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(190, 142)
+        Me.GroupBox1.TabIndex = 1882
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Server Type"
+        '
+        'MetroRadioButton2
+        '
+        Me.MetroRadioButton2.AutoSize = True
+        Me.MetroRadioButton2.Location = New System.Drawing.Point(17, 100)
+        Me.MetroRadioButton2.Name = "MetroRadioButton2"
+        Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
+        Me.MetroRadioButton2.TabIndex = 1882
+        Me.MetroRadioButton2.TabStop = True
+        Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
+        Me.MetroRadioButton2.UseVisualStyleBackColor = True
+        '
         'FormDNSName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(327, 235)
+        Me.ClientSize = New System.Drawing.Size(534, 227)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.OsGridButton)
+        Me.Controls.Add(Me.SaveButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -173,13 +237,15 @@ Partial Class FormDNSName
         Me.Text = "DNS Name & Hypergrid"
         Me.ToolTip1.SetToolTip(Me, "Get Help")
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.OsGridButton.ResumeLayout(False)
+        Me.OsGridButton.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents OsGridButton As GroupBox
     Friend WithEvents Label2 As Label
     Friend WithEvents SuitcaseCheckbox As CheckBox
     Friend WithEvents Label1 As Label
@@ -191,4 +257,9 @@ Partial Class FormDNSName
     Friend WithEvents SaveButton As Button
     Friend WithEvents DNSNameBox As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents osGridRadioButton1 As RadioButton
+    Friend WithEvents GridRegionButton As RadioButton
+    Friend WithEvents GridServerButton As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents MetroRadioButton2 As RadioButton
 End Class
