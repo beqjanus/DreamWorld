@@ -229,6 +229,7 @@ Public Class FormRegion
                         If RegionList.InstanceExists Then
                             RegionClass.GetAllRegions()
                             RegionList.LoadMyListView()
+
                         End If
 
                         Me.Close()
