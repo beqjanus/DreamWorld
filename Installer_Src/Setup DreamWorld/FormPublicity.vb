@@ -1,13 +1,23 @@
 ﻿Imports System.Text.RegularExpressions
 Imports System.Web
+Imports Outworldz
 
 Public Class FormPublicity
 
     Dim initted As Boolean = False
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -59,7 +69,7 @@ Public Class FormPublicity
             .Multiselect = False
         }
         If ofd.ShowDialog = DialogResult.OK Then
-            If ofd.FileName <> String.Empty Then
+            If ofd.FileName.Length > 0 Then
 
                 Dim pattern As Regex = New Regex("PNG$|png$")
                 Dim match As Match = pattern.Match(ofd.FileName)

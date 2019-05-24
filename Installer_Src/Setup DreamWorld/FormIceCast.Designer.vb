@@ -32,7 +32,7 @@ Partial Class Icecast
         Me.ShoutcastPort1 = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.LoadURL = New System.Windows.Forms.Button()
-        Me.SC_Show = New System.Windows.Forms.CheckBox()
+        Me.SCShow = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AdminPassword = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -74,7 +74,7 @@ Partial Class Icecast
         Me.GroupBox1.Controls.Add(Me.ShoutcastPort1)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.LoadURL)
-        Me.GroupBox1.Controls.Add(Me.SC_Show)
+        Me.GroupBox1.Controls.Add(Me.SCShow)
         Me.GroupBox1.Controls.Add(Me.ShoutcastEnable)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.AdminPassword)
@@ -124,15 +124,15 @@ Partial Class Icecast
         Me.LoadURL.Text = "Admin Web Page"
         Me.LoadURL.UseVisualStyleBackColor = True
         '
-        'SC_Show
+        'SCShow
         '
-        Me.SC_Show.AutoSize = True
-        Me.SC_Show.Location = New System.Drawing.Point(30, 41)
-        Me.SC_Show.Name = "SC_Show"
-        Me.SC_Show.Size = New System.Drawing.Size(86, 17)
-        Me.SC_Show.TabIndex = 1
-        Me.SC_Show.Text = "Show Status"
-        Me.SC_Show.UseVisualStyleBackColor = True
+        Me.SCShow.AutoSize = True
+        Me.SCShow.Location = New System.Drawing.Point(30, 41)
+        Me.SCShow.Name = "SCShow"
+        Me.SCShow.Size = New System.Drawing.Size(86, 17)
+        Me.SCShow.TabIndex = 1
+        Me.SCShow.Text = "Show Status"
+        Me.SCShow.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -195,7 +195,7 @@ Partial Class Icecast
     Friend WithEvents ShoutcastPort As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents AdminPassword As TextBox
-    Friend WithEvents SC_Show As CheckBox
+    Friend WithEvents SCShow As CheckBox
     Friend WithEvents LoadURL As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents PictureBox1 As PictureBox

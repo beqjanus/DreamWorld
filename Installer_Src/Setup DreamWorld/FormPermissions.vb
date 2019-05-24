@@ -1,9 +1,20 @@
-﻿Public Class FormPermissions
+﻿Imports Outworldz
+
+Public Class FormPermissions
 
     Dim initted As Boolean = False
 
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -23,11 +34,11 @@
         EnableMaxPrims.Checked = Form1.MySetting.Primlimits()
 
         'gods
-        AllowGods.Checked = Form1.MySetting.Allow_grid_gods
-        RegionGod.Checked = Form1.MySetting.Region_owner_is_god
-        ManagerGod.Checked = Form1.MySetting.Region_manager_is_god
+        AllowGods.Checked = Form1.MySetting.AllowGridGods
+        RegionGod.Checked = Form1.MySetting.RegionOwnerIsGod
+        ManagerGod.Checked = Form1.MySetting.RegionManagerIsGod
         Clouds.Checked = Form1.MySetting.Clouds
-        LSLCheckbox.Checked = Form1.MySetting.LSL_HTTP()
+        LSLCheckbox.Checked = Form1.MySetting.LSLHTTP()
 
         Dim var As Double = Form1.MySetting.Density
 
@@ -54,7 +65,7 @@
     Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
 
         If initted Then
-            Form1.MySetting.LSL_HTTP() = LSLCheckbox.Checked
+            Form1.MySetting.LSLHTTP() = LSLCheckbox.Checked
             Form1.MySetting.SaveSettings()
         End If
 
@@ -72,7 +83,7 @@
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.Allow_grid_gods = AllowGods.Checked
+        Form1.MySetting.AllowGridGods = AllowGods.Checked
         Form1.MySetting.SaveSettings()
 
     End Sub
@@ -80,7 +91,7 @@
     Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.Region_owner_is_god = RegionGod.Checked
+        Form1.MySetting.RegionOwnerIsGod = RegionGod.Checked
         If RegionGod.Checked Then AllowGods.Checked = True
         Form1.MySetting.SaveSettings()
 
@@ -89,7 +100,7 @@
     Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.Region_manager_is_god = ManagerGod.Checked
+        Form1.MySetting.RegionManagerIsGod = ManagerGod.Checked
         If ManagerGod.Checked Then AllowGods.Checked = True
         Form1.MySetting.SaveSettings()
 

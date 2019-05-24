@@ -30,11 +30,11 @@ Public Class CrashDetector
                                     If line.Contains("Timeout detected for thread " & """bulletunmanaged") Then
                                         ' Restart 
                                         Form1.Print("Restarting " & RegionName & " due to Bullet crash")
-                                        Form1.gRestartNow = True
+                                        Form1.GRestartNow = True
                                         Form1.SequentialPause()
                                         Form1.ConsoleCommand(Form1.RegionClass.GroupName(RegionNum), "q{ENTER}" + vbCrLf)
                                         Form1.RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
-                                        Form1.RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
+                                        Form1.RegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                                     End If
                                 End If
                             End While

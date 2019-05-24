@@ -1,5 +1,6 @@
 ﻿Imports System.Text.RegularExpressions
 Imports System.Net
+Imports Outworldz
 
 Public Class FormDNSName
 
@@ -10,8 +11,17 @@ Public Class FormDNSName
 
 #Region "ScreenSize"
 
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -52,7 +62,7 @@ Public Class FormDNSName
 
 #Region "Functions"
 
-    Public Function Random() As String
+    Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
         Random = System.Convert.ToString(value)
     End Function
@@ -63,7 +73,7 @@ Public Class FormDNSName
 
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
-        If DNSNameBox.Text <> String.Empty Then
+        If DNSNameBox.Text.Length > 0 Then
 
             DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
             DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
@@ -129,7 +139,7 @@ Public Class FormDNSName
         Application.DoEvents()
         Dim newname = Form1.GetNewDnsName()
         NextNameButton.Text = "Next Name"
-        If newname = String.Empty Then
+        If newname.Length = 0 Then
             MsgBox("Please enter a valid DNS name such as Name.Outworldz.net, or register for one at http://www.noip.com", vbInformation, "Name Needed")
             NextNameButton.Enabled = False
         Else

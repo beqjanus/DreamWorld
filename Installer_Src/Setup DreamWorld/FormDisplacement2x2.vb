@@ -1,15 +1,26 @@
-﻿Public Class FormDisplacement2x2
+﻿Imports Outworldz
+
+Public Class FormDisplacement2x2
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
-        Private Handler As New EventHandler(AddressOf Resize_page)
+    Private _screenPosition As ScreenPos
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
-        'The following detects  the location of the form in screen coordinates
-        Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-            'Me.Text = "Form screen position = " + Me.Location.ToString
-            ScreenPosition.SaveXY(Me.Left, Me.Top)
-        End Sub
-        Private Sub SetScreen()
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+    End Sub
+    Private Sub SetScreen()
             Me.Show()
             ScreenPosition = New ScreenPos(Me.Name)
             AddHandler ResizeEnd, Handler
@@ -23,8 +34,8 @@
 
         SetScreen()
 
-        Form1.gSelectedBox = ""
-        If Form1.gForceParcel Then
+        Form1.GSelectedBox = ""
+        If Form1.GForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -33,7 +44,7 @@
 
         End If
 
-        If Form1.gForceTerrain Then
+        If Form1.GForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -54,24 +65,24 @@
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.gSelectedBox = " --displacement <0,256,0> "
+        Form1.GSelectedBox = " --displacement <0,256,0> "
         Me.Close()
-        End Sub
+    End Sub
 
-        Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        Form1.gSelectedBox = " --displacement <256,256,0> "
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        Form1.GSelectedBox = " --displacement <256,256,0> "
         Me.Close()
-        End Sub
+    End Sub
 
-        Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.gSelectedBox = " --displacement <0,0,0>  "
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        Form1.GSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
-        End Sub
+    End Sub
 
-        Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
-        Form1.gSelectedBox = " --displacement <256,0,0> "
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
+        Form1.GSelectedBox = " --displacement <256,0,0> "
         Me.Close()
-        End Sub
+    End Sub
 
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
@@ -91,7 +102,7 @@
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        Form1.gForceTerrain = True
+        Form1.GForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -99,7 +110,7 @@
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        Form1.gForceTerrain = False
+        Form1.GForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -107,7 +118,7 @@
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        Form1.gForceParcel = True
+        Form1.GForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -115,7 +126,7 @@
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        Form1.gForceParcel = False
+        Form1.GForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -126,6 +137,6 @@
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.gUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+        Form1.GUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
 End Class

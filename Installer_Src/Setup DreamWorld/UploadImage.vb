@@ -4,14 +4,14 @@ Imports System.Net
 
 Public Class UploadImage
 
-    Private Delegate Sub UploadStateChange(ByVal Data As String, ByVal Info As UploadInfo)
+    'Private Delegate Sub UploadStateChange(ByVal Data As String, ByVal Info As UploadInfo)
 
-    Private Sub UploadError(ByVal Data As String)
+    Shared Sub UploadError(ByVal Data As String)
         ' Your Upload failure Routine Goes here
         Form1.ErrorLog("Upload Error:" + Data)
     End Sub
 
-    Private Sub UploadComplete(ByVal Data As String)
+    Shared Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
         If Data <> "1" Then
             Form1.Log("Error", "Upload Failed. " & Data)

@@ -1,8 +1,19 @@
-﻿Public Class FormDisplacement1X1
+﻿Imports Outworldz
+
+Public Class FormDisplacement1X1
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -23,8 +34,8 @@
 
         SetScreen()
 
-        Form1.gSelectedBox = ""
-        If Form1.gForceParcel Then
+        Form1.GSelectedBox = ""
+        If Form1.GForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -33,7 +44,7 @@
 
         End If
 
-        If Form1.gForceTerrain Then
+        If Form1.GForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -62,7 +73,7 @@
         Dim Ycoord = Form1.RegionClass.CoordY(RegionNumber)
 
         Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.gOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Dim RegionPhoto = Form1.GOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
         Try
             Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
             PictureBox3.Image = Pic
@@ -75,7 +86,7 @@
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.gSelectedBox = " --displacement <0,0,0>  "
+        Form1.GSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
     End Sub
 
@@ -98,7 +109,7 @@
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        Form1.gForceTerrain = True
+        Form1.GForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -106,7 +117,7 @@
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        Form1.gForceTerrain = False
+        Form1.GForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -114,7 +125,7 @@
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        Form1.gForceParcel = True
+        Form1.GForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -122,7 +133,7 @@
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        Form1.gForceParcel = False
+        Form1.GForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -133,7 +144,7 @@
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.gUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+        Form1.GUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
 
 

@@ -1,8 +1,19 @@
 ﻿Imports System.ComponentModel
 Imports System.Text.RegularExpressions
+Imports Outworldz
+
 Public Class FormMaps
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -110,8 +121,8 @@ Public Class FormMaps
 
         Try
             Form1.Print("Clearing Maptiles")
-            My.Computer.FileSystem.DeleteDirectory(Form1.gOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
-            My.Computer.FileSystem.CreateDirectory(Form1.gOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
+            My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.CreateDirectory(Form1.GOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
         Catch ex As Exception
             Form1.Log("Warn", ex.Message)
             Return

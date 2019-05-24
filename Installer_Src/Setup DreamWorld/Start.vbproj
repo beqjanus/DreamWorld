@@ -182,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crashdetector.vb" />
+    <Compile Include="Culture.vb" />
     <Compile Include="FormDisplacement2x2.Designer.vb">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
     </Compile>

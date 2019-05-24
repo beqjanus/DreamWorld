@@ -1,12 +1,23 @@
 ﻿Option Explicit On
 Imports System.Text.RegularExpressions
+Imports Outworldz
+
 Public Class FormRegions
 
     Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)

@@ -1,11 +1,21 @@
 ﻿Imports System.ComponentModel
+Imports Outworldz
 
 Public Class Choice
     Implements IDisposable
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -62,12 +72,12 @@ Public Class Choice
             If (JustRunning And RegionClass.IsBooted(RegionNumber)) Then
                 If L.Contains(name) Then
                 Else
-                    If name <> "" Then DataGridView.Rows.Add(name)
+                    If name.Length > 0 Then DataGridView.Rows.Add(name)
                 End If
             ElseIf Not JustRunning Then
                 If L.Contains(name) Then
                 Else
-                    If name <> "" Then DataGridView.Rows.Add(name)
+                    If name.Length > 0 Then DataGridView.Rows.Add(name)
                 End If
             End If
 

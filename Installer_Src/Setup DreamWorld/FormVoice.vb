@@ -1,8 +1,19 @@
-﻿Public Class FormVoice
+﻿Imports Outworldz
+
+Public Class FormVoice
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -23,7 +34,7 @@
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = "Vivox Voice Settings"
         VivoxEnable.Checked = Form1.MySetting.VivoxEnabled
-        VivoxPassword.Text = Form1.MySetting.Vivox_password
+        VivoxPassword.Text = Form1.MySetting.VivoxPassword
         VivoxUserName.Text = Form1.MySetting.Vivox_UserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
@@ -46,7 +57,7 @@
 
     Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
         VivoxPassword.UseSystemPasswordChar = False
-        Form1.MySetting.Vivox_password = VivoxPassword.Text
+        Form1.MySetting.VivoxPassword = VivoxPassword.Text
         Form1.MySetting.SaveSettings()
     End Sub
     Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click

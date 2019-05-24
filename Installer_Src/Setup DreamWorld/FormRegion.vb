@@ -32,8 +32,10 @@ Public Class FormRegion
 
         Me.Focus()
 
+        Name = Name.Trim() ' remove spaces
+
         RegionClass = RegionMaker.Instance(Form1.MysqlConn)
-        If Name = "" Then
+        If Name.Length = 0 Then
             isNew = True
             RegionName.Text = Name & " ????"
             UUID.Text = Guid.NewGuid().ToString
@@ -61,6 +63,12 @@ Public Class FormRegion
             Me.Text = Name & " Region" ' on screen
             RegionName.Text = RegionClass.RegionName(n) ' on form
             UUID.Text = RegionClass.UUID(n)   ' on screen
+
+            If UUID.Text.Length = 0 Then
+                MsgBox("Error: UUID Is zero!")
+                Me.Close()
+            End If
+
             NonphysicalPrimMax.Text = RegionClass.NonPhysicalPrimMax(n).ToString
             PhysicalPrimMax.Text = RegionClass.PhysicalPrimMax(n).ToString
             ClampPrimSize.Checked = RegionClass.ClampPrimSize(n)
@@ -128,7 +136,7 @@ Public Class FormRegion
 
         '''''''''''''''''''''''''''''  DREAMGRID REGION LOAD '''''''''''''''''
 
-        If RegionClass.MapType(n) = "" Then
+        If RegionClass.MapType(n).Length = 0 Then
             Maps_Use_Default.Checked = True
 
             If Form1.MySetting.MapType = "None" Then
@@ -173,7 +181,7 @@ Public Class FormRegion
 
         MaxPrims.Text = RegionClass.MaxPrims(n).ToString
 
-        If RegionClass.AllowGods(n) = "" And RegionClass.RegionGod(n) = "" And RegionClass.ManagerGod(n) = "" Then
+        If RegionClass.AllowGods(n).Length = 0 And RegionClass.RegionGod(n).Length = 0 And RegionClass.ManagerGod(n).Length = 0 Then
             Gods_Use_Default.Checked = True
             AllowGods.Checked = False
             RegionGod.Checked = False
@@ -184,7 +192,7 @@ Public Class FormRegion
             If Not Boolean.TryParse(RegionClass.ManagerGod(n), ManagerGod.Checked) Then ManagerGod.Checked = False
         End If
 
-        If RegionClass.RegionSnapShot(n) = "" Then
+        If RegionClass.RegionSnapShot(n).Length = 0 Then
             PublishDefault.Checked = True
         Else
             Publish.Checked = CBool(RegionClass.RegionSnapShot(n))
@@ -351,25 +359,25 @@ Public Class FormRegion
             Return Message
         End If
 
-        If (NonphysicalPrimMax.Text = "") Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
+        If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
             Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
             Form1.ErrorLog(Message)
             Return Message
         End If
 
-        If (PhysicalPrimMax.Text = "") Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
+        If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
             Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
             Form1.ErrorLog(Message)
             Return Message
         End If
 
-        If (MaxPrims.Text = "") Or (CType(MaxPrims.Text, Integer) <= 0) Then
+        If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
             Message = "Not a valid MaxPrims Value. Must be greater than 0."
             Form1.ErrorLog(Message)
             Return Message
         End If
 
-        If (MaxAgents.Text = "") Or (CType(MaxAgents.Text, Integer) <= 0) Then
+        If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
             Message = "Not a valid MaxAgents Value. Must be greater than 0."
             Form1.ErrorLog(Message)
             Return Message
@@ -402,17 +410,17 @@ Public Class FormRegion
             Dim NewGroup As String = RegionName.Text
 
             NewGroup = RegionChosen()
-            If NewGroup = "" Then
+            If NewGroup.Length = 0 Then
                 Form1.Print("Aborted")
                 Return
             End If
 
-            If Not Directory.Exists(Filepath) Or Filepath = "" Then
-                Directory.CreateDirectory(Form1.gOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
+            If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
+                Directory.CreateDirectory(Form1.GOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
             End If
 
-            RegionClass.RegionPath(n) = Form1.gOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            RegionClass.FolderPath(n) = Form1.gOpensimBinPath & "bin\Regions\" + NewGroup
+            RegionClass.RegionPath(n) = Form1.GOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            RegionClass.FolderPath(n) = Form1.GOpensimBinPath & "bin\Regions\" + NewGroup
 
         End If
 
@@ -532,7 +540,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Function RegionChosen() As String
+    Shared Function RegionChosen() As String
 
         Dim Chooseform As New Choice ' form for choosing a set of regions
         ' Show testDialog as a modal dialog and determine if DialogResult = OK.
@@ -545,7 +553,7 @@ Public Class FormRegion
             ' Read the chosen sim name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             If chosen = "! Add New Name" Then
-                chosen = InputBox("Enter the new Dos Box name")
+                chosen = InputBox("Enter the New Dos Box name")
             End If
             If chosen.Length > 0 Then
                 Chooseform.Dispose()
@@ -563,7 +571,7 @@ Public Class FormRegion
         Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
         If msg = vbYes Then
             Try
-                My.Computer.FileSystem.DeleteFile(Form1.gOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+                My.Computer.FileSystem.DeleteFile(Form1.GOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Catch
             End Try
 
@@ -588,6 +596,7 @@ Public Class FormRegion
 
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
 
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces 
         If Len(RegionName.Text) > 0 And initted Then
             If Not FilenameIsOK(RegionName.Text) Then
                 MsgBox("Region name can't use special characters such as < > : """" / \ | ? *", vbInformation, "Info")
@@ -602,7 +611,7 @@ Public Class FormRegion
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordY.Text = digitsOnly.Replace(CoordY.Text, "")
-        If initted And CoordY.Text <> "" Then
+        If initted And CoordY.Text.Length >= 0 Then
             Try
                 CoordY.Text = CoordY.Text
             Catch
@@ -617,7 +626,7 @@ Public Class FormRegion
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordX.Text = digitsOnly.Replace(CoordX.Text, "")
 
-        If initted And CoordX.Text <> "" Then
+        If initted And CoordX.Text.Length >= 0 Then
             Try
                 CoordX.Text = CoordX.Text
             Catch
@@ -693,7 +702,7 @@ Public Class FormRegion
         Dim digitsOnly As Regex = New Regex("[^\d]")
         SizeX.Text = digitsOnly.Replace(SizeX.Text, "")
 
-        If initted And SizeX.Text <> "" Then
+        If initted And SizeX.Text.Length >= 0 Then
             If Not IsPowerOf256(CType(SizeX.Text, Integer)) Then
                 MsgBox("Must be a multiple of 256: 256,512,768,1024,1280,1536,1792,2048,2304,2560, ..", vbInformation, "Size X,Y")
             Else
@@ -1027,7 +1036,7 @@ Public Class FormRegion
         If response = vbYes Then
 
             Form1.StartMySQL()
-            Form1.Start_Robust()
+            Form1.StartRobust()
 
             Dim X = Form1.RegionClass.FindRegionByName(RegionName.Text)
             If X > -1 Then

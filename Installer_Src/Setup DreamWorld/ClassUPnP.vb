@@ -13,7 +13,7 @@ Public Class UPnp
     Private staticEnabled As Boolean = True
     Private dynamicEnabled As Boolean = True
     Private myfolder As String = ""
-    Private CacheIP As String
+    Private CacheIP As String = ""
 
     ''' <summary>
     ''' The different supported protocols
@@ -120,10 +120,10 @@ Public Class UPnp
     Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As Protocol, ByVal desc As String)
 
         ' Begin utilizing
-        If Exists(port, prot) Then Throw New ArgumentException("This mapping already exists!", "Port;prot")
+        If Exists(port, prot) Then Throw New ArgumentException("This mapping already exists:", port.ToString)
 
         ' Check
-        If Not IsPrivateIP(localIP) Then Throw New ArgumentException("This is not a local IP address!", "localIP")
+        If Not IsPrivateIP(localIP) Then Throw New ArgumentException("This is not a local IP address:", localIP)
 
         ' Final check!
         If Not staticEnabled Then Throw New ApplicationException("UPnP is not enabled, or there was an error with UPnP Initialization.")
@@ -145,7 +145,7 @@ Public Class UPnp
     Public Sub Remove(ByVal port As Integer, ByVal prot As Protocol)
 
         ' Begin utilizing
-        If Not Exists(port, prot) Then Throw New ArgumentException("This mapping doesn't exist!", "port;prot")
+        If Not Exists(port, prot) Then Throw New ArgumentException("This mapping doesn't exist!", port.ToString)
 
         ' Final check!
         If Not staticEnabled Then Throw New ApplicationException("UPnp is not enabled, or there was an error with UPnp Initialization.")
@@ -186,7 +186,7 @@ Public Class UPnp
 
     Public Function LocalIP() As String
 
-        If CacheIP = "" Then
+        If CacheIP.Length = 0 Then
             If Form1.MySetting.DNSName = "localhost" Or Form1.MySetting.DNSName = "127.0.0.1" Then
                 Return Form1.MySetting.DNSName
             End If
@@ -201,7 +201,7 @@ Public Class UPnp
             Catch ex As Exception
                 LocalIP = LocalIPForced()
 
-                If LocalIP = String.Empty Then
+                If LocalIP.Length = 0 Then
                     LocalIP = "127.0.0.1"
                 End If
             End Try

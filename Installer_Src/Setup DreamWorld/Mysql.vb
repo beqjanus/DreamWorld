@@ -3,15 +3,15 @@ Imports MySql.Data.MySqlClient
 Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
 
-Public Class Mysql
+Public Class MysqlInterface
 
     Implements IDisposable
 
     Dim MysqlConn As MySqlConnection
-    Public gConnStr As String = ""
+    Private _gConnStr As String = ""
 
     Public Sub New(connStr As String)
-        gConnStr = connStr
+        GConnStr = connStr
         MysqlConn = New MySqlConnection(connStr)
     End Sub
 
@@ -78,7 +78,7 @@ Public Class Mysql
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Try
-            Dim MysqlConn = New MySqlConnection(gConnStr)
+            Dim MysqlConn = New MySqlConnection(GConnStr)
             MysqlConn.Open()
 
             Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
@@ -145,7 +145,7 @@ Public Class Mysql
     End Function
 
 
-    Private Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+    Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Dim iPort As Integer = Convert.ToInt16(Port)
         Dim ClientSocket As New TcpClient
@@ -165,6 +165,15 @@ Public Class Mysql
     End Function
 #Region "IDisposable Support"
     Private disposedValue As Boolean ' To detect redundant calls
+
+    Public Property GConnStr As String
+        Get
+            Return _gConnStr
+        End Get
+        Set(value As String)
+            _gConnStr = value
+        End Set
+    End Property
 
     ' IDisposable
     Protected Overridable Sub Dispose(disposing As Boolean)

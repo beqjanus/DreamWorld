@@ -1,2 +1,2 @@
-﻿Friend Class UploadInfo
-End Class
+﻿'Friend Class UploadInfo
+'End Class

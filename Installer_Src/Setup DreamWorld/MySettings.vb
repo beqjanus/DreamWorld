@@ -94,9 +94,9 @@ Public Class MySettings
             PrivatePort() = My.Settings.PrivatePort
             PublicIP() = My.Settings.PublicIP
 
-            Allow_grid_gods() = CType(My.Settings.allow_grid_gods, Boolean)
-            Region_owner_is_god() = My.Settings.region_owner_is_god
-            Region_manager_is_god() = My.Settings.region_manager_is_god
+            AllowGridGods() = CType(My.Settings.allow_grid_gods, Boolean)
+            RegionOwnerIsGod() = My.Settings.region_owner_is_god
+            RegionManagerIsGod() = My.Settings.region_manager_is_god
 
             RanAllDiags() = My.Settings.RanAllDiags
 
@@ -111,12 +111,12 @@ Public Class MySettings
             RobustDataBaseName() = My.Settings.RobustDataBaseName
             RunOnce() = My.Settings.RunOnce
 
-            SC_Enable() = False
-            SC_PortBase() = 8080
-            SC_PortBase1() = 8081
-            SC_Password() = "A password"
-            SC_AdminPassword() = "Admin Password"
-            SC_Show() = True
+            SCEnable() = False
+            SCPortBase() = 8080
+            SCPortBase1() = 8081
+            SCPassword() = "A password"
+            SCAdminPassword() = "Admin Password"
+            SCShow() = True
 
             SizeX() = My.Settings.SizeX
             SizeY() = My.Settings.SizeY
@@ -138,7 +138,7 @@ Public Class MySettings
 
             VivoxEnabled = My.Settings.VivoxEnabled
             Vivox_UserName() = My.Settings.Vivox_username
-            Vivox_password() = My.Settings.Vivox_password
+            VivoxPassword() = My.Settings.VivoxPassword
 
             WelcomeRegion() = My.Settings.WelcomeRegion
             WifiEnabled() = My.Settings.WifiEnabled
@@ -155,9 +155,9 @@ Public Class MySettings
         End Try
 
         Try
-            Dim x = Allow_grid_gods()
+            Dim x = AllowGridGods()
         Catch ex As Exception
-            Allow_grid_gods() = False
+            AllowGridGods() = False
         End Try
 
         Try
@@ -210,9 +210,9 @@ Public Class MySettings
 
 
         Try
-            Dim x = LSL_HTTP()
+            Dim x = LSLHTTP()
         Catch ex As Exception
-            LSL_HTTP() = False
+            LSLHTTP() = False
         End Try
 
         '=============== Tides
@@ -224,14 +224,14 @@ Public Class MySettings
 
         Try
             Dim x As String = TideHighLevel()
-            If x = "" Then TideHighLevel() = "20"
+            If x.Length = 0 Then TideHighLevel() = "20"
         Catch ex As Exception
             TideHighLevel() = "20"
         End Try
 
         Try
             Dim x As String = TideLowLevel()
-            If x = "" Then TideLowLevel() = "17"
+            If x.Length = 0 Then TideLowLevel() = "17"
         Catch ex As Exception
             TideLowLevel() = "17"
         End Try
@@ -244,7 +244,7 @@ Public Class MySettings
 
         Try
             Dim x As String = CycleTime()
-            If x = "" Then CycleTime() = "900"
+            If x.Length = 0 Then CycleTime() = "900"
         Catch ex As Exception
             CycleTime() = "900"
         End Try
@@ -257,14 +257,14 @@ Public Class MySettings
 
         Try
             Dim x = TideInfoChannel()
-            If x = "" Then TideInfoChannel() = "5555"
+            If x.Length = 0 Then TideInfoChannel() = "5555"
         Catch ex As Exception
             TideInfoChannel() = "5555"
         End Try
 
         Try
             Dim x = TideLevelChannel()
-            If x = "" Then TideLevelChannel() = "5556"
+            If x.Length = 0 Then TideLevelChannel() = "5556"
         Catch ex As Exception
             TideLevelChannel() = "5556"
         End Try
@@ -285,7 +285,7 @@ Public Class MySettings
         'the number of birds to flock
         Try
             Dim x = BirdsFlockSize()
-            If x = "" Then BirdsFlockSize() = "25"
+            If x.Length = 0 Then BirdsFlockSize() = "25"
         Catch ex As Exception
             BirdsFlockSize() = "25"
         End Try
@@ -357,15 +357,15 @@ Public Class MySettings
         'By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that
         ' needs to already exist in the scene - i.e. be rezzed in the region.
 
-        If BirdsPrim() = "" Then
+        If BirdsPrim().Length = 0 Then
             BirdsPrim() = "SeaGull1"
         End If
 
         ' check for default
-        If (SmtpHost() = "") Then SmtpHost() = "smtp.gmail.com"
-        If (SmtpPort() = "") Then SmtpPort() = "587"
+        If (SmtpHost().Length = 0) Then SmtpHost() = "smtp.gmail.com"
+        If (SmtpPort().Length = 0) Then SmtpPort() = "587"
 
-        If Theme() = "" Then
+        If Theme().Length = 0 Then
             Theme() = "White"
             Form1.CopyWifi("White")
         ElseIf Theme() = "Black" Then
@@ -549,14 +549,14 @@ Public Class MySettings
 
     End Sub
 
-    Public Function Random() As String
+    Shared Function Random() As String
 
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
         Random = System.Convert.ToString(value)
 
     End Function
 
-    Private Function Stripqq(input As String) As String
+    Shared Function Stripqq(input As String) As String
 
         Return Replace(input, """", "")
 
@@ -953,7 +953,7 @@ Public Class MySettings
     End Property
 
 
-    Public Property LSL_HTTP() As Boolean
+    Public Property LSLHTTP() As Boolean
         Get
             Return CType(GetMySetting("LSL_HTTP"), Boolean)
         End Get
@@ -1224,7 +1224,7 @@ Public Class MySettings
             SetMySetting("ImageNum", Value.ToString)
         End Set
     End Property
-    Public Property Allow_grid_gods() As Boolean
+    Public Property AllowGridGods() As Boolean
         Get
             Return CType(GetMySetting("Allow_grid_gods"), Boolean)
         End Get
@@ -1232,7 +1232,7 @@ Public Class MySettings
             SetMySetting("Allow_grid_gods", Value.ToString)
         End Set
     End Property
-    Public Property Region_owner_is_god() As Boolean
+    Public Property RegionOwnerIsGod() As Boolean
         Get
             Return CType(GetMySetting("Region_owner_is_god"), Boolean)
         End Get
@@ -1240,7 +1240,7 @@ Public Class MySettings
             SetMySetting("Region_owner_is_god", Value.ToString)
         End Set
     End Property
-    Public Property Region_manager_is_god() As Boolean
+    Public Property RegionManagerIsGod() As Boolean
         Get
             Return CType(GetMySetting("Region_manager_is_god"), Boolean)
         End Get
@@ -1405,7 +1405,7 @@ Public Class MySettings
             SetMySetting("Vivox_username", Value)
         End Set
     End Property
-    Public Property Vivox_password() As String
+    Public Property VivoxPassword() As String
         Get
             Return GetMySetting("Vivox_password")
         End Get
@@ -1630,7 +1630,7 @@ Public Class MySettings
             SetMySetting("RunOnce", Value.ToString)
         End Set
     End Property
-    Public Property SC_Enable() As Boolean
+    Public Property SCEnable() As Boolean
         Get
             Return CType(GetMySetting("SC_Enable"), Boolean)
         End Get
@@ -1638,28 +1638,31 @@ Public Class MySettings
             SetMySetting("SC_Enable", Value.ToString)
         End Set
     End Property
-    Public Property SC_PortBase() As Integer
-        Get
-            Return CType(GetMySetting("PortBase"), Integer)
-        End Get
-        Set
-            SetMySetting("PortBase", Value.ToString)
-        End Set
-    End Property
-    Public Property SC_PortBase1() As Integer
+    Public Property SCPortBase() As Integer
         Get
             Try ' required as it has been added
-                Return CType(GetMySetting("PortBase1"), Integer)
+                Return CType(GetMySetting("SC_PortBase"), Integer)
+            Catch
+                Return 8080
+            End Try
+        End Get
+        Set
+            SetMySetting("SC_PortBase", Value.ToString)
+        End Set
+    End Property
+    Public Property SCPortBase1() As Integer
+        Get
+            Try ' required as it has been added
+                Return CType(GetMySetting("SC_PortBase1"), Integer)
             Catch
                 Return 8081
             End Try
-
         End Get
         Set
-            SetMySetting("PortBase1", Value.ToString)
+            SetMySetting("SC_PortBase1", Value.ToString)
         End Set
     End Property
-    Public Property SC_Password() As String
+    Public Property SCPassword() As String
         Get
             Return GetMySetting("SC_Password")
         End Get
@@ -1667,7 +1670,7 @@ Public Class MySettings
             SetMySetting("SC_Password", Value)
         End Set
     End Property
-    Public Property SC_AdminPassword() As String
+    Public Property SCAdminPassword() As String
         Get
             Return GetMySetting("SC_AdminPassword")
         End Get
@@ -1675,7 +1678,7 @@ Public Class MySettings
             SetMySetting("SC_AdminPassword", Value)
         End Set
     End Property
-    Public Property SC_Show() As Boolean
+    Public Property SCShow() As Boolean
         Get
             Return CType(GetMySetting("SC_Show"), Boolean)
         End Get

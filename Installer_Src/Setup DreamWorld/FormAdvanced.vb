@@ -1,5 +1,7 @@
 ﻿
 
+Imports Outworldz
+
 Public Class AdvancedForm
 
 #Region "Declarations"
@@ -11,13 +13,12 @@ Public Class AdvancedForm
     Dim Voice As New FormVoice
     Dim Bird As New BirdForm
     Dim Tide As New Tides
-    
+
     Dim Backups As New FormBackups
     Dim FormRegions As New FormRegions
     Dim FormDiva As New FormDiva
     Dim FormPhysics As New FormPhysics
     Dim FormDatabase As New FormDatabase
-    Dim DNSName As New FormDNSName
     Dim FormRestart As New FormRestart
     Dim FormPorts As New FormPorts
     Dim FormPermissions As New FormPermissions
@@ -28,8 +29,17 @@ Public Class AdvancedForm
 #End Region
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -59,7 +69,7 @@ Public Class AdvancedForm
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = Form1.gDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = Form1.GDomain + "/Outworldz_installer/technical.htm#Regions"
         Process.Start(webAddress)
 
     End Sub

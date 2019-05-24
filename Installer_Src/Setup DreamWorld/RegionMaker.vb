@@ -9,20 +9,17 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-    Public RegionList As New ArrayList()
-    Public Grouplist As New Dictionary(Of String, Integer)
+
+    Private _regionList As New ArrayList()
+    Private _grouplist As New Dictionary(Of String, Integer)
     Private initted As Boolean = False
     Private Shared FInstance As RegionMaker = Nothing
-    Dim json As JSON_result
-
-#Disable Warning IDE0044 ' Add readonly modifier
+    Dim json As JSONresult
     Dim Backup As New ArrayList()
     Dim WebserverList As New List(Of String)
-    Private MysqlConn As Mysql    ' object lets us query Mysql database
-#Enable Warning IDE0044 ' Add readonly modifier
+    Private MysqlConn As MysqlInterface    ' object lets us query Mysql database
 
-
-    Public Enum SIM_STATUS As Integer
+    Public Enum SIMSTATUSENUM As Integer
         Stopped = 0
         Booting = 1
         Booted = 2
@@ -45,7 +42,7 @@ Public Class RegionMaker
     ''' <param name="RegionNumber"></param>
     ''' <returns>boolean</returns>
     Public Function IsBooted(RegionNumber As Integer) As Boolean
-        If Status(RegionNumber) = SIM_STATUS.Booted Then
+        If Status(RegionNumber) = SIMSTATUSENUM.Booted Then
             Return True
         End If
         Return False
@@ -78,7 +75,7 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Shared ReadOnly Property Instance(MysqlConn As Mysql) As RegionMaker
+    Public Shared ReadOnly Property Instance(MysqlConn As MysqlInterface) As RegionMaker
         Get
             If (FInstance Is Nothing) Then
                 FInstance = New RegionMaker(MysqlConn)
@@ -87,7 +84,7 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Private Sub New(conn As Mysql)
+    Private Sub New(conn As MysqlInterface)
 
         MysqlConn = conn
         GetAllRegions()
@@ -108,11 +105,47 @@ Public Class RegionMaker
 #End Region
 
 #Region "Classes"
-    Public Class JSON_result
-        Public alert As String
-        Public login As String
-        Public region_name As String
-        Public region_id As String
+    Public Class JSONresult
+        Private _alert As String
+        Private _login As String
+        Private _region_name As String
+        Private _region_id As String
+
+        Public Property Alert As String
+            Get
+                Return _alert
+            End Get
+            Set(value As String)
+                _alert = value
+            End Set
+        End Property
+
+        Public Property Login As String
+            Get
+                Return _login
+            End Get
+            Set(value As String)
+                _login = value
+            End Set
+        End Property
+
+        Public Property Region_name As String
+            Get
+                Return _region_name
+            End Get
+            Set(value As String)
+                _region_name = value
+            End Set
+        End Property
+
+        Public Property Region_id As String
+            Get
+                Return _region_id
+            End Get
+            Set(value As String)
+                _region_id = value
+            End Set
+        End Property
     End Class
 
     ' hold a copy of the Main region data on a per-form basis
@@ -435,13 +468,25 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public ReadOnly Property RegionList As ArrayList
+        Get
+            Return _regionList
+        End Get
+    End Property
+
+    Public ReadOnly Property Grouplist As Dictionary(Of String, Integer)
+        Get
+            Return _grouplist
+        End Get
+    End Property
+
 #End Region
 
 #Region "Functions"
 
     Public Sub RegionDump()
 
-        If Not Form1.gDebug Then Return
+        If Not Form1.GDebug Then Return
         Dim ctr = 0
         For Each r As Region_data In RegionList
             DebugRegions(ctr)
@@ -567,7 +612,7 @@ Public Class RegionMaker
             ._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1, '8003 + 1
             ._ProcessID = 0,
             ._AvatarCount = 0,
-            ._Status = SIM_STATUS.Stopped,
+            ._Status = SIMSTATUSENUM.Stopped,
             ._LineCounter = 0,
             ._Timer = 0,
             ._NonPhysicalPrimMax = 1024,
@@ -596,7 +641,7 @@ Public Class RegionMaker
         Dim folders() As String
         Dim regionfolders() As String
         Dim n As Integer = 0
-        folders = Directory.GetDirectories(Form1.gOpensimBinPath + "bin\Regions")
+        folders = Directory.GetDirectories(Form1.GOpensimBinPath + "bin\Regions")
         For Each FolderName As String In folders
             'Form1.Log("Info","Region Path:" + FolderName)
             regionfolders = Directory.GetDirectories(FolderName)
@@ -709,8 +754,8 @@ Public Class RegionMaker
 
         Dim fname As String = RegionList(n)._FolderPath.ToString
 
-        If (fname = "") Then
-            Dim pathtoWelcome As String = Form1.gOpensimBinPath + "bin\Regions\" + name + "\Region\"
+        If (fname.Length = 0) Then
+            Dim pathtoWelcome As String = Form1.GOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
@@ -855,7 +900,7 @@ Public Class RegionMaker
     ''' Self setting Region Ports
     ''' Iterate over all regions and set the ports from the starting value
     ''' </summary>
-    Public Sub UpdateAllRegionPorts()
+    Shared Sub UpdateAllRegionPorts()
 
         If Form1.OpensimIsRunning Then
             'Form1.Log("Trying to update all region ports while running')")
@@ -869,7 +914,7 @@ Public Class RegionMaker
             Form1.MySetting.SetOtherIni(simName, "InternalPort", Portnumber.ToString)
             Form1.RegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
-            Form1.gMaxPortUsed = Portnumber
+            Form1.GMaxPortUsed = Portnumber
             Form1.MySetting.SaveOtherINI()
             Portnumber += 1
         Next
@@ -898,7 +943,7 @@ Public Class RegionMaker
                 WebserverList.RemoveAt(LOOPVAR)
 
                 Try
-                    json = JsonConvert.DeserializeObject(Of JSON_result)(rawJSON)
+                    json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
                 Catch ex As Exception
                     Debug.Print(ex.Message)
                     Continue For
@@ -909,47 +954,47 @@ Public Class RegionMaker
                 '       rawJSON "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
                 '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
 
-                If json.login = "enabled" Then
-                    Form1.Print("Region " & json.region_name & " is ready")
+                If json.Login = "enabled" Then
+                    Form1.Print("Region " & json.Region_name & " is ready")
 
-                    Dim n = FindRegionByName(json.region_name)
+                    Dim n = FindRegionByName(json.Region_name)
                     If n < 0 Then
                         Return
                     End If
 
                     RegionEnabled(n) = True
-                    Status(n) = SIM_STATUS.Booted
-                    UUID(n) = json.region_id
+                    Status(n) = SIMSTATUSENUM.Booted
+                    UUID(n) = json.Region_id
 
                     Form1.UpdateView() = True
 
                     If Form1.MySetting.ConsoleShow = False Then
                         Dim hwnd = Form1.GetHwnd(GroupName(n))
-                        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_MINIMIZE)
+                        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
 
-                ElseIf json.login = "shutdown" Then
+                ElseIf json.Login = "shutdown" Then
 
                     Return ' does not work as expected
 
-                    Form1.Print("Region " & json.region_name & " shutdown")
+                    Form1.Print("Region " & json.Region_name & " shutdown")
 
-                    Dim n = FindRegionByName(json.region_name)
+                    Dim n = FindRegionByName(json.Region_name)
                     If n < 0 Then
                         Return
                     End If
                     Timer(n) = REGION_TIMER.Stopped
-                    If Status(n) = SIM_STATUS.RecyclingDown Then
-                        Status(n) = SIM_STATUS.RestartPending
+                    If Status(n) = SIMSTATUSENUM.RecyclingDown Then
+                        Status(n) = SIMSTATUSENUM.RestartPending
                         Form1.UpdateView = True ' make form refresh
                     Else
-                        Status(n) = SIM_STATUS.Stopped
+                        Status(n) = SIMSTATUSENUM.Stopped
                     End If
 
                     UUID(n) = ""
                     Form1.UpdateView() = True
-                    Form1.ExitList.Add(json.region_name)
+                    Form1.ExitList.Add(json.Region_name)
 
                 End If
 
@@ -1108,8 +1153,8 @@ Public Class RegionMaker
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
             Dim match1 As Match = pattern1.Match(POST)
             If match1.Success Then
-                Dim p1 As String
-                Dim p2 As String
+                Dim p1 As String = ""
+                Dim p2 As String = ""
                 p1 = match1.Groups(1).Value
                 Dim pattern2 As Regex = New Regex("Partner=(.*)")
                 Dim match2 As Match = pattern2.Match(POST)
@@ -1189,26 +1234,26 @@ Public Class RegionMaker
 
     End Function
 
-    Function Right(value As String, length As Integer) As String
+    Shared Function Right(value As String, length As Integer) As String
         ' Get rightmost characters of specified length.
         Return value.Substring(value.Length - length)
     End Function
 
-    Function CheckPassword(POST As String, Machine As String) As Boolean
+    Shared Function CheckPassword(POST As String, Machine As String) As Boolean
 
         ' Returns true is password is blank or matching
         Dim pattern1 As Regex = New Regex("PW=(.*?)&")
         Dim match1 As Match = pattern1.Match(POST)
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
-            If p1 = "" Then Return True
+            If p1.Length = 0 Then Return True
             If Machine = p1.ToLower Then Return True
         End If
         Return False
 
     End Function
 
-    Function GetPartner(p1 As String, Mysetting As MySettings) As String
+    Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
 
         Dim Str As String = "server=" + Mysetting.RobustServer _
                                 + ";database=" + Mysetting.RobustDataBaseName _

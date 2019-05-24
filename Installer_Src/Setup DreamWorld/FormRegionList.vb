@@ -1,5 +1,6 @@
 ﻿
 Imports System.IO
+Imports Outworldz
 
 Public Class RegionList
 
@@ -25,7 +26,7 @@ Public Class RegionList
 #End Region
 
 #Region "Properties"
-    Public Property UpdateView() As Boolean
+    Shared Property UpdateView() As Boolean
         Get
             Return Form1.UpdateView
         End Get
@@ -40,10 +41,19 @@ Public Class RegionList
             Return RegionList.FormExists
         End Get
     End Property
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 #End Region
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
@@ -275,25 +285,25 @@ Public Class RegionList
             For Each X In RegionClass.RegionNumbers
 
                 Dim Letter As String = ""
-                If RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Then
+                If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                     Letter = "Recycling Down"
                     Num = ICONS.recyclingdown
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingUp Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
                     Letter = "Recycling Up"
                     Num = ICONS.recyclingup
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RestartPending Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending Then
                     Letter = "Restart Pending"
                     Num = ICONS.recyclingup
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.RetartingNow Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RetartingNow Then
                     Letter = "Restarting Now"
                     Num = ICONS.recyclingup
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booting Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Then
                     Letter = "Booting"
                     Num = ICONS.bootingup
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                     Letter = "Stopping"
                     Num = ICONS.shuttingdown
-                ElseIf RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booted Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     Letter = "Running"
                     Num = ICONS.up
                 ElseIf Not RegionClass.RegionEnabled(X) Then
@@ -309,7 +319,7 @@ Public Class RegionList
                 ' maps
                 If TheView = ViewType.Maps Then
 
-                    If RegionClass.Status(X) = RegionMaker.SIM_STATUS.Booted Then
+                    If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                         Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
                         Debug.Print(img)
 
@@ -336,7 +346,7 @@ Public Class RegionList
                 item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
                 item1.SubItems.Add(Letter)
                 Dim fmtXY = "00000" ' 65536
-                Dim fmtRam = "0000" ' 9999 MB
+                Dim fmtRam = "0000." ' 9999 MB
                 ' RAM
                 Try
                     Dim PID = RegionClass.ProcessID(X)
@@ -544,7 +554,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Function LoadImage(url As String) As Image
+    Shared Function LoadImage(url As String) As Image
         Dim bmp As Bitmap = Nothing
         Dim request As System.Net.WebRequest = System.Net.WebRequest.Create(url)
         Try
@@ -614,7 +624,7 @@ Public Class RegionList
 
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(n))
-        Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE)
+        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
 
         Dim Choices As New FormRegionPopup
         Dim chosen As String
@@ -631,7 +641,7 @@ Public Class RegionList
                     Form1.ProgressBar1.Visible = True
                     Form1.Print("Stopped")
                 End If
-                Form1.Start_Robust()
+                Form1.StartRobust()
                 Form1.Log("Starting", RegionClass.RegionName(n))
                 Form1.CopyOpensimProto(RegionClass.RegionName(n))
                 Form1.Boot(RegionClass.RegionName(n))
@@ -660,20 +670,20 @@ Public Class RegionList
                 If (StopIt) Then
                     Dim regionNum = RegionClass.FindRegionByName(RegionName)
                     Dim h As IntPtr = Form1.GetHwnd(RegionClass.GroupName(n))
-                    If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                    If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                         Form1.SequentialPause()
                         Form1.ConsoleCommand(RegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
                         Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
                         ' shut down all regions in the DOS box
                         For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
                             RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
-                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.ShuttingDown ' request a recycle.
+                            RegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
                         Next
                     Else
                         ' shut down all regions in the DOS box
                         For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
                             RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
-                            RegionClass.Status(regionNum) = RegionMaker.SIM_STATUS.Stopped ' already shutting down
+                            RegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                         Next
                     End If
 
@@ -698,13 +708,13 @@ Public Class RegionList
                 Form1.SequentialPause()
                 Form1.ConsoleCommand(RegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
                 Form1.Print("Recycle " + RegionClass.GroupName(n))
-                Form1.gRestartNow = True
+                Form1.GRestartNow = True
 
                 ' shut down all regions in the DOS box
 
                 For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
                     RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(RegionNum) = RegionMaker.SIM_STATUS.RecyclingDown ' request a recycle.
+                    RegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 Next
                 UpdateView = True ' make form refresh
 
@@ -814,14 +824,14 @@ Public Class RegionList
                     Return
                 End If
 
-                If dirpathname = "" Then dirpathname = filename
+                If dirpathname.Length = 0 Then dirpathname = filename
 
-                Dim NewFilepath = Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
+                Dim NewFilepath = Form1.GOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
                 If Not Directory.Exists(NewFilepath) Then
-                    Directory.CreateDirectory(Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
+                    Directory.CreateDirectory(Form1.GOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
                 End If
 
-                File.Copy(pathname, Form1.gOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                File.Copy(pathname, Form1.GOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
 
             Else
                 Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")
@@ -890,11 +900,11 @@ Public Class RegionList
 
             If Form1.OpensimIsRunning() _
                 And RegionClass.RegionEnabled(X) _
-                And Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.ShuttingDown _
-                And Not RegionClass.Status(X) = RegionMaker.SIM_STATUS.RecyclingDown Then
+                And Not RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+                And Not RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
 
                 Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(X))
-                If Form1.ShowDOSWindow(hwnd, Form1.SHOW_WINDOW.SW_RESTORE) Then
+                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                     Form1.Print("Restarting " & RegionClass.GroupName(X))
@@ -903,9 +913,9 @@ Public Class RegionList
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
                     RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
-                    RegionClass.Status(Y) = RegionMaker.SIM_STATUS.RecyclingDown
+                    RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 Next
-                Form1.gRestartNow = True
+                Form1.GRestartNow = True
 
                 UpdateView = True ' make form refresh
             End If

@@ -523,14 +523,14 @@ Namespace My
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("somepassword")>  _
-        Public Property Vivox_password() As String
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
+         Global.System.Configuration.DefaultSettingValueAttribute("somepassword")>
+        Public Property VivoxPassword() As String
             Get
-                Return CType(Me("Vivox_password"),String)
+                Return CType(Me("VivoxPassword"), String)
             End Get
             Set
-                Me("Vivox_password") = value
+                Me("VivoxPassword") = Value
             End Set
         End Property
         

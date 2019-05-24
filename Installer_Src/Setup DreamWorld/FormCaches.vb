@@ -1,11 +1,21 @@
 ﻿Imports System.IO
+Imports Outworldz
 
 Public Class FormCaches
 
 
 #Region "ScreenSize"
-    Public ScreenPosition As ScreenPos
+    Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -57,8 +67,8 @@ Public Class FormCaches
         If CheckBox1.Checked Then
 
             If Not Form1.OpensimIsRunning() Then
-                Dim fCount As Integer = Directory.GetFiles(Form1.gOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories).Length
-                Dim folders() = Directory.GetFiles(Form1.gOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories).Length
+                Dim folders() = Directory.GetFiles(Form1.GOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
                 Form1.Print("Clearing Script cache. This may take a long time!")
                 Dim ctr As Integer = 0
                 For Each script As String In folders
@@ -79,7 +89,7 @@ Public Class FormCaches
             If CheckBox2.Checked Then
                 Form1.Print("Clearing bake cache")
                 Try
-                    My.Computer.FileSystem.DeleteDirectory(Form1.gOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 Catch
                 End Try
             End If
@@ -88,10 +98,10 @@ Public Class FormCaches
 
         If CheckBox3.Checked Then
             Form1.Print("Clearing Asset cache. This may take a long time!")
-            Dim fCount As Integer = Directory.GetFiles(Form1.gOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories).Length
+            Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories).Length
 
             Try
-                Dim folders() = Directory.GetDirectories(Form1.gOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
+                Dim folders() = Directory.GetDirectories(Form1.GOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
                 Dim ctr As Integer = 0
                 For Each folder As String In folders
                     My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -107,9 +117,9 @@ Public Class FormCaches
 
             Try
                 Form1.Print("Clearing Image cache.")
-                Dim fCount As Integer = Directory.GetFiles(Form1.gOpensimBinPath & "bin\j2kDecodeCache\", "*", SearchOption.AllDirectories).Length
+                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\j2kDecodeCache\", "*", SearchOption.AllDirectories).Length
 
-                Dim folders() = IO.Directory.GetDirectories(Form1.gOpensimBinPath & "bin\j2kDecodeCache\")
+                Dim folders() = IO.Directory.GetDirectories(Form1.GOpensimBinPath & "bin\j2kDecodeCache\")
                 Dim ctr = 0
                 For Each folder As String In folders
                     My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -124,12 +134,12 @@ Public Class FormCaches
         If CheckBox5.Checked Then
             Try
                 Form1.Print("Clearing Mesh cache")
-                Dim fCount As Integer = Directory.GetFiles(Form1.gOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
+                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
 
-                Dim folders() = Directory.GetFiles(Form1.gOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
+                Dim folders() = Directory.GetFiles(Form1.GOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
                 Dim ctr As Integer = 0
                 For Each folder As String In folders
-                    My.Computer.FileSystem.DeleteDirectory(Form1.gOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                     ctr = ctr + 1
                     Form1.Print(ctr.ToString + " of " + fCount.ToString)
                     Application.DoEvents()
