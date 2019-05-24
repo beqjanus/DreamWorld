@@ -279,7 +279,7 @@ Public Class FormDatabase
 
         ServerType = "OsGrid"
         DNSNameBoxBackup = My.Settings.DnsName
-        DNSName = "http://hg.osgrid.org"
+        DNSName = "hg.osgrid.org"
         changed = True
 
     End Sub
