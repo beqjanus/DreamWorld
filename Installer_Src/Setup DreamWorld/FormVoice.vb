@@ -35,7 +35,7 @@ Public Class FormVoice
         Me.Text = "Vivox Voice Settings"
         VivoxEnable.Checked = Form1.MySetting.VivoxEnabled
         VivoxPassword.Text = Form1.MySetting.VivoxPassword
-        VivoxUserName.Text = Form1.MySetting.Vivox_UserName
+        VivoxUserName.Text = Form1.MySetting.VivoxUserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
         Form1.HelpOnce("Vivox")
@@ -51,7 +51,9 @@ Public Class FormVoice
     End Sub
 
     Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
-        Form1.MySetting.Vivox_UserName = VivoxUserName.Text
+#Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
+        Form1.MySetting.VivoxUserName = VivoxUserName.Text
+#Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
         Form1.MySetting.SaveSettings()
     End Sub
 

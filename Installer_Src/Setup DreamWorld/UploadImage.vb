@@ -130,14 +130,15 @@ Public Class UploadImage
         webResp = Nothing
     End Sub
 
-    Public Sub PostContent_UploadFile()
+    Public Sub PostContentUploadFile()
 
         Try
             Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
             Dim File = Form1.MyFolder & "\OutworldzFiles\Photo.png"
-            Dim params As New Specialized.NameValueCollection
-            params.Add("MachineID", Form1.MySetting.MachineID())
-            params.Add("DnsName", Form1.MySetting.PublicIP)
+            Dim params As New Specialized.NameValueCollection From {
+                {"MachineID", Form1.MySetting.MachineID()},
+                {"DnsName", Form1.MySetting.PublicIP}
+            }
 
             Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)
             req.Method = "POST"

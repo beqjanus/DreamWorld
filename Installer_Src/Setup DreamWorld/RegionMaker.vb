@@ -9,15 +9,17 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
+#Disable Warning IDE0044 ' Add readonly modifier
+    Shared _regionList As New ArrayList()
+    Shared _grouplist As New Dictionary(Of String, Integer)
+    Private MysqlConn As MysqlInterface    ' object lets us query Mysql database
+#Enable Warning IDE0044 ' Add readonly modifier
 
-    Private _regionList As New ArrayList()
-    Private _grouplist As New Dictionary(Of String, Integer)
     Private initted As Boolean = False
     Private Shared FInstance As RegionMaker = Nothing
     Dim json As JSONresult
     Dim Backup As New ArrayList()
     Dim WebserverList As New List(Of String)
-    Private MysqlConn As MysqlInterface    ' object lets us query Mysql database
 
     Public Enum SIMSTATUSENUM As Integer
         Stopped = 0
@@ -31,9 +33,9 @@ Public Class RegionMaker
 
     End Enum
 
-    Public Enum REGION_TIMER As Integer
+    Public Enum REGIONTIMER As Integer
         Stopped = -1
-        Start_Counting = 0
+        StartCounting = 0
     End Enum
 
     ''' <summary>
@@ -105,47 +107,12 @@ Public Class RegionMaker
 #End Region
 
 #Region "Classes"
+
     Public Class JSONresult
-        Private _alert As String
-        Private _login As String
-        Private _region_name As String
-        Private _region_id As String
-
-        Public Property Alert As String
-            Get
-                Return _alert
-            End Get
-            Set(value As String)
-                _alert = value
-            End Set
-        End Property
-
-        Public Property Login As String
-            Get
-                Return _login
-            End Get
-            Set(value As String)
-                _login = value
-            End Set
-        End Property
-
-        Public Property Region_name As String
-            Get
-                Return _region_name
-            End Get
-            Set(value As String)
-                _region_name = value
-            End Set
-        End Property
-
-        Public Property Region_id As String
-            Get
-                Return _region_id
-            End Get
-            Set(value As String)
-                _region_id = value
-            End Set
-        End Property
+        Public alert As String
+        Public login As String
+        Public region_name As String
+        Public region_id As String
     End Class
 
     ' hold a copy of the Main region data on a per-form basis
@@ -619,7 +586,15 @@ Public Class RegionMaker
             ._PhysicalPrimMax = 64,
             ._ClampPrimSize = False,
             ._MaxPrims = "45000",
-            ._MaxAgents = 100
+            ._MaxAgents = 100,
+            ._MapType = "Simple",
+            ._AllowGods = "",
+            ._RegionGod = "",
+            ._ManagerGod = "",
+            ._Birds = "",
+            ._Tides = "",
+            ._Teleport = "",
+            ._RegionSnapShot = ""
         }
 
         RegionList.Add(r)
@@ -900,7 +875,7 @@ Public Class RegionMaker
     ''' Self setting Region Ports
     ''' Iterate over all regions and set the ports from the starting value
     ''' </summary>
-    Shared Sub UpdateAllRegionPorts()
+    Public Sub UpdateAllRegionPorts()
 
         If Form1.OpensimIsRunning Then
             'Form1.Log("Trying to update all region ports while running')")
@@ -955,16 +930,16 @@ Public Class RegionMaker
                 '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
 
                 If json.Login = "enabled" Then
-                    Form1.Print("Region " & json.Region_name & " is ready")
+                    Form1.Print("Region " & json.region_name & " is ready")
 
-                    Dim n = FindRegionByName(json.Region_name)
+                    Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
                         Return
                     End If
 
                     RegionEnabled(n) = True
                     Status(n) = SIMSTATUSENUM.Booted
-                    UUID(n) = json.Region_id
+                    UUID(n) = json.region_id
 
                     Form1.UpdateView() = True
 
@@ -978,13 +953,13 @@ Public Class RegionMaker
 
                     Return ' does not work as expected
 
-                    Form1.Print("Region " & json.Region_name & " shutdown")
+                    Form1.Print("Region " & json.region_name & " shutdown")
 
-                    Dim n = FindRegionByName(json.Region_name)
+                    Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
                         Return
                     End If
-                    Timer(n) = REGION_TIMER.Stopped
+                    Timer(n) = REGIONTIMER.Stopped
                     If Status(n) = SIMSTATUSENUM.RecyclingDown Then
                         Status(n) = SIMSTATUSENUM.RestartPending
                         Form1.UpdateView = True ' make form refresh
@@ -994,7 +969,7 @@ Public Class RegionMaker
 
                     UUID(n) = ""
                     Form1.UpdateView() = True
-                    Form1.ExitList.Add(json.Region_name)
+                    Form1.ExitList.Add(json.region_name)
 
                 End If
 
@@ -1038,7 +1013,7 @@ Public Class RegionMaker
 
 
         ' POST = "GET Region name HTTP...{server_startup|oar_file_load},{0|1},n,[oar error]"
-        '{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}}
+        '{"alert":"region_ready","login":"enabled","region_name":"Region 2","RegionId":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}}
         'POST / Region%202 HTTP/1.1
         'Content-Type: Application/ json
         'Host:   tea.outworldz.net : 8001

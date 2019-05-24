@@ -268,9 +268,9 @@ Public Class FormRegion
             RegionClass.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
             Form1.SetFirewall()
-            If RegionList.InstanceExists Then
-                RegionList.LoadMyListView()
-            End If
+            'If RegionList.InstanceExists Then
+            RegionList.LoadMyListView()
+            'End If
 
             changed = False
             Me.Close()

@@ -114,7 +114,7 @@ Public Class RegionList
     End Sub
 #End Region
 
-    Enum ICONS
+    Enum DGICON
         ' index of 0-4 to display icons
         bootingup = 0
         shuttingdown = 1
@@ -287,33 +287,33 @@ Public Class RegionList
                 Dim Letter As String = ""
                 If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                     Letter = "Recycling Down"
-                    Num = ICONS.recyclingdown
+                    Num = DGICON.recyclingdown
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
                     Letter = "Recycling Up"
-                    Num = ICONS.recyclingup
+                    Num = DGICON.recyclingup
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending Then
                     Letter = "Restart Pending"
-                    Num = ICONS.recyclingup
+                    Num = DGICON.recyclingup
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RetartingNow Then
                     Letter = "Restarting Now"
-                    Num = ICONS.recyclingup
+                    Num = DGICON.recyclingup
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Then
                     Letter = "Booting"
-                    Num = ICONS.bootingup
+                    Num = DGICON.bootingup
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                     Letter = "Stopping"
-                    Num = ICONS.shuttingdown
+                    Num = DGICON.shuttingdown
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     Letter = "Running"
-                    Num = ICONS.up
+                    Num = DGICON.up
                 ElseIf Not RegionClass.RegionEnabled(X) Then
                     Letter = "Disabled"
-                    Num = ICONS.disabled
+                    Num = DGICON.disabled
                 ElseIf RegionClass.RegionEnabled(X) Then
                     Letter = "Stopped"
-                    Num = ICONS.stopped
+                    Num = DGICON.stopped
                 Else
-                    Num = ICONS.warning ' warning
+                    Num = DGICON.warning ' warning
                 End If
 
                 ' maps
@@ -534,7 +534,7 @@ Public Class RegionList
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                 End If
 
-            Catch ex As Exception
+            Catch
                 Dim item1 As New ListViewItem("No Avatars", Index)
                 item1.SubItems.Add("-")
                 item1.SubItems.Add("Hypergrid")
@@ -676,13 +676,13 @@ Public Class RegionList
                         Form1.Print("Stopping " + RegionClass.GroupName(regionNum))
                         ' shut down all regions in the DOS box
                         For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
-                            RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
                             RegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
                         Next
                     Else
                         ' shut down all regions in the DOS box
                         For Each regionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(regionNum))
-                            RegionClass.Timer(regionNum) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
                             RegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                         Next
                     End If
@@ -713,7 +713,7 @@ Public Class RegionList
                 ' shut down all regions in the DOS box
 
                 For Each RegionNum In RegionClass.RegionListByGroupNum(RegionClass.GroupName(n))
-                    RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
                     RegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 Next
                 UpdateView = True ' make form refresh
@@ -912,7 +912,7 @@ Public Class RegionList
 
                 ' shut down all regions in the DOS box
                 For Each Y In RegionClass.RegionListByGroupNum(RegionClass.GroupName(X))
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                     RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 Next
                 Form1.GRestartNow = True

@@ -3,10 +3,13 @@ Imports System.IO
 Imports IniParser
 
 Public Class ScreenPos
+#Disable Warning IDE0044 ' Add readonly modifier
     Dim myINI As String
+    Dim gName As String
+#Enable Warning IDE0044 ' Add readonly modifier
     Dim parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
-    Dim gName As String
+
 
     Public Sub New(Name As String)
 
@@ -77,9 +80,10 @@ Public Class ScreenPos
 
         SaveXY(ValueXOld, ValueYOld)
 
-        Dim r As New List(Of Integer)
-        r.Add(ValueXOld)
-        r.Add(ValueYOld)
+        Dim r As New List(Of Integer) From {
+            ValueXOld,
+            ValueYOld
+        }
         Debug.Print("X<" + ValueXOld.ToString)
         Debug.Print("Y<" + ValueYOld.ToString)
         Return r
@@ -90,9 +94,10 @@ Public Class ScreenPos
         Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
         Dim ValueWOld = CType(Data("Data")(gName + "_W"), Integer)
 
-        Dim r As New List(Of Integer)
-        r.Add(ValueHOld)
-        r.Add(ValueWOld)
+        Dim r As New List(Of Integer) From {
+            ValueHOld,
+            ValueWOld
+        }
         Debug.Print("H<" + ValueHOld.ToString)
         Debug.Print("W<" + ValueWOld.ToString)
         Return r

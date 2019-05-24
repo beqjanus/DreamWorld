@@ -93,7 +93,7 @@
         GPassword = Password.Text
     End Sub
 
-    Private Sub name_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+    Private Sub Name_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
         GAvatarName = AviName.Text
     End Sub
 

@@ -93,7 +93,7 @@ Public Class FormPublicity
                 End Try
 
                 Dim Myupload As New UploadImage
-                Myupload.PostContent_UploadFile()
+                Myupload.PostContentUploadFile()
 
             End If
         End If

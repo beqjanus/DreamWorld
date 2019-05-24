@@ -266,7 +266,7 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub osGridRadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
+    Private Sub OsGridRadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
 
         If Not initted Then Return
 

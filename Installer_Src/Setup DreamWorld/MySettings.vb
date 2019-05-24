@@ -137,8 +137,8 @@ Public Class MySettings
             UPnpDiag() = My.Settings.UPnpDiag
 
             VivoxEnabled = My.Settings.VivoxEnabled
-            Vivox_UserName() = My.Settings.Vivox_username
-            VivoxPassword() = My.Settings.VivoxPassword
+            VivoxUserName() = My.Settings.Vivox_username
+            VivoxPassword() = My.Settings.Vivox_password
 
             WelcomeRegion() = My.Settings.WelcomeRegion
             WifiEnabled() = My.Settings.WifiEnabled
@@ -1397,7 +1397,7 @@ Public Class MySettings
             SetMySetting("VivoxEnabled", Value.ToString)
         End Set
     End Property
-    Public Property Vivox_UserName() As String
+    Public Property VivoxUserName() As String
         Get
             Return GetMySetting("Vivox_username")
         End Get

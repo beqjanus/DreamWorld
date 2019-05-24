@@ -1,6 +1,4 @@
-﻿
-
-Imports Outworldz
+﻿Imports Outworldz
 
 Public Class FormHelp
 

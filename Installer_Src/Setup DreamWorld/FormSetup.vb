@@ -921,7 +921,9 @@ Public Class Form1
 
     Public Function KillAll() As Boolean
 
+#Disable Warning CA1820 ' Test for empty strings using string length
         If AvatarLabel.Text <> "" Then
+#Enable Warning CA1820 ' Test for empty strings using string length
             If CType(AvatarLabel.Text, Integer) > 0 Then
                 Dim response = MsgBox("There are " & AvatarLabel.Text & " avatars in world! Do you really wish to quit?", vbYesNo)
                 If response = vbNo Then Return False
@@ -959,7 +961,7 @@ Public Class Form1
                 SequentialPause()
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+                RegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
                 UpdateView = True ' make form refresh
             End If
         Next
@@ -1761,7 +1763,7 @@ Public Class Form1
         Else
             MySetting.SetOtherIni("VivoxVoice", "enabled", "false")
         End If
-        MySetting.SetOtherIni("VivoxVoice", "vivox_admin_user", MySetting.Vivox_UserName)
+        MySetting.SetOtherIni("VivoxVoice", "vivox_admin_user", MySetting.VivoxUserName)
         MySetting.SetOtherIni("VivoxVoice", "vivox_admin_password", MySetting.VivoxPassword)
 
         MySetting.SaveOtherINI()
@@ -2268,7 +2270,7 @@ Public Class Form1
         For Each X As Integer In RegionClass.RegionNumbers
             RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped
             RegionClass.ProcessID(X) = 0
-            RegionClass.Timer(X) = RegionMaker.REGION_TIMER.Stopped
+            RegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
         Next
 
         ExitList.Clear()
@@ -2834,13 +2836,13 @@ Public Class Form1
                             Print("AutoRestarting " + GroupName)
                             ' shut down all regions in the DOS box
                             For Each Y In RegionClass.RegionListByGroupNum(GroupName)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                                 RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             Next
                         Else
                             ' shut down all regions in the DOS box
                             For Each Y In RegionClass.RegionListByGroupNum(GroupName)
-                                RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                                RegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                                 RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Stopped
                             Next
                         End If
@@ -2849,7 +2851,7 @@ Public Class Form1
                         ErrorLog(ex.Message)
                         ' shut down all regions in the DOS box
                         For Each Y In RegionClass.RegionListByGroupNum(GroupName)
-                            RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                            RegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                             RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                         Next
                     End Try
@@ -2914,7 +2916,7 @@ Public Class Form1
                 ' shut down all regions in the DOS box
                 Print("DOS Box " + GroupName + " quit unexpectedly.  Restarting now...")
                 For Each Y In RegionClass.RegionListByGroupNum(GroupName)
-                    RegionClass.Timer(Y) = RegionMaker.REGION_TIMER.Stopped
+                    RegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                     RegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RestartPending
                 Next
             Else
@@ -2942,7 +2944,7 @@ Public Class Form1
                 Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
             End If
 
-            RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+            RegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log("Info", Groupname + " Group is now stopped")
         UpdateView = True ' make form refresh
@@ -2959,7 +2961,7 @@ Public Class Form1
             Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
             ' End If
 
-            RegionClass.Timer(RegionNumber) = RegionMaker.REGION_TIMER.Stopped
+            RegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log("Info", Groupname + " Group is now stopped")
         UpdateView = True ' make form refresh
@@ -3066,7 +3068,7 @@ Public Class Form1
                     Log("Debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
                     RegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
-                    RegionClass.Timer(num) = RegionMaker.REGION_TIMER.Start_Counting
+                    RegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
                 Next
 
                 UpdateView = True ' make form refresh
@@ -3104,7 +3106,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsRobustRunning() As Boolean
 
-        Dim Up As String
+        Dim Up As String = ""
         Try
             Up = client.DownloadString("http://" & MySetting.RobustServer & ":" & MySetting.HttpPort + "/?_Opensim=" + Random())
         Catch ex As Exception
@@ -4072,7 +4074,7 @@ Public Class Form1
 
         If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Photo.png") Then
             Dim Myupload As New UploadImage
-            Myupload.PostContent_UploadFile()
+            Myupload.PostContentUploadFile()
         End If
 
     End Sub
@@ -4986,7 +4988,7 @@ Public Class Form1
 
     Public Function RegisterDNS() As Boolean
 
-        If MySetting.DNSName = String.Empty Then
+        If MySetting.DNSName.Length = 0 Then
             Return True
         End If
 
@@ -5732,10 +5734,10 @@ Public Class Form1
                           & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & MySetting.SCPortBase & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & MySetting.SCPortBase & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1 & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1 & """" & vbCrLf
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString & """" & vbCrLf
 
         If MySetting.ApacheEnable Then
             Command = Command + "netsh advfirewall firewall  delete rule name=""Opensim HTTP Web Port " & MySetting.HttpPort & """" & vbCrLf
@@ -5766,10 +5768,10 @@ Public Class Form1
 
         ' Icecast needs both ports for both protocols
         If MySetting.SCEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SCPortBase & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SCPortBase & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1 & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase1 & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1 & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase1 & vbCrLf
+            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase1 & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase1 & vbCrLf
         End If
 
         Dim RegionNumber As Integer = 0
@@ -5978,6 +5980,9 @@ Public Class Form1
         End Try
 
     End Sub
+
+
+
 
 
 #End Region

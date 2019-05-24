@@ -45,6 +45,14 @@ Public Class UPnp
         End Get
     End Property
 
+    Public Property Myfolder1 As String
+        Get
+            Return myfolder
+        End Get
+        Set(value As String)
+            myfolder = value
+        End Set
+    End Property
 
 
     ''' <summary>
@@ -53,7 +61,7 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public Sub New(Folder As String)
 
-        myfolder = Folder
+        Myfolder1 = Folder
 
         'Create the new NAT Class
         UPnpnat = New NATUPNPLib.UPnPNAT
@@ -312,7 +320,7 @@ Public Class UPnp
 
     Public Sub Log(message As String)
         Try
-            Using outputFile As New StreamWriter(myfolder & "\OutworldzFiles\UPnp.log", True)
+            Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
             End Using
         Catch

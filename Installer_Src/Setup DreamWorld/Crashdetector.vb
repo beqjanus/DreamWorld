@@ -33,7 +33,7 @@ Public Class CrashDetector
                                         Form1.GRestartNow = True
                                         Form1.SequentialPause()
                                         Form1.ConsoleCommand(Form1.RegionClass.GroupName(RegionNum), "q{ENTER}" + vbCrLf)
-                                        Form1.RegionClass.Timer(RegionNum) = RegionMaker.REGION_TIMER.Stopped
+                                        Form1.RegionClass.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
                                         Form1.RegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                                     End If
                                 End If
