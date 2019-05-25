@@ -1055,6 +1055,7 @@ Public Class Form1
         Dim localdlls As List(Of String) = GetFilesRecursive(GOpensimBinPath & "bin")
         For Each localdllname In localdlls
 
+
             'Diagnostics.Debug.Print(localdllname)
 
             'For Each thing In dlls
@@ -1102,9 +1103,15 @@ Public Class Form1
                 result.AddRange(Directory.GetFiles(dir, "*.dll"))
 
                 ' Loop through all subdirectories and add them to the stack.
-                Dim directoryName As String
+                Dim directoryName As String = ""
+
+                'Save, but skip scriptengines
                 For Each directoryName In Directory.GetDirectories(dir)
-                    stack.Push(directoryName)
+                    If Not directoryName.Contains("ScriptEngines") Then
+                        stack.Push(directoryName)
+                    Else
+                        Diagnostics.Debug.Print("Skipping script")
+                    End If
                 Next
 
             Catch ex As Exception
@@ -1592,12 +1599,9 @@ Public Class Form1
         MySetting.SetOtherIni("Const", "DiagnosticsPort", MySetting.DiagnosticPort)
 
 
-        ' once and only once toggle to get Opensim 2.9
-        If MySetting.DeleteScriptsOnStartup() Then
+        ' once and only once toggle to get Opensim 2.91
+        If MySetting.DeleteScriptsOnStartupOnce() Then
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
-        Else
-            MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
-            MySetting.DeleteScriptsOnStartup = True
         End If
 
 
@@ -2733,10 +2737,14 @@ Public Class Form1
             Next
 
 
+
         Catch ex As Exception
             Diagnostics.Debug.Print(ex.Message)
             Print("Unable to boot some regions")
         End Try
+
+        MySetting.DeleteScriptsOnStartupOnce() = False
+        MySetting.SaveSettings()
 
 
         Return True
