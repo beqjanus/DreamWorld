@@ -433,9 +433,9 @@ Public Class MySettings
         End Try
 
         Try
-            Dim x = DeleteScriptsOnStartup()
+            Dim x = DeleteScriptsOnStartupOnce()
         Catch ex As Exception
-            DeleteScriptsOnStartup() = False
+            DeleteScriptsOnStartupOnce() = True
         End Try
 
     End Sub
@@ -583,12 +583,12 @@ Public Class MySettings
 #Region "Properties"
 
 
-    Public Property DeleteScriptsOnStartup() As Boolean
+    Public Property DeleteScriptsOnStartupOnce() As Boolean
         Get
-            Return CType(GetMySetting("DeleteScriptsOnStartup"), Boolean)
+            Return CType(GetMySetting("DeleteScriptsOnStartupOnce"), Boolean)
         End Get
         Set
-            SetMySetting("DeleteScriptsOnStartup", Value.ToString)
+            SetMySetting("DeleteScriptsOnStartupOnce", Value.ToString)
         End Set
     End Property
 
