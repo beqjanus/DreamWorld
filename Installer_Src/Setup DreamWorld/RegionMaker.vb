@@ -107,7 +107,7 @@ Public Class RegionMaker
 #End Region
 
 #Region "Classes"
-
+#Disable Warning CA1051 ' Do not declare visible instance fields
     Public Class JSONresult
         Public alert As String
         Public login As String
@@ -154,7 +154,7 @@ Public Class RegionMaker
         Public _Teleport As String = ""
 
     End Class
-
+#Enable Warning CA1051 ' Do not declare visible instance fields
 #End Region
 
 #Region "Properties"
@@ -929,7 +929,7 @@ Public Class RegionMaker
                 '       rawJSON "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
                 '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
 
-                If json.Login = "enabled" Then
+                If json.login = "enabled" Then
                     Form1.Print("Region " & json.region_name & " is ready")
 
                     Dim n = FindRegionByName(json.region_name)
@@ -949,7 +949,7 @@ Public Class RegionMaker
                     End If
 
 
-                ElseIf json.Login = "shutdown" Then
+                ElseIf json.login = "shutdown" Then
 
                     Return ' does not work as expected
 
