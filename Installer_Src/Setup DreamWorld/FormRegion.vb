@@ -234,9 +234,8 @@ Public Class FormRegion
                         Me.Close()
                     End If
                 Else
-
-                    WriteRegion()
-
+                    WriteRegion(n)
+                    RegionClass.GetAllRegions()
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.UpdateView() = True
                     Form1.SetFirewall()
@@ -264,7 +263,7 @@ Public Class FormRegion
 
             Form1.ViewedSettings = True ' set this so it will force a rescan of the regions on startup
 
-            WriteRegion()
+            WriteRegion(n)
             RegionClass.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
             Form1.SetFirewall()
@@ -386,12 +385,13 @@ Public Class FormRegion
         Return ""
     End Function
 
-    Private Sub WriteRegion()
+    Private Sub WriteRegion(n As Integer)
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim Filepath As String = ""
-        Dim Folderpath As String = ""
+        Dim Filepath = RegionClass.RegionPath(n)
+        Dim Folderpath = RegionClass.FolderPath(n)
+
 
         ' rename is possible
         If oldname <> RegionName.Text And Not isNew Then
