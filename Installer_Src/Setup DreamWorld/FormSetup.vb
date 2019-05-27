@@ -571,11 +571,13 @@ Public Class Form1
         ProgressBar1.Value = 0
 
         CheckForUpdates()
+
         CheckDefaultPorts()
 
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
-        Log("Info", "Starting Web Server ")
+
+        Print("Starting DreamGrid HTTP Server ")
         ws.StartServer(MyFolder, MySetting)
 
         OpenPorts()
@@ -599,6 +601,7 @@ Public Class Form1
             MySetting.Password = Password.GeneratePass()
         End If
 
+        Print("Setup Graphs")
         ' Graph fill
         Dim i = 180
         While i > 0
@@ -635,6 +638,7 @@ Public Class Form1
             ShowRegionform()
         End If
 
+        Print("Check MySql")
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
         If isMySqlRunning Then gStopMysql = False
 
@@ -788,11 +792,12 @@ Public Class Form1
         ToolBar(False)
         Buttons(BusyButton)
 
+        Print("Setup Ports")
         RegionClass.UpdateAllRegionPorts() ' must be done before we are running
+
         SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
-
         RegionHandles.Clear()
 
         If MySetting.AutoBackup Then
@@ -807,6 +812,7 @@ Public Class Form1
         OpensimIsRunning() = True
 
         If ViewedSettings Then
+            Print("Read Region INI files")
             RegionClass.GetAllRegions()
 
             If SetPublicIP() Then
@@ -839,6 +845,7 @@ Public Class Form1
         Catch ex As Exception
         End Try
 
+        Print("Setup Robust")
         If Not StartRobust() Then
             Return
         End If
@@ -854,6 +861,7 @@ Public Class Form1
         Timer1.Start() 'Timer starts functioning
 
         ' Launch the rockets
+        Print("Start Regions")
         If Not StartOpensimulator() Then
             Return
         End If
@@ -2361,10 +2369,12 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not MySetting.ApacheEnable Then
+            Print("Apache web server is not enabled")
             Return
         End If
 
-        ' Stop M<SFT server if we are on port 80 and enabled
+        Print("Setup Apache")
+        ' Stop MSFT server if we are on port 80 and enabled
 
         ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
         ApacheProcess.StartInfo.FileName = "net"
@@ -4223,6 +4233,7 @@ Public Class Form1
 
     Sub CheckForUpdates()
 
+        Print("Checking for Updates")
         Dim Update As String = ""
 
         Try
@@ -4463,8 +4474,9 @@ Public Class Form1
     End Sub
 
     Private Sub CheckDiagPort()
-        gUseIcons = True
 
+        gUseIcons = True
+        Print("Check Diagnostics port")
         Dim wsstarted = CheckPort("localhost", CType(MySetting.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox("Diagnostics port " + MySetting.DiagnosticPort + " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
@@ -4630,6 +4642,7 @@ Public Class Form1
 
     Private Function OpenPorts() As Boolean
 
+        Print("Check Router Ports")
         Try
             If OpenRouterPorts() Then ' open UPnp port
                 Log("Info", "UPnP: Ok")
@@ -4786,6 +4799,7 @@ Public Class Form1
 
     Public Function StartMySQL() As Boolean
 
+
         ' Check for MySql operation
         If GRobustConnStr.Length = 0 Then
 
@@ -4807,7 +4821,7 @@ Public Class Form1
 
         BumpProgress10()
         Dim StartValue = ProgressBar1.Value
-        Print("Starting Database")
+        Print("Starting MySql Database")
 
         ' SAVE INI file
         MySetting.LoadOtherIni(MyFolder & "\OutworldzFiles\mysql\my.ini", "#")
@@ -5788,6 +5802,7 @@ Public Class Form1
     End Function
     Public Sub SetFirewall()
 
+        Print("Setup Firewall")
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
         Dim ns As StreamWriter = New StreamWriter(MyFolder + "\fw.bat", False)
@@ -5815,8 +5830,6 @@ Public Class Form1
         Dim webAddress As String = MyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
         Process.Start(webAddress)
     End Sub
-
-
 
 
 #End Region
@@ -5878,7 +5891,6 @@ Public Class Form1
     Private Sub GetEvents()
 
         If Not MySetting.ApacheEnable Then Return
-
 
         Dim Simevents As New Dictionary(Of String, String)
         Dim ossearch As String = "server=" + MySetting.RobustServer() _
