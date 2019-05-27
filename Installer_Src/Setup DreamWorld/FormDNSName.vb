@@ -7,7 +7,7 @@ Public Class FormDNSName
     Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
     Dim changed As Boolean = False
-    Dim ServerType As String = ""
+
 
 #Region "ScreenSize"
 
@@ -83,16 +83,6 @@ Public Class FormDNSName
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
 
-            Dim client As New System.Net.WebClient
-            Dim Checkname As String = String.Empty
-            Try
-                Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?GridName=" + DNSNameBox.Text + "&r=" + Random())
-            Catch ex As Exception
-                Form1.Log("Warn", "Cannot check the DNS Name, no connection to the Internet or www.Outworldz.com is down. " + ex.Message)
-            End Try
-            If (Checkname = DNSNameBox.Text) Then
-                DNSNameBox.Text = Checkname
-            End If
         End If
 
     End Sub
@@ -114,8 +104,6 @@ Public Class FormDNSName
         Else
             Form1.MySetting.PublicIP = DNSNameBox.Text
         End If
-
-        Form1.MySetting.ServerType = ServerType
 
         Form1.MySetting.SaveSettings()
         changed = False ' suppress prompts
