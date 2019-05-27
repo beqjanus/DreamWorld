@@ -252,17 +252,21 @@ Public Class FormDatabase
 
     Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
 
-        If Not initted Then Return
-        If Not GridRegionButton.Checked Then Return
 
-        RobustServer.Enabled = True
-        RobustDbName.Enabled = True
-        RobustDBPassword.Enabled = True
-        RobustDbPort.Enabled = True
-        RobustDBUsername.Enabled = True
-        RobustDBPassword.Enabled = True
-        ServerType = "Region"
-        changed = True
+        If GridRegionButton.Checked Then
+            RobustServer.Enabled = False
+            RobustDBPassword.Enabled = False
+            RobustDbPort.Enabled = False
+            RobustDBUsername.Enabled = False
+            RobustDbName.Enabled = False
+            ServerType = "Region"
+        Else
+            RobustServer.Enabled = True
+            RobustDBPassword.Enabled = True
+            RobustDbPort.Enabled = True
+            RobustDBUsername.Enabled = True
+            RobustDbName.Enabled = True
+        End If
 
     End Sub
 
