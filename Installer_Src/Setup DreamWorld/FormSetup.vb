@@ -832,6 +832,7 @@ Public Class Form1
         End If
 
         SetupSearch()
+
         StartApache()
 
         ' old files to clean up
@@ -845,7 +846,7 @@ Public Class Form1
         Catch ex As Exception
         End Try
 
-        Print("Setup Robust")
+
         If Not StartRobust() Then
             Return
         End If
@@ -1436,7 +1437,8 @@ Public Class Form1
         Try
             System.IO.File.Delete(GOpensimBinPath + "bin\Library\Clothing Library (small).iar")
             System.IO.File.Delete(GOpensimBinPath + "bin\Library\Objects Library (small).iar")
-        Catch
+        Catch ex As Exception
+            Diagnostics.Debug.Print(ex.Message)
         End Try
     End Sub
     Private Function SetIniData() As Boolean
@@ -1444,6 +1446,8 @@ Public Class Form1
         'mnuShow shows the DOS box for Opensimulator
         mnuShow.Checked = MySetting.ConsoleShow
         mnuHide.Checked = Not MySetting.ConsoleShow
+
+        Print("Creating INI Files")
 
         If MySetting.ConsoleShow Then
             Log("Info", "Console will be shown")
@@ -1476,19 +1480,17 @@ Public Class Form1
 
         ' Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
-
+        DelLibrary()
         Select Case MySetting.ServerType
             Case "Robust"
                 My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
-                My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
+                ' !!! My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-RegionServer.ini"
             Case "OsGrid"
-                DelLibrary()
                 GridCommon = "Gridcommon-OsGridServer.ini"
             Case "Metro"
-                DelLibrary()
                 GridCommon = "Gridcommon-MetroServer.ini"
         End Select
 
@@ -2646,12 +2648,13 @@ Public Class Form1
     Public Function StartRobust() As Boolean
 
         If IsRobustRunning() Then
-            'Print("Robust is already running")
+            Print("Robust is already running")
             Return True
         End If
 
         If MySetting.ServerType <> "Robust" Then Return True
 
+        Print("Setup Robust")
         If MySetting.RobustServer <> "127.0.0.1" And MySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & MySetting.RobustServer)
             Return True
@@ -3382,7 +3385,10 @@ Public Class Form1
         For Each result In results
             Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
             MyRAMCollection.Add(value)
-            PercentRAM.Text = String.Format("{0: 0}", value)
+
+            PercentRAM.Text = CType(value, Integer).ToString()
+
+            '.TrimEnd('0')
             MyRAMCollection.Remove(1) ' drop 1st, older  item
         Next
         searcher.Dispose()

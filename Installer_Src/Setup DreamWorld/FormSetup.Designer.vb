@@ -747,7 +747,7 @@ Partial Class Form1
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(15, 30)
+        Me.ProgressBar1.Location = New System.Drawing.Point(16, 30)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(261, 13)
         Me.ProgressBar1.TabIndex = 24
@@ -846,7 +846,7 @@ Partial Class Form1
         'PercentCPU
         '
         Me.PercentCPU.AutoSize = True
-        Me.PercentCPU.Location = New System.Drawing.Point(117, 30)
+        Me.PercentCPU.Location = New System.Drawing.Point(107, 30)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
         Me.PercentCPU.TabIndex = 35
@@ -855,7 +855,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(187, 30)
+        Me.Label4.Location = New System.Drawing.Point(178, 30)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(42, 13)
         Me.Label4.TabIndex = 38
@@ -864,7 +864,7 @@ Partial Class Form1
         'PercentRAM
         '
         Me.PercentRAM.AutoSize = True
-        Me.PercentRAM.Location = New System.Drawing.Point(168, 30)
+        Me.PercentRAM.Location = New System.Drawing.Point(169, 30)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(13, 13)
         Me.PercentRAM.TabIndex = 37
