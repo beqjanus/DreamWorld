@@ -582,6 +582,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property WelcomeMessage() As String
+        Get
+            Return GetMySetting("WelcomeMessage", "Welcome to " & SimName())
+        End Get
+        Set
+            SetMySetting("WelcomeMessage", Value)
+        End Set
+
+    End Property
 
     Public Property DeleteScriptsOnStartupOnce() As Boolean
         Get
