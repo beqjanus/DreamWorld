@@ -25,6 +25,8 @@ Partial Class FormRestart
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRestart))
         Me.AutoStart = New System.Windows.Forms.GroupBox()
+        Me.RestartOnPhysicsCrash = New System.Windows.Forms.CheckBox()
+        Me.RestartOnCrash = New System.Windows.Forms.CheckBox()
         Me.SequentialCheckBox1 = New System.Windows.Forms.CheckBox()
         Me.ARTimerBox = New System.Windows.Forms.CheckBox()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -33,8 +35,6 @@ Partial Class FormRestart
         Me.Label13 = New System.Windows.Forms.Label()
         Me.AutoStartCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.RestartOnCrash = New System.Windows.Forms.CheckBox()
-        Me.RestartOnPhysicsCrash = New System.Windows.Forms.CheckBox()
         Me.AutoStart.SuspendLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -56,6 +56,30 @@ Partial Class FormRestart
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
         Me.AutoStart.Text = "Auto Restart"
+        '
+        'RestartOnPhysicsCrash
+        '
+        Me.RestartOnPhysicsCrash.AutoSize = True
+        Me.RestartOnPhysicsCrash.Location = New System.Drawing.Point(25, 203)
+        Me.RestartOnPhysicsCrash.Name = "RestartOnPhysicsCrash"
+        Me.RestartOnPhysicsCrash.Size = New System.Drawing.Size(144, 17)
+        Me.RestartOnPhysicsCrash.TabIndex = 1866
+        Me.RestartOnPhysicsCrash.Text = "Restart on Physics Crash"
+        Me.ToolTip1.SetToolTip(Me.RestartOnPhysicsCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
+        "ed.")
+        Me.RestartOnPhysicsCrash.UseVisualStyleBackColor = True
+        '
+        'RestartOnCrash
+        '
+        Me.RestartOnCrash.AutoSize = True
+        Me.RestartOnCrash.Location = New System.Drawing.Point(25, 169)
+        Me.RestartOnCrash.Name = "RestartOnCrash"
+        Me.RestartOnCrash.Size = New System.Drawing.Size(105, 17)
+        Me.RestartOnCrash.TabIndex = 1865
+        Me.RestartOnCrash.Text = "Restart on Crash"
+        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
+        "ed.")
+        Me.RestartOnCrash.UseVisualStyleBackColor = True
         '
         'SequentialCheckBox1
         '
@@ -127,35 +151,11 @@ Partial Class FormRestart
         "ed.")
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '
-        'RestartOnCrash
-        '
-        Me.RestartOnCrash.AutoSize = True
-        Me.RestartOnCrash.Location = New System.Drawing.Point(25, 169)
-        Me.RestartOnCrash.Name = "RestartOnCrash"
-        Me.RestartOnCrash.Size = New System.Drawing.Size(105, 17)
-        Me.RestartOnCrash.TabIndex = 1865
-        Me.RestartOnCrash.Text = "Restart on Crash"
-        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
-        Me.RestartOnCrash.UseVisualStyleBackColor = True
-        '
-        'RestartOnPhysicsCrash
-        '
-        Me.RestartOnPhysicsCrash.AutoSize = True
-        Me.RestartOnPhysicsCrash.Location = New System.Drawing.Point(25, 203)
-        Me.RestartOnPhysicsCrash.Name = "RestartOnPhysicsCrash"
-        Me.RestartOnPhysicsCrash.Size = New System.Drawing.Size(144, 17)
-        Me.RestartOnPhysicsCrash.TabIndex = 1866
-        Me.RestartOnPhysicsCrash.Text = "Restart on Physics Crash"
-        Me.ToolTip1.SetToolTip(Me.RestartOnPhysicsCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
-        Me.RestartOnPhysicsCrash.UseVisualStyleBackColor = True
-        '
         'FormRestart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(250, 302)
+        Me.ClientSize = New System.Drawing.Size(250, 275)
         Me.Controls.Add(Me.AutoStart)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
