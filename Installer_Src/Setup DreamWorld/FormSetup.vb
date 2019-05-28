@@ -1504,7 +1504,6 @@ Public Class Form1
         ' Put that gridcommon.ini file in place
         IO.File.Copy(GOpensimBinPath + "bin\config-include\" & GridCommon, IO.Path.Combine(GOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
-
         ' load and patch it up for MySQL
         MySetting.LoadOtherIni(GOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
         Dim ConnectionString = """" _

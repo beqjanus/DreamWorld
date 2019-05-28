@@ -50,7 +50,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=hg.metro.land
+BaseHostname=http://hg.metro.land
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -65,7 +65,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://10.6.1.103
+PrivURL=http://192.168.2.135
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -614,7 +614,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=10.6.1.103/32
+OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -630,7 +630,7 @@ OutboundDisallowForUserScriptsExcept=10.6.1.103/32
 ;# {ExternalHostNameForLSL} {} {Hostname to use for HTTP-IN URLs. This should be reachable from the internet.} {}
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
-ExternalHostNameForLSL=hg.metro.land
+ExternalHostNameForLSL=http://hg.metro.land
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -1028,7 +1028,7 @@ ScriptStopStrategy=co-op
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=true
+DeleteScriptsOnStartup=False
 
 ;# {CompactMemOnLoad} {} {compacts memory on each script load at startup?} {true false} false
 ;; forces calls to memory garbage collector before loading each script DLL during region startup.
@@ -1272,7 +1272,7 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 SMTP_SERVER_LOGIN=Gmail for notification
 SMTP_SERVER_PASSWORD=Gmail password
-host_domain_header_from=hg.metro.land
+host_domain_header_from=http://hg.metro.land
 
 [Cloud]
 enabled=false
@@ -1282,4 +1282,4 @@ density=0.5
 AutoBackup=true
 AutoBackupInterval=720
 AutoBackupKeepFilesForDays=30
-AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/

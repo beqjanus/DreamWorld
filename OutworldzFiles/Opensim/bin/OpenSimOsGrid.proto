@@ -44,7 +44,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=10.6.1.103
+BaseHostname=http://hg.osgrid.org
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,7 +59,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://10.6.1.103
+PrivURL=http://192.168.2.135
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -218,7 +218,6 @@ ClampPrimSize=false
 ;; This is meant to be used on systems where some external system like
 ;; Monit will restart any instance that exits, thereby making the shutdown
 ;; into a restart.
-
 InworldRestartShutsDown=true
 
 ;; Persistence of changed objects happens during regular sweeps. The
@@ -316,9 +315,7 @@ emailmodule=DefaultEmailModule
 ;; TelehubAllowLandmark allows users with landmarks to override telehub
 ;; routing and land at the landmark coordinates when set to true
 ;; default is false
-
 ; TelehubAllowLandmark = false
-
 ; #
 ; # statistics
 ; #
@@ -335,8 +332,6 @@ LogShowStatsSeconds=3600
 ; NoVerifyCertHostname = true
 ;; having both options true does provide encryption but with low security
 ;; set both true if you don't care to use SSL, they are needed to contact regions or grids that do use it.
-
-
 ;# economy module
 economymodule=BetaGridLikeMoneyModule
 
@@ -524,7 +519,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=10.6.1.103
+host_domain_header_from=http://hg.osgrid.org
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -557,7 +552,6 @@ SMTP_SERVER_PASSWORD=Gmail password
 ;; entire simulator listens on. This port uses the TCP protocol, while
 ;; the region ports use UDP.
 ; http_listener_port = 9000
-
 http_listener_port=${Const|http_listener_port}
 
 ; optional main server secure http (ssl)
@@ -605,7 +599,7 @@ http_listener_port=${Const|http_listener_port}
 ; to whitelist all ports on addresses 192.168.1.0 to 192.168.1.255
 ; To specify an individual IP address use the /32 netmask
 ;
-OutboundDisallowForUserScriptsExcept=10.6.1.103/32
+OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 
 ;
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
@@ -623,7 +617,7 @@ OutboundDisallowForUserScriptsExcept=10.6.1.103/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
 ; UNCOMMENT AND SET THIS TO YOUR EXTERNAL OR LOCAL ADDRESS TO ENABLE AS NEEDED
-ExternalHostNameForLSL=10.6.1.103
+ExternalHostNameForLSL=http://hg.osgrid.org
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -707,14 +701,12 @@ Cap_GetDisplayNames="localhost"
 ;; Optional. If given this serves the same purpose as the grid wide
 ;; [LoginServices] DestinationGuide setting and will override that where
 ;; supported by viewers.
-
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
 ;; This serves the same purpose as the DestinationGuideURI in the
 ;; LoginService setting in the Robust server. This will override
 ;; the Robust setting if desired as an option.
 DestinationGuide="http://www.hyperica.com/destination-guide"
-
 
 ;# {MapTileURL} {} {URL of maptile server} {}
 MapTileURL="http://maptiles.osgrid.org:80"
@@ -840,19 +832,21 @@ TerrainImplementation=0
 ;; Path to default appearance XML file that specifies the look of the
 ;; default avatars
 ; default_appearance = default_appearance.xml
-
-
 [Sun]
-    ; number of wall clock hours for an opensim day.  24.0 would mean realtime
-    day_length = 24
-    ; Year length in days
-    year_length = 365
-    ; Day to Night Ratio
-    day_night_offset = 0.45
-    ; send a Sun update every update_interval # of frames.  A lower number will
-    ; make for smoother sun transition at the cost of network
-    update_interval = 100
-	
+
+; number of wall clock hours for an opensim day.  24.0 would mean realtime
+day_length=24
+
+; Year length in days
+year_length=365
+
+; Day to Night Ratio
+day_night_offset=0.45
+
+; send a Sun update every update_interval # of frames.  A lower number will
+; make for smoother sun transition at the cost of network
+update_interval=100
+
 [Wind]
 
 ;# {enabled} {} {Enable wind module?} {true false} true
@@ -891,7 +885,6 @@ enable_windlight=true
 ;; This enables the use of Materials.
 ; enable_materials = true
 ; MaxMaterialsPerTransaction = 50
-
 [DataSnapshot]
 
 ;# {index_sims} {} {Enable data snapshotting (search)?} {true false} false
@@ -1020,7 +1013,7 @@ AppDomainLoading=false
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup = true
+DeleteScriptsOnStartup=False
 
 ;# {CompactMemOnLoad} {} {compacts memory on each script load at startup?} {true false} false
 ;; forces calls to memory garbage collector before loading each script DLL during region startup.
@@ -1349,7 +1342,7 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
 
 ;
 ;; Thankxx to a tip from Jeremy Westfall!
@@ -1366,10 +1359,8 @@ density=0.5
 ; default is 1000
 cloud_update_rate=1000
 
-
-	
 [Modules]
-    ;;LandServices module is required for ossearch to function properly in grid mode.
-    LandServices = "RemoteLandServicesConnector"
-    LandServiceConnector = "True"
-	
+
+;;LandServices module is required for ossearch to function properly in grid mode.
+LandServices="RemoteLandServicesConnector"
+LandServiceConnector="True"
