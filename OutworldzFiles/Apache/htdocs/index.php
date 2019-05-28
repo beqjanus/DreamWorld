@@ -7,7 +7,6 @@
 
 <?php
 //include the log and database files
-require( "Search/flog.php" );
 include("MetroMap/includes/config.php");
 include("Search/databaseinfo.php");
 
