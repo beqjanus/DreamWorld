@@ -222,7 +222,7 @@ Public Class RegionList
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up"))  ' 6 Recycling Up
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning"))  ' 7 Unknown
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2"))  ' 8 - 1 User
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user1"))  ' 9 - 2 user
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1"))  ' 9 - 2 user
 
         Form1.UpdateView = True ' make form refresh
         LoadMyListView()
@@ -307,10 +307,10 @@ Public Class RegionList
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                     Letter = "Stopping"
                     Num = DGICON.shuttingdown
-                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PeopleInSim() = 1 Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And RegionClass.AvatarCount(X) = 1 Then
                     Letter = "Running"
                     Num = DGICON.user1
-                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PeopleInSim() > 1 Then
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And RegionClass.AvatarCount(X) > 1 Then
                     Letter = "Running"
                     Num = DGICON.user2
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then

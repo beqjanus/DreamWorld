@@ -892,6 +892,12 @@ Public Class Form1
         ReallyQuit()
     End Sub
 
+    Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
+        ProgressBar1.Value = 0
+        Print("Zzzz...")
+        End
+    End Sub
+
     Private Sub ReallyQuit()
 
         If Not KillAll() Then Return
@@ -899,7 +905,7 @@ Public Class Form1
         GAborting = True
         StopMysql()
         Print("I'll tell you my next dream when I wake up.")
-        ProgressBar1.Value = 5
+        ProgressBar1.Value = 0
         Print("Zzzz...")
         End
 
@@ -5988,6 +5994,8 @@ Public Class Form1
         End Try
 
     End Sub
+
+
 
 
 
