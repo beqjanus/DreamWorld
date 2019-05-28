@@ -124,6 +124,8 @@ Public Class RegionList
         recyclingdown = 5
         recyclingup = 6
         warning = 7
+        user1 = 8
+        user2 = 9
     End Enum
 
 #Region "Loader"
@@ -218,7 +220,9 @@ Public Class RegionList
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop"))  ' 4 enabled, stopped
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down"))  ' 5 Recycling down
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up"))  ' 6 Recycling Up
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning"))  ' 6 Unknown
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning"))  ' 7 Unknown
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2"))  ' 8 - 1 User
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user1"))  ' 9 - 2 user
 
         Form1.UpdateView = True ' make form refresh
         LoadMyListView()
@@ -303,6 +307,12 @@ Public Class RegionList
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                     Letter = "Stopping"
                     Num = DGICON.shuttingdown
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PeopleInSim() = 1 Then
+                    Letter = "Running"
+                    Num = DGICON.user1
+                ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PeopleInSim() > 1 Then
+                    Letter = "Running"
+                    Num = DGICON.user2
                 ElseIf RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     Letter = "Running"
                     Num = DGICON.up
@@ -1035,6 +1045,16 @@ Public Class RegionList
         LoadMyListView()
         Timer1.Start()
     End Sub
+
+#End Region
+
+#Region "Mysql"
+
+    Private Function PeopleInSim() As Integer
+
+        Return 1
+
+    End Function
 
 #End Region
 
