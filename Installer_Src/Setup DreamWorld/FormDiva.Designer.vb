@@ -23,9 +23,6 @@ Partial Class FormDiva
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDiva))
         Me.Web = New System.Windows.Forms.GroupBox()
         Me.WiFi = New System.Windows.Forms.PictureBox()
@@ -53,13 +50,14 @@ Partial Class FormDiva
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SplashPage = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.GreetingTextBox = New System.Windows.Forms.TextBox()
         Me.CustomButton1 = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.WhiteRadioButton = New System.Windows.Forms.RadioButton()
         Me.BlackRadioButton = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.X86Button = New System.Windows.Forms.Button()
@@ -72,7 +70,6 @@ Partial Class FormDiva
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -308,6 +305,8 @@ Partial Class FormDiva
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label4)
+        Me.GroupBox1.Controls.Add(Me.GreetingTextBox)
         Me.GroupBox1.Controls.Add(Me.CustomButton1)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.WhiteRadioButton)
@@ -318,10 +317,26 @@ Partial Class FormDiva
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Location = New System.Drawing.Point(230, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(279, 163)
+        Me.GroupBox1.Size = New System.Drawing.Size(279, 190)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Splash Screen"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(18, 145)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(82, 13)
+        Me.Label4.TabIndex = 1876
+        Me.Label4.Text = "Viewer Greeting"
+        '
+        'GreetingTextBox
+        '
+        Me.GreetingTextBox.Location = New System.Drawing.Point(18, 161)
+        Me.GreetingTextBox.Name = "GreetingTextBox"
+        Me.GreetingTextBox.Size = New System.Drawing.Size(222, 20)
+        Me.GreetingTextBox.TabIndex = 1875
         '
         'CustomButton1
         '
@@ -375,22 +390,6 @@ Partial Class FormDiva
         Me.Label3.Text = "Web Port (80)"
         Me.ToolTip1.SetToolTip(Me.Label3, "80 or 8000")
         '
-        'Chart1
-        '
-        ChartArea1.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend1)
-        Me.Chart1.Location = New System.Drawing.Point(349, 0)
-        Me.Chart1.Name = "Chart1"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(16, 8)
-        Me.Chart1.TabIndex = 186737
-        Me.Chart1.Text = "Chart1"
-        '
         'ApacheCheckbox
         '
         Me.ApacheCheckbox.AutoSize = True
@@ -411,9 +410,9 @@ Partial Class FormDiva
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
-        Me.GroupBox2.Location = New System.Drawing.Point(230, 185)
+        Me.GroupBox2.Location = New System.Drawing.Point(230, 208)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(279, 203)
+        Me.GroupBox2.Size = New System.Drawing.Size(279, 180)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache Webserver + PHP"
@@ -481,7 +480,6 @@ Partial Class FormDiva
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(543, 424)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Web)
         Me.Controls.Add(Me.GroupBox6)
@@ -496,7 +494,6 @@ Partial Class FormDiva
         Me.GroupBox6.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -535,7 +532,6 @@ Partial Class FormDiva
     Friend WithEvents Label1 As Label
     Friend WithEvents CustomButton1 As RadioButton
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
     Friend WithEvents ApacheCheckbox As CheckBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents PictureBox1 As PictureBox
@@ -545,4 +541,6 @@ Partial Class FormDiva
     Friend WithEvents SearchAllRadioButton As RadioButton
     Friend WithEvents SearchLocalRadioButton As RadioButton
     Friend WithEvents X86Button As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents GreetingTextBox As TextBox
 End Class

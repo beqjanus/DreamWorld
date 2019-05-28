@@ -96,7 +96,7 @@ Public Class FormDiva
             SearchAllRadioButton.Checked = True
         End If
 
-
+        GreetingTextBox.Text = Form1.MySetting.WelcomeMessage
 
         Form1.HelpOnce("Diva")
 
@@ -363,7 +363,11 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+
+    Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
+
+        If Not initted Then Return
+        Form1.MySetting.WelcomeMessage = GreetingTextBox.Text
 
     End Sub
 
