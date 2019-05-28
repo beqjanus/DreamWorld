@@ -128,6 +128,7 @@ Partial Class Form1
         Me.PercentCPU = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
+        Me.JustQuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -160,7 +161,7 @@ Partial Class Form1
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuExit})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.JustQuitToolStripMenuItem, Me.mnuExit})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -170,7 +171,7 @@ Partial Class Form1
         Me.mnuExit.Image = Global.Outworldz.My.Resources.Resources.exit_icon
         Me.mnuExit.Name = "mnuExit"
         Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mnuExit.Size = New System.Drawing.Size(133, 22)
+        Me.mnuExit.Size = New System.Drawing.Size(184, 26)
         Me.mnuExit.Text = "Exit"
         '
         'mnuSettings
@@ -870,6 +871,13 @@ Partial Class Form1
         Me.PercentRAM.TabIndex = 37
         Me.PercentRAM.Text = "0"
         '
+        'JustQuitToolStripMenuItem
+        '
+        Me.JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
+        Me.JustQuitToolStripMenuItem.Name = "JustQuitToolStripMenuItem"
+        Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.JustQuitToolStripMenuItem.Text = "Just Quit"
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -1019,4 +1027,5 @@ Partial Class Form1
     Friend WithEvents PercentCPU As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents PercentRAM As Label
+    Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
 End Class
