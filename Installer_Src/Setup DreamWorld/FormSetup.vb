@@ -1493,7 +1493,7 @@ Public Class Form1
                 My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
-                ' !!! My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
+                My.Computer.FileSystem.CopyDirectory(GOpensimBinPath + "bin\Library.proto", GOpensimBinPath + "bin\Library", True)
                 GridCommon = "Gridcommon-RegionServer.ini"
             Case "OsGrid"
                 GridCommon = "Gridcommon-OsGridServer.ini"
@@ -1501,7 +1501,7 @@ Public Class Form1
                 GridCommon = "Gridcommon-MetroServer.ini"
         End Select
 
-        ' Put that gridcommin.ini file in place
+        ' Put that gridcommon.ini file in place
         IO.File.Copy(GOpensimBinPath + "bin\config-include\" & GridCommon, IO.Path.Combine(GOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
 
@@ -1519,48 +1519,50 @@ Public Class Form1
         MySetting.SaveOtherINI()
 
         ''''''''''''''''''''''''''''''''''''''''''
-        ' Robust Process
-        MySetting.LoadOtherIni(GOpensimBinPath + "bin\Robust.HG.ini", ";")
+        If MySetting.ServerType = "Robust" Then
+            ' Robust Process
+            MySetting.LoadOtherIni(GOpensimBinPath + "bin\Robust.HG.ini", ";")
 
-        ConnectionString = """" _
-        + "Data Source=" + MySetting.RobustServer _
-        + ";Database=" + MySetting.RobustDataBaseName _
-        + ";Port=" + MySetting.MySqlPort _
-        + ";User ID=" + MySetting.RobustUsername _
-        + ";Password=" + MySetting.RobustPassword _
-        + ";Old Guids=true;Allow Zero Datetime=true;" _
-        + """"
+            ConnectionString = """" _
+            + "Data Source=" + MySetting.RobustServer _
+            + ";Database=" + MySetting.RobustDataBaseName _
+            + ";Port=" + MySetting.MySqlPort _
+            + ";User ID=" + MySetting.RobustUsername _
+            + ";Password=" + MySetting.RobustPassword _
+            + ";Old Guids=true;Allow Zero Datetime=true;" _
+            + """"
 
-        MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
-        MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
-        MySetting.SetOtherIni("Const", "BaseURL", "http://" & MySetting.PublicIP)
-        MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
-        MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
-        MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort)
-        MySetting.SetOtherIni("Const", "http_listener_port", MySetting.HttpPort)
-        MySetting.SetOtherIni("GridInfoService", "welcome", MySetting.SplashPage)
+            MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
+            MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
+            MySetting.SetOtherIni("Const", "BaseURL", "http://" & MySetting.PublicIP)
+            MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
+            MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort)
+            MySetting.SetOtherIni("Const", "http_listener_port", MySetting.HttpPort)
+            MySetting.SetOtherIni("GridInfoService", "welcome", MySetting.SplashPage)
 
-        If MySetting.Suitcase() Then
-            MySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
-        Else
-            MySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+            If MySetting.Suitcase() Then
+                MySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
+            Else
+                MySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+            End If
+
+            ' LSL emails
+            MySetting.SetOtherIni("SMTP", "SMTP_SERVER_HOSTNAME", MySetting.SmtpHost)
+            MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PORT", MySetting.SmtpPort)
+            MySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", MySetting.SmtpUsername)
+            MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", MySetting.SmtpPassword)
+
+            If MySetting.SearchLocal Then
+                MySetting.SetOtherIni("LoginService", "SearchURL", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
+            Else
+                MySetting.SetOtherIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
+            End If
+
+            MySetting.SetOtherIni("LoginService", "WelcomeMessage", MySetting.WelcomeMessage)
+
+            MySetting.SaveOtherINI()
+
         End If
-
-        ' LSL emails
-        MySetting.SetOtherIni("SMTP", "SMTP_SERVER_HOSTNAME", MySetting.SmtpHost)
-        MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PORT", MySetting.SmtpPort)
-        MySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", MySetting.SmtpUsername)
-        MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", MySetting.SmtpPassword)
-
-
-        If MySetting.SearchLocal Then
-            MySetting.SetOtherIni("LoginService", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
-        Else
-            MySetting.SetOtherIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
-        End If
-        MySetting.SaveOtherINI()
-
-
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
@@ -1569,37 +1571,16 @@ Public Class Form1
 
         Select Case MySetting.ServerType
             Case "Robust"
-                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
-                MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
-                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                MySetting.SetOtherIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
-                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
-                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
-                MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
-
                 If MySetting.SearchLocal Then
-                    MySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/register.php")
-                    MySetting.SetOtherIni("Search", "SearchURL", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
-                    MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|PrivURL}:" & MySetting.ApachePort & "/Search/query.php")
+                    MySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
+                    MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
                 Else
                     MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                     MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
                 End If
-
                 MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
-
             Case "Region"
-                MySetting.SetOtherIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
-                MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                MySetting.SetOtherIni("DataSnapshot", "gridname", "${Const|GridName}")
-                MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                MySetting.SetOtherIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
-                MySetting.SetOtherIni("Groups", "GroupsExternalURI", "${Const|PrivURL}:${Const|PrivatePort}") ' may be deprecated
-                MySetting.SetOtherIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
-                MySetting.SetOtherIni("XBakes", "URL", "${Const|PrivURL}:${Const|PrivatePort}")
-
             Case "OSGrid"
             Case "Metro"
 
@@ -1608,12 +1589,10 @@ Public Class Form1
         '' all grids requires these setting in Opensim.ini
         MySetting.SetOtherIni("Const", "DiagnosticsPort", MySetting.DiagnosticPort)
 
-
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
-
 
         If MySetting.LSLHTTP Then
             ' do nothing - let them edit it
@@ -1921,7 +1900,6 @@ Public Class Form1
             Dim FileName = GetProto()
 
             MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
-            MySetting.SetOtherIni("Const", "PrivURL", "http://" + MySetting.PrivateURL)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
             MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString) ' varies with region
             Dim name = RegionClass.RegionName(X)
@@ -1931,7 +1909,6 @@ Public Class Form1
 
             MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
             MySetting.SetOtherIni("Const", "RegionFolderName", RegionClass.GroupName(X))
-            MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort) '8003
             MySetting.SaveOtherINI()
 
 
@@ -3372,6 +3349,7 @@ Public Class Form1
             ErrorLog(ex.Message)
         End Try
 
+        'reverse series
         Dim series(180) As Double
         Dim j = 180
         Dim k = 1
@@ -3390,29 +3368,34 @@ Public Class Form1
         Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
         Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
-        For Each result In results
-            Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
-            MyRAMCollection.Add(value)
+        Try
+            For Each result In results
 
-            PercentRAM.Text = CType(value, Integer).ToString()
+                Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
+                MyRAMCollection.Add(value)
 
-            '.TrimEnd('0')
-            MyRAMCollection.Remove(1) ' drop 1st, older  item
-        Next
-        searcher.Dispose()
-        results.Dispose()
+                PercentRAM.Text = CType(value, Integer).ToString()
 
-        j = 180
-        k = 1
-        While j > 0
-            ramseries(k) = CType(MyRAMCollection(j), Double)
-            j -= 1
-            k += 1
-        End While
+                '.TrimEnd('0')
+                MyRAMCollection.Remove(1) ' drop 1st, older  item
+            Next
+        Catch ex As Exception
+            Log("Error", ex.Message)
+        Finally
+            searcher.Dispose()
+            results.Dispose()
 
-        ChartWrapper2.ClearChart()
-        ChartWrapper2.AddLinePlot("RAM", ramseries)
+            j = 180
+            k = 1
+            While j > 0
+                ramseries(k) = CType(MyRAMCollection(j), Double)
+                j -= 1
+                k += 1
+            End While
 
+            ChartWrapper2.ClearChart()
+            ChartWrapper2.AddLinePlot("RAM", ramseries)
+        End Try
 
     End Sub
     ''' <summary>
