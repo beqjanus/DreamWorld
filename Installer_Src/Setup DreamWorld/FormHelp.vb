@@ -1,6 +1,4 @@
-﻿Imports Outworldz
-
-Public Class FormHelp
+﻿Public Class FormHelp
 
     Dim Document As String
     Private _screenPosition As ScreenPos
@@ -14,11 +12,13 @@ Public Class FormHelp
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen(Webpage As String)
         Me.Show()
         Document = Webpage
@@ -43,6 +43,7 @@ Public Class FormHelp
             Me.Close()
         End Try
     End Sub
+
     Private Sub HomeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HomeToolStripMenuItem.Click
         Dim webAddress As String = "https://www.outworldz.com"
         Process.Start(webAddress)
@@ -100,6 +101,6 @@ Public Class FormHelp
         }
         Process.Start(info)
 
-
     End Sub
+
 End Class

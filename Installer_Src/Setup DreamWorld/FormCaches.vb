@@ -1,10 +1,9 @@
 ﻿Imports System.IO
-Imports Outworldz
 
 Public Class FormCaches
 
-
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -22,6 +21,7 @@ Public Class FormCaches
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -38,7 +38,6 @@ Public Class FormCaches
         SetScreen()
 
     End Sub
-
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Form1.OpensimIsRunning() Then
@@ -127,7 +126,6 @@ Public Class FormCaches
                     Form1.Print("Deleteing " & ctr.ToString + " of " + fCount.ToString & " images")
                     Application.DoEvents()
                 Next
-
             Catch
             End Try
         End If
@@ -148,7 +146,6 @@ Public Class FormCaches
             End Try
         End If
 
-
         If Not Form1.OpensimIsRunning() Then
             Form1.Print("All Server Caches cleared")
         Else
@@ -157,10 +154,10 @@ Public Class FormCaches
 
         Me.Close()
 
-
     End Sub
 
     Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
         Form1.Help("Cache")
     End Sub
+
 End Class

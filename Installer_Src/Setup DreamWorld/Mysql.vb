@@ -1,13 +1,12 @@
-﻿
-Imports MySql.Data.MySqlClient
-Imports System.Net.Sockets
+﻿Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
+Imports MySql.Data.MySqlClient
 
 Public Class MysqlInterface
 
     Implements IDisposable
 
-    Dim MysqlConn As MySqlConnection
+    Private ReadOnly MysqlConn As MySqlConnection
     Private _gConnStr As String = ""
 
     Public Sub New(connStr As String)
@@ -46,8 +45,8 @@ Public Class MysqlInterface
         Dim Dict As New Dictionary(Of String, String)
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
-        Dim Avatar As String = ""
-        Dim UUID As String = ""
+        Dim Avatar As String
+        Dim UUID As String
 
         MysqlConn.Open()
         Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
@@ -66,7 +65,6 @@ Public Class MysqlInterface
                 Next
 
             End While
-
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         End Try
@@ -89,7 +87,6 @@ Public Class MysqlInterface
                 Debug.Print("Region Name = {0}", reader.GetString(0))
                 Val = reader.GetString(0)
             End If
-
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         End Try
@@ -106,6 +103,7 @@ Public Class MysqlInterface
         Return Convert.ToInt16(UserCount)
 
     End Function
+
     Public Function IsMySqlRunning() As String
 
         Dim Mysql = CheckPort("127.0.0.1", CType(Form1.MySetting.MySqlPort, Integer))
@@ -144,7 +142,6 @@ Public Class MysqlInterface
 
     End Function
 
-
     Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Dim iPort As Integer = Convert.ToInt16(Port)
@@ -163,7 +160,9 @@ Public Class MysqlInterface
         CheckPort = False
 
     End Function
+
 #Region "IDisposable Support"
+
     Private disposedValue As Boolean ' To detect redundant calls
 
     Public Property GConnStr As String
@@ -192,6 +191,7 @@ Public Class MysqlInterface
     Public Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
     End Sub
+
 #End Region
 
 End Class

@@ -1,6 +1,5 @@
-﻿
+﻿Imports System.ComponentModel
 Imports System.IO
-Imports System.ComponentModel
 Imports System.Text.RegularExpressions
 
 Public Class FormRegion
@@ -24,6 +23,7 @@ Public Class FormRegion
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
+
 #End Region
 
 #Region "Start_Stop"
@@ -53,7 +53,6 @@ Public Class FormRegion
             MaxAgents.Text = 100.ToString
 
             n = RegionClass.CreateRegion("")
-
         Else
             isNew = False
             n = RegionClass.FindRegionByName(Name)
@@ -246,6 +245,7 @@ Public Class FormRegion
         End If
 
     End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Dim message = RegionValidate()
@@ -281,6 +281,7 @@ Public Class FormRegion
 #End Region
 
 #Region "Functions"
+
     Private Function IsPowerOf256(x As Integer) As Boolean
 
         Dim y As Single = Convert.ToSingle(x)
@@ -392,7 +393,6 @@ Public Class FormRegion
 
         Dim Filepath = RegionClass.RegionPath(n)
         Dim Folderpath = RegionClass.FolderPath(n)
-
 
         ' rename is possible
         If oldname <> RegionName.Text And Not isNew Then
@@ -523,8 +523,6 @@ Public Class FormRegion
                         "Tides = " & TidesCheckbox.Checked.ToString & vbCrLf &
                         "Teleport = " & TPCheckBox1.Checked.ToString & vbCrLf
 
-
-
         Debug.Print(Region)
 
         Try
@@ -566,7 +564,6 @@ Public Class FormRegion
 
     End Function
 
-
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
         Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
@@ -579,7 +576,6 @@ Public Class FormRegion
             Try
                 My.Computer.FileSystem.RenameFile(RegionClass.RegionPath(n), RegionName.Text + ".bak")
                 RegionClass.GetAllRegions()
-
             Catch ex As Exception
             End Try
         End If
@@ -594,10 +590,9 @@ Public Class FormRegion
 
 #Region "Changed"
 
-
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
 
-        RegionName.Text = RegionName.Text.Trim() ' remove spaces 
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces
         If Len(RegionName.Text) > 0 And initted Then
             If Not FilenameIsOK(RegionName.Text) Then
                 MsgBox("Region name can't use special characters such as < > : """" / \ | ? *", vbInformation, "Info")
@@ -686,7 +681,6 @@ Public Class FormRegion
                 changed = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
-
                 Else
                     Dim ok = MsgBox("Not a valid UUID. Do you want a new, Random UUID?", vbOKCancel, "Info")
                     If ok = vbOK Then
@@ -803,7 +797,6 @@ Public Class FormRegion
 
     End Sub
 
-
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
@@ -831,7 +824,7 @@ Public Class FormRegion
     Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
 
         If PhysicsODE.Checked Then
-            Form1.Log("Info","Region " + Name + " Physics Is set to ODE")
+            Form1.Log("Info", "Region " + Name + " Physics Is set to ODE")
         End If
         If initted Then changed = True
 
@@ -870,7 +863,6 @@ Public Class FormRegion
         End If
         If initted Then changed = True
     End Sub
-
 
     Private Sub EnableMaxPrims_text(sender As Object, e As EventArgs) Handles MaxPrims.TextChanged
 
@@ -1061,6 +1053,6 @@ Public Class FormRegion
         End If
     End Sub
 
-
 #End Region
+
 End Class

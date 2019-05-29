@@ -1,12 +1,13 @@
-﻿Imports Outworldz
-
-Public Class Gloebits
+﻿Public Class Gloebits
 
 #Region "Globals"
+
     Dim Initted As Boolean = False
+
 #End Region
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -24,6 +25,7 @@ Public Class Gloebits
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -34,6 +36,7 @@ Public Class Gloebits
     End Sub
 
 #End Region
+
 #Region "Load/Quit"
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -65,8 +68,8 @@ Public Class Gloebits
 
 #End Region
 
-
 #Region "Mode"
+
     Private Sub SandboxButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles SandboxButton.CheckedChanged
         If SandboxButton.Checked = True Then
             ProductionButton.Checked = False
@@ -82,7 +85,6 @@ Public Class Gloebits
             Form1.MySetting.SaveSettings()
         End If
     End Sub
-
 
 #End Region
 
@@ -101,6 +103,7 @@ Public Class Gloebits
     Private Sub TextBox2_click(sender As Object, e As EventArgs) Handles SandSecretTextBox.Click
         SandSecretTextBox.UseSystemPasswordChar = False
     End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SandBoxSignUpButton.Click
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
         Process.Start(webAddress)
@@ -115,6 +118,7 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com"
         Process.Start(webAddress)
     End Sub
+
 #End Region
 
 #Region "Production"
@@ -122,13 +126,16 @@ Public Class Gloebits
     Private Sub ProdSecretTextBox_Click(sender As Object, e As EventArgs) Handles ProdSecretTextBox.Click
         ProdSecretTextBox.UseSystemPasswordChar = False
     End Sub
+
     Private Sub ProdSecretTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdSecretTextBox.TextChanged
         Form1.MySetting.GLProdSecret = ProdSecretTextBox.Text
         Form1.MySetting.SaveSettings()
     End Sub
+
     Private Sub ProdKeyTextBox_Click(sender As Object, e As EventArgs) Handles ProdKeyTextBox.Click
         ProdKeyTextBox.UseSystemPasswordChar = False
     End Sub
+
     Private Sub ProdKeyTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdKeyTextBox.TextChanged
         Form1.MySetting.GLProdKey = ProdKeyTextBox.Text
         Form1.MySetting.SaveSettings()
@@ -187,9 +194,6 @@ Public Class Gloebits
         Process.Start(webAddress)
     End Sub
 
-
-
 #End Region
-
 
 End Class

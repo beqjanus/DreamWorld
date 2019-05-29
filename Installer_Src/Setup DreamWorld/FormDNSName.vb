@@ -1,13 +1,11 @@
-﻿Imports System.Text.RegularExpressions
-Imports System.Net
-Imports Outworldz
+﻿Imports System.Net
+Imports System.Text.RegularExpressions
 
 Public Class FormDNSName
 
     Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
     Dim changed As Boolean = False
-
 
 #Region "ScreenSize"
 
@@ -28,6 +26,7 @@ Public Class FormDNSName
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -111,6 +110,7 @@ Public Class FormDNSName
         Me.Close()
 
     End Sub
+
     Private Sub Closeme() Handles Me.Closed
 
         If changed Then
@@ -139,7 +139,6 @@ Public Class FormDNSName
 
     End Sub
 
-
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
         Form1.RegisterName(DNSNameBox.Text)
@@ -152,7 +151,6 @@ Public Class FormDNSName
         End If
 
     End Sub
-
 
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
@@ -187,9 +185,6 @@ Public Class FormDNSName
         Form1.Help("DNS")
 
     End Sub
-
-
-
 
 #End Region
 

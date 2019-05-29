@@ -1,9 +1,6 @@
-﻿Imports Outworldz
-
-Public Class FormRegionPopup
+﻿Public Class FormRegionPopup
 
     Dim gPick As String = ""
-
 
 #Region "ScreenSize"
 
@@ -24,6 +21,7 @@ Public Class FormRegionPopup
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(MyBase.Name)
@@ -38,6 +36,7 @@ Public Class FormRegionPopup
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
     End Sub
+
     Public Sub Init(RegionName As String)
 
         Dim X = Form1.RegionClass.FindRegionByName(RegionName)
@@ -81,12 +80,12 @@ Public Class FormRegionPopup
             StartButton3.Enabled = False
         End If
 
-
     End Sub
 
     Public Function Choice() As String
         Return gPick
     End Function
+
     Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton1.Click
         gPick = "Stop"
         DialogResult = DialogResult.OK

@@ -1,10 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
-Imports System.Net.Sockets
-Imports System.Text
 Imports System.Threading
-Imports System.Xml
-
 
 Public Class NetServer
     Private running As Boolean = False
@@ -158,16 +154,15 @@ Public Class NetServer
                     responseString = RegionClass.ParsePost(Uri, Setting)
                 End If
 
-
                 body.Close()
-                End If
+            End If
 
-                ''''''''''''''''''''''''''''''''''''''''''''''
+            ''''''''''''''''''''''''''''''''''''''''''''''
 
-                'Log(responseString)
+            'Log(responseString)
 
-                ' Get the response object to send our confirmation.
-                Dim response As HttpListenerResponse = context.Response
+            ' Get the response object to send our confirmation.
+            Dim response As HttpListenerResponse = context.Response
 
             ' Construct a minimal response string.
             Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)
@@ -183,14 +178,10 @@ Public Class NetServer
 
             'If you are finished with the request, it should be closed also.
             response.Close()
-
         Catch ex As Exception
             Debug.Print(ex.Message)
         End Try
 
     End Sub
 
-
 End Class
-
-

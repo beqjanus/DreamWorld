@@ -1,6 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Text.RegularExpressions
-Imports Outworldz
+﻿Imports System.Text.RegularExpressions
 
 Public Class FormMaps
     Private _screenPosition As ScreenPos
@@ -14,11 +12,13 @@ Public Class FormMaps
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -66,7 +66,6 @@ Public Class FormMaps
             SmallMapButton.Enabled = False
         End If
 
-
         Form1.HelpOnce("Maps")
         SetScreen()
 
@@ -85,6 +84,7 @@ Public Class FormMaps
         MapPicture.Image = My.Resources.blankbox
 
     End Sub
+
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         Form1.MySetting.MapType = "Simple"
@@ -157,4 +157,5 @@ Public Class FormMaps
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
         Form1.MySetting.MapCenterY = MapYStart.Text
     End Sub
+
 End Class

@@ -1,12 +1,13 @@
 ﻿Option Explicit On
+
 Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class FormRegions
 
     Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -24,6 +25,7 @@ Public Class FormRegions
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -34,6 +36,7 @@ Public Class FormRegions
     End Sub
 
 #End Region
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         LoadWelcomeBox()
@@ -103,7 +106,6 @@ Public Class FormRegions
 
     End Sub
 
-
     Private Sub LoadWelcomeBox()
 
         ' Default welcome region load
@@ -126,6 +128,7 @@ Public Class FormRegions
         End If
 
     End Sub
+
     Private Sub LoadRegionBox()
         ' All region load
         RegionBox.Items.Clear()
@@ -137,7 +140,6 @@ Public Class FormRegions
     End Sub
 
     Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
-
 
         Dim value As String = TryCast(RegionBox.SelectedItem, String)
         Dim RegionForm As New FormRegion
@@ -208,4 +210,5 @@ Public Class FormRegions
 
         End If
     End Sub
+
 End Class

@@ -1,5 +1,4 @@
-﻿Imports System.Web
-Imports System.IO
+﻿Imports System.IO
 Imports System.Net
 
 Public Class UploadImage
@@ -29,6 +28,7 @@ Public Class UploadImage
             Me.Params = _param
             Me.FileName = _file
         End Sub
+
     End Class
 
     Private Sub RequestStreamAvailable(ByVal ar As IAsyncResult)
@@ -148,14 +148,13 @@ Public Class UploadImage
 
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
-
         Catch ex As Exception
             Form1.Log("Error", " & ex.message")
         End Try
 
     End Sub
-End Class
 
+End Class
 
 'multipart/form-data; boundary=--------------------20190207-0157
 '----------------------20190207-0157
@@ -174,4 +173,3 @@ End Class
 '
 '
 '----------------------20190207-0157--
-

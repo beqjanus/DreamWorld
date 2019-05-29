@@ -1,9 +1,10 @@
 ﻿Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class BirdForm
     Dim changed As Boolean = False
+
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -21,6 +22,7 @@ Public Class BirdForm
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -31,7 +33,6 @@ Public Class BirdForm
     End Sub
 
 #End Region
-
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -174,7 +175,6 @@ Public Class BirdForm
             MsgBox(ex.Message, vbInformation)
         End Try
 
-
     End Sub
 
     Private Sub BirdsBorderSizeTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsBorderSizeTextBox.TextChanged
@@ -188,7 +188,6 @@ Public Class BirdForm
             MsgBox(ex.Message, vbInformation)
         End Try
 
-
     End Sub
 
     Private Sub BirdsMaxHeightTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsMaxHeightTextBox.TextChanged
@@ -201,7 +200,6 @@ Public Class BirdForm
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
         End Try
-
 
     End Sub
 

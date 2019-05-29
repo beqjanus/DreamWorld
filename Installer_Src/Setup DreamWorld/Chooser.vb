@@ -1,10 +1,10 @@
 ﻿Imports System.ComponentModel
-Imports Outworldz
 
 Public Class Choice
     Implements IDisposable
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -22,6 +22,7 @@ Public Class Choice
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -107,6 +108,7 @@ Public Class Choice
         OKButton1.Enabled = True
         DialogResult = DialogResult.OK
     End Sub
+
     Private Sub CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
         OKButton1.Enabled = True
     End Sub
@@ -114,4 +116,5 @@ Public Class Choice
     Private Sub CancelButton1_Click(sender As Object, e As EventArgs) Handles CancelButton1.Click
         DialogResult = DialogResult.Cancel
     End Sub
+
 End Class

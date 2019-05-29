@@ -1,6 +1,4 @@
-﻿Imports Outworldz
-
-Public Class FormPhysics
+﻿Public Class FormPhysics
 
     Dim initted As Boolean
 
@@ -23,6 +21,7 @@ Public Class FormPhysics
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -106,8 +105,7 @@ Public Class FormPhysics
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
         Form1.Help("Physics")
     End Sub
+
 #End Region
-
-
 
 End Class

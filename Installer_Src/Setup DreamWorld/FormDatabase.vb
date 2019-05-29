@@ -1,7 +1,4 @@
-﻿Imports System.Text.RegularExpressions
-Imports Outworldz
-
-Public Class FormDatabase
+﻿Public Class FormDatabase
 
     Dim initted As Boolean = False
     Dim DNSNameBoxBackup As String = ""
@@ -10,6 +7,7 @@ Public Class FormDatabase
     Dim DNSName As String = ""
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -27,6 +25,7 @@ Public Class FormDatabase
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -42,7 +41,7 @@ Public Class FormDatabase
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        'Database 
+        'Database
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''
         RegionDbName.Text = Form1.MySetting.RegionDBName
         RegionDBUsername.Text = Form1.MySetting.RegionDBUsername
@@ -106,7 +105,6 @@ Public Class FormDatabase
         Form1.MySetting.ServerType = ServerType
         Form1.MySetting.SaveSettings()
         changed = False ' do not trigger the save a second time
-
 
     End Sub
 
@@ -213,13 +211,13 @@ Public Class FormDatabase
 #End Region
 
 #Region "Grid type"
+
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         SaveAll()
         Me.Close()
 
     End Sub
-
 
     Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
 
@@ -251,7 +249,6 @@ Public Class FormDatabase
     End Sub
 
     Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
-
 
         If GridRegionButton.Checked Then
             RobustServer.Enabled = False

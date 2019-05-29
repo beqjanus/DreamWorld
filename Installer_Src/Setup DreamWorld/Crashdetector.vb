@@ -1,6 +1,5 @@
 ﻿Imports System.IO
 
-
 Public Class CrashDetector
 
     Public Sub Find()
@@ -28,7 +27,7 @@ Public Class CrashDetector
                                 ctr = ctr + 1
                                 If ctr > logline Then
                                     If line.Contains("Timeout detected for thread " & """bulletunmanaged") Then
-                                        ' Restart 
+                                        ' Restart
                                         Form1.Print("Restarting " & RegionName & " due to Bullet crash")
                                         Form1.GRestartNow = True
                                         Form1.SequentialPause()
@@ -46,4 +45,5 @@ Public Class CrashDetector
         Next
 
     End Sub
+
 End Class

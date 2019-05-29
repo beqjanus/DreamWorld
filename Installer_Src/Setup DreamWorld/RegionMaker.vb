@@ -1,9 +1,7 @@
-﻿Imports MySql.Data.MySqlClient
-
+﻿Imports System.IO
 Imports System.Text.RegularExpressions
-Imports System.IO
+Imports MySql.Data.MySqlClient
 Imports Newtonsoft.Json
-Imports System.Net
 
 Public Class RegionMaker
 
@@ -107,7 +105,9 @@ Public Class RegionMaker
 #End Region
 
 #Region "Classes"
+
 #Disable Warning CA1051 ' Do not declare visible instance fields
+
     Public Class JSONresult
         Public alert As String
         Public login As String
@@ -137,6 +137,7 @@ Public Class RegionMaker
 
         ' RAM vars, not from files
         Public _AvatarCount As Integer = 0
+
         Public _ProcessID As Integer = 0
         Public _Status As Integer = 0
         Public _Timer As Integer
@@ -144,6 +145,7 @@ Public Class RegionMaker
 
         'extended vars
         Public _RegionSnapShot As String
+
         Public _MapType As String
         Public _physics As String
         Public _AllowGods As String
@@ -154,7 +156,9 @@ Public Class RegionMaker
         Public _Teleport As String = ""
 
     End Class
+
 #Enable Warning CA1051 ' Do not declare visible instance fields
+
 #End Region
 
 #Region "Properties"
@@ -172,6 +176,7 @@ Public Class RegionMaker
             RegionList(n)._Group = Value
         End Set
     End Property
+
     Public Property NonPhysicalPrimMax(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._NonphysicalPrimMax, Integer)
@@ -180,6 +185,7 @@ Public Class RegionMaker
             RegionList(n)._NonphysicalPrimMax = Value.ToString
         End Set
     End Property
+
     Public Property PhysicalPrimMax(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._PhysicalPrimMax, Integer)
@@ -188,6 +194,7 @@ Public Class RegionMaker
             RegionList(n)._PhysicalPrimMax = Value.ToString
         End Set
     End Property
+
     Public Property ClampPrimSize(n As Integer) As Boolean
         Get
             Return CType(RegionList(n)._ClampPrimSize, Boolean)
@@ -196,6 +203,7 @@ Public Class RegionMaker
             RegionList(n)._ClampPrimSize = Value.ToString
         End Set
     End Property
+
     Public Property MaxPrims(n As Integer) As String
         Get
             Return CType(RegionList(n)._MaxPrims, String)
@@ -204,6 +212,7 @@ Public Class RegionMaker
             RegionList(n)._MaxPrims = Value
         End Set
     End Property
+
     Public Property MaxAgents(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._MaxAgents, Integer)
@@ -212,6 +221,7 @@ Public Class RegionMaker
             RegionList(n)._MaxAgents = Value.ToString
         End Set
     End Property
+
     Public Property Timer(n As Integer) As Integer
         Get
             Try
@@ -225,6 +235,7 @@ Public Class RegionMaker
             RegionList(n)._Timer = Value.ToString
         End Set
     End Property
+
     Public Property LineCounter(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._LineCounter, Integer)
@@ -233,6 +244,7 @@ Public Class RegionMaker
             RegionList(n)._LineCounter = Value
         End Set
     End Property
+
     Public Property Status(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._Status, Integer)
@@ -247,6 +259,7 @@ Public Class RegionMaker
             Return RegionList.Count
         End Get
     End Property
+
     ''' ''''''''''''''''''' PATHS ''''''''''''''''''''
     Public Property IniPath(n As Integer) As String
         Get
@@ -256,6 +269,7 @@ Public Class RegionMaker
             RegionList(n)._IniPath = Value
         End Set
     End Property
+
     Public Property RegionPath(n As Integer) As String
         Get
             Return RegionList(n)._RegionPath.ToString
@@ -264,6 +278,7 @@ Public Class RegionMaker
             RegionList(n)._RegionPath = Value
         End Set
     End Property
+
     Public Property FolderPath(n As Integer) As String
         Get
             Return RegionList(n)._FolderPath.ToString
@@ -272,6 +287,7 @@ Public Class RegionMaker
             RegionList(n)._FolderPath = Value
         End Set
     End Property
+
     Public Property RegionEnabled(n As Integer) As Boolean
         Get
             Return CType(RegionList(n)._RegionEnabled, Boolean)
@@ -280,6 +296,7 @@ Public Class RegionMaker
             RegionList(n)._RegionEnabled = Value.ToString
         End Set
     End Property
+
     Public Property ProcessID(n As Integer) As Integer
         Get
             Try
@@ -293,6 +310,7 @@ Public Class RegionMaker
             RegionList(n)._ProcessID = Value.ToString
         End Set
     End Property
+
     Public Property AvatarCount(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._AvatarCount, Integer)
@@ -301,6 +319,7 @@ Public Class RegionMaker
             RegionList(n)._AvatarCount = Value.ToString
         End Set
     End Property
+
     Public Property RegionName(n As Integer) As String
         Get
             Return RegionList(n)._RegionName.ToString
@@ -309,6 +328,7 @@ Public Class RegionMaker
             RegionList(n)._RegionName = Value.ToString
         End Set
     End Property
+
     Public Property UUID(n As Integer) As String
         Get
             Return RegionList(n)._UUID.ToString
@@ -317,6 +337,7 @@ Public Class RegionMaker
             RegionList(n)._UUID = Value.ToString
         End Set
     End Property
+
     Public Property SizeX(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._SizeX, Integer)
@@ -325,6 +346,7 @@ Public Class RegionMaker
             RegionList(n)._SizeX = Value.ToString
         End Set
     End Property
+
     Public Property SizeY(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._SizeY, Integer)
@@ -333,6 +355,7 @@ Public Class RegionMaker
             RegionList(n)._SizeY = Value.ToString
         End Set
     End Property
+
     Public Property RegionPort(n As Integer) As Integer
         Get
             Try
@@ -346,6 +369,7 @@ Public Class RegionMaker
             RegionList(n)._RegionPort = Value.ToString
         End Set
     End Property
+
     Public Property CoordX(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._CoordX, Integer)
@@ -354,6 +378,7 @@ Public Class RegionMaker
             RegionList(n)._CoordX = Value.ToString
         End Set
     End Property
+
     Public Property CoordY(n As Integer) As Integer
         Get
             Return CType(RegionList(n)._CoordY, Integer)
@@ -362,6 +387,7 @@ Public Class RegionMaker
             RegionList(n)._CoordY = Value.ToString
         End Set
     End Property
+
     Public Property RegionSnapShot(n As Integer) As String
         Get
             Return CType(RegionList(n)._RegionSnapShot, String)
@@ -370,6 +396,7 @@ Public Class RegionMaker
             RegionList(n)._RegionSnapShot = Value
         End Set
     End Property
+
     Public Property MapType(n As Integer) As String
         Get
             Return CType(RegionList(n)._MapType, String)
@@ -378,6 +405,7 @@ Public Class RegionMaker
             RegionList(n)._MapType = Value
         End Set
     End Property
+
     Public Property Physics(n As Integer) As String
         Get
             Return CType(RegionList(n)._physics, String)
@@ -386,6 +414,7 @@ Public Class RegionMaker
             RegionList(n)._physics = Value
         End Set
     End Property
+
     Public Property AllowGods(n As Integer) As String
         Get
             Return CType(RegionList(n)._AllowGods, String)
@@ -394,6 +423,7 @@ Public Class RegionMaker
             RegionList(n)._AllowGods = Value
         End Set
     End Property
+
     Public Property RegionGod(n As Integer) As String
         Get
             Return CType(RegionList(n)._RegionGod, String)
@@ -402,6 +432,7 @@ Public Class RegionMaker
             RegionList(n)._RegionGod = Value
         End Set
     End Property
+
     Public Property ManagerGod(n As Integer) As String
         Get
             Return CType(RegionList(n)._ManagerGod, String)
@@ -410,6 +441,7 @@ Public Class RegionMaker
             RegionList(n)._ManagerGod = Value
         End Set
     End Property
+
     Public Property Birds(n As Integer) As String
         Get
             Return RegionList(n)._Birds.ToString
@@ -418,6 +450,7 @@ Public Class RegionMaker
             RegionList(n)._Birds = Value
         End Set
     End Property
+
     Public Property Tides(n As Integer) As String
         Get
             Return RegionList(n)._Tides.ToString
@@ -426,6 +459,7 @@ Public Class RegionMaker
             RegionList(n)._Tides = Value.ToString
         End Set
     End Property
+
     Public Property Teleport(n As Integer) As String
         Get
             Return RegionList(n)._Teleport.ToString
@@ -518,7 +552,6 @@ Public Class RegionMaker
         Return -1
 
     End Function
-
 
     Public Function FindGroupNamebyRegionName(RegionName As String) As String
 
@@ -630,7 +663,7 @@ Public Class RegionMaker
                     For Each ini As String In inis
                         fName = System.IO.Path.GetFileNameWithoutExtension(ini)
 
-                        ' make a slot to hold the region data 
+                        ' make a slot to hold the region data
                         CreateRegion(fName)
 
                         ' must be after Createregion or port blows up
@@ -688,7 +721,7 @@ Public Class RegionMaker
 
                         If initted Then
 
-                            ' restore backups of transient data 
+                            ' restore backups of transient data
                             Try ' 6 temp vars from backup
                                 Dim o = FindBackupByName(fName)
 
@@ -699,7 +732,6 @@ Public Class RegionMaker
                                     LineCounter(n) = CType(Backup(o)._LineCounter, Integer)
                                     Timer(n) = CType(Backup(o)._Timer, Integer)
                                 End If
-
                             Catch
                             End Try
 
@@ -708,7 +740,6 @@ Public Class RegionMaker
                         n += 1
                         Application.DoEvents()
                     Next
-
                 Catch ex As Exception
                     MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, "Error")
                     Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
@@ -782,7 +813,6 @@ Public Class RegionMaker
         Using outputFile As New StreamWriter(fname, True)
             outputFile.WriteLine(proto)
         End Using
-
 
     End Sub
 
@@ -896,7 +926,6 @@ Public Class RegionMaker
 
     End Sub
 
-
     Public Sub CheckPost()
 
         ' Delete off end of list so we don't skip over one
@@ -909,7 +938,7 @@ Public Class RegionMaker
             Try
                 Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
 
-                ' This search returns the substring between two strings, so 
+                ' This search returns the substring between two strings, so
                 ' the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{")
@@ -948,7 +977,6 @@ Public Class RegionMaker
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
-
                 ElseIf json.login = "shutdown" Then
 
                     Return ' does not work as expected
@@ -972,7 +1000,6 @@ Public Class RegionMaker
                     Form1.ExitList.Add(json.region_name)
 
                 End If
-
             Catch ex As Exception
                 Debug.Print(ex.Message)
             End Try
@@ -986,10 +1013,8 @@ Public Class RegionMaker
 
     Public Function ParsePost(POST As String, MySetting As MySettings) As String
 
-
         ' set Region.Booted to true if the POST from the region indicates it is online
         ' requires a section in Opensim.ini where [RegionReady] has this:
-
 
         '[RegionReady]
 
@@ -1010,7 +1035,6 @@ Public Class RegionMaker
 
         '; - send an alert as json to a service
         'alert_uri = ${Const|BaseURL}:${Const|DiagnosticsPort}/${Const|RegionFolderName}
-
 
         ' POST = "GET Region name HTTP...{server_startup|oar_file_load},{0|1},n,[oar error]"
         '{"alert":"region_ready","login":"enabled","region_name":"Region 2","RegionId":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}}
@@ -1042,7 +1066,7 @@ Public Class RegionMaker
             ' currently unused as is only in standalones
         ElseIf POST.Contains("TOS") Then
             Debug.Print("UUID:" + POST)
-            '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.9" & vbCrLf & vbCrLf & 
+            '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.9" & vbCrLf & vbCrLf &
             '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
 
             If Not Form1.MySetting.StandAlone() Then
@@ -1096,7 +1120,6 @@ Public Class RegionMaker
                 Else
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
-
             Catch ex As Exception
                 Return "<html><head></head><body>Error</html>"
             End Try
@@ -1173,7 +1196,6 @@ Public Class RegionMaker
             End If
             Debug.Print("NULL response")
             Return ""
-
         Else
             Return "Test Completed"
         End If
@@ -1252,6 +1274,7 @@ Public Class RegionMaker
         Return a
 
     End Function
+
 #End Region
 
 End Class

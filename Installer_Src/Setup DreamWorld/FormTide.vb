@@ -1,8 +1,7 @@
-﻿Imports Outworldz
-
-Public Class Tides
+﻿Public Class Tides
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -20,6 +19,7 @@ Public Class Tides
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -30,6 +30,7 @@ Public Class Tides
     End Sub
 
 #End Region
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         TideEnabledCheckbox.Checked = CType(Form1.MySetting.TideEnabled, Boolean)
@@ -87,4 +88,5 @@ Public Class Tides
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
         Form1.Help("Tides")
     End Sub
+
 End Class

@@ -16,8 +16,8 @@
             Debug.Print(ex.Message)
         End Try
 
-
     End Sub
+
     Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As ArrayList) As Process
 
         Exitlist1 = ExitList
@@ -25,6 +25,5 @@
         Return MyProcess
 
     End Function
-
 
 End Class

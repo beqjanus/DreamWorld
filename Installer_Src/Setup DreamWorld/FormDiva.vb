@@ -1,10 +1,10 @@
 ﻿Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class FormDiva
 
     Dim initted As Boolean = False
     Dim setpassword As Boolean = False
+
 #Region "FormPos"
 
     Private _screenPosition As ScreenPos
@@ -18,6 +18,7 @@ Public Class FormDiva
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -165,6 +166,7 @@ Public Class FormDiva
         AdminPassword.UseSystemPasswordChar = False
 
     End Sub
+
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
@@ -172,6 +174,7 @@ Public Class FormDiva
         Form1.MySetting.SaveSettings()
 
     End Sub
+
     Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
 
         If Not initted Then Return
@@ -216,7 +219,7 @@ Public Class FormDiva
         Form1.MySetting.Password = AdminPassword.Text
         Form1.MySetting.SaveSettings()
 
-        Setpassword = True
+        setpassword = True
 
     End Sub
 
@@ -246,7 +249,6 @@ Public Class FormDiva
 
     End Sub
 
-
 #End Region
 
 #Region "Splash"
@@ -271,7 +273,6 @@ Public Class FormDiva
             Form1.Print("Theme set to Black")
             Form1.MySetting.Theme = "Black"
         End If
-
 
     End Sub
 
@@ -336,7 +337,6 @@ Public Class FormDiva
             SearchAllRadioButton.Checked = True
         End If
 
-
     End Sub
 
     Private Sub SearchAllRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchAllRadioButton.CheckedChanged
@@ -363,15 +363,12 @@ Public Class FormDiva
 
     End Sub
 
-
     Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
         If Not initted Then Return
         Form1.MySetting.WelcomeMessage = GreetingTextBox.Text
 
     End Sub
-
-
 
 #End Region
 

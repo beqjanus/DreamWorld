@@ -1,5 +1,4 @@
-﻿
-Imports System.IO
+﻿Imports System.IO
 Imports IniParser
 
 Public Class ScreenPos
@@ -9,7 +8,6 @@ Public Class ScreenPos
 #Enable Warning IDE0044 ' Add readonly modifier
     Dim parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
-
 
     Public Sub New(Name As String)
 
@@ -41,6 +39,7 @@ Public Class ScreenPos
         Debug.Print("Y>" + ValueY.ToString)
 
     End Sub
+
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
         SetXYIni("Data", gName + "_H", ValueH.ToString)
@@ -58,6 +57,7 @@ Public Class ScreenPos
         If Value = 0 Then Return False
         Return True
     End Function
+
     Public Function GetXY() As List(Of Integer)
 
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
@@ -89,6 +89,7 @@ Public Class ScreenPos
         Return r
 
     End Function
+
     Public Function GetHW() As List(Of Integer)
 
         Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
@@ -103,12 +104,13 @@ Public Class ScreenPos
         Return r
 
     End Function
+
     Private Sub SetXYIni(section As String, key As String, value As String)
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info","Writing section [" + section + "] " + key + "=" + value)
-            Data(section)(key) = value ' replace it 
+            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
+            Data(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
         End Try
@@ -135,4 +137,5 @@ Public Class ScreenPos
         End Try
 
     End Sub
+
 End Class

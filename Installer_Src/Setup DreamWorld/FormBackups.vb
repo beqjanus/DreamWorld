@@ -1,10 +1,8 @@
 ﻿Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class FormBackups
 
 #Region "FormPos"
-
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
@@ -17,6 +15,7 @@ Public Class FormBackups
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -34,9 +33,6 @@ Public Class FormBackups
 
 #End Region
 
-#Region "Load"
-
-#End Region
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoBackupKeepFilesForDays.Text = Form1.MySetting.KeepForDays.ToString
@@ -82,6 +78,7 @@ Public Class FormBackups
     End Sub
 
 #Region "Changes"
+
     Private Sub ABEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles AutoBackup.CheckedChanged
 
         Form1.MySetting.AutoBackup = AutoBackup.Checked
@@ -134,6 +131,7 @@ Public Class FormBackups
         End Try
 
     End Sub
+
     Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BackupFolder.Click
 
         Backup()
@@ -176,7 +174,7 @@ Public Class FormBackups
         End If
 
     End Sub
-#End Region
 
+#End Region
 
 End Class

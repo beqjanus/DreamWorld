@@ -1,8 +1,7 @@
-﻿Imports Outworldz
-
-Public Class FormDisplacement1X1
+﻿Public Class FormDisplacement1X1
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -20,6 +19,7 @@ Public Class FormDisplacement1X1
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -30,6 +30,7 @@ Public Class FormDisplacement1X1
     End Sub
 
 #End Region
+
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         SetScreen()
@@ -52,7 +53,7 @@ Public Class FormDisplacement1X1
             OriginalTererainToolStripMenuItem.Checked = True
         End If
 
-        If Form1.gForceMerge Then
+        If Form1.GForceMerge Then
             MergeOARToolStripMenuItem.Checked = True
             ClearOARToolStripMenuItem.Checked = False
         Else
@@ -82,7 +83,6 @@ Public Class FormDisplacement1X1
             PictureBox3.Image = My.Resources.water
         End Try
 
-
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
@@ -90,10 +90,9 @@ Public Class FormDisplacement1X1
         Me.Close()
     End Sub
 
-
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
-        Form1.gForceMerge = False
+        Form1.GForceMerge = False
         MergeOARToolStripMenuItem.Checked = False
         ClearOARToolStripMenuItem.Checked = True
 
@@ -101,7 +100,7 @@ Public Class FormDisplacement1X1
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        Form1.gForceMerge = True
+        Form1.GForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
 
@@ -146,6 +145,5 @@ Public Class FormDisplacement1X1
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
         Form1.GUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
-
 
 End Class

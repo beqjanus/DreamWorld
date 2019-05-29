@@ -1,8 +1,4 @@
-﻿
-
-Imports Outworldz
-
-Public Class AdvancedForm
+﻿Public Class AdvancedForm
 
 #Region "Declarations"
 
@@ -29,6 +25,7 @@ Public Class AdvancedForm
 #End Region
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -46,6 +43,7 @@ Public Class AdvancedForm
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -74,7 +72,6 @@ Public Class AdvancedForm
 
     End Sub
 
-
 #End Region
 
     Private Sub Form1_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
@@ -85,7 +82,6 @@ Public Class AdvancedForm
         End Try
 
     End Sub
-
 
 #Region "Clicks"
 
@@ -110,7 +106,6 @@ Public Class AdvancedForm
         Gloebits.Visible = True
 
     End Sub
-
 
     Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
 
@@ -187,6 +182,7 @@ Public Class AdvancedForm
         FormRegions.Visible = True
 
     End Sub
+
     Private Sub DivaButton1_Click(sender As Object, e As EventArgs) Handles DivaButton1.Click
 
         ' Set the new form's desktop location so it appears below and
@@ -264,7 +260,6 @@ Public Class AdvancedForm
 
     End Sub
 
-
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
         ' Set the new form's desktop location so it appears below and
@@ -286,10 +281,6 @@ Public Class AdvancedForm
 
     End Sub
 
-
-
-
 #End Region
-
 
 End Class

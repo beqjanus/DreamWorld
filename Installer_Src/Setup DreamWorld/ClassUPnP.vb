@@ -1,6 +1,6 @@
-﻿Imports System.Net.Sockets
-Imports System.IO
+﻿Imports System.IO
 Imports System.Net
+Imports System.Net.Sockets
 Imports System.Runtime.InteropServices
 
 Public Class UPnp
@@ -54,7 +54,6 @@ Public Class UPnp
         End Set
     End Property
 
-
     ''' <summary>
     ''' The UPnp Managed Class
     ''' </summary>
@@ -91,7 +90,6 @@ Public Class UPnp
             If staticMapping.Count = 0 Then
                 Log("Router does not have any active UPnP mappings.")
             End If
-
         Catch ex As NotImplementedException
             Log("Router does not support Static mappings.")
             staticEnabled = False
@@ -214,12 +212,9 @@ Public Class UPnp
                 End If
             End Try
             CacheIP = LocalIP
-
         Else
             LocalIP = CacheIP
         End If
-
-
 
     End Function
 
@@ -288,7 +283,6 @@ Public Class UPnp
         GC.SuppressFinalize(Me)
     End Sub
 
-
     ''' Prints out some debugging information to use.
 
     Public Sub Print()
@@ -315,7 +309,6 @@ Public Class UPnp
         Catch
         End Try
 
-
     End Sub
 
     Public Sub Log(message As String)
@@ -326,6 +319,5 @@ Public Class UPnp
         Catch
         End Try
     End Sub
-
 
 End Class

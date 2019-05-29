@@ -1,9 +1,9 @@
 ﻿Imports System.IO
-Imports Outworldz
 
 Public Class TosForm
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -21,6 +21,7 @@ Public Class TosForm
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -51,6 +52,7 @@ Public Class TosForm
         SetScreen()
 
     End Sub
+
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         'nothing

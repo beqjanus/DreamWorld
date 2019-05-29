@@ -1,5 +1,4 @@
 ﻿Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class FormPorts
 
@@ -18,6 +17,7 @@ Public Class FormPorts
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -34,6 +34,7 @@ Public Class FormPorts
     End Sub
 
 #End Region
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         SetScreen()
@@ -60,7 +61,6 @@ Public Class FormPorts
 
     End Sub
 
-
 #Region "Ports"
 
     Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
@@ -74,7 +74,6 @@ Public Class FormPorts
         Form1.CheckDefaultPorts()
 
     End Sub
-
 
     Private Sub HTTPPort_TextChanged(sender As Object, e As EventArgs) Handles HTTPPort.TextChanged
 
@@ -119,9 +118,6 @@ Public Class FormPorts
 
     End Sub
 
-
 #End Region
-
-
 
 End Class

@@ -1,6 +1,4 @@
-﻿Imports System.Security.Principal
-Imports System.Text.RegularExpressions
-Imports Outworldz
+﻿Imports System.Text.RegularExpressions
 
 Public Class FormRestart
 
@@ -17,11 +15,13 @@ Public Class FormRestart
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -58,12 +58,12 @@ Public Class FormRestart
         Form1.MySetting.SaveSettings()
 
     End Sub
+
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
 
         Form1.Help("Restart")
 
     End Sub
-
 
     Private Sub AutoRestartBox_TextChanged(sender As Object, e As EventArgs) Handles AutoRestartBox.TextChanged
 
@@ -76,7 +76,6 @@ Public Class FormRestart
             Form1.MySetting.SaveSettings()
         Catch
         End Try
-
 
     End Sub
 
@@ -95,7 +94,6 @@ Public Class FormRestart
             AutoRestartBox.Text = "0"
         End If
         Form1.MySetting.SaveSettings()
-
 
     End Sub
 

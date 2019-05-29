@@ -1,6 +1,4 @@
-﻿
-Imports System.IO
-Imports Outworldz
+﻿Imports System.IO
 
 Public Class RegionList
 
@@ -26,6 +24,7 @@ Public Class RegionList
 #End Region
 
 #Region "Properties"
+
     Shared Property UpdateView() As Boolean
         Get
             Return Form1.UpdateView
@@ -34,6 +33,7 @@ Public Class RegionList
             Form1.UpdateView = Value
         End Set
     End Property
+
     ' property exposing FormExists
     Public Shared ReadOnly Property InstanceExists() As Boolean
         Get
@@ -50,9 +50,11 @@ Public Class RegionList
             _screenPosition = value
         End Set
     End Property
+
 #End Region
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -62,6 +64,7 @@ Public Class RegionList
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
+
     Private Sub SetScreen(View As Integer)
         Me.Show()
         ScreenPosition = New ScreenPos(MyBase.Name & View.ToString)
@@ -112,11 +115,14 @@ Public Class RegionList
         AvatarView.Size = New System.Drawing.Size(X, Y)
 
     End Sub
+
 #End Region
 
     Enum DGICON
+
         ' index of 0-4 to display icons
         bootingup = 0
+
         shuttingdown = 1
         up = 2
         disabled = 3
@@ -201,7 +207,6 @@ Public Class RegionList
         ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
 
-
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler Me.ListView1.ColumnClick, AddressOf ColumnClick
@@ -244,9 +249,11 @@ Public Class RegionList
         Form1.MySetting.SaveSettings()
 
     End Sub
+
 #End Region
 
 #Region "Timer"
+
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
         If UpdateView() Or Timertick Mod 120 = 0 Then ' force a refresh
@@ -255,9 +262,11 @@ Public Class RegionList
         Timertick += 1
 
     End Sub
+
 #End Region
 
 #Region "Load List View"
+
     Public Sub LoadMyListView()
 
         If TheView = ViewType.Avatars Then
@@ -267,6 +276,7 @@ Public Class RegionList
         End If
 
     End Sub
+
     Private Sub ShowRegions()
 
         ListView1.Show()
@@ -345,7 +355,6 @@ Public Class RegionList
                     Num = X
 
                 End If
-
 
                 ' Create items and subitems for each item.
                 ' Place a check mark next to the item.
@@ -471,7 +480,6 @@ Public Class RegionList
             ListView1.EndUpdate()
             ViewNotBusy = True
             UpdateView() = False
-
         Catch ex As Exception
             Form1.Log("Error", " RegionList " & ex.Message)
             RegionClass.GetAllRegions()
@@ -511,7 +519,6 @@ Public Class RegionList
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
                 End If
-
             Catch ex As Exception
                 Dim item1 As New ListViewItem("No Avatars", Index)
                 item1.SubItems.Add("-")
@@ -519,7 +526,6 @@ Public Class RegionList
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             End Try
-
 
             ' Hypergrid
             Try
@@ -543,7 +549,6 @@ Public Class RegionList
                     item1.SubItems.Add("Hypergrid")
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                 End If
-
             Catch
                 Dim item1 As New ListViewItem("No Avatars", Index)
                 item1.SubItems.Add("-")
@@ -560,7 +565,6 @@ Public Class RegionList
         Catch ex As Exception
             Form1.Log("Error", " RegionList " & ex.Message)
         End Try
-
 
     End Sub
 
@@ -629,7 +633,6 @@ Public Class RegionList
 
     End Sub
 
-
     Private Sub StartStopEdit(checked As Boolean, n As Integer, RegionName As String)
 
         ' show it, stop it, start it, or edit it
@@ -697,7 +700,6 @@ Public Class RegionList
                         Next
                     End If
 
-
                     UpdateView = True ' make form refresh
                 End If
 
@@ -737,7 +739,6 @@ Public Class RegionList
 
         End Try
 
-
     End Sub
 
     Private Sub StopRegionNum(num As Integer)
@@ -771,7 +772,6 @@ Public Class RegionList
             End If
         Next
 
-
         UpdateView() = True ' force a refresh
 
     End Sub
@@ -782,8 +782,8 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer 
-        ' object. Setting this property immediately sorts the 
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer
+        ' object. Setting this property immediately sorts the
         ' ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
@@ -842,7 +842,6 @@ Public Class RegionList
                 End If
 
                 File.Copy(pathname, Form1.GOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
-
             Else
                 Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")
             End If
@@ -873,7 +872,6 @@ Public Class RegionList
         Return chosen
 
     End Function
-
 
     Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNome.CheckedChanged
 
@@ -1061,12 +1059,14 @@ Public Class RegionList
 End Class
 
 #Region "Compare"
+
 ' Implements the manual sorting of items by columns.
 Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
     Private col As Integer
 #Enable Warning IDE0044 ' Add readonly modifier
+
     Public Sub New()
         col = 1
     End Sub

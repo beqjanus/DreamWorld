@@ -1,6 +1,4 @@
-﻿Imports Outworldz
-
-Public Class FormPermissions
+﻿Public Class FormPermissions
 
     Dim initted As Boolean = False
 
@@ -15,11 +13,13 @@ Public Class FormPermissions
             _screenPosition = value
         End Set
     End Property
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -56,6 +56,7 @@ Public Class FormPermissions
     End Sub
 
 #Region "Subs"
+
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
 
         Form1.Help("Permissions")
@@ -130,8 +131,6 @@ Public Class FormPermissions
         End If
 
     End Sub
-
-
 
 #End Region
 

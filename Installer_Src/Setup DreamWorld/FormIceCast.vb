@@ -1,10 +1,9 @@
-﻿Imports System.IO
-Imports System.Text.RegularExpressions
-Imports Outworldz
+﻿Imports System.Text.RegularExpressions
 
 Public Class Icecast
 
 #Region "ScreenSize"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -22,6 +21,7 @@ Public Class Icecast
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
     Private Sub SetScreen()
         Me.Show()
         ScreenPosition = New ScreenPos(Me.Name)
@@ -32,6 +32,7 @@ Public Class Icecast
     End Sub
 
 #End Region
+
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ShoutcastPort.Text = Form1.MySetting.SCPortBase.ToString
@@ -66,34 +67,36 @@ Public Class Icecast
 
     End Sub
 
-
     Private Sub AdminPassword_Click(sender As Object, e As EventArgs) Handles AdminPassword.Click
 
         AdminPassword.UseSystemPasswordChar = False
 
     End Sub
 
-
     Private Sub ShoutcastEnable_CheckedChanged(sender As Object, e As EventArgs) Handles ShoutcastEnable.CheckedChanged
 
         Form1.MySetting.SCEnable = ShoutcastEnable.Checked
 
     End Sub
+
     Private Sub ShoutcastPassword_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.TextChanged
 
         Form1.MySetting.SCPassword = ShoutcastPassword.Text
 
     End Sub
+
     Private Sub ShoutcastPassword_CLickChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.Click
 
         ShoutcastPassword.UseSystemPasswordChar = False
 
     End Sub
+
     Private Sub SCShow_CheckedChanged(sender As Object, e As EventArgs) Handles SCShow.CheckedChanged
 
         Form1.MySetting.SCShow = SCShow.Checked
 
     End Sub
+
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         Form1.MySetting.SaveSettings()
@@ -127,6 +130,6 @@ Public Class Icecast
         Catch
         End Try
 
-
     End Sub
+
 End Class
