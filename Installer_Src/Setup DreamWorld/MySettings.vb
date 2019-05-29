@@ -417,13 +417,13 @@ Public Class MySettings
         Try
             Dim x = RestartOnCrash()
         Catch ex As Exception
-            RestartOnCrash() = True
+            RestartOnCrash() = False
         End Try
 
         Try
             Dim x = RestartonPhysics()
         Catch ex As Exception
-            RestartonPhysics() = True
+            RestartonPhysics() = False
         End Try
 
         Try
