@@ -1572,17 +1572,20 @@ Public Class Form1
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
 
-        GetProto()  ' get the default Opensim.ini Prototype
+        GetProto()  ' get the default ini Prototype
 
         Select Case MySetting.ServerType
             Case "Robust"
                 If MySetting.SearchLocal Then
                     MySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
+                    MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
+                    MySetting.SetOtherIni("Const", "PrivURL", MySetting.PrivateURL)
                 Else
                     MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                     MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                    MySetting.SetOtherIni("Const", "PrivURL", MySetting.PrivateURL)
                 End If
                 MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
             Case "Region"
