@@ -934,7 +934,7 @@ Public Class RegionMaker
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
-                        Return
+                        Continue For
                     End If
 
                     RegionEnabled(n) = True
@@ -951,7 +951,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Return ' does not work as expected
+                    Continue For ' does not work as expected
 
                     Form1.Print("Region " & json.region_name & " shutdown")
 
