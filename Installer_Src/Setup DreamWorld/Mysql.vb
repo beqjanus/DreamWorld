@@ -32,6 +32,8 @@ Public Class MysqlInterface
             End While
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
         End Try
 
         Return Dict
@@ -45,14 +47,17 @@ Public Class MysqlInterface
         Dim Dict As New Dictionary(Of String, String)
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
-        Dim Avatar As String
-        Dim UUID As String
+        Dim Avatar As String = ""
+        Dim UUID As String = ""
 
-        MysqlConn.Open()
-        Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
-        Dim reader As MySqlDataReader = cmd.ExecuteReader()
         Try
-            While reader.Read
+            MysqlConn.Open()
+            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.HasRows
+
+                reader.Read()
 
                 Debug.Print(reader.GetString(0))
                 Dim LongName = reader.GetString(0)
@@ -65,8 +70,10 @@ Public Class MysqlInterface
                 Next
 
             End While
-        Catch ex As MySqlException
+        Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
         End Try
 
         Return Dict
@@ -89,6 +96,8 @@ Public Class MysqlInterface
             End If
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            MysqlConn.Close()
         End Try
 
         Return Val
@@ -123,15 +132,12 @@ Public Class MysqlInterface
             MysqlConn.Open()
         Catch ex As Exception
             Debug.Print("Error: " & ex.Message)
-            Return Nothing
-        Finally
-
         End Try
 
         Try
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
             Dim v = Convert.ToString(cmd.ExecuteScalar())
-            MysqlConn.Close()
+            'MysqlConn.Close()
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)
