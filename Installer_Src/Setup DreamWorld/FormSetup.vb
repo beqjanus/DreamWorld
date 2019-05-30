@@ -3333,38 +3333,31 @@ Public Class Form1
         'RAM
 
         Dim ramseries(180) As Double
-        Dim wql As ObjectQuery = New ObjectQuery("SELECT * FROM Win32_OperatingSystem")
+        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
         Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
         Try
             For Each result In results
-
                 Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
                 MyRAMCollection.Add(value)
-
                 PercentRAM.Text = CType(value, Integer).ToString()
-
-                '.TrimEnd('0')
-                MyRAMCollection.Remove(1) ' drop 1st, older  item
             Next
-            results.Dispose()
         Catch ex As Exception
             Log("Error", ex.Message)
-        Finally
-            searcher.Dispose()
-            results.Dispose()
-
-            j = 180
-            k = 1
-            While j > 0
-                ramseries(k) = CType(MyRAMCollection(j), Double)
-                j -= 1
-                k += 1
-            End While
-
-            ChartWrapper2.ClearChart()
-            ChartWrapper2.AddLinePlot("RAM", ramseries)
         End Try
+
+        MyRAMCollection.Remove(1) ' drop 1st, older  item
+
+        j = 180
+        k = 1
+        While j > 0
+            ramseries(k) = CType(MyRAMCollection(j), Double)
+            j -= 1
+            k += 1
+        End While
+
+        ChartWrapper2.ClearChart()
+        ChartWrapper2.AddLinePlot("RAM", ramseries)
 
     End Sub
 
