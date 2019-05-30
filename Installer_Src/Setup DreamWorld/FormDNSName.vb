@@ -95,10 +95,12 @@ Public Class FormDNSName
     Private Sub SaveAll()
 
         NextNameButton.Text = "Saving..."
-        Form1.RegisterName(DNSNameBox.Text)
 
-        Form1.MySetting.DNSName = DNSNameBox.Text
-        If DNSNameBox.Text.Length = 0 Then
+        If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
+            Form1.MySetting.DNSName = DNSNameBox.Text
+        End If
+
+        If Form1.MySetting.DNSName.Length = 0 Then
             Form1.MySetting.PublicIP = Form1.MySetting.PrivateURL
         Else
             Form1.MySetting.PublicIP = DNSNameBox.Text
