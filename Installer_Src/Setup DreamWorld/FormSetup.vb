@@ -1424,14 +1424,14 @@ Public Class Form1
     ''' <returns>
     ''' Returns the path to the proper Opensim.ini prototype.
     ''' </returns>
-    Function GetProto() As String
+    Function GetOpensimProto() As String
 
         Select Case MySetting.ServerType
             Case "Robust"
                 MySetting.LoadOtherIni(GOpensimBinPath + "bin\Opensim.proto", ";")
                 Return GOpensimBinPath + "bin\Opensim.proto"
             Case "Region"
-                MySetting.LoadOtherIni(GOpensimBinPath + "bin\Opensim.proto", ";")
+                MySetting.LoadOtherIni(GOpensimBinPath + "bin\OpensimRegion.proto", ";")
                 Return GOpensimBinPath + "bin\OpensimRegion.proto"
             Case "OsGrid"
                 MySetting.LoadOtherIni(GOpensimBinPath + "bin\OpensimOsGrid.proto", ";")
@@ -1539,6 +1539,7 @@ Public Class Form1
             MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
             MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
             MySetting.SetOtherIni("Const", "BaseURL", "http://" & MySetting.PublicIP)
+            MySetting.SetOtherIni("Const", "PrivURL", "http://" & MySetting.PrivateURL)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
             MySetting.SetOtherIni("Const", "PrivatePort", MySetting.PrivatePort)
             MySetting.SetOtherIni("Const", "http_listener_port", MySetting.HttpPort)
@@ -1570,8 +1571,7 @@ Public Class Form1
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
-
-        GetProto()  ' get the default ini Prototype
+        MySetting.LoadOtherIni(GetOpensimProto(), ";")
 
         Select Case MySetting.ServerType
             Case "Robust"
@@ -1579,13 +1579,13 @@ Public Class Form1
                     MySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & MySetting.ApachePort & "/Search/query.php")
-                    MySetting.SetOtherIni("Const", "PrivURL", MySetting.PrivateURL)
                 Else
                     MySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                     MySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
                     MySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
-                    MySetting.SetOtherIni("Const", "PrivURL", MySetting.PrivateURL)
                 End If
+
+                MySetting.SetOtherIni("Const", "PrivURL", "http://" & MySetting.PrivateURL)
                 MySetting.SetOtherIni("Const", "GridName", MySetting.SimName)
             Case "Region"
             Case "OSGrid"
@@ -1894,10 +1894,11 @@ Public Class Form1
 
         Try
 
-            Dim FileName = GetProto()
+            MySetting.LoadOtherIni(GetOpensimProto(), ";")
 
             MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
+            MySetting.SetOtherIni("Const", "PrivURL", "http://" & MySetting.PrivateURL) ' local IP
             MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString) ' varies with region
             Dim name = RegionClass.RegionName(X)
 
@@ -1908,7 +1909,8 @@ Public Class Form1
             MySetting.SetOtherIni("Const", "RegionFolderName", RegionClass.GroupName(X))
             MySetting.SaveOtherINI()
 
-            My.Computer.FileSystem.CopyFile(FileName, pathname + "Opensim.ini", True)
+            My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname + "Opensim.ini", True)
+
         Catch ex As Exception
             Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
             ErrorLog("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
@@ -4942,6 +4944,10 @@ Public Class Form1
 
     Public Function RegisterDNS() As Boolean
 
+        If MySetting.ServerType <> "Robust" Then
+            Return True
+        End If
+
         If MySetting.DNSName.Length = 0 Then
             Return True
         End If
@@ -5002,6 +5008,9 @@ Public Class Form1
     Public Function RegisterName(name As String) As String
 
         Dim Checkname As String = String.Empty
+        If MySetting.ServerType <> "Robust" Then
+            Return name
+        End If
 
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" + name + GetPostData())

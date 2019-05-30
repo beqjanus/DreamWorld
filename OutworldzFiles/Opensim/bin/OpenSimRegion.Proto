@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=10.6.1.103
+BaseHostname=www.outworldz.com
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -484,7 +484,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=10.6.1.103
+host_domain_header_from=www.outworldz.com
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -569,7 +569,7 @@ OutboundDisallowForUserScriptsExcept=10.6.1.103/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=10.6.1.103
+ExternalHostNameForLSL=www.outworldz.com
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -695,12 +695,12 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-; OfflineMessageURL = ${Const|BaseURL}:${Const|PublicPort}
+OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
+
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
 ; StorageProvider = OpenSim.Data.MySQL.dll
-StorageProvider=Offline Message Module V2
-
+;StorageProvider=Offline Message Module V2
 ;# {MuteListModule} {OfflineMessageModule:OfflineMessageModule} {} {} MuteListModule
 ;; Mute list handler (not yet implemented). MUST BE SET to allow offline
 ;; messages to work
@@ -1131,7 +1131,6 @@ NoticesEnabled=true
 ; Should make large groups with few online members messaging faster, as the expense of more calls to presence service
 ; Applies Flotsam Group only. V2 has this always on, no other option
 MessageOnlineUsersOnly=true
-
 GroupsExternalURI=${Const|BaseURL}:${Const|PrivatePort}
 
 ;; This makes the Group module very chatty on the console.
@@ -1142,7 +1141,6 @@ GroupsExternalURI=${Const|BaseURL}:${Const|PrivatePort}
 ;; groups service if the service is using these keys
 ; XmlRpcServiceReadKey    = 1234
 ; XmlRpcServiceWriteKey   = 1234
-
 [InterestManagement]
 
 ;# {UpdatePrioritizationScheme} {} {Update prioritization scheme?} {BestAvatarResponsiveness Time Distance SimpleAngularDistance FrontBack} BestAvatarResponsiveness
@@ -1152,7 +1150,6 @@ GroupsExternalURI=${Const|BaseURL}:${Const|PrivatePort}
 ; TEST OPTION KEEP AS FALSE
 ; if true, don't send object updates if outside view range
 ; ObjectsCullingByDistance = false
-
 [MediaOnAPrim]
 
 ;# {Enabled} {} {Enable Media-on-a-Prim (MOAP)} {true false} true

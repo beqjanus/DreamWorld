@@ -44,22 +44,26 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8050
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Test
+RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=www.outworldz.com
+BaseHostname=10.6.1.103
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
 BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
+;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
+PrivURL=http://10.6.1.103
+
+; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=9000
+PublicPort=8002
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
@@ -73,6 +77,7 @@ GridName=DreamGrid
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
 DiagnosticsPort=8001
+
 
 [Startup]
 
@@ -480,7 +485,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=www.outworldz.com
+host_domain_header_from=10.6.1.103
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -548,7 +553,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.135/32
+OutboundDisallowForUserScriptsExcept=10.6.1.103/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -565,7 +570,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=www.outworldz.com
+ExternalHostNameForLSL=10.6.1.103
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -1108,7 +1113,7 @@ LocalService=remote
 ;; or http://mygridserver.com:82/Grid/ for SimianGrid
 ;; or ${Const|BaseURL}:${Const|PrivatePort} for robust, V2
 ;; Leave it commented for standalones, V2
-GroupsServerURI=${Const|BaseURL}:${Const|PrivatePort}
+GroupsServerURI=${Const|PrivURL}:${Const|PrivatePort}
 
 ;# {HomeURI} {ServicesConnectorModule:Groups HG Service Connector} {What's the home address of this world?} {}
 ;; Used for V2 in HG only. For example
@@ -1131,7 +1136,7 @@ NoticesEnabled=true
 ; Should make large groups with few online members messaging faster, as the expense of more calls to presence service
 ; Applies Flotsam Group only. V2 has this always on, no other option
 MessageOnlineUsersOnly=true
-GroupsExternalURI=${Const|BaseURL}:${Const|PrivatePort}
+GroupsExternalURI=${Const|PrivURL}:${Const|PrivatePort}
 
 ;; This makes the Group module very chatty on the console.
 ; DebugEnabled = false
@@ -1199,7 +1204,7 @@ ProfileServiceURL=${Const|BaseURL}:${Const|PublicPort}
 ;# {URL} {} {Set URL for Baked texture service} {}
 ;; Sets the URL for the baked texture ROBUST service.
 ;; Disabled when unset.
-URL=${Const|BaseURL}:${Const|PrivatePort}
+URL=${Const|PrivURL}:${Const|PrivatePort}
 
 ;;
 ;; Optional module to highlight God names in the viewer.
@@ -1302,7 +1307,7 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
 
 ; Automatically changed by Dreamworld - do not change this - Should be True ( case snsitive)
 [WebStats]
