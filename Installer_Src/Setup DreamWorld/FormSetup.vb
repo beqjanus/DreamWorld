@@ -2840,11 +2840,11 @@ Public Class Form1
         Next
 
         GRestartNow = False
-
         If ExitList.Count = 0 Then Return
         If gExitHandlerIsBusy Then Return
         gExitHandlerIsBusy = True
-        Dim RegionName As String = CType(ExitList(0), String) ' recover the Name
+
+        Dim RegionName = ExitList(0).ToString
         Try
             ExitList.RemoveAt(0)
         Catch
@@ -2907,13 +2907,11 @@ Public Class Form1
     Public Sub StopGroup(Groupname As String)
 
         For Each RegionNumber In RegionClass.RegionListByGroupNum(Groupname)
-
-            ' Called by a sim restart, do not change status
-            If Not RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-                Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
-            End If
-
+            ' Called by a sim restart, do not change status 
+            'If Not RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+            RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
+            Log("Info", RegionClass.RegionName(RegionNumber) + " Stopped")
+            'End If
             RegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log("Info", Groupname + " Group is now stopped")
