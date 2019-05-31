@@ -1516,6 +1516,7 @@ Public Class Form1
         + ";User ID=" + MySetting.RegionDBUsername _
         + ";Password=" + MySetting.RegionDbPassword _
         + ";Old Guids=true;Allow Zero Datetime=true;" _
+        + ";Connect Timeout=28800;Command Timeout=28800;" _
         + """"
         MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
         MySetting.SaveOtherINI()
@@ -1532,6 +1533,7 @@ Public Class Form1
             + ";User ID=" + MySetting.RobustUsername _
             + ";Password=" + MySetting.RobustPassword _
             + ";Old Guids=true;Allow Zero Datetime=true;" _
+            + ";Connect Timeout=28800;Command Timeout=28800;" _
             + """"
 
             MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
@@ -5112,6 +5114,9 @@ Public Class Form1
                 If RegionClass.IsBooted(RegionNum) Then
                     Dim count As Integer = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
                     sbttl += count
+                    If count > 0 Then
+                        Diagnostics.Debug.Print("Avatar in region " & RegionClass.RegionName(RegionNum))
+                    End If
                     RegionClass.AvatarCount(RegionNum) = count
                     'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
                 Else
