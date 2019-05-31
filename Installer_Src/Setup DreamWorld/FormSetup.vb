@@ -1518,6 +1518,7 @@ Public Class Form1
         + ";User ID=" + MySetting.RegionDBUsername _
         + ";Password=" + MySetting.RegionDbPassword _
         + ";Old Guids=true;Allow Zero Datetime=true;" _
+        + ";Connect Timeout=28800;Command Timeout=28800;" _
         + """"
         MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
         MySetting.SaveOtherINI()
@@ -1534,6 +1535,7 @@ Public Class Form1
             + ";User ID=" + MySetting.RobustUsername _
             + ";Password=" + MySetting.RobustPassword _
             + ";Old Guids=true;Allow Zero Datetime=true;" _
+            + ";Connect Timeout=28800;Command Timeout=28800;" _
             + """"
 
             MySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
