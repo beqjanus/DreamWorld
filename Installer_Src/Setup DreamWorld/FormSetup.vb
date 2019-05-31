@@ -31,12 +31,13 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
+Imports System.Net.NetworkInformation
 
 Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.92"
+    ReadOnly gMyVersion As String = "2.93"
     ReadOnly gSimVersion As String = "0.9.0 2018-05-04"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -592,6 +593,8 @@ Public Class Form1
 
         SetQuickEditOff()
 
+        SetLoopback()
+
         If Not SetIniData() Then Return
 
         RegionClass.UpdateAllRegionPorts() ' must be after SetIniData
@@ -679,7 +682,23 @@ Public Class Form1
         ProgressBar1.Value = 100
 
     End Sub
+    Private Sub SetLoopback()
 
+        Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
+        For Each adapter As NetworkInterface In Adapters
+            If adapter.Description.ToLower.Contains("loopback") Then
+                Print(" Setting " & adapter.Description & " to WAN address")
+                Dim LoopbackProcess As New Process
+                LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                LoopbackProcess.StartInfo.FileName = MyFolder & "\NAT_Loopback_Tool.bat"
+                LoopbackProcess.StartInfo.CreateNoWindow = False
+                LoopbackProcess.StartInfo.Arguments = """" & adapter.Name & """"
+                LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                LoopbackProcess.Start()
+            End If
+        Next
+
+    End Sub
     Private Sub KillFolder(AL As List(Of String))
 
         For Each folder As String In AL
@@ -720,31 +739,20 @@ Public Class Form1
             files.Add("Outworldzfiles\Opensim\Prebuild")
             files.Add("Outworldzfiles\Opensim\share")
             files.Add("Outworldzfiles\Opensim\Thirdparty")
+
         End If
 
         KillFolder(files)   ' wipe these folders out
         files.Clear() ' now do a list of files to clean up
 
-        ' necessary to kill these off  as it is a badly behaved
+        ' necessary to kill these off as it is a badly behaved
         files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll")
         files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb")
         files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
+        files.Add("SET_externalIP-Log.txt")
+
         ' crapload of old DLLS have to be eliminated
-
         CleanDLLs() ' drop old opensim dll's
-
-        ' files.Add("\Outworldzfiles\Opensim\bin\Diva.TOS.dll") ' no need for TOS, old version
-        ' files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.JPEGConverter.dll") ' no need for birds yet
-        'files.Add("\Outworldzfiles\Opensim\bin\GlynnTucker.Cache.dll") ' no need for this any more
-        'files.Add("\Outworldzfiles\Opensim\bin\MsgPack.dll") ' no need for this old thing
-        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Addons.AutoRestart.dll") ' no need for this, is bad module
-        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.ServerReleaseNotes.dll") ' is in core
-        'files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Modules.RegionsDataPublisher.dll") ' is old module and is unused
-        'files.Add("\Outworldzfiles\Opensim\bin\Axiom.MathLib.dll")
-        'files.Add("\Outworldzfiles\Opensim\bin\CookComputing.XmlRpcV2.dll")
-        'files.Add("\Outworldzfiles\Opensim\bin\Diva.MISearchModules.dll")
-        'files.Add("\Outworldzfiles\Opensim\bin\Diva.OnLook.dll")
-        'files.Add("\Outworldzfiles\Opensim\bin\Gloebit-b73--0.9.1.0-dev--2017-08-18--MASTER.dll")
 
         If KillSource Then
             files.Add("\Outworldzfiles\Opensim\BUILDING.md")
@@ -759,7 +767,7 @@ Public Class Form1
             files.Add("\Outworldzfiles\Opensim\TESTING.txt")
         End If
 
-        KillFiles(files)   ' wipe these files  out
+        KillFiles(files)   ' wipe these files out
 
     End Sub
 
