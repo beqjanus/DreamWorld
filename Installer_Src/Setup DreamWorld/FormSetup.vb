@@ -999,9 +999,7 @@ Public Class Form1
                     If (Not RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And RegionClass.RegionEnabled(X) Then
 
                         Print("Checking " + RegionClass.RegionName(X))
-                        If RegionHandles.ContainsKey(RegionClass.ProcessID(X)) Then
-                            ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                            'If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
+                        If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning += 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
@@ -2792,7 +2790,7 @@ Public Class Form1
         Dim TimerValue As Integer
 
         For Each X As Integer In RegionClass.RegionNumbers
-            Application.DoEvents()
+            'Application.DoEvents()
             ' count up to auto restart , when high enough, restart the sim
             If RegionClass.Timer(X) >= 0 Then
                 RegionClass.Timer(X) = RegionClass.Timer(X) + 1
