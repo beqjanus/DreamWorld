@@ -17,14 +17,15 @@ Public Class MysqlInterface
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
+        Dim NewSQLConn As New MySqlConnection(GConnStr)
         Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
         Dim Dict As New Dictionary(Of String, String)
 
         Try
-            MysqlConn.Open()
-
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+            NewSQLConn.Open()
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, NewSQLConn)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            NewSQLConn.Open()
 
             While reader.Read()
                 Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
@@ -45,20 +46,18 @@ Public Class MysqlInterface
         ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
+        Dim NewSQLConn As New MySqlConnection(GConnStr)
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String = ""
         Dim UUID As String = ""
 
         Try
-            MysqlConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, MysqlConn)
+            NewSQLConn.Open()
+            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            While reader.HasRows
-
-                reader.Read()
-
+            While reader.Read()
                 Debug.Print(reader.GetString(0))
                 Dim LongName = reader.GetString(0)
                 UUID = reader.GetString(1)

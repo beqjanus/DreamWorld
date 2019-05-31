@@ -5116,6 +5116,9 @@ Public Class Form1
                 If RegionClass.IsBooted(RegionNum) Then
                     Dim count As Integer = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
                     sbttl += count
+                    If count > 0 Then
+                        Diagnostics.Debug.Print("Avatar in region " & RegionClass.RegionName(RegionNum))
+                    End If
                     RegionClass.AvatarCount(RegionNum) = count
                     'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
                 Else
