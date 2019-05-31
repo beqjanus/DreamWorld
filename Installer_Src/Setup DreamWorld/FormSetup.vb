@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.91"
+    ReadOnly gMyVersion As String = "2.92"
     ReadOnly gSimVersion As String = "0.9.0 2018-05-04"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
