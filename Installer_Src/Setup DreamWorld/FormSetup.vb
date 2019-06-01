@@ -646,7 +646,7 @@ Public Class Form1
         If MySetting.RegionListVisible Then
             ShowRegionform()
         End If
-
+        Sleep(2000)
         Print("Check MySql")
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
         If isMySqlRunning Then gStopMysql = False
@@ -682,12 +682,13 @@ Public Class Form1
         ProgressBar1.Value = 100
 
     End Sub
+
     Private Sub SetLoopback()
 
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
         For Each adapter As NetworkInterface In Adapters
-            If adapter.Description.ToLower.Contains("loopback") Then
-                Print(" Setting " & adapter.Description & " to WAN address")
+            If adapter.Name = "Loopback" Then
+                Print("Setting Loopback to WAN IP address")
                 Dim LoopbackProcess As New Process
                 LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                 LoopbackProcess.StartInfo.FileName = MyFolder & "\NAT_Loopback_Tool.bat"
@@ -2320,14 +2321,17 @@ Public Class Form1
     End Sub
 
     Private Sub LoopBackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopBackToolStripMenuItem.Click
-        Dim webAddress As String = GDomain + "/Outworldz_Installer/Loopback.htm"
-        Process.Start(webAddress)
+
+        Help("Loopback Fixes")
+
     End Sub
 
     Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreContentToolStripMenuItem.Click
+
         Dim webAddress As String = GDomain + "/cgi/freesculpts.plx"
         Process.Start(webAddress)
         Print("Drag and drop Backup.Oar, or any OAR or IAR files to load into your Sim")
+
     End Sub
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
@@ -4433,7 +4437,7 @@ Public Class Form1
 
         gUseIcons = True
         Print("Check Diagnostics port")
-        Dim wsstarted = CheckPort("localhost", CType(MySetting.DiagnosticPort, Integer))
+        Dim wsstarted = CheckPort("127.0.0.1", CType(MySetting.DiagnosticPort, Integer))
         If wsstarted = False Then
             MsgBox("Diagnostics port " + MySetting.DiagnosticPort + " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
             gUseIcons = False
