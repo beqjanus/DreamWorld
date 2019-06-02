@@ -1,4 +1,10 @@
-﻿#Region "Copyright"
+﻿'Deleteing 4097 of 601964 assets
+'Deleteing 4098 of 601964 assets
+'Clearing Image cache.
+'Clearing Mesh cache
+'1 of 2371
+
+#Region "Copyright"
 
 ' Copyright 2014 Fred Beckhusen for www.Outworldz.com
 ' https://opensource.org/licenses/AGPL
@@ -1006,17 +1012,19 @@ Public Class Form1
 
                 For Each X In RegionClass.RegionNumbers
                     If (Not RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And RegionClass.RegionEnabled(X) Then
-
-                        Print("Checking " + RegionClass.RegionName(X))
                         If CheckPort(MySetting.PrivateURL, RegionClass.GroupPort(X)) Then
                             CountisRunning += 1
                         Else
                             StopGroup(RegionClass.GroupName(X))
                         End If
-
-                        UpdateView = True ' make form refresh
+                        'UpdateView = True ' make form refresh
                     End If
-                    Sleep(100)
+                    Sleep(1000)
+                    If CountisRunning = 1 Then
+                        Print("1 region is still running")
+                    Else
+                        Print(CountisRunning.ToString & " regions are still running")
+                    End If
                 Next
 
                 If CountisRunning = 0 Then
@@ -1607,6 +1615,12 @@ Public Class Form1
 
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
+            Dim Clr As New ClrCache()
+            Clr.WipeScripts()
+            Clr.WipeBakes()
+            Clr.WipeAssets()
+            Clr.WipeImage()
+            Clr.WipeMesh()
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
 
@@ -2628,7 +2642,6 @@ Public Class Form1
     Public Function StartRobust() As Boolean
 
         If IsRobustRunning() Then
-            Print("Robust is already running")
             Return True
         End If
 

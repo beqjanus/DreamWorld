@@ -111,7 +111,7 @@ Partial Class RegionList
         Me.RunAllButton.Size = New System.Drawing.Size(57, 23)
         Me.RunAllButton.TabIndex = 18594
         Me.RunAllButton.Text = "Run All"
-        Me.ToolTip1.SetToolTip(Me.RunAllButton, "Strats all checked regions")
+        Me.ToolTip1.SetToolTip(Me.RunAllButton, "Starts all checked regions")
         Me.RunAllButton.UseVisualStyleBackColor = True
         '
         'StopAllButton

@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V2.92' ;  # '-Beta-V1.5';
+my $type  = '-V2.93' ;  # '-Beta-V1.5';
 
 use Cwd;
 my $dir = getcwd;
@@ -53,7 +53,7 @@ unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
 unlink "$dir/OutworldzFiles/PHPLog.log" ;
-
+unlink "$dir/SET_externalIP-log.txt";
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";
 unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
@@ -76,7 +76,7 @@ unlink "$dir/OutworldzFiles/http.log" ;
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
 
-print "DLL List";
+say "DLL List Build";
 use File::Find;
 
 open (OUT, ">", 'dlls.txt');
@@ -195,13 +195,6 @@ print "Copy Update\n";
 unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";
 if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
 
-
-
-#say ("Dropbox");
-#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip";
-#if (!copy ("../Zips/DreamGrid$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid.zip"))  {die $!;}
-#unlink "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip";
-#if (!copy ("../Zips/DreamGrid-Update$type.zip", "D:/Users/Debbie/Dropbox/Dreamworld/Upload/DreamGrid-Update.zip"))  {die $!;}
 
 if ($publish)
 {

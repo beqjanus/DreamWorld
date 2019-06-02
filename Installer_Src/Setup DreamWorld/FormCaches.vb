@@ -63,87 +63,25 @@ Public Class FormCaches
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        Dim Clr As New ClrCache()
+
         If CheckBox1.Checked Then
+            Clr.WipeScripts()
+        End If
 
-            If Not Form1.OpensimIsRunning() Then
-                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories).Length
-                Dim folders() = Directory.GetFiles(Form1.GOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
-                Form1.Print("Clearing Script cache. This may take a long time!")
-                Dim ctr As Integer = 0
-                For Each script As String In folders
-                    Dim ext = Path.GetExtension(script)
-                    If ext.ToLower <> ".state" And ext.ToLower <> ".keep" Then
-                        Try
-                            My.Computer.FileSystem.DeleteFile(script)
-                        Catch
-                        End Try
-
-                        ctr = ctr + 1
-                        Form1.Print("Deleting " & ctr.ToString + " of " + fCount.ToString & " scripts")
-                        Application.DoEvents()
-                    End If
-                Next
-
-            End If
-            If CheckBox2.Checked Then
-                Form1.Print("Clearing bake cache")
-                Try
-                    My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                Catch
-                End Try
-            End If
-
+        If CheckBox2.Checked Then
+            Clr.WipeBakes()
         End If
 
         If CheckBox3.Checked Then
-            Form1.Print("Clearing Asset cache. This may take a long time!")
-            Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories).Length
-
-            Try
-                Dim folders() = Directory.GetDirectories(Form1.GOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
-                Dim ctr As Integer = 0
-                For Each folder As String In folders
-                    My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                    ctr = ctr + 1
-                    Form1.Print("Deleteing " & ctr.ToString + " of " + fCount.ToString & " assets")
-                    Application.DoEvents()
-                Next
-            Catch
-            End Try
+            Clr.WipeAssets()
         End If
 
         If CheckBox4.Checked Then
-
-            Try
-                Form1.Print("Clearing Image cache.")
-                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\j2kDecodeCache\", "*", SearchOption.AllDirectories).Length
-
-                Dim folders() = IO.Directory.GetDirectories(Form1.GOpensimBinPath & "bin\j2kDecodeCache\")
-                Dim ctr = 0
-                For Each folder As String In folders
-                    My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                    ctr = ctr + 1
-                    Form1.Print("Deleteing " & ctr.ToString + " of " + fCount.ToString & " images")
-                    Application.DoEvents()
-                Next
-            Catch
-            End Try
+            Clr.WipeImage()
         End If
         If CheckBox5.Checked Then
-            Try
-                Form1.Print("Clearing Mesh cache")
-                Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
-
-                Dim folders() = Directory.GetFiles(Form1.GOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
-                Dim ctr As Integer = 0
-                For Each folder As String In folders
-                    My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                    ctr = ctr + 1
-                    Form1.Print(ctr.ToString + " of " + fCount.ToString)
-                    Application.DoEvents()
-                Next
-            Catch
-            End Try
+            Clr.WipeMesh()
         End If
 
         If Not Form1.OpensimIsRunning() Then
