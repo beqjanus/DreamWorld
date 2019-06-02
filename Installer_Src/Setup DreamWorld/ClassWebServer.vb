@@ -41,7 +41,7 @@ Public Class NetServer
 
     Private Sub Looper()
 
-        '  Log("Info","IP:" + LocalAddress.ToString)
+
         listen = True
 
         Dim listener = New System.Net.HttpListener()
@@ -54,6 +54,7 @@ Public Class NetServer
         Catch ex As Exception
 
             If ex.Message.Contains("Access is denied") Then
+                Log("Error", ex.Message)
                 Return
             Else
                 Throw
@@ -68,6 +69,7 @@ Public Class NetServer
 
         listener.Close()
         running = False
+        Log("Info", "Webserver thread shutdown")
 
     End Sub
 
@@ -115,38 +117,19 @@ Public Class NetServer
             ' The data sent by client
             Dim request As HttpListenerRequest = context.Request
 
-            ' Get Parameters:
-            ' Debug.Print("Client data content type:" + request.ContentType)
-
-            'Dim baseUri = New Uri(request.Url.OriginalString)
-            ' Debug.Print("Query String:" + baseUri.Query)
-
-            'Dim qs = request.QueryString
-
-            ' print out all name value pairs
-            ' For Each s In qs.AllKeys
-            'Debug.Print(s + ":" + qs.Get(s))
-            ' Next
-
             Dim body As System.IO.Stream = request.InputStream
             Dim encoding As System.Text.Encoding = request.ContentEncoding
             Dim reader As System.IO.StreamReader = New System.IO.StreamReader(body, encoding)
-            'If (request.ContentType <> "") Then
-            'Debug.Print("Client data content type {0}", request.ContentType)
-            'End If
 
-            'Debug.Print("Client data content length {0}", request.ContentLength64)
             Dim responseString As String = ""
             ' process the input
 
-            'Debug.Print("No client data was sent with the request.")
             Dim Uri = request.Url.OriginalString
             Uri = LCase(Uri)
 
             If Uri.Contains("teleports.htm") Then
                 responseString = RegionClass.RegionListHTML(Setting)
             Else
-
                 If (request.HasEntityBody) Then
                     Dim POST As String = reader.ReadToEnd()
                     responseString = RegionClass.ParsePost(POST, Setting)
@@ -179,7 +162,7 @@ Public Class NetServer
             'If you are finished with the request, it should be closed also.
             response.Close()
         Catch ex As Exception
-            Debug.Print(ex.Message)
+            Log("Error:", ex.Message)
         End Try
 
     End Sub

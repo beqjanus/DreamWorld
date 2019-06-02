@@ -400,7 +400,7 @@ Public Class FormRegion
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
                 Filepath = Folderpath + "\" + RegionName.Text + ".ini"
                 RegionClass.RegionPath(n) = Filepath
-            Catch ex As Exception
+            Catch ex As FilenotfoundException
                 Debug.Print(ex.Message)
             End Try
         End If

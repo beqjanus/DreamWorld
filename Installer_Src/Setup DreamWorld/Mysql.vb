@@ -68,7 +68,7 @@ Public Class MysqlInterface
                 Next
 
             End While
-        Catch ex As Exception
+        Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             MysqlConn.Close()
