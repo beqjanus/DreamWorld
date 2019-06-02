@@ -25,7 +25,6 @@ Public Class MysqlInterface
             NewSQLConn.Open()
             Dim cmd As MySqlCommand = New MySqlCommand(stm, NewSQLConn)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
-            NewSQLConn.Open()
 
             While reader.Read()
                 Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
