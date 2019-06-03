@@ -1,10 +1,4 @@
-﻿'Deleteing 4097 of 601964 assets
-'Deleteing 4098 of 601964 assets
-'Clearing Image cache.
-'Clearing Mesh cache
-'1 of 2371
-
-#Region "Copyright"
+﻿#Region "Copyright"
 
 ' Copyright 2014 Fred Beckhusen for www.Outworldz.com
 ' https://opensource.org/licenses/AGPL
@@ -43,7 +37,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.93"
+    ReadOnly gMyVersion As String = "2.94"
     ReadOnly gSimVersion As String = "0.9.0 2018-05-04"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
