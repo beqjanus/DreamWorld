@@ -125,9 +125,9 @@ Public Class NetServer
             ' process the input
 
             Dim Uri = request.Url.OriginalString
-            Uri = LCase(Uri)
+            Dim lcUri = LCase(Uri)
 
-            If Uri.Contains("teleports.htm") Then
+            If lcUri.Contains("teleports.htm") Then
                 responseString = RegionClass.RegionListHTML(Setting)
             Else
                 If (request.HasEntityBody) Then
