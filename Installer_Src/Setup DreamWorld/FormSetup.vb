@@ -694,7 +694,9 @@ Public Class Form1
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
         For Each adapter As NetworkInterface In Adapters
             If adapter.Name = "Loopback" Then
+
                 Print("Setting Loopback to WAN IP address")
+
                 Dim LoopbackProcess As New Process
                 LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                 LoopbackProcess.StartInfo.FileName = MyFolder & "\NAT_Loopback_Tool.bat"
