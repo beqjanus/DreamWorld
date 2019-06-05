@@ -1973,7 +1973,7 @@ Public Class Form1
 
             MySetting.LoadOtherIni(RegionClass.RegionPath(RegionNum), ";")
             MySetting.SetOtherIni(simName, "InternalPort", RegionClass.RegionPort(RegionNum).ToString)
-            MySetting.SetOtherIni(simName, "ExternalHostName", Convert.ToString(MySetting.PublicIP))
+            MySetting.SetOtherIni(simName, "ExternalHostName", MySetting.PublicIP)
 
             ' not a standard INI, only use by the Dreamers
             If RegionClass.RegionEnabled(RegionNum) Then
