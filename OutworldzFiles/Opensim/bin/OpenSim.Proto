@@ -888,6 +888,7 @@ SimulatorFeatures=http://www.hyperica.com/Search/query.php
 
 [Economy]
 
+
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
 ; The default economy module only implements just enough to allow free actions (transfer of objects, etc).
 ; There is no intention to implement anything further in core OpenSimulator.
@@ -901,6 +902,13 @@ SellEnabled=true
 ;# {PriceGroupCreate} {} {Fee for group creation} {} 0
 ;; Money Unit fee to create groups.  Default is 0.
 ; PriceGroupCreate = 0
+
+; Mesh upload settings, independent of economymodule
+
+; Create inventory entries for textures uploaded with a model
+; default is false, ie, do not create
+MeshModelAllowTextureToInventory = true
+
 [XEngine]
 
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
