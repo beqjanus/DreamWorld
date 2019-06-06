@@ -1021,6 +1021,7 @@ Public Class Form1
                     Else
                         Print(CountisRunning.ToString & " regions are still running")
                     End If
+                    If CountisRunning = 0 Then Exit For
                 Next
 
                 If CountisRunning = 0 Then
