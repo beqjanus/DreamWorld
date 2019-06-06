@@ -47,7 +47,7 @@ Public Class Form1
     ReadOnly gCPUMAX As Single = 75 ' max CPU % can be used when booting or we wait til it gets lower
 
     ' not https, which breaks stuff
-    Private _gDomain As String = "http://www.outworldz.com"
+    Private _gDomain As String = "http://outworldz.com"
 
     Private _gOpensimBinPath As String ' Holds path to Opensim folder
     Private _regionHandles As New Dictionary(Of Integer, String)
