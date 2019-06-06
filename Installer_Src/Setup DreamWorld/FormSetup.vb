@@ -2497,6 +2497,18 @@ Public Class Form1
             outputFile.WriteLine(phptext)
         End Using
 
+
+        phptext = "<?php" & vbCrLf &
+"$DB_HOST = " & """" & MySetting.RobustServer & """" & ";" & vbCrLf &
+"$DB_USER = " & """" & MySetting.RobustUsername & """" & ";" & vbCrLf &
+"$DB_PASSWORD = " & """" & MySetting.RobustPassword & """" & ";" & vbCrLf &
+"$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
+"?>"
+
+        Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+
     End Sub
 
     Private Sub KillApache()
@@ -2518,7 +2530,7 @@ Public Class Form1
                     Log("Info", "No Apache to stop")
                 End If
             Catch ex As Exception
-                Print("Error Apache did not stop" + ex.Message)
+                Print("Error Apache did Not stop" + ex.Message)
             End Try
         Else
             Zap("httpd")
@@ -3169,7 +3181,7 @@ Public Class Form1
     ''' </summary>
     Private Sub ShowLog()
 
-        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" + MyFolder + "/OutworldzFiles/Outworldz.log" + """")
+        System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" + MyFolder + "\OutworldzFiles\Outworldz.log" + """")
 
     End Sub
 
@@ -4434,7 +4446,9 @@ Public Class Form1
         TestPublicLoopback()
         If MySetting.DiagFailed Then
             Dim answer = MsgBox("Diagnostics failed. Do you want to see the log?", vbYesNo)
-            If answer = vbOK Then ShowLog()
+            If answer = vbYes Then
+                ShowLog()
+            End If
         Else
             NewDNSName()
         End If
