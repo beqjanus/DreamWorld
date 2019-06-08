@@ -31,6 +31,7 @@ Partial Class Form1
         Me.StartButton = New System.Windows.Forms.Button()
         Me.InstallButton = New System.Windows.Forms.Button()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.JustQuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -126,9 +127,7 @@ Partial Class Form1
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PercentCPU = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
-        Me.JustQuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -166,12 +165,19 @@ Partial Class Form1
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
+        'JustQuitToolStripMenuItem
+        '
+        Me.JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
+        Me.JustQuitToolStripMenuItem.Name = "JustQuitToolStripMenuItem"
+        Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.JustQuitToolStripMenuItem.Text = "Just Quit"
+        '
         'mnuExit
         '
         Me.mnuExit.Image = Global.Outworldz.My.Resources.Resources.exit_icon
         Me.mnuExit.Name = "mnuExit"
         Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mnuExit.Size = New System.Drawing.Size(184, 26)
+        Me.mnuExit.Size = New System.Drawing.Size(133, 22)
         Me.mnuExit.Text = "Exit"
         '
         'mnuSettings
@@ -847,36 +853,20 @@ Partial Class Form1
         'PercentCPU
         '
         Me.PercentCPU.AutoSize = True
-        Me.PercentCPU.Location = New System.Drawing.Point(107, 30)
+        Me.PercentCPU.Location = New System.Drawing.Point(115, 30)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
         Me.PercentCPU.TabIndex = 35
         Me.PercentCPU.Text = "0"
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(178, 30)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(42, 13)
-        Me.Label4.TabIndex = 38
-        Me.Label4.Text = "% RAM"
-        '
         'PercentRAM
         '
         Me.PercentRAM.AutoSize = True
-        Me.PercentRAM.Location = New System.Drawing.Point(169, 30)
+        Me.PercentRAM.Location = New System.Drawing.Point(176, 30)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(13, 13)
         Me.PercentRAM.TabIndex = 37
         Me.PercentRAM.Text = "0"
-        '
-        'JustQuitToolStripMenuItem
-        '
-        Me.JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
-        Me.JustQuitToolStripMenuItem.Name = "JustQuitToolStripMenuItem"
-        Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.JustQuitToolStripMenuItem.Text = "Just Quit"
         '
         'Form1
         '
@@ -886,7 +876,6 @@ Partial Class Form1
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ClientSize = New System.Drawing.Size(304, 141)
-        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.PercentRAM)
         Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.Label3)
@@ -1025,7 +1014,6 @@ Partial Class Form1
     Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
     Friend WithEvents Label3 As Label
     Friend WithEvents PercentCPU As Label
-    Friend WithEvents Label4 As Label
     Friend WithEvents PercentRAM As Label
     Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
 End Class

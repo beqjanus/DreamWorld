@@ -2281,7 +2281,6 @@ Public Class Form1
     Public Sub ToolBar(visible As Boolean)
 
         Label3.Visible = visible
-        Label4.Visible = visible
         AvatarLabel.Visible = visible
         PercentCPU.Visible = visible
         PercentRAM.Visible = visible
@@ -3374,7 +3373,7 @@ Public Class Form1
             For Each result In results
                 Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
                 MyRAMCollection.Add(value)
-                PercentRAM.Text = CType(value, Integer).ToString()
+                PercentRAM.Text = CType(value, Integer).ToString() & "% RAM"
             Next
         Catch ex As Exception
             Log("Error", ex.Message)
@@ -4923,6 +4922,7 @@ Public Class Form1
             version = MysqlConn.IsMySqlRunning()
         Catch
             Log("Info", "MySQL was not running")
+
         End Try
 
         If version Is Nothing Then
@@ -5984,6 +5984,7 @@ Public Class Form1
         End Try
 
     End Sub
+
 
 #End Region
 
