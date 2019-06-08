@@ -127,15 +127,11 @@ Public Class MysqlInterface
     Public Function QueryString(SQL As String) As String
         Try
             'Debug.Print("Connecting to MySQL...")
+            Dim MysqlConn = New MySqlConnection(GConnStr)
             MysqlConn.Open()
-        Catch ex As Exception
-            Debug.Print("Error: " & ex.Message)
-        End Try
 
-        Try
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
             Dim v = Convert.ToString(cmd.ExecuteScalar())
-            'MysqlConn.Close()
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)
