@@ -252,10 +252,10 @@
 	  <Compile Include="Agent\InternetRelayClientView\IRCStackModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Agent\TextureSender\J2KDecoderCommandModule.cs">
@@ -303,9 +303,6 @@
 	  <Compile Include="Avatar\XmlRpcGroups\GroupsMessagingModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\IGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -313,6 +310,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\XmlRpcGroupsServicesConnectorModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="DataSnapshot\EstateSnapshot.cs">

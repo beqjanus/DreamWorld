@@ -177,10 +177,10 @@
 	  <Compile Include="Api\Interface\IMOD_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Api\Interface\ILSL_Api.cs">
+	  <Compile Include="Api\Interface\ILS_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Api\Interface\ILS_Api.cs">
+	  <Compile Include="Api\Interface\ILSL_Api.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Api\Interface\IOSSL_Api.cs">

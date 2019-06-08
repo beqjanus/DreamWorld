@@ -630,6 +630,13 @@ shard="OpenSim"
 ;; http://opensimulator.org/mantis/view.php?id=7389 to prevent timeoputs
 ;; async_packet_handling = false
 ;; AckTimeout = 180
+;
+; Support viewers object cache, default true
+; users may need to reduce viewer bandwitdh if some prims or terrain parts fail to rez.
+; change to false if you need to use old viewers that do not support this feature
+;
+SupportViewerObjectsCache=true
+
 [ClientStack.LindenCaps]
 
 ;; For the long list of capabilities, see OpenSimDefaults.ini

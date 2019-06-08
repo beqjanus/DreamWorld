@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.135
+BaseHostname=Mach.outworldz.net
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -484,7 +484,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.135
+host_domain_header_from=Mach.outworldz.net
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -569,7 +569,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=192.168.2.135
+ExternalHostNameForLSL=Mach.outworldz.net
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -630,6 +630,13 @@ shard="OpenSim"
 ;; http://opensimulator.org/mantis/view.php?id=7389 to prevent timeoputs
 ;; async_packet_handling = false
 ;; AckTimeout = 180
+;
+; Support viewers object cache, default true
+; users may need to reduce viewer bandwitdh if some prims or terrain parts fail to rez.
+; change to false if you need to use old viewers that do not support this feature
+;
+SupportViewerObjectsCache=true
+
 [ClientStack.LindenCaps]
 
 ;; For the long list of capabilities, see OpenSimDefaults.ini
@@ -888,7 +895,6 @@ SimulatorFeatures=http://www.hyperica.com/Search/query.php
 
 [Economy]
 
-
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
 ; The default economy module only implements just enough to allow free actions (transfer of objects, etc).
 ; There is no intention to implement anything further in core OpenSimulator.
@@ -902,12 +908,10 @@ SellEnabled=true
 ;# {PriceGroupCreate} {} {Fee for group creation} {} 0
 ;; Money Unit fee to create groups.  Default is 0.
 ; PriceGroupCreate = 0
-
 ; Mesh upload settings, independent of economymodule
-
 ; Create inventory entries for textures uploaded with a model
 ; default is false, ie, do not create
-MeshModelAllowTextureToInventory = true
+MeshModelAllowTextureToInventory=true
 
 [XEngine]
 

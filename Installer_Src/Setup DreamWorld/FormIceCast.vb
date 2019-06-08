@@ -40,9 +40,7 @@ Public Class Icecast
         AdminPassword.Text = Form1.MySetting.SCAdminPassword
         ShoutcastPassword.Text = Form1.MySetting.SCPassword
         ShoutcastEnable.Checked = Form1.MySetting.SCEnable
-
         SCShow.Checked = Form1.MySetting.SCShow
-
         AdminPassword.UseSystemPasswordChar = True
         ShoutcastPassword.UseSystemPasswordChar = True
         SetScreen()

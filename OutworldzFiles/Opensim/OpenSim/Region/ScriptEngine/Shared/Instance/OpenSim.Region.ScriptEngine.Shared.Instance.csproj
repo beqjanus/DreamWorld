@@ -160,10 +160,10 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="ScriptInstance.cs">
+	  <Compile Include="ScriptSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ScriptSerializer.cs">
+	  <Compile Include="ScriptInstance.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

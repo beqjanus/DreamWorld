@@ -733,7 +733,7 @@ user_dir =
 ; http://php.net/extension-dir
 ; extension_dir = "./"
 ; On windows:
-extension_dir  = "O:/Opensim/Outworldz Dreamgrid/OutworldzFiles/PHP5/ext"
+extension_dir  = "O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/PHP5/ext"
 
 ; Directory where the temporary files should be placed.
 ; Defaults to the system default (see sys_get_temp_dir)

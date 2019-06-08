@@ -200,9 +200,6 @@
 	  <Compile Include="LLSDVoiceAccountResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Caps.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LLSD.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -210,6 +207,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDInventoryFolder.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Caps.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

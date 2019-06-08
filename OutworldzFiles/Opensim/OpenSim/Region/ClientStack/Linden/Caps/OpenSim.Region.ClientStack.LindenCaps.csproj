@@ -189,9 +189,6 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="AgentPreferencesModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="AvatarPickerSearchModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -204,7 +201,13 @@
 	  <Compile Include="FetchInventory2Module.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="GetAssetsModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="RegionConsoleModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ServerReleaseNotesModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SimulatorFeaturesModule.cs">
@@ -213,10 +216,7 @@
 	  <Compile Include="WebFetchInvDescModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GetAssetsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ServerReleaseNotesModule.cs">
+	  <Compile Include="AgentPreferencesModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BunchOfCaps\BunchOfCapsModule.cs">
@@ -228,10 +228,10 @@
 	  <Compile Include="BunchOfCaps\MeshCost.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="EventQueue\EventQueueGetModule.cs">
+	  <Compile Include="EventQueue\EventQueueHelper.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="EventQueue\EventQueueHelper.cs">
+	  <Compile Include="EventQueue\EventQueueGetModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ObjectCaps\ObjectAdd.cs">

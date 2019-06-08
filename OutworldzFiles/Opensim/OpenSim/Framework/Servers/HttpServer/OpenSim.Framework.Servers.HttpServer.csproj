@@ -209,13 +209,13 @@
 	  <Compile Include="PollServiceHttpRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PollServiceRequestManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="RestDeserialiseHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RestSessionService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PollServiceRequestManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IHttpAgentHandler.cs">

@@ -203,13 +203,13 @@
 	  <Compile Include="MySQLGenericTableHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLSimulationData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="MySQLUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MySQLXAssetData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="MySQLSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

@@ -151,13 +151,13 @@
 	  <Compile Include="Mesh.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Meshmerizer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="PrimMesher.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SculptMesh.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Meshmerizer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

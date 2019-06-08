@@ -319,10 +319,10 @@
 	  <Compile Include="Mock\TestXInventoryDataPlugin.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\MockRegionDataPlugin.cs">
+	  <Compile Include="Mock\TestOSHttpResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\TestClient.cs">
+	  <Compile Include="Mock\MockRegionDataPlugin.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Mock\TestEventQueueGetModule.cs">
@@ -331,7 +331,7 @@
 	  <Compile Include="Mock\TestLandChannel.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Mock\TestOSHttpResponse.cs">
+	  <Compile Include="Mock\TestClient.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

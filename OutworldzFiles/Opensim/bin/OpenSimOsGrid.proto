@@ -660,6 +660,14 @@ shard="OpenSim"
 ;; will use this address to register xmlrpc channels on the external
 ;; service
 ; XmlRpcHubURI = http://example.com
+;
+; Support viewers object cache, default true
+; users may need to reduce viewer bandwitdh if some prims or terrain parts fail to rez.
+; change to false if you need to use old viewers that do not support this feature
+;
+SupportViewerObjectsCache=true
+
+
 [ClientStack.LindenUDP]
 
 ;; See OpensSimDefaults.ini for the throttle options. You can copy the

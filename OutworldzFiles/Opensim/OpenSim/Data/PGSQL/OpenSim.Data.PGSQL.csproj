@@ -206,10 +206,10 @@
 	  <Compile Include="PGSQLXInventoryData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PGSQLSimulationData.cs">
+	  <Compile Include="PGSQLUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PGSQLUserProfilesData.cs">
+	  <Compile Include="PGSQLSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

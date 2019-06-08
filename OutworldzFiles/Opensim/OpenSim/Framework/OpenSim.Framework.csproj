@@ -452,12 +452,6 @@
 	  <Compile Include="WearableCacheItem.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="AgentCircuitData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="AgentCircuitManager.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="AgentUpdateArgs.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -465,6 +459,24 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ChatTypeEnum.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Culture.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ILandObject.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="InventoryCollection.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="InventoryItemBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="NetworkServersInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PhysicsInertia.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ChildAgentDataUpdate.cs">
@@ -476,34 +488,19 @@
 	  <Compile Include="Constants.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Culture.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="DoubleDictionaryThreadAbortSafe.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="EstateSettings.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="IClientAPI.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ILandChannel.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ILandObject.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ISceneAgent.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="InventoryCollection.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="InventoryItemBase.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Login.cs">
+	  <Compile Include="LLSDxmlEncode.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MapAndArray.cs">
@@ -512,19 +509,7 @@
 	  <Compile Include="MinHeap.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="NetworkServersInfo.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PhysicsInertia.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PrimitiveBaseShape.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="PriorityQueue.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RegionInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="TerrainData.cs">
@@ -539,7 +524,22 @@
 	  <Compile Include="WebUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLSDxmlEncode.cs">
+	  <Compile Include="AgentCircuitData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="AgentCircuitManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="IClientAPI.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Login.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RegionInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PrimitiveBaseShape.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Client\IClientChat.cs">

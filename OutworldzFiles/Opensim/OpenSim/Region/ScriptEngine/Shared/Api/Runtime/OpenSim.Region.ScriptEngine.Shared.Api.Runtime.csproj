@@ -151,13 +151,13 @@
 	  <Compile Include="ScriptSponsor.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LSL_Constants.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LSL_Stub.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OSSL_Stub.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LSL_Constants.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

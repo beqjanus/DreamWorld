@@ -181,13 +181,13 @@
 	  <Compile Include="SQLiteXInventoryData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SQLiteSimulationData.cs">
+	  <Compile Include="SQLiteMuteListData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SQLiteUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SQLiteMuteListData.cs">
+	  <Compile Include="SQLiteSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
