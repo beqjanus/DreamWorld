@@ -62,16 +62,16 @@ Partial Class FormPermissions
         Me.AllowGods.AutoSize = True
         Me.AllowGods.Location = New System.Drawing.Point(15, 35)
         Me.AllowGods.Name = "AllowGods"
-        Me.AllowGods.Size = New System.Drawing.Size(85, 17)
+        Me.AllowGods.Size = New System.Drawing.Size(139, 17)
         Me.AllowGods.TabIndex = 14
-        Me.AllowGods.Text = "Allow Gods?"
+        Me.AllowGods.Text = "Allow 200+ Level gods?"
         Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'GodHelp
         '
         Me.GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.GodHelp.Location = New System.Drawing.Point(117, 19)
+        Me.GodHelp.Location = New System.Drawing.Point(150, 18)
         Me.GodHelp.Name = "GodHelp"
         Me.GodHelp.Size = New System.Drawing.Size(30, 34)
         Me.GodHelp.TabIndex = 1857
@@ -95,9 +95,9 @@ Partial Class FormPermissions
         Me.RegionGod.AutoSize = True
         Me.RegionGod.Location = New System.Drawing.Point(15, 58)
         Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(132, 17)
+        Me.RegionGod.Size = New System.Drawing.Size(155, 17)
         Me.RegionGod.TabIndex = 15
-        Me.RegionGod.Text = "Region owner is god? "
+        Me.RegionGod.Text = "Allow Region owner gods? "
         Me.ToolTip1.SetToolTip(Me.RegionGod, " Region Owner is God - When you first create a region, you are prompted for the o" &
         "wner name. If checked, this person has God mode rights to any regions they own.")
         Me.RegionGod.UseVisualStyleBackColor = True

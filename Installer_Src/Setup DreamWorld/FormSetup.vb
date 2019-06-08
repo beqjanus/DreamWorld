@@ -2110,7 +2110,7 @@ Public Class Form1
                     ' do nothing
             End Select
 
-            If RegionClass.RegionGod(RegionNum) = "True" Or RegionClass.ManagerGod(RegionNum) = "True" Then
+            If RegionClass.AllowGods(RegionNum) = "True" Then
                 MySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
             Else
                 MySetting.SetOtherIni("Permissions", "allow_grid_gods", MySetting.AllowGridGods.ToString)
@@ -2126,12 +2126,6 @@ Public Class Form1
                 MySetting.SetOtherIni("Permissions", "region_manager_is_god", "True")
             Else
                 MySetting.SetOtherIni("Permissions", "region_manager_is_god", MySetting.RegionManagerIsGod.ToString)
-            End If
-
-            If RegionClass.AllowGods(RegionNum) = "True" Then
-                MySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
-            Else
-                MySetting.SetOtherIni("Permissions", "allow_grid_gods", MySetting.AllowGridGods.ToString)
             End If
 
             MySetting.SaveOtherINI()
