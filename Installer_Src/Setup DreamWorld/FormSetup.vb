@@ -2497,7 +2497,7 @@ Public Class Form1
 "$DB_USER = " & """" & MySetting.RobustUsername & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & MySetting.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
-"?>"
+"?>" & vbCrLf
 
         Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
