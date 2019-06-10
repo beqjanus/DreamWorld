@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.95"
+    ReadOnly gMyVersion As String = "2.96"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -47,7 +47,7 @@ Public Class Form1
     ReadOnly gCPUMAX As Single = 75 ' max CPU % can be used when booting or we wait til it gets lower
 
     ' not https, which breaks stuff
-    Private _gDomain As String = "http://outworldz.com"
+    Private _gDomain As String = "http://www.outworldz.com"
 
     Private _gOpensimBinPath As String ' Holds path to Opensim folder
     Private _regionHandles As New Dictionary(Of Integer, String)
@@ -3954,7 +3954,7 @@ Public Class Form1
         Print("Refreshing OAR Downloadable Content")
         Dim oars As String = ""
         Try
-            oars = client.DownloadString(GDomain + "/Outworldz_Installer/Content.plx?type=OAR&r=" + Random())
+            oars = client.DownloadString(GDomain & "/Outworldz_Installer/Content.plx?type=OAR&r=" & Random())
         Catch ex As Exception
             ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
             Return
@@ -4512,7 +4512,6 @@ Public Class Form1
         Log("UPnP", "Local IP seems to be " + MyUPnpMap.LocalIP)
 
         Try
-
             If MySetting.SCEnable Then
                 'Icecast 8080
                 If MyUPnpMap.Exists(Convert.ToInt16(MySetting.SCPortBase), UPnp.Protocol.TCP) Then
@@ -4536,14 +4535,14 @@ Public Class Form1
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP, "Opensim TCP Grid " + MySetting.HttpPort)
-            Print("Grid Port is set to " + MySetting.HttpPort)
+            Print("Grid TCP Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
             If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP) Then
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP)
             End If
             MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP, "Opensim UDP Grid " + MySetting.HttpPort)
-            Print("Grid Port is set to " + MySetting.HttpPort)
+            Print("Grid UDP Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
             For Each X In RegionClass.RegionNumbers
@@ -4553,14 +4552,14 @@ Public Class Form1
                     MyUPnpMap.Remove(R, UPnp.Protocol.UDP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.UDP, "Opensim UDP Region " & RegionClass.RegionName(X) & " ")
-                Print("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region UDP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
                 BumpProgress(1)
 
                 If MyUPnpMap.Exists(R, UPnp.Protocol.TCP) Then
                     MyUPnpMap.Remove(R, UPnp.Protocol.TCP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.TCP, "Opensim TCP Region " & RegionClass.RegionName(X) & " ")
-                Print("Region " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region TCP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
                 BumpProgress(1)
             Next
 
