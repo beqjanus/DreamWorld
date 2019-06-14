@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "2.96"
+    ReadOnly gMyVersion As String = "2.97"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -489,10 +489,25 @@ Public Class Form1
     ''' <param name="e">Unused</param>
     '''
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Me.Hide()
-        Application.EnableVisualStyles()
 
-        ToolBar(False)  ' hide the avatar, RAM, CPU toolbar
+        Me.Hide()
+        ' show box styled nicely.
+        Application.EnableVisualStyles()
+        Buttons(BusyButton)
+        ProgressBar1.Visible = True
+        ToolBar(False)
+
+        ProgressBar1.Minimum = 0
+        ProgressBar1.Maximum = 100
+        ProgressBar1.Value = 0
+        TextBox1.BackColor = Me.BackColor
+        ' init the scrolling text box
+        TextBox1.SelectionStart = 0
+        TextBox1.ScrollToCaret()
+        TextBox1.SelectionStart = TextBox1.Text.Length
+        TextBox1.ScrollToCaret()
+
+        Me.Show()
 
         ' setup a debug path
         MyFolder = My.Application.Info.DirectoryPath
@@ -504,40 +519,28 @@ Public Class Form1
             MyFolder = MyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
         End If
+
         GCurSlashDir = MyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
         GOpensimBinPath = MyFolder & "\OutworldzFiles\Opensim\"
 
-        Log("Info", "Running")
 
-        ' init the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
-
-        KillOldFiles()
+        If Not System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
+            Print("Installing Desktop icon clicky thingy")
+            Create_ShortCut(MyFolder & "\Start.exe")
+            BumpProgress10()
+        End If
 
         MySetting.Init(MyFolder)
-
         MySetting.Myfolder = MyFolder
+
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+
+        KillOldFiles()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
         If MySetting.MachineID().Length = 0 Then MySetting.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
 
-        'hide progress
-        ProgressBar1.Visible = True
-        ToolBar(False)
-
-        ProgressBar1.Minimum = 0
-        ProgressBar1.Maximum = 100
-        ProgressBar1.Value = 0
-
-        TextBox1.BackColor = Me.BackColor
-
-        Buttons(BusyButton)
-        SetScreen()     ' move Form to fit screen from SetXY.ini
-        Me.Show()
 
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
@@ -580,6 +583,7 @@ Public Class Form1
         CheckForUpdates()
 
         CheckDefaultPorts()
+
 
         ' must start after region Class is instantiated
         ws = NetServer.GetWebServer
@@ -651,12 +655,9 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(MySetting.MySqlPort, Integer))
         If isMySqlRunning Then gStopMysql = False
 
-        ' Find out if the system is already installed
-        If System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
-            Application.DoEvents()
 
             Buttons(StartButton)
-            ProgressBar1.Value = 100
+                ProgressBar1.Value = 100
 
             If MySetting.Autostart Then
                 Print("Auto Startup")
@@ -665,19 +666,9 @@ Public Class Form1
                 MySetting.SaveSettings()
                 Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
             End If
-        Else
 
-            Print("Installing Desktop icon clicky thingy")
-            Create_ShortCut(MyFolder & "\Start.exe")
-            BumpProgress10()
-            MySetting.SaveSettings()
-            Print("Ready to Launch!")
-            Buttons(StartButton)
-
-        End If
-
-        HelpOnce("License") ' license on bottom
-        HelpOnce("Startup")
+            HelpOnce("License") ' license on bottom
+            HelpOnce("Startup")
 
         ProgressBar1.Value = 100
 
@@ -1016,13 +1007,15 @@ Public Class Form1
                         'UpdateView = True ' make form refresh
                     End If
                     Sleep(1000)
-                    If CountisRunning = 1 Then
-                        Print("1 region is still running")
-                    Else
-                        Print(CountisRunning.ToString & " regions are still running")
-                    End If
+
                     If CountisRunning = 0 Then Exit For
                 Next
+
+                If CountisRunning = 1 Then
+                    Print("1 region is still running")
+                Else
+                    Print(CountisRunning.ToString & " regions are still running")
+                End If
 
                 If CountisRunning = 0 Then
                     counter = 0
