@@ -977,7 +977,7 @@ Public Class Form1
             Not (RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
             Or RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
             Or RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                Print(RegionClass.RegionName(X) & " is going down now")
+                Print(RegionClass.RegionName(X) & " is stopping")
                 SequentialPause()
                 ConsoleCommand(RegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
                 RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown
@@ -3330,9 +3330,10 @@ Public Class Form1
 
             Dim newspeed As Single = (speed + speed1 + speed2 + speed3) / 4
 
+            MyCPUCollection.Remove(1) ' drop 1st, older  item
             MyCPUCollection.Add(newspeed)
             PercentCPU.Text = String.Format("{0: 0}% CPU", newspeed)
-            MyCPUCollection.Remove(1) ' drop 1st, older  item
+
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -3356,6 +3357,8 @@ Public Class Form1
         Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
         Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
+        searcher.Dispose()
+
         Try
             For Each result In results
                 Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
