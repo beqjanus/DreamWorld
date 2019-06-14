@@ -68,15 +68,15 @@ Public Class ScreenPos
         If ValueXOld <= 0 Then
             ValueXOld = 100
         End If
-        If ValueXOld > screenWidth Then
-            ValueXOld = screenWidth - 100
-        End If
+        'If ValueXOld > screenWidth Then
+        ' ValueXOld = screenWidth - 100
+        'End If
         If ValueYOld <= 0 Then
             ValueYOld = 100
         End If
-        If ValueYOld > screenHeight Then
-            ValueYOld = screenHeight - 100
-        End If
+        'If ValueYOld > screenHeight Then
+        'ValueYOld = screenHeight - 100
+        'End If
 
         SaveXY(ValueXOld, ValueYOld)
 
