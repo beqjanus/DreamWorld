@@ -205,7 +205,8 @@ Public Class RegionList
         ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
         ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Teleport", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Teleport", 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add("SmartStart", 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -230,7 +231,6 @@ Public Class RegionList
         imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.usa))  ' 9 - 2 user
 
         Form1.UpdateView = True ' make form refresh
-        LoadMyListView()
 
         LoadMyListView()
         Timer1.Interval = 1000 ' check for Form1.UpdateView every second
@@ -377,7 +377,6 @@ Public Class RegionList
                         item1.SubItems.Add("0")
                     End If
                 Catch ex As Exception
-                    'Form1.ErrorLog(ex.Message)
                     item1.SubItems.Add("0")
                 End Try
                 item1.SubItems.Add(RegionClass.CoordX(X).ToString(fmtXY, Form1.usa))
@@ -440,24 +439,31 @@ Public Class RegionList
                 'birds
 
                 If RegionClass.Birds(X) = "True" Then
-                    item1.SubItems.Add("Birds")
+                    item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
                 End If
 
                 'Tides
                 If RegionClass.Tides(X) = "True" Then
-                    item1.SubItems.Add("Tides")
+                    item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
                 End If
 
                 'teleport
                 If RegionClass.Teleport(X) = "True" Then
-                    item1.SubItems.Add("Teleport")
+                    item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
                 End If
+
+                If RegionClass.SmartStart(X) = "True" Then
+                    item1.SubItems.Add("Yes")
+                Else
+                    item1.SubItems.Add("")
+                End If
+
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 
@@ -657,7 +663,7 @@ Public Class RegionList
                 Form1.StartRobust()
                 Form1.Log("Starting", RegionClass.RegionName(n))
                 Form1.CopyOpensimProto(RegionClass.RegionName(n))
-                Form1.Boot(RegionClass.RegionName(n))
+                Form1.Boot(RegionClass, RegionClass.RegionName(n))
                 Form1.Timer1.Start() 'Timer starts functioning
                 UpdateView() = True ' force a refresh
 
