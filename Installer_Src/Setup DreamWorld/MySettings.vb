@@ -280,7 +280,7 @@ Public Class MySettings
             Dim value = GetMyIni("Data", key, D)
             Return value
         Catch
-            Return ""
+            Return D
         End Try
 
     End Function
@@ -294,6 +294,16 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+
+    Public Property OpensimBinPath() As String
+        Get
+            Return GetMySetting("OpensimBinPath")
+        End Get
+        Set
+            SetMySetting("OpensimBinPath", Value)
+        End Set
+    End Property
 
     Public Property WelcomeMessage() As String
         Get
@@ -1084,7 +1094,7 @@ Public Class MySettings
 
     Public Property UPnpDiag() As Boolean
         Get
-            Return CType(GetMySetting("UPnpDiag"), Boolean)
+            Return CType(GetMySetting("UPnpDiag", "False"), Boolean)
         End Get
         Set
             SetMySetting("UPnpDiag", Value.ToString(Form1.usa))
