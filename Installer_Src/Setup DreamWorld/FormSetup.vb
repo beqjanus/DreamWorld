@@ -39,7 +39,7 @@ Public Class Form1
 #Region "Declarations"
 
 
-    ReadOnly gMyVersion As String = "3.0"
+    ReadOnly gMyVersion As String = "3.1"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -255,15 +255,6 @@ Public Class Form1
     End Property
 
     Public Property GOpensimBinPath As String
-        Get
-            Return GOpensimBinPath1
-        End Get
-        Set(value As String)
-            GOpensimBinPath1 = value
-        End Set
-    End Property
-
-    Public Property GOpensimBinPath1 As String
         Get
             Return _gOpensimBinPath
         End Get
@@ -516,7 +507,7 @@ Public Class Form1
         End If
 
         GCurSlashDir = MyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
-        GOpensimBinPath = MyFolder & "\OutworldzFiles\Opensim\"
+        GOpensimBinPath() = MyFolder & "\OutworldzFiles\Opensim\"
 
 
         If Not System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
@@ -527,6 +518,7 @@ Public Class Form1
 
         MySetting.Init(MyFolder)
         MySetting.Myfolder = MyFolder
+        MySetting.OpensimBinPath = GOpensimBinPath
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
@@ -2721,7 +2713,7 @@ Public Class Form1
             ' Boot them up
             For Each x In RegionClass.RegionNumbers()
                 If RegionClass.RegionEnabled(x) Then
-                    Boot(RegionClass.RegionName(x))
+                    Boot(RegionClass, RegionClass.RegionName(x))
                     ProgressBar1.Value = CType(counter / Len * 100, Integer)
                     counter += 1
                 End If
@@ -2852,8 +2844,18 @@ Public Class Form1
             End If
 
             ' if a restart is signalled, boot it up
+            If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Autostart And Not GAborting Then
+                UpdateView = True
+                Boot(RegionClass, RegionClass.RegionName(X))
+                UpdateView = True
+            End If
+
+
+            ' if a restart is signalled, boot it up
             If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not GAborting Then
-                Boot(RegionClass.RegionName(X))
+                UpdateView = True
+                Boot(RegionClass, RegionClass.RegionName(X))
+                UpdateView = True
             End If
 
         Next
@@ -2864,11 +2866,7 @@ Public Class Form1
         gExitHandlerIsBusy = True
 
         Dim RegionName = ExitList(0).ToString()
-        Try
-            ExitList.RemoveAt(0)
-        Catch
-            Log("Error", "This should not happen as exitlist was not zero")
-        End Try
+        ExitList.RemoveAt(0)
 
         Print(RegionName & " shutdown")
         Dim RegionList = RegionClass.RegionListByGroupNum(RegionName)
@@ -2903,6 +2901,7 @@ Public Class Form1
             And TimerValue >= 0 Then
 
             If MySetting.RestartOnCrash Then
+                UpdateView = True
                 ' shut down all regions in the DOS box
                 Print("DOS Box " + GroupName + " quit unexpectedly.  Restarting now...")
                 For Each Y In RegionClass.RegionListByGroupNum(GroupName)
@@ -2915,9 +2914,16 @@ Public Class Form1
                     System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
                 End If
                 StopGroup(GroupName)
+                UpdateView = True
             End If
 
         End If
+
+        If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
+            UpdateView = True
+        End If
+
 
         gExitHandlerIsBusy = False
 
@@ -2971,7 +2977,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="BootName"> Name of region to start</param>
     ''' <returns>success = true</returns>
-    Public Function Boot(BootName As String, Optional UserAgent As String = "") As Boolean
+    Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional UserAgent As String = "") As Boolean
 
         If GAborting Then Return True
 
@@ -2981,88 +2987,88 @@ Public Class Form1
 
         Log("Info", "Region: Starting Region " + BootName)
 
-        Dim RegionNumber = RegionClass.FindRegionByName(BootName)
-        If RegionClass.IsBooted(RegionNumber) Then
+        Dim RegionNumber = Regionclass.FindRegionByName(BootName)
+        If Regionclass.IsBooted(RegionNumber) Then
             Log("Info", "Region " + BootName + " skipped as it is already Booted")
             Return True
         End If
 
-        If RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Log("Info", "Region " + BootName + " skipped as it is already Warming Up")
             Return True
         End If
 
-        If RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
             Log("Info", "Region " + BootName + " skipped as it is already Booted Up")
             Return True
         End If
 
-        If RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Log("Info", "Region " + BootName + " skipped as it is already Shutting Down")
             Return True
         End If
 
-        If RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Log("Info", "Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
 
         Application.DoEvents()
-        Dim isRegionRunning = CheckPort("127.0.0.1", RegionClass.GroupPort(RegionNumber))
+        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Log("Info", "Region " + BootName + " failed to start as it is already running")
-            RegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+            Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
             Return False
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", GOpensimBinPath + "bin\Regions\" + RegionClass.GroupName(RegionNumber))
+        Environment.SetEnvironmentVariable("OSIM_LOGPATH", MySetting.OpensimBinPath() + "bin\Regions\" + Regionclass.GroupName(RegionNumber))
 
         Dim myProcess As Process = GetNewProcess()
-        Dim Groupname = RegionClass.GroupName(RegionNumber)
+        Dim Groupname = Regionclass.GroupName(RegionNumber)
         Print("Starting " + Groupname)
         Try
             myProcess.EnableRaisingEvents = True
             myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            myProcess.StartInfo.WorkingDirectory = GOpensimBinPath + "bin"
+            myProcess.StartInfo.WorkingDirectory = MySetting.OpensimBinPath() + "bin"
 
-            myProcess.StartInfo.FileName = """" + GOpensimBinPath + "bin\OpenSim.exe" + """"
+            myProcess.StartInfo.FileName = """" + MySetting.OpensimBinPath() + "bin\OpenSim.exe" + """"
             myProcess.StartInfo.CreateNoWindow = False
             myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & RegionClass.GroupName(RegionNumber) + """"
+            myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & Regionclass.GroupName(RegionNumber) + """"
 
             Try
-                My.Computer.FileSystem.DeleteFile(GOpensimBinPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\Opensim.log")
+                My.Computer.FileSystem.DeleteFile(MySetting.OpensimBinPath() + "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
             Catch
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(GOpensimBinPath + "bin\Regions\" & RegionClass.GroupName(RegionNumber) & "\PID.pid")
+                My.Computer.FileSystem.DeleteFile(MySetting.OpensimBinPath() + "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
             Catch
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(GOpensimBinPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
+                My.Computer.FileSystem.DeleteFile(MySetting.OpensimBinPath() + "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
             Catch ex As Exception
             End Try
 
             Try
-                My.Computer.FileSystem.DeleteFile(GOpensimBinPath + "bin\regions\" & RegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
+                My.Computer.FileSystem.DeleteFile(MySetting.OpensimBinPath() + "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
             Catch ex As Exception
             End Try
 
-            SequentialPause()
+            If UserAgent.Length = 0 Then SequentialPause()
 
             If myProcess.Start() Then
-                For Each num In RegionClass.RegionListByGroupNum(Groupname)
-                    Log("Debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(usa) + " Num:" + num.ToString(usa))
-                    RegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
-                    RegionClass.ProcessID(num) = myProcess.Id
-                    RegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
+                For Each num In Regionclass.RegionListByGroupNum(Groupname)
+                    Log("Debug", "Process started for " + Regionclass.RegionName(num) + " PID=" + myProcess.Id.ToString(usa) + " Num:" + num.ToString(usa))
+                    Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
+                    Regionclass.ProcessID(num) = myProcess.Id
+                    Regionclass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
                 Next
 
                 UpdateView = True ' make form refresh
                 Application.DoEvents()
-                SetWindowTextCall(myProcess, RegionClass.GroupName(RegionNumber))
+                SetWindowTextCall(myProcess, Regionclass.GroupName(RegionNumber))
 
                 Log("Debug", "Created Process Number " + myProcess.Id.ToString(usa) + " in  RegionHandles(" + RegionHandles.Count.ToString(usa) + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
@@ -3082,7 +3088,7 @@ Public Class Form1
             UpdateView = True ' make form refresh
             Dim yesno = MsgBox("Oops! " + BootName + " in DOS box " + Groupname + " did not boot. Do you want to see the log file?", vbYesNo, "Error")
             If (yesno = vbYes) Then
-                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & RegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
+                System.Diagnostics.Process.Start(MyFolder + "\baretail.exe", """" & Regionclass.IniPath(RegionNumber) + "Opensim.log" & """")
             End If
 
             Return False
