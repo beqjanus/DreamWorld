@@ -40,7 +40,7 @@ Public Class FormPorts
         SetScreen()
 
         FirstRegionPort.Text = Form1.MySetting.FirstRegionPort()
-        MaxP.Text = "Highest used: " + Form1.GMaxPortUsed.ToString
+        MaxP.Text = "Highest used: " + Form1.GMaxPortUsed.ToString(Form1.usa)
         uPnPEnabled.Checked = Form1.MySetting.UPnPEnabled
 
         'ports

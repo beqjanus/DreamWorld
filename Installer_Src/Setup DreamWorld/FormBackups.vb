@@ -35,7 +35,7 @@ Public Class FormBackups
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoBackupKeepFilesForDays.Text = Form1.MySetting.KeepForDays.ToString
+        AutoBackupKeepFilesForDays.Text = Form1.MySetting.KeepForDays.ToString(Form1.usa)
 
         '0 = Hourly
         '1 = 12 Hour
@@ -109,7 +109,7 @@ Public Class FormBackups
         If text = "5 days" Then Interval = 5 * 60 * 24
         If text = "6 days" Then Interval = 6 * 60 * 24
         If text = "Weekly" Then Interval = 7 * 60 * 24
-        Form1.MySetting.AutobackupInterval = Interval.ToString
+        Form1.MySetting.AutobackupInterval = Interval.ToString(Form1.usa)
 
         Form1.MySetting.SaveSettings()
     End Sub
@@ -120,8 +120,8 @@ Public Class FormBackups
         AutoBackupKeepFilesForDays.Text = digitsOnly.Replace(AutoBackupKeepFilesForDays.Text, "")
 
         Try
-            If Convert.ToInt32(AutoBackupKeepFilesForDays.Text) > 0 Then
-                Form1.MySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text)
+            If Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.usa) > 0 Then
+                Form1.MySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.usa)
                 Form1.MySetting.SaveSettings()
             End If
         Catch

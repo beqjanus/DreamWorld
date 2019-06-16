@@ -107,7 +107,7 @@ Public Class MysqlInterface
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")
         If UserCount = Nothing Then Return 0
         'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount)
+        Return Convert.ToInt16(UserCount, Form1.usa)
 
     End Function
 
@@ -131,7 +131,7 @@ Public Class MysqlInterface
             MysqlConn.Open()
 
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-            Dim v = Convert.ToString(cmd.ExecuteScalar())
+            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.usa)
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)

@@ -35,12 +35,12 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ShoutcastPort.Text = Form1.MySetting.SCPortBase.ToString
-        ShoutcastPort1.Text = Form1.MySetting.SCPortBase1.ToString
+        ShoutcastPort.Text = Form1.MySetting.SCPortBase.ToString(Form1.usa)
+        ShoutcastPort1.Text = Form1.MySetting.SCPortBase1.ToString(Form1.usa)
         AdminPassword.Text = Form1.MySetting.SCAdminPassword
         ShoutcastPassword.Text = Form1.MySetting.SCPassword
         ShoutcastEnable.Checked = Form1.MySetting.SCEnable
-        SCShow.Checked = Form1.MySetting.SCShow
+
         AdminPassword.UseSystemPasswordChar = True
         ShoutcastPassword.UseSystemPasswordChar = True
         SetScreen()
@@ -86,12 +86,6 @@ Public Class Icecast
     Private Sub ShoutcastPassword_CLickChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.Click
 
         ShoutcastPassword.UseSystemPasswordChar = False
-
-    End Sub
-
-    Private Sub SCShow_CheckedChanged(sender As Object, e As EventArgs) Handles SCShow.CheckedChanged
-
-        Form1.MySetting.SCShow = SCShow.Checked
 
     End Sub
 

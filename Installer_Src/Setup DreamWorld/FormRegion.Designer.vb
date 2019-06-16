@@ -52,6 +52,7 @@ Partial Class FormRegion
         Me.AllowGods = New System.Windows.Forms.CheckBox()
         Me.ManagerGod = New System.Windows.Forms.CheckBox()
         Me.RegionGod = New System.Windows.Forms.CheckBox()
+        Me.RegionPort = New System.Windows.Forms.TextBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -92,7 +93,7 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.RegionPort = New System.Windows.Forms.TextBox()
+        Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -379,6 +380,15 @@ Partial Class FormRegion
         "ner name. If checked, this person has God mode rights to any regions they own.")
         Me.RegionGod.UseVisualStyleBackColor = True
         '
+        'RegionPort
+        '
+        Me.RegionPort.Location = New System.Drawing.Point(97, 39)
+        Me.RegionPort.Name = "RegionPort"
+        Me.RegionPort.Size = New System.Drawing.Size(40, 20)
+        Me.RegionPort.TabIndex = 39
+        Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
+        Me.RegionPort.Visible = False
+        '
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
@@ -541,12 +551,13 @@ Partial Class FormRegion
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.SmartStartCheckBox)
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
         Me.GroupBox7.Location = New System.Drawing.Point(228, 334)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(177, 101)
+        Me.GroupBox7.Size = New System.Drawing.Size(177, 130)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules:"
@@ -832,14 +843,16 @@ Partial Class FormRegion
         Me.Button2.Text = "Deregister"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'RegionPort
+        'SmartStartCheckBox
         '
-        Me.RegionPort.Location = New System.Drawing.Point(97, 39)
-        Me.RegionPort.Name = "RegionPort"
-        Me.RegionPort.Size = New System.Drawing.Size(40, 20)
-        Me.RegionPort.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
-        Me.RegionPort.Visible = False
+        Me.SmartStartCheckBox.AutoSize = True
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 86)
+        Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
+        Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
+        Me.SmartStartCheckBox.TabIndex = 23
+        Me.SmartStartCheckBox.Text = "Smart Start"
+        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
         'FormRegion
         '
@@ -954,4 +967,5 @@ Partial Class FormRegion
     Friend WithEvents Button2 As Button
     Friend WithEvents Physicsubhybrid As RadioButton
     Friend WithEvents RegionPort As TextBox
+    Friend WithEvents SmartStartCheckBox As CheckBox
 End Class

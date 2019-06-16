@@ -124,7 +124,7 @@
             var = var / 10
             If (var > 1) Then var = 1
             If (var < 0) Then var = 0
-            Debug.Print(var.ToString)
+            Debug.Print(var.ToString(Form1.usa))
 
             Form1.MySetting.Density = var
             Form1.MySetting.SaveSettings()

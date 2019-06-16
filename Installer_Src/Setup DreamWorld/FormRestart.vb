@@ -33,7 +33,7 @@ Public Class FormRestart
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoRestartBox.Text = Form1.MySetting.AutoRestartInterval.ToString
+        AutoRestartBox.Text = Form1.MySetting.AutoRestartInterval.ToString(Form1.usa)
         If AutoRestartBox.Text.Length > 0 Then
             ARTimerBox.Checked = True
         End If
@@ -72,7 +72,7 @@ Public Class FormRestart
         AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
 
         Try
-            Form1.MySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text)
+            Form1.MySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.usa)
             Form1.MySetting.SaveSettings()
         Catch
         End Try
@@ -86,8 +86,8 @@ Public Class FormRestart
             Dim BTime As Int16 = CType(Form1.MySetting.AutobackupInterval, Int16)
             If Form1.MySetting.AutoBackup And Form1.MySetting.AutoRestartInterval > 0 And Form1.MySetting.AutoRestartInterval < BTime Then
                 Form1.MySetting.AutoRestartInterval = BTime + 30
-                AutoRestartBox.Text = (BTime + 30).ToString
-                MsgBox("Upping AutoRestart Time to " + BTime.ToString + " + 30 Minutes for Autobackup to complete.", vbInformation)
+                AutoRestartBox.Text = (BTime + 30).ToString(Form1.usa)
+                MsgBox("Upping AutoRestart Time to " + BTime.ToString(Form1.usa) + " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
         Else
             Form1.MySetting.AutoRestartInterval = 0

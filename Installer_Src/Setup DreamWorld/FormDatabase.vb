@@ -54,7 +54,7 @@
         RobustDbName.Text = Form1.MySetting.RobustDataBaseName
         RobustDBPassword.Text = Form1.MySetting.RobustPassword
         RobustDBUsername.Text = Form1.MySetting.RobustUsername
-        RobustDbPort.Text = Form1.MySetting.MySqlPort.ToString
+        RobustDbPort.Text = Form1.MySetting.MySqlPort.ToString(Form1.usa)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()

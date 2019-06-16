@@ -60,14 +60,14 @@ Public Class RegionList
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
+
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
     Private Sub SetScreen(View As Integer)
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString)
+        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString(Form1.usa))
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -218,16 +218,16 @@ Public Class RegionList
         AvatarView.Columns.Add("Type", 80, HorizontalAlignment.Center)
 
         ' index  to display icons
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2"))   ' 0 booting up
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2")) ' 1 shutting down
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2")) ' 2 okay, up
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red")) ' 3 disabled
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop"))  ' 4 enabled, stopped
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down"))  ' 5 Recycling down
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up"))  ' 6 Recycling Up
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning"))  ' 7 Unknown
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2"))  ' 8 - 1 User
-        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1"))  ' 9 - 2 user
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Form1.usa))   ' 0 booting up
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Form1.usa)) ' 1 shutting down
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2", Form1.usa)) ' 2 okay, up
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Form1.usa)) ' 3 disabled
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Form1.usa))  ' 4 enabled, stopped
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Form1.usa))  ' 5 Recycling down
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Form1.usa))  ' 6 Recycling Up
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.usa))  ' 7 Unknown
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.usa))  ' 8 - 1 User
+        imageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.usa))  ' 9 - 2 user
 
         Form1.UpdateView = True ' make form refresh
         LoadMyListView()
@@ -340,17 +340,17 @@ Public Class RegionList
                 If TheView = ViewType.Maps Then
 
                     If RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                        Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
+                        Dim img As String = "http://127.0.0.1:" + RegionClass.GroupPort(X).ToString(Form1.usa) + "/" + "index.php?method=regionImage" + RegionClass.UUID(X).Replace("-", "")
                         Debug.Print(img)
 
                         Dim bmp As Image = LoadImage(img)
                         If bmp Is Nothing Then
-                            imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                            imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.usa))
                         Else
                             imageListLarge.Images.Add(bmp)
                         End If
                     Else
-                        imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap"))
+                        imageListLarge.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.usa))
                     End If
                     Num = X
 
@@ -361,8 +361,8 @@ Public Class RegionList
                 Dim item1 As New ListViewItem(RegionClass.RegionName(X), Num) With {
                     .Checked = RegionClass.RegionEnabled(X)
                 }
-                item1.SubItems.Add(RegionClass.GroupName(X).ToString)
-                item1.SubItems.Add(RegionClass.AvatarCount(X).ToString)
+                item1.SubItems.Add(RegionClass.GroupName(X).ToString(Form1.usa))
+                item1.SubItems.Add(RegionClass.AvatarCount(X).ToString(Form1.usa))
                 item1.SubItems.Add(Letter)
                 Dim fmtXY = "00000" ' 65536
                 Dim fmtRam = "0000." ' 9999 MB
@@ -372,7 +372,7 @@ Public Class RegionList
                     Dim component1 As Process = Process.GetProcessById(PID)
                     If Form1.RegionHandles.ContainsKey(PID) Then
                         Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam)))
+                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Form1.usa)))
                     Else
                         item1.SubItems.Add("0")
                     End If
@@ -380,8 +380,8 @@ Public Class RegionList
                     'Form1.ErrorLog(ex.Message)
                     item1.SubItems.Add("0")
                 End Try
-                item1.SubItems.Add(RegionClass.CoordX(X).ToString(fmtXY))
-                item1.SubItems.Add(RegionClass.CoordY(X).ToString(fmtXY))
+                item1.SubItems.Add(RegionClass.CoordX(X).ToString(fmtXY, Form1.usa))
+                item1.SubItems.Add(RegionClass.CoordY(X).ToString(fmtXY, Form1.usa))
 
                 Dim size As String = ""
                 If RegionClass.SizeX(X) = 256 Then
@@ -393,7 +393,7 @@ Public Class RegionList
                 ElseIf RegionClass.SizeX(X) = 1024 Then
                     size = "4X4"
                 Else
-                    size = RegionClass.SizeX(X).ToString
+                    size = RegionClass.SizeX(X).ToString(Form1.usa)
                 End If
                 item1.SubItems.Add(size)
 
@@ -568,20 +568,20 @@ Public Class RegionList
 
     End Sub
 
-    Shared Function LoadImage(url As String) As Image
+    Shared Function LoadImage(S As String) As Image
         Dim bmp As Bitmap = Nothing
-        Dim request As System.Net.WebRequest = System.Net.WebRequest.Create(url)
+        Dim request As System.Net.WebRequest = System.Net.WebRequest.Create(S)
         Try
             Dim response As System.Net.WebResponse = request.GetResponse()
             Dim responseStream As System.IO.Stream = response.GetResponseStream()
             bmp = New Bitmap(responseStream)
 
             'Dim s = bmp.Size
-            'Debug.Print(s.Width.ToString + ":" + s.Height.ToString)
+            'Debug.Print(s.Width.ToString(Form1.usa) + ":" + s.Height.ToString)
 
             responseStream.Dispose()
         Catch ex As Exception
-            Form1.Log("Maps", ex.Message + ":" + url)
+            Form1.Log("Maps", ex.Message + ":" + S)
         End Try
 
         Return bmp
@@ -672,7 +672,7 @@ Public Class RegionList
                         If RegionClass.AvatarCount(num) = 1 Then
                             response = MsgBox("There is one avatar in " + RegionClass.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         Else
-                            response = MsgBox("There are " + RegionClass.AvatarCount(num).ToString + " avatars in " + RegionClass.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
+                            response = MsgBox("There are " + RegionClass.AvatarCount(num).ToString(Form1.usa) + " avatars in " + RegionClass.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         End If
                         If response = vbNo Then
                             StopIt = False
@@ -826,7 +826,7 @@ Public Class RegionList
             pathname = pathname.Replace("\", "/")
             Dim extension As String = Path.GetExtension(pathname)
             extension = Mid(extension, 2, 5)
-            If extension.ToLower = "ini" Then
+            If extension.ToLower(Form1.usa) = "ini" Then
                 Dim filename = Path.GetFileNameWithoutExtension(pathname)
                 Dim i = RegionClass.FindRegionByName(filename)
                 If i >= 0 Then

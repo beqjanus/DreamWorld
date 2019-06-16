@@ -32,21 +32,21 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString)
-        SetXYIni("Data", gName + "_Y", ValueY.ToString)
+        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.usa))
+        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.usa))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString)
-        Debug.Print("Y>" + ValueY.ToString)
+        Debug.Print("X>" + ValueX.ToString(Form1.usa))
+        Debug.Print("Y>" + ValueY.ToString(Form1.usa))
 
     End Sub
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data", gName + "_H", ValueH.ToString)
-        SetXYIni("Data", gName + "_W", ValueW.ToString)
+        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.usa))
+        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.usa))
         SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString)
-        Debug.Print("W>" + ValueW.ToString)
+        Debug.Print("H>" + ValueH.ToString(Form1.usa))
+        Debug.Print("W>" + ValueW.ToString(Form1.usa))
 
     End Sub
 
@@ -84,8 +84,8 @@ Public Class ScreenPos
             ValueXOld,
             ValueYOld
         }
-        Debug.Print("X<" + ValueXOld.ToString)
-        Debug.Print("Y<" + ValueYOld.ToString)
+        Debug.Print("X<" + ValueXOld.ToString(Form1.usa))
+        Debug.Print("Y<" + ValueYOld.ToString(Form1.usa))
         Return r
 
     End Function
@@ -99,8 +99,8 @@ Public Class ScreenPos
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString)
-        Debug.Print("W<" + ValueWOld.ToString)
+        Debug.Print("H<" + ValueHOld.ToString(Form1.usa))
+        Debug.Print("W<" + ValueWOld.ToString(Form1.usa))
         Return r
 
     End Function

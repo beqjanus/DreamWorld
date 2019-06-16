@@ -126,7 +126,7 @@ Public Class UPnp
     Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As Protocol, ByVal desc As String)
 
         ' Begin utilizing
-        If Exists(port, prot) Then Throw New ArgumentException("This mapping already exists:", port.ToString)
+        If Exists(port, prot) Then Throw New ArgumentException("This mapping already exists:", port.ToString(Form1.usa))
 
         ' Check
         If Not IsPrivateIP(localIP) Then Throw New ArgumentException("This is not a local IP address:", localIP)
@@ -135,7 +135,7 @@ Public Class UPnp
         If Not staticEnabled Then Throw New ApplicationException("UPnP is not enabled, or there was an error with UPnP Initialization.")
 
         ' Okay, continue on
-        staticMapping.Add(port, prot.ToString(), port, localIP, True, desc + ":" + port.ToString)
+        staticMapping.Add(port, prot.ToString(), port, localIP, True, desc + ":" + port.ToString(Form1.usa))
 
     End Sub
 
@@ -151,7 +151,7 @@ Public Class UPnp
     Public Sub Remove(ByVal port As Integer, ByVal prot As Protocol)
 
         ' Begin utilizing
-        If Not Exists(port, prot) Then Throw New ArgumentException("This mapping doesn't exist!", port.ToString)
+        If Not Exists(port, prot) Then Throw New ArgumentException("This mapping doesn't exist!", port.ToString(Form1.usa))
 
         ' Final check!
         If Not staticEnabled Then Throw New ApplicationException("UPnp is not enabled, or there was an error with UPnp Initialization.")
@@ -179,7 +179,7 @@ Public Class UPnp
         For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
 
             ' Compare
-            If mapping.ExternalPort.Equals(port) AndAlso mapping.Protocol.ToString.Equals(prot.ToString) Then
+            If mapping.ExternalPort.Equals(port) AndAlso mapping.Protocol.ToString(Form1.usa) = prot.ToString() Then
                 Return True
             End If
 
@@ -296,13 +296,13 @@ Public Class UPnp
 
                 For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
                     If mapping.Enabled Then
-                        Log(String.Format("Enabled: {0}", mapping.Description))
+                        Log(String.Format(Form1.usa, "Enabled: {0}", mapping.Description))
                     Else
-                        Log(String.Format("**Disabled**: {0}", mapping.Description))
+                        Log(String.Format(Form1.usa, "**Disabled**: {0}", mapping.Description))
                     End If
-                    Log(String.Format("Port: {0}", Convert.ToString(mapping.InternalPort)))
-                    Log(String.Format("Protocol: {0}", Convert.ToString(mapping.Protocol)))
-                    Log(String.Format("External IP Address: {0}", Convert.ToString(mapping.ExternalIPAddress)))
+                    Log(String.Format(Form1.usa, "Port: {0}", Convert.ToString(mapping.InternalPort, Form1.usa)))
+                    Log(String.Format(Form1.usa, "Protocol: {0}", Convert.ToString(mapping.Protocol, Form1.usa)))
+                    Log(String.Format(Form1.usa, "External IP Address: {0}", Convert.ToString(mapping.ExternalIPAddress, Form1.usa)))
                     Log("--------------------------------------")
                 Next
             End If
@@ -314,7 +314,7 @@ Public Class UPnp
     Public Sub Log(message As String)
         Try
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.usa) + ":" + message)
             End Using
         Catch
         End Try

@@ -32,7 +32,6 @@ Partial Class Icecast
         Me.ShoutcastPort1 = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.LoadURL = New System.Windows.Forms.Button()
-        Me.SCShow = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AdminPassword = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -45,7 +44,7 @@ Partial Class Icecast
         'ShoutcastEnable
         '
         Me.ShoutcastEnable.AutoSize = True
-        Me.ShoutcastEnable.Location = New System.Drawing.Point(30, 20)
+        Me.ShoutcastEnable.Location = New System.Drawing.Point(31, 29)
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
         Me.ShoutcastEnable.Size = New System.Drawing.Size(59, 17)
         Me.ShoutcastEnable.TabIndex = 0
@@ -74,7 +73,6 @@ Partial Class Icecast
         Me.GroupBox1.Controls.Add(Me.ShoutcastPort1)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.LoadURL)
-        Me.GroupBox1.Controls.Add(Me.SCShow)
         Me.GroupBox1.Controls.Add(Me.ShoutcastEnable)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.AdminPassword)
@@ -108,7 +106,7 @@ Partial Class Icecast
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(98, 8)
+        Me.PictureBox1.Location = New System.Drawing.Point(98, 19)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(40, 27)
         Me.PictureBox1.TabIndex = 1859
@@ -123,16 +121,6 @@ Partial Class Icecast
         Me.LoadURL.TabIndex = 6
         Me.LoadURL.Text = "Admin Web Page"
         Me.LoadURL.UseVisualStyleBackColor = True
-        '
-        'SCShow
-        '
-        Me.SCShow.AutoSize = True
-        Me.SCShow.Location = New System.Drawing.Point(30, 41)
-        Me.SCShow.Name = "SCShow"
-        Me.SCShow.Size = New System.Drawing.Size(86, 17)
-        Me.SCShow.TabIndex = 1
-        Me.SCShow.Text = "Show Status"
-        Me.SCShow.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -195,7 +183,6 @@ Partial Class Icecast
     Friend WithEvents ShoutcastPort As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents AdminPassword As TextBox
-    Friend WithEvents SCShow As CheckBox
     Friend WithEvents LoadURL As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents PictureBox1 As PictureBox

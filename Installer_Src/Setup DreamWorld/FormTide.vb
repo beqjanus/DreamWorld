@@ -36,7 +36,7 @@
         TideEnabledCheckbox.Checked = CType(Form1.MySetting.TideEnabled, Boolean)
         TideHighLevelTextBox.Text = Form1.MySetting.TideHighLevel()
         TideLowLevelTextBox.Text = Form1.MySetting.TideLowLevel()
-        CycleTimeTextBox.Text = Form1.MySetting.CycleTime.ToString
+        CycleTimeTextBox.Text = Form1.MySetting.CycleTime.ToString(Form1.usa)
         BroadcastTideInfo.Checked = CType(Form1.MySetting.BroadcastTideInfo, Boolean)
         TideInfoChannelTextBox.Text = Form1.MySetting.TideInfoChannel
         TideHiLoChannelTextBox.Text = Form1.MySetting.TideLevelChannel

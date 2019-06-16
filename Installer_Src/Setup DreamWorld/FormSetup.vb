@@ -32,10 +32,12 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
 Imports System.Net.NetworkInformation
+Imports System.Globalization
 
 Public Class Form1
 
 #Region "Declarations"
+
 
     ReadOnly gMyVersion As String = "3.0"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
@@ -46,6 +48,8 @@ Public Class Form1
 
     ReadOnly gCPUMAX As Single = 75 ' max CPU % can be used when booting or we wait til it gets lower
 
+    Public usa As CultureInfo = New CultureInfo("en-US")
+
     ' not https, which breaks stuff
     Private _gDomain As String = "http://www.outworldz.com"
 
@@ -54,7 +58,7 @@ Public Class Form1
     Private _myFolder As String   ' Holds the current folder that we are running in
     Private _gCurSlashDir As String '  holds the current directory info in Unix format for MySQL and Apache
     Private _gIsRunning As Boolean = False ' used in OpensimIsRunning property
-    Private _gChatTime As Integer     'amount of coffee the fairy had. Time for the chatty fairy to be read
+
     Dim client As New System.Net.WebClient ' downloadclient for web pages
     Public Shared MysqlConn As MysqlInterface
 
@@ -163,7 +167,7 @@ Public Class Form1
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
+        'Me.Text = "Form screen position = " + Me.Location.ToString(usa)
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
@@ -298,15 +302,6 @@ Public Class Form1
         End Get
         Set(value As Boolean)
             _gIsRunning = value
-        End Set
-    End Property
-
-    Public Property GChatTime As Integer
-        Get
-            Return _gChatTime
-        End Get
-        Set(value As Integer)
-            _gChatTime = value
         End Set
     End Property
 
@@ -547,8 +542,6 @@ Public Class Form1
 
         Me.Text = "Dreamgrid V" + gMyVersion
 
-        GChatTime = MySetting.ChatTime
-
         OpensimIsRunning() = False ' true when opensim is running
         Me.Show()
 
@@ -656,19 +649,19 @@ Public Class Form1
         If isMySqlRunning Then gStopMysql = False
 
 
-            Buttons(StartButton)
-                ProgressBar1.Value = 100
+        Buttons(StartButton)
+        ProgressBar1.Value = 100
 
-            If MySetting.Autostart Then
-                Print("Auto Startup")
-                Startup()
-            Else
-                MySetting.SaveSettings()
-                Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-            End If
+        If MySetting.Autostart Then
+            Print("Auto Startup")
+            Startup()
+        Else
+            MySetting.SaveSettings()
+            Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
+        End If
 
-            HelpOnce("License") ' license on bottom
-            HelpOnce("Startup")
+        HelpOnce("License") ' license on bottom
+        HelpOnce("Startup")
 
         ProgressBar1.Value = 100
 
@@ -813,7 +806,7 @@ Public Class Form1
             Dim BTime As Int16 = CType(MySetting.AutobackupInterval, Int16)
             If MySetting.AutoRestartInterval > 0 And MySetting.AutoRestartInterval < BTime Then
                 MySetting.AutoRestartInterval = BTime + 30
-                Print("Upping AutoRestart Time to " + BTime.ToString + " + 30 Minutes.")
+                Print("Upping AutoRestart Time to " + BTime.ToString(usa) + " + 30 Minutes.")
             End If
         End If
 
@@ -961,7 +954,7 @@ Public Class Form1
         StopApache()
 
         Dim n As Integer = RegionClass.RegionCount()
-        Diagnostics.Debug.Print("N=" + n.ToString())
+        Diagnostics.Debug.Print("N=" + n.ToString(usa))
 
         Dim TotalRunningRegions As Integer
 
@@ -970,7 +963,7 @@ Public Class Form1
                 TotalRunningRegions += 1
             End If
         Next
-        Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString)
+        Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString(usa))
 
         For Each X As Integer In RegionClass.RegionNumbers
             If OpensimIsRunning() And RegionClass.RegionEnabled(X) And
@@ -1014,7 +1007,7 @@ Public Class Form1
                 If CountisRunning = 1 Then
                     Print("1 region is still running")
                 Else
-                    Print(CountisRunning.ToString & " regions are still running")
+                    Print(CountisRunning.ToString(usa) & " regions are still running")
                 End If
 
                 If CountisRunning = 0 Then
@@ -1025,7 +1018,7 @@ Public Class Form1
                 Dim v As Double = CountisRunning / TotalRunningRegions * 100
                 If v >= 0 And v <= 100 Then
                     ProgressBar1.Value = CType(v, Integer)
-                    Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString)
+                    Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString(usa))
                 End If
                 UpdateView = True ' make form refresh
                 Application.DoEvents()
@@ -1062,12 +1055,8 @@ Public Class Form1
 
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
-            Try
-                Log("Info", "Stopping process " + processName)
-                P.Kill()
-            Catch ex As Exception
-                Log("Info", "failed to stop " + processName)
-            End Try
+            Log("Info", "Stopping process " + processName)
+            P.Kill()
         Next
 
     End Sub
@@ -1096,7 +1085,7 @@ Public Class Form1
 
     Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         For Each filename In dll
-            If tofind.ToLower = filename.ToLower Then Return True
+            If tofind.ToLower(Form1.usa) = filename.ToLower(Form1.usa) Then Return True
         Next
         Return False
     End Function
@@ -1262,7 +1251,7 @@ Public Class Form1
 
     Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value)
+        Random = System.Convert.ToString(value, Form1.usa)
     End Function
 
     Private Sub WebUIToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
@@ -1288,10 +1277,10 @@ Public Class Form1
                             "<admin>" + MySetting.AdminEmail + "</admin>" + vbCrLf +
                             "<shoutcast-mount>/stream</shoutcast-mount>" + vbCrLf +
                             "<listen-socket>" + vbCrLf +
-                            "    <port>" + MySetting.SCPortBase.ToString() + "</port>" + vbCrLf +
+                            "    <port>" + MySetting.SCPortBase.ToString(usa) + "</port>" + vbCrLf +
                             "</listen-socket>" + vbCrLf +
                             "<listen-socket>" + vbCrLf +
-                            "   <port>" + MySetting.SCPortBase1.ToString() + "</port>" + vbCrLf +
+                            "   <port>" + MySetting.SCPortBase1.ToString(usa) + "</port>" + vbCrLf +
                             "   <shoutcast-compat>1</shoutcast-compat>" + vbCrLf +
                             "</listen-socket>" + vbCrLf +
                              "<limits>" + vbCrLf +
@@ -1486,11 +1475,11 @@ Public Class Form1
             'Disable it as it is broken for now.
 
             'MySetting.SetOtherIni("TOSModule", "Enabled", MySetting.TOSEnabled)
-            MySetting.SetOtherIni("TOSModule", "Enabled", False.ToString)
+            MySetting.SetOtherIni("TOSModule", "Enabled", False.ToString(usa))
             'MySetting.SetOtherIni("TOSModule", "Message", MySetting.TOSMessage)
             'MySetting.SetOtherIni("TOSModule", "Timeout", MySetting.TOSTimeout)
-            MySetting.SetOtherIni("TOSModule", "ShowToLocalUsers", MySetting.ShowToLocalUsers.ToString)
-            MySetting.SetOtherIni("TOSModule", "ShowToForeignUsers", MySetting.ShowToForeignUsers.ToString)
+            MySetting.SetOtherIni("TOSModule", "ShowToLocalUsers", MySetting.ShowToLocalUsers.ToString(usa))
+            MySetting.SetOtherIni("TOSModule", "ShowToForeignUsers", MySetting.ShowToForeignUsers.ToString(usa))
             MySetting.SetOtherIni("TOSModule", "TOS_URL", "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort + "/wifi/termsofservice.html")
             MySetting.SaveOtherINI()
         End If
@@ -1646,10 +1635,10 @@ Public Class Form1
         ' the old Clouds
         If MySetting.Clouds Then
             MySetting.SetOtherIni("Cloud", "enabled", "true")
-            MySetting.SetOtherIni("Cloud", "density", MySetting.Density.ToString)
+            MySetting.SetOtherIni("Cloud", "density", MySetting.Density.ToString(usa))
         Else
             MySetting.SetOtherIni("Cloud", "enabled", "false")
-            MySetting.SetOtherIni("Cloud", "density", MySetting.Density.ToString)
+            MySetting.SetOtherIni("Cloud", "density", MySetting.Density.ToString(usa))
         End If
 
         ' Gods
@@ -1763,7 +1752,7 @@ Public Class Form1
         End If
 
         MySetting.SetOtherIni("AutoBackupModule", "AutoBackupInterval", MySetting.AutobackupInterval)
-        MySetting.SetOtherIni("AutoBackupModule", "AutoBackupKeepFilesForDays", MySetting.KeepForDays.ToString)
+        MySetting.SetOtherIni("AutoBackupModule", "AutoBackupKeepFilesForDays", MySetting.KeepForDays.ToString(usa))
         MySetting.SetOtherIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         ' Voice
@@ -1912,7 +1901,7 @@ Public Class Form1
             MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
             MySetting.SetOtherIni("Const", "PrivURL", "http://" & MySetting.PrivateURL) ' local IP
-            MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString) ' varies with region
+            MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString(usa)) ' varies with region
             Dim name = RegionClass.RegionName(X)
 
             ' save the http listener port away for the group
@@ -1951,7 +1940,7 @@ Public Class Form1
 
         Dim fPort As String = MySetting.FirstRegionPort()
         If fPort.Length = 0 Then
-            fPort = RegionClass.LowestPort().ToString
+            fPort = RegionClass.LowestPort().ToString(usa)
             MySetting.FirstRegionPort = fPort
             MySetting.SaveSettings()
         End If
@@ -1966,7 +1955,8 @@ Public Class Form1
             Dim simName = RegionClass.RegionName(RegionNum)
 
             MySetting.LoadOtherIni(RegionClass.RegionPath(RegionNum), ";")
-            MySetting.SetOtherIni(simName, "InternalPort", RegionClass.RegionPort(RegionNum).ToString)
+
+            MySetting.SetOtherIni(simName, "InternalPort", RegionClass.RegionPort(RegionNum).ToString(usa))
             MySetting.SetOtherIni(simName, "ExternalHostName", MySetting.PublicIP)
 
             ' not a standard INI, only use by the Dreamers
@@ -1977,18 +1967,17 @@ Public Class Form1
             End If
 
             ' Extended in v 2.1
-            MySetting.SetOtherIni(simName, "NonPhysicalPrimMax", Convert.ToString(RegionClass.NonPhysicalPrimMax(RegionNum)))
-            MySetting.SetOtherIni(simName, "PhysicalPrimMax", Convert.ToString(RegionClass.PhysicalPrimMax(RegionNum)))
+            MySetting.SetOtherIni(simName, "NonPhysicalPrimMax", Convert.ToString(RegionClass.NonPhysicalPrimMax(RegionNum), usa))
+            MySetting.SetOtherIni(simName, "PhysicalPrimMax", Convert.ToString(RegionClass.PhysicalPrimMax(RegionNum), usa))
             If (MySetting.Primlimits) Then
-                MySetting.SetOtherIni(simName, "MaxPrims", Convert.ToString(RegionClass.MaxPrims(RegionNum)))
+                MySetting.SetOtherIni(simName, "MaxPrims", Convert.ToString(RegionClass.MaxPrims(RegionNum), usa))
             Else
                 MySetting.SetOtherIni(simName, "MaxPrims", "")
             End If
-            MySetting.SetOtherIni(simName, "MaxAgents", Convert.ToString(RegionClass.MaxAgents(RegionNum)))
-            MySetting.SetOtherIni(simName, "ClampPrimSize", Convert.ToString(RegionClass.ClampPrimSize(RegionNum)))
+            MySetting.SetOtherIni(simName, "MaxAgents", Convert.ToString(RegionClass.MaxAgents(RegionNum), usa))
+            MySetting.SetOtherIni(simName, "ClampPrimSize", Convert.ToString(RegionClass.ClampPrimSize(RegionNum), usa))
 
             ' Extended in v 2.31 optional things
-
             If RegionClass.MapType(RegionNum) = "None" Then
                 MySetting.SetOtherIni(simName, "GenerateMaptiles", "False")
             ElseIf RegionClass.MapType(RegionNum) = "Simple" Then
@@ -2033,10 +2022,13 @@ Public Class Form1
             MySetting.SetOtherIni(simName, "AllowGods", RegionClass.AllowGods(RegionNum))
             MySetting.SetOtherIni(simName, "RegionGod", RegionClass.RegionGod(RegionNum))
             MySetting.SetOtherIni(simName, "ManagerGod", RegionClass.ManagerGod(RegionNum))
-            MySetting.SetOtherIni(simName, "RegionSnapShot", RegionClass.RegionSnapShot(RegionNum).ToString)
+            MySetting.SetOtherIni(simName, "RegionSnapShot", RegionClass.RegionSnapShot(RegionNum).ToString(usa))
             MySetting.SetOtherIni(simName, "Birds", RegionClass.Birds(RegionNum))
             MySetting.SetOtherIni(simName, "Tides", RegionClass.Tides(RegionNum))
             MySetting.SetOtherIni(simName, "Teleport", RegionClass.Teleport(RegionNum))
+
+            ' V2.31 upwards for smart start
+            MySetting.SetOtherIni(simName, "SmartStart", RegionClass.SmartStart(RegionNum).ToString(usa))
 
             MySetting.SaveOtherINI()
 
@@ -2106,22 +2098,27 @@ Public Class Form1
             If RegionClass.AllowGods(RegionNum) = "True" Then
                 MySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
             Else
-                MySetting.SetOtherIni("Permissions", "allow_grid_gods", MySetting.AllowGridGods.ToString)
+                MySetting.SetOtherIni("Permissions", "allow_grid_gods", MySetting.AllowGridGods.ToString(usa))
             End If
 
             If RegionClass.RegionGod(RegionNum) = "True" Then
                 MySetting.SetOtherIni("Permissions", "region_owner_is_god", "True")
             Else
-                MySetting.SetOtherIni("Permissions", "region_owner_is_god", MySetting.RegionOwnerIsGod.ToString)
+                MySetting.SetOtherIni("Permissions", "region_owner_is_god", MySetting.RegionOwnerIsGod.ToString(usa))
             End If
 
             If RegionClass.ManagerGod(RegionNum) = "True" Then
                 MySetting.SetOtherIni("Permissions", "region_manager_is_god", "True")
             Else
-                MySetting.SetOtherIni("Permissions", "region_manager_is_god", MySetting.RegionManagerIsGod.ToString)
+                MySetting.SetOtherIni("Permissions", "region_manager_is_god", MySetting.RegionManagerIsGod.ToString(usa))
             End If
 
+            MySetting.SetOtherIni("AutoLoadTeleport", "Enabled", RegionClass.SmartStart(RegionNum).ToString(usa))
+
+
             MySetting.SaveOtherINI()
+
+
 
             If MySetting.BirdsModuleStartup And RegionClass.Birds(RegionNum) = "True" Then
 
@@ -2131,23 +2128,23 @@ Public Class Form1
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
             "BirdsEnabled = True" & vbCrLf & vbCrLf &
             ";which channel do we listen on for in world commands" & vbCrLf &
-            "BirdsChatChannel = " + MySetting.BirdsChatChannel.ToString() & vbCrLf & vbCrLf &
+            "BirdsChatChannel = " + MySetting.BirdsChatChannel.ToString(usa) & vbCrLf & vbCrLf &
             ";the number of birds to flock" & vbCrLf &
-            "BirdsFlockSize = " + MySetting.BirdsFlockSize.ToString() & vbCrLf & vbCrLf &
+            "BirdsFlockSize = " + MySetting.BirdsFlockSize.ToString(usa) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " + MySetting.BirdsMaxSpeed.ToString() & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " + MySetting.BirdsMaxSpeed.ToString(usa) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " + MySetting.BirdsMaxForce.ToString & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " + MySetting.BirdsMaxForce.ToString(usa) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " + MySetting.BirdsNeighbourDistance.ToString() & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " + MySetting.BirdsNeighbourDistance.ToString(usa) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " + MySetting.BirdsDesiredSeparation.ToString() & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " + MySetting.BirdsDesiredSeparation.ToString(usa) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " + MySetting.BirdsTolerance.ToString() & vbCrLf & vbCrLf &
+            "BirdsTolerance = " + MySetting.BirdsTolerance.ToString(usa) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " + MySetting.BirdsBorderSize.ToString() & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " + MySetting.BirdsBorderSize.ToString(usa) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " + MySetting.BirdsMaxHeight.ToString() & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " + MySetting.BirdsMaxHeight.ToString(usa) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
@@ -2181,7 +2178,7 @@ Public Class Form1
     "TideCycleTime = " & MySetting.CycleTime() & vbCrLf &
         vbCrLf &
     ";; provide tide information on the console?" & vbCrLf &
-    "TideInfoDebug = " & MySetting.TideInfoDebug.ToString & vbCrLf &
+    "TideInfoDebug = " & MySetting.TideInfoDebug.ToString(usa) & vbCrLf &
         vbCrLf &
     ";; chat tide info to the whole region?" & vbCrLf &
     "TideInfoBroadcast = " & MySetting.BroadcastTideInfo() & vbCrLf &
@@ -2386,7 +2383,7 @@ Public Class Form1
                 ApacheProcess.WaitForExit()
                 Dim code = ApacheProcess.ExitCode
                 If code <> 0 Then
-                    MsgBox("Apache failed to install and start as a service:" & code.ToString, vbInformation, "Error")
+                    MsgBox("Apache failed to install and start as a service:" & code.ToString(usa), vbInformation, "Error")
                 End If
                 Sleep(100)
                 ApacheRunning = CheckPort(MySetting.PublicIP, CType(MySetting.ApachePort, Integer))
@@ -2611,7 +2608,7 @@ Public Class Form1
             IcecastProcess.StartInfo.CreateNoWindow = False
             IcecastProcess.StartInfo.WorkingDirectory = MyFolder + "\Outworldzfiles\icecast"
 
-            If MySetting.SCShow Then
+            If MySetting.ConsoleShow Then
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Else
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
@@ -2866,7 +2863,7 @@ Public Class Form1
         If gExitHandlerIsBusy Then Return
         gExitHandlerIsBusy = True
 
-        Dim RegionName = ExitList(0).ToString
+        Dim RegionName = ExitList(0).ToString()
         Try
             ExitList.RemoveAt(0)
         Catch
@@ -2974,7 +2971,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="BootName"> Name of region to start</param>
     ''' <returns>success = true</returns>
-    Public Function Boot(BootName As String) As Boolean
+    Public Function Boot(BootName As String, Optional UserAgent As String = "") As Boolean
 
         If GAborting Then Return True
 
@@ -3057,7 +3054,7 @@ Public Class Form1
 
             If myProcess.Start() Then
                 For Each num In RegionClass.RegionListByGroupNum(Groupname)
-                    Log("Debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString + " Num:" + num.ToString)
+                    Log("Debug", "Process started for " + RegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(usa) + " Num:" + num.ToString(usa))
                     RegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
                     RegionClass.ProcessID(num) = myProcess.Id
                     RegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
@@ -3067,11 +3064,17 @@ Public Class Form1
                 Application.DoEvents()
                 SetWindowTextCall(myProcess, RegionClass.GroupName(RegionNumber))
 
-                Log("Debug", "Created Process Number " + myProcess.Id.ToString + " in  RegionHandles(" + RegionHandles.Count.ToString + ") " + "Group:" + Groupname)
+                Log("Debug", "Created Process Number " + myProcess.Id.ToString(usa) + " in  RegionHandles(" + RegionHandles.Count.ToString(usa) + ") " + "Group:" + Groupname)
                 RegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
 
-                Return True
+                If UserAgent.Length > 0 Then
+                    TeleportAgent(UserAgent)
+                End If
+
             End If
+
+            Return True
+
         Catch ex As Exception
             If ex.Message.Contains("Process has exited") Then Return False
             Print("Oops! " + BootName + " did Not start")
@@ -3088,6 +3091,10 @@ Public Class Form1
         Return False
 
     End Function
+
+    Private Sub TeleportAgent(agentUUID As String)
+        '!!!
+    End Sub
 
     ''' <summary>
     ''' Check is Robust port 8002 is up
@@ -3156,7 +3163,7 @@ Public Class Form1
     Sub Logger(category As String, message As String, file As String)
         Try
             Using outputFile As New StreamWriter(MyFolder & "\OutworldzFiles\" + file + ".log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", usa) + ":" + category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
         Catch
@@ -3332,7 +3339,7 @@ Public Class Form1
 
             MyCPUCollection.Remove(1) ' drop 1st, older  item
             MyCPUCollection.Add(newspeed)
-            PercentCPU.Text = String.Format("{0: 0}% CPU", newspeed)
+            PercentCPU.Text = String.Format(usa, "{0: 0}% CPU", newspeed)
 
         Catch ex As Exception
             ErrorLog(ex.Message)
@@ -3363,7 +3370,7 @@ Public Class Form1
             For Each result In results
                 Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
                 MyRAMCollection.Add(value)
-                PercentRAM.Text = CType(value, Integer).ToString() & "% RAM"
+                PercentRAM.Text = CType(value, Integer).ToString(usa) & "% RAM"
             Next
         Catch ex As Exception
             Log("Error", ex.Message)
@@ -3535,7 +3542,7 @@ Public Class Form1
             ' Set prompt.
             Message = "Enter a name for your backup:"
             title = "Backup to OAR"
-            defaultValue = chosen + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar"
+            defaultValue = chosen + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", usa) + ".oar"
 
             ' Display message, title, and default value.
             myValue = InputBox(Message, title, defaultValue)
@@ -3592,7 +3599,7 @@ Public Class Form1
                         ConsoleCommand(RegionClass.GroupName(Y), "change region " + chosen + "{ENTER}" + vbCrLf)
                         If backMeUp = vbYes Then
                             ConsoleCommand(RegionClass.GroupName(Y), "alert CPU Intensive Backup Started{ENTER}" + vbCrLf)
-                            ConsoleCommand(RegionClass.GroupName(Y), "save oar  " + """" + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
+                            ConsoleCommand(RegionClass.GroupName(Y), "save oar  " + """" + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", usa) + ".oar" + """" + "{ENTER}" + vbCrLf)
                         End If
                         ConsoleCommand(RegionClass.GroupName(Y), "alert New content Is loading..{ENTER}" + vbCrLf)
 
@@ -3662,7 +3669,7 @@ Public Class Form1
                 For Each Y In RegionClass.RegionListByGroupNum(Group)
                     If Not L.Contains(RegionClass.RegionName(Y)) Then
                         ConsoleCommand(RegionClass.GroupName(RegionNumber), "change region " + """" + RegionClass.RegionName(Y) + """" + "{ENTER}" + vbCrLf)
-                        ConsoleCommand(RegionClass.GroupName(RegionNumber), "save oar  " + """" + BackupPath() + RegionClass.RegionName(Y) + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
+                        ConsoleCommand(RegionClass.GroupName(RegionNumber), "save oar  " + """" + BackupPath() + RegionClass.RegionName(Y) + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", usa) + ".oar" + """" + "{ENTER}" + vbCrLf)
                         L.Add(RegionClass.RegionName(Y))
                     End If
                 Next
@@ -3721,7 +3728,7 @@ Public Class Form1
                 Dim ToBackup As String
 
                 Dim BackupName = SaveIAR.GBackupName
-                If Not BackupName.ToLower.EndsWith(".iar") Then
+                If Not BackupName.ToLower(usa).EndsWith(".iar") Then
                     BackupName += ".iar"
                 End If
 
@@ -3841,7 +3848,7 @@ Public Class Form1
                     ConsoleCommand(RegionClass.GroupName(Y), "change region " + region + "{ENTER}" + vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionClass.GroupName(Y), "alert CPU Intensive Backup Started {ENTER}" + vbCrLf)
-                        ConsoleCommand(RegionClass.GroupName(Y), "save oar " + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".oar" + """" + "{ENTER}" + vbCrLf)
+                        ConsoleCommand(RegionClass.GroupName(Y), "save oar " + BackupPath() + "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", usa) + ".oar" + """" + "{ENTER}" + vbCrLf)
                     End If
                     ConsoleCommand(RegionClass.GroupName(Y), "alert New content Is loading ...{ENTER}" + vbCrLf)
 
@@ -3911,11 +3918,11 @@ Public Class Form1
             pathname = pathname.Replace("\", "/")
             Dim extension = Path.GetExtension(pathname)
             extension = Mid(extension, 2, 5)
-            If extension.ToLower = "iar" Then
+            If extension.ToLower(usa) = "iar" Then
                 If LoadIARContent(pathname) Then
                     Print("Opensimulator will load " + pathname + ".  This may take time to load.")
                 End If
-            ElseIf extension.ToLower = "oar" Or extension.ToLower = "gz" Or extension.ToLower = "tgz" Then
+            ElseIf extension.ToLower(usa) = "oar" Or extension.ToLower(usa) = "gz" Or extension.ToLower(usa) = "tgz" Then
                 If LoadOARContent(pathname) Then
                     Print("Opensimulator will load " + pathname + ".  This may take time to load.")
                 End If
@@ -4103,7 +4110,7 @@ Public Class Form1
 
     Private Function MakeBackup() As Boolean
 
-        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss")   ' Set default folder
+        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", usa)   ' Set default folder
         Dim Dest As String
         If MySetting.BackupFolder = "AutoBackup" Then
             Dest = MyFolder + "\OutworldzFiles\AutoBackup\" + Foldername
@@ -4218,7 +4225,7 @@ Public Class Form1
         If (Update.Length = 0) Then Update = "0"
 
         Try
-            If Convert.ToSingle(Update) > Convert.ToSingle(gMyVersion) Then
+            If Convert.ToSingle(Update, usa) > Convert.ToSingle(gMyVersion, usa) Then
                 If MsgBox("A dreamier version " + Update + " is available. Update Now?", vbYesNo) = vbYes Then UpdaterGo()
             End If
         Catch
@@ -4243,7 +4250,7 @@ Public Class Form1
         End Try
 
         If ClientSocket.Connected Then
-            Log("Info", " port probe success on port " + Port.ToString)
+            Log("Info", " port probe success on port " + Port.ToString(usa))
             ClientSocket.Close()
             Return True
         End If
@@ -4278,7 +4285,7 @@ Public Class Form1
             MySetting.PublicIP = MySetting.DNSName
             MySetting.SaveSettings()
 
-            If MySetting.PublicIP.ToLower.Contains("outworldz.net") Then
+            If MySetting.PublicIP.ToLower(usa).Contains("outworldz.net") Then
                 Print("Registering DynDNS address http://" + MySetting.PublicIP + ":" + MySetting.HttpPort)
             End If
 
@@ -4513,31 +4520,31 @@ Public Class Form1
                 If MyUPnpMap.Exists(Convert.ToInt16(MySetting.SCPortBase), UPnp.Protocol.TCP) Then
                     MyUPnpMap.Remove(Convert.ToInt16(MySetting.SCPortBase), UPnp.Protocol.TCP)
                 End If
-                MyUPnpMap.Add(MyUPnpMap.LocalIP, CType(MySetting.SCPortBase, Integer), UPnp.Protocol.TCP, "Icecast TCP Public " + MySetting.SCPortBase.ToString)
-                Print("Icecast Port is set to " + MySetting.SCPortBase.ToString)
+                MyUPnpMap.Add(MyUPnpMap.LocalIP, CType(MySetting.SCPortBase, Integer), UPnp.Protocol.TCP, "Icecast TCP Public " + MySetting.SCPortBase.ToString(usa))
+                Print("Icecast Port is set to " + MySetting.SCPortBase.ToString(usa))
                 BumpProgress10()
             End If
 
             'diagnostics 8001
-            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.DiagnosticPort), UPnp.Protocol.TCP) Then
-                MyUPnpMap.Remove(Convert.ToInt16(MySetting.DiagnosticPort), UPnp.Protocol.TCP)
+            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP) Then
+                MyUPnpMap.Remove(Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP)
             End If
-            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.DiagnosticPort), UPnp.Protocol.TCP, "Opensim TCP Public " + MySetting.DiagnosticPort)
+            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP, "Opensim TCP Public " + MySetting.DiagnosticPort)
             Print("Diagnostic Port is set to " + MySetting.DiagnosticPort)
             BumpProgress10()
 
             ' 8002 for TCP and UDP
-            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP) Then
-                MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP)
+            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.TCP) Then
+                MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.TCP)
             End If
-            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.TCP, "Opensim TCP Grid " + MySetting.HttpPort)
+            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.TCP, "Opensim TCP Grid " + MySetting.HttpPort)
             Print("Grid TCP Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
-            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP) Then
-                MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP)
+            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.UDP) Then
+                MyUPnpMap.Remove(Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.UDP)
             End If
-            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort), UPnp.Protocol.UDP, "Opensim UDP Grid " + MySetting.HttpPort)
+            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.UDP, "Opensim UDP Grid " + MySetting.HttpPort)
             Print("Grid UDP Port is set to " + MySetting.HttpPort)
             BumpProgress10()
 
@@ -4548,22 +4555,22 @@ Public Class Form1
                     MyUPnpMap.Remove(R, UPnp.Protocol.UDP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.UDP, "Opensim UDP Region " & RegionClass.RegionName(X) & " ")
-                Print("Region UDP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region UDP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R, usa))
                 BumpProgress(1)
 
                 If MyUPnpMap.Exists(R, UPnp.Protocol.TCP) Then
                     MyUPnpMap.Remove(R, UPnp.Protocol.TCP)
                 End If
                 MyUPnpMap.Add(MyUPnpMap.LocalIP, R, UPnp.Protocol.TCP, "Opensim TCP Region " & RegionClass.RegionName(X) & " ")
-                Print("Region TCP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R))
+                Print("Region TCP " + RegionClass.RegionName(X) + " is set to " + Convert.ToString(R, usa))
                 BumpProgress(1)
             Next
 
             If MyUPnpMap.Exists(Convert.ToInt16(MySetting.SCPortBase), UPnp.Protocol.TCP) Then
                 MyUPnpMap.Remove(Convert.ToInt16(MySetting.SCPortBase), UPnp.Protocol.TCP)
             End If
-            MyUPnpMap.Add(MyUPnpMap.LocalIP, MySetting.SCPortBase, UPnp.Protocol.TCP, "Icecast TCP" + MySetting.SCPortBase.ToString)
-            Print("Icecast Port is set to " + MySetting.SCPortBase.ToString)
+            MyUPnpMap.Add(MyUPnpMap.LocalIP, MySetting.SCPortBase, UPnp.Protocol.TCP, "Icecast TCP" + MySetting.SCPortBase.ToString(usa))
+            Print("Icecast Port is set to " + MySetting.SCPortBase.ToString(usa))
 
             BumpProgress10()
         Catch e As Exception
@@ -4586,7 +4593,6 @@ Public Class Form1
         End If
 
         Dim Grid As String = "Grid"
-        If MySetting.StandAlone() Then Grid = "Standalone"
 
         ' no DNS password used if DNS name is null
         Dim m = MySetting.MachineID()
@@ -4596,13 +4602,13 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" + m _
         & "&FriendlyName=" & MySetting.SimName _
-        & "&V=" & gMyVersion.ToString _
-        & "&OV=" & gSimVersion.ToString _
-        & "&uPnp=" & UPnp.ToString _
-        & "&Loop=" & Loopb.ToString _
-        & "&Type=" & Grid.ToString _
-        & "&Ver=" & gMyVersion.ToString _
-        & "&isPublic=" & MySetting.GDPR().ToString _
+        & "&V=" & gMyVersion.ToString(usa) _
+        & "&OV=" & gSimVersion.ToString(usa) _
+        & "&uPnp=" & UPnp.ToString(usa) _
+        & "&Loop=" & Loopb.ToString(usa) _
+        & "&Type=" & Grid.ToString(usa) _
+        & "&Ver=" & gMyVersion.ToString(usa) _
+        & "&isPublic=" & MySetting.GDPR().ToString(usa) _
         & "&r=" & Random()
         Return data
 
@@ -5104,7 +5110,7 @@ Public Class Form1
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If OpensimIsRunning() Then
             Dim regionnum = RegionClass.FindRegionByName(CType(sender.text, String))
-            Dim port As String = RegionClass.RegionPort(regionnum).ToString
+            Dim port As String = RegionClass.RegionPort(regionnum).ToString(usa)
             Dim webAddress As String = "http://localhost:" + MySetting.HttpPort + "/bin/data/sim.html?port=" + port
             Process.Start(webAddress)
         Else
@@ -5143,7 +5149,7 @@ Public Class Form1
                         Diagnostics.Debug.Print("Avatar in region " & RegionClass.RegionName(RegionNum))
                     End If
                     RegionClass.AvatarCount(RegionNum) = count
-                    'Debug.Print(RegionClass.AvatarCount(X).ToString + " avatars in region " + RegionClass.RegionName(X))
+                    'Debug.Print(RegionClass.AvatarCount(X).ToString(usa) + " avatars in region " + RegionClass.RegionName(X))
                 Else
                     RegionClass.AvatarCount(RegionNum) = 0
                 End If
@@ -5151,7 +5157,7 @@ Public Class Form1
         Catch
         End Try
 
-        AvatarLabel.Text = sbttl.ToString
+        AvatarLabel.Text = sbttl.ToString(usa)
     End Sub
 
 #End Region
@@ -5201,7 +5207,7 @@ Public Class Form1
 
     Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
         If OpensimIsRunning() And MySetting.SCEnable Then
-            Dim webAddress As String = "http://" + MySetting.PublicIP + ":" + MySetting.SCPortBase.ToString
+            Dim webAddress As String = "http://" + MySetting.PublicIP + ":" + MySetting.SCPortBase.ToString(usa)
             Print("Icecast lets you stream music into your sim. The Music URL is " + webAddress + "/stream")
             Process.Start(webAddress)
         ElseIf MySetting.SCEnable = False Then
@@ -5307,7 +5313,7 @@ Public Class Form1
             If HowManyAreOnline = 0 Then
                 Print("Nobody is online")
             Else
-                Print("Message sent to " + HowManyAreOnline.ToString() + " regions")
+                Print("Message sent to " + HowManyAreOnline.ToString(usa) + " regions")
             End If
         End If
 
@@ -5445,36 +5451,36 @@ Public Class Form1
 
     Private Sub LocalOarClick(sender As Object, e As EventArgs)
 
-        Dim File = MyFolder + "/OutworldzFiles/OAR/" + sender.text.ToString 'make a real URL
+        Dim File = MyFolder + "/OutworldzFiles/OAR/" + sender.text.ToString() 'make a real URL
         If LoadOARContent(File) Then
-            Print("Opensimulator will load " + sender.text.ToString + ".  This may take time to load.")
+            Print("Opensimulator will load " + sender.text.ToString() + ".  This may take time to load.")
         End If
 
     End Sub
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File = MyFolder + "/OutworldzFiles/AutoBackup/" + sender.text.ToString 'make a real URL
+        Dim File = MyFolder + "/OutworldzFiles/AutoBackup/" + sender.text.ToString() 'make a real URL
         If LoadOARContent(File) Then
-            Print("Opensimulator will load " + sender.text.ToString + ".  This may take time to load.")
+            Print("Opensimulator will load " + sender.text.ToString() + ".  This may take time to load.")
         End If
 
     End Sub
 
     Private Sub LocalIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = MyFolder + "/OutworldzFiles/IAR/" + sender.text.ToString 'make a real URL
+        Dim File As String = MyFolder + "/OutworldzFiles/IAR/" + sender.text.ToString() 'make a real URL
         If LoadIARContent(File) Then
-            Print("Opensimulator will load " + sender.text.ToString + ".  This may take time to load.")
+            Print("Opensimulator will load " & sender.text.ToString() & ".  This may take time to load.")
         End If
 
     End Sub
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = MyFolder + "/OutworldzFiles/AutoBackup/" + sender.text.ToString 'make a real URL
+        Dim File As String = MyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString() 'make a real URL
         If LoadIARContent(File) Then
-            Print("Opensimulator will load " + sender.text.ToString + ".  This may take time to load.")
+            Print("Opensimulator will load " + sender.text.ToString() + ".  This may take time to load.")
         End If
 
     End Sub
@@ -5547,7 +5553,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.text.ToString <> "Dreamgrid Manual.pdf" Then Help(sender.text.ToString)
+        If sender.text.ToString() <> "Dreamgrid Manual.pdf" Then Help(sender.text.ToString())
 
     End Sub
 
@@ -5729,10 +5735,10 @@ Public Class Form1
                           & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & MySetting.DiagnosticPort & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & MySetting.HttpPort & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & MySetting.HttpPort & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString & """" & vbCrLf
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString(usa) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString(usa) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString(usa) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString(usa) & """" & vbCrLf
 
         If MySetting.ApacheEnable Then
             Command = Command + "netsh advfirewall firewall  delete rule name=""Opensim HTTP Web Port " & MySetting.HttpPort & """" & vbCrLf
@@ -5742,8 +5748,8 @@ Public Class Form1
         Dim start = CInt(MySetting.FirstRegionPort)
 
         For RegionNumber = start To GMaxPortUsed
-            Command = Command + "netsh advfirewall firewall  delete rule name=""Region TCP Port " & RegionNumber.ToString & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & RegionNumber.ToString & """" & vbCrLf
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Region TCP Port " & RegionNumber.ToString(usa) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & RegionNumber.ToString(usa) & """" & vbCrLf
         Next
 
         Return Command
@@ -5763,10 +5769,10 @@ Public Class Form1
 
         ' Icecast needs both ports for both protocols
         If MySetting.SCEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase1 & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase1 & vbCrLf
+            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & MySetting.SCPortBase.ToString(usa) & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & MySetting.SCPortBase.ToString(usa) & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & MySetting.SCPortBase1.ToString(usa) & """ dir=in action=allow protocol=UDP localport=" & MySetting.SCPortBase1 & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & MySetting.SCPortBase1.ToString(usa) & """ dir=in action=allow protocol=TCP localport=" & MySetting.SCPortBase1 & vbCrLf
         End If
 
         Dim RegionNumber As Integer = 0
@@ -5774,8 +5780,8 @@ Public Class Form1
 
         ' regions need both
         For RegionNumber = start To GMaxPortUsed
-            Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString & vbCrLf
+            Command = Command + "netsh advfirewall firewall  add rule name=""Region TCP Port " & RegionNumber.ToString(usa) & """ dir=in action=allow protocol=TCP localport=" & RegionNumber.ToString(usa) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Region UDP Port " & RegionNumber.ToString(usa) & """ dir=in action=allow protocol=UDP localport=" & RegionNumber.ToString(usa) & vbCrLf
         Next
 
         Return Command
@@ -5926,7 +5932,7 @@ Public Class Form1
                 End Using
             End Using
             osconnection.Close()
-            'Print(ctr.ToString & " hypevents received")
+            'Print(ctr.ToString(usa) & " hypevents received")
         Catch
         End Try
 
@@ -5937,7 +5943,7 @@ Public Class Form1
         Dim stm = "delete from events"
         Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
         Dim rowsdeleted = cmd.ExecuteNonQuery()
-        Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString)
+        Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Form1.usa))
 
     End Sub
 
@@ -5962,7 +5968,7 @@ Public Class Form1
 
             Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
             Dim rowsinserted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Insert: {0}", rowsinserted.ToString)
+            Diagnostics.Debug.Print("Insert: {0}", rowsinserted.ToString(Form1.usa))
         Catch ex As Exception
 
             Diagnostics.Debug.Print(ex.Message)

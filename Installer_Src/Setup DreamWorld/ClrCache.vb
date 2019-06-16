@@ -9,14 +9,14 @@ Public Class ClrCache
             Dim ctr As Integer = 0
             For Each script As String In folders
                 Dim ext = Path.GetExtension(script)
-                If ext.ToLower <> ".state" And ext.ToLower <> ".keep" Then
+                If ext.ToLower(Form1.usa) <> ".state" And ext.ToLower(Form1.usa) <> ".keep" Then
                     Try
                         My.Computer.FileSystem.DeleteFile(script)
                     Catch
                     End Try
 
                     ctr = ctr + 1
-                    Form1.Print("Updated " & ctr.ToString & " scripts")
+                    Form1.Print("Updated " & ctr.ToString(Form1.usa) & " scripts")
                     Application.DoEvents()
                 End If
             Next
@@ -44,7 +44,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr = ctr + 1
-                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString)
+                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.usa))
                 Application.DoEvents()
             Next
         Catch
@@ -61,7 +61,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr = ctr + 1
-                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString)
+                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.usa))
                 Application.DoEvents()
             Next
         Catch
@@ -81,7 +81,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(Form1.GOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr = ctr + 1
-                Form1.Print(ctr.ToString + " of " + fCount.ToString)
+                Form1.Print(ctr.ToString(Form1.usa) + " of " + fCount.ToString(Form1.usa))
                 Application.DoEvents()
             Next
         Catch

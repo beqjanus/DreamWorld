@@ -56,7 +56,7 @@
         ' This call is required by the designer.
         InitializeComponent()
 
-        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss") + ".iar"
+        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.usa) + ".iar"
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -65,7 +65,7 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If Not GBackupName.ToLower.EndsWith(".iar") Then
+        If Not GBackupName.ToLower(Form1.usa).EndsWith(".iar") Then
             MsgBox("Add 'filename.iar' to the path to save to.")
             Return
         End If

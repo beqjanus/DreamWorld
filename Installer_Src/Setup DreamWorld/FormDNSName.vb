@@ -63,7 +63,7 @@ Public Class FormDNSName
 
     Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value)
+        Random = System.Convert.ToString(value, Form1.usa)
     End Function
 
 #End Region

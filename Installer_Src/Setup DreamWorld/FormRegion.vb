@@ -39,18 +39,19 @@ Public Class FormRegion
             isNew = True
             RegionName.Text = Name & " ????"
             UUID.Text = Guid.NewGuid().ToString
-            SizeX.Text = 256.ToString
-            SizeY.Text = 256.ToString
-            CoordX.Text = (RegionClass.LargestX() + 4).ToString
-            CoordY.Text = (RegionClass.LargestY() + 0).ToString
-            RegionPort.Text = (RegionClass.LargestPort() + 1).ToString
+            SizeX.Text = 256.ToString(Form1.usa)
+            SizeY.Text = 256.ToString(Form1.usa)
+            CoordX.Text = (RegionClass.LargestX() + 4).ToString(Form1.usa)
+            CoordY.Text = (RegionClass.LargestY() + 0).ToString(Form1.usa)
+            RegionPort.Text = (RegionClass.LargestPort() + 1).ToString(Form1.usa)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
-            NonphysicalPrimMax.Text = 1024.ToString
-            PhysicalPrimMax.Text = 64.ToString
+            SmartStartCheckBox.Checked = False
+            NonphysicalPrimMax.Text = 1024.ToString(Form1.usa)
+            PhysicalPrimMax.Text = 64.ToString(Form1.usa)
             ClampPrimSize.Checked = False
-            MaxPrims.Text = 45000.ToString
-            MaxAgents.Text = 100.ToString
+            MaxPrims.Text = 45000.ToString(Form1.usa)
+            MaxAgents.Text = 100.ToString(Form1.usa)
 
             n = RegionClass.CreateRegion("")
         Else
@@ -68,11 +69,13 @@ Public Class FormRegion
                 Me.Close()
             End If
 
-            NonphysicalPrimMax.Text = RegionClass.NonPhysicalPrimMax(n).ToString
-            PhysicalPrimMax.Text = RegionClass.PhysicalPrimMax(n).ToString
+            NonphysicalPrimMax.Text = RegionClass.NonPhysicalPrimMax(n).ToString(Form1.usa)
+            PhysicalPrimMax.Text = RegionClass.PhysicalPrimMax(n).ToString(Form1.usa)
             ClampPrimSize.Checked = RegionClass.ClampPrimSize(n)
-            MaxPrims.Text = RegionClass.MaxPrims(n).ToString
-            MaxAgents.Text = RegionClass.MaxAgents(n).ToString
+            MaxPrims.Text = RegionClass.MaxPrims(n).ToString(Form1.usa)
+            MaxAgents.Text = RegionClass.MaxAgents(n).ToString(Form1.usa)
+
+            SmartStartCheckBox.Checked = CType(RegionClass.SmartStart(n).ToString(Form1.usa), Boolean)
 
             Me.Show() ' time to show the results
             Me.Activate()
@@ -112,22 +115,22 @@ Public Class FormRegion
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = Convert.ToString(RegionClass.SizeX(n))
-                SizeY.Text = Convert.ToString(RegionClass.SizeY(n))
+                SizeX.Text = Convert.ToString(RegionClass.SizeX(n), Form1.usa)
+                SizeY.Text = Convert.ToString(RegionClass.SizeY(n), Form1.usa)
             End If
 
             ' global coords
             If RegionClass.CoordX(n) <> 0 Then
-                CoordX.Text = RegionClass.CoordX(n).ToString
+                CoordX.Text = RegionClass.CoordX(n).ToString(Form1.usa)
             End If
 
             If RegionClass.CoordY(n) <> 0 Then
-                CoordY.Text = RegionClass.CoordY(n).ToString
+                CoordY.Text = RegionClass.CoordY(n).ToString(Form1.usa)
             End If
 
             ' and port
             If RegionClass.RegionPort(n) <> 0 Then
-                RegionPort.Text = RegionClass.RegionPort(n).ToString
+                RegionPort.Text = RegionClass.RegionPort(n).ToString(Form1.usa)
             End If
         End If
 
@@ -178,7 +181,7 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        MaxPrims.Text = RegionClass.MaxPrims(n).ToString
+        MaxPrims.Text = RegionClass.MaxPrims(n).ToString(Form1.usa)
 
         If RegionClass.AllowGods(n).Length = 0 And RegionClass.RegionGod(n).Length = 0 And RegionClass.ManagerGod(n).Length = 0 Then
             Gods_Use_Default.Checked = True
@@ -327,27 +330,27 @@ Public Class FormRegion
         End If
 
         ' global coords
-        If Convert.ToInt16(CoordX.Text) = 0 Then
+        If Convert.ToInt16(CoordX.Text, Form1.usa) = 0 Then
             Message = "Region Coordinate X cannot be zero"
             Form1.ErrorLog(Message)
             Return Message
-        ElseIf Convert.ToInt16(CoordX.Text) > 65536 Then
+        ElseIf Convert.ToInt16(CoordX.Text, Form1.usa) > 65536 Then
             Message = "Region Coordinate X Is too large"
             Form1.ErrorLog(Message)
             Return Message
         End If
 
-        If Convert.ToInt16(CoordY.Text) = 0 Then
+        If Convert.ToInt16(CoordY.Text, Form1.usa) = 0 Then
             Message = "Region CoordY cannot be zero"
             Form1.ErrorLog(Message)
             Return Message
-        ElseIf Convert.ToInt16(CoordY.Text) > 65536 Then
+        ElseIf Convert.ToInt16(CoordY.Text, Form1.usa) > 65536 Then
             Message = "Region CoordY Is too large"
             Form1.ErrorLog(Message)
             Return Message
         End If
 
-        If Convert.ToInt16(RegionPort.Text) = 0 Then
+        If Convert.ToInt16(RegionPort.Text, Form1.usa) = 0 Then
             Message = "Region Port cannot be zero Or undefined"
             Form1.ErrorLog(Message)
             Return Message
@@ -505,10 +508,10 @@ Public Class FormRegion
                         "ExternalHostName = " & Form1.MySetting.PublicIP & vbCrLf &
                         "SizeX = " & SizeX.Text & vbCrLf &
                         "SizeY = " & SizeY.Text & vbCrLf &
-                        "Enabled = " & EnabledCheckBox.Checked.ToString & vbCrLf &
+                        "Enabled = " & EnabledCheckBox.Checked.ToString(Form1.usa) & vbCrLf &
                         "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
                         "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
-                        "ClampPrimSize = " & ClampPrimSize.Checked.ToString & vbCrLf &
+                        "ClampPrimSize = " & ClampPrimSize.Checked.ToString(Form1.usa) & vbCrLf &
                         "MaxAgents = " & MaxAgents.Text & vbCrLf &
                         "MaxPrims = " & MaxPrims.Text & vbCrLf &
                         "RegionType = Estate" & vbCrLf & vbCrLf &
@@ -519,9 +522,10 @@ Public Class FormRegion
                         "AllowGods = " & AllowAGod & vbCrLf &
                         "RegionGod = " & ARegionGod & vbCrLf &
                         "ManagerGod = " & AManagerGod & vbCrLf &
-                        "Birds = " & BirdsCheckBox.Checked.ToString & vbCrLf &
-                        "Tides = " & TidesCheckbox.Checked.ToString & vbCrLf &
-                        "Teleport = " & TPCheckBox1.Checked.ToString & vbCrLf
+                        "Birds = " & BirdsCheckBox.Checked.ToString(Form1.usa) & vbCrLf &
+                        "Tides = " & TidesCheckbox.Checked.ToString(Form1.usa) & vbCrLf &
+                        "Teleport = " & TPCheckBox1.Checked.ToString(Form1.usa) & vbCrLf &
+                        "SmartStart = " & SmartStartCheckBox.Checked.ToString(Form1.usa) & vbCrLf
 
         Debug.Print(Region)
 
@@ -1051,6 +1055,15 @@ Public Class FormRegion
             End If
 
         End If
+    End Sub
+
+    Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
+
+        If SmartStartCheckBox.Checked Then
+            Form1.Log("Info", "Region " + Name + " has Smart Start enabled")
+        End If
+        If initted Then changed = True
+
     End Sub
 
 #End Region

@@ -46,7 +46,7 @@ Public Class NetServer
 
         Dim listener = New System.Net.HttpListener()
         listener.Prefixes.Clear()
-        'listener.Prefixes.Add("http://" + LocalAddress.ToString + ":" + MyPort.ToString + "/")
+        'listener.Prefixes.Add("http://" + LocalAddress.ToString(Form1.usa) + ":" + MyPort.ToString(Form1.usa) + "/")
         listener.Prefixes.Add("http://+:" + MyPort + "/")
 
         Try
@@ -100,7 +100,7 @@ Public Class NetServer
         Debug.Print(message)
         Try
             Using outputFile As New StreamWriter(Myfolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.usa) + ":" & category & ":" & message)
             End Using
         Catch ex As Exception
             Debug.Print(ex.Message)
