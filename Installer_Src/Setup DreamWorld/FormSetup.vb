@@ -535,7 +535,7 @@ Public Class Form1
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
-        KillOldFiles()
+
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
@@ -598,6 +598,8 @@ Public Class Form1
         SetQuickEditOff()
 
         SetLoopback()
+
+        KillOldFiles()
 
         If Not SetIniData() Then Return
 
@@ -1606,11 +1608,8 @@ Public Class Form1
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
             Dim Clr As New ClrCache()
-            Clr.WipeScripts()
-            Clr.WipeBakes()
-            Clr.WipeAssets()
-            Clr.WipeImage()
-            Clr.WipeMesh()
+            MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
+        Else
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
 
