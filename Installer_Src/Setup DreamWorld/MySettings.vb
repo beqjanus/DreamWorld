@@ -437,6 +437,12 @@ Public Class MySettings
             DeleteScriptsOnStartupOnce() = True
         End Try
 
+        Try
+            Dim x = CacheEnabled()
+        Catch ex As Exception
+            CacheEnabled() = True
+        End Try
+
     End Sub
 
 #End Region
@@ -578,6 +584,14 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+    Public Property CacheEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("CacheEnabled"), Boolean)
+        End Get
+        Set
+            SetMySetting("CacheEnabled", Value.ToString)
+        End Set
+    End Property
 
     Public Property WelcomeMessage() As String
         Get

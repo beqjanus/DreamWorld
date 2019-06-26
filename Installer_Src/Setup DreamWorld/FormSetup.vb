@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "3.0"
+    ReadOnly gMyVersion As String = "3.01"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -535,12 +535,9 @@ Public Class Form1
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
-
-
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
         If MySetting.MachineID().Length = 0 Then MySetting.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
-
 
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
@@ -598,8 +595,6 @@ Public Class Form1
         SetQuickEditOff()
 
         SetLoopback()
-
-        KillOldFiles()
 
         If Not SetIniData() Then Return
 
@@ -1607,6 +1602,7 @@ Public Class Form1
 
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
+            KillOldFiles()  ' wipe out DLL's
             Dim Clr As New ClrCache()
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
