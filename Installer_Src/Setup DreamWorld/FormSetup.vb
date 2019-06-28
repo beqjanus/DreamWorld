@@ -540,7 +540,6 @@ Public Class Form1
         OpensimIsRunning() = False ' true when opensim is running
         Me.Show()
 
-
         RegionClass = RegionMaker.Instance()
 
         Adv = New AdvancedForm
@@ -589,6 +588,16 @@ Public Class Form1
         SetLoopback()
 
         If Not SetIniData() Then Return
+
+
+        GRobustConnStr = "server=" + MySetting.RobustServer() _
+            + ";database=" + MySetting.RobustDataBaseName _
+            + ";port=" + MySetting.MySqlPort _
+            + ";user=" + MySetting.RobustUsername _
+            + ";password=" + MySetting.RobustPassword _
+            + ";Old Guids=true;Allow Zero Datetime=true;"
+
+
 
         RegionClass.UpdateAllRegionPorts() ' must be after SetIniData
         SetFirewall()   ' must be after UpdateAllRegionPorts
@@ -645,19 +654,19 @@ Public Class Form1
         If isMySqlRunning Then gStopMysql = False
 
 
-            Buttons(StartButton)
-                ProgressBar1.Value = 100
+        Buttons(StartButton)
+        ProgressBar1.Value = 100
 
-            If MySetting.Autostart Then
-                Print("Auto Startup")
-                Startup()
-            Else
-                MySetting.SaveSettings()
-                Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
-            End If
+        If MySetting.Autostart Then
+            Print("Auto Startup")
+            Startup()
+        Else
+            MySetting.SaveSettings()
+            Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
+        End If
 
-            HelpOnce("License") ' license on bottom
-            HelpOnce("Startup")
+        HelpOnce("License") ' license on bottom
+        HelpOnce("Startup")
 
         ProgressBar1.Value = 100
 
@@ -4753,17 +4762,8 @@ Public Class Form1
 
     Public Function StartMySQL() As Boolean
 
-        ' Check for MySql operation
-        If GRobustConnStr.Length = 0 Then
 
-            GRobustConnStr = "server=" + MySetting.RobustServer() _
-            + ";database=" + MySetting.RobustDataBaseName _
-            + ";port=" + MySetting.MySqlPort _
-            + ";user=" + MySetting.RobustUsername _
-            + ";password=" + MySetting.RobustPassword _
-            + ";Old Guids=true;Allow Zero Datetime=true;"
 
-        End If
 
         Dim isMySqlRunning = CheckPort(MySetting.RobustServer(), CType(MySetting.MySqlPort, Integer))
 

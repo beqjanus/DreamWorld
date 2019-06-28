@@ -4,14 +4,10 @@ Imports MySql.Data.MySqlClient
 
 Public Class MysqlInterface
 
-    Implements IDisposable
-
-    Private ReadOnly MysqlConn As MySqlConnection
     Private _gConnStr As String = ""
 
     Public Sub New(connStr As String)
         GConnStr = connStr
-        MysqlConn = New MySqlConnection(connStr)
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
@@ -33,7 +29,7 @@ Public Class MysqlInterface
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         Finally
-            MysqlConn.Close()
+            NewSQLConn.Close()
         End Try
 
         Return Dict
@@ -71,7 +67,7 @@ Public Class MysqlInterface
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         Finally
-            MysqlConn.Close()
+            NewSQLConn.Close()
         End Try
 
         Return Dict
@@ -80,8 +76,9 @@ Public Class MysqlInterface
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
+        Dim MysqlConn = New MySqlConnection(GConnStr)
         Try
-            Dim MysqlConn = New MySqlConnection(GConnStr)
+
             MysqlConn.Open()
 
             Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
@@ -125,9 +122,10 @@ Public Class MysqlInterface
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
+        Dim MysqlConn = New MySqlConnection(GConnStr)
         Try
             'Debug.Print("Connecting to MySQL...")
-            Dim MysqlConn = New MySqlConnection(GConnStr)
+
             MysqlConn.Open()
 
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
@@ -161,10 +159,6 @@ Public Class MysqlInterface
 
     End Function
 
-#Region "IDisposable Support"
-
-    Private disposedValue As Boolean ' To detect redundant calls
-
     Public Property GConnStr As String
         Get
             Return _gConnStr
@@ -174,24 +168,5 @@ Public Class MysqlInterface
         End Set
     End Property
 
-    ' IDisposable
-    Protected Overridable Sub Dispose(disposing As Boolean)
-        If Not disposedValue Then
-            If disposing Then
-                MysqlConn.Close()
-                MysqlConn.Dispose()
-            End If
-        End If
-        disposedValue = True
-
-    End Sub
-
-    ' This code added by Visual Basic to correctly implement the disposable pattern.
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1816:CallGCSuppressFinalizeCorrectly")>
-    Public Sub Dispose() Implements IDisposable.Dispose
-        Dispose(True)
-    End Sub
-
-#End Region
 
 End Class
