@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "3.0"
+    ReadOnly gMyVersion As String = "3.01"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -587,8 +587,6 @@ Public Class Form1
         SetQuickEditOff()
 
         SetLoopback()
-
-        KillOldFiles()
 
         If Not SetIniData() Then Return
 
@@ -1596,6 +1594,7 @@ Public Class Form1
 
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
+            KillOldFiles()  ' wipe out DLL's
             Dim Clr As New ClrCache()
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
