@@ -4,7 +4,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
-    Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
+    Dim RegionClass As RegionMaker = RegionMaker.Instance()
 
 #Region "ScreenSize"
 

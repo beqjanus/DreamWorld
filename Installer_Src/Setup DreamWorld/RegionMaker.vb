@@ -10,7 +10,7 @@ Public Class RegionMaker
 #Disable Warning IDE0044 ' Add readonly modifier
     Shared _regionList As New ArrayList()
     Shared _grouplist As New Dictionary(Of String, Integer)
-    Private MysqlConn As MysqlInterface    ' object lets us query Mysql database
+
 #Enable Warning IDE0044 ' Add readonly modifier
 
     Private initted As Boolean = False
@@ -75,18 +75,17 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Shared ReadOnly Property Instance(MysqlConn As MysqlInterface) As RegionMaker
+    Public Shared ReadOnly Property Instance() As RegionMaker
         Get
             If (FInstance Is Nothing) Then
-                FInstance = New RegionMaker(MysqlConn)
+                FInstance = New RegionMaker()
             End If
             Return FInstance
         End Get
     End Property
 
-    Private Sub New(conn As MysqlInterface)
+    Private Sub New()
 
-        MysqlConn = conn
         GetAllRegions()
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
@@ -1098,14 +1097,7 @@ Public Class RegionMaker
                     ' Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
-                    Dim Str As String = "server=" + MySetting.RobustServer _
-                            + ";database=" + MySetting.RobustDataBaseName _
-                            + ";port=" + MySetting.MySqlPort _
-                            + ";user=" + MySetting.RobustUsername _
-                            + ";password=" + MySetting.RobustPassword _
-                            + ";Old Guids=true;Allow Zero Datetime=true;"
-
-                    Dim myConnection As MySqlConnection = New MySqlConnection(Str)
+                    Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
                     Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1166,14 +1158,7 @@ Public Class RegionMaker
                         Dim Partner = GetPartner(p1, MySetting)
                         Debug.Print("Partner=" + p2)
 
-                        Dim Str As String = "server=" + MySetting.RobustServer _
-                            + ";database=" + MySetting.RobustDataBaseName _
-                            + ";port=" + MySetting.MySqlPort _
-                            + ";user=" + MySetting.RobustUsername _
-                            + ";password=" + MySetting.RobustPassword _
-                            + ";Old Guids=true;Allow Zero Datetime=true;"
-
-                        Dim myConnection As MySqlConnection = New MySqlConnection(Str)
+                        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
 
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
                         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1252,14 +1237,7 @@ Public Class RegionMaker
 
     Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
 
-        Dim Str As String = "server=" + Mysetting.RobustServer _
-                                + ";database=" + Mysetting.RobustDataBaseName _
-                                + ";port=" + Mysetting.MySqlPort _
-                                + ";user=" + Mysetting.RobustUsername _
-                                + ";password=" + Mysetting.RobustPassword _
-                                + ";Old Guids=true;Allow Zero Datetime=true;"
-
-        Dim myConnection As MySqlConnection = New MySqlConnection(Str)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
             .Connection = myConnection

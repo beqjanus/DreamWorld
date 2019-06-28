@@ -52,7 +52,7 @@ Public Class Choice
         DataGridView.MultiSelect = False
 
         DataGridView.Text = "Select from..."
-        Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
+        Dim RegionClass As RegionMaker = RegionMaker.Instance()
 
         Dim L As New List(Of String)
 

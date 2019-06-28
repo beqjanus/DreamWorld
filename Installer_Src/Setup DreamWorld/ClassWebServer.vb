@@ -14,7 +14,7 @@ Public Class NetServer
 
     Private MyPort As String
 #Disable Warning IDE0044 ' Add readonly modifier
-    Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
+    Dim RegionClass As RegionMaker = RegionMaker.Instance()
 #Enable Warning IDE0044 ' Add readonly modifier
     Dim Setting As MySettings
 

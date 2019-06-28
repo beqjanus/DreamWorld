@@ -11,7 +11,7 @@ Public Class RegionList
     Dim imageListSmall As New ImageList
     Dim imageListLarge As ImageList
     Dim ItemsAreChecked As Boolean = False
-    Dim RegionClass As RegionMaker = RegionMaker.Instance(Form1.MysqlConn)
+    Dim RegionClass As RegionMaker = RegionMaker.Instance()
     Dim Timertick As Integer = 0
 
     Private Enum ViewType As Integer
@@ -502,7 +502,8 @@ Public Class RegionList
                 ' Create items and subitems for each item.
 
                 Dim L As New Dictionary(Of String, String)
-                L = Form1.MysqlConn.GetAgentList()
+                Dim MysqlConn As New MysqlInterface(Form1.GRobustConnStr)
+                L = MysqlConn.GetAgentList()
 
                 For Each Agent In L
                     Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -531,7 +532,8 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                L = Form1.MysqlConn.GetHGAgentList()
+                Dim MysqlConn As New MysqlInterface(Form1.GRobustConnStr)
+                L = MysqlConn.GetHGAgentList()
 
                 For Each Agent In L
                     If Agent.Value.Length > 0 Then

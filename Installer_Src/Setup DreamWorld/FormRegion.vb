@@ -34,7 +34,7 @@ Public Class FormRegion
 
         Name = Name.Trim() ' remove spaces
 
-        RegionClass = RegionMaker.Instance(Form1.MysqlConn)
+        RegionClass = RegionMaker.Instance()
         If Name.Length = 0 Then
             isNew = True
             RegionName.Text = Name & " ????"

@@ -54,9 +54,9 @@ Public Class Form1
     Private _myFolder As String   ' Holds the current folder that we are running in
     Private _gCurSlashDir As String '  holds the current directory info in Unix format for MySQL and Apache
     Private _gIsRunning As Boolean = False ' used in OpensimIsRunning property
-    Private _gChatTime As Integer     'amount of coffee the fairy had. Time for the chatty fairy to be read
+
     Dim client As New System.Net.WebClient ' downloadclient for web pages
-    Public Shared MysqlConn As MysqlInterface
+
 
     ' with events
     Private WithEvents ApacheProcess As New Process()
@@ -301,14 +301,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property GChatTime As Integer
-        Get
-            Return _gChatTime
-        End Get
-        Set(value As Integer)
-            _gChatTime = value
-        End Set
-    End Property
+
 
     Public ReadOnly Property ExitList As ArrayList
         Get
@@ -535,24 +528,20 @@ Public Class Form1
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
-
-
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
         If MySetting.MachineID().Length = 0 Then MySetting.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
-
 
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
 
         Me.Text = "Dreamgrid V" + gMyVersion
 
-        GChatTime = MySetting.ChatTime
-
         OpensimIsRunning() = False ' true when opensim is running
         Me.Show()
 
-        RegionClass = RegionMaker.Instance(MysqlConn)
+
+        RegionClass = RegionMaker.Instance()
 
         Adv = New AdvancedForm
         gInitted = True
@@ -4775,8 +4764,6 @@ Public Class Form1
             + ";password=" + MySetting.RobustPassword _
             + ";Old Guids=true;Allow Zero Datetime=true;"
 
-            MysqlConn = New MysqlInterface(GRobustConnStr)
-
         End If
 
         Dim isMySqlRunning = CheckPort(MySetting.RobustServer(), CType(MySetting.MySqlPort, Integer))
@@ -4907,10 +4894,10 @@ Public Class Form1
 
         Dim version As String = Nothing
         Try
+            Dim MysqlConn As New MysqlInterface(GRobustConnStr)
             version = MysqlConn.IsMySqlRunning()
         Catch
             Log("Info", "MySQL was not running")
-
         End Try
 
         If version Is Nothing Then
@@ -4938,10 +4925,6 @@ Public Class Form1
 
         Print("Stopping MySql")
 
-        Try
-            MysqlConn.Dispose()
-        Catch
-        End Try
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5136,6 +5119,7 @@ Public Class Form1
         Try
             For Each RegionNum As Integer In RegionClass.RegionNumbers
                 If RegionClass.IsBooted(RegionNum) Then
+                    Dim MysqlConn As New MysqlInterface(GRobustConnStr)
                     Dim count As Integer = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then
