@@ -1004,7 +1004,7 @@ Public Class Form1
                         End If
                         'UpdateView = True ' make form refresh
                     End If
-                    Sleep(1000)
+
 
                     If CountisRunning = 0 Then Exit For
                 Next
