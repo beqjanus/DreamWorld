@@ -31,6 +31,7 @@ Partial Class FormCaches
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.MoreCacheButton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -87,6 +88,7 @@ Partial Class FormCaches
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.MoreCacheButton)
         Me.GroupBox1.Controls.Add(Me.MapHelp)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CheckBox2)
@@ -96,7 +98,7 @@ Partial Class FormCaches
         Me.GroupBox1.Controls.Add(Me.CheckBox3)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(197, 205)
+        Me.GroupBox1.Size = New System.Drawing.Size(197, 240)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Choose which cache to empty"
@@ -114,16 +116,25 @@ Partial Class FormCaches
         '
         Me.Button1.Location = New System.Drawing.Point(16, 165)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(161, 23)
+        Me.Button1.Size = New System.Drawing.Size(130, 23)
         Me.Button1.TabIndex = 5
         Me.Button1.Text = "Clear Selected Caches"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'MoreCacheButton
+        '
+        Me.MoreCacheButton.Location = New System.Drawing.Point(16, 211)
+        Me.MoreCacheButton.Name = "MoreCacheButton"
+        Me.MoreCacheButton.Size = New System.Drawing.Size(130, 23)
+        Me.MoreCacheButton.TabIndex = 1859
+        Me.MoreCacheButton.Text = "More Cache Settings"
+        Me.MoreCacheButton.UseVisualStyleBackColor = True
         '
         'FormCaches
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(233, 230)
+        Me.ClientSize = New System.Drawing.Size(233, 274)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -144,4 +155,5 @@ Partial Class FormCaches
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Button1 As Button
     Friend WithEvents MapHelp As PictureBox
+    Friend WithEvents MoreCacheButton As Button
 End Class

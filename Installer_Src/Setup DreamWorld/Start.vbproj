@@ -210,6 +210,12 @@
     <Compile Include="FormDisplacement1X1.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormFlotsamCache.Designer.vb">
+      <DependentUpon>FormFlotsamCache.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFlotsamCache.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormIARSave.Designer.vb">
       <DependentUpon>FormIARSave.vb</DependentUpon>
     </Compile>
@@ -407,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement1X1.resx">
       <DependentUpon>FormDisplacement1X1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFlotsamCache.resx">
+      <DependentUpon>FormFlotsamCache.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>

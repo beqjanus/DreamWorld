@@ -294,6 +294,14 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+    Public Property CacheEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("CacheEnabled"), Boolean)
+        End Get
+        Set
+            SetMySetting("CacheEnabled", Value.ToString)
+        End Set
+    End Property
 
 
     Public Property OpensimBinPath() As String

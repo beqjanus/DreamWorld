@@ -34,7 +34,7 @@ Public Class FormRegion
 
         Name = Name.Trim() ' remove spaces
 
-        RegionClass = RegionMaker.Instance(Form1.MysqlConn)
+        RegionClass = RegionMaker.Instance()
         If Name.Length = 0 Then
             isNew = True
             RegionName.Text = Name & " ????"
@@ -595,8 +595,6 @@ Public Class FormRegion
 #Region "Changed"
 
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
-
-        RegionName.Text = RegionName.Text.Trim() ' remove spaces
         If Len(RegionName.Text) > 0 And initted Then
             If Not FilenameIsOK(RegionName.Text) Then
                 MsgBox("Region name can't use special characters such as < > : """" / \ | ? *", vbInformation, "Info")
@@ -604,7 +602,7 @@ Public Class FormRegion
             End If
             changed = True
         End If
-
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces
     End Sub
 
     Private Sub Coordy_TextChanged(sender As Object, e As EventArgs) Handles CoordY.TextChanged

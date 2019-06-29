@@ -38,8 +38,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-
-    ReadOnly gMyVersion As String = "3.1"
+    ReadOnly gMyVersion As String = "3.01"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -60,7 +59,7 @@ Public Class Form1
     Private _gIsRunning As Boolean = False ' used in OpensimIsRunning property
 
     Dim client As New System.Net.WebClient ' downloadclient for web pages
-    Public Shared MysqlConn As MysqlInterface
+
 
     ' with events
     Private WithEvents ApacheProcess As New Process()
@@ -522,12 +521,9 @@ Public Class Form1
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
-        KillOldFiles()
-
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
         If MySetting.MachineID().Length = 0 Then MySetting.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
-
 
         ' WebUI
         ViewWebUI.Visible = MySetting.WifiEnabled
@@ -537,7 +533,7 @@ Public Class Form1
         OpensimIsRunning() = False ' true when opensim is running
         Me.Show()
 
-        RegionClass = RegionMaker.Instance(MysqlConn)
+        RegionClass = RegionMaker.Instance()
 
         Adv = New AdvancedForm
         gInitted = True
@@ -585,6 +581,16 @@ Public Class Form1
         SetLoopback()
 
         If Not SetIniData() Then Return
+
+
+        GRobustConnStr = "server=" + MySetting.RobustServer() _
+            + ";database=" + MySetting.RobustDataBaseName _
+            + ";port=" + MySetting.MySqlPort _
+            + ";user=" + MySetting.RobustUsername _
+            + ";password=" + MySetting.RobustPassword _
+            + ";Old Guids=true;Allow Zero Datetime=true;"
+
+
 
         RegionClass.UpdateAllRegionPorts() ' must be after SetIniData
         SetFirewall()   ' must be after UpdateAllRegionPorts
@@ -991,7 +997,7 @@ Public Class Form1
                         End If
                         'UpdateView = True ' make form refresh
                     End If
-                    Sleep(1000)
+
 
                     If CountisRunning = 0 Then Exit For
                 Next
@@ -1586,12 +1592,10 @@ Public Class Form1
 
         ' once and only once toggle to get Opensim 2.91
         If MySetting.DeleteScriptsOnStartupOnce() Then
+            KillOldFiles()  ' wipe out DLL's
             Dim Clr As New ClrCache()
-            Clr.WipeScripts()
-            Clr.WipeBakes()
-            Clr.WipeAssets()
-            Clr.WipeImage()
-            Clr.WipeMesh()
+            MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
+        Else
             MySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
 
@@ -4778,19 +4782,8 @@ Public Class Form1
 
     Public Function StartMySQL() As Boolean
 
-        ' Check for MySql operation
-        If GRobustConnStr.Length = 0 Then
 
-            GRobustConnStr = "server=" + MySetting.RobustServer() _
-            + ";database=" + MySetting.RobustDataBaseName _
-            + ";port=" + MySetting.MySqlPort _
-            + ";user=" + MySetting.RobustUsername _
-            + ";password=" + MySetting.RobustPassword _
-            + ";Old Guids=true;Allow Zero Datetime=true;"
 
-            MysqlConn = New MysqlInterface(GRobustConnStr)
-
-        End If
 
         Dim isMySqlRunning = CheckPort(MySetting.RobustServer(), CType(MySetting.MySqlPort, Integer))
 
@@ -4920,10 +4913,10 @@ Public Class Form1
 
         Dim version As String = Nothing
         Try
+            Dim MysqlConn As New MysqlInterface(GRobustConnStr)
             version = MysqlConn.IsMySqlRunning()
         Catch
             Log("Info", "MySQL was not running")
-
         End Try
 
         If version Is Nothing Then
@@ -4951,10 +4944,6 @@ Public Class Form1
 
         Print("Stopping MySql")
 
-        Try
-            MysqlConn.Dispose()
-        Catch
-        End Try
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5149,6 +5138,7 @@ Public Class Form1
         Try
             For Each RegionNum As Integer In RegionClass.RegionNumbers
                 If RegionClass.IsBooted(RegionNum) Then
+                    Dim MysqlConn As New MysqlInterface(GRobustConnStr)
                     Dim count As Integer = MysqlConn.IsUserPresent(RegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then

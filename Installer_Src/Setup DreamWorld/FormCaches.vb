@@ -98,4 +98,10 @@ Public Class FormCaches
         Form1.Help("Cache")
     End Sub
 
+    Private Sub MoreCacheButton_Click(sender As Object, e As EventArgs) Handles MoreCacheButton.Click
+
+        Dim SaveIAR As New FormFlotsamCache
+        SaveIAR.Show()
+
+    End Sub
 End Class
