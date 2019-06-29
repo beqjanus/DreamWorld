@@ -29,6 +29,7 @@ Public Class RegionMaker
         ShuttingDown = 5
         RestartPending = 6
         RetartingNow = 7
+        Autostart = 8
 
     End Enum
 
@@ -179,12 +180,7 @@ Public Class RegionMaker
 
     Public Property GroupName(n As Integer) As String
         Get
-            Try
-                Return CType(RegionList(n)._Group, String)
-            Catch
-                Return ""
-            End Try
-
+            Return CType(RegionList(n)._Group, String)
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Group = Value
@@ -761,7 +757,6 @@ Public Class RegionMaker
                                     Status(n) = CType(Backup(o)._Status, Integer)
                                     LineCounter(n) = CType(Backup(o)._LineCounter, Integer)
                                     Timer(n) = CType(Backup(o)._Timer, Integer)
-                                    SmartStart(n) = CType(Backup(o)._RegionSmartStart, String)
                                 End If
                             Catch
                             End Try
@@ -999,8 +994,6 @@ Public Class RegionMaker
 
                     RegionEnabled(n) = True
                     Status(n) = SIMSTATUSENUM.Booted
-                    UUID(n) = json.region_id
-
                     Form1.UpdateView() = True
 
                     If Form1.MySetting.ConsoleShow = False Then
@@ -1026,7 +1019,6 @@ Public Class RegionMaker
                         Status(n) = SIMSTATUSENUM.Stopped
                     End If
 
-                    UUID(n) = ""
                     Form1.UpdateView() = True
                     Form1.ExitList.Add(json.region_name)
 
@@ -1090,8 +1082,8 @@ Public Class RegionMaker
             WebserverList.Add(POST)
 
             ' proto for testing Smart Start AutoStart Region mode
-        ElseIf POST.Contains("UUID=") Then
-            Debug.Print("ALT:" + POST)
+        ElseIf POST.Contains("AST=") Then
+            Debug.Print("Smart Start:" + POST)
 
             ' Auto Start Telport, AKA Smart Start
             Dim RegionUUID As String = ""
@@ -1103,14 +1095,18 @@ Public Class RegionMaker
                 Dim n = FindRegionByUUID(RegionUUID)
                 If n > -1 And RegionEnabled(n) And CType(SmartStart(n), Boolean) Then
                     If Status(n) = SIMSTATUSENUM.Booted Then
-                        Return RegionName(n)
-                    Else
-                        Dim Evaluator = New Thread(Sub() Form1.Boot(RegionName(n), AgentUUID))
-                        Return MySetting.WelcomeRegion
+                        Return RegionUUID
+                    ElseIf Status(n) = SIMSTATUSENUM.Stopped Then
+                        Status(n) = SIMSTATUSENUM.Autostart
+                        Dim wname = MySetting.WelcomeRegion
+                        Dim RegionNum As Integer = FindRegionByName(wname)
+                        Return UUID(RegionNum)
                     End If
+                    'other states we can ignore as eventually it wil be Stopped or Running
                 End If
             End If
 
+            ' HG Sim, perhaps,. it is not found, not enabled, not Smart Start,let it work normally
             Return RegionUUID
 
 
