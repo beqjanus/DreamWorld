@@ -33,6 +33,7 @@ Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
 Imports System.Net.NetworkInformation
 Imports System.Globalization
+Imports System.Net.WebUtility
 
 Public Class Form1
 
@@ -4136,7 +4137,7 @@ Public Class Form1
 
         Print("Backing up Regions Folder")
         Try
-            My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Regions")
+            My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
             Print("Backing up MySql\Data Folder")
             My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
             Print("Backing up Wifi Folders")
@@ -4611,9 +4612,9 @@ Public Class Form1
         End If
 
         Dim data As String = "&MachineID=" + m _
-        & "&FriendlyName=" & MySetting.SimName _
-        & "&V=" & gMyVersion.ToString(usa) _
-        & "&OV=" & gSimVersion.ToString(usa) _
+        & "&FriendlyName=" & WebUtility.UrlEncode(MySetting.SimName) _
+        & "&V=" & WebUtility.UrlEncode(gMyVersion.ToString(usa)) _
+        & "&OV=" & WebUtility.UrlEncode(gSimVersion.ToString(usa)) _
         & "&uPnp=" & UPnp.ToString(usa) _
         & "&Loop=" & Loopb.ToString(usa) _
         & "&Type=" & Grid.ToString(usa) _
