@@ -1327,7 +1327,7 @@ Public Class Form1
             System.IO.Directory.Delete(GOpensimBinPath + "WifiPages", True)
             System.IO.Directory.Delete(GOpensimBinPath + "bin\WifiPages", True)
         Catch ex As Exception
-            Log("Info", "" & ex.Message)
+            Log("Info", ex.Message)
         End Try
 
         Try
@@ -2390,7 +2390,7 @@ Public Class Form1
                     MsgBox("Apache installed but port " & MySetting.ApachePort & " is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
                 End If
             Catch ex As Exception
-                Print("Error InstallApache error: " + ex.Message)
+                Print("Install Apache error" & ex.Message)
             End Try
         Else
 
