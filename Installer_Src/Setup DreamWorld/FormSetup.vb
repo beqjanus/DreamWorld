@@ -849,7 +849,7 @@ Public Class Form1
             Return
         End If
 
-        If Not MySetting.RunOnce Then
+        If Not MySetting.RunOnce And MySetting.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
             MySetting.RunOnce = True
@@ -2346,20 +2346,22 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not MySetting.ApacheEnable Then
-            Print("Apache web server is not enabled")
+            Print("Apache web server is not enabled, ignoring")
             Return
         End If
 
         Print("Setup Apache")
         ' Stop MSFT server if we are on port 80 and enabled
 
-        ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        ApacheProcess.StartInfo.FileName = "net"
-        ApacheProcess.StartInfo.CreateNoWindow = True
-        ApacheProcess.StartInfo.Arguments = "stop W3SVC"
-        ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-        ApacheProcess.Start()
-        ApacheProcess.WaitForExit()
+        If MySetting.ApachePort = "80" Then
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = "net"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.Arguments = "stop W3SVC"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            ApacheProcess.Start()
+            ApacheProcess.WaitForExit()
+        End If
 
         Dim ApacheRunning = CheckPort(MySetting.PrivateURL, CType(MySetting.ApachePort, Integer))
         If ApacheRunning Then Return
@@ -2388,7 +2390,7 @@ Public Class Form1
                     MsgBox("Apache installed but port " & MySetting.ApachePort & " is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
                 End If
             Catch ex As Exception
-                Print("Error InstallApache did Not start " + ex.Message)
+                Print("Error InstallApache error: " + ex.Message)
             End Try
         Else
 
@@ -2709,6 +2711,9 @@ Public Class Form1
         gExitHandlerIsBusy = False
         GAborting = False
         Timer1.Start() 'Timer starts functioning
+
+        RunDataSnapshot() ' Fetch assets marked for search every hour
+
         StartRobust()
 
         Dim Len = RegionClass.RegionCount()
@@ -3442,8 +3447,8 @@ Public Class Form1
             LogSearch.Find()
         End If
 
-        If gDNSSTimer Mod 300 = 0 Then
-            RunDataSnapshot() ' Fetch assets marked for search every 5 minutes
+        If gDNSSTimer Mod 3600 = 0 Then
+            RunDataSnapshot() ' Fetch assets marked for search every hour
         End If
 
     End Sub
@@ -5851,6 +5856,7 @@ Public Class Form1
 
     Private Sub RunDataSnapshot()
 
+        If Not MySetting.SearchLocal Then Return
         Diagnostics.Debug.Print("Scanning Datasnapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
