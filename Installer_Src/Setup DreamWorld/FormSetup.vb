@@ -1054,7 +1054,11 @@ Public Class Form1
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
             Log("Info", "Stopping process " + processName)
-            P.Kill()
+            Try
+                P.Kill()
+            Catch
+            End Try
+
         Next
 
     End Sub
