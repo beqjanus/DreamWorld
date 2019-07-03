@@ -3093,7 +3093,7 @@ Public Class Form1
 
         Catch ex As Exception
             If ex.Message.Contains("Process has exited") Then Return False
-            Print("Oops! " + BootName + " did Not start")
+            Print("Oops! " + BootName + " did Not start:" & ex.Message)
             ErrorLog(ex.Message)
             UpdateView = True ' make form refresh
             Dim yesno = MsgBox("Oops! " + BootName + " in DOS box " + Groupname + " did not boot. Do you want to see the log file?", vbYesNo, "Error")
