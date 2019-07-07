@@ -1946,6 +1946,13 @@ Public Class Form1
         Dim FirstPort As Integer = CType(MySetting.FirstRegionPort(), Integer)
         Dim BirdData As String = ""
         Dim TideData As String = ""
+        Dim Host As String
+
+        If MySetting.ExternalHostName.Length = 0 Then
+            Host = MySetting.PublicIP
+        Else
+            Host = MySetting.ExternalHostName
+        End If
 
         For Each RegionNum As Integer In RegionClass.RegionNumbers
 
@@ -1954,7 +1961,7 @@ Public Class Form1
             MySetting.LoadOtherIni(RegionClass.RegionPath(RegionNum), ";")
 
             MySetting.SetOtherIni(simName, "InternalPort", RegionClass.RegionPort(RegionNum).ToString(usa))
-            MySetting.SetOtherIni(simName, "ExternalHostName", MySetting.PublicIP)
+            MySetting.SetOtherIni(simName, "ExternalHostName", Host)
 
             ' not a standard INI, only use by the Dreamers
             If RegionClass.RegionEnabled(RegionNum) Then

@@ -294,6 +294,16 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property ExternalHostName() As String
+        Get
+            Return GetMySetting("ExternalHostName", "")
+        End Get
+        Set
+            SetMySetting("ExternalHostName", Value)
+        End Set
+    End Property
+
     Public Property CacheEnabled() As Boolean
         Get
             Return CType(GetMySetting("CacheEnabled"), Boolean)
@@ -302,7 +312,6 @@ Public Class MySettings
             SetMySetting("CacheEnabled", Value.ToString)
         End Set
     End Property
-
 
     Public Property OpensimBinPath() As String
         Get

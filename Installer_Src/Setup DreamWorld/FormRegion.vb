@@ -496,6 +496,12 @@ Public Class FormRegion
             RegionClass.ManagerGod(n) = "True"
         End If
 
+        Dim Host As String
+        If Form1.MySetting.ExternalHostName.Length = 0 Then
+            Host = Form1.MySetting.PublicIP
+        Else
+            Host = Form1.MySetting.ExternalHostName
+        End If
         Dim Region = "; * Regions configuration file" &
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
                         "; Automatically changed by Dreamworld" & vbCrLf &
@@ -505,7 +511,7 @@ Public Class FormRegion
                         "InternalAddress = 0.0.0.0" & vbCrLf &
                         "InternalPort = " & RegionPort.Text & vbCrLf &
                         "AllowAlternatePorts = False" & vbCrLf &
-                        "ExternalHostName = " & Form1.MySetting.PublicIP & vbCrLf &
+                        "ExternalHostName = " & Host & vbCrLf &
                         "SizeX = " & SizeX.Text & vbCrLf &
                         "SizeY = " & SizeY.Text & vbCrLf &
                         "Enabled = " & EnabledCheckBox.Checked.ToString(Form1.usa) & vbCrLf &
@@ -527,7 +533,7 @@ Public Class FormRegion
                         "Teleport = " & TPCheckBox1.Checked.ToString(Form1.usa) & vbCrLf &
                         "SmartStart = " & SmartStartCheckBox.Checked.ToString(Form1.usa) & vbCrLf
 
-        Debug.Print(Region)
+            Debug.Print(Region)
 
         Try
             Using outputFile As New StreamWriter(RegionClass.RegionPath(n), False)

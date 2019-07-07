@@ -47,6 +47,7 @@ Public Class FormPorts
         DiagnosticPort.Text = Form1.MySetting.DiagnosticPort
         PrivatePort.Text = Form1.MySetting.PrivatePort
         HTTPPort.Text = Form1.MySetting.HttpPort
+        ExternalHostName.Text = Form1.MySetting.ExternalHostName
 
         Form1.HelpOnce("Ports")
         initted = True
@@ -62,6 +63,14 @@ Public Class FormPorts
     End Sub
 
 #Region "Ports"
+    Private Sub ExternalHostName_TextChanged(sender As Object, e As EventArgs) Handles ExternalHostName.LostFocus
+
+        If Not initted Then Return
+
+        Form1.MySetting.ExternalHostName = ExternalHostName.Text
+        MsgBox("The default for External Host Name is a blank, which becomes your DNS name or IP.  Only set this if you are running a region server with no NAT.", vbInformation)
+
+    End Sub
 
     Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
 
@@ -117,6 +126,8 @@ Public Class FormPorts
         Form1.Help("Ports")
 
     End Sub
+
+
 
 #End Region
 
