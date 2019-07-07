@@ -30,7 +30,7 @@ Public Class PassGen
         Return "secret"
     End Function
 
-    Private Function GetRandomInt() As Integer
+    Private Shared Function GetRandomInt() As Integer
         Dim randomBytes As Byte() = New Byte(3) {}
         Dim rng As New RNGCryptoServiceProvider()
         rng.GetBytes(randomBytes)
