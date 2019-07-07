@@ -792,6 +792,11 @@ Public Class Form1
         ToolBar(False)
         Buttons(BusyButton)
 
+        ' Set them back to the DNS name if there is one
+        If MySetting.DNSName.Length > 0 Then
+            MySetting.PublicIP = MySetting.DNSName
+        End If
+
         Print("Setup Ports")
         RegionClass.UpdateAllRegionPorts() ' must be done before we are running
 
@@ -1005,6 +1010,7 @@ Public Class Form1
 
                 If CountisRunning = 1 Then
                     Print("1 region is still running")
+                    Sleep(1000)
                 Else
                     Print(CountisRunning.ToString(usa) & " regions are still running")
                 End If
