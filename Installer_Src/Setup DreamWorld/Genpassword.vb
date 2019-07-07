@@ -9,25 +9,21 @@ Public Class PassGen
         possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
         len = 6
 
-        Try
-            Dim cpossibleChars() As Char
-            cpossibleChars = possibleChars.ToCharArray()
+        Dim cpossibleChars() As Char
+        cpossibleChars = possibleChars.ToCharArray()
 
-            Dim builder As New StringBuilder()
+        Dim builder As New StringBuilder()
 
-            For i As Integer = 0 To len - 1
-                Dim randInt32 As Integer = GetRandomInt()
-                Dim r As New Random(randInt32)
+        For i As Integer = 0 To len - 1
+            Dim randInt32 As Integer = GetRandomInt()
+            Dim r As New Random(randInt32)
 
-                Dim nextInt As Integer = r.[Next](cpossibleChars.Length)
-                Dim c As Char = cpossibleChars(nextInt)
-                builder.Append(c)
-            Next
-            Return builder.ToString()
-        Catch ex As Exception
-            Form1.ErrorLog("exception on password:" + ex.Message)
-        End Try
-        Return "secret"
+            Dim nextInt As Integer = r.[Next](cpossibleChars.Length)
+            Dim c As Char = cpossibleChars(nextInt)
+            builder.Append(c)
+        Next
+        Return builder.ToString()
+
     End Function
 
     Private Shared Function GetRandomInt() As Integer
