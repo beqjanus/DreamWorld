@@ -1565,6 +1565,15 @@ Public Class Form1
         End If
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''' Flotsam Cache.ini
+        MySetting.LoadOtherIni(GOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
+        MySetting.SetOtherIni("AssetCache", "LogLevel", MySetting.CacheLogLevel)
+        MySetting.SetOtherIni("AssetCache", "CacheDirectory", MySetting.CacheFolder)
+        MySetting.SetOtherIni("AssetCache", "FileCacheEnabled", CType(MySetting.CacheEnabled, String))
+        MySetting.SetOtherIni("AssetCache", "FileCacheTimeout", MySetting.CacheTimeout)
+        MySetting.SaveOtherINI()
+
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini
         MySetting.LoadOtherIni(GetOpensimProto(), ";")
 

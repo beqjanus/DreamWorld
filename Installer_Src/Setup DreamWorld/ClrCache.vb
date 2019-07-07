@@ -71,7 +71,6 @@ Public Class ClrCache
 
     Public Sub WipeMesh()
 
-
         Try
             Form1.Print("Clearing Mesh cache")
             Dim fCount As Integer = Directory.GetFiles(Form1.GOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length

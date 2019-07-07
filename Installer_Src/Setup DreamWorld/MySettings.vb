@@ -295,6 +295,33 @@ Public Class MySettings
 
 #Region "Properties"
 
+
+    Public Property CacheTimeout() As String
+        Get
+            Return GetMySetting("CacheTimeout", "4")
+        End Get
+        Set
+            SetMySetting("CacheTimeout", Value)
+        End Set
+    End Property
+
+    Public Property CacheFolder() As String
+        Get
+            Return GetMySetting("CacheFolder", ".\assetcache")
+        End Get
+        Set
+            SetMySetting("CacheFolder", Value)
+        End Set
+    End Property
+    Public Property CacheLogLevel() As String
+        Get
+            Return GetMySetting("CacheLogLevel", "0")
+        End Get
+        Set
+            SetMySetting("CacheLogLevel", Value)
+        End Set
+    End Property
+
     Public Property ExternalHostName() As String
         Get
             Return GetMySetting("ExternalHostName", "")
@@ -306,10 +333,10 @@ Public Class MySettings
 
     Public Property CacheEnabled() As Boolean
         Get
-            Return CType(GetMySetting("CacheEnabled"), Boolean)
+            Return CType(GetMySetting("CacheEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("CacheEnabled", Value.ToString)
+            SetMySetting("CacheEnabled", Value.ToString(Form1.usa))
         End Set
     End Property
 
@@ -848,7 +875,9 @@ Public Class MySettings
         End Set
     End Property
 
+#Disable Warning CA1056 ' Uri properties should not be strings
     Public Property PrivateURL() As String
+#Enable Warning CA1056 ' Uri properties should not be strings
         Get
             Return GetMySetting("PrivateURL")   ' no default
         End Get
