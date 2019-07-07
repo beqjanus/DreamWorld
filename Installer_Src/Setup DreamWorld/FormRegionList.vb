@@ -578,7 +578,8 @@ Public Class RegionList
 
     Shared Function LoadImage(S As String) As Image
         Dim bmp As Bitmap = Nothing
-        Dim request As System.Net.WebRequest = System.Net.WebRequest.Create(S)
+        Dim u As New Uri(S)
+        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
         Try
             Dim response As System.Net.WebResponse = request.GetResponse()
             Dim responseStream As System.IO.Stream = response.GetResponseStream()
@@ -609,11 +610,10 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
-            Dim checked As Boolean = item.Checked
             Debug.Print("Clicked row " + RegionName)
             Dim R = RegionClass.FindRegionByName(RegionName)
             If R >= 0 Then
-                StartStopEdit(checked, R, RegionName)
+                StartStopEdit(R, RegionName)
             End If
         Next
 
@@ -641,7 +641,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub StartStopEdit(checked As Boolean, n As Integer, RegionName As String)
+    Private Sub StartStopEdit(n As Integer, RegionName As String)
 
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.GetHwnd(RegionClass.GroupName(n))
