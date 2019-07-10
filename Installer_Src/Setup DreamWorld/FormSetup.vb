@@ -4991,7 +4991,7 @@ Public Class Form1
             Application.DoEvents()
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" + MySetting.DNSName + GetPostData())
         Catch ex As Exception
-            ErrorLog("Warn:Cannot check the DNS Name" + ex.Message)
+            ErrorLog("Warn: Cannot check the DNS Name " + ex.Message)
             Return False
         End Try
         If Checkname = "UPDATED" Then Return True
