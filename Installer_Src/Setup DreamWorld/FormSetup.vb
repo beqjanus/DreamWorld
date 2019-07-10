@@ -33,6 +33,7 @@ Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
 Imports System.Net.NetworkInformation
 Imports System.Globalization
+Imports System.Net.WebUtility
 
 Public Class Form1
 
@@ -848,7 +849,7 @@ Public Class Form1
             Return
         End If
 
-        If Not MySetting.RunOnce Then
+        If Not MySetting.RunOnce And MySetting.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
             MySetting.RunOnce = True
@@ -1326,7 +1327,7 @@ Public Class Form1
             System.IO.Directory.Delete(GOpensimBinPath + "WifiPages", True)
             System.IO.Directory.Delete(GOpensimBinPath + "bin\WifiPages", True)
         Catch ex As Exception
-            Log("Info", "" & ex.Message)
+            Log("Info", ex.Message)
         End Try
 
         Try
@@ -2345,20 +2346,22 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not MySetting.ApacheEnable Then
-            Print("Apache web server is not enabled")
+            Print("Apache web server is not enabled, ignoring")
             Return
         End If
 
         Print("Setup Apache")
         ' Stop MSFT server if we are on port 80 and enabled
 
-        ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        ApacheProcess.StartInfo.FileName = "net"
-        ApacheProcess.StartInfo.CreateNoWindow = True
-        ApacheProcess.StartInfo.Arguments = "stop W3SVC"
-        ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-        ApacheProcess.Start()
-        ApacheProcess.WaitForExit()
+        If MySetting.ApachePort = "80" Then
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = "net"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.Arguments = "stop W3SVC"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            ApacheProcess.Start()
+            ApacheProcess.WaitForExit()
+        End If
 
         Dim ApacheRunning = CheckPort(MySetting.PrivateURL, CType(MySetting.ApachePort, Integer))
         If ApacheRunning Then Return
@@ -2387,7 +2390,7 @@ Public Class Form1
                     MsgBox("Apache installed but port " & MySetting.ApachePort & " is not responding. Check your firewall and router port forward settings.", vbInformation, "Error")
                 End If
             Catch ex As Exception
-                Print("Error InstallApache did Not start " + ex.Message)
+                Print("Install Apache error" & ex.Message)
             End Try
         Else
 
@@ -2708,6 +2711,9 @@ Public Class Form1
         gExitHandlerIsBusy = False
         GAborting = False
         Timer1.Start() 'Timer starts functioning
+
+        RunDataSnapshot() ' Fetch assets marked for search every hour
+
         StartRobust()
 
         Dim Len = RegionClass.RegionCount()
@@ -3087,7 +3093,7 @@ Public Class Form1
 
         Catch ex As Exception
             If ex.Message.Contains("Process has exited") Then Return False
-            Print("Oops! " + BootName + " did Not start")
+            Print("Oops! " + BootName + " did Not start:" & ex.Message)
             ErrorLog(ex.Message)
             UpdateView = True ' make form refresh
             Dim yesno = MsgBox("Oops! " + BootName + " in DOS box " + Groupname + " did not boot. Do you want to see the log file?", vbYesNo, "Error")
@@ -3441,8 +3447,8 @@ Public Class Form1
             LogSearch.Find()
         End If
 
-        If gDNSSTimer Mod 300 = 0 Then
-            RunDataSnapshot() ' Fetch assets marked for search every 5 minutes
+        If gDNSSTimer Mod 3600 = 0 Then
+            RunDataSnapshot() ' Fetch assets marked for search every hour
         End If
 
     End Sub
@@ -4136,7 +4142,7 @@ Public Class Form1
 
         Print("Backing up Regions Folder")
         Try
-            My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Regions")
+            My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
             Print("Backing up MySql\Data Folder")
             My.Computer.FileSystem.CopyDirectory(MyFolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
             Print("Backing up Wifi Folders")
@@ -4611,9 +4617,9 @@ Public Class Form1
         End If
 
         Dim data As String = "&MachineID=" + m _
-        & "&FriendlyName=" & MySetting.SimName _
-        & "&V=" & gMyVersion.ToString(usa) _
-        & "&OV=" & gSimVersion.ToString(usa) _
+        & "&FriendlyName=" & WebUtility.UrlEncode(MySetting.SimName) _
+        & "&V=" & WebUtility.UrlEncode(gMyVersion.ToString(usa)) _
+        & "&OV=" & WebUtility.UrlEncode(gSimVersion.ToString(usa)) _
         & "&uPnp=" & UPnp.ToString(usa) _
         & "&Loop=" & Loopb.ToString(usa) _
         & "&Type=" & Grid.ToString(usa) _
@@ -5850,6 +5856,7 @@ Public Class Form1
 
     Private Sub RunDataSnapshot()
 
+        If Not MySetting.SearchLocal Then Return
         Diagnostics.Debug.Print("Scanning Datasnapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
