@@ -39,7 +39,7 @@ Public Class Form1
 
 #Region "Declarations"
 
-    ReadOnly gMyVersion As String = "3.01"
+    ReadOnly gMyVersion As String = "3.1"
     ReadOnly gSimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     ReadOnly KillSource As Boolean = False      ' set to true to delete all source for Opensim
 
@@ -509,7 +509,6 @@ Public Class Form1
         GCurSlashDir = MyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
         GOpensimBinPath() = MyFolder & "\OutworldzFiles\Opensim\"
 
-
         If Not System.IO.File.Exists(MyFolder & "\OutworldzFiles\Settings.ini") Then
             Print("Installing Desktop icon clicky thingy")
             Create_ShortCut(MyFolder & "\Start.exe")
@@ -797,6 +796,7 @@ Public Class Form1
             MySetting.PublicIP = MySetting.DNSName
         End If
 
+
         Print("Setup Ports")
         RegionClass.UpdateAllRegionPorts() ' must be done before we are running
 
@@ -880,7 +880,7 @@ Public Class Form1
 
         Buttons(StopButton)
         ProgressBar1.Value = 100
-        Print("Grid address is" + vbCrLf + "http://" + MySetting.PublicIP + ":" + MySetting.HttpPort)
+        Print("Grid address is" + vbCrLf + "http://" + MySetting.GridServerName + ":" + MySetting.HttpPort)
 
         ' done with bootup
         ProgressBar1.Visible = False
@@ -1621,7 +1621,7 @@ Public Class Form1
             MySetting.SetOtherIni("Network", "OutboundDisallowForUserScriptsExcept", MySetting.PrivateURL + "/32")
         End If
 
-        MySetting.SetOtherIni("Network", "ExternalHostNameForLSL", MySetting.PublicIP)
+        MySetting.SetOtherIni("Network", "ExternalHostNameForLSL", MySetting.GridServerName)
         MySetting.SetOtherIni("DataSnapshot", "index_sims", "true")
         MySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(MySetting.Primlimits, String))
 
@@ -1642,7 +1642,7 @@ Public Class Form1
         MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PORT", MySetting.SmtpPort)
         MySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", MySetting.SmtpUsername)
         MySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", MySetting.SmtpPassword)
-        MySetting.SetOtherIni("SMTP", "host_domain_header_from", MySetting.PublicIP)
+        MySetting.SetOtherIni("SMTP", "host_domain_header_from", MySetting.GridServerName)
 
         ' the old Clouds
         If MySetting.Clouds Then
@@ -1910,7 +1910,7 @@ Public Class Form1
 
             MySetting.LoadOtherIni(GetOpensimProto(), ";")
 
-            MySetting.SetOtherIni("Const", "BaseHostname", MySetting.PublicIP)
+            MySetting.SetOtherIni("Const", "BaseHostname", MySetting.GridServerName)
             MySetting.SetOtherIni("Const", "PublicPort", MySetting.HttpPort) ' 8002
             MySetting.SetOtherIni("Const", "PrivURL", "http://" & MySetting.PrivateURL) ' local IP
             MySetting.SetOtherIni("Const", "http_listener_port", RegionClass.RegionPort(X).ToString(usa)) ' varies with region
@@ -1936,6 +1936,22 @@ Public Class Form1
 
 #Region "Regions"
 
+    ''' <summary>
+    ''' Gets the External Host name which can be either the Public IP or a Host name. 
+    ''' </summary>
+    ''' <returns>Host for regions</returns>
+    Public Function ExternLocalServerName() As String
+
+        Dim Host As String = MySetting.PublicIP
+
+        If MySetting.ExternalHostName.Length > 0 Then
+            Host = MySetting.ExternalHostName
+        Else
+            Host = MySetting.PublicIP
+        End If
+        Return Host
+
+    End Function
     Private Sub DoRegions()
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Regions - write all region.ini files with public IP and Public port
@@ -1961,13 +1977,6 @@ Public Class Form1
         Dim FirstPort As Integer = CType(MySetting.FirstRegionPort(), Integer)
         Dim BirdData As String = ""
         Dim TideData As String = ""
-        Dim Host As String
-
-        If MySetting.ExternalHostName.Length = 0 Then
-            Host = MySetting.PublicIP
-        Else
-            Host = MySetting.ExternalHostName
-        End If
 
         For Each RegionNum As Integer In RegionClass.RegionNumbers
 
@@ -1976,7 +1985,7 @@ Public Class Form1
             MySetting.LoadOtherIni(RegionClass.RegionPath(RegionNum), ";")
 
             MySetting.SetOtherIni(simName, "InternalPort", RegionClass.RegionPort(RegionNum).ToString(usa))
-            MySetting.SetOtherIni(simName, "ExternalHostName", Host)
+            MySetting.SetOtherIni(simName, "ExternalHostName", ExternLocalServerName())
 
             ' not a standard INI, only use by the Dreamers
             If RegionClass.RegionEnabled(RegionNum) Then
@@ -4302,7 +4311,7 @@ Public Class Form1
         If MySetting.EnableHypergrid Then
             BumpProgress10()
             If MySetting.DNSName.Length > 0 Then
-                MySetting.PublicIP = MySetting.DNSName
+                MySetting.PublicIP = MySetting.DNSName()
                 MySetting.SaveSettings()
                 Return True
             Else
@@ -4340,7 +4349,6 @@ Public Class Form1
         'V 2.44
 
         Try
-
             Log("Info", "Public IP=" + MySetting.PublicIP)
             If TestPublicLoopback() Then
                 ' Set Public IP
@@ -4562,14 +4570,6 @@ Public Class Form1
                 Print("Icecast Port is set to " + MySetting.SCPortBase.ToString(usa))
                 BumpProgress10()
             End If
-
-            'diagnostics 8001
-            If MyUPnpMap.Exists(Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP) Then
-                MyUPnpMap.Remove(Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP)
-            End If
-            MyUPnpMap.Add(MyUPnpMap.LocalIP, Convert.ToInt16(MySetting.DiagnosticPort, usa), UPnp.Protocol.TCP, "Opensim TCP Public " + MySetting.DiagnosticPort)
-            Print("Diagnostic Port is set to " + MySetting.DiagnosticPort)
-            BumpProgress10()
 
             ' 8002 for TCP and UDP
             If MyUPnpMap.Exists(Convert.ToInt16(MySetting.HttpPort, usa), UPnp.Protocol.TCP) Then
@@ -4809,8 +4809,6 @@ Public Class Form1
     End Sub
 
     Public Function StartMySQL() As Boolean
-
-
 
 
         Dim isMySqlRunning = CheckPort(MySetting.RobustServer(), CType(MySetting.MySqlPort, Integer))

@@ -800,12 +800,6 @@ Public Class RegionMaker
             fname = fname + "\" + name + ".ini"
         End If
 
-        Dim Host As String
-        If Form1.MySetting.ExternalHostName.Length = 0 Then
-            Host = Form1.MySetting.PublicIP
-        Else
-            Host = Form1.MySetting.ExternalHostName
-        End If
 
         Dim proto = "; * Regions configuration file; " + vbCrLf _
         + "; Automatically changed and read by Dreamworld. Edits are allowed" + vbCrLf _
@@ -818,7 +812,7 @@ Public Class RegionMaker
         + "InternalAddress = 0.0.0.0" + vbCrLf _
         + "InternalPort = " + RegionPort(n).ToString(Form1.usa) + vbCrLf _
         + "AllowAlternatePorts = False" + vbCrLf _
-        + "ExternalHostName = " + Host + vbCrLf _
+        + "ExternalHostName = " + Form1.ExternLocalServerName() + vbCrLf _
         + "SizeX = " + SizeX(n).ToString(Form1.usa) + vbCrLf _
         + "SizeY = " + SizeY(n).ToString(Form1.usa) + vbCrLf _
         + "Enabled = " + RegionEnabled(n).ToString(Form1.usa) + vbCrLf _

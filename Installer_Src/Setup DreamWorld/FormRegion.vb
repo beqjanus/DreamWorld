@@ -497,11 +497,8 @@ Public Class FormRegion
         End If
 
         Dim Host As String
-        If Form1.MySetting.ExternalHostName.Length = 0 Then
-            Host = Form1.MySetting.PublicIP
-        Else
-            Host = Form1.MySetting.ExternalHostName
-        End If
+        Host = Form1.MySetting.ExternalHostName
+
         Dim Region = "; * Regions configuration file" &
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
                         "; Automatically changed by Dreamworld" & vbCrLf &

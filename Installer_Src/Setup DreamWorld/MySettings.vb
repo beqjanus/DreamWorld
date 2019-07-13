@@ -322,9 +322,19 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property GridServerName() As String
+        Get
+            Return GetMySetting("GridServerName", DNSName)
+        End Get
+        Set
+            SetMySetting("GridServerName", Value)
+        End Set
+    End Property
+
+
     Public Property ExternalHostName() As String
         Get
-            Return GetMySetting("ExternalHostName", "")
+            Return GetMySetting("ExternalHostName", DNSName)
         End Get
         Set
             SetMySetting("ExternalHostName", Value)
@@ -960,7 +970,7 @@ Public Class MySettings
 
     Public Property AutobackupInterval() As String
         Get
-            Return CType(GetMySetting("AutobackupInterval"), String)
+            Return CType(GetMySetting("AutobackupInterval", "720"), String)
         End Get
         Set
             SetMySetting("AutobackupInterval", Value)
@@ -969,7 +979,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return CType(GetMySetting("KeepForDays"), Integer)
+            Return CType(GetMySetting("KeepForDays", "7"), Integer)
         End Get
         Set
             SetMySetting("KeepForDays", Value.ToString(Form1.usa))
@@ -1194,7 +1204,7 @@ Public Class MySettings
 
     Public Property VivoxEnabled() As Boolean
         Get
-            Return CType(GetMySetting("VivoxEnabled"), Boolean)
+            Return CType(GetMySetting("VivoxEnabled", "False"), Boolean)
         End Get
         Set
             SetMySetting("VivoxEnabled", Value.ToString(Form1.usa))
@@ -1230,7 +1240,7 @@ Public Class MySettings
 
     Public Property BackupFolder() As String
         Get
-            Return GetMySetting("BackupFolder")
+            Return GetMySetting("BackupFolder", "AutoBackup")
         End Get
         Set
             SetMySetting("BackupFolder", Value)
@@ -1239,7 +1249,7 @@ Public Class MySettings
 
     Public Property WelcomeRegion() As String
         Get
-            Return GetMySetting("WelcomeRegion")
+            Return GetMySetting("WelcomeRegion", "Welcome")
         End Get
         Set
             SetMySetting("WelcomeRegion", Value)
@@ -1311,7 +1321,7 @@ Public Class MySettings
 
     Public Property MySqlPort() As String
         Get
-            Return GetMySetting("MySqlPort")
+            Return GetMySetting("MySqlPort", "3306")
         End Get
         Set
             SetMySetting("MySqlPort", Value)

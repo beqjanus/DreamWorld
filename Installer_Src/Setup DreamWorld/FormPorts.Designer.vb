@@ -60,7 +60,7 @@ Partial Class FormPorts
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(199, 233)
+        Me.GroupBox2.Size = New System.Drawing.Size(216, 233)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Ports"
@@ -70,9 +70,9 @@ Partial Class FormPorts
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(20, 182)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(98, 13)
+        Me.Label1.Size = New System.Drawing.Size(192, 13)
         Me.Label1.TabIndex = 1864
-        Me.Label1.Text = "External HostName"
+        Me.Label1.Text = "External HostName For Region Servers"
         Me.ToolTip1.SetToolTip(Me.Label1, "The default for External Host Name is a blank, which becomes your DNS name or IP." &
         "  Only set this if you are running a region server with no NAT.")
         '
@@ -80,7 +80,7 @@ Partial Class FormPorts
         '
         Me.ExternalHostName.Location = New System.Drawing.Point(23, 207)
         Me.ExternalHostName.Name = "ExternalHostName"
-        Me.ExternalHostName.Size = New System.Drawing.Size(162, 20)
+        Me.ExternalHostName.Size = New System.Drawing.Size(187, 20)
         Me.ExternalHostName.TabIndex = 1863
         Me.ToolTip1.SetToolTip(Me.ExternalHostName, "The default for External Host Name is a blank, which becomes your DNS name or IP." &
         "  Only set this if you are running a region server with no NAT.")

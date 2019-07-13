@@ -1,7 +1,7 @@
 ﻿Public Class FormDatabase
 
     Dim initted As Boolean = False
-    Dim DNSNameBoxBackup As String = ""
+    Dim DNSNamebackup As String = ""
     Dim changed As Boolean = False
     Dim ServerType As String = ""
     Dim DNSName As String = ""
@@ -86,23 +86,12 @@
 
     Private Sub SaveAll()
 
-        Select Case ServerType
-            Case "Robust"
-                Form1.MySetting.DNSName = DNSNameBoxBackup
-                If DNSNameBoxBackup.Length > 0 Then MsgBox("DNS Name changed to " & DNSNameBoxBackup)
-            Case "Region"
-                Form1.MySetting.DNSName = DNSNameBoxBackup
-                If DNSNameBoxBackup.Length > 0 Then MsgBox("DNS Name changed to " & DNSNameBoxBackup)
-            Case "OsGrid"
-                Form1.MySetting.DNSName = DNSName
-                MsgBox("DNS Name changed to " & DNSName)
-            Case "Metro"
-                Form1.MySetting.DNSName = DNSName
-                MsgBox("DNS Name changed to " & DNSName)
-            Case Else
-                My.Settings.DnsName = DNSNameBoxBackup
-        End Select
         Form1.MySetting.ServerType = ServerType
+
+        If DNSName.Length > 0 Then
+            Form1.MySetting.GridServerName = DNSName
+        End If
+
         Form1.MySetting.SaveSettings()
         changed = False ' do not trigger the save a second time
 
@@ -242,7 +231,7 @@
         RobustDbPort.Enabled = True
         RobustDBUsername.Enabled = True
         RobustDBPassword.Enabled = True
-
+        Form1.MySetting.DNSName = DNSNamebackup
         changed = True
         ServerType = "Robust"
 
@@ -257,6 +246,7 @@
             RobustDBUsername.Enabled = False
             RobustDbName.Enabled = False
             ServerType = "Region"
+            DNSNamebackup = Form1.MySetting.DNSName
         Else
             RobustServer.Enabled = True
             RobustDBPassword.Enabled = True
@@ -277,9 +267,8 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-
+        DNSNamebackup = Form1.MySetting.DNSName
         ServerType = "OsGrid"
-        DNSNameBoxBackup = My.Settings.DnsName
         DNSName = "hg.osgrid.org"
         changed = True
 
@@ -296,10 +285,10 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-
-        DNSNameBoxBackup = My.Settings.DnsName
+        DNSNamebackup = Form1.MySetting.DNSName
         ServerType = "Metro"
         DNSName = "http://hg.metro.land"
+
         changed = True
 
     End Sub
