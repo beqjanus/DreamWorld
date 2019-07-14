@@ -48,6 +48,8 @@ Public Class FormPorts
         PrivatePort.Text = Form1.MySetting.PrivatePort
         HTTPPort.Text = Form1.MySetting.HttpPort
 
+        ExternalHostName.Text = Form1.MySetting.ExternalHostName
+
         Form1.HelpOnce("Ports")
         initted = True
 
