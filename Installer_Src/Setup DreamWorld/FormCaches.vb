@@ -40,7 +40,7 @@ Public Class FormCaches
     End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not Form1.OpensimIsRunning() Then
+        If Not Form1.pOpensimIsRunning() Then
             CheckBox1.Enabled = True
             CheckBox2.Enabled = True
 
@@ -84,7 +84,7 @@ Public Class FormCaches
             Clr.WipeMesh()
         End If
 
-        If Not Form1.OpensimIsRunning() Then
+        If Not Form1.pOpensimIsRunning() Then
             Form1.Print("All Server Caches cleared")
         Else
             Form1.Print("All Server Caches except Scripts and Avatar bakes were cleared. Opensim must be stopped to clear script and bake caches.")

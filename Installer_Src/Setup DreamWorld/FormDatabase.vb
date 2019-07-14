@@ -43,23 +43,23 @@
 
         'Database
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        RegionDbName.Text = Form1.MySetting.RegionDBName
-        RegionDBUsername.Text = Form1.MySetting.RegionDBUsername
-        RegionMySqlPassword.Text = Form1.MySetting.RegionDbPassword
-        RegionServer.Text = Form1.MySetting.RegionServer
-        MysqlRegionPort.Text = Form1.MySetting.RegionPort
+        RegionDbName.Text = Form1.pMySetting.RegionDBName
+        RegionDBUsername.Text = Form1.pMySetting.RegionDBUsername
+        RegionMySqlPassword.Text = Form1.pMySetting.RegionDbPassword
+        RegionServer.Text = Form1.pMySetting.RegionServer
+        MysqlRegionPort.Text = Form1.pMySetting.RegionPort
 
         ' Robust DB
-        RobustServer.Text = Form1.MySetting.RobustServer
-        RobustDbName.Text = Form1.MySetting.RobustDataBaseName
-        RobustDBPassword.Text = Form1.MySetting.RobustPassword
-        RobustDBUsername.Text = Form1.MySetting.RobustUsername
-        RobustDbPort.Text = Form1.MySetting.MySqlPort.ToString(Form1.usa)
+        RobustServer.Text = Form1.pMySetting.RobustServer
+        RobustDbName.Text = Form1.pMySetting.RobustDataBaseName
+        RobustDBPassword.Text = Form1.pMySetting.RobustPassword
+        RobustDBUsername.Text = Form1.pMySetting.RobustUsername
+        RobustDbPort.Text = Form1.pMySetting.MySqlPort.ToString(Form1.Usa)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
 
-        Select Case Form1.MySetting.ServerType
+        Select Case Form1.pMySetting.ServerType
             Case "Robust"
                 GridServerButton.Checked = True
             Case "Region"
@@ -86,13 +86,13 @@
 
     Private Sub SaveAll()
 
-        Form1.MySetting.ServerType = ServerType
+        Form1.pMySetting.ServerType = ServerType
 
         If DNSName.Length > 0 Then
-            Form1.MySetting.GridServerName = DNSName
+            Form1.pMySetting.GridServerName = DNSName
         End If
 
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.SaveSettings()
         changed = False ' do not trigger the save a second time
 
     End Sub
@@ -104,23 +104,23 @@
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RobustServer = RobustServer.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RobustServer = RobustServer.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub DatabaseNameUser_TextChanged(sender As Object, e As EventArgs) Handles RegionDbName.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RegionDBName = RegionDbName.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RegionDBName = RegionDbName.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
         If Not initted Then Return
-        Form1.MySetting.RegionDBUsername = RegionDBUsername.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RegionDBUsername = RegionDBUsername.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
@@ -133,31 +133,31 @@
     Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RegionDbPassword = RegionMySqlPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RegionDbPassword = RegionMySqlPassword.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
         If Not initted Then Return
-        Form1.MySetting.RobustDataBaseName = RobustDbName.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RobustDataBaseName = RobustDbName.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RobustUsername = RobustDBUsername.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RobustUsername = RobustDBUsername.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RobustPassword = RobustDBPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RobustPassword = RobustDBPassword.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
@@ -176,24 +176,24 @@
     Private Sub RobustDbPort_TextChanged(sender As Object, e As EventArgs) Handles RobustDbPort.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.MySqlPort = RobustDbPort.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.MySqlPort = RobustDbPort.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RegionServer.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RegionServer = RegionServer.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RegionServer = RegionServer.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.RegionPort = MysqlRegionPort.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.RegionPort = MysqlRegionPort.Text
+        Form1.pMySetting.SaveSettings()
 
     End Sub
 
@@ -231,7 +231,7 @@
         RobustDbPort.Enabled = True
         RobustDBUsername.Enabled = True
         RobustDBPassword.Enabled = True
-        Form1.MySetting.DNSName = DNSNamebackup
+        Form1.pMySetting.DNSName = DNSNamebackup
         changed = True
         ServerType = "Robust"
 
@@ -246,7 +246,7 @@
             RobustDBUsername.Enabled = False
             RobustDbName.Enabled = False
             ServerType = "Region"
-            DNSNamebackup = Form1.MySetting.DNSName
+            DNSNamebackup = Form1.pMySetting.DNSName
         Else
             RobustServer.Enabled = True
             RobustDBPassword.Enabled = True
@@ -267,7 +267,7 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-        DNSNamebackup = Form1.MySetting.DNSName
+        DNSNamebackup = Form1.pMySetting.DNSName
         ServerType = "OsGrid"
         DNSName = "hg.osgrid.org"
         changed = True
@@ -285,7 +285,7 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-        DNSNamebackup = Form1.MySetting.DNSName
+        DNSNamebackup = Form1.pMySetting.DNSName
         ServerType = "Metro"
         DNSName = "http://hg.metro.land"
 

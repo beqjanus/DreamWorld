@@ -21,7 +21,7 @@ Namespace My
             If resp = vbOK Then
                 e.ExitApplication = False
             Else
-                System.Diagnostics.Process.Start(Form1.MyFolder + "\baretail.exe", """" + Form1.MyFolder + "\OutworldzFiles\Outworldz.log" + """")
+                System.Diagnostics.Process.Start(Form1.pMyFolder + "\baretail.exe", """" + Form1.pMyFolder + "\OutworldzFiles\Outworldz.log" + """")
                 End
             End If
         End Sub
