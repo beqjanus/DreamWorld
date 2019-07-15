@@ -1657,7 +1657,7 @@ Public Class Form1
 
             'FSASSETS
             If pMySetting.FsAssetsEnabled Then
-                pMySetting.SetOtherIni("AssetService", "LocalServiceModule", "LocalServiceModule=OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                pMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
             Else
                 pMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
             End If
