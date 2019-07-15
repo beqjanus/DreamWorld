@@ -6,7 +6,7 @@
     Dim ServerType As String = ""
     Dim DNSName As String = ""
 
-#Region "ScreenSize"
+#Region "Properties"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
@@ -20,6 +20,54 @@
         End Set
     End Property
 
+    Public Property Initted1 As Boolean
+        Get
+            Return initted
+        End Get
+        Set(value As Boolean)
+            initted = value
+        End Set
+    End Property
+
+    Public Property DNSNamebackup1 As String
+        Get
+            Return DNSNamebackup
+        End Get
+        Set(value As String)
+            DNSNamebackup = value
+        End Set
+    End Property
+
+    Public Property Changed1 As Boolean
+        Get
+            Return changed
+        End Get
+        Set(value As Boolean)
+            changed = value
+        End Set
+    End Property
+
+    Public Property ServerType1 As String
+        Get
+            Return ServerType
+        End Get
+        Set(value As String)
+            ServerType = value
+        End Set
+    End Property
+
+    Public Property DNSName1 As String
+        Get
+            Return DNSName
+        End Get
+        Set(value As String)
+            DNSName = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "ScreenSize"
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -72,28 +120,28 @@
                 GridServerButton.Checked = True
         End Select
 
-        initted = True
+        Initted1 = True
         Form1.HelpOnce("Database")
         MsgBox("Changes to this area may require special changes to MySQL. If you change these, you will probably break things. Please read the Help section bvefore making changes!", vbInformation)
 
     End Sub
 
     Private Sub Form_exit() Handles Me.Closed
-        If changed Then
+        If Changed1 Then
             SaveAll()
         End If
     End Sub
 
     Private Sub SaveAll()
 
-        Form1.pMySetting.ServerType = ServerType
+        Form1.pMySetting.ServerType = ServerType1
 
-        If DNSName.Length > 0 Then
-            Form1.pMySetting.GridServerName = DNSName
+        If DNSName1.Length > 0 Then
+            Form1.pMySetting.GridServerName = DNSName1
         End If
 
         Form1.pMySetting.SaveSettings()
-        changed = False ' do not trigger the save a second time
+        Changed1 = False ' do not trigger the save a second time
 
     End Sub
 
@@ -103,7 +151,7 @@
 
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RobustServer = RobustServer.Text
         Form1.pMySetting.SaveSettings()
 
@@ -111,14 +159,14 @@
 
     Private Sub DatabaseNameUser_TextChanged(sender As Object, e As EventArgs) Handles RegionDbName.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RegionDBName = RegionDbName.Text
         Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RegionDBUsername = RegionDBUsername.Text
         Form1.pMySetting.SaveSettings()
 
@@ -132,14 +180,14 @@
 
     Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RegionDbPassword = RegionMySqlPassword.Text
         Form1.pMySetting.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RobustDataBaseName = RobustDbName.Text
         Form1.pMySetting.SaveSettings()
 
@@ -147,7 +195,7 @@
 
     Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RobustUsername = RobustDBUsername.Text
         Form1.pMySetting.SaveSettings()
 
@@ -155,7 +203,7 @@
 
     Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RobustPassword = RobustDBPassword.Text
         Form1.pMySetting.SaveSettings()
 
@@ -175,7 +223,7 @@
 
     Private Sub RobustDbPort_TextChanged(sender As Object, e As EventArgs) Handles RobustDbPort.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.MySqlPort = RobustDbPort.Text
         Form1.pMySetting.SaveSettings()
 
@@ -183,7 +231,7 @@
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RegionServer.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RegionServer = RegionServer.Text
         Form1.pMySetting.SaveSettings()
 
@@ -191,7 +239,7 @@
 
     Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         Form1.pMySetting.RegionPort = MysqlRegionPort.Text
         Form1.pMySetting.SaveSettings()
 
@@ -222,7 +270,7 @@
 
     Private Sub GridServerButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         If Not GridServerButton.Checked Then Return
 
         RobustServer.Enabled = True
@@ -231,35 +279,34 @@
         RobustDbPort.Enabled = True
         RobustDBUsername.Enabled = True
         RobustDBPassword.Enabled = True
-        Form1.pMySetting.DNSName = DNSNamebackup
-        changed = True
-        ServerType = "Robust"
+
+        Form1.pMySetting.DNSName = DNSNamebackup1
+        Changed1 = True
+        ServerType1 = "Robust"
 
     End Sub
 
     Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
 
-        If GridRegionButton.Checked Then
-            RobustServer.Enabled = False
-            RobustDBPassword.Enabled = False
-            RobustDbPort.Enabled = False
-            RobustDBUsername.Enabled = False
-            RobustDbName.Enabled = False
-            ServerType = "Region"
-            DNSNamebackup = Form1.pMySetting.DNSName
-        Else
-            RobustServer.Enabled = True
-            RobustDBPassword.Enabled = True
-            RobustDbPort.Enabled = True
-            RobustDBUsername.Enabled = True
-            RobustDbName.Enabled = True
-        End If
+        If Not Initted1 Then Return
+        If Not GridRegionButton.Checked Then Return
+
+        RobustServer.Enabled = True
+        RobustDbName.Enabled = True
+        RobustDBPassword.Enabled = True
+        RobustDbPort.Enabled = True
+        RobustDBUsername.Enabled = True
+        RobustDBPassword.Enabled = True
+
+        ServerType1 = "Region"
+        DNSNamebackup1 = Form1.pMySetting.DNSName
 
     End Sub
 
     Private Sub OsGridRadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
+        If Not osGridRadioButton1.Checked Then Return
 
         RobustServer.Enabled = False
         RobustDbName.Enabled = False
@@ -267,16 +314,17 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-        DNSNamebackup = Form1.pMySetting.DNSName
-        ServerType = "OsGrid"
-        DNSName = "hg.osgrid.org"
-        changed = True
+
+        DNSNamebackup1 = Form1.pMySetting.DNSName
+        ServerType1 = "OsGrid"
+        DNSName1 = "hg.osgrid.org"
+        Changed1 = True
 
     End Sub
 
     Private Sub MetroRadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
 
-        If Not initted Then Return
+        If Not Initted1 Then Return
         If Not MetroRadioButton2.Checked Then Return
 
         RobustServer.Enabled = False
@@ -285,11 +333,12 @@
         RobustDbPort.Enabled = False
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
-        DNSNamebackup = Form1.pMySetting.DNSName
-        ServerType = "Metro"
-        DNSName = "http://hg.metro.land"
 
-        changed = True
+        DNSNamebackup1 = Form1.pMySetting.DNSName
+        ServerType1 = "Metro"
+        DNSName1 = "http://hg.metro.land"
+
+        Changed1 = True
 
     End Sub
 
