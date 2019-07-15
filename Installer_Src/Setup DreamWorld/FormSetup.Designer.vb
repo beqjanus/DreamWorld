@@ -121,6 +121,7 @@ Partial Class Form1
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ApachePictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
@@ -128,7 +129,10 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PercentCPU = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
+        Me.MysqlPictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.ApachePictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MysqlPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StopButton
@@ -605,7 +609,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(405, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -792,6 +796,16 @@ Partial Class Form1
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
+        'ApachePictureBox2
+        '
+        Me.ApachePictureBox2.Image = CType(resources.GetObject("ApachePictureBox2.Image"), System.Drawing.Image)
+        Me.ApachePictureBox2.Location = New System.Drawing.Point(331, 1)
+        Me.ApachePictureBox2.Name = "ApachePictureBox2"
+        Me.ApachePictureBox2.Size = New System.Drawing.Size(17, 17)
+        Me.ApachePictureBox2.TabIndex = 39
+        Me.ApachePictureBox2.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.ApachePictureBox2, "Apache Status")
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -868,6 +882,16 @@ Partial Class Form1
         Me.PercentRAM.TabIndex = 37
         Me.PercentRAM.Text = "0"
         '
+        'MysqlPictureBox1
+        '
+        Me.MysqlPictureBox1.Image = CType(resources.GetObject("MysqlPictureBox1.Image"), System.Drawing.Image)
+        Me.MysqlPictureBox1.Location = New System.Drawing.Point(301, 0)
+        Me.MysqlPictureBox1.Name = "MysqlPictureBox1"
+        Me.MysqlPictureBox1.Size = New System.Drawing.Size(17, 17)
+        Me.MysqlPictureBox1.TabIndex = 40
+        Me.MysqlPictureBox1.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.MysqlPictureBox1, "MySQL Status")
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -875,7 +899,9 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.ClientSize = New System.Drawing.Size(405, 141)
+        Me.Controls.Add(Me.MysqlPictureBox1)
+        Me.Controls.Add(Me.ApachePictureBox2)
         Me.Controls.Add(Me.PercentRAM)
         Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.Label3)
@@ -900,6 +926,8 @@ Partial Class Form1
         Me.Text = "DreamGrid"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.ApachePictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MysqlPictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1016,4 +1044,6 @@ Partial Class Form1
     Friend WithEvents PercentCPU As Label
     Friend WithEvents PercentRAM As Label
     Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ApachePictureBox2 As PictureBox
+    Friend WithEvents MysqlPictureBox1 As PictureBox
 End Class

@@ -314,7 +314,6 @@ Public Class Form1
         End Set
     End Property
 
-
     Public ReadOnly Property PropExitList As ArrayList
         Get
             Return _exitList
@@ -619,7 +618,7 @@ Public Class Form1
         ' WebUI
         ViewWebUI.Visible = PropMySetting.WifiEnabled
 
-        Me.Text = "Dreamgrid V" + PropUseIcons
+        Me.Text = "Dreamgrid V" + PropMyVersion
 
         PropOpensimIsRunning() = False ' true when opensim is running
         Me.Show()
@@ -1315,7 +1314,7 @@ Public Class Form1
 
     Private Sub MnuAbout_Click(sender As System.Object, e As System.EventArgs) Handles mnuAbout.Click
 
-        Print("(c) 2017 Outworldz,LLC" + vbCrLf + "Version " + PropUseIcons)
+        Print("(c) 2017 Outworldz,LLC" + vbCrLf + "Version " + PropMyVersion)
         Dim webAddress As String = PropDomain + "/Outworldz_Installer"
         Process.Start(webAddress)
 
@@ -2496,6 +2495,7 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not PropMySetting.ApacheEnable Then
+            MysqlPictureBox1.Image = My.Resources.nav_plain_red
             Print("Apache web server is not enabled.")
             Return
         End If
@@ -2594,7 +2594,10 @@ Public Class Form1
             End Try
 
             Dim ApacheRunning = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
-            If ApacheRunning Then Return
+            If ApacheRunning Then
+                MysqlPictureBox1.Image = My.Resources.nav_plain_green
+                Return
+            End If
 
             ' Wait for Apache to start listening
 
@@ -4446,7 +4449,7 @@ Public Class Form1
         If (Update.Length = 0) Then Update = "0"
 
         Try
-            If Convert.ToSingle(Update, Usa) > Convert.ToSingle(PropUseIcons, Usa) Then
+            If Convert.ToSingle(Update, Usa) > Convert.ToSingle(PropMyVersion, Usa) Then
                 If MsgBox("A dreamier version " + Update + " is available. Update Now?", vbYesNo) = vbYes Then UpdaterGo()
             End If
         Catch
@@ -4814,7 +4817,7 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" + m _
         & "&FriendlyName=" & WebUtility.UrlEncode(PropMySetting.SimName) _
-        & "&V=" & WebUtility.UrlEncode(PropUseIcons.ToString(Usa)) _
+        & "&V=" & WebUtility.UrlEncode(PropMyVersion.ToString(Usa)) _
         & "&OV=" & WebUtility.UrlEncode(PropSimVersion.ToString(Usa)) _
         & "&uPnp=" & UPnp.ToString(Usa) _
         & "&Loop=" & Loopb.ToString(Usa) _
@@ -5063,6 +5066,7 @@ Public Class Form1
 
         If Not PropOpensimIsRunning Then Return False
 
+        MysqlPictureBox1.Image = My.Resources.nav_plain_green
         Return True
 
     End Function
@@ -5135,9 +5139,11 @@ Public Class Form1
     Private Sub StopMysql()
 
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(PropMySetting.MySqlPort, Integer))
+        MysqlPictureBox1.Image = My.Resources.nav_plain_red
         If Not isMySqlRunning Then Return
 
         If Not PropStopMysql Then
+            MysqlPictureBox1.Image = My.Resources.nav_plain_green
             Print("MySQL was running when I woke up, so I am leaving MySQL on.")
             Return
         End If
@@ -5158,6 +5164,8 @@ Public Class Form1
             p.Start()
             p.WaitForExit()
             p.Close()
+            MysqlPictureBox1.Image = My.Resources.nav_plain_red
+
         Catch ex As Exception
             ErrorLog("Error: failed to stop MySQL:" + ex.Message)
         End Try
@@ -6176,6 +6184,8 @@ Public Class Form1
         End Try
 
     End Sub
+
+
 
 
 #End Region
