@@ -93,7 +93,6 @@
 
         If Not initted Then Return
         Form1.pMySetting.RegionOwnerIsGod = RegionGod.Checked
-        If RegionGod.Checked Then AllowGods.Checked = True
         Form1.pMySetting.SaveSettings()
 
     End Sub
@@ -102,7 +101,6 @@
 
         If Not initted Then Return
         Form1.pMySetting.RegionManagerIsGod = ManagerGod.Checked
-        If ManagerGod.Checked Then AllowGods.Checked = True
         Form1.pMySetting.SaveSettings()
 
     End Sub
