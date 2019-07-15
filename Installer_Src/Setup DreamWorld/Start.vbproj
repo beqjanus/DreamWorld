@@ -701,6 +701,7 @@
     <None Include="Resources\ClicktoInsertPhoto.jpg" />
     <None Include="Resources\nav_plain_green.png" />
     <None Include="Resources\nav_plain_red.png" />
+    <None Include="Resources\nav_plain_blue.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

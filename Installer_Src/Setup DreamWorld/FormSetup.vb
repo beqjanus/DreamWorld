@@ -1013,6 +1013,7 @@ Public Class Form1
         Print("I'll tell you my next dream when I wake up.")
         ProgressBar1.Value = 0
         Print("Zzzz...")
+        Sleep(2000)
         End
 
     End Sub
@@ -2495,10 +2496,13 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not PropMySetting.ApacheEnable Then
-            MysqlPictureBox1.Image = My.Resources.nav_plain_red
+            ApachePictureBox1.Image = My.Resources.nav_plain_blue
             Print("Apache web server is not enabled.")
             Return
         End If
+
+        ApachePictureBox1.Image = My.Resources.nav_plain_red
+        Application.DoEvents()
 
         Print("Setup Apache")
         ' Stop MSFT server if we are on port 80 and enabled
@@ -2532,7 +2536,6 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             ApacheProcess.Start()
             ApacheProcess.WaitForExit()
-
 
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             ApacheProcess.Start()
@@ -2590,19 +2593,15 @@ Public Class Form1
             Catch ex As Exception
                 Print("Error: Apache did not start: " + ex.Message)
                 ErrorLog("Error: Apache did not start: " + ex.Message)
+                ApachePictureBox1.Image = My.Resources.nav_plain_red
+                Application.DoEvents()
                 Return
             End Try
-
-            Dim ApacheRunning = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
-            If ApacheRunning Then
-                MysqlPictureBox1.Image = My.Resources.nav_plain_green
-                Return
-            End If
 
             ' Wait for Apache to start listening
 
             Dim counter = 0
-            While Not IsApacheRunning() And PropOpensimIsRunning
+            While gApacheProcessID = 0 And PropOpensimIsRunning
 
                 BumpProgress(1)
                 counter += 1
@@ -2615,11 +2614,13 @@ Public Class Form1
                 Sleep(100)
 
                 Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
-                If Running Then Return
+                If Running Then
+                    Print("Apache webserver is running")
+                    ApachePictureBox1.Image = My.Resources.nav_plain_green
+                    Return
+                End If
 
             End While
-
-            Print("Apache webserver is running")
 
         End If
 
@@ -4990,7 +4991,13 @@ Public Class Form1
 
         Dim isMySqlRunning = CheckPort(PropMySetting.RobustServer(), CType(PropMySetting.MySqlPort, Integer))
 
-        If isMySqlRunning Then Return True
+        If isMySqlRunning Then
+            MysqlPictureBox1.Image = My.Resources.nav_plain_green
+            Application.DoEvents()
+            Return True
+        End If
+        MysqlPictureBox1.Image = My.Resources.nav_plain_red
+        Application.DoEvents()
         ' Start MySql in background.
 
         BumpProgress10()
@@ -5067,6 +5074,7 @@ Public Class Form1
         If Not PropOpensimIsRunning Then Return False
 
         MysqlPictureBox1.Image = My.Resources.nav_plain_green
+        Application.DoEvents()
         Return True
 
     End Function
@@ -5139,11 +5147,16 @@ Public Class Form1
     Private Sub StopMysql()
 
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(PropMySetting.MySqlPort, Integer))
-        MysqlPictureBox1.Image = My.Resources.nav_plain_red
-        If Not isMySqlRunning Then Return
+
+        If Not isMySqlRunning Then
+            MysqlPictureBox1.Image = My.Resources.nav_plain_red
+            Application.DoEvents()
+            Return
+        End If
 
         If Not PropStopMysql Then
             MysqlPictureBox1.Image = My.Resources.nav_plain_green
+            Application.DoEvents()
             Print("MySQL was running when I woke up, so I am leaving MySQL on.")
             Return
         End If
@@ -5165,7 +5178,7 @@ Public Class Form1
             p.WaitForExit()
             p.Close()
             MysqlPictureBox1.Image = My.Resources.nav_plain_red
-
+            Application.DoEvents()
         Catch ex As Exception
             ErrorLog("Error: failed to stop MySQL:" + ex.Message)
         End Try
