@@ -342,6 +342,13 @@
 
     End Sub
 
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+
+        Form1.pMySetting.FsAssetsEnabled = CheckBox1.Checked
+        Changed1 = True
+
+    End Sub
+
 #End Region
 
 End Class

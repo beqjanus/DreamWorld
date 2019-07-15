@@ -1655,6 +1655,24 @@ Public Class Form1
 
             pMySetting.SetOtherIni("LoginService", "WelcomeMessage", pMySetting.WelcomeMessage)
 
+            'FSASSETS
+            If pMySetting.FsAssetsEnabled Then
+                pMySetting.SetOtherIni("AssetService", "LocalServiceModule", "LocalServiceModule=OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+            Else
+                pMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+            End If
+
+            pMySetting.SetOtherIni("AssetService", "BaseDirectory", pMySetting.BaseDirectory)
+            pMySetting.SetOtherIni("AssetService", "SpoolDirectory", pMySetting.SpoolDirectory)
+            pMySetting.SetOtherIni("AssetService", "FallbackService", pMySetting.FallbackService)
+            pMySetting.SetOtherIni("AssetService", "DaysBetweenAccessTimeUpdates", pMySetting.DaysBetweenAccessTimeUpdates)
+            pMySetting.SetOtherIni("AssetService", "ShowConsoleStats", pMySetting.ShowConsoleStats)
+            pMySetting.SetOtherIni("AssetService", "StorageProvider", pMySetting.StorageProvider)
+            pMySetting.SetOtherIni("AssetService", "ConnectionString", pMySetting.ConnectionString)
+            pMySetting.SetOtherIni("AssetService", "Realm", pMySetting.Realm)
+            pMySetting.SetOtherIni("AssetService", "AllowRemoteDelete", pMySetting.AllowRemoteDelete)
+            pMySetting.SetOtherIni("AssetService", "AllowRemoteDeleteAllTypes", pMySetting.AllowRemoteDeleteAllTypes)
+
             pMySetting.SaveOtherINI()
 
         End If
@@ -2466,7 +2484,7 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not pMySetting.ApacheEnable Then
-            Print("Apache web server is not enabled, ignoring")
+            Print("Apache web server is not enabled.")
             Return
         End If
 
@@ -3381,6 +3399,7 @@ Public Class Form1
                     If pList.Id = pid Then
                         Return pList.MainWindowHandle
                     End If
+                    Application.DoEvents()
                     Application.DoEvents()
                     ctr -= 1
                 Next

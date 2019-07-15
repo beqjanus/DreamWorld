@@ -154,7 +154,9 @@ Public Class MySettings
             Form1.CopyWifi("Custom")
         End If
 
+
     End Sub
+
 
 #End Region
 
@@ -220,12 +222,6 @@ Public Class MySettings
 
 #Region "GetSet"
 
-    ''' <summary>
-    '''
-    ''' </summary>
-    ''' <param name="section"></param>
-    ''' <returns></returns>
-    '''
     Public Function GetIni(section As String, key As String, Optional D As String = "") As String
 
         Dim R = Stripqq(Data(section)(key))
@@ -295,6 +291,129 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    ' fsassets
+    Public Property FsAssetsEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("FsAssetsEnabled", "false"), Boolean)
+        End Get
+        Set
+            SetMySetting("FsAssetsEnabled", Value.ToString(Form1.Usa))
+        End Set
+    End Property
+
+    'LocalServiceModule
+    Public Property LocalServiceModule() As String
+        Get
+            Return GetMySetting("LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+        End Get
+        Set
+            SetMySetting("LocalServiceModule", Value)
+        End Set
+    End Property
+
+    'BaseDirectory
+    Public Property BaseDirectory() As String
+        Get
+            Return GetMySetting("BaseDirectory", "./fsassets/data")
+        End Get
+        Set
+            SetMySetting("BaseDirectory", Value)
+        End Set
+    End Property
+
+    'SpoolDirectory
+    Public Property SpoolDirectory() As String
+        Get
+            Return GetMySetting("SpoolDirectory", "./fsassets/tmp")
+        End Get
+        Set
+            SetMySetting("SpoolDirectory", Value)
+        End Set
+    End Property
+
+    'FallbackService
+    Public Property FallbackService() As String
+        Get
+            Return GetMySetting("FallbackService", "OpenSim.Services.AssetService.dll:AssetService")
+        End Get
+        Set
+            SetMySetting("FallbackService", Value)
+        End Set
+    End Property
+
+    'DaysBetweenAccessTimeUpdates
+    Public Property DaysBetweenAccessTimeUpdates() As String
+        Get
+            Return GetMySetting("DaysBetweenAccessTimeUpdates", "30")
+        End Get
+        Set
+            SetMySetting("DaysBetweenAccessTimeUpdates", Value)
+        End Set
+    End Property
+
+    'ShowConsoleStats
+    Public Property ShowConsoleStats() As String
+        Get
+            Return GetMySetting("ShowConsoleStats", "true")
+        End Get
+        Set
+            SetMySetting("ShowConsoleStats", Value)
+        End Set
+    End Property
+
+    'StorageProvider
+    Public Property StorageProvider() As String
+        Get
+            Return GetMySetting("StorageProvider", "")
+        End Get
+        Set
+            SetMySetting("StorageProvider", Value)
+        End Set
+    End Property
+
+    'ConnectionString 
+    Public Property ConnectionString() As String
+        Get
+            Return GetMySetting("ConnectionString", "")
+        End Get
+        Set
+            SetMySetting("ConnectionString", Value)
+        End Set
+    End Property
+
+    'Realm 
+    Public Property Realm() As String
+        Get
+            Return GetMySetting("Realm", "fsassets")
+        End Get
+        Set
+            SetMySetting("Realm", Value)
+        End Set
+    End Property
+
+
+
+    'AllowRemoteDelete
+    Public Property AllowRemoteDelete() As String
+        Get
+            Return GetMySetting("AllowRemoteDelete", "false")
+        End Get
+        Set
+            SetMySetting("AllowRemoteDelete", Value)
+        End Set
+    End Property
+    'AllowRemoteDeleteAllTypes
+    Public Property AllowRemoteDeleteAllTypes() As String
+        Get
+            Return GetMySetting("AllowRemoteDeleteAllTypes", "false")
+        End Get
+        Set
+            SetMySetting("AllowRemoteDeleteAllTypes", Value)
+        End Set
+    End Property
+
+    '''  /end fsassets
 
     Public Property RobustConnStr() As String
         Get
