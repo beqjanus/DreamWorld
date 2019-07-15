@@ -43,12 +43,12 @@ Public Class FormDNSName
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
         Me.Text = "DynDNS"
-        DNSNameBoxBackup = Form1.MySetting.DNSName
-        DNSNameBox.Text = Form1.MySetting.DNSName
+        DNSNameBoxBackup = Form1.pMySetting.DNSName
+        DNSNameBox.Text = Form1.pMySetting.DNSName
 
-        UniqueId.Text = Form1.MySetting.MachineID()
-        EnableHypergrid.Checked = Form1.MySetting.EnableHypergrid
-        SuitcaseCheckbox.Checked = Form1.MySetting.Suitcase
+        UniqueId.Text = Form1.pMySetting.MachineID()
+        EnableHypergrid.Checked = Form1.pMySetting.EnableHypergrid
+        SuitcaseCheckbox.Checked = Form1.pMySetting.Suitcase
         NextNameButton.Enabled = True
 
         Form1.HelpOnce("DNS")
@@ -63,7 +63,7 @@ Public Class FormDNSName
 
     Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.usa)
+        Random = System.Convert.ToString(value, Form1.Usa)
     End Function
 
 #End Region
@@ -97,16 +97,16 @@ Public Class FormDNSName
         NextNameButton.Text = "Saving..."
 
         If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
-            Form1.MySetting.DNSName = DNSNameBox.Text
+            Form1.pMySetting.DNSName = DNSNameBox.Text
         End If
 
-        If Form1.MySetting.DNSName.Length = 0 Then
-            Form1.MySetting.PublicIP = Form1.MySetting.PrivateURL
+        If Form1.pMySetting.DNSName.Length = 0 Then
+            Form1.pMySetting.PublicIP = Form1.pMySetting.PrivateURL
         Else
-            Form1.MySetting.PublicIP = DNSNameBox.Text
+            Form1.pMySetting.PublicIP = DNSNameBox.Text
         End If
 
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.SaveSettings()
         changed = False ' suppress prompts
 
         Me.Close()
@@ -157,7 +157,7 @@ Public Class FormDNSName
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.MachineID() = UniqueId.Text
+        Form1.pMySetting.MachineID() = UniqueId.Text
         changed = True
 
     End Sub
@@ -165,7 +165,7 @@ Public Class FormDNSName
     Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.EnableHypergrid = EnableHypergrid.Checked
+        Form1.pMySetting.EnableHypergrid = EnableHypergrid.Checked
         changed = True
 
     End Sub
@@ -173,7 +173,7 @@ Public Class FormDNSName
     Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.Suitcase() = SuitcaseCheckbox.Checked
+        Form1.pMySetting.Suitcase() = SuitcaseCheckbox.Checked
 
         If Not SuitcaseCheckbox.Checked Then
             MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")

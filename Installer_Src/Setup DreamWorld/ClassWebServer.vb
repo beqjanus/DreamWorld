@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Threading
+Imports Outworldz
 
 Public Class NetServer
     Private running As Boolean = False
@@ -10,20 +11,29 @@ Public Class NetServer
     Private WebThread As Thread
     Private Shared blnFlag As Boolean
     Private Shared singleWebserver As NetServer
-    Private Myfolder As String
+    Private pMyFolder As String
 
     Private MyPort As String
-#Disable Warning IDE0044 ' Add readonly modifier
-    Dim RegionClass As RegionMaker = RegionMaker.Instance()
-#Enable Warning IDE0044 ' Add readonly modifier
+
+    Dim pRegionClass As RegionMaker = RegionMaker.Instance()
+
     Dim Setting As MySettings
 
-    Public Sub StartServer(pathinfo As String, MySetting As MySettings)
+    Public Property PRegionClass1 As RegionMaker
+        Get
+            Return pRegionClass
+        End Get
+        Set(value As RegionMaker)
+            pRegionClass = value
+        End Set
+    End Property
+
+    Public Sub StartServer(pathinfo As String, pMySetting As MySettings)
 
         ' stash some globs
-        Setting = MySetting
-        MyPort = MySetting.DiagnosticPort
-        Myfolder = pathinfo
+        Setting = pMySetting
+        MyPort = pMySetting.DiagnosticPort
+        pMyFolder = pathinfo
 
         If running Then Return
 
@@ -99,8 +109,8 @@ Public Class NetServer
     Private Sub Log(category As String, message As String)
         Debug.Print(message)
         Try
-            Using outputFile As New StreamWriter(Myfolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.usa) + ":" & category & ":" & message)
+            Using outputFile As New StreamWriter(pMyFolder & "\Outworldzfiles\Http.log", True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" & category & ":" & message)
             End Using
         Catch ex As Exception
             Debug.Print(ex.Message)
@@ -128,13 +138,13 @@ Public Class NetServer
             Dim lcUri = LCase(Uri)
 
             If lcUri.Contains("teleports.htm") Then
-                responseString = RegionClass.RegionListHTML(Setting)
+                responseString = PRegionClass1.RegionListHTML(Setting)
             Else
                 If (request.HasEntityBody) Then
                     Dim POST As String = reader.ReadToEnd()
-                    responseString = RegionClass.ParsePost(POST, Setting)
+                    responseString = PRegionClass1.ParsePost(POST, Setting)
                 Else
-                    responseString = RegionClass.ParsePost(Uri, Setting)
+                    responseString = PRegionClass1.ParsePost(Uri, Setting)
                 End If
 
                 body.Close()

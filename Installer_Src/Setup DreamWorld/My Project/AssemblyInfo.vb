@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Virtual World installer for Opensimulator")>
 <Assembly: AssemblyCompany("Outworldz, LLC.")>
 <Assembly: AssemblyProduct("DreamGrid")>
-<Assembly: AssemblyCopyright("Copyright © 2019")>
+<Assembly: AssemblyCopyright("Copyright © 2011")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,6 +31,6 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("2.0.2.0")>
-<Assembly: AssemblyFileVersion("2.0.2.0")>
+<Assembly: AssemblyVersion("3.0.1.0")>
+<Assembly: AssemblyFileVersion("3.0.1.0")>
 <Assembly: NeutralResourcesLanguage("en")>

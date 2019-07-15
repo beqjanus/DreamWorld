@@ -55,6 +55,8 @@ Partial Class FormDatabase
         Me.GridRegionButton = New System.Windows.Forms.RadioButton()
         Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GridServerButton = New System.Windows.Forms.RadioButton()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -165,6 +167,8 @@ Partial Class FormDatabase
         '
         'GridGroup
         '
+        Me.GridGroup.Controls.Add(Me.Label3)
+        Me.GridGroup.Controls.Add(Me.CheckBox1)
         Me.GridGroup.Controls.Add(Me.RobustServer)
         Me.GridGroup.Controls.Add(Me.Label16)
         Me.GridGroup.Controls.Add(Me.Dbnameindex)
@@ -364,6 +368,25 @@ Partial Class FormDatabase
         Me.GridServerButton.Text = "Grid Server With Robust"
         Me.GridServerButton.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(98, 154)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(130, 17)
+        Me.CheckBox1.TabIndex = 42
+        Me.CheckBox1.Text = "Use File System folder"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(17, 154)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(49, 13)
+        Me.Label3.TabIndex = 43
+        Me.Label3.Text = "FsAssets"
+        '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -425,4 +448,6 @@ Partial Class FormDatabase
     Friend WithEvents GridServerButton As RadioButton
     Friend WithEvents SaveButton As Button
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

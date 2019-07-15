@@ -33,17 +33,17 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = "Vivox Voice Settings"
-        VivoxEnable.Checked = Form1.MySetting.VivoxEnabled
-        VivoxPassword.Text = Form1.MySetting.VivoxPassword
-        VivoxUserName.Text = Form1.MySetting.VivoxUserName
+        VivoxEnable.Checked = Form1.pMySetting.VivoxEnabled
+        VivoxPassword.Text = Form1.pMySetting.VivoxPassword
+        VivoxUserName.Text = Form1.pMySetting.VivoxUserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
         Form1.HelpOnce("Vivox")
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VivoxEnable.CheckedChanged
-        Form1.MySetting.VivoxEnabled = VivoxEnable.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.VivoxEnabled = VivoxEnable.Checked
+        Form1.pMySetting.SaveSettings()
     End Sub
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
@@ -53,15 +53,15 @@
 
     Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
 #Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.MySetting.VivoxUserName = VivoxUserName.Text
+        Form1.pMySetting.VivoxUserName = VivoxUserName.Text
 #Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.SaveSettings()
     End Sub
 
     Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
         VivoxPassword.UseSystemPasswordChar = False
-        Form1.MySetting.VivoxPassword = VivoxPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.pMySetting.VivoxPassword = VivoxPassword.Text
+        Form1.pMySetting.SaveSettings()
     End Sub
 
     Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click

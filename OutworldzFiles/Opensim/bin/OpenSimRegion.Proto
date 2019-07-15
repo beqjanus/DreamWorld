@@ -1335,3 +1335,10 @@ cloud_update_rate=1000
 ;;LandServices module is required for ossearch to function properly in grid mode.
 LandServices="RemoteLandServicesConnector"
 LandServiceConnector="True"
+
+
+; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
+;; Set to True to enable Smart Start 
+;; Set by Dreamgrid
+[AutoLoadTeleport]
+Enabled = False

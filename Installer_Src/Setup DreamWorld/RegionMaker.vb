@@ -40,7 +40,7 @@ Public Class RegionMaker
     End Enum
 
     ''' <summary>
-    ''' Regionclass.IsBooted() checks if a region is up
+    ''' pRegionClass.IsBooted() checks if a region is up
     ''' </summary>
     ''' <param name="RegionNumber"></param>
     ''' <returns>boolean</returns>
@@ -92,15 +92,15 @@ Public Class RegionMaker
         GetAllRegions()
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
-            Form1.MySetting.WelcomeRegion = "Welcome"
+            Form1.pMySetting.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome")
             GetAllRegions()
-            Form1.MySetting.WelcomeRegion = "Welcome"
-            Form1.MySetting.SaveSettings()
+            Form1.pMySetting.WelcomeRegion = "Welcome"
+            Form1.pMySetting.SaveSettings()
         End If
         ' RegionDump()
 
-        Debug.Print("Loaded " + RegionCount.ToString(Form1.usa) + " Regions")
+        Debug.Print("Loaded " + RegionCount.ToString(Form1.Usa) + " Regions")
 
     End Sub
 
@@ -192,7 +192,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._NonphysicalPrimMax, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._NonphysicalPrimMax = Value.ToString(Form1.usa)
+            RegionList(n)._NonphysicalPrimMax = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -201,7 +201,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._PhysicalPrimMax, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._PhysicalPrimMax = Value.ToString(Form1.usa)
+            RegionList(n)._PhysicalPrimMax = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -210,7 +210,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._ClampPrimSize, Boolean)
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value.ToString(Form1.usa)
+            RegionList(n)._ClampPrimSize = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -228,7 +228,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._MaxAgents, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._MaxAgents = Value.ToString(Form1.usa)
+            RegionList(n)._MaxAgents = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -242,7 +242,7 @@ Public Class RegionMaker
 
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._Timer = Value.ToString(Form1.usa)
+            RegionList(n)._Timer = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -303,7 +303,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._RegionEnabled, Boolean)
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._RegionEnabled = Value.ToString(Form1.usa)
+            RegionList(n)._RegionEnabled = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -317,7 +317,7 @@ Public Class RegionMaker
 
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._ProcessID = Value.ToString(Form1.usa)
+            RegionList(n)._ProcessID = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -326,7 +326,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._AvatarCount, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._AvatarCount = Value.ToString(Form1.usa)
+            RegionList(n)._AvatarCount = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -335,7 +335,7 @@ Public Class RegionMaker
             Return RegionList(n)._RegionName.ToString
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionName = Value.ToString(Form1.usa)
+            RegionList(n)._RegionName = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -344,7 +344,7 @@ Public Class RegionMaker
             Return RegionList(n)._UUID.ToString
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._UUID = Value.ToString(Form1.usa)
+            RegionList(n)._UUID = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -353,7 +353,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._SizeX, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeX = Value.ToString(Form1.usa)
+            RegionList(n)._SizeX = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -362,7 +362,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._SizeY, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeY = Value.ToString(Form1.usa)
+            RegionList(n)._SizeY = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -376,7 +376,7 @@ Public Class RegionMaker
             Return 0
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._RegionPort = Value.ToString(Form1.usa)
+            RegionList(n)._RegionPort = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -385,7 +385,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._CoordX, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value.ToString(Form1.usa)
+            RegionList(n)._CoordX = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -394,7 +394,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._CoordY, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value.ToString(Form1.usa)
+            RegionList(n)._CoordY = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -466,7 +466,7 @@ Public Class RegionMaker
             Return RegionList(n)._Tides.ToString
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Tides = Value.ToString(Form1.usa)
+            RegionList(n)._Tides = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -475,7 +475,7 @@ Public Class RegionMaker
             Return RegionList(n)._Teleport.ToString
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Teleport = Value.ToString(Form1.usa)
+            RegionList(n)._Teleport = Value.ToString(Form1.Usa)
         End Set
     End Property
 
@@ -497,7 +497,7 @@ Public Class RegionMaker
 
     Public Sub RegionDump()
 
-        If Not Form1.GDebug Then Return
+        If Not Form1.pDebug Then Return
         Dim ctr = 0
         For Each r As Region_data In RegionList
             DebugRegions(ctr)
@@ -508,7 +508,7 @@ Public Class RegionMaker
 
     Public Sub DebugRegions(n As Integer)
 
-        Form1.Log("RegionNumber", n.ToString(Form1.usa) & vbCrLf &
+        Form1.Log("RegionNumber", n.ToString(Form1.Usa) & vbCrLf &
             " PID:" & RegionList(n)._ProcessID.ToString() & vbCrLf &
             " Group:" & RegionList(n)._Group.ToString() & vbCrLf &
             " Region:" & RegionList(n)._RegionName.ToString() & vbCrLf &
@@ -599,7 +599,7 @@ Public Class RegionMaker
             End If
             i += 1
         Next
-        Form1.ErrorLog("PID not found:" + PID.ToString(Form1.usa))
+        Form1.ErrorLog("PID not found:" + PID.ToString(Form1.Usa))
         Return -1
 
     End Function
@@ -632,7 +632,7 @@ Public Class RegionMaker
             ._SizeY = 256,
             ._CoordX = LargestX() + 4,
             ._CoordY = LargestY() + 0,
-            ._RegionPort = CType(Form1.MySetting.PrivatePort, Integer) + 1, '8003 + 1
+            ._RegionPort = CType(Form1.pMySetting.PrivatePort, Integer) + 1, '8003 + 1
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
@@ -674,7 +674,7 @@ Public Class RegionMaker
         Dim folders() As String
         Dim regionfolders() As String
         Dim n As Integer = 0
-        folders = Directory.GetDirectories(Form1.GOpensimBinPath + "bin\Regions")
+        folders = Directory.GetDirectories(Form1.pOpensimBinPath + "bin\Regions")
         For Each FolderName As String In folders
             'Form1.Log("Info","Region Path:" + FolderName)
             regionfolders = Directory.GetDirectories(FolderName)
@@ -692,11 +692,11 @@ Public Class RegionMaker
                         CreateRegion(fName)
 
                         ' must be after Createregion or port blows up
-                        Form1.MySetting.LoadOtherIni(ini, ";")
+                        Form1.pMySetting.LoadOtherIni(ini, ";")
                         ' we do not save the above as we are making a new one.
 
                         Try
-                            RegionEnabled(n) = CType(Form1.MySetting.GetIni(fName, "Enabled"), Boolean)
+                            RegionEnabled(n) = CType(Form1.pMySetting.GetIni(fName, "Enabled"), Boolean)
                         Catch ex As Exception
                             RegionEnabled(n) = True
                         End Try
@@ -714,36 +714,36 @@ Public Class RegionMaker
 
                         GroupName(n) = gname
 
-                        UUID(n) = Form1.MySetting.GetIni(fName, "RegionUUID")
-                        SizeX(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "SizeX"), Form1.usa)
-                        SizeY(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "SizeY"), Form1.usa)
-                        RegionPort(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "InternalPort"), Form1.usa)
+                        UUID(n) = Form1.pMySetting.GetIni(fName, "RegionUUID")
+                        SizeX(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "SizeX"), Form1.Usa)
+                        SizeY(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "SizeY"), Form1.Usa)
+                        RegionPort(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "InternalPort"), Form1.Usa)
 
                         ' extended props V2.1
-                        NonPhysicalPrimMax(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Form1.usa)
-                        PhysicalPrimMax(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "PhysicalPrimMax", "64"), Form1.usa)
-                        ClampPrimSize(n) = Convert.ToBoolean(Form1.MySetting.GetIni(fName, "ClampPrimSize", "False"), Form1.usa)
-                        MaxPrims(n) = Form1.MySetting.GetIni(fName, "MaxPrims", "45000")
-                        MaxAgents(n) = Convert.ToInt16(Form1.MySetting.GetIni(fName, "MaxAgents", "100"), Form1.usa)
+                        NonPhysicalPrimMax(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Form1.Usa)
+                        PhysicalPrimMax(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "PhysicalPrimMax", "64"), Form1.Usa)
+                        ClampPrimSize(n) = Convert.ToBoolean(Form1.pMySetting.GetIni(fName, "ClampPrimSize", "False"), Form1.Usa)
+                        MaxPrims(n) = Form1.pMySetting.GetIni(fName, "MaxPrims", "45000")
+                        MaxAgents(n) = Convert.ToInt16(Form1.pMySetting.GetIni(fName, "MaxAgents", "100"), Form1.Usa)
 
                         ' Location is int,int format.
-                        Dim C = Form1.MySetting.GetIni(fName, "Location")
+                        Dim C = Form1.pMySetting.GetIni(fName, "Location")
 
                         Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                         CoordX(n) = CType(parts(0), Integer)
                         CoordY(n) = CType(parts(1), Integer)
 
-                        RegionSnapShot(n) = Form1.MySetting.GetIni(fName, "RegionSnapShot")
-                        MapType(n) = Form1.MySetting.GetIni(fName, "MapType")
-                        Physics(n) = Form1.MySetting.GetIni(fName, "Physics")
-                        MaxPrims(n) = Form1.MySetting.GetIni(fName, "MaxPrims", "15000")
-                        AllowGods(n) = Form1.MySetting.GetIni(fName, "AllowGods")
-                        RegionGod(n) = Form1.MySetting.GetIni(fName, "RegionGod")
-                        ManagerGod(n) = Form1.MySetting.GetIni(fName, "ManagerGod")
-                        Birds(n) = Form1.MySetting.GetIni(fName, "Birds")
-                        Tides(n) = Form1.MySetting.GetIni(fName, "Tides")
-                        Teleport(n) = Form1.MySetting.GetIni(fName, "Teleport")
-                        SmartStart(n) = Form1.MySetting.GetIni(fName, "SmartStart", "False")
+                        RegionSnapShot(n) = Form1.pMySetting.GetIni(fName, "RegionSnapShot")
+                        MapType(n) = Form1.pMySetting.GetIni(fName, "MapType")
+                        Physics(n) = Form1.pMySetting.GetIni(fName, "Physics")
+                        MaxPrims(n) = Form1.pMySetting.GetIni(fName, "MaxPrims", "15000")
+                        AllowGods(n) = Form1.pMySetting.GetIni(fName, "AllowGods")
+                        RegionGod(n) = Form1.pMySetting.GetIni(fName, "RegionGod")
+                        ManagerGod(n) = Form1.pMySetting.GetIni(fName, "ManagerGod")
+                        Birds(n) = Form1.pMySetting.GetIni(fName, "Birds")
+                        Tides(n) = Form1.pMySetting.GetIni(fName, "Tides")
+                        Teleport(n) = Form1.pMySetting.GetIni(fName, "Teleport")
+                        SmartStart(n) = Form1.pMySetting.GetIni(fName, "SmartStart", "False")
 
                         If initted Then
 
@@ -787,7 +787,7 @@ Public Class RegionMaker
         Dim fname As String = RegionList(n)._FolderPath.ToString
 
         If (fname.Length = 0) Then
-            Dim pathtoWelcome As String = Form1.GOpensimBinPath + "bin\Regions\" + name + "\Region\"
+            Dim pathtoWelcome As String = Form1.pOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
@@ -800,6 +800,7 @@ Public Class RegionMaker
             fname = fname + "\" + name + ".ini"
         End If
 
+
         Dim proto = "; * Regions configuration file; " + vbCrLf _
         + "; Automatically changed and read by Dreamworld. Edits are allowed" + vbCrLf _
         + "; Rule1: The File name must match the [RegionName]" + vbCrLf _
@@ -807,17 +808,17 @@ Public Class RegionMaker
         + ";" + vbCrLf _
         + "[" + name + "]" + vbCrLf _
         + "RegionUUID = " + UUID(n) + vbCrLf _
-        + "Location = " + CoordX(n).ToString(Form1.usa) & "," & CoordY(n).ToString(Form1.usa) + vbCrLf _
+        + "Location = " + CoordX(n).ToString(Form1.Usa) & "," & CoordY(n).ToString(Form1.Usa) + vbCrLf _
         + "InternalAddress = 0.0.0.0" + vbCrLf _
-        + "InternalPort = " + RegionPort(n).ToString(Form1.usa) + vbCrLf _
+        + "InternalPort = " + RegionPort(n).ToString(Form1.Usa) + vbCrLf _
         + "AllowAlternatePorts = False" + vbCrLf _
-        + "ExternalHostName = " + Form1.MySetting.PublicIP + vbCrLf _
-        + "SizeX = " + SizeX(n).ToString(Form1.usa) + vbCrLf _
-        + "SizeY = " + SizeY(n).ToString(Form1.usa) + vbCrLf _
-        + "Enabled = " + RegionEnabled(n).ToString(Form1.usa) + vbCrLf _
-        + "NonPhysicalPrimMax = " + NonPhysicalPrimMax(n).ToString(Form1.usa) + vbCrLf _
-        + "PhysicalPrimMax = " + PhysicalPrimMax(n).ToString(Form1.usa) + vbCrLf _
-        + "ClampPrimSize = " + ClampPrimSize(n).ToString(Form1.usa) + vbCrLf _
+        + "ExternalHostName = " + Form1.ExternLocalServerName() + vbCrLf _
+        + "SizeX = " + SizeX(n).ToString(Form1.Usa) + vbCrLf _
+        + "SizeY = " + SizeY(n).ToString(Form1.Usa) + vbCrLf _
+        + "Enabled = " + RegionEnabled(n).ToString(Form1.Usa) + vbCrLf _
+        + "NonPhysicalPrimMax = " + NonPhysicalPrimMax(n).ToString(Form1.Usa) + vbCrLf _
+        + "PhysicalPrimMax = " + PhysicalPrimMax(n).ToString(Form1.Usa) + vbCrLf _
+        + "ClampPrimSize = " + ClampPrimSize(n).ToString(Form1.Usa) + vbCrLf _
         + "MaxPrims = " + MaxPrims(n) + vbCrLf _
         + "RegionType = Estate" + vbCrLf + vbCrLf _
         + ";# Dreamgrid extended properties" + vbCrLf _
@@ -933,20 +934,20 @@ Public Class RegionMaker
     ''' </summary>
     Public Sub UpdateAllRegionPorts()
 
-        If Form1.OpensimIsRunning Then
+        If Form1.pOpensimIsRunning Then
             'Form1.Log("Trying to update all region ports while running')")
             Return
         End If
 
-        Dim Portnumber As Integer = CType(Form1.MySetting.FirstRegionPort(), Integer)
-        For Each RegionNum As Integer In Form1.RegionClass.RegionNumbers
-            Dim simName = Form1.RegionClass.RegionName(RegionNum)
-            Form1.MySetting.LoadOtherIni(Form1.RegionClass.RegionPath(RegionNum), ";")
-            Form1.MySetting.SetOtherIni(simName, "InternalPort", Portnumber.ToString(Form1.usa))
-            Form1.RegionClass.RegionPort(RegionNum) = Portnumber
+        Dim Portnumber As Integer = CType(Form1.pMySetting.FirstRegionPort(), Integer)
+        For Each RegionNum As Integer In Form1.pRegionClass.RegionNumbers
+            Dim simName = Form1.pRegionClass.RegionName(RegionNum)
+            Form1.pMySetting.LoadOtherIni(Form1.pRegionClass.RegionPath(RegionNum), ";")
+            Form1.pMySetting.SetOtherIni(simName, "InternalPort", Portnumber.ToString(Form1.Usa))
+            Form1.pRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
-            Form1.GMaxPortUsed = Portnumber
-            Form1.MySetting.SaveOtherINI()
+            Form1.pMaxPortUsed = Portnumber
+            Form1.pMySetting.SaveOtherINI()
             Portnumber += 1
         Next
 
@@ -994,9 +995,9 @@ Public Class RegionMaker
 
                     RegionEnabled(n) = True
                     Status(n) = SIMSTATUSENUM.Booted
-                    Form1.UpdateView() = True
+                    Form1.pUpdateView() = True
 
-                    If Form1.MySetting.ConsoleShow = False Then
+                    If Form1.pMySetting.ConsoleShow = False Then
                         Dim hwnd = Form1.GetHwnd(GroupName(n))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
@@ -1014,13 +1015,13 @@ Public Class RegionMaker
                     Timer(n) = REGIONTIMER.Stopped
                     If Status(n) = SIMSTATUSENUM.RecyclingDown Then
                         Status(n) = SIMSTATUSENUM.RestartPending
-                        Form1.UpdateView = True ' make form refresh
+                        Form1.pUpdateView = True ' make form refresh
                     Else
                         Status(n) = SIMSTATUSENUM.Stopped
                     End If
 
-                    Form1.UpdateView() = True
-                    Form1.ExitList.Add(json.region_name)
+                    Form1.pUpdateView() = True
+                    Form1.pExitList.Add(json.region_name)
 
                 End If
             Catch ex As Exception
@@ -1034,7 +1035,7 @@ Public Class RegionMaker
 
 #Region "POST"
 
-    Public Function ParsePost(POST As String, MySetting As MySettings) As String
+    Public Function ParsePost(POST As String, pMySetting As MySettings) As String
 
         ' set Region.Booted to true if the POST from the region indicates it is online
         ' requires a section in Opensim.ini where [RegionReady] has this:
@@ -1098,7 +1099,7 @@ Public Class RegionMaker
                         Return RegionUUID
                     ElseIf Status(n) = SIMSTATUSENUM.Stopped Then
                         Status(n) = SIMSTATUSENUM.Autostart
-                        Dim wname = MySetting.WelcomeRegion
+                        Dim wname = pMySetting.WelcomeRegion
                         Dim RegionNum As Integer = FindRegionByName(wname)
                         Return UUID(RegionNum)
                     End If
@@ -1144,7 +1145,7 @@ Public Class RegionMaker
                     ' Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
-                    Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
+                    Dim myConnection As MySqlConnection = New MySqlConnection(Form1.pRobustConnStr)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
                     Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1165,7 +1166,7 @@ Public Class RegionMaker
 
         ElseIf POST.Contains("get_partner") Then
             Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(POST, MySetting.MachineID().ToLower(Form1.usa))
+            Dim PWok As Boolean = CheckPassword(POST, pMySetting.MachineID().ToLower(Form1.Usa))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
@@ -1173,7 +1174,7 @@ Public Class RegionMaker
             Dim p1 As String
             If match1.Success Then
                 p1 = match1.Groups(1).Value
-                Dim s = GetPartner(p1, MySetting)
+                Dim s = GetPartner(p1, pMySetting)
                 Debug.Print(s)
                 Return s
             Else
@@ -1184,7 +1185,7 @@ Public Class RegionMaker
             ' Partner prim
         ElseIf POST.Contains("set_partner") Then
             Debug.Print("set Partner")
-            Dim PWok As Boolean = CheckPassword(POST, MySetting.MachineID().ToLower(Form1.usa))
+            Dim PWok As Boolean = CheckPassword(POST, pMySetting.MachineID().ToLower(Form1.Usa))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
@@ -1202,10 +1203,10 @@ Public Class RegionMaker
                 If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
                     Try
 
-                        Dim Partner = GetPartner(p1, MySetting)
+                        Dim Partner = GetPartner(p1, pMySetting)
                         Debug.Print("Partner=" + p2)
 
-                        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
+                        Dim myConnection As MySqlConnection = New MySqlConnection(pMySetting.RobustConnStr)
 
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
                         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1236,7 +1237,7 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function RegionListHTML(Setting As MySettings) As String
+    Public Function RegionListHTML(pMySetting As MySettings) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
         'to http://localhost:8001/teleports.htm
@@ -1244,19 +1245,35 @@ Public Class RegionMaker
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
-        HTML = "Welcome to |" + Setting.SimName + "||" + Setting.PublicIP + ":" + Setting.HttpPort + ":" + Setting.WelcomeRegion + "||" + vbCrLf
-        Dim ToSort As New List(Of String)
-        For Each X As Integer In RegionNumbers()
-            If IsBooted(X) And Teleport(X) = "True" Then
-                ToSort.Add(RegionName(X))
-            End If
-        Next
+        HTML = "Welcome to |" + pMySetting.SimName + "||" + pMySetting.PublicIP + ":" + pMySetting.HttpPort + ":" + pMySetting.WelcomeRegion + "||" + vbCrLf
 
+        Dim NewSQLConn As New MySqlConnection(pMySetting.RobustConnStr)
+        Diagnostics.Debug.Print("Conn:" & pMySetting.RobustConnStr)
+        Dim UserStmt = "SELECT regionName from REGIONS"
+
+        Dim ToSort As New List(Of String)
+        Try
+            NewSQLConn.Open()
+            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+                Dim LongName = reader.GetString(0)
+
+                Diagnostics.Debug.Print("regionname {0}>", LongName)
+                ToSort.Add(LongName)
+            End While
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            NewSQLConn.Close()
+        End Try
+
+        ' Acquire keys And sort them.
         ToSort.Sort()
 
         For Each S As String In ToSort
-            Dim X = FindRegionByName(S)
-            HTML = HTML + "*|" + RegionName(X) + "||" + Setting.PublicIP + ":" + Setting.HttpPort + ":" + RegionName(X) + "||" + vbCrLf
+            HTML = HTML + "*|" & S & "||" & pMySetting.PublicIP & ":" & pMySetting.HttpPort & ":" & S & "||" + vbCrLf
         Next
 
         Return HTML
@@ -1276,7 +1293,7 @@ Public Class RegionMaker
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
             If p1.Length = 0 Then Return True
-            If Machine = p1.ToLower(Form1.usa) Then Return True
+            If Machine = p1.ToLower(Form1.Usa) Then Return True
         End If
         Return False
 
@@ -1284,7 +1301,7 @@ Public Class RegionMaker
 
     Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
 
-        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.GRobustConnStr)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustConnStr)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
             .Connection = myConnection
@@ -1292,7 +1309,7 @@ Public Class RegionMaker
         myConnection.Open()
         myCommand1.Prepare()
         myCommand1.Parameters.AddWithValue("p1", p1)
-        Dim a = Convert.ToString(myCommand1.ExecuteScalar(), Form1.usa)
+        Dim a = Convert.ToString(myCommand1.ExecuteScalar(), Form1.Usa)
         Debug.Print("User=" + p1 + ", Partner=" + a)
 
         myConnection.Close()

@@ -53,6 +53,7 @@ Partial Class FormRegion
         Me.ManagerGod = New System.Windows.Forms.CheckBox()
         Me.RegionGod = New System.Windows.Forms.CheckBox()
         Me.RegionPort = New System.Windows.Forms.TextBox()
+        Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -93,7 +94,6 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -388,6 +388,18 @@ Partial Class FormRegion
         Me.RegionPort.TabIndex = 39
         Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
         Me.RegionPort.Visible = False
+        '
+        'SmartStartCheckBox
+        '
+        Me.SmartStartCheckBox.AutoSize = True
+        Me.SmartStartCheckBox.Enabled = False
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 86)
+        Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
+        Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
+        Me.SmartStartCheckBox.TabIndex = 23
+        Me.SmartStartCheckBox.Text = "Smart Start"
+        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
         'Advanced
         '
@@ -842,17 +854,6 @@ Partial Class FormRegion
         Me.Button2.TabIndex = 1880
         Me.Button2.Text = "Deregister"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'SmartStartCheckBox
-        '
-        Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 86)
-        Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
-        Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
-        Me.SmartStartCheckBox.TabIndex = 23
-        Me.SmartStartCheckBox.Text = "Smart Start"
-        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, "If set, the global Tide settungs will apply to this region")
-        Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
         'FormRegion
         '
