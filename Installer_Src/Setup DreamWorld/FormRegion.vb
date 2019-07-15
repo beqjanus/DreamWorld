@@ -1,4 +1,4 @@
-﻿Imports System.ComponentModel
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports Outworldz
@@ -12,15 +12,15 @@ Public Class FormRegion
     Dim initted As Boolean = False ' needed a flag to see if we are initted as the dialogs change on start.
     Dim changed As Boolean    ' true if we need to save a form
     Dim isNew As Boolean = False
-    Dim pRegionClass As RegionMaker
+    Dim PropRegionClass As RegionMaker
     Dim RName As String
 
-    Public Property PRegionClass1 As RegionMaker
+    Public Property PropRegionClass1 As RegionMaker
         Get
-            Return pRegionClass
+            Return PropRegionClass
         End Get
         Set(value As RegionMaker)
-            pRegionClass = value
+            PropRegionClass = value
         End Set
     End Property
 
@@ -97,16 +97,16 @@ Public Class FormRegion
 
         Name = Name.Trim() ' remove spaces
 
-        PRegionClass1 = RegionMaker.Instance()
+        PropRegionClass1 = RegionMaker.Instance()
         If Name.Length = 0 Then
             IsNew1 = True
             RegionName.Text = Name & " ????"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString(Form1.Usa)
             SizeY.Text = 256.ToString(Form1.Usa)
-            CoordX.Text = (PRegionClass1.LargestX() + 4).ToString(Form1.Usa)
-            CoordY.Text = (PRegionClass1.LargestY() + 0).ToString(Form1.Usa)
-            RegionPort.Text = (PRegionClass1.LargestPort() + 1).ToString(Form1.Usa)
+            CoordX.Text = (PropRegionClass1.LargestX() + 4).ToString(Form1.Usa)
+            CoordY.Text = (PropRegionClass1.LargestY() + 0).ToString(Form1.Usa)
+            RegionPort.Text = (PropRegionClass1.LargestPort() + 1).ToString(Form1.Usa)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -116,57 +116,57 @@ Public Class FormRegion
             MaxPrims.Text = 45000.ToString(Form1.Usa)
             MaxAgents.Text = 100.ToString(Form1.Usa)
 
-            N1 = PRegionClass1.CreateRegion("")
+            N1 = PropRegionClass1.CreateRegion("")
         Else
             IsNew1 = False
-            N1 = PRegionClass1.FindRegionByName(Name)
-            Oldname1 = PRegionClass1.RegionName(N1) ' backup in case of rename
-            EnabledCheckBox.Checked = PRegionClass1.RegionEnabled(N1)
+            N1 = PropRegionClass1.FindRegionByName(Name)
+            Oldname1 = PropRegionClass1.RegionName(N1) ' backup in case of rename
+            EnabledCheckBox.Checked = PropRegionClass1.RegionEnabled(N1)
             RegionName.Text = Name
             Me.Text = Name & " Region" ' on screen
-            RegionName.Text = PRegionClass1.RegionName(N1) ' on form
-            UUID.Text = PRegionClass1.UUID(N1)   ' on screen
+            RegionName.Text = PropRegionClass1.RegionName(N1) ' on form
+            UUID.Text = PropRegionClass1.UUID(N1)   ' on screen
 
             If UUID.Text.Length = 0 Then
                 MsgBox("Error: UUID Is zero!")
                 Me.Close()
             End If
 
-            NonphysicalPrimMax.Text = PRegionClass1.NonPhysicalPrimMax(N1).ToString(Form1.Usa)
-            PhysicalPrimMax.Text = PRegionClass1.PhysicalPrimMax(N1).ToString(Form1.Usa)
-            ClampPrimSize.Checked = PRegionClass1.ClampPrimSize(N1)
-            MaxPrims.Text = PRegionClass1.MaxPrims(N1).ToString(Form1.Usa)
-            MaxAgents.Text = PRegionClass1.MaxAgents(N1).ToString(Form1.Usa)
+            NonphysicalPrimMax.Text = PropRegionClass1.NonPhysicalPrimMax(N1).ToString(Form1.Usa)
+            PhysicalPrimMax.Text = PropRegionClass1.PhysicalPrimMax(N1).ToString(Form1.Usa)
+            ClampPrimSize.Checked = PropRegionClass1.ClampPrimSize(N1)
+            MaxPrims.Text = PropRegionClass1.MaxPrims(N1).ToString(Form1.Usa)
+            MaxAgents.Text = PropRegionClass1.MaxAgents(N1).ToString(Form1.Usa)
 
-            SmartStartCheckBox.Checked = CType(PRegionClass1.SmartStart(N1).ToString(Form1.Usa), Boolean)
+            SmartStartCheckBox.Checked = CType(PropRegionClass1.SmartStart(N1).ToString(Form1.Usa), Boolean)
 
             Me.Show() ' time to show the results
             Me.Activate()
             Application.DoEvents()
 
             ' Size buttons
-            If PRegionClass1.SizeY(N1) = 256 And PRegionClass1.SizeX(N1) = 256 Then
+            If PropRegionClass1.SizeY(N1) = 256 And PropRegionClass1.SizeX(N1) = 256 Then
                 RadioButton1.Checked = True
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
                 SizeX.Text = "256"
                 SizeY.Text = "256"
-            ElseIf PRegionClass1.SizeY(N1) = 512 And PRegionClass1.SizeX(N1) = 512 Then
+            ElseIf PropRegionClass1.SizeY(N1) = 512 And PropRegionClass1.SizeX(N1) = 512 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = True
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
                 SizeX.Text = "512"
                 SizeY.Text = "512"
-            ElseIf PRegionClass1.SizeY(N1) = 768 And PRegionClass1.SizeX(N1) = 768 Then
+            ElseIf PropRegionClass1.SizeY(N1) = 768 And PropRegionClass1.SizeX(N1) = 768 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = True
                 RadioButton4.Checked = False
                 SizeX.Text = "768"
                 SizeY.Text = "768"
-            ElseIf PRegionClass1.SizeY(N1) = 1024 And PRegionClass1.SizeX(N1) = 1024 Then
+            ElseIf PropRegionClass1.SizeY(N1) = 1024 And PropRegionClass1.SizeX(N1) = 1024 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
@@ -178,22 +178,22 @@ Public Class FormRegion
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = Convert.ToString(PRegionClass1.SizeX(N1), Form1.Usa)
-                SizeY.Text = Convert.ToString(PRegionClass1.SizeY(N1), Form1.Usa)
+                SizeX.Text = Convert.ToString(PropRegionClass1.SizeX(N1), Form1.Usa)
+                SizeY.Text = Convert.ToString(PropRegionClass1.SizeY(N1), Form1.Usa)
             End If
 
             ' global coords
-            If PRegionClass1.CoordX(N1) <> 0 Then
-                CoordX.Text = PRegionClass1.CoordX(N1).ToString(Form1.Usa)
+            If PropRegionClass1.CoordX(N1) <> 0 Then
+                CoordX.Text = PropRegionClass1.CoordX(N1).ToString(Form1.Usa)
             End If
 
-            If PRegionClass1.CoordY(N1) <> 0 Then
-                CoordY.Text = PRegionClass1.CoordY(N1).ToString(Form1.Usa)
+            If PropRegionClass1.CoordY(N1) <> 0 Then
+                CoordY.Text = PropRegionClass1.CoordY(N1).ToString(Form1.Usa)
             End If
 
             ' and port
-            If PRegionClass1.RegionPort(N1) <> 0 Then
-                RegionPort.Text = PRegionClass1.RegionPort(N1).ToString(Form1.Usa)
+            If PropRegionClass1.RegionPort(N1) <> 0 Then
+                RegionPort.Text = PropRegionClass1.RegionPort(N1).ToString(Form1.Usa)
             End If
         End If
 
@@ -201,39 +201,39 @@ Public Class FormRegion
 
         '''''''''''''''''''''''''''''  DREAMGRID REGION LOAD '''''''''''''''''
 
-        If PRegionClass1.MapType(N1).Length = 0 Then
+        If PropRegionClass1.MapType(N1).Length = 0 Then
             Maps_Use_Default.Checked = True
 
-            If Form1.pMySetting.MapType = "None" Then
+            If Form1.PropMySetting.MapType = "None" Then
                 MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.pMySetting.MapType = "Simple" Then
+            ElseIf Form1.PropMySetting.MapType = "Simple" Then
                 MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.pMySetting.MapType = "Good" Then
+            ElseIf Form1.PropMySetting.MapType = "Good" Then
                 MapPicture.Image = My.Resources.Good
-            ElseIf Form1.pMySetting.MapType = "Better" Then
+            ElseIf Form1.PropMySetting.MapType = "Better" Then
                 MapPicture.Image = My.Resources.Better
-            ElseIf Form1.pMySetting.MapType = "Best" Then
+            ElseIf Form1.PropMySetting.MapType = "Best" Then
                 MapPicture.Image = My.Resources.Best
             End If
 
-        ElseIf PRegionClass1.MapType(N1) = "None" Then
+        ElseIf PropRegionClass1.MapType(N1) = "None" Then
             MapNone.Checked = True
             MapPicture.Image = My.Resources.blankbox
-        ElseIf PRegionClass1.MapType(N1) = "Simple" Then
+        ElseIf PropRegionClass1.MapType(N1) = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = My.Resources.Simple
-        ElseIf PRegionClass1.MapType(N1) = "Good" Then
+        ElseIf PropRegionClass1.MapType(N1) = "Good" Then
             MapGood.Checked = True
             MapPicture.Image = My.Resources.Good
-        ElseIf PRegionClass1.MapType(N1) = "Better" Then
+        ElseIf PropRegionClass1.MapType(N1) = "Better" Then
             MapBetter.Checked = True
             MapPicture.Image = My.Resources.Better
-        ElseIf PRegionClass1.MapType(N1) = "Best" Then
+        ElseIf PropRegionClass1.MapType(N1) = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = My.Resources.Best
         End If
 
-        Select Case PRegionClass1.Physics(N1)
+        Select Case PropRegionClass1.Physics(N1)
             Case "" : Physics_Default.Checked = True
             Case "0" : PhysicsNone.Checked = True
             Case "1" : PhysicsODE.Checked = True
@@ -244,34 +244,34 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        MaxPrims.Text = PRegionClass1.MaxPrims(N1).ToString(Form1.Usa)
+        MaxPrims.Text = PropRegionClass1.MaxPrims(N1).ToString(Form1.Usa)
 
-        If PRegionClass1.AllowGods(N1).Length = 0 And PRegionClass1.RegionGod(N1).Length = 0 And PRegionClass1.ManagerGod(N1).Length = 0 Then
+        If PropRegionClass1.AllowGods(N1).Length = 0 And PropRegionClass1.RegionGod(N1).Length = 0 And PropRegionClass1.ManagerGod(N1).Length = 0 Then
             Gods_Use_Default.Checked = True
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
         Else
-            If Not Boolean.TryParse(PRegionClass1.AllowGods(N1), AllowGods.Checked) Then AllowGods.Checked = False
-            If Not Boolean.TryParse(PRegionClass1.RegionGod(N1), RegionGod.Checked) Then RegionGod.Checked = False
-            If Not Boolean.TryParse(PRegionClass1.ManagerGod(N1), ManagerGod.Checked) Then ManagerGod.Checked = False
+            If Not Boolean.TryParse(PropRegionClass1.AllowGods(N1), AllowGods.Checked) Then AllowGods.Checked = False
+            If Not Boolean.TryParse(PropRegionClass1.RegionGod(N1), RegionGod.Checked) Then RegionGod.Checked = False
+            If Not Boolean.TryParse(PropRegionClass1.ManagerGod(N1), ManagerGod.Checked) Then ManagerGod.Checked = False
         End If
 
-        If PRegionClass1.RegionSnapShot(N1).Length = 0 Then
+        If PropRegionClass1.RegionSnapShot(N1).Length = 0 Then
             PublishDefault.Checked = True
         Else
-            Publish.Checked = CBool(PRegionClass1.RegionSnapShot(N1))
+            Publish.Checked = CBool(PropRegionClass1.RegionSnapShot(N1))
         End If
 
-        If PRegionClass1.Birds(N1) = "True" Then
+        If PropRegionClass1.Birds(N1) = "True" Then
             BirdsCheckBox.Checked = True
         End If
 
-        If PRegionClass1.Tides(N1) = "True" Then
+        If PropRegionClass1.Tides(N1) = "True" Then
             TidesCheckbox.Checked = True
         End If
 
-        If PRegionClass1.Teleport(N1) = "True" Then
+        If PropRegionClass1.Teleport(N1) = "True" Then
             TPCheckBox1.Checked = True
         End If
 
@@ -292,7 +292,7 @@ Public Class FormRegion
                     v = MsgBox(message + vbCrLf + "Discard all changes And Exit anyway?", vbYesNo, "Info")
                     If v = vbYes Then
                         If RegionList.InstanceExists Then
-                            PRegionClass1.GetAllRegions()
+                            PropRegionClass1.GetAllRegions()
                             RegionList.LoadMyListView()
 
                         End If
@@ -301,9 +301,9 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(N1)
-                    PRegionClass1.GetAllRegions()
+                    PropRegionClass1.GetAllRegions()
                     Form1.CopyOpensimProto(RegionName.Text)
-                    Form1.pUpdateView() = True
+                    Form1.PropUpdateView() = True
                     Form1.SetFirewall()
 
                 End If
@@ -320,7 +320,7 @@ Public Class FormRegion
             If v = vbYes Then
 
                 If RegionList.InstanceExists Then
-                    PRegionClass1.GetAllRegions()
+                    PropRegionClass1.GetAllRegions()
                     RegionList.LoadMyListView()
                 End If
 
@@ -328,10 +328,10 @@ Public Class FormRegion
             End If
         Else
 
-            Form1.pViewedSettings = True ' set this so it will force a rescan of the regions on startup
+            Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
 
             WriteRegion(N1)
-            PRegionClass1.GetAllRegions()
+            PropRegionClass1.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
             Form1.SetFirewall()
             'If RegionList.InstanceExists Then
@@ -457,15 +457,15 @@ Public Class FormRegion
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim Filepath = PRegionClass1.RegionPath(n)
-        Dim Folderpath = PRegionClass1.FolderPath(n)
+        Dim Filepath = PropRegionClass1.RegionPath(n)
+        Dim Folderpath = PropRegionClass1.FolderPath(n)
 
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
                 Filepath = Folderpath + "\" + RegionName.Text + ".ini"
-                PRegionClass1.RegionPath(n) = Filepath
+                PropRegionClass1.RegionPath(n) = Filepath
             Catch ex As FileNotFoundException
                 Debug.Print(ex.Message)
             End Try
@@ -483,16 +483,16 @@ Public Class FormRegion
             End If
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
-                Directory.CreateDirectory(Form1.pOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
+                Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
             End If
 
-            PRegionClass1.RegionPath(n) = Form1.pOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            PRegionClass1.FolderPath(n) = Form1.pOpensimBinPath & "bin\Regions\" + NewGroup
+            PropRegionClass1.RegionPath(n) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            PropRegionClass1.FolderPath(n) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
 
         End If
 
-        Filepath = PRegionClass1.RegionPath(n)
-        Folderpath = PRegionClass1.FolderPath(n)
+        Filepath = PropRegionClass1.RegionPath(n)
+        Folderpath = PropRegionClass1.FolderPath(n)
 
         Dim Snapshot As String = ""
         If PublishDefault.Checked Then
@@ -503,7 +503,7 @@ Public Class FormRegion
             Snapshot = "True"
         End If
 
-        PRegionClass1.RegionSnapShot(n) = Snapshot
+        PropRegionClass1.RegionSnapShot(n) = Snapshot
 
         Dim Map As String = ""
         If MapNone.Checked Then
@@ -520,7 +520,7 @@ Public Class FormRegion
             Map = "Best"
         End If
 
-        PRegionClass1.MapType(n) = Map
+        PropRegionClass1.MapType(n) = Map
 
         Dim Phys As String = ""
         If Physics_Default.Checked Then
@@ -539,28 +539,28 @@ Public Class FormRegion
             Phys = "5"
         End If
 
-        PRegionClass1.Physics(n) = Phys
+        PropRegionClass1.Physics(n) = Phys
 
         Dim AllowAGod As String = ""
         If AllowGods.Checked Then
             AllowAGod = "True"
-            PRegionClass1.AllowGods(n) = "True"
+            PropRegionClass1.AllowGods(n) = "True"
         End If
 
         Dim ARegionGod As String = ""
         If RegionGod.Checked Then
             ARegionGod = "True"
-            PRegionClass1.RegionGod(n) = "True"
+            PropRegionClass1.RegionGod(n) = "True"
         End If
 
         Dim AManagerGod As String = ""
         If ManagerGod.Checked Then
             AManagerGod = "True"
-            PRegionClass1.ManagerGod(n) = "True"
+            PropRegionClass1.ManagerGod(n) = "True"
         End If
 
         Dim Host As String
-        Host = Form1.pMySetting.ExternalHostName
+        Host = Form1.PropMySetting.ExternalHostName
 
         Dim Region = "; * Regions configuration file" &
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
@@ -596,14 +596,14 @@ Public Class FormRegion
         Debug.Print(Region)
 
         Try
-            Using outputFile As New StreamWriter(PRegionClass1.RegionPath(n), False)
+            Using outputFile As New StreamWriter(PropRegionClass1.RegionPath(n), False)
                 outputFile.Write(Region)
             End Using
         Catch ex As Exception
             Form1.ErrorLog("Cannot write region:" + ex.Message)
         End Try
 
-        Form1.pUpdateView = True
+        Form1.PropUpdateView = True
 
         Oldname1 = RegionName.Text
 
@@ -639,18 +639,18 @@ Public Class FormRegion
         Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
         If msg = vbYes Then
             Try
-                My.Computer.FileSystem.DeleteFile(Form1.pOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+                My.Computer.FileSystem.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Catch
             End Try
 
             Try
-                My.Computer.FileSystem.RenameFile(PRegionClass1.RegionPath(N1), RegionName.Text + ".bak")
-                PRegionClass1.GetAllRegions()
+                My.Computer.FileSystem.RenameFile(PropRegionClass1.RegionPath(N1), RegionName.Text + ".bak")
+                PropRegionClass1.GetAllRegions()
             Catch ex As Exception
             End Try
         End If
 
-        Form1.pUpdateView = True
+        Form1.PropUpdateView = True
 
         Me.Close()
 
@@ -798,16 +798,16 @@ Public Class FormRegion
             MapBetter.Checked = False
             MapBest.Checked = False
 
-            If Form1.pMySetting.MapType = "None" Then
+            If Form1.PropMySetting.MapType = "None" Then
                 MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.pMySetting.MapType = "Simple" Then
+            ElseIf Form1.PropMySetting.MapType = "Simple" Then
                 MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.pMySetting.MapType = "Good" Then
+            ElseIf Form1.PropMySetting.MapType = "Good" Then
                 MapPicture.Image = My.Resources.Good
-            ElseIf Form1.pMySetting.MapType = "Better" Then
+            ElseIf Form1.PropMySetting.MapType = "Better" Then
                 MapPicture.Image = My.Resources.Better
-            ElseIf Form1.pMySetting.MapType = "Best" Then
-                Form1.pMySetting.MapType = "Best"
+            ElseIf Form1.PropMySetting.MapType = "Best" Then
+                Form1.PropMySetting.MapType = "Best"
             End If
         End If
 
@@ -1099,15 +1099,15 @@ Public Class FormRegion
             Form1.StartMySQL()
             Form1.StartRobust()
 
-            Dim X = Form1.pRegionClass.FindRegionByName(RegionName.Text)
+            Dim X = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If X > -1 Then
 
-                If Form1.CheckPort(Form1.pMySetting.PrivateURL, PRegionClass1.GroupPort(X)) Then
+                If Form1.CheckPort(Form1.PropMySetting.PrivateURL, PropRegionClass1.GroupPort(X)) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(PRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While Form1.CheckPort(Form1.pMySetting.PrivateURL, PRegionClass1.GroupPort(X)) And loopctr > 0
+                While Form1.CheckPort(Form1.PropMySetting.PrivateURL, PropRegionClass1.GroupPort(X)) And loopctr > 0
                     Form1.Sleep(1000)
                     loopctr = loopctr - 1
                 End While

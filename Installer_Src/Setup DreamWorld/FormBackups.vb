@@ -35,7 +35,7 @@ Public Class FormBackups
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoBackupKeepFilesForDays.Text = Form1.pMySetting.KeepForDays.ToString(Form1.Usa)
+        AutoBackupKeepFilesForDays.Text = Form1.PropMySetting.KeepForDays.ToString(Form1.Usa)
 
         '0 = Hourly
         '1 = 12 Hour
@@ -48,30 +48,30 @@ Public Class FormBackups
         '8 = Weekly
         ' default= 1
 
-        If CType(Form1.pMySetting.AutobackupInterval, Double) = 60 Then
+        If CType(Form1.PropMySetting.AutobackupInterval, Double) = 60 Then
             AutoBackupInterval.SelectedIndex = 0
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 12 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 12 * 60 Then
             AutoBackupInterval.SelectedIndex = 1
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 2
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 2 * 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 2 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 3
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 3 * 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 3 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 4
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 4 * 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 4 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 5
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 5 * 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 5 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 6
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 6 * 24 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 6 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 7
-        ElseIf CType(Form1.pMySetting.AutobackupInterval, Double) = 7 * 60 Then
+        ElseIf CType(Form1.PropMySetting.AutobackupInterval, Double) = 7 * 60 Then
             AutoBackupInterval.SelectedIndex = 8
         Else
             AutoBackupInterval.SelectedIndex = 1
         End If
 
-        BackupFolder.Text = Form1.pMySetting.BackupFolder
-        AutoBackup.Checked = Form1.pMySetting.AutoBackup
+        BaseFolder.Text = Form1.PropMySetting.BackupFolder
+        AutoBackup.Checked = Form1.PropMySetting.AutoBackup
         Form1.HelpOnce("Backup")
         SetScreen()
 
@@ -81,8 +81,8 @@ Public Class FormBackups
 
     Private Sub ABEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles AutoBackup.CheckedChanged
 
-        Form1.pMySetting.AutoBackup = AutoBackup.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.AutoBackup = AutoBackup.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -109,9 +109,9 @@ Public Class FormBackups
         If text = "5 days" Then Interval = 5 * 60 * 24
         If text = "6 days" Then Interval = 6 * 60 * 24
         If text = "Weekly" Then Interval = 7 * 60 * 24
-        Form1.pMySetting.AutobackupInterval = Interval.ToString(Form1.Usa)
+        Form1.PropMySetting.AutobackupInterval = Interval.ToString(Form1.Usa)
 
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.SaveSettings()
     End Sub
 
     Private Sub AutoBackupKeepFilesForDays_TextChanged(sender As Object, e As EventArgs) Handles AutoBackupKeepFilesForDays.TextChanged
@@ -121,18 +121,18 @@ Public Class FormBackups
 
         Try
             If Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa) > 0 Then
-                Form1.pMySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa)
-                Form1.pMySetting.SaveSettings()
+                Form1.PropMySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa)
+                Form1.PropMySetting.SaveSettings()
             End If
         Catch
             MsgBox("Must be a number of days", vbInformation)
-            Form1.pMySetting.KeepForDays = 30
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.KeepForDays = 30
+            Form1.PropMySetting.SaveSettings()
         End Try
 
     End Sub
 
-    Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BackupFolder.Click
+    Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BaseFolder.Click
 
         Backup()
 
@@ -167,13 +167,15 @@ Public Class FormBackups
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.SelectedPath
             If thing.Length > 0 Then
-                Form1.pMySetting.BackupFolder = thing
-                Form1.pMySetting.SaveSettings()
-                BackupFolder.Text = thing
+                Form1.PropMySetting.BackupFolder = thing
+                Form1.PropMySetting.SaveSettings()
+                BaseFolder.Text = thing
             End If
         End If
 
     End Sub
+
+
 
 #End Region
 

@@ -33,14 +33,14 @@ Public Class FormRestart
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoRestartBox.Text = Form1.pMySetting.AutoRestartInterval.ToString(Form1.Usa)
+        AutoRestartBox.Text = Form1.PropMySetting.AutoRestartInterval.ToString(Form1.Usa)
         If AutoRestartBox.Text.Length > 0 Then
             ARTimerBox.Checked = True
         End If
-        AutoStartCheckbox.Checked = Form1.pMySetting.Autostart
-        SequentialCheckBox1.Checked = Form1.pMySetting.Sequential
-        RestartOnCrash.Checked = Form1.pMySetting.RestartOnCrash
-        RestartOnPhysicsCrash.Checked = Form1.pMySetting.RestartonPhysics
+        AutoStartCheckbox.Checked = Form1.PropMySetting.Autostart
+        SequentialCheckBox1.Checked = Form1.PropMySetting.Sequential
+        RestartOnCrash.Checked = Form1.PropMySetting.RestartOnCrash
+        RestartOnPhysicsCrash.Checked = Form1.PropMySetting.RestartonPhysics
 
         SetScreen()
         Form1.HelpOnce("Restart")
@@ -54,8 +54,8 @@ Public Class FormRestart
     Private Sub AutoStartCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoStartCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.Autostart = AutoStartCheckbox.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.Autostart = AutoStartCheckbox.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -72,8 +72,8 @@ Public Class FormRestart
         AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
 
         Try
-            Form1.pMySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.Usa)
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.Usa)
+            Form1.PropMySetting.SaveSettings()
         Catch
         End Try
 
@@ -83,34 +83,34 @@ Public Class FormRestart
 
         If Not initted Then Return
         If ARTimerBox.Checked Then
-            Dim BTime As Int16 = CType(Form1.pMySetting.AutobackupInterval, Int16)
-            If Form1.pMySetting.AutoBackup And Form1.pMySetting.AutoRestartInterval > 0 And Form1.pMySetting.AutoRestartInterval < BTime Then
-                Form1.pMySetting.AutoRestartInterval = BTime + 30
+            Dim BTime As Int16 = CType(Form1.PropMySetting.AutobackupInterval, Int16)
+            If Form1.PropMySetting.AutoBackup And Form1.PropMySetting.AutoRestartInterval > 0 And Form1.PropMySetting.AutoRestartInterval < BTime Then
+                Form1.PropMySetting.AutoRestartInterval = BTime + 30
                 AutoRestartBox.Text = (BTime + 30).ToString(Form1.Usa)
                 MsgBox("Upping AutoRestart Time to " + BTime.ToString(Form1.Usa) + " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
         Else
-            Form1.pMySetting.AutoRestartInterval = 0
+            Form1.PropMySetting.AutoRestartInterval = 0
             AutoRestartBox.Text = "0"
         End If
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub SequentialCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SequentialCheckBox1.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.Sequential = SequentialCheckBox1.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.Sequential = SequentialCheckBox1.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub RestartOnCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnCrash.CheckedChanged
-        Form1.pMySetting.RestartOnCrash = RestartOnCrash.Checked
+        Form1.PropMySetting.RestartOnCrash = RestartOnCrash.Checked
     End Sub
 
     Private Sub RestartOnPhysicsCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnPhysicsCrash.CheckedChanged
-        Form1.pMySetting.RestartonPhysics = RestartOnPhysicsCrash.Checked
+        Form1.PropMySetting.RestartonPhysics = RestartOnPhysicsCrash.Checked
     End Sub
 
 #End Region

@@ -5,7 +5,7 @@ Imports Outworldz
 
 Public Class FormRegions
 
-    Dim pRegionClass As RegionMaker = RegionMaker.Instance()
+    Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
 
 #Region "ScreenSize"
 
@@ -21,12 +21,12 @@ Public Class FormRegions
         End Set
     End Property
 
-    Public Property PRegionClass1 As RegionMaker
+    Public Property PropRegionClass1 As RegionMaker
         Get
-            Return pRegionClass
+            Return PropRegionClass
         End Get
         Set(value As RegionMaker)
-            pRegionClass = value
+            PropRegionClass = value
         End Set
     End Property
 
@@ -52,9 +52,9 @@ Public Class FormRegions
         LoadWelcomeBox()
         LoadRegionBox()
 
-        X.Text = Form1.pMySetting.HomeVectorX
-        Y.Text = Form1.pMySetting.HomeVectorY
-        Z.Text = Form1.pMySetting.HomeVectorZ
+        X.Text = Form1.PropMySetting.HomeVectorX
+        Y.Text = Form1.PropMySetting.HomeVectorY
+        Z.Text = Form1.PropMySetting.HomeVectorZ
 
         Form1.HelpOnce("Regions")
         SetScreen()
@@ -63,14 +63,14 @@ Public Class FormRegions
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
 
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
-        Form1.pMySetting.WelcomeRegion = value
+        Form1.PropMySetting.WelcomeRegion = value
 
         Debug.Print("Selected " + value)
 
@@ -82,9 +82,9 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each Z As Integer In PRegionClass1.RegionNumbers
+        For Each Z As Integer In PropRegionClass1.RegionNumbers
             Try
-                Dim RegionName = PRegionClass1.RegionName(Z)
+                Dim RegionName = PropRegionClass1.RegionName(Z)
                 Dim RegionForm As New FormRegion
 
                 RegionForm.Init(RegionName)
@@ -107,7 +107,7 @@ Public Class FormRegions
         Dim X As Integer = 300
         Dim Y As Integer = 200
 
-        PRegionClass1.CreateRegion("")
+        PropRegionClass1.CreateRegion("")
 
         Dim RegionForm As New FormRegion
         RegionForm.Init("")
@@ -121,13 +121,13 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each X As Integer In PRegionClass1.RegionNumbers
-            'If pRegionClass.RegionEnabled(X) Then
-            WelcomeBox1.Items.Add(PRegionClass1.RegionName(X))
+        For Each X As Integer In PropRegionClass1.RegionNumbers
+            'If PropRegionClass.RegionEnabled(X) Then
+            WelcomeBox1.Items.Add(PropRegionClass1.RegionName(X))
             'End If
         Next
 
-        Dim s = WelcomeBox1.FindString(Form1.pMySetting.WelcomeRegion)
+        Dim s = WelcomeBox1.FindString(Form1.PropMySetting.WelcomeRegion)
         If s > -1 Then
             WelcomeBox1.SelectedIndex = s
         Else
@@ -143,8 +143,8 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each X As Integer In PRegionClass1.RegionNumbers
-            RegionBox.Items.Add(PRegionClass1.RegionName(X))
+        For Each X As Integer In PropRegionClass1.RegionNumbers
+            RegionBox.Items.Add(PropRegionClass1.RegionName(X))
         Next
 
     End Sub
@@ -167,19 +167,19 @@ Public Class FormRegions
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
-        Form1.pMySetting.HomeVectorX = X.Text
+        Form1.PropMySetting.HomeVectorX = X.Text
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Y.Text = digitsOnly.Replace(Y.Text, "")
-        Form1.pMySetting.HomeVectorY = Y.Text
+        Form1.PropMySetting.HomeVectorY = Y.Text
     End Sub
 
     Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
-        Form1.pMySetting.HomeVectorZ = Z.Text
+        Form1.PropMySetting.HomeVectorZ = Z.Text
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
@@ -189,21 +189,21 @@ Public Class FormRegions
             Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
-            Dim RegionNum = PRegionClass1.FindRegionByName(chosen)
-            Dim X = PRegionClass1.CoordX(RegionNum)
-            Dim Y = PRegionClass1.CoordY(RegionNum)
+            Dim RegionNum = PropRegionClass1.FindRegionByName(chosen)
+            Dim X = PropRegionClass1.CoordX(RegionNum)
+            Dim Y = PropRegionClass1.CoordY(RegionNum)
             Dim Err As Boolean = False
             Dim Failed As String = ""
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each RegionNumber In PRegionClass1.RegionNumbers
-                If (PRegionClass1.CoordX(RegionNumber) + DeltaX) <= 0 Then
+            For Each RegionNumber In PropRegionClass1.RegionNumbers
+                If (PropRegionClass1.CoordX(RegionNumber) + DeltaX) <= 0 Then
                     Err = True
-                    Failed = PRegionClass1.RegionName(RegionNumber)
+                    Failed = PropRegionClass1.RegionName(RegionNumber)
                 End If
-                If (PRegionClass1.CoordY(RegionNumber) + DeltaY) <= 0 Then
+                If (PropRegionClass1.CoordY(RegionNumber) + DeltaY) <= 0 Then
                     Err = True
-                    Failed = PRegionClass1.RegionName(RegionNumber)
+                    Failed = PropRegionClass1.RegionName(RegionNumber)
                 End If
             Next
 
@@ -212,10 +212,10 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each RegionNumber In PRegionClass1.RegionNumbers
-                PRegionClass1.CoordX(RegionNumber) = PRegionClass1.CoordX(RegionNumber) + DeltaX
-                PRegionClass1.CoordY(RegionNumber) = PRegionClass1.CoordY(RegionNumber) + DeltaY
-                PRegionClass1.WriteRegionObject(PRegionClass1.RegionName(RegionNumber))
+            For Each RegionNumber In PropRegionClass1.RegionNumbers
+                PropRegionClass1.CoordX(RegionNumber) = PropRegionClass1.CoordX(RegionNumber) + DeltaX
+                PropRegionClass1.CoordY(RegionNumber) = PropRegionClass1.CoordY(RegionNumber) + DeltaY
+                PropRegionClass1.WriteRegionObject(PropRegionClass1.RegionName(RegionNumber))
             Next
 
         End If

@@ -193,8 +193,8 @@ Public Class UPnp
     Public Function LocalIP() As String
 
         If CacheIP.Length = 0 Then
-            If Form1.pMySetting.DNSName = "localhost" Or Form1.pMySetting.DNSName = "127.0.0.1" Then
-                Return Form1.pMySetting.DNSName
+            If Form1.PropMySetting.DNSName = "localhost" Or Form1.PropMySetting.DNSName = "127.0.0.1" Then
+                Return Form1.PropMySetting.DNSName
             End If
 
             Dim sock As Socket = New Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0)

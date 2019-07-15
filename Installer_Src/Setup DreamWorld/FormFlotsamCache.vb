@@ -6,15 +6,15 @@ Public Class FormFlotsamCache
 
     Private Sub Form_Load() Handles Me.Load
 
-        CacheFolder.Text = Form1.pMySetting.CacheFolder
-        CacheEnabledBox.Checked = Form1.pMySetting.CacheEnabled
-        CacheTimeout.Text = Form1.pMySetting.CacheTimeout
-        LogLevelBox.SelectedIndex = CType(Form1.pMySetting.CacheLogLevel, Integer)
+        CacheFolder.Text = Form1.PropMySetting.CacheFolder
+        CacheEnabledBox.Checked = Form1.PropMySetting.CacheEnabled
+        CacheTimeout.Text = Form1.PropMySetting.CacheTimeout
+        LogLevelBox.SelectedIndex = CType(Form1.PropMySetting.CacheLogLevel, Integer)
 
         Dim fsize As Double
         Dim folder As String
         If CacheFolder.Text = ".\assetcache" Then
-            folder = Form1.pMySetting.OpensimBinPath & "bin/assetcache"
+            folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
         Else
             folder = CacheFolder.Text
         End If
@@ -23,7 +23,7 @@ Public Class FormFlotsamCache
             Dim finnfo As New System.IO.FileInfo(file)
             fsize += finnfo.Length
         Next
-        fsize = fsize / 1024
+        fsize /= 1024
         Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
         CacheSizeLabel.Text = Text
 
@@ -32,12 +32,12 @@ Public Class FormFlotsamCache
     End Sub
     Private Sub Form_unload() Handles Me.Closing
 
-        Form1.pMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Usa)
-        Form1.pMySetting.CacheFolder = CacheFolder.Text
-        Form1.pMySetting.CacheEnabled = CacheEnabledBox.Checked
-        Form1.pMySetting.CacheTimeout = CacheTimeout.Text
+        Form1.PropMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Usa)
+        Form1.PropMySetting.CacheFolder = CacheFolder.Text
+        Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
+        Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
 
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -58,8 +58,8 @@ Public Class FormFlotsamCache
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.SelectedPath
             If thing.Length > 0 Then
-                Form1.pMySetting.BackupFolder = thing
-                Form1.pMySetting.SaveSettings()
+                Form1.PropMySetting.BackupFolder = thing
+                Form1.PropMySetting.SaveSettings()
                 CacheFolder.Text = thing
             End If
         End If

@@ -1,4 +1,4 @@
-﻿Public Class FormDisplacement1X1
+Public Class FormDisplacement1X1
 
 #Region "ScreenSize"
 
@@ -35,8 +35,8 @@
 
         SetScreen()
 
-        Form1.pSelectedBox = ""
-        If Form1.pForceParcel Then
+        Form1.PropSelectedBox = ""
+        If Form1.PropForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -45,7 +45,7 @@
 
         End If
 
-        If Form1.pForceTerrain Then
+        If Form1.PropForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -53,7 +53,7 @@
             OriginalTererainToolStripMenuItem.Checked = True
         End If
 
-        If Form1.pForceMerge Then
+        If Form1.PropForceMerge Then
             MergeOARToolStripMenuItem.Checked = True
             ClearOARToolStripMenuItem.Checked = False
         Else
@@ -70,11 +70,11 @@
         'Dim RegionPhoto = New RegionPhoto(Name)
 
         'map-1-1000-1000-objects
-        Dim Xcoord = Form1.pRegionClass.CoordX(RegionNumber)
-        Dim Ycoord = Form1.pRegionClass.CoordY(RegionNumber)
+        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionNumber)
+        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionNumber)
 
         Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.pOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
         Try
             Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
             PictureBox3.Image = Pic
@@ -86,13 +86,13 @@
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.pSelectedBox = " --displacement <0,0,0>  "
+        Form1.PropSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
     End Sub
 
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
-        Form1.pForceMerge = False
+        Form1.PropForceMerge = False
         MergeOARToolStripMenuItem.Checked = False
         ClearOARToolStripMenuItem.Checked = True
 
@@ -100,7 +100,7 @@
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        Form1.pForceMerge = True
+        Form1.PropForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
 
@@ -108,7 +108,7 @@
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        Form1.pForceTerrain = True
+        Form1.PropForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -116,7 +116,7 @@
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        Form1.pForceTerrain = False
+        Form1.PropForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -124,7 +124,7 @@
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        Form1.pForceParcel = True
+        Form1.PropForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -132,7 +132,7 @@
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        Form1.pForceParcel = False
+        Form1.PropForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -143,7 +143,7 @@
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.pUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+        Form1.PropUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
 
 End Class

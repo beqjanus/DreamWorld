@@ -39,10 +39,10 @@ Public Class FormPublicity
 
         SetScreen()
 
-        GDPRCheckBox.Checked = Form1.pMySetting.GDPR()
+        GDPRCheckBox.Checked = Form1.PropMySetting.GDPR()
 
         Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.pMyFolder & "\OutworldzFiles\Photo.png")
+            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
         Catch
             PictureBox9.Image = My.Resources.blankbox
         End Try
@@ -54,8 +54,8 @@ Public Class FormPublicity
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
         If initted Then
-            Form1.pMySetting.GDPR() = GDPRCheckBox.Checked
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.GDPR() = GDPRCheckBox.Checked
+            Form1.PropMySetting.SaveSettings()
         End If
 
     End Sub
@@ -79,12 +79,12 @@ Public Class FormPublicity
                 PictureBox9.Image = Nothing
                 PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
-                    My.Computer.FileSystem.DeleteFile(Form1.pMyFolder & "\OutworldzFiles\Photo.png")
+                    My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
                 Catch ex As Exception
                     Form1.Log("Warn", ex.Message)
                 End Try
                 Try
-                    PictureBox9.Image.Save(Form1.pMyFolder & "\OutworldzFiles\Photo.png", System.Drawing.Imaging.ImageFormat.Png)
+                    PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", System.Drawing.Imaging.ImageFormat.Png)
                 Catch ex As Exception
                     Form1.ErrorLog(ex.Message)
                 End Try

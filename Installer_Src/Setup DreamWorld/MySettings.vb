@@ -103,7 +103,7 @@ Public Class MySettings
             RegionDBUsername() = My.Settings.RegionDBUsername
 
             ' Robust
-            RobustConnStr() = Form1.pRobustConnStr
+            RobustConnStr() = Form1.PropRobustConnStr
             RobustServer() = My.Settings.RobustServer
             RobustPassword() = My.Settings.RobustPassword
             RobustUsername() = My.Settings.RobustUsername
@@ -124,7 +124,7 @@ Public Class MySettings
             'email
             SmtpHost() = "smtp.gmail.com"
             SmtpPort() = "587"
-            SmtpUsername() = My.Settings.SmtpUsername
+            SmtPropUserName() = My.Settings.SmtPropUserName
             SmtpPassword() = My.Settings.SmtpPassword
 
             SplashPage() = My.Settings.SplashPage
@@ -332,26 +332,6 @@ Public Class MySettings
         End Set
     End Property
 
-    'FallbackService
-    Public Property FallbackService() As String
-        Get
-            Return GetMySetting("FallbackService", "OpenSim.Services.AssetService.dll:AssetService")
-        End Get
-        Set
-            SetMySetting("FallbackService", Value)
-        End Set
-    End Property
-
-    'DaysBetweenAccessTimeUpdates
-    Public Property DaysBetweenAccessTimeUpdates() As String
-        Get
-            Return GetMySetting("DaysBetweenAccessTimeUpdates", "30")
-        End Get
-        Set
-            SetMySetting("DaysBetweenAccessTimeUpdates", Value)
-        End Set
-    End Property
-
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
@@ -359,57 +339,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)
-        End Set
-    End Property
-
-    'StorageProvider
-    Public Property StorageProvider() As String
-        Get
-            Return GetMySetting("StorageProvider", "")
-        End Get
-        Set
-            SetMySetting("StorageProvider", Value)
-        End Set
-    End Property
-
-    'ConnectionString 
-    Public Property ConnectionString() As String
-        Get
-            Return GetMySetting("ConnectionString", "")
-        End Get
-        Set
-            SetMySetting("ConnectionString", Value)
-        End Set
-    End Property
-
-    'Realm 
-    Public Property Realm() As String
-        Get
-            Return GetMySetting("Realm", "fsassets")
-        End Get
-        Set
-            SetMySetting("Realm", Value)
-        End Set
-    End Property
-
-
-
-    'AllowRemoteDelete
-    Public Property AllowRemoteDelete() As String
-        Get
-            Return GetMySetting("AllowRemoteDelete", "false")
-        End Get
-        Set
-            SetMySetting("AllowRemoteDelete", Value)
-        End Set
-    End Property
-    'AllowRemoteDeleteAllTypes
-    Public Property AllowRemoteDeleteAllTypes() As String
-        Get
-            Return GetMySetting("AllowRemoteDeleteAllTypes", "false")
-        End Get
-        Set
-            SetMySetting("AllowRemoteDeleteAllTypes", Value)
         End Set
     End Property
 
@@ -1204,12 +1133,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SmtpUsername() As String
+    Public Property SmtPropUserName() As String
         Get
-            Return GetMySetting("SmtpUsername")
+            Return GetMySetting("SmtPropUserName")
         End Get
         Set
-            SetMySetting("SmtpUsername", Value)
+            SetMySetting("SmtPropUserName", Value)
         End Set
     End Property
 

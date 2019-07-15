@@ -1,10 +1,10 @@
-﻿Imports System.IO
+Imports System.IO
 Public Class ClrCache
 
     Public Sub WipeScripts()
 
-        If Not Form1.pOpensimIsRunning() Then
-            Dim folders() = Directory.GetFiles(Form1.pOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+        If Not Form1.PropOpensimIsRunning() Then
+            Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
             Form1.Print("Clearing Script cache. This may take a long time!")
             Dim ctr As Integer = 0
             For Each script As String In folders
@@ -28,7 +28,7 @@ Public Class ClrCache
 
         Form1.Print("Clearing bake cache")
         Try
-            My.Computer.FileSystem.DeleteDirectory(Form1.pOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
         Catch
         End Try
 
@@ -39,7 +39,7 @@ Public Class ClrCache
 
         Form1.Print("Clearing Asset cache. This may take a long time!")
         Try
-            Dim folders() = Directory.GetDirectories(Form1.pOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
+            Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
             Dim ctr As Integer = 0
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -56,7 +56,7 @@ Public Class ClrCache
 
         Try
             Form1.Print("Clearing Image cache.")
-            Dim folders() = IO.Directory.GetDirectories(Form1.pOpensimBinPath & "bin\j2kDecodeCache\")
+            Dim folders() = IO.Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
             Dim ctr = 0
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -73,12 +73,12 @@ Public Class ClrCache
 
         Try
             Form1.Print("Clearing Mesh cache")
-            Dim fCount As Integer = Directory.GetFiles(Form1.pOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
+            Dim fCount As Integer = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
 
-            Dim folders() = Directory.GetFiles(Form1.pOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
+            Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                My.Computer.FileSystem.DeleteDirectory(Form1.pOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr = ctr + 1
                 Form1.Print(ctr.ToString(Form1.Usa) + " of " + fCount.ToString(Form1.Usa))
                 Application.DoEvents()

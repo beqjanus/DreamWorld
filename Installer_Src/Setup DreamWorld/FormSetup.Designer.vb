@@ -9,8 +9,8 @@ Partial Class Form1
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
             End If
-            If disposing AndAlso pMyUPnpMap IsNot Nothing Then
-                pMyUPnpMap.Dispose()
+            If disposing AndAlso PropMyUPnpMap IsNot Nothing Then
+                PropMyUPnpMap.Dispose()
             End If
         Finally
             MyBase.Dispose(disposing)

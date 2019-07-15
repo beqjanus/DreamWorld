@@ -31,16 +31,16 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        EnableMaxPrims.Checked = Form1.pMySetting.Primlimits()
+        EnableMaxPrims.Checked = Form1.PropMySetting.Primlimits()
 
         'gods
-        AllowGods.Checked = Form1.pMySetting.AllowGridGods
-        RegionGod.Checked = Form1.pMySetting.RegionOwnerIsGod
-        ManagerGod.Checked = Form1.pMySetting.RegionManagerIsGod
-        Clouds.Checked = Form1.pMySetting.Clouds
-        LSLCheckbox.Checked = Form1.pMySetting.LSLHTTP()
+        AllowGods.Checked = Form1.PropMySetting.AllowGridGods
+        RegionGod.Checked = Form1.PropMySetting.RegionOwnerIsGod
+        ManagerGod.Checked = Form1.PropMySetting.RegionManagerIsGod
+        Clouds.Checked = Form1.PropMySetting.Clouds
+        LSLCheckbox.Checked = Form1.PropMySetting.LSLHTTP()
 
-        Dim var As Double = Form1.pMySetting.Density
+        Dim var As Double = Form1.PropMySetting.Density
 
         If var = -1 Then var = 5
 
@@ -66,8 +66,8 @@
     Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
 
         If initted Then
-            Form1.pMySetting.LSLHTTP() = LSLCheckbox.Checked
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.LSLHTTP() = LSLCheckbox.Checked
+            Form1.PropMySetting.SaveSettings()
         End If
 
     End Sub
@@ -75,8 +75,8 @@
     Private Sub EnableMaxPrims_CheckedChanged(sender As Object, e As EventArgs) Handles EnableMaxPrims.CheckedChanged
 
         If initted Then
-            Form1.pMySetting.Primlimits() = EnableMaxPrims.Checked
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.Primlimits() = EnableMaxPrims.Checked
+            Form1.PropMySetting.SaveSettings()
         End If
 
     End Sub
@@ -84,32 +84,32 @@
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.AllowGridGods = AllowGods.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.AllowGridGods = AllowGods.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.RegionOwnerIsGod = RegionGod.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.RegionOwnerIsGod = RegionGod.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.RegionManagerIsGod = ManagerGod.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.RegionManagerIsGod = ManagerGod.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles Clouds.CheckedChanged
 
         If Not initted Then Return
-        Form1.pMySetting.Clouds = Clouds.Checked
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.Clouds = Clouds.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -124,8 +124,8 @@
             If (var < 0) Then var = 0
             Debug.Print(var.ToString(Form1.Usa))
 
-            Form1.pMySetting.Density = var
-            Form1.pMySetting.SaveSettings()
+            Form1.PropMySetting.Density = var
+            Form1.PropMySetting.SaveSettings()
         End If
 
     End Sub

@@ -134,10 +134,10 @@ Public Class UploadImage
 
         Try
             Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
-            Dim File = Form1.pMyFolder & "\OutworldzFiles\Photo.png"
+            Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
             Dim params As New Specialized.NameValueCollection From {
-                {"MachineID", Form1.pMySetting.MachineID()},
-                {"DnsName", Form1.pMySetting.PublicIP}
+                {"MachineID", Form1.PropMySetting.MachineID()},
+                {"DnsName", Form1.PropMySetting.PublicIP}
             }
 
             Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)

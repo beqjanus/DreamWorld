@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormBackups
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormBackups
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackups))
@@ -28,7 +28,7 @@ Partial Class FormBackups
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.AutoBackupHelp = New System.Windows.Forms.PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.BackupFolder = New System.Windows.Forms.TextBox()
+        Me.BaseFolder = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.AutoBackupKeepFilesForDays = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -45,7 +45,7 @@ Partial Class FormBackups
         Me.GroupBox3.Controls.Add(Me.PictureBox1)
         Me.GroupBox3.Controls.Add(Me.AutoBackupHelp)
         Me.GroupBox3.Controls.Add(Me.Label6)
-        Me.GroupBox3.Controls.Add(Me.BackupFolder)
+        Me.GroupBox3.Controls.Add(Me.BaseFolder)
         Me.GroupBox3.Controls.Add(Me.Label9)
         Me.GroupBox3.Controls.Add(Me.AutoBackupKeepFilesForDays)
         Me.GroupBox3.Controls.Add(Me.Label8)
@@ -53,7 +53,7 @@ Partial Class FormBackups
         Me.GroupBox3.Controls.Add(Me.AutoBackup)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(253, 193)
+        Me.GroupBox3.Size = New System.Drawing.Size(253, 184)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Auto Backup"
@@ -62,7 +62,7 @@ Partial Class FormBackups
         '
         Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Location = New System.Drawing.Point(178, 120)
+        Me.PictureBox1.Location = New System.Drawing.Point(191, 120)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(41, 33)
         Me.PictureBox1.TabIndex = 1858
@@ -83,17 +83,17 @@ Partial Class FormBackups
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(6, 110)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(83, 13)
+        Me.Label6.Size = New System.Drawing.Size(76, 13)
         Me.Label6.TabIndex = 16
-        Me.Label6.Text = "Save To Folder:"
+        Me.Label6.Text = "Backup Folder"
         '
-        'BackupFolder
+        'BaseFolder
         '
-        Me.BackupFolder.Location = New System.Drawing.Point(9, 133)
-        Me.BackupFolder.Name = "BackupFolder"
-        Me.BackupFolder.Size = New System.Drawing.Size(163, 20)
-        Me.BackupFolder.TabIndex = 4
-        Me.ToolTip1.SetToolTip(Me.BackupFolder, "Normally set to ""AutoBackup"" folder in OutworldzFiles.  Click to change the folde" &
+        Me.BaseFolder.Location = New System.Drawing.Point(9, 133)
+        Me.BaseFolder.Name = "BaseFolder"
+        Me.BaseFolder.Size = New System.Drawing.Size(176, 20)
+        Me.BaseFolder.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.BaseFolder, "Normally set to ""AutoBackup"" folder in OutworldzFiles.  Click to change the folde" &
         "r")
         '
         'Label9
@@ -148,7 +148,7 @@ Partial Class FormBackups
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(278, 218)
+        Me.ClientSize = New System.Drawing.Size(278, 209)
         Me.Controls.Add(Me.GroupBox3)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -165,7 +165,7 @@ Partial Class FormBackups
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents AutoBackupHelp As PictureBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents BackupFolder As TextBox
+    Friend WithEvents BaseFolder As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents AutoBackupKeepFilesForDays As TextBox
     Friend WithEvents Label8 As Label

@@ -52,7 +52,7 @@ Public Class Choice
         DataGridView.MultiSelect = False
 
         DataGridView.Text = "Select from..."
-        Dim pRegionClass As RegionMaker = RegionMaker.Instance()
+        Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
 
         Dim L As New List(Of String)
 
@@ -61,16 +61,16 @@ Public Class Choice
             DataGridView.Rows.Add("! Add New Name")
         End If
 
-        For Each RegionNumber As Integer In pRegionClass.RegionNumbers
+        For Each RegionNumber As Integer In PropRegionClass.RegionNumbers
             Dim name As String
             If type = "Group" Then
-                name = pRegionClass.GroupName(RegionNumber)
+                name = PropRegionClass.GroupName(RegionNumber)
             Else
-                name = pRegionClass.RegionName(RegionNumber)
+                name = PropRegionClass.RegionName(RegionNumber)
             End If
 
             ' Only show running sims option
-            If (JustRunning And pRegionClass.IsBooted(RegionNumber)) Then
+            If (JustRunning And PropRegionClass.IsBooted(RegionNumber)) Then
                 If L.Contains(name) Then
                 Else
                     If name.Length > 0 Then DataGridView.Rows.Add(name)

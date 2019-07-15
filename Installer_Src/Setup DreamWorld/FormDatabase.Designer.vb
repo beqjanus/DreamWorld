@@ -35,6 +35,7 @@ Partial Class FormDatabase
         Me.Label21 = New System.Windows.Forms.Label()
         Me.RegionMySqlPassword = New System.Windows.Forms.TextBox()
         Me.GridGroup = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.RobustServer = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Dbnameindex = New System.Windows.Forms.Label()
@@ -55,7 +56,6 @@ Partial Class FormDatabase
         Me.GridRegionButton = New System.Windows.Forms.RadioButton()
         Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GridServerButton = New System.Windows.Forms.RadioButton()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
@@ -168,7 +168,7 @@ Partial Class FormDatabase
         'GridGroup
         '
         Me.GridGroup.Controls.Add(Me.Label3)
-        Me.GridGroup.Controls.Add(Me.CheckBox1)
+        Me.GridGroup.Controls.Add(Me.Button1)
         Me.GridGroup.Controls.Add(Me.RobustServer)
         Me.GridGroup.Controls.Add(Me.Label16)
         Me.GridGroup.Controls.Add(Me.Dbnameindex)
@@ -181,10 +181,19 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
         Me.GridGroup.Location = New System.Drawing.Point(25, 37)
         Me.GridGroup.Name = "GridGroup"
-        Me.GridGroup.Size = New System.Drawing.Size(219, 177)
+        Me.GridGroup.Size = New System.Drawing.Size(219, 210)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust Database"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(98, 165)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(107, 23)
+        Me.Button1.TabIndex = 1884
+        Me.Button1.Text = "FsAssets Server"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
         '
@@ -368,30 +377,20 @@ Partial Class FormDatabase
         Me.GridServerButton.Text = "Grid Server With Robust"
         Me.GridServerButton.UseVisualStyleBackColor = True
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(98, 154)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(130, 17)
-        Me.CheckBox1.TabIndex = 42
-        Me.CheckBox1.Text = "Use File System folder"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(17, 154)
+        Me.Label3.Location = New System.Drawing.Point(17, 170)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(49, 13)
-        Me.Label3.TabIndex = 43
-        Me.Label3.Text = "FsAssets"
+        Me.Label3.Size = New System.Drawing.Size(77, 13)
+        Me.Label3.TabIndex = 1885
+        Me.Label3.Text = "Assets as FIles"
         '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(747, 225)
+        Me.ClientSize = New System.Drawing.Size(747, 259)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StandaloneGroup)
@@ -448,6 +447,6 @@ Partial Class FormDatabase
     Friend WithEvents GridServerButton As RadioButton
     Friend WithEvents SaveButton As Button
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Button1 As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents CheckBox1 As CheckBox
 End Class

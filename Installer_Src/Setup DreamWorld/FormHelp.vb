@@ -35,7 +35,7 @@
         SetScreen(Webpage)
 
         Try
-            Dim Page As String = Form1.pMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
+            Dim Page As String = Form1.PropMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
             RichTextBox1.LoadFile(Page)
         Catch ex As Exception
             MsgBox("Sorry, Help is not yet available for this.", vbInformation)
@@ -94,7 +94,7 @@
     End Sub
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
-        Dim info = New ProcessStartInfo(Form1.pMyFolder + "\Outworldzfiles\Help\" + Document + ".rtf") With {
+        Dim info = New ProcessStartInfo(Form1.PropMyFolder + "\Outworldzfiles\Help\" + Document + ".rtf") With {
             .Verb = "Print",
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Hidden

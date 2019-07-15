@@ -1,4 +1,4 @@
-﻿Imports System.Text.RegularExpressions
+Imports System.Text.RegularExpressions
 
 Public Class FormMaps
     Private _screenPosition As ScreenPos
@@ -29,32 +29,32 @@ Public Class FormMaps
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-        If Form1.pMySetting.MapType = "None" Then
+        If Form1.PropMySetting.MapType = "None" Then
             MapNone.Checked = True
             MapPicture.Image = My.Resources.blankbox
-        ElseIf Form1.pMySetting.MapType = "Simple" Then
+        ElseIf Form1.PropMySetting.MapType = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = My.Resources.Simple
-        ElseIf Form1.pMySetting.MapType = "Good" Then
+        ElseIf Form1.PropMySetting.MapType = "Good" Then
             MapGood.Checked = True
             MapPicture.Image = My.Resources.Good
-        ElseIf Form1.pMySetting.MapType = "Better" Then
+        ElseIf Form1.PropMySetting.MapType = "Better" Then
             MapBetter.Checked = True
             MapPicture.Image = My.Resources.Better
-        ElseIf Form1.pMySetting.MapType = "Best" Then
+        ElseIf Form1.PropMySetting.MapType = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = My.Resources.Best
         End If
 
-        If Form1.pOpensimIsRunning Then
+        If Form1.PropOpensimIsRunning Then
             Button2.Enabled = True
         Else
             Button2.Enabled = False
         End If
 
-        If Form1.pMySetting.ApacheEnable Then
-            MapYStart.Text = Form1.pMySetting.MapCenterY
-            MapXStart.Text = Form1.pMySetting.MapCenterX
+        If Form1.PropMySetting.ApacheEnable Then
+            MapYStart.Text = Form1.PropMySetting.MapCenterY
+            MapXStart.Text = Form1.PropMySetting.MapCenterX
             MapYStart.Enabled = True
             MapXStart.Enabled = True
             LargeMapButton.Enabled = True
@@ -79,40 +79,40 @@ Public Class FormMaps
 
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
-        Form1.pMySetting.MapType = "None"
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.MapType = "None"
+        Form1.PropMySetting.SaveSettings()
         MapPicture.Image = My.Resources.blankbox
 
     End Sub
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
-        Form1.pMySetting.MapType = "Simple"
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.MapType = "Simple"
+        Form1.PropMySetting.SaveSettings()
         MapPicture.Image = My.Resources.Simple
 
     End Sub
 
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
-        Form1.pMySetting.MapType = "Good"
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.MapType = "Good"
+        Form1.PropMySetting.SaveSettings()
         MapPicture.Image = My.Resources.Good
 
     End Sub
 
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
-        Form1.pMySetting.MapType = "Better"
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.MapType = "Better"
+        Form1.PropMySetting.SaveSettings()
         MapPicture.Image = My.Resources.Better
 
     End Sub
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
-        Form1.pMySetting.MapType = "Best"
-        Form1.pMySetting.SaveSettings()
+        Form1.PropMySetting.MapType = "Best"
+        Form1.PropMySetting.SaveSettings()
         MapPicture.Image = My.Resources.Best
 
     End Sub
@@ -121,8 +121,8 @@ Public Class FormMaps
 
         Try
             Form1.Print("Clearing Maptiles")
-            My.Computer.FileSystem.DeleteDirectory(Form1.pOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
-            My.Computer.FileSystem.CreateDirectory(Form1.pOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
+            My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
         Catch ex As Exception
             Form1.Log("Warn", ex.Message)
             Return
@@ -132,30 +132,30 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim webAddress As String = "http://" + Form1.pMySetting.PublicIP + ":" + Form1.pMySetting.HttpPort & "/wifi/map.html"
+        Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP + ":" + Form1.PropMySetting.HttpPort & "/wifi/map.html"
         Process.Start(webAddress)
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
-        Dim webAddress As String = "http://" + Form1.pMySetting.PublicIP & ":" & Form1.pMySetting.ApachePort & "/Metromap/index.php"
+        Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP & ":" & Form1.PropMySetting.ApachePort & "/Metromap/index.php"
         Process.Start(webAddress)
     End Sub
 
     Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
-        Dim webAddress As String = "http://" + Form1.pMySetting.PublicIP & ":" & Form1.pMySetting.ApachePort & "/Metromap/indexmax.php"
+        Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP & ":" & Form1.PropMySetting.ApachePort & "/Metromap/indexmax.php"
         Process.Start(webAddress)
     End Sub
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
-        Form1.pMySetting.MapCenterX = MapXStart.Text
+        Form1.PropMySetting.MapCenterX = MapXStart.Text
     End Sub
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
-        Form1.pMySetting.MapCenterY = MapYStart.Text
+        Form1.PropMySetting.MapCenterY = MapYStart.Text
     End Sub
 
 End Class
