@@ -2,6 +2,7 @@
 
 #Region "Declarations"
     Dim initted As Boolean = False
+    Dim _changed As Boolean = False
 #End Region
 
 #Region "ScreenSize"
@@ -35,7 +36,14 @@
             _screenPosition = value
         End Set
     End Property
-
+    Public Property Changed As Boolean
+        Get
+            Return _changed
+        End Get
+        Set(value As Boolean)
+            _changed = value
+        End Set
+    End Property
     Public Property Initted1 As Boolean
         Get
             Return initted
@@ -53,17 +61,22 @@
         Form1.HelpOnce("FsAssets")
 
         EnableFsAssetsCheckbox.Checked = Form1.PropMySetting.FsAssetsEnabled
-        TextBox1.Text = Form1.PropMySetting.BaseDirectory
-
+        DataFolder.Text = Form1.PropMySetting.BaseDirectory
+        SpoolPath.Text = Form1.PropMySetting.SpoolDirectory
+        ShowStatsCheckBox.Checked = CType(Form1.PropMySetting.ShowConsoleStats, Boolean)
 
         Initted1 = True
-
 
     End Sub
 
     Private Sub Form_exit() Handles Me.Closed
 
-        Form1.PropMySetting.SaveSettings()
+        If Changed Then
+            Dim result As DialogResult = MsgBox("Form has changed! Save, or Abort?", vbOKCancel)
+            If result = vbOK Then
+                Form1.PropMySetting.SaveSettings()
+            End If
+        End If
 
     End Sub
 
@@ -75,6 +88,7 @@
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles EnableFsAssetsCheckbox.CheckedChanged
         If Not initted Then Return
         Form1.PropMySetting.FsAssetsEnabled = EnableFsAssetsCheckbox.Checked
+        Changed = True
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -96,7 +110,8 @@
             If thing.Length > 0 Then
                 Form1.PropMySetting.BaseDirectory = thing
                 Form1.PropMySetting.SaveSettings()
-                TextBox1.Text = thing
+                DataFolder.Text = thing
+                Changed = True
             End If
         End If
     End Sub
@@ -116,7 +131,8 @@
             If thing.Length > 0 Then
                 Form1.PropMySetting.SpoolDirectory = thing
                 Form1.PropMySetting.SaveSettings()
-                TextBox2.Text = thing
+                SpoolPath.Text = thing
+                Changed = True
             End If
         End If
 
@@ -124,9 +140,17 @@
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
-        Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked
+        Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Usa)
+        Changed = True
 
     End Sub
+
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+
+        Form1.PropMySetting.SaveSettings()
+
+    End Sub
+
 
 
 

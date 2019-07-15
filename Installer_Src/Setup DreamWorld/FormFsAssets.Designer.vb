@@ -24,16 +24,16 @@ Partial Class FormFsAssets
     Private Sub InitializeComponent()
         Me.EnableFsAssetsCheckbox = New System.Windows.Forms.CheckBox()
         Me.b = New System.Windows.Forms.GroupBox()
+        Me.SaveButton = New System.Windows.Forms.Button()
+        Me.ShowStatsCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.SpoolPath = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.DataFolder = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.ShowStatsCheckBox = New System.Windows.Forms.CheckBox()
-        Me.SaveButton = New System.Windows.Forms.Button()
         Me.b.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,11 +56,11 @@ Partial Class FormFsAssets
         Me.b.Controls.Add(Me.ShowStatsCheckBox)
         Me.b.Controls.Add(Me.Label1)
         Me.b.Controls.Add(Me.PictureBox3)
-        Me.b.Controls.Add(Me.TextBox2)
+        Me.b.Controls.Add(Me.SpoolPath)
         Me.b.Controls.Add(Me.Label6)
         Me.b.Controls.Add(Me.PictureBox2)
         Me.b.Controls.Add(Me.PictureBox1)
-        Me.b.Controls.Add(Me.TextBox1)
+        Me.b.Controls.Add(Me.DataFolder)
         Me.b.Controls.Add(Me.EnableFsAssetsCheckbox)
         Me.b.Location = New System.Drawing.Point(12, 12)
         Me.b.Name = "b"
@@ -68,6 +68,25 @@ Partial Class FormFsAssets
         Me.b.TabIndex = 44
         Me.b.TabStop = False
         Me.b.Text = "File System Assets Database"
+        '
+        'SaveButton
+        '
+        Me.SaveButton.Location = New System.Drawing.Point(21, 200)
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(75, 23)
+        Me.SaveButton.TabIndex = 1893
+        Me.SaveButton.Text = "Save"
+        Me.SaveButton.UseVisualStyleBackColor = True
+        '
+        'ShowStatsCheckBox
+        '
+        Me.ShowStatsCheckBox.AutoSize = True
+        Me.ShowStatsCheckBox.Location = New System.Drawing.Point(21, 51)
+        Me.ShowStatsCheckBox.Name = "ShowStatsCheckBox"
+        Me.ShowStatsCheckBox.Size = New System.Drawing.Size(133, 17)
+        Me.ShowStatsCheckBox.TabIndex = 1892
+        Me.ShowStatsCheckBox.Text = "Show stats on console"
+        Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -88,12 +107,12 @@ Partial Class FormFsAssets
         Me.PictureBox3.TabIndex = 1890
         Me.PictureBox3.TabStop = False
         '
-        'TextBox2
+        'SpoolPath
         '
-        Me.TextBox2.Location = New System.Drawing.Point(21, 160)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(188, 20)
-        Me.TextBox2.TabIndex = 1889
+        Me.SpoolPath.Location = New System.Drawing.Point(21, 160)
+        Me.SpoolPath.Name = "SpoolPath"
+        Me.SpoolPath.Size = New System.Drawing.Size(188, 20)
+        Me.SpoolPath.TabIndex = 1889
         '
         'Label6
         '
@@ -123,31 +142,12 @@ Partial Class FormFsAssets
         Me.PictureBox1.TabIndex = 1886
         Me.PictureBox1.TabStop = False
         '
-        'TextBox1
+        'DataFolder
         '
-        Me.TextBox1.Location = New System.Drawing.Point(21, 111)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(195, 20)
-        Me.TextBox1.TabIndex = 44
-        '
-        'ShowStatsCheckBox
-        '
-        Me.ShowStatsCheckBox.AutoSize = True
-        Me.ShowStatsCheckBox.Location = New System.Drawing.Point(21, 51)
-        Me.ShowStatsCheckBox.Name = "ShowStatsCheckBox"
-        Me.ShowStatsCheckBox.Size = New System.Drawing.Size(133, 17)
-        Me.ShowStatsCheckBox.TabIndex = 1892
-        Me.ShowStatsCheckBox.Text = "Show stats on console"
-        Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
-        '
-        'SaveButton
-        '
-        Me.SaveButton.Location = New System.Drawing.Point(21, 200)
-        Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 1893
-        Me.SaveButton.Text = "Save"
-        Me.SaveButton.UseVisualStyleBackColor = True
+        Me.DataFolder.Location = New System.Drawing.Point(21, 111)
+        Me.DataFolder.Name = "DataFolder"
+        Me.DataFolder.Size = New System.Drawing.Size(195, 20)
+        Me.DataFolder.TabIndex = 44
         '
         'FormFsAssets
         '
@@ -168,14 +168,14 @@ Partial Class FormFsAssets
 
     Friend WithEvents EnableFsAssetsCheckbox As CheckBox
     Friend WithEvents b As GroupBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents DataFolder As TextBox
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents SpoolPath As TextBox
     Friend WithEvents ShowStatsCheckBox As CheckBox
     Friend WithEvents SaveButton As Button
 End Class
