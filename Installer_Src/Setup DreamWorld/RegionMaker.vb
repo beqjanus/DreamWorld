@@ -1206,7 +1206,7 @@ Public Class RegionMaker
                         Dim Partner = GetPartner(p1, pMySetting)
                         Debug.Print("Partner=" + p2)
 
-                        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.pRobustConnStr)
+                        Dim myConnection As MySqlConnection = New MySqlConnection(pMySetting.RobustConnStr)
 
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
                         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1237,7 +1237,7 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function RegionListHTML(Setting As MySettings) As String
+    Public Function RegionListHTML(pMySetting As MySettings) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
         'to http://localhost:8001/teleports.htm
@@ -1245,10 +1245,10 @@ Public Class RegionMaker
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
-        HTML = "Welcome to |" + Setting.SimName + "||" + Setting.PublicIP + ":" + Setting.HttpPort + ":" + Setting.WelcomeRegion + "||" + vbCrLf
+        HTML = "Welcome to |" + pMySetting.SimName + "||" + pMySetting.PublicIP + ":" + pMySetting.HttpPort + ":" + pMySetting.WelcomeRegion + "||" + vbCrLf
 
-        Dim NewSQLConn As New MySqlConnection(Setting.RobustConnStr)
-        Diagnostics.Debug.Print("Conn:" & Form1.pRobustConnStr)
+        Dim NewSQLConn As New MySqlConnection(pMySetting.RobustConnStr)
+        Diagnostics.Debug.Print("Conn:" & pMySetting.RobustConnStr)
         Dim UserStmt = "SELECT regionName from REGIONS"
 
         Dim ToSort As New List(Of String)
@@ -1273,7 +1273,7 @@ Public Class RegionMaker
         ToSort.Sort()
 
         For Each S As String In ToSort
-            HTML = HTML + "*|" & S & "||" & Setting.PublicIP & ":" & Setting.HttpPort & ":" & S & "||" + vbCrLf
+            HTML = HTML + "*|" & S & "||" & pMySetting.PublicIP & ":" & pMySetting.HttpPort & ":" & S & "||" + vbCrLf
         Next
 
         Return HTML
@@ -1301,7 +1301,7 @@ Public Class RegionMaker
 
     Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
 
-        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.pRobustConnStr)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustConnStr)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
             .Connection = myConnection
