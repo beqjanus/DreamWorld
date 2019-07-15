@@ -893,8 +893,6 @@ Public Class Form1
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         ReallyQuit()
     End Sub
-
-
     Private Sub SetLoopback()
 
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
@@ -2570,6 +2568,9 @@ Public Class Form1
                 code = ApacheProcess.ExitCode
                 If code <> 0 Then
                     Print("Apache failed to start:" & code.ToString(Usa))
+                Else
+                    ApachePictureBox1.Image = My.Resources.nav_plain_green
+                    Application.DoEvents()
                 End If
 
             Catch ex As Exception

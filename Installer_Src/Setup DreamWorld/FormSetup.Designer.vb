@@ -130,6 +130,8 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PercentCPU = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ApachePictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MysqlPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -609,7 +611,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(405, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -799,7 +801,7 @@ Partial Class Form1
         'ApachePictureBox1
         '
         Me.ApachePictureBox1.Image = CType(resources.GetObject("ApachePictureBox1.Image"), System.Drawing.Image)
-        Me.ApachePictureBox1.Location = New System.Drawing.Point(312, 5)
+        Me.ApachePictureBox1.Location = New System.Drawing.Point(395, 6)
         Me.ApachePictureBox1.Name = "ApachePictureBox1"
         Me.ApachePictureBox1.Size = New System.Drawing.Size(17, 17)
         Me.ApachePictureBox1.TabIndex = 39
@@ -809,7 +811,7 @@ Partial Class Form1
         'MysqlPictureBox1
         '
         Me.MysqlPictureBox1.Image = CType(resources.GetObject("MysqlPictureBox1.Image"), System.Drawing.Image)
-        Me.MysqlPictureBox1.Location = New System.Drawing.Point(289, 5)
+        Me.MysqlPictureBox1.Location = New System.Drawing.Point(323, 6)
         Me.MysqlPictureBox1.Name = "MysqlPictureBox1"
         Me.MysqlPictureBox1.Size = New System.Drawing.Size(17, 17)
         Me.MysqlPictureBox1.TabIndex = 40
@@ -892,6 +894,24 @@ Partial Class Form1
         Me.PercentRAM.TabIndex = 37
         Me.PercentRAM.Text = "0"
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(347, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(42, 13)
+        Me.Label2.TabIndex = 41
+        Me.Label2.Text = "MySQL"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(418, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(44, 13)
+        Me.Label4.TabIndex = 42
+        Me.Label4.Text = "Apache"
+        '
         'Form1
         '
         Me.AllowDrop = True
@@ -899,7 +919,9 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(405, 141)
+        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.MysqlPictureBox1)
         Me.Controls.Add(Me.ApachePictureBox1)
         Me.Controls.Add(Me.PercentRAM)
@@ -1046,4 +1068,6 @@ Partial Class Form1
     Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ApachePictureBox1 As PictureBox
     Friend WithEvents MysqlPictureBox1 As PictureBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label4 As Label
 End Class
