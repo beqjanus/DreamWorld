@@ -1130,6 +1130,10 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
 #End Region
 
 End Class
