@@ -5982,7 +5982,7 @@ Public Class Form1
                           & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & PropMySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & PropMySetting.HttpPort & vbCrLf
 
         If PropMySetting.ApacheEnable Then
-            Command = Command + "netsh advfirewall firewall  add rule name=""Opensim HTTP Web Port " & PropMySetting.HttpPort & """ dir=in action=allow protocol=TCP localport=" & PropMySetting.ApachePort & vbCrLf
+            Command = Command + "netsh advfirewall firewall  add rule name=""Opensim HTTP Web Port " & PropMySetting.ApachePort & """ dir=in action=allow protocol=TCP localport=" & PropMySetting.ApachePort & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
