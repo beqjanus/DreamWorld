@@ -61,7 +61,7 @@
             If FSAssetsCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSassets")
-
+                My.Computer.FileSystem.CopyDirectory(Form1.PropMyFolder + "\OutworldzFiles\Opensim\bin\fsassets\", Dest + "\Mysql_Data")
             End If
             If CustomCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
