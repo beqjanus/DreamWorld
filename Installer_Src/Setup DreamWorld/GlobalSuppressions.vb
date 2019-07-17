@@ -100,3 +100,4 @@
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.RegionMaker.GetAllRegions")>
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.CrashDetector.Find")>
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.RegionMaker.UpdateAllRegionPorts")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.FormCritical.Button1_Click(System.Object,System.EventArgs)")>

@@ -186,6 +186,12 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
+    <Compile Include="FormCritical.Designer.vb">
+      <DependentUpon>FormCritical.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCritical.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDisplacement2x2.Designer.vb">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
     </Compile>
@@ -408,6 +414,9 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormCritical.resx">
+      <DependentUpon>FormCritical.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement2x2.resx">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
     </EmbeddedResource>

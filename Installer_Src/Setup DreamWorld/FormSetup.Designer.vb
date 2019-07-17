@@ -626,7 +626,7 @@ Partial Class Form1
         '
         Me.IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.IslandToolStripMenuItem.Name = "IslandToolStripMenuItem"
-        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.IslandToolStripMenuItem.Text = "Load Free Dreamworld OARs"
         Me.IslandToolStripMenuItem.ToolTipText = "OAR files are backups of entire Islands"
         '
@@ -634,7 +634,7 @@ Partial Class Form1
         '
         Me.ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.ClothingInventoryToolStripMenuItem.Name = "ClothingInventoryToolStripMenuItem"
-        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.ClothingInventoryToolStripMenuItem.Text = "Load Free Avatar Inventory"
         Me.ClothingInventoryToolStripMenuItem.ToolTipText = "IAR files are backups of inventory items"
         '
@@ -642,14 +642,14 @@ Partial Class Form1
         '
         Me.LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.LoadLocalOARSToolStripMenuItem.Name = "LoadLocalOARSToolStripMenuItem"
-        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.LoadLocalOARSToolStripMenuItem.Text = "Load Local OARs from the OAR folder"
         '
         'LoadLocalIARsToolStripMenuItem
         '
         Me.LoadLocalIARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.LoadLocalIARsToolStripMenuItem.Name = "LoadLocalIARsToolStripMenuItem"
-        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.LoadLocalIARsToolStripMenuItem.Text = "Load Local IARs from the IAR folder"
         '
         'OARToolStripMenuItem
@@ -657,7 +657,7 @@ Partial Class Form1
         Me.OARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadRegionOarToolStripMenuItem, Me.SaveRegionOARToolStripMenuItem, Me.AllTheRegionsOarsToolStripMenuItem})
         Me.OARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.OARToolStripMenuItem.Name = "OARToolStripMenuItem"
-        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.OARToolStripMenuItem.Text = "OAR Load and Save"
         '
         'LoadRegionOarToolStripMenuItem
@@ -686,7 +686,7 @@ Partial Class Form1
         Me.IARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadInventoryIARToolStripMenuItem, Me.SaveInventoryIARToolStripMenuItem})
         Me.IARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.IARToolStripMenuItem.Name = "IARToolStripMenuItem"
-        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.IARToolStripMenuItem.Text = "IAR Load and Save"
         '
         'LoadInventoryIARToolStripMenuItem
@@ -707,20 +707,20 @@ Partial Class Form1
         '
         Me.MoreContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
         Me.MoreContentToolStripMenuItem.Name = "MoreContentToolStripMenuItem"
-        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.MoreContentToolStripMenuItem.Text = "More Free Islands and Parts"
         Me.MoreContentToolStripMenuItem.ToolTipText = "Outworldz has free DLC"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(270, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(274, 6)
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check and Repair Database"
         '
         'BackupRestoreToolStripMenuItem
@@ -728,7 +728,7 @@ Partial Class Form1
         Me.BackupRestoreToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupDatabaseToolStripMenuItem, Me.RestoreDatabaseToolStripMenuItem1})
         Me.BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupRestoreToolStripMenuItem.Name = "BackupRestoreToolStripMenuItem"
-        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
         Me.BackupRestoreToolStripMenuItem.Text = "SQL Database Backup/Restore "
         '
         'BackupDatabaseToolStripMenuItem
@@ -750,13 +750,13 @@ Partial Class Form1
         '
         Me.BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupCriticalFilesToolStripMenuItem.Name = "BackupCriticalFilesToolStripMenuItem"
-        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.BackupCriticalFilesToolStripMenuItem.Text = "Quick Copy Critical Files"
+        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.BackupCriticalFilesToolStripMenuItem.Text = "System Backup"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(270, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(274, 6)
         '
         'ProgressBar1
         '

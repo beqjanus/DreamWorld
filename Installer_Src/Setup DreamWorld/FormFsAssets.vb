@@ -6,6 +6,16 @@
 #End Region
 
 #Region "ScreenSize"
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
 
@@ -28,14 +38,6 @@
 
 #Region "Properties"
 
-    Public Property ScreenPosition As ScreenPos
-        Get
-            Return _screenPosition
-        End Get
-        Set(value As ScreenPos)
-            _screenPosition = value
-        End Set
-    End Property
     Public Property Changed As Boolean
         Get
             Return _changed

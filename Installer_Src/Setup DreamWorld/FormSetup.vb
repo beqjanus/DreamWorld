@@ -4338,39 +4338,6 @@ Public Class Form1
 
 #Region "Updates"
 
-    Private Function MakeBackup() As Boolean
-
-        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Usa)   ' Set default folder
-        Dim Dest As String
-        If PropMySetting.BackupFolder = "AutoBackup" Then
-            Dest = PropMyFolder + "\OutworldzFiles\AutoBackup\" + Foldername
-        Else
-            Dest = PropMySetting.BackupFolder + "\" + Foldername
-        End If
-        Print("Making a backup at " + Dest)
-        My.Computer.FileSystem.CreateDirectory(Dest)
-        My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-        My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-        My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
-        My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-
-        Print("Backing up Regions Folder")
-        Try
-            My.Computer.FileSystem.CopyDirectory(PropMyFolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
-            Print("Backing up MySql\Data Folder")
-            My.Computer.FileSystem.CopyDirectory(PropMyFolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
-            Print("Backing up Wifi Folders")
-            My.Computer.FileSystem.CopyDirectory(PropMyFolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-            My.Computer.FileSystem.CopyDirectory(PropMyFolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
-            My.Computer.FileSystem.CopyFile(PropMyFolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
-        Catch ex As Exception
-            ErrorLog("Err:" + ex.Message)
-            Return False
-        End Try
-        Print("Finished with backup at " + Dest)
-        Return True
-
-    End Function
 
     Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
@@ -4381,33 +4348,39 @@ Public Class Form1
     Private Sub UpdaterGo()
 
         Dim msg = MsgBox("Make a backup of important files and the database first? ", vbYesNo)
-        Dim okay As Boolean
         If msg = vbYes Then
-            okay = MakeBackup()
+            Dim FormCriticaL = New FormCritical
+            ' Call the ShowDialog method to show the dialogbox.
+            Dim UserClickedOK As DialogResult = FormCriticaL.ShowDialog
+
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+
+                KillApache()
+                StopMysql()
+
+                Dim fileloaded As String = Download()
+                If fileloaded.Length > 0 Then
+                    Dim pUpdate As Process = New Process()
+                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                        .Arguments = "",
+                        .FileName = """" + PropMyFolder + "\" + fileloaded + """"
+                    }
+                    pUpdate.StartInfo = pi
+                    Try
+                        Print("I'll see you again when I wake up all fresh and new!")
+                        Log("Info", "Launch Updater and exiting")
+                        pUpdate.Start()
+                    Catch ex As Exception
+                        ErrorLog("Error: Could not launch " + fileloaded + ". Perhaps you can can exit this program and launch it manually.")
+                    End Try
+                    End ' program
+                Else
+                    Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them! Please check later.")
+                End If
+            End If
         End If
 
-        KillApache()
-        StopMysql()
-
-        Dim fileloaded As String = Download()
-        If fileloaded.Length > 0 Then
-            Dim pUpdate As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "",
-                .FileName = """" + PropMyFolder + "\" + fileloaded + """"
-            }
-            pUpdate.StartInfo = pi
-            Try
-                Print("I'll see you again when I wake up all fresh and new!")
-                Log("Info", "Launch Updater and exiting")
-                pUpdate.Start()
-            Catch ex As Exception
-                ErrorLog("Error: Could not launch " + fileloaded + ". Perhaps you can can exit this program and launch it manually.")
-            End Try
-            End ' program
-        Else
-            Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them! Please check later.")
-        End If
 
     End Sub
 
@@ -5719,11 +5692,9 @@ Public Class Form1
 
     Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
 
-        Dim msg = MsgBox("Make a backup of important files and the database? ", vbYesNo)
-        Dim okay As Boolean
-        If msg = vbYes Then
-            okay = MakeBackup()
-        End If
+        Dim CriticalForm = New FormCritical
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
 
     End Sub
 
