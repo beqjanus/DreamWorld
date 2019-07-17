@@ -104,13 +104,13 @@ Public Class MysqlInterface
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")
         If UserCount = Nothing Then Return 0
         'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount, Form1.usa)
+        Return Convert.ToInt16(UserCount, Form1.Usa)
 
     End Function
 
     Public Function IsMySqlRunning() As String
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.MySetting.MySqlPort, Integer))
+        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlPort, Integer))
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
@@ -129,7 +129,7 @@ Public Class MysqlInterface
             MysqlConn.Open()
 
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.usa)
+            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.Usa)
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)

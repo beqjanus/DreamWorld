@@ -35,8 +35,8 @@
 
         SetScreen()
 
-        Form1.GSelectedBox = ""
-        If Form1.GForceParcel Then
+        Form1.PropSelectedBox = ""
+        If Form1.PropForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -45,7 +45,7 @@
 
         End If
 
-        If Form1.GForceTerrain Then
+        If Form1.PropForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -53,7 +53,7 @@
             OriginalTererainToolStripMenuItem.Checked = True
         End If
 
-        If Form1.GForceMerge Then
+        If Form1.PropForceMerge Then
             MergeOARToolStripMenuItem.Checked = True
             ClearOARToolStripMenuItem.Checked = False
         Else
@@ -66,28 +66,28 @@
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.GSelectedBox = " --displacement <0,256,0> "
+        Form1.PropSelectedBox = " --displacement <0,256,0> "
         Me.Close()
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        Form1.GSelectedBox = " --displacement <256,256,0> "
+        Form1.PropSelectedBox = " --displacement <256,256,0> "
         Me.Close()
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.GSelectedBox = " --displacement <0,0,0>  "
+        Form1.PropSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
     End Sub
 
     Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
-        Form1.GSelectedBox = " --displacement <256,0,0> "
+        Form1.PropSelectedBox = " --displacement <256,0,0> "
         Me.Close()
     End Sub
 
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
-        Form1.GForceMerge = False
+        Form1.PropForceMerge = False
         MergeOARToolStripMenuItem.Checked = False
         ClearOARToolStripMenuItem.Checked = True
 
@@ -95,7 +95,7 @@
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        Form1.GForceMerge = True
+        Form1.PropForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
 
@@ -103,7 +103,7 @@
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        Form1.GForceTerrain = True
+        Form1.PropForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -111,7 +111,7 @@
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        Form1.GForceTerrain = False
+        Form1.PropForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -119,7 +119,7 @@
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        Form1.GForceParcel = True
+        Form1.PropForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -127,7 +127,7 @@
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        Form1.GForceParcel = False
+        Form1.PropForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -138,7 +138,7 @@
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.GUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+        Form1.PropUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
 
 End Class

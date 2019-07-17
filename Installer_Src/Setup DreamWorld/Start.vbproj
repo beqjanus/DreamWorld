@@ -48,7 +48,7 @@
     <BootstrapperEnabled>false</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -186,6 +186,12 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
+    <Compile Include="FormCritical.Designer.vb">
+      <DependentUpon>FormCritical.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCritical.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDisplacement2x2.Designer.vb">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
     </Compile>
@@ -214,6 +220,12 @@
       <DependentUpon>FormFlotsamCache.vb</DependentUpon>
     </Compile>
     <Compile Include="FormFlotsamCache.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFsAssets.Designer.vb">
+      <DependentUpon>FormFsAssets.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFsAssets.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormIARSave.Designer.vb">
@@ -402,6 +414,9 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormCritical.resx">
+      <DependentUpon>FormCritical.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement2x2.resx">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
     </EmbeddedResource>
@@ -417,6 +432,9 @@
     <EmbeddedResource Include="FormFlotsamCache.resx">
       <DependentUpon>FormFlotsamCache.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormFsAssets.resx">
+      <DependentUpon>FormFsAssets.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
     </EmbeddedResource>
@@ -428,6 +446,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBird.resx">
       <DependentUpon>FormBird.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
       <DependentUpon>FormCaches.vb</DependentUpon>
@@ -689,6 +708,9 @@
     <None Include="Resources\pdf.png" />
     <None Include="Resources\printer3.png" />
     <None Include="Resources\ClicktoInsertPhoto.jpg" />
+    <None Include="Resources\nav_plain_green.png" />
+    <None Include="Resources\nav_plain_red.png" />
+    <None Include="Resources\nav_plain_blue.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

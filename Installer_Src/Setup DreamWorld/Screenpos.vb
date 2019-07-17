@@ -16,7 +16,7 @@ Public Class ScreenPos
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        myINI = Form1.MyFolder + "\OutworldzFiles\XYSettings.ini"
+        myINI = Form1.PropMyFolder + "\OutworldzFiles\XYSettings.ini"
 
         If File.Exists(myINI) Then
             LoadXYIni()
@@ -32,21 +32,21 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.usa))
-        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.usa))
+        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Usa))
+        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Usa))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Form1.usa))
-        Debug.Print("Y>" + ValueY.ToString(Form1.usa))
+        Debug.Print("X>" + ValueX.ToString(Form1.Usa))
+        Debug.Print("Y>" + ValueY.ToString(Form1.Usa))
 
     End Sub
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.usa))
-        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.usa))
+        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Usa))
+        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Usa))
         SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString(Form1.usa))
-        Debug.Print("W>" + ValueW.ToString(Form1.usa))
+        Debug.Print("H>" + ValueH.ToString(Form1.Usa))
+        Debug.Print("W>" + ValueW.ToString(Form1.Usa))
 
     End Sub
 
@@ -84,8 +84,8 @@ Public Class ScreenPos
             ValueXOld,
             ValueYOld
         }
-        Debug.Print("X<" + ValueXOld.ToString(Form1.usa))
-        Debug.Print("Y<" + ValueYOld.ToString(Form1.usa))
+        Debug.Print("X<" + ValueXOld.ToString(Form1.Usa))
+        Debug.Print("Y<" + ValueYOld.ToString(Form1.Usa))
         Return r
 
     End Function
@@ -99,8 +99,8 @@ Public Class ScreenPos
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString(Form1.usa))
-        Debug.Print("W<" + ValueWOld.ToString(Form1.usa))
+        Debug.Print("H<" + ValueHOld.ToString(Form1.Usa))
+        Debug.Print("W<" + ValueWOld.ToString(Form1.Usa))
         Return r
 
     End Function

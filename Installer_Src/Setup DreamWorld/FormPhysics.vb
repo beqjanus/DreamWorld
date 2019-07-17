@@ -37,7 +37,7 @@
 
         SetScreen()
 
-        Select Case Form1.MySetting.Physics
+        Select Case Form1.PropMySetting.Physics
             Case "0" : PhysicsNone.Checked = True
             Case "1" : PhysicsODE.Checked = True
             Case "2" : PhysicsBullet.Checked = True
@@ -57,48 +57,48 @@
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
         If Not initted Then Return
         If PhysicsNone.Checked Then
-            Form1.MySetting.Physics = "0"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "0"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
         If Not initted Then Return
         If PhysicsODE.Checked Then
-            Form1.MySetting.Physics = "1"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "1"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
         If Not initted Then Return
         If PhysicsBullet.Checked Then
-            Form1.MySetting.Physics = "2"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "2"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
         If Not initted Then Return
         If PhysicsSeparate.Checked Then
-            Form1.MySetting.Physics = "3"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "3"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
         If Not initted Then Return
         If PhysicsubODE.Checked Then
-            Form1.MySetting.Physics = "4"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "4"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
         If Not initted Then Return
         If PhysicsHybrid.Checked Then
-            Form1.MySetting.Physics = "5"
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.Physics = "5"
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 

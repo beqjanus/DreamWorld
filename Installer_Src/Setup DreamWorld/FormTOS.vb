@@ -1,4 +1,4 @@
-﻿Imports System.IO
+Imports System.IO
 
 Public Class TosForm
 
@@ -35,9 +35,9 @@ Public Class TosForm
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        'Load file MyFolder + "TOS.txt"
+        'Load file PropMyFolder + "TOS.txt"
         Dim reader As System.IO.StreamReader
-        reader = System.IO.File.OpenText(Form1.MyFolder + "\tos.html")
+        reader = System.IO.File.OpenText(Form1.PropMyFolder + "\tos.html")
         'now loop through each line
         Dim HTML As String = ""
         While reader.Peek <> -1
@@ -46,9 +46,9 @@ Public Class TosForm
         reader.Close()
         Editor1.BodyHtml = HTML
 
-        ShowToLocalUsersCheckbox.Checked = Form1.MySetting.ShowToLocalUsers
-        ShowToHGUsersCheckbox.Checked = Form1.MySetting.ShowToForeignUsers
-        TOSEnable.Checked = Form1.MySetting.TOSEnabled
+        ShowToLocalUsersCheckbox.Checked = Form1.PropMySetting.ShowToLocalUsers
+        ShowToHGUsersCheckbox.Checked = Form1.PropMySetting.ShowToForeignUsers
+        TOSEnable.Checked = Form1.PropMySetting.TOSEnabled
         SetScreen()
 
     End Sub
@@ -61,29 +61,29 @@ Public Class TosForm
 
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToLocalUsersCheckbox.CheckedChanged
 
-        Form1.MySetting.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub ShowToHGUsersCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToHGUsersCheckbox.CheckedChanged
 
-        Form1.MySetting.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub TOSEnable_CheckedChanged(sender As Object, e As EventArgs) Handles TOSEnable.CheckedChanged
 
-        Form1.MySetting.TOSEnabled = TOSEnable.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.TOSEnabled = TOSEnable.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If Form1.OpensimIsRunning() Then
-            Dim webAddress As String = "http://" + Form1.MySetting.PublicIP + ":" + Form1.MySetting.HttpPort + "/wifi/termsofservice.html"
+        If Form1.PropOpensimIsRunning() Then
+            Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP + ":" + Form1.PropMySetting.HttpPort + "/wifi/termsofservice.html"
             Process.Start(webAddress)
         Else
             MsgBox("Opensim must be running to show you the TOS.")
@@ -95,7 +95,7 @@ Public Class TosForm
 
         Dim response = MsgBox("Clicking Yes will force all users to re-agree to the TOS on next login or visit.", vbYesNo)
         If response = vbYes Then
-            Dim m As New MysqlInterface(Form1.GRobustConnStr)
+            Dim m As New MysqlInterface(Form1.PropRobustConnStr)
             If m.IsMySqlRunning() Is Nothing Then
                 MsgBox("MySql is not running, so I cannot save the re-validate data. Start Opensim or Mysql and try again.")
             Else
@@ -107,11 +107,11 @@ Public Class TosForm
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        Using outputFile As New StreamWriter(Form1.MyFolder + "\tos.html")
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
             outputFile.WriteLine(Editor1.BodyHtml)
         End Using
 
-        Using outputFile As New StreamWriter(Form1.MyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
             outputFile.WriteLine(Editor1.BodyHtml)
         End Using
 
@@ -121,11 +121,11 @@ Public Class TosForm
 
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        Using outputFile As New StreamWriter(Form1.MyFolder + "\tos.html")
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
             outputFile.WriteLine(Editor1.BodyHtml)
         End Using
 
-        Using outputFile As New StreamWriter(Form1.MyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
             outputFile.WriteLine(Editor1.BodyHtml)
         End Using
     End Sub

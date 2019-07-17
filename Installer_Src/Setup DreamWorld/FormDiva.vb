@@ -1,4 +1,4 @@
-﻿Imports System.Text.RegularExpressions
+Imports System.Text.RegularExpressions
 
 Public Class FormDiva
 
@@ -41,19 +41,19 @@ Public Class FormDiva
         SetScreen()
 
         'Wifi
-        WifiEnabled.Checked = Form1.MySetting.WifiEnabled
-        AdminEmail.Text = Form1.MySetting.AdminEmail
-        AccountConfirmationRequired.Checked = Form1.MySetting.AccountConfirmationRequired
-        GmailPassword.Text = Form1.MySetting.SmtpPassword
-        GmailUsername.Text = Form1.MySetting.SmtpUsername
-        SmtpPort.Text = Form1.MySetting.SmtpPort
-        SmtpHost.Text = Form1.MySetting.SmtpHost
-        SplashPage.Text = Form1.MySetting.SplashPage
-        GridName.Text = Form1.MySetting.SimName
+        WifiEnabled.Checked = Form1.PropMySetting.WifiEnabled
+        AdminEmail.Text = Form1.PropMySetting.AdminEmail
+        AccountConfirmationRequired.Checked = Form1.PropMySetting.AccountConfirmationRequired
+        GmailPassword.Text = Form1.PropMySetting.SmtpPassword
+        GmailUsername.Text = Form1.PropMySetting.SmtPropUserName
+        SmtpPort.Text = Form1.PropMySetting.SmtpPort
+        SmtpHost.Text = Form1.PropMySetting.SmtpHost
+        SplashPage.Text = Form1.PropMySetting.SplashPage
+        GridName.Text = Form1.PropMySetting.SimName
 
-        If Form1.MySetting.Theme = "White" Then WhiteRadioButton.Checked = True
-        If Form1.MySetting.Theme = "Black" Then BlackRadioButton.Checked = True
-        If Form1.MySetting.Theme = "Custom" Then CustomButton1.Checked = True
+        If Form1.PropMySetting.Theme = "White" Then WhiteRadioButton.Checked = True
+        If Form1.PropMySetting.Theme = "Black" Then BlackRadioButton.Checked = True
+        If Form1.PropMySetting.Theme = "Custom" Then CustomButton1.Checked = True
 
         'Gmail
         'passwords are asterisks
@@ -61,35 +61,35 @@ Public Class FormDiva
         GmailPassword.UseSystemPasswordChar = True
 
         ' ports
-        AdminPassword.Text = Form1.MySetting.Password
-        AdminLast.Text = Form1.MySetting.AdminLast
-        AdminFirst.Text = Form1.MySetting.AdminFirst
+        AdminPassword.Text = Form1.PropMySetting.Password
+        AdminLast.Text = Form1.PropMySetting.AdminLast
+        AdminFirst.Text = Form1.PropMySetting.AdminFirst
 
-        If Form1.MySetting.Theme = "White" Then
+        If Form1.PropMySetting.Theme = "White" Then
             BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = True
             CustomButton1.Checked = False
-        ElseIf Form1.MySetting.Theme = "Black" Then
+        ElseIf Form1.PropMySetting.Theme = "Black" Then
             BlackRadioButton.Checked = True
             WhiteRadioButton.Checked = False
             CustomButton1.Checked = False
-        ElseIf Form1.MySetting.Theme = "Custom" Then
+        ElseIf Form1.PropMySetting.Theme = "Custom" Then
             BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = False
             CustomButton1.Checked = True
         End If
 
-        If Form1.OpensimIsRunning Then
+        If Form1.PropOpensimIsRunning Then
             AdminPassword.Enabled = True
         Else
             AdminPassword.Enabled = False
         End If
 
-        ApacheCheckbox.Checked = Form1.MySetting.ApacheEnable
-        ApachePort.Text = Form1.MySetting.ApachePort
-        ApacheServiceCheckBox.Checked = Form1.MySetting.ApacheService
+        ApacheCheckbox.Checked = Form1.PropMySetting.ApacheEnable
+        ApachePort.Text = Form1.PropMySetting.ApachePort
+        ApacheServiceCheckBox.Checked = Form1.PropMySetting.ApacheService
 
-        If Form1.MySetting.SearchLocal Then
+        If Form1.PropMySetting.SearchLocal Then
             SearchLocalRadioButton.Checked = True
             SearchAllRadioButton.Checked = False
         Else
@@ -97,7 +97,7 @@ Public Class FormDiva
             SearchAllRadioButton.Checked = True
         End If
 
-        GreetingTextBox.Text = Form1.MySetting.WelcomeMessage
+        GreetingTextBox.Text = Form1.PropMySetting.WelcomeMessage
 
         Form1.HelpOnce("Diva")
 
@@ -107,10 +107,10 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.SaveSettings()
 
-        If setpassword And Form1.OpensimIsRunning() Then
-            Form1.ConsoleCommand("Robust", "reset user password " & Form1.MySetting.AdminFirst & " " & Form1.MySetting.AdminLast & " " & Form1.MySetting.Password & "{ENTER}" + vbCrLf)
+        If setpassword And Form1.PropOpensimIsRunning() Then
+            Form1.ConsoleCommand("Robust", "reset user password " & Form1.PropMySetting.AdminFirst & " " & Form1.PropMySetting.AdminLast & " " & Form1.PropMySetting.Password & "{ENTER}" + vbCrLf)
         End If
 
     End Sub
@@ -119,8 +119,8 @@ Public Class FormDiva
 
     Private Sub WifiEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles WifiEnabled.CheckedChanged
         If Not initted Then Return
-        Form1.MySetting.WifiEnabled = WifiEnabled.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.WifiEnabled = WifiEnabled.Checked
+        Form1.PropMySetting.SaveSettings()
 
         If WifiEnabled.Checked Then
             AdminFirst.Enabled = True
@@ -146,8 +146,8 @@ Public Class FormDiva
     Private Sub AccountConfirmationRequired_CheckedChanged(sender As Object, e As EventArgs) Handles AccountConfirmationRequired.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.AccountConfirmationRequired = AccountConfirmationRequired.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.AccountConfirmationRequired = AccountConfirmationRequired.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -170,16 +170,16 @@ Public Class FormDiva
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.Password = AdminPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.Password = AdminPassword.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.SmtpUsername = GmailUsername.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.SmtPropUserName = GmailUsername.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -192,32 +192,32 @@ Public Class FormDiva
     Private Sub GmailPassword_TextChanged(sender As Object, e As EventArgs) Handles GmailPassword.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.SmtpPassword = GmailPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.SmtpPassword = GmailPassword.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub AdminFirst_TextChanged_2(sender As Object, e As EventArgs) Handles AdminFirst.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.AdminFirst = AdminFirst.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.AdminFirst = AdminFirst.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub AdminLast_TextChanged(sender As Object, e As EventArgs) Handles AdminLast.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.AdminLast = AdminLast.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.AdminLast = AdminLast.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.Password = AdminPassword.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.Password = AdminPassword.Text
+        Form1.PropMySetting.SaveSettings()
 
         setpassword = True
 
@@ -226,16 +226,16 @@ Public Class FormDiva
     Private Sub TextBox1_TextChanged_3(sender As Object, e As EventArgs) Handles AdminEmail.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.AdminEmail = AdminEmail.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.AdminEmail = AdminEmail.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub SmtpHost_TextChanged(sender As Object, e As EventArgs) Handles SmtpHost.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.SmtpHost = SmtpHost.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.SmtpHost = SmtpHost.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -244,8 +244,8 @@ Public Class FormDiva
         Dim digitsOnly As Regex = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
-        Form1.MySetting.SmtpPort = SmtpPort.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.SmtpPort = SmtpPort.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
@@ -256,13 +256,13 @@ Public Class FormDiva
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.SplashPage = SplashPage.Text
+        Form1.PropMySetting.SplashPage = SplashPage.Text
 
     End Sub
 
     Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
 
-        Form1.MySetting.SimName = GridName.Text
+        Form1.PropMySetting.SimName = GridName.Text
 
     End Sub
 
@@ -271,7 +271,7 @@ Public Class FormDiva
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
             Form1.Print("Theme set to Black")
-            Form1.MySetting.Theme = "Black"
+            Form1.PropMySetting.Theme = "Black"
         End If
 
     End Sub
@@ -281,7 +281,7 @@ Public Class FormDiva
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
             Form1.Print("Theme set to White")
-            Form1.MySetting.Theme = "White"
+            Form1.PropMySetting.Theme = "White"
         End If
 
     End Sub
@@ -291,7 +291,7 @@ Public Class FormDiva
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
             Form1.Print("Theme set to Custom")
-            Form1.MySetting.Theme = "Custom"
+            Form1.PropMySetting.Theme = "Custom"
         End If
 
     End Sub
@@ -299,7 +299,7 @@ Public Class FormDiva
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.ApacheEnable = ApacheCheckbox.Checked
+        Form1.PropMySetting.ApacheEnable = ApacheCheckbox.Checked
 
     End Sub
 
@@ -312,7 +312,7 @@ Public Class FormDiva
     Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.MySetting.ApacheService = ApacheServiceCheckBox.Checked
+        Form1.PropMySetting.ApacheService = ApacheServiceCheckBox.Checked
 
     End Sub
 
@@ -322,7 +322,7 @@ Public Class FormDiva
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
-        Form1.MySetting.ApachePort = ApachePort.Text
+        Form1.PropMySetting.ApachePort = ApachePort.Text
 
     End Sub
 
@@ -330,10 +330,10 @@ Public Class FormDiva
 
         If Not initted Then Return
         If SearchLocalRadioButton.Checked Then
-            Form1.MySetting.SearchLocal = True
+            Form1.PropMySetting.SearchLocal = True
             SearchAllRadioButton.Checked = False
         Else
-            Form1.MySetting.SearchLocal = False
+            Form1.PropMySetting.SearchLocal = False
             SearchAllRadioButton.Checked = True
         End If
 
@@ -343,7 +343,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         If SearchAllRadioButton.Checked Then
-            Form1.MySetting.SearchLocal = False
+            Form1.PropMySetting.SearchLocal = False
             SearchLocalRadioButton.Checked = False
         End If
 
@@ -353,11 +353,11 @@ Public Class FormDiva
 
         Dim InstallProcess As New Process
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        InstallProcess.StartInfo.FileName = Form1.MyFolder & "\MSFT_Runtimes\vcredist_x64.exe"
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x64.exe"
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         InstallProcess.Start()
         InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.MyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
         InstallProcess.Start()
         InstallProcess.WaitForExit()
 
@@ -366,7 +366,7 @@ Public Class FormDiva
     Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
         If Not initted Then Return
-        Form1.MySetting.WelcomeMessage = GreetingTextBox.Text
+        Form1.PropMySetting.WelcomeMessage = GreetingTextBox.Text
 
     End Sub
 

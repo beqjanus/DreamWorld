@@ -41,21 +41,21 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        ContactEmailTextBox.Text = Form1.MySetting.GLBOwnerEmail
-        OwnerNameTextbox.Text = Form1.MySetting.GLBOwnerName
+        ContactEmailTextBox.Text = Form1.PropMySetting.GLBOwnerEmail
+        OwnerNameTextbox.Text = Form1.PropMySetting.GLBOwnerName
 
-        SandboxButton.Checked = Not Form1.MySetting.GloebitsMode
-        ProductionButton.Checked = Form1.MySetting.GloebitsMode
+        SandboxButton.Checked = Not Form1.PropMySetting.GloebitsMode
+        ProductionButton.Checked = Form1.PropMySetting.GloebitsMode
 
-        SandKeyTextBox.Text = Form1.MySetting.GLSandKey
+        SandKeyTextBox.Text = Form1.PropMySetting.GLSandKey
         SandSecretTextBox.UseSystemPasswordChar = True
-        SandSecretTextBox.Text = Form1.MySetting.GLSandSecret
+        SandSecretTextBox.Text = Form1.PropMySetting.GLSandSecret
 
-        ProdKeyTextBox.Text = Form1.MySetting.GLProdKey
+        ProdKeyTextBox.Text = Form1.PropMySetting.GLProdKey
         ProdSecretTextBox.UseSystemPasswordChar = True
-        ProdSecretTextBox.Text = Form1.MySetting.GLProdSecret
+        ProdSecretTextBox.Text = Form1.PropMySetting.GLProdSecret
 
-        GloebitsEnabled.Checked = Form1.MySetting.GloebitsEnable
+        GloebitsEnabled.Checked = Form1.PropMySetting.GloebitsEnable
         SetScreen()
         Initted = True
     End Sub
@@ -73,16 +73,16 @@
     Private Sub SandboxButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles SandboxButton.CheckedChanged
         If SandboxButton.Checked = True Then
             ProductionButton.Checked = False
-            Form1.MySetting.GloebitsMode = False
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.GloebitsMode = False
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
     Private Sub ProductionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles ProductionButton.CheckedChanged
         If ProductionButton.Checked = True Then
             SandboxButton.Checked = False
-            Form1.MySetting.GloebitsMode = True
-            Form1.MySetting.SaveSettings()
+            Form1.PropMySetting.GloebitsMode = True
+            Form1.PropMySetting.SaveSettings()
         End If
     End Sub
 
@@ -91,13 +91,13 @@
 #Region "Sandbox"
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SandKeyTextBox.TextChanged
-        Form1.MySetting.GLSandKey = SandKeyTextBox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLSandKey = SandKeyTextBox.Text
+        Form1.PropMySetting.SaveSettings()
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles SandSecretTextBox.TextChanged
-        Form1.MySetting.GLSandSecret = SandSecretTextBox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLSandSecret = SandSecretTextBox.Text
+        Form1.PropMySetting.SaveSettings()
     End Sub
 
     Private Sub TextBox2_click(sender As Object, e As EventArgs) Handles SandSecretTextBox.Click
@@ -128,8 +128,8 @@
     End Sub
 
     Private Sub ProdSecretTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdSecretTextBox.TextChanged
-        Form1.MySetting.GLProdSecret = ProdSecretTextBox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLProdSecret = ProdSecretTextBox.Text
+        Form1.PropMySetting.SaveSettings()
     End Sub
 
     Private Sub ProdKeyTextBox_Click(sender As Object, e As EventArgs) Handles ProdKeyTextBox.Click
@@ -137,8 +137,8 @@
     End Sub
 
     Private Sub ProdKeyTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdKeyTextBox.TextChanged
-        Form1.MySetting.GLProdKey = ProdKeyTextBox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLProdKey = ProdKeyTextBox.Text
+        Form1.PropMySetting.SaveSettings()
     End Sub
 
     Private Sub ProductionCreateButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateButton.Click
@@ -161,22 +161,22 @@
 #Region "OwnerInfo"
 
     Private Sub OwnerNameTextbox_TextChanged(sender As Object, e As EventArgs) Handles OwnerNameTextbox.TextChanged
-        Form1.MySetting.GLBOwnerName = OwnerNameTextbox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLBOwnerName = OwnerNameTextbox.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub ContactEmailTextBox_TextChanged(sender As Object, e As EventArgs) Handles ContactEmailTextBox.TextChanged
 
-        Form1.MySetting.GLBOwnerEmail = ContactEmailTextBox.Text
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GLBOwnerEmail = ContactEmailTextBox.Text
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
     Private Sub GloebitsEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles GloebitsEnabled.CheckedChanged
 
-        Form1.MySetting.GloebitsEnable = GloebitsEnabled.Checked
-        Form1.MySetting.SaveSettings()
+        Form1.PropMySetting.GloebitsEnable = GloebitsEnabled.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 

@@ -1,4 +1,4 @@
-﻿Public Class FormRegionPopup
+Public Class FormRegionPopup
 
     Dim gPick As String = ""
 
@@ -39,44 +39,44 @@
 
     Public Sub Init(RegionName As String)
 
-        Dim X = Form1.RegionClass.FindRegionByName(RegionName)
+        Dim X = Form1.PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
-        GroupBox1.Text = Form1.RegionClass.GroupName(X)
+        GroupBox1.Text = Form1.PropRegionClass.GroupName(X)
 
-        If Not Form1.RegionClass.RegionEnabled(X) Then
+        If Not Form1.PropRegionClass.RegionEnabled(X) Then
             StartButton3.Enabled = False
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
         Else
-            If Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
             End If
 
-            If Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
+                Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
             End If
 
-            If Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
-                Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
+                Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
             End If
 
             ' stopped
-            If Form1.RegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped Then
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
             End If
         End If
 
-        If Not Form1.OpensimIsRunning() Then
+        If Not Form1.PropOpensimIsRunning() Then
             StartButton3.Enabled = False
         End If
 

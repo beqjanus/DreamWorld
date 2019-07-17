@@ -33,7 +33,7 @@ Public Class UploadImage
 
     Private Sub RequestStreamAvailable(ByVal ar As IAsyncResult)
         Dim r_State As HttpRequestState = TryCast(ar.AsyncState, HttpRequestState)
-        Dim boundary As String = StrDup(20, "-"c) & Date.Now.ToString("yyyyMMdd-hhmm", Form1.usa)
+        Dim boundary As String = StrDup(20, "-"c) & Date.Now.ToString("yyyyMMdd-hhmm", Form1.Usa)
         r_State.Request.ContentType = "multipart/form-data; boundary=" & boundary
         Debug.Print("multipart/form-data; boundary=" & boundary)
 
@@ -56,8 +56,8 @@ Public Class UploadImage
             sw.WriteLine("--" & boundary)
             Debug.Print("--" & boundary)
 
-            sw.WriteLine(String.Format(Form1.usa, "Content-Disposition: form-data; name=""{0}""", key))
-            Debug.Print(String.Format(Form1.usa, "Content-Disposition: form-data; name=""{0}""", key))
+            sw.WriteLine(String.Format(Form1.Usa, "Content-Disposition: form-data; name=""{0}""", key))
+            Debug.Print(String.Format(Form1.Usa, "Content-Disposition: form-data; name=""{0}""", key))
             sw.WriteLine()
             Debug.Print("")
             sw.WriteLine(WebUtility.UrlEncode(r_State.Params(key)))
@@ -67,11 +67,11 @@ Public Class UploadImage
         sw.WriteLine("--" & boundary)
         Debug.Print("--" & boundary)
 
-        sw.WriteLine(String.Format(Form1.usa, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
-        Debug.Print(String.Format(Form1.usa, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+        sw.WriteLine(String.Format(Form1.Usa, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+        Debug.Print(String.Format(Form1.Usa, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
 
-        sw.Write(String.Format(Form1.usa, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
-        Debug.Print(String.Format(Form1.usa, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+        sw.Write(String.Format(Form1.Usa, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+        Debug.Print(String.Format(Form1.Usa, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
 
         sw.WriteLine()
         Debug.Print("")
@@ -134,10 +134,10 @@ Public Class UploadImage
 
         Try
             Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
-            Dim File = Form1.MyFolder & "\OutworldzFiles\Photo.png"
+            Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
             Dim params As New Specialized.NameValueCollection From {
-                {"MachineID", Form1.MySetting.MachineID()},
-                {"DnsName", Form1.MySetting.PublicIP}
+                {"MachineID", Form1.PropMySetting.MachineID()},
+                {"DnsName", Form1.PropMySetting.PublicIP}
             }
 
             Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)

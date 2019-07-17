@@ -44,7 +44,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=http://hg.osgrid.org
+BaseHostname=hg.osgrid.org
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -519,7 +519,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=http://hg.osgrid.org
+host_domain_header_from=hg.osgrid.org
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -617,7 +617,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
 ; UNCOMMENT AND SET THIS TO YOUR EXTERNAL OR LOCAL ADDRESS TO ENABLE AS NEEDED
-ExternalHostNameForLSL=http://hg.osgrid.org
+ExternalHostNameForLSL=hg.osgrid.org
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -666,7 +666,6 @@ shard="OpenSim"
 ; change to false if you need to use old viewers that do not support this feature
 ;
 SupportViewerObjectsCache=true
-
 
 [ClientStack.LindenUDP]
 
@@ -1372,3 +1371,9 @@ cloud_update_rate=1000
 ;;LandServices module is required for ossearch to function properly in grid mode.
 LandServices="RemoteLandServicesConnector"
 LandServiceConnector="True"
+
+; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
+;; Set to True to enable Smart Start
+;; Set by Dreamgrid
+[AutoLoadTeleport]
+Enabled=False

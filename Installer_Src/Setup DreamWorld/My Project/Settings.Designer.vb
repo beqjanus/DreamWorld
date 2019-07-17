@@ -309,12 +309,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Gmail for notification")>  _
-        Public Property SmtpUsername() As String
+        Public Property SmtPropUserName() As String
             Get
-                Return CType(Me("SmtpUsername"),String)
+                Return CType(Me("SmtPropUserName"),String)
             End Get
             Set
-                Me("SmtpUsername") = value
+                Me("SmtPropUserName") = value
             End Set
         End Property
         

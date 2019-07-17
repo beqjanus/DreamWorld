@@ -65,7 +65,7 @@
     <Setting Name="AccountConfirmationRequired" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="SmtpUsername" Type="System.String" Scope="User">
+    <Setting Name="SmtPropUserName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Gmail for notification</Value>
     </Setting>
     <Setting Name="SmtpPassword" Type="System.String" Scope="User">
