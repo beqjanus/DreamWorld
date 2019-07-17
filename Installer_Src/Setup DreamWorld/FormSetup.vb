@@ -87,7 +87,7 @@ Public Class Form1
     Private _IPv4Address As String          ' global IPV4
     Private _mySetting As New MySettings  ' all settings from Settings.ini
 
-    Private _formCaches As New FormCaches
+    Public FormCaches As New FormCaches
     Dim Adv As AdvancedForm
 
 
@@ -196,6 +196,7 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
     Public Property PropApacheUninstalling() As Boolean
         Get
             Return _ApacheUninstalling
