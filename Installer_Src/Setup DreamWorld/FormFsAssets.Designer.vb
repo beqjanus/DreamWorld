@@ -45,9 +45,9 @@ Partial Class FormFsAssets
         Me.EnableFsAssetsCheckbox.AutoSize = True
         Me.EnableFsAssetsCheckbox.Location = New System.Drawing.Point(21, 28)
         Me.EnableFsAssetsCheckbox.Name = "EnableFsAssetsCheckbox"
-        Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(130, 17)
+        Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.EnableFsAssetsCheckbox.TabIndex = 43
-        Me.EnableFsAssetsCheckbox.Text = "Use File System folder"
+        Me.EnableFsAssetsCheckbox.Text = "Enable"
         Me.EnableFsAssetsCheckbox.UseVisualStyleBackColor = True
         '
         'b
@@ -136,7 +136,7 @@ Partial Class FormFsAssets
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(167, 13)
+        Me.PictureBox1.Location = New System.Drawing.Point(222, 13)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(28, 32)
         Me.PictureBox1.TabIndex = 1886

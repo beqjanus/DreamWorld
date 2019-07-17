@@ -58,7 +58,7 @@
 #Region "LoadSave"
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Form1.HelpOnce("FsAssets")
+        Form1.HelpOnce("FSAssets")
 
         EnableFsAssetsCheckbox.Checked = Form1.PropMySetting.FsAssetsEnabled
         DataFolder.Text = Form1.PropMySetting.BaseDirectory
@@ -92,7 +92,7 @@
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.Help("FsAssets")
+        Form1.Help("FSAssets")
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
@@ -140,6 +140,7 @@
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
+        If Not initted Then Return
         Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Usa)
         Changed = True
 
@@ -148,7 +149,7 @@
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Form1.PropMySetting.SaveSettings()
-
+        Me.Close()
     End Sub
 
 

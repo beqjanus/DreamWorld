@@ -42,7 +42,7 @@ Public Class Form1
 
     Private _ApacheUninstalling As Boolean = False
     Private _gUseIcons As Boolean = False
-    Private _MyVersion As String = "3.02"
+    Private _MyVersion As String = "3.03"
     Private _SimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     Private _KillSource As Boolean = False      ' set to true to delete all source for Opensim
     Private _DNSSTimer As Integer = 0
@@ -1675,13 +1675,17 @@ Public Class Form1
             'FSASSETS
             If PropMySetting.FsAssetsEnabled Then
                 PropMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
             Else
                 PropMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+                PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
             PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory)
             PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.SpoolDirectory)
             PropMySetting.SetOtherIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
+
+
 
             PropMySetting.SaveOtherINI()
 
@@ -5982,7 +5986,7 @@ Public Class Form1
                           & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & PropMySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & PropMySetting.HttpPort & vbCrLf
 
         If PropMySetting.ApacheEnable Then
-            Command = Command + "netsh advfirewall firewall  add rule name=""Opensim HTTP Web Port " & PropMySetting.ApachePort & """ dir=in action=allow protocol=TCP localport=" & PropMySetting.ApachePort & vbCrLf
+            Command = Command + "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & PropMySetting.ApachePort & """ dir=in action=allow protocol=TCP localport=" & PropMySetting.ApachePort & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
