@@ -26,16 +26,12 @@ Partial Class FormFsAssets
         Me.b = New System.Windows.Forms.GroupBox()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.ShowStatsCheckBox = New System.Windows.Forms.CheckBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.SpoolPath = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.DataFolder = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.b.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -54,9 +50,6 @@ Partial Class FormFsAssets
         '
         Me.b.Controls.Add(Me.SaveButton)
         Me.b.Controls.Add(Me.ShowStatsCheckBox)
-        Me.b.Controls.Add(Me.Label1)
-        Me.b.Controls.Add(Me.PictureBox3)
-        Me.b.Controls.Add(Me.SpoolPath)
         Me.b.Controls.Add(Me.Label6)
         Me.b.Controls.Add(Me.PictureBox2)
         Me.b.Controls.Add(Me.PictureBox1)
@@ -64,14 +57,14 @@ Partial Class FormFsAssets
         Me.b.Controls.Add(Me.EnableFsAssetsCheckbox)
         Me.b.Location = New System.Drawing.Point(12, 12)
         Me.b.Name = "b"
-        Me.b.Size = New System.Drawing.Size(301, 246)
+        Me.b.Size = New System.Drawing.Size(280, 207)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
         Me.b.Text = "File System Assets Database"
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(21, 200)
+        Me.SaveButton.Location = New System.Drawing.Point(21, 155)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 1893
@@ -87,32 +80,6 @@ Partial Class FormFsAssets
         Me.ShowStatsCheckBox.TabIndex = 1892
         Me.ShowStatsCheckBox.Text = "Show stats on console"
         Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(18, 144)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(114, 13)
-        Me.Label1.TabIndex = 1891
-        Me.Label1.Text = "SpoolDirectory  Folder:"
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox3.Location = New System.Drawing.Point(222, 147)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(41, 33)
-        Me.PictureBox3.TabIndex = 1890
-        Me.PictureBox3.TabStop = False
-        '
-        'SpoolPath
-        '
-        Me.SpoolPath.Location = New System.Drawing.Point(21, 160)
-        Me.SpoolPath.Name = "SpoolPath"
-        Me.SpoolPath.Size = New System.Drawing.Size(188, 20)
-        Me.SpoolPath.TabIndex = 1889
         '
         'Label6
         '
@@ -153,13 +120,12 @@ Partial Class FormFsAssets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(336, 278)
+        Me.ClientSize = New System.Drawing.Size(307, 230)
         Me.Controls.Add(Me.b)
         Me.Name = "FormFsAssets"
         Me.Text = "File System Assets"
         Me.b.ResumeLayout(False)
         Me.b.PerformLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -173,9 +139,6 @@ Partial Class FormFsAssets
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents SpoolPath As TextBox
     Friend WithEvents ShowStatsCheckBox As CheckBox
     Friend WithEvents SaveButton As Button
 End Class

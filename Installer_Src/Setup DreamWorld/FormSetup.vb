@@ -40,10 +40,11 @@ Public Class Form1
 
 #Region "Declarations"
 
-    Private _ApacheUninstalling As Boolean = False
-    Private _gUseIcons As Boolean = False
+
     Private _MyVersion As String = "3.03"
     Private _SimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
+    Private _ApacheUninstalling As Boolean = False
+    Private _gUseIcons As Boolean = False
     Private _KillSource As Boolean = False      ' set to true to delete all source for Opensim
     Private _DNSSTimer As Integer = 0
     Private _debugOn As Boolean = False  ' set by code to log some events in when running a debugger
@@ -66,20 +67,16 @@ Public Class Form1
 
     ' with events
     Private WithEvents ApacheProcess As New Process()
+    Private WithEvents ProcessMySql As Process = New Process()
+    Private WithEvents RobustProcess As New Process()
+    Private WithEvents IcecastProcess As New Process()
 
     Public Event ApacheExited As EventHandler
-
-    Dim gApacheProcessID As Integer = 0
-
-    Private WithEvents ProcessMySql As Process = New Process()
-
-    Private _IcecastProcID As Integer
+    Public Event RobustExited As EventHandler
     Public Event Exited As EventHandler
 
-    Private WithEvents RobustProcess As New Process()
-
-    Public Event RobustExited As EventHandler
-
+    Private _IcecastProcID As Integer
+    Dim _ApacheProcessID As Integer = 0
     Private _exitList As New ArrayList()
     Private _RobustProcID As Integer
     Private _RobustConnStr As String = ""
@@ -87,14 +84,12 @@ Public Class Form1
     Private _myUPnpMap As UPnp        ' UPNP PropAborting
     Dim ws As NetServer             ' Port 8001 Webserver
     Private _Aborting As Boolean = False    ' Allows an Abort when Stopping is clicked
-
     Private _IPv4Address As String          ' global IPV4
     Private _mySetting As New MySettings  ' all settings from Settings.ini
 
-    Private WithEvents IcecastProcess As New Process()
+    Private _formCaches As New FormCaches
     Dim Adv As AdvancedForm
 
-    Private _formCaches As New FormCaches
 
     ' Region
     Private _regionClass As RegionMaker   ' Global RegionClass
@@ -119,6 +114,9 @@ Public Class Form1
     Dim MyCPUCollection As New Collection
     Private _viewedSettings As Boolean = False
     Dim MyRAMCollection As New Collection
+
+    ' Smart Start
+    Dim AgentsWaiting As New Dictionary(Of String, String)
 
     'Crashing
     Dim LogSearch As New CrashDetector()
@@ -148,12 +146,10 @@ Public Class Form1
     Shared Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
-    Dim newScreenPosition As ScreenPos
-
 #End Region
 
 #Region "ScreenSize"
-
+    Dim newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
 
@@ -200,6 +196,7 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
     Public Property PropApacheUninstalling() As Boolean
         Get
             Return _ApacheUninstalling
@@ -374,14 +371,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropFormCaches As FormCaches
-        Get
-            Return _formCaches
-        End Get
-        Set(value As FormCaches)
-            _formCaches = value
-        End Set
-    End Property
+
 
     Public Property PropRegionClass As RegionMaker
         Get
@@ -554,6 +544,24 @@ Public Class Form1
         End Set
     End Property
 
+    Public Property PropgApacheProcessID As Integer
+        Get
+            Return _ApacheProcessID
+        End Get
+        Set(value As Integer)
+            _ApacheProcessID = value
+        End Set
+    End Property
+
+    Public Property FormCaches As FormCaches
+        Get
+            Return _formCaches
+        End Get
+        Set(value As FormCaches)
+            _formCaches = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "StartStop"
@@ -624,8 +632,8 @@ Public Class Form1
         Me.Show()
 
         PropRegionClass = RegionMaker.Instance()
-
         Adv = New AdvancedForm
+
         PropInitted = True
 
         ClearLogFiles() ' clear log fles
@@ -1681,11 +1689,9 @@ Public Class Form1
                 PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
-            PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory)
-            PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.SpoolDirectory)
+            PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory & "/data")
+            PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
             PropMySetting.SetOtherIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
-
-
 
             PropMySetting.SaveOtherINI()
 
@@ -2599,7 +2605,7 @@ Public Class Form1
                 ApacheProcess2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 ApacheProcess2.StartInfo.Arguments = ""
                 ApacheProcess2.Start()
-                gApacheProcessID = ApacheProcess2.Id
+                PropgApacheProcessID = ApacheProcess2.Id
             Catch ex As Exception
                 Print("Error: Apache did not start: " + ex.Message)
                 ErrorLog("Error: Apache did not start: " + ex.Message)
@@ -2611,7 +2617,7 @@ Public Class Form1
             ' Wait for Apache to start listening
 
             Dim counter = 0
-            While gApacheProcessID = 0 And PropOpensimIsRunning
+            While PropgApacheProcessID = 0 And PropOpensimIsRunning
 
                 BumpProgress(1)
                 counter += 1
@@ -2953,7 +2959,7 @@ Public Class Form1
     ' Handle Exited event and display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles ApacheProcess.Exited
 
-        gApacheProcessID = Nothing
+        PropgApacheProcessID = Nothing
 
         If PropAborting Then Return
         If PropApacheUninstalling Then Return
@@ -3291,7 +3297,7 @@ Public Class Form1
                 PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
 
                 If UserAgent.Length > 0 Then
-                    TeleportAgent(UserAgent)
+                    AgentsWaiting.Add(UserAgent, BootName)
                 End If
 
             End If
@@ -3315,9 +3321,6 @@ Public Class Form1
 
     End Function
 
-    Private Sub TeleportAgent(agentUUID As String)
-        '!!!
-    End Sub
 
     ''' <summary>
     ''' Check is Robust port 8002 is up
@@ -5200,7 +5203,7 @@ Public Class Form1
             Application.DoEvents()
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" + PropMySetting.DNSName + GetPostData())
         Catch ex As Exception
-            ErrorLog("Warn:Cannot check the DNS Name" + ex.Message)
+            ErrorLog("Warn: Cannot check the DNS Name " + ex.Message)
             Return False
         End Try
         If Checkname = "UPDATED" Then Return True

@@ -935,7 +935,6 @@ Public Class RegionMaker
     Public Sub UpdateAllRegionPorts()
 
         If Form1.PropOpensimIsRunning Then
-            'Form1.Log("Trying to update all region ports while running')")
             Return
         End If
 

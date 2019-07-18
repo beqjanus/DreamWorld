@@ -315,20 +315,10 @@ Public Class MySettings
     'BaseDirectory
     Public Property BaseDirectory() As String
         Get
-            Return GetMySetting("BaseDirectory", "./fsassets/data")
+            Return GetMySetting("BaseDirectory", "./fsassets")
         End Get
         Set
             SetMySetting("BaseDirectory", Value)
-        End Set
-    End Property
-
-    'SpoolDirectory
-    Public Property SpoolDirectory() As String
-        Get
-            Return GetMySetting("SpoolDirectory", "./fsassets/tmp")
-        End Get
-        Set
-            SetMySetting("SpoolDirectory", Value)
         End Set
     End Property
 
