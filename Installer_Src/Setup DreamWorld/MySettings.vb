@@ -470,6 +470,22 @@ Public Class MySettings
             SetMySetting("RestartonPhysics", Value.ToString(Form1.Usa))
         End Set
     End Property
+    Public Property RenderMaxHeight() As String
+        Get
+            Return GetMySetting("RenderMaxHeight", "4000")
+        End Get
+        Set
+            SetMySetting("RenderMaxHeight", Value)
+        End Set
+    End Property
+    Public Property RenderMinHeight() As String
+        Get
+            Return GetMySetting("RenderMinHeight", "-100")
+        End Get
+        Set
+            SetMySetting("RenderMinHeight", Value)
+        End Set
+    End Property
 
     Public Property MapCenterY() As String
         Get
@@ -1531,11 +1547,7 @@ Public Class MySettings
 
     Public Property SCPortBase() As Integer
         Get
-            Try ' required as it has been added
-                Return CType(GetMySetting("SC_PortBase", "8080"), Integer)
-            Catch
-                Return 8080
-            End Try
+            Return CType(GetMySetting("SC_PortBase", "8080"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase", Value.ToString(Form1.Usa))
@@ -1544,11 +1556,7 @@ Public Class MySettings
 
     Public Property SCPortBase1() As Integer
         Get
-            Try ' required as it has been added
-                Return CType(GetMySetting("SC_PortBase1", "8081"), Integer)
-            Catch
-                Return 8081
-            End Try
+            Return CType(GetMySetting("SC_PortBase1", "8081"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase1", Value.ToString(Form1.Usa))
@@ -1595,7 +1603,9 @@ Public Class MySettings
         Apacheout.Clear()
 
         For Each Item As String In Apachein
+#Disable Warning CA1307 ' Specify StringComparison
             If Item.StartsWith(Name) Then
+#Enable Warning CA1307 ' Specify StringComparison
                 Apacheout.Add(Name & " " & value)
             Else
                 Apacheout.Add(Item)

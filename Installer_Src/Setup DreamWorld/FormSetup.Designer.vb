@@ -121,8 +121,9 @@ Partial Class Form1
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ApachePictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.MysqlPictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ApachePictureBox = New System.Windows.Forms.PictureBox()
+        Me.MysqlPictureBox = New System.Windows.Forms.PictureBox()
+        Me.RobustPictureBox = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
@@ -132,9 +133,11 @@ Partial Class Form1
         Me.PercentRAM = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
-        CType(Me.ApachePictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MysqlPictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StopButton
@@ -611,7 +614,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(686, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -626,7 +629,7 @@ Partial Class Form1
         '
         Me.IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.IslandToolStripMenuItem.Name = "IslandToolStripMenuItem"
-        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.IslandToolStripMenuItem.Text = "Load Free Dreamworld OARs"
         Me.IslandToolStripMenuItem.ToolTipText = "OAR files are backups of entire Islands"
         '
@@ -634,7 +637,7 @@ Partial Class Form1
         '
         Me.ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.ClothingInventoryToolStripMenuItem.Name = "ClothingInventoryToolStripMenuItem"
-        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.ClothingInventoryToolStripMenuItem.Text = "Load Free Avatar Inventory"
         Me.ClothingInventoryToolStripMenuItem.ToolTipText = "IAR files are backups of inventory items"
         '
@@ -642,14 +645,14 @@ Partial Class Form1
         '
         Me.LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.LoadLocalOARSToolStripMenuItem.Name = "LoadLocalOARSToolStripMenuItem"
-        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.LoadLocalOARSToolStripMenuItem.Text = "Load Local OARs from the OAR folder"
         '
         'LoadLocalIARsToolStripMenuItem
         '
         Me.LoadLocalIARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.LoadLocalIARsToolStripMenuItem.Name = "LoadLocalIARsToolStripMenuItem"
-        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.LoadLocalIARsToolStripMenuItem.Text = "Load Local IARs from the IAR folder"
         '
         'OARToolStripMenuItem
@@ -657,7 +660,7 @@ Partial Class Form1
         Me.OARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadRegionOarToolStripMenuItem, Me.SaveRegionOARToolStripMenuItem, Me.AllTheRegionsOarsToolStripMenuItem})
         Me.OARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.OARToolStripMenuItem.Name = "OARToolStripMenuItem"
-        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.OARToolStripMenuItem.Text = "OAR Load and Save"
         '
         'LoadRegionOarToolStripMenuItem
@@ -686,7 +689,7 @@ Partial Class Form1
         Me.IARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadInventoryIARToolStripMenuItem, Me.SaveInventoryIARToolStripMenuItem})
         Me.IARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.IARToolStripMenuItem.Name = "IARToolStripMenuItem"
-        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.IARToolStripMenuItem.Text = "IAR Load and Save"
         '
         'LoadInventoryIARToolStripMenuItem
@@ -707,20 +710,20 @@ Partial Class Form1
         '
         Me.MoreContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
         Me.MoreContentToolStripMenuItem.Name = "MoreContentToolStripMenuItem"
-        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.MoreContentToolStripMenuItem.Text = "More Free Islands and Parts"
         Me.MoreContentToolStripMenuItem.ToolTipText = "Outworldz has free DLC"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(270, 6)
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check and Repair Database"
         '
         'BackupRestoreToolStripMenuItem
@@ -728,7 +731,7 @@ Partial Class Form1
         Me.BackupRestoreToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupDatabaseToolStripMenuItem, Me.RestoreDatabaseToolStripMenuItem1})
         Me.BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupRestoreToolStripMenuItem.Name = "BackupRestoreToolStripMenuItem"
-        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.BackupRestoreToolStripMenuItem.Text = "SQL Database Backup/Restore "
         '
         'BackupDatabaseToolStripMenuItem
@@ -750,13 +753,13 @@ Partial Class Form1
         '
         Me.BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupCriticalFilesToolStripMenuItem.Name = "BackupCriticalFilesToolStripMenuItem"
-        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(277, 26)
+        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.BackupCriticalFilesToolStripMenuItem.Text = "System Backup"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(274, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(270, 6)
         '
         'ProgressBar1
         '
@@ -798,25 +801,35 @@ Partial Class Form1
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
-        'ApachePictureBox1
+        'ApachePictureBox
         '
-        Me.ApachePictureBox1.Image = CType(resources.GetObject("ApachePictureBox1.Image"), System.Drawing.Image)
-        Me.ApachePictureBox1.Location = New System.Drawing.Point(395, 6)
-        Me.ApachePictureBox1.Name = "ApachePictureBox1"
-        Me.ApachePictureBox1.Size = New System.Drawing.Size(17, 17)
-        Me.ApachePictureBox1.TabIndex = 39
-        Me.ApachePictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.ApachePictureBox1, "Apache Status")
+        Me.ApachePictureBox.Image = CType(resources.GetObject("ApachePictureBox.Image"), System.Drawing.Image)
+        Me.ApachePictureBox.Location = New System.Drawing.Point(405, 5)
+        Me.ApachePictureBox.Name = "ApachePictureBox"
+        Me.ApachePictureBox.Size = New System.Drawing.Size(17, 17)
+        Me.ApachePictureBox.TabIndex = 39
+        Me.ApachePictureBox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.ApachePictureBox, "Apache Status")
         '
-        'MysqlPictureBox1
+        'MysqlPictureBox
         '
-        Me.MysqlPictureBox1.Image = CType(resources.GetObject("MysqlPictureBox1.Image"), System.Drawing.Image)
-        Me.MysqlPictureBox1.Location = New System.Drawing.Point(323, 6)
-        Me.MysqlPictureBox1.Name = "MysqlPictureBox1"
-        Me.MysqlPictureBox1.Size = New System.Drawing.Size(17, 17)
-        Me.MysqlPictureBox1.TabIndex = 40
-        Me.MysqlPictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MysqlPictureBox1, "MySQL Status")
+        Me.MysqlPictureBox.Image = CType(resources.GetObject("MysqlPictureBox.Image"), System.Drawing.Image)
+        Me.MysqlPictureBox.Location = New System.Drawing.Point(325, 5)
+        Me.MysqlPictureBox.Name = "MysqlPictureBox"
+        Me.MysqlPictureBox.Size = New System.Drawing.Size(17, 17)
+        Me.MysqlPictureBox.TabIndex = 40
+        Me.MysqlPictureBox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.MysqlPictureBox, "MySQL Status")
+        '
+        'RobustPictureBox
+        '
+        Me.RobustPictureBox.Image = CType(resources.GetObject("RobustPictureBox.Image"), System.Drawing.Image)
+        Me.RobustPictureBox.Location = New System.Drawing.Point(365, 5)
+        Me.RobustPictureBox.Name = "RobustPictureBox"
+        Me.RobustPictureBox.Size = New System.Drawing.Size(17, 17)
+        Me.RobustPictureBox.TabIndex = 43
+        Me.RobustPictureBox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.RobustPictureBox, "Apache Status")
         '
         'Label1
         '
@@ -832,7 +845,7 @@ Partial Class Form1
         Me.ChartWrapper1.AxisXTitle = "Seconds"
         Me.ChartWrapper1.AxisYTitle = "CPU %"
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(301, 30)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(312, 49)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
@@ -857,7 +870,7 @@ Partial Class Form1
         Me.ChartWrapper2.AxisXTitle = "Seconds"
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(301, 195)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(312, 214)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
@@ -897,7 +910,7 @@ Partial Class Form1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(347, 9)
+        Me.Label2.Location = New System.Drawing.Point(309, 26)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 13)
         Me.Label2.TabIndex = 41
@@ -906,11 +919,20 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(418, 9)
+        Me.Label4.Location = New System.Drawing.Point(390, 26)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(44, 13)
         Me.Label4.TabIndex = 42
         Me.Label4.Text = "Apache"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(352, 26)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(41, 13)
+        Me.Label5.TabIndex = 44
+        Me.Label5.Text = "Robust"
         '
         'Form1
         '
@@ -919,11 +941,13 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.ClientSize = New System.Drawing.Size(686, 141)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.RobustPictureBox)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.MysqlPictureBox1)
-        Me.Controls.Add(Me.ApachePictureBox1)
+        Me.Controls.Add(Me.MysqlPictureBox)
+        Me.Controls.Add(Me.ApachePictureBox)
         Me.Controls.Add(Me.PercentRAM)
         Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.Label3)
@@ -948,8 +972,9 @@ Partial Class Form1
         Me.Text = "DreamGrid"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.ApachePictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MysqlPictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1066,8 +1091,10 @@ Partial Class Form1
     Friend WithEvents PercentCPU As Label
     Friend WithEvents PercentRAM As Label
     Friend WithEvents JustQuitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ApachePictureBox1 As PictureBox
-    Friend WithEvents MysqlPictureBox1 As PictureBox
+    Friend WithEvents ApachePictureBox As PictureBox
+    Friend WithEvents MysqlPictureBox As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents RobustPictureBox As PictureBox
+    Friend WithEvents Label5 As Label
 End Class

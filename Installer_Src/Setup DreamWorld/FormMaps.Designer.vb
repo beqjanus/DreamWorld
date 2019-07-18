@@ -25,7 +25,6 @@ Partial Class FormMaps
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
         Me.MapBox = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.ViewMap = New System.Windows.Forms.Button()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
@@ -34,9 +33,14 @@ Partial Class FormMaps
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.LargeMapButton = New System.Windows.Forms.Button()
         Me.SmallMapButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.RenderMinH = New System.Windows.Forms.TextBox()
+        Me.RenderMaxH = New System.Windows.Forms.TextBox()
         Me.MapYStart = New System.Windows.Forms.TextBox()
         Me.MapXStart = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -61,24 +65,14 @@ Partial Class FormMaps
         Me.MapBox.Controls.Add(Me.MapGood)
         Me.MapBox.Location = New System.Drawing.Point(12, 12)
         Me.MapBox.Name = "MapBox"
-        Me.MapBox.Size = New System.Drawing.Size(171, 300)
+        Me.MapBox.Size = New System.Drawing.Size(171, 294)
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(30, 38)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(125, 23)
-        Me.Button2.TabIndex = 1859
-        Me.Button2.Text = "View Map Web Page"
-        Me.ToolTip1.SetToolTip(Me.Button2, "This is the standard Wifi Map page")
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'ViewMap
         '
-        Me.ViewMap.Location = New System.Drawing.Point(15, 271)
+        Me.ViewMap.Location = New System.Drawing.Point(15, 253)
         Me.ViewMap.Name = "ViewMap"
         Me.ViewMap.Size = New System.Drawing.Size(125, 23)
         Me.ViewMap.TabIndex = 1858
@@ -161,6 +155,16 @@ Partial Class FormMaps
         Me.MapGood.Text = "Good (Warp3D)"
         Me.MapGood.UseVisualStyleBackColor = True
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(30, 38)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(125, 23)
+        Me.Button2.TabIndex = 1859
+        Me.Button2.Text = "View Map Web Page"
+        Me.ToolTip1.SetToolTip(Me.Button2, "This is the standard Wifi Map page")
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'LargeMapButton
         '
         Me.LargeMapButton.Location = New System.Drawing.Point(31, 99)
@@ -181,6 +185,10 @@ Partial Class FormMaps
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.RenderMinH)
+        Me.GroupBox2.Controls.Add(Me.RenderMaxH)
         Me.GroupBox2.Controls.Add(Me.Button2)
         Me.GroupBox2.Controls.Add(Me.MapYStart)
         Me.GroupBox2.Controls.Add(Me.MapXStart)
@@ -189,31 +197,67 @@ Partial Class FormMaps
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.SmallMapButton)
         Me.GroupBox2.Controls.Add(Me.LargeMapButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(189, 16)
+        Me.GroupBox2.Location = New System.Drawing.Point(189, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(184, 203)
+        Me.GroupBox2.Size = New System.Drawing.Size(184, 290)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = " Maps"
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(15, 166)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(96, 13)
+        Me.Label5.TabIndex = 1876
+        Me.Label5.Text = "Render Min Height"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(12, 140)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(99, 13)
+        Me.Label4.TabIndex = 1875
+        Me.Label4.Text = "Render Max Height"
+        '
+        'RenderMinH
+        '
+        Me.RenderMinH.Location = New System.Drawing.Point(117, 163)
+        Me.RenderMinH.Name = "RenderMinH"
+        Me.RenderMinH.Size = New System.Drawing.Size(39, 20)
+        Me.RenderMinH.TabIndex = 1874
+        Me.ToolTip1.SetToolTip(Me.RenderMinH, "Min -100, max +100")
+        '
+        'RenderMaxH
+        '
+        Me.RenderMaxH.Location = New System.Drawing.Point(116, 137)
+        Me.RenderMaxH.Name = "RenderMaxH"
+        Me.RenderMaxH.Size = New System.Drawing.Size(39, 20)
+        Me.RenderMaxH.TabIndex = 1873
+        Me.ToolTip1.SetToolTip(Me.RenderMaxH, "Max of 4096")
+        '
         'MapYStart
         '
-        Me.MapYStart.Location = New System.Drawing.Point(118, 155)
+        Me.MapYStart.Location = New System.Drawing.Point(117, 241)
         Me.MapYStart.Name = "MapYStart"
         Me.MapYStart.Size = New System.Drawing.Size(39, 20)
         Me.MapYStart.TabIndex = 1872
+        Me.ToolTip1.SetToolTip(Me.MapYStart, "Center of the map coordinate")
         '
         'MapXStart
         '
-        Me.MapXStart.Location = New System.Drawing.Point(49, 155)
+        Me.MapXStart.Location = New System.Drawing.Point(48, 241)
         Me.MapXStart.Name = "MapXStart"
         Me.MapXStart.Size = New System.Drawing.Size(39, 20)
         Me.MapXStart.TabIndex = 1871
+        Me.ToolTip1.SetToolTip(Me.MapXStart, "Center of the map coordinate")
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(98, 155)
+        Me.Label3.Location = New System.Drawing.Point(97, 241)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 1870
@@ -222,7 +266,7 @@ Partial Class FormMaps
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(28, 155)
+        Me.Label2.Location = New System.Drawing.Point(27, 241)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 1869
@@ -231,7 +275,7 @@ Partial Class FormMaps
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(28, 134)
+        Me.Label1.Location = New System.Drawing.Point(27, 220)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(112, 13)
         Me.Label1.TabIndex = 1868
@@ -278,4 +322,8 @@ Partial Class FormMaps
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents RenderMinH As TextBox
+    Friend WithEvents RenderMaxH As TextBox
 End Class

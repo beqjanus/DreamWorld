@@ -66,6 +66,9 @@ Public Class FormMaps
             SmallMapButton.Enabled = False
         End If
 
+        RenderMaxH.Text = Form1.PropMySetting.RenderMaxHeight
+        RenderMinH.Text = Form1.PropMySetting.RenderMinHeight
+
         Form1.HelpOnce("Maps")
         SetScreen()
 
@@ -158,4 +161,21 @@ Public Class FormMaps
         Form1.PropMySetting.MapCenterY = MapYStart.Text
     End Sub
 
+    Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d-\.]")
+        RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
+        If CType(RenderMaxH.Text, Single) <= 4096 And CType(RenderMaxH.Text, Single) > 100 Then
+            Form1.PropMySetting.RenderMaxHeight = RenderMaxH.Text
+        End If
+
+    End Sub
+
+    Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d-\.]")
+        RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
+        If CType(RenderMaxH.Text, Single) >= -100 Then
+            Form1.PropMySetting.RenderMinHeight = RenderMinH.Text
+        End If
+
+    End Sub
 End Class

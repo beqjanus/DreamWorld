@@ -1724,6 +1724,7 @@ Public Class Form1
 
         End Select
 
+
         '' all grids requires these setting in Opensim.ini
         PropMySetting.SetOtherIni("Const", "DiagnosticsPort", PropMySetting.DiagnosticPort)
 
@@ -1842,6 +1843,10 @@ Public Class Form1
                 PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "true")
         End Select
+
+        PropMySetting.SetOtherIni("Map", "RenderMaxHeight", PropMySetting.RenderMaxHeight)
+        PropMySetting.SetOtherIni("Map", "RenderMinHeight", PropMySetting.RenderMinHeight)
+
 
         If PropMySetting.MapType = "None" Then
             PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "false")
@@ -2498,12 +2503,12 @@ Public Class Form1
     Public Sub StartApache()
 
         If Not PropMySetting.ApacheEnable Then
-            ApachePictureBox1.Image = My.Resources.nav_plain_blue
+            ApachePictureBox.Image = My.Resources.nav_plain_blue
             Print("Apache web server is not enabled.")
             Return
         End If
 
-        ApachePictureBox1.Image = My.Resources.nav_plain_red
+        ApachePictureBox.Image = My.Resources.nav_plain_red
         Application.DoEvents()
 
         Print("Setup Apache")
@@ -2573,7 +2578,7 @@ Public Class Form1
                 If code <> 0 Then
                     Print("Apache failed to start:" & code.ToString(Usa))
                 Else
-                    ApachePictureBox1.Image = My.Resources.nav_plain_green
+                    ApachePictureBox.Image = My.Resources.nav_plain_green
                     Application.DoEvents()
                 End If
 
@@ -2598,7 +2603,7 @@ Public Class Form1
             Catch ex As Exception
                 Print("Error: Apache did not start: " + ex.Message)
                 ErrorLog("Error: Apache did not start: " + ex.Message)
-                ApachePictureBox1.Image = My.Resources.nav_plain_red
+                ApachePictureBox.Image = My.Resources.nav_plain_red
                 Application.DoEvents()
                 Return
             End Try
@@ -2621,7 +2626,7 @@ Public Class Form1
                 Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
                 If Running Then
                     Print("Apache webserver is running")
-                    ApachePictureBox1.Image = My.Resources.nav_plain_green
+                    ApachePictureBox.Image = My.Resources.nav_plain_green
                     Return
                 End If
 
@@ -2829,14 +2834,18 @@ Public Class Form1
     Public Function StartRobust() As Boolean
 
         If IsRobustRunning() Then
+            RobustPictureBox.Image = My.Resources.nav_plain_green
             Return True
         End If
+
+        RobustPictureBox.Image = My.Resources.nav_plain_blue
 
         If PropMySetting.ServerType <> "Robust" Then Return True
 
         Print("Setup Robust")
         If PropMySetting.RobustServer <> "127.0.0.1" And PropMySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & PropMySetting.RobustServer)
+            RobustPictureBox.Image = My.Resources.nav_plain_green
             Return True
         End If
 
@@ -2854,13 +2863,13 @@ Public Class Form1
             RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
             RobustProcess.Start()
             PropRobustProcID = RobustProcess.Id
-
             SetWindowTextCall(RobustProcess, "Robust")
         Catch ex As Exception
             Print("Error: Robust did not start: " + ex.Message)
             ErrorLog("Error: Robust did not start: " + ex.Message)
             KillAll()
             Buttons(StartButton)
+            RobustPictureBox.Image = My.Resources.nav_plain_red
             Return False
         End Try
 
@@ -2881,6 +2890,7 @@ Public Class Form1
                     System.Diagnostics.Process.Start(PropMyFolder + "\baretail.exe " & Log)
                 End If
                 Buttons(StartButton)
+                RobustPictureBox.Image = My.Resources.nav_plain_red
                 Return False
             End If
             Application.DoEvents()
@@ -2891,7 +2901,7 @@ Public Class Form1
         If PropMySetting.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
-
+        RobustPictureBox.Image = My.Resources.nav_plain_green
         Log("Info", "Robust is running")
 
         Return True
@@ -4970,11 +4980,11 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort(PropMySetting.RobustServer(), CType(PropMySetting.MySqlPort, Integer))
 
         If isMySqlRunning Then
-            MysqlPictureBox1.Image = My.Resources.nav_plain_green
+            MysqlPictureBox.Image = My.Resources.nav_plain_green
             Application.DoEvents()
             Return True
         End If
-        MysqlPictureBox1.Image = My.Resources.nav_plain_red
+        MysqlPictureBox.Image = My.Resources.nav_plain_red
         Application.DoEvents()
         ' Start MySql in background.
 
@@ -5051,7 +5061,7 @@ Public Class Form1
 
         If Not PropOpensimIsRunning Then Return False
 
-        MysqlPictureBox1.Image = My.Resources.nav_plain_green
+        MysqlPictureBox.Image = My.Resources.nav_plain_green
         Application.DoEvents()
         Return True
 
@@ -5127,13 +5137,13 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(PropMySetting.MySqlPort, Integer))
 
         If Not isMySqlRunning Then
-            MysqlPictureBox1.Image = My.Resources.nav_plain_red
+            MysqlPictureBox.Image = My.Resources.nav_plain_red
             Application.DoEvents()
             Return
         End If
 
         If Not PropStopMysql Then
-            MysqlPictureBox1.Image = My.Resources.nav_plain_green
+            MysqlPictureBox.Image = My.Resources.nav_plain_green
             Application.DoEvents()
             Print("MySQL was running when I woke up, so I am leaving MySQL on.")
             Return
@@ -5155,7 +5165,7 @@ Public Class Form1
             p.Start()
             p.WaitForExit()
             p.Close()
-            MysqlPictureBox1.Image = My.Resources.nav_plain_red
+            MysqlPictureBox.Image = My.Resources.nav_plain_red
             Application.DoEvents()
         Catch ex As Exception
             ErrorLog("Error: failed to stop MySQL:" + ex.Message)
