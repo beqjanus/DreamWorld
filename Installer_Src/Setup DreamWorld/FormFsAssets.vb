@@ -64,7 +64,6 @@
 
         EnableFsAssetsCheckbox.Checked = Form1.PropMySetting.FsAssetsEnabled
         DataFolder.Text = Form1.PropMySetting.BaseDirectory
-        SpoolPath.Text = Form1.PropMySetting.SpoolDirectory
         ShowStatsCheckBox.Checked = CType(Form1.PropMySetting.ShowConsoleStats, Boolean)
 
         Initted1 = True
@@ -74,7 +73,7 @@
     Private Sub Form_exit() Handles Me.Closed
 
         If Changed Then
-            Dim result As DialogResult = MsgBox("Form has changed! Save, or Abort?", vbOKCancel)
+            Dim result As MsgBoxResult = MsgBox("OK to Save, or Cancel Changes?", vbOKCancel)
             If result = vbOK Then
                 Form1.PropMySetting.SaveSettings()
             End If
@@ -102,7 +101,7 @@
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = "Pick folder for fsassets (default is ./fsassets/data in Opensim/bin)"
+            .Description = "Pick folder for FSassets Database (default is ./fsassets in Opensim/bin)"
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 
@@ -118,27 +117,6 @@
         End If
     End Sub
 
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-
-        'Create an instance of the open file dialog box.
-        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
-            .ShowNewFolderButton = True,
-            .Description = "Pick folder for Spooling (default is ./fsassets/tmp in Opensim/bin)"
-        }
-        Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-        ' Process input if the user clicked OK.
-        If UserClickedOK = DialogResult.OK Then
-            Dim thing = openFileDialog1.SelectedPath
-            If thing.Length > 0 Then
-                Form1.PropMySetting.SpoolDirectory = thing
-                Form1.PropMySetting.SaveSettings()
-                SpoolPath.Text = thing
-                Changed = True
-            End If
-        End If
-
-    End Sub
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
@@ -153,7 +131,6 @@
         Form1.PropMySetting.SaveSettings()
         Me.Close()
     End Sub
-
 
 
 

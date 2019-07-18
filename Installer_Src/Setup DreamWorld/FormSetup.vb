@@ -87,7 +87,7 @@ Public Class Form1
     Private _IPv4Address As String          ' global IPV4
     Private _mySetting As New MySettings  ' all settings from Settings.ini
 
-    Public FormCaches As New FormCaches
+    Private _formCaches As New FormCaches
     Dim Adv As AdvancedForm
 
 
@@ -371,7 +371,7 @@ Public Class Form1
         End Set
     End Property
 
-   
+
 
     Public Property PropRegionClass As RegionMaker
         Get
@@ -550,6 +550,15 @@ Public Class Form1
         End Get
         Set(value As Integer)
             _ApacheProcessID = value
+        End Set
+    End Property
+
+    Public Property FormCaches As FormCaches
+        Get
+            Return _formCaches
+        End Get
+        Set(value As FormCaches)
+            _formCaches = value
         End Set
     End Property
 
@@ -1680,11 +1689,9 @@ Public Class Form1
                 PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
-            PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory)
-            PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.SpoolDirectory)
+            PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory & "/data")
+            PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
             PropMySetting.SetOtherIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
-
-
 
             PropMySetting.SaveOtherINI()
 
