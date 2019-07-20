@@ -652,12 +652,12 @@ Public Class Form1
             PropMySetting.PublicIP = PropMySetting.DNSName
         End If
 
-        If PropMySetting.GridServerName.Length = 0 And PropMySetting.DNSName.Length > 0 Then
-            PropMySetting.GridServerName = PropMySetting.DNSName
-        End If
-
-        If PropMySetting.GridServerName.Length = 0 And PropMySetting.DNSName.Length = 0 Then
-            PropMySetting.GridServerName = PropMySetting.PublicIP
+        If PropMySetting.GridServerName.Length = 0 Then
+            If PropMySetting.DNSName.Length > 0 Then
+                PropMySetting.GridServerName = PropMySetting.DNSName
+            Else
+                PropMySetting.GridServerName = PropMySetting.PublicIP
+            End If
         End If
 
         If (PropMySetting.SplashPage.Length = 0) Then
@@ -2042,7 +2042,7 @@ Public Class Form1
 
             PropMySetting.LoadOtherIni(GetOpensimProto(), ";")
 
-            PropMySetting.SetOtherIni("Const", "BaseHostname", PropMySetting.GridServerName)
+            PropMySetting.SetOtherIni("Const", "BaseHostname", PropMySetting.PublicIP)
             PropMySetting.SetOtherIni("Const", "PublicPort", PropMySetting.HttpPort) ' 8002
             PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL) ' local IP
             PropMySetting.SetOtherIni("Const", "http_listener_port", PropRegionClass.RegionPort(X).ToString(Usa)) ' varies with region
