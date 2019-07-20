@@ -37,8 +37,12 @@ Partial Class Icecast
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ShoutcastPort = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ShoutcastEnable
@@ -80,7 +84,7 @@ Partial Class Icecast
         Me.GroupBox1.Controls.Add(Me.ShoutcastPort)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.ShoutcastPassword)
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 11)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 34)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(214, 201)
         Me.GroupBox1.TabIndex = 3
@@ -158,11 +162,37 @@ Partial Class Icecast
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(238, 28)
+        Me.MenuStrip2.TabIndex = 1891
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'Icecast
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(238, 222)
+        Me.ClientSize = New System.Drawing.Size(238, 247)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Icecast"
@@ -171,7 +201,10 @@ Partial Class Icecast
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -188,4 +221,7 @@ Partial Class Icecast
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label4 As Label
     Friend WithEvents ShoutcastPort1 As TextBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

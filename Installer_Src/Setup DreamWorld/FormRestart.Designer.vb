@@ -35,8 +35,12 @@ Partial Class FormRestart
         Me.Label13 = New System.Windows.Forms.Label()
         Me.AutoStartCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AutoStart.SuspendLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'AutoStart
@@ -50,9 +54,9 @@ Partial Class FormRestart
         Me.AutoStart.Controls.Add(Me.RunOnBoot)
         Me.AutoStart.Controls.Add(Me.Label13)
         Me.AutoStart.Controls.Add(Me.AutoStartCheckbox)
-        Me.AutoStart.Location = New System.Drawing.Point(12, 12)
+        Me.AutoStart.Location = New System.Drawing.Point(15, 42)
         Me.AutoStart.Name = "AutoStart"
-        Me.AutoStart.Size = New System.Drawing.Size(223, 244)
+        Me.AutoStart.Size = New System.Drawing.Size(223, 205)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
         Me.AutoStart.Text = "Auto Restart"
@@ -60,7 +64,7 @@ Partial Class FormRestart
         'RestartOnPhysicsCrash
         '
         Me.RestartOnPhysicsCrash.AutoSize = True
-        Me.RestartOnPhysicsCrash.Location = New System.Drawing.Point(25, 203)
+        Me.RestartOnPhysicsCrash.Location = New System.Drawing.Point(25, 176)
         Me.RestartOnPhysicsCrash.Name = "RestartOnPhysicsCrash"
         Me.RestartOnPhysicsCrash.Size = New System.Drawing.Size(144, 17)
         Me.RestartOnPhysicsCrash.TabIndex = 1866
@@ -72,7 +76,7 @@ Partial Class FormRestart
         'RestartOnCrash
         '
         Me.RestartOnCrash.AutoSize = True
-        Me.RestartOnCrash.Location = New System.Drawing.Point(25, 169)
+        Me.RestartOnCrash.Location = New System.Drawing.Point(25, 153)
         Me.RestartOnCrash.Name = "RestartOnCrash"
         Me.RestartOnCrash.Size = New System.Drawing.Size(105, 17)
         Me.RestartOnCrash.TabIndex = 1865
@@ -142,7 +146,7 @@ Partial Class FormRestart
         'AutoStartCheckbox
         '
         Me.AutoStartCheckbox.AutoSize = True
-        Me.AutoStartCheckbox.Location = New System.Drawing.Point(25, 139)
+        Me.AutoStartCheckbox.Location = New System.Drawing.Point(25, 130)
         Me.AutoStartCheckbox.Name = "AutoStartCheckbox"
         Me.AutoStartCheckbox.Size = New System.Drawing.Size(133, 17)
         Me.AutoStartCheckbox.TabIndex = 45
@@ -151,11 +155,37 @@ Partial Class FormRestart
         "ed.")
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(250, 28)
+        Me.MenuStrip2.TabIndex = 1889
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'FormRestart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(250, 275)
+        Me.ClientSize = New System.Drawing.Size(250, 264)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.AutoStart)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -164,7 +194,10 @@ Partial Class FormRestart
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -179,4 +212,7 @@ Partial Class FormRestart
     Friend WithEvents SequentialCheckBox1 As CheckBox
     Friend WithEvents RestartOnCrash As CheckBox
     Friend WithEvents RestartOnPhysicsCrash As CheckBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -575,6 +575,8 @@ Public Class Form1
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Me.Hide()
+
+
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
@@ -591,7 +593,6 @@ Public Class Form1
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
-        Me.Show()
 
         ' setup a debug path
         PropMyFolder = My.Application.Info.DirectoryPath
@@ -618,6 +619,12 @@ Public Class Form1
         PropMySetting.OpensimBinPath = PropOpensimBinPath
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
+        If Me.Width > 320 Then
+            PictureBox1.Image = My.Resources.media_rewind
+        Else
+            PictureBox1.Image = My.Resources.media_fast_forward
+        End If
+        Me.Show()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
@@ -2924,8 +2931,6 @@ Public Class Form1
         PropAborting = False
         Timer1.Start() 'Timer starts functioning
 
-        RunDataSnapshot() ' Fetch assets marked for search every hour
-
         StartRobust()
 
         Dim Len = PropRegionClass.RegionCount()
@@ -3749,6 +3754,7 @@ Public Class Form1
         ProgressBar1.Value = nextval
 
         Application.DoEvents()
+
     End Sub
 
     Private Sub BumpProgress10()
@@ -4953,6 +4959,11 @@ Public Class Form1
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
+        BackupDB()
+
+    End Sub
+
+    Public Sub BackupDB()
         If Not StartMySQL() Then
             ProgressBar1.Value = 0
             ProgressBar1.Visible = True
@@ -4976,7 +4987,6 @@ Public Class Form1
 
         Print("")
     End Sub
-
     Public Function StartMySQL() As Boolean
 
 
@@ -6038,7 +6048,8 @@ Public Class Form1
 
         FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
         pi.FileName = "Create_OsSearch.bat"
-        pi.UseShellExecute = False
+        pi.UseShellExecute = True
+        pi.CreateNoWindow = False
         pi.WindowStyle = ProcessWindowStyle.Hidden
         Dim ProcessMysql As Process = New Process With {
             .StartInfo = pi
@@ -6184,6 +6195,31 @@ Public Class Form1
             Next
 
         End Try
+
+    End Sub
+
+    Private Sub BackupRestoreToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupRestoreToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+
+        If PictureBox1.AccessibleName = "media_rewind" Then
+            Me.Width = 575
+            Me.Height = 425
+            PictureBox1.Image = My.Resources.media_rewind
+            PictureBox1.AccessibleName = "media_fast_forward"
+        Else
+            PictureBox1.Image = My.Resources.media_fast_forward
+            PictureBox1.AccessibleName = "media_rewind"
+            Me.Width = 320
+            Me.Height = 180
+        End If
+
+
+
+
 
     End Sub
 

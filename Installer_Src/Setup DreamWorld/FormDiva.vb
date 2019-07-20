@@ -370,6 +370,14 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("Diva")
+    End Sub
+
+    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+        Form1.Help("Apache")
+    End Sub
+
 #End Region
 
 End Class

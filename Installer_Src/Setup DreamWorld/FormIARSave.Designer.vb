@@ -23,152 +23,200 @@ Partial Class FormIARSave
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.ObjectNameBox = New System.Windows.Forms.TextBox()
-        Me.BackupNameTextBox = New System.Windows.Forms.TextBox()
-        Me.AviName = New System.Windows.Forms.TextBox()
-        Me.Password = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Pwd = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Pwd = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Password = New System.Windows.Forms.TextBox()
+        Me.AviName = New System.Windows.Forms.TextBox()
+        Me.BackupNameTextBox = New System.Windows.Forms.TextBox()
+        Me.ObjectNameBox = New System.Windows.Forms.TextBox()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ObjectNameBox
+        'GroupBox1
         '
-        Me.ObjectNameBox.Location = New System.Drawing.Point(133, 25)
-        Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(179, 20)
-        Me.ObjectNameBox.TabIndex = 0
-        Me.ObjectNameBox.Text = "/"
-        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back " &
-        "up box in folder Objects)")
+        Me.GroupBox1.Controls.Add(Me.Button2)
+        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.PictureBox1)
+        Me.GroupBox1.Controls.Add(Me.Pwd)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.Password)
+        Me.GroupBox1.Controls.Add(Me.AviName)
+        Me.GroupBox1.Controls.Add(Me.BackupNameTextBox)
+        Me.GroupBox1.Controls.Add(Me.ObjectNameBox)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(395, 198)
+        Me.GroupBox1.TabIndex = 12
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "IAR "
         '
-        'BackupNameTextBox
+        'Button2
         '
-        Me.BackupNameTextBox.Location = New System.Drawing.Point(133, 51)
-        Me.BackupNameTextBox.Name = "BackupNameTextBox"
-        Me.BackupNameTextBox.Size = New System.Drawing.Size(179, 20)
-        Me.BackupNameTextBox.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
+        Me.Button2.Location = New System.Drawing.Point(235, 150)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 22
+        Me.Button2.Text = "Cancel"
+        Me.Button2.UseVisualStyleBackColor = True
         '
-        'AviName
+        'Button1
         '
-        Me.AviName.Location = New System.Drawing.Point(133, 77)
-        Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(179, 20)
-        Me.AviName.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.AviName, "Avatar First and Last name")
-        '
-        'Password
-        '
-        Me.Password.Location = New System.Drawing.Point(133, 103)
-        Me.Password.Name = "Password"
-        Me.Password.Size = New System.Drawing.Size(100, 20)
-        Me.Password.TabIndex = 3
-        Me.Password.UseSystemPasswordChar = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 31)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(113, 13)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Object Path and name"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 58)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(75, 13)
-        Me.Label2.TabIndex = 6
-        Me.Label2.Text = "Backup Name"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 84)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(69, 13)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Avatar Name"
-        '
-        'Pwd
-        '
-        Me.Pwd.AutoSize = True
-        Me.Pwd.Location = New System.Drawing.Point(12, 110)
-        Me.Pwd.Name = "Pwd"
-        Me.Pwd.Size = New System.Drawing.Size(87, 13)
-        Me.Pwd.TabIndex = 8
-        Me.Pwd.Text = "Avatar Password"
+        Me.Button1.Location = New System.Drawing.Point(143, 150)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 21
+        Me.Button1.Text = "Save IAR"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox1.Location = New System.Drawing.Point(320, 46)
+        Me.PictureBox1.Location = New System.Drawing.Point(330, 56)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(42, 40)
-        Me.PictureBox1.TabIndex = 9
+        Me.PictureBox1.TabIndex = 20
         Me.PictureBox1.TabStop = False
         '
-        'Button1
+        'Pwd
         '
-        Me.Button1.Location = New System.Drawing.Point(133, 140)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Save IAR"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Pwd.AutoSize = True
+        Me.Pwd.Location = New System.Drawing.Point(22, 120)
+        Me.Pwd.Name = "Pwd"
+        Me.Pwd.Size = New System.Drawing.Size(87, 13)
+        Me.Pwd.TabIndex = 19
+        Me.Pwd.Text = "Avatar Password"
         '
-        'Button2
+        'Label3
         '
-        Me.Button2.Location = New System.Drawing.Point(225, 140)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 11
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(22, 94)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(69, 13)
+        Me.Label3.TabIndex = 18
+        Me.Label3.Text = "Avatar Name"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(22, 68)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(75, 13)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "Backup Name"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(22, 41)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(113, 13)
+        Me.Label1.TabIndex = 16
+        Me.Label1.Text = "Object Path and name"
+        '
+        'Password
+        '
+        Me.Password.Location = New System.Drawing.Point(143, 113)
+        Me.Password.Name = "Password"
+        Me.Password.Size = New System.Drawing.Size(100, 20)
+        Me.Password.TabIndex = 15
+        Me.Password.UseSystemPasswordChar = True
+        '
+        'AviName
+        '
+        Me.AviName.Location = New System.Drawing.Point(143, 87)
+        Me.AviName.Name = "AviName"
+        Me.AviName.Size = New System.Drawing.Size(179, 20)
+        Me.AviName.TabIndex = 14
+        Me.ToolTip1.SetToolTip(Me.AviName, "Avatar First and Last name")
+        '
+        'BackupNameTextBox
+        '
+        Me.BackupNameTextBox.Location = New System.Drawing.Point(143, 61)
+        Me.BackupNameTextBox.Name = "BackupNameTextBox"
+        Me.BackupNameTextBox.Size = New System.Drawing.Size(179, 20)
+        Me.BackupNameTextBox.TabIndex = 13
+        Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
+        '
+        'ObjectNameBox
+        '
+        Me.ObjectNameBox.Location = New System.Drawing.Point(143, 35)
+        Me.ObjectNameBox.Name = "ObjectNameBox"
+        Me.ObjectNameBox.Size = New System.Drawing.Size(179, 20)
+        Me.ObjectNameBox.TabIndex = 12
+        Me.ObjectNameBox.Text = "/"
+        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back " &
+        "up box in folder Objects)")
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(420, 24)
+        Me.MenuStrip1.TabIndex = 18599
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
         '
         'FormIARSave
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(385, 186)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Pwd)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Password)
-        Me.Controls.Add(Me.AviName)
-        Me.Controls.Add(Me.BackupNameTextBox)
-        Me.Controls.Add(Me.ObjectNameBox)
+        Me.ClientSize = New System.Drawing.Size(420, 247)
+        Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormIARSave"
         Me.Text = "Save IAR"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents ObjectNameBox As TextBox
-    Friend WithEvents BackupNameTextBox As TextBox
-    Friend WithEvents AviName As TextBox
-    Friend WithEvents Password As TextBox
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Pwd As Label
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Pwd As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Password As TextBox
+    Friend WithEvents AviName As TextBox
+    Friend WithEvents BackupNameTextBox As TextBox
+    Friend WithEvents ObjectNameBox As TextBox
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

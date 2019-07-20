@@ -104,4 +104,8 @@ Public Class FormCaches
         Flotsam.Show()
 
     End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("Cache")
+    End Sub
 End Class

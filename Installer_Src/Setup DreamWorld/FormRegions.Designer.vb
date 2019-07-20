@@ -24,6 +24,8 @@ Partial Class FormRegions
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegions))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.NormalizeButton1 = New System.Windows.Forms.Button()
         Me.Z = New System.Windows.Forms.TextBox()
         Me.Y = New System.Windows.Forms.TextBox()
         Me.X = New System.Windows.Forms.TextBox()
@@ -36,13 +38,17 @@ Partial Class FormRegions
         Me.WelcomeBox1 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AddRegion = New System.Windows.Forms.Button()
-        Me.NormalizeButton1 = New System.Windows.Forms.Button()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2.SuspendLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.NormalizeButton1)
         Me.GroupBox2.Controls.Add(Me.Z)
         Me.GroupBox2.Controls.Add(Me.Y)
@@ -56,12 +62,30 @@ Partial Class FormRegions
         Me.GroupBox2.Controls.Add(Me.WelcomeBox1)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.AddRegion)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox2.Location = New System.Drawing.Point(17, 49)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(176, 275)
+        Me.GroupBox2.Size = New System.Drawing.Size(176, 320)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Regions"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(9, 275)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(148, 23)
+        Me.Button1.TabIndex = 1866
+        Me.Button1.Text = "Clear All Registrations"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'NormalizeButton1
+        '
+        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 156)
+        Me.NormalizeButton1.Name = "NormalizeButton1"
+        Me.NormalizeButton1.Size = New System.Drawing.Size(148, 23)
+        Me.NormalizeButton1.TabIndex = 1865
+        Me.NormalizeButton1.Text = "Normalize Regions"
+        Me.NormalizeButton1.UseVisualStyleBackColor = True
         '
         'Z
         '
@@ -126,7 +150,7 @@ Partial Class FormRegions
         'RegionHelp
         '
         Me.RegionHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.RegionHelp.Location = New System.Drawing.Point(127, 71)
+        Me.RegionHelp.Location = New System.Drawing.Point(135, 8)
         Me.RegionHelp.Name = "RegionHelp"
         Me.RegionHelp.Size = New System.Drawing.Size(28, 27)
         Me.RegionHelp.TabIndex = 1858
@@ -168,20 +192,37 @@ Partial Class FormRegions
         Me.AddRegion.Text = "Add Region"
         Me.AddRegion.UseVisualStyleBackColor = True
         '
-        'NormalizeButton1
+        'MenuStrip2
         '
-        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 156)
-        Me.NormalizeButton1.Name = "NormalizeButton1"
-        Me.NormalizeButton1.Size = New System.Drawing.Size(148, 23)
-        Me.NormalizeButton1.TabIndex = 1865
-        Me.NormalizeButton1.Text = "Normalize Regions"
-        Me.NormalizeButton1.UseVisualStyleBackColor = True
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(205, 28)
+        Me.MenuStrip2.TabIndex = 1887
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
         'FormRegions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(205, 299)
+        Me.ClientSize = New System.Drawing.Size(205, 391)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -190,7 +231,10 @@ Partial Class FormRegions
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -208,4 +252,8 @@ Partial Class FormRegions
     Friend WithEvents X As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents NormalizeButton1 As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

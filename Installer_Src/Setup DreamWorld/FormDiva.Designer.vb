@@ -66,12 +66,17 @@ Partial Class FormDiva
         Me.ApachePort = New System.Windows.Forms.TextBox()
         Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Web
@@ -87,7 +92,7 @@ Partial Class FormDiva
         Me.Web.Controls.Add(Me.Label11)
         Me.Web.Controls.Add(Me.Label10)
         Me.Web.Controls.Add(Me.AdminPassword)
-        Me.Web.Location = New System.Drawing.Point(12, 12)
+        Me.Web.Location = New System.Drawing.Point(22, 40)
         Me.Web.Name = "Web"
         Me.Web.Size = New System.Drawing.Size(200, 214)
         Me.Web.TabIndex = 48
@@ -199,7 +204,7 @@ Partial Class FormDiva
         Me.GroupBox6.Controls.Add(Me.Label18)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.GmailUsername)
-        Me.GroupBox6.Location = New System.Drawing.Point(12, 238)
+        Me.GroupBox6.Location = New System.Drawing.Point(22, 266)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(200, 150)
         Me.GroupBox6.TabIndex = 1862
@@ -315,7 +320,7 @@ Partial Class FormDiva
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.SplashPage)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Location = New System.Drawing.Point(230, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(240, 40)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(279, 190)
         Me.GroupBox1.TabIndex = 186736
@@ -410,7 +415,7 @@ Partial Class FormDiva
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
-        Me.GroupBox2.Location = New System.Drawing.Point(230, 208)
+        Me.GroupBox2.Location = New System.Drawing.Point(240, 236)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(279, 180)
         Me.GroupBox2.TabIndex = 186738
@@ -474,11 +479,43 @@ Partial Class FormDiva
         Me.PictureBox1.TabIndex = 1859
         Me.PictureBox1.TabStop = False
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(543, 24)
+        Me.MenuStrip1.TabIndex = 186739
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.ApacheToolStripMenuItem})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Text = "Diva Panel"
+        '
+        'ApacheToolStripMenuItem
+        '
+        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
+        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ApacheToolStripMenuItem.Text = "Apache"
+        '
         'FormDiva
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(543, 424)
+        Me.ClientSize = New System.Drawing.Size(543, 433)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Web)
@@ -497,7 +534,10 @@ Partial Class FormDiva
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -543,4 +583,8 @@ Partial Class FormDiva
     Friend WithEvents X86Button As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents GreetingTextBox As TextBox
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
 End Class

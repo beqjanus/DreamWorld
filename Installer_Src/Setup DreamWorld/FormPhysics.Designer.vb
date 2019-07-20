@@ -24,15 +24,19 @@ Partial Class FormPhysics
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPhysics))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PhysicsHybrid = New System.Windows.Forms.RadioButton()
         Me.GodHelp = New System.Windows.Forms.PictureBox()
         Me.PhysicsSeparate = New System.Windows.Forms.RadioButton()
         Me.PhysicsNone = New System.Windows.Forms.RadioButton()
         Me.PhysicsubODE = New System.Windows.Forms.RadioButton()
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
-        Me.PhysicsHybrid = New System.Windows.Forms.RadioButton()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -44,12 +48,23 @@ Partial Class FormPhysics
         Me.GroupBox1.Controls.Add(Me.PhysicsubODE)
         Me.GroupBox1.Controls.Add(Me.PhysicsBullet)
         Me.GroupBox1.Controls.Add(Me.PhysicsODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 21)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 33)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(189, 151)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
+        '
+        'PhysicsHybrid
+        '
+        Me.PhysicsHybrid.AutoSize = True
+        Me.PhysicsHybrid.Location = New System.Drawing.Point(6, 80)
+        Me.PhysicsHybrid.Name = "PhysicsHybrid"
+        Me.PhysicsHybrid.Size = New System.Drawing.Size(134, 17)
+        Me.PhysicsHybrid.TabIndex = 1859
+        Me.PhysicsHybrid.TabStop = True
+        Me.PhysicsHybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.PhysicsHybrid.UseVisualStyleBackColor = True
         '
         'GodHelp
         '
@@ -115,22 +130,37 @@ Partial Class FormPhysics
         Me.PhysicsODE.Text = "Open Dynamics Engine"
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
-        'PhysicsHybrid
+        'MenuStrip2
         '
-        Me.PhysicsHybrid.AutoSize = True
-        Me.PhysicsHybrid.Location = New System.Drawing.Point(6, 80)
-        Me.PhysicsHybrid.Name = "PhysicsHybrid"
-        Me.PhysicsHybrid.Size = New System.Drawing.Size(134, 17)
-        Me.PhysicsHybrid.TabIndex = 1859
-        Me.PhysicsHybrid.TabStop = True
-        Me.PhysicsHybrid.Text = "Ubit ODE/Bullet Hybrid"
-        Me.PhysicsHybrid.UseVisualStyleBackColor = True
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(216, 28)
+        Me.MenuStrip2.TabIndex = 1891
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
         'FormPhysics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(239, 184)
+        Me.ClientSize = New System.Drawing.Size(216, 201)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -139,7 +169,10 @@ Partial Class FormPhysics
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -151,4 +184,7 @@ Partial Class FormPhysics
     Friend WithEvents PhysicsODE As RadioButton
     Friend WithEvents GodHelp As PictureBox
     Friend WithEvents PhysicsHybrid As RadioButton
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -101,4 +101,7 @@ Public Class FormPublicity
         Form1.Help("Publicity")
     End Sub
 
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Publicity")
+    End Sub
 End Class

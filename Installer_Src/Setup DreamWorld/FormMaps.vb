@@ -178,4 +178,11 @@ Public Class FormMaps
         End If
 
     End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
+        Form1.Help("Maps")
+
+    End Sub
+
 End Class

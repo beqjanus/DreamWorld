@@ -25,6 +25,7 @@ Partial Class Tides
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Tides))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RunOnBoot = New System.Windows.Forms.PictureBox()
         Me.TideInfoDebugCheckBox = New System.Windows.Forms.CheckBox()
         Me.BroadcastTideInfo = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -39,9 +40,12 @@ Partial Class Tides
         Me.TideHighLevelTextBox = New System.Windows.Forms.TextBox()
         Me.TideEnabledCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.RunOnBoot = New System.Windows.Forms.PictureBox()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -60,12 +64,21 @@ Partial Class Tides
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.TideHighLevelTextBox)
         Me.GroupBox1.Controls.Add(Me.TideEnabledCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(221, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Global Tide Settings"
+        '
+        'RunOnBoot
+        '
+        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RunOnBoot.Location = New System.Drawing.Point(191, 0)
+        Me.RunOnBoot.Name = "RunOnBoot"
+        Me.RunOnBoot.Size = New System.Drawing.Size(30, 34)
+        Me.RunOnBoot.TabIndex = 1860
+        Me.RunOnBoot.TabStop = False
         '
         'TideInfoDebugCheckBox
         '
@@ -187,20 +200,37 @@ Partial Class Tides
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
         Me.ToolTip1.ToolTipTitle = "Enable the tide to come in and out?"
         '
-        'RunOnBoot
+        'MenuStrip2
         '
-        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.RunOnBoot.Location = New System.Drawing.Point(191, 0)
-        Me.RunOnBoot.Name = "RunOnBoot"
-        Me.RunOnBoot.Size = New System.Drawing.Size(30, 34)
-        Me.RunOnBoot.TabIndex = 1860
-        Me.RunOnBoot.TabStop = False
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(253, 28)
+        Me.MenuStrip2.TabIndex = 1886
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
         'Tides
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(253, 254)
+        Me.ClientSize = New System.Drawing.Size(253, 291)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -209,7 +239,10 @@ Partial Class Tides
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -229,4 +262,7 @@ Partial Class Tides
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents TideInfoDebugCheckBox As CheckBox
     Friend WithEvents RunOnBoot As PictureBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

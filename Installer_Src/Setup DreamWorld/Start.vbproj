@@ -711,6 +711,8 @@
     <None Include="Resources\nav_plain_green.png" />
     <None Include="Resources\nav_plain_red.png" />
     <None Include="Resources\nav_plain_blue.png" />
+    <None Include="Resources\media_fast_forward.png" />
+    <None Include="Resources\media_rewind.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

@@ -221,4 +221,14 @@ Public Class FormRegions
         End If
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr())
+        MysqlConn.DeregisterRegions()
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Regions")
+    End Sub
 End Class

@@ -110,7 +110,9 @@ Public Class Icecast
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
         Form1.Help("Icecast")
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort1.TextChanged
@@ -121,6 +123,12 @@ Public Class Icecast
             Form1.PropMySetting.SCPortBase1 = CType(ShoutcastPort1.Text, Integer)
         Catch
         End Try
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
+        Form1.Help("Icecast")
 
     End Sub
 

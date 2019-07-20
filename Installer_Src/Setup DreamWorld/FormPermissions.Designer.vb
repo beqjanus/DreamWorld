@@ -37,11 +37,15 @@ Partial Class FormPermissions
         Me.Clouds = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox4.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LimitsBox.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox4
@@ -50,7 +54,7 @@ Partial Class FormPermissions
         Me.GroupBox4.Controls.Add(Me.GodHelp)
         Me.GroupBox4.Controls.Add(Me.ManagerGod)
         Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 31)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(186, 119)
         Me.GroupBox4.TabIndex = 49
@@ -105,7 +109,7 @@ Partial Class FormPermissions
         'LimitsBox
         '
         Me.LimitsBox.Controls.Add(Me.EnableMaxPrims)
-        Me.LimitsBox.Location = New System.Drawing.Point(9, 137)
+        Me.LimitsBox.Location = New System.Drawing.Point(9, 154)
         Me.LimitsBox.Name = "LimitsBox"
         Me.LimitsBox.Size = New System.Drawing.Size(189, 49)
         Me.LimitsBox.TabIndex = 1861
@@ -127,7 +131,7 @@ Partial Class FormPermissions
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.LSLCheckbox)
-        Me.GroupBox8.Location = New System.Drawing.Point(12, 192)
+        Me.GroupBox8.Location = New System.Drawing.Point(12, 209)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(189, 48)
         Me.GroupBox8.TabIndex = 1862
@@ -161,7 +165,7 @@ Partial Class FormPermissions
         '
         Me.GroupBox7.Controls.Add(Me.DomainUpDown1)
         Me.GroupBox7.Controls.Add(Me.Clouds)
-        Me.GroupBox7.Location = New System.Drawing.Point(12, 246)
+        Me.GroupBox7.Location = New System.Drawing.Point(12, 263)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(189, 56)
         Me.GroupBox7.TabIndex = 1863
@@ -187,11 +191,37 @@ Partial Class FormPermissions
         Me.DomainUpDown1.Size = New System.Drawing.Size(66, 20)
         Me.DomainUpDown1.TabIndex = 18
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(222, 28)
+        Me.MenuStrip2.TabIndex = 1889
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'FormPermissions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 314)
+        Me.ClientSize = New System.Drawing.Size(222, 333)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.LimitsBox)
@@ -209,7 +239,10 @@ Partial Class FormPermissions
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -226,4 +259,7 @@ Partial Class FormPermissions
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents DomainUpDown1 As DomainUpDown
     Friend WithEvents Clouds As CheckBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

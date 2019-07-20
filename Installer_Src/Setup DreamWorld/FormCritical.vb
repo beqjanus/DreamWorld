@@ -30,7 +30,7 @@
 
 #End Region
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Form1.HelpOnce("Backup Manually")
     End Sub
 
 
@@ -89,5 +89,10 @@
         DialogResult = DialogResult.OK
         Me.Close()
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        Form1.Help("Backup Manually")
     End Sub
 End Class

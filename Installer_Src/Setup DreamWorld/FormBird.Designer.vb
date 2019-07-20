@@ -49,8 +49,12 @@ Partial Class BirdForm
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.BirdHelp = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.BirdHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -76,9 +80,9 @@ Partial Class BirdForm
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.BirdsFlockSizeDomain)
         Me.GroupBox1.Controls.Add(Me.BirdsModuleStartupbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 59)
+        Me.GroupBox1.Location = New System.Drawing.Point(18, 94)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(260, 357)
+        Me.GroupBox1.Size = New System.Drawing.Size(260, 331)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Bird Module"
@@ -285,7 +289,7 @@ Partial Class BirdForm
         'BirdHelp
         '
         Me.BirdHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.BirdHelp.Location = New System.Drawing.Point(151, 20)
+        Me.BirdHelp.Location = New System.Drawing.Point(139, 46)
         Me.BirdHelp.Name = "BirdHelp"
         Me.BirdHelp.Size = New System.Drawing.Size(28, 32)
         Me.BirdHelp.TabIndex = 1858
@@ -294,18 +298,44 @@ Partial Class BirdForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(19, 20)
+        Me.Button1.Location = New System.Drawing.Point(18, 55)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(108, 23)
         Me.Button1.TabIndex = 0
         Me.Button1.Text = "Load Bird IAR"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(284, 28)
+        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'BirdForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(284, 428)
+        Me.ClientSize = New System.Drawing.Size(284, 480)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.BirdHelp)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
@@ -316,7 +346,10 @@ Partial Class BirdForm
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.BirdHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -345,4 +378,7 @@ Partial Class BirdForm
     Friend WithEvents PrimNameTextBox As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents BirdHelp As PictureBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

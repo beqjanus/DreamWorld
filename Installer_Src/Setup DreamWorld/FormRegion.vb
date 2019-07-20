@@ -1134,6 +1134,18 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Region")
+    End Sub
+
+    Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+        Form1.Help("Permissions")
+    End Sub
+
 #End Region
 
 End Class

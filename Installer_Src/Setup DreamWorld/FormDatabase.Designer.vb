@@ -22,8 +22,10 @@ Partial Class FormDatabase
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDatabase))
         Me.StandaloneGroup = New System.Windows.Forms.GroupBox()
+        Me.ClearRegionTable = New System.Windows.Forms.Button()
         Me.MysqlRegionPort = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -35,6 +37,7 @@ Partial Class FormDatabase
         Me.Label21 = New System.Windows.Forms.Label()
         Me.RegionMySqlPassword = New System.Windows.Forms.TextBox()
         Me.GridGroup = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.RobustServer = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -47,8 +50,6 @@ Partial Class FormDatabase
         Me.RobustDBPassword = New System.Windows.Forms.TextBox()
         Me.RobustDBUsername = New System.Windows.Forms.TextBox()
         Me.DBHelp = New System.Windows.Forms.PictureBox()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
@@ -56,17 +57,25 @@ Partial Class FormDatabase
         Me.GridRegionButton = New System.Windows.Forms.RadioButton()
         Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
         Me.GridServerButton = New System.Windows.Forms.RadioButton()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ServerTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FullSQLBackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.ToolStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'StandaloneGroup
         '
+        Me.StandaloneGroup.Controls.Add(Me.ClearRegionTable)
         Me.StandaloneGroup.Controls.Add(Me.MysqlRegionPort)
         Me.StandaloneGroup.Controls.Add(Me.Label2)
         Me.StandaloneGroup.Controls.Add(Me.Label1)
@@ -79,10 +88,19 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Controls.Add(Me.RegionMySqlPassword)
         Me.StandaloneGroup.Location = New System.Drawing.Point(284, 37)
         Me.StandaloneGroup.Name = "StandaloneGroup"
-        Me.StandaloneGroup.Size = New System.Drawing.Size(222, 176)
+        Me.StandaloneGroup.Size = New System.Drawing.Size(222, 210)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
         Me.StandaloneGroup.Text = "Local Region Database"
+        '
+        'ClearRegionTable
+        '
+        Me.ClearRegionTable.Location = New System.Drawing.Point(94, 165)
+        Me.ClearRegionTable.Name = "ClearRegionTable"
+        Me.ClearRegionTable.Size = New System.Drawing.Size(107, 23)
+        Me.ClearRegionTable.TabIndex = 1886
+        Me.ClearRegionTable.Text = "Clear Region List"
+        Me.ClearRegionTable.UseVisualStyleBackColor = True
         '
         'MysqlRegionPort
         '
@@ -90,6 +108,7 @@ Partial Class FormDatabase
         Me.MysqlRegionPort.Name = "MysqlRegionPort"
         Me.MysqlRegionPort.Size = New System.Drawing.Size(47, 20)
         Me.MysqlRegionPort.TabIndex = 43
+        Me.ToolTip1.SetToolTip(Me.MysqlRegionPort, "3306")
         '
         'Label2
         '
@@ -115,6 +134,7 @@ Partial Class FormDatabase
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(107, 20)
         Me.RegionServer.TabIndex = 46
+        Me.ToolTip1.SetToolTip(Me.RegionServer, "The server to connect to. 'localhost' is the default.")
         '
         'Label22
         '
@@ -140,6 +160,7 @@ Partial Class FormDatabase
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(107, 20)
         Me.RegionDbName.TabIndex = 42
+        Me.ToolTip1.SetToolTip(Me.RegionDbName, "Do not change unless the datbase has already been created")
         '
         'RegionDBUsername
         '
@@ -147,6 +168,7 @@ Partial Class FormDatabase
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RegionDBUsername.TabIndex = 43
+        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, "Do not change unless the datbase has already been created and this exists")
         '
         'Label21
         '
@@ -163,6 +185,7 @@ Partial Class FormDatabase
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(107, 20)
         Me.RegionMySqlPassword.TabIndex = 44
+        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, "Read the other tooltips!")
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
         'GridGroup
@@ -186,6 +209,15 @@ Partial Class FormDatabase
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust Database"
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(17, 170)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(77, 13)
+        Me.Label3.TabIndex = 1885
+        Me.Label3.Text = "Assets as FIles"
+        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(98, 165)
@@ -201,6 +233,7 @@ Partial Class FormDatabase
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(107, 20)
         Me.RobustServer.TabIndex = 37
+        Me.ToolTip1.SetToolTip(Me.RobustServer, "The server to connect to. 'localhost' is the default.")
         '
         'Label16
         '
@@ -235,6 +268,7 @@ Partial Class FormDatabase
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
         Me.RobustDbPort.TabIndex = 41
+        Me.ToolTip1.SetToolTip(Me.RobustDbPort, "Default = 3306")
         '
         'RobustDbName
         '
@@ -242,6 +276,7 @@ Partial Class FormDatabase
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
         Me.RobustDbName.TabIndex = 38
+        Me.ToolTip1.SetToolTip(Me.RobustDbName, "Do not change unless the datbase has already been created")
         '
         'Label15
         '
@@ -267,6 +302,7 @@ Partial Class FormDatabase
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBPassword.TabIndex = 40
+        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, "Read the other tooltips!")
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
         'RobustDBUsername
@@ -275,6 +311,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBUsername.TabIndex = 39
+        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, "Do not change unless the datbase has already been created and this exists")
         '
         'DBHelp
         '
@@ -284,21 +321,6 @@ Partial Class FormDatabase
         Me.DBHelp.Size = New System.Drawing.Size(28, 32)
         Me.DBHelp.TabIndex = 1859
         Me.DBHelp.TabStop = False
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(747, 25)
-        Me.ToolStrip1.TabIndex = 1860
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'ToolStripLabel1
-        '
-        Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(32, 22)
-        Me.ToolStripLabel1.Text = "Help"
         '
         'GroupBox1
         '
@@ -310,7 +332,7 @@ Partial Class FormDatabase
         Me.GroupBox1.Controls.Add(Me.GridServerButton)
         Me.GroupBox1.Location = New System.Drawing.Point(528, 32)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(190, 182)
+        Me.GroupBox1.Size = New System.Drawing.Size(190, 215)
         Me.GroupBox1.TabIndex = 1884
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Server Type"
@@ -331,13 +353,12 @@ Partial Class FormDatabase
         Me.MetroRadioButton2.Name = "MetroRadioButton2"
         Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
         Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.TabStop = True
         Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
         Me.MetroRadioButton2.UseVisualStyleBackColor = True
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(37, 135)
+        Me.SaveButton.Location = New System.Drawing.Point(48, 165)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(62, 23)
         Me.SaveButton.TabIndex = 1883
@@ -351,8 +372,8 @@ Partial Class FormDatabase
         Me.GridRegionButton.Name = "GridRegionButton"
         Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
         Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.TabStop = True
         Me.GridRegionButton.Text = "Region Server"
+        Me.ToolTip1.SetToolTip(Me.GridRegionButton, "Expansion server to attach to a DreamGrid")
         Me.GridRegionButton.UseVisualStyleBackColor = True
         '
         'osGridRadioButton1
@@ -362,37 +383,84 @@ Partial Class FormDatabase
         Me.osGridRadioButton1.Name = "osGridRadioButton1"
         Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
         Me.osGridRadioButton1.TabIndex = 1881
-        Me.osGridRadioButton1.TabStop = True
         Me.osGridRadioButton1.Text = "OSGrid Region Server"
+        Me.ToolTip1.SetToolTip(Me.osGridRadioButton1, "Attach to OsGrid")
         Me.osGridRadioButton1.UseVisualStyleBackColor = True
         '
         'GridServerButton
         '
         Me.GridServerButton.AutoSize = True
+        Me.GridServerButton.Checked = True
         Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
         Me.GridServerButton.Name = "GridServerButton"
         Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
         Me.GridServerButton.TabIndex = 1879
         Me.GridServerButton.TabStop = True
         Me.GridServerButton.Text = "Grid Server With Robust"
+        Me.ToolTip1.SetToolTip(Me.GridServerButton, "Normal Grid mode")
         Me.GridServerButton.UseVisualStyleBackColor = True
         '
-        'Label3
+        'MenuStrip2
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(17, 170)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 13)
-        Me.Label3.TabIndex = 1885
-        Me.Label3.Text = "Assets as FIles"
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.BackupToolStripMenuItem})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(747, 28)
+        Me.MenuStrip2.TabIndex = 1885
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem, Me.ServerTypeToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Database Setup"
+        '
+        'ServerTypeToolStripMenuItem
+        '
+        Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ServerTypeToolStripMenuItem.Text = "Server Type"
+        '
+        'BackupToolStripMenuItem
+        '
+        Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
+        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
+        Me.BackupToolStripMenuItem.Text = "Backup"
+        '
+        'FullSQLBackupToolStripMenuItem
+        '
+        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
+        '
+        'DataOnlyToolStripMenuItem
+        '
+        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
         '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(747, 259)
+        Me.ClientSize = New System.Drawing.Size(747, 274)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
         Me.Controls.Add(Me.DBHelp)
@@ -405,11 +473,11 @@ Partial Class FormDatabase
         Me.GridGroup.ResumeLayout(False)
         Me.GridGroup.PerformLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -438,8 +506,6 @@ Partial Class FormDatabase
     Friend WithEvents RegionServer As TextBox
     Friend WithEvents MysqlRegionPort As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents ToolStripLabel1 As ToolStripLabel
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents MetroRadioButton2 As RadioButton
     Friend WithEvents GridRegionButton As RadioButton
@@ -449,4 +515,13 @@ Partial Class FormDatabase
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Label3 As Label
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ServerTypeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FullSQLBackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DataOnlyToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClearRegionTable As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

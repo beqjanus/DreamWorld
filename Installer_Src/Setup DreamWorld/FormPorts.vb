@@ -122,9 +122,11 @@ Public Class FormPorts
     End Sub
 
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
-
         Form1.Help("Ports")
+    End Sub
 
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Ports")
     End Sub
 
 

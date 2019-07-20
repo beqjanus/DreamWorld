@@ -58,17 +58,21 @@ Partial Class Gloebits
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.SandBoxSignUpButton = New System.Windows.Forms.Button()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(352, 290)
+        Me.PictureBox1.Location = New System.Drawing.Point(355, 327)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(127, 108)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -78,7 +82,7 @@ Partial Class Gloebits
         'PictureBox3
         '
         Me.PictureBox3.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox3.Location = New System.Drawing.Point(442, 25)
+        Me.PictureBox3.Location = New System.Drawing.Point(436, 49)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(28, 27)
         Me.PictureBox3.TabIndex = 1864
@@ -86,7 +90,7 @@ Partial Class Gloebits
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(37, 12)
+        Me.Button4.Location = New System.Drawing.Point(40, 49)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(374, 27)
         Me.Button4.TabIndex = 1
@@ -100,7 +104,7 @@ Partial Class Gloebits
         Me.GroupBox3.Controls.Add(Me.ContactEmailTextBox)
         Me.GroupBox3.Controls.Add(Me.GloebitsEnabled)
         Me.GroupBox3.Controls.Add(Me.Label5)
-        Me.GroupBox3.Location = New System.Drawing.Point(10, 289)
+        Me.GroupBox3.Location = New System.Drawing.Point(13, 326)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(334, 109)
         Me.GroupBox3.TabIndex = 1863
@@ -163,7 +167,7 @@ Partial Class Gloebits
         Me.GroupBox2.Controls.Add(Me.ProductionReqAppButton)
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(251, 58)
+        Me.GroupBox2.Location = New System.Drawing.Point(254, 95)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(225, 225)
         Me.GroupBox2.TabIndex = 1862
@@ -290,7 +294,7 @@ Partial Class Gloebits
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.SandBoxSignUpButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 58)
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 95)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(235, 225)
         Me.GroupBox1.TabIndex = 1860
@@ -403,11 +407,36 @@ Partial Class Gloebits
         Me.SandBoxSignUpButton.Text = "Create Sandbox Account"
         Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(513, 24)
+        Me.MenuStrip1.TabIndex = 18600
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
+        '
         'Gloebits
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(513, 419)
+        Me.ClientSize = New System.Drawing.Size(513, 459)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.Button4)
@@ -426,7 +455,10 @@ Partial Class Gloebits
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -465,4 +497,7 @@ Partial Class Gloebits
     Friend WithEvents SandBoxSignUpButton As Button
     Friend WithEvents ProductionButton As RadioButton
     Friend WithEvents SandboxButton As RadioButton
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

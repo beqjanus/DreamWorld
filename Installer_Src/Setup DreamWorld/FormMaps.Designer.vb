@@ -47,10 +47,14 @@ Partial Class FormMaps
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MapBox.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'MapBox
@@ -63,7 +67,7 @@ Partial Class FormMaps
         Me.MapBox.Controls.Add(Me.MapBetter)
         Me.MapBox.Controls.Add(Me.MapBest)
         Me.MapBox.Controls.Add(Me.MapGood)
-        Me.MapBox.Location = New System.Drawing.Point(12, 12)
+        Me.MapBox.Location = New System.Drawing.Point(15, 32)
         Me.MapBox.Name = "MapBox"
         Me.MapBox.Size = New System.Drawing.Size(171, 294)
         Me.MapBox.TabIndex = 1866
@@ -197,9 +201,9 @@ Partial Class FormMaps
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.SmallMapButton)
         Me.GroupBox2.Controls.Add(Me.LargeMapButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(189, 12)
+        Me.GroupBox2.Location = New System.Drawing.Point(192, 32)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(184, 290)
+        Me.GroupBox2.Size = New System.Drawing.Size(184, 294)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = " Maps"
@@ -281,12 +285,38 @@ Partial Class FormMaps
         Me.Label1.TabIndex = 1868
         Me.Label1.Text = "Map Center  Location:"
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(400, 28)
+        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'FormMaps
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(400, 345)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MapBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -299,7 +329,10 @@ Partial Class FormMaps
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -326,4 +359,7 @@ Partial Class FormMaps
     Friend WithEvents Label4 As Label
     Friend WithEvents RenderMinH As TextBox
     Friend WithEvents RenderMaxH As TextBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

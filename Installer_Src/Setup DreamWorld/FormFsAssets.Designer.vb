@@ -31,9 +31,13 @@ Partial Class FormFsAssets
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.DataFolder = New System.Windows.Forms.TextBox()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.b.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'EnableFsAssetsCheckbox
@@ -55,7 +59,7 @@ Partial Class FormFsAssets
         Me.b.Controls.Add(Me.PictureBox1)
         Me.b.Controls.Add(Me.DataFolder)
         Me.b.Controls.Add(Me.EnableFsAssetsCheckbox)
-        Me.b.Location = New System.Drawing.Point(12, 12)
+        Me.b.Location = New System.Drawing.Point(15, 44)
         Me.b.Name = "b"
         Me.b.Size = New System.Drawing.Size(280, 207)
         Me.b.TabIndex = 44
@@ -116,11 +120,36 @@ Partial Class FormFsAssets
         Me.DataFolder.Size = New System.Drawing.Size(195, 20)
         Me.DataFolder.TabIndex = 44
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(307, 24)
+        Me.MenuStrip1.TabIndex = 18601
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
+        '
         'FormFsAssets
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(307, 230)
+        Me.ClientSize = New System.Drawing.Size(307, 263)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.b)
         Me.Name = "FormFsAssets"
         Me.Text = "File System Assets"
@@ -128,7 +157,10 @@ Partial Class FormFsAssets
         Me.b.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -141,4 +173,7 @@ Partial Class FormFsAssets
     Friend WithEvents Label6 As Label
     Friend WithEvents ShowStatsCheckBox As CheckBox
     Friend WithEvents SaveButton As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

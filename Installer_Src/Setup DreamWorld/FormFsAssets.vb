@@ -132,7 +132,9 @@
         Me.Close()
     End Sub
 
-
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("FSAssets")
+    End Sub
 
 #End Region
 

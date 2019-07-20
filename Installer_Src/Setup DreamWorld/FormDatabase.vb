@@ -254,7 +254,7 @@
 
     End Sub
 
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripLabel1.Click
+    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
 
         Form1.Help("Database")
 
@@ -344,6 +344,31 @@
 
         Dim FsAssets As New FormFsAssets
         FsAssets.Show()
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Database")
+    End Sub
+
+    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
+
+        Dim CriticalForm = New FormCritical
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+
+    End Sub
+
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+
+        Form1.BackupDB()
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
+
+        Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr())
+        MysqlConn.DeregisterRegions()
 
     End Sub
 

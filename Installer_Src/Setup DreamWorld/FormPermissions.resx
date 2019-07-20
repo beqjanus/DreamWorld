@@ -123,7 +123,10 @@
   <data name="AllowGods.ToolTip" xml:space="preserve">
     <value>f this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with "Allow Gods In This Region".  This setting has nothing to do with the other two settings.  </value>
   </data>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="MenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>247, 17</value>
+  </metadata>
+  <metadata name="MenuStrip2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

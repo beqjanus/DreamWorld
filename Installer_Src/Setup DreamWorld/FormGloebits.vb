@@ -194,6 +194,15 @@
         Process.Start(webAddress)
     End Sub
 
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        Dim webAddress As String = "http://dev.gloebit.com/opensim/"
+        Process.Start(webAddress)
+
+    End Sub
+
+
+
 #End Region
 
 End Class

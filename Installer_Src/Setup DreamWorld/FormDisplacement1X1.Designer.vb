@@ -52,8 +52,9 @@ Partial Class FormDisplacement1X1
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MergingToolStripMenuItem, Me.TerrainToolStripMenuItem, Me.ParcelsToolStripMenuItem, Me.SetOwnerToolStripMenuItem})
+        Me.ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.package
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(61, 20)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(77, 20)
         Me.ToolStripMenuItem1.Text = "Options"
         '
         'MergingToolStripMenuItem
@@ -61,7 +62,7 @@ Partial Class FormDisplacement1X1
         Me.MergingToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MergeOARToolStripMenuItem, Me.ClearOARToolStripMenuItem})
         Me.MergingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.MergingToolStripMenuItem.Name = "MergingToolStripMenuItem"
-        Me.MergingToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.MergingToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.MergingToolStripMenuItem.Text = "Object Merge"
         '
         'MergeOARToolStripMenuItem
@@ -83,7 +84,7 @@ Partial Class FormDisplacement1X1
         Me.TerrainToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceTerrainToolStripMenuItem, Me.OriginalTererainToolStripMenuItem})
         Me.TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
         Me.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem"
-        Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.TerrainToolStripMenuItem.Text = "Terrain"
         '
         'ForceTerrainToolStripMenuItem
@@ -105,7 +106,7 @@ Partial Class FormDisplacement1X1
         Me.ParcelsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadParcelToolStripMenuItem, Me.IgnoreParcelToolStripMenuItem})
         Me.ParcelsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_align_justified
         Me.ParcelsToolStripMenuItem.Name = "ParcelsToolStripMenuItem"
-        Me.ParcelsToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.ParcelsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ParcelsToolStripMenuItem.Text = "Parcels"
         '
         'LoadParcelToolStripMenuItem
@@ -126,13 +127,14 @@ Partial Class FormDisplacement1X1
         '
         Me.SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user3
         Me.SetOwnerToolStripMenuItem.Name = "SetOwnerToolStripMenuItem"
-        Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SetOwnerToolStripMenuItem.Text = "Set Owner"
         '
         'HelpToolStripMenuItem
         '
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'PictureBox3

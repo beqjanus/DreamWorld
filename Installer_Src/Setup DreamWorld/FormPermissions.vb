@@ -130,6 +130,10 @@
 
     End Sub
 
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Permissions")
+    End Sub
+
 #End Region
 
 End Class

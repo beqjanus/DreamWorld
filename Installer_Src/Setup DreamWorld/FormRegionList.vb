@@ -1144,6 +1144,10 @@ Public Class RegionList
 
     End Function
 
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("RegionList")
+    End Sub
+
 #End Region
 
 End Class

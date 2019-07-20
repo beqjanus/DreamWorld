@@ -176,6 +176,11 @@ Public Class FormBackups
     End Sub
 
 
+    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
+        Form1.Help("Backup")
+    End Sub
+
+
 
 #End Region
 

@@ -94,6 +94,9 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -105,6 +108,7 @@ Partial Class FormRegion
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'CoordY
@@ -125,7 +129,7 @@ Partial Class FormRegion
         '
         'RegionName
         '
-        Me.RegionName.Location = New System.Drawing.Point(14, 36)
+        Me.RegionName.Location = New System.Drawing.Point(15, 50)
         Me.RegionName.Name = "RegionName"
         Me.RegionName.Size = New System.Drawing.Size(144, 20)
         Me.RegionName.TabIndex = 1
@@ -328,7 +332,7 @@ Partial Class FormRegion
         'MapHelp
         '
         Me.MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.MapHelp.Location = New System.Drawing.Point(169, 29)
+        Me.MapHelp.Location = New System.Drawing.Point(170, 43)
         Me.MapHelp.Name = "MapHelp"
         Me.MapHelp.Size = New System.Drawing.Size(28, 27)
         Me.MapHelp.TabIndex = 1857
@@ -340,7 +344,7 @@ Partial Class FormRegion
         Me.GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
         Me.GodHelp.Location = New System.Drawing.Point(102, 19)
         Me.GodHelp.Name = "GodHelp"
-        Me.GodHelp.Size = New System.Drawing.Size(30, 34)
+        Me.GodHelp.Size = New System.Drawing.Size(30, 27)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
         Me.ToolTip1.SetToolTip(Me.GodHelp, "Allow or disallow  Gods in the one region")
@@ -421,9 +425,9 @@ Partial Class FormRegion
         Me.Advanced.Controls.Add(Me.UUID)
         Me.Advanced.Controls.Add(Me.CoordY)
         Me.Advanced.Controls.Add(Me.CoordX)
-        Me.Advanced.Location = New System.Drawing.Point(14, 242)
+        Me.Advanced.Location = New System.Drawing.Point(15, 256)
         Me.Advanced.Name = "Advanced"
-        Me.Advanced.Size = New System.Drawing.Size(254, 268)
+        Me.Advanced.Size = New System.Drawing.Size(254, 274)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Advanced"
@@ -465,7 +469,7 @@ Partial Class FormRegion
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(11, 20)
+        Me.Label8.Location = New System.Drawing.Point(12, 34)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(75, 13)
         Me.Label8.TabIndex = 25
@@ -482,7 +486,7 @@ Partial Class FormRegion
         Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.SizeY)
         Me.GroupBox2.Controls.Add(Me.SizeX)
-        Me.GroupBox2.Location = New System.Drawing.Point(14, 87)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 101)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(227, 114)
         Me.GroupBox2.TabIndex = 23
@@ -518,7 +522,7 @@ Partial Class FormRegion
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(23, 206)
+        Me.Button1.Location = New System.Drawing.Point(24, 220)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(59, 23)
         Me.Button1.TabIndex = 10
@@ -527,7 +531,7 @@ Partial Class FormRegion
         '
         'DeleteButton
         '
-        Me.DeleteButton.Location = New System.Drawing.Point(169, 207)
+        Me.DeleteButton.Location = New System.Drawing.Point(170, 221)
         Me.DeleteButton.Name = "DeleteButton"
         Me.DeleteButton.Size = New System.Drawing.Size(58, 23)
         Me.DeleteButton.TabIndex = 11
@@ -537,7 +541,7 @@ Partial Class FormRegion
         'EnabledCheckBox
         '
         Me.EnabledCheckBox.AutoSize = True
-        Me.EnabledCheckBox.Location = New System.Drawing.Point(23, 64)
+        Me.EnabledCheckBox.Location = New System.Drawing.Point(24, 78)
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
         Me.EnabledCheckBox.Size = New System.Drawing.Size(65, 17)
         Me.EnabledCheckBox.TabIndex = 2
@@ -554,7 +558,7 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.MapBox)
         Me.GroupBox6.Controls.Add(Me.GroupBox5)
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
-        Me.GroupBox6.Location = New System.Drawing.Point(265, 20)
+        Me.GroupBox6.Location = New System.Drawing.Point(266, 34)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(423, 496)
         Me.GroupBox6.TabIndex = 1879
@@ -671,7 +675,7 @@ Partial Class FormRegion
         'Maps_Use_Default
         '
         Me.Maps_Use_Default.AutoSize = True
-        Me.Maps_Use_Default.Location = New System.Drawing.Point(12, 51)
+        Me.Maps_Use_Default.Location = New System.Drawing.Point(14, 23)
         Me.Maps_Use_Default.Name = "Maps_Use_Default"
         Me.Maps_Use_Default.Size = New System.Drawing.Size(81, 17)
         Me.Maps_Use_Default.TabIndex = 1858
@@ -682,7 +686,7 @@ Partial Class FormRegion
         'MapPicture
         '
         Me.MapPicture.InitialImage = CType(resources.GetObject("MapPicture.InitialImage"), System.Drawing.Image)
-        Me.MapPicture.Location = New System.Drawing.Point(28, 176)
+        Me.MapPicture.Location = New System.Drawing.Point(30, 148)
         Me.MapPicture.Name = "MapPicture"
         Me.MapPicture.Size = New System.Drawing.Size(100, 93)
         Me.MapPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -692,7 +696,7 @@ Partial Class FormRegion
         'MapNone
         '
         Me.MapNone.AutoSize = True
-        Me.MapNone.Location = New System.Drawing.Point(11, 70)
+        Me.MapNone.Location = New System.Drawing.Point(13, 42)
         Me.MapNone.Name = "MapNone"
         Me.MapNone.Size = New System.Drawing.Size(51, 17)
         Me.MapNone.TabIndex = 7
@@ -703,7 +707,7 @@ Partial Class FormRegion
         'MapSimple
         '
         Me.MapSimple.AutoSize = True
-        Me.MapSimple.Location = New System.Drawing.Point(11, 89)
+        Me.MapSimple.Location = New System.Drawing.Point(13, 61)
         Me.MapSimple.Name = "MapSimple"
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 8
@@ -714,7 +718,7 @@ Partial Class FormRegion
         'MapBetter
         '
         Me.MapBetter.AutoSize = True
-        Me.MapBetter.Location = New System.Drawing.Point(12, 128)
+        Me.MapBetter.Location = New System.Drawing.Point(14, 100)
         Me.MapBetter.Name = "MapBetter"
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 10
@@ -726,7 +730,7 @@ Partial Class FormRegion
         'MapBest
         '
         Me.MapBest.AutoSize = True
-        Me.MapBest.Location = New System.Drawing.Point(11, 150)
+        Me.MapBest.Location = New System.Drawing.Point(13, 122)
         Me.MapBest.Name = "MapBest"
         Me.MapBest.Size = New System.Drawing.Size(144, 17)
         Me.MapBest.TabIndex = 11
@@ -737,7 +741,7 @@ Partial Class FormRegion
         'MapGood
         '
         Me.MapGood.AutoSize = True
-        Me.MapGood.Location = New System.Drawing.Point(12, 108)
+        Me.MapGood.Location = New System.Drawing.Point(14, 80)
         Me.MapGood.Name = "MapGood"
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 9
@@ -848,19 +852,45 @@ Partial Class FormRegion
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(88, 207)
+        Me.Button2.Location = New System.Drawing.Point(89, 221)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 1880
         Me.Button2.Text = "Deregister"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(700, 28)
+        Me.MenuStrip2.TabIndex = 1888
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(700, 516)
+        Me.ClientSize = New System.Drawing.Size(700, 539)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.MapHelp)
@@ -894,6 +924,8 @@ Partial Class FormRegion
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -969,4 +1001,7 @@ Partial Class FormRegion
     Friend WithEvents Physicsubhybrid As RadioButton
     Friend WithEvents RegionPort As TextBox
     Friend WithEvents SmartStartCheckBox As CheckBox
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

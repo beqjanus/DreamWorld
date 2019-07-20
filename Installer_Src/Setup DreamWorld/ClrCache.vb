@@ -38,6 +38,11 @@ Public Class ClrCache
     Public Sub WipeAssets()
 
         Form1.Print("Clearing Asset cache. This may take a long time!")
+        If Form1.PropOpensimIsRunning Then
+            Form1.ConsoleCommand("Robust", "fcache clear")
+            Return
+        End If
+
         Try
             Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
             Dim ctr As Integer = 0

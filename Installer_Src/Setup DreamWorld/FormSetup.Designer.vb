@@ -124,6 +124,7 @@ Partial Class Form1
         Me.ApachePictureBox = New System.Windows.Forms.PictureBox()
         Me.MysqlPictureBox = New System.Windows.Forms.PictureBox()
         Me.RobustPictureBox = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
@@ -138,6 +139,7 @@ Partial Class Form1
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StopButton
@@ -614,7 +616,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(686, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -804,7 +806,7 @@ Partial Class Form1
         'ApachePictureBox
         '
         Me.ApachePictureBox.Image = CType(resources.GetObject("ApachePictureBox.Image"), System.Drawing.Image)
-        Me.ApachePictureBox.Location = New System.Drawing.Point(405, 5)
+        Me.ApachePictureBox.Location = New System.Drawing.Point(363, 5)
         Me.ApachePictureBox.Name = "ApachePictureBox"
         Me.ApachePictureBox.Size = New System.Drawing.Size(17, 17)
         Me.ApachePictureBox.TabIndex = 39
@@ -824,12 +826,23 @@ Partial Class Form1
         'RobustPictureBox
         '
         Me.RobustPictureBox.Image = CType(resources.GetObject("RobustPictureBox.Image"), System.Drawing.Image)
-        Me.RobustPictureBox.Location = New System.Drawing.Point(365, 5)
+        Me.RobustPictureBox.Location = New System.Drawing.Point(402, 5)
         Me.RobustPictureBox.Name = "RobustPictureBox"
         Me.RobustPictureBox.Size = New System.Drawing.Size(17, 17)
         Me.RobustPictureBox.TabIndex = 43
         Me.RobustPictureBox.TabStop = False
         Me.ToolTip1.SetToolTip(Me.RobustPictureBox, "Apache Status")
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.AccessibleName = "media_fast_forward"
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.media_fast_forward
+        Me.PictureBox1.Location = New System.Drawing.Point(282, 5)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(17, 17)
+        Me.PictureBox1.TabIndex = 45
+        Me.PictureBox1.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, "MySQL Status")
         '
         'Label1
         '
@@ -919,7 +932,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(390, 26)
+        Me.Label4.Location = New System.Drawing.Point(348, 26)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(44, 13)
         Me.Label4.TabIndex = 42
@@ -928,7 +941,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(352, 26)
+        Me.Label5.Location = New System.Drawing.Point(389, 26)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 13)
         Me.Label5.TabIndex = 44
@@ -941,7 +954,8 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(686, 141)
+        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.RobustPictureBox)
         Me.Controls.Add(Me.Label4)
@@ -975,6 +989,7 @@ Partial Class Form1
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1097,4 +1112,5 @@ Partial Class Form1
     Friend WithEvents Label4 As Label
     Friend WithEvents RobustPictureBox As PictureBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

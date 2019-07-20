@@ -35,9 +35,16 @@ Partial Class FormBackups
         Me.AutoBackupInterval = New System.Windows.Forms.ComboBox()
         Me.AutoBackup = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ServerTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FullSQLBackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AutoBackupHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox3
@@ -51,7 +58,7 @@ Partial Class FormBackups
         Me.GroupBox3.Controls.Add(Me.Label8)
         Me.GroupBox3.Controls.Add(Me.AutoBackupInterval)
         Me.GroupBox3.Controls.Add(Me.AutoBackup)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox3.Location = New System.Drawing.Point(13, 37)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(253, 184)
         Me.GroupBox3.TabIndex = 1863
@@ -72,7 +79,7 @@ Partial Class FormBackups
         'AutoBackupHelp
         '
         Me.AutoBackupHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.AutoBackupHelp.Location = New System.Drawing.Point(191, 17)
+        Me.AutoBackupHelp.Location = New System.Drawing.Point(93, 9)
         Me.AutoBackupHelp.Name = "AutoBackupHelp"
         Me.AutoBackupHelp.Size = New System.Drawing.Size(28, 32)
         Me.AutoBackupHelp.TabIndex = 1857
@@ -144,11 +151,59 @@ Partial Class FormBackups
         Me.ToolTip1.SetToolTip(Me.AutoBackup, "If enabled, Openim will save OARS  after running this long")
         Me.AutoBackup.UseVisualStyleBackColor = True
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.BackupToolStripMenuItem})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(278, 28)
+        Me.MenuStrip2.TabIndex = 18601
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ServerTypeToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'ServerTypeToolStripMenuItem
+        '
+        Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ServerTypeToolStripMenuItem.Text = "Help"
+        '
+        'BackupToolStripMenuItem
+        '
+        Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
+        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
+        Me.BackupToolStripMenuItem.Text = "Backup"
+        '
+        'FullSQLBackupToolStripMenuItem
+        '
+        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
+        '
+        'DataOnlyToolStripMenuItem
+        '
+        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
+        '
         'FormBackups
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(278, 209)
+        Me.ClientSize = New System.Drawing.Size(278, 242)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox3)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -158,7 +213,10 @@ Partial Class FormBackups
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AutoBackupHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -173,4 +231,10 @@ Partial Class FormBackups
     Friend WithEvents AutoBackup As CheckBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents ServerTypeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FullSQLBackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DataOnlyToolStripMenuItem As ToolStripMenuItem
 End Class

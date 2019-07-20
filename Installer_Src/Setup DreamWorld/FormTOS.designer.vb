@@ -32,12 +32,16 @@ Partial Class TosForm
         Me.Editor1 = New LiveSwitch.TextControl.Editor()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.ApplyButton = New System.Windows.Forms.Button()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ShowToHGUsersCheckbox
         '
         Me.ShowToHGUsersCheckbox.AutoSize = True
-        Me.ShowToHGUsersCheckbox.Location = New System.Drawing.Point(24, 81)
+        Me.ShowToHGUsersCheckbox.Location = New System.Drawing.Point(22, 109)
         Me.ShowToHGUsersCheckbox.Name = "ShowToHGUsersCheckbox"
         Me.ShowToHGUsersCheckbox.Size = New System.Drawing.Size(298, 17)
         Me.ShowToHGUsersCheckbox.TabIndex = 3
@@ -48,7 +52,7 @@ Partial Class TosForm
         'ShowToLocalUsersCheckbox
         '
         Me.ShowToLocalUsersCheckbox.AutoSize = True
-        Me.ShowToLocalUsersCheckbox.Location = New System.Drawing.Point(24, 58)
+        Me.ShowToLocalUsersCheckbox.Location = New System.Drawing.Point(22, 86)
         Me.ShowToLocalUsersCheckbox.Name = "ShowToLocalUsersCheckbox"
         Me.ShowToLocalUsersCheckbox.Size = New System.Drawing.Size(225, 17)
         Me.ShowToLocalUsersCheckbox.TabIndex = 2
@@ -59,7 +63,7 @@ Partial Class TosForm
         'TOSEnable
         '
         Me.TOSEnable.AutoSize = True
-        Me.TOSEnable.Location = New System.Drawing.Point(24, 35)
+        Me.TOSEnable.Location = New System.Drawing.Point(22, 63)
         Me.TOSEnable.Name = "TOSEnable"
         Me.TOSEnable.Size = New System.Drawing.Size(121, 17)
         Me.TOSEnable.TabIndex = 1
@@ -70,7 +74,7 @@ Partial Class TosForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(24, 13)
+        Me.Label1.Location = New System.Drawing.Point(22, 41)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(317, 13)
         Me.Label1.TabIndex = 4
@@ -78,7 +82,7 @@ Partial Class TosForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(253, 461)
+        Me.Button1.Location = New System.Drawing.Point(251, 489)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 23)
         Me.Button1.TabIndex = 5
@@ -87,7 +91,7 @@ Partial Class TosForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(413, 461)
+        Me.Button2.Location = New System.Drawing.Point(411, 489)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(227, 23)
         Me.Button2.TabIndex = 6
@@ -105,14 +109,14 @@ Partial Class TosForm
         Me.Editor1.EditorForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Editor1.FontSize = LiveSwitch.TextControl.FontSize.Three
         Me.Editor1.Html = Nothing
-        Me.Editor1.Location = New System.Drawing.Point(12, 104)
+        Me.Editor1.Location = New System.Drawing.Point(10, 132)
         Me.Editor1.Name = "Editor1"
         Me.Editor1.Size = New System.Drawing.Size(636, 338)
         Me.Editor1.TabIndex = 7
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(12, 461)
+        Me.SaveButton.Location = New System.Drawing.Point(10, 489)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 8
@@ -121,18 +125,44 @@ Partial Class TosForm
         '
         'ApplyButton
         '
-        Me.ApplyButton.Location = New System.Drawing.Point(111, 461)
+        Me.ApplyButton.Location = New System.Drawing.Point(109, 489)
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
         Me.ApplyButton.TabIndex = 9
         Me.ApplyButton.Text = "Apply"
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(660, 28)
+        Me.MenuStrip2.TabIndex = 1887
+        Me.MenuStrip2.Text = "0"
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Text = "Help"
+        '
+        'DatabaseSetupToolStripMenuItem
+        '
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
         'TosForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(660, 500)
+        Me.ClientSize = New System.Drawing.Size(660, 541)
+        Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.ApplyButton)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.Editor1)
@@ -146,6 +176,8 @@ Partial Class TosForm
         Me.MaximizeBox = False
         Me.Name = "TosForm"
         Me.Text = "Terms of Service"
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -159,4 +191,7 @@ Partial Class TosForm
     Friend WithEvents Editor1 As LiveSwitch.TextControl.Editor
     Friend WithEvents SaveButton As Button
     Friend WithEvents ApplyButton As Button
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

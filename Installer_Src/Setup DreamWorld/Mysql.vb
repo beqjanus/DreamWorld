@@ -120,6 +120,21 @@ Public Class MysqlInterface
 
     End Function
 
+    Public Sub DeregisterRegions()
+
+        If Form1.PropOpensimIsRunning Then
+            MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
+            Return
+        End If
+
+        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlPort, Integer))
+        If Mysql Then
+            QueryString("delete from robust.regions;")
+            Form1.Print("All Regions are deregistered.")
+        End If
+
+
+    End Sub
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
         Dim MysqlConn = New MySqlConnection(GConnStr)

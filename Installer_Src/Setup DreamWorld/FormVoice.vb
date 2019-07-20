@@ -72,4 +72,7 @@
         Form1.Help("Vivox")
     End Sub
 
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        Form1.Help("Vivox")
+    End Sub
 End Class

@@ -29,11 +29,15 @@ Partial Class FormCaches
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MoreCacheButton = New System.Windows.Forms.Button()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.MoreCacheButton = New System.Windows.Forms.Button()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'CheckBox1
@@ -96,12 +100,21 @@ Partial Class FormCaches
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
         Me.GroupBox1.Controls.Add(Me.CheckBox4)
         Me.GroupBox1.Controls.Add(Me.CheckBox3)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(197, 240)
+        Me.GroupBox1.Size = New System.Drawing.Size(183, 240)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Choose which cache to empty"
+        '
+        'MoreCacheButton
+        '
+        Me.MoreCacheButton.Location = New System.Drawing.Point(24, 155)
+        Me.MoreCacheButton.Name = "MoreCacheButton"
+        Me.MoreCacheButton.Size = New System.Drawing.Size(130, 23)
+        Me.MoreCacheButton.TabIndex = 1859
+        Me.MoreCacheButton.Text = "More Cache Settings"
+        Me.MoreCacheButton.UseVisualStyleBackColor = True
         '
         'MapHelp
         '
@@ -114,27 +127,43 @@ Partial Class FormCaches
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(16, 165)
+        Me.Button1.Location = New System.Drawing.Point(24, 184)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(130, 23)
         Me.Button1.TabIndex = 5
         Me.Button1.Text = "Clear Selected Caches"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'MoreCacheButton
+        'MenuStrip1
         '
-        Me.MoreCacheButton.Location = New System.Drawing.Point(16, 211)
-        Me.MoreCacheButton.Name = "MoreCacheButton"
-        Me.MoreCacheButton.Size = New System.Drawing.Size(130, 23)
-        Me.MoreCacheButton.TabIndex = 1859
-        Me.MoreCacheButton.Text = "More Cache Settings"
-        Me.MoreCacheButton.UseVisualStyleBackColor = True
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(213, 24)
+        Me.MenuStrip1.TabIndex = 18601
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
         '
         'FormCaches
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(233, 274)
+        Me.ClientSize = New System.Drawing.Size(213, 282)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -143,7 +172,10 @@ Partial Class FormCaches
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -156,4 +188,7 @@ Partial Class FormCaches
     Friend WithEvents Button1 As Button
     Friend WithEvents MapHelp As PictureBox
     Friend WithEvents MoreCacheButton As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

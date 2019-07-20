@@ -51,6 +51,8 @@ Public Class TosForm
         TOSEnable.Checked = Form1.PropMySetting.TOSEnabled
         SetScreen()
 
+        Form1.HelpOnce("TOS")
+
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -130,4 +132,9 @@ Public Class TosForm
         End Using
     End Sub
 
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
+        Form1.Help("TOS")
+
+    End Sub
 End Class

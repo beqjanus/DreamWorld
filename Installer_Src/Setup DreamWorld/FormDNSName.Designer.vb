@@ -32,13 +32,17 @@ Partial Class FormDNSName
         Me.TestButton1 = New System.Windows.Forms.Button()
         Me.NextNameButton = New System.Windows.Forms.Button()
         Me.DNSNameBox = New System.Windows.Forms.TextBox()
+        Me.SaveButton1 = New System.Windows.Forms.Button()
         Me.OsGridButton = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.SaveButton1 = New System.Windows.Forms.Button()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OsGridButton.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolTip1
@@ -114,6 +118,16 @@ Partial Class FormDNSName
         Me.DNSNameBox.TabIndex = 1869
         Me.ToolTip1.SetToolTip(Me.DNSNameBox, "Alpha-Numeric plus - ( no spaces or special chars)")
         '
+        'SaveButton1
+        '
+        Me.SaveButton1.Location = New System.Drawing.Point(206, 162)
+        Me.SaveButton1.Name = "SaveButton1"
+        Me.SaveButton1.Size = New System.Drawing.Size(63, 23)
+        Me.SaveButton1.TabIndex = 1879
+        Me.SaveButton1.Text = "Save"
+        Me.ToolTip1.SetToolTip(Me.SaveButton1, "test DNS and return IP address")
+        Me.SaveButton1.UseVisualStyleBackColor = True
+        '
         'OsGridButton
         '
         Me.OsGridButton.Controls.Add(Me.SaveButton1)
@@ -126,7 +140,7 @@ Partial Class FormDNSName
         Me.OsGridButton.Controls.Add(Me.TestButton1)
         Me.OsGridButton.Controls.Add(Me.NextNameButton)
         Me.OsGridButton.Controls.Add(Me.DNSNameBox)
-        Me.OsGridButton.Location = New System.Drawing.Point(12, 2)
+        Me.OsGridButton.Location = New System.Drawing.Point(21, 34)
         Me.OsGridButton.Name = "OsGridButton"
         Me.OsGridButton.Size = New System.Drawing.Size(287, 213)
         Me.OsGridButton.TabIndex = 1869
@@ -150,21 +164,36 @@ Partial Class FormDNSName
         Me.Label1.TabIndex = 1876
         Me.Label1.Text = "DynDNS password"
         '
-        'SaveButton1
+        'MenuStrip1
         '
-        Me.SaveButton1.Location = New System.Drawing.Point(206, 162)
-        Me.SaveButton1.Name = "SaveButton1"
-        Me.SaveButton1.Size = New System.Drawing.Size(63, 23)
-        Me.SaveButton1.TabIndex = 1879
-        Me.SaveButton1.Text = "Save"
-        Me.ToolTip1.SetToolTip(Me.SaveButton1, "test DNS and return IP address")
-        Me.SaveButton1.UseVisualStyleBackColor = True
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(320, 24)
+        Me.MenuStrip1.TabIndex = 18600
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
         '
         'FormDNSName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(320, 227)
+        Me.ClientSize = New System.Drawing.Size(320, 273)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.OsGridButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -174,7 +203,10 @@ Partial Class FormDNSName
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As ToolTip
@@ -190,4 +222,7 @@ Partial Class FormDNSName
     Friend WithEvents DNSNameBox As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents SaveButton1 As Button
+    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

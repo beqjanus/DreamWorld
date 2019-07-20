@@ -59,11 +59,11 @@
         BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Usa) + ".iar"
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
 
         If Not GBackupName.ToLower(Form1.Usa).EndsWith(".iar") Then
             MsgBox("Add 'filename.iar' to the path to save to.")
@@ -81,23 +81,23 @@
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
     End Sub
 
-    Private Sub ObjectNameBox_TextChanged(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
+    Private Sub ObjectNameBox_TextChanged(sender As Object, e As EventArgs)
         GObject = ObjectNameBox.Text
     End Sub
 
-    Private Sub BackupNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles BackupNameTextBox.TextChanged
+    Private Sub BackupNameTextBox_TextChanged(sender As Object, e As EventArgs)
         GBackupName = BackupNameTextBox.Text
     End Sub
 
-    Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles Password.TextChanged
+    Private Sub Password_TextChanged(sender As Object, e As EventArgs)
         GPassword = Password.Text
     End Sub
 
-    Private Sub Name_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+    Private Sub Name_TextChanged(sender As Object, e As EventArgs)
         GAvatarName = AviName.Text
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
         Dim ofd As New FolderBrowserDialog
 
         If ofd.ShowDialog = DialogResult.OK Then
@@ -108,4 +108,9 @@
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        Form1.Help("SaveIar")
+
+    End Sub
 End Class

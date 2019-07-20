@@ -22,6 +22,7 @@ Partial Class FormRegionPopup
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.EditButton1 = New System.Windows.Forms.Button()
         Me.StartButton3 = New System.Windows.Forms.Button()
@@ -91,8 +92,9 @@ Partial Class FormRegionPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(173, 214)
+        Me.ClientSize = New System.Drawing.Size(173, 175)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormRegionPopup"
