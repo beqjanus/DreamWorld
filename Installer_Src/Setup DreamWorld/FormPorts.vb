@@ -64,7 +64,7 @@ Public Class FormPorts
     End Sub
 
 #Region "Ports"
-    Private Sub ExternalHostName_TextChanged(sender As Object, e As EventArgs) Handles ExternalHostName.LostFocus
+    Private Sub ExternalHostName_TextChanged(sender As Object, e As EventArgs) Handles ExternalHostName.TextChanged
 
         If Not initted Then Return
 
