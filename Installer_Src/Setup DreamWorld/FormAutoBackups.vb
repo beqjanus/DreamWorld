@@ -1,6 +1,6 @@
 ﻿Imports System.Text.RegularExpressions
 
-Public Class FormBackups
+Public Class FormAutoBackups
 
 #Region "FormPos"
 

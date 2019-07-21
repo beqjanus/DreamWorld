@@ -43,43 +43,7 @@ Public Class FormFlotsamCache
 
     End Sub
 
-    Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
-        'Create an instance of the open file dialog box.
-        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
-            .ShowNewFolderButton = True,
-            .Description = "Pick folder for cache"
-        }
-        Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-        ' Process input if the user clicked OK.
-        If UserClickedOK = DialogResult.OK Then
-            Dim thing = openFileDialog1.SelectedPath
-            If thing.Length > 0 Then
-                Form1.PropMySetting.BackupFolder = thing
-                Form1.PropMySetting.SaveSettings()
-                CacheFolder.Text = thing
-            End If
-        End If
-    End Sub
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        Form1.Help("Flotsam Cache")
+    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
 
     End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        If Form1.PropOpensimIsRunning Then
-            Form1.ConsoleCommand("Robust", "fcache clear")
-        End If
-
-    End Sub
-
-
 End Class

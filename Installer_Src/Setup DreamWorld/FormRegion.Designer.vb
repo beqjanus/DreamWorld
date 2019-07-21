@@ -97,6 +97,8 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -397,7 +399,7 @@ Partial Class FormRegion
         '
         Me.SmartStartCheckBox.AutoSize = True
         Me.SmartStartCheckBox.Enabled = False
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 86)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 89)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
@@ -408,6 +410,8 @@ Partial Class FormRegion
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Advanced.Controls.Add(Me.Label14)
+        Me.Advanced.Controls.Add(Me.ScriptTimerTextBox)
         Me.Advanced.Controls.Add(Me.RegionPort)
         Me.Advanced.Controls.Add(Me.ClampPrimSize)
         Me.Advanced.Controls.Add(Me.Label12)
@@ -573,7 +577,7 @@ Partial Class FormRegion
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
         Me.GroupBox7.Location = New System.Drawing.Point(228, 334)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(177, 130)
+        Me.GroupBox7.Size = New System.Drawing.Size(177, 144)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules:"
@@ -884,6 +888,25 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(9, 229)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(107, 13)
+        Me.Label14.TabIndex = 41
+        Me.Label14.Text = "Script Timer Minimum"
+        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed minimum setting.")
+        '
+        'ScriptTimerTextBox
+        '
+        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(181, 226)
+        Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
+        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
+        Me.ScriptTimerTextBox.TabIndex = 40
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 0.2  Minimum should not be less than 0.091 which is 1/5th of 55 FPS SL sp" &
+        "eed.")
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1004,4 +1027,6 @@ Partial Class FormRegion
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label14 As Label
+    Friend WithEvents ScriptTimerTextBox As TextBox
 End Class

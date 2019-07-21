@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormBackups
+Partial Class FormAutoBackups
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class FormBackups
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackups))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormAutoBackups))
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.AutoBackupHelp = New System.Windows.Forms.PictureBox()
@@ -173,7 +173,7 @@ Partial Class FormBackups
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.ServerTypeToolStripMenuItem.Text = "Help"
         '
         'BackupToolStripMenuItem
@@ -198,7 +198,7 @@ Partial Class FormBackups
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
         '
-        'FormBackups
+        'FormAutoBackups
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -207,8 +207,8 @@ Partial Class FormBackups
         Me.Controls.Add(Me.GroupBox3)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.Name = "FormBackups"
-        Me.Text = "Backups"
+        Me.Name = "FormAutoBackups"
+        Me.Text = "Auto Backups"
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

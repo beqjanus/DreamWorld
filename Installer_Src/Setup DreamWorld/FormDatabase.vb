@@ -353,7 +353,7 @@
 
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
 
-        Dim CriticalForm = New FormCritical
+        Dim CriticalForm = New FormBackupCheckboxes
         CriticalForm.Activate()
         CriticalForm.Visible = True
 

@@ -1737,6 +1737,8 @@ Public Class Form1
 
         End Select
 
+        ' set new Min Timer Interval for how fast a script can go.
+        PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropMySetting.MinTimerInterval, Single))
 
         '' all grids requires these setting in Opensim.ini
         PropMySetting.SetOtherIni("Const", "DiagnosticsPort", PropMySetting.DiagnosticPort)
@@ -2053,6 +2055,10 @@ Public Class Form1
             PropMySetting.SetOtherIni("Const", "PublicPort", PropMySetting.HttpPort) ' 8002
             PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL) ' local IP
             PropMySetting.SetOtherIni("Const", "http_listener_port", PropRegionClass.RegionPort(X).ToString(Usa)) ' varies with region
+
+            ' set new Min Timer Interval for how fast a script can go.
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", PropRegionClass.MinTimerInterval(X).ToString(Usa))
+
             Dim name = PropRegionClass.RegionName(X)
 
             ' save the http listener port away for the group
@@ -2193,6 +2199,7 @@ Public Class Form1
             PropMySetting.SetOtherIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
             PropMySetting.SetOtherIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
             PropMySetting.SetOtherIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
+            PropMySetting.SetOtherIni(simName, "MinTimerInterval", PropRegionClass.MinTimerInterval(RegionNum).ToString(Usa))
 
             ' V2.31 upwards for smart start
             PropMySetting.SetOtherIni(simName, "SmartStart", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
@@ -4368,7 +4375,7 @@ Public Class Form1
 
         Dim msg = MsgBox("Make a backup of important files and the database first? ", vbYesNo)
         If msg = vbYes Then
-            Dim FormCriticaL = New FormCritical
+            Dim FormCriticaL = New FormBackupCheckboxes
             ' Call the ShowDialog method to show the dialogbox.
             Dim UserClickedOK As DialogResult = FormCriticaL.ShowDialog
 
@@ -5715,7 +5722,7 @@ Public Class Form1
 
     Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
 
-        Dim CriticalForm = New FormCritical
+        Dim CriticalForm = New FormBackupCheckboxes
         CriticalForm.Activate()
         CriticalForm.Visible = True
 

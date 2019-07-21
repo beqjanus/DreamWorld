@@ -115,6 +115,7 @@ Public Class FormRegion
             ClampPrimSize.Checked = False
             MaxPrims.Text = 45000.ToString(Form1.Usa)
             MaxAgents.Text = 100.ToString(Form1.Usa)
+            ScriptTimerTextBox.Text = 0.2.ToString(Form1.Usa)
 
             N1 = PropRegionClass1.CreateRegion("")
         Else
@@ -150,29 +151,29 @@ Public Class FormRegion
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = "256"
-                SizeY.Text = "256"
+                SizeX.Text = 256.ToString(Form1.Usa)
+                SizeY.Text = 256.ToString(Form1.Usa)
             ElseIf PropRegionClass1.SizeY(N1) = 512 And PropRegionClass1.SizeX(N1) = 512 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = True
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = "512"
-                SizeY.Text = "512"
+                SizeX.Text = 512.ToString(Form1.Usa)
+                SizeY.Text = 512.ToString(Form1.Usa)
             ElseIf PropRegionClass1.SizeY(N1) = 768 And PropRegionClass1.SizeX(N1) = 768 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = True
                 RadioButton4.Checked = False
-                SizeX.Text = "768"
-                SizeY.Text = "768"
+                SizeX.Text = 768.ToString(Form1.Usa)
+                SizeY.Text = 768.ToString(Form1.Usa)
             ElseIf PropRegionClass1.SizeY(N1) = 1024 And PropRegionClass1.SizeX(N1) = 1024 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = True
-                SizeX.Text = "1024"
-                SizeY.Text = "1024"
+                SizeX.Text = 1024.ToString(Form1.Usa)
+                SizeY.Text = 1024.ToString(Form1.Usa)
             Else
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
@@ -196,6 +197,8 @@ Public Class FormRegion
                 RegionPort.Text = PropRegionClass1.RegionPort(N1).ToString(Form1.Usa)
             End If
         End If
+
+        ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Usa)
 
         RName1 = Name
 
@@ -582,6 +585,7 @@ Public Class FormRegion
                         "MaxPrims = " & MaxPrims.Text & vbCrLf &
                         "RegionType = Estate" & vbCrLf & vbCrLf &
                         ";# Extended region properties from Dreamgrid" & vbCrLf &
+                        "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
                         "RegionSnapShot = " & Snapshot & vbCrLf &
                         "MapType = " & Map & vbCrLf &
                         "Physics = " & Phys & vbCrLf &
@@ -1144,6 +1148,12 @@ Public Class FormRegion
 
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
         Form1.Help("Permissions")
+    End Sub
+
+    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
+        If Initted1 Then Changed1 = True
     End Sub
 
 #End Region

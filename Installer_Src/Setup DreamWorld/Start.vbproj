@@ -186,10 +186,16 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
-    <Compile Include="FormCritical.Designer.vb">
-      <DependentUpon>FormCritical.vb</DependentUpon>
+    <Compile Include="FormBackupCheckboxes.Designer.vb">
+      <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormCritical.vb">
+    <Compile Include="FormBackupCheckboxes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCaches.designer.vb">
+      <DependentUpon>FormCaches.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCaches.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDisplacement2x2.Designer.vb">
@@ -240,22 +246,16 @@
     <Compile Include="FormRegionPopup.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormBackups.Designer.vb">
-      <DependentUpon>FormBackups.vb</DependentUpon>
+    <Compile Include="FormAutoBackups.Designer.vb">
+      <DependentUpon>FormAutoBackups.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormBackups.vb">
+    <Compile Include="FormAutoBackups.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormBird.Designer.vb">
       <DependentUpon>FormBird.vb</DependentUpon>
     </Compile>
     <Compile Include="FormBird.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCaches.Designer.vb">
-      <DependentUpon>FormCaches.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormCaches.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDatabase.Designer.vb">
@@ -378,10 +378,10 @@
     <Compile Include="FormRegion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAdvanced.Designer.vb">
-      <DependentUpon>FormAdvanced.vb</DependentUpon>
+    <Compile Include="FormSettings.Designer.vb">
+      <DependentUpon>FormSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormAdvanced.vb">
+    <Compile Include="FormSettings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Genpassword.vb" />
@@ -414,8 +414,11 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormCritical.resx">
-      <DependentUpon>FormCritical.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackupCheckboxes.resx">
+      <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCaches.resx">
+      <DependentUpon>FormCaches.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement2x2.resx">
       <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
@@ -441,15 +444,12 @@
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormBackups.resx">
-      <DependentUpon>FormBackups.vb</DependentUpon>
+    <EmbeddedResource Include="FormAutoBackups.resx">
+      <DependentUpon>FormAutoBackups.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBird.resx">
       <DependentUpon>FormBird.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormCaches.resx">
-      <DependentUpon>FormCaches.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDatabase.resx">
       <DependentUpon>FormDatabase.vb</DependentUpon>
@@ -504,8 +504,8 @@
       <DependentUpon>Chooser.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAdvanced.resx">
-      <DependentUpon>FormAdvanced.vb</DependentUpon>
+    <EmbeddedResource Include="FormSettings.resx">
+      <DependentUpon>FormSettings.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegion.resx">

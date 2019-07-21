@@ -292,6 +292,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property MinTimerInterval() As Single
+        Get
+            Return CType(GetMySetting("MinTimerInterval", "0.2"), Single)
+        End Get
+        Set
+            SetMySetting("MinTimerInterval", Value.ToString(Form1.Usa))
+        End Set
+    End Property
+
     ' fsassets
     Public Property FsAssetsEnabled() As Boolean
         Get

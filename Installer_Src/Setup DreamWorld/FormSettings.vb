@@ -10,7 +10,7 @@ Public Class AdvancedForm
     Dim Bird As New BirdForm
     Dim Tide As New Tides
 
-    Dim Backups As New FormBackups
+    Dim Backups As New FormAutoBackups
     Dim FormRegions As New FormRegions
     Dim FormDiva As New FormDiva
     Dim FormPhysics As New FormPhysics
@@ -168,7 +168,7 @@ Public Class AdvancedForm
         ' Set the new form's desktop location so it appears below and
         ' to the right of the current form.
         Backups.Close()
-        Backups = New FormBackups
+        Backups = New FormAutoBackups
         Backups.Activate()
         Backups.Visible = True
 

@@ -42,8 +42,8 @@ Partial Class AdvancedForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.DNSButton = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.CacheButton1 = New System.Windows.Forms.Button()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -204,7 +204,7 @@ Partial Class AdvancedForm
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(143, 23)
         Me.DNSButton.TabIndex = 5
-        Me.DNSButton.Text = "Hypergrid & DNS Name"
+        Me.DNSButton.Text = "Hypergrid  DNS Name"
         Me.ToolTip1.SetToolTip(Me.DNSButton, "Click to Enable Hypergrid or change DNS Name")
         Me.DNSButton.UseVisualStyleBackColor = True
         '
@@ -217,6 +217,16 @@ Partial Class AdvancedForm
         Me.Button4.Text = "Publicity"
         Me.ToolTip1.SetToolTip(Me.Button4, "Click to set up  Regions")
         Me.Button4.UseVisualStyleBackColor = True
+        '
+        'CacheButton1
+        '
+        Me.CacheButton1.Location = New System.Drawing.Point(15, 76)
+        Me.CacheButton1.Name = "CacheButton1"
+        Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
+        Me.CacheButton1.TabIndex = 19
+        Me.CacheButton1.Text = "Caches"
+        Me.ToolTip1.SetToolTip(Me.CacheButton1, "Click to set up the Database")
+        Me.CacheButton1.UseVisualStyleBackColor = True
         '
         'GroupBox8
         '
@@ -244,16 +254,6 @@ Partial Class AdvancedForm
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Global Settings"
-        '
-        'CacheButton1
-        '
-        Me.CacheButton1.Location = New System.Drawing.Point(15, 76)
-        Me.CacheButton1.Name = "CacheButton1"
-        Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
-        Me.CacheButton1.TabIndex = 19
-        Me.CacheButton1.Text = "Caches"
-        Me.ToolTip1.SetToolTip(Me.CacheButton1, "Click to set up the Database")
-        Me.CacheButton1.UseVisualStyleBackColor = True
         '
         'AdvancedForm
         '

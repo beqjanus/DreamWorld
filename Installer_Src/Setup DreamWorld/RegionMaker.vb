@@ -136,6 +136,7 @@ Public Class RegionMaker
         Public _ClampPrimSize As Boolean
         Public _MaxPrims As String
         Public _MaxAgents As Integer
+        Public _MinTimerInterval As Single = 0.2    ' min timer interval
 
         ' RAM vars, not from files
         Public _AvatarCount As Integer = 0
@@ -166,6 +167,16 @@ Public Class RegionMaker
 #End Region
 
 #Region "Properties"
+
+    Public Property MinTimerInterval(n As Single) As Single
+        Get
+            Return CType(RegionList(n)._MinTimerInterval, Single)
+        End Get
+        Set(ByVal Value As Single)
+            RegionList(n)._MinTimerInterval = Value.ToString(Form1.Usa)
+        End Set
+    End Property
+
 
     Public Property SmartStart(n As Integer) As String
 
@@ -644,6 +655,7 @@ Public Class RegionMaker
             ._MaxPrims = "45000",
             ._MaxAgents = 100,
             ._MapType = "Simple",
+            ._MinTimerInterval = 0.2,
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -733,6 +745,7 @@ Public Class RegionMaker
                         CoordX(n) = CType(parts(0), Integer)
                         CoordY(n) = CType(parts(1), Integer)
 
+                        MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval"), Single)
                         RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot")
                         MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType")
                         Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics")

@@ -1,4 +1,4 @@
-﻿Public Class FormCritical
+﻿Public Class FormBackupCheckboxes
 
 
 #Region "ScreenSize"

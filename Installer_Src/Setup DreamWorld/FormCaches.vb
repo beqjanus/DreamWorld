@@ -1,7 +1,8 @@
-Imports System.IO
+
+Imports System.Text.RegularExpressions
 
 Public Class FormCaches
-
+    Private gInitted As Boolean = False
 #Region "ScreenSize"
 
     Private _screenPosition As ScreenPos
@@ -33,13 +34,10 @@ Public Class FormCaches
 
 #End Region
 
-    Private Sub Cache_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SetScreen()
 
-    End Sub
-
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Form1.PropOpensimIsRunning() Then
             CheckBox1.Enabled = True
             CheckBox2.Enabled = True
@@ -58,10 +56,47 @@ Public Class FormCaches
             CheckBox4.Checked = True
             CheckBox5.Checked = True
         End If
+        Form1.HelpOnce("Flotsam Cache")
+
+        CacheFolder.Text = Form1.PropMySetting.CacheFolder
+        CacheEnabledBox.Checked = Form1.PropMySetting.CacheEnabled
+        CacheTimeout.Text = Form1.PropMySetting.CacheTimeout
+        LogLevelBox.SelectedIndex = CType(Form1.PropMySetting.CacheLogLevel, Integer)
+
+        Dim fsize As Double
+        Dim folder As String
+        If CacheFolder.Text = ".\assetcache" Then
+            folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
+        Else
+            folder = CacheFolder.Text
+        End If
+
+        For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
+            Dim finnfo As New System.IO.FileInfo(file)
+            fsize += finnfo.Length
+        Next
+        fsize /= 1024
+        Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
+        CacheSizeLabel.Text = Text
+
+        gInitted = True
+
         Form1.HelpOnce("Cache")
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Form_unload() Handles Me.Closing
+
+        Form1.PropMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Usa)
+        Form1.PropMySetting.CacheFolder = CacheFolder.Text
+        Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
+        Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
+
+        Form1.PropMySetting.SaveSettings()
+
+    End Sub
+
+
+    Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Dim Clr As New ClrCache()
 
@@ -98,14 +133,75 @@ Public Class FormCaches
         Form1.Help("Cache")
     End Sub
 
-    Private Sub MoreCacheButton_Click(sender As Object, e As EventArgs) Handles MoreCacheButton.Click
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("Cache")
+    End Sub
 
-        Dim Flotsam As New FormFlotsamCache
-        Flotsam.Show()
+    Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If Form1.PropOpensimIsRunning Then
+            Form1.ConsoleCommand("Robust", "fcache clear")
+        End If
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("Cache")
+    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
+
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        Form1.Help("Flotsam Cache")
+    End Sub
+
+    Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        'Create an instance of the open file dialog box.
+        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+            .ShowNewFolderButton = True,
+            .Description = "Pick folder for cache"
+        }
+        Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+        ' Process input if the user clicked OK.
+        If UserClickedOK = DialogResult.OK Then
+            Dim thing = openFileDialog1.SelectedPath
+            If thing.Length > 0 Then
+                Form1.PropMySetting.BackupFolder = thing
+                Form1.PropMySetting.SaveSettings()
+                CacheFolder.Text = thing
+            End If
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        If Form1.PropRobustProcID > 0 Then
+            Form1.ConsoleCommand("Robust", "fcache clear")
+        Else
+            Dim Clr As New ClrCache()
+            Clr.WipeAssets()
+
+            Dim fsize As Double
+            Dim folder As String
+            If CacheFolder.Text = ".\assetcache" Then
+                folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
+            Else
+                folder = CacheFolder.Text
+            End If
+
+            For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
+                Dim finnfo As New System.IO.FileInfo(file)
+                fsize += finnfo.Length
+            Next
+            fsize /= 1024
+            Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
+            CacheSizeLabel.Text = Text
+        End If
+
     End Sub
 End Class

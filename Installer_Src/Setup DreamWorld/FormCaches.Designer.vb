@@ -29,15 +29,31 @@ Partial Class FormCaches
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.MoreCacheButton = New System.Windows.Forms.Button()
         Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.CacheSizeLabel = New System.Windows.Forms.Label()
+        Me.CacheTimeout = New System.Windows.Forms.TextBox()
+        Me.CacheEnabledBox = New System.Windows.Forms.CheckBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.CacheFolder = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LogLevelBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'CheckBox1
@@ -92,7 +108,6 @@ Partial Class FormCaches
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.MoreCacheButton)
         Me.GroupBox1.Controls.Add(Me.MapHelp)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CheckBox2)
@@ -102,19 +117,10 @@ Partial Class FormCaches
         Me.GroupBox1.Controls.Add(Me.CheckBox3)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 30)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(183, 240)
+        Me.GroupBox1.Size = New System.Drawing.Size(183, 207)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Choose which cache to empty"
-        '
-        'MoreCacheButton
-        '
-        Me.MoreCacheButton.Location = New System.Drawing.Point(24, 155)
-        Me.MoreCacheButton.Name = "MoreCacheButton"
-        Me.MoreCacheButton.Size = New System.Drawing.Size(130, 23)
-        Me.MoreCacheButton.TabIndex = 1859
-        Me.MoreCacheButton.Text = "More Cache Settings"
-        Me.MoreCacheButton.UseVisualStyleBackColor = True
         '
         'MapHelp
         '
@@ -127,7 +133,7 @@ Partial Class FormCaches
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(24, 184)
+        Me.Button1.Location = New System.Drawing.Point(24, 156)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(130, 23)
         Me.Button1.TabIndex = 5
@@ -139,7 +145,7 @@ Partial Class FormCaches
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(213, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(580, 24)
         Me.MenuStrip1.TabIndex = 18601
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -158,22 +164,163 @@ Partial Class FormCaches
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.PictureBox1)
+        Me.GroupBox2.Controls.Add(Me.PictureBox2)
+        Me.GroupBox2.Controls.Add(Me.Button2)
+        Me.GroupBox2.Controls.Add(Me.CacheSizeLabel)
+        Me.GroupBox2.Controls.Add(Me.CacheTimeout)
+        Me.GroupBox2.Controls.Add(Me.CacheEnabledBox)
+        Me.GroupBox2.Controls.Add(Me.Label6)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.CacheFolder)
+        Me.GroupBox2.Controls.Add(Me.Label1)
+        Me.GroupBox2.Controls.Add(Me.LogLevelBox)
+        Me.GroupBox2.Location = New System.Drawing.Point(205, 30)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(361, 207)
+        Me.GroupBox2.TabIndex = 18602
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Flotsam Asset Cache"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox1.Location = New System.Drawing.Point(305, 52)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(41, 36)
+        Me.PictureBox1.TabIndex = 1872
+        Me.PictureBox1.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox2.Location = New System.Drawing.Point(163, 24)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(28, 27)
+        Me.PictureBox2.TabIndex = 1860
+        Me.PictureBox2.TabStop = False
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(206, 151)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 1871
+        Me.Button2.Text = "Clear Asset Cache"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'CacheSizeLabel
+        '
+        Me.CacheSizeLabel.AutoSize = True
+        Me.CacheSizeLabel.Location = New System.Drawing.Point(130, 156)
+        Me.CacheSizeLabel.Name = "CacheSizeLabel"
+        Me.CacheSizeLabel.Size = New System.Drawing.Size(32, 13)
+        Me.CacheSizeLabel.TabIndex = 1869
+        Me.CacheSizeLabel.Text = "0 MB"
+        '
+        'CacheTimeout
+        '
+        Me.CacheTimeout.Location = New System.Drawing.Point(128, 116)
+        Me.CacheTimeout.Name = "CacheTimeout"
+        Me.CacheTimeout.Size = New System.Drawing.Size(52, 20)
+        Me.CacheTimeout.TabIndex = 1868
+        '
+        'CacheEnabledBox
+        '
+        Me.CacheEnabledBox.AutoSize = True
+        Me.CacheEnabledBox.Location = New System.Drawing.Point(133, 39)
+        Me.CacheEnabledBox.Name = "CacheEnabledBox"
+        Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
+        Me.CacheEnabledBox.TabIndex = 1867
+        Me.CacheEnabledBox.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(13, 156)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(103, 13)
+        Me.Label6.TabIndex = 1866
+        Me.Label6.Text = "Current Size on Disk"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(13, 123)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(85, 13)
+        Me.Label5.TabIndex = 1865
+        Me.Label5.Text = "Timeout in hours"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(13, 39)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(80, 13)
+        Me.Label4.TabIndex = 1864
+        Me.Label4.Text = "Cache Enabled"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(13, 94)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(54, 13)
+        Me.Label2.TabIndex = 1863
+        Me.Label2.Text = "Log Level"
+        '
+        'CacheFolder
+        '
+        Me.CacheFolder.Location = New System.Drawing.Point(128, 59)
+        Me.CacheFolder.Name = "CacheFolder"
+        Me.CacheFolder.Size = New System.Drawing.Size(175, 20)
+        Me.CacheFolder.TabIndex = 1862
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 66)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(83, 13)
+        Me.Label1.TabIndex = 1861
+        Me.Label1.Text = "Cache Directory"
+        '
+        'LogLevelBox
+        '
+        Me.LogLevelBox.FormattingEnabled = True
+        Me.LogLevelBox.Items.AddRange(New Object() {"0 - (Error) Errors only", "1 - (Info)  Hit Rate Stats", "2 - (Debug) Cache Activity"})
+        Me.LogLevelBox.Location = New System.Drawing.Point(128, 86)
+        Me.LogLevelBox.Name = "LogLevelBox"
+        Me.LogLevelBox.Size = New System.Drawing.Size(148, 21)
+        Me.LogLevelBox.TabIndex = 1860
+        '
         'FormCaches
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(213, 282)
+        Me.ClientSize = New System.Drawing.Size(580, 246)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
-        Me.Text = "Clear Caches"
+        Me.Text = "Cache Control"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -187,8 +334,21 @@ Partial Class FormCaches
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Button1 As Button
     Friend WithEvents MapHelp As PictureBox
-    Friend WithEvents MoreCacheButton As Button
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents CacheSizeLabel As Label
+    Friend WithEvents CacheTimeout As TextBox
+    Friend WithEvents CacheEnabledBox As CheckBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents CacheFolder As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents LogLevelBox As ComboBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
