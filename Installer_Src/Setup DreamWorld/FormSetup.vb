@@ -575,8 +575,6 @@ Public Class Form1
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Me.Hide()
-
-
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
@@ -678,7 +676,9 @@ Public Class Form1
 
         CheckDefaultPorts()
 
-        OpenPorts()
+        If SetPublicIP() Then
+            OpenPorts()
+        End If
 
         SetQuickEditOff()
 
@@ -834,14 +834,15 @@ Public Class Form1
 
         PropOpensimIsRunning() = True
 
+
         If PropViewedSettings Then
-            Print("Read Region INI files")
-            PropRegionClass.GetAllRegions()
 
             If SetPublicIP() Then
                 OpenPorts()
             End If
 
+            Print("Read Region INI files")
+            PropRegionClass.GetAllRegions()
             If Not SetIniData() Then Return   ' set up the INI files
         End If
 
@@ -1738,7 +1739,12 @@ Public Class Form1
         End Select
 
         ' set new Min Timer Interval for how fast a script can go.
-        PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropMySetting.MinTimerInterval, Single))
+        Try
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropMySetting.MinTimerInterval, Single))
+        Catch
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", "0.2")
+        End Try
+
 
         '' all grids requires these setting in Opensim.ini
         PropMySetting.SetOtherIni("Const", "DiagnosticsPort", PropMySetting.DiagnosticPort)
@@ -2057,21 +2063,26 @@ Public Class Form1
             PropMySetting.SetOtherIni("Const", "http_listener_port", PropRegionClass.RegionPort(X).ToString(Usa)) ' varies with region
 
             ' set new Min Timer Interval for how fast a script can go.
-            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", PropRegionClass.MinTimerInterval(X).ToString(Usa))
+            Try
+                PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", PropRegionClass.MinTimerInterval(X).ToString(Usa))
+            Catch
+                PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", "0.2")
+            End Try
+
 
             Dim name = PropRegionClass.RegionName(X)
 
-            ' save the http listener port away for the group
-            PropRegionClass.GroupPort(X) = PropRegionClass.RegionPort(X)
+                ' save the http listener port away for the group
+                PropRegionClass.GroupPort(X) = PropRegionClass.RegionPort(X)
 
-            PropMySetting.SetOtherIni("Const", "PrivatePort", PropMySetting.PrivatePort) '8003
-            PropMySetting.SetOtherIni("Const", "RegionFolderName", PropRegionClass.GroupName(X))
-            PropMySetting.SaveOtherINI()
+                PropMySetting.SetOtherIni("Const", "PrivatePort", PropMySetting.PrivatePort) '8003
+                PropMySetting.SetOtherIni("Const", "RegionFolderName", PropRegionClass.GroupName(X))
+                PropMySetting.SaveOtherINI()
 
-            My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname + "Opensim.ini", True)
+                My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname + "Opensim.ini", True)
 
-        Catch ex As Exception
-            Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
+            Catch ex As Exception
+                Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
             ErrorLog("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
         End Try
 
@@ -2199,7 +2210,13 @@ Public Class Form1
             PropMySetting.SetOtherIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
             PropMySetting.SetOtherIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
             PropMySetting.SetOtherIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
-            PropMySetting.SetOtherIni(simName, "MinTimerInterval", PropRegionClass.MinTimerInterval(RegionNum).ToString(Usa))
+
+            Try
+                PropMySetting.SetOtherIni(simName, "MinTimerInterval", PropRegionClass.MinTimerInterval(RegionNum).ToString(Usa))
+            Catch
+                PropMySetting.SetOtherIni(simName, "MinTimerInterval", "0.2")
+            End Try
+
 
             ' V2.31 upwards for smart start
             PropMySetting.SetOtherIni(simName, "SmartStart", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
@@ -3650,7 +3667,7 @@ Public Class Form1
         PropDNSSTimer += 1
 
         ' hourly
-        If PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 1 Then
+        If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS()
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
@@ -4495,15 +4512,16 @@ Public Class Form1
             If PropMySetting.DNSName.Length > 0 Then
                 PropMySetting.PublicIP = PropMySetting.DNSName()
                 PropMySetting.SaveSettings()
-                Return True
+                Dim ret = RegisterDNS()
+                Return ret
             Else
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
                 PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-
+                Dim ret = RegisterDNS()
                 PropMySetting.SaveSettings()
-                Return False
+                Return ret
             End If
 
         End If
@@ -4525,6 +4543,7 @@ Public Class Form1
         End If
 
         If PropMySetting.PublicIP = "localhost" Or PropMySetting.PublicIP = "127.0.0.1" Then
+            RegisterDNS()
             Return True
         End If
 
@@ -5198,10 +5217,6 @@ Public Class Form1
 #Region "DNS"
 
     Public Function RegisterDNS() As Boolean
-
-        If PropMySetting.ServerType <> "Robust" Then
-            Return True
-        End If
 
         If PropMySetting.DNSName.Length = 0 Then
             Return True
