@@ -672,6 +672,9 @@ Public Class FormRegion
             End If
             Changed1 = True
         End If
+    End Sub
+
+    Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
         RegionName.Text = RegionName.Text.Trim() ' remove spaces
     End Sub
 
