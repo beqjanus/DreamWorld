@@ -745,7 +745,12 @@ Public Class RegionMaker
                         CoordX(n) = CType(parts(0), Integer)
                         CoordY(n) = CType(parts(1), Integer)
 
-                        MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval"), Single)
+                        Try
+                            MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval"), Single)
+                        Catch
+                            MinTimerInterval(n) = 0.2
+                        End Try
+
                         RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot")
                         MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType")
                         Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics")
