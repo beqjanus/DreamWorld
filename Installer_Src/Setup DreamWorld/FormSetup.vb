@@ -3725,9 +3725,12 @@ Public Class Form1
                 Diagnostics.Debug.Print("regionname {0}>", LongName)
 
                 Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                If LCase(PropRegionClass.Teleport(RegionNumber)) = "true" Then
-                    ToSort.Add(LongName)
+                If RegionNumber >= 0 Then
+                    If LCase(PropRegionClass.Teleport(RegionNumber)) = "true" Then
+                        ToSort.Add(LongName)
+                    End If
                 End If
+
 
             End While
         Catch ex As MySqlException
