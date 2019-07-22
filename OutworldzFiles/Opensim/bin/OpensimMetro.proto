@@ -50,7 +50,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=http://hg.metro.land
+BaseHostname=mach1.outworldz.net
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -442,6 +442,8 @@ TexturePrimSize=48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map.
 RenderMeshes=false
+RenderMaxHeight=4000
+RenderMinHeight=-100
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
@@ -680,7 +682,6 @@ user_agent="OpenSim LSL (Mozilla Compatible)"
 ; change to false if you need to use old viewers that do not support this feature
 ;
 SupportViewerObjectsCache=true
-
 
 [ClientStack.LindenUDP]
 
@@ -1086,6 +1087,7 @@ DisableUndergroundMovement=true
 ;; Path to script engine assemblies
 ;; Default is ./bin/ScriptEngines
 criptEnginesPath="ScriptEngines"
+MinTimerInterval=0.2
 
 [OSSL]
 
@@ -1285,6 +1287,7 @@ host_domain_header_from=http://hg.metro.land
 [Cloud]
 enabled=false
 density=0.5
+
 [AutoBackupModule]
 
 ;
@@ -1355,11 +1358,10 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
-
+AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
 
 ; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
-;; Set to True to enable Smart Start 
+;; Set to True to enable Smart Start
 ;; Set by Dreamgrid
 [AutoLoadTeleport]
-Enabled = False
+Enabled=False

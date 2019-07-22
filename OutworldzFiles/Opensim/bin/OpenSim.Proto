@@ -934,7 +934,7 @@ MeshModelAllowTextureToInventory=true
 ;; Time a thread must be idle (in seconds) before it dies
 ; IdleTimeout = 60
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more resonable
-MinTimerInterval=0.1
+MinTimerInterval=0.2
 
 ;# {Priority} {Enabled:true} {Priority for script engine threads?} {Lowest BelowNormal Normal AboveNormal Highest} BelowNormal
 ;; Thread priority ("Lowest", "BelowNormal", "Normal", "AboveNormal",
@@ -970,7 +970,7 @@ MinTimerInterval=0.1
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=False
+DeleteScriptsOnStartup=True
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts
