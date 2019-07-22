@@ -115,3 +115,6 @@
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~P:Outworldz.MySettings.SCPortBase1")>
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.Form1.Zap(System.String)")>
 <Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.MySettings.SetApacheIni(System.String,System.String)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.Form1.DoRegions")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.Form1.SetIniData~System.Boolean")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.FormRegions.RegionButton1_Click(System.Object,System.EventArgs)")>

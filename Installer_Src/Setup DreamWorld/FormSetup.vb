@@ -1740,7 +1740,7 @@ Public Class Form1
 
         ' set new Min Timer Interval for how fast a script can go.
         Try
-            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropMySetting.MinTimerInterval, Single))
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropMySetting.MinTimerInterval, String))
         Catch
             PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", "0.2")
         End Try
