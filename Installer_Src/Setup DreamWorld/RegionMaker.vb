@@ -1254,48 +1254,6 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function RegionListHTML(PropMySetting As MySettings) As String
-
-        'redirect from http://localhost:8002/bin/data/teleports.htm
-        'to http://localhost:8001/teleports.htm
-        'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String
-
-        HTML = "Welcome to |" + PropMySetting.SimName + "||" + PropMySetting.PublicIP + ":" + PropMySetting.HttpPort + ":" + PropMySetting.WelcomeRegion + "||" + vbCrLf
-
-        Dim NewSQLConn As New MySqlConnection(PropMySetting.RobustConnStr)
-        Diagnostics.Debug.Print("Conn:" & PropMySetting.RobustConnStr)
-        Dim UserStmt = "SELECT regionName from REGIONS"
-
-        Dim ToSort As New List(Of String)
-        Try
-            NewSQLConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-            While reader.Read()
-                Dim LongName = reader.GetString(0)
-
-                Diagnostics.Debug.Print("regionname {0}>", LongName)
-                ToSort.Add(LongName)
-            End While
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            NewSQLConn.Close()
-        End Try
-
-        ' Acquire keys And sort them.
-        ToSort.Sort()
-
-        For Each S As String In ToSort
-            HTML = HTML + "*|" & S & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & S & "||" + vbCrLf
-        Next
-
-        Return HTML
-
-    End Function
 
     Shared Function Right(value As String, length As Integer) As String
         ' Get rightmost characters of specified length.

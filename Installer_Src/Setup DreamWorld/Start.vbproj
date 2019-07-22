@@ -713,6 +713,8 @@
     <None Include="Resources\nav_plain_blue.png" />
     <None Include="Resources\media_fast_forward.png" />
     <None Include="Resources\media_rewind.png" />
+    <None Include="Resources\Arrow2Right.png" />
+    <None Include="Resources\Arrow2Left.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

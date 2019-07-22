@@ -292,6 +292,8 @@ Public Class MySettings
 
 #Region "Properties"
 
+
+
     Public Property MinTimerInterval() As Single
         Get
             Return CType(GetMySetting("MinTimerInterval", "0.2"), Single)

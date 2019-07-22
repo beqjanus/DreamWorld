@@ -41,7 +41,7 @@ Public Class Form1
 #Region "Declarations"
 
 
-    Private _MyVersion As String = "3.03"
+    Private _MyVersion As String = "3.04"
     Private _SimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     Private _ApacheUninstalling As Boolean = False
     Private _gUseIcons As Boolean = False
@@ -618,9 +618,9 @@ Public Class Form1
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
         If Me.Width > 320 Then
-            PictureBox1.Image = My.Resources.media_rewind
+            PictureBox1.Image = My.Resources.Arrow2Left
         Else
-            PictureBox1.Image = My.Resources.media_fast_forward
+            PictureBox1.Image = My.Resources.Arrow2Right
         End If
         Me.Show()
 
@@ -2548,7 +2548,7 @@ Public Class Form1
         ApachePictureBox.Image = My.Resources.nav_plain_red
         Application.DoEvents()
 
-        Print("Setup Apache")
+        Print("Check Apache")
         ' Stop MSFT server if we are on port 80 and enabled
 
         If PropMySetting.ApachePort = "80" Then
@@ -2559,6 +2559,13 @@ Public Class Form1
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             ApacheProcess.Start()
             ApacheProcess.WaitForExit()
+        End If
+
+        Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
+        If Running Then
+            Print("Apache webserver is running")
+            ApachePictureBox.Image = My.Resources.nav_plain_green
+            Return
         End If
 
         If PropMySetting.ApacheService Then
@@ -2660,8 +2667,8 @@ Public Class Form1
                 Application.DoEvents()
                 Sleep(100)
 
-                Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
-                If Running Then
+                Dim isRunning = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
+                If isRunning Then
                     Print("Apache webserver is running")
                     ApachePictureBox.Image = My.Resources.nav_plain_green
                     Return
@@ -3696,13 +3703,13 @@ Public Class Form1
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
 
+
         'http://localhost:8002/bin/data/teleports.htm
         'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" + PropMySetting.SimName + "||" + PropMySetting.PublicIP + ":" + PropMySetting.HttpPort + ":" + PropMySetting.WelcomeRegion + "||" + vbCrLf
-
 
         Dim NewSQLConn As New MySqlConnection(PropRobustConnStr())
         Dim UserStmt = "SELECT regionName from REGIONS"
@@ -3715,9 +3722,13 @@ Public Class Form1
 
             While reader.Read()
                 Dim LongName = reader.GetString(0)
-
                 Diagnostics.Debug.Print("regionname {0}>", LongName)
-                ToSort.Add(LongName)
+
+                Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
+                If LCase(PropRegionClass.Teleport(RegionNumber)) = "true" Then
+                    ToSort.Add(LongName)
+                End If
+
             End While
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
@@ -6227,14 +6238,14 @@ Public Class Form1
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
 
-        If PictureBox1.AccessibleName = "media_rewind" Then
+        If PictureBox1.AccessibleName = "Arrow2Left" Then
             Me.Width = 575
             Me.Height = 425
-            PictureBox1.Image = My.Resources.media_rewind
-            PictureBox1.AccessibleName = "media_fast_forward"
+            PictureBox1.Image = My.Resources.Arrow2Left
+            PictureBox1.AccessibleName = "Arrow2Right"
         Else
-            PictureBox1.Image = My.Resources.media_fast_forward
-            PictureBox1.AccessibleName = "media_rewind"
+            PictureBox1.Image = My.Resources.Arrow2Right
+            PictureBox1.AccessibleName = "Arrow2Left"
             Me.Width = 320
             Me.Height = 180
         End If
