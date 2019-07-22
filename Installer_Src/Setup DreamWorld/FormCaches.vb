@@ -74,10 +74,12 @@ Public Class FormCaches
         For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
             Dim finnfo As New System.IO.FileInfo(file)
             fsize += finnfo.Length
+            Application.DoEvents()
+            fsize /= 1024
+            Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
+            CacheSizeLabel.Text = Text
         Next
-        fsize /= 1024
-        Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
-        CacheSizeLabel.Text = Text
+
 
         gInitted = True
 
@@ -197,10 +199,12 @@ Public Class FormCaches
             For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
                 Dim finnfo As New System.IO.FileInfo(file)
                 fsize += finnfo.Length
+                Application.DoEvents()
+                fsize /= 1024
+                Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
+                CacheSizeLabel.Text = Text
             Next
-            fsize /= 1024
-            Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
-            CacheSizeLabel.Text = Text
+
         End If
 
     End Sub
