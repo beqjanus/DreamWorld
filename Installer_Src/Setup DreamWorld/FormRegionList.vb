@@ -534,7 +534,8 @@ Public Class RegionList
                 End If
 
                 'teleport
-                If PropRegionClass1.Teleport(X) = "True" Then
+                If PropRegionClass1.Teleport(X) = "True" Or
+                    PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
