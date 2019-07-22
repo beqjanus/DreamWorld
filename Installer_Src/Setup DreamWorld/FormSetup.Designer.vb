@@ -835,11 +835,12 @@ Partial Class Form1
         '
         'PictureBox1
         '
-        Me.PictureBox1.AccessibleName = "media_fast_forward"
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.media_fast_forward
+        Me.PictureBox1.AccessibleName = "Arrow2Right"
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.Arrow2Right
         Me.PictureBox1.Location = New System.Drawing.Point(282, 5)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(17, 17)
+        Me.PictureBox1.Size = New System.Drawing.Size(14, 14)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 45
         Me.PictureBox1.TabStop = False
         Me.ToolTip1.SetToolTip(Me.PictureBox1, "MySQL Status")
