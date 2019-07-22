@@ -168,12 +168,12 @@ Public Class RegionMaker
 
 #Region "Properties"
 
-    Public Property MinTimerInterval(n As Single) As Single
+    Public Property MinTimerInterval(n As Integer) As Single
         Get
             Return CType(RegionList(n)._MinTimerInterval, Single)
         End Get
         Set(ByVal Value As Single)
-            RegionList(n)._MinTimerInterval = Value.ToString(Form1.Usa)
+            RegionList(n)._MinTimerInterval = Value
         End Set
     End Property
 

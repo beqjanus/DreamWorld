@@ -38,10 +38,8 @@ Partial Class FormCaches
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.CacheSizeLabel = New System.Windows.Forms.Label()
         Me.CacheTimeout = New System.Windows.Forms.TextBox()
         Me.CacheEnabledBox = New System.Windows.Forms.CheckBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -169,10 +167,8 @@ Partial Class FormCaches
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.PictureBox2)
         Me.GroupBox2.Controls.Add(Me.Button2)
-        Me.GroupBox2.Controls.Add(Me.CacheSizeLabel)
         Me.GroupBox2.Controls.Add(Me.CacheTimeout)
         Me.GroupBox2.Controls.Add(Me.CacheEnabledBox)
-        Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label2)
@@ -207,21 +203,12 @@ Partial Class FormCaches
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(206, 151)
+        Me.Button2.Location = New System.Drawing.Point(128, 156)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 1871
         Me.Button2.Text = "Clear Asset Cache"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'CacheSizeLabel
-        '
-        Me.CacheSizeLabel.AutoSize = True
-        Me.CacheSizeLabel.Location = New System.Drawing.Point(130, 156)
-        Me.CacheSizeLabel.Name = "CacheSizeLabel"
-        Me.CacheSizeLabel.Size = New System.Drawing.Size(32, 13)
-        Me.CacheSizeLabel.TabIndex = 1869
-        Me.CacheSizeLabel.Text = "0 MB"
         '
         'CacheTimeout
         '
@@ -238,15 +225,6 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
         Me.CacheEnabledBox.TabIndex = 1867
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 156)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(103, 13)
-        Me.Label6.TabIndex = 1866
-        Me.Label6.Text = "Current Size on Disk"
         '
         'Label5
         '
@@ -339,10 +317,8 @@ Partial Class FormCaches
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents Button2 As Button
-    Friend WithEvents CacheSizeLabel As Label
     Friend WithEvents CacheTimeout As TextBox
     Friend WithEvents CacheEnabledBox As CheckBox
-    Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label2 As Label

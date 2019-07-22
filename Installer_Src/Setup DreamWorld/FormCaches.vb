@@ -63,23 +63,12 @@ Public Class FormCaches
         CacheTimeout.Text = Form1.PropMySetting.CacheTimeout
         LogLevelBox.SelectedIndex = CType(Form1.PropMySetting.CacheLogLevel, Integer)
 
-        Dim fsize As Double
         Dim folder As String
         If CacheFolder.Text = ".\assetcache" Then
             folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
         Else
             folder = CacheFolder.Text
         End If
-
-        For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
-            Dim finnfo As New System.IO.FileInfo(file)
-            fsize += finnfo.Length
-            Application.DoEvents()
-            fsize /= 1024
-            Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
-            CacheSizeLabel.Text = Text
-        Next
-
 
         gInitted = True
 
@@ -180,32 +169,5 @@ Public Class FormCaches
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        If Form1.PropRobustProcID > 0 Then
-            Form1.ConsoleCommand("Robust", "fcache clear")
-        Else
-            Dim Clr As New ClrCache()
-            Clr.WipeAssets()
-
-            Dim fsize As Double
-            Dim folder As String
-            If CacheFolder.Text = ".\assetcache" Then
-                folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
-            Else
-                folder = CacheFolder.Text
-            End If
-
-            For Each file As String In My.Computer.FileSystem.GetFiles(folder, FileIO.SearchOption.SearchAllSubDirectories)
-                Dim finnfo As New System.IO.FileInfo(file)
-                fsize += finnfo.Length
-                Application.DoEvents()
-                fsize /= 1024
-                Dim Text = String.Format(Form1.Usa, "{0: 0} Kb", fsize)
-                CacheSizeLabel.Text = Text
-            Next
-
-        End If
-
-    End Sub
 End Class
