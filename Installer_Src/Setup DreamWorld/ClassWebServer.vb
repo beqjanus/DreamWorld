@@ -209,8 +209,6 @@ Public Class NetServer
                         ToSort.Add(LongName)
                     End If
                 End If
-
-                ToSort.Add(LongName)
             End While
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())

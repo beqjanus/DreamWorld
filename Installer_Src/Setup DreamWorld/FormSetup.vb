@@ -41,7 +41,7 @@ Public Class Form1
 #Region "Declarations"
 
 
-    Private _MyVersion As String = "3.04"
+    Private _MyVersion As String = "3.05"
     Private _SimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
     Private _ApacheUninstalling As Boolean = False
     Private _gUseIcons As Boolean = False
