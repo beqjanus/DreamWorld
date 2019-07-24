@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.04' ; 
+my $type  = '-V3.05' ; 
 use Cwd;
 my $dir = getcwd;
 
