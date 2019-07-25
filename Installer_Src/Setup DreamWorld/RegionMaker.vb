@@ -1100,12 +1100,12 @@ Public Class RegionMaker
             WebserverList.Add(POST)
 
             ' proto for testing Smart Start AutoStart Region mode
-        ElseIf POST.Contains("AST=") Then
+        ElseIf POST.Contains("ALT=") Then
             Debug.Print("Smart Start:" + POST)
 
             ' Auto Start Telport, AKA Smart Start
             Dim RegionUUID As String = ""
-            Dim pattern As Regex = New Regex("AST=(.*?)/AGENT=(.*)")
+            Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
             Dim match As Match = pattern.Match(POST)
             If match.Success Then
                 RegionUUID = match.Groups(1).Value
@@ -1113,14 +1113,17 @@ Public Class RegionMaker
                 Dim n = FindRegionByUUID(RegionUUID)
                 If n > -1 And RegionEnabled(n) And CType(SmartStart(n), Boolean) Then
                     If Status(n) = SIMSTATUSENUM.Booted Then
+                        Form1.Print("Avatar in " & RegionName(n))
                         Return RegionUUID
                     ElseIf Status(n) = SIMSTATUSENUM.Stopped Then
+                        Form1.Print("Smart Start " & RegionName(n))
                         Status(n) = SIMSTATUSENUM.Autostart
                         Dim wname = PropMySetting.WelcomeRegion
                         Dim RegionNum As Integer = FindRegionByName(wname)
+                        ' DOIM(AgentUUID)
                         Return UUID(RegionNum)
                     End If
-                    'other states we can ignore as eventually it wil be Stopped or Running
+                    'other states we can ignore as eventually it will be Stopped or Running
                 End If
             End If
 
