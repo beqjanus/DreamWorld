@@ -41,6 +41,7 @@ Partial Class FormRegions
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SmartStartEnabled = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -48,6 +49,7 @@ Partial Class FormRegions
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.SmartStartEnabled)
         Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.NormalizeButton1)
         Me.GroupBox2.Controls.Add(Me.Z)
@@ -64,14 +66,14 @@ Partial Class FormRegions
         Me.GroupBox2.Controls.Add(Me.AddRegion)
         Me.GroupBox2.Location = New System.Drawing.Point(17, 49)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(176, 320)
+        Me.GroupBox2.Size = New System.Drawing.Size(176, 340)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Regions"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(9, 275)
+        Me.Button1.Location = New System.Drawing.Point(8, 300)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(148, 23)
         Me.Button1.TabIndex = 1866
@@ -80,7 +82,7 @@ Partial Class FormRegions
         '
         'NormalizeButton1
         '
-        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 156)
+        Me.NormalizeButton1.Location = New System.Drawing.Point(3, 181)
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(148, 23)
         Me.NormalizeButton1.TabIndex = 1865
@@ -89,21 +91,21 @@ Partial Class FormRegions
         '
         'Z
         '
-        Me.Z.Location = New System.Drawing.Point(81, 90)
+        Me.Z.Location = New System.Drawing.Point(80, 115)
         Me.Z.Name = "Z"
         Me.Z.Size = New System.Drawing.Size(30, 20)
         Me.Z.TabIndex = 1864
         '
         'Y
         '
-        Me.Y.Location = New System.Drawing.Point(45, 90)
+        Me.Y.Location = New System.Drawing.Point(44, 115)
         Me.Y.Name = "Y"
         Me.Y.Size = New System.Drawing.Size(30, 20)
         Me.Y.TabIndex = 1863
         '
         'X
         '
-        Me.X.Location = New System.Drawing.Point(9, 90)
+        Me.X.Location = New System.Drawing.Point(8, 115)
         Me.X.Name = "X"
         Me.X.Size = New System.Drawing.Size(30, 20)
         Me.X.TabIndex = 1862
@@ -111,7 +113,7 @@ Partial Class FormRegions
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(6, 71)
+        Me.Label2.Location = New System.Drawing.Point(5, 96)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(115, 13)
         Me.Label2.TabIndex = 1861
@@ -120,7 +122,7 @@ Partial Class FormRegions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 194)
+        Me.Label1.Location = New System.Drawing.Point(5, 219)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 13)
         Me.Label1.TabIndex = 1860
@@ -128,7 +130,7 @@ Partial Class FormRegions
         '
         'RegionButton
         '
-        Me.RegionButton.Location = New System.Drawing.Point(6, 246)
+        Me.RegionButton.Location = New System.Drawing.Point(5, 271)
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(148, 23)
         Me.RegionButton.TabIndex = 4
@@ -140,7 +142,7 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {"Choose a region"})
-        Me.RegionBox.Location = New System.Drawing.Point(4, 219)
+        Me.RegionBox.Location = New System.Drawing.Point(3, 244)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
         Me.RegionBox.Size = New System.Drawing.Size(148, 21)
@@ -185,7 +187,7 @@ Partial Class FormRegions
         '
         'AddRegion
         '
-        Me.AddRegion.Location = New System.Drawing.Point(4, 127)
+        Me.AddRegion.Location = New System.Drawing.Point(3, 152)
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(148, 23)
         Me.AddRegion.TabIndex = 2
@@ -214,14 +216,24 @@ Partial Class FormRegions
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
+        'SmartStartEnabled
+        '
+        Me.SmartStartEnabled.AutoSize = True
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(6, 76)
+        Me.SmartStartEnabled.Name = "SmartStartEnabled"
+        Me.SmartStartEnabled.Size = New System.Drawing.Size(120, 17)
+        Me.SmartStartEnabled.TabIndex = 1867
+        Me.SmartStartEnabled.Text = "Smart Start Enabled"
+        Me.SmartStartEnabled.UseVisualStyleBackColor = True
         '
         'FormRegions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(205, 391)
+        Me.ClientSize = New System.Drawing.Size(205, 390)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -256,4 +268,5 @@ Partial Class FormRegions
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SmartStartEnabled As CheckBox
 End Class

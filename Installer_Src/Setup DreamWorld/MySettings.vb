@@ -292,7 +292,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property SmartStart() As Boolean
+        Get
+            Return CType(GetMySetting("SmartStart", "false"), Boolean)
+        End Get
+        Set
+            SetMySetting("SmartStart", Value.ToString(Form1.Usa))
+        End Set
 
+    End Property
 
     Public Property MinTimerInterval() As Single
         Get
