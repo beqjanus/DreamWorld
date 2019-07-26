@@ -4,13 +4,18 @@ require( "flog.php" );
 
 include("databaseinfo.php");
 
+
 // Attempt to connect to the database
 try {
-  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
+  
+  ##$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
 }
 catch(PDOException $e)
 {
+  
   echo "Error connecting to database\n";
   file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
@@ -56,6 +61,7 @@ catch(PDOException $e)
              
              
              $query = "SELECT * FROM objects order by name";
+             
              $sqldata = array();
              
              $query = $db->prepare($query);

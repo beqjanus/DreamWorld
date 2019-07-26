@@ -7,8 +7,8 @@ include("../Metromap/includes/config.php");
   
   // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
+    ##$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    
   }
   catch(PDOException $e)
@@ -17,7 +17,7 @@ include("../Metromap/includes/config.php");
     file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
     exit;
   }
-  
+     
   $text = $_GET['query'];
   $text = "%$text%";
   $sqldata['text1'] = $text;

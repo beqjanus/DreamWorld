@@ -2801,6 +2801,7 @@ Public Class Form1
 "$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
 "/* MySQL Database */ " & vbCrLf &
 "$CONF_db_server     = " & """" & PropMySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_port       = " & """" & PropMySetting.MySqlPort & """" & "; // Robust port " & vbCrLf &
 "$CONF_db_user       = " & """" & PropMySetting.RobustUsername & """" & ";  // login " & vbCrLf &
 "$CONF_db_pass       = " & """" & PropMySetting.RobustPassword & """" & ";  // password " & vbCrLf &
 "$CONF_db_database   = " & """" & PropMySetting.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
@@ -2818,6 +2819,7 @@ Public Class Form1
 
         phptext = "<?php " & vbCrLf &
 "$DB_HOST = " & """" & PropMySetting.RobustServer & """" & ";" & vbCrLf &
+"$DB_port = " & """" & PropMySetting.MySqlPort & """" & "; // Robust port " & vbCrLf &
 "$DB_USER = " & """" & PropMySetting.RobustUsername & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & PropMySetting.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &

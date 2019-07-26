@@ -1,11 +1,12 @@
-<?php
+<?php 
 /* General Domain */
-$CONF_domain        = "192.168.2.135"; 
+$CONF_domain        = "10.6.1.103"; 
 $CONF_port          = "8002"; 
-$CONF_sim_domain    = "http//192.168.2.135/";
+$CONF_sim_domain    = "http//10.6.1.103/";
 $CONF_install_path  = "/Metromap";   // Installation path 
 /* MySQL Database */ 
 $CONF_db_server     = "127.0.0.1"; // Address Of Robust Server 
+$CONF_db_port       = "3309"; // Robust port 
 $CONF_db_user       = "robustuser";  // login 
 $CONF_db_pass       = "robustpassword";  // password 
 $CONF_db_database   = "robust";     // Name Of Robust Server 
