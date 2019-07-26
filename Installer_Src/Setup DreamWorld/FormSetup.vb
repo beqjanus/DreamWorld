@@ -1704,10 +1704,6 @@ Public Class Form1
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
 
-                                If RegionName = "Rome" Then
-                                    Dim bp = 1
-                                End If
-
                                 If RegionName <> DefaultName Then
                                     If PropRegionClass.SmartStart(RegionNum) Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
@@ -3496,7 +3492,7 @@ Public Class Form1
             Dim ID = PropRegionClass.FindRegionByName(name)
             Dim PID = PropRegionClass.ProcessID(ID)
             Try
-                If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
             Catch ex As Exception
                 Diagnostics.Debug.Print("Catch:" & ex.Message)
             End Try
@@ -3525,6 +3521,7 @@ Public Class Form1
             'PropRegionClass.RegionDump()
             Me.Focus()
             Return False
+
         End Try
         Me.Focus()
         'Application.DoEvents()
@@ -3882,6 +3879,7 @@ Public Class Form1
         Dim user = InputBox("First and Last name that will get this IAR?")
         Dim password = InputBox("Password for user " + user + "?")
         If user.Length > 0 And password.Length > 0 Then
+
             ConsoleCommand(PropRegionClass.GroupName(num), "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
             ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" + vbCrLf)
             Print("Opensim Is loading your item. You will find it in Inventory in " & Path & " soon.")
