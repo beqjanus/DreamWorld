@@ -83,7 +83,7 @@ Public Class Form1
     'Max number of port used past 8004
     Private _myUPnpMap As UPnp
 
-    Private _MyVersion As String = "3.05"
+    Private _MyVersion As String = "3.06"
     Private _OpensimBinPath As String
     ' Region
     Private _regionClass As RegionMaker
