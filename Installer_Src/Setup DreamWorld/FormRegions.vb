@@ -49,6 +49,14 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        '!!!
+        If Debugger.IsAttached = True Then
+            SmartStartEnabled.Enabled = True
+        Else
+            SmartStartEnabled.Enabled = False
+        End If
+
+
         LoadWelcomeBox()
         LoadRegionBox()
 
