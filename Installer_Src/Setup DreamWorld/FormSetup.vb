@@ -4191,7 +4191,7 @@ Public Class Form1
                 If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
                     ToBackup = BackupPath() & "" & BackupName
                 Else
-                    ToBackup = SaveIAR.GBackupPath & BackupName
+                    ToBackup = BackupName
                 End If
 
                 Dim Name = SaveIAR.GAvatarName
