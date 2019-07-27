@@ -9,11 +9,11 @@ include("databaseinfo.php");
 
 $now = time();
 
-// Attempt to connect to the search database
-try {
-  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
-  #$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
+ // Attempt to connect to the database
+  try {
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+  }
 catch(PDOException $e)
 {
   echo "Error connecting to the search database\n";

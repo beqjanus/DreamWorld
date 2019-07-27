@@ -6,9 +6,8 @@ include("databaseinfo.php");
 
 // Attempt to connect to the database
 try {
-  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
-  ##$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- 
+  $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
 }
 catch(PDOException $e)
 {
@@ -62,7 +61,7 @@ catch(PDOException $e)
                 FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid
                 where Name like :text1 or Description like :text2
                 order by Name, Description";
-            
+            flog($q);
             $query = $db->prepare($q);
             $result = $query->execute($sqldata);
             

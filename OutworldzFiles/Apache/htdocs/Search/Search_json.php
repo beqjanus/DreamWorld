@@ -5,11 +5,11 @@ require( "flog.php" );
 include("databaseinfo.php");
 include("../Metromap/includes/config.php");
   
+  
   // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
-    ##$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
   }
   catch(PDOException $e)
   {
@@ -18,17 +18,19 @@ include("../Metromap/includes/config.php");
     exit;
   }
      
-  $text = $_GET['query'];
+  $text = $_GET['query'] || "";
   $text = "%$text%";
   $sqldata['text1'] = $text;
   
   
+
   $rc = intval($_GET['rp']);
-  
+   
   if ($rc == "") {
       $rc = 100;
   }
   
+ 
   $sort = $_GET['sortname'];
   if ($sort == 'Name') {
     $sort = 'Name';
@@ -52,7 +54,7 @@ include("../Metromap/includes/config.php");
   
   $total = 0;
    
-  $page =  $_GET['page'];
+  $page =  $_GET['page'] || 1;
   if ($page == "" ) {
     $page = 1;
   }
@@ -64,12 +66,10 @@ include("../Metromap/includes/config.php");
     order by " . $sort . ' ' .  $ord ;
     //. " limit " . $lim1 . "," . $lim2;     
 
-#echo $q;
 
     $query = $db->prepare($q);
     $result = $query->execute($sqldata);
     
-   
     class OUT {}
     class Row {}
     
@@ -105,7 +105,8 @@ include("../Metromap/includes/config.php");
         
     }
     if ($total == 0) {
-      $row = array("hop"=>$hop, "Name"=>"No records","Description"=>"No records","Regionname"=>"No records","Location"=>"No records");
+	  flog("Nothing found");
+      $row = array("hop"=>"", "Name"=>"No records","Description"=>"No records","Regionname"=>"No records","Location"=>"No records");
       $rowobj = new Row();
       $rowobj->cell = $row;
       array_push($stack, $rowobj);
@@ -121,6 +122,6 @@ include("../Metromap/includes/config.php");
 
     echo $myJSON;
    
-   
+   flog("Exit");
     
 ?>
