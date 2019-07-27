@@ -21,9 +21,11 @@
 
 #End Region
 
+Imports System.Globalization
 Imports System.IO
 Imports System.Management
 Imports System.Net
+Imports System.Net.NetworkInformation
 Imports System.Net.Sockets
 Imports System.Runtime.InteropServices
 Imports System.Text
@@ -31,10 +33,6 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
-Imports System.Net.NetworkInformation
-Imports System.Globalization
-Imports System.Net.WebUtility
-Imports Outworldz
 
 Public Class Form1
 
@@ -54,6 +52,7 @@ Public Class Form1
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
     Private _DNSSTimer As Integer = 0
+
     ' not https, which breaks stuff
     Private _Domain As String = "http://www.outworldz.com"
 
@@ -68,6 +67,7 @@ Public Class Form1
     Private _gUseIcons As Boolean = False
     Private _IcecastProcID As Integer
     Private _Initted As Boolean = False
+
     ' Allows an Abort when Stopping is clicked
     Private _IPv4Address As String
 
@@ -77,6 +77,7 @@ Public Class Form1
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
     Private _myFolder As String
+
     ' global IPV4
     Private _mySetting As New MySettings
 
@@ -85,6 +86,7 @@ Public Class Form1
 
     Private _MyVersion As String = "3.06"
     Private _OpensimBinPath As String
+
     ' Region
     Private _regionClass As RegionMaker
 
@@ -97,6 +99,7 @@ Public Class Form1
     Private _RestartNow As Boolean = False
     Private _RobustConnStr As String = ""
     Private _RobustProcID As Integer
+
     ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Private _SelectedBox As String = ""
 
@@ -106,6 +109,7 @@ Public Class Form1
     ' for Web content
 
     Private _StopMysql As Boolean = True
+
     'lets us detect if Mysql is a service so we do not shut it down
     Private _UpdateView As Boolean = True
 
@@ -117,6 +121,7 @@ Public Class Form1
     Private _UserName As String = ""
 
     Private _viewedSettings As Boolean = False
+
     ' all settings from Settings.ini
     Dim Adv As AdvancedForm
 
@@ -124,6 +129,7 @@ Public Class Form1
     Dim AgentsWaiting As New Dictionary(Of String, String)
 
     Dim client As New System.Net.WebClient ' downloadclient for web pages
+
     ' Graph
     Dim cpu As New PerformanceCounter
 
@@ -146,9 +152,11 @@ Public Class Form1
     Dim ws As NetServer
 
     Public Event ApacheExited As EventHandler
+
     Public Event Exited As EventHandler
 
     Public Event RobustExited As EventHandler
+
     ' Port 8001 Webserver
     Public Enum SHOWWINDOWENUM As Integer
         SWHIDE = 0
@@ -178,9 +186,11 @@ Public Class Form1
 #End Region
 
 #Region "ScreenSize"
+
     Private Handler As New EventHandler(AddressOf Resize_page)
     Dim newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
+
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
 
         Dim Y = Me.Height - 100
@@ -220,6 +230,7 @@ Public Class Form1
         ScreenPosition.SaveHW(Me.Height, Me.Width)
 
     End Sub
+
 #End Region
 
 #Region "Properties"
@@ -454,6 +465,7 @@ Public Class Form1
             _IsRunning = Value
         End Set
     End Property
+
     Public Property PropRegionClass As RegionMaker
         Get
             Return _regionClass
@@ -477,6 +489,7 @@ Public Class Form1
             Return _regionHandles
         End Get
     End Property
+
     Public Property PropRestartNow As Boolean
         Get
             Return _RestartNow
@@ -503,6 +516,7 @@ Public Class Form1
             _RobustProcID = value
         End Set
     End Property
+
     Public Property PropSelectedBox As String
         Get
             Return _SelectedBox
@@ -538,6 +552,7 @@ Public Class Form1
             _UpdateView = value
         End Set
     End Property
+
     Public Property PropUseIcons As Boolean
         Get
             Return _gUseIcons
@@ -564,6 +579,7 @@ Public Class Form1
             _viewedSettings = value
         End Set
     End Property
+
     Public Property PropWebServer As NetServer
         Get
             Return ws
@@ -581,6 +597,7 @@ Public Class Form1
             _usa = value
         End Set
     End Property
+
 #End Region
 
 #Region "StartStop"
@@ -592,7 +609,7 @@ Public Class Form1
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
         TextBox1.AllowDrop = True
-        ToolTip1.Show("Your text", Label3)
+
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -634,7 +651,6 @@ Public Class Form1
         End If
 
         PropOpensimIsRunning() = True
-
 
         If PropViewedSettings Then
 
@@ -708,8 +724,6 @@ Public Class Form1
         ToolBar(True)
     End Sub
 
-
-
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         ReallyQuit()
     End Sub
@@ -738,7 +752,6 @@ Public Class Form1
         TextBox1.ScrollToCaret()
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
-
 
         ' setup a debug path
         PropMyFolder = My.Application.Info.DirectoryPath
@@ -906,7 +919,6 @@ Public Class Form1
         Dim isMySqlRunning = CheckPort("127.0.0.1", CType(PropMySetting.MySqlPort, Integer))
         If isMySqlRunning Then PropStopMysql() = False
 
-
         Buttons(StartButton)
         ProgressBar1.Value = 100
 
@@ -1003,7 +1015,6 @@ Public Class Form1
                         'PropUpdateView = True ' make form refresh
                     End If
 
-
                     If CountisRunning = 0 Then Exit For
                 Next
 
@@ -1049,6 +1060,7 @@ Public Class Form1
         Return True
 
     End Function
+
     Private Sub KillFiles(AL As List(Of String))
 
         For Each filename As String In AL
@@ -1165,12 +1177,15 @@ Public Class Form1
     Private Sub StartButton_Click(sender As System.Object, e As System.EventArgs) Handles StartButton.Click
         Startup()
     End Sub
+
     Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox1.TextChanged
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
         TextBox1.ScrollToCaret()
     End Sub
+
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
+
     ''' <summary>
     ''' Kill processes by name
     ''' </summary>
@@ -1189,6 +1204,7 @@ Public Class Form1
         Next
 
     End Sub
+
 #End Region
 
 #Region "Menus"
@@ -1221,6 +1237,7 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
         Process.Start(webAddress)
     End Sub
+
     Private Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
@@ -1235,6 +1252,7 @@ Public Class Form1
         MyShortcut.Save()
 
     End Sub
+
     Private Sub MnuAbout_Click(sender As System.Object, e As System.EventArgs) Handles mnuAbout.Click
 
         Print("(c) 2017 Outworldz,LLC" + vbCrLf + "Version " + PropMyVersion)
@@ -1289,6 +1307,7 @@ Public Class Form1
             TextBox1.Text = Mid(TextBox1.Text, 500)
         End If
     End Sub
+
     Private Sub WebUIToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs)
         Print("The Web UI lets you add or view settings for the default avatar. ")
         If PropOpensimIsRunning() Then
@@ -1427,7 +1446,6 @@ Public Class Form1
                 PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", "0.2")
             End Try
 
-
             Dim name = PropRegionClass.RegionName(X)
 
             ' save the http listener port away for the group
@@ -1438,7 +1456,6 @@ Public Class Form1
             PropMySetting.SaveOtherINI()
 
             My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname + "Opensim.ini", True)
-
         Catch ex As Exception
             Print("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
             ErrorLog("Error: Failed to set the Opensim.ini for sim " + regionName + ":" + ex.Message)
@@ -1502,6 +1519,7 @@ Public Class Form1
         End Using
 
     End Sub
+
     Private Sub DoWifi()
 
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\Wifi.ini", ";")
@@ -1628,7 +1646,6 @@ Public Class Form1
                                 End If
                             Next
                         End If
-
                     Else
                         outputFile.WriteLine(line)
                     End If
@@ -1637,15 +1654,14 @@ Public Class Form1
             End Using
             'close your reader
             reader.Close()
-
         Catch ex As Exception
             MsgBox("Could not set default sim for visitors. See Regions Panel.", vbInformation, "Settings")
         Finally
 
-
         End Try
 
     End Sub
+
     Private Function SetIniData() As Boolean
 
         'mnuShow shows the DOS box for Opensimulator
@@ -1816,7 +1832,6 @@ Public Class Form1
             PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", "0.2")
         End Try
 
-
         '' all grids requires these setting in Opensim.ini
         PropMySetting.SetOtherIni("Const", "DiagnosticsPort", PropMySetting.DiagnosticPort)
 
@@ -1939,7 +1954,6 @@ Public Class Form1
         PropMySetting.SetOtherIni("Map", "RenderMaxHeight", PropMySetting.RenderMaxHeight)
         PropMySetting.SetOtherIni("Map", "RenderMinHeight", PropMySetting.RenderMinHeight)
 
-
         If PropMySetting.MapType = "None" Then
             PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "false")
         ElseIf PropMySetting.MapType = "Simple" Then
@@ -2009,6 +2023,7 @@ Public Class Form1
         Return True
 
     End Function
+
 #End Region
 
 #Region "Regions"
@@ -2030,7 +2045,7 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Gets the External Host name which can be either the Public IP or a Host name. 
+    ''' Gets the External Host name which can be either the Public IP or a Host name.
     ''' </summary>
     ''' <returns>Host for regions</returns>
     Public Function ExternLocalServerName() As String
@@ -2045,6 +2060,7 @@ Public Class Form1
         Return Host
 
     End Function
+
     Public Sub SetRegionINI(regionname As String, key As String, value As String)
 
         Dim X = PropRegionClass.FindRegionByName(regionname)
@@ -2163,7 +2179,6 @@ Public Class Form1
                 PropMySetting.SetOtherIni(simName, "MinTimerInterval", "0.2")
             End Try
 
-
             ' V2.31 upwards for smart start
             PropMySetting.SetOtherIni(simName, "SmartStart", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
 
@@ -2252,10 +2267,7 @@ Public Class Form1
 
             PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
 
-
             PropMySetting.SaveOtherINI()
-
-
 
             If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
@@ -2336,6 +2348,7 @@ Public Class Form1
         IO.File.WriteAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist
 
     End Sub
+
 #End Region
 
 #Region "ToolBars"
@@ -2452,6 +2465,7 @@ Public Class Form1
             ErrorLog("ErrorUPnp failed to launch: " + ex.Message)
         End Try
     End Sub
+
 #End Region
 
 #Region "Apache"
@@ -2544,7 +2558,6 @@ Public Class Form1
                     ApachePictureBox.Image = My.Resources.nav_plain_green
                     Application.DoEvents()
                 End If
-
             Catch ex As Exception
                 Print("Apache failed to start:" & ex.Message)
             End Try
@@ -2712,7 +2725,6 @@ Public Class Form1
             outputFile.WriteLine(phptext)
         End Using
 
-
         phptext = "<?php " & vbCrLf &
 "$DB_HOST = " & """" & PropMySetting.RobustServer & """" & ";" & vbCrLf &
 "$DB_port = " & """" & PropMySetting.MySqlPort & """" & "; // Robust port " & vbCrLf &
@@ -2726,6 +2738,7 @@ Public Class Form1
         End Using
 
     End Sub
+
     Private Sub StopApache()
 
         If Not PropMySetting.ApacheEnable Then Return
@@ -2738,6 +2751,7 @@ Public Class Form1
         End If
 
     End Sub
+
 #End Region
 
 #Region "Icecast"
@@ -2959,6 +2973,7 @@ Public Class Form1
         End If
 
     End Sub
+
 #End Region
 
 #Region "Boot"
@@ -3052,7 +3067,6 @@ Public Class Form1
         Catch ex As FileNotFoundException
         End Try
 
-
         If myProcess.Start() Then
             For Each num In PropRegionClass.RegionListByGroupNum(Groupname)
                 Log("Debug", "Process started for " + PropRegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
@@ -3104,7 +3118,7 @@ Public Class Form1
     Public Sub StopGroup(Groupname As String)
 
         For Each RegionNumber In PropRegionClass.RegionListByGroupNum(Groupname)
-            ' Called by a sim restart, do not change status 
+            ' Called by a sim restart, do not change status
             'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
             Log("Info", PropRegionClass.RegionName(RegionNumber) + " Stopped")
@@ -3115,6 +3129,7 @@ Public Class Form1
         PropUpdateView = True ' make form refresh
 
     End Sub
+
 #End Region
 
 #Region "ExitHandlers"
@@ -3196,7 +3211,6 @@ Public Class Form1
                 PropUpdateView = True
             End If
 
-
             ' if a restart is signalled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
                 PropUpdateView = True
@@ -3270,10 +3284,10 @@ Public Class Form1
             PropUpdateView = True
         End If
 
-
         PropExitHandlerIsBusy = False
 
     End Sub
+
     ''' <summary>
     ''' Check is Robust port 8002 is up
     ''' </summary>
@@ -3347,6 +3361,7 @@ Public Class Form1
         Next
 
     End Sub
+
     ''' <summary>
     ''' Shows the log buttons if diags fail
     ''' </summary>
@@ -3498,6 +3513,7 @@ Public Class Form1
         Return True
 
     End Function
+
     'Private Sub Chart1_Customize(ByVal sender As Object, ByVal e As System.EventArgs) Handles ChartWrapper1.TheChart.Customize
 
     '   ChartWrapper1.ChartAreas(0).AxisY.CustomLabels.RemoveAt(2) 'Will remove the third label
@@ -3557,7 +3573,6 @@ Public Class Form1
             MyCPUCollection.Remove(1) ' drop 1st, older  item
             MyCPUCollection.Add(newspeed)
             PercentCPU.Text = String.Format(Usa, "{0: 0}% CPU", newspeed)
-
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -3611,7 +3626,6 @@ Public Class Form1
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
 
-
         'http://localhost:8002/bin/data/teleports.htm
         'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
@@ -3638,7 +3652,6 @@ Public Class Form1
                         ToSort.Add(LongName)
                     End If
                 End If
-
 
             End While
         Catch ex As MySqlException
@@ -3726,6 +3739,7 @@ Public Class Form1
         End If
 
     End Sub
+
 #End Region
 
 #Region "IAROAR"
@@ -4154,6 +4168,7 @@ Public Class Form1
         End If
 
     End Sub
+
     Private Sub SetIAROARContent()
 
         IslandToolStripMenuItem.Visible = False
@@ -4292,6 +4307,7 @@ Public Class Form1
         End If
 
     End Sub
+
     ''' <summary>
     ''' Upload in a seperate thraed the photo, if any.  Cannot be called unless main web server is known to be online.
     ''' </summary>
@@ -4303,10 +4319,10 @@ Public Class Form1
         End If
 
     End Sub
+
 #End Region
 
 #Region "Updates"
-
 
     Sub CheckForUpdates()
 
@@ -4404,8 +4420,8 @@ Public Class Form1
             End If
         End If
 
-
     End Sub
+
 #End Region
 
 #Region "Diagnostics"
@@ -4665,6 +4681,7 @@ Public Class Form1
         Return False
 
     End Function
+
 #End Region
 
 #Region "UPnP"
@@ -4712,16 +4729,19 @@ Public Class Form1
 
             For Each X In PropRegionClass.RegionNumbers
                 Dim R As Integer = PropRegionClass.RegionPort(X)
+                Application.DoEvents()
 
                 If PropMyUPnpMap.Exists(R, UPnp.Protocol.UDP) Then
                     PropMyUPnpMap.Remove(R, UPnp.Protocol.UDP)
+                    Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.Protocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(X) & " ")
                 Print("Region UDP " + PropRegionClass.RegionName(X) + " is set to " + Convert.ToString(R, Usa))
                 BumpProgress(1)
-
+                Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.Protocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.Protocol.TCP)
+                    Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.Protocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(X) & " ")
                 Print("Region TCP " + PropRegionClass.RegionName(X) + " is set to " + Convert.ToString(R, Usa))
@@ -4850,7 +4870,6 @@ Public Class Form1
     End Function
 
     Public Function StartMySQL() As Boolean
-
 
         Dim isMySqlRunning = CheckPort(PropMySetting.RobustServer(), CType(PropMySetting.MySqlPort, Integer))
 
@@ -5088,6 +5107,7 @@ Public Class Form1
             End If
         End If
     End Sub
+
     Private Sub StopIcecast()
 
         Zap("icecast")
@@ -5112,7 +5132,6 @@ Public Class Form1
         End If
 
         Print("Stopping MySql")
-
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5197,6 +5216,7 @@ Public Class Form1
         Return False
 
     End Function
+
     Public Function RegisterName(name As String) As String
 
         Dim Checkname As String = String.Empty
@@ -5278,13 +5298,14 @@ Public Class Form1
         ' Scan all the regions
         Dim sbttl As Integer = 0
         Try
+            ToolTip1.SetToolTip(Label3, "")
             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.IsBooted(RegionNum) Then
                     Dim MysqlConn As New MysqlInterface(PropRobustConnStr())
                     Dim count As Integer = MysqlConn.IsUserPresent(PropRegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then
-                        Diagnostics.Debug.Print("Avatar in region " & PropRegionClass.RegionName(RegionNum))
+                        ToolTip1.SetToolTip(Label3, PropRegionClass.RegionName(RegionNum) & " " & ToolTip1.GetToolTip(Label3))
                     End If
                     PropRegionClass.AvatarCount(RegionNum) = count
                     'Debug.Print(PropRegionClass.AvatarCount(X).ToString(usa) + " avatars in region " + PropRegionClass.RegionName(X))
@@ -5294,6 +5315,7 @@ Public Class Form1
             Next
         Catch
         End Try
+
 
         AvatarLabel.Text = sbttl.ToString(Usa)
     End Sub
@@ -5321,6 +5343,7 @@ Public Class Form1
             Print("Opensim is not running. Cannot open the Web Interface.")
         End If
     End Sub
+
 #End Region
 
 #Region "Alerts"
@@ -5457,6 +5480,7 @@ Public Class Form1
         ConsoleCommand("Robust", "set log level " + msg + "{ENTER}" + vbCrLf)
 
     End Sub
+
     Private Sub SendScriptCmd(cmd As String)
         If Not PropOpensimIsRunning() Then
             Print("Opensim is not running")
@@ -5493,6 +5517,7 @@ Public Class Form1
     Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
         SendMsg("warn")
     End Sub
+
 #End Region
 
 #Region "LocalOARIAR"
@@ -5661,6 +5686,7 @@ Public Class Form1
         End If
 
     End Sub
+
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
         Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/technical.htm"
         Process.Start(webAddress)
@@ -5763,6 +5789,7 @@ Public Class Form1
         Help("Startup")
 
     End Sub
+
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
         For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum("*")
             ConsoleCommand(PropRegionClass.RegionName(RegionNum), "debug jobengine status{ENTER}" + vbCrLf)
@@ -5775,6 +5802,7 @@ Public Class Form1
 
         Viewlog(name)
     End Sub
+
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
         Help("Revisions")
     End Sub
@@ -5790,6 +5818,7 @@ Public Class Form1
             ConsoleCommand(PropRegionClass.RegionName(RegionNum), "xengine status{ENTER}" + vbCrLf)
         Next
     End Sub
+
 #End Region
 
 #Region "Capslock"
@@ -5966,6 +5995,7 @@ Public Class Form1
         Return Command
 
     End Function
+
     Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
         Dim webAddress As String = PropMyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
         Process.Start(webAddress)
@@ -6017,10 +6047,10 @@ Public Class Form1
 
     End Sub
 
-
     Private Sub GetEvents()
 
         If Not PropMySetting.ApacheEnable Then Return
+        If Not PropMySetting.SearchLocal Then Return
 
         Dim Simevents As New Dictionary(Of String, String)
         Dim ossearch As String = "server=" + PropMySetting.RobustServer() _
@@ -6150,19 +6180,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Label3GotFocus(sender As Object, e As EventArgs) Handles Label3.GotFocus
-
-
-        If CType(AvatarLabel.Text, Integer) > 0 Then
-
-        End If
-
-    End Sub
-
-    Private Sub Label3LostFocus(sender As Object, e As EventArgs) Handles Label3.LostFocus
-
-
-    End Sub
 
     Private Sub CleanDLLs()
 
@@ -6185,7 +6202,6 @@ Public Class Form1
         Next
 
     End Sub
-
 
     Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         For Each filename In dll
@@ -6274,7 +6290,6 @@ Public Class Form1
         Return False
 
     End Function
-
 
 #End Region
 
