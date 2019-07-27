@@ -10,7 +10,7 @@ Public Class RegionMaker
 #Disable Warning IDE0044 ' Add readonly modifier
     Private Shared FInstance As RegionMaker = Nothing
     Private _grouplist As New Dictionary(Of String, Integer)
-    Private _regionList As New ArrayList()
+    Private RegionList As New List(Of Region_data)
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
     Dim json As JSONresult
@@ -182,12 +182,6 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public ReadOnly Property RegionList As ArrayList
-        Get
-            Return _regionList
-        End Get
-    End Property
-
     Public Property AllowGods(n As Integer) As String
         Get
             Return CType(RegionList(n)._AllowGods, String)
@@ -202,13 +196,13 @@ Public Class RegionMaker
             Return CType(RegionList(n)._AvatarCount, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._AvatarCount = Value.ToString(Form1.Usa)
+            RegionList(n)._AvatarCount = CType(Value, Integer)
         End Set
     End Property
 
     Public Property Birds(n As Integer) As String
         Get
-            Return RegionList(n)._Birds.ToString
+            Return RegionList(n)._Birds.ToString(Form1.Usa)
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Birds = Value
@@ -220,7 +214,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._ClampPrimSize, Boolean)
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value.ToString(Form1.Usa)
+            RegionList(n)._ClampPrimSize = Value
         End Set
     End Property
 
@@ -229,7 +223,7 @@ Public Class RegionMaker
             Return CType(RegionList(n)._CoordX, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value.ToString(Form1.Usa)
+            RegionList(n)._CoordX = Value
         End Set
     End Property
 
@@ -238,13 +232,13 @@ Public Class RegionMaker
             Return CType(RegionList(n)._CoordY, Integer)
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value.ToString(Form1.Usa)
+            RegionList(n)._CoordY = Value
         End Set
     End Property
 
     Public Property FolderPath(n As Integer) As String
         Get
-            Return RegionList(n)._FolderPath.ToString
+            Return RegionList(n)._FolderPath.ToString(Form1.Usa)
         End Get
         Set(ByVal Value As String)
             RegionList(n)._FolderPath = Value
@@ -263,7 +257,7 @@ Public Class RegionMaker
     ''' ''''''''''''''''''' PATHS ''''''''''''''''''''
     Public Property IniPath(n As Integer) As String
         Get
-            Return RegionList(n)._IniPath.ToString
+            Return RegionList(n)._IniPath.ToString(Form1.Usa)
         End Get
         Set(ByVal Value As String)
             RegionList(n)._IniPath = Value
@@ -281,7 +275,7 @@ Public Class RegionMaker
 
     Public Property ManagerGod(n As Integer) As String
         Get
-            Return CType(RegionList(n)._ManagerGod, String)
+            Return RegionList(n)._ManagerGod
         End Get
         Set(ByVal Value As String)
             RegionList(n)._ManagerGod = Value
@@ -290,7 +284,7 @@ Public Class RegionMaker
 
     Public Property MapType(n As Integer) As String
         Get
-            Return CType(RegionList(n)._MapType, String)
+            Return RegionList(n)._MapType
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MapType = Value
@@ -299,16 +293,16 @@ Public Class RegionMaker
 
     Public Property MaxAgents(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._MaxAgents, Integer)
+            Return RegionList(n)._MaxAgents
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._MaxAgents = Value.ToString(Form1.Usa)
+            RegionList(n)._MaxAgents = Value
         End Set
     End Property
 
     Public Property MaxPrims(n As Integer) As String
         Get
-            Return CType(RegionList(n)._MaxPrims, String)
+            Return RegionList(n)._MaxPrims
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MaxPrims = Value
@@ -317,7 +311,7 @@ Public Class RegionMaker
 
     Public Property MinTimerInterval(n As Integer) As Single
         Get
-            Return CType(RegionList(n)._MinTimerInterval, Single)
+            Return RegionList(n)._MinTimerInterval
         End Get
         Set(ByVal Value As Single)
             RegionList(n)._MinTimerInterval = Value
@@ -326,25 +320,25 @@ Public Class RegionMaker
 
     Public Property NonPhysicalPrimMax(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._NonphysicalPrimMax, Integer)
+            Return RegionList(n)._NonPhysicalPrimMax
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._NonphysicalPrimMax = Value.ToString(Form1.Usa)
+            RegionList(n)._NonPhysicalPrimMax = Value
         End Set
     End Property
 
     Public Property PhysicalPrimMax(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._PhysicalPrimMax, Integer)
+            Return RegionList(n)._PhysicalPrimMax
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._PhysicalPrimMax = Value.ToString(Form1.Usa)
+            RegionList(n)._PhysicalPrimMax = Value
         End Set
     End Property
 
     Public Property Physics(n As Integer) As String
         Get
-            Return CType(RegionList(n)._physics, String)
+            Return RegionList(n)._physics
         End Get
         Set(ByVal Value As String)
             RegionList(n)._physics = Value
@@ -354,29 +348,29 @@ Public Class RegionMaker
     Public Property ProcessID(n As Integer) As Integer
         Get
             Try
-                Return CType(RegionList(n)._ProcessID, Integer)
+                Return RegionList(n)._ProcessID
             Catch
                 Return 0
             End Try
 
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._ProcessID = Value.ToString(Form1.Usa)
+            RegionList(n)._ProcessID = Value
         End Set
     End Property
 
     Public Property RegionEnabled(n As Integer) As Boolean
         Get
-            Return CType(RegionList(n)._RegionEnabled, Boolean)
+            Return RegionList(n)._RegionEnabled
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._RegionEnabled = Value.ToString(Form1.Usa)
+            RegionList(n)._RegionEnabled = Value
         End Set
     End Property
 
     Public Property RegionGod(n As Integer) As String
         Get
-            Return CType(RegionList(n)._RegionGod, String)
+            Return RegionList(n)._RegionGod
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionGod = Value
@@ -385,16 +379,16 @@ Public Class RegionMaker
 
     Public Property RegionName(n As Integer) As String
         Get
-            Return RegionList(n)._RegionName.ToString
+            Return RegionList(n)._RegionName
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionName = Value.ToString(Form1.Usa)
+            RegionList(n)._RegionName = Value
         End Set
     End Property
 
     Public Property RegionPath(n As Integer) As String
         Get
-            Return RegionList(n)._RegionPath.ToString
+            Return RegionList(n)._RegionPath
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionPath = Value
@@ -404,20 +398,20 @@ Public Class RegionMaker
     Public Property RegionPort(n As Integer) As Integer
         Get
             Try
-                Return CType(RegionList(n)._RegionPort, Integer)
+                Return RegionList(n)._RegionPort
             Catch
-                Form1.ErrorLog("Bad region port: " + RegionList(n)._RegionPort.ToString)
+                Form1.ErrorLog("Bad region port: " + RegionList(n)._RegionPort.ToString(Form1.Usa))
             End Try
             Return 0
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._RegionPort = Value.ToString(Form1.Usa)
+            RegionList(n)._RegionPort = Value
         End Set
     End Property
 
     Public Property RegionSnapShot(n As Integer) As String
         Get
-            Return CType(RegionList(n)._RegionSnapShot, String)
+            Return RegionList(n)._RegionSnapShot
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionSnapShot = Value
@@ -426,19 +420,19 @@ Public Class RegionMaker
 
     Public Property SizeX(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._SizeX, Integer)
+            Return RegionList(n)._SizeX
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeX = Value.ToString(Form1.Usa)
+            RegionList(n)._SizeX = Value
         End Set
     End Property
 
     Public Property SizeY(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._SizeY, Integer)
+            Return RegionList(n)._SizeY
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeY = Value.ToString(Form1.Usa)
+            RegionList(n)._SizeY = Value
         End Set
     End Property
 
@@ -448,14 +442,14 @@ Public Class RegionMaker
             Return RegionList(n)._RegionSmartStart
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._RegionSmartStart = CType(Value, String)
+            RegionList(n)._RegionSmartStart = Value
         End Set
 
     End Property
 
     Public Property Status(n As Integer) As Integer
         Get
-            Return CType(RegionList(n)._Status, Integer)
+            Return RegionList(n)._Status
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._Status = Value
@@ -464,7 +458,7 @@ Public Class RegionMaker
 
     Public Property Teleport(n As Integer) As String
         Get
-            Return RegionList(n)._Teleport.ToString
+            Return RegionList(n)._Teleport
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Teleport = Value.ToString(Form1.Usa)
@@ -473,7 +467,7 @@ Public Class RegionMaker
 
     Public Property Tides(n As Integer) As String
         Get
-            Return RegionList(n)._Tides.ToString
+            Return RegionList(n)._Tides
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Tides = Value.ToString(Form1.Usa)
@@ -483,23 +477,23 @@ Public Class RegionMaker
     Public Property Timer(n As Integer) As Integer
         Get
             Try
-                Return CType(RegionList(n)._Timer, Integer)
+                Return RegionList(n)._Timer
             Catch
                 Return 0
             End Try
 
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._Timer = Value.ToString(Form1.Usa)
+            RegionList(n)._Timer = Value
         End Set
     End Property
 
     Public Property UUID(n As Integer) As String
         Get
-            Return RegionList(n)._UUID.ToString
+            Return RegionList(n)._UUID
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._UUID = Value.ToString(Form1.Usa)
+            RegionList(n)._UUID = Value
         End Set
     End Property
 
@@ -516,13 +510,13 @@ Public Class RegionMaker
     Public Sub DebugRegions(n As Integer)
 
         Form1.Log("RegionNumber", n.ToString(Form1.Usa) & vbCrLf &
-            " PID:" & RegionList(n)._ProcessID.ToString() & vbCrLf &
-            " Group:" & RegionList(n)._Group.ToString() & vbCrLf &
-            " Region:" & RegionList(n)._RegionName.ToString() & vbCrLf &
-            " Status=" & RegionList(n)._Status.ToString() & vbCrLf &
-            " LineCtr=" & RegionList(n)._LineCounter.ToString() & vbCrLf &
-           " RegionEnabled=" & RegionList(n)._RegionEnabled.ToString() & vbCrLf &
-           " Timer=" & RegionList(n)._Timer.ToString)
+            " PID:" & RegionList(n)._ProcessID.ToString(Form1.Usa) & vbCrLf &
+            " Group:" & RegionList(n)._Group.ToString(Form1.Usa) & vbCrLf &
+            " Region:" & RegionList(n)._RegionName.ToString(Form1.Usa) & vbCrLf &
+            " Status=" & RegionList(n)._Status.ToString(Form1.Usa) & vbCrLf &
+            " LineCtr=" & RegionList(n)._LineCounter.ToString(Form1.Usa) & vbCrLf &
+           " RegionEnabled=" & RegionList(n)._RegionEnabled.ToString(Form1.Usa) & vbCrLf &
+           " Timer=" & RegionList(n)._Timer.ToString(Form1.Usa))
 
     End Sub
 
@@ -717,9 +711,9 @@ Public Class RegionMaker
 
     Public Function CreateRegion(name As String) As Integer
 
-        If RegionList.Contains(name) Then
-            Return RegionList.Count - 1
-        End If
+        'If RegionList.Contains(name) Then
+        ' Return RegionList.Count - 1
+        'End If
         ' Debug.Print("Create Region " + name)
         Dim r As New Region_data With {
             ._RegionName = name,
@@ -1020,7 +1014,7 @@ Public Class RegionMaker
             Return
         End If
 
-        Dim fname As String = RegionList(n)._FolderPath.ToString
+        Dim fname As String = RegionList(n)._FolderPath
 
         If (fname.Length = 0) Then
             Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "bin\Regions\" + name + "\Region\"

@@ -43,7 +43,9 @@ Public Class FormPublicity
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch
+        Catch ex As io.FileNotFoundException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As ArgumentException
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
         Form1.HelpOnce("Publicity")
@@ -80,12 +82,12 @@ Public Class FormPublicity
                 PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
                     My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-                Catch ex As Exception
+                Catch ex As io.FilenotfoundException
                     Form1.Log("Warn", ex.Message)
                 End Try
                 Try
-                    PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", System.Drawing.Imaging.ImageFormat.Png)
-                Catch ex As Exception
+                    PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                Catch ex As ArgumentnullException
                     Form1.ErrorLog(ex.Message)
                 End Try
 

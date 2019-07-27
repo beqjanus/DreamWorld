@@ -109,8 +109,9 @@ Public Class UploadImage
             webResp = CType(r_State.Request.EndGetResponse(ar), HttpWebResponse)
         Catch wex As WebException
             webResp = CType(wex.Response, HttpWebResponse)
-        Catch ex As Exception
-            sData = ex.Message
+        Catch ex As InvalidOperationException
+            webResp = Nothing
+        Catch ex As ArgumentException
             webResp = Nothing
         End Try
 

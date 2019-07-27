@@ -37,7 +37,11 @@
         Try
             Dim Page As String = Form1.PropMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
             RichTextBox1.LoadFile(Page)
-        Catch ex As Exception
+        Catch ex As IO.IOException
+            MsgBox("Sorry, Help is not yet available for this.", vbInformation)
+            Form1.ErrorLog("Error:" + ex.Message)
+            Me.Close()
+        Catch ex As ArgumentException
             MsgBox("Sorry, Help is not yet available for this.", vbInformation)
             Form1.ErrorLog("Error:" + ex.Message)
             Me.Close()

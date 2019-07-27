@@ -12,7 +12,10 @@ Public Class ClrCache
                 If ext.ToLower(Form1.Usa) <> ".state" And ext.ToLower(Form1.Usa) <> ".keep" Then
                     Try
                         My.Computer.FileSystem.DeleteFile(script)
-                    Catch
+                    Catch ex As ArgumentException
+                    Catch ex As DirectoryNotFoundException
+                    Catch ex As IOException
+                    Catch ex As NotSupportedException
                     End Try
 
                     ctr = ctr + 1
@@ -29,7 +32,10 @@ Public Class ClrCache
         Form1.Print("Clearing bake cache")
         Try
             My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        Catch
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
         End Try
 
 
@@ -52,7 +58,10 @@ Public Class ClrCache
                 If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
         End Try
 
     End Sub
@@ -69,7 +78,10 @@ Public Class ClrCache
                 If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
         End Try
 
     End Sub
@@ -88,7 +100,10 @@ Public Class ClrCache
                 Form1.Print(ctr.ToString(Form1.Usa) + " of " + fCount.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
         End Try
 
     End Sub

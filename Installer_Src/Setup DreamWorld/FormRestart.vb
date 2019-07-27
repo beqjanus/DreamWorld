@@ -74,7 +74,7 @@ Public Class FormRestart
         Try
             Form1.PropMySetting.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.Usa)
             Form1.PropMySetting.SaveSettings()
-        Catch
+        Catch ex As FormatException
         End Try
 
     End Sub

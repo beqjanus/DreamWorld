@@ -249,7 +249,8 @@ Public Class UPnp
         Try
             Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
             Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
-        Catch
+        Catch ex As ArgumentException
+
         End Try
 
         Select Case Quad1
@@ -286,28 +287,25 @@ Public Class UPnp
     ''' Prints out some debugging information to use.
 
     Public Sub Print()
+        '
+        ' Loop through all the data after a check
+        If staticEnabled Then
 
-        Try
-            '
-            ' Loop through all the data after a check
-            If staticEnabled Then
+            Log("---------Static Mappings-----------------------")
 
-                Log("---------Static Mappings-----------------------")
+            For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
+                If mapping.Enabled Then
+                    Log(String.Format(Form1.Usa, "Enabled: {0}", mapping.Description))
+                Else
+                    Log(String.Format(Form1.Usa, "**Disabled**: {0}", mapping.Description))
+                End If
+                Log(String.Format(Form1.Usa, "Port: {0}", Convert.ToString(mapping.InternalPort, Form1.Usa)))
+                Log(String.Format(Form1.Usa, "Protocol: {0}", Convert.ToString(mapping.Protocol, Form1.Usa)))
+                Log(String.Format(Form1.Usa, "External IP Address: {0}", Convert.ToString(mapping.ExternalIPAddress, Form1.Usa)))
+                Log("--------------------------------------")
+            Next
+        End If
 
-                For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
-                    If mapping.Enabled Then
-                        Log(String.Format(Form1.Usa, "Enabled: {0}", mapping.Description))
-                    Else
-                        Log(String.Format(Form1.Usa, "**Disabled**: {0}", mapping.Description))
-                    End If
-                    Log(String.Format(Form1.Usa, "Port: {0}", Convert.ToString(mapping.InternalPort, Form1.Usa)))
-                    Log(String.Format(Form1.Usa, "Protocol: {0}", Convert.ToString(mapping.Protocol, Form1.Usa)))
-                    Log(String.Format(Form1.Usa, "External IP Address: {0}", Convert.ToString(mapping.ExternalIPAddress, Form1.Usa)))
-                    Log("--------------------------------------")
-                Next
-            End If
-        Catch
-        End Try
 
     End Sub
 
@@ -316,7 +314,7 @@ Public Class UPnp
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" + message)
             End Using
-        Catch
+        Catch ex As ioexception
         End Try
     End Sub
 

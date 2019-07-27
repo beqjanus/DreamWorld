@@ -43,8 +43,6 @@
             Dest = Form1.PropMySetting.BackupFolder + "\" + Foldername
         End If
         Try
-
-
             If RegionCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
@@ -78,7 +76,7 @@
                 My.Computer.FileSystem.CopyFile(Form1.PropMyFolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
             End If
             Form1.Print("Finished with backup at " + Dest)
-        Catch ex As Exception
+        Catch ex As IO.IOException
             MsgBox("Something went wrong: " + ex.Message)
         End Try
         DialogResult = DialogResult.OK

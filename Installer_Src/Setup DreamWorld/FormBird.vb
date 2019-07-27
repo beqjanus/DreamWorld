@@ -106,7 +106,9 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsChatChannel = CInt(ChatChanelTextBox.Text)
             changed = True
-        Catch ex As Exception
+        Catch ex As ArgumentException
+            MsgBox(ex.Message, vbInformation)
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -119,7 +121,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -132,7 +134,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -145,7 +147,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -158,7 +160,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -171,7 +173,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -184,7 +186,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As FormatException
             MsgBox(ex.Message, vbInformation)
         End Try
 
@@ -197,7 +199,7 @@ Public Class BirdForm
         Try
             Form1.PropMySetting.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Form1.Usa)
             changed = True
-        Catch ex As Exception
+        Catch ex As formatException
             MsgBox(ex.Message, vbInformation)
         End Try
 

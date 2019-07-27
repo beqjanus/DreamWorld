@@ -585,209 +585,6 @@ Public Class Form1
 
 #Region "StartStop"
 
-    Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
-        For Each filename In dll
-            If tofind.ToLower(Form1.Usa) = filename.ToLower(Form1.Usa) Then Return True
-        Next
-        Return False
-    End Function
-
-    Shared Function GetDlls(fname As String) As List(Of String)
-
-        Dim DllList As New List(Of String)
-
-        If System.IO.File.Exists(fname) Then
-            Dim reader As System.IO.StreamReader
-            Dim line As String
-
-            reader = System.IO.File.OpenText(fname)
-            'now loop through each line
-            While reader.Peek <> -1
-                line = reader.ReadLine()
-                DllList.Add(line)
-            End While
-        End If
-        Return DllList
-
-    End Function
-
-    ''' <summary>
-    ''' This method starts at the specified directory.
-    ''' It traverses all subdirectories.
-    ''' It returns a List of those directories.
-    ''' </summary>
-    Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
-        ' This list stores the results.
-        Dim result As New List(Of String)
-
-        ' This stack stores the directories to process.
-        Dim stack As New Stack(Of String)
-
-        ' Add the initial directory
-        stack.Push(initial)
-
-        ' Continue processing for each stacked directory
-        Do While (stack.Count > 0)
-            ' Get top directory string
-            Dim dir As String = stack.Pop
-            Try
-                ' Add all immediate file paths
-                result.AddRange(Directory.GetFiles(dir, "*.dll"))
-
-                ' Loop through all subdirectories and add them to the stack.
-                Dim directoryName As String = ""
-
-                'Save, but skip scriptengines
-                For Each directoryName In Directory.GetDirectories(dir)
-                    If Not directoryName.Contains("ScriptEngines") Then
-                        stack.Push(directoryName)
-                    Else
-                        Diagnostics.Debug.Print("Skipping script")
-                    End If
-                Next
-            Catch ex As Exception
-            End Try
-        Loop
-
-        ' Return the list
-        Return result
-    End Function
-
-    Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
-
-        Dim ctr = 50
-        If handle <> IntPtr.Zero Then
-            Dim x = False
-
-            While Not x And ctr > 0
-                Sleep(100)
-                Try
-                    x = ShowWindow(handle, command)
-                    If x Then Return True
-                Catch ex As Exception
-                End Try
-                ctr -= 1
-            End While
-        End If
-        Return False
-
-    End Function
-
-    Public Function KillAll() As Boolean
-
-#Disable Warning CA1820 ' Test for empty strings using string length
-        If AvatarLabel.Text <> "" Then
-#Enable Warning CA1820 ' Test for empty strings using string length
-            If CType(AvatarLabel.Text, Integer) > 0 Then
-                Dim response = MsgBox("There are " & AvatarLabel.Text & " avatars in world! Do you really wish to quit?", vbYesNo)
-                If response = vbNo Then Return False
-            End If
-        End If
-
-        AvatarLabel.Text = ""
-        PropAborting = True
-        ProgressBar1.Value = 100
-        ProgressBar1.Visible = True
-        ToolBar(False)
-        ' close everything as gracefully as possible.
-
-        StopIcecast()
-        StopApache()
-
-        Dim n As Integer = PropRegionClass.RegionCount()
-        Diagnostics.Debug.Print("N=" + n.ToString(Usa))
-
-        Dim TotalRunningRegions As Integer
-
-        For Each Regionnumber As Integer In PropRegionClass.RegionNumbers
-            If PropRegionClass.IsBooted(Regionnumber) Then
-                TotalRunningRegions += 1
-            End If
-        Next
-        Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString(Usa))
-
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
-            Not (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
-            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                Print(PropRegionClass.RegionName(X) & " is stopping")
-                SequentialPause()
-                ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
-                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
-                PropUpdateView = True ' make form refresh
-            End If
-        Next
-
-        Dim counter = 600 ' 10 minutes to quit all regions
-
-        ' only wait if the port 8001 is working
-        If PropUseIcons Then
-            If PropOpensimIsRunning Then Print("Waiting for all regions to exit")
-
-            While (counter > 0 And PropOpensimIsRunning())
-                ' decrement progress bar according to the ratio of what we had / what we have now
-                counter -= 1
-                Dim CountisRunning As Integer = 0
-
-                For Each X In PropRegionClass.RegionNumbers
-                    If (Not PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And PropRegionClass.RegionEnabled(X) Then
-                        If CheckPort(PropMySetting.PrivateURL, PropRegionClass.GroupPort(X)) Then
-                            CountisRunning += 1
-                        Else
-                            StopGroup(PropRegionClass.GroupName(X))
-                        End If
-                        'PropUpdateView = True ' make form refresh
-                    End If
-
-
-                    If CountisRunning = 0 Then Exit For
-                Next
-
-                If CountisRunning = 1 Then
-                    Print("1 region is still running")
-                    Sleep(1000)
-                Else
-                    Print(CountisRunning.ToString(Usa) & " regions are still running")
-                End If
-
-                If CountisRunning = 0 Then
-                    counter = 0
-                    ProgressBar1.Value = 0
-                End If
-
-                Dim v As Double = CountisRunning / TotalRunningRegions * 100
-                If v >= 0 And v <= 100 Then
-                    ProgressBar1.Value = CType(v, Integer)
-                    Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString(Usa))
-                End If
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
-            End While
-        End If
-
-        PropRegionHandles.Clear()
-
-        StopAllRegions()
-
-        PropUpdateView = True ' make form refresh
-
-        ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
-
-        ' cannot load OAR or IAR, either
-        IslandToolStripMenuItem.Visible = False
-        ClothingInventoryToolStripMenuItem.Visible = False
-        Timer1.Stop()
-        PropOpensimIsRunning() = False
-        Me.AllowDrop = False
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = False
-        ToolBar(False)
-        Return True
-
-    End Function
-
     ''' <summary>
     ''' Startup() Starts opensimulator system
     ''' Called by Start Button or by AutoStart
@@ -795,7 +592,7 @@ Public Class Form1
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
         TextBox1.AllowDrop = True
-
+        ToolTip1.Show("Your text", Label3)
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -870,7 +667,8 @@ Public Class Form1
             Else
                 My.Computer.FileSystem.DeleteFile(PropOpensimBinPath + "\bin\OpenSimBirds.Module.dll")
             End If
-        Catch ex As Exception
+        Catch ex As FileNotFoundException
+        Catch ex As IOException
         End Try
 
         If Not StartRobust() Then
@@ -910,27 +708,7 @@ Public Class Form1
         ToolBar(True)
     End Sub
 
-    Private Sub CleanDLLs()
 
-        Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
-        Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
-        For Each localdllname In localdlls
-
-            'Diagnostics.Debug.Print(localdllname)
-
-            'For Each thing In dlls
-            ' Diagnostics.Debug.Print(thing)
-            'Next
-
-            Dim x = localdllname.IndexOf("OutworldzFiles")
-            Dim newlocaldllname = Mid(localdllname, x)
-            If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                Log("INFO", "Deleting dll " & localdllname)
-                My.Computer.FileSystem.DeleteFile(localdllname)
-            End If
-        Next
-
-    End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         ReallyQuit()
@@ -1153,6 +931,124 @@ Public Class Form1
         End
     End Sub
 
+#End Region
+
+#Region "Kill"
+
+    Public Function KillAll() As Boolean
+
+#Disable Warning CA1820 ' Test for empty strings using string length
+        If AvatarLabel.Text <> "" Then
+#Enable Warning CA1820 ' Test for empty strings using string length
+            If CType(AvatarLabel.Text, Integer) > 0 Then
+                Dim response = MsgBox("There are " & AvatarLabel.Text & " avatars in world! Do you really wish to quit?", vbYesNo)
+                If response = vbNo Then Return False
+            End If
+        End If
+
+        AvatarLabel.Text = ""
+        PropAborting = True
+        ProgressBar1.Value = 100
+        ProgressBar1.Visible = True
+        ToolBar(False)
+        ' close everything as gracefully as possible.
+
+        StopIcecast()
+        StopApache()
+
+        Dim n As Integer = PropRegionClass.RegionCount()
+        Diagnostics.Debug.Print("N=" + n.ToString(Usa))
+
+        Dim TotalRunningRegions As Integer
+
+        For Each Regionnumber As Integer In PropRegionClass.RegionNumbers
+            If PropRegionClass.IsBooted(Regionnumber) Then
+                TotalRunningRegions += 1
+            End If
+        Next
+        Log("Info", "Total Enabled Regions=" + TotalRunningRegions.ToString(Usa))
+
+        For Each X As Integer In PropRegionClass.RegionNumbers
+            If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
+            Not (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
+            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) Then
+                Print(PropRegionClass.RegionName(X) & " is stopping")
+                SequentialPause()
+                ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
+                PropUpdateView = True ' make form refresh
+            End If
+        Next
+
+        Dim counter = 600 ' 10 minutes to quit all regions
+
+        ' only wait if the port 8001 is working
+        If PropUseIcons Then
+            If PropOpensimIsRunning Then Print("Waiting for all regions to exit")
+
+            While (counter > 0 And PropOpensimIsRunning())
+                ' decrement progress bar according to the ratio of what we had / what we have now
+                counter -= 1
+                Dim CountisRunning As Integer = 0
+
+                For Each X In PropRegionClass.RegionNumbers
+                    If (Not PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And PropRegionClass.RegionEnabled(X) Then
+                        If CheckPort(PropMySetting.PrivateURL, PropRegionClass.GroupPort(X)) Then
+                            CountisRunning += 1
+                        Else
+                            StopGroup(PropRegionClass.GroupName(X))
+                        End If
+                        'PropUpdateView = True ' make form refresh
+                    End If
+
+
+                    If CountisRunning = 0 Then Exit For
+                Next
+
+                If CountisRunning = 1 Then
+                    Print("1 region is still running")
+                    Sleep(1000)
+                Else
+                    Print(CountisRunning.ToString(Usa) & " regions are still running")
+                End If
+
+                If CountisRunning = 0 Then
+                    counter = 0
+                    ProgressBar1.Value = 0
+                End If
+
+                Dim v As Double = CountisRunning / TotalRunningRegions * 100
+                If v >= 0 And v <= 100 Then
+                    ProgressBar1.Value = CType(v, Integer)
+                    Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString(Usa))
+                End If
+                PropUpdateView = True ' make form refresh
+                Application.DoEvents()
+            End While
+        End If
+
+        PropRegionHandles.Clear()
+
+        StopAllRegions()
+
+        PropUpdateView = True ' make form refresh
+
+        ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+
+        ' cannot load OAR or IAR, either
+        IslandToolStripMenuItem.Visible = False
+        ClothingInventoryToolStripMenuItem.Visible = False
+        Timer1.Stop()
+        PropOpensimIsRunning() = False
+        Me.AllowDrop = False
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = False
+        ToolBar(False)
+        Return True
+
+    End Function
     Private Sub KillFiles(AL As List(Of String))
 
         For Each filename As String In AL
@@ -2990,19 +2886,15 @@ Public Class Form1
         Dim Len = PropRegionClass.RegionCount()
         Dim counter = 1
         ProgressBar1.Value = CType(counter / Len, Integer)
-        Try
-            ' Boot them up
-            For Each x In PropRegionClass.RegionNumbers()
-                If PropRegionClass.RegionEnabled(x) Then
-                    Boot(PropRegionClass, PropRegionClass.RegionName(x), SkipSmartStart)
-                    ProgressBar1.Value = CType(counter / Len * 100, Integer)
-                    counter += 1
-                End If
-            Next
-        Catch ex As Exception
-            Diagnostics.Debug.Print(ex.Message)
-            Print("Unable to boot some regions")
-        End Try
+
+        ' Boot them up
+        For Each x In PropRegionClass.RegionNumbers()
+            If PropRegionClass.RegionEnabled(x) Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(x), SkipSmartStart)
+                ProgressBar1.Value = CType(counter / Len * 100, Integer)
+                counter += 1
+            End If
+        Next
 
         PropMySetting.DeleteScriptsOnStartupOnce() = False
         PropMySetting.SaveSettings()
@@ -3130,70 +3022,54 @@ Public Class Form1
         Dim myProcess As Process = GetNewProcess()
         Dim Groupname = PropRegionClass.GroupName(RegionNumber)
         Print("Starting " + Groupname)
+
+        myProcess.EnableRaisingEvents = True
+        myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        myProcess.StartInfo.WorkingDirectory = PropMySetting.OpensimBinPath() + "bin"
+
+        myProcess.StartInfo.FileName = """" + PropMySetting.OpensimBinPath() + "bin\OpenSim.exe" + """"
+        myProcess.StartInfo.CreateNoWindow = False
+        myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & PropRegionClass.GroupName(RegionNumber) + """"
+
         Try
-            myProcess.EnableRaisingEvents = True
-            myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            myProcess.StartInfo.WorkingDirectory = PropMySetting.OpensimBinPath() + "bin"
-
-            myProcess.StartInfo.FileName = """" + PropMySetting.OpensimBinPath() + "bin\OpenSim.exe" + """"
-            myProcess.StartInfo.CreateNoWindow = False
-            myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & PropRegionClass.GroupName(RegionNumber) + """"
-
-            Try
-                My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\Opensim.log")
-            Catch
-            End Try
-
-            Try
-                My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\PID.pid")
-            Catch
-            End Try
-
-            Try
-                My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
-            Catch ex As Exception
-            End Try
-
-            Try
-                My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
-            Catch ex As Exception
-            End Try
-
-
-            If myProcess.Start() Then
-                For Each num In PropRegionClass.RegionListByGroupNum(Groupname)
-                    Log("Debug", "Process started for " + PropRegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
-                    PropRegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
-                    PropRegionClass.ProcessID(num) = myProcess.Id
-                    PropRegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
-                Next
-
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
-                SetWindowTextCall(myProcess, PropRegionClass.GroupName(RegionNumber))
-
-                Log("Debug", "Created Process Number " + myProcess.Id.ToString(Usa) + " in  RegionHandles(" + PropRegionHandles.Count.ToString(Usa) + ") " + "Group:" + Groupname)
-                PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-
-            End If
-
-            Return True
-
-        Catch ex As Exception
-            If ex.Message.Contains("Process has exited") Then Return False
-            Print("Oops! " + BootName + " did Not start:" & ex.Message)
-            ErrorLog(ex.Message)
-            PropUpdateView = True ' make form refresh
-            Dim yesno = MsgBox("Oops! " + BootName + " in DOS box " + Groupname + " did not boot. Do you want to see the log file?", vbYesNo, "Error")
-            If (yesno = vbYes) Then
-                System.Diagnostics.Process.Start(PropMyFolder + "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) + "Opensim.log" & """")
-            End If
-
-            Return False
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\Opensim.log")
+        Catch ex As FileNotFoundException
         End Try
 
-        Return False
+        Try
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\PID.pid")
+        Catch ex As FileNotFoundException
+        End Try
+
+        Try
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
+        Catch ex As FileNotFoundException
+        End Try
+
+        Try
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
+        Catch ex As FileNotFoundException
+        End Try
+
+
+        If myProcess.Start() Then
+            For Each num In PropRegionClass.RegionListByGroupNum(Groupname)
+                Log("Debug", "Process started for " + PropRegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
+                PropRegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
+                PropRegionClass.ProcessID(num) = myProcess.Id
+                PropRegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
+            Next
+
+            PropUpdateView = True ' make form refresh
+            Application.DoEvents()
+            SetWindowTextCall(myProcess, PropRegionClass.GroupName(RegionNumber))
+
+            Log("Debug", "Created Process Number " + myProcess.Id.ToString(Usa) + " in  RegionHandles(" + PropRegionHandles.Count.ToString(Usa) + ") " + "Group:" + Groupname)
+            PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
+
+        End If
+        Return True
 
     End Function
 
@@ -6141,11 +6017,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub BackupRestoreToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupRestoreToolStripMenuItem.Click
 
-    End Sub
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub GetEvents()
 
         If Not PropMySetting.ApacheEnable Then Return
@@ -6192,12 +6064,12 @@ Public Class Form1
                                     Console.WriteLine("{0}:{1}", a(0), a(1))
                                     Simevents.Add(a(0), a(1))
                                     ctr += 1
-
                                 End If
                             Next
                             Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
                             WriteEvent(osconnection, Simevents)
                         End While
+
                     End Using
                 End Using
             End Using
@@ -6210,7 +6082,6 @@ Public Class Form1
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-
         If PictureBox1.AccessibleName = "Arrow2Left" Then
             Me.Width = 575
             Me.Height = 425
@@ -6222,10 +6093,6 @@ Public Class Form1
             Me.Width = 320
             Me.Height = 180
         End If
-
-
-
-
 
     End Sub
 
@@ -6282,6 +6149,133 @@ Public Class Form1
         PropMySetting.SaveSettings()
 
     End Sub
+
+    Private Sub Label3GotFocus(sender As Object, e As EventArgs) Handles Label3.GotFocus
+
+
+        If CType(AvatarLabel.Text, Integer) > 0 Then
+
+        End If
+
+    End Sub
+
+    Private Sub Label3LostFocus(sender As Object, e As EventArgs) Handles Label3.LostFocus
+
+
+    End Sub
+
+    Private Sub CleanDLLs()
+
+        Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
+        Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
+        For Each localdllname In localdlls
+
+            'Diagnostics.Debug.Print(localdllname)
+
+            'For Each thing In dlls
+            ' Diagnostics.Debug.Print(thing)
+            'Next
+
+            Dim x = localdllname.IndexOf("OutworldzFiles")
+            Dim newlocaldllname = Mid(localdllname, x)
+            If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
+                Log("INFO", "Deleting dll " & localdllname)
+                My.Computer.FileSystem.DeleteFile(localdllname)
+            End If
+        Next
+
+    End Sub
+
+
+    Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
+        For Each filename In dll
+            If tofind.ToLower(Form1.Usa) = filename.ToLower(Form1.Usa) Then Return True
+        Next
+        Return False
+    End Function
+
+    Shared Function GetDlls(fname As String) As List(Of String)
+
+        Dim DllList As New List(Of String)
+
+        If System.IO.File.Exists(fname) Then
+            Dim reader As System.IO.StreamReader
+            Dim line As String
+
+            reader = System.IO.File.OpenText(fname)
+            'now loop through each line
+            While reader.Peek <> -1
+                line = reader.ReadLine()
+                DllList.Add(line)
+            End While
+        End If
+        Return DllList
+
+    End Function
+
+    ''' <summary>
+    ''' This method starts at the specified directory.
+    ''' It traverses all subdirectories.
+    ''' It returns a List of those directories.
+    ''' </summary>
+    Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
+        ' This list stores the results.
+        Dim result As New List(Of String)
+
+        ' This stack stores the directories to process.
+        Dim stack As New Stack(Of String)
+
+        ' Add the initial directory
+        stack.Push(initial)
+
+        ' Continue processing for each stacked directory
+        Do While (stack.Count > 0)
+            ' Get top directory string
+            Dim dir As String = stack.Pop
+            Try
+                ' Add all immediate file paths
+                result.AddRange(Directory.GetFiles(dir, "*.dll"))
+
+                ' Loop through all subdirectories and add them to the stack.
+                Dim directoryName As String = ""
+
+                'Save, but skip scriptengines
+                For Each directoryName In Directory.GetDirectories(dir)
+                    If Not directoryName.Contains("ScriptEngines") Then
+                        stack.Push(directoryName)
+                    Else
+                        Diagnostics.Debug.Print("Skipping script")
+                    End If
+                Next
+            Catch ex As Exception
+            End Try
+        Loop
+
+        ' Return the list
+        Return result
+    End Function
+
+    Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+
+        Dim ctr = 50
+        If handle <> IntPtr.Zero Then
+            Dim x = False
+
+            While Not x And ctr > 0
+                Sleep(100)
+                Try
+                    x = ShowWindow(handle, command)
+                    If x Then Return True
+                Catch ex As Exception
+                End Try
+                ctr -= 1
+            End While
+        End If
+        Return False
+
+    End Function
+
+
 #End Region
 
 End Class

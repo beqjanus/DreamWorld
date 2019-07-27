@@ -101,7 +101,7 @@ Public Class MysqlInterface
 
     Public Function IsUserPresent(regionUUID As String) As Integer
 
-        Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "'")
+        Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And regionUUID <> '00000000-0000-0000-0000-000000000000'")
         If UserCount = Nothing Then Return 0
         'Debug.Print("User Count: {0}", UserCount)
         Return Convert.ToInt16(UserCount, Form1.Usa)

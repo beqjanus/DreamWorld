@@ -124,7 +124,8 @@ Public Class FormAutoBackups
                 Form1.PropMySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa)
                 Form1.PropMySetting.SaveSettings()
             End If
-        Catch
+
+        Catch ex As FormatException
             MsgBox("Must be a number of days", vbInformation)
             Form1.PropMySetting.KeepForDays = 30
             Form1.PropMySetting.SaveSettings()

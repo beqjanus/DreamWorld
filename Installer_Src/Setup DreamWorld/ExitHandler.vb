@@ -8,13 +8,16 @@
     Private Sub OpensimProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyProcess.Exited
 
         ' Handle any process that exits by stacking it. DoExitHandlerPoll will clean up stack
+        Dim pid = 0
         Try
-            Dim pid = CType(sender.Id, Integer)
-            Exitlist1.Add(RegionHandles1.Item(pid))
-            RegionHandles1.Remove(pid)
-        Catch ex As Exception
+            pid = CType(sender.Id, Integer)
+        Catch ex As FormatException
             Debug.Print(ex.Message)
+        Finally
         End Try
+
+        Exitlist1.Add(RegionHandles1.Item(pid))
+        RegionHandles1.Remove(pid)
 
     End Sub
 
