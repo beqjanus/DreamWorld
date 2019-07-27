@@ -43,6 +43,7 @@ Partial Class RegionList
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -129,7 +130,7 @@ Partial Class RegionList
         '
         Me.RestartButton.Location = New System.Drawing.Point(326, 37)
         Me.RestartButton.Name = "RestartButton"
-        Me.RestartButton.Size = New System.Drawing.Size(79, 23)
+        Me.RestartButton.Size = New System.Drawing.Size(70, 23)
         Me.RestartButton.TabIndex = 18596
         Me.RestartButton.Text = "Restart All"
         Me.ToolTip1.SetToolTip(Me.RestartButton, "restarts all Checked Regions")
@@ -216,14 +217,25 @@ Partial Class RegionList
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(326, 8)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(70, 23)
+        Me.Button2.TabIndex = 18603
+        Me.Button2.Text = "Import"
+        Me.ToolTip1.SetToolTip(Me.Button2, "View list of Avatars")
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(427, 269)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.ViewAvatars)
         Me.Controls.Add(Me.ViewMaps)
         Me.Controls.Add(Me.ViewCompact)
@@ -265,4 +277,5 @@ Partial Class RegionList
     Friend WithEvents ViewMaps As Button
     Friend WithEvents ViewAvatars As Button
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Button2 As Button
 End Class

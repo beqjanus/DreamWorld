@@ -1,19 +1,18 @@
 Imports System.IO
-Imports Outworldz
 
 Public Class RegionList
 
 #Region "Declarations"
 
-    Dim ViewNotBusy As Boolean
-    Dim TheView As Integer = ViewType.Details
-    Private Shared FormExists As Boolean = False
-    Dim pixels As Integer = 70
-    Dim imageListSmall As New ImageList
-    Dim imageListLarge As ImageList
+    Private Shared _FormExists As Boolean = False
+    Dim _ImageListLarge As ImageList
+    Dim _ImageListSmall As New ImageList
     Dim ItemsAreChecked As Boolean = False
+    Dim pixels As Integer = 70
     Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
+    Dim TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
+    Dim ViewNotBusy As Boolean
 
     Private Enum ViewType As Integer
         Maps = 0
@@ -26,12 +25,12 @@ Public Class RegionList
 
 #Region "Properties"
 
-    Shared Property PropUpdateView() As Boolean
+    Public Shared Property FormExists1 As Boolean
         Get
-            Return Form1.PropUpdateView
+            Return _FormExists
         End Get
-        Set(ByVal Value As Boolean)
-            Form1.PropUpdateView = Value
+        Set(value As Boolean)
+            _FormExists = value
         End Set
     End Property
 
@@ -43,66 +42,30 @@ Public Class RegionList
         End Get
     End Property
 
-    Public Property ScreenPosition As ScreenPos
+    Shared Property PropUpdateView() As Boolean
         Get
-            Return _screenPosition
+            Return Form1.PropUpdateView
         End Get
-        Set(value As ScreenPos)
-            _screenPosition = value
-        End Set
-    End Property
-
-    Public Property ViewNotBusy1 As Boolean
-        Get
-            Return ViewNotBusy
-        End Get
-        Set(value As Boolean)
-            ViewNotBusy = value
-        End Set
-    End Property
-
-    Public Property TheView1 As Integer
-        Get
-            Return TheView
-        End Get
-        Set(value As Integer)
-            TheView = value
-        End Set
-    End Property
-
-    Public Shared Property FormExists1 As Boolean
-        Get
-            Return FormExists
-        End Get
-        Set(value As Boolean)
-            FormExists = value
-        End Set
-    End Property
-
-    Public Property Pixels1 As Integer
-        Get
-            Return pixels
-        End Get
-        Set(value As Integer)
-            pixels = value
-        End Set
-    End Property
-
-    Public Property ImageListSmall1 As ImageList
-        Get
-            Return imageListSmall
-        End Get
-        Set(value As ImageList)
-            imageListSmall = value
+        Set(ByVal Value As Boolean)
+            Form1.PropUpdateView = Value
         End Set
     End Property
 
     Public Property ImageListLarge1 As ImageList
         Get
-            Return imageListLarge
+            Return _ImageListLarge
         End Get
         Set(value As ImageList)
-            imageListLarge = value
+            _ImageListLarge = value
+        End Set
+    End Property
+
+    Public Property ImageListSmall1 As ImageList
+        Get
+            Return _ImageListSmall
+        End Get
+        Set(value As ImageList)
+            _ImageListSmall = value
         End Set
     End Property
 
@@ -115,6 +78,15 @@ Public Class RegionList
         End Set
     End Property
 
+    Public Property Pixels1 As Integer
+        Get
+            Return pixels
+        End Get
+        Set(value As Integer)
+            pixels = value
+        End Set
+    End Property
+
     Public Property PropRegionClass1 As RegionMaker
         Get
             Return PropRegionClass
@@ -124,12 +96,39 @@ Public Class RegionList
         End Set
     End Property
 
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
+    Public Property TheView1 As Integer
+        Get
+            Return TheView
+        End Get
+        Set(value As Integer)
+            TheView = value
+        End Set
+    End Property
+
     Public Property Timertick1 As Integer
         Get
             Return Timertick
         End Get
         Set(value As Integer)
             Timertick = value
+        End Set
+    End Property
+
+    Public Property ViewNotBusy1 As Boolean
+        Get
+            Return ViewNotBusy
+        End Get
+        Set(value As Boolean)
+            ViewNotBusy = value
         End Set
     End Property
 
@@ -200,11 +199,9 @@ Public Class RegionList
 
 #End Region
 
+    ' icons imagelist layout
     Enum DGICON
-
-        ' index of 0-4 to display icons
         bootingup = 0
-
         shuttingdown = 1
         up = 2
         disabled = 3
@@ -349,6 +346,23 @@ Public Class RegionList
 
 #Region "Load List View"
 
+    Shared Function LoadImage(S As String) As Image
+        Dim bmp As Bitmap = Nothing
+        Dim u As New Uri(S)
+        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
+        Try
+            Dim response As System.Net.WebResponse = request.GetResponse()
+            Dim responseStream As System.IO.Stream = response.GetResponseStream()
+            bmp = New Bitmap(responseStream)
+            responseStream.Dispose()
+        Catch ex As Exception
+            Form1.Log("Maps", ex.Message + ":" + S)
+        End Try
+
+        Return bmp
+
+    End Function
+
     Public Sub LoadMyListView()
 
         If TheView1 = ViewType.Avatars Then
@@ -356,6 +370,185 @@ Public Class RegionList
         Else
             ShowRegions()
         End If
+
+    End Sub
+
+    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
+
+        Dim RegionForm As New FormRegion
+        RegionForm.Init("")
+        RegionForm.Activate()
+        RegionForm.Visible = True
+
+    End Sub
+
+    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
+        Dim item As ListViewItem
+
+        For Each item In regions
+            Try
+                Dim RegionName = item.SubItems(1).Text
+                Debug.Print("Clicked row " + RegionName)
+                Dim R = PropRegionClass1.FindRegionByName(RegionName)
+                If R >= 0 Then
+                    Dim webAddress As String = "hop://" & Form1.PropMySetting.DNSName & ":" & Form1.PropMySetting.HttpPort & "/" & RegionName
+                    Dim result = Process.Start(webAddress)
+                End If
+            Catch ex As Exception
+                ' Form1.Log("Error", ex.Message)
+            End Try
+        Next
+        PropUpdateView() = True
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        PropRegionClass1.GetAllRegions()
+        LoadMyListView()
+
+    End Sub
+
+    ' ColumnClick event handler.
+    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
+
+        ListView1.SuspendLayout()
+        Me.ListView1.Sorting = SortOrder.None
+
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer
+        ' object. Setting this property immediately sorts the
+        ' ListView using the ListViewItemComparer object.
+        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
+
+        ListView1.ResumeLayout()
+
+    End Sub
+
+    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
+        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
+        Dim item As ListViewItem
+
+        For Each item In regions
+            Dim RegionName = item.SubItems(0).Text
+            Debug.Print("Clicked row " + RegionName)
+            Dim R = PropRegionClass1.FindRegionByName(RegionName)
+            If R >= 0 Then
+                StartStopEdit(R, RegionName)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
+
+        Dim Item As ListViewItem = ListView1.Items.Item(e.Index)
+        Dim n As Integer = PropRegionClass1.FindRegionByName(Item.Text)
+        If n = -1 Then Return
+        Dim GroupName = PropRegionClass1.GroupName(n)
+        For Each X In PropRegionClass1.RegionListByGroupNum(GroupName)
+            If ViewNotBusy1 Then
+                If (e.CurrentValue = CheckState.Unchecked) Then
+                    PropRegionClass1.RegionEnabled(X) = True
+                    ' and region file on disk
+                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "true")
+                    Form1.PropMySetting.SaveOtherINI()
+                ElseIf (e.CurrentValue = CheckState.Checked) Then
+                    PropRegionClass1.RegionEnabled(X) = False
+                    ' and region file on disk
+                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "false")
+                    Form1.PropMySetting.SaveOtherINI()
+                End If
+            End If
+        Next
+
+        PropUpdateView() = True ' force a refresh
+
+    End Sub
+
+    Private Sub ShowAvatars()
+        Try
+            ViewNotBusy1 = False
+
+            AvatarView.Show()
+            ListView1.Hide()
+
+            AvatarView.BeginUpdate()
+            AvatarView.Items.Clear()
+
+            Dim Index = 0
+            Try
+                ' Create items and subitems for each item.
+
+                Dim L As New Dictionary(Of String, String)
+                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                L = MysqlConn.GetAgentList()
+
+                For Each Agent In L
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Agent.Value)
+                    item1.SubItems.Add("Local")
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                Next
+
+                If Index = 0 Then
+                    Dim item1 As New ListViewItem("No Avatars", Index)
+                    item1.SubItems.Add("-")
+                    item1.SubItems.Add("Local Grid")
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
+            Catch ex As Exception
+                Dim item1 As New ListViewItem("No Avatars", Index)
+                item1.SubItems.Add("-")
+                item1.SubItems.Add("Local Grid")
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+                Index += 1
+            End Try
+
+            ' Hypergrid
+            Try
+                ' Create items and subitems for each item.
+                Dim L As New Dictionary(Of String, String)
+                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                L = MysqlConn.GetHGAgentList()
+
+                For Each Agent In L
+                    If Agent.Value.Length > 0 Then
+                        Dim item1 As New ListViewItem(Agent.Key, Index)
+                        item1.SubItems.Add(Agent.Value)
+                        item1.SubItems.Add("Hypergrid")
+                        AvatarView.Items.AddRange(New ListViewItem() {item1})
+                        Index += 1
+                    End If
+                Next
+
+                If L.Count = 0 Then
+                    Dim item1 As New ListViewItem("No Avatars", Index)
+                    item1.SubItems.Add("-")
+                    item1.SubItems.Add("Hypergrid")
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                End If
+            Catch
+                Dim item1 As New ListViewItem("No Avatars", Index)
+                item1.SubItems.Add("-")
+                item1.SubItems.Add("Hypergrid")
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+            End Try
+
+            Me.AvatarView.TabIndex = 0
+            AvatarView.EndUpdate()
+            AvatarView.Show()
+
+            ViewNotBusy1 = True
+            PropUpdateView() = False
+        Catch ex As Exception
+            Form1.Log("Error", " RegionList " & ex.Message)
+        End Try
 
     End Sub
 
@@ -541,12 +734,15 @@ Public Class RegionList
                     item1.SubItems.Add("")
                 End If
 
-                If PropRegionClass1.SmartStart(X) = True Then
-                    item1.SubItems.Add("Yes")
+                If PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
+                    item1.SubItems.Add("Home")
                 Else
-                    item1.SubItems.Add("")
+                    If PropRegionClass1.SmartStart(X) = True Then
+                        item1.SubItems.Add("Yes")
+                    Else
+                        item1.SubItems.Add("")
+                    End If
                 End If
-
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 
@@ -573,154 +769,6 @@ Public Class RegionList
             Form1.Log("Error", " RegionList " & ex.Message)
             PropRegionClass1.GetAllRegions()
         End Try
-
-    End Sub
-
-    Private Sub ShowAvatars()
-        Try
-            ViewNotBusy1 = False
-
-            AvatarView.Show()
-            ListView1.Hide()
-
-            AvatarView.BeginUpdate()
-            AvatarView.Items.Clear()
-
-            Dim Index = 0
-            Try
-                ' Create items and subitems for each item.
-
-                Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
-                L = MysqlConn.GetAgentList()
-
-                For Each Agent In L
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add("Local")
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                Next
-
-                If Index = 0 Then
-                    Dim item1 As New ListViewItem("No Avatars", Index)
-                    item1.SubItems.Add("-")
-                    item1.SubItems.Add("Local Grid")
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
-            Catch ex As Exception
-                Dim item1 As New ListViewItem("No Avatars", Index)
-                item1.SubItems.Add("-")
-                item1.SubItems.Add("Local Grid")
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index += 1
-            End Try
-
-            ' Hypergrid
-            Try
-                ' Create items and subitems for each item.
-                Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
-                L = MysqlConn.GetHGAgentList()
-
-                For Each Agent In L
-                    If Agent.Value.Length > 0 Then
-                        Dim item1 As New ListViewItem(Agent.Key, Index)
-                        item1.SubItems.Add(Agent.Value)
-                        item1.SubItems.Add("Hypergrid")
-                        AvatarView.Items.AddRange(New ListViewItem() {item1})
-                        Index += 1
-                    End If
-                Next
-
-                If L.Count = 0 Then
-                    Dim item1 As New ListViewItem("No Avatars", Index)
-                    item1.SubItems.Add("-")
-                    item1.SubItems.Add("Hypergrid")
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                End If
-            Catch
-                Dim item1 As New ListViewItem("No Avatars", Index)
-                item1.SubItems.Add("-")
-                item1.SubItems.Add("Hypergrid")
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-            End Try
-
-            Me.AvatarView.TabIndex = 0
-            AvatarView.EndUpdate()
-            AvatarView.Show()
-
-            ViewNotBusy1 = True
-            PropUpdateView() = False
-        Catch ex As Exception
-            Form1.Log("Error", " RegionList " & ex.Message)
-        End Try
-
-    End Sub
-
-    Shared Function LoadImage(S As String) As Image
-        Dim bmp As Bitmap = Nothing
-        Dim u As New Uri(S)
-        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
-        Try
-            Dim response As System.Net.WebResponse = request.GetResponse()
-            Dim responseStream As System.IO.Stream = response.GetResponseStream()
-            bmp = New Bitmap(responseStream)
-
-            'Dim s = bmp.Size
-            'Debug.Print(s.Width.ToString(Form1.usa) + ":" + s.Height.ToString)
-
-            responseStream.Dispose()
-        Catch ex As Exception
-            Form1.Log("Maps", ex.Message + ":" + S)
-        End Try
-
-        Return bmp
-
-    End Function
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        PropRegionClass1.GetAllRegions()
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
-        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
-        Dim item As ListViewItem
-
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text
-            Debug.Print("Clicked row " + RegionName)
-            Dim R = PropRegionClass1.FindRegionByName(RegionName)
-            If R >= 0 Then
-                StartStopEdit(R, RegionName)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
-        Dim item As ListViewItem
-        '!!! help and double click msg
-        For Each item In regions
-            Try
-                Dim RegionName = item.SubItems(1).Text
-                Debug.Print("Clicked row " + RegionName)
-                Dim R = PropRegionClass1.FindRegionByName(RegionName)
-                If R >= 0 Then
-                    Dim webAddress As String = "hop://" & Form1.PropMySetting.DNSName & ":" & Form1.PropMySetting.HttpPort & "/" & RegionName
-                    Dim result = Process.Start(webAddress)
-                End If
-            Catch ex As Exception
-                ' Form1.Log("Error", ex.Message)
-            End Try
-        Next
-        PropUpdateView() = True
 
     End Sub
 
@@ -839,70 +887,64 @@ Public Class RegionList
         Form1.ConsoleCommand(PropRegionClass1.GroupName(num), "q{ENTER}" + vbCrLf)
     End Sub
 
-    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
+#End Region
 
-        Dim Item As ListViewItem = ListView1.Items.Item(e.Index)
-        Dim n As Integer = PropRegionClass1.FindRegionByName(Item.Text)
-        If n = -1 Then Return
-        Dim GroupName = PropRegionClass1.GroupName(n)
-        For Each X In PropRegionClass1.RegionListByGroupNum(GroupName)
-            If ViewNotBusy1 Then
-                If (e.CurrentValue = CheckState.Unchecked) Then
-                    PropRegionClass1.RegionEnabled(X) = True
-                    ' and region file on disk
-                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "true")
-                    Form1.PropMySetting.SaveOtherINI()
-                ElseIf (e.CurrentValue = CheckState.Checked) Then
-                    PropRegionClass1.RegionEnabled(X) = False
-                    ' and region file on disk
-                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "false")
-                    Form1.PropMySetting.SaveOtherINI()
-                End If
+#Region "Clicks"
+
+    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNome.CheckedChanged
+
+        For Each X As ListViewItem In ListView1.Items
+            If ItemsAreChecked1 Then
+                X.Checked = CType(CheckState.Unchecked, Boolean)
+            Else
+                X.Checked = CType(CheckState.Checked, Boolean)
             End If
         Next
 
-        PropUpdateView() = True ' force a refresh
+        If ItemsAreChecked1 Then
+            ItemsAreChecked1 = False
+        Else
+            ItemsAreChecked1 = True
+        End If
+        PropUpdateView = True ' make form refresh
 
     End Sub
 
-    ' ColumnClick event handler.
-    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
-        ListView1.SuspendLayout()
-        Me.ListView1.Sorting = SortOrder.None
+        For Each X As Integer In PropRegionClass1.RegionNumbers
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer
-        ' object. Setting this property immediately sorts the
-        ' ListView using the ListViewItemComparer object.
-        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
+            If Form1.PropOpensimIsRunning() _
+                And PropRegionClass1.RegionEnabled(X) _
+                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
 
-        ListView1.ResumeLayout()
+                Dim hwnd = Form1.GetHwnd(PropRegionClass1.GroupName(X))
+                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
+                    Form1.SequentialPause()
+                    Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Form1.Print("Restarting " & PropRegionClass1.GroupName(X))
+                End If
 
+                ' shut down all regions in the DOS box
+                For Each Y In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(X))
+                    PropRegionClass1.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass1.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                Next
+                Form1.PropRestartNow = True
+
+                PropUpdateView = True ' make form refresh
+            End If
+        Next
+        PropUpdateView = True ' make form refresh
     End Sub
 
-    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
-
-        Dim RegionForm As New FormRegion
-        RegionForm.Init("")
-        RegionForm.Activate()
-        RegionForm.Visible = True
-
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        Form1.Help("RegionList")
     End Sub
 
 #End Region
-
 #Region "DragDrop"
-
-    Private Sub ListView1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragEnter
-
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-
-    End Sub
-
     Private Sub ListView1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragDrop
 
         Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
@@ -942,6 +984,27 @@ Public Class RegionList
 
     End Sub
 
+    Private Sub ListView1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragEnter
+
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        End If
+
+    End Sub
+
+    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+        Form1.PropMySetting.RegionListView() = ViewType.Maps
+        Form1.PropMySetting.SaveSettings()
+        TheView1 = ViewType.Maps
+        ListView1.View = View.LargeIcon
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = False
+        Timer1.Stop()
+        LoadMyListView()
+    End Sub
+
     Private Function PickGroup() As String
 
         Dim Chooseform As New Choice ' form for choosing a set of regions
@@ -964,134 +1027,28 @@ Public Class RegionList
 
     End Function
 
-    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNome.CheckedChanged
-
-        For Each X As ListViewItem In ListView1.Items
-            If ItemsAreChecked1 Then
-                X.Checked = CType(CheckState.Unchecked, Boolean)
-            Else
-                X.Checked = CType(CheckState.Checked, Boolean)
-            End If
-        Next
-
-        If ItemsAreChecked1 Then
-            ItemsAreChecked1 = False
-        Else
-            ItemsAreChecked1 = True
-        End If
-        PropUpdateView = True ' make form refresh
-
-    End Sub
-
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
         Form1.Startup()
 
     End Sub
 
+
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
         Form1.KillAll()
     End Sub
 
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
-
-        For Each X As Integer In PropRegionClass1.RegionNumbers
-
-            If Form1.PropOpensimIsRunning() _
-                And PropRegionClass1.RegionEnabled(X) _
-                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-
-                Dim hwnd = Form1.GetHwnd(PropRegionClass1.GroupName(X))
-                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
-                    Form1.SequentialPause()
-                    Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
-                    Form1.Print("Restarting " & PropRegionClass1.GroupName(X))
-                End If
-
-                ' shut down all regions in the DOS box
-                For Each Y In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(X))
-                    PropRegionClass1.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                    PropRegionClass1.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                Next
-                Form1.PropRestartNow = True
-
-                PropUpdateView = True ' make form refresh
-            End If
-        Next
-        PropUpdateView = True ' make form refresh
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("RegionList")
-    End Sub
-
-    Private Sub DetailsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        Form1.PropMySetting.RegionListView() = ViewType.Details
-        Form1.PropMySetting.SaveSettings()
-
-        TheView1 = ViewType.Details
-        ListView1.View = View.Details
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = True
-        Timer1.Start()
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub SmallListToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        Form1.PropMySetting.RegionListView() = ViewType.Icons
-        Form1.PropMySetting.SaveSettings()
-        TheView1 = ViewType.Icons
-        ListView1.View = View.SmallIcon
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = False
-        Timer1.Start()
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        Form1.PropMySetting.RegionListView() = ViewType.Maps
-        Form1.PropMySetting.SaveSettings()
-        TheView1 = ViewType.Maps
-        ListView1.View = View.LargeIcon
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = False
-        Timer1.Stop()
-        LoadMyListView()
-    End Sub
-
-    Private Sub AvatarsToolStripMenuItem_Click(sender As Object, e As EventArgs)
+    Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles ViewAvatars.Click
 
         Form1.PropMySetting.RegionListView() = ViewType.Avatars
         Form1.PropMySetting.SaveSettings()
         TheView1 = ViewType.Avatars
+        SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Hide()
         AvatarView.Show()
         LoadMyListView()
         Timer1.Start()
-    End Sub
-
-    Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles ViewDetail.Click
-
-        Form1.PropMySetting.RegionListView() = ViewType.Details
-        Form1.PropMySetting.SaveSettings()
-        TheView1 = ViewType.Details
-        SetScreen(TheView1)
-        ListView1.View = View.Details
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = True
-        Timer1.Start()
-        LoadMyListView()
     End Sub
 
     Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles ViewCompact.Click
@@ -1104,6 +1061,20 @@ Public Class RegionList
         ListView1.Show()
         AvatarView.Hide()
         ListView1.CheckBoxes = False
+        Timer1.Start()
+        LoadMyListView()
+    End Sub
+
+    Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles ViewDetail.Click
+
+        Form1.PropMySetting.RegionListView() = ViewType.Details
+        Form1.PropMySetting.SaveSettings()
+        TheView1 = ViewType.Details
+        SetScreen(TheView1)
+        ListView1.View = View.Details
+        ListView1.Show()
+        AvatarView.Hide()
+        ListView1.CheckBoxes = True
         Timer1.Start()
         LoadMyListView()
     End Sub
@@ -1122,31 +1093,68 @@ Public Class RegionList
         LoadMyListView()
     End Sub
 
-    Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles ViewAvatars.Click
-
-        Form1.PropMySetting.RegionListView() = ViewType.Avatars
-        Form1.PropMySetting.SaveSettings()
-        TheView1 = ViewType.Avatars
-        SetScreen(TheView1)
-        ListView1.View = View.Details
-        ListView1.Hide()
-        AvatarView.Show()
-        LoadMyListView()
-        Timer1.Start()
-    End Sub
-
 #End Region
 
 #Region "Mysql"
 
-    Private Function PeopleInSim() As Integer
-
-        Return 1
-
-    End Function
-
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
         Form1.Help("RegionList")
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+
+        Dim ofd As New OpenFileDialog
+        ofd.InitialDirectory = "c:\\"
+        ofd.Filter = "ini files (*.ini)|*.ini|All files (*.*)|*.*"
+        ofd.FilterIndex = 2
+        ofd.RestoreDirectory = True
+
+        If ofd.ShowDialog = DialogResult.OK Then
+            If ofd.CheckFileExists Then
+
+                Dim dirpathname = PickGroup()
+                If dirpathname.Length = 0 Then
+                    Form1.Print("Aborted")
+                    Return
+                End If
+
+                If dirpathname = "! Add New Name" Then
+                    dirpathname = InputBox("Enter the New Dos Box name")
+                End If
+                If dirpathname.Length = 0 Then
+                    Return
+                End If
+
+                Dim extension As String = Path.GetExtension(ofd.FileName)
+                extension = Mid(extension, 2, 5)
+                If extension.ToLower(Form1.Usa) = "ini" Then
+                    Dim filename = Path.GetFileNameWithoutExtension(ofd.FileName)
+                    Dim i = PropRegionClass1.FindRegionByName(filename)
+                    If i >= 0 Then
+                        MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
+                        Return
+                    End If
+
+                    If dirpathname.Length = 0 Then dirpathname = filename
+
+                    Dim NewFilepath = Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
+                    If Not Directory.Exists(NewFilepath) Then
+                        Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
+                    End If
+
+                    File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                Else
+                    Form1.Print("Unrecognized file type" + extension + ". Import Region.ini file to the system.")
+                End If
+
+                PropRegionClass1.GetAllRegions()
+                LoadMyListView()
+            End If
+        End If
+
+
+
     End Sub
 
 #End Region
