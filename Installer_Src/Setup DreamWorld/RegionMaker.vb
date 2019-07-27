@@ -997,6 +997,7 @@ Public Class RegionMaker
             Return
         End If
 
+        Form1.Print("Set all region ports")
         Dim Portnumber As Integer = CType(Form1.PropMySetting.FirstRegionPort(), Integer)
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)

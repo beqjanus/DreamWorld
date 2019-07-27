@@ -792,7 +792,7 @@ Public Class Form1
     ''' Startup() Starts opensimulator system
     ''' Called by Start Button or by AutoStart
     ''' </summary>
-    Public Sub Startup()
+    Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
         TextBox1.AllowDrop = True
 
@@ -889,7 +889,7 @@ Public Class Form1
 
         ' Launch the rockets
         Print("Start Regions")
-        If Not StartOpensimulator() Then
+        If Not StartOpensimulator(SkipSmartStart) Then
             Return
         End If
 
@@ -1069,7 +1069,7 @@ Public Class Form1
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
 
-        Print("Starting DreamGrid HTTP Server ")
+        Print("Starting HTTP Server ")
         PropWebServer.StartServer(PropMyFolder, PropMySetting)
 
         CheckDiagPort()
@@ -1137,7 +1137,7 @@ Public Class Form1
             Startup()
         Else
             PropMySetting.SaveSettings()
-            Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin your adventure in Opensimulator.")
+            Print("Ready to Launch!" + vbCrLf + "Click 'Start' to begin.")
         End If
 
         HelpOnce("License") ' license on bottom
@@ -2979,7 +2979,7 @@ Public Class Form1
 
 #Region "Opensimulator"
 
-    Public Function StartOpensimulator() As Boolean
+    Public Function StartOpensimulator(Optional SkipSmartStart As Boolean = False) As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -2994,7 +2994,7 @@ Public Class Form1
             ' Boot them up
             For Each x In PropRegionClass.RegionNumbers()
                 If PropRegionClass.RegionEnabled(x) Then
-                    Boot(PropRegionClass, PropRegionClass.RegionName(x))
+                    Boot(PropRegionClass, PropRegionClass.RegionName(x), SkipSmartStart)
                     ProgressBar1.Value = CType(counter / Len * 100, Integer)
                     counter += 1
                 End If
@@ -3069,14 +3069,14 @@ Public Class Form1
     End Sub
 #End Region
 
-#Region "ExitHandlers"
+#Region "Boot"
 
     ''' <summary>
     ''' Starts Opensim for a given name
     ''' </summary>
     ''' <param name="BootName"> Name of region to start</param>
     ''' <returns>success = true</returns>
-    Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional UserAgent As String = "") As Boolean
+    Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional SkipSmartStart As Boolean = False) As Boolean
 
         If PropAborting Then Return True
 
@@ -3084,11 +3084,16 @@ Public Class Form1
 
         Buttons(StopButton)
 
+        Dim RegionNumber = PropRegionClass.FindRegionByName(BootName)
+        If PropRegionClass.SmartStart(RegionNumber) And PropMySetting.SmartStart And Not SkipSmartStart Then
+            Print("Smart Start " & BootName)
+            Return True
+        End If
+
         Log("Info", "Region: Starting Region " + BootName)
 
-        Dim RegionNumber = PropRegionClass.FindRegionByName(BootName)
         If PropRegionClass.IsBooted(RegionNumber) Then
-            Log("Info", "Region " + BootName + " skipped as it is already Booted")
+            Log("Info", "Region " + BootName + " already running")
             Return True
         End If
 
@@ -3155,7 +3160,6 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
-            If UserAgent.Length = 0 Then SequentialPause()
 
             If myProcess.Start() Then
                 For Each num In PropRegionClass.RegionListByGroupNum(Groupname)
@@ -3171,10 +3175,6 @@ Public Class Form1
 
                 Log("Debug", "Created Process Number " + myProcess.Id.ToString(Usa) + " in  RegionHandles(" + PropRegionHandles.Count.ToString(Usa) + ") " + "Group:" + Groupname)
                 PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-
-                If UserAgent.Length > 0 Then
-                    AgentsWaiting.Add(UserAgent, BootName)
-                End If
 
             End If
 
@@ -3239,6 +3239,9 @@ Public Class Form1
         PropUpdateView = True ' make form refresh
 
     End Sub
+#End Region
+
+#Region "ExitHandlers"
 
     Private Sub ExitHandlerPoll()
 
@@ -3261,7 +3264,24 @@ Public Class Form1
                 TimerValue = PropRegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
                 GroupName = PropRegionClass.GroupName(X)
-                If (TimerValue / 6) >= (PropMySetting.AutoRestartInterval()) And PropMySetting.AutoRestartInterval() > 0 And Not AvatarsIsInGroup(GroupName) Then
+
+                ' Smart shutdown
+                If PropRegionClass.SmartStart(X) And PropMySetting.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                    SequentialPause()
+                    ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Print("Smart Stop " + GroupName)
+                    ' shut down all regions in the DOS box
+                    For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+                        PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                    Next
+                    PropUpdateView = True ' make form refresh
+                End If
+
+                If (TimerValue / 6) >= (PropMySetting.AutoRestartInterval()) _
+                    And PropMySetting.AutoRestartInterval() > 0 _
+                    And Not AvatarsIsInGroup(GroupName) _
+                    And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
                     Try
                         If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
@@ -4048,7 +4068,7 @@ Public Class Form1
 
         Dim backMeUp = MsgBox("Make a backup first?", vbYesNo, "Backup?")
         Dim num = PropRegionClass.FindRegionByName(region)
-        If num <0 Then
+        If num < 0 Then
             MsgBox("Cannot find region")
             Return False
         End If
@@ -4263,7 +4283,7 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
 
-        Print("Refreshing OAR Downloadable Content")
+        Print("Refreshing Free OARs")
         Dim oars As String = ""
         Try
             oars = client.DownloadString(PropDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & Random())
@@ -4318,7 +4338,7 @@ Public Class Form1
         Next
 
         Log("Info", "OARS loaded")
-        Print("Refreshing IAR Inventory Content")
+        Print("Refreshing Free IARs")
         Dim iars As String = ""
         Try
             iars = client.DownloadString(PropDomain() + "/Outworldz_Installer/Content.plx?type=IAR&r=" + Random())
@@ -4537,6 +4557,7 @@ Public Class Form1
 
         ' LAN USE
         If PropMySetting.EnableHypergrid Then
+            Print("Setting up Hypergrid")
             BumpProgress10()
             If PropMySetting.DNSName.Length > 0 Then
                 PropMySetting.PublicIP = PropMySetting.DNSName()
@@ -4575,8 +4596,6 @@ Public Class Form1
             RegisterDNS()
             Return True
         End If
-
-        'V 2.44
 
         Try
             Log("Info", "Public IP=" + PropMySetting.PublicIP)

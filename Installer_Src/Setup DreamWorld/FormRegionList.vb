@@ -211,6 +211,8 @@ Public Class RegionList
         warning = 7
         user1 = 8
         user2 = 9
+        SmartStart = 10
+
     End Enum
 
 #Region "Loader"
@@ -308,6 +310,7 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.Usa))  ' 7 Unknown
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.Usa))  ' 8 - 1 User
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Usa))  ' 9 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Usa))  ' 9 - 2 user
 
         Form1.PropUpdateView = True ' make form refresh
 
@@ -569,12 +572,15 @@ Public Class RegionList
             Dim Num As Integer = 0
 
             ' have to get maps by http port + region UUID, not region port + uuid
-            ' PropRegionClass.DebugGroup() ' show the list of groups and http ports.
 
             For Each X In PropRegionClass1.RegionNumbers
 
                 Dim Letter As String = ""
-                If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped _
+                    And PropRegionClass1.SmartStart(X) Then
+                    Letter = "Waiting"
+                    Num = DGICON.SmartStart
+                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                     Letter = "Recycling Down"
                     Num = DGICON.recyclingdown
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
