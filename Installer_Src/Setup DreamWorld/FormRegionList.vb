@@ -541,7 +541,7 @@ Public Class RegionList
                     item1.SubItems.Add("")
                 End If
 
-                If PropRegionClass1.SmartStart(X) = "True" Then
+                If PropRegionClass1.SmartStart(X) = True Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
