@@ -2615,7 +2615,7 @@ Public Class Form1
             ApacheProcess.Start()
             ApacheProcess.WaitForExit()
 
-            Sleep(2000)
+            Sleep(4000)
 
             Try
                 Dim ApacheProcess As New Process With {
