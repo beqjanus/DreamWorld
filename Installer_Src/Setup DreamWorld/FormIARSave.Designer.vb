@@ -24,6 +24,9 @@ Partial Class FormIARSave
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.AviName = New System.Windows.Forms.TextBox()
+        Me.BackupNameTextBox = New System.Windows.Forms.TextBox()
+        Me.ObjectNameBox = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -33,9 +36,6 @@ Partial Class FormIARSave
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Password = New System.Windows.Forms.TextBox()
-        Me.AviName = New System.Windows.Forms.TextBox()
-        Me.BackupNameTextBox = New System.Windows.Forms.TextBox()
-        Me.ObjectNameBox = New System.Windows.Forms.TextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,6 +43,32 @@ Partial Class FormIARSave
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'AviName
+        '
+        Me.AviName.Location = New System.Drawing.Point(143, 87)
+        Me.AviName.Name = "AviName"
+        Me.AviName.Size = New System.Drawing.Size(179, 20)
+        Me.AviName.TabIndex = 14
+        Me.ToolTip1.SetToolTip(Me.AviName, "Avatar First and Last name")
+        '
+        'BackupNameTextBox
+        '
+        Me.BackupNameTextBox.Location = New System.Drawing.Point(143, 61)
+        Me.BackupNameTextBox.Name = "BackupNameTextBox"
+        Me.BackupNameTextBox.Size = New System.Drawing.Size(179, 20)
+        Me.BackupNameTextBox.TabIndex = 13
+        Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
+        '
+        'ObjectNameBox
+        '
+        Me.ObjectNameBox.Location = New System.Drawing.Point(143, 35)
+        Me.ObjectNameBox.Name = "ObjectNameBox"
+        Me.ObjectNameBox.Size = New System.Drawing.Size(179, 20)
+        Me.ObjectNameBox.TabIndex = 12
+        Me.ObjectNameBox.Text = "/"
+        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back " &
+        "up box in folder Objects)")
         '
         'GroupBox1
         '
@@ -135,32 +161,6 @@ Partial Class FormIARSave
         Me.Password.TabIndex = 15
         Me.Password.UseSystemPasswordChar = True
         '
-        'AviName
-        '
-        Me.AviName.Location = New System.Drawing.Point(143, 87)
-        Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(179, 20)
-        Me.AviName.TabIndex = 14
-        Me.ToolTip1.SetToolTip(Me.AviName, "Avatar First and Last name")
-        '
-        'BackupNameTextBox
-        '
-        Me.BackupNameTextBox.Location = New System.Drawing.Point(143, 61)
-        Me.BackupNameTextBox.Name = "BackupNameTextBox"
-        Me.BackupNameTextBox.Size = New System.Drawing.Size(179, 20)
-        Me.BackupNameTextBox.TabIndex = 13
-        Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
-        '
-        'ObjectNameBox
-        '
-        Me.ObjectNameBox.Location = New System.Drawing.Point(143, 35)
-        Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(179, 20)
-        Me.ObjectNameBox.TabIndex = 12
-        Me.ObjectNameBox.Text = "/"
-        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back " &
-        "up box in folder Objects)")
-        '
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
@@ -182,7 +182,7 @@ Partial Class FormIARSave
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
         '
         'FormIARSave

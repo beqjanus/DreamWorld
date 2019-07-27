@@ -54,6 +54,8 @@ Partial Class FormRegion
         Me.RegionGod = New System.Windows.Forms.CheckBox()
         Me.RegionPort = New System.Windows.Forms.TextBox()
         Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -97,8 +99,6 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -398,7 +398,6 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Enabled = False
         Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 89)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
@@ -406,6 +405,25 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.Text = "Smart Start"
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, "If set, the global Tide settungs will apply to this region")
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(9, 229)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(107, 13)
+        Me.Label14.TabIndex = 41
+        Me.Label14.Text = "Script Timer Minimum"
+        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed minimum setting.")
+        '
+        'ScriptTimerTextBox
+        '
+        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(181, 226)
+        Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
+        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
+        Me.ScriptTimerTextBox.TabIndex = 40
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 0.2  Minimum should not be less than 0.091 which is 1/5th of 55 FPS SL sp" &
+        "eed.")
         '
         'Advanced
         '
@@ -887,25 +905,6 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(9, 229)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(107, 13)
-        Me.Label14.TabIndex = 41
-        Me.Label14.Text = "Script Timer Minimum"
-        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed minimum setting.")
-        '
-        'ScriptTimerTextBox
-        '
-        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(181, 226)
-        Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
-        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
-        Me.ScriptTimerTextBox.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 0.2  Minimum should not be less than 0.091 which is 1/5th of 55 FPS SL sp" &
-        "eed.")
         '
         'FormRegion
         '

@@ -57,6 +57,7 @@
   $dbuser = $CONF_db_user;
   $dbpw = $CONF_db_pass;
   $dbdb = $CONF_db_database;
+  $dbport = $CONF_db_port;
  
   $grid_x = 0;
   $grid_y = 0;
@@ -89,7 +90,7 @@
   $end_y = $grid_y - 30;
   
 // Datenbank anzapfen
-$con = mysqli_connect($dbort,$dbuser,$dbpw,$dbdb); 
+$con = mysqli_connect($dbort,$dbuser,$dbpw,$dbdb,$dbport); 
 
    // Datenbank abfragen
   $z=mysqli_query($con,"SELECT uuid,regionName,locX,locY,serverURI,sizeX,sizeY,owner_uuid FROM regions") or die("Error: " . mysqli_error($con));

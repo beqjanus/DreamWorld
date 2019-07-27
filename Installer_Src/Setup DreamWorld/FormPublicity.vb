@@ -44,7 +44,7 @@ Public Class FormPublicity
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
         Catch
-            PictureBox9.Image = My.Resources.blankbox
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
         Form1.HelpOnce("Publicity")
         initted = True

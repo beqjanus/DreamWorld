@@ -166,15 +166,19 @@ namespace OpenSim.Services.HypergridService
 
 
                 IConfig ALTConfig = config.Configs["AutoLoadTeleport"];    // get data from 
+               
                 m_ALT_Enabled = ALTConfig.GetBoolean("Enabled", true);
                 if (m_ALT_Enabled)
                 {
-                    m_log.InfoFormat("[AutoLoadTeleport]: Enabled");
+                    m_log.Info("[AutoLoadTeleport]: Enabled");
 
                     // Get the http port to talk to from Const Section
                     IConfig ConstConfig = config.Configs["Const"];
                     m_DiagnosticsPort = ConstConfig.GetInt("DiagnosticsPort",8001);    // listener port for Dreamgrid
                     m_PrivURL = ConstConfig.GetString("PrivURL", "http://localhost");    // private IP
+                } else
+                {
+                    m_log.Info("[AutoLoadTeleport]: Disabled");
                 }
                 m_log.Debug("[GATEKEEPER SERVICE]: Starting...");
             }
@@ -245,33 +249,20 @@ namespace OpenSim.Services.HypergridService
             return true;
         }
 
-        public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
-        {
-            message = null;
-
-            if (!m_AllowTeleportsToAnyRegion)
-            {
-                // Don't even check the given regionID
-                m_log.DebugFormat(
-                    "[GATEKEEPER SERVICE]: Returning gateway region {0} {1} @ {2} to user {3}{4} as teleporting to arbitrary regions is not allowed.",
-                    m_DefaultGatewayRegion.RegionName,
-                    m_DefaultGatewayRegion.RegionID,
-                    m_DefaultGatewayRegion.ServerURI,
-                    agentID,
-                    agentHomeURI == null ? "" : " @ " + agentHomeURI);
-
-                message = "Teleporting to the default region.";
-                return m_DefaultGatewayRegion;
-            }
-
 #if DG
+
+        public UUID  GetALTRegion(UUID regionID, UUID agentID)
+        {
             // !!! Fkb DreamGrid Auto Load Teleport (ALT) (Smart Start) sends requested Region UUID to Dreamgrid.
             // If region is online, returns same UUID. If Offline, returns UUID for Welcome
+            
             if (m_ALT_Enabled)
-            {
-                // http://127.0.0.1:8001/AST=regionUUID/AGENTID=AgentUUID]  
+            {              
+                // http://127.0.0.1:8001/ALT=regionUUID/AGENTID=AgentUUID]  
                 // !!!
-                string url = m_PrivURL + ":" + m_DiagnosticsPort + "/AST=" + regionID + "/AGENT="  + agentID;
+                string url = m_PrivURL + ":" + m_DiagnosticsPort + "/ALT=" + regionID + "/AGENT=" + agentID;
+                m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
+
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 webRequest.Timeout = 30000; //30 Second Timeout
@@ -296,7 +287,32 @@ namespace OpenSim.Services.HypergridService
                     m_log.Error("[SMARTSTART]: " + ex.Message);
                 }
             }
+            return regionID;
+
+        }
 #endif
+
+        public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
+        {
+            message = null;
+
+            if (!m_AllowTeleportsToAnyRegion)
+            {
+                // Don't even check the given regionID
+                m_log.DebugFormat(
+                    "[GATEKEEPER SERVICE]: Returning gateway region {0} {1} @ {2} to user {3}{4} as teleporting to arbitrary regions is not allowed.",
+                    m_DefaultGatewayRegion.RegionName,
+                    m_DefaultGatewayRegion.RegionID,
+                    m_DefaultGatewayRegion.ServerURI,
+                    agentID,
+                    agentHomeURI == null ? "" : " @ " + agentHomeURI);
+
+                message = "Teleporting to the default region.";
+                return m_DefaultGatewayRegion;
+            }
+
+
+            regionID= GetALTRegion(regionID, agentID);      // DreamGrid fkb
 
             GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
 

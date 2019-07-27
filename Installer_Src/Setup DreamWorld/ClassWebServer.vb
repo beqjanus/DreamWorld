@@ -43,14 +43,13 @@ Public Class NetServer
             WebThread.SetApartmentState(ApartmentState.STA)
             WebThread.Start()
             running = True
-        Catch ex As Exception
+        Catch ex As ThreadStateException
             Log("Error", ex.Message)
         End Try
 
     End Sub
 
     Private Sub Looper()
-
 
         listen = True
 
@@ -61,8 +60,7 @@ Public Class NetServer
 
         Try
             listener.Start() ' Throws Exception
-        Catch ex As Exception
-
+        Catch ex As HttpListenerException
             If ex.Message.Contains("Access is denied") Then
                 Log("Error", ex.Message)
                 Return
@@ -112,15 +110,14 @@ Public Class NetServer
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" & category & ":" & message)
             End Using
-        Catch ex As Exception
+        Catch ex As IOException
             Debug.Print(ex.Message)
         End Try
     End Sub
 
     Public Sub ListenerCallback(ByVal result As IAsyncResult)
 
-        Try
-            Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
+        Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
             ' Call EndGetContext to signal the completion of the asynchronous operation.
             Dim context As HttpListenerContext = listener.EndGetContext(result)
 
@@ -150,10 +147,6 @@ Public Class NetServer
                 body.Close()
             End If
 
-            ''''''''''''''''''''''''''''''''''''''''''''''
-
-            'Log(responseString)
-
             ' Get the response object to send our confirmation.
             Dim response As HttpListenerResponse = context.Response
 
@@ -171,9 +164,6 @@ Public Class NetServer
 
             'If you are finished with the request, it should be closed also.
             response.Close()
-        Catch ex As Exception
-            Log("Error:", ex.Message)
-        End Try
 
     End Sub
 

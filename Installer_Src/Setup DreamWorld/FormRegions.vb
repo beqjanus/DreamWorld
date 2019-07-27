@@ -49,12 +49,22 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        '!!!
+        If Debugger.IsAttached = True Then
+            SmartStartEnabled.Enabled = True
+        Else
+            SmartStartEnabled.Enabled = False
+        End If
+
+
         LoadWelcomeBox()
         LoadRegionBox()
 
         X.Text = Form1.PropMySetting.HomeVectorX
         Y.Text = Form1.PropMySetting.HomeVectorY
         Z.Text = Form1.PropMySetting.HomeVectorZ
+
+        SmartStartEnabled.Checked = Form1.PropMySetting.SmartStart
 
         Form1.HelpOnce("Regions")
         SetScreen()
@@ -231,4 +241,11 @@ Public Class FormRegions
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         Form1.Help("Regions")
     End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
+
+        Form1.PropMySetting.SmartStart = SmartStartEnabled.Checked
+
+    End Sub
+
 End Class

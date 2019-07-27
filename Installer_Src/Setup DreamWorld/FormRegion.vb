@@ -1132,6 +1132,7 @@ Public Class FormRegion
 
         If SmartStartCheckBox.Checked Then
             Form1.Log("Info", "Region " + Name + " has Smart Start enabled")
+
         End If
         If Initted1 Then Changed1 = True
 
