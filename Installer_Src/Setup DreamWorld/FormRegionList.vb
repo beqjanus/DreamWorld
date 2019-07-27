@@ -602,7 +602,7 @@ Public Class RegionList
                     Index += 1
                 Next
 
-                If Index = 0 Then
+                If L.Count = 0 Then
                     Dim item1 As New ListViewItem("No Avatars", Index)
                     item1.SubItems.Add("-")
                     item1.SubItems.Add("Local Grid")
@@ -617,6 +617,7 @@ Public Class RegionList
                 Index += 1
             End Try
 
+            Index = 0
             ' Hypergrid
             Try
                 ' Create items and subitems for each item.
@@ -634,7 +635,7 @@ Public Class RegionList
                     End If
                 Next
 
-                If L.Count = 0 Then
+                If Index = 0 Then
                     Dim item1 As New ListViewItem("No Avatars", Index)
                     item1.SubItems.Add("-")
                     item1.SubItems.Add("Hypergrid")
