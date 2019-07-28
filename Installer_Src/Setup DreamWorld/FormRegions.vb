@@ -49,7 +49,7 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        '!!!
+        '!!!  remove for production
         If Debugger.IsAttached = True Then
             SmartStartEnabled.Enabled = True
         Else

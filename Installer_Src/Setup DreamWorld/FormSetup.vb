@@ -752,6 +752,7 @@ Public Class Form1
         TextBox1.ScrollToCaret()
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
+        Me.Show()
 
         ' setup a debug path
         PropMyFolder = My.Application.Info.DirectoryPath
@@ -767,6 +768,8 @@ Public Class Form1
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+
         If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
             Print("Installing Desktop icon clicky thingy")
             Create_ShortCut(PropMyFolder & "\Start.exe")
@@ -777,13 +780,12 @@ Public Class Form1
         PropMySetting.Myfolder = PropMyFolder
         PropMySetting.OpensimBinPath = PropOpensimBinPath
 
-        SetScreen()     ' move Form to fit screen from SetXY.ini
         If Me.Width > 320 Then
             PictureBox1.Image = My.Resources.Arrow2Left
         Else
             PictureBox1.Image = My.Resources.Arrow2Right
         End If
-        Me.Show()
+
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable,  but it needs to be unique
         Randomize()
@@ -795,7 +797,12 @@ Public Class Form1
         Me.Text = "Dreamgrid V" + PropMyVersion
 
         PropOpensimIsRunning() = False ' true when opensim is running
+
+        ProgressBar1.Value = 0
+
         Me.Show()
+
+        Print("Getting regions")
 
         PropRegionClass = RegionMaker.Instance()
         Adv = New AdvancedForm
@@ -808,6 +815,7 @@ Public Class Form1
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
         End If
 
+        Print("Setting IP")
         PropMyUPnpMap = New UPnp(PropMyFolder)
 
         PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
@@ -830,8 +838,6 @@ Public Class Form1
             PropMySetting.SplashPage = PropDomain() + "/Outworldz_installer/Welcome.htm"
         End If
 
-        ProgressBar1.Value = 100
-        ProgressBar1.Value = 0
 
         CheckForUpdates()
 
@@ -844,6 +850,10 @@ Public Class Form1
         SetQuickEditOff()
 
         SetLoopback()
+
+        'mnuShow shows the DOS box for Opensimulator
+        mnuShow.Checked = PropMySetting.ConsoleShow
+        mnuHide.Checked = Not PropMySetting.ConsoleShow
 
         If Not SetIniData() Then Return
 
@@ -1664,25 +1674,35 @@ Public Class Form1
 
     Private Function SetIniData() As Boolean
 
-        'mnuShow shows the DOS box for Opensimulator
-        mnuShow.Checked = PropMySetting.ConsoleShow
-        mnuHide.Checked = Not PropMySetting.ConsoleShow
-
         Print("Creating INI Files")
-
-        If PropMySetting.ConsoleShow Then
-            Log("Info", "Console will be shown")
-        Else
-            Log("Info", "Console will not be shown")
-        End If
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit
         ' must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
-        SetDefaultSims()
-        ''''''''''''''''''''''''''''''''''''''''''''''''
 
-        ' TOSModule
+        SetDefaultSims()
+        DoTOS()
+        DoGridCommon()
+        DelLibrary()
+        DoMySQL()
+        DoRobust()
+        DoFlotsamINI()
+        DoOpensimINI()
+        DoWifi()
+        DoGloebits()
+        CopyOpensimProto()
+        DoRegions()
+        MapSetup()
+        DoPHP()
+        DoApache()
+
+        Return True
+
+    End Function
+
+    Private Sub DoTOS()
+
+        ' TOSModule is disabled in Grids
         If (False) Then
             PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\DivaTOS.ini", ";")
 
@@ -1698,9 +1718,12 @@ Public Class Form1
             PropMySetting.SaveOtherINI()
         End If
 
-        ' Choose a GridCommon.ini to use.
+    End Sub
+    Private Sub DoGridCommon()
+
+        'Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
-        DelLibrary()
+
         Select Case PropMySetting.ServerType
             Case "Robust"
                 My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath + "bin\Library.proto", PropOpensimBinPath + "bin\Library", True)
@@ -1717,6 +1740,9 @@ Public Class Form1
         ' Put that gridcommon.ini file in place
         IO.File.Copy(PropOpensimBinPath + "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
+    End Sub
+    Private Sub DoMySQL()
+
         ' load and patch it up for MySQL
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
         Dim ConnectionString = """" _
@@ -1731,12 +1757,16 @@ Public Class Form1
         PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
         PropMySetting.SaveOtherINI()
 
+    End Sub
+
+    Private Sub DoRobust()
+
         ''''''''''''''''''''''''''''''''''''''''''
         If PropMySetting.ServerType = "Robust" Then
             ' Robust Process
             PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\Robust.HG.ini", ";")
 
-            ConnectionString = """" _
+            Dim ConnectionString = """" _
             + "Data Source=" + PropMySetting.RobustServer _
             + ";Database=" + PropMySetting.RobustDataBaseName _
             + ";Port=" + PropMySetting.MySqlPort _
@@ -1788,12 +1818,16 @@ Public Class Form1
             PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
             PropMySetting.SetOtherIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
 
+            PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", PropMySetting.SmartStart.ToString(Usa))
+
             PropMySetting.SaveOtherINI()
 
         End If
 
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''' Flotsam Cache.ini
+    End Sub
+
+    Private Sub DoFlotsamINI()
+
         PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
         PropMySetting.SetOtherIni("AssetCache", "LogLevel", PropMySetting.CacheLogLevel)
         PropMySetting.SetOtherIni("AssetCache", "CacheDirectory", PropMySetting.CacheFolder)
@@ -1801,7 +1835,9 @@ Public Class Form1
         PropMySetting.SetOtherIni("AssetCache", "FileCacheTimeout", PropMySetting.CacheTimeout)
         PropMySetting.SaveOtherINI()
 
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    End Sub
+    Private Sub DoOpensimINI()
+
         ' Opensim.ini
         PropMySetting.LoadOtherIni(GetOpensimProto(), ";")
 
@@ -2010,65 +2046,8 @@ Public Class Form1
 
         PropMySetting.SaveOtherINI()
 
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' Other Settings
-        DoWifi()
-        DoGloebits()
-        CopyOpensimProto()
-        DoRegions()
-        MapSetup()
-        DoPHP()
-        DoApache()
-
-        Return True
-
-    End Function
-
-#End Region
-
-#Region "Regions"
-
-    Public Sub CheckDefaultPorts()
-        Try
-            If PropMySetting.DiagnosticPort = PropMySetting.HttpPort _
-        Or PropMySetting.DiagnosticPort = PropMySetting.PrivatePort _
-        Or PropMySetting.HttpPort = PropMySetting.PrivatePort Then
-                PropMySetting.DiagnosticPort = "8001"
-                PropMySetting.HttpPort = "8002"
-                PropMySetting.PrivatePort = "8003"
-
-                MsgBox("Port conflict detected. Sim Ports have been reset to the defaults", vbInformation, "Error")
-            End If
-        Catch
-        End Try
-
     End Sub
 
-    ''' <summary>
-    ''' Gets the External Host name which can be either the Public IP or a Host name.
-    ''' </summary>
-    ''' <returns>Host for regions</returns>
-    Public Function ExternLocalServerName() As String
-
-        Dim Host As String
-
-        If PropMySetting.ExternalHostName.Length > 0 Then
-            Host = PropMySetting.ExternalHostName
-        Else
-            Host = PropMySetting.PublicIP
-        End If
-        Return Host
-
-    End Function
-
-    Public Sub SetRegionINI(regionname As String, key As String, value As String)
-
-        Dim X = PropRegionClass.FindRegionByName(regionname)
-        PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(X), ";")
-        PropMySetting.SetOtherIni(regionname, key, value)
-        PropMySetting.SaveOtherINI()
-
-    End Sub
 
     Private Sub DoRegions()
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -2179,7 +2158,6 @@ Public Class Form1
                 PropMySetting.SetOtherIni(simName, "MinTimerInterval", "0.2")
             End Try
 
-            ' V2.31 upwards for smart start
             PropMySetting.SetOtherIni(simName, "SmartStart", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
 
             PropMySetting.SaveOtherINI()
@@ -2348,6 +2326,53 @@ Public Class Form1
         IO.File.WriteAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist
 
     End Sub
+
+#End Region
+
+#Region "Checks"
+
+    Public Sub CheckDefaultPorts()
+        Try
+            If PropMySetting.DiagnosticPort = PropMySetting.HttpPort _
+        Or PropMySetting.DiagnosticPort = PropMySetting.PrivatePort _
+        Or PropMySetting.HttpPort = PropMySetting.PrivatePort Then
+                PropMySetting.DiagnosticPort = "8001"
+                PropMySetting.HttpPort = "8002"
+                PropMySetting.PrivatePort = "8003"
+
+                MsgBox("Port conflict detected. Sim Ports have been reset to the defaults", vbInformation, "Error")
+            End If
+        Catch
+        End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' Gets the External Host name which can be either the Public IP or a Host name.
+    ''' </summary>
+    ''' <returns>Host for regions</returns>
+    Public Function ExternLocalServerName() As String
+
+        Dim Host As String
+
+        If PropMySetting.ExternalHostName.Length > 0 Then
+            Host = PropMySetting.ExternalHostName
+        Else
+            Host = PropMySetting.PublicIP
+        End If
+        Return Host
+
+    End Function
+
+    Public Sub SetRegionINI(regionname As String, key As String, value As String)
+
+        Dim X = PropRegionClass.FindRegionByName(regionname)
+        PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(X), ";")
+        PropMySetting.SetOtherIni(regionname, key, value)
+        PropMySetting.SaveOtherINI()
+
+    End Sub
+
 
 #End Region
 
@@ -3207,7 +3232,7 @@ Public Class Form1
             ' if a restart is signalled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Autostart And Not PropAborting Then
                 PropUpdateView = True
-                Boot(PropRegionClass, PropRegionClass.RegionName(X))
+                Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
                 PropUpdateView = True
             End If
 
@@ -4751,7 +4776,7 @@ Public Class Form1
             If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.Protocol.TCP) Then
                 PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.Protocol.TCP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, PropMySetting.SCPortBase, UPnp.Protocol.TCP, "Icecast TCP" + PropMySetting.SCPortBase.ToString(Usa))
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, PropMySetting.SCPortBase, UPnp.Protocol.TCP, "Icecast TCP " + PropMySetting.SCPortBase.ToString(Usa))
             Print("Icecast Port is set to " + PropMySetting.SCPortBase.ToString(Usa))
 
             BumpProgress10()
