@@ -803,7 +803,7 @@ Public Class RegionList
                 Form1.StartRobust()
                 Form1.Log("Starting", PropRegionClass1.RegionName(n))
                 Form1.CopyOpensimProto(PropRegionClass1.RegionName(n))
-                Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n))
+                Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n), True)
                 Form1.Timer1.Start() 'Timer starts functioning
                 PropUpdateView() = True ' force a refresh
 
@@ -1037,7 +1037,7 @@ Public Class RegionList
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        Form1.Startup()
+        Form1.Startup(True)
 
     End Sub
 

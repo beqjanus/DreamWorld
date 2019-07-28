@@ -15,9 +15,16 @@
             Debug.Print(ex.Message)
         Finally
         End Try
+        Try
+            Exitlist1.Add(RegionHandles1.Item(pid))
+        Catch ex As NotSupportedException
+        End Try
 
-        Exitlist1.Add(RegionHandles1.Item(pid))
-        RegionHandles1.Remove(pid)
+        Try
+            RegionHandles1.Remove(pid)
+        Catch ex As ArgumentNullException
+        End Try
+
 
     End Sub
 
