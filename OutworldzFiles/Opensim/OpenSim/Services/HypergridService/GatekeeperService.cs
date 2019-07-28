@@ -249,8 +249,6 @@ namespace OpenSim.Services.HypergridService
             return true;
         }
 
-#if DG
-
         public UUID  GetALTRegion(UUID regionID, UUID agentID)
         {
             // !!! Fkb DreamGrid Auto Load Teleport (ALT) (Smart Start) sends requested Region UUID to Dreamgrid.
@@ -290,7 +288,6 @@ namespace OpenSim.Services.HypergridService
             return regionID;
 
         }
-#endif
 
         public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
         {
