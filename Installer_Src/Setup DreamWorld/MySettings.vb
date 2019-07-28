@@ -82,7 +82,7 @@ Public Class MySettings
             LoopBackDiag() = My.Settings.LoopBackDiag
 
             MapType() = My.Settings.MapType
-
+            Myfolder() = Folder
             MySqlPort() = My.Settings.MySqlPort
             MyX() = My.Settings.MyX
             MyY() = My.Settings.MyY

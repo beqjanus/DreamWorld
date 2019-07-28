@@ -1,4 +1,6 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Threading
+Imports System.Threading.Tasks
+Imports System.Text.RegularExpressions
 
 Public Class FormAutoBackups
 
@@ -176,9 +178,22 @@ Public Class FormAutoBackups
 
     End Sub
 
-
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
         Form1.Help("Backup")
+    End Sub
+
+    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
+
+        Dim CriticalForm = New FormBackupCheckboxes
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+
+    End Sub
+
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+
+        Form1.BackupDB()
+
     End Sub
 
 

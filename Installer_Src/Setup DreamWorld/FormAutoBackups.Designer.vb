@@ -188,14 +188,14 @@ Partial Class FormAutoBackups
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
-        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
-        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
         '
         'FormAutoBackups

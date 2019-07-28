@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormBackupCheckboxes
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,10 @@ Partial Class FormBackupCheckboxes
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.SettingsBox = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -46,12 +47,25 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Controls.Add(Me.FSAssetsCheckBox)
         Me.GroupBox1.Controls.Add(Me.MySqlCheckBox)
         Me.GroupBox1.Controls.Add(Me.RegionCheckBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(210, 199)
+        Me.GroupBox1.Size = New System.Drawing.Size(210, 203)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Backup "
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox1.EnableAutoDragDrop = True
+        Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(228, 37)
+        Me.TextBox1.MaxLength = 15000
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(402, 193)
+        Me.TextBox1.TabIndex = 30
+        Me.TextBox1.Text = ""
         '
         'Button2
         '
@@ -136,7 +150,7 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(249, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(642, 24)
         Me.MenuStrip1.TabIndex = 18602
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -152,17 +166,18 @@ Partial Class FormBackupCheckboxes
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
         '
-        'FormCritical
+        'FormBackupCheckboxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(249, 237)
+        Me.ClientSize = New System.Drawing.Size(642, 243)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Name = "FormCritical"
+        Me.Name = "FormBackupCheckboxes"
         Me.Text = "System Backup"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -184,4 +199,5 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents TextBox1 As RichTextBox
 End Class
