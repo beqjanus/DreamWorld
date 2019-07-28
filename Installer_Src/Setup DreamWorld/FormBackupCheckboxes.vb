@@ -44,9 +44,25 @@ Public Class FormBackupCheckboxes
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
+        If Not Form1.CheckMysql Then
+            MySqlCheckBox.Enabled = True
+            MySqlCheckBox.Checked = True
+        Else
+            MySqlCheckBox.Enabled = False
+            MySqlCheckBox.Checked = False
+        End If
+
+        If Form1.PropMySetting.FsAssetsEnabled Then
+            FSAssetsCheckBox.Enabled = True
+            FSAssetsCheckBox.Checked = True
+        Else
+            FSAssetsCheckBox.Enabled = False
+            FSAssetsCheckBox.Checked = False
+        End If
+
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox1.TextChanged
+    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs)
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
         TextBox1.ScrollToCaret()
@@ -80,11 +96,11 @@ Public Class FormBackupCheckboxes
 
             If FSAssetsCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(Dest + "\FSassets")
+                My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
 
                 Dim folder As String
-                If Form1.PropMySetting.CacheFolder = ".\fsassets" Then
-                    folder = Form1.PropMySetting.OpensimBinPath & "bin\FSassets"
+                If Form1.PropMySetting.BaseDirectory = "./fsassets" Then
+                    folder = Form1.PropMySetting.OpensimBinPath & "bin\FSAssets"
                 Else
                     folder = Form1.PropMySetting.BaseDirectory
                 End If
@@ -123,8 +139,8 @@ Public Class FormBackupCheckboxes
     End Sub
 
     Private Sub Trim()
-        If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
-            TextBox1.Text = Mid(TextBox1.Text, 500)
+        If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
+            TextBox1.Text = Mid(TextBox1.Text, 14000)
         End If
     End Sub
 
@@ -138,6 +154,7 @@ Public Class FormBackupCheckboxes
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
         Form1.Help("Backup Manually")
+
     End Sub
 
 
@@ -164,11 +181,16 @@ Public Class FormBackupCheckboxes
                 Cpy(fileSystemInfo.FullName, destinationFileName)
             End If
 
-
         Next
     End Sub
 
     Private Sub CpyFile(From As String, Dest As String)
+
+        If From.EndsWith("Opensim.ini") Then Return
+        If From.EndsWith("OpenSim.log") Then Return
+        If From.EndsWith("OpenSimStats.log") Then Return
+        If From.EndsWith("PID.pid") Then Return
+        If From.EndsWith("DataSnapshot") Then Return
 
         'Create the file stream for the source file
         Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
