@@ -644,7 +644,7 @@ Public Class RegionMaker
 
                     If Debugger.IsAttached = True Then
                         Try
-                            TeleportAvatarDict.Add("Test User", "Sandbox")
+                            'TeleportAvatarDict.Add("Test", "Test User")
                         Catch ex As Exception
                             Debug.Print("Already In list to add")
                         End Try
@@ -653,16 +653,19 @@ Public Class RegionMaker
                     Dim Removelist As New List(Of String)
                     If Form1.PropMySetting.SmartStart Then
                         For Each Keypair In TeleportAvatarDict
+                            Application.DoEvents()
                             If Keypair.Value = json.region_name Then
-                                Dim AgentName = GetAgentNameByUUID(Keypair.Key)
+                                Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
+                                    Form1.Print("Teleporting " & AgentName & " to " & Keypair.Value)
+                                    Form1.ConsoleCommand(Form1.PropMySetting.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
                                     Form1.ConsoleCommand(Form1.PropMySetting.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+                                    Try
+                                        Removelist.Add(Keypair.Key)
+                                    Catch ex As Exception
+                                        Debug.Print("Already In list to remove")
+                                    End Try
                                 End If
-                                Try
-                                    Removelist.Add(Keypair.Key)
-                                Catch ex As Exception
-                                    Debug.Print("Already In list to remove")
-                                End Try
                             End If
                         Next
                     End If
@@ -1111,19 +1114,25 @@ Public Class RegionMaker
         If Form1.PropMySetting.ServerType <> "Robust" Then Return ""
 
         Dim myConnection As MySqlConnection = New MySqlConnection(Form1.PropMySetting.RobustConnStr)
-        Dim Query1 = "Select name from robust.avatars where PrincipalID=@p1;"
+        Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
             .Connection = myConnection
         }
         myConnection.Open()
         myCommand1.Prepare()
-        myCommand1.Parameters.AddWithValue("p1", UUID)
+        myCommand1.Parameters.AddWithValue("p1", UUID & "%")
         Dim Name = Convert.ToString(myCommand1.ExecuteScalar(), Form1.Usa)
         Debug.Print("User=" + UUID + ", name=" + Name)
-
+        Dim pattern As Regex = New Regex(".*?;.*?;(.*)")
+        Dim match As Match = pattern.Match(Name)
+        If match.Success Then
+            Name = match.Groups(1).Value
+            Debug.Print("User=" + UUID + ", name=" + Name)
+            myConnection.Close()
+            Return Name
+        End If
         myConnection.Close()
-        Return Name
-
+        Return ""
     End Function
 
     Public Function ParsePost(POST As String, PropMySetting As MySettings) As String
@@ -1188,13 +1197,22 @@ Public Class RegionMaker
                 If n > -1 And RegionEnabled(n) And SmartStart(n) Then
                     If Status(n) = SIMSTATUSENUM.Booted Then
                         Form1.Print("Avatar in " & RegionName(n))
+                        Debug.Print("Sending to " & RegionUUID)
                         Return RegionUUID
-                    ElseIf Status(n) = SIMSTATUSENUM.Stopped Then
+                    Else
                         Form1.Print("Smart Start " & RegionName(n))
                         Status(n) = SIMSTATUSENUM.Autostart
+                        Try
+                            TeleportAvatarDict.Remove(RegionName(n))
+                        Catch ex As exception
+                        End Try
+                        
+                        TeleportAvatarDict.Add(AgentUUID, RegionName(n))
+
+                        ' redirect to welcome
                         Dim wname = PropMySetting.WelcomeRegion
                         Dim RegionNum As Integer = FindRegionByName(wname)
-                        TeleportAvatarDict.Add(RegionName(n), AgentUUID)
+                        Debug.Print("Sending to " & UUID(RegionNum))
                         Return UUID(RegionNum)
                     End If
                     'other states we can ignore as eventually it will be Stopped or Running
