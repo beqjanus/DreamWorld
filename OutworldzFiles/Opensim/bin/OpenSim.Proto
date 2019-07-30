@@ -44,14 +44,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=9042
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.135
+BaseHostname=www.Outworldz.com
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,11 +59,11 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.135
+PrivURL=http://192.168.2.140
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=8002
+PublicPort=9000
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
@@ -71,12 +71,12 @@ PrivatePort=8003
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=DreamGrid
+GridName=www.Outworldz.com
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
-DiagnosticsPort=8001
+DiagnosticsPort=9001
 
 [Startup]
 
@@ -367,7 +367,7 @@ alert_uri=http://localhost:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=true
+GenerateMaptiles=false
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -437,17 +437,17 @@ permissionmodules=DefaultPermissionsModule
 ;# {allow_grid_gods} {} {Allow grid gods?} {true false} false
 ;; This allows users with a UserLevel of 200 or more to assume god
 ;; powers in the regions in this simulator.
-allow_grid_gods=false
+allow_grid_gods=true
 
 ;; This allows some control over permissions
 ;; please note that this still doesn't duplicate SL, and is not intended to
 ;# {region_owner_is_god} {} {Allow region owner gods} {true false} true
 ;; Allow region owners to assume god powers in their regions
-region_owner_is_god=false
+region_owner_is_god=true
 
 ;# {region_manager_is_god} {} {Allow region manager gods} {true false} false
 ;; Allow region managers to assume god powers in regions they manage
-region_manager_is_god=false
+region_manager_is_god=true
 
 ;# {simple_build_permissions} {} {Allow building in parcel by access list (no groups)} {true false} false
 ;; More control over permissions
@@ -493,7 +493,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.135
+host_domain_header_from=www.Outworldz.com
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -506,10 +506,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=Gmail for notification
+SMTP_SERVER_LOGIN=
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=Gmail password
+SMTP_SERVER_PASSWORD=4a<$moreG
 
 [Network]
 'must be started with parameter "-console=rest". Furthermore, the configuration options
@@ -561,7 +561,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.135/32
+OutboundDisallowForUserScriptsExcept=192.168.2.140/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -578,7 +578,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=192.168.2.135
+ExternalHostNameForLSL=www.Outworldz.com
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -711,8 +711,7 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|PrivateURL}:${Const|PrivatePort}
-
+OfflineMessageURL=${Const|PrivURL}:${Const|PrivatePort}
 
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
@@ -900,8 +899,8 @@ data_services=http://www.hyperica.com/Search/register.php
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=http://www.hyperica.com/Search/query.php
-SimulatorFeatures=http://www.hyperica.com/Search/query.php
+SearchURL=${Const|BaseURL}:80/Search/query.php
+SimulatorFeatures=${Const|BaseURL}:80/Search/query.php
 
 [Economy]
 
@@ -1054,10 +1053,10 @@ vivox_server=www.osp.vivox.com
 vivox_sip_uri=osp.vivox.com
 
 ; vivox admin user name
-vivox_admin_user=someusername
+vivox_admin_user=fredusen0744-admin
 
 ; vivox admin password
-vivox_admin_password=somepassword
+vivox_admin_password=aBev5Fzq
 
 ; channel type: "channel" or "positional"
 ; - positional: spatial sound (default)
@@ -1226,7 +1225,7 @@ ProfileServiceURL=${Const|BaseURL}:${Const|PublicPort}
 ;# {URL} {} {Set URL for Baked texture service} {}
 ;; Sets the URL for the baked texture ROBUST service.
 ;; Disabled when unset.
-URL=${Const|PrivateURL}:${Const|PrivatePort}
+URL=${Const|PrivURL}:${Const|PrivatePort}
 
 ;;
 ;; Optional module to highlight God names in the viewer.
@@ -1322,14 +1321,14 @@ Include-Architecture="config-include/GridHypergrid.ini"
 ; Automatically changed by Dreamworld - do not change this
 AutoBackupModuleEnabled=true
 AutoBackup=true
-AutoBackupInterval=720
+AutoBackupInterval=1440
 AutoBackupBusyCheck=false
 AutoBackupThreshold=1
 AutoBackupSkipAssets=false
-AutoBackupKeepFilesForDays=30
+AutoBackupKeepFilesForDays=60
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/AutoBackup/
 
 ; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
 [WebStats]
@@ -1341,10 +1340,10 @@ enabled=False
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=false
+enabled=true
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
-density=0.5
+density=0.3
 
 ; update interval for the cloud cover data returned by llCloud().
 ; default is 1000
