@@ -17,7 +17,7 @@
         End Try
         Try
             Exitlist1.Add(RegionHandles1.Item(pid))
-        Catch ex As NotSupportedException
+        Catch ex As exception
         End Try
 
         Try

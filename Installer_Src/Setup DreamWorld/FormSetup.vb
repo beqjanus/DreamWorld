@@ -3513,17 +3513,21 @@ Public Class Form1
     ''' <param name="windowName">the name of the Window </param>
     '''
     Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
-
         Dim WindowCounter As Integer = 0
-        While myProcess.MainWindowHandle = CType(0, IntPtr)
-            Diagnostics.Debug.Print(windowName & " Handle = 0")
-            Sleep(100)
-            WindowCounter += 1
-            If WindowCounter > 200 Then '  20 seconds for process to start
-                ErrorLog("Cannot get MainWindowHandle for " & windowName)
-                Return False
-            End If
-        End While
+        Try
+
+            While myProcess.MainWindowHandle = CType(0, IntPtr)
+                Diagnostics.Debug.Print(windowName & " Handle = 0")
+                Sleep(100)
+                WindowCounter += 1
+                If WindowCounter > 200 Then '  20 seconds for process to start
+                    ErrorLog("Cannot get MainWindowHandle for " & windowName)
+                    Return False
+                End If
+            End While
+        Catch
+            Return False
+        End Try
 
         WindowCounter = 0
 
