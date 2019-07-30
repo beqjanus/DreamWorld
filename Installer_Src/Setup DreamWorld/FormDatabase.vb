@@ -114,6 +114,8 @@
                 osGridRadioButton1.Checked = True
             Case "Metro"
                 MetroRadioButton2.Checked = True
+            Case "AviWorlds"
+                AviWorldsButton.Checked = True
             Case Else
                 GridServerButton.Checked = True
         End Select
@@ -266,6 +268,42 @@
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim FsAssets As New FormFsAssets
+        FsAssets.Show()
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Database")
+    End Sub
+
+    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
+
+        Dim CriticalForm = New FormBackupCheckboxes
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+
+    End Sub
+
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+
+        Form1.BackupDB()
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
+
+        Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr())
+        MysqlConn.DeregisterRegions()
+
+    End Sub
+
+#End Region
+
+#Region "Radio Buttons"
+
     Private Sub GridServerButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
 
         If Not Initted1 Then Return
@@ -298,6 +336,7 @@
 
         ServerType1 = "Region"
         DNSNamebackup1 = Form1.PropMySetting.DNSName
+        Changed1 = True
 
     End Sub
 
@@ -334,43 +373,43 @@
 
         DNSNamebackup1 = Form1.PropMySetting.DNSName
         ServerType1 = "Metro"
-        DNSName1 = "http://hg.metro.land"
-
+        DNSName1 = "hg.metro.land"
         Changed1 = True
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim FsAssets As New FormFsAssets
-        FsAssets.Show()
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles AviWorldsButton.CheckedChanged
 
+        If Not Initted1 Then Return
+        If Not AviWorldsButton.Checked Then Return
+
+        RobustServer.Enabled = True
+        RobustDbName.Enabled = True
+        RobustDBPassword.Enabled = True
+        RobustDbPort.Enabled = True
+        RobustDBUsername.Enabled = True
+        RobustDBPassword.Enabled = True
+
+        ServerType1 = "AviWorlds"
+        DNSNamebackup1 = Form1.PropMySetting.DNSName
+        Form1.PropMySetting.DNSName = "login.aviworlds.com"
+
+
+        If Form1.PropMySetting.ExternalHostName.Length = 0 Then
+            DNSName1 = Form1.PropMySetting.DNSName
+        End If
+        Changed1 = True
+        Try
+            Dim client As New System.Net.WebClient ' downloadclient for web page
+            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+            Form1.PropMySetting.ExternalHostName = ip
+        Catch ex As Net.WebException
+        End Try
+
+        Debug.Print(Form1.PropMySetting.ExternalHostName)
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Database")
-    End Sub
-
-    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
-
-        Dim CriticalForm = New FormBackupCheckboxes
-        CriticalForm.Activate()
-        CriticalForm.Visible = True
-
-    End Sub
-
-    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
-
-        Form1.BackupDB()
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
-
-        Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr())
-        MysqlConn.DeregisterRegions()
-
-    End Sub
 
 
 #End Region

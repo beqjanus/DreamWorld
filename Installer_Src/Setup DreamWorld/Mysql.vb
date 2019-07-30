@@ -13,9 +13,12 @@ Public Class MysqlInterface
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
+        Dim Dict As New Dictionary(Of String, String)
+        If Form1.PropMySetting.ServerType <> "Robust" Then Return Dict
+
         Dim NewSQLConn As New MySqlConnection(GConnStr)
         Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
-        Dim Dict As New Dictionary(Of String, String)
+
 
         Try
             NewSQLConn.Open()

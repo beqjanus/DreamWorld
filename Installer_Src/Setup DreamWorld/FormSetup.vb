@@ -84,7 +84,7 @@ Public Class Form1
     'Max number of port used past 8004
     Private _myUPnpMap As UPnp
 
-    Private _MyVersion As String = "3.1"
+    Private _MyVersion As String = "3.11"
     Private _OpensimBinPath As String
 
     ' Region
@@ -1429,6 +1429,9 @@ Public Class Form1
             Case "Metro"
                 PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath + "bin\OpensimMetro.proto"
+            Case "AviWorlds"
+                PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\OpensimAviWorlds.proto", ";")
+                Return PropOpensimBinPath + "bin\OpensimAviWorlds.proto"
         End Select
         Return Nothing
 
@@ -1735,6 +1738,10 @@ Public Class Form1
                 GridCommon = "Gridcommon-OsGridServer.ini"
             Case "Metro"
                 GridCommon = "Gridcommon-MetroServer.ini"
+            Case "AviWorlds"
+                My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath + "bin\Library.proto", PropOpensimBinPath + "bin\Library", True)
+                GridCommon = "Gridcommon-RegionServer.ini"
+
         End Select
 
         ' Put that gridcommon.ini file in place
@@ -1858,6 +1865,7 @@ Public Class Form1
             Case "Region"
             Case "OSGrid"
             Case "Metro"
+            Case "AviWorlds"
 
         End Select
 
@@ -6177,7 +6185,9 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If PropMySetting.ServerType = "Metro" Or PropMySetting.ServerType = "OsGrid" Then Return
+        If PropMySetting.ServerType = "Metro" _
+            Or PropMySetting.ServerType = "OsGrid" _
+            Or PropMySetting.ServerType = "AviWorlds" Then Return
 
         Print("Setting up search")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()

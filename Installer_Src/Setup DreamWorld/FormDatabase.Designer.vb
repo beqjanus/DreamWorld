@@ -65,6 +65,7 @@ Partial Class FormDatabase
         Me.FullSQLBackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.AviWorldsButton = New System.Windows.Forms.RadioButton()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -324,6 +325,7 @@ Partial Class FormDatabase
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.AviWorldsButton)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
         Me.GroupBox1.Controls.Add(Me.SaveButton)
@@ -422,14 +424,14 @@ Partial Class FormDatabase
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Database Setup"
         '
         'ServerTypeToolStripMenuItem
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.ServerTypeToolStripMenuItem.Text = "Server Type"
         '
         'BackupToolStripMenuItem
@@ -444,15 +446,25 @@ Partial Class FormDatabase
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
-        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
-        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
+        '
+        'AviWorldsButton
+        '
+        Me.AviWorldsButton.AutoSize = True
+        Me.AviWorldsButton.Location = New System.Drawing.Point(17, 123)
+        Me.AviWorldsButton.Name = "AviWorldsButton"
+        Me.AviWorldsButton.Size = New System.Drawing.Size(144, 17)
+        Me.AviWorldsButton.TabIndex = 1886
+        Me.AviWorldsButton.Text = "Aviworlds Region  Server"
+        Me.AviWorldsButton.UseVisualStyleBackColor = True
         '
         'FormDatabase
         '
@@ -524,4 +536,5 @@ Partial Class FormDatabase
     Friend WithEvents DataOnlyToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClearRegionTable As Button
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents AviWorldsButton As RadioButton
 End Class
