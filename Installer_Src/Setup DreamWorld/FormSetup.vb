@@ -6006,7 +6006,7 @@ Public Class Form1
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & PropMySetting.SCPortBase1.ToString(Usa) & """" & vbCrLf
 
         If PropMySetting.ApacheEnable Then
-            Command = Command + "netsh advfirewall firewall  delete rule name=""Opensim HTTP Web Port " & PropMySetting.HttpPort & """" & vbCrLf
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & PropMySetting.ApachePort & """" & vbCrLf
         End If
 
         Dim RegionNumber As Integer = 0
