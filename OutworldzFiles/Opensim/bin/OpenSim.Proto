@@ -711,7 +711,8 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|BaseURL}:${Const|PrivatePort}
+OfflineMessageURL=${Const|PrivateURL}:${Const|PrivatePort}
+
 
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
@@ -970,7 +971,7 @@ MinTimerInterval=0.2
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=True
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts
@@ -1225,7 +1226,8 @@ ProfileServiceURL=${Const|BaseURL}:${Const|PublicPort}
 ;# {URL} {} {Set URL for Baked texture service} {}
 ;; Sets the URL for the baked texture ROBUST service.
 ;; Disabled when unset.
-;URL=${Const|BaseURL}:${Const|PublicPort}
+URL=${Const|PrivateURL}:${Const|PrivatePort}
+
 ;;
 ;; Optional module to highlight God names in the viewer.
 ;; Uncomment and customize appropriately if you want this behavior.
