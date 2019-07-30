@@ -116,8 +116,8 @@ Public Class NetServer
     End Sub
 
     Public Sub ListenerCallback(ByVal result As IAsyncResult)
-
-        Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
+        Try
+            Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
             ' Call EndGetContext to signal the completion of the asynchronous operation.
             Dim context As HttpListenerContext = listener.EndGetContext(result)
 
@@ -147,6 +147,7 @@ Public Class NetServer
                 body.Close()
             End If
 
+
             ' Get the response object to send our confirmation.
             Dim response As HttpListenerResponse = context.Response
 
@@ -164,7 +165,8 @@ Public Class NetServer
 
             'If you are finished with the request, it should be closed also.
             response.Close()
-
+        Catch
+        End Try
     End Sub
 
 

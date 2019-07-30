@@ -82,7 +82,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
                 Print("Backing up Regions Folder")
-                cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
                 Application.DoEvents()
             End If
 
@@ -90,7 +90,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
                 Print("Backing up MySql\Data Folder")
-                cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
                 Application.DoEvents()
             End If
 
@@ -114,8 +114,8 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
                 Print("Backing up Wifi Folders")
-                cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-                cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
                 Application.DoEvents()
             End If
 
