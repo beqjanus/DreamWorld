@@ -93,6 +93,12 @@ Public Class FormRegion
 
     Public Sub Init(Name As String)
 
+        '!!!  remove for production
+        If Debugger.IsAttached = False Then
+            SmartStartCheckBox.Enabled = False
+            Form1.PropMySetting.SmartStart = False
+        End If
+
         Me.Focus()
 
         Name = Name.Trim() ' remove spaces
@@ -278,7 +284,10 @@ Public Class FormRegion
             TPCheckBox1.Checked = True
         End If
 
-        Me.Focus()
+        If Form1.PropMySetting.SmartStart Then
+
+
+            Me.Focus()
         Initted1 = True
         Form1.HelpOnce("Region")
 
