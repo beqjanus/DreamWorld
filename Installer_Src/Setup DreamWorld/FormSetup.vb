@@ -36,6 +36,10 @@ Imports MySql.Data.MySqlClient
 
 Public Class Form1
 
+#Region "Version"
+    Private _MyVersion As String = "3.11"
+#End Region
+
 #Region "Declarations"
 
     ' with events
@@ -84,7 +88,6 @@ Public Class Form1
     'Max number of port used past 8004
     Private _myUPnpMap As UPnp
 
-    Private _MyVersion As String = "3.1"
     Private _OpensimBinPath As String
 
     ' Region
