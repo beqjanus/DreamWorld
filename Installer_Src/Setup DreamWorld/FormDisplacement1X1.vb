@@ -79,9 +79,9 @@ Public Class FormDisplacement1X1
             Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
             PictureBox3.Image = Pic
             Pic = Nothing
-        Catch ex As Io.FileNotFoundException
+        Catch ex As Exception
             PictureBox3.Image = My.Resources.water
-        Catch ex As ArgumentException
+        Catch ex As Exception
             PictureBox3.Image = My.Resources.water
         End Try
 

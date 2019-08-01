@@ -49,6 +49,7 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private _Aborting As Boolean = False
+    Private _RobustExited As Boolean = False
     Dim _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
     Private _ContentAvailable As Boolean = False
@@ -102,6 +103,7 @@ Public Class Form1
     Private _RestartNow As Boolean = False
     Private _RobustConnStr As String = ""
     Private _RobustProcID As Integer
+    Private _RestartRobust As Boolean = False
 
     ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Private _SelectedBox As String = ""
@@ -237,6 +239,24 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
+
+    Public Property PropRobustExited() As Boolean
+        Get
+            Return _RobustExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _RobustExited = Value
+        End Set
+    End Property
+    Public Property PropRestartRobust() As Boolean
+        Get
+            Return _RestartRobust
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartRobust = Value
+        End Set
+    End Property
 
     Public Property FormCaches As FormCaches
         Get
@@ -686,8 +706,7 @@ Public Class Form1
             Else
                 My.Computer.FileSystem.DeleteFile(PropOpensimBinPath + "\bin\OpenSimBirds.Module.dll")
             End If
-        Catch ex As FileNotFoundException
-        Catch ex As IOException
+        Catch
         End Try
 
         If Not StartRobust() Then
@@ -2843,11 +2862,12 @@ Public Class Form1
             Return True
         End If
 
+        PropRestartRobust = False
+
         RobustPictureBox.Image = My.Resources.nav_plain_blue
 
         If PropMySetting.ServerType <> "Robust" Then Return True
 
-        Print("Setup Robust")
         If PropMySetting.RobustServer <> "127.0.0.1" And PropMySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & PropMySetting.RobustServer)
             RobustPictureBox.Image = My.Resources.nav_plain_green
@@ -2992,8 +3012,13 @@ Public Class Form1
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles RobustProcess.Exited
 
         PropRobustProcID = Nothing
-
         If PropAborting Then Return
+
+        If PropRestartRobust() Then
+            PropRobustExited = True
+            Return ' let the exit handler do the job due to cross thread ops
+        End If
+
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath + "bin\Robust.log"
@@ -3077,22 +3102,22 @@ Public Class Form1
 
         Try
             My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\Opensim.log")
-        Catch ex As FileNotFoundException
+        Catch
         End Try
 
         Try
             My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\PID.pid")
-        Catch ex As FileNotFoundException
+        Catch
         End Try
 
         Try
             My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
-        Catch ex As FileNotFoundException
+        Catch
         End Try
 
         Try
             My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
-        Catch ex As FileNotFoundException
+        Catch
         End Try
 
         If myProcess.Start() Then
@@ -3167,6 +3192,11 @@ Public Class Form1
         ' 10 Second ticker
         If PropExitHandlerIsBusy Then Return
         If PropAborting Then Return
+
+        If PropRobustExited And PropRestartRobust Then
+            StartRobust()
+        End If
+
 
         Dim GroupName As String
         Dim RegionNumber As Integer
@@ -3686,8 +3716,8 @@ Public Class Form1
                 End If
 
             End While
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.Message)
         Finally
             NewSQLConn.Close()
         End Try

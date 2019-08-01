@@ -285,9 +285,10 @@ Public Class FormRegion
         End If
 
         If Form1.PropMySetting.SmartStart Then
+            '!!!!!!!!!!!!!!
+        End If
 
-
-            Me.Focus()
+        Me.Focus()
         Initted1 = True
         Form1.HelpOnce("Region")
 
@@ -364,7 +365,7 @@ Public Class FormRegion
 
         Dim y As Single = Convert.ToSingle(x)
         While y > 0
-            y = y - 256
+            y -= 256
         End While
         If y = 0 Then
             Return True
@@ -486,7 +487,7 @@ Public Class FormRegion
         ' might be a new region, so give them a choice
 
         If IsNew1 Then
-            Dim NewGroup As String = RegionName.Text
+            Dim NewGroup As String
 
             NewGroup = RegionChosen()
             If NewGroup.Length = 0 Then
@@ -503,8 +504,6 @@ Public Class FormRegion
 
         End If
 
-        Filepath = PropRegionClass1.RegionPath(n)
-        Folderpath = PropRegionClass1.FolderPath(n)
 
         Dim Snapshot As String = ""
         If PublishDefault.Checked Then
@@ -1125,7 +1124,7 @@ Public Class FormRegion
                 Dim loopctr = 60 ' wait a minute
                 While Form1.CheckPort(Form1.PropMySetting.PrivateURL, PropRegionClass1.GroupPort(X)) And loopctr > 0
                     Form1.Sleep(1000)
-                    loopctr = loopctr - 1
+                    loopctr -= 1
                 End While
 
                 If loopctr > 0 Then

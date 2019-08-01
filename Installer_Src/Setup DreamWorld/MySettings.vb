@@ -314,7 +314,7 @@ Public Class MySettings
     ' fsassets
     Public Property FsAssetsEnabled() As Boolean
         Get
-            Return CType(GetMySetting("FsAssetsEnabled", "false"), Boolean)
+            Return CType(GetMySetting("FsAssetsEnabled", "False"), Boolean)
         End Get
         Set
             SetMySetting("FsAssetsEnabled", Value.ToString(Form1.Usa))

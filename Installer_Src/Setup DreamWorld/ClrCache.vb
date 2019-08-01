@@ -12,13 +12,10 @@ Public Class ClrCache
                 If ext.ToLower(Form1.Usa) <> ".state" And ext.ToLower(Form1.Usa) <> ".keep" Then
                     Try
                         My.Computer.FileSystem.DeleteFile(script)
-                    Catch ex As ArgumentException
-                    Catch ex As DirectoryNotFoundException
-                    Catch ex As IOException
-                    Catch ex As NotSupportedException
+                    Catch ex As Exception
                     End Try
 
-                    ctr = ctr + 1
+                    ctr += 1
                     Form1.Print("Updated " & ctr.ToString(Form1.Usa) & " scripts")
                     Application.DoEvents()
                 End If
@@ -32,10 +29,7 @@ Public Class ClrCache
         Form1.Print("Clearing bake cache")
         Try
             My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
+        Catch ex As Exception
         End Try
 
 
@@ -54,14 +48,11 @@ Public Class ClrCache
             Dim ctr As Integer = 0
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                ctr = ctr + 1
+                ctr += 1
                 If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
+        Catch ex As Exception
         End Try
 
     End Sub
@@ -74,14 +65,11 @@ Public Class ClrCache
             Dim ctr = 0
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                ctr = ctr + 1
+                ctr += 1
                 If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
+        Catch ex As Exception
         End Try
 
     End Sub
@@ -96,14 +84,11 @@ Public Class ClrCache
             Dim ctr As Integer = 0
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                ctr = ctr + 1
+                ctr += 1
                 Form1.Print(ctr.ToString(Form1.Usa) + " of " + fCount.ToString(Form1.Usa))
                 Application.DoEvents()
             Next
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
+        Catch ex As Exception
         End Try
 
     End Sub

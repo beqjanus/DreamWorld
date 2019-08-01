@@ -43,7 +43,7 @@ Public Class NetServer
             WebThread.SetApartmentState(ApartmentState.STA)
             WebThread.Start()
             running = True
-        Catch ex As ThreadStateException
+        Catch ex As Exception
             Log("Error", ex.Message)
         End Try
 
@@ -60,7 +60,7 @@ Public Class NetServer
 
         Try
             listener.Start() ' Throws Exception
-        Catch ex As HttpListenerException
+        Catch ex As Exception
             If ex.Message.Contains("Access is denied") Then
                 Log("Error", ex.Message)
                 Return
@@ -110,7 +110,7 @@ Public Class NetServer
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" & category & ":" & message)
             End Using
-        Catch ex As IOException
+        Catch ex As Exception
             Debug.Print(ex.Message)
         End Try
     End Sub
@@ -202,7 +202,7 @@ Public Class NetServer
                     End If
                 End If
             End While
-        Catch ex As MySqlException
+        Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             NewSQLConn.Close()

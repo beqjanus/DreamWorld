@@ -102,7 +102,7 @@ Public Class FormRegions
             Catch ex As Exception
                 Form1.ErrorLog("Error:" + ex.Message)
             End Try
-            counter = counter + 1
+            counter += 1
             Y += 100
             X += 100
 
@@ -111,9 +111,6 @@ Public Class FormRegions
     End Sub
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
-
-        Dim X As Integer = 300
-        Dim Y As Integer = 200
 
         PropRegionClass1.CreateRegion("")
 
@@ -201,7 +198,7 @@ Public Class FormRegions
             Dim X = PropRegionClass1.CoordX(RegionNum)
             Dim Y = PropRegionClass1.CoordY(RegionNum)
             Dim Err As Boolean = False
-            Dim Failed As String = ""
+            Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
             For Each RegionNumber In PropRegionClass1.RegionNumbers

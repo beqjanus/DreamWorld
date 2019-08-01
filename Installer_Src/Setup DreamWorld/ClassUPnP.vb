@@ -314,7 +314,7 @@ Public Class UPnp
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" + message)
             End Using
-        Catch ex As ioexception
+        Catch ex As exception
         End Try
     End Sub
 
