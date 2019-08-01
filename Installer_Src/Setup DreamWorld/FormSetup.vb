@@ -36,6 +36,10 @@ Imports MySql.Data.MySqlClient
 
 Public Class Form1
 
+#Region "Version"
+    Private _MyVersion As String = "3.11"
+#End Region
+
 #Region "Declarations"
 
     ' with events
@@ -45,6 +49,7 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private _Aborting As Boolean = False
+    Private _RobustExited As Boolean = False
     Dim _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
     Private _ContentAvailable As Boolean = False
@@ -84,7 +89,6 @@ Public Class Form1
     'Max number of port used past 8004
     Private _myUPnpMap As UPnp
 
-    Private _MyVersion As String = "3.11"
     Private _OpensimBinPath As String
 
     ' Region
@@ -99,6 +103,7 @@ Public Class Form1
     Private _RestartNow As Boolean = False
     Private _RobustConnStr As String = ""
     Private _RobustProcID As Integer
+    Private _RestartRobust As Boolean = False
 
     ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Private _SelectedBox As String = ""
@@ -234,6 +239,24 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
+
+    Public Property PropRobustExited() As Boolean
+        Get
+            Return _RobustExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _RobustExited = Value
+        End Set
+    End Property
+    Public Property PropRestartRobust() As Boolean
+        Get
+            Return _RestartRobust
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartRobust = Value
+        End Set
+    End Property
 
     Public Property FormCaches As FormCaches
         Get
@@ -683,8 +706,7 @@ Public Class Form1
             Else
                 My.Computer.FileSystem.DeleteFile(PropOpensimBinPath + "\bin\OpenSimBirds.Module.dll")
             End If
-        Catch ex As FileNotFoundException
-        Catch ex As IOException
+        Catch
         End Try
 
         If Not StartRobust() Then
@@ -2848,11 +2870,12 @@ Public Class Form1
             Return True
         End If
 
+        PropRestartRobust = False
+
         RobustPictureBox.Image = My.Resources.nav_plain_blue
 
         If PropMySetting.ServerType <> "Robust" Then Return True
 
-        Print("Setup Robust")
         If PropMySetting.RobustServer <> "127.0.0.1" And PropMySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & PropMySetting.RobustServer)
             RobustPictureBox.Image = My.Resources.nav_plain_green
@@ -2997,8 +3020,13 @@ Public Class Form1
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles RobustProcess.Exited
 
         PropRobustProcID = Nothing
-
         If PropAborting Then Return
+
+        If PropRestartRobust() Then
+            PropRobustExited = True
+            Return ' let the exit handler do the job due to cross thread ops
+        End If
+
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath + "bin\Robust.log"
@@ -3024,51 +3052,51 @@ Public Class Form1
 
         Buttons(StopButton)
 
-        Dim RegionNumber = PropRegionClass.FindRegionByName(BootName)
-        If PropRegionClass.SmartStart(RegionNumber) And PropMySetting.SmartStart And Not SkipSmartStart Then
+        Dim RegionNumber = Regionclass.FindRegionByName(BootName)
+        If Regionclass.SmartStart(RegionNumber) And PropMySetting.SmartStart And Not SkipSmartStart Then
             Print("Smart Start " & BootName)
             Return True
         End If
 
         Log("Info", "Region: Starting Region " + BootName)
 
-        If PropRegionClass.IsBooted(RegionNumber) Then
+        If Regionclass.IsBooted(RegionNumber) Then
             Log("Info", "Region " + BootName + " already running")
             Return True
         End If
 
-        If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Log("Info", "Region " + BootName + " skipped as it is already Warming Up")
             Return True
         End If
 
-        If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
             Log("Info", "Region " + BootName + " skipped as it is already Booted Up")
             Return True
         End If
 
-        If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Log("Info", "Region " + BootName + " skipped as it is already Shutting Down")
             Return True
         End If
 
-        If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Log("Info", "Region " + BootName + " skipped as it is already Recycling Down")
             Return True
         End If
 
         Application.DoEvents()
-        Dim isRegionRunning = CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionNumber))
+        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Log("Info", "Region " + BootName + " failed to start as it is already running")
-            PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+            Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
             Return False
         End If
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", PropMySetting.OpensimBinPath() + "bin\Regions\" + PropRegionClass.GroupName(RegionNumber))
 
         Dim myProcess As Process = GetNewProcess()
-        Dim Groupname = PropRegionClass.GroupName(RegionNumber)
+        Dim Groupname = Regionclass.GroupName(RegionNumber)
         Print("Starting " + Groupname)
 
         myProcess.EnableRaisingEvents = True
@@ -3078,39 +3106,39 @@ Public Class Form1
         myProcess.StartInfo.FileName = """" + PropMySetting.OpensimBinPath() + "bin\OpenSim.exe" + """"
         myProcess.StartInfo.CreateNoWindow = False
         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & PropRegionClass.GroupName(RegionNumber) + """"
+        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & Regionclass.GroupName(RegionNumber) + """"
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\Opensim.log")
-        Catch ex As FileNotFoundException
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
+        Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & PropRegionClass.GroupName(RegionNumber) & "\PID.pid")
-        Catch ex As FileNotFoundException
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
+        Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpensimConsole.log")
-        Catch ex As FileNotFoundException
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
+        Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & PropRegionClass.GroupName(RegionNumber) & "\OpenSimStats.log")
-        Catch ex As FileNotFoundException
+            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() + "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
+        Catch
         End Try
 
         If myProcess.Start() Then
-            For Each num In PropRegionClass.RegionListByGroupNum(Groupname)
-                Log("Debug", "Process started for " + PropRegionClass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
-                PropRegionClass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
-                PropRegionClass.ProcessID(num) = myProcess.Id
-                PropRegionClass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
+            For Each num In Regionclass.RegionListByGroupNum(Groupname)
+                Log("Debug", "Process started for " + Regionclass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
+                Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
+                Regionclass.ProcessID(num) = myProcess.Id
+                Regionclass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
             Next
 
             PropUpdateView = True ' make form refresh
             Application.DoEvents()
-            SetWindowTextCall(myProcess, PropRegionClass.GroupName(RegionNumber))
+            SetWindowTextCall(myProcess, Regionclass.GroupName(RegionNumber))
 
             Log("Debug", "Created Process Number " + myProcess.Id.ToString(Usa) + " in  RegionHandles(" + PropRegionHandles.Count.ToString(Usa) + ") " + "Group:" + Groupname)
             PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
@@ -3172,6 +3200,11 @@ Public Class Form1
         ' 10 Second ticker
         If PropExitHandlerIsBusy Then Return
         If PropAborting Then Return
+
+        If PropRobustExited And PropRestartRobust Then
+            StartRobust()
+        End If
+
 
         Dim GroupName As String
         Dim RegionNumber As Integer
@@ -3691,8 +3724,8 @@ Public Class Form1
                 End If
 
             End While
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.Message)
         Finally
             NewSQLConn.Close()
         End Try

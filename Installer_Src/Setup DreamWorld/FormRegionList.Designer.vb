@@ -40,10 +40,11 @@ Partial Class RegionList
         Me.ViewCompact = New System.Windows.Forms.Button()
         Me.ViewMaps = New System.Windows.Forms.Button()
         Me.ViewAvatars = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.RestartRobustButton = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -148,7 +149,7 @@ Partial Class RegionList
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(393, 188)
+        Me.AvatarView.Size = New System.Drawing.Size(485, 188)
         Me.AvatarView.TabIndex = 18597
         Me.ToolTip1.SetToolTip(Me.AvatarView, "Regions may start/stop in groups, depending upon how your bin\Regions folder is o" &
         "rganized.")
@@ -196,12 +197,32 @@ Partial Class RegionList
         Me.ToolTip1.SetToolTip(Me.ViewAvatars, "View list of Avatars")
         Me.ViewAvatars.UseVisualStyleBackColor = True
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(326, 8)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(70, 23)
+        Me.Button2.TabIndex = 18603
+        Me.Button2.Text = "Import"
+        Me.ToolTip1.SetToolTip(Me.Button2, "View list of Avatars")
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'RestartRobustButton
+        '
+        Me.RestartRobustButton.Location = New System.Drawing.Point(402, 37)
+        Me.RestartRobustButton.Name = "RestartRobustButton"
+        Me.RestartRobustButton.Size = New System.Drawing.Size(95, 23)
+        Me.RestartRobustButton.TabIndex = 18604
+        Me.RestartRobustButton.Text = "Restart Robust"
+        Me.ToolTip1.SetToolTip(Me.RestartRobustButton, "restarts all Checked Regions")
+        Me.RestartRobustButton.UseVisualStyleBackColor = True
+        '
         'MenuStrip1
         '
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(427, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(509, 24)
         Me.MenuStrip1.TabIndex = 18598
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -220,21 +241,12 @@ Partial Class RegionList
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(326, 8)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(70, 23)
-        Me.Button2.TabIndex = 18603
-        Me.Button2.Text = "Import"
-        Me.ToolTip1.SetToolTip(Me.Button2, "View list of Avatars")
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(427, 269)
+        Me.ClientSize = New System.Drawing.Size(509, 269)
+        Me.Controls.Add(Me.RestartRobustButton)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.ViewAvatars)
         Me.Controls.Add(Me.ViewMaps)
@@ -278,4 +290,5 @@ Partial Class RegionList
     Friend WithEvents ViewAvatars As Button
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents Button2 As Button
+    Friend WithEvents RestartRobustButton As Button
 End Class

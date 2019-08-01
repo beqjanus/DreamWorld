@@ -90,7 +90,7 @@ Public Class UPnp
             If staticMapping.Count = 0 Then
                 Log("Router does not have any active UPnP mappings.")
             End If
-        Catch ex As NotImplementedException
+        Catch
             Log("Router does not support Static mappings.")
             staticEnabled = False
         End Try
@@ -106,7 +106,7 @@ Public Class UPnp
             If dynamicMapping Is Nothing Then
                 dynamicEnabled = False
             End If
-        Catch ex As NotImplementedException
+        Catch
             Log("Router does not support Dynamic mappings.")
             dynamicEnabled = False
         End Try
@@ -249,7 +249,7 @@ Public Class UPnp
         Try
             Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
             Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
-        Catch ex As ArgumentException
+        Catch
 
         End Try
 
@@ -314,7 +314,7 @@ Public Class UPnp
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" + message)
             End Using
-        Catch ex As ioexception
+        Catch ex As exception
         End Try
     End Sub
 

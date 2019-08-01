@@ -11,7 +11,7 @@
         Dim pid = 0
         Try
             pid = CType(sender.Id, Integer)
-        Catch ex As FormatException
+        Catch ex As Exception
             Debug.Print(ex.Message)
         Finally
         End Try
@@ -22,7 +22,7 @@
 
         Try
             RegionHandles1.Remove(pid)
-        Catch ex As ArgumentNullException
+        Catch ex As Exception
         End Try
 
 

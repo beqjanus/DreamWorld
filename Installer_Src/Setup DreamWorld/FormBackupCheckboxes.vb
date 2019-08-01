@@ -124,7 +124,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CopyFile(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
             End If
             Print("Finished with backup at " + Dest)
-        Catch ex As IO.IOException
+        Catch ex As Exception
             MsgBox("Something went wrong: " + ex.Message)
         End Try
 

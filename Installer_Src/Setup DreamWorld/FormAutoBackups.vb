@@ -127,7 +127,7 @@ Public Class FormAutoBackups
                 Form1.PropMySetting.SaveSettings()
             End If
 
-        Catch ex As FormatException
+        Catch ex As Exception
             MsgBox("Must be a number of days", vbInformation)
             Form1.PropMySetting.KeepForDays = 30
             Form1.PropMySetting.SaveSettings()
