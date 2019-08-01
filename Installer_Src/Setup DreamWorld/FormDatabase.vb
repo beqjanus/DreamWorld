@@ -355,6 +355,16 @@
         DNSNamebackup1 = Form1.PropMySetting.DNSName
         ServerType1 = "OsGrid"
         DNSName1 = "hg.osgrid.org"
+
+        Try
+            Dim client As New System.Net.WebClient ' downloadclient for web page
+            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+            Form1.PropMySetting.ExternalHostName = ip
+        Catch ex As Net.WebException
+        End Try
+
+        Debug.Print(Form1.PropMySetting.ExternalHostName)
+
         Changed1 = True
 
     End Sub
@@ -374,6 +384,16 @@
         DNSNamebackup1 = Form1.PropMySetting.DNSName
         ServerType1 = "Metro"
         DNSName1 = "hg.metro.land"
+
+        Try
+            Dim client As New System.Net.WebClient ' downloadclient for web page
+            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+            Form1.PropMySetting.ExternalHostName = ip
+        Catch ex As Net.WebException
+        End Try
+
+        Debug.Print(Form1.PropMySetting.ExternalHostName)
+
         Changed1 = True
 
     End Sub
