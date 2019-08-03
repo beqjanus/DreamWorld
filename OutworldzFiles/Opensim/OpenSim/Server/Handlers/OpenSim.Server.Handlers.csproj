@@ -274,13 +274,13 @@
 	  <Compile Include="Hypergrid\HomeAgentHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Hypergrid\HypergridHandlers.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Hypergrid\InstantMessageServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Hypergrid\UserAgentServerConnector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Hypergrid\HypergridHandlers.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Inventory\InventoryServerInConnector.cs">

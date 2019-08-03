@@ -132,10 +132,10 @@
 	  <Compile Include="Compiler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="lsl.parser.cs">
+	  <Compile Include="lsl.lexer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="lsl.lexer.cs">
+	  <Compile Include="lsl.parser.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

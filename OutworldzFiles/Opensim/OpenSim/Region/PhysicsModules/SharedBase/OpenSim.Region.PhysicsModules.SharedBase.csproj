@@ -136,10 +136,10 @@
 	  <Compile Include="VehicleConstants.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PhysicsScene.cs">
+	  <Compile Include="NullPhysicsScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="NullPhysicsScene.cs">
+	  <Compile Include="PhysicsScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

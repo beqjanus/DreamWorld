@@ -203,13 +203,13 @@
 	  <Compile Include="UserAgentServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GatekeeperService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="HGSuitcaseInventoryService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UserAgentService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="GatekeeperService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

@@ -328,6 +328,9 @@
 	  <Compile Include="Avatar\Friends\CallingCardModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Avatar\Friends\FriendsModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Avatar\Friends\HGStatusNotifier.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -335,9 +338,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Friends\HGFriendsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Avatar\Friends\FriendsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Gestures\GesturesModule.cs">
@@ -409,10 +409,10 @@
 	  <Compile Include="Framework\EntityTransfer\EntityTransferStateMachine.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\EntityTransfer\HGEntityTransferModule.cs">
+	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\EntityTransfer\EntityTransferModule.cs">
+	  <Compile Include="Framework\EntityTransfer\HGEntityTransferModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Framework\InterfaceCommander\Command.cs">
@@ -616,13 +616,13 @@
 	  <Compile Include="ServiceConnectorsOut\Grid\RemoteGridServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="ServiceConnectorsOut\GridUser\ActivityDetector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="ServiceConnectorsOut\GridUser\LocalGridUserServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServiceConnectorsOut\GridUser\RemoteGridUserServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ServiceConnectorsOut\GridUser\ActivityDetector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServiceConnectorsOut\Inventory\HGInventoryBroker.cs">
@@ -703,10 +703,10 @@
 	  <Compile Include="World\Archiver\ArchiveReadRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\AssetsDearchiver.cs">
+	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Archiver\ArchiveWriteRequest.cs">
+	  <Compile Include="World\Archiver\AssetsDearchiver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Archiver\AssetsRequest.cs">
