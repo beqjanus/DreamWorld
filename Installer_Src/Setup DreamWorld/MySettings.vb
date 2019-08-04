@@ -292,6 +292,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property OverrideName() As String
+        Get
+            Return GetMySetting("OverrideName", "")
+        End Get
+        Set
+            SetMySetting("OverrideName", Value)
+        End Set
+    End Property
+
     Public Property SmartStart() As Boolean
         Get
             Return CType(GetMySetting("SmartStart", "false"), Boolean)

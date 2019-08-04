@@ -998,7 +998,11 @@ Public Class RegionMaker
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
             Form1.PropMySetting.LoadOtherIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
-            Form1.PropMySetting.SetOtherIni(simName, "InternalPort", Portnumber.ToString(Form1.Usa))
+            Try
+                Form1.PropMySetting.SetOtherIni(simName, "InternalPort", Portnumber.ToString(Form1.Usa))
+            Catch
+            End Try
+
             Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber

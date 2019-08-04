@@ -33,11 +33,12 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
+Imports System.Diagnostics
 
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.12"
+    Private _MyVersion As String = "3.13"
 #End Region
 
 #Region "Declarations"
@@ -644,14 +645,7 @@ Public Class Form1
         ToolBar(False)
         Buttons(BusyButton)
 
-        ' Set them back to the DNS name if there is one
-        If PropMySetting.DNSName.Length > 0 Then
-            PropMySetting.PublicIP = PropMySetting.DNSName
-        End If
-
-        If PropMySetting.GridServerName.Length = 0 Then
-            PropMySetting.GridServerName = PropMySetting.DNSName
-        End If
+        GetGridServerName()
 
         Print("Setup Ports")
         PropRegionClass.UpdateAllRegionPorts() ' must be done before we are running
@@ -746,7 +740,66 @@ Public Class Form1
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         ReallyQuit()
     End Sub
+    Private Sub GetGridServerName()
 
+        PropMyUPnpMap = New UPnp(PropMyFolder)
+
+        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
+        Print("Lan IP=" & PropMySetting.PublicIP)
+        PropMySetting.PrivateURL = PropMySetting.PublicIP
+
+        ' Set them back to the DNS name if there is one
+        If PropMySetting.DNSName.Length > 0 Then
+            PropMySetting.PublicIP = PropMySetting.DNSName
+            Print("DNS Name=" & PropMySetting.PublicIP)
+        End If
+
+        If PropMySetting.ServerType = "Robust" Then
+            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+            Print("Robust Server mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "OsGrid" Then
+            PropMySetting.PublicIP = "hg.osgrid.org"
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            Print("OSGrid Region mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "Region" Then
+            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+            Print("Region mode.")
+            Print("IP=" & PropMySetting.ExternalHostName)
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+        ElseIf PropMySetting.ServerType = "Metro" Then
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Print("Metro Region mode")
+            Print("Host=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "AviWorlds" Then
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Print("AviWorlds Region mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        End If
+
+        If PropMySetting.OverrideName.Length > 0 Then
+            PropMySetting.ExternalHostName = PropMySetting.OverrideName
+            Print("Region IP=" & PropMySetting.ExternalHostName)
+        End If
+    End Sub
     ''' <summary>
     ''' Form Load is main() for all Dreamgrid
     ''' </summary>
@@ -834,24 +887,8 @@ Public Class Form1
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
         End If
 
-        Print("Setting IP")
-        PropMyUPnpMap = New UPnp(PropMyFolder)
 
-        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
-        PropMySetting.PrivateURL = PropMySetting.PublicIP
-
-        ' Set them back to the DNS name if there is one
-        If PropMySetting.DNSName.Length > 0 Then
-            PropMySetting.PublicIP = PropMySetting.DNSName
-        End If
-
-        If PropMySetting.GridServerName.Length = 0 Then
-            If PropMySetting.DNSName.Length > 0 Then
-                PropMySetting.GridServerName = PropMySetting.DNSName
-            Else
-                PropMySetting.GridServerName = PropMySetting.PublicIP
-            End If
-        End If
+        GetGridServerName()
 
         If (PropMySetting.SplashPage.Length = 0) Then
             PropMySetting.SplashPage = PropDomain() + "/Outworldz_installer/Welcome.htm"
@@ -1466,7 +1503,8 @@ Public Class Form1
 
             PropMySetting.LoadOtherIni(GetOpensimProto(), ";")
 
-            PropMySetting.SetOtherIni("Const", "BaseHostname", PropMySetting.PublicIP)
+            PropMySetting.SetOtherIni("Const", "BaseHostname", PropMySetting.GridServerName)
+
             PropMySetting.SetOtherIni("Const", "PublicPort", PropMySetting.HttpPort) ' 8002
             PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL) ' local IP
             PropMySetting.SetOtherIni("Const", "http_listener_port", PropRegionClass.RegionPort(X).ToString(Usa)) ' varies with region

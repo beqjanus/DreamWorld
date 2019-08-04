@@ -48,7 +48,7 @@ Public Class FormPorts
         PrivatePort.Text = Form1.PropMySetting.PrivatePort
         HTTPPort.Text = Form1.PropMySetting.HttpPort
 
-        ExternalHostName.Text = Form1.PropMySetting.ExternalHostName
+        ExternalHostName.Text = Form1.PropMySetting.OverrideName
 
         Form1.HelpOnce("Ports")
         initted = True
@@ -68,7 +68,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Form1.PropMySetting.ExternalHostName = ExternalHostName.Text
+        Form1.PropMySetting.OverrideName = ExternalHostName.Text
 
     End Sub
 

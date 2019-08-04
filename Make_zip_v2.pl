@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.12' ; 
+my $type  = '-V3.13' ; 
 use Cwd;
 my $dir = getcwd;
 
@@ -74,6 +74,9 @@ unlink "$dir/OutworldzFiles/http.log" ;
 
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
+
+DeleteandKeep("$dir/OutworldzFiles/AutoBackup/MySQL");
+
 
 say "DLL List Build";
 use File::Find;
