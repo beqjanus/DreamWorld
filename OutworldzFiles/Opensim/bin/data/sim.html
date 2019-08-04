@@ -4,10 +4,7 @@
 <head>
 <title>Simulator statistics</title>
 <link rel="stylesheet" href="sim.css" type="text/css"/>
-<!-- <script type="text/javascript" src="jquery.js"></script> -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.0.min.js"></script> -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/libs/jQuery/jquery-1.9.0.min.js"></script> -->
 <noscript>
 <p color="red">
 Your browser does not support Javascript. This won't work for you.
@@ -55,10 +52,11 @@ function TimerStatDisplay() {
     doingStatDisplay = false;
 }
 
-var simName = "127.0.0.1";
-var simPort = "9000";
+var simName = "192.168.2.135";
+var simPort = "8004";
 function DisplaySimStats() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/?json=1";
+    statURL = "/SStats/?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -77,6 +75,7 @@ function DisplaySimStats() {
 
 function DisplayPerRegionStats() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/simstatsajax.html?json=1";
+    statURL = "/SStats/simstatsajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -95,6 +94,7 @@ function DisplayPerRegionStats() {
 
 function DisplayLogFile() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/activelogajax.html?json=1";
+    statURL = "/SStats/activelogajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -113,6 +113,7 @@ function DisplayLogFile() {
 
 function DisplaySessionStats() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/activeconnectionsajax.html?json=1";
+    statURL = "http://" + simName + ":" + simPort + "/SStats/activeconnectionsajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
