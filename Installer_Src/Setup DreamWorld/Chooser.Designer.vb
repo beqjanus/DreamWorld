@@ -42,7 +42,7 @@ Partial Class Choice
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.ReadOnly = True
         Me.DataGridView.RowHeadersWidth = 40
-        Me.DataGridView.Size = New System.Drawing.Size(215, 189)
+        Me.DataGridView.Size = New System.Drawing.Size(292, 189)
         Me.DataGridView.TabIndex = 2
         '
         'Group
@@ -79,7 +79,7 @@ Partial Class Choice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(217, 225)
+        Me.ClientSize = New System.Drawing.Size(298, 225)
         Me.Controls.Add(Me.CancelButton1)
         Me.Controls.Add(Me.OKButton1)
         Me.Controls.Add(Me.DataGridView)
