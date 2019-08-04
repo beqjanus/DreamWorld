@@ -1170,6 +1170,17 @@ Public Class RegionList
         Form1.ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
     End Sub
 
+    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click
+
+        Dim regionname = Form1.ChooseRegion(True)
+        If regionname.Length = 0 Then Return
+        Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
+        Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
+        Dim webAddress As String = "http://" & Form1.PropMySetting.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Process.Start(webAddress)
+
+    End Sub
+
 #End Region
 
 End Class

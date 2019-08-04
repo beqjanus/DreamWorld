@@ -45,6 +45,7 @@ Partial Class RegionList
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -241,11 +242,22 @@ Partial Class RegionList
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = "Help"
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(402, 8)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(95, 23)
+        Me.Button3.TabIndex = 18605
+        Me.Button3.Text = "Region Stats"
+        Me.ToolTip1.SetToolTip(Me.Button3, "View list of Avatars")
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'RegionList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(509, 269)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.RestartRobustButton)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.ViewAvatars)
@@ -291,4 +303,5 @@ Partial Class RegionList
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents Button2 As Button
     Friend WithEvents RestartRobustButton As Button
+    Friend WithEvents Button3 As Button
 End Class
