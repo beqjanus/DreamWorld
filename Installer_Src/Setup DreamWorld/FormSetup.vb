@@ -744,13 +744,16 @@ Public Class Form1
 
         PropMyUPnpMap = New UPnp(PropMyFolder)
 
+        ' setup some defaults
         PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
         Print("Lan IP=" & PropMySetting.PublicIP)
         PropMySetting.PrivateURL = PropMySetting.PublicIP
+        PropMySetting.GridServerName = PropMySetting.PublicIP
 
         ' Set them back to the DNS name if there is one
         If PropMySetting.DNSName.Length > 0 Then
             PropMySetting.PublicIP = PropMySetting.DNSName
+            PropMySetting.GridServerName = PropMySetting.DNSName
             Print("DNS Name=" & PropMySetting.PublicIP)
         End If
 
