@@ -38,7 +38,8 @@ catch(PDOException $e)
                $('.striped tr:even').addClass('alt');
             });
         </script>
-        <title></title>
+        <title>Search Classifieds</title>
+        <link rel="shortcut icon" href="/favicon.ico">
     </head>
     <body>
         

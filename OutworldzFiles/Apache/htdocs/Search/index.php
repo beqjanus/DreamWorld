@@ -91,7 +91,7 @@ td {
 }
 </style>
 
-
+<link rel="shortcut icon" href="/favicon.ico">
 
 </head>
 

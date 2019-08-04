@@ -1,6 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
-
-
+<!DOCTYPE html>
+     <html>
+	  <head>
+	       <meta charset="utf-8">
+	       <link rel="shortcut icon" href="/favicon.ico">
+	  </head>
+<body>
    
    <!-- iframe hier mit kann der RegionsgeneratorV1_xx in eine bestehende Homepage eingefügt werden.
    

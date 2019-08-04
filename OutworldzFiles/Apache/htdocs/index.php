@@ -1,6 +1,7 @@
 <html>
  <head>
   <title>Welcome to Dreamworld</title>
+  <link rel="shortcut icon" hhref="favicon.ico"
  </head>
  <body>
 
@@ -31,6 +32,7 @@ catch(PDOException $e)
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
         <title>Dreamgrid Opensimulator by www.outworldz.com</title>
+        <link rel="shortcut icon" href="favicon.ico">
     </head>
     <body>
     

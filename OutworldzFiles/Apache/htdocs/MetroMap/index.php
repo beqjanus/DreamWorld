@@ -1,4 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<!DOCTYPE html>
+     <html>
+	  <head>
+	       <meta charset="utf-8">
+	  <link rel="shortcut icon" href="/favicon.ico">
+	  </head>
+     <body>
 
 
    

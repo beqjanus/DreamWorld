@@ -26,7 +26,8 @@ catch(PDOException $e)
         <!--
         <meta http-equiv="refresh" content="1;URL='/Search'" />
         -->
-        <title></title>
+        <title>Classifieds</title>
+        <link rel="shortcut icon" href="/favicon.ico">
     </head>
     <body>
        
