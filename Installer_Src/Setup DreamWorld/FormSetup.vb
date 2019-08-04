@@ -4780,6 +4780,13 @@ Public Class Form1
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(PropMySetting.SCPortBase, Integer), UPnp.Protocol.TCP, "Icecast TCP Public " + PropMySetting.SCPortBase.ToString(Usa))
                 Print("Icecast Port is set to " + PropMySetting.SCPortBase.ToString(Usa))
                 BumpProgress10()
+                If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.SCPortBase1), UPnp.Protocol.TCP) Then
+                    PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.SCPortBase1), UPnp.Protocol.TCP)
+                End If
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(PropMySetting.SCPortBase1, Integer), UPnp.Protocol.TCP, "Icecast1 TCP Public " + PropMySetting.SCPortBase.ToString(Usa))
+                Print("Icecast Port1 is set to " + PropMySetting.SCPortBase1.ToString(Usa))
+
+
             End If
 
             ' 8002 for TCP and UDP
