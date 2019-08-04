@@ -2527,7 +2527,7 @@ Public Class Form1
         Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
         SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
         SiteMapContents +=  "<url>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.PublicIP, String) & "/bin/data/index.htm" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.HttpPort, String) & "/bin/data/index.htm" & "</loc>" & vbCrLf
         SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
         SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchClassifieds.php" & "</loc>" & vbCrLf
         SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchObjects.php" & "</loc>" & vbCrLf
