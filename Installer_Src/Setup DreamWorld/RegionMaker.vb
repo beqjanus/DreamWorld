@@ -14,7 +14,6 @@ Public Class RegionMaker
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
     Dim json As JSONresult
-    Private MysqlConn As MysqlInterface    ' object lets us query Mysql database
 
 #Enable Warning IDE0044 ' Add readonly modifier
     Dim TeleportAvatarDict As New Dictionary(Of String, String)

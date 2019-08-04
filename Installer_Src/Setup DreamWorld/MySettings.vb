@@ -523,12 +523,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property ApachePort() As String
+    Public Property ApachePort() As Integer
         Get
-            Return GetMySetting("ApachePort", "80")
+            Return CType(GetMySetting("ApachePort", "80"), Integer)
         End Get
         Set
-            SetMySetting("ApachePort", Value)
+            SetMySetting("ApachePort", CType(Value, String))
         End Set
     End Property
 

@@ -1,15 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <title>Simulator statistics</title>
 <link rel="stylesheet" href="sim.css" type="text/css"/>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<noscript>
-<p color="red">
-Your browser does not support Javascript. This won't work for you.
-</p>
-</noscript>
 <script type="text/javascript">
 $(document).ready(function() {
     // Major divisions in the content accordioning
@@ -52,11 +45,8 @@ function TimerStatDisplay() {
     doingStatDisplay = false;
 }
 
-var simName = "192.168.2.135";
-var simPort = "8004";
 function DisplaySimStats() {
-    var statURL = "http://" + simName + ":" + simPort + "/SStats/?json=1";
-    statURL = "/SStats/?json=1";
+    var statURL = "/SStats/?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -74,8 +64,7 @@ function DisplaySimStats() {
 }
 
 function DisplayPerRegionStats() {
-    var statURL = "http://" + simName + ":" + simPort + "/SStats/simstatsajax.html?json=1";
-    statURL = "/SStats/simstatsajax.html?json=1";
+    var statURL = "/SStats/simstatsajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -93,8 +82,7 @@ function DisplayPerRegionStats() {
 };
 
 function DisplayLogFile() {
-    var statURL = "http://" + simName + ":" + simPort + "/SStats/activelogajax.html?json=1";
-    statURL = "/SStats/activelogajax.html?json=1";
+    var statURL = "/SStats/activelogajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -113,7 +101,6 @@ function DisplayLogFile() {
 
 function DisplaySessionStats() {
     var statURL = "http://" + simName + ":" + simPort + "/SStats/activeconnectionsajax.html?json=1";
-    statURL = "http://" + simName + ":" + simPort + "/SStats/activeconnectionsajax.html?json=1";
     $.ajax({
         type: "GET",
         url: statURL,
@@ -253,7 +240,13 @@ StringBuffer.prototype.toString = function() {
 </script>
 </head>
 <body id="SimBody">
-<div id="SimHeader"></div>
+<div id="SimHeader">
+    
+        <p>
+    DreamGrid is a <a href="https://www.outworldz.com/Outworldz_installer/">free Opensimulator server</a> powered by <a href="https://www.Outworldz.com">Outworldz.com</a>
+        </p>
+        
+</div>
 <div id="SimContent">
 
 <!-- ============================================== -->
@@ -287,6 +280,8 @@ StringBuffer.prototype.toString = function() {
 <!-- ============================================== -->
 </div>  <!-- SimContent -->
 <div id="DEBUG"></div>
-<div id="SimFooter"></div>
+<div id="SimFooter">
+    
+</div>
 </body>
 </html>

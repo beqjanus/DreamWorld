@@ -130,9 +130,6 @@ Public Class Form1
     ' all settings from Settings.ini
     Dim Adv As AdvancedForm
 
-    ' Smart Start
-    Dim AgentsWaiting As New Dictionary(Of String, String)
-
     Dim client As New System.Net.WebClient ' downloadclient for web pages
 
     ' Graph
@@ -1827,7 +1824,7 @@ Public Class Form1
             PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
 
             If PropMySetting.SearchLocal Then
-                PropMySetting.SetOtherIni("LoginService", "SearchURL", "${Const|BaseURL}:" & PropMySetting.ApachePort & "/Search/query.php")
+                PropMySetting.SetOtherIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
             Else
                 PropMySetting.SetOtherIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
@@ -1873,9 +1870,9 @@ Public Class Form1
         Select Case PropMySetting.ServerType
             Case "Robust"
                 If PropMySetting.SearchLocal Then
-                    PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & PropMySetting.ApachePort & "/Search/query.php")
-                    PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & PropMySetting.ApachePort & "/Search/query.php")
-                    PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & PropMySetting.ApachePort & "/Search/query.php")
+                    PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                    PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                    PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
                 Else
                     PropMySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                     PropMySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
@@ -2420,16 +2417,16 @@ Public Class Form1
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If PropOpensimIsRunning() Then
             If PropMySetting.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" + PropMySetting.ApachePort
+                Dim webAddress As String = "http://127.0.0.1:" & CType(PropMySetting.ApachePort, String)
                 Process.Start(webAddress)
             Else
-                Dim webAddress As String = "http://127.0.0.1:" + PropMySetting.HttpPort
+                Dim webAddress As String = "http://127.0.0.1:" & PropMySetting.HttpPort
                 Process.Start(webAddress)
                 Print("Log in as '" + PropMySetting.AdminFirst + " " + PropMySetting.AdminLast + "' with a password of " + PropMySetting.Password + " to add user accounts.")
             End If
         Else
             If PropMySetting.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" + PropMySetting.ApachePort
+                Dim webAddress As String = "http://127.0.0.1:" + CType(PropMySetting.ApachePort, String)
                 Process.Start(webAddress)
             Else
                 Print("Opensim is not running. Cannot open the Web Interface.")
@@ -2527,6 +2524,26 @@ Public Class Form1
 
     Public Sub StartApache()
 
+        Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
+        SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
+        SiteMapContents +=  "<url>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.PublicIP, String) & "/bin/data/index.htm" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchClassifieds.php" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchObjects.php" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchParcel.php" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchRegions.php" & "</loc>" & vbCrLf
+        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/ShowHosts.php" & "</loc>" & vbCrLf
+        SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
+        SiteMapContents += "<priority>0.8</priority>" & vbCrLf
+        SiteMapContents += "</url>" & vbCrLf
+        SiteMapContents += "</urlset>" & vbCrLf
+
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
+            outputFile.WriteLine(SiteMapContents)
+        End Using
+
+
         If Not PropMySetting.ApacheEnable Then
             ApachePictureBox.Image = My.Resources.nav_plain_blue
             Print("Apache web server is not enabled.")
@@ -2539,7 +2556,7 @@ Public Class Form1
         Print("Check Apache")
         ' Stop MSFT server if we are on port 80 and enabled
 
-        If PropMySetting.ApachePort = "80" Then
+        If PropMySetting.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
             ApacheProcess.StartInfo.FileName = "net"
             ApacheProcess.StartInfo.CreateNoWindow = True
@@ -2674,12 +2691,13 @@ Public Class Form1
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         PropMySetting.LoadApacheIni(ini)
-        PropMySetting.SetApacheIni("Listen", PropMySetting.ApachePort)
+        PropMySetting.SetApacheIni("Listen", CType(PropMySetting.ApachePort, String))
         PropMySetting.SetApacheIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         PropMySetting.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         PropMySetting.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         PropMySetting.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP5" & """")
         PropMySetting.SetApacheIni("ServerName", PropMySetting.PrivateURL)
+        PropMySetting.SetApacheIni("<VirtualHost", "  *:" & CType(PropMySetting.ApachePort, String) & ">")
         PropMySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         PropMySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         PropMySetting.SetApacheIni("LoadModule php5_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
@@ -2714,7 +2732,7 @@ Public Class Form1
 
         Dim Up As String
         Try
-            Up = client.DownloadString("http://" & PropMySetting.PublicIP & ":" & PropMySetting.ApachePort + "/?_Opensim=" + Random())
+            Up = client.DownloadString("http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) + "/?_Opensim=" + Random())
         Catch ex As Exception
             If ex.Message.Contains("200 OK") Then Return True
             Return False
@@ -4785,8 +4803,14 @@ Public Class Form1
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(PropMySetting.SCPortBase1, Integer), UPnp.Protocol.TCP, "Icecast1 TCP Public " + PropMySetting.SCPortBase.ToString(Usa))
                 Print("Icecast Port1 is set to " + PropMySetting.SCPortBase1.ToString(Usa))
+            End If
 
-
+            If PropMySetting.ApachePort > 0 Then
+                If PropMyUPnpMap.Exists(PropMySetting.ApachePort, UPnp.Protocol.TCP) Then
+                    PropMyUPnpMap.Remove(PropMySetting.ApachePort, UPnp.Protocol.TCP)
+                End If
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, PropMySetting.ApachePort, UPnp.Protocol.TCP, "Icecast1 TCP Public " + PropMySetting.SCPortBase.ToString(Usa))
+                Print("Apache Port is set to " + CType(PropMySetting.ApachePort, String))
             End If
 
             ' 8002 for TCP and UDP
@@ -4824,12 +4848,6 @@ Public Class Form1
                 Print("Region TCP " + PropRegionClass.RegionName(X) + " is set to " + Convert.ToString(R, Usa))
                 BumpProgress(1)
             Next
-
-            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.Protocol.TCP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.Protocol.TCP)
-            End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, PropMySetting.SCPortBase, UPnp.Protocol.TCP, "Icecast TCP " + PropMySetting.SCPortBase.ToString(Usa))
-            Print("Icecast Port is set to " + PropMySetting.SCPortBase.ToString(Usa))
 
             BumpProgress10()
         Catch e As Exception
@@ -6022,7 +6040,7 @@ Public Class Form1
                           & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & PropMySetting.HttpPort & """ dir=in action=allow protocol=UDP localport=" & PropMySetting.HttpPort & vbCrLf
 
         If PropMySetting.ApacheEnable Then
-            Command = Command + "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & PropMySetting.ApachePort & """ dir=in action=allow protocol=TCP localport=" & PropMySetting.ApachePort & vbCrLf
+            Command = Command + "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CType(PropMySetting.ApachePort, String) & """ dir=in action=allow protocol=TCP localport=" & CType(PropMySetting.ApachePort, String) & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
@@ -6058,7 +6076,7 @@ Public Class Form1
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & PropMySetting.SCPortBase1.ToString(Usa) & """" & vbCrLf
 
         If PropMySetting.ApacheEnable Then
-            Command = Command + "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & PropMySetting.ApachePort & """" & vbCrLf
+            Command = Command + "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CType(PropMySetting.ApachePort, String) & """" & vbCrLf
         End If
 
         Dim RegionNumber As Integer = 0

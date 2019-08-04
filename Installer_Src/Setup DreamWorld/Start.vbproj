@@ -454,6 +454,9 @@
     <EmbeddedResource Include="FormPermissions.en.resx">
       <DependentUpon>FormPermissions.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormRegion.en.resx">
+      <DependentUpon>FormRegion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </EmbeddedResource>
@@ -526,6 +529,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTide.resx">
       <DependentUpon>FormTide.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTOS.en.resx">
+      <DependentUpon>FormTOS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>

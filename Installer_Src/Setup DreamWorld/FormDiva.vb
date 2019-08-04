@@ -86,7 +86,7 @@ Public Class FormDiva
         End If
 
         ApacheCheckbox.Checked = Form1.PropMySetting.ApacheEnable
-        ApachePort.Text = Form1.PropMySetting.ApachePort
+        ApachePort.Text = CType(Form1.PropMySetting.ApachePort, String)
         ApacheServiceCheckBox.Checked = Form1.PropMySetting.ApacheService
 
         If Form1.PropMySetting.SearchLocal Then
@@ -322,7 +322,9 @@ Public Class FormDiva
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
-        Form1.PropMySetting.ApachePort = ApachePort.Text
+        If ApachePort.Text.Length > 0 Then
+            Form1.PropMySetting.ApachePort = CType(ApachePort.Text, Integer)
+        End If
 
     End Sub
 

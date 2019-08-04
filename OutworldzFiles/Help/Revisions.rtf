@@ -1,21 +1,26 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Verdana;}{\f2\fnil Consolas;}}
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Verdana;}{\f2\fnil\fcharset0 Verdana;}}
 {\colortbl ;\red68\green114\blue196;\red0\green0\blue0;\red0\green0\blue255;}
 {\*\generator Riched20 10.0.17134}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\widctlpar\fi720\sl276\slmult1\cf1\expndtw10\caps\f0\fs52 Revisions for Dreamgrid\par
 
 \pard\widctlpar\li720\ri720\sb100\tx810\cf0\expndtw0\caps0\f1\fs21\par
 
-\pard\li720\ri720\sb100 This is a high-level view of major changes.   Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\line\cf2\f2\fs19\par
+\pard\li720\ri720\sb100\f2 This is a high-level view of major changes.   Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\line\cf2\par
 V3.12 Beta\par
-Sped up Opensim using Ubi's optimzed Dot Net bug fix for Windows 1903 \par
-Compiled with dev master #5b39860573 2019-08-02 12:13:53\par
-Robust logging set to INfo, as it was too noisy, down from DEBUG\par
+Sped up Opensim using Ubi's optimzed Dot Net bug fix for Windows 1903 and compiled with dev master #5b39860573 2019-08-02 12:13:53\par
+Robust logging set to INFO, as it was too noisy in DEBUG\par
+Added Sitemap.xml\par
+Added web Statistics button to all Regions in the Region Panel\par
+Auto firewall setup was missing the second Icecast Port\par
+Fixed an issue where Apache could not run on ports other than 80\par
+Datasnapshot was not registering in Local Search mode, which broke Local Search\par
 \par
 V3.11 Beta\par
 Aviworlds Region Server lets you attach to Aviworlds easily.\par
 Added Restart Robust Button\par
 
-\pard\widctlpar\li720\ri720\sb100\tx810 Added logic to catch UPNP errors on some machines/routers.\cf0\f1\fs21\par
+\pard\widctlpar\li720\ri720\sb100\tx810 Added logic to catch UPNP errors on some machines/routers.\par
+\cf0\par
 V3.1 Released 7/29/2019\par
 Backup no longer blocks operation of the system\par
 Backup FSAssets, too.\par
@@ -54,7 +59,7 @@ Auto Teleports now support multiple region servers.  Avatar counts will not work
 Added a catch-all Error message handler for any missed exceptions to catch unexpected crashes.\par
 Flotsam cache can be adjusted in size with a new panel.\par
 Allow the Partners to work on region server.  Also updated the Steampunk TP and set the partners prinm to full mod/copy.\par
-SupportViewerObjectsCache -= true explicitly to help with missing prims, theoretically this does nothiog as true is the default. See {{\field{\*\fldinst{HYPERLINK http://opensimulator.org/mantis/view.php?id=8516 }}{\fldrslt{http://opensimulator.org/mantis/view.php?id=8516\ul0\cf0}}}}\f1\fs21\par
+SupportViewerObjectsCache -= true explicitly to help with missing prims, theoretically this does nothiog as true is the default. See {{\field{\*\fldinst{HYPERLINK http://opensimulator.org/mantis/view.php?id=8516 }}{\fldrslt{http://opensimulator.org/mantis/view.php?id=8516\ul0\cf0}}}}\f2\fs21\par
 \par
 V3.01 \par
 ExternalHostName added to the Port section for use on non-NATed Region servers.\par
@@ -128,7 +133,7 @@ V2.86 \par
 Patched to fix Sequential Start. If on, nothing happened to delay the next sim from starting immediately but it should have waited for the previous sim to boot first, then start the next region.  If off, CPU less than 75% is needed before the next sim will start or stop.\par
 \par
 V2.85 \par
-Link to web page takes you to {{\field{\*\fldinst{HYPERLINK http://yourgrid:80where }}{\fldrslt{http://yourgrid:80where\ul0\cf0}}}}\f1\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache webserver enabled. \par
+Link to web page takes you to {{\field{\*\fldinst{HYPERLINK http://yourgrid:80where }}{\fldrslt{http://yourgrid:80where\ul0\cf0}}}}\f2\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache webserver enabled. \par
 Apache port is movable. If your ISP blocks :80, try :8000\par
 Diagnostics loopback test reworked for Server 2016.  \par
 Icons fixed on Server 2016 by moving port 8001 to listen to localhost only.\par
@@ -223,7 +228,7 @@ Sort Chooser screen\par
 BaseURL was incorrect in some 2.72\par
 \par
 2.72\par
-Simple Google HTML Map added to {{\field{\*\fldinst{HYPERLINK http://localhost:8002/wifi/map.html }}{\fldrslt{http://localhost:8002/wifi/map.html\ul0\cf0}}}}\f1\fs21\par
+Simple Google HTML Map added to {{\field{\*\fldinst{HYPERLINK http://localhost:8002/wifi/map.html }}{\fldrslt{http://localhost:8002/wifi/map.html\ul0\cf0}}}}\f2\fs21\par
 Allow only letters, numbers '.' and '-' in DNS names/IP Addresses\par
 New User Home X,Y,Z:  Users that create accounts on the web page will land at this spot on your Welcome region with their home set here so they can hypergrid back home.\par
 Simplified INI constants updated from Jeff Kelly, thanks!\par
@@ -459,7 +464,7 @@ Made from OpenSimulator 0.9.1.dev.24df1086fa 05-24-2018 (same as OsGrid)\par
 Suitcase or No Suitcase? A suitcase protects your inventory from rogue grids. When you are on another grid, you can only access what is in your suitcase. You can now disable the suitcase and rez objects from anywhere in your inventory while on foreign grids.\par
 Prim limits: Opensimulator can enforce a prim limit. Landlords can enable it to enforce MAXPRIMS on each parcel. MAXPRIMS can be set in each Region panel under 'More'\par
 Data Snapshot for any prims marked as "show in Search". This replaces the broken Diva search. It works across all DreamGrids.\par
- - Prim Info (location, for sale, etc.) is sent to {{\field{\*\fldinst{HYPERLINK http://hyperica.com/ }}{\fldrslt{http://hyperica.com/\ul0\cf0}}}}\f1\fs21 . The actual search engine is under development. Enable this in Settings-Expert at bottom left corner.\par
+ - Prim Info (location, for sale, etc.) is sent to {{\field{\*\fldinst{HYPERLINK http://hyperica.com/ }}{\fldrslt{http://hyperica.com/\ul0\cf0}}}}\f2\fs21 . The actual search engine is under development. Enable this in Settings-Expert at bottom left corner.\par
  - Classified ad will soon be possible across the Outworldz.\par
 Mail Exposed more SMTP email server settings than just Gmail.\par
 Publicity Upload an image and description to Hyperica.com's Hypergrid list.\par
@@ -506,7 +511,7 @@ birds-tolerance <num> - How close to the edges of things can we get without bein
 birds-stats - Show birds stats to region Welcome\par
 birds-framerate <num> - [debugging] only update birds every <num> frames to region Welcome\par
 \par
-Bird Module Author: {{\field{\*\fldinst{HYPERLINK https://github.com/jonc }}{\fldrslt{https://github.com/jonc\ul0\cf0}}}}\f1\fs21\par
-For more information, see {{\field{\*\fldinst{HYPERLINK https://github.com/JakDaniels/OpenSimBirds }}{\fldrslt{https://github.com/JakDaniels/OpenSimBirds\ul0\cf0}}}}\f1\fs21\par
+Bird Module Author: {{\field{\*\fldinst{HYPERLINK https://github.com/jonc }}{\fldrslt{https://github.com/jonc\ul0\cf0}}}}\f2\fs21\par
+For more information, see {{\field{\*\fldinst{HYPERLINK https://github.com/JakDaniels/OpenSimBirds }}{\fldrslt{https://github.com/JakDaniels/OpenSimBirds\ul0\cf0}}}}\f2\fs21\par
 }
  

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://mach1.outworldz.net:900/</loc>
+<loc>http://mach1.outworldz.net:900/bin/data/index.htm</loc>
+<loc>http://mach1.outworldz.net:900/Search/SearchClassifieds.php</loc>
+<loc>http://mach1.outworldz.net:900/Search/SearchObjects.php</loc>
+<loc>http://mach1.outworldz.net:900/Search/SearchParcel.php</loc>
+<loc>http://mach1.outworldz.net:900/Search/SearchRegions.php</loc>
+<loc>http://mach1.outworldz.net:900/Search/ShowHosts.php</loc>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+</urlset>
+

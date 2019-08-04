@@ -108,8 +108,6 @@ Public Class BirdForm
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
         End Try
 
     End Sub
