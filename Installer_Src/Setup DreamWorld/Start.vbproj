@@ -414,8 +414,14 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Chooser.en.resx">
+      <DependentUpon>Chooser.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBackupCheckboxes.resx">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBird.en.resx">
+      <DependentUpon>FormBird.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
       <DependentUpon>FormCaches.vb</DependentUpon>
@@ -440,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPermissions.en.resx">
+      <DependentUpon>FormPermissions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
