@@ -687,31 +687,31 @@ Public Class RegionList
 
                 ' physics
                 Select Case PropRegionClass1.Physics(X)
-                    Case "0"
+                    Case 0
                         item1.SubItems.Add("None")
-                    Case "1"
+                    Case 1
                         item1.SubItems.Add("ODE")
-                    Case "2"
+                    Case 2
                         item1.SubItems.Add("Bullet")
-                    Case "3"
+                    Case 3
                         item1.SubItems.Add("Bullet/Threaded")
-                    Case "4"
+                    Case 4
                         item1.SubItems.Add("ubODE")
-                    Case "5"
+                    Case 5
                         item1.SubItems.Add("ubODE Hybrid")
                     Case Else
                         Select Case Form1.PropMySetting.Physics
-                            Case "0"
+                            Case 0
                                 item1.SubItems.Add("None")
-                            Case "1"
+                            Case 1
                                 item1.SubItems.Add("ODE")
-                            Case "2"
+                            Case 2
                                 item1.SubItems.Add("Bullet")
-                            Case "3"
+                            Case 3
                                 item1.SubItems.Add("Bullet/Threaded")
-                            Case "4"
+                            Case 4
                                 item1.SubItems.Add("ubODE")
-                            Case "5"
+                            Case 5
                                 item1.SubItems.Add("ubODE Hybrid")
                             Case Else
                                 item1.SubItems.Add("?")
@@ -720,21 +720,21 @@ Public Class RegionList
 
                 'birds
 
-                If PropRegionClass1.Birds(X) = "True" Then
+                If PropRegionClass1.Birds(X) Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
                 End If
 
                 'Tides
-                If PropRegionClass1.Tides(X) = "True" Then
+                If PropRegionClass1.Tides(X) Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("")
                 End If
 
                 'teleport
-                If PropRegionClass1.Teleport(X) = "True" Or
+                If PropRegionClass1.Teleport(X) Or
                     PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else

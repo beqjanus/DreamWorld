@@ -99,6 +99,7 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -398,7 +399,7 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 89)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 105)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
@@ -589,6 +590,7 @@ Partial Class FormRegion
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.DisableGBCheckBox)
         Me.GroupBox7.Controls.Add(Me.SmartStartCheckBox)
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
@@ -906,6 +908,17 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
+        'DisableGBCheckBox
+        '
+        Me.DisableGBCheckBox.AutoSize = True
+        Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 85)
+        Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
+        Me.DisableGBCheckBox.Size = New System.Drawing.Size(102, 17)
+        Me.DisableGBCheckBox.TabIndex = 24
+        Me.DisableGBCheckBox.Text = "Disable Gloebits"
+        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.DisableGBCheckBox.UseVisualStyleBackColor = True
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1028,4 +1041,5 @@ Partial Class FormRegion
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label14 As Label
     Friend WithEvents ScriptTimerTextBox As TextBox
+    Friend WithEvents DisableGBCheckBox As CheckBox
 End Class

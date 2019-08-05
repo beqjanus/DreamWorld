@@ -108,38 +108,30 @@ Public Class RegionMaker
 
     ' hold a copy of the Main region data on a per-form basis
     Private Class Region_data
-        Public _AllowGods As String
-
-        ' RAM vars, not from files
+        Public _AllowGods As Boolean = False
         Public _AvatarCount As Integer = 0
-
-        Public _Birds As String = ""
-        Public _ClampPrimSize As Boolean
+        Public _Birds As Boolean = False
+        Public _ClampPrimSize As Boolean = False
         Public _CoordX As Integer = 0
         Public _CoordY As Integer = 0
         Public _FolderPath As String = ""
-
-        ' the path to the folde r that holds the region ini
-        Public _Group As String = ""
-
-        ' the folder name that holds the region(s), can be different named
-        Public _IniPath As String = ""
-
-        Public _LineCounter As Integer
-        Public _ManagerGod As String
-        Public _MapType As String
-        Public _MaxAgents As Integer
-        Public _MaxPrims As String
+        Public _Group As String = ""  ' the path to the folder that holds the region ini    
+        Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
+        Public _LineCounter As Integer = 0
+        Public _ManagerGod As Boolean = False
+        Public _MapType As String = ""
+        Public _MaxAgents As Integer = 100
+        Public _MaxPrims As Integer = 15000
         Public _MinTimerInterval As Single = 0.2
-        Public _NonPhysicalPrimMax As Integer
+        Public _NonPhysicalPrimMax As Integer = 1024
         Public _PhysicalPrimMax As Integer
-        Public _physics As String
+        Public _physics As Integer = 2
 
         ' min timer interval
         Public _ProcessID As Integer = 0
 
         Public _RegionEnabled As Boolean = False
-        Public _RegionGod As String
+        Public _RegionGod As Boolean = False
 
         ' the folder that hold the Opensim.ini, above 'Region'
         Public _RegionName As String = ""
@@ -149,7 +141,7 @@ Public Class RegionMaker
         Public _RegionSmartStart As Boolean = False
 
         'extended vars
-        Public _RegionSnapShot As String
+        Public _RegionSnapShot As Boolean = False
 
         Public _SizeX As Integer = 0
         Public _SizeY As Integer = 0
@@ -157,9 +149,10 @@ Public Class RegionMaker
         ' Will run or not
         Public _Status As Integer = 0
 
-        Public _Teleport As String = ""
-        Public _Tides As String = ""
-        Public _Timer As Integer
+        Public _Teleport As Boolean = False
+        Public _DisableGloebits As Boolean = False
+        Public _Tides As Boolean = False
+        Public _Timer As Integer = 0
         Public _UUID As String = ""
     End Class
 
@@ -181,11 +174,11 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property AllowGods(n As Integer) As String
+    Public Property AllowGods(n As Integer) As Boolean
         Get
-            Return CType(RegionList(n)._AllowGods, String)
+            Return RegionList(n)._AllowGods
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Boolean)
             RegionList(n)._AllowGods = Value
         End Set
     End Property
@@ -199,11 +192,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property Birds(n As Integer) As String
+    Public Property Birds(n As Integer) As Boolean
         Get
-            Return RegionList(n)._Birds.ToString(Form1.Usa)
+            Return RegionList(n)._Birds
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Boolean)
             RegionList(n)._Birds = Value
         End Set
     End Property
@@ -272,11 +265,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property ManagerGod(n As Integer) As String
+    Public Property ManagerGod(n As Integer) As Boolean
         Get
             Return RegionList(n)._ManagerGod
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Boolean)
             RegionList(n)._ManagerGod = Value
         End Set
     End Property
@@ -299,12 +292,12 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property MaxPrims(n As Integer) As String
+    Public Property MaxPrims(n As Integer) As Integer
         Get
             Return RegionList(n)._MaxPrims
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._MaxPrims = Value
+        Set(ByVal Value As Integer)
+            RegionList(n)._MaxPrims = CType(Value, Integer)
         End Set
     End Property
 
@@ -335,11 +328,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property Physics(n As Integer) As String
+    Public Property Physics(n As Integer) As Integer
         Get
             Return RegionList(n)._physics
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Integer)
             RegionList(n)._physics = Value
         End Set
     End Property
@@ -367,11 +360,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property RegionGod(n As Integer) As String
+    Public Property RegionGod(n As Integer) As Boolean
         Get
             Return RegionList(n)._RegionGod
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Boolean)
             RegionList(n)._RegionGod = Value
         End Set
     End Property
@@ -408,11 +401,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property RegionSnapShot(n As Integer) As String
+    Public Property RegionSnapShot(n As Integer) As Boolean
         Get
             Return RegionList(n)._RegionSnapShot
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Boolean)
             RegionList(n)._RegionSnapShot = Value
         End Set
     End Property
@@ -454,22 +447,30 @@ Public Class RegionMaker
             RegionList(n)._Status = Value
         End Set
     End Property
-
-    Public Property Teleport(n As Integer) As String
+    Public Property DisableGloebits(n As Integer) As Boolean
         Get
-            Return RegionList(n)._Teleport
+            Return RegionList(n)._DisableGloebits
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Teleport = Value.ToString(Form1.Usa)
+        Set(ByVal Value As Boolean)
+            RegionList(n)._DisableGloebits = Value
         End Set
     End Property
 
-    Public Property Tides(n As Integer) As String
+    Public Property Teleport(n As Integer) As Boolean
+        Get
+            Return RegionList(n)._Teleport
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._Teleport = Value
+        End Set
+    End Property
+
+    Public Property Tides(n As Integer) As Boolean
         Get
             Return RegionList(n)._Tides
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Tides = Value.ToString(Form1.Usa)
+        Set(ByVal Value As Boolean)
+            RegionList(n)._Tides = Value
         End Set
     End Property
 
@@ -734,17 +735,18 @@ Public Class RegionMaker
             ._NonPhysicalPrimMax = 1024,
             ._PhysicalPrimMax = 64,
             ._ClampPrimSize = False,
-            ._MaxPrims = "45000",
+            ._MaxPrims = 15000,
             ._MaxAgents = 100,
-            ._MapType = "Simple",
+            ._MapType = "",
             ._MinTimerInterval = 0.2,
-            ._AllowGods = "",
-            ._RegionGod = "",
-            ._ManagerGod = "",
-            ._Birds = "",
-            ._Tides = "",
-            ._Teleport = "",
-            ._RegionSnapShot = "",
+            ._AllowGods = False,
+            ._RegionGod = False,
+            ._ManagerGod = False,
+            ._Birds = False,
+            ._Tides = False,
+            ._Teleport = False,
+            ._RegionSnapShot = False,
+            ._DisableGloebits = False,
             ._RegionSmartStart = False
         }
 
@@ -802,11 +804,8 @@ Public Class RegionMaker
                         Form1.PropMySetting.LoadOtherIni(ini, ";")
                         ' we do not save the above as we are making a new one.
 
-                        Try
-                            RegionEnabled(n) = CType(Form1.PropMySetting.GetIni(fName, "Enabled"), Boolean)
-                        Catch ex As Exception
-                            RegionEnabled(n) = True
-                        End Try
+
+                        RegionEnabled(n) = CType(Form1.PropMySetting.GetIni(fName, "Enabled", "True"), Boolean)
 
                         RegionPath(n) = ini ' save the path
                         FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
@@ -822,16 +821,16 @@ Public Class RegionMaker
                         GroupName(n) = gname
 
                         UUID(n) = Form1.PropMySetting.GetIni(fName, "RegionUUID")
-                        SizeX(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "SizeX"), Form1.Usa)
-                        SizeY(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "SizeY"), Form1.Usa)
-                        RegionPort(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "InternalPort"), Form1.Usa)
+                        SizeX(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeX", "256"), Integer)
+                        SizeY(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeY", "256"), Integer)
+                        RegionPort(n) = CType(Form1.PropMySetting.GetIni(fName, "InternalPort"), Integer)
 
                         ' extended props V2.1
-                        NonPhysicalPrimMax(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Form1.Usa)
-                        PhysicalPrimMax(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "PhysicalPrimMax", "64"), Form1.Usa)
-                        ClampPrimSize(n) = Convert.ToBoolean(Form1.PropMySetting.GetIni(fName, "ClampPrimSize", "False"), Form1.Usa)
-                        MaxPrims(n) = Form1.PropMySetting.GetIni(fName, "MaxPrims", "45000")
-                        MaxAgents(n) = Convert.ToInt16(Form1.PropMySetting.GetIni(fName, "MaxAgents", "100"), Form1.Usa)
+                        NonPhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Integer)
+                        PhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "PhysicalPrimMax", "64"), Integer)
+                        ClampPrimSize(n) = CType(Form1.PropMySetting.GetIni(fName, "ClampPrimSize", "False"), Boolean)
+                        MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
+                        MaxAgents(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxAgents", "100"), Integer)
 
                         ' Location is int,int format.
                         Dim C = Form1.PropMySetting.GetIni(fName, "Location")
@@ -840,22 +839,19 @@ Public Class RegionMaker
                         CoordX(n) = CType(parts(0), Integer)
                         CoordY(n) = CType(parts(1), Integer)
 
-                        Try
-                            MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval"), Single)
-                        Catch
-                            MinTimerInterval(n) = 0.2
-                        End Try
+                        MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", "0.2"), Single)
 
-                        RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot")
-                        MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType")
-                        Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics")
-                        MaxPrims(n) = Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000")
-                        AllowGods(n) = Form1.PropMySetting.GetIni(fName, "AllowGods")
-                        RegionGod(n) = Form1.PropMySetting.GetIni(fName, "RegionGod")
-                        ManagerGod(n) = Form1.PropMySetting.GetIni(fName, "ManagerGod")
-                        Birds(n) = Form1.PropMySetting.GetIni(fName, "Birds")
-                        Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides")
-                        Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport")
+                        RegionSnapShot(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "False"), Boolean)
+                        MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
+                        Physics(n) = CType(Form1.PropMySetting.GetIni(fName, "Physics", "2"), Integer)
+                        MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
+                        AllowGods(n) = CType(Form1.PropMySetting.GetIni(fName, "AllowGods", "False"), Boolean)
+                        RegionGod(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionGod", "False"), Boolean)
+                        ManagerGod(n) = CType(Form1.PropMySetting.GetIni(fName, "ManagerGod", "False"), Boolean)
+                        Birds(n) = CType(Form1.PropMySetting.GetIni(fName, "Birds", "False"), Boolean)
+                        Tides(n) = CType(Form1.PropMySetting.GetIni(fName, "Tides", "False"), Boolean)
+                        Teleport(n) = CType(Form1.PropMySetting.GetIni(fName, "Teleport", "False"), Boolean)
+                        DisableGloebits(n) = CType(Form1.PropMySetting.GetIni(fName, "DisableGloebits", "False"), Boolean)
 
                         Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
                             Case "True"
@@ -1036,36 +1032,36 @@ Public Class RegionMaker
             fname = fname + "\" + name + ".ini"
         End If
 
-        Dim proto = "; * Regions configuration file; " + vbCrLf _
-        + "; Automatically changed and read by Dreamworld. Edits are allowed" + vbCrLf _
-        + "; Rule1: The File name must match the [RegionName]" + vbCrLf _
-        + "; Rule2: Only one region per INI file." + vbCrLf _
-        + ";" + vbCrLf _
-        + "[" + name + "]" + vbCrLf _
-        + "RegionUUID = " + UUID(n) + vbCrLf _
-        + "Location = " + CoordX(n).ToString(Form1.Usa) & "," & CoordY(n).ToString(Form1.Usa) + vbCrLf _
-        + "InternalAddress = 0.0.0.0" + vbCrLf _
-        + "InternalPort = " + RegionPort(n).ToString(Form1.Usa) + vbCrLf _
-        + "AllowAlternatePorts = False" + vbCrLf _
-        + "ExternalHostName = " + Form1.ExternLocalServerName() + vbCrLf _
-        + "SizeX = " + SizeX(n).ToString(Form1.Usa) + vbCrLf _
-        + "SizeY = " + SizeY(n).ToString(Form1.Usa) + vbCrLf _
-        + "Enabled = " + RegionEnabled(n).ToString(Form1.Usa) + vbCrLf _
-        + "NonPhysicalPrimMax = " + NonPhysicalPrimMax(n).ToString(Form1.Usa) + vbCrLf _
-        + "PhysicalPrimMax = " + PhysicalPrimMax(n).ToString(Form1.Usa) + vbCrLf _
-        + "ClampPrimSize = " + ClampPrimSize(n).ToString(Form1.Usa) + vbCrLf _
-        + "MaxPrims = " + MaxPrims(n) + vbCrLf _
-        + "RegionType = Estate" + vbCrLf + vbCrLf _
-        + ";# Dreamgrid extended properties" + vbCrLf _
-        + "RegionSnapShot = " + RegionSnapShot(n) + vbCrLf _
-        + "MapType = " + MapType(n) + vbCrLf _
-        + "Physics = " + Physics(n) + vbCrLf _
-        + "AllowGods = " + AllowGods(n) + vbCrLf _
-        + "RegionGod = " + RegionGod(n) + vbCrLf _
-        + "ManagerGod = " + ManagerGod(n) + vbCrLf _
-        + "Birds = " + Birds(n) + vbCrLf _
-        + "Tides = " + Tides(n) + vbCrLf _
-        + "Teleport = " + Teleport(n) + vbCrLf
+        Dim proto = "; * Regions configuration file; " & vbCrLf _
+        & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
+        & "; Rule1: The File name must match the [RegionName]" & vbCrLf _
+        & "; Rule2: Only one region per INI file." & vbCrLf _
+        & ";" & vbCrLf _
+        & "[" & name & "]" & vbCrLf _
+        & "RegionUUID = " & UUID(n) & vbCrLf _
+        & "Location = " & CoordX(n).ToString(Form1.Usa) & "," & CoordY(n) & vbCrLf _
+        & "InternalAddress = 0.0.0.0" & vbCrLf _
+        & "InternalPort = " & RegionPort(n) & vbCrLf _
+        & "AllowAlternatePorts = False" & vbCrLf _
+        & "ExternalHostName = " & Form1.ExternLocalServerName() & vbCrLf _
+        & "SizeX = " & SizeX(n).ToString(Form1.Usa) & vbCrLf _
+        & "SizeY = " & SizeY(n).ToString(Form1.Usa) & vbCrLf _
+        & "Enabled = " & RegionEnabled(n).ToString(Form1.Usa) & vbCrLf _
+        & "NonPhysicalPrimMax = " & NonPhysicalPrimMax(n).ToString(Form1.Usa) & vbCrLf _
+        & "PhysicalPrimMax = " & PhysicalPrimMax(n).ToString(Form1.Usa) & vbCrLf _
+        & "ClampPrimSize = " & ClampPrimSize(n).ToString(Form1.Usa) & vbCrLf _
+        & "MaxPrims = " & MaxPrims(n) & vbCrLf _
+        & "RegionType = Estate" & vbCrLf & vbCrLf _
+        & ";# Dreamgrid extended properties" & vbCrLf _
+        & "RegionSnapShot = " & RegionSnapShot(n) & vbCrLf _
+        & "MapType = " & MapType(n) & vbCrLf _
+        & "Physics = " & Physics(n) & vbCrLf _
+        & "AllowGods = " & AllowGods(n) & vbCrLf _
+        & "RegionGod = " & RegionGod(n) & vbCrLf _
+        & "ManagerGod = " & ManagerGod(n) & vbCrLf _
+        & "Birds = " & Birds(n) & vbCrLf _
+        & "Tides = " & CType(Tides(n), String) & vbCrLf _
+        & "Teleport = " & CType(Teleport(n), String) & vbCrLf
 
         Try
             My.Computer.FileSystem.DeleteFile(fname)

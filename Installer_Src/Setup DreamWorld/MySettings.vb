@@ -88,7 +88,7 @@ Public Class MySettings
             MyY() = My.Settings.MyY
 
             Password() = My.Settings.Password
-            Physics() = My.Settings.Physics.ToString(Form1.Usa)
+            Physics() = My.Settings.Physics
             PrivatePort() = My.Settings.PrivatePort
             PublicIP() = My.Settings.PublicIP
 
@@ -1257,12 +1257,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property Physics() As String
+    Public Property Physics() As Integer
         Get
-            Return GetMySetting("Physics")
+            Return CType(GetMySetting("Physics"), Integer)
         End Get
         Set
-            SetMySetting("Physics", Value)
+            SetMySetting("Physics", CType(Value, String))
         End Set
     End Property
 

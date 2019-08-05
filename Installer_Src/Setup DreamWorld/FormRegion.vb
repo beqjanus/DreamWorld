@@ -122,7 +122,7 @@ Public Class FormRegion
             MaxPrims.Text = 45000.ToString(Form1.Usa)
             MaxAgents.Text = 100.ToString(Form1.Usa)
             ScriptTimerTextBox.Text = 0.2.ToString(Form1.Usa)
-
+            DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
         Else
             IsNew1 = False
@@ -205,26 +205,13 @@ Public Class FormRegion
         End If
 
         ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Usa)
-
+        DisableGBCheckBox.Checked = PropRegionClass1.DisableGloebits(N1)
         RName1 = Name
 
         '''''''''''''''''''''''''''''  DREAMGRID REGION LOAD '''''''''''''''''
 
         If PropRegionClass1.MapType(N1).Length = 0 Then
             Maps_Use_Default.Checked = True
-
-            If Form1.PropMySetting.MapType = "None" Then
-                MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.PropMySetting.MapType = "Simple" Then
-                MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.PropMySetting.MapType = "Good" Then
-                MapPicture.Image = My.Resources.Good
-            ElseIf Form1.PropMySetting.MapType = "Better" Then
-                MapPicture.Image = My.Resources.Better
-            ElseIf Form1.PropMySetting.MapType = "Best" Then
-                MapPicture.Image = My.Resources.Best
-            End If
-
         ElseIf PropRegionClass1.MapType(N1) = "None" Then
             MapNone.Checked = True
             MapPicture.Image = My.Resources.blankbox
@@ -243,49 +230,60 @@ Public Class FormRegion
         End If
 
         Select Case PropRegionClass1.Physics(N1)
-            Case "" : Physics_Default.Checked = True
-            Case "0" : PhysicsNone.Checked = True
-            Case "1" : PhysicsODE.Checked = True
-            Case "2" : PhysicsBullet.Checked = True
-            Case "3" : PhysicsSeparate.Checked = True
-            Case "4" : PhysicsubODE.Checked = True
-            Case "5" : Physicsubhybrid.Checked = True
+            Case -1 : Physics_Default.Checked = True
+            Case 0 : PhysicsNone.Checked = True
+            Case 1 : PhysicsODE.Checked = True
+            Case 2 : PhysicsBullet.Checked = True
+            Case 3 : PhysicsSeparate.Checked = True
+            Case 4 : PhysicsubODE.Checked = True
+            Case 5 : Physicsubhybrid.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 
         MaxPrims.Text = PropRegionClass1.MaxPrims(N1).ToString(Form1.Usa)
 
-        If PropRegionClass1.AllowGods(N1).Length = 0 And PropRegionClass1.RegionGod(N1).Length = 0 And PropRegionClass1.ManagerGod(N1).Length = 0 Then
+        If PropRegionClass1.AllowGods(N1) = False And
+            PropRegionClass1.RegionGod(N1) = False And
+            PropRegionClass1.ManagerGod(N1) = False Then
             Gods_Use_Default.Checked = True
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
         Else
-            If Not Boolean.TryParse(PropRegionClass1.AllowGods(N1), AllowGods.Checked) Then AllowGods.Checked = False
-            If Not Boolean.TryParse(PropRegionClass1.RegionGod(N1), RegionGod.Checked) Then RegionGod.Checked = False
-            If Not Boolean.TryParse(PropRegionClass1.ManagerGod(N1), ManagerGod.Checked) Then ManagerGod.Checked = False
+            Gods_Use_Default.Checked = False
+            AllowGods.Checked = PropRegionClass1.AllowGods(N1)
+            RegionGod.Checked = PropRegionClass1.RegionGod(N1)
+            ManagerGod.Checked = PropRegionClass1.ManagerGod(N1)
         End If
 
-        If PropRegionClass1.RegionSnapShot(N1).Length = 0 Then
+        If PropRegionClass1.RegionSnapShot(N1) = False Then
             PublishDefault.Checked = True
         Else
             Publish.Checked = CBool(PropRegionClass1.RegionSnapShot(N1))
         End If
 
-        If PropRegionClass1.Birds(N1) = "True" Then
+        If PropRegionClass1.Birds(N1) Then
             BirdsCheckBox.Checked = True
+        Else
+            BirdsCheckBox.Checked = False
         End If
 
-        If PropRegionClass1.Tides(N1) = "True" Then
+        If PropRegionClass1.Tides(N1) = True Then
             TidesCheckbox.Checked = True
+        Else
+            TidesCheckbox.Checked = False
         End If
 
-        If PropRegionClass1.Teleport(N1) = "True" Then
+        If PropRegionClass1.Teleport(N1) = True Then
             TPCheckBox1.Checked = True
+        Else
+            TPCheckBox1.Checked = False
         End If
 
-        If Form1.PropMySetting.SmartStart Then
-            '!!!!!!!!!!!!!!
+        If PropRegionClass1.SmartStart(N1) Then
+            SmartStartCheckBox.Checked = True
+        Else
+            SmartStartCheckBox.Checked = False
         End If
 
         Me.Focus()
@@ -298,6 +296,7 @@ Public Class FormRegion
 
         If Changed1 Then
 
+            Form1.PropViewedSettings = True
             Dim v = MsgBox("Save changes?", vbYesNo, "Region Save")
             If v = vbYes Then
                 Dim message = RegionValidate()
@@ -307,9 +306,7 @@ Public Class FormRegion
                         If RegionList.InstanceExists Then
                             PropRegionClass1.GetAllRegions()
                             RegionList.LoadMyListView()
-
                         End If
-
                         Me.Close()
                     End If
                 Else
@@ -505,13 +502,13 @@ Public Class FormRegion
         End If
 
 
-        Dim Snapshot As String = ""
+        Dim Snapshot As Boolean = False
         If PublishDefault.Checked Then
-            Snapshot = ""
+            Snapshot = True
         ElseIf NoPublish.Checked Then
-            Snapshot = "False"
+            Snapshot = False
         ElseIf Publish.Checked Then
-            Snapshot = "True"
+            Snapshot = True
         End If
 
         PropRegionClass1.RegionSnapShot(n) = Snapshot
@@ -533,45 +530,29 @@ Public Class FormRegion
 
         PropRegionClass1.MapType(n) = Map
 
-        Dim Phys As String = ""
+        Dim Phys As Integer = 2
         If Physics_Default.Checked Then
-            Phys = ""
+            Phys = -1
         ElseIf PhysicsNone.Checked Then
-            Phys = "0"
+            Phys = 0
         ElseIf PhysicsODE.Checked Then
-            Phys = "1"
+            Phys = 1
         ElseIf PhysicsBullet.Checked Then
-            Phys = "2"
+            Phys = 2
         ElseIf PhysicsSeparate.Checked Then
-            Phys = "3"
+            Phys = 3
         ElseIf PhysicsubODE.Checked Then
-            Phys = "4"
+            Phys = 4
         ElseIf Physicsubhybrid.Checked Then
-            Phys = "5"
+            Phys = 5
         End If
 
         PropRegionClass1.Physics(n) = Phys
+        PropRegionClass1.AllowGods(n) = AllowGods.Checked
+        PropRegionClass1.RegionGod(n) = RegionGod.Checked
+        PropRegionClass1.ManagerGod(n) = ManagerGod.Checked
 
-        Dim AllowAGod As String = ""
-        If AllowGods.Checked Then
-            AllowAGod = "True"
-            PropRegionClass1.AllowGods(n) = "True"
-        End If
-
-        Dim ARegionGod As String = ""
-        If RegionGod.Checked Then
-            ARegionGod = "True"
-            PropRegionClass1.RegionGod(n) = "True"
-        End If
-
-        Dim AManagerGod As String = ""
-        If ManagerGod.Checked Then
-            AManagerGod = "True"
-            PropRegionClass1.ManagerGod(n) = "True"
-        End If
-
-        Dim Host As String
-        Host = Form1.PropMySetting.ExternalHostName
+        Dim Host = Form1.PropMySetting.ExternalHostName
 
         Dim Region = "; * Regions configuration file" &
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
@@ -597,12 +578,13 @@ Public Class FormRegion
                         "RegionSnapShot = " & Snapshot & vbCrLf &
                         "MapType = " & Map & vbCrLf &
                         "Physics = " & Phys & vbCrLf &
-                        "AllowGods = " & AllowAGod & vbCrLf &
-                        "RegionGod = " & ARegionGod & vbCrLf &
-                        "ManagerGod = " & AManagerGod & vbCrLf &
+                        "AllowGods = " & CType(AllowGods.Checked, Boolean) & vbCrLf &
+                        "RegionGod = " & CType(RegionGod.Checked, Boolean) & vbCrLf &
+                        "ManagerGod = " & CType(ManagerGod.Checked, Boolean) & vbCrLf &
                         "Birds = " & BirdsCheckBox.Checked.ToString(Form1.Usa) & vbCrLf &
                         "Tides = " & TidesCheckbox.Checked.ToString(Form1.Usa) & vbCrLf &
                         "Teleport = " & TPCheckBox1.Checked.ToString(Form1.Usa) & vbCrLf &
+                        "DisableGloebits = " & DisableGBCheckBox.Checked.ToString(Form1.Usa) & vbCrLf &
                         "SmartStart = " & SmartStartCheckBox.Checked.ToString(Form1.Usa) & vbCrLf
 
         Debug.Print(Region)
@@ -1165,6 +1147,11 @@ Public Class FormRegion
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged
+
         If Initted1 Then Changed1 = True
     End Sub
 

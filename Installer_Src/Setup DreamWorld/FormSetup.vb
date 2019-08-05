@@ -1435,7 +1435,6 @@ Public Class Form1
         'Gloebits.ini
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\Gloebit.ini", ";")
         If PropMySetting.GloebitsEnable Then
-
             PropMySetting.SetOtherIni("Gloebit", "Enabled", "true")
         Else
             PropMySetting.SetOtherIni("Gloebit", "Enabled", "false")
@@ -1695,9 +1694,11 @@ Public Class Form1
                                     If PropRegionClass.SmartStart(RegionNum) Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
+
                                     Else
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion"
+
                                     End If
 
                                     Diagnostics.Debug.Print(line)
@@ -1754,7 +1755,7 @@ Public Class Form1
         DoWifi()
         DoGloebits()
         CopyOpensimProto()
-        DoRegions()
+        DoRegions() ' must be after Gloebits
         MapSetup()
         DoPHP()
         DoApache()
@@ -2025,27 +2026,27 @@ Public Class Form1
         ' 4 = physics = ubODE
 
         Select Case PropMySetting.Physics
-            Case "0"
+            Case 0
                 PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
                 PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
-            Case "1"
+            Case 1
                 PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                 PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
-            Case "2"
+            Case 2
                 PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                 PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
-            Case "3"
+            Case 3
                 PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                 PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "true")
-            Case "4"
+            Case 4
                 PropMySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
                 PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
-            Case "5"
+            Case 5
                 PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                 PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                 PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
@@ -2133,7 +2134,7 @@ Public Class Form1
 
         Dim fPort As String = PropMySetting.FirstRegionPort()
         If fPort.Length = 0 Then
-            fPort = PropRegionClass.LowestPort().ToString(Usa)
+            fPort = CType(PropRegionClass.LowestPort(), String)
             PropMySetting.FirstRegionPort = fPort
             PropMySetting.SaveSettings()
         End If
@@ -2149,6 +2150,12 @@ Public Class Form1
 
             PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(RegionNum), ";")
 
+            If PropRegionClass.DisableGloebits(RegionNum) Then
+                PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
+            Else
+                PropMySetting.SetOtherIni(simName, "DisableGloebits", "False")
+            End If
+
             PropMySetting.SetOtherIni(simName, "InternalPort", PropRegionClass.RegionPort(RegionNum).ToString(Usa))
             PropMySetting.SetOtherIni(simName, "ExternalHostName", ExternLocalServerName())
 
@@ -2160,15 +2167,15 @@ Public Class Form1
             End If
 
             ' Extended in v 2.1
-            PropMySetting.SetOtherIni(simName, "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Usa))
-            PropMySetting.SetOtherIni(simName, "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Usa))
+            PropMySetting.SetOtherIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
             If (PropMySetting.Primlimits) Then
-                PropMySetting.SetOtherIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Usa))
+                PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
             Else
                 PropMySetting.SetOtherIni(simName, "MaxPrims", "")
             End If
-            PropMySetting.SetOtherIni(simName, "MaxAgents", Convert.ToString(PropRegionClass.MaxAgents(RegionNum), Usa))
-            PropMySetting.SetOtherIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Usa))
+            PropMySetting.SetOtherIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
 
             ' Extended in v 2.31 optional things
             If PropRegionClass.MapType(RegionNum) = "None" Then
@@ -2210,23 +2217,20 @@ Public Class Form1
                 PropMySetting.SetOtherIni(simName, "RenderMeshes", "")
             End If
 
-            PropMySetting.SetOtherIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
-            PropMySetting.SetOtherIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionNum))
-            PropMySetting.SetOtherIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
-            PropMySetting.SetOtherIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
-            PropMySetting.SetOtherIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
+            If PropRegionClass.Physics(RegionNum) >= 0 Then
+                PropMySetting.SetOtherIni(simName, "Physics", CType(PropRegionClass.Physics(RegionNum), String))
+            End If
+
+            PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "AllowGods", CType(PropRegionClass.AllowGods(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "RegionGod", CType(PropRegionClass.RegionGod(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "ManagerGod", CType(PropRegionClass.ManagerGod(RegionNum), String))
             PropMySetting.SetOtherIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum).ToString(Usa))
-            PropMySetting.SetOtherIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
-
-            Try
-                PropMySetting.SetOtherIni(simName, "MinTimerInterval", PropRegionClass.MinTimerInterval(RegionNum).ToString(Usa))
-            Catch
-                PropMySetting.SetOtherIni(simName, "MinTimerInterval", "0.2")
-            End Try
-
-            PropMySetting.SetOtherIni(simName, "SmartStart", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
+            PropMySetting.SetOtherIni(simName, "Birds", CType(PropRegionClass.Birds(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "Tides", CType(PropRegionClass.Tides(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "Teleport", CType(PropRegionClass.Teleport(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "SmartStart", CType(PropRegionClass.SmartStart(RegionNum), String))
 
             PropMySetting.SaveOtherINI()
 
@@ -2265,27 +2269,27 @@ Public Class Form1
             End If
 
             Select Case PropRegionClass.Physics(RegionNum)
-                Case "0"
+                Case 0
                     PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
                     PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case "1"
+                Case 1
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case "2"
+                Case 2
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case "3"
+                Case 3
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
-                Case "4"
+                Case 4
                     PropMySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case "5"
+                Case 5
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
@@ -2293,29 +2297,29 @@ Public Class Form1
                     ' do nothing
             End Select
 
-            If PropRegionClass.AllowGods(RegionNum) = "True" Then
+            If PropRegionClass.AllowGods(RegionNum) Then
                 PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
             Else
-                PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", PropMySetting.AllowGridGods.ToString(Usa))
+                PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", CType(PropMySetting.AllowGridGods, String))
             End If
 
-            If PropRegionClass.RegionGod(RegionNum) = "True" Then
+            If PropRegionClass.RegionGod(RegionNum) Then
                 PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", "True")
             Else
-                PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", PropMySetting.RegionOwnerIsGod.ToString(Usa))
+                PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", CType(PropMySetting.RegionOwnerIsGod, String))
             End If
 
-            If PropRegionClass.ManagerGod(RegionNum) = "True" Then
+            If PropRegionClass.ManagerGod(RegionNum) Then
                 PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", "True")
             Else
-                PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", PropMySetting.RegionManagerIsGod.ToString(Usa))
+                PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", CType(PropMySetting.RegionManagerIsGod, String))
             End If
 
-            PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", PropRegionClass.SmartStart(RegionNum).ToString(Usa))
+            PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
 
             PropMySetting.SaveOtherINI()
 
-            If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
+            If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) Then
 
                 BirdData = BirdData & "[" + simName + "]" + vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
@@ -2323,23 +2327,23 @@ Public Class Form1
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
             "BirdsEnabled = True" & vbCrLf & vbCrLf &
             ";which channel do we listen on for in world commands" & vbCrLf &
-            "BirdsChatChannel = " + PropMySetting.BirdsChatChannel.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsChatChannel = " + CType(PropMySetting.BirdsChatChannel, String) & vbCrLf & vbCrLf &
             ";the number of birds to flock" & vbCrLf &
-            "BirdsFlockSize = " + PropMySetting.BirdsFlockSize.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsFlockSize = " + CType(PropMySetting.BirdsFlockSize, String) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " + PropMySetting.BirdsMaxSpeed.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " + CType(PropMySetting.BirdsMaxSpeed, String) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " + PropMySetting.BirdsMaxForce.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " + CType(PropMySetting.BirdsMaxForce, String) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " + PropMySetting.BirdsNeighbourDistance.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " + CType(PropMySetting.BirdsNeighbourDistance, String) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " + PropMySetting.BirdsDesiredSeparation.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " + CType(PropMySetting.BirdsDesiredSeparation, String) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " + PropMySetting.BirdsTolerance.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsTolerance = " + CType(PropMySetting.BirdsTolerance, String) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " + PropMySetting.BirdsBorderSize.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " + CType(PropMySetting.BirdsBorderSize, String) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " + PropMySetting.BirdsMaxHeight.ToString(Usa) & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " + CType(PropMySetting.BirdsMaxHeight, String) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
@@ -2350,7 +2354,7 @@ Public Class Form1
 
             End If
 
-            If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
+            If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
         "[" + simName + "]" + vbCrLf &
@@ -3777,7 +3781,7 @@ Public Class Form1
 
                 Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
                 If RegionNumber >= 0 Then
-                    If LCase(PropRegionClass.Teleport(RegionNumber)) = "true" Then
+                    If PropRegionClass.Teleport(RegionNumber) Then
                         ToSort.Add(LongName)
                     End If
                 End If
