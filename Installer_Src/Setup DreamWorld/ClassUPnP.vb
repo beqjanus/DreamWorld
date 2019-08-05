@@ -205,6 +205,8 @@ Public Class UPnp
     End Function
 
     Public Function LocalIP() As String
+
+        Dim LIP As String = ""
         Try
             If CacheIP.Length = 0 Then
                 If Form1.PropMySetting.DNSName = "localhost" Or Form1.PropMySetting.DNSName = "127.0.0.1" Then
@@ -216,22 +218,24 @@ Public Class UPnp
                     Using sock
                         sock.Connect("8.8.8.8", 65530)  ' try Google
                         Dim EndPoint As IPEndPoint = TryCast(sock.LocalEndPoint, IPEndPoint)
-                        LocalIP = EndPoint.Address.ToString()
+                        LIP = EndPoint.Address.ToString()
                     End Using
                 Catch ex As Exception
-                    LocalIP = LocalIPForced()
+                    LIP = LocalIPForced()
 
-                    If LocalIP.Length = 0 Then
-                        LocalIP = "127.0.0.1"
+                    If LIP.Length = 0 Then
+                        LIP = "127.0.0.1"
                     End If
                 End Try
-                CacheIP = LocalIP
+                CacheIP = LIP
             Else
-                LocalIP = CacheIP
+                LIP = CacheIP
             End If
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
+        Return LIP
+
     End Function
 
     ''' <summary>
