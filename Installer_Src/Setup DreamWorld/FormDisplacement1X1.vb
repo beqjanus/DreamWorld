@@ -81,8 +81,6 @@ Public Class FormDisplacement1X1
             Pic = Nothing
         Catch ex As Exception
             PictureBox3.Image = My.Resources.water
-        Catch ex As Exception
-            PictureBox3.Image = My.Resources.water
         End Try
 
     End Sub
