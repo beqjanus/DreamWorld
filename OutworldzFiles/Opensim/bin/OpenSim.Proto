@@ -54,7 +54,7 @@ RegionFolderName=Welcome
 BaseHostname=192.168.2.135
 
 ; Automatically changed by Dreamworld - do not change this
-;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
+;# {BaseURL} {} {BaseURL} {"http://${Const|
 BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this

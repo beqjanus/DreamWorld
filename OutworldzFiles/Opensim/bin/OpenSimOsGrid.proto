@@ -421,6 +421,8 @@ TexturePrimSize=48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map.
 RenderMeshes=false
+RenderMaxHeight=4000
+RenderMinHeight=-100
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
@@ -1021,6 +1023,7 @@ AppDomainLoading=false
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
 DeleteScriptsOnStartup=False
+MinTimerInterval=0.2
 
 ;# {CompactMemOnLoad} {} {compacts memory on each script load at startup?} {true false} false
 ;; forces calls to memory garbage collector before loading each script DLL during region startup.
