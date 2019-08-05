@@ -108,7 +108,7 @@ Public Class FormDiva
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Form1.PropMySetting.SaveSettings()
-
+        Form1.PropViewedSettings = True
         If setpassword And Form1.PropOpensimIsRunning() Then
             Form1.ConsoleCommand("Robust", "reset user password " & Form1.PropMySetting.AdminFirst & " " & Form1.PropMySetting.AdminLast & " " & Form1.PropMySetting.Password & "{ENTER}" + vbCrLf)
         End If

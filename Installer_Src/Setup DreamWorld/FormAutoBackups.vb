@@ -83,6 +83,7 @@ Public Class FormAutoBackups
 
     Private Sub ABEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles AutoBackup.CheckedChanged
 
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.AutoBackup = AutoBackup.Checked
         Form1.PropMySetting.SaveSettings()
 
@@ -112,7 +113,7 @@ Public Class FormAutoBackups
         If text = "6 days" Then Interval = 6 * 60 * 24
         If text = "Weekly" Then Interval = 7 * 60 * 24
         Form1.PropMySetting.AutobackupInterval = Interval.ToString(Form1.Usa)
-
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
     End Sub
 
@@ -132,12 +133,13 @@ Public Class FormAutoBackups
             Form1.PropMySetting.KeepForDays = 30
             Form1.PropMySetting.SaveSettings()
         End Try
-
+        Form1.PropViewedSettings = True
     End Sub
 
     Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BaseFolder.Click
 
         Backup()
+
 
     End Sub
 
@@ -195,8 +197,6 @@ Public Class FormAutoBackups
         Form1.BackupDB()
 
     End Sub
-
-
 
 #End Region
 

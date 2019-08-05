@@ -197,7 +197,7 @@ Public Class NetServer
 
                 Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
                 If RegionNumber >= 0 Then
-                    If LCase(PropRegionClass.Teleport(RegionNumber)) = "true" Then
+                    If PropRegionClass.Teleport(RegionNumber) Then
                         ToSort.Add(LongName)
                     End If
                 End If

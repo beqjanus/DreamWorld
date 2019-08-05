@@ -128,6 +128,7 @@
 
     Private Sub Form_exit() Handles Me.Closed
         If Changed1 Then
+            Form1.PropViewedSettings = True
             SaveAll()
         End If
     End Sub

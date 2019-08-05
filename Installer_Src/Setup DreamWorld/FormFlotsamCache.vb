@@ -38,7 +38,7 @@ Public Class FormFlotsamCache
         Form1.PropMySetting.CacheFolder = CacheFolder.Text
         Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
         Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
-
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
 
     End Sub

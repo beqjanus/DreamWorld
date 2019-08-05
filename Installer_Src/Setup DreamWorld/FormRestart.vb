@@ -48,6 +48,12 @@ Public Class FormRestart
         initted = True ' suppress the install of the startup on formload
 
     End Sub
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.PropMySetting.SaveSettings()
+
+    End Sub
 
 #Region "AutoStart"
 

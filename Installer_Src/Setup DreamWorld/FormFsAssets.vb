@@ -73,8 +73,10 @@
     Private Sub Form_exit() Handles Me.Closed
 
         If Changed Then
+
             Dim result As MsgBoxResult = MsgBox("OK to Save, or Cancel Changes?", vbOKCancel)
             If result = vbOK Then
+                Form1.PropViewedSettings = True
                 Form1.PropMySetting.SaveSettings()
             End If
         End If

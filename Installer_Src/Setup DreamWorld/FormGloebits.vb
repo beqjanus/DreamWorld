@@ -62,6 +62,7 @@
 
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
+        Form1.PropViewedSettings = True
         Form1.DoGloebits()
 
     End Sub
