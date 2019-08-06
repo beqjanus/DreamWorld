@@ -1141,7 +1141,6 @@ Public Class RegionList
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
-                    'Dim filename = Path.GetFileNameWithoutExtension(ofd.FileName)
                     Dim i = PropRegionClass1.FindRegionByName(filename)
                     If i >= 0 Then
                         MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
