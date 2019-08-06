@@ -1070,6 +1070,7 @@ Public Class Form1
             If PropOpensimIsRunning Then Print("Waiting for all regions to exit")
 
             While (counter > 0 And PropOpensimIsRunning())
+                Sleep(1000)
                 ' decrement progress bar according to the ratio of what we had / what we have now
                 counter -= 1
                 Dim CountisRunning As Integer = 0
@@ -1089,7 +1090,6 @@ Public Class Form1
 
                 If CountisRunning = 1 Then
                     Print("1 region is still running")
-                    Sleep(1000)
                 Else
                     Print(CountisRunning.ToString(Usa) & " regions are still running")
                 End If
@@ -1105,7 +1105,7 @@ Public Class Form1
                     Diagnostics.Debug.Print("V=" + ProgressBar1.Value.ToString(Usa))
                 End If
                 PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+
             End While
         End If
 
