@@ -1,3 +1,4 @@
+Imports System.Text.RegularExpressions
 Imports System.IO
 
 Public Class RegionList
@@ -1137,7 +1138,10 @@ Public Class RegionList
                 Dim extension As String = Path.GetExtension(ofd.FileName)
                 extension = Mid(extension, 2, 5)
                 If extension.ToLower(Form1.Usa) = "ini" Then
-                    Dim filename = Path.GetFileNameWithoutExtension(ofd.FileName)
+
+                    Dim filename = GetRegionsName(ofd.FileName)
+
+                    'Dim filename = Path.GetFileNameWithoutExtension(ofd.FileName)
                     Dim i = PropRegionClass1.FindRegionByName(filename)
                     If i >= 0 Then
                         MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
@@ -1162,6 +1166,22 @@ Public Class RegionList
         End If
 
     End Sub
+    Private Function GetRegionsName(Region As String) As String
+
+        Dim p1 As String = ""
+        Using reader = New StreamReader(Region)
+            While reader.Peek <> -1 And p1.Length = 0
+                Dim line = reader.ReadLine
+                Dim pattern1 As Regex = New Regex("^ *\[(.*?)\] *$")
+                Dim match1 As Match = pattern1.Match(line)
+                If match1.Success Then
+                    p1 = match1.Groups(1).Value
+                End If
+            End While
+        End Using
+        Return p1
+
+    End Function
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
         Form1.PropRestartRobust = True
