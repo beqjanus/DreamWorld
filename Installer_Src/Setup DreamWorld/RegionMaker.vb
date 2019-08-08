@@ -112,14 +112,14 @@ Public Class RegionMaker
         Public _AvatarCount As Integer = 0
         Public _Birds As Boolean = False
         Public _ClampPrimSize As Boolean = False
-        Public _CoordX As Integer = 0
-        Public _CoordY As Integer = 0
+        Public _CoordX As Integer = 1000
+        Public _CoordY As Integer = 1000
         Public _FolderPath As String = ""
-        Public _Group As String = ""  ' the path to the folder that holds the region ini    
+        Public _Group As String = ""  ' the path to the folder that holds the region ini
         Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
         Public _LineCounter As Integer = 0
         Public _ManagerGod As Boolean = False
-        Public _MapType As String = ""
+        Public _MapType As String = "None"
         Public _MaxAgents As Integer = 100
         Public _MaxPrims As Integer = 15000
         Public _MinTimerInterval As Single = 0.2
@@ -143,8 +143,8 @@ Public Class RegionMaker
         'extended vars
         Public _RegionSnapShot As Boolean = False
 
-        Public _SizeX As Integer = 0
-        Public _SizeY As Integer = 0
+        Public _SizeX As Integer = 256
+        Public _SizeY As Integer = 256
 
         ' Will run or not
         Public _Status As Integer = 0
@@ -447,6 +447,7 @@ Public Class RegionMaker
             RegionList(n)._Status = Value
         End Set
     End Property
+
     Public Property DisableGloebits(n As Integer) As Boolean
         Get
             Return RegionList(n)._DisableGloebits
@@ -610,8 +611,8 @@ Public Class RegionMaker
             Try
                 Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
 
-                ' This search returns the substring between two strings, so
-                ' the first index Is moved to the character just after the first string.
+                ' This search returns the substring between two strings, so the first index Is moved
+                ' to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{")
                 Dim last As Integer = POST.LastIndexOf("}")
@@ -626,9 +627,12 @@ Public Class RegionMaker
                     Return
                 End Try
 
-                '		rawJSON	"{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
-                '       rawJSON "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
-                '		rawJSON	"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"	String
+                ' rawJSON
+                ' "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
+                ' String rawJSON
+                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
+                ' String rawJSON
+                ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
                     Form1.Print("Region " & json.region_name & " is ready")
@@ -771,127 +775,128 @@ Public Class RegionMaker
     End Function
 
     Public Sub GetAllRegions()
+        Try
+            Backup.Clear()
 
-        Backup.Clear()
-
-        For Each thing As Region_data In RegionList
-            Backup.Add(thing)
-        Next
-
-        RegionList.Clear()
-
-        Dim folders() As String
-        Dim regionfolders() As String
-        Dim n As Integer = 0
-        folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
-        For Each FolderName As String In folders
-            'Form1.Log("Info","Region Path:" + FolderName)
-            regionfolders = Directory.GetDirectories(FolderName)
-            For Each FileName As String In regionfolders
-
-                Dim fName = ""
-                Try
-                    'Form1.Log("Info","Loading region from " + FolderName)
-                    Dim inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
-
-                    For Each ini As String In inis
-                        fName = System.IO.Path.GetFileNameWithoutExtension(ini)
-
-                        ' make a slot to hold the region data
-                        CreateRegion(fName)
-
-                        ' must be after Createregion or port blows up
-                        Form1.PropMySetting.LoadOtherIni(ini, ";")
-                        ' we do not save the above as we are making a new one.
-
-
-                        RegionEnabled(n) = CType(Form1.PropMySetting.GetIni(fName, "Enabled", "True"), Boolean)
-
-                        RegionPath(n) = ini ' save the path
-                        FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
-
-                        Dim theEnd As Integer = FolderPath(n).LastIndexOf("\")
-                        IniPath(n) = FolderPath(n).Substring(0, theEnd + 1)
-
-                        ' need folder name in case there are more than 1 ini
-                        Dim theStart = FolderPath(n).IndexOf("Regions\") + 8
-                        theEnd = FolderPath(n).LastIndexOf("\")
-                        Dim gname = FolderPath(n).Substring(theStart, theEnd - theStart)
-
-                        GroupName(n) = gname
-
-                        UUID(n) = Form1.PropMySetting.GetIni(fName, "RegionUUID")
-                        SizeX(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeX", "256"), Integer)
-                        SizeY(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeY", "256"), Integer)
-                        RegionPort(n) = CType(Form1.PropMySetting.GetIni(fName, "InternalPort"), Integer)
-
-                        ' extended props V2.1
-                        NonPhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Integer)
-                        PhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "PhysicalPrimMax", "64"), Integer)
-                        ClampPrimSize(n) = CType(Form1.PropMySetting.GetIni(fName, "ClampPrimSize", "False"), Boolean)
-                        MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
-                        MaxAgents(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxAgents", "100"), Integer)
-
-                        ' Location is int,int format.
-                        Dim C = Form1.PropMySetting.GetIni(fName, "Location")
-
-                        Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                        CoordX(n) = CType(parts(0), Integer)
-                        CoordY(n) = CType(parts(1), Integer)
-
-                        MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", "0.2"), Single)
-
-                        RegionSnapShot(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "False"), Boolean)
-                        MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
-                        Physics(n) = CType(Form1.PropMySetting.GetIni(fName, "Physics", "2"), Integer)
-                        MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
-                        AllowGods(n) = CType(Form1.PropMySetting.GetIni(fName, "AllowGods", "False"), Boolean)
-                        RegionGod(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionGod", "False"), Boolean)
-                        ManagerGod(n) = CType(Form1.PropMySetting.GetIni(fName, "ManagerGod", "False"), Boolean)
-                        Birds(n) = CType(Form1.PropMySetting.GetIni(fName, "Birds", "False"), Boolean)
-                        Tides(n) = CType(Form1.PropMySetting.GetIni(fName, "Tides", "False"), Boolean)
-                        Teleport(n) = CType(Form1.PropMySetting.GetIni(fName, "Teleport", "False"), Boolean)
-                        DisableGloebits(n) = CType(Form1.PropMySetting.GetIni(fName, "DisableGloebits", "False"), Boolean)
-
-                        Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
-                            Case "True"
-                                SmartStart(n) = True
-                            Case "False"
-                                SmartStart(n) = False
-                            Case Else
-                                SmartStart(n) = False
-                        End Select
-
-
-                        If initted Then
-
-                            ' restore backups of transient data
-                            Try ' 6 temp vars from backup
-                                Dim o = FindBackupByName(fName)
-
-                                If o >= 0 Then
-                                    AvatarCount(n) = CType(Backup(o)._AvatarCount, Integer)
-                                    ProcessID(n) = CType(Backup(o)._ProcessID, Integer)
-                                    Status(n) = CType(Backup(o)._Status, Integer)
-                                    LineCounter(n) = CType(Backup(o)._LineCounter, Integer)
-                                    Timer(n) = CType(Backup(o)._Timer, Integer)
-                                End If
-                            Catch
-                            End Try
-
-                        End If
-
-                        n += 1
-                        Application.DoEvents()
-                    Next
-                Catch ex As Exception
-                    MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, "Error")
-                    Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
-                End Try
+            For Each thing As Region_data In RegionList
+                Backup.Add(thing)
             Next
-        Next
 
-        initted = True
+            RegionList.Clear()
+
+            Dim folders() As String
+            Dim regionfolders() As String
+            Dim n As Integer = 0
+            folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
+            For Each FolderName As String In folders
+                'Form1.Log("Info","Region Path:" + FolderName)
+                regionfolders = Directory.GetDirectories(FolderName)
+                For Each FileName As String In regionfolders
+
+                    Dim fName = ""
+                    Try
+                        'Form1.Log("Info","Loading region from " + FolderName)
+                        Dim inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
+
+                        For Each ini As String In inis
+                            fName = System.IO.Path.GetFileNameWithoutExtension(ini)
+
+                            ' make a slot to hold the region data
+                            CreateRegion(fName)
+
+                            ' must be after Createregion or port blows up
+                            Form1.PropMySetting.LoadOtherIni(ini, ";")
+                            ' we do not save the above as we are making a new one.
+
+                            RegionEnabled(n) = CType(Form1.PropMySetting.GetIni(fName, "Enabled", "True"), Boolean)
+
+                            RegionPath(n) = ini ' save the path
+                            FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
+
+                            Dim theEnd As Integer = FolderPath(n).LastIndexOf("\")
+                            IniPath(n) = FolderPath(n).Substring(0, theEnd + 1)
+
+                            ' need folder name in case there are more than 1 ini
+                            Dim theStart = FolderPath(n).IndexOf("Regions\") + 8
+                            theEnd = FolderPath(n).LastIndexOf("\")
+                            Dim gname = FolderPath(n).Substring(theStart, theEnd - theStart)
+
+                            GroupName(n) = gname
+
+                            UUID(n) = Form1.PropMySetting.GetIni(fName, "RegionUUID", "")
+                            SizeX(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeX", "256"), Integer)
+                            SizeY(n) = CType(Form1.PropMySetting.GetIni(fName, "SizeY", "256"), Integer)
+                            RegionPort(n) = CType(Form1.PropMySetting.GetIni(fName, "InternalPort", "0"), Integer)
+
+                            ' extended props V2.1
+                            NonPhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"), Integer)
+                            PhysicalPrimMax(n) = CType(Form1.PropMySetting.GetIni(fName, "PhysicalPrimMax", "64"), Integer)
+                            ClampPrimSize(n) = CType(Form1.PropMySetting.GetIni(fName, "ClampPrimSize", "False"), Boolean)
+                            MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
+                            MaxAgents(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxAgents", "100"), Integer)
+
+                            ' Location is int,int format.
+                            Dim C = Form1.PropMySetting.GetIni(fName, "Location", "1000,1000")
+
+                            Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
+                            CoordX(n) = CType(parts(0), Integer)
+                            CoordY(n) = CType(parts(1), Integer)
+
+                            MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", "0.2"), Single)
+
+                            RegionSnapShot(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "False"), Boolean)
+                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "Nonw")
+                            Physics(n) = CType(Form1.PropMySetting.GetIni(fName, "Physics", "2"), Integer)
+                            MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
+                            AllowGods(n) = CType(Form1.PropMySetting.GetIni(fName, "AllowGods", "False"), Boolean)
+                            RegionGod(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionGod", "False"), Boolean)
+                            ManagerGod(n) = CType(Form1.PropMySetting.GetIni(fName, "ManagerGod", "False"), Boolean)
+                            Birds(n) = CType(Form1.PropMySetting.GetIni(fName, "Birds", "False"), Boolean)
+                            Tides(n) = CType(Form1.PropMySetting.GetIni(fName, "Tides", "False"), Boolean)
+                            Teleport(n) = CType(Form1.PropMySetting.GetIni(fName, "Teleport", "False"), Boolean)
+                            DisableGloebits(n) = CType(Form1.PropMySetting.GetIni(fName, "DisableGloebits", "False"), Boolean)
+
+                            Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
+                                Case "True"
+                                    SmartStart(n) = True
+                                Case "False"
+                                    SmartStart(n) = False
+                                Case Else
+                                    SmartStart(n) = False
+                            End Select
+
+                            If initted Then
+
+                                ' restore backups of transient data
+                                Try ' 6 temp vars from backup
+                                    Dim o = FindBackupByName(fName)
+
+                                    If o >= 0 Then
+                                        AvatarCount(n) = CType(Backup(o)._AvatarCount, Integer)
+                                        ProcessID(n) = CType(Backup(o)._ProcessID, Integer)
+                                        Status(n) = CType(Backup(o)._Status, Integer)
+                                        LineCounter(n) = CType(Backup(o)._LineCounter, Integer)
+                                        Timer(n) = CType(Backup(o)._Timer, Integer)
+                                    End If
+                                Catch
+                                End Try
+
+                            End If
+
+                            n += 1
+                            Application.DoEvents()
+                        Next
+                    Catch ex As Exception
+                        MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, "Error")
+                        Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                    End Try
+                Next
+            Next
+
+            initted = True
+        Catch
+        End Try
+
     End Sub
 
     Public Function LargestPort() As Integer
@@ -980,8 +985,7 @@ Public Class RegionMaker
     End Function
 
     ''' <summary>
-    ''' Self setting Region Ports
-    ''' Iterate over all regions and set the ports from the starting value
+    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
     ''' </summary>
     Public Sub UpdateAllRegionPorts()
 
@@ -1136,8 +1140,8 @@ Public Class RegionMaker
 
     Public Function ParsePost(POST As String, PropMySetting As MySettings) As String
 
-        ' set Region.Booted to true if the POST from the region indicates it is online
-        ' requires a section in Opensim.ini where [RegionReady] has this:
+        ' set Region.Booted to true if the POST from the region indicates it is online requires a
+        ' section in Opensim.ini where [RegionReady] has this:
 
         '[RegionReady]
 
@@ -1169,11 +1173,10 @@ Public Class RegionMaker
         '
         '{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
 
-        ' we want region name, UUID and server_startup
-        ' could also be a probe from the outworldz to check if ports are open.
+        ' we want region name, UUID and server_startup could also be a probe from the outworldz to
+        ' check if ports are open.
 
-        ' WarmingUp(0) = True
-        ' ShuttingDown(1) = True
+        ' WarmingUp(0) = True ShuttingDown(1) = True
 
         ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
 
@@ -1203,9 +1206,9 @@ Public Class RegionMaker
                         Status(n) = SIMSTATUSENUM.Autostart
                         Try
                             TeleportAvatarDict.Remove(RegionName(n))
-                        Catch ex As exception
+                        Catch ex As Exception
                         End Try
-                        
+
                         TeleportAvatarDict.Add(AgentUUID, RegionName(n))
 
                         ' redirect to welcome
@@ -1250,8 +1253,8 @@ Public Class RegionMaker
 
                 If match.Success And match2.Success Then
 
-                    ' Only works in Standalone, anyway.
-                    ' Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
+                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the
+                    ' Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
                     Dim myConnection As MySqlConnection = New MySqlConnection(Form1.PropRobustConnStr)

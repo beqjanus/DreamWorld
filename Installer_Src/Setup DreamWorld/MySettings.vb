@@ -116,7 +116,6 @@ Public Class MySettings
             SCPassword() = "A password"
             SCAdminPassword() = "Admin Password"
 
-
             SizeX() = My.Settings.SizeX
             SizeY() = My.Settings.SizeY
             SimName() = My.Settings.SimName
@@ -141,7 +140,8 @@ Public Class MySettings
 
         End If
 
-        ' new  vars have to exist before we can read them, and this hack is the only way to set this is to test if they do exis
+        ' new vars have to exist before we can read them, and this hack is the only way to set this
+        ' is to test if they do exis
 
         If Theme().Length = 0 Then
             Theme() = "White"
@@ -154,9 +154,7 @@ Public Class MySettings
             Form1.CopyWifi("Custom")
         End If
 
-
     End Sub
-
 
 #End Region
 
@@ -222,7 +220,7 @@ Public Class MySettings
 
 #Region "GetSet"
 
-    Public Function GetIni(section As String, key As String, Optional D As String = "") As String
+    Public Function GetIni(section As String, key As String, D As String) As String
 
         Dim R = Stripqq(Data(section)(key))
         If R = Nothing Then R = D
@@ -360,7 +358,7 @@ Public Class MySettings
         End Set
     End Property
 
-    '''  /end fsassets
+    ''' /end fsassets
 
     Public Property RobustConnStr() As String
         Get
@@ -388,6 +386,7 @@ Public Class MySettings
             SetMySetting("CacheFolder", Value)
         End Set
     End Property
+
     Public Property CacheLogLevel() As String
         Get
             Return GetMySetting("CacheLogLevel", "0")
@@ -405,7 +404,6 @@ Public Class MySettings
             SetMySetting("GridServerName", Value)
         End Set
     End Property
-
 
     Public Property ExternalHostName() As String
         Get
@@ -488,6 +486,7 @@ Public Class MySettings
             SetMySetting("RestartonPhysics", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     Public Property RenderMaxHeight() As String
         Get
             Return GetMySetting("RenderMaxHeight", "4000")
@@ -496,6 +495,7 @@ Public Class MySettings
             SetMySetting("RenderMaxHeight", Value)
         End Set
     End Property
+
     Public Property RenderMinHeight() As String
         Get
             Return GetMySetting("RenderMinHeight", "-100")
@@ -759,6 +759,7 @@ Public Class MySettings
             SetMySetting("BirdsFlockSize", Value)
         End Set
     End Property
+
     ''' <summary>
     ''' which channel do we listen on for in world commands
     ''' </summary>
@@ -806,6 +807,7 @@ Public Class MySettings
             SetMySetting("BirdsNeighbourDistance", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     ''' <summary>
     ''' how far away from other birds we would like to stay
     ''' </summary>
@@ -818,6 +820,7 @@ Public Class MySettings
             SetMySetting("BirdsDesiredSeparation", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     ''' <summary>
     ''' how close to the edges of things can we get without being worried
     ''' </summary>
@@ -830,6 +833,7 @@ Public Class MySettings
             SetMySetting("BirdsTolerance", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     ''' <summary>
     ''' how close to the edge of a region can we get?
     ''' </summary>
@@ -842,6 +846,7 @@ Public Class MySettings
             SetMySetting("BirdsBorderSize", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     ''' <summary>
     ''' how high are we allowed to flock
     ''' </summary>
@@ -854,9 +859,11 @@ Public Class MySettings
             SetMySetting("BirdsMaxHeight", Value.ToString(Form1.Usa))
         End Set
     End Property
+
     ''' <summary>
-    ''' By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that
-    ''' needs to already exist in the scene - i.e. be rezzed in the region.
+    ''' By default the module will create a flock of plain wooden spheres, however this can be
+    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e. be
+    ''' rezzed in the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -977,6 +984,7 @@ Public Class MySettings
     End Property
 
 #Disable Warning CA1056 ' Uri properties should not be strings
+
     Public Property PrivateURL() As String
 #Enable Warning CA1056 ' Uri properties should not be strings
         Get
@@ -1598,7 +1606,6 @@ Public Class MySettings
             SetMySetting("SC_AdminPassword", Value)
         End Set
     End Property
-
 
 #End Region
 
