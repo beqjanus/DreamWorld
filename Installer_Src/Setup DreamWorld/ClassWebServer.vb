@@ -61,12 +61,8 @@ Public Class NetServer
         Try
             listener.Start() ' Throws Exception
         Catch ex As Exception
-            If ex.Message.Contains("Access is denied") Then
-                Log("Error", ex.Message)
-                Return
-            Else
-                Throw
-            End If
+            Log("Error", ex.Message)
+            Return
         End Try
 
         Dim result As IAsyncResult
@@ -147,7 +143,6 @@ Public Class NetServer
                 body.Close()
             End If
 
-
             ' Get the response object to send our confirmation.
             Dim response As HttpListenerResponse = context.Response
 
@@ -168,7 +163,6 @@ Public Class NetServer
         Catch
         End Try
     End Sub
-
 
     Private Function RegionListHTML(PropMySetting As MySettings, PropRegionClass As RegionMaker) As String
 
@@ -218,4 +212,5 @@ Public Class NetServer
         Return HTML
 
     End Function
+
 End Class

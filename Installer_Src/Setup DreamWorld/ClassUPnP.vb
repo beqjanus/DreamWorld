@@ -47,7 +47,7 @@ Public Class UPnp
 
     Public Property Myfolder1 As String
         Get
-            Return _myfolder
+            Return _MyFolder
         End Get
         Set(value As String)
             _MyFolder = value
@@ -68,8 +68,8 @@ Public Class UPnp
             'generate the static mappings
             Me.GetStaticMappings()
             Me.GetDynamicMappings()
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
 
         Print()
@@ -122,26 +122,23 @@ Public Class UPnp
     ''' <param name="Port">The port to forward.</param>
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
     ''' <param name="desc">A small description of the port.</param>
-    ''' <exception cref="ApplicationException">This exception is thrown when UPnp is disabled.</exception>
-    ''' <exception cref="ObjectDisposedException">This exception is thrown when this class has been disposed.</exception>
-    ''' <exception cref="ArgumentException">This exception is thrown when any of the supplied arguments are invalid.</exception>
     ''' <remarks></remarks>
     Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As Protocol, ByVal desc As String)
 
         Try
             ' Begin utilizing
-            If Exists(port, prot) Then Throw New ArgumentException("This mapping already exists:", port.ToString(Form1.Usa))
+            If Exists(port, prot) Then Log("This mapping already exists:" & port.ToString(Form1.Usa))
 
             ' Check
-            If Not IsPrivateIP(localIP) Then Throw New ArgumentException("This is not a local IP address:", localIP)
+            If Not IsPrivateIP(localIP) Then Log("This is not a local IP address:" & localIP)
 
             ' Final check!
-            If Not staticEnabled Then Throw New ApplicationException("UPnP is not enabled, or there was an error with UPnP Initialization.")
+            If Not staticEnabled Then Log("UPnP is not enabled, or there was an error with UPnP Initialization.")
 
             ' Okay, continue on
             staticMapping.Add(port, prot.ToString(), port, localIP, True, desc + ":" + port.ToString(Form1.Usa))
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
 
     End Sub
@@ -151,23 +148,21 @@ Public Class UPnp
     ''' </summary>
     ''' <param name="Port">The port to remove.</param>
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
-    ''' <exception cref="ApplicationException">This exception is thrown when UPnp is disabled.</exception>
-    ''' <exception cref="ObjectDisposedException">This exception is thrown when this class has been disposed.</exception>
-    ''' <exception cref="ArgumentException">This exception is thrown when the port [or protocol] is invalid.</exception>
+
     ''' <remarks></remarks>
     Public Sub Remove(ByVal port As Integer, ByVal prot As Protocol)
 
         Try
             ' Begin utilizing
-            If Not Exists(port, prot) Then Throw New ArgumentException("This mapping doesn't exist!", port.ToString(Form1.Usa))
+            If Not Exists(port, prot) Then Log("This mapping doesn't exist!" & port.ToString(Form1.Usa))
 
             ' Final check!
-            If Not staticEnabled Then Throw New ApplicationException("UPnp is not enabled, or there was an error with UPnp Initialization.")
+            If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
 
             ' Okay, continue on
             staticMapping.Remove(port, prot.ToString)
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
     End Sub
 
@@ -176,14 +171,11 @@ Public Class UPnp
     ''' </summary>
     ''' <param name="Port">The port to check.</param>
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
-    ''' <exception cref="ApplicationException">This exception is thrown when UPnp is disabled.</exception>
-    ''' <exception cref="ObjectDisposedException">This exception is thrown when this class has been disposed.</exception>
-    ''' <exception cref="ArgumentException">This exception is thrown when the port [or protocol] is invalid.</exception>
     ''' <remarks></remarks>
     Public Function Exists(ByVal port As Integer, ByVal prot As Protocol) As Boolean
         Try
             ' Final check!
-            If Not staticEnabled Then Throw New ApplicationException("UPnp is not enabled, or there was an error with UPnp Initialization.")
+            If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
 
             ' Begin checking
             For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
@@ -194,9 +186,8 @@ Public Class UPnp
                 End If
 
             Next
-
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
 
         'Nothing!
@@ -294,8 +285,8 @@ Public Class UPnp
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
-        Catch ex As exception
-            Log(ex.message)
+        Catch ex As Exception
+            Log(ex.Message)
         End Try
     End Sub
 
@@ -334,7 +325,6 @@ Public Class UPnp
 
         End If
 
-
     End Sub
 
     Public Sub Log(message As String)
@@ -342,7 +332,7 @@ Public Class UPnp
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" + message)
             End Using
-        Catch ex As exception
+        Catch ex As Exception
         End Try
     End Sub
 
