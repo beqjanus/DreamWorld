@@ -668,7 +668,7 @@ Cap_GetDisplayNames="localhost"
 ;; and will override that value if set here. The Robust setting
 ;; provides a working default for the grid and setting here is
 ;; optional.
-SearchServerURI=${Const|BaseURL}/Search/query.php/
+;SearchServerURI=${Const|BaseURL}/Search/query.php/
 
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
