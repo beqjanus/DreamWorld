@@ -151,60 +151,67 @@ Public Class FormRegion
             Me.Activate()
             Application.DoEvents()
 
-            ' Size buttons
-            If PropRegionClass1.SizeY(N1) = 256 And PropRegionClass1.SizeX(N1) = 256 Then
+            ' Size buttons can be zero if not in ini
+            If PropRegionClass1.SizeY(N1) = 0 And PropRegionClass1.SizeX(N1) = 0 Then
                 RadioButton1.Checked = True
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
                 SizeX.Text = 256.ToString(Form1.Usa)
                 SizeY.Text = 256.ToString(Form1.Usa)
-            ElseIf PropRegionClass1.SizeY(N1) = 512 And PropRegionClass1.SizeX(N1) = 512 Then
-                RadioButton1.Checked = False
-                RadioButton2.Checked = True
-                RadioButton3.Checked = False
-                RadioButton4.Checked = False
-                SizeX.Text = 512.ToString(Form1.Usa)
-                SizeY.Text = 512.ToString(Form1.Usa)
-            ElseIf PropRegionClass1.SizeY(N1) = 768 And PropRegionClass1.SizeX(N1) = 768 Then
-                RadioButton1.Checked = False
-                RadioButton2.Checked = False
-                RadioButton3.Checked = True
-                RadioButton4.Checked = False
-                SizeX.Text = 768.ToString(Form1.Usa)
-                SizeY.Text = 768.ToString(Form1.Usa)
-            ElseIf PropRegionClass1.SizeY(N1) = 1024 And PropRegionClass1.SizeX(N1) = 1024 Then
-                RadioButton1.Checked = False
-                RadioButton2.Checked = False
-                RadioButton3.Checked = False
-                RadioButton4.Checked = True
-                SizeX.Text = 1024.ToString(Form1.Usa)
-                SizeY.Text = 1024.ToString(Form1.Usa)
-            Else
-                RadioButton1.Checked = False
-                RadioButton2.Checked = False
-                RadioButton3.Checked = False
-                RadioButton4.Checked = False
-                SizeX.Text = Convert.ToString(PropRegionClass1.SizeX(N1), Form1.Usa)
-                SizeY.Text = Convert.ToString(PropRegionClass1.SizeY(N1), Form1.Usa)
+            ElseIf PropRegionClass1.SizeY(N1) = 256 And PropRegionClass1.SizeX(N1) = 256 Then
+                RadioButton1.Checked = True
+                    RadioButton2.Checked = False
+                    RadioButton3.Checked = False
+                    RadioButton4.Checked = False
+                    SizeX.Text = 256.ToString(Form1.Usa)
+                    SizeY.Text = 256.ToString(Form1.Usa)
+                ElseIf PropRegionClass1.SizeY(N1) = 512 And PropRegionClass1.SizeX(N1) = 512 Then
+                    RadioButton1.Checked = False
+                    RadioButton2.Checked = True
+                    RadioButton3.Checked = False
+                    RadioButton4.Checked = False
+                    SizeX.Text = 512.ToString(Form1.Usa)
+                    SizeY.Text = 512.ToString(Form1.Usa)
+                ElseIf PropRegionClass1.SizeY(N1) = 768 And PropRegionClass1.SizeX(N1) = 768 Then
+                    RadioButton1.Checked = False
+                    RadioButton2.Checked = False
+                    RadioButton3.Checked = True
+                    RadioButton4.Checked = False
+                    SizeX.Text = 768.ToString(Form1.Usa)
+                    SizeY.Text = 768.ToString(Form1.Usa)
+                ElseIf PropRegionClass1.SizeY(N1) = 1024 And PropRegionClass1.SizeX(N1) = 1024 Then
+                    RadioButton1.Checked = False
+                    RadioButton2.Checked = False
+                    RadioButton3.Checked = False
+                    RadioButton4.Checked = True
+                    SizeX.Text = 1024.ToString(Form1.Usa)
+                    SizeY.Text = 1024.ToString(Form1.Usa)
+                Else
+                    RadioButton1.Checked = False
+                    RadioButton2.Checked = False
+                    RadioButton3.Checked = False
+                    RadioButton4.Checked = False
+                    SizeX.Text = Convert.ToString(PropRegionClass1.SizeX(N1), Form1.Usa)
+                    SizeY.Text = Convert.ToString(PropRegionClass1.SizeY(N1), Form1.Usa)
+                End If
+
+                ' global coords
+                If PropRegionClass1.CoordX(N1) <> 0 Then
+                    CoordX.Text = PropRegionClass1.CoordX(N1).ToString(Form1.Usa)
+                End If
+
+                If PropRegionClass1.CoordY(N1) <> 0 Then
+                    CoordY.Text = PropRegionClass1.CoordY(N1).ToString(Form1.Usa)
+                End If
+
+                ' and port
+                If PropRegionClass1.RegionPort(N1) <> 0 Then
+                    RegionPort.Text = PropRegionClass1.RegionPort(N1).ToString(Form1.Usa)
+                End If
             End If
 
-            ' global coords
-            If PropRegionClass1.CoordX(N1) <> 0 Then
-                CoordX.Text = PropRegionClass1.CoordX(N1).ToString(Form1.Usa)
-            End If
-
-            If PropRegionClass1.CoordY(N1) <> 0 Then
-                CoordY.Text = PropRegionClass1.CoordY(N1).ToString(Form1.Usa)
-            End If
-
-            ' and port
-            If PropRegionClass1.RegionPort(N1) <> 0 Then
-                RegionPort.Text = PropRegionClass1.RegionPort(N1).ToString(Form1.Usa)
-            End If
-        End If
-
-        ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Usa)
+            ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Usa)
         DisableGBCheckBox.Checked = PropRegionClass1.DisableGloebits(N1)
         RName1 = Name
 
