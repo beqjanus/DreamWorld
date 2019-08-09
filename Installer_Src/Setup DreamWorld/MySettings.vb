@@ -1024,7 +1024,7 @@ Public Class MySettings
 
     Public Property CoordX() As String
         Get
-            Return CType(GetMySetting("CoordX"), String)
+            Return CType(GetMySetting("CoordX", "1000"), String)
         End Get
         Set
             SetMySetting("CoordX", Value)
@@ -1033,7 +1033,7 @@ Public Class MySettings
 
     Public Property CoordY() As String
         Get
-            Return CType(GetMySetting("CoordY"), String)
+            Return CType(GetMySetting("CoordY", "1000"), String)
         End Get
         Set
             SetMySetting("CoordY", Value)
@@ -1051,7 +1051,7 @@ Public Class MySettings
 
     Public Property SizeX() As String
         Get
-            Return CType(GetMySetting("SizeX"), String)
+            Return CType(GetMySetting("SizeX", "256"), String)
         End Get
         Set
             SetMySetting("SizeX", Value)
@@ -1060,7 +1060,7 @@ Public Class MySettings
 
     Public Property SizeY() As String
         Get
-            Return CType(GetMySetting("SizeY"), String)
+            Return CType(GetMySetting("SizeY", "256"), String)
         End Get
         Set
             SetMySetting("SizeY", Value)
@@ -1096,7 +1096,7 @@ Public Class MySettings
 
     Public Property AdminFirst() As String
         Get
-            Return CType(GetMySetting("AdminFirst"), String)
+            Return CType(GetMySetting("AdminFirst", "Wifi"), String)
         End Get
         Set
             SetMySetting("AdminFirst", Value)
@@ -1105,7 +1105,7 @@ Public Class MySettings
 
     Public Property AdminLast() As String
         Get
-            Return CType(GetMySetting("AdminLast"), String)
+            Return CType(GetMySetting("AdminLast", "Admin"), String)
         End Get
         Set
             SetMySetting("AdminLast", Value)
@@ -1492,7 +1492,7 @@ Public Class MySettings
 
     Public Property RobustUsername() As String
         Get
-            Return GetMySetting("RobustMySqlUsername", "robususer")
+            Return GetMySetting("RobustMySqlUsername", "robustuser")
         End Get
         Set
             SetMySetting("RobustMySqlUsername", Value)
