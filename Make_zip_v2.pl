@@ -233,7 +233,7 @@ sub Process
 	
 	my $x = `$file`;
 	if ($x =~ /Everything is Ok/) {
-		print "\n";
+		print "OK\n";
 	} else {
 		print "Fail: $x\n";
 		exit;
