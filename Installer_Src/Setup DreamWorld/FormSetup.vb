@@ -38,7 +38,8 @@ Imports System.Diagnostics
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.13"
+    Private _MyVersion As String = "3.14"
+    Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 #End Region
 
 #Region "Declarations"
@@ -62,7 +63,6 @@ Public Class Form1
     ' not https, which breaks stuff
     Private _Domain As String = "http://www.outworldz.com"
 
-    ' set by code to log some events in when running a debugger
     Private _ExitHandlerIsBusy As Boolean = False
 
     Private _exitList As New ArrayList()
@@ -74,31 +74,21 @@ Public Class Form1
     Private _IcecastProcID As Integer
     Private _Initted As Boolean = False
 
-    ' Allows an Abort when Stopping is clicked
     Private _IPv4Address As String
 
-    '  holds the current directory info in Unix format for MySQL and Apache
     Private _IsRunning As Boolean = False
 
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
     Private _myFolder As String
 
-    ' global IPV4
     Private _mySetting As New MySettings
 
-    'Max number of port used past 8004
     Private _myUPnpMap As UPnp
 
     Private _OpensimBinPath As String
-
-    ' Region
     Private _regionClass As RegionMaker
-
-    ' Global RegionClass
     Private _regionForm As RegionList
-
-    ' Holds path to Opensim folder
     Private _regionHandles As New Dictionary(Of Integer, String)
 
     Private _RestartNow As Boolean = False
@@ -106,29 +96,17 @@ Public Class Form1
     Private _RobustProcID As Integer
     Private _RestartRobust As Boolean = False
 
-    ' set true if a person clicks a restart button to get a sim restarted when auto restart is off
     Private _SelectedBox As String = ""
-
-    Private _SimVersion As String = "0.9.0 2018-06-07 #38e937f91b08a2e52"
-    ' set to true to delete all source for Opensim
-    ' max CPU % can be used when booting or we wait til it gets lower
-    ' for Web content
-
     Private _StopMysql As Boolean = True
 
-    'lets us detect if Mysql is a service so we do not shut it down
     Private _UpdateView As Boolean = True
 
     Private _usa As CultureInfo = New CultureInfo("en-US")
-    ' Holds the current folder that we are running in
-    ' used in PropOpensimIsRunning property
 
-    'Region Form Refresh
     Private _UserName As String = ""
 
     Private _viewedSettings As Boolean = False
 
-    ' all settings from Settings.ini
     Dim Adv As AdvancedForm
 
     Dim client As New System.Net.WebClient ' downloadclient for web pages
@@ -1912,7 +1890,7 @@ Public Class Form1
         Select Case PropMySetting.ServerType
             Case "Robust"
                 If PropMySetting.SearchLocal Then
-                    PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                    PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php")
                     PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
                     PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
                 Else
