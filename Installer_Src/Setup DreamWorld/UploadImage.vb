@@ -150,7 +150,7 @@ Public Class UploadImage
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
         Catch ex As Exception
-            Form1.Log("Error", " & ex.message")
+            Form1.Log("Error", ex.Message)
         End Try
 
     End Sub
