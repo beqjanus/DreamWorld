@@ -10,11 +10,11 @@ require( "flog.php" );
 
 include("databaseinfo.php");
 
- // Attempt to connect to the database
-  try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-  }
+// Attempt to connect to the database
+try {
+  $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
 catch(PDOException $e)
 {
   echo "Error connecting to database\n";
@@ -108,8 +108,9 @@ function dir_places_query($method_name, $params, $app_data)
                 'errorMessage' => "Invalid search terms"
         ));
 
+        flog(headers_list());
         print $response_xml;
-
+        flog($response_xml);
         return;
     }
 
@@ -139,22 +140,25 @@ function dir_places_query($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $sql = "SELECT * FROM parcels WHERE $cat_where" .
+    $sql = "SELECT regions.*, parcels.* FROM parcels  inner join  regions  on parcels.regionuuid = regions.regionuuid WHERE $cat_where" .
            " (parcelname LIKE :text1" .
            " OR description LIKE :text2)" .
-           $type . " ORDER BY $order parcelname" .
+           $type .         
+           " ORDER BY $order parcelname" .
            " LIMIT $query_start,101";
            
     flog($sql);       
     $query = $db->prepare($sql);
+    flog($sqldata);
     $result = $query->execute($sqldata);
-
+    flog('execute');
+    
     $data = array();
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
         $data[] = array(
                 "parcel_id" => $row["infouuid"],
-                "name" => $row["parcelname"],
+                "name" => $row["url"].":".$row["port"].$row["regioname"]." ".$row["parcelname"],
                 "for_sale" => "False",
                 "auction" => "False",
                 "dwell" => $row["dwell"]);
@@ -165,7 +169,9 @@ function dir_places_query($method_name, $params, $app_data)
         'data' => $data
     ));
 
+    flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
@@ -215,7 +221,9 @@ function dir_popular_query($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $query = $db->prepare("SELECT * FROM popularplaces" . $where .
+    $query = $db->prepare("SELECT regions.*, popularplaces.* FROM popularplaces  inner join  regions  on parcels.regionuuid = regions.regionuuid "
+
+                          . $where .
                           " LIMIT $query_start,101");
     $result = $query->execute($sqldata);
 
@@ -224,7 +232,7 @@ function dir_popular_query($method_name, $params, $app_data)
     {
         $data[] = array(
                 "parcel_id" => $row["infoUUID"],
-                "name" => $row["name"],
+                "name" =>  "http://".$row["url"].":".$row["port"].$row["regioname"]." ".$row["name"],
                 "dwell" => $row["dwell"]);
     }
 
@@ -233,7 +241,9 @@ function dir_popular_query($method_name, $params, $app_data)
             'errorMessage' => "",
             'data' => $data));
 
+    flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
@@ -274,8 +284,9 @@ function dir_land_query($method_name, $params, $app_data)
                     'success' => False,
                     'errorMessage' => "No auctions listed"));
 
+            flog(headers_list());
             print $response_xml;
-
+            flog($response_xml);
             return;
         }
 
@@ -350,7 +361,9 @@ function dir_land_query($method_name, $params, $app_data)
             'errorMessage' => "",
             'data' => $data));
 
+   flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
@@ -388,8 +401,9 @@ function dir_events_query($method_name, $params, $app_data)
                 'errorMessage' => "Invalid search terms"
         ));
 
+        flog(headers_list());
         print $response_xml;
-
+        flog($response_xml);
         return;
     }
 
@@ -503,9 +517,10 @@ function dir_events_query($method_name, $params, $app_data)
             'success'      => True,
             'errorMessage' => "",
             'data' => $data));
-
-    //flog($response_xml);
+    
+    flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
@@ -538,8 +553,9 @@ function dir_classified_query ($method_name, $params, $app_data)
                 'errorMessage' => "Invalid search terms"
         ));
 
+        flog(headers_list());
         print $response_xml;
-
+        flog($response_xml);
         return;
     }
 
@@ -599,6 +615,7 @@ function dir_classified_query ($method_name, $params, $app_data)
     $data = array();
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
+      
         $data[] = array(
                 "classifiedid" => $row["classifieduuid"],
                 "name" => $row["name"],
@@ -613,7 +630,9 @@ function dir_classified_query ($method_name, $params, $app_data)
             'errorMessage' => "",
             'data' => $data));
 
+    flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
@@ -694,7 +713,9 @@ $x =  "event_id ="    . $row["eventid"]. "\n".
             'errorMessage' => "",
             'data' => $data));
 
+    flog(headers_list());
     print $response_xml;
+    flog($response_xml);
 }
 
 #
