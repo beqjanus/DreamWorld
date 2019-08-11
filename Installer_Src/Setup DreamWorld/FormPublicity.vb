@@ -99,16 +99,16 @@ Public Class FormPublicity
                 Catch ex As UnauthorizedAccessException
                     MsgBox("Warn: ex.Message")
                     Return
-                Finally
-
                 End Try
 
                 Try
                     PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                 Catch ex As ArgumentNullException
-                    Form1.ErrorLog(ex.Message)
+                    MsgBox("Warn: ex.Message")
+                    Return
                 Catch ex As Runtime.InteropServices.ExternalException
-                    Form1.ErrorLog(ex.Message)
+                    MsgBox("Warn: ex.Message")
+                    Return
                 End Try
 
                 Dim Myupload As New UploadImage
