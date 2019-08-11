@@ -34,6 +34,8 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
 Imports System.Diagnostics
+Imports System.Security.Principal
+
 
 Public Class Form1
 
@@ -59,12 +61,8 @@ Public Class Form1
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
     Private _DNSSTimer As Integer = 0
-
-    ' not https, which breaks stuff
-    Private _Domain As String = "http://www.outworldz.com"
-
+    Private _Domain As String = "http://www.outworldz.com" ' not https, which breaks stuff
     Private _ExitHandlerIsBusy As Boolean = False
-
     Private _exitList As New ArrayList()
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
@@ -73,42 +71,28 @@ Public Class Form1
     Private _gUseIcons As Boolean = False
     Private _IcecastProcID As Integer
     Private _Initted As Boolean = False
-
     Private _IPv4Address As String
-
     Private _IsRunning As Boolean = False
-
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
     Private _myFolder As String
-
     Private _mySetting As New MySettings
-
     Private _myUPnpMap As UPnp
-
     Private _OpensimBinPath As String
     Private _regionClass As RegionMaker
     Private _regionForm As RegionList
     Private _regionHandles As New Dictionary(Of Integer, String)
-
     Private _RestartNow As Boolean = False
     Private _RobustConnStr As String = ""
     Private _RobustProcID As Integer
     Private _RestartRobust As Boolean = False
-
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
-
     Private _UpdateView As Boolean = True
-
     Private _usa As CultureInfo = New CultureInfo("en-US")
-
     Private _UserName As String = ""
-
     Private _viewedSettings As Boolean = False
-
     Dim Adv As AdvancedForm
-
     Dim client As New System.Net.WebClient ' downloadclient for web pages
 
     ' Graph
@@ -215,7 +199,6 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
-
 
     Public Property PropRobustExited() As Boolean
         Get
@@ -718,69 +701,7 @@ Public Class Form1
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         ReallyQuit()
     End Sub
-    Private Sub GetGridServerName()
 
-        PropMyUPnpMap = New UPnp(PropMyFolder)
-
-        ' setup some defaults
-        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
-        Print("Lan IP=" & PropMySetting.PublicIP)
-        PropMySetting.PrivateURL = PropMySetting.PublicIP
-        PropMySetting.GridServerName = PropMySetting.PublicIP
-
-        ' Set them back to the DNS name if there is one
-        If PropMySetting.DNSName.Length > 0 Then
-            PropMySetting.PublicIP = PropMySetting.DNSName
-            PropMySetting.GridServerName = PropMySetting.DNSName
-            Print("DNS Name=" & PropMySetting.PublicIP)
-        End If
-
-        If PropMySetting.ServerType = "Robust" Then
-            PropMySetting.ExternalHostName = PropMySetting.PublicIP
-            Print("Robust Server mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "OsGrid" Then
-            PropMySetting.PublicIP = "hg.osgrid.org"
-            Try
-                Dim client As New System.Net.WebClient ' downloadclient for web page
-                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-                PropMySetting.ExternalHostName = ip
-            Catch ex As Net.WebException
-            End Try
-            Print("OSGrid Region mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "Region" Then
-            PropMySetting.ExternalHostName = PropMySetting.PublicIP
-            Print("Region mode.")
-            Print("IP=" & PropMySetting.ExternalHostName)
-            PropMySetting.GridServerName = PropMySetting.PublicIP
-        ElseIf PropMySetting.ServerType = "Metro" Then
-            Try
-                Dim client As New System.Net.WebClient ' downloadclient for web page
-                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-                PropMySetting.ExternalHostName = ip
-            Catch ex As Net.WebException
-            End Try
-            PropMySetting.GridServerName = PropMySetting.PublicIP
-            Print("Metro Region mode")
-            Print("Host=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "AviWorlds" Then
-            Try
-                Dim client As New System.Net.WebClient ' downloadclient for web page
-                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-                PropMySetting.ExternalHostName = ip
-            Catch ex As Net.WebException
-            End Try
-            PropMySetting.GridServerName = PropMySetting.PublicIP
-            Print("AviWorlds Region mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
-        End If
-
-        If PropMySetting.OverrideName.Length > 0 Then
-            PropMySetting.ExternalHostName = PropMySetting.OverrideName
-            Print("Region IP=" & PropMySetting.ExternalHostName)
-        End If
-    End Sub
     ''' <summary>
     ''' Form Load is main() for all Dreamgrid
     ''' </summary>
@@ -2576,9 +2497,6 @@ Public Class Form1
         ApachePictureBox.Image = My.Resources.nav_plain_red
         Application.DoEvents()
 
-        Print("Check Apache")
-        ' Stop MSFT server if we are on port 80 and enabled
-
         If PropMySetting.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
             ApacheProcess.StartInfo.FileName = "net"
@@ -2586,15 +2504,20 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = "stop W3SVC"
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             ApacheProcess.Start()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
         End If
 
+        Print("Check Apache")
+        ' Stop MSFT server if we are on port 80 and enabled
+
         Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
         If Running Then
-            Print("Apache webserver is running")
+            Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
             Return
         End If
+        Application.DoEvents()
 
         If PropMySetting.ApacheService Then
             Print("Checking Apache service")
@@ -2602,22 +2525,26 @@ Public Class Form1
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             ApacheProcess.Start()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
             Dim code = ApacheProcess.ExitCode
             If code <> 0 Then
-                ErrorLog("ApacheHTTPServer did not stop, probably does not exist")
+                ErrorLog("ApacheHTTPServer did not stop, may have been stopped or did not exist")
             End If
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             ApacheProcess.Start()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             ApacheProcess.Start()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             ApacheProcess.Start()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             Sleep(4000)
@@ -2633,6 +2560,7 @@ Public Class Form1
                 ApacheProcess.StartInfo.WorkingDirectory = PropMyFolder + "\Outworldzfiles\Apache\bin\"
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 ApacheProcess.Start()
+                Application.DoEvents()
                 ApacheProcess.WaitForExit()
                 code = ApacheProcess.ExitCode
                 If code <> 0 Then
@@ -2641,10 +2569,11 @@ Public Class Form1
                     PropApacheUninstalling = False ' installed now, trap errors
                 End If
                 Sleep(100)
-
+                Print("Starting Apache web server")
                 ApacheProcess.StartInfo.FileName = "net"
                 ApacheProcess.StartInfo.Arguments = "start " & "ApacheHTTPServer"
                 ApacheProcess.Start()
+                Application.DoEvents()
                 ApacheProcess.WaitForExit()
                 code = ApacheProcess.ExitCode
                 If code <> 0 Then
@@ -2656,6 +2585,7 @@ Public Class Form1
             Catch ex As Exception
                 Print("Apache failed to start:" & ex.Message)
             End Try
+
         Else
 
             ' Start Apache  manually
@@ -2679,6 +2609,7 @@ Public Class Form1
                 Return
             End Try
 
+            Application.DoEvents()
             ' Wait for Apache to start listening
 
             Dim counter = 0
@@ -3843,6 +3774,10 @@ Public Class Form1
         If PropDNSSTimer Mod 60 = 0 Then
             RegionListHTML() ' create HTML for region teleporters
             LogSearch.Find()
+        End If
+
+        If PropDNSSTimer = 300 Then
+            RunDataSnapshot() ' Fetch assets marked for search at startup
         End If
 
         If PropDNSSTimer Mod 3600 = 0 Then
@@ -6411,6 +6346,69 @@ Public Class Form1
 
     End Function
 
+    Private Sub GetGridServerName()
+
+        PropMyUPnpMap = New UPnp(PropMyFolder)
+
+        ' setup some defaults
+        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
+        Print("Lan IP=" & PropMySetting.PublicIP)
+        PropMySetting.PrivateURL = PropMySetting.PublicIP
+        PropMySetting.GridServerName = PropMySetting.PublicIP
+
+        ' Set them back to the DNS name if there is one
+        If PropMySetting.DNSName.Length > 0 Then
+            PropMySetting.PublicIP = PropMySetting.DNSName
+            PropMySetting.GridServerName = PropMySetting.DNSName
+            Print("DNS Name=" & PropMySetting.PublicIP)
+        End If
+
+        If PropMySetting.ServerType = "Robust" Then
+            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+            Print("Robust Server mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "OsGrid" Then
+            PropMySetting.PublicIP = "hg.osgrid.org"
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            Print("OSGrid Region mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "Region" Then
+            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+            Print("Region mode.")
+            Print("IP=" & PropMySetting.ExternalHostName)
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+        ElseIf PropMySetting.ServerType = "Metro" Then
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Print("Metro Region mode")
+            Print("Host=" & PropMySetting.ExternalHostName)
+        ElseIf PropMySetting.ServerType = "AviWorlds" Then
+            Try
+                Dim client As New System.Net.WebClient ' downloadclient for web page
+                Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
+                PropMySetting.ExternalHostName = ip
+            Catch ex As Net.WebException
+            End Try
+            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Print("AviWorlds Region mode")
+            Print("IP=" & PropMySetting.ExternalHostName)
+        End If
+
+        If PropMySetting.OverrideName.Length > 0 Then
+            PropMySetting.ExternalHostName = PropMySetting.OverrideName
+            Print("Region IP=" & PropMySetting.ExternalHostName)
+        End If
+    End Sub
 #End Region
 
 End Class
