@@ -3101,6 +3101,23 @@ Public Class Form1
         End Try
 
         If myProcess.Start() Then
+
+            Dim hasPID As Boolean = False
+            Dim TooMany As Integer = 0
+            Do While Not hasPID And TooMany < 100
+                Try
+                    Sleep(100)
+                    TooMany += 1
+                    Dim p As Process = Process.GetProcessById(myProcess.Id)
+                    If p.ProcessName.Length > 0 Then
+                        hasPID = True
+                    End If
+
+                Catch ex As ArgumentException
+                Catch ex As InvalidOperationException
+                End Try
+            Loop
+
             For Each num In Regionclass.RegionListByGroupNum(Groupname)
                 Log("Debug", "Process started for " + Regionclass.RegionName(num) + " PID=" + myProcess.Id.ToString(Usa) + " Num:" + num.ToString(Usa))
                 Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
