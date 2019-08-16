@@ -52,7 +52,7 @@
     End Sub
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
-        Dim webAddress As String = "https://support.vivox.com/opensim/"
+        Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Process.Start(webAddress)
     End Sub
 
