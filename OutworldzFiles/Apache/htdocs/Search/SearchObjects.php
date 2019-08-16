@@ -63,6 +63,7 @@ catch(PDOException $e)
              
              $query = $db->prepare($query);
              $result = $query->execute($sqldata);
+             $counter = 0;
 
 
                while ($row = $query->fetch(PDO::FETCH_ASSOC))
@@ -76,7 +77,16 @@ catch(PDOException $e)
                  echo "<td>" . $row["description"] . "</td>";
                  echo "<td>" . $row["regionuuid"] . "</td>";
                  echo "</tr>";
+                 $counter+= 1;
                }
+                if ($counter == 0) {
+                echo "<tr valign=\"top\">";
+                echo "<td> </td>";
+                echo "<td>Nothing found</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            echo "<input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
             ?>
         </table>
     </body>

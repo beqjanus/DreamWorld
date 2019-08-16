@@ -69,6 +69,7 @@ catch(PDOException $e)
              
              $query = $db->prepare($query);
              $result = $query->execute($sqldata);
+             $counter = 1;
 
 
                while ($row = $query->fetch(PDO::FETCH_ASSOC))
@@ -90,9 +91,18 @@ catch(PDOException $e)
                  echo "<td>" . $row["parcelname"] . "</td>";
                  echo "<td>" . $row["classifiedflags"] . "</td>";
                  echo "<td>" . $row["priceforlisting"] . "</td>";
-                 
+                 $counter += 1;
                  echo "</tr>";
                }
+               
+               if ($counter == 0) {
+                echo "<tr valign=\"top\">";
+                echo "<td> </td>";
+                echo "<td>Nothing found</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            echo "<input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
             ?>
         </table>
     </body>
