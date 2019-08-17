@@ -152,7 +152,7 @@ function dir_places_query($method_name, $params, $app_data)
     flog($sqldata);
     $result = $query->execute($sqldata);
     flog('execute');
-    
+    $counter = 0;
     $data = array();
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
@@ -162,9 +162,16 @@ function dir_places_query($method_name, $params, $app_data)
                 "for_sale" => "False",
                 "auction" => "False",
                 "dwell" => $row["dwell"]);
+        $counter +=1;
+    }
+    $success = True;
+    if ($counter > 0 ) {
+      $success = True;
+    } else {
+      $success = False;
     }
     $response_xml = xmlrpc_encode(array(
-        'success'      => True,
+        'success'      =>$Success,
         'errorMessage' => "",
         'data' => $data
     ));

@@ -31,7 +31,7 @@ catch(PDOException $e)
             }
             tr.alt
             {
-                background-color: #777777;
+                background-color: #dddddd;
             }
         </style>
         <script type="text/javascript">

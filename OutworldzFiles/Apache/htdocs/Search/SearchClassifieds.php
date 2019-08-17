@@ -30,7 +30,7 @@ catch(PDOException $e)
             }
             tr.alt
             {
-                background-color: #777777;
+                background-color: #dddddd;
             }
         </style>
         <script type="text/javascript">
@@ -69,7 +69,7 @@ catch(PDOException $e)
              
              $query = $db->prepare($query);
              $result = $query->execute($sqldata);
-             $counter = 1;
+             $counter = 0;
 
 
                while ($row = $query->fetch(PDO::FETCH_ASSOC))

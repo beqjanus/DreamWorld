@@ -10,6 +10,8 @@
 
 //include the log file
 require( "flog.php" );
+flog("Running");
+
 include("databaseinfo.php");
 
 $hostname = "";
@@ -25,12 +27,16 @@ flog("port:" . $port);
 flog("service:" . $service );
 
 
+
 if ($hostname == "" || $port == "")
 {
     echo "Missing host name and/or port address\n";
     flog("Missing host name and/or port address");
     exit;
 }
+
+flog ("Okay");
+
  // Attempt to connect to the database
   try {
     $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
