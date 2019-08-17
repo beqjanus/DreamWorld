@@ -628,6 +628,10 @@ Public Class Form1
 
         If PropViewedSettings Then
 
+            ' must start after region Class Is instantiated
+            PropWebServer.StopWebServer()
+            PropWebServer.StartServer(PropMyFolder, PropMySetting)
+
             If SetPublicIP() Then
                 OpenPorts()
             End If
