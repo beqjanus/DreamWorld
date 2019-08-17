@@ -558,6 +558,7 @@ Public Class Form1
             Return _viewedSettings
         End Get
         Set(value As Boolean)
+            Diagnostics.Debug.Print("ViewedSettings =" & value)
             _viewedSettings = value
         End Set
     End Property
@@ -787,13 +788,11 @@ Public Class Form1
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
         End If
 
-
         GetGridServerName()
 
         If (PropMySetting.SplashPage.Length = 0) Then
             PropMySetting.SplashPage = PropDomain() + "/Outworldz_installer/Welcome.htm"
         End If
-
 
         CheckForUpdates()
 
@@ -1013,6 +1012,9 @@ Public Class Form1
         PropUpdateView = True ' make form refresh
 
         ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+
+        RobustPictureBox.Image = My.Resources.nav_plain_green
+        ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
@@ -2783,6 +2785,8 @@ Public Class Form1
         If Not PropMySetting.ApacheService Then
             Zap("httpd")
             Zap("rotatelogs")
+            ApachePictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(ApachePictureBox, "Stopped")
         End If
 
     End Sub
@@ -2902,7 +2906,7 @@ Public Class Form1
             Return False
         End Try
 
-        ' Wait for Opensim to start listening
+        ' Wait for Robust to start listening
 
         Dim counter = 0
         While Not IsRobustRunning() And PropOpensimIsRunning
@@ -2934,7 +2938,7 @@ Public Class Form1
         RobustPictureBox.Image = My.Resources.nav_plain_green
         Log("Info", "Robust is running")
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
-
+        Application.DoEvents()
         Return True
 
     End Function
@@ -5176,6 +5180,8 @@ Public Class Form1
     Private Sub StopIcecast()
 
         Zap("icecast")
+        IceCastPicturebox.Image = My.Resources.nav_plain_green
+        ToolTip1.SetToolTip(IceCastPicturebox, "Stopped")
 
     End Sub
 
@@ -5185,12 +5191,14 @@ Public Class Form1
 
         If Not isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(MysqlPictureBox, "Stopped")
             Application.DoEvents()
             Return
         End If
 
         If Not PropStopMysql Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(MysqlPictureBox, "Running")
             Application.DoEvents()
             Print("MySQL was running when I woke up, so I am leaving MySQL on.")
             Return
@@ -5212,6 +5220,7 @@ Public Class Form1
             p.WaitForExit()
             p.Close()
             MysqlPictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(MysqlPictureBox, "Stopped")
             Application.DoEvents()
         Catch ex As Exception
             ErrorLog("Error: failed to stop MySQL:" + ex.Message)
