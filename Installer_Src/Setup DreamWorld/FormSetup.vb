@@ -5184,7 +5184,7 @@ Public Class Form1
     Private Sub StopIcecast()
 
         Zap("icecast")
-        IceCastPicturebox.Image = My.Resources.nav_plain_green
+        IceCastPicturebox.Image = My.Resources.nav_plain_red
         ToolTip1.SetToolTip(IceCastPicturebox, "Stopped")
 
     End Sub
