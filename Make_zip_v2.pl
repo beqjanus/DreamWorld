@@ -48,6 +48,7 @@ foreach my $path ( @deletions) {
 
 unlink ("$dir/BareTail.udm");
 unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
+unlink "$dir/OutworldzFiles/PHP5/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
