@@ -81,7 +81,7 @@ Public Class FormCaches
         Form1.PropMySetting.CacheFolder = CacheFolder.Text
         Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
         Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
-
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
 
     End Sub
@@ -131,6 +131,7 @@ Public Class FormCaches
     Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
+        Form1.PropViewedSettings = True
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -142,7 +143,7 @@ Public Class FormCaches
     End Sub
 
     Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
-
+        Form1.PropViewedSettings = True
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
@@ -165,6 +166,7 @@ Public Class FormCaches
                 Form1.PropMySetting.BackupFolder = thing
                 Form1.PropMySetting.SaveSettings()
                 CacheFolder.Text = thing
+                Form1.PropViewedSettings = True
             End If
         End If
     End Sub

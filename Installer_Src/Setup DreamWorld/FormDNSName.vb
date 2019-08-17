@@ -108,7 +108,7 @@ Public Class FormDNSName
 
         Form1.PropMySetting.SaveSettings()
         changed = False ' suppress prompts
-
+        Form1.PropViewedSettings = True
         Me.Close()
 
     End Sub

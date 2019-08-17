@@ -140,7 +140,7 @@
         If DNSName1.Length > 0 Then
             Form1.PropMySetting.GridServerName = DNSName1
         End If
-
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
