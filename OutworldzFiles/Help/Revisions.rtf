@@ -7,20 +7,18 @@
 
 \pard\nowidctlpar\li720\ri720\sb100 This is a high-level view of major changes. Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\line\par
 V3.14 Beta\par
-Import INI files would not work if the file name did not match the [name] of the region. Fixed.\par
+Disable button added to Viewer Search, and iof on, you can set it for local only, or all Dreamgrids.\par
+Import INI files button in Region Panel would not work if the file name did not match the [name] of the region. Fixed.  This was added because you can no longer use Drag and Drop to put regions into the system due to security needed to be as Admin.\par
 Changed Voice Help URL to match new Vivox web pages.\par
-Added a PHP/Search debug page to test various Firestorm Search options.\par
-Windows can  return a null PID from Process() but it should wait until there is one before returning. Nope,  I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type in certain windows, too.\par
-Added a spawn on Datasnapshot after a boot to speed up collecting assets for search.\par
-Search is improved \par
-Slow down the Killall Loop - printed too fast\par
+Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type in certain windows, too.\par
+Added a spawn of Datasnapshot colelctor after a boot to speed up collecting assets for search.\par
+Slow down the Killall Loop on Exit to 1 second \par
 Add more UPNP exception catchers.\par
-Require defaults for all region params to stop weird crashes on imported or brain dead INI files.\par
+Enforce defaults for all region params to stop weird crashes on imported or brain dead INI files.\par
 Search Local points to the correct local url, instead of the global Hyperica server.\par
-A sim size of 0 was allowed by Opensim. \par
+A sim size of 0 was allowed by Opensim. Really?  \par
 Publicity Photo could kill system if the Hyperica server is offline or unreachable.\par
-Added various search debu screens in PHP to hello.php\par
-\par
+Added a PHP/Search debug page to test various Firestorm Search options. See Hello.php\par
 \par
 V3.13 Beta\par
 Repaired OsGrid and other region types that broke in prior beta version\par

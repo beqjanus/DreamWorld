@@ -228,8 +228,6 @@ Public Class RegionList
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
-        ' ListView Setup
-        ListView1.AllowDrop = True
 
         ' Set the view to show details.
         TheView1 = Form1.PropMySetting.RegionListView()
@@ -949,56 +947,6 @@ Public Class RegionList
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         Form1.Help("RegionList")
-    End Sub
-
-#End Region
-
-#Region "DragDrop"
-    Private Sub ListView1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragDrop
-
-        Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
-
-        Dim dirpathname = PickGroup()
-        If dirpathname.Length = 0 Then
-            Form1.Print("Aborted")
-            Return
-        End If
-
-        For Each pathname As String In files
-            pathname = pathname.Replace("\", "/")
-            Dim extension As String = Path.GetExtension(pathname)
-            extension = Mid(extension, 2, 5)
-            If extension.ToLower(Form1.Usa) = "ini" Then
-                Dim filename = Path.GetFileNameWithoutExtension(pathname)
-                Dim i = PropRegionClass1.FindRegionByName(filename)
-                If i >= 0 Then
-                    MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
-                    Return
-                End If
-
-                If dirpathname.Length = 0 Then dirpathname = filename
-
-                Dim NewFilepath = Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
-                If Not Directory.Exists(NewFilepath) Then
-                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
-                End If
-
-                File.Copy(pathname, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
-            Else
-                Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")
-            End If
-        Next
-        PropRegionClass1.GetAllRegions()
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub ListView1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragEnter
-
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-
     End Sub
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)

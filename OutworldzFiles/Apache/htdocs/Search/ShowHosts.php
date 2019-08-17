@@ -39,7 +39,7 @@ catch(PDOException $e)
                $('.striped tr:even').addClass('alt');
             });
         </script>
-        <title>Show Hosts</title>
+        <title>Show Searchable Hosts</title>
         <link rel="shortcut icon" href="/favicon.ico">
     </head>
     <body>

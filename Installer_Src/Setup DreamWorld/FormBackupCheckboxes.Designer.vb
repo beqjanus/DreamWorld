@@ -59,7 +59,7 @@ Partial Class FormBackupCheckboxes
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.EnableAutoDragDrop = True
+
         Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(213, 10)
         Me.TextBox1.MaxLength = 15000

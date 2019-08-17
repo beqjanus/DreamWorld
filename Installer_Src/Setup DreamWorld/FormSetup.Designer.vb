@@ -135,11 +135,14 @@ Partial Class Form1
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.IcecastLabel = New System.Windows.Forms.Label()
+        Me.IceCastPicturebox = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.IceCastPicturebox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StopButton
@@ -180,7 +183,7 @@ Partial Class Form1
         '
         Me.JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
         Me.JustQuitToolStripMenuItem.Name = "JustQuitToolStripMenuItem"
-        Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.JustQuitToolStripMenuItem.Text = "Just Quit"
         '
         'mnuExit
@@ -188,7 +191,7 @@ Partial Class Form1
         Me.mnuExit.Image = Global.Outworldz.My.Resources.Resources.exit_icon
         Me.mnuExit.Name = "mnuExit"
         Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.mnuExit.Size = New System.Drawing.Size(133, 22)
+        Me.mnuExit.Size = New System.Drawing.Size(134, 22)
         Me.mnuExit.Text = "Exit"
         '
         'mnuSettings
@@ -506,19 +509,19 @@ Partial Class Form1
         'ThreadpoolsToolStripMenuItem
         '
         Me.ThreadpoolsToolStripMenuItem.Name = "ThreadpoolsToolStripMenuItem"
-        Me.ThreadpoolsToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.ThreadpoolsToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.ThreadpoolsToolStripMenuItem.Text = "Threadpools"
         '
         'XengineToolStripMenuItem
         '
         Me.XengineToolStripMenuItem.Name = "XengineToolStripMenuItem"
-        Me.XengineToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.XengineToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.XengineToolStripMenuItem.Text = "Xengine"
         '
         'JobEngineToolStripMenuItem
         '
         Me.JobEngineToolStripMenuItem.Name = "JobEngineToolStripMenuItem"
-        Me.JobEngineToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.JobEngineToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.JobEngineToolStripMenuItem.Text = "JobEngine"
         '
         'ToolStripSeparator2
@@ -616,7 +619,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(304, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(561, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -793,7 +796,6 @@ Partial Class Form1
         'TextBox1
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.EnableAutoDragDrop = True
         Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(15, 49)
         Me.TextBox1.MaxLength = 15000
@@ -948,14 +950,34 @@ Partial Class Form1
         Me.Label5.TabIndex = 44
         Me.Label5.Text = "Robust"
         '
+        'IcecastLabel
+        '
+        Me.IcecastLabel.AutoSize = True
+        Me.IcecastLabel.Location = New System.Drawing.Point(429, 26)
+        Me.IcecastLabel.Name = "IcecastLabel"
+        Me.IcecastLabel.Size = New System.Drawing.Size(42, 13)
+        Me.IcecastLabel.TabIndex = 47
+        Me.IcecastLabel.Text = "Icecast"
+        '
+        'IceCastPicturebox
+        '
+        Me.IceCastPicturebox.Image = CType(resources.GetObject("IceCastPicturebox.Image"), System.Drawing.Image)
+        Me.IceCastPicturebox.Location = New System.Drawing.Point(442, 5)
+        Me.IceCastPicturebox.Name = "IceCastPicturebox"
+        Me.IceCastPicturebox.Size = New System.Drawing.Size(17, 17)
+        Me.IceCastPicturebox.TabIndex = 46
+        Me.IceCastPicturebox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.IceCastPicturebox, "IceCast Status")
+        '
         'Form1
         '
-        Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(304, 141)
+        Me.ClientSize = New System.Drawing.Size(561, 141)
+        Me.Controls.Add(Me.IcecastLabel)
+        Me.Controls.Add(Me.IceCastPicturebox)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.RobustPictureBox)
@@ -991,6 +1013,7 @@ Partial Class Form1
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.IceCastPicturebox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1114,4 +1137,6 @@ Partial Class Form1
     Friend WithEvents RobustPictureBox As PictureBox
     Friend WithEvents Label5 As Label
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents IcecastLabel As Label
+    Friend WithEvents IceCastPicturebox As PictureBox
 End Class

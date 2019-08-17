@@ -590,8 +590,6 @@ Public Class Form1
     ''' </summary>
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
-        TextBox1.AllowDrop = True
-
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -675,13 +673,13 @@ Public Class Form1
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
 
+        StartIcecast()
+
         ' Launch the rockets
         Print("Start Regions")
         If Not StartOpensimulator(SkipSmartStart) Then
             Return
         End If
-
-        StartIcecast()
 
         ' show the IAR and OAR menu when we are up
         If PropContentAvailable Then
@@ -1021,7 +1019,7 @@ Public Class Form1
         ClothingInventoryToolStripMenuItem.Visible = False
         Timer1.Stop()
         PropOpensimIsRunning() = False
-        Me.AllowDrop = False
+
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
         ToolBar(False)
@@ -1810,18 +1808,24 @@ Public Class Form1
 
         Select Case PropMySetting.ServerType
             Case "Robust"
-                If PropMySetting.SearchLocal Then
-                    PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php")
-                    PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
-                    PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
-                Else
-                    PropMySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                    PropMySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                    PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
-                End If
+                If PropMySetting.SearchEnabled Then
 
+                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
+                    If PropMySetting.SearchLocal Then
+                        PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
+                        PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                        PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                    Else
+                        PropMySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                        PropMySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                        PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                    End If
+                Else
+                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "False")
+                End If
                 PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
-                PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
+                    PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
+
             Case "Region"
             Case "OSGrid"
             Case "Metro"
@@ -2398,7 +2402,7 @@ Public Class Form1
         ClothingInventoryToolStripMenuItem.Visible = False
         Timer1.Stop()
         PropOpensimIsRunning() = False
-        Me.AllowDrop = False
+
         ProgressBar1.Value = 0
         ProgressBar1.Visible = False
         ToolBar(False)
@@ -2424,7 +2428,7 @@ Public Class Form1
 
         Dim webAddress As String = PropDomain + "/cgi/freesculpts.plx"
         Process.Start(webAddress)
-        Print("Drag and drop Backup.Oar, or any OAR or IAR files to load into your Sim")
+        Print("Get OAR and IAR files to load into your Sim")
 
     End Sub
 
@@ -2468,33 +2472,33 @@ Public Class Form1
 
     Public Sub StartApache()
 
-        Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
-        SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
-        SiteMapContents +=  "<url>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.HttpPort, String) & "/bin/data/index.htm" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchClassifieds.php" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchObjects.php" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchParcel.php" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchRegions.php" & "</loc>" & vbCrLf
-        SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/ShowHosts.php" & "</loc>" & vbCrLf
-        SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
-        SiteMapContents += "<priority>0.8</priority>" & vbCrLf
-        SiteMapContents += "</url>" & vbCrLf
-        SiteMapContents += "</urlset>" & vbCrLf
+        If PropMySetting.SearchEnabled Then
+            Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
+            SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
+            SiteMapContents += "<url>" & vbCrLf
+            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchClassifieds.php" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchObjects.php" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchRegions.php" & "</loc>" & vbCrLf
+            SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
+            SiteMapContents += "<priority>0.8</priority>" & vbCrLf
+            SiteMapContents += "</url>" & vbCrLf
+            SiteMapContents += "</urlset>" & vbCrLf
 
-        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
-            outputFile.WriteLine(SiteMapContents)
-        End Using
-
+            Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
+                outputFile.WriteLine(SiteMapContents)
+            End Using
+        End If
 
         If Not PropMySetting.ApacheEnable Then
             ApachePictureBox.Image = My.Resources.nav_plain_blue
+            ToolTip1.SetToolTip(ApachePictureBox, "Disabled")
             Print("Apache web server is not enabled.")
             Return
         End If
 
         ApachePictureBox.Image = My.Resources.nav_plain_red
+        ToolTip1.SetToolTip(ApachePictureBox, "Offline")
         Application.DoEvents()
 
         If PropMySetting.ApachePort = 80 Then
@@ -2515,6 +2519,7 @@ Public Class Form1
         If Running Then
             Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
             Return
         End If
         Application.DoEvents()
@@ -2580,6 +2585,7 @@ Public Class Form1
                     Print("Apache failed to start:" & code.ToString(Usa))
                 Else
                     ApachePictureBox.Image = My.Resources.nav_plain_green
+                    ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
                     Application.DoEvents()
                 End If
             Catch ex As Exception
@@ -2605,6 +2611,7 @@ Public Class Form1
                 Print("Error: Apache did not start: " + ex.Message)
                 ErrorLog("Error: Apache did not start: " + ex.Message)
                 ApachePictureBox.Image = My.Resources.nav_plain_red
+                ToolTip1.SetToolTip(ApachePictureBox, "Webserver did not start")
                 Application.DoEvents()
                 Return
             End Try
@@ -2629,6 +2636,7 @@ Public Class Form1
                 If isRunning Then
                     Print("Apache webserver is running")
                     ApachePictureBox.Image = My.Resources.nav_plain_green
+                    ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
                     Return
                 End If
 
@@ -2786,11 +2794,17 @@ Public Class Form1
     Public Sub StartIcecast()
 
         If Not PropMySetting.SCEnable Then
+            IceCastPicturebox.Image = My.Resources.nav_plain_blue
+            ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is disabled")
             Return
         End If
 
         Dim IceCastRunning = CheckPort(PropMySetting.PublicIP, PropMySetting.SCPortBase)
-        If IceCastRunning Then Return
+        If IceCastRunning Then
+            IceCastPicturebox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
+            Return
+        End If
 
         Try
             My.Computer.FileSystem.DeleteFile(PropMyFolder + "\Outworldzfiles\Icecast\log\access.log")
@@ -2827,7 +2841,14 @@ Public Class Form1
         Catch ex As Exception
             Print("Error: Icecast did not start: " + ex.Message)
             ErrorLog("Error: Icecast did not start: " + ex.Message)
+            IceCastPicturebox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(IceCastPicturebox, "Icecast Failed to start")
+            Return
         End Try
+
+        IceCastPicturebox.Image = My.Resources.nav_plain_green
+        ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
+
 
     End Sub
 
@@ -2839,18 +2860,20 @@ Public Class Form1
 
         If IsRobustRunning() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
             Return True
         End If
 
         PropRestartRobust = False
 
         RobustPictureBox.Image = My.Resources.nav_plain_blue
-
+        ToolTip1.SetToolTip(RobustPictureBox, "Robust is Off")
         If PropMySetting.ServerType <> "Robust" Then Return True
 
         If PropMySetting.RobustServer <> "127.0.0.1" And PropMySetting.RobustServer <> "localhost" Then
             Print("Using Robust on " & PropMySetting.RobustServer)
             RobustPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
             Return True
         End If
 
@@ -2875,6 +2898,7 @@ Public Class Form1
             KillAll()
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(RobustPictureBox, "Robust did not start")
             Return False
         End Try
 
@@ -2896,6 +2920,7 @@ Public Class Form1
                 End If
                 Buttons(StartButton)
                 RobustPictureBox.Image = My.Resources.nav_plain_red
+                ToolTip1.SetToolTip(RobustPictureBox, "Robust did not start")
                 Return False
             End If
             Application.DoEvents()
@@ -2908,6 +2933,7 @@ Public Class Form1
         End If
         RobustPictureBox.Image = My.Resources.nav_plain_green
         Log("Info", "Robust is running")
+        ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
 
         Return True
 
@@ -2953,16 +2979,19 @@ Public Class Form1
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles ApacheProcess.Exited
 
         PropgApacheProcessID = Nothing
-
-        If PropAborting Then Return
         If PropApacheUninstalling Then Return
-        Dim yesno = MsgBox("Apache exited.", vbYesNo, "Error")
+        Dim yesno = MsgBox("Apache quit. Do you want to see the error log file?", vbYesNo, "Error")
+        If (yesno = vbYes) Then
+            Dim Apachelog As String = PropMyFolder + "\Outworldzfiles\Apache\logs\error*.log"
+            System.Diagnostics.Process.Start(PropMyFolder + "\baretail.exe", """" & Apachelog & """")
+        End If
 
     End Sub
 
     Private Sub IceCast_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles IcecastProcess.Exited
 
         If PropAborting Then Return
+
         Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder + "\Outworldzfiles\Icecast\log\error.log"
@@ -2974,7 +3003,6 @@ Public Class Form1
     Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles ProcessMySql.Exited
 
         If PropAborting Then Return
-
         PropOpensimIsRunning() = False
 
         Dim yesno = MsgBox("Mysql exited. Do you want to see the error log file?", vbYesNo, "Error")
@@ -4133,14 +4161,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub PictureBox1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs)
-
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-
-    End Sub
-
     Private Sub SaveInventoryIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem.Click
 
         If PropOpensimIsRunning() Then
@@ -4341,35 +4361,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub TextBox1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles TextBox1.DragEnter
 
-        Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
-        For Each pathname As String In files
-            pathname = pathname.Replace("\", "/")
-            Dim extension = Path.GetExtension(pathname)
-            extension = Mid(extension, 2, 5)
-            If extension.ToLower(Usa) = "iar" Then
-                If LoadIARContent(pathname) Then
-                    Print("Opensimulator will load " + pathname + ".  This may take time to load.")
-                End If
-            ElseIf extension.ToLower(Usa) = "oar" Or extension.ToLower(Usa) = "gz" Or extension.ToLower(Usa) = "tgz" Then
-                If LoadOARContent(pathname) Then
-                    Print("Opensimulator will load " + pathname + ".  This may take time to load.")
-                End If
-            Else
-                Print("Unrecognized file type:  " + extension + ".  Drag And drop any OAR, GZ, TGZ, Or IAR files to load them when the sim starts")
-            End If
-        Next
-
-    End Sub
-
-    Private Sub TextBox1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles TextBox1.DragEnter
-
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-
-    End Sub
 
     ''' <summary>
     ''' Upload in a seperate thraed the photo, if any.  Cannot be called unless main web server is known to be online.
@@ -4945,10 +4937,12 @@ Public Class Form1
 
         If isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(MysqlPictureBox, "Mysql is Running")
             Application.DoEvents()
             Return True
         End If
         MysqlPictureBox.Image = My.Resources.nav_plain_red
+        ToolTip1.SetToolTip(MysqlPictureBox, "Stopped")
         Application.DoEvents()
         ' Start MySql in background.
 
@@ -5026,6 +5020,7 @@ Public Class Form1
         If Not PropOpensimIsRunning Then Return False
 
         MysqlPictureBox.Image = My.Resources.nav_plain_green
+        ToolTip1.SetToolTip(MysqlPictureBox, "Running")
         Application.DoEvents()
         Return True
 
