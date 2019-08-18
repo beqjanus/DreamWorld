@@ -3,20 +3,19 @@ Revisions for Dreamgrid
 This is a high-level view of major changes.   Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
 V3.14 Beta
-Import INI files would not work if the file name did not match the [name] of the region. Fixed.
-Changed Voice Help URL to match new Vivox web pages.
-Added a PHP/Search debug page to test various Firestorm Search options.
-Windows can  return a null PID from Process() but it should wait until there is one before returning. Nope,  I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type in certain windows, too.
-Added a spawn on Datasnapshot after a boot to speed up collecting assets for search.
-Search is improved 
-Slow down the Killall Loop - printed too fast
-Add more UPNP exception catchers.
-Require defaults for all region params to stop weird crashes on imported or brain dead INI files.
-Search Local points to the correct local url, instead of the global Hyperica server.
-A sim size of 0 was allowed by Opensim. 
-Publicity Photo could kill system if the Hyperica server is offline or unreachable.
-Added various search debu screens in PHP to hello.php
-
+Region Form shows the Estate name for each region
+Disable button added to Viewer Search, and if on, you can set it for local only, or all Dreamgrids.
+Some Settings when changed would not be placed into the Region or Opensim.ini files.  Any changes to settings now re-write the INI files.
+Import INI files button in Region Panel would not work if the file name did not match the [name] of the region. 
+Changed Voice Help URL to match new Vivox web page for signup.
+Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type q in certain windows, too.
+Start Datasnapshot collector 5 minutes after a boot to speed up collecting assets for search.
+Slow down the Loop on Exit to 1 second to prevent spamming the console.
+Add more UPNP exception catchers to cover more brain-dead routers.
+Enforce and set defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim inINI files.  
+"Search Local" points to the correct local url, instead of the global Hyperica server. Both servers are used to broadcast your "Show In Search"  when Search is enabled so more people can find your content.
+Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable.
+Added a PHP/Search debug page to test various Firestorm Search options. 
 
 V3.13 Beta
 Repaired OsGrid and other region types that broke in prior beta version.

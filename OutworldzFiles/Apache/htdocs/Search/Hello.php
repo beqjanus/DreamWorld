@@ -12,8 +12,8 @@
  <p>Show <a href="SearchClassifieds.php">Classifieds</a> </p>
  
  <p>Show <a href="SearchParcel.php">Parcels</a> </p>
- <p>Show <a href="ShowHosts.php">Regions</a> </p>
- <p>Show Online <a href="SearchRegions.php">Regions</a></p>
+ <p>Show Searchable <a href="ShowHosts.php">Regions</a> </p>
+ <p>Show Registered  <a href="SearchRegions.php">Regions</a></p>
  
   <?php echo '<p>Hello World, from PHP, which is working.</p>'; ?>
  

@@ -17,6 +17,7 @@
         End Try
         Try
             Exitlist1.Add(RegionHandles1.Item(pid))
+            Debug.Print(RegionHandles1.Item(pid) & " Exited")
         Catch ex As exception
         End Try
 

@@ -8,6 +8,22 @@ Public Class MysqlInterface
         'nothing   
     End Sub
 
+    Public Shared Sub DeleteRegionlist()
+
+        Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
+        Try
+            osconnection.Open()
+        Catch ex As Exception
+            Debug.Print("Failed to Connect to OsSearch")
+            Return
+        End Try
+        Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.delete FROM hostsregister"
+        Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+        cmd.ExecuteScalar()
+        osconnection.Close()
+
+    End Sub
+
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 

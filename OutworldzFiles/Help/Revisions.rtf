@@ -7,18 +7,19 @@
 
 \pard\nowidctlpar\li720\ri720\sb100 This is a high-level view of major changes. Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\line\par
 V3.14 Beta\par
-Disable button added to Viewer Search, and iof on, you can set it for local only, or all Dreamgrids.\par
-Import INI files button in Region Panel would not work if the file name did not match the [name] of the region. Fixed.  This was added because you can no longer use Drag and Drop to put regions into the system due to security needed to be as Admin.\par
-Changed Voice Help URL to match new Vivox web pages.\par
-Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type in certain windows, too.\par
-Added a spawn of Datasnapshot colelctor after a boot to speed up collecting assets for search.\par
-Slow down the Killall Loop on Exit to 1 second \par
-Add more UPNP exception catchers.\par
-Enforce defaults for all region params to stop weird crashes on imported or brain dead INI files.\par
-Search Local points to the correct local url, instead of the global Hyperica server.\par
-A sim size of 0 was allowed by Opensim. Really?  \par
-Publicity Photo could kill system if the Hyperica server is offline or unreachable.\par
-Added a PHP/Search debug page to test various Firestorm Search options. See Hello.php\par
+Region Form shows the Estate name for each region\par
+Disable button added to Viewer Search, and if on, you can set it for local only, or all Dreamgrids.\par
+Some Settings when changed would not be placed into the Region or Opensim.ini files.  Any changes to settings now re-write the INI files.\par
+Import INI files button in Region Panel would not work if the file name did not match the [name] of the region. \par
+Changed Voice Help URL to match new Vivox web page for signup.\par
+Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type q in certain windows, too.\par
+Start Datasnapshot collector 5 minutes after a boot to speed up collecting assets for search.\par
+Slow down the Loop on Exit to 1 second to prevent spamming the console.\par
+Add more UPNP exception catchers to cover more brain-dead routers.\par
+Enforce and set defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim inINI files.  \par
+"Search Local" points to the correct local url, instead of the global Hyperica server. Both servers are used to broadcast your "Show In Search"  when Search is enabled so more people can find your content.\par
+Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable.\par
+Added a PHP/Search debug page to test various Firestorm Search options. \par
 \par
 V3.13 Beta\par
 Repaired OsGrid and other region types that broke in prior beta version\par
