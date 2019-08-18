@@ -1017,7 +1017,6 @@ Public Class Form1
         Dim MysqlConn As New MysqlInterface()
         MysqlConn.DeleteRegionlist()
 
-
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False

@@ -17,7 +17,7 @@ Public Class MysqlInterface
             Debug.Print("Failed to Connect to OsSearch")
             Return
         End Try
-        Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.delete FROM hostsregister"
+        Dim stm As String = "delete from hostsregister"
         Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
         cmd.ExecuteScalar()
         osconnection.Close()
