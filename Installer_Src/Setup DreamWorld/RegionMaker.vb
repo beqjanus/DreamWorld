@@ -845,7 +845,7 @@ Public Class RegionMaker
                             MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", "0.2"), Single)
 
                             RegionSnapShot(n) = CType(Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "False"), Boolean)
-                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "Nonw")
+                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
                             Physics(n) = CType(Form1.PropMySetting.GetIni(fName, "Physics", "2"), Integer)
                             MaxPrims(n) = CType(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"), Integer)
                             AllowGods(n) = CType(Form1.PropMySetting.GetIni(fName, "AllowGods", "False"), Boolean)

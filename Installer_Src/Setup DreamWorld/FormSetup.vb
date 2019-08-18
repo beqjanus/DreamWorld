@@ -483,10 +483,10 @@ Public Class Form1
 
     Public Property PropRobustConnStr As String
         Get
-            Return _RobustConnStr
+            Return RobustDBConnection()
         End Get
         Set(value As String)
-            _RobustConnStr = value
+            Diagnostics.Debug.Print("Set PropRobustConnStr")
         End Set
     End Property
 
@@ -598,6 +598,8 @@ Public Class Form1
         End With
 
         Print("Starting...")
+        PropOpensimIsRunning() = True
+
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
         ProgressBar1.Value = 0
@@ -816,15 +818,7 @@ Public Class Form1
 
         If Not SetIniData() Then Return
 
-        PropRobustConnStr = "server=" + PropMySetting.RobustServer() _
-            + ";database=" + PropMySetting.RobustDataBaseName _
-            + ";port=" + PropMySetting.MySqlPort _
-            + ";user=" + PropMySetting.RobustUsername _
-            + ";password=" + PropMySetting.RobustPassword _
-            + ";Old Guids=true;Allow Zero Datetime=true;"
 
-        ' stash  for threading in Web server
-        PropMySetting.RobustConnStr = PropRobustConnStr
 
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
@@ -1356,14 +1350,7 @@ Public Class Form1
         PropMySetting.SetOtherIni("Gloebit", "GLBOwnerName", PropMySetting.GLBOwnerName)
         PropMySetting.SetOtherIni("Gloebit", "GLBOwnerEmail", PropMySetting.GLBOwnerEmail)
 
-        Dim ConnectionString = """" + "Data Source = " + PropMySetting.RobustServer _
-        + ";Database=" + PropMySetting.RobustDataBaseName _
-        + ";Port=" + PropMySetting.MySqlPort _
-        + ";User ID=" + PropMySetting.RobustUsername _
-        + ";Password=" + PropMySetting.RobustPassword _
-        + ";Old Guids=True;Allow Zero Datetime=True;" + """"
-
-        PropMySetting.SetOtherIni("Gloebit", "GLBSpecificConnectionString", ConnectionString)
+        PropMySetting.SetOtherIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
 
         PropMySetting.SaveOtherINI()
 
@@ -1498,17 +1485,7 @@ Public Class Form1
     Private Sub DoWifi()
 
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\Wifi.ini", ";")
-
-        Dim ConnectionString = """" _
-            + "Data Source=" + "127.0.0.1" _
-            + ";Database=" + PropMySetting.RobustDataBaseName _
-            + ";Port=" + PropMySetting.MySqlPort _
-            + ";User ID=" + PropMySetting.RobustUsername _
-            + ";Password=" + PropMySetting.RobustPassword _
-            + ";Old Guids=True;Allow Zero Datetime=True;" _
-            + """"
-
-        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
+        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
 
         ' Wifi Section
 
@@ -1716,20 +1693,70 @@ Public Class Form1
 
         ' load and patch it up for MySQL
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
-        Dim ConnectionString = """" _
+
+        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
+        PropMySetting.SaveOtherINI()
+
+    End Sub
+    Public Function RobustDBConnection() As String
+
+        Return """" _
+            + "Data Source=" + PropMySetting.RobustServer _
+            + ";Database=" + PropMySetting.RobustDataBaseName _
+            + ";Port=" + PropMySetting.MySqlPort _
+            + ";User ID=" + PropMySetting.RobustUsername _
+            + ";Password=" + PropMySetting.RobustPassword _
+            + ";Old Guids=true;Allow Zero Datetime=true" _
+            + ";Connect Timeout=28800;Command Timeout=28800;" _
+            + """"
+
+    End Function
+    'fkb
+    Public Function RobustMysqlConnection() As String
+
+        Return "server=" + PropMySetting.RobustServer _
+            + ";database=" + PropMySetting.RobustDataBaseName _
+            + ";port=" + PropMySetting.MySqlPort _
+            + ";user=" + PropMySetting.RobustUsername _
+            + ";password=" + PropMySetting.RobustPassword _
+            + ";Old Guids=true;Allow Zero Datetime=true"
+
+    End Function
+
+
+    Public Function RegionDBConnection() As String
+
+        Return """" _
         + "Data Source=" + PropMySetting.RegionServer _
         + ";Database=" + PropMySetting.RegionDBName _
         + ";Port=" + PropMySetting.RegionPort _
         + ";User ID=" + PropMySetting.RegionDBUsername _
         + ";Password=" + PropMySetting.RegionDbPassword _
-        + ";Old Guids=true;Allow Zero Datetime=true;" _
+        + ";Old Guids=true;Allow Zero Datetime=true" _
         + ";Connect Timeout=28800;Command Timeout=28800;" _
         + """"
-        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
-        PropMySetting.SaveOtherINI()
 
-    End Sub
+    End Function
+    Public Function RegionMySqlConnection() As String
 
+        Return "server=" + PropMySetting.RegionServer _
+        + ";database=" + PropMySetting.RegionDBName _
+        + ";port=" + PropMySetting.RegionPort _
+        + ";user=" + PropMySetting.RegionDBUsername _
+        + ";Password=" + PropMySetting.RegionDbPassword _
+        + ";Old Guids=true;Allow Zero Datetime=true;"
+
+    End Function
+    Public Function OSSearchConnectionString() As String
+
+        Return "server=" + PropMySetting.RobustServer() _
+        + ";database=" + "ossearch" _
+        + ";port=" + PropMySetting.MySqlPort _
+        + ";user=" + PropMySetting.RobustUsername _
+        + ";password=" + PropMySetting.RobustPassword _
+        + ";Old Guids=true;Allow Zero Datetime=true;"
+
+    End Function
     Private Sub DoRobust()
 
         ''''''''''''''''''''''''''''''''''''''''''
@@ -1737,17 +1764,7 @@ Public Class Form1
             ' Robust Process
             PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\Robust.HG.ini", ";")
 
-            Dim ConnectionString = """" _
-            + "Data Source=" + PropMySetting.RobustServer _
-            + ";Database=" + PropMySetting.RobustDataBaseName _
-            + ";Port=" + PropMySetting.MySqlPort _
-            + ";User ID=" + PropMySetting.RobustUsername _
-            + ";Password=" + PropMySetting.RobustPassword _
-            + ";Old Guids=true;Allow Zero Datetime=true;" _
-            + ";Connect Timeout=28800;Command Timeout=28800;" _
-            + """"
-
-            PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", ConnectionString)
+            PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
             PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
             PropMySetting.SetOtherIni("Const", "BaseURL", "http://" & PropMySetting.PublicIP)
             PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
@@ -3728,7 +3745,7 @@ Public Class Form1
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" + PropMySetting.SimName + "||" + PropMySetting.PublicIP + ":" + PropMySetting.HttpPort + ":" + PropMySetting.WelcomeRegion + "||" + vbCrLf
 
-        Dim NewSQLConn As New MySqlConnection(PropRobustConnStr())
+        Dim NewSQLConn As New MySqlConnection(RobustMysqlConnection())
         Dim UserStmt = "SELECT regionName from REGIONS"
 
         Dim ToSort As New List(Of String)
@@ -4926,7 +4943,7 @@ Public Class Form1
 
         Dim version As String = Nothing
         Try
-            Dim MysqlConn As New MysqlInterface(PropRobustConnStr())
+            Dim MysqlConn As New MysqlInterface()
             version = MysqlConn.IsMySqlRunning()
         Catch
             Log("Info", "MySQL was not running")
@@ -5379,7 +5396,7 @@ Public Class Form1
             ToolTip1.SetToolTip(Label3, "")
             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.IsBooted(RegionNum) Then
-                    Dim MysqlConn As New MysqlInterface(PropRobustConnStr())
+                    Dim MysqlConn As New MysqlInterface()
                     Dim count As Integer = MysqlConn.IsUserPresent(PropRegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then
@@ -6131,14 +6148,8 @@ Public Class Form1
         If Not PropMySetting.SearchLocal Then Return
 
         Dim Simevents As New Dictionary(Of String, String)
-        Dim ossearch As String = "server=" + PropMySetting.RobustServer() _
-        + ";database=" + "ossearch" _
-        + ";port=" + PropMySetting.MySqlPort _
-        + ";user=" + PropMySetting.RobustUsername _
-        + ";password=" + PropMySetting.RobustPassword _
-        + ";Old Guids=true;Allow Zero Datetime=true;"
 
-        Dim osconnection As MySqlConnection = New MySqlConnection(ossearch)
+        Dim osconnection As MySqlConnection = New MySqlConnection(OSSearchConnectionString())
         Try
             osconnection.Open()
         Catch ex As Exception

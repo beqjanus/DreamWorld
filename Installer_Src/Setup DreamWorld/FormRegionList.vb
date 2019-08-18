@@ -14,6 +14,7 @@ Public Class RegionList
     Dim TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
     Dim ViewNotBusy As Boolean
+    Dim MysqlConn As MysqlInterface
 
     Private Enum ViewType As Integer
         Maps = 0
@@ -280,6 +281,8 @@ Public Class RegionList
         ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Estate", 100, HorizontalAlignment.Center)
+
         ' optional
         ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
         ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
@@ -486,7 +489,7 @@ Public Class RegionList
                 ' Create items and subitems for each item.
 
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                Dim MysqlConn As New MysqlInterface()
                 L = MysqlConn.GetAgentList()
 
                 For Each Agent In L
@@ -517,7 +520,7 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                Dim MysqlConn As New MysqlInterface()
                 L = MysqlConn.GetHGAgentList()
 
                 For Each Agent In L
@@ -677,6 +680,11 @@ Public Class RegionList
                 End If
                 item1.SubItems.Add(size)
 
+                MysqlConn = New MysqlInterface()
+                ' add estate name
+                Dim Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
+                item1.SubItems.Add(Estate)
+
                 'Map
                 If PropRegionClass1.MapType(X).Length > 0 Then
                     item1.SubItems.Add(PropRegionClass1.MapType(X))
@@ -713,7 +721,7 @@ Public Class RegionList
                             Case 5
                                 item1.SubItems.Add("ubODE Hybrid")
                             Case Else
-                                item1.SubItems.Add("?")
+                                item1.SubItems.Add("-")
                         End Select
                 End Select
 
@@ -722,14 +730,14 @@ Public Class RegionList
                 If PropRegionClass1.Birds(X) Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 'Tides
                 If PropRegionClass1.Tides(X) Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 'teleport
@@ -737,7 +745,7 @@ Public Class RegionList
                     PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 If PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
@@ -746,7 +754,7 @@ Public Class RegionList
                     If PropRegionClass1.SmartStart(X) = True Then
                         item1.SubItems.Add("Yes")
                     Else
-                        item1.SubItems.Add("")
+                        item1.SubItems.Add("-")
                     End If
                 End If
 
@@ -777,6 +785,7 @@ Public Class RegionList
         End Try
 
     End Sub
+
 
     Private Sub StartStopEdit(n As Integer, RegionName As String)
 

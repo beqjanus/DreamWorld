@@ -4,10 +4,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class MysqlInterface
 
-    Private _gConnStr As String = ""
-
-    Public Sub New(connStr As String)
-        GConnStr = connStr
+    Public Sub New()
+        'nothing   
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
@@ -16,9 +14,8 @@ Public Class MysqlInterface
         Dim Dict As New Dictionary(Of String, String)
         If Form1.PropMySetting.ServerType <> "Robust" Then Return Dict
 
-        Dim NewSQLConn As New MySqlConnection(GConnStr)
+        Dim NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
         Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
-
 
         Try
             NewSQLConn.Open()
@@ -44,7 +41,7 @@ Public Class MysqlInterface
         ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
-        Dim NewSQLConn As New MySqlConnection(GConnStr)
+        Dim NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String = ""
@@ -79,7 +76,7 @@ Public Class MysqlInterface
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
-        Dim MysqlConn = New MySqlConnection(GConnStr)
+        Dim MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
         Try
 
             MysqlConn.Open()
@@ -136,16 +133,12 @@ Public Class MysqlInterface
             Form1.Print("All Regions are deregistered.")
         End If
 
-
     End Sub
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
-        Dim MysqlConn = New MySqlConnection(GConnStr)
+        Dim MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
         Try
-            'Debug.Print("Connecting to MySQL...")
-
             MysqlConn.Open()
-
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
             Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.Usa)
             Return v
@@ -177,14 +170,56 @@ Public Class MysqlInterface
 
     End Function
 
-    Public Property GConnStr As String
-        Get
-            Return _gConnStr
-        End Get
-        Set(value As String)
-            _gConnStr = value
-        End Set
-    End Property
+    ''' <summary>
+    ''' Returns Estate Name give an Estate UUID
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>Name as string</returns>
+    Public Function EstateName(UUID As String) As String
+
+        If Form1.RegionDBConnection.Length = 0 Then Return ""
+        Debug.Print(Form1.RegionDBConnection)
+        Dim name As String = ""
+        Dim Val As String = ""
+        Dim MysqlConn As MySqlConnection
+        Try
+            MysqlConn = New MySqlConnection(Form1.RegionMySqlConnection)
+            MysqlConn.Open()
+            Dim stm = "Select EstateID from opensim.estate_map where regionid = '" & UUID & "';"
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            If reader.Read() Then
+                Debug.Print("ID = {0}", reader.GetString(0))
+                Val = reader.GetString(0)
+            End If
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return ""
+        End Try
+
+        Try
+
+            Dim stm1 = "Select EstateName from opensim.estate_settings where EstateID = '" & Val & "';"
+            Dim cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+            Dim reader2 As MySqlDataReader = cmd2.ExecuteReader()
+
+            If reader2.Read() Then
+                Debug.Print("Name = {0}", reader2.GetString(0))
+                name = reader2.GetString(0)
+            End If
+            reader2.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return ""
+        Finally
+            MysqlConn.Close()
+        End Try
+
+        Return name
+
+    End Function
 
 
 End Class
