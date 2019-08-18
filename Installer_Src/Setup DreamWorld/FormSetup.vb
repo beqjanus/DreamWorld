@@ -1746,8 +1746,8 @@ Public Class Form1
         + ";database=" + PropMySetting.RegionDBName _
         + ";port=" + PropMySetting.RegionPort _
         + ";user=" + PropMySetting.RegionDBUsername _
-        + ";Password=" + PropMySetting.RegionDbPassword _
-        + ";Old Guids=true;Allow Zero Datetime=true;"
+        + ";password=" + PropMySetting.RegionDbPassword
+
 
     End Function
     Public Function OSSearchConnectionString() As String

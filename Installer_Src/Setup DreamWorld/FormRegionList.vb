@@ -560,6 +560,11 @@ Public Class RegionList
 
     Private Sub ShowRegions()
 
+        Dim MysqlIsRunning = False
+        If Form1.CheckMysql Then
+            MysqlIsRunning = True
+        End If
+
         ListView1.Show()
         AvatarView.Hide()
 
@@ -580,7 +585,7 @@ Public Class RegionList
 
                 Dim Letter As String = ""
                 If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped _
-                    And PropRegionClass1.SmartStart(X) Then
+                        And PropRegionClass1.SmartStart(X) Then
                     Letter = "Waiting"
                     Num = DGICON.SmartStart
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
@@ -643,8 +648,8 @@ Public Class RegionList
                 ' Create items and subitems for each item.
                 ' Place a check mark next to the item.
                 Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
-                    .Checked = PropRegionClass1.RegionEnabled(X)
-                }
+                        .Checked = PropRegionClass1.RegionEnabled(X)
+                    }
                 item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Form1.Usa))
                 item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Form1.Usa))
                 item1.SubItems.Add(Letter)
@@ -682,7 +687,10 @@ Public Class RegionList
 
                 MysqlConn = New MysqlInterface()
                 ' add estate name
-                Dim Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
+                Dim Estate = ""
+                If MysqlIsRunning Then
+                    Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
+                End If
                 item1.SubItems.Add(Estate)
 
                 'Map

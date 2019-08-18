@@ -193,8 +193,10 @@ Public Class MysqlInterface
     ''' <returns>Name as string</returns>
     Public Function EstateName(UUID As String) As String
 
-        If Form1.RegionDBConnection.Length = 0 Then Return ""
-        Debug.Print(Form1.RegionDBConnection)
+        If Form1.RegionMySqlConnection.Length = 0 Then Return ""
+
+
+        Debug.Print(Form1.RegionMySqlConnection)
         Dim name As String = ""
         Dim Val As String = ""
         Dim MysqlConn As MySqlConnection
