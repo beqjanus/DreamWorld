@@ -687,7 +687,7 @@ Public Class RegionList
 
                 MysqlConn = New MysqlInterface()
                 ' add estate name
-                Dim Estate = ""
+                Dim Estate = "-"
                 If MysqlIsRunning Then
                     Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
                 End If
