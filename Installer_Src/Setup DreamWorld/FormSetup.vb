@@ -631,8 +631,9 @@ Public Class Form1
         If PropViewedSettings Then
 
             ' must start after region Class Is instantiated
-            PropWebServer.StopWebServer()
-            PropWebServer.StartServer(PropMyFolder, PropMySetting)
+            ' !!! is not working fkb
+            ' PropWebServer.StopWebServer()
+            'PropWebServer.StartServer(PropMyFolder, PropMySetting)
 
             If SetPublicIP() Then
                 OpenPorts()
@@ -1697,7 +1698,7 @@ Public Class Form1
         ' load and patch it up for MySQL
         PropMySetting.LoadOtherIni(PropOpensimBinPath + "bin\config-include\Gridcommon.ini", ";")
 
-        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
+        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RegionDBConnection)
         PropMySetting.SaveOtherINI()
 
     End Sub
@@ -2787,8 +2788,9 @@ Public Class Form1
         End Using
 
         phptext = "<?php " & vbCrLf &
+"$DB_GRIDNAME = " & """" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & """" & ";" & vbCrLf &
 "$DB_HOST = " & """" & PropMySetting.RobustServer & """" & ";" & vbCrLf &
-"$DB_port = " & """" & PropMySetting.MySqlPort & """" & "; // Robust port " & vbCrLf &
+"$DB_PORT = " & """" & PropMySetting.MySqlPort & """" & "; // Robust port " & vbCrLf &
 "$DB_USER = " & """" & PropMySetting.RobustUsername & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & PropMySetting.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
