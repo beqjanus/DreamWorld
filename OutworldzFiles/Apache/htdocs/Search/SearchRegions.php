@@ -1,12 +1,12 @@
 <?php
-//include the source file
+// AGPL 3.0 by Fred Beckhusen
 require( "flog.php" );
 
 include("databaseinfo.php");
 
  // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
   }
 catch(PDOException $e)
@@ -19,64 +19,70 @@ catch(PDOException $e)
     
 ?>
 
-
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-        <style type="text/css">
-            tr.header
-            {
-                font-weight:bold;
-            }
-            tr.alt
-            {
-                background-color: #dddddd;
-            }
-        </style>
+<html lang="en-us">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />
+
         <script type="text/javascript">
             $(document).ready(function(){
                $('.striped tr:even').addClass('alt');
             });
         </script>
-        <title>Search Regions</title>
-        <link rel="shortcut icon" href="/favicon.ico">
-    </head>
-    <body>
-        
-        <table class="striped">
-            <tr class="header">
-                <td>regionname </td>
-                <td>regionUUID </td>
-                <td>regionhandle </td>
-                <td>url</td>
-                <td>owner</td>
-                <td>owneruuid </td>
-                
-            </tr>
-            <?php
-             
-             
-             $query = "SELECT * FROM regions order by regionname ";
-             $sqldata = array();
-             
-             $query = $db->prepare($query);
-             $result = $query->execute($sqldata);
+
+  <title>Search Regions</title>
+  <link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body>
+  <div id="Links">
+<a href="index.php"><button>Objects</button></a>
+<a href="SearchClassifieds.php"><button>Classifieds</button></a>
+<a href="SearchParcel.php"><button>Parcels</button></a>
+<a href="ShowHosts.php"><button>Hosts</button></a>
+<a href="SearchRegions.php"><button>Regions</button></a>
+</div>
+
+  <table class="striped">
+    <tr class="header">
+      <td>regionname</td>
+
+      <td>regionUUID</td>
+
+      <td>regionhandle</td>
+
+      <td>url</td>
+
+      <td>owner</td>
+
+      <td>owneruuid</td>
+    </tr>
+    <?php
+      $query = "SELECT * FROM regions order by regionname ";
+      $sqldata = array();
+      
+      $query = $db->prepare($query);
+      $result = $query->execute($sqldata);
 
 
-               while ($row = $query->fetch(PDO::FETCH_ASSOC))
-               {
-                echo "<tr valign=\"top\">";
-                 
-                 echo "<td>" .$row["regionname"] . "</td>";
-                 echo "<td>" .$row["regionUUID"] . "</td>";
-                 echo "<td>" .$row["regionhandle"] . "</td>";
-                 echo "<td>" . $row["url"] . "</td>";
-                 echo "<td>" . $row["owner"] . "</td>";
-                 echo "<td>" . $row["owneruuid"] . "</td>";
-                 echo "</tr>";
-               }
-            ?>
-        </table>
-    </body>
+        while ($row = $query->fetch(PDO::FETCH_ASSOC))
+        {
+         echo "<tr class=\"striped\">";
+          
+          echo "<td>" .$row["regionname"] . "</td>";
+          echo "<td>" .$row["regionUUID"] . "</td>";
+          echo "<td>" .$row["regionhandle"] . "</td>";
+          echo "<td>" . $row["url"] . "</td>";
+          echo "<td>" . $row["owner"] . "</td>";
+          echo "<td>" . $row["owneruuid"] . "</td>";
+          echo "</tr>";
+        }
+        echo "</table>      ";
+        echo "<br><input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
+     ?>
+  
+  
+</body>
 </html>

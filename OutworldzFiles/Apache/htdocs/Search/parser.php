@@ -4,14 +4,11 @@ include("databaseinfo.php");
 //Supress all Warnings/Errors
 //error_reporting(0);
 
-//include the source file
-
-
 $now = time();
 
  // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
   }
 catch(PDOException $e)

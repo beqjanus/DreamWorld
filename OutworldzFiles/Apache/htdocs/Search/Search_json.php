@@ -1,5 +1,5 @@
 <?php
-//include the source file
+// AGPL 3.0 by Fred Beckhusen
 require( "flog.php" );
 
 include("databaseinfo.php");
@@ -8,7 +8,7 @@ include("../Metromap/includes/config.php");
   
   // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
   }
   catch(PDOException $e)
@@ -79,10 +79,12 @@ include("../Metromap/includes/config.php");
     {
         
         $location = $row["Location"];
-        $location = str_replace("/"," ", $location );
+        #$location = str_replace("/"," ", $location );
         
-        #$hop  = "<a href=\"". $url . "\"class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        $hop = "";
+        # need grid name and region name in a url
+        
+        $hop  = "<a href=\"hop://". $DB_GRIDNAME . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        #$hop = "";
         
         $row = array("hop"=>$hop, "Name"=>$row["Name"],"Description"=>$row["Description"],"Regionname"=>$row["Regioname"],"Location"=>$location);
         
@@ -122,6 +124,5 @@ include("../Metromap/includes/config.php");
 
     echo $myJSON;
    
-   flog("Exit");
-    
+   
 ?>

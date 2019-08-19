@@ -1,7 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
-
+<html lang="en-us">
+<!-- AGPL 3.0 by Fred Beckhusen -->
 <head>
 <meta charset="utf-8">
 <title>Opensimular search</title>
@@ -22,11 +20,11 @@ $(document).ready(function(){
 		dataType: 'json',
         method: 'GET',
 		colModel : [
-		//	{display: 'Hop', name : 'hop', width : 45, sortable : false, align: 'left'},		
-			{display: 'Name', name : 'Name', width : 145, sortable : true, align: 'left'},			
-			{display: 'Description', name : 'Description', width : 170, sortable : true, align: 'left'},			
+			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
+			{display: 'Name', name : 'Name', width : 140, sortable : true, align: 'left'},			
+			{display: 'Description', name : 'Description', width : 160, sortable : true, align: 'left'},			
 			{display: 'Region name', name : 'Regionname', width :125, sortable : true, align: 'left'},
-			{display: 'Location', name : 'Location', width : 200, sortable : true, align: 'left'}
+			{display: 'Location', name : 'Location', width : 190, sortable : true, align: 'left'}
 			],
 		
 		searchitems : [
@@ -58,49 +56,25 @@ $(document).ready(function(){
 </script>
 
 <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
-
-<style>
-body {
-    /* background: #333333 url(/radio/radioback6.jpg) left top no-repeat;*/
-}
-a {
-    color: #0060B6;
-    text-decoration: underline;
-}
-p {
-    background-color: #1F1A25;
-}
-#greet {
-    
-    width: 700px;
-    height: 750px;
-    color: white;
-    font-family: Calibri;
-    font-size: 100%;
-    margin-left: 0px;
-    margin-top: 0px;
-}
+<link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />
 
 
-a {
-	color: #000000;
-    text-decoration: none;
-}
-td {
-	font-size:12px;	
-}
-</style>
 
 <link rel="shortcut icon" href="/favicon.ico">
 
 </head>
 
 <body>
-	
+<div id="Links">
+<a href="index.php"><button>Objects</button></a>
+<a href="SearchClassifieds.php"><button>Classifieds</button></a>
+<a href="SearchParcel.php"><button>Parcels</button></a>
+<a href="ShowHosts.php"><button>Hosts</button></a>
+<a href="SearchRegions.php"><button>Regions</button></a>
+</div>
 <div id="greet">
     <div id="playing"></div>
-    <div id="flex1" ></div>
-	
+    <div id="flex1" ></div>	
 </div>
 
 </body>

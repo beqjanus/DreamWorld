@@ -1,11 +1,11 @@
 <?php
-//include the source file
+// AGPL 3.0 by Fred Beckhusen
 require( "flog.php" );
 
 include("databaseinfo.php");
  // Attempt to connect to the database
   try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
   }
 catch(PDOException $e)
@@ -19,49 +19,68 @@ catch(PDOException $e)
 ?>
 
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-        <style type="text/css">
-            tr.header
-            {
-                font-weight:bold;
-            }
-            tr.alt
-            {
-                background-color: #dddddd;
-            }
-        </style>
-        <script type="text/javascript">
+<html lang="en-us">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />
+  <script type="text/javascript">
             $(document).ready(function(){
                $('.striped tr:even').addClass('alt');
             });
-        </script>
-        <title>Search Classifieds</title>
-        <link rel="shortcut icon" href="/favicon.ico">
-    </head>
-    <body>
-        
-        <table class="striped">
-            <tr class="header">
-                <td>classifieduuid</td>
-                <td>creatoruuid</td>
-                <td>creationdate</td>
-                <td>expirationdate</td>
-                <td>category</td>
-                <td>name</td>
-                <td>description</td>
-                <td>parceluuid</td>
-                <td>parentestate</td>
-                <td>snapshotuuid</td>
-                <td>simname</td>
-                <td>posglobal</td>
-                <td>parcelname</td>
-                <td>classifiedflags</td>
-                <td>priceforlisting</td>
-            </tr>
-            <?php
+  </script>
+  <title>Search Classifieds</title>
+  <link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body>
+  
+
+ <div id="Links">
+<a href="index.php"><button>Objects</button></a>
+<a href="SearchClassifieds.php"><button>Classifieds</button></a>
+<a href="SearchParcel.php"><button>Parcels</button></a>
+<a href="ShowHosts.php"><button>Hosts</button></a>
+<a href="SearchRegions.php"><button>Regions</button></a>
+</div>
+
+  <table class="striped">
+    <tr class="header">
+      <td>classifieduuid</td>
+
+      <td>creatoruuid</td>
+
+      <td>creationdate</td>
+
+      <td>expirationdate</td>
+
+      <td>category</td>
+
+      <td>name</td>
+
+      <td>description</td>
+
+      <td>parceluuid</td>
+
+      <td>parentestate</td>
+
+      <td>snapshotuuid</td>
+
+      <td>simname</td>
+
+      <td>posglobal</td>
+
+      <td>parcelname</td>
+
+      <td>classifiedflags</td>
+
+      <td>priceforlisting</td>
+    </tr>
+  </table>
+</body>
+</html>
+<?php
              
              
              $query = "SELECT * FROM classifieds ";
@@ -102,7 +121,7 @@ catch(PDOException $e)
                 echo "</tr>";
             }
             echo "</table>";
-            echo "<input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
+            echo "<br><input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
             ?>
         </table>
     </body>

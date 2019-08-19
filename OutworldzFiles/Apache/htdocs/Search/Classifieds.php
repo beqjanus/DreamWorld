@@ -1,12 +1,12 @@
 <?php
-//include the source file
+// AGPL 3.0 by Fred Beckhusen
 require( "flog.php" );
 
 include("databaseinfo.php");
 
 // Attempt to connect to the database
 try {
-  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_port);
+  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD,$DB_PORT);
   #$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e)

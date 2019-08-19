@@ -3,16 +3,12 @@
 //DirFindFlags enum which is defined in OpenMetaverse/DirectoryManager.cs
 //of the libopenmetaverse library.
 
-// error_log("You messed up!", 3, "/var/tmp/my-errors.log");
-
-//include the source file
 require( "flog.php" );
-
 include("databaseinfo.php");
 
 // Attempt to connect to the database
 try {
-  $db = new PDO("mysql:host=$DB_HOST;port=$DB_port;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+  $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e)
@@ -99,6 +95,18 @@ function dir_places_query($method_name, $params, $app_data)
     $pieces = explode(" ", $text);
     $text = join("%", $pieces);
 
+    if ($text === "xyzzy") {
+      $response_xml = xmlrpc_encode(array(
+                  'success'      => False,
+                  'errorMessage' => "Invalid search terms"
+          ));
+  
+          flog(headers_list());
+          print $response_xml;
+          flog($response_xml);
+          return;
+    }
+    
     if ($text != "%%%")
         $text = "%$text%";
     else
@@ -783,7 +791,9 @@ $request_xml = file_get_contents("php://input");
 
 #flog('Request' . $request_xml);
 if ($request_xml == "") {
- # flog("Search");
+ 
+  # xmlrpc_server_call_method("dir_places_query", $request_xml, '');
+ 
   echo "<meta http-equiv=\"refresh\" content=\"0;URL='/Search/index.php'\" />";
   
 }
