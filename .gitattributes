@@ -12,6 +12,7 @@ OutworldzFiles/mysql/data/opensim/* filter=lfs diff=lfs merge=lfs -text
 *.exe binary
 *.dll binary
 *.exe binary
+*.txt text
 
 ibdata* binary
 ib_logfile0 binary

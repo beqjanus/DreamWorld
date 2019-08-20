@@ -90,12 +90,14 @@ Public Class FormDiva
         ApacheServiceCheckBox.Checked = Form1.PropMySetting.ApacheService
 
         If Form1.PropMySetting.SearchLocal Then
-            SearchLocalRadioButton.Checked = True
-            SearchAllRadioButton.Checked = False
+            LocalSearchCheckBox.Checked = True
+            AllGridSearchCheckBox.Checked = False
         Else
-            SearchLocalRadioButton.Checked = False
-            SearchAllRadioButton.Checked = True
+            LocalSearchCheckBox.Checked = False
+            AllGridSearchCheckBox.Checked = True
         End If
+
+        EnableSearchCheckBox.Checked = Form1.PropMySetting.SearchEnabled
 
         GreetingTextBox.Text = Form1.PropMySetting.WelcomeMessage
 
@@ -328,28 +330,7 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub SearchLocalRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchLocalRadioButton.CheckedChanged
 
-        If Not initted Then Return
-        If SearchLocalRadioButton.Checked Then
-            Form1.PropMySetting.SearchLocal = True
-            SearchAllRadioButton.Checked = False
-        Else
-            Form1.PropMySetting.SearchLocal = False
-            SearchAllRadioButton.Checked = True
-        End If
-
-    End Sub
-
-    Private Sub SearchAllRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles SearchAllRadioButton.CheckedChanged
-
-        If Not initted Then Return
-        If SearchAllRadioButton.Checked Then
-            Form1.PropMySetting.SearchLocal = False
-            SearchLocalRadioButton.Checked = False
-        End If
-
-    End Sub
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
 
@@ -379,7 +360,27 @@ Public Class FormDiva
     Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
         Form1.Help("Apache")
     End Sub
+#End Region
 
+#Region "Search"
+
+    Private Sub EnableSearch_CheckBoxChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
+        Form1.PropMySetting.SearchEnabled = EnableSearchCheckBox.Checked
+    End Sub
+
+    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
+        If LocalSearchCheckBox.Checked Then
+            Form1.PropMySetting.SearchLocal = True
+            AllGridSearchCheckBox.Checked = False
+        End If
+    End Sub
+
+    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
+        If AllGridSearchCheckBox.Checked Then
+            Form1.PropMySetting.SearchLocal = False
+            LocalSearchCheckBox.Checked = False
+        End If
+    End Sub
 #End Region
 
 End Class

@@ -3,18 +3,19 @@ include("databaseinfo.php");
 
 //Supress all Warnings/Errors
 //error_reporting(0);
-
+require( "flog.php" );
 $now = time();
+$failcounter = "";
 
- // Attempt to connect to the database
-  try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-  }
+// Attempt to connect to the search database
+try {
+  $db = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
 catch(PDOException $e)
 {
   echo "Error connecting to the search database\n";
-  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
+  file_put_contents('../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
   exit;
 }
 
@@ -48,18 +49,22 @@ function CheckHost($hostname, $port)
     echo "Checking " . $hostname . ":" . $port . "\n";
     $xml = GetURL($hostname, $port, "collector/?method=collector");
     if ($xml == "") //No data was retrieved? (CURL may have timed out)
-        $failcounter = '$failcounter + 1';
+    
+      $sql = "UPDATE hostsregister SET nextcheck = ?," .
+                          " checked = 1, failcounter = failcounter+1" .
+                          " WHERE host = ? AND port = ?";
     else
-        $failcounter = "0";
         
+    $sql = "UPDATE hostsregister SET nextcheck = ?," .
+                          " checked = 1, failcounter = '0'" .
+                          " WHERE host = ? AND port = ?";
 
+        
     //Update nextcheck to be 10 minutes from now. The current OS instance
     //won't be checked again until at least this much time has gone by.
-    $next = $now + 600;
-
-    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ?," .
-                          " checked = 1, failcounter = $failcounter" .
-                          " WHERE host = ? AND port = ?");
+    $next = $now + 1;
+    
+    $query = $db->prepare($sql);
     $query->execute( array($next, $hostname, $port) );
 
     if ($xml != "")
@@ -69,6 +74,8 @@ function CheckHost($hostname, $port)
 function parse($hostname, $port, $xml)
 {
     global $db, $now;
+    
+    flog("XML: " . $xml);
 
     ///////////////////////////////////////////////////////////////////////
     //
@@ -345,10 +352,10 @@ function parse($hostname, $port, $xml)
 }
 
 
+
 $failcounter = 0;
 
-$sql = "SELECT host, port FROM hostsregister " .
-       "WHERE nextcheck<$now AND checked=0 AND failcounter<10 LIMIT 0,20";
+$sql = "SELECT host, port FROM hostsregister ";      
 $jobsearch = $db->query($sql);
 
 //
@@ -359,7 +366,7 @@ $jobsearch = $db->query($sql);
 if ($jobsearch->rowCount() == 0)
 {
     
-    echo "Nothing to do\n";
+    echo "No regions to search \n";
   
     $jobsearch = $db->query("UPDATE hostsregister SET checked = 0");
 

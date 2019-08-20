@@ -90,9 +90,6 @@ Public Class FormPublicity
                 Catch ex As NotSupportedException
                     MsgBox("Warn: ex.Message")
                     Return
-                Catch ex As Io.IOException
-                    MsgBox("Warn: ex.Message")
-                    Return
                 Catch ex As Security.SecurityException
                     MsgBox("Warn: ex.Message")
                     Return

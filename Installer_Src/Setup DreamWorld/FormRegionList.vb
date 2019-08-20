@@ -14,6 +14,7 @@ Public Class RegionList
     Dim TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
     Dim ViewNotBusy As Boolean
+    Dim MysqlConn As MysqlInterface
 
     Private Enum ViewType As Integer
         Maps = 0
@@ -228,8 +229,6 @@ Public Class RegionList
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
-        ' ListView Setup
-        ListView1.AllowDrop = True
 
         ' Set the view to show details.
         TheView1 = Form1.PropMySetting.RegionListView()
@@ -282,6 +281,8 @@ Public Class RegionList
         ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
         ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Estate", 100, HorizontalAlignment.Center)
+
         ' optional
         ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
         ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
@@ -488,7 +489,7 @@ Public Class RegionList
                 ' Create items and subitems for each item.
 
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                Dim MysqlConn As New MysqlInterface()
                 L = MysqlConn.GetAgentList()
 
                 For Each Agent In L
@@ -519,7 +520,7 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr)
+                Dim MysqlConn As New MysqlInterface()
                 L = MysqlConn.GetHGAgentList()
 
                 For Each Agent In L
@@ -559,6 +560,11 @@ Public Class RegionList
 
     Private Sub ShowRegions()
 
+        Dim MysqlIsRunning = False
+        If Form1.CheckMysql Then
+            MysqlIsRunning = True
+        End If
+
         ListView1.Show()
         AvatarView.Hide()
 
@@ -579,7 +585,7 @@ Public Class RegionList
 
                 Dim Letter As String = ""
                 If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped _
-                    And PropRegionClass1.SmartStart(X) Then
+                        And PropRegionClass1.SmartStart(X) Then
                     Letter = "Waiting"
                     Num = DGICON.SmartStart
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
@@ -642,8 +648,8 @@ Public Class RegionList
                 ' Create items and subitems for each item.
                 ' Place a check mark next to the item.
                 Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
-                    .Checked = PropRegionClass1.RegionEnabled(X)
-                }
+                        .Checked = PropRegionClass1.RegionEnabled(X)
+                    }
                 item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Form1.Usa))
                 item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Form1.Usa))
                 item1.SubItems.Add(Letter)
@@ -678,6 +684,14 @@ Public Class RegionList
                     size = PropRegionClass1.SizeX(X).ToString(Form1.Usa)
                 End If
                 item1.SubItems.Add(size)
+
+                MysqlConn = New MysqlInterface()
+                ' add estate name
+                Dim Estate = "-"
+                If MysqlIsRunning Then
+                    Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
+                End If
+                item1.SubItems.Add(Estate)
 
                 'Map
                 If PropRegionClass1.MapType(X).Length > 0 Then
@@ -715,7 +729,7 @@ Public Class RegionList
                             Case 5
                                 item1.SubItems.Add("ubODE Hybrid")
                             Case Else
-                                item1.SubItems.Add("?")
+                                item1.SubItems.Add("-")
                         End Select
                 End Select
 
@@ -724,14 +738,14 @@ Public Class RegionList
                 If PropRegionClass1.Birds(X) Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 'Tides
                 If PropRegionClass1.Tides(X) Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 'teleport
@@ -739,7 +753,7 @@ Public Class RegionList
                     PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else
-                    item1.SubItems.Add("")
+                    item1.SubItems.Add("-")
                 End If
 
                 If PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
@@ -748,7 +762,7 @@ Public Class RegionList
                     If PropRegionClass1.SmartStart(X) = True Then
                         item1.SubItems.Add("Yes")
                     Else
-                        item1.SubItems.Add("")
+                        item1.SubItems.Add("-")
                     End If
                 End If
 
@@ -779,6 +793,7 @@ Public Class RegionList
         End Try
 
     End Sub
+
 
     Private Sub StartStopEdit(n As Integer, RegionName As String)
 
@@ -949,56 +964,6 @@ Public Class RegionList
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         Form1.Help("RegionList")
-    End Sub
-
-#End Region
-
-#Region "DragDrop"
-    Private Sub ListView1_DragDrop(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragDrop
-
-        Dim files() As String = CType(e.Data.GetData(DataFormats.FileDrop), String())
-
-        Dim dirpathname = PickGroup()
-        If dirpathname.Length = 0 Then
-            Form1.Print("Aborted")
-            Return
-        End If
-
-        For Each pathname As String In files
-            pathname = pathname.Replace("\", "/")
-            Dim extension As String = Path.GetExtension(pathname)
-            extension = Mid(extension, 2, 5)
-            If extension.ToLower(Form1.Usa) = "ini" Then
-                Dim filename = Path.GetFileNameWithoutExtension(pathname)
-                Dim i = PropRegionClass1.FindRegionByName(filename)
-                If i >= 0 Then
-                    MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
-                    Return
-                End If
-
-                If dirpathname.Length = 0 Then dirpathname = filename
-
-                Dim NewFilepath = Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
-                If Not Directory.Exists(NewFilepath) Then
-                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
-                End If
-
-                File.Copy(pathname, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
-            Else
-                Form1.Print("Unrecognized file type" + extension + ". Drag and drop any Region.ini files to add them to the system.")
-            End If
-        Next
-        PropRegionClass1.GetAllRegions()
-        LoadMyListView()
-
-    End Sub
-
-    Private Sub ListView1_DragEnter(sender As System.Object, e As System.Windows.Forms.DragEventArgs) Handles ListView1.DragEnter
-
-        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
-            e.Effect = DragDropEffects.Copy
-        End If
-
     End Sub
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)

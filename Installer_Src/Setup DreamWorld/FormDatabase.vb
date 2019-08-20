@@ -140,7 +140,7 @@
         If DNSName1.Length > 0 Then
             Form1.PropMySetting.GridServerName = DNSName1
         End If
-
+        Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
@@ -296,7 +296,7 @@
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
 
-        Dim MysqlConn As New MysqlInterface(Form1.PropRobustConnStr())
+        Dim MysqlConn As New MysqlInterface()
         MysqlConn.DeregisterRegions()
 
     End Sub

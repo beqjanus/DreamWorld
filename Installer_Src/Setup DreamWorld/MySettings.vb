@@ -290,6 +290,16 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property SearchEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("SearchEnabled", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("SearchEnabled", Value.ToString(Form1.Usa))
+        End Set
+    End Property
+
+
     Public Property OverrideName() As String
         Get
             Return GetMySetting("OverrideName", "")
@@ -301,7 +311,7 @@ Public Class MySettings
 
     Public Property SmartStart() As Boolean
         Get
-            Return CType(GetMySetting("SmartStart", "false"), Boolean)
+            Return CType(GetMySetting("SmartStart", "False"), Boolean)
         End Get
         Set
             SetMySetting("SmartStart", Value.ToString(Form1.Usa))
@@ -351,7 +361,7 @@ Public Class MySettings
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
-            Return GetMySetting("ShowConsoleStats", "true")
+            Return GetMySetting("ShowConsoleStats", "True")
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)

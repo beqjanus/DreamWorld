@@ -61,8 +61,6 @@ Partial Class FormDiva
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.X86Button = New System.Windows.Forms.Button()
-        Me.SearchAllRadioButton = New System.Windows.Forms.RadioButton()
-        Me.SearchLocalRadioButton = New System.Windows.Forms.RadioButton()
         Me.ApachePort = New System.Windows.Forms.TextBox()
         Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -70,6 +68,9 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LocalSearchCheckBox = New System.Windows.Forms.CheckBox()
+        Me.AllGridSearchCheckBox = New System.Windows.Forms.CheckBox()
+        Me.EnableSearchCheckBox = New System.Windows.Forms.CheckBox()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -388,7 +389,7 @@ Partial Class FormDiva
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(184, 106)
+        Me.Label3.Location = New System.Drawing.Point(183, 90)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(73, 13)
         Me.Label3.TabIndex = 186737
@@ -398,18 +399,19 @@ Partial Class FormDiva
         'ApacheCheckbox
         '
         Me.ApacheCheckbox.AutoSize = True
-        Me.ApacheCheckbox.Location = New System.Drawing.Point(18, 83)
+        Me.ApacheCheckbox.Location = New System.Drawing.Point(17, 67)
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
-        Me.ApacheCheckbox.Size = New System.Drawing.Size(59, 17)
+        Me.ApacheCheckbox.Size = New System.Drawing.Size(157, 17)
         Me.ApacheCheckbox.TabIndex = 1866
-        Me.ApacheCheckbox.Text = "Enable"
+        Me.ApacheCheckbox.Text = "Enable Apache Web server"
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.EnableSearchCheckBox)
+        Me.GroupBox2.Controls.Add(Me.AllGridSearchCheckBox)
+        Me.GroupBox2.Controls.Add(Me.LocalSearchCheckBox)
         Me.GroupBox2.Controls.Add(Me.X86Button)
-        Me.GroupBox2.Controls.Add(Me.SearchAllRadioButton)
-        Me.GroupBox2.Controls.Add(Me.SearchLocalRadioButton)
         Me.GroupBox2.Controls.Add(Me.ApachePort)
         Me.GroupBox2.Controls.Add(Me.ApacheServiceCheckBox)
         Me.GroupBox2.Controls.Add(Me.Label3)
@@ -420,42 +422,20 @@ Partial Class FormDiva
         Me.GroupBox2.Size = New System.Drawing.Size(279, 180)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Apache Webserver + PHP"
+        Me.GroupBox2.Text = "Apache Webserver + Search and Map"
         '
         'X86Button
         '
-        Me.X86Button.Location = New System.Drawing.Point(18, 32)
+        Me.X86Button.Location = New System.Drawing.Point(18, 30)
         Me.X86Button.Name = "X86Button"
         Me.X86Button.Size = New System.Drawing.Size(156, 23)
         Me.X86Button.TabIndex = 186740
         Me.X86Button.Text = "Install C++ Runtime"
         Me.X86Button.UseVisualStyleBackColor = True
         '
-        'SearchAllRadioButton
-        '
-        Me.SearchAllRadioButton.AutoSize = True
-        Me.SearchAllRadioButton.Location = New System.Drawing.Point(18, 159)
-        Me.SearchAllRadioButton.Name = "SearchAllRadioButton"
-        Me.SearchAllRadioButton.Size = New System.Drawing.Size(100, 17)
-        Me.SearchAllRadioButton.TabIndex = 186739
-        Me.SearchAllRadioButton.TabStop = True
-        Me.SearchAllRadioButton.Text = "Search All Grids"
-        Me.SearchAllRadioButton.UseVisualStyleBackColor = True
-        '
-        'SearchLocalRadioButton
-        '
-        Me.SearchLocalRadioButton.AutoSize = True
-        Me.SearchLocalRadioButton.Location = New System.Drawing.Point(18, 133)
-        Me.SearchLocalRadioButton.Name = "SearchLocalRadioButton"
-        Me.SearchLocalRadioButton.Size = New System.Drawing.Size(110, 17)
-        Me.SearchLocalRadioButton.TabIndex = 186738
-        Me.SearchLocalRadioButton.TabStop = True
-        Me.SearchLocalRadioButton.Text = "Search Local Grid"
-        Me.SearchLocalRadioButton.UseVisualStyleBackColor = True
-        '
         'ApachePort
         '
-        Me.ApachePort.Location = New System.Drawing.Point(145, 103)
+        Me.ApachePort.Location = New System.Drawing.Point(144, 83)
         Me.ApachePort.Name = "ApachePort"
         Me.ApachePort.Size = New System.Drawing.Size(33, 20)
         Me.ApachePort.TabIndex = 186736
@@ -463,7 +443,7 @@ Partial Class FormDiva
         'ApacheServiceCheckBox
         '
         Me.ApacheServiceCheckBox.AutoSize = True
-        Me.ApacheServiceCheckBox.Location = New System.Drawing.Point(18, 106)
+        Me.ApacheServiceCheckBox.Location = New System.Drawing.Point(17, 90)
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(113, 17)
         Me.ApacheServiceCheckBox.TabIndex = 1868
@@ -500,15 +480,48 @@ Partial Class FormDiva
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(129, 22)
         Me.HelpToolStripMenuItem1.Text = "Diva Panel"
         '
         'ApacheToolStripMenuItem
         '
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
-        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.ApacheToolStripMenuItem.Text = "Apache"
+        '
+        'LocalSearchCheckBox
+        '
+        Me.LocalSearchCheckBox.AutoSize = True
+        Me.LocalSearchCheckBox.Location = New System.Drawing.Point(18, 152)
+        Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
+        Me.LocalSearchCheckBox.Size = New System.Drawing.Size(89, 17)
+        Me.LocalSearchCheckBox.TabIndex = 186742
+        Me.LocalSearchCheckBox.Text = "Local Search"
+        Me.ToolTip1.SetToolTip(Me.LocalSearchCheckBox, "Search only your grid")
+        Me.LocalSearchCheckBox.UseVisualStyleBackColor = True
+        '
+        'AllGridSearchCheckBox
+        '
+        Me.AllGridSearchCheckBox.AutoSize = True
+        Me.AllGridSearchCheckBox.Location = New System.Drawing.Point(118, 152)
+        Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
+        Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(99, 17)
+        Me.AllGridSearchCheckBox.TabIndex = 186743
+        Me.AllGridSearchCheckBox.Text = "Search All grids"
+        Me.ToolTip1.SetToolTip(Me.AllGridSearchCheckBox, "Search All Outworldz Systems including yours")
+        Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
+        '
+        'EnableSearchCheckBox
+        '
+        Me.EnableSearchCheckBox.AutoSize = True
+        Me.EnableSearchCheckBox.Location = New System.Drawing.Point(18, 129)
+        Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
+        Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
+        Me.EnableSearchCheckBox.TabIndex = 186744
+        Me.EnableSearchCheckBox.Text = "Enable Search"
+        Me.ToolTip1.SetToolTip(Me.EnableSearchCheckBox, "Viewer can search for items marked ""Show In Search""")
+        Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
         '
         'FormDiva
         '
@@ -578,8 +591,6 @@ Partial Class FormDiva
     Friend WithEvents ApachePort As TextBox
     Friend WithEvents ApacheServiceCheckBox As CheckBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents SearchAllRadioButton As RadioButton
-    Friend WithEvents SearchLocalRadioButton As RadioButton
     Friend WithEvents X86Button As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents GreetingTextBox As TextBox
@@ -587,4 +598,7 @@ Partial Class FormDiva
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AllGridSearchCheckBox As CheckBox
+    Friend WithEvents LocalSearchCheckBox As CheckBox
+    Friend WithEvents EnableSearchCheckBox As CheckBox
 End Class

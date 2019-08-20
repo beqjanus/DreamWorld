@@ -1,5 +1,4 @@
 User-agent: *
 Crawl-delay: 1
 Allow: *
-Allow: /bin/data/index.htm
 Allow: /Sitemap.xml
