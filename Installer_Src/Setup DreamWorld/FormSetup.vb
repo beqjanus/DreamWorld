@@ -1869,6 +1869,7 @@ Public Class Form1
 
         '' all grids requires these setting in Opensim.ini
         PropMySetting.SetOtherIni("Const", "DiagnosticsPort", PropMySetting.DiagnosticPort)
+        PropMySetting.SetOtherIni("Const", "ApachePort", CType(PropMySetting.ApachePort, String))
 
         ' once and only once toggle to get Opensim 2.91
         If PropMySetting.DeleteScriptsOnStartupOnce() Then
