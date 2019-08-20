@@ -32,7 +32,7 @@ Public Class FormRegions
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
+        'Me.Text = "Form screen position = " & Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
 
@@ -80,7 +80,7 @@ Public Class FormRegions
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
         Form1.PropMySetting.WelcomeRegion = value
 
-        Debug.Print("Selected " + value)
+        Debug.Print("Selected " & value)
 
     End Sub
 
@@ -100,7 +100,7 @@ Public Class FormRegions
                 RegionForm.Visible = True
                 Application.DoEvents()
             Catch ex As Exception
-                Form1.ErrorLog("Error:" + ex.Message)
+                Form1.ErrorLog("Error:" & ex.Message)
             End Try
             counter += 1
             Y += 100
