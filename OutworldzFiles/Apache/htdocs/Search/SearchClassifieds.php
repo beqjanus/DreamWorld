@@ -43,6 +43,8 @@ catch(PDOException $e)
 <a href="SearchParcel.php"><button>Parcels</button></a>
 <a href="ShowHosts.php"><button>Hosts</button></a>
 <a href="SearchRegions.php"><button>Regions</button></a>
+<button onclick="location.reload();">Refresh</button>
+
 </div>
 
   <table class="striped">

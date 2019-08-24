@@ -43,21 +43,15 @@ catch(PDOException $e)
 <a href="SearchParcel.php"><button>Parcels</button></a>
 <a href="ShowHosts.php"><button>Hosts</button></a>
 <a href="SearchRegions.php"><button>Regions</button></a>
+<button onclick="location.reload();">Refresh Page</button>
+
 </div>
 
   <table class="striped">
     <tr class="header">
-      <td>regionname</td>
-
-      <td>regionUUID</td>
-
-      <td>regionhandle</td>
-
+      <td>regionname</td>           
       <td>url</td>
-
       <td>owner</td>
-
-      <td>owneruuid</td>
     </tr>
     <?php
       $query = "SELECT * FROM regions order by regionname ";
@@ -72,11 +66,9 @@ catch(PDOException $e)
          echo "<tr class=\"striped\">";
           
           echo "<td>" .$row["regionname"] . "</td>";
-          echo "<td>" .$row["regionUUID"] . "</td>";
-          echo "<td>" .$row["regionhandle"] . "</td>";
           echo "<td>" . $row["url"] . "</td>";
           echo "<td>" . $row["owner"] . "</td>";
-          echo "<td>" . $row["owneruuid"] . "</td>";
+          
           echo "</tr>";
         }
         echo "</table>      ";

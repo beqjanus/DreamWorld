@@ -79,13 +79,14 @@ include("../Metromap/includes/config.php");
     {
         
         $location = $row["Location"];
-        #$location = str_replace("/"," ", $location );
+        #$location = str_replace("/","+", $location );
         
         # need grid name and region name in a url
         
         $hop  = "<a href=\"hop://". $DB_GRIDNAME . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        #$hop = "";
         
+        $hop = "<a href=\"secondlife://http|!!". $DB_GRIDNAME . "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        #secondlife://http|!!breath-grid.info|8002+IT+IS+ALL+FREE
         $row = array("hop"=>$hop, "Name"=>$row["Name"],"Description"=>$row["Description"],"Regionname"=>$row["Regioname"],"Location"=>$location);
         
         $rowobj = new Row();

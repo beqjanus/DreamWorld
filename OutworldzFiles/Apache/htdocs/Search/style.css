@@ -1,5 +1,7 @@
 
 body {
+    background: #333333;
+    color: white;
     /* background: #333333 url(/radio/radioback6.jpg) left top no-repeat;*/
 }
 a {
@@ -8,6 +10,7 @@ a {
 }
 p {
     background-color: #1F1A25;
+    color: white;
 }
 #greet {
     
@@ -31,13 +34,17 @@ button {
   border-radius: 4px;
   border: 2px solid #333333;
 }
+tr {
+    background-color: #eeeeee;
+    color: #333333;
+    font-size:14px;	
+}
 .alt {
-  background-color: #dddddd;
+  background-color: #333333;
+  color: #eeeeee;
+  font-size:14px;	
 }
 a {
-	color: #000000;
-	text-decoration: none;
-}
-td {
-	font-size:14px;	
+    color: #000000;
+    text-decoration: none;
 }

@@ -5,8 +5,51 @@
 <title>Opensimular search</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript"  src="/flexgrid/js/flexigrid.js"></script>
-<script type="text/javascript">
 
+<style>
+
+body {
+     background-color: #333333;
+}
+a {
+    color: #0060B6;
+    text-decoration: underline;
+}
+
+#greet {
+    
+    width: 700px;
+    height: 750px;
+    color: white;
+    font-family: Calibri;
+    font-size: 100%;
+    margin-left: 0px;
+    margin-top: 0px;
+}
+button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 2px solid #000000;
+}
+
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+td {
+	font-size:14px;	
+}
+
+</style>
+<script type="text/javascript">
 $(document).ready(function(){
 	
 	$("a").click(function(){
@@ -56,7 +99,7 @@ $(document).ready(function(){
 </script>
 
 <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />
+<!--<link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />-->
 
 
 
@@ -71,6 +114,7 @@ $(document).ready(function(){
 <a href="SearchParcel.php"><button>Parcels</button></a>
 <a href="ShowHosts.php"><button>Hosts</button></a>
 <a href="SearchRegions.php"><button>Regions</button></a>
+<button onclick="location.reload();">Refresh Page</button>
 </div>
 <div id="greet">
     <div id="playing"></div>

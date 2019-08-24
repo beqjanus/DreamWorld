@@ -41,6 +41,7 @@ catch(PDOException $e)
 <a href="SearchParcel.php"><button>Parcels</button></a>
 <a href="ShowHosts.php"><button>Hosts</button></a>
 <a href="SearchRegions.php"><button>Regions</button></a>
+<button onclick="location.reload();">Refresh Page</button>
 </div>
 
   <table class="striped">
@@ -98,7 +99,7 @@ catch(PDOException $e)
           else if ($row["searchcategory"] == 12) { $category = "Rental";}
           else if ($row["searchcategory"] == 13) { $category = "Other";}
           
-           echo "<tr valign=\"top\">";
+           echo "<tr class=\"striped\" valign=\"top\">";
           echo "<td nowrap>" .  $row["regionname"] . "</td>\n";
           echo "<td>" .$row["parcelname"] . "</td>\n";
           echo "<td>" .$row["description"] . "</td>\n";
