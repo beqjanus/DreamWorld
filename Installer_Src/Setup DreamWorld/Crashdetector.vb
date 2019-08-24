@@ -24,7 +24,7 @@ Public Class CrashDetector
 
                             While sr.Peek() > -1
                                 line = sr.ReadLine()
-                                ctr = ctr + 1
+                                ctr += 1
                                 If ctr > logline Then
                                     If line.Contains("Timeout detected for thread " & """bulletunmanaged") Then
                                         ' Restart

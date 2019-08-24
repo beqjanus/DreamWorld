@@ -93,7 +93,7 @@ Public Class FormRestart
             If Form1.PropMySetting.AutoBackup And Form1.PropMySetting.AutoRestartInterval > 0 And Form1.PropMySetting.AutoRestartInterval < BTime Then
                 Form1.PropMySetting.AutoRestartInterval = BTime + 30
                 AutoRestartBox.Text = (BTime + 30).ToString(Form1.Usa)
-                MsgBox("Upping AutoRestart Time to " + BTime.ToString(Form1.Usa) + " + 30 Minutes for Autobackup to complete.", vbInformation)
+                MsgBox("Upping AutoRestart Time to " + BTime.ToString(Form1.Usa) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
         Else
             Form1.PropMySetting.AutoRestartInterval = 0
