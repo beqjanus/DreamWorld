@@ -5627,9 +5627,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
-        SendMsg("warn")
-    End Sub
+
 
 #End Region
 

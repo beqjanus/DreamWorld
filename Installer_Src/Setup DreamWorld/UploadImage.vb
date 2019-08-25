@@ -124,6 +124,8 @@ Public Class UploadImage
             Else
                 Call UploadError(sData)
             End If
+            webResp.Close()
+            webResp = Nothing
         Else
             Call UploadError(sData)
         End If
