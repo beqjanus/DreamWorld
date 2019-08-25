@@ -10,23 +10,23 @@
 
 
 require( "flog.php" );
-flog("Running");
 
 include("databaseinfo.php");
 
+$gateway = "";
 $hostname = "";
 $port = "";
 $service = "";
 
+if (isset($_GET['gateway']))    $gateway = $_GET['gateway'];
 if (isset($_GET['host']))    $hostname = $_GET['host'];
 if (isset($_GET['port']))    $port = $_GET['port'];
 if (isset($_GET['service'])) $service = $_GET['service'];
 
+flog("gateway:" . $gateway );
 flog("hostname:" . $hostname );
 flog("port:" . $port);
 flog("service:" . $service );
-
-
 
 if ($hostname == "" || $port == "")
 {
@@ -35,7 +35,6 @@ if ($hostname == "" || $port == "")
     exit;
 }
 
-flog ("Okay");
 
  // Attempt to connect to the database
   try {
@@ -51,8 +50,7 @@ catch(PDOException $e)
 
 if ($service == "online")
 {
-    file_put_contents('../../../PHPLog.log', "online:" . $hostname . ":" . $port, FILE_APPEND);
-    flog("online:" . $hostname . ":" . $port);
+    file_put_contents('../../../PHPLog.log', "Registered as online:" . $hostname . ":" . $port, FILE_APPEND);
     // Check if there is already a database row for this host
     $query = $db->prepare("SELECT register FROM hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
@@ -65,15 +63,15 @@ if ($service == "online")
     {
         $query = $db->prepare("UPDATE hostsregister SET " .
                      "register = ?, " .
-                     "nextcheck = 0, checked = 0, failcounter = 0 " .
+                     "nextcheck = 0, checked = 0, failcounter = 0, gateway = ? " .
                      "WHERE host = ? AND port = ?");
-        $query->execute( array($timestamp, $hostname, $port) );
+        $query->execute( array($timestamp, $gateway, $hostname, $port) );
     }
     else
     {
         // The SELECT did not return a result. Insert a new record.
-        $query = $db->prepare("INSERT INTO hostsregister VALUES (?, ?, ?, 0, 0, 0)");
-        $query->execute( array($hostname, $port, $timestamp) );
+        $query = $db->prepare("INSERT INTO hostsregister VALUES (?, ?, ?, 0, 0, 0, ?)");
+        $query->execute( array($hostname, $port, $timestamp, $gateway) );
     }
 }
 

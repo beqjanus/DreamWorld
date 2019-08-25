@@ -1,6 +1,6 @@
 -- Host: localhost
 -- Generatie Tijd: 24 Jan 2009 om 15:48
--- 
+-- Update FKB: 2019-08-25 Add column Gateway 
 -- Create Database: 'ossearch'
 --  
 
@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `hostsregister` (
   `nextcheck` int(10) NOT NULL,
   `checked` tinyint(1) NOT NULL,
   `failcounter` int(10) NOT NULL,
+  `gateway` varchar(255) NULL,
   PRIMARY KEY (`host`,`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

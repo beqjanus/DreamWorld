@@ -8,6 +8,29 @@ Public Class MysqlInterface
         'nothing   
     End Sub
 
+
+    Public Shared Sub DeleteSearchDatabase()
+
+        Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
+        Try
+            osconnection.Open()
+        Catch ex As Exception
+            Debug.Print("Failed to Connect to OsSearch")
+            Return
+        End Try
+        Try
+            Dim stm As String = "DROP DATABASE ossearch;"
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+            cmd.ExecuteScalar()
+        Catch ex As exception
+        Finally
+            osconnection.Close()
+        End Try
+
+
+
+    End Sub
+
     Public Shared Sub DeleteRegionlist()
 
         Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())

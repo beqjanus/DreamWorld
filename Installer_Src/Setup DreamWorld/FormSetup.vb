@@ -2802,7 +2802,7 @@ Public Class Form1
 "$DB_USER = " & """" & PropMySetting.RobustUsername & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & PropMySetting.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
-"?>" & vbCrLf
+"?>"
 
         Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
@@ -6263,29 +6263,37 @@ Public Class Form1
             Or PropMySetting.ServerType = "OsGrid" _
             Or PropMySetting.ServerType = "AviWorlds" Then Return
 
-        Print("Setting up search")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        If Not PropMySetting.SearchMigration = 1 Then
 
-        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
-        pi.FileName = "Create_OsSearch.bat"
-        pi.UseShellExecute = True
-        pi.CreateNoWindow = False
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessMysql As Process = New Process With {
-            .StartInfo = pi
-        }
+            Dim MysqlConn As New MysqlInterface()
+            MysqlConn.DeleteSearchDatabase()
 
-        Try
-            ProcessMysql.Start()
-            ProcessMysql.WaitForExit()
-        Catch ex As Exception
-            ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+            Print("Setting up search")
+            Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+            FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
+            pi.FileName = "Create_OsSearch.bat"
+            pi.UseShellExecute = True
+            pi.CreateNoWindow = False
+            pi.WindowStyle = ProcessWindowStyle.Hidden
+            Dim ProcessMysql As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                ProcessMysql.Start()
+                ProcessMysql.WaitForExit()
+            Catch ex As Exception
+                ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = PropMyFolder
+                Return
+            End Try
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
-            Return
-        End Try
-        FileIO.FileSystem.CurrentDirectory = PropMyFolder
-        PropMySetting.SearchInstalled = True
-        PropMySetting.SaveSettings()
+
+            PropMySetting.SearchMigration = 1
+            PropMySetting.SaveSettings()
+
+        End If
 
     End Sub
 

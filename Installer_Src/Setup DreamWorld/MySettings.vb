@@ -533,12 +533,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SearchInstalled() As Boolean
+    Public Property SearchMigration() As Integer
         Get
-            Return CType(GetMySetting("SearchInstalled", "False"), Boolean)
+            Return CType(GetMySetting("SearchMigration", "0"), Integer)
         End Get
         Set
-            SetMySetting("SearchInstalled", Value.ToString(Form1.Usa))
+            SetMySetting("SearchMigration", Value.ToString(Form1.Usa))
         End Set
     End Property
 
