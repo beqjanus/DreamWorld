@@ -81,21 +81,7 @@ Public Class FormPublicity
                 PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
                     My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-                Catch ex As ArgumentException
-                    MsgBox("Warn: ex.Message")
-                    Return
-                Catch ex As IO.PathTooLongException
-                    MsgBox("Warn: ex.Message")
-                    Return
-                Catch ex As NotSupportedException
-                    MsgBox("Warn: ex.Message")
-                    Return
-                Catch ex As Security.SecurityException
-                    MsgBox("Warn: ex.Message")
-                    Return
-                Catch ex As UnauthorizedAccessException
-                    MsgBox("Warn: ex.Message")
-                    Return
+                Catch ex As Exception
                 End Try
 
                 Try
