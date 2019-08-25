@@ -40,7 +40,7 @@ Imports System.Security.Principal
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.14"
+    Private _MyVersion As String = "3.15"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 #End Region
 
@@ -62,6 +62,7 @@ Public Class Form1
     Private _debugOn As Boolean = False
     Private _DNSSTimer As Integer = 0
     Private _Domain As String = "http://www.outworldz.com" ' not https, which breaks stuff
+    Private _SecureDomain As String = "https://outworldz.com" ' https, which breaks stuff
     Private _ExitHandlerIsBusy As Boolean = False
     Private _exitList As New ArrayList()
     Private _ForceMerge As Boolean = False
@@ -288,7 +289,6 @@ Public Class Form1
             _DNSSTimer = Value
         End Set
     End Property
-
     Public Property PropDomain As String
         Get
             Return _Domain
@@ -297,6 +297,15 @@ Public Class Form1
             _Domain = value
         End Set
     End Property
+    Public Property SecureDomain As String
+        Get
+            Return _SecureDomain
+        End Get
+        Set(value As String)
+            _SecureDomain = value
+        End Set
+    End Property
+
 
     Public Property PropExitHandlerIsBusy() As Boolean
         Get
@@ -798,7 +807,7 @@ Public Class Form1
         GetGridServerName()
 
         If (PropMySetting.SplashPage.Length = 0) Then
-            PropMySetting.SplashPage = PropDomain() & "/Outworldz_installer/Welcome.htm"
+            PropMySetting.SplashPage = SecureDomain() & "/Outworldz_installer/Welcome.htm"
         End If
 
         CheckForUpdates()
@@ -1226,7 +1235,7 @@ Public Class Form1
     Private Sub MnuAbout_Click(sender As System.Object, e As System.EventArgs) Handles mnuAbout.Click
 
         Print("(c) 2017 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
-        Dim webAddress As String = PropDomain & "/Outworldz_Installer"
+        Dim webAddress As String = SecureDomain & "/Outworldz_Installer"
         Process.Start(webAddress)
 
     End Sub
@@ -1578,11 +1587,9 @@ Public Class Form1
                                     If PropRegionClass.SmartStart(RegionNum) Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
-
                                     Else
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion"
-
                                     End If
 
                                     Diagnostics.Debug.Print(line)
@@ -2454,7 +2461,7 @@ Public Class Form1
 
     Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreContentToolStripMenuItem.Click
 
-        Dim webAddress As String = PropDomain & "/cgi/freesculpts.plx"
+        Dim webAddress As String = SecureDomain & "/cgi/freesculpts.plx"
         Process.Start(webAddress)
         Print("Get OAR and IAR files to load into your Sim")
 
@@ -2473,7 +2480,7 @@ Public Class Form1
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        Dim webAddress As String = PropDomain() & "/Outworldz_Installer/PortForwarding.htm"
+        Dim webAddress As String = SecureDomain() & "/Outworldz_Installer/PortForwarding.htm"
         Process.Start(webAddress)
     End Sub
 
@@ -3831,6 +3838,8 @@ Public Class Form1
         End If
         PropDNSSTimer += 1
 
+        If (1) Then GetEvents()
+
         ' On Boot
         If PropDNSSTimer = 1 Then
             RegionListHTML() ' create HTML for older 2.4 region teleporters
@@ -4030,7 +4039,7 @@ Public Class Form1
     Private Sub IarClick(sender As Object, e As EventArgs)
 
         Dim file As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
-        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
+        file = SecureDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
         If LoadIARContent(file) Then
             Print("Opensimulator will load " & file & ".  This may take time to load.")
         End If
@@ -4190,7 +4199,7 @@ Public Class Form1
     Private Sub OarClick(sender As Object, e As EventArgs)
 
         Dim File As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
-        File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
+        File = SecureDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
         sender.checked = True
 
@@ -4295,7 +4304,7 @@ Public Class Form1
         Print("Refreshing Free OARs")
         Dim oars As String = ""
         Try
-            oars = client.DownloadString(PropDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & Random())
+            oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & Random())
         Catch ex As Exception
             ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
             Return
@@ -4350,7 +4359,7 @@ Public Class Form1
         Print("Refreshing Free IARs")
         Dim iars As String = ""
         Try
-            iars = client.DownloadString(PropDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & Random())
+            iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & Random())
         Catch ex As Exception
             ErrorLog("Info:No IARS, dang, something is wrong with the Internet :-(")
             Return
@@ -4420,7 +4429,7 @@ Public Class Form1
         Dim Update As String = ""
 
         Try
-            Update = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
+            Update = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
         Catch ex As Exception
             ErrorLog("Dang:The Outworldz web site is down")
         End Try
@@ -4454,7 +4463,7 @@ Public Class Form1
         End Try
 
         Try
-            fileName = client.DownloadString(PropDomain() & "/Outworldz_Installer/GetUpdaterGrid.plx?fill=1" & GetPostData())
+            fileName = client.DownloadString(SecureDomain() & "/Outworldz_Installer/GetUpdaterGrid.plx?fill=1" & GetPostData())
         Catch
             MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
             Return ""
@@ -4464,7 +4473,7 @@ Public Class Form1
             Dim myWebClient As New WebClient()
             Print("Downloading New updater, this will take a moment")
             ' The DownloadFile() method downloads the Web resource and saves it into the current file-system folder.
-            myWebClient.DownloadFile(PropDomain() & "/Outworldz_Installer/" & fileName, fileName)
+            myWebClient.DownloadFile(SecureDomain() & "/Outworldz_Installer/" & fileName, fileName)
         Catch e As Exception
             MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
             Log("Warn", e.Message)
@@ -4702,7 +4711,7 @@ Public Class Form1
             ' Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test results
             ' See my privacy policy at https://www.outworldz.com/privacy.htm
 
-            Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & PropMySetting.PublicIP & "&Port=" & PropMySetting.HttpPort & GetPostData()
+            Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & PropMySetting.PublicIP & "&Port=" & PropMySetting.HttpPort & GetPostData()
             Log("Info", Url)
             isPortOpen = client.DownloadString(Url)
         Catch ex As Exception
@@ -6157,21 +6166,20 @@ Public Class Form1
         If Not PropMySetting.SearchEnabled Then Return
 
         Dim Simevents As New Dictionary(Of String, String)
-
-        Dim osconnection As MySqlConnection = New MySqlConnection(OSSearchConnectionString())
-        Try
-            osconnection.Open()
-        Catch ex As Exception
-            Log("Error", "Failed to Connect to OsSearch")
-            Return
-        End Try
-
-        DeleteEvents(osconnection)
         Dim ctr As Integer = 0
         Try
+            Dim osconnection As MySqlConnection = New MySqlConnection(OSSearchConnectionString())
+            Try
+                osconnection.Open()
+            Catch ex As Exception
+                Log("Error", "Failed to Connect to OsSearch")
+                Return
+            End Try
+
+            DeleteEvents(osconnection)
 
             Using client As New WebClient()
-                Using Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & Random())
+                Using Stream = client.OpenRead(SecureDomain() & "/events.txt?r=" & Random())
                     Using reader = New StreamReader(Stream)
 
                         While reader.Peek <> -1
@@ -6203,7 +6211,8 @@ Public Class Form1
             End Using
             osconnection.Close()
             'Print(ctr.ToString(usa) & " hypevents received")
-        Catch
+        Catch ex As Exception
+            ErrorLog(ex.Message)
         End Try
 
     End Sub
