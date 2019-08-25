@@ -172,12 +172,16 @@ function dir_places_query($method_name, $params, $app_data)
                 "dwell" => $row["dwell"]);
         $counter +=1;
     }
-    $success = True;
+    
+    flog("Counter = " + $counter);
+    $Success = False;
     if ($counter > 0 ) {
-      $success = True;
+      $Success = True;
     } else {
-      $success = False;
+      $Success = False;
     }
+    flog($Success);
+    
     $response_xml = xmlrpc_encode(array(
         'success'      =>$Success,
         'errorMessage' => "",
