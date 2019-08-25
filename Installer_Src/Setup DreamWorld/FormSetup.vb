@@ -4547,7 +4547,7 @@ Public Class Form1
 
         ' LAN USE
         If PropMySetting.EnableHypergrid Then
-            Print("Setting up Hypergrid")
+            Print("Setup Hypergrid")
             BumpProgress10()
             If PropMySetting.DNSName.Length > 0 Then
                 PropMySetting.PublicIP = PropMySetting.DNSName()
@@ -6268,7 +6268,7 @@ Public Class Form1
             Dim MysqlConn As New MysqlInterface()
             MysqlConn.DeleteSearchDatabase()
 
-            Print("Setting up search")
+            Print("Setup search")
             Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
