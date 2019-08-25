@@ -65,7 +65,7 @@ Public Class AdvancedForm
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = Form1.SecureDomain + "/Outworldz_installer/technical.htm#Regions"
         Process.Start(webAddress)
 
     End Sub

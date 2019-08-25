@@ -3838,7 +3838,6 @@ Public Class Form1
         End If
         PropDNSSTimer += 1
 
-        If (1) Then GetEvents()
 
         ' On Boot
         If PropDNSSTimer = 1 Then
@@ -4039,7 +4038,7 @@ Public Class Form1
     Private Sub IarClick(sender As Object, e As EventArgs)
 
         Dim file As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
-        file = SecureDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
+        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
         If LoadIARContent(file) Then
             Print("Opensimulator will load " & file & ".  This may take time to load.")
         End If
@@ -4199,7 +4198,7 @@ Public Class Form1
     Private Sub OarClick(sender As Object, e As EventArgs)
 
         Dim File As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
-        File = SecureDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
+        File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
         sender.checked = True
 
@@ -6202,6 +6201,7 @@ Public Class Form1
                                     ctr += 1
                                 End If
                             Next
+                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
                             Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
                             WriteEvent(osconnection, Simevents)
                         End While
