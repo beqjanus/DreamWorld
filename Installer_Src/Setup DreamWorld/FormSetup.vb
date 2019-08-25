@@ -2693,7 +2693,7 @@ Public Class Form1
         PropMySetting.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         PropMySetting.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         PropMySetting.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP5" & """")
-        PropMySetting.SetApacheIni("ServerName", PropMySetting.PrivateURL)
+        PropMySetting.SetApacheIni("ServerName", PropMySetting.PublicIP)
         PropMySetting.SetApacheIni("<VirtualHost", "  *:" & CType(PropMySetting.ApachePort, String) & ">")
         PropMySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         PropMySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
