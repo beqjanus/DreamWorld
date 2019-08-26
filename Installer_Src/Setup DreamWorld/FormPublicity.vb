@@ -87,10 +87,10 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                 Catch ex As ArgumentNullException
-                    MsgBox("Warn: ex.Message")
+                    MsgBox("Warn: " & ex.Message)
                     Return
                 Catch ex As Runtime.InteropServices.ExternalException
-                    MsgBox("Warn: ex.Message")
+                    MsgBox("Warn:" & ex.Message)
                     Return
                 End Try
 
