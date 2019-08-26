@@ -91,6 +91,7 @@ Public Class UploadImage
             End If
         Loop While (bytesRead > 0)
         fileStream.Close()
+        fileStream = Nothing
 
         sw.BaseStream.Flush()
         sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
