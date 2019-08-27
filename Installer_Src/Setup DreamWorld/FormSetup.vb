@@ -2255,6 +2255,11 @@ Public Class Form1
 
             PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
 
+            ' V3.15
+            PropMySetting.SetOtherIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetOtherIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+
+
             PropMySetting.SaveOtherINI()
 
             If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) Then
