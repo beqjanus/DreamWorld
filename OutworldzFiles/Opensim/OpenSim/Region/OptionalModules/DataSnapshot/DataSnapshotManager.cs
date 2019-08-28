@@ -70,6 +70,8 @@ namespace OpenSim.Region.DataSnapshot
         //DataServices and networking
         private string m_dataServices = "noservices";
         public string m_listener_port = ConfigSettings.DefaultRegionHttpPort.ToString();
+        public string m_gateway = "127.0.0.1";
+
         public string m_hostname = "127.0.0.1";
         private UUID m_Secret = UUID.Random();
         private bool m_servicesNotified = false;
@@ -120,7 +122,10 @@ namespace OpenSim.Region.DataSnapshot
                         {
                             IConfig conf = config.Configs["GridService"];
                             if (conf != null)
+                            {
                                 gatekeeper = conf.GetString("Gatekeeper", gatekeeper);
+                                m_gateway = gatekeeper;
+                            }
                         }
                         if (!string.IsNullOrEmpty(gatekeeper))
                             m_gridinfo.Add("gatekeeperURL", gatekeeper);
@@ -416,6 +421,7 @@ namespace OpenSim.Region.DataSnapshot
                     cli.AddQueryParameter("service", serviceName);
                     cli.AddQueryParameter("host", m_hostname);
                     cli.AddQueryParameter("port", m_listener_port);
+                    cli.AddQueryParameter("gateway", m_gateway);
                     cli.AddQueryParameter("secret", m_Secret.ToString());
                     cli.RequestMethod = "GET";
                     try
