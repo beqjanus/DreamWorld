@@ -128,8 +128,7 @@ namespace OpenSim.Region.DataSnapshot
                             }
                         }
 
-                        m_gatekeeper = gatekeeper;
-                        m_log.Info("[DATASNAPSHOT]: Gatekeeper: " + m_gatekeeper);
+                        m_gatekeeper = gatekeeper;                        
 
                         if (!string.IsNullOrEmpty(gatekeeper))
                             m_gridinfo.Add("gatekeeperURL", gatekeeper);
@@ -422,7 +421,6 @@ namespace OpenSim.Region.DataSnapshot
                 string url = services[i].Trim();
                 using (RestClient cli = new RestClient(url))
                 {
-                    m_log.Warn("[DATASNAPSHOT]: notify of gatekeeper: " + m_gatekeeper); // fkb !!!
                     cli.AddQueryParameter("service", serviceName);
                     cli.AddQueryParameter("host", m_hostname);
                     cli.AddQueryParameter("port", m_listener_port);

@@ -40,7 +40,7 @@ catch(PDOException $e)
  <div id="Links">
 <a href="index.php"><button>Objects</button></a>
 <a href="SearchClassifieds.php"><button>Classifieds</button></a>
-<a href="SearchParcel.php"><button>Parcels</button></a>
+<a href="SearchParcel.htm"><button>Parcels</button></a>
 <a href="ShowHosts.php"><button>Hosts</button></a>
 <a href="SearchRegions.php"><button>Regions</button></a>
 <button onclick="location.reload();">Refresh</button>
