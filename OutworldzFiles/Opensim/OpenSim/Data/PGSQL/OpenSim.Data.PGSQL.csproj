@@ -155,9 +155,6 @@
 	  <Compile Include="PGSQLAvatarData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="PGSQLEstateData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="PGSQLFramework.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -165,9 +162,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PGSQLFSAssetData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PGSQLGenericTableHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PGSQLGridUserData.cs">
@@ -212,6 +206,12 @@
 	  <Compile Include="PGSQLUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="PGSQLEstateData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PGSQLGenericTableHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -222,8 +222,6 @@
 	  <EmbeddedResource Include="Resources\AuthStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Avatar.migrations">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\FriendsStore.migrations">
 	  </EmbeddedResource>
@@ -254,6 +252,8 @@
 	  <EmbeddedResource Include="Resources\XAssetStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\RegionStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

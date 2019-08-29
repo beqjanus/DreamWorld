@@ -50,7 +50,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=mach.outworldz.net
+BaseHostname=http://hg.metro.land
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -442,8 +442,6 @@ TexturePrimSize=48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map.
 RenderMeshes=false
-RenderMaxHeight=4000
-RenderMinHeight=-100
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
@@ -632,7 +630,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;# {ExternalHostNameForLSL} {} {Hostname to use for HTTP-IN URLs. This should be reachable from the internet.} {}
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
-ExternalHostNameForLSL=mach.outworldz.net
+ExternalHostNameForLSL=http://hg.metro.land
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -676,13 +674,6 @@ user_agent="OpenSim LSL (Mozilla Compatible)"
 ;; will use this address to register xmlrpc channels on the external
 ;; service
 ; XmlRpcHubURI = http://example.com
-;
-; Support viewers object cache, default true
-; users may need to reduce viewer bandwitdh if some prims or terrain parts fail to rez.
-; change to false if you need to use old viewers that do not support this feature
-;
-SupportViewerObjectsCache=true
-
 [ClientStack.LindenUDP]
 
 ;; See OpensSimDefaults.ini for the throttle options. You can copy the
@@ -1087,7 +1078,6 @@ DisableUndergroundMovement=true
 ;; Path to script engine assemblies
 ;; Default is ./bin/ScriptEngines
 criptEnginesPath="ScriptEngines"
-MinTimerInterval=0.2
 
 [OSSL]
 
@@ -1282,86 +1272,14 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 SMTP_SERVER_LOGIN=Gmail for notification
 SMTP_SERVER_PASSWORD=Gmail password
-host_domain_header_from=mach.outworldz.net
+host_domain_header_from=http://hg.metro.land
 
 [Cloud]
 enabled=false
 density=0.5
 
 [AutoBackupModule]
-
-;
-;    Configuration Settings
-; Global (in OpenSim.ini under [AutoBackupModule] section)
-;AutoBackupModuleEnabled: True/False. Default: False. If False, every
-;function in the module is as no-op as possible: just return as soon as
-;realizing that we're not enabled. Otherwise it will try to get as far as it
-;can with auto backup for each region.
-; Global (in OpenSim.ini) or Per-Region (in Regions/Regions.ini under theregion's name's section)
-; IMPORTANT: Settings declared per-region in Regions/Regions.ini override
-;settings in OpenSim.ini. Settings in OpenSim.ini, in turn, override
-;hard-coded defaults.  AutoBackup: True/False. Default: False. If True,
-;activate auto backup functionality. This is the only required option for
-;enabling auto-backup; the other options have sane defaults. If False, the
-;auto-backup module becomes a no-op for the region, and all other
-;AutoBackup* settings are ignored.
-; AutoBackupModuleEnabled: True/False. Default: False. If False, every
-;function in the module is as no-op as possible: just return as soon as
-;realizing that we're not enabled. Otherwise it will try to get as far as it
-;can with auto backup for each region.
-; AutoBackupInterval: Integer, non-negative value. Default: 720 (12
-;hours). The number of minutes between each backup attempt. If a negative or
-;zero value is given, it is equivalent to setting AutoBackup = False.
-; AutoBackupBusyCheck: True/False. Default: True. If True, we will only
-;take an auto-backup if a set of conditions are met. These conditions are
-;heuristics to try and avoid taking a backup when the sim is busy.
-; AutoBackupScript: String. Default: not specified (disabled). File path
-;to an executable script or binary to run when an automatic backup is taken.
-;argv[1] of the executed file/script will be the file name of the generated
-;OAR. If the process can't be spawned for some reason (file not found, no
-;execute permission, etc), write a warning to the console.
-; AutoBackupNaming: string. Default: Time.  One of three strings (case
-;insensitive):
-;  "Time": Current timestamp is appended to file name. An existing file
-;will never be overwritten.
-;  "Sequential": A number is appended to the file name. So if
-;RegionName_x.oar exists, we'll save to RegionName_{x+1}.oar next. An
-;existing file will never be overwritten.
-;  "Overwrite": Always save to file named "RegionName.oar", even if we
-;have to overwrite an existing file.
-; AutoBackupDir: String. Default: "." (the current directory). A directory
-;(absolute or relative) where backups should be saved. If the path is not a
-;directory, or insufficient permissions are available, a warning will be
-;printed to the console and no backups will be taken.
-; AutoBackupDilationThreshold: float. Default: 0.5. Lower bound on time
-;dilation required for BusyCheck heuristics to pass.  If the time dilation
-;is below this value, don't take a backup right now.
-; AutoBackupAgentThreshold: int. Default: 10. Upper bound on # of agents
-;in region required for BusyCheck heuristics to pass.  If the number of
-;agents is greater than this value, don't take a backup right now.
-; AutoBackupKeepFilesForDays: int. Default: 0.
-;   1) number of days to keep backups (0 the default value will disable
-;this option).
-;   2) After each backup, remove all oars in the backup directory that are
-;older than the specified number of days.
-;    note: if the user set the bin directory as the backup location, only
-;oar files are removed. There is no way to know if an oar was created by
-;auto-backup, or manually created or uploaded. It is not recommended to use
-;the bin directory for your auto backups for this reason.
-; Automatically changed by Dreamworld - do not change this
-AutoBackupModuleEnabled=true
 AutoBackup=true
 AutoBackupInterval=720
-AutoBackupBusyCheck=false
-AutoBackupThreshold=1
-AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
-AutoBackupNaming=Time
-AutoBackupDilationThreshold=0.8
 AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
-
-; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
-;; Set to True to enable Smart Start
-;; Set by Dreamgrid
-[AutoLoadTeleport]
-Enabled=False

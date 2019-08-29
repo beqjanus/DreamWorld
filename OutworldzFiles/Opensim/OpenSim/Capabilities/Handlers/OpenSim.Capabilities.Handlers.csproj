@@ -182,10 +182,10 @@
 	  <Compile Include="FetchInventory\FetchInventory2Handler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GetDisplayNames\GetDisplayNamesHandler.cs">
+	  <Compile Include="GetDisplayNames\GetDisplayNamesServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GetDisplayNames\GetDisplayNamesServerConnector.cs">
+	  <Compile Include="GetDisplayNames\GetDisplayNamesHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="GetMesh\GetMeshServerConnector.cs">

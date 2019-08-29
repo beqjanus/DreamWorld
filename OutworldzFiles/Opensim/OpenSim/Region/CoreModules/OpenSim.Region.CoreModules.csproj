@@ -502,9 +502,6 @@
 	  <Compile Include="Framework\UserManagement\UserManagementModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Hypergrid\HGWorldMapModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -730,10 +727,10 @@
 	  <Compile Include="World\Estate\TelehubManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Estate\EstateManagementModule.cs">
+	  <Compile Include="World\Estate\EstateModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Estate\EstateModule.cs">
+	  <Compile Include="World\Estate\EstateManagementModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Land\DwellModule.cs">
@@ -745,10 +742,10 @@
 	  <Compile Include="World\Land\LandChannel.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Land\LandManagementModule.cs">
+	  <Compile Include="World\Land\LandObject.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\Land\LandObject.cs">
+	  <Compile Include="World\Land\LandManagementModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\LegacyMap\IMapTileTerrainRenderer.cs">
@@ -956,6 +953,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\WorldMap\MapSearchModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="World\WorldMap\HGWorldMapModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\WorldMap\WorldMapModule.cs">

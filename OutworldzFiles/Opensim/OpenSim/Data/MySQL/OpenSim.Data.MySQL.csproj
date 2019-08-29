@@ -155,9 +155,6 @@
 	  <Compile Include="MySQLAvatarData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLEstateData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="MySQLFramework.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -200,9 +197,6 @@
 	  <Compile Include="MySQLXInventoryData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="MySQLGenericTableHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="MySQLSimulationData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -210,6 +204,12 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MySQLXAssetData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="MySQLEstateData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="MySQLGenericTableHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
@@ -222,8 +222,6 @@
 	  <EmbeddedResource Include="Resources\AuthStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Avatar.migrations">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\FriendsStore.migrations">
 	  </EmbeddedResource>
@@ -243,8 +241,6 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\MuteListStore.migrations">
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\os_groups_Store.migrations">
-	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Presence.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\UserAccount.migrations">
@@ -254,6 +250,10 @@
 	  <EmbeddedResource Include="Resources\XAssetStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\RegionStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\EstateStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\os_groups_Store.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

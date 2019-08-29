@@ -70,7 +70,7 @@ namespace OpenSim.Region.DataSnapshot
         //DataServices and networking
         private string m_dataServices = "noservices";
         public string m_listener_port = ConfigSettings.DefaultRegionHttpPort.ToString();
-        public string m_gateway = "127.0.0.1";
+        public string m_gatekeeper = "nothing"; // fkb Dreamgrid search
 
         public string m_hostname = "127.0.0.1";
         private UUID m_Secret = UUID.Random();
@@ -115,6 +115,7 @@ namespace OpenSim.Region.DataSnapshot
                     try
                     {
                         m_enabled = config.Configs["DataSnapshot"].GetBoolean("index_sims", m_enabled);
+
                         string gatekeeper = Util.GetConfigVarFromSections<string>(config, "GatekeeperURI",
                             new string[] { "Startup", "Hypergrid", "GridService" }, String.Empty);
                         // Legacy. Remove soon!
@@ -124,9 +125,12 @@ namespace OpenSim.Region.DataSnapshot
                             if (conf != null)
                             {
                                 gatekeeper = conf.GetString("Gatekeeper", gatekeeper);
-                                m_gateway = gatekeeper;
                             }
                         }
+
+                        m_gatekeeper = gatekeeper;
+                        m_log.Info("[DATASNAPSHOT]: Gatekeeper: " + m_gatekeeper);
+
                         if (!string.IsNullOrEmpty(gatekeeper))
                             m_gridinfo.Add("gatekeeperURL", gatekeeper);
 
@@ -135,9 +139,9 @@ namespace OpenSim.Region.DataSnapshot
 
                         m_exposure_level = config.Configs["DataSnapshot"].GetString("data_exposure", m_exposure_level);
                         m_exposure_level = m_exposure_level.ToLower();
-                        if(m_exposure_level !="all" && m_exposure_level != "minimum")
+                        if (m_exposure_level != "all" && m_exposure_level != "minimum")
                         {
-                            m_log.ErrorFormat("[DATASNAPSHOT]: unknown data_exposure option: '{0}'. defaulting to minimum",m_exposure_level);
+                            m_log.ErrorFormat("[DATASNAPSHOT]: unknown data_exposure option: '{0}'. defaulting to minimum", m_exposure_level);
                             m_exposure_level = "minimum";
                         }
 
@@ -332,7 +336,7 @@ namespace OpenSim.Region.DataSnapshot
 
         public XmlDocument GetSnapshot(string regionName)
         {
-            if(!Monitor.TryEnter(m_serializeGen,30000))
+            if (!Monitor.TryEnter(m_serializeGen, 30000))
             {
                 return null;
             }
@@ -409,7 +413,7 @@ namespace OpenSim.Region.DataSnapshot
         {
             Stream reply = null;
             string delimStr = ";";
-            char [] delimiter = delimStr.ToCharArray();
+            char[] delimiter = delimStr.ToCharArray();
 
             string[] services = servicesStr.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
@@ -418,10 +422,11 @@ namespace OpenSim.Region.DataSnapshot
                 string url = services[i].Trim();
                 using (RestClient cli = new RestClient(url))
                 {
+                    m_log.Warn("[DATASNAPSHOT]: notify of gatekeeper: " + m_gatekeeper); // fkb !!!
                     cli.AddQueryParameter("service", serviceName);
                     cli.AddQueryParameter("host", m_hostname);
                     cli.AddQueryParameter("port", m_listener_port);
-                    cli.AddQueryParameter("gateway", m_gateway);
+                    cli.AddQueryParameter("gatekeeper", m_gatekeeper);  // fkb Dreamgrid search
                     cli.AddQueryParameter("secret", m_Secret.ToString());
                     cli.RequestMethod = "GET";
                     try
@@ -450,7 +455,7 @@ namespace OpenSim.Region.DataSnapshot
                     }
                     // This is not quite working, so...
                     // string responseStr = Util.UTF8.GetString(response);
-                    m_log.Info("[DATASNAPSHOT]: data service " + url + " notified. Secret: " + m_Secret);
+                    m_log.Info("[DATASNAPSHOT]: data service " + url + " notified. Gateway:" + m_gatekeeper + " Secret: " + m_Secret);
                 }
             }
         }

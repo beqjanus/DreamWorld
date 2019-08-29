@@ -198,9 +198,6 @@
 	  <Compile Include="Interfaces\IAttachmentsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\IAvatarFactoryModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Interfaces\IBakedTextureModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -250,9 +247,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IEnvironmentModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Interfaces\IEstateModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IEtcdModule.cs">
@@ -438,6 +432,12 @@
 	  <Compile Include="Interfaces\IMaterialsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Interfaces\IAvatarFactoryModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Interfaces\IEstateModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -516,16 +516,10 @@
 	  <Compile Include="Scenes\SceneObjectGroup.Inventory.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scenes\SceneObjectGroup.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scenes\SceneObjectPart.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SceneObjectPartInventory.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\ScenePresence.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\SimStatsReporter.cs">
@@ -543,7 +537,13 @@
 	  <Compile Include="Scenes\UuidGatherer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Scenes\SceneObjectGroup.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Scenes\Scene.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scenes\ScenePresence.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Animation\AnimationSet.cs">

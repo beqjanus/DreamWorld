@@ -2812,6 +2812,9 @@ Public Class Form1
         Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
         End Using
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\PHP5\databaseinfo.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
 
     End Sub
 

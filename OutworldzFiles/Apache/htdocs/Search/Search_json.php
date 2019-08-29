@@ -61,7 +61,7 @@ include("../Metromap/includes/config.php");
   
   $stack = array();
 
-  $q = "SELECT Name, Description, Location, Regions.Regionname as  Regioname FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
+  $q = "SELECT Regions.Gateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
     where " . $qtype . "  like :text1 
     order by " . $sort . ' ' .  $ord ;
     //. " limit " . $lim1 . "," . $lim2;     
@@ -83,7 +83,7 @@ include("../Metromap/includes/config.php");
         
         # need grid name and region name in a url
         
-        $hop  = "<a href=\"hop://". $DB_GRIDNAME . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        $hop  = "<a href=\"hop://". $row["Gateway"] . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         
         $hop = "<a href=\"secondlife://http|!!". $DB_GRIDNAME . "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         #secondlife://http|!!breath-grid.info|8002+IT+IS+ALL+FREE

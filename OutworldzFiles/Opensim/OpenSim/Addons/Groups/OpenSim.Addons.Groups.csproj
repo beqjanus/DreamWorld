@@ -190,16 +190,16 @@
 	  <Compile Include="GroupsExtendedData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GroupsMessagingModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="GroupsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="IGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RemoteConnectorCacheWrapper.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="GroupsMessagingModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="GroupsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Hypergrid\GroupsServiceHGConnector.cs">

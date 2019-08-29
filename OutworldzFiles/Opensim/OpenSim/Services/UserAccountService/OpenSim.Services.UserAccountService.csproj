@@ -139,13 +139,13 @@
 	  <Compile Include="AgentPreferencesServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GridUserService.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="GridUserServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UserAccountServiceBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="GridUserService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UserAccountService.cs">

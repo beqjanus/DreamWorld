@@ -252,10 +252,10 @@
 	  <Compile Include="Agent\InternetRelayClientView\IRCStackModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Agent\TextureSender\J2KDecoderCommandModule.cs">
@@ -300,12 +300,6 @@
 	  <Compile Include="Avatar\Voice\VivoxVoice\VivoxVoiceModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\GroupsMessagingModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\IGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -313,6 +307,12 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\XmlRpcGroupsServicesConnectorModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Avatar\XmlRpcGroups\GroupsMessagingModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="DataSnapshot\EstateSnapshot.cs">
@@ -330,10 +330,10 @@
 	  <Compile Include="DataSnapshot\DataRequestHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="DataSnapshot\DataSnapshotManager.cs">
+	  <Compile Include="DataSnapshot\SnapshotStore.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="DataSnapshot\SnapshotStore.cs">
+	  <Compile Include="DataSnapshot\DataSnapshotManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="DataSnapshot\Interfaces\IDataSnapshot.cs">
@@ -366,9 +366,6 @@
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scripting\JsonStore\JsonStoreCommands.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scripting\JsonStore\JsonStoreModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -376,6 +373,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scripting\JsonStore\JsonStore.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scripting\JsonStore\JsonStoreCommands.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scripting\RegionReadyModule\RegionReadyModule.cs">

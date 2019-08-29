@@ -224,9 +224,6 @@
 	  <Compile Include="ConfigSettings.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ConfigurationMember.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ConfigurationOption.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -243,9 +240,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="EntityTransferContext.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="EstateBan.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="EventData.cs">
@@ -270,12 +264,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ICnmCache.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ICommandConsole.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="IConsole.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="IGenericConfig.cs">
@@ -375,9 +363,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PluginLoader.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PluginManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Pool.cs">
@@ -485,9 +470,6 @@
 	  <Compile Include="EstateSettings.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="IClientAPI.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ILandChannel.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -524,9 +506,6 @@
 	  <Compile Include="PriorityQueue.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="RegionInfo.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="TerrainData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -539,7 +518,28 @@
 	  <Compile Include="WebUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="ConfigurationMember.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="EstateBan.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="IClientAPI.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ICommandConsole.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="IConsole.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="LLSDxmlEncode.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PluginManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RegionInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Client\IClientChat.cs">

@@ -46,7 +46,8 @@ catch(PDOException $e)
 
   <table class="striped">
     <tr class="header">
-      <td>Region Name</td>
+      <td>Grid</td>
+      <td>Region Name</td>    
       <td>Parcel</td>
       <td>Description</td>
       <td>Landing Point</td>
@@ -98,8 +99,11 @@ catch(PDOException $e)
           else if ($row["searchcategory"] == 11) { $category = "Shopping";}
           else if ($row["searchcategory"] == 12) { $category = "Rental";}
           else if ($row["searchcategory"] == 13) { $category = "Other";}
+          else if ($row["searchcategory"] == 14) { $category = "????";}
+          else $category = "Nothing";
           
            echo "<tr class=\"striped\" valign=\"top\">";
+          echo "<td><a href=\"". $row["gateway"] . "\">" . $row["gateway"] . "</a></td>\n";
           echo "<td nowrap>" .  $row["regionname"] . "</td>\n";
           echo "<td>" .$row["parcelname"] . "</td>\n";
           echo "<td>" .$row["description"] . "</td>\n";

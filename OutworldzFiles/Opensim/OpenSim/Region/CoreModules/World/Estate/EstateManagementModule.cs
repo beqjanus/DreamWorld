@@ -969,11 +969,12 @@ namespace OpenSim.Region.CoreModules.World.Estate
                                         continue;
 
                                     EstateBan bitem = new EstateBan();
-
                                     bitem.BannedUserID = user;
                                     bitem.EstateID = estateSettings.EstateID;
                                     bitem.BannedHostAddress = "0.0.0.0";
                                     bitem.BannedHostIPMask = "0.0.0.0";
+                                    bitem.BanningUserID = remote_client.AgentId;
+                                    bitem.BanTime = Util.UnixTimeSinceEpoch();
 
                                     estateSettings.AddBan(bitem);
                                     estateSettings.RemoveEstateUser(user);
@@ -982,11 +983,12 @@ namespace OpenSim.Region.CoreModules.World.Estate
                             }
 
                             EstateBan item = new EstateBan();
-
                             item.BannedUserID = user;
                             item.EstateID = Scene.RegionInfo.EstateSettings.EstateID;
                             item.BannedHostAddress = "0.0.0.0";
                             item.BannedHostIPMask = "0.0.0.0";
+                            item.BanningUserID = remote_client.AgentId;
+                            item.BanTime = Util.UnixTimeSinceEpoch();
 
                             thisSettings.AddBan(item);
                             thisSettings.RemoveEstateUser(user);
@@ -1591,6 +1593,44 @@ namespace OpenSim.Region.CoreModules.World.Estate
             Scene.TriggerEstateSunUpdate();
 
             sendDetailedEstateData(remoteClient, invoice);
+        }
+
+        public bool handleEstateChangeInfoCap(string estateName, UUID invoice,
+            int sunHour, bool sunFixed,
+            bool externallyVisible,
+            bool allowDirectTeleport,
+            bool denyAnonymous, bool denyAgeUnverified,
+            bool alloVoiceChat, bool overridePublicAccess)
+        {
+            if (sunHour == 0)
+            {
+                Scene.RegionInfo.EstateSettings.UseGlobalTime = true;
+                Scene.RegionInfo.EstateSettings.SunPosition = 0.0;
+            }
+            else
+            {
+                Scene.RegionInfo.EstateSettings.UseGlobalTime = false;
+                Scene.RegionInfo.EstateSettings.SunPosition = (sunHour - 0x1800) / 1024.0;
+                // Warning: FixedSun should be set to True, otherwise this sun position won't be used.
+            }
+
+            Scene.RegionInfo.EstateSettings.PublicAccess = externallyVisible;
+            Scene.RegionInfo.EstateSettings.FixedSun = sunFixed;
+            Scene.RegionInfo.EstateSettings.AllowDirectTeleport = allowDirectTeleport;
+
+            Scene.RegionInfo.EstateSettings.DenyAnonymous = denyAnonymous;
+            Scene.RegionInfo.EstateSettings.AllowVoice = alloVoiceChat;
+
+            // taxfree is now AllowAccessOverride
+            Scene.RegionInfo.EstateSettings.TaxFree = overridePublicAccess;
+            Scene.RegionInfo.EstateSettings.DenyMinors = denyAgeUnverified;
+
+            Scene.EstateDataService.StoreEstateSettings(Scene.RegionInfo.EstateSettings);
+            TriggerEstateInfoChange();
+
+            Scene.TriggerEstateSunUpdate();
+
+            return true;
         }
 
         #endregion

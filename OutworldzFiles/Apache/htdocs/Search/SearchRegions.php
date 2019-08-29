@@ -49,9 +49,10 @@ catch(PDOException $e)
 
   <table class="striped">
     <tr class="header">
-      <td>regionname</td>           
-      <td>url</td>
-      <td>owner</td>
+      <td>Grid</td>           
+      <td>Region name</td>           
+      <td>Region url</td>
+      <td>Owner<td>
     </tr>
     <?php
       $query = "SELECT * FROM regions order by regionname ";
@@ -64,7 +65,7 @@ catch(PDOException $e)
         while ($row = $query->fetch(PDO::FETCH_ASSOC))
         {
          echo "<tr class=\"striped\">";
-          
+          echo "<td><a href=\"". $row["gateway"] . "\">" . $row["gateway"] . "</a></td>\n";
           echo "<td>" .$row["regionname"] . "</td>";
           echo "<td>" . $row["url"] . "</td>";
           echo "<td>" . $row["owner"] . "</td>";

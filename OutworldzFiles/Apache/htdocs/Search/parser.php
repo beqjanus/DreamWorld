@@ -1,4 +1,7 @@
 <?php
+// runs parse right now
+
+require( "flog.php" );
 include("databaseinfo.php");
 
 //Supress all Warnings/Errors
@@ -40,7 +43,7 @@ function GetURL($host, $port, $url)
     return "";
 }
 
-function CheckHost($hostname, $port)
+function CheckHost($gateway, $hostname, $port)
 {
     global $db, $now;
 
@@ -62,11 +65,13 @@ function CheckHost($hostname, $port)
                           " WHERE host = ? AND port = ?");
     $query->execute( array($next, $hostname, $port) );
 
-    if ($xml != "")
-        parse($hostname, $port, $xml);
+    if ($xml != "") {
+      flog($xml);
+      parse($gateway, $hostname, $port, $xml);
+    }
 }
 
-function parse($hostname, $port, $xml)
+function parse($gateway,$hostname, $port, $xml)
 {
     global $db, $now;
 
@@ -103,8 +108,7 @@ function parse($hostname, $port, $xml)
     $expire = $regiondata->getElementsByTagName("expire")->item(0)->nodeValue;
     $next = $now + $expire;
 
-    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ?" .
-                          " WHERE host = ? AND port = ?");
+    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ? WHERE host = ? AND port = ?");
     $query->execute( array($next, $hostname, $port) );
 
     //
@@ -159,12 +163,16 @@ function parse($hostname, $port, $xml)
 
         //
         // Second, add the new info to the database
-        //
-        $query = $db->prepare("INSERT INTO regions VALUES(:r_name, :r_uuid, " .
-                              ":r_handle, :url, :u_name, :u_uuid)");
-        $query->execute( array("r_name" => $regionname, "r_uuid" => $regionuuid,
-                                "r_handle" => $regionhandle, "url" => $url,
-                                "u_name" => $username, "u_uuid" => $useruuid) );
+        // gateway modified fkb
+        $query = $db->prepare("INSERT INTO regions VALUES(:r_name, :r_uuid, :r_handle, :url, :u_name, :u_uuid, :r_gateway)");
+        $query->execute( array( "r_name" => $regionname,
+                                "r_uuid" => $regionuuid,
+                                "r_handle" => $regionhandle,
+                                "url" => $url,
+                                "u_name" => $username,
+                                "u_uuid" => $useruuid,
+                                "r_gateway" => $gateway
+                              ));
 
         //
         // Start reading the parcel info
@@ -240,20 +248,23 @@ function parse($hostname, $port, $xml)
             //
             // Save
             //
-            // Fred b mod: caused dupliicate key
+            // Fred b mod: caused duplicate key
             
             // Missing delete - should really be an update_or_insert
             $query = $db->prepare("INSERT INTO allparcels VALUES(" .
                                     ":r_uuid, :p_name, :o_uuid, :g_uuid, " .
-                                    ":landing, :p_uuid, :i_uuid, :area)");
-            $query->execute( array("r_uuid"  => $regionuuid,
+                                    ":landing, :p_uuid, :i_uuid, :area, :r_gateway )");
+            $query->execute( array(
+                                   "r_uuid"  => $regionuuid,
                                    "p_name"  => $parcelname,
                                    "o_uuid"  => $owneruuid,
                                    "g_uuid"  => $groupuuid,
                                    "landing" => $parcellanding,
                                    "p_uuid"  => $parceluuid,
                                    "i_uuid"  => $infouuid,
-                                   "area"    => $parcelarea) );
+                                   "area"    => $parcelarea,
+                                   "r_gateway" => $gateway
+                                  ) );
             
             
             //Prepare for the insert of data in to the popularplaces table. This gets
@@ -266,8 +277,9 @@ function parse($hostname, $port, $xml)
                 $query = $db->prepare("INSERT INTO parcels VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :landing, " .
                                        ":desc, :cat, :build, :script, :public, ".
-                                       ":dwell, :i_uuid, :r_cat)");
-                $query->execute( array("r_uuid"  => $regionuuid,
+                                       ":dwell, :i_uuid, :r_cat, :r_gateway )");
+                $query->execute( array(
+                                       "r_uuid"  => $regionuuid,
                                        "p_name"  => $parcelname,
                                        "p_uuid"  => $parceluuid,
                                        "landing" => $parcellanding,
@@ -278,17 +290,22 @@ function parse($hostname, $port, $xml)
                                        "public"  => $parcelpublic,
                                        "dwell"   => $dwell,
                                        "i_uuid"  => $infouuid,
-                                       "r_cat"   => $regioncategory) );
+                                       "r_cat"   => $regioncategory,
+                                       "r_gateway" => $gateway
+                                      ) );
 
                 $query = $db->prepare("INSERT INTO popularplaces VALUES(" .
                                        ":p_uuid, :p_name, :dwell, " .
-                                       ":i_uuid, :has_pic, :r_cat)");
-                $query->execute( array("p_uuid"  => $parceluuid,
+                                       ":i_uuid, :has_pic, :r_cat, :r_gateway )");
+                $query->execute( array(
+                                       "p_uuid"  => $parceluuid,
                                        "p_name"  => $parcelname,
                                        "dwell"   => $dwell,
                                        "i_uuid"  => $infouuid,
                                        "has_pic" => $has_pic,
-                                       "r_cat"   => $regioncategory) );
+                                       "r_cat"   => $regioncategory,
+                                       "r_gateway" => $gateway
+                                    ) );
             }
 
             if ($parcelforsale == "true")
@@ -296,8 +313,9 @@ function parse($hostname, $port, $xml)
                 $query = $db->prepare("INSERT INTO parcelsales VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :area, " .
                                        ":price, :landing, :i_uuid, :dwell, " .
-                                       ":e_id, :r_cat)");
-                $query->execute( array("r_uuid"  => $regionuuid,
+                                       ":e_id, :r_cat, :r_gateway)");
+                $query->execute( array(
+                                       "r_uuid"  => $regionuuid,
                                        "p_name"  => $parcelname,
                                        "p_uuid"  => $parceluuid,
                                        "area"    => $parcelarea,
@@ -306,7 +324,9 @@ function parse($hostname, $port, $xml)
                                        "i_uuid"  => $infouuid,
                                        "dwell"   => $dwell,
                                        "e_id"    => $estateid,
-                                       "r_cat"   => $regioncategory) );
+                                       "r_cat"   => $regioncategory,
+                                       "r_gateway" => $gateway
+                                    ) );
             }
         }
 
@@ -333,13 +353,16 @@ function parse($hostname, $port, $xml)
 
             $query = $db->prepare("INSERT INTO objects VALUES(" .
                                    ":uuid, :p_uuid, :location, " .
-                                   ":title, :desc, :r_uuid)");
-            $query->execute( array("uuid"     => $uuid,
+                                   ":title, :desc, :r_uuid, :r_gateway)");
+            $query->execute( array(
+                                   "uuid"     => $uuid,
                                    "p_uuid"   => $parceluuid,
                                    "location" => $location,
                                    "title"    => $title,
                                    "desc"     => $description,
-                                   "r_uuid"   => $regionuuid) );
+                                   "r_uuid"   => $regionuuid,
+                                   "r_gateway" => $gateway
+                                  ) );
         }
     }
 }
@@ -347,8 +370,9 @@ function parse($hostname, $port, $xml)
 
 $failcounter = 0;
 
-$sql = "SELECT host, port FROM hostsregister " .
+$sql = "SELECT gateway, host, port FROM hostsregister " .
        "WHERE nextcheck<$now AND checked=0 AND failcounter<10 LIMIT 0,20";
+       
 $jobsearch = $db->query($sql);
 
 //
@@ -367,7 +391,7 @@ if ($jobsearch->rowCount() == 0)
 }
 
 while ($jobs = $jobsearch->fetch(PDO::FETCH_NUM))
-    CheckHost($jobs[0], $jobs[1]);
+    CheckHost($jobs[0], $jobs[1],$jobs[2]);
 
 $db = NULL;
 ?>

@@ -169,9 +169,6 @@
 	  <Compile Include="AgentPreferences\AgentPreferencesServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Asset\AssetServerConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Asset\AssetServerDeleteHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -182,6 +179,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Asset\AssetsExistHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Asset\AssetServerConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Authentication\AuthenticationServerConnector.cs">

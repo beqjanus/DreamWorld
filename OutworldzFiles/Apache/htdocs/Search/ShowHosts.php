@@ -49,7 +49,7 @@ catch(PDOException $e)
     <tr class="header">
       <td>Host</td>
 
-      <td>Port</td>
+      <td>Region Port</td>
     </tr><?php
                  
                  $sql = "SELECT * FROM hostsregister order by host ";
@@ -62,7 +62,7 @@ catch(PDOException $e)
                    while ($row = $query->fetch(PDO::FETCH_ASSOC))
                    {
                      echo "<tr>\n";
-                     echo "<td>". $row["host"] . "</td>";
+                     echo "<td><a href=\"". $row["gateway"] . "\">" . $row["gateway"] . "</a></td>";
                      echo "<td>". $row["port"] . "</td>";
                      echo "</tr>\n";
                      $counter++;

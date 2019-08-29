@@ -203,16 +203,10 @@
 	  <Compile Include="OutgoingPacket.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLClientView.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LLUDPClient.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLUDPServer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLUDPServerCommands.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="OpenSimUDPBase.cs">
@@ -231,6 +225,12 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLUDPZeroEncoder.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLUDPServerCommands.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

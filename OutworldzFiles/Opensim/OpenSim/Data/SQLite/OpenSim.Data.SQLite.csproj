@@ -154,9 +154,6 @@
 	  <Compile Include="SQLiteAvatarData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SQLiteEstateData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="SQLiteFramework.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -190,6 +187,9 @@
 	  <Compile Include="SQLiteMuteListData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="SQLiteEstateData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -202,8 +202,6 @@
 	  <EmbeddedResource Include="Resources\AuthStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Avatar.migrations">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\FriendsStore.migrations">
 	  </EmbeddedResource>
@@ -218,6 +216,8 @@
 	  <EmbeddedResource Include="Resources\XInventoryStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\MuteListStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

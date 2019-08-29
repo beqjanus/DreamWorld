@@ -49,34 +49,22 @@ catch(PDOException $e)
 
   <table class="striped">
     <tr class="header">
+      
+      <td>Grid</td>
       <td>classifieduuid</td>
-
       <td>creatoruuid</td>
-
       <td>creationdate</td>
-
       <td>expirationdate</td>
-
       <td>category</td>
-
       <td>name</td>
-
       <td>description</td>
-
       <td>parceluuid</td>
-
       <td>parentestate</td>
-
       <td>snapshotuuid</td>
-
       <td>simname</td>
-
       <td>posglobal</td>
-
       <td>parcelname</td>
-
       <td>classifiedflags</td>
-
       <td>priceforlisting</td>
     </tr>
   </table>
@@ -96,7 +84,7 @@ catch(PDOException $e)
                while ($row = $query->fetch(PDO::FETCH_ASSOC))
                {
                 echo "<tr valign=\"top\">";
-                 
+                 echo "<td><a href=\"". $row["gateway"] . "\">" . $row["gateway"] . "</a></td>\n";
                  echo "<td>" .$row["classifieduuid"] . "</td>";
                  echo "<td>" .$row["creatoruuid"] . "</td>";
                  echo "<td>" .$row["creationdate"] . "</td>";

@@ -8,6 +8,7 @@
 // When the date is older, make a request to the Parser to grab new data    //
 //////////////////////////////////////////////////////////////////////////////
 
+// mod by fkb for gateway for centralized search across grids
 
 require( "flog.php" );
 
@@ -18,7 +19,7 @@ $hostname = "";
 $port = "";
 $service = "";
 
-if (isset($_GET['gateway']))    $gateway = $_GET['gateway'];
+if (isset($_GET['gatekeeper']))    $gateway = $_GET['gatekeeper'];
 if (isset($_GET['host']))    $hostname = $_GET['host'];
 if (isset($_GET['port']))    $port = $_GET['port'];
 if (isset($_GET['service'])) $service = $_GET['service'];
@@ -50,7 +51,7 @@ catch(PDOException $e)
 
 if ($service == "online")
 {
-    file_put_contents('../../../PHPLog.log', "Registered as online:" . $hostname . ":" . $port, FILE_APPEND);
+    file_put_contents('../../../PHPLog.log', "Registered as online:" . $hostname . ":" . $port . "\n", FILE_APPEND);
     // Check if there is already a database row for this host
     $query = $db->prepare("SELECT register FROM hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );

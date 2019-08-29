@@ -127,9 +127,6 @@
 	  <Compile Include="NullFriendsData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="NullGenericDataHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="NullInventoryData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -146,6 +143,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="NullSimulationData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="NullGenericDataHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

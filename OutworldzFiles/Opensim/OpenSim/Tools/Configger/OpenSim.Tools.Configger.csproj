@@ -93,13 +93,13 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="ConfigurationLoader.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Main.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Util.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ConfigurationLoader.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

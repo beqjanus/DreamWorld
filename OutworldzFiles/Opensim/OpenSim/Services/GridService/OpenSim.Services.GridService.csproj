@@ -152,10 +152,10 @@
 	  <Compile Include="GridServiceBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="GridService.cs">
+	  <Compile Include="HypergridLinker.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="HypergridLinker.cs">
+	  <Compile Include="GridService.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

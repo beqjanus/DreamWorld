@@ -219,25 +219,31 @@
 	  <Compile Include="ServerReleaseNotesModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="BunchOfCaps\BunchOfCapsModule.cs">
+	  <Compile Include="EstateAccess.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="BunchOfCaps\BunchOfCaps.cs">
+	  <Compile Include="EstateChangeInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="BunchOfCaps\BunchOfCapsModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BunchOfCaps\MeshCost.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="EventQueue\EventQueueGetModule.cs">
+	  <Compile Include="BunchOfCaps\BunchOfCaps.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="EventQueue\EventQueueHelper.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="ObjectCaps\ObjectAdd.cs">
+	  <Compile Include="EventQueue\EventQueueGetModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ObjectCaps\UploadObjectAssetModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ObjectCaps\ObjectAdd.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

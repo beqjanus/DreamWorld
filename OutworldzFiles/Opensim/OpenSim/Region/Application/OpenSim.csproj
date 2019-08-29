@@ -205,19 +205,19 @@
 	  <Compile Include="IApplicationPlugin.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OpenSim.cs">
+	  <Compile Include="OpenSimBackground.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OpenSimBackground.cs">
+	  <Compile Include="RegionApplicationBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Application.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OpenSimBase.cs">
+	  <Compile Include="OpenSim.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="RegionApplicationBase.cs">
+	  <Compile Include="OpenSimBase.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

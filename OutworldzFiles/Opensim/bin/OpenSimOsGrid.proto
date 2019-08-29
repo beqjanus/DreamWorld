@@ -44,7 +44,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=hg.osgrid.org
+BaseHostname=http://hg.osgrid.org
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -421,8 +421,6 @@ TexturePrimSize=48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map.
 RenderMeshes=false
-RenderMaxHeight=4000
-RenderMinHeight=-100
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
@@ -521,7 +519,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=hg.osgrid.org
+host_domain_header_from=http://hg.osgrid.org
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -619,7 +617,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
 ; UNCOMMENT AND SET THIS TO YOUR EXTERNAL OR LOCAL ADDRESS TO ENABLE AS NEEDED
-ExternalHostNameForLSL=hg.osgrid.org
+ExternalHostNameForLSL=http://hg.osgrid.org
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -662,13 +660,6 @@ shard="OpenSim"
 ;; will use this address to register xmlrpc channels on the external
 ;; service
 ; XmlRpcHubURI = http://example.com
-;
-; Support viewers object cache, default true
-; users may need to reduce viewer bandwitdh if some prims or terrain parts fail to rez.
-; change to false if you need to use old viewers that do not support this feature
-;
-SupportViewerObjectsCache=true
-
 [ClientStack.LindenUDP]
 
 ;; See OpensSimDefaults.ini for the throttle options. You can copy the
@@ -1023,7 +1014,6 @@ AppDomainLoading=false
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
 DeleteScriptsOnStartup=False
-MinTimerInterval=0.2
 
 ;# {CompactMemOnLoad} {} {compacts memory on each script load at startup?} {true false} false
 ;; forces calls to memory garbage collector before loading each script DLL during region startup.
@@ -1374,9 +1364,3 @@ cloud_update_rate=1000
 ;;LandServices module is required for ossearch to function properly in grid mode.
 LandServices="RemoteLandServicesConnector"
 LandServiceConnector="True"
-
-; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
-;; Set to True to enable Smart Start
-;; Set by Dreamgrid
-[AutoLoadTeleport]
-Enabled=False
