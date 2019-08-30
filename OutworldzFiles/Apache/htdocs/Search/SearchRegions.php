@@ -1,81 +1,139 @@
 <?php
-// AGPL 3.0 by Fred Beckhusen
-require( "flog.php" );
-
-include("databaseinfo.php");
-
- // Attempt to connect to the database
-  try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-  }
-catch(PDOException $e)
-{
-  echo "Error connecting to database\n";
-  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
-  exit;
-}
-
+    // AGPL 3.0 by Fred Beckhusen
+    require( "flog.php" );
     
-?>
-
-<html>
-<html lang="en-us">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/Search/style.css" />
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-               $('.striped tr:even').addClass('alt');
-            });
-        </script>
-
-  <title>Search Regions</title>
-  <link rel="shortcut icon" href="/favicon.ico">
-</head>
-
-<body>
-  <div id="Links">
-<a href="index.php"><button>Objects</button></a>
-<a href="SearchClassifieds.php"><button>Classifieds</button></a>
-<a href="SearchParcel.htm"><button>Parcels</button></a>
-<a href="ShowHosts.php"><button>Hosts</button></a>
-<a href="SearchRegions.php"><button>Regions</button></a>
-<button onclick="location.reload();">Refresh Page</button>
-
-</div>
-
-  <table class="striped">
-    <tr class="header">
-      <td>Grid</td>           
-      <td>Region name</td>           
-      <td>Region url</td>
-      <td>Owner<td>
-    </tr>
-    <?php
-      $query = "SELECT * FROM regions order by regionname ";
-      $sqldata = array();
-      
-      $query = $db->prepare($query);
-      $result = $query->execute($sqldata);
+    include("databaseinfo.php");
+    include("../Metromap/includes/config.php");
+     
+    // Attempt to connect to the database
+    try {
+        $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+    }
+    catch(PDOException $e)
+    {
+        echo "Error connecting to database\n";
+        file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
+        exit;
+    }
 
 
-        while ($row = $query->fetch(PDO::FETCH_ASSOC))
-        {
-         echo "<tr class=\"striped\">";
-          echo "<td><a href=\"". $row["gateway"] . "\">" . $row["gateway"] . "</a></td>\n";
-          echo "<td>" .$row["regionname"] . "</td>";
-          echo "<td>" . $row["url"] . "</td>";
-          echo "<td>" . $row["owner"] . "</td>";
-          
-          echo "</tr>";
+    $text = $_GET['query'];     
+    $sqldata['text1'] = $text;
+
+    $rc = intval($_GET['rp'] )  ;
+    
+    if ($rc == "") {
+      $rc = 100;
+    }    
+    
+    $sort = $_GET['sortname'];
+    if ($sort == 'Grid') {
+        $sort = 'url';
+    } else if ($sort == 'RegionName') {
+        $sort = 'regionname';
+    } else {
+        $sort = 'owner';
+    }
+    
+    $ord = $_GET['sortorder']   ;
+    if ($ord == 'asc') {
+        $ord = 'asc';
+    } else {
+        $ord = 'desc';
+    }
+    
+    $qtype = $_GET['qtype'];
+    if ($qtype == 'Grid') {
+        $qtype = 'url';
+    } else if ($qtype == 'Regionname') {
+        $qtype = 'regionname';
+    } else if ($qtype == 'Owner') {
+        $qtype = 'owner';
+    } else {
+        flog('wtf?' . $qtype);
+    }
+    flog('qtype:' . $qtype);
+    
+    $total = 0;
+    
+    $page =  $_GET['page'];
+    if ($page == "" ) {
+        $page = 1;
+    }
+    
+    flog("text= $text");
+    flog("qtype= $qtype");
+    flog("ord= $ord");
+    flog("sort= $sort");
+    
+    
+    $stack = array();
+    
+    class OUT {}
+    class Row {}
+  
+    $out = new OUT();
+
+    $counter = 0;
+    
+    $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')
+
+    and gateway not like 'http://127.%'
+    and gateway not like 'http://10.%'
+    and gateway not like 'http://192.168.%'
+    order by  $sort  $ord";
+    
+   // $sqldata = array();
+    flog ($query);
+    
+    $query = $db->prepare($query);
+    flog($sqldata);
+
+    $result = $query->execute($sqldata);
+
+    while ($row = $query->fetch(PDO::FETCH_ASSOC))
+    { 
+        $gateway = $row["gateway"] . "+" .$row["regionname"];
+        $gateway = substr($gateway,7,999);
+        flog("Gateway is " . $gateway);
+        if ($row["gateway"] == '') {} else {
+            $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
-        echo "</table>      ";
-        echo "<br><input type=\"button\" value=\"Go Back\" onclick=\"history.back(-1)\" />"; 
-     ?>
+        $row = array("hop"=>$hop,
+                     "Grid"=>$row["gateway"],
+                     "RegionName"=>$row["regionname"] ,
+                     "Owner"=>$row["owner"]
+                    );
+              
+        $rowobj = new Row();
+        $rowobj->cell = $row;
+            
+        if ($total >= (($page-1) *$rc) && $total < ($page) *$rc) {
+          array_push($stack, $rowobj);
+        }
+        
+        $total++;
+    }
+    
+    if ($total == 0) {
+        flog("Nothing found");
+        $row = array("Grid"=>"No records");
+        $rowobj = new Row();
+        $rowobj->cell = $row;
+        array_push($stack, $rowobj);
+    }
+     
+    $out->domain = $CONF_domain;
+    $out->port = $CONF_port;
+    $out->page  = $page;
+    $out->total = $total;
+    $out->rows  = $stack;
+        
+    $myJSON = json_encode($out);
+
+    echo $myJSON;
+     
+  ?>
   
-  
-</body>
-</html>
+    

@@ -18,10 +18,9 @@ include("../Metromap/includes/config.php");
     exit;
   }
      
-  $text = $_GET['query'] || "";
+  $text = $_GET['query'];
   $text = "%$text%";
   $sqldata['text1'] = $text;
-  
   
 
   $rc = intval($_GET['rp']);
@@ -30,7 +29,7 @@ include("../Metromap/includes/config.php");
       $rc = 100;
   }
   
- 
+
   $sort = $_GET['sortname'];
   if ($sort == 'Name') {
     $sort = 'Name';
@@ -52,29 +51,39 @@ include("../Metromap/includes/config.php");
     $qtype = 'Description';
   }
   
+  flog("text= $text");
+  flog("qtype= $qtype");
+  flog("ord= $ord");
+  flog("sort= $sort");
+  
   $total = 0;
    
-  $page =  $_GET['page'] || 1;
+  $page =  $_GET['page'];
   if ($page == "" ) {
     $page = 1;
   }
   
   $stack = array();
 
-  $q = "SELECT Regions.Gateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
-    where " . $qtype . "  like :text1 
+  $q = "SELECT Regions.Gateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
+    INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
+    where " . $qtype . "  like CONCAT('%', :text1, '%')
+    
+    and Regions.gateway not like 'http://127.%'
+    and Regions.gateway not like 'http://10.%'
+    and Regions.gateway not like 'http://192.168.%'
     order by " . $sort . ' ' .  $ord ;
     //. " limit " . $lim1 . "," . $lim2;     
 
-
+    flog($q );  
     $query = $db->prepare($q);
     $result = $query->execute($sqldata);
-    
+    flog($sqldata );  
     class OUT {}
     class Row {}
     
     $out = new OUT();
-    
+    $counter= 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
         
@@ -83,9 +92,12 @@ include("../Metromap/includes/config.php");
         
         # need grid name and region name in a url
         
-        $hop  = "<a href=\"hop://". $row["Gateway"] . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        
-        $hop = "<a href=\"secondlife://http|!!". $DB_GRIDNAME . "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        //$hop  = "<a href=\"hop://". $row["Gateway"] . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        if ($gateway == "") {
+          
+        } else {
+          $hop = "<a href=\"secondlife://http|!!". $DB_GRIDNAME . "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        }
         #secondlife://http|!!breath-grid.info|8002+IT+IS+ALL+FREE
         $row = array("hop"=>$hop, "Name"=>$row["Name"],"Description"=>$row["Description"],"Regionname"=>$row["Regioname"],"Location"=>$location);
         

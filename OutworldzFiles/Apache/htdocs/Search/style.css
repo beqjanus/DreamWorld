@@ -1,17 +1,12 @@
 
 body {
-    background: #333333;
-    color: white;
-    /* background: #333333 url(/radio/radioback6.jpg) left top no-repeat;*/
+     background-color: #333333;
 }
 a {
     color: #0060B6;
     text-decoration: underline;
 }
-p {
-    background-color: #1F1A25;
-    color: white;
-}
+
 #greet {
     
     width: 700px;
@@ -32,19 +27,14 @@ button {
   display: inline-block;
   font-size: 12px;
   border-radius: 4px;
-  border: 2px solid #333333;
+  border: 2px solid #000000;
 }
-tr {
-    background-color: #eeeeee;
-    color: #333333;
-    font-size:14px;	
-}
-.alt {
-  background-color: #333333;
-  color: #eeeeee;
-  font-size:14px;	
-}
+
+
 a {
-    color: #000000;
-    text-decoration: none;
+	color: #000000;
+	text-decoration: none;
+}
+td {
+	font-size:14px;	
 }

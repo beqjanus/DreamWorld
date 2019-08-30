@@ -17,26 +17,23 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchParcel.php',
+		url: '/Search/SearchRegions.php',
 		dataType: 'json',
         method: 'GET',
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Description', name : 'Description', width : 210, sortable : true, align: 'left'},
-			{display: 'Parcel', name : 'Parcelname', width :125, sortable : true, align: 'left'},
-			{display: 'Build', name : 'Build', width : 40, sortable : true, align: 'left'},
-			{display: 'Category', name : 'Category', width : 120, sortable : true, align: 'left'},
-			{display: 'Mature', name : 'Mature', width : 60, sortable : true, align: 'left'}
+			{display: 'Grid', name : 'Grid', width : 260, sortable : true, align: 'left'}	,		
+			{display: 'Region Name', name : 'RegionName', width : 200, sortable : true, align: 'left'},
+			{display: 'Owner', name : 'Owner', width :150, sortable : true, align: 'left'}
 			],
 		
 		searchitems : [
-		 {display: 'Grid', name :'Grid', isdefault: true},
-		 {display: 'Description', name :'Description', isdefault: false},
-		 {display: 'Parcel name', name :'Parcelname', isdefault: false},
-		 {display: 'Mature', name :'Mature', isdefault: false}
+		 {display: 'Grid', name :'Grid', isdefault: false},
+		 {display: 'Region Name', name :'RegionName', isdefault: false},
+		 {display: 'Owner', name :'Owner', isdefault: false}
 		 
 		],
-		sortname: 'Description',
+		sortname: 'Grid',
 		sortorder: 'asc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',

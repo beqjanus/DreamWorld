@@ -17,48 +17,71 @@
       file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
       exit;
     }
-        
     
-    $rc = intval($_GET['rp'] )  ;
-    
+    $text = $_GET['query'];     
+    $sqldata['text1'] = $text;
+       
+    $rc = intval($_GET['rp']);
     if ($rc == "") {
       $rc = 100;
-    }
+    }    
     
-    
-    $sort = $_GET['sortname'] ;
-    if ($sort == 'Grid') {
-        $sort = 'Grid';
-    }else{
+    $sort = $_GET['sortname'];
+    if ($sort == 'Parcelname') {
+        $sort = 'parcelname';
+    } else if ($sort == 'Description') {
+        $sort = 'Description';
+    } else {
         $sort = 'Description';
     }
     
-    $ord = $_GET['sortorder']   ;
+    $ord = $_GET['sortorder'];
     if ($ord == 'asc') {
         $ord = 'asc';
     } else {
         $ord = 'desc';
     }
     
-    $qtype = $_GET['qtype'] ;
+    $qtype = $_GET['qtype'];
     if ($qtype == 'Grid') {
-        $qtype = 'Grid';
-    } else {
+        $qtype = 't1.gateway';
+    } else if ($qtype == 'Description') {
         $qtype = 'Description';
+    } else if ($qtype == 'Parcelname') {
+        $qtype = 'Parcelname';
+    } else if ($qtype == 'Mature') {
+        $qtype = 'Mature';
+        
+    } else {
+        $qtype = 'owner';
     }
+    
+    flog("text= $text");
+    flog("qtype= $qtype");
+    flog("ord= $ord");
+    flog("sort= $sort");
     
     $total = 0;
     
     $page =  $_GET['page'];
     if ($page == "" ) {
-        $page = 1;
+    $page = 1;
     }
     
     $stack = array();
     
-    $query = "SELECT * FROM parcels  t1 inner join  regions on t1.regionUUID = regions.regionUUID where public = 'true'  order by t1.parcelname";      
-    $sqldata = array();      
-    $query = $db->prepare($query);      
+    $query = "SELECT * FROM parcels  t1  inner join  regions on t1.regionUUID = regions.regionUUID
+    where public = 'true'
+
+    and t1.gateway not like 'http://127.%'
+    and t1.gateway not like 'http://10.%'
+    and t1.gateway not like 'http://192.168.%'
+    and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
+
+    flog($query);
+    $query = $db->prepare($query);
+    
+    flog($sqldata);
     $result = $query->execute($sqldata);
     
     #$row["searchcategory"]
@@ -108,12 +131,23 @@
         
         $location = $row["landingpoint"];
         
-        $hop = "<a href=\"secondlife://http|!!". $gateway . "+" . $row["regionname"] . "/" . $row["landingpoint"].  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        $x = '<input type="checkbox" checked="false">';
+        if ($row["build"] == 'true') {
+            $x = '<input type="checkbox" checked="true">';
+        }
+        
+        if  ($gateway == "") {
+        } else {
+            $hop = "<a href=\"secondlife://http|!!". $gateway . "+" . $row["regionname"] . "/" . $row["landingpoint"].  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        }
+        
         $row = array("hop"=>$hop,
                      "Grid"=>$row["gateway"],
-                     "Description"=>$row["description"],
+                     "Description"=>$row["gateway"] . '<br><strong>' . $row["description"]. '</strong>',
                      "Regionname"=>$row["regionname"] ,
                      "Parcelname"=>$row["parcelname"],
+                     "Build"=>$x,
+                     "Dwell"=>$row["dwell"],
                      "Location"=>$row["landingpoint"],
                      "Category"=>$category,
                      "Mature"=>$row["mature"]

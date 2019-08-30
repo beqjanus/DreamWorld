@@ -36,6 +36,10 @@ if ($hostname == "" || $port == "")
     exit;
 }
 
+if ($gateway == "")
+{
+    $gateway = 'http://' . $hostname . ':8002'; 
+}
 
  // Attempt to connect to the database
   try {

@@ -39,10 +39,10 @@ catch(PDOException $e)
 
  <div id="Links">
 <a href="index.php"><button>Objects</button></a>
-<a href="SearchClassifieds.php"><button>Classifieds</button></a>
+<!--<a href="SearchClassifieds.php"><button>Classifieds</button></a>-->
 <a href="SearchParcel.htm"><button>Parcels</button></a>
-<a href="ShowHosts.php"><button>Hosts</button></a>
-<a href="SearchRegions.php"><button>Regions</button></a>
+<a href="SearchHosts.htm"><button>Grids</button></a>
+<a href="SearchRegions.htm"><button>Regions</button></a>
 <button onclick="location.reload();">Refresh</button>
 
 </div>
@@ -73,7 +73,11 @@ catch(PDOException $e)
 <?php
              
              
-             $query = "SELECT * FROM classifieds ";
+             $query = "SELECT * FROM classifieds where gateway is not null
+              and gateway not like 'http://127.%'
+              and gateway not like 'http://10.%'
+              and gateway not like 'http://192.168.%'
+            ";
              $sqldata = array();
              
              $query = $db->prepare($query);
