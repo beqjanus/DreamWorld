@@ -2517,11 +2517,8 @@ Public Class Form1
             SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
             SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
-            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchClassifieds.php" & "</loc>" & vbCrLf
-            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchObjects.php" & "</loc>" & vbCrLf
-            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/Search/SearchRegions.php" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
-            SiteMapContents += "<priority>0.8</priority>" & vbCrLf
+            SiteMapContents += "<priority>1.0</priority>" & vbCrLf
             SiteMapContents += "</url>" & vbCrLf
             SiteMapContents += "</urlset>" & vbCrLf
 
