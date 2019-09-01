@@ -193,7 +193,7 @@ Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\README.md", 'readme');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\LICENSE.txt", 'license');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\CONTRIBUTORS.txt", 'contributors');
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES.txt",'notes');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES",'notes');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\ThirdPartyLicenses", 'thirdparty');
 
 	

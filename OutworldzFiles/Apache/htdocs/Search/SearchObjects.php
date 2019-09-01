@@ -67,7 +67,10 @@ include("../Metromap/includes/config.php");
 
   $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
     INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
-    where " . $qtype . "  like CONCAT('%', :text1, '%')
+    INNER JOIN hostsregister ON Objects.gateway = hostsregister.gateway    
+            where
+            failcounter = 0
+            and " . $qtype . "  like CONCAT('%', :text1, '%')
     order by " . $sort . ' ' .  $ord ;
     
 
@@ -100,7 +103,11 @@ include("../Metromap/includes/config.php");
         $description = wordwrap($row["Description"],30, "<br>\n", false);
         $name = wordwrap($row["Name"],35, "<br>\n", false);
         
-        $row = array("hop"=>$hop, "Name"=>$name,"Description"=>$description,"Regionname"=>$row["Regioname"],"Location"=>$location);
+        $row = array("hop"=>$hop,
+                     "Name"=>$name,
+                     "Description"=>$description,
+                     "Regionname"=>$row["Regioname"]. '<br>' . $gateway ,
+                     "Location"=>$location);
         
         $rowobj = new Row();
         $rowobj->cell = $row;
