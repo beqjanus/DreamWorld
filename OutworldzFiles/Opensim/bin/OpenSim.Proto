@@ -48,7 +48,7 @@ http_listener_port=7005
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Andie
+RegionFolderName=Debbie
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
 BaseHostname=mach.outworldz.net

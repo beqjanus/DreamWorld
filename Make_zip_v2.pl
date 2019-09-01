@@ -9,20 +9,16 @@ my $type  = '-V3.15' ;
 use Cwd;
 my $dir = getcwd;
 
+say ("Stop Apache!");
 say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
 
-my $x = `runas Administrator net stop ApacheHTTPServer`;
-$x =~ /was stopped|^$/  || die;
-
 say("Clean up opensim");
 my @deletions = (
-	"$dir/OutworldzFiles/AutoBackup",
-	
-	"$dir/OutworldzFiles/Opensim/WifiPages-Custom",
-	
+	"$dir/OutworldzFiles/AutoBackup",	
+	"$dir/OutworldzFiles/Opensim/WifiPages-Custom",	
 	"$dir/OutworldzFiles/Opensim/bin/WifiPages-Custom",
 	"$dir/OutworldzFiles/Opensim/bin/datasnapshot",
 	"$dir/OutworldzFiles/Opensim/bin/assetcache",
@@ -33,11 +29,9 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
 	"$dir/OutworldzFiles/Opensim/bin/bakes",
 	"$dir/OutworldzFiles/Opensim/bin/addin-db-002",
-	"$dir/OutworldzFiles/Opensim/bin/fsassets",
-	
+	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
 	"$dir/OutworldzFiles/mysql/data/opensim",
-	"$dir/OutworldzFiles/mysql/data/robust",
-	
+	"$dir/OutworldzFiles/mysql/data/robust",	
 	"$dir/OutworldzFiles/Apache/logs/",
 );
 
@@ -112,7 +106,7 @@ use IO::All;
 
 my @files = io->dir($dir)->all(0);  
 
-
+my @signs;
 foreach my $file (@files) {
     my $name = $file->name;
     next if $name =~ /Installer_Src|\.git|baretail|obj/;
@@ -124,17 +118,29 @@ foreach my $file (@files) {
         if ($result1 =~ /Publisher:.*Outworldz, LLC/) {
             next;
         }
+		$result1 =~ s/\n//g;
+		if ($result1 =~ /Verified(.*)/i) {
+			push(@signs,$name);
+		};
+		
         
-        my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "52CADF8EA98C9382D0350815A68B2C79340E141F" "$name"!;
+        my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "D7EA8E5F8E6D27B138ECD93811DAA6B02B0BA333" "$name"!;
         print $f;
         my $result = `$f`;
         print $result. "\n";
+		$result =~ s/\n//g;
+		if ($result =~ /Verified(.*)/)
+		{
+			say($1);
+		}
         if ($result !~ /success/) {
             say ("***** Failed to sign!");
 			die;
         }
     }
 }
+
+say (join("\n",@signs));
 
 say("Mysql");
 chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
@@ -160,57 +166,52 @@ foreach my $file (@files) {
 	next if -d $file;
 	#next if $file eq 'Make_zip_v2.pl';
 	next if $file =~ /^\./;
-	print  "$file ";
-	Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip \"$dir\\$file\" ");
+	Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip \"$dir\\$file\" ", $file);
 }
 
 say("Adding folders");
 
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip MSFT_Runtimes");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip Licenses_to_Content");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Apache");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\AutoBackup");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Help");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\IAR");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Icecast");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Mysql");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\OAR");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\PHP5");
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip MSFT_Runtimes", 'MSFT');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip Licenses_to_Content", 'Licenses');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Apache", 'Apache');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\AutoBackup", 'Autobackup');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Help", 'Help');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\IAR", 'IAR');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Icecast", 'Icecast');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Mysql",'Mysql');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\OAR", 'OAR');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\PHP5", 'PHP5');
 
 # explicit list
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\bin");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-Black");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-Custom");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-White");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\go.bat");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\runprebuild.bat");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\README.md");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\LICENSE.txt");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\CONTRIBUTORS.txt");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES.txt");
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\ThirdPartyLicenses");
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\bin" ,'Opensim Bin');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages", 'WifiPages');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-Black",'WifiPages-Black');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-Custom",'WifiPages-Custom');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\WifiPages-White",'WifiPages-White');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\go.bat", 'go.bat');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\runprebuild.bat", 'runprebuild');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\README.md", 'readme');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\LICENSE.txt", 'license');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\CONTRIBUTORS.txt", 'contributors');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES.txt",'notes');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\ThirdPartyLicenses", 'thirdparty');
 
-
-
-
-
-		
+	
 say("Updater Build");
 if (!copy ("../Zips/DreamGrid$type.zip", "../Zips/DreamGrid-Update$type.zip"))  {die $!;}
 
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
 
-Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\mysql\\data\\ -r ");
+Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\mysql\\data\\ -r ", 'rm Mysql');
 
 my @filestodrop = qw (OpenSim Prebuild share Thirdparty doc addon-modules);
 foreach my $file (@filestodrop)
 {
-	Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\Opensim\\$file ");
+	Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\Opensim\\$file ", rm $file);
 }
 # del Dot net because we cannot overwrite an open file
-Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip DotNetZip.dll ");
+Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip DotNetZip.dll ", 'rm dotnet');
 
 #####################
 print "Server Copy\n";
@@ -256,14 +257,20 @@ sub Write
 sub Process
 {
 	my $file = shift;
+	my $text = shift;
+	if ($text) {
+		print (" $text ");
+	}
 	
 	my $x = `$file`;
 	if ($x =~ /Everything is Ok/) {
-		print "OK\n";
+		print " ok\n";
 	} else {
-		print "Fail: $x\n";
+		print " Fail: $x\n";
 		exit;
 	}
+	
+	
 }
 
 sub rm {

@@ -37,7 +37,7 @@
 #       Listen directives: "Listen [::]:443" and "Listen 0.0.0.0:443"
 #
 # changed by Dreamgrid
-Listen 192.168.2.140:443
+Listen 192.168.2.135:443
 
 ##
 ##  SSL Global Context
@@ -49,7 +49,8 @@ Listen 192.168.2.140:443
 #   SSL Cipher Suite:
 #   List the ciphers that the client is permitted to negotiate.
 #   See the mod_ssl documentation for a complete list.
-SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+#SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+SSLCipherSuite HIGH:!aNULL:!MD5:!3DES
 
 #   Speed-optimized SSL Cipher configuration:
 #   If speed is your main concern (on busy HTTPS servers e.g.),
@@ -61,8 +62,8 @@ SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
 #   have perfect forward secrecy - if the server's key is
 #   compromised, captures of past or future traffic must be
 #   considered compromised, too.
-#SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
-#SSLHonorCipherOrder on 
+
+SSLHonorCipherOrder on 
 
 #   Pass Phrase Dialog:
 #   Configure the pass phrase gathering process.
@@ -74,10 +75,9 @@ SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
 #   Configure the SSL Session Cache: First the mechanism 
 #   to use and second the expiring timeout (in seconds).
 
-#SSLSessionCache         "dbm:c:/Apache24/logs/ssl_scache"
 # changed by Dreamgrid
-SSLSessionCache shmcb:"O:/Opensim/Outworldz Dreamgrid/Outworldzfiles/Apache/logs/ssl_scache(512000)"
-
+SSLSessionCache shmcb:"O:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/logs/ssl_scache(512000)"
+SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
 
 ##
 ## SSL Virtual Host Context
@@ -87,9 +87,9 @@ SSLSessionCache shmcb:"O:/Opensim/Outworldz Dreamgrid/Outworldzfiles/Apache/logs
 
 #   General setup for the virtual host
 # changed by Dreamgrid
-DocumentRoot "O:/Opensim/Outworldz Dreamgrid/Outworldzfiles/Apache/htdocs"
+DocumentRoot "O:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/htdocs"
 # changed by Dreamgrid
-ServerName www.Outworldz.com
+ServerName mach.outworldz.net
 
 ServerAdmin not@set.yet
 
