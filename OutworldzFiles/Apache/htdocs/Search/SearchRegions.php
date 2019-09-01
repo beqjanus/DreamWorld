@@ -77,12 +77,8 @@
 
     $counter = 0;
     
-    $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')
-
-    and gateway not like 'http://127.%'
-    and gateway not like 'http://10.%'
-    and gateway not like 'http://192.168.%'
-    order by  $sort  $ord";
+    $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')       
+        order by  $sort  $ord";
     
    // $sqldata = array();
     flog ($query);
@@ -94,12 +90,15 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $gateway = $row["gateway"] . "+" .$row["regionname"];
-        $gateway = substr($gateway,7,999);
-        flog("Gateway is " . $gateway);
-        if ($row["gateway"] == '') {} else {
-            $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+        $gateway = $row["gateway"];
+        $gateway = substr($gateway,7);
+        
+        if ($gateway == "" ) {
+            $hop = 'N/A';
+        } else {
+            $hop = "<a href=\"secondlife://http|!!" . ${gateway} . "+" . $row["regionname"] . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
+        
         $row = array("hop"=>$hop,
                      "Grid"=>$row["gateway"],
                      "RegionName"=>$row["regionname"] ,

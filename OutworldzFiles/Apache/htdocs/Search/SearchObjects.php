@@ -65,15 +65,11 @@ include("../Metromap/includes/config.php");
   
   $stack = array();
 
-  $q = "SELECT Regions.Gateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
+  $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
     INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
     where " . $qtype . "  like CONCAT('%', :text1, '%')
-    
-    and Regions.gateway not like 'http://127.%'
-    and Regions.gateway not like 'http://10.%'
-    and Regions.gateway not like 'http://192.168.%'
     order by " . $sort . ' ' .  $ord ;
-    //. " limit " . $lim1 . "," . $lim2;     
+    
 
     flog($q );  
     $query = $db->prepare($q);
@@ -88,28 +84,26 @@ include("../Metromap/includes/config.php");
     {
         
         $location = $row["Location"];
-        #$location = str_replace("/","+", $location );
         
-        # need grid name and region name in a url
+        $gateway = $row["AGateway"];
+        flog("Gateway: $gateway");
+        $gateway = substr($gateway,7);
         
-        //$hop  = "<a href=\"hop://". $row["Gateway"] . "/" . $row["Regioname"] . "/" . $location .  "/\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        if ($gateway == "") {
-          
+        flog("Gateway: $gateway");
+        
+        if ($gateway == "" ) {
+          $hop = '';  
         } else {
-          $hop = "<a href=\"secondlife://http|!!". $DB_GRIDNAME . "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+          $hop = "<a href=\"secondlife://http|!!" . $gateway.  "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
-        #secondlife://http|!!breath-grid.info|8002+IT+IS+ALL+FREE
-        $row = array("hop"=>$hop, "Name"=>$row["Name"],"Description"=>$row["Description"],"Regionname"=>$row["Regioname"],"Location"=>$location);
+        
+        $description = wordwrap($row["Description"],30, "<br>\n", false);
+        $name = wordwrap($row["Name"],35, "<br>\n", false);
+        
+        $row = array("hop"=>$hop, "Name"=>$name,"Description"=>$description,"Regionname"=>$row["Regioname"],"Location"=>$location);
         
         $rowobj = new Row();
         $rowobj->cell = $row;
-        
-       # foreach($rowobj->cell as $x=>$x_value)
-       # {
-       #   echo "Key=" . $x . ", Value=" . $x_value;
-       #   echo "<br>";
-       # }
-  
         
         #$myJSON = json_encode($rowobj);
         #echo $myJSON . "<br>";

@@ -70,13 +70,10 @@
     
     $stack = array();
     
-    $query = "SELECT * FROM parcels  t1  inner join  regions on t1.regionUUID = regions.regionUUID
-    where public = 'true'
-
-    and t1.gateway not like 'http://127.%'
-    and t1.gateway not like 'http://10.%'
-    and t1.gateway not like 'http://192.168.%'
-    and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
+    $query = "SELECT * FROM parcels  t1
+        inner join  regions on t1.regionUUID = regions.regionUUID
+        where public = 'true'    
+        and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
 
     flog($query);
     $query = $db->prepare($query);
@@ -110,7 +107,7 @@
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
         $gateway = $row["gateway"];
-        $gateway = substr($gateway,7,999);
+        $gateway = substr($gateway,7);
         
         $category = "";
         if ($row["searchcategory"] == 1) { $category = "Any"; }
@@ -127,7 +124,7 @@
         else if ($row["searchcategory"] == 12) { $category = "Rental";}
         else if ($row["searchcategory"] == 13) { $category = "Other";}
         else if ($row["searchcategory"] == 14) { $category = "????";}
-        else $category = "Nothing";
+        else $category = "";
         
         $location = $row["landingpoint"];
         
@@ -137,15 +134,19 @@
         }
         
         if  ($gateway == "") {
+            $hop = '';
         } else {
             $hop = "<a href=\"secondlife://http|!!". $gateway . "+" . $row["regionname"] . "/" . $row["landingpoint"].  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
         
+        $description = wordwrap($row["description"], 30, "<br>");
+        $parcelname = wordwrap($row["parcelname"], 20, "<br>");
+        
         $row = array("hop"=>$hop,
                      "Grid"=>$row["gateway"],
-                     "Description"=>$row["gateway"] . '<br><strong>' . $row["description"]. '</strong>',
+                     "Description"=>$description ,
                      "Regionname"=>$row["regionname"] ,
-                     "Parcelname"=>$row["parcelname"],
+                     "Parcelname"=>$parcelname,
                      "Build"=>$x,
                      "Dwell"=>$row["dwell"],
                      "Location"=>$row["landingpoint"],

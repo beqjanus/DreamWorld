@@ -512,9 +512,6 @@
 	  <Compile Include="Util.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="VersionInfo.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="WebUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -540,6 +537,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RegionInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="VersionInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Client\IClientChat.cs">

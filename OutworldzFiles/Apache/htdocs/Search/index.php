@@ -17,15 +17,15 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/search_json.php',
+		url: '/Search/SearchObjects.php',
 		dataType: 'json',
         method: 'GET',
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Name', name : 'Name', width : 140, sortable : true, align: 'left'},			
+			{display: 'Name', name : 'Name', width : 200, sortable : true, align: 'left'},			
 			{display: 'Description', name : 'Description', width : 160, sortable : true, align: 'left'},			
-			{display: 'Region name', name : 'Regionname', width :125, sortable : true, align: 'left'},
-			{display: 'Location', name : 'Location', width : 190, sortable : true, align: 'left'}
+			{display: 'Region name', name : 'Regionname', width :225, sortable : true, align: 'left'},
+			
 			],
 		
 		searchitems : [
@@ -64,11 +64,11 @@ $(document).ready(function(){
 
 <body>
 <div id="Links">
-<a href="index.php"><button>Objects</button></a>
-<!--<a href="SearchClassifieds.php"><button>Classifieds</button></a>-->
-<a href="SearchParcel.htm"><button>Parcels</button></a>
-<a href="SearchHosts.htm"><button>Grids</button></a>
-<a href="SearchRegions.htm"><button>Regions</button></a>
+<a href="index.php" target="_self"><button>Objects</button></a>
+<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>
+<a href="SearchParcel.htm" target="_self"><button>Parcels</button></a>
+<a href="SearchHosts.htm" target="_self"><button>Grids</button></a>
+<a href="SearchRegions.htm" target="_self"><button>Regions</button></a>
 <button onclick="location.reload();">Refresh Page</button>
 </div>
 <div id="greet">

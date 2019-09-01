@@ -9,11 +9,11 @@ include("databaseinfo.php");
 
 $now = time();
 
- // Attempt to connect to the database
-  try {
-    $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-  }
+// Attempt to connect to the database
+try {
+  $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+}
 catch(PDOException $e)
 {
   echo "Error connecting to the search database\n";
@@ -30,7 +30,7 @@ function GetURL($host, $port, $url)
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
     $data = curl_exec($ch);
     if (curl_errno($ch) == 0)
@@ -370,8 +370,12 @@ function parse($gateway,$hostname, $port, $xml)
 
 $failcounter = 0;
 
-$sql = "SELECT gateway, host, port FROM hostsregister " .
-       "WHERE nextcheck<$now AND checked=0 AND failcounter<10 LIMIT 0,20";
+$sql = "SELECT gateway, host, port FROM hostsregister WHERE
+            nextcheck < $now
+           
+            and checked=0
+            and failcounter < 10
+            LIMIT 0,20";
        
 $jobsearch = $db->query($sql);
 

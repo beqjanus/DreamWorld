@@ -2,24 +2,26 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes.   Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-V3.14 Beta
-Region Form shows the Estate name for each region
-Disable button added to Viewer Search, and if on, you can set it for local only, or all Dreamgrids.
-Some Settings when changed would not be placed into the Region or Opensim.ini files.  Any changes to settings now re-write the INI files.
-Import INI files button in Region Panel would not work if the file name did not match the [name] of the region. 
+V3.15 Beta 
+Opensim Snail dev master #38dbc0328881 2019-08-31 14:36
+Ctrl-R Region Form also shows the Estate name for each region
+Search: Lots of new things! Search is integrated into Hyperica.com.  You can look for Objects Marked for search in any Outworldz gird, or just your own. Also, locate Parcels, Grids and regions in grids. These are only sahown if the region owner chooses to enable search and the Prim Owner, region owner, or parcel owner has cheked the "Show in Search button".
+Added a new variable to Opensim Datasnapshot module to allow all grids to be searched.
+Disable Search button added to Viewer Search. If on, you can set it so your residents see local only, or globally Search all Dreamgrids.
+Datasnapshot collector starts 5 minutes after a boot to speed up collecting assets for search. Runs every hour after that locally.
+Some Settings would not be placed into the Region or Opensim.ini files when changed unless you did a restart.  Most changes to settings now re-write the region so it will boot correctly.
+Import DDreamworld and "regular" Opensim INI files button in the Region Panel would not work if the file name did not match the [name] of the region. Fixed.
 Changed Voice Help URL to match new Vivox web page for signup.
-Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type q in certain windows, too.
-Start Datasnapshot collector 5 minutes after a boot to speed up collecting assets for search.
-Slow down the Loop on Exit to 1 second to prevent spamming the console.
+Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type 'q' in certain windows.
+Slow down the tests on quitting to prevent spamming the console.
 Add more UPNP exception catchers to cover more brain-dead routers.
-Enforce and set defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim inINI files.  
-"Search Local" points to the correct local url, instead of the global Hyperica server. Both servers are used to broadcast your "Show In Search"  when Search is enabled so more people can find your content.
-Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable.
-Added a PHP/Search debug page to test various Firestorm Search options. 
+Major refactor of defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim INI files.  duh
+Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable. Improve error handling here. There should be no dependency on any of my servers, except for optional services such as DYN DNS or search.
+Updated Apache to latest security SSL/TLS 1.2 and made it refuse all obsolete ciphers like TLS 1.0 and 1.1.   Tested as not being viulnerable to any common attacks such as Heartbleed.
 
 V3.13 Beta
-Repaired OsGrid and other region types that broke in prior beta version.
-Added a Disable Gloebits setting in region settings. This overrides the global setting is Gloebits are on.
+Repaired OsGrid and other region types that broke in prior beta version
+Added a Disable Gloebits setting in region settings. This overrides the global setting if Gloebits are on.
 Refactored a lot of internal settings to use native types and also set defaults for all variables in Regions.
 
 V3.12 Beta
@@ -30,7 +32,6 @@ Added Web Statistics button for many statistics for each region in the Region Pa
 Auto firewall setup was missing the second Icecast Port
 Fixed an issue where Apache could not run properly on ports other than 80
 Datasnapshot was not registering in Local Search mode, which broke Local Search, and used wrong http port if it was changed.
-
 
 V3.11 Beta
 Aviworlds Region Server lets you attach to Aviworlds easily.

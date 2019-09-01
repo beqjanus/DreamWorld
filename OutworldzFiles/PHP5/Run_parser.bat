@@ -1,2 +1,2 @@
 @rem Parser.bat
-php.exe parser.php
+php.exe ..\Apache\htdocs\Search\parser.php

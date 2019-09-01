@@ -207,9 +207,6 @@
 	  <Compile Include="RegionConsoleModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SimulatorFeaturesModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="WebFetchInvDescModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -223,6 +220,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="EstateChangeInfo.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SimulatorFeaturesModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BunchOfCaps\BunchOfCapsModule.cs">

@@ -30,7 +30,7 @@ function GetURL($host, $port, $url)
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
     $data = curl_exec($ch);
     if (curl_errno($ch) == 0)
@@ -47,13 +47,16 @@ function CheckHost($gateway, $hostname, $port)
 {
     global $db, $now;
 
+
     
-    echo "Checking " . $hostname . ":" . $port . "\n";
     $xml = GetURL($hostname, $port, "collector/?method=collector");
-    if ($xml == "") //No data was retrieved? (CURL may have timed out)
-        $failcounter = '$failcounter + 1';
-    else
+    if ($xml == "") {//No data was retrieved? (CURL may have timed out)
+        echo " - failed\n";
+        $failcounter = 'failcounter + 1';
+    } else {
+        echo " - success\n";
         $failcounter = "0";
+    }
         
 
     //Update nextcheck to be 10 minutes from now. The current OS instance
@@ -66,8 +69,8 @@ function CheckHost($gateway, $hostname, $port)
     $query->execute( array($next, $hostname, $port) );
 
     if ($xml != "") {
-      flog($xml);
-      parse($gateway, $hostname, $port, $xml);
+        
+        parse($gateway, $hostname, $port, $xml);
     }
 }
 
@@ -87,8 +90,10 @@ function parse($gateway,$hostname, $port, $xml)
     $objDOM->resolveExternals = false;
 
     //Don't try and parse if XML is invalid or we got an HTML 404 error.
-    if ($objDOM->loadXML($xml) == False)
+    if ($objDOM->loadXML($xml) == False) {
+        echo "No XML\n";
         return;
+    }
 
     //
     // Get the region data to update
@@ -96,8 +101,10 @@ function parse($gateway,$hostname, $port, $xml)
     $regiondata = $objDOM->getElementsByTagName("regiondata");
 
     //If returned length is 0, collector method may have returned an error
-    if ($regiondata->length == 0)
+    if ($regiondata->length == 0) {
+        echo "No regiondata in XML\n";
         return;
+    }
 
     $regiondata = $regiondata->item(0);
 
@@ -164,6 +171,8 @@ function parse($gateway,$hostname, $port, $xml)
         //
         // Second, add the new info to the database
         // gateway modified fkb
+        
+        echo "Insert region: $regionname\n";
         $query = $db->prepare("INSERT INTO regions VALUES(:r_name, :r_uuid, :r_handle, :url, :u_name, :u_uuid, :r_gateway)");
         $query->execute( array( "r_name" => $regionname,
                                 "r_uuid" => $regionuuid,
@@ -183,7 +192,7 @@ function parse($gateway,$hostname, $port, $xml)
         {
             $parcelname = $value->getElementsByTagName("name")->item(0)->nodeValue;
             
-            echo "Parcel " . $parcelname . "\n";
+            echo "Insert parcel: $parcelname\n";
 
             $parceluuid = $value->getElementsByTagName("uuid")->item(0)->nodeValue;
 
@@ -241,7 +250,7 @@ function parse($gateway,$hostname, $port, $xml)
 
           
 
-             $query = $db->prepare("DELETE FROM allparcels WHERE parcelUUID = ?");
+            $query = $db->prepare("DELETE FROM allparcels WHERE parcelUUID = ?");
             $query->execute( array($parceluuid) );
 
 
@@ -250,6 +259,7 @@ function parse($gateway,$hostname, $port, $xml)
             //
             // Fred b mod: caused duplicate key
             
+            echo "Insert into all parcels: $parcelname\n";
             // Missing delete - should really be an update_or_insert
             $query = $db->prepare("INSERT INTO allparcels VALUES(" .
                                     ":r_uuid, :p_name, :o_uuid, :g_uuid, " .
@@ -274,6 +284,7 @@ function parse($gateway,$hostname, $port, $xml)
 
             if ($parceldirectory == "true")
             {
+                echo "Insert popularplaces: $parcelname\n";
                 $query = $db->prepare("INSERT INTO parcels VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :landing, " .
                                        ":desc, :cat, :build, :script, :public, ".
@@ -310,6 +321,7 @@ function parse($gateway,$hostname, $port, $xml)
 
             if ($parcelforsale == "true")
             {
+                echo "Insert parcelsales: $parcelname\n";
                 $query = $db->prepare("INSERT INTO parcelsales VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :area, " .
                                        ":price, :landing, :i_uuid, :dwell, " .
@@ -346,7 +358,7 @@ function parse($gateway,$hostname, $port, $xml)
             $location = $value->getElementsByTagName("location")->item(0)->nodeValue;
 
             $title = $value->getElementsByTagName("title")->item(0)->nodeValue;
-
+            echo "Insert object: $title\n";
             $description = $value->getElementsByTagName("description")->item(0)->nodeValue;
 
             $flags = $value->getElementsByTagName("flags")->item(0)->nodeValue;
@@ -370,8 +382,29 @@ function parse($gateway,$hostname, $port, $xml)
 
 $failcounter = 0;
 
-$sql = "SELECT gateway, host, port FROM hostsregister " ;
-       //"WHERE nextcheck<$now AND checked=0 AND failcounter<10 LIMIT 0,20";
+$sql = "SELECT gateway, host, port FROM hostsregister
+            where
+            host not like '192.168%'
+            and host not like '172.16%'
+            and host not like '172.17%'
+            and host not like '172.18%'
+            and host not like '172.19%'
+            and host not like '172.20%'
+            and host not like '172.21%'
+            and host not like '172.22%'
+            and host not like '172.23%'
+            and host not like '172.24%'
+            and host not like '172.25%'
+            and host not like '172.26%'
+            and host not like '172.27%'
+            and host not like '172.28%'
+            and host not like '172.29%'
+            and host not like '172.30%'
+            and host not like '172.31%'            
+            and host <> '127.0.0.1'
+            and host not like '10.%'  
+            and nextcheck<$now AND checked=0 AND failcounter<10
+            order by host asc";
        
 $jobsearch = $db->query($sql);
 
@@ -391,7 +424,11 @@ if ($jobsearch->rowCount() == 0)
 }
 
 while ($jobs = $jobsearch->fetch(PDO::FETCH_NUM))
+{    
+    echo "Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] ;
+   
     CheckHost($jobs[0], $jobs[1],$jobs[2]);
+}
 
 $db = NULL;
 ?>

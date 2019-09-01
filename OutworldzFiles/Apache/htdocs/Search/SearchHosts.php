@@ -57,11 +57,8 @@ include("databaseinfo.php");
     $counter = 0;
     
     $sql = "SELECT distinct lower(gateway) as gateway FROM hostsregister  where $qtype  like  CONCAT('%', :text1, '%')
-    and gateway not like 'http://127.%'
-    and gateway not like 'http://10.%'
-    and gateway not like 'http://192.168.%'
-    and failcounter = 0
-    order by gateway ";
+        and failcounter = 0
+        order by gateway ";
     flog($sql );     
     $query = $db->prepare($sql);
     
@@ -72,10 +69,10 @@ include("databaseinfo.php");
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
         $gateway = $row["gateway"];
-        $gateway = substr($gateway,7,999);
+        $gateway = substr($gateway,7);
         
         if ($gateway == "" ) {
-          
+          $hop = '';
         } else {
           $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
