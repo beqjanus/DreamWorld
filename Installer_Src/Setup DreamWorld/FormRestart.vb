@@ -1,4 +1,26 @@
-﻿Imports System.Text.RegularExpressions
+﻿#Region "Copyright"
+
+' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+
+'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
+' And associated documentation files (the "Software"), to deal in the Software without restriction,
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
+'Do so, subject To the following conditions:
+
+'The above copyright notice And this permission notice shall be included In all copies Or '
+'substantial portions Of the Software.
+
+'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
+' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
+'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
+'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
+'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
+'DEALINGS IN THE SOFTWARE.Imports System
+
+#End Region
+
+Imports System.Text.RegularExpressions
 
 Public Class FormRestart
 
@@ -34,9 +56,9 @@ Public Class FormRestart
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoRestartBox.Text = Form1.PropMySetting.AutoRestartInterval.ToString(Form1.Usa)
-        If AutoRestartBox.Text.Length > 0 Then
-            ARTimerBox.Checked = True
-        End If
+
+        ARTimerBox.Checked = Form1.PropMySetting.AutoRestartEnabled
+
         AutoStartCheckbox.Checked = Form1.PropMySetting.Autostart
         SequentialCheckBox1.Checked = Form1.PropMySetting.Sequential
         RestartOnCrash.Checked = Form1.PropMySetting.RestartOnCrash
@@ -48,6 +70,7 @@ Public Class FormRestart
         initted = True ' suppress the install of the startup on formload
 
     End Sub
+
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
@@ -95,7 +118,9 @@ Public Class FormRestart
                 AutoRestartBox.Text = (BTime + 30).ToString(Form1.Usa)
                 MsgBox("Upping AutoRestart Time to " + BTime.ToString(Form1.Usa) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
+            Form1.PropMySetting.AutoRestartEnabled = True
         Else
+            Form1.PropMySetting.AutoRestartEnabled = False
             Form1.PropMySetting.AutoRestartInterval = 0
             AutoRestartBox.Text = "0"
         End If

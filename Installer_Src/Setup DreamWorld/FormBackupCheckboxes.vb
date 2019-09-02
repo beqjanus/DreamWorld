@@ -1,10 +1,31 @@
-﻿
+﻿#Region "Copyright"
+
+' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+
+'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
+' And associated documentation files (the "Software"), to deal in the Software without restriction,
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
+'Do so, subject To the following conditions:
+
+'The above copyright notice And this permission notice shall be included In all copies Or '
+'substantial portions Of the Software.
+
+'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
+' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
+'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
+'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
+'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
+'DEALINGS IN THE SOFTWARE.Imports System
+
+#End Region
 
 Imports System.IO
 
 Public Class FormBackupCheckboxes
 
 #Region "ScreenSize"
+
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
 
@@ -16,7 +37,9 @@ Public Class FormBackupCheckboxes
             _screenPosition = value
         End Set
     End Property
+
     Private Handler As New EventHandler(AddressOf Resize_page)
+
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
@@ -32,7 +55,6 @@ Public Class FormBackupCheckboxes
     End Sub
 
 #End Region
-
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Form1.HelpOnce("Backup Manually")
@@ -131,6 +153,7 @@ Public Class FormBackupCheckboxes
         DialogResult = DialogResult.OK
 
     End Sub
+
     Private Sub Print(Value As String)
 
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
@@ -156,7 +179,6 @@ Public Class FormBackupCheckboxes
         Form1.Help("Backup Manually")
 
     End Sub
-
 
     Public Sub Cpy(ByVal sourcePath As String, ByVal destinationPath As String)
 
@@ -210,11 +232,10 @@ Public Class FormBackupCheckboxes
             Application.DoEvents()    'do it
         End While
 
-        'Clean up 
+        'Clean up
         streamWrite.Flush()
         streamWrite.Close()
         streamRead.Close()
-
 
     End Sub
 

@@ -1,3 +1,25 @@
+#Region "Copyright"
+
+' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+
+'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
+' And associated documentation files (the "Software"), to deal in the Software without restriction,
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
+'Do so, subject To the following conditions:
+
+'The above copyright notice And this permission notice shall be included In all copies Or '
+'substantial portions Of the Software.
+
+'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
+' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
+'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
+'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
+'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
+'DEALINGS IN THE SOFTWARE.Imports System
+
+#End Region
+
 Imports System.Text.RegularExpressions
 Imports System.IO
 
@@ -229,7 +251,6 @@ Public Class RegionList
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
-
         ' Set the view to show details.
         TheView1 = Form1.PropMySetting.RegionListView()
         Dim W As View
@@ -271,8 +292,7 @@ Public Class RegionList
         ListView1.Sorting = SortOrder.Ascending
         AvatarView.Sorting = SortOrder.Ascending
 
-        ' Create columns for the items and subitems.
-        ' Width of -2 indicates auto-size.
+        ' Create columns for the items and subitems. Width of -2 indicates auto-size.
         ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
         ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
         ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
@@ -301,7 +321,7 @@ Public Class RegionList
         AvatarView.Columns.Add("Region", 150, HorizontalAlignment.Center)
         AvatarView.Columns.Add("Type", 80, HorizontalAlignment.Center)
 
-        ' index  to display icons
+        ' index to display icons
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Form1.Usa))   ' 0 booting up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Form1.Usa)) ' 1 shutting down
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Form1.Usa)) ' 2 okay, up
@@ -422,9 +442,8 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer
-        ' object. Setting this property immediately sorts the
-        ' ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
+        ' property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -645,8 +664,7 @@ Public Class RegionList
 
                 End If
 
-                ' Create items and subitems for each item.
-                ' Place a check mark next to the item.
+                ' Create items and subitems for each item. Place a check mark next to the item.
                 Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
                         .Checked = PropRegionClass1.RegionEnabled(X)
                     }
@@ -793,7 +811,6 @@ Public Class RegionList
         End Try
 
     End Sub
-
 
     Private Sub StartStopEdit(n As Integer, RegionName As String)
 
@@ -1007,7 +1024,6 @@ Public Class RegionList
 
     End Sub
 
-
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
         Form1.KillAll()
     End Sub
@@ -1077,7 +1093,6 @@ Public Class RegionList
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-
         Dim ofd As New OpenFileDialog
         ofd.InitialDirectory = "c:\\"
         ofd.Filter = "ini files (*.ini)|*.ini|All files (*.*)|*.*"
@@ -1130,6 +1145,7 @@ Public Class RegionList
         End If
 
     End Sub
+
     Private Function GetRegionsName(Region As String) As String
 
         Dim p1 As String = ""
