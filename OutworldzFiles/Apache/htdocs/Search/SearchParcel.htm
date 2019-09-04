@@ -24,9 +24,10 @@ $(document).ready(function(){
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
 			{display: 'Description', name : 'Description', width : 210, sortable : true, align: 'left'},
 			{display: 'Parcel', name : 'Parcelname', width :125, sortable : true, align: 'left'},
-			{display: 'Build', name : 'Build', width : 40, sortable : true, align: 'left'},
+			{display: 'Build', name : 'Build', width : 35, sortable : true, align: 'left'},
 			{display: 'Category', name : 'Category', width : 120, sortable : true, align: 'left'},
-			{display: 'Mature', name : 'Mature', width : 60, sortable : true, align: 'left'}
+			{display: '', name : 'Mature', width : 30, sortable : true, align: 'left'},
+			{display: 'Rating', name : 'dwell', width : 35, sortable : true, align: 'left'}
 			],
 		
 		searchitems : [
@@ -36,8 +37,8 @@ $(document).ready(function(){
 		 {display: 'Mature', name :'Mature', isdefault: false}
 		 
 		],
-		sortname: 'Description',
-		sortorder: 'asc',
+		sortname: 'dwell',
+		sortorder: 'desc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',
 		useRp: true,

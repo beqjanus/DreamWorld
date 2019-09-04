@@ -193,7 +193,7 @@ Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\README.md", 'readme');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\LICENSE.txt", 'license');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\CONTRIBUTORS.txt", 'contributors');
-Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES.txt",'notes');
+Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\NOTES",'notes');
 Process ("../7z.exe -tzip a ..\\Zips\\DreamGrid$type.zip OutworldzFiles\\Opensim\\ThirdPartyLicenses", 'thirdparty');
 
 	
@@ -205,11 +205,11 @@ say("Drop mysql files from update");
 
 Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\mysql\\data\\ -r ", 'rm Mysql');
 
-my @filestodrop = qw (OpenSim Prebuild share Thirdparty doc addon-modules);
-foreach my $file (@filestodrop)
-{
-	Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\Opensim\\$file ", rm $file);
-}
+#my @filestodrop = qw (OpenSim Prebuild share Thirdparty doc addon-modules);
+#foreach my $file (@filestodrop)
+#{
+#	Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip Outworldzfiles\\Opensim\\$file ", "rm $file");
+#}
 # del Dot net because we cannot overwrite an open file
 Process ("../7z.exe -tzip d ..\\Zips\\DreamGrid-Update$type.zip DotNetZip.dll ", 'rm dotnet');
 

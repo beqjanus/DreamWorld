@@ -404,7 +404,8 @@ $sql = "SELECT gateway, host, port FROM hostsregister
             and host <> '127.0.0.1'
             and host not like '10.%'  
             and nextcheck<$now AND checked=0 AND failcounter<10
-            order by host asc";
+            order by host asc
+            ";
        
 $jobsearch = $db->query($sql);
 

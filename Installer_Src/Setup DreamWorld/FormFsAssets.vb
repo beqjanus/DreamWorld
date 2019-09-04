@@ -1,8 +1,32 @@
-﻿Public Class FormFsAssets
+﻿#Region "Copyright"
+
+' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+
+'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
+' And associated documentation files (the "Software"), to deal in the Software without restriction,
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
+'Do so, subject To the following conditions:
+
+'The above copyright notice And this permission notice shall be included In all copies Or '
+'substantial portions Of the Software.
+
+'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
+' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
+'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
+'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
+'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
+'DEALINGS IN THE SOFTWARE.Imports System
+
+#End Region
+
+Public Class FormFsAssets
 
 #Region "Declarations"
+
     Dim initted As Boolean = False
     Dim _changed As Boolean = False
+
 #End Region
 
 #Region "ScreenSize"
@@ -20,6 +44,7 @@
     Private _screenPosition As ScreenPos
 
     Private Handler As New EventHandler(AddressOf Resize_page)
+
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
@@ -46,6 +71,7 @@
             _changed = value
         End Set
     End Property
+
     Public Property Initted1 As Boolean
         Get
             Return initted
@@ -58,6 +84,7 @@
 #End Region
 
 #Region "LoadSave"
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         Form1.HelpOnce("FSAssets")
@@ -82,7 +109,6 @@
         End If
 
     End Sub
-
 
 #End Region
 
@@ -118,7 +144,6 @@
             End If
         End If
     End Sub
-
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 

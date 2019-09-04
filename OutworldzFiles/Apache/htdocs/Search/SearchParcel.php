@@ -29,6 +29,8 @@
     $sort = $_GET['sortname'];
     if ($sort == 'Parcelname') {
         $sort = 'parcelname';
+    } else if ($sort == 'dwell') {
+        $sort = 'dwell';
     } else if ($sort == 'Description') {
         $sort = 'Description';
     } else {
@@ -72,7 +74,10 @@
     
     $query = "SELECT * FROM parcels  t1
         inner join  regions on t1.regionUUID = regions.regionUUID
-        where public = 'true'    
+            
+            where
+            
+             public = 'true'
         and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
 
     flog($query);
@@ -151,7 +156,8 @@
                      "Dwell"=>$row["dwell"],
                      "Location"=>$row["landingpoint"],
                      "Category"=>$category,
-                     "Mature"=>$row["mature"]
+                     "Mature"=>$row["mature"],
+                     "dwell"=> $row["dwell"]
                   );
       
         $rowobj = new Row();
