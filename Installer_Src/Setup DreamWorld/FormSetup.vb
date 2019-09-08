@@ -3840,35 +3840,23 @@ Public Class Form1
         End If
         PropDNSSTimer += 1
 
-        ' On Boot
-        If PropDNSSTimer = 1 Then
-            RegionListHTML() ' create HTML for older 2.4 region teleporters
-            GetEvents() ' get the events from the Outworldz main server for all grids
-        End If
-
-        ' hourly
-        If PropDNSSTimer Mod 3600 = 0 Then
-            RegisterDNS()
-            GetEvents() ' get the events from the Outworldz main server for all grids
-        End If
-
         If PropAborting Then Return
 
-        ' 10 seconds check for a restart RegionRestart requires this MOD 10 as it changed there to
-        ' one minute
+        ' 10 seconds check for a restart RegionRestart requires  MOD 10       
         If PropDNSSTimer Mod 10 = 0 Then
             PropRegionClass.CheckPost()
             ScanAgents() ' update agent count
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         End If
 
-        ' Minute
+        ' Just once at the Minute Mark
         If PropDNSSTimer = 60 Then
             RegionListHTML() ' create HTML for older 2.4 region teleporters
+            GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
-        ' 5 minutes
-        If PropDNSSTimer = 300 Then
+        ' every 5 minutes
+        If PropDNSSTimer Mod 300 = 0 Then
             RegionListHTML() ' create HTML for older 2.4 region teleporters
             RunDataSnapshot() ' Fetch assets marked for search at startup
             LogSearch.Find()
@@ -3876,7 +3864,9 @@ Public Class Form1
 
         'hour
         If PropDNSSTimer Mod 3600 = 0 Then
+            RegisterDNS()
             RunDataSnapshot() ' Fetch assets marked for search every hour
+            GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
     End Sub
