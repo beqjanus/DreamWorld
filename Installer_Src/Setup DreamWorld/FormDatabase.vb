@@ -20,6 +20,8 @@
 
 #End Region
 
+Imports System.Text.RegularExpressions
+
 Public Class FormDatabase
 
     Dim initted As Boolean = False
@@ -119,14 +121,14 @@ Public Class FormDatabase
         RegionDBUsername.Text = Form1.PropMySetting.RegionDBUsername
         RegionMySqlPassword.Text = Form1.PropMySetting.RegionDbPassword
         RegionServer.Text = Form1.PropMySetting.RegionServer
-        MysqlRegionPort.Text = Form1.PropMySetting.RegionPort
+        MysqlRegionPort.Text = CStr(Form1.PropMySetting.MySqlRegionDBPort)
 
         ' Robust DB
         RobustServer.Text = Form1.PropMySetting.RobustServer
         RobustDbName.Text = Form1.PropMySetting.RobustDataBaseName
         RobustDBPassword.Text = Form1.PropMySetting.RobustPassword
         RobustDBUsername.Text = Form1.PropMySetting.RobustUsername
-        RobustDbPort.Text = Form1.PropMySetting.MySqlPort.ToString(Form1.Usa)
+        RobustDbPort.Text = Form1.PropMySetting.MySqlRobustDBPort.ToString(Form1.Usa)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
@@ -251,7 +253,9 @@ Public Class FormDatabase
     Private Sub RobustDbPort_TextChanged(sender As Object, e As EventArgs) Handles RobustDbPort.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.MySqlPort = RobustDbPort.Text
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        RobustDbPort.Text = digitsOnly.Replace(RobustDbPort.Text, "")
+        Form1.PropMySetting.MySqlRobustDBPort = CInt(RobustDbPort.Text)
         Form1.PropMySetting.SaveSettings()
 
     End Sub
@@ -267,7 +271,10 @@ Public Class FormDatabase
     Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RegionPort = MysqlRegionPort.Text
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        MysqlRegionPort.Text = digitsOnly.Replace(MysqlRegionPort.Text, "")
+
+        Form1.PropMySetting.MySqlRegionDBPort = CInt(MysqlRegionPort.Text)
         Form1.PropMySetting.SaveSettings()
 
     End Sub

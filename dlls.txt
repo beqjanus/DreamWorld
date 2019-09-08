@@ -72,7 +72,6 @@
 \Outworldzfiles\opensim\bin\openjpeg-dotnet-x86_64.dll
 \Outworldzfiles\opensim\bin\openjpeg-dotnet.dll
 \Outworldzfiles\opensim\bin\zlib.net.dll
-\Outworldzfiles\opensim\bin\OpenSimBirds.Module.dll
 \Outworldzfiles\opensim\bin\Gloebit.dll
 \Outworldzfiles\opensim\bin\Diva.Wifi.dll
 \Outworldzfiles\opensim\bin\OpenSim.ApplicationPlugins.LoadRegions.dll

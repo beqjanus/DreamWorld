@@ -189,6 +189,7 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
+    <Compile Include="Firewall.vb" />
     <Compile Include="FormBackupCheckboxes.Designer.vb">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
     </Compile>
@@ -366,6 +367,7 @@
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ExitHandler.vb" />
+    <Compile Include="IP.vb" />
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />

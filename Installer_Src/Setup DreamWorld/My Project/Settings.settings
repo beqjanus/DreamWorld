@@ -206,7 +206,7 @@
     <Setting Name="PublicPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">8001</Value>
     </Setting>
-    <Setting Name="MySqlPort" Type="System.String" Scope="User">
+    <Setting Name="MySqlRobustDBPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>
     </Setting>
     <Setting Name="allow_grid_gods" Type="System.String" Scope="User">

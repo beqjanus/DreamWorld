@@ -158,12 +158,12 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP + ":" + Form1.PropMySetting.HttpPort & "/wifi/map.html"
+        Dim webAddress As String = "http://" & CStr(Form1.PropMySetting.PublicIP) & ":" & CStr(Form1.PropMySetting.HttpPort) & "/wifi/map.html"
         Process.Start(webAddress)
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
-        Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP & ":" & Form1.PropMySetting.ApachePort & "/Metromap/index.php"
+        Dim webAddress As String = "http://" & Form1.PropMySetting.PublicIP & ":" & CStr(Form1.PropMySetting.ApachePort) & "/Metromap/index.php"
         Process.Start(webAddress)
     End Sub
 

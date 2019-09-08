@@ -30,7 +30,7 @@ Public Class MysqlInterface
         'nothing
     End Sub
 
-    Public Shared Sub DeleteSearchDatabase()
+    Public Sub DeleteSearchDatabase()
 
         Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
         Try
@@ -168,7 +168,7 @@ Public Class MysqlInterface
 
     Public Function IsMySqlRunning() As String
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlPort, Integer))
+        Dim Mysql = CheckPort("127.0.0.1", Form1.PropMySetting.MySqlRegionDBPort)
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
@@ -185,7 +185,7 @@ Public Class MysqlInterface
             Return
         End If
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlPort, Integer))
+        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
             Form1.Print("All Regions are deregistered.")

@@ -54,7 +54,7 @@ Public Class NetServer
 
         ' stash some globs
         Setting = PropMySetting
-        MyPort = PropMySetting.DiagnosticPort
+        MyPort = CStr(PropMySetting.DiagnosticPort)
         PropMyFolder = pathinfo
 
         If running Then Return
@@ -77,8 +77,8 @@ Public Class NetServer
 
         Dim listener = New System.Net.HttpListener()
         listener.Prefixes.Clear()
-        'listener.Prefixes.Add("http://" + LocalAddress.ToString(Form1.usa) + ":" + MyPort.ToString(Form1.usa) + "/")
-        listener.Prefixes.Add("http://+:" + MyPort + "/")
+
+        listener.Prefixes.Add("http://+:" & MyPort & "/")
 
         Try
             listener.Start() ' Throws Exception
@@ -126,7 +126,7 @@ Public Class NetServer
         Debug.Print(message)
         Try
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) & ":" & category & ":" & message)
             End Using
         Catch ex As Exception
             Debug.Print(ex.Message)
@@ -194,7 +194,7 @@ Public Class NetServer
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
-        HTML = "Welcome to |" + PropMySetting.SimName + "||" + PropMySetting.PublicIP + ":" + PropMySetting.HttpPort + ":" + PropMySetting.WelcomeRegion + "||" + vbCrLf
+        HTML = "Welcome to |" & PropMySetting.SimName & "||" & CStr(PropMySetting.PublicIP) & ":" & CStr(PropMySetting.HttpPort) & ":" & PropMySetting.WelcomeRegion & "||" & vbCrLf
 
         Dim NewSQLConn As New MySqlConnection(PropMySetting.RobustConnStr)
         Diagnostics.Debug.Print("Conn:" & PropMySetting.RobustConnStr)
@@ -228,7 +228,7 @@ Public Class NetServer
         ToSort.Sort()
 
         For Each S As String In ToSort
-            HTML = HTML + "*|" & S & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & S & "||" + vbCrLf
+            HTML = HTML & "*|" & S & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & S & "||" & vbCrLf
         Next
 
         Return HTML
