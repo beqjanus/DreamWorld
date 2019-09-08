@@ -130,7 +130,7 @@
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-         $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
+         $v3    = "secondlife:///app/teleport/" . $row["gateway"] . '/' . $row["landingpoint"] ;     
         
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
         
@@ -148,7 +148,7 @@
         else if ($row["searchcategory"] == 10) { $category = "Shopping";}
         else if ($row["searchcategory"] == 11) { $category = "Rental";}
         else if ($row["searchcategory"] == 12) { $category = "Other";}
-        else if ($row["searchcategory"] == 13) { $category = "????";}
+        else if ($row["searchcategory"] == 13) { $category = "Other";}
         else $category = "?";
         
         $location = $row["landingpoint"];

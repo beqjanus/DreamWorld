@@ -3,13 +3,16 @@
 require( "flog.php" );
 
 include("databaseinfo.php");
- include("../Metromap/includes/config.php");
+include("../Metromap/includes/config.php");
     
  // Attempt to connect to the database
     try {
-      $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+        $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+        $db1 = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+        $db1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
     }
+    
     catch(PDOException $e)
     {
         echo "Error connecting to database\n";
@@ -56,9 +59,8 @@ include("databaseinfo.php");
 
     $counter = 0;
     
-    $sql = "SELECT distinct lower(gateway) as gateway FROM hostsregister  where $qtype  like  CONCAT('%', :text1, '%')
-        and failcounter = 0
-            and  $qtype  like  CONCAT('%', :text1, '%')
+    $sql = "SELECT distinct host as host FROM hostsregister  where            
+            failcounter = 0
             and gateway not like 'http://192.168%'
             and gateway not like 'http://172.16%'
             and gateway not like 'http://172.17%'
@@ -78,37 +80,65 @@ include("databaseinfo.php");
             and gateway not like 'http://172.31%'            
             and gateway not like 'http://127.0.0.1%'
             and gateway not like 'http://10.%'
-        order by gateway ";
-    flog($sql );     
-    $query = $db->prepare($sql);
+            order by gateway ";
     
+    $query = $db->prepare($sql);    
     $result = $query->execute($sqldata);
-    flog($sqldata);
     
-    $counter = 0;
+    $host = '';
+    
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
-    {
+    {        
+        $host = $row["host"];
         
-        $row["gateway"] = str_replace('http://','',$row["gateway"]);
-        $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;             
-        $hours = $row["checked"] - 1;
+        // get the port
+        $sql1 = "SELECT gateway FROM hostsregister  where host = :text1";
+        
+        $query1 = $db1->prepare($sql1);
+        $result1 = $query1->execute(array('text1' => $host));
+        
+        $gateway = '';        
+        while ($row1 = $query1->fetch(PDO::FETCH_ASSOC))
+        {
+            $gateway = $row1["gateway"];
+        }
+        
+        // make hyperlink
+        $v3    = "secondlife:///app/teleport/" . $gateway;
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
+        // get the hours of runtime        
+        $sql1 = "SELECT sum(checked) as minutes FROM hostsregister where host = :text1";
+        $query1 = $db1->prepare($sql1);
+        $result1 = $query1->execute(array('text1'=>$host));        
+        
+        $minutes = 0;
+        while ($row1 = $query1->fetch(PDO::FETCH_ASSOC))
+        {
+            $minutes = $row1["minutes"] * 10;
+        }
+            
+        if ($minutes > 0 ) {
+            $minutes = round($minutes /60,1) ;
+        } else {
+            $minutes = 0;
+        }
+                
         $row = array(
-                     "hop"=>$link,
-                     "Grid"=>$row["gateway"],
-                     "Hours"=> $hours
-                     );
-              
+                   "hop"=>$link,
+                   "Grid"=>$host,
+                   "Hours"=> $minutes
+                   );
+            
         $rowobj = new Row();
         $rowobj->cell = $row;
-            
+          
         if ($total >= (($page-1) *$rc) && $total < ($page) *$rc) {
-          array_push($stack, $rowobj);
+        array_push($stack, $rowobj);
         }
         
         $total++;
-    }
+        }
 
     if ($total == 0) {
         flog("Nothing found");
