@@ -3842,7 +3842,7 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        ' 10 seconds check for a restart RegionRestart requires  MOD 10       
+        ' 10 seconds check for a restart RegionRestart requires  MOD 10
         If PropDNSSTimer Mod 10 = 0 Then
             PropRegionClass.CheckPost()
             ScanAgents() ' update agent count
@@ -3855,10 +3855,14 @@ Public Class Form1
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
+        ' Just once at the 5 minute mark, aftre regions have booted.
+        If PropDNSSTimer = 300 Then
+            RunDataSnapshot() ' Fetch assets marked for search at boot
+        End If
+
         ' every 5 minutes
         If PropDNSSTimer Mod 300 = 0 Then
             RegionListHTML() ' create HTML for older 2.4 region teleporters
-            RunDataSnapshot() ' Fetch assets marked for search at startup
             LogSearch.Find()
         End If
 
@@ -6086,7 +6090,7 @@ Public Class Form1
     Shared Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
 
         Try
-            Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags) values (" _
+            Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags,gateway) values (" _
                         & "'" & D.Item("simname") & "'," _
                         & "'" & D.Item("category") & "'," _
                         & "'" & D.Item("creatoruuid") & "'," _
@@ -6099,6 +6103,7 @@ Public Class Form1
                         & "'" & D.Item("coveramount") & "'," _
                         & "'" & D.Item("parcelUUID") & "'," _
                         & "'" & D.Item("globalPos") & "'," _
+                        & "'" & D.Item("gateway") & "'," _
                         & "'" & D.Item("eventflags") & "')"
 
             Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
