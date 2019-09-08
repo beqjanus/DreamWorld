@@ -3732,6 +3732,7 @@ Public Class Form1
             For Each result In results
                 Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
                 MyRAMCollection.Add(value)
+                value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
             Next
         Catch ex As Exception
@@ -3864,12 +3865,12 @@ Public Class Form1
         If PropDNSSTimer Mod 300 = 0 Then
             RegionListHTML() ' create HTML for older 2.4 region teleporters
             LogSearch.Find()
+            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
         End If
 
         'hour
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS()
-            RunDataSnapshot() ' Fetch assets marked for search every hour
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
@@ -6090,7 +6091,7 @@ Public Class Form1
     Shared Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
 
         Try
-            Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags,gateway) values (" _
+            Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,gateway,eventflags) values (" _
                         & "'" & D.Item("simname") & "'," _
                         & "'" & D.Item("category") & "'," _
                         & "'" & D.Item("creatoruuid") & "'," _
@@ -6166,7 +6167,7 @@ Public Class Form1
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
                             '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
-
+                            ctr += 1
                             ' Split line on comma.
                             Dim array As String() = s.Split("|".ToCharArray())
                             Simevents.Clear()
@@ -6180,14 +6181,11 @@ Public Class Form1
                                     a(1) = a(1).Replace("`", vbLf)
                                     Console.WriteLine("{0}:{1}", a(0), a(1))
                                     Simevents.Add(a(0), a(1))
-                                    ctr += 1
                                 End If
                             Next
-                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
-                            Diagnostics.Debug.Print("Items: {0}", Simevents.Count)
                             WriteEvent(osconnection, Simevents)
                         End While
-
+                        Print(CStr(ctr) & " HG Events available")
                     End Using
                 End Using
             End Using
