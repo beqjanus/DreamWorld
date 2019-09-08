@@ -73,11 +73,30 @@
     $stack = array();
     
     $query = "SELECT * FROM parcels  t1
-        inner join  regions on t1.regionUUID = regions.regionUUID
+            inner join  regions on t1.regionUUID = regions.regionUUID
             
             where
             
              public = 'true'
+            and t1.gateway not like 'http://192.168%'
+            and t1.gateway not like 'http://172.16%'
+            and t1.gateway not like 'http://172.17%'
+            and t1.gateway not like 'http://172.18%'
+            and t1.gateway not like 'http://172.19%'
+            and t1.gateway not like 'http://172.20%'
+            and t1.gateway not like 'http://172.21%'
+            and t1.gateway not like 'http://172.22%'
+            and t1.gateway not like 'http://172.23%'
+            and t1.gateway not like 'http://172.24%'
+            and t1.gateway not like 'http://172.25%'
+            and t1.gateway not like 'http://172.26%'
+            and t1.gateway not like 'http://172.27%'
+            and t1.gateway not like 'http://172.28%'
+            and t1.gateway not like 'http://172.29%'
+            and t1.gateway not like 'http://172.30%'
+            and t1.gateway not like 'http://172.31%'            
+            and t1.gateway <> 'http://127.0.0.1'
+            and t1.gateway not like 'http://10.%'
         and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
 
     flog($query);

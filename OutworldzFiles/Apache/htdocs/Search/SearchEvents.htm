@@ -1,8 +1,9 @@
 <html lang="en-us">
-<!-- AGPL 3.0 by Fred Beckhusen -->
+<meta license="AGPL 3.0 by Outworldz, LLC">	
 <head>
 <meta charset="utf-8">
-<title>Opensimulator search Objects by Outworldz.com</title>
+<meta license="AGPL 3.0 by Outworldz, LLC">
+<title>Opensimulator search Hypergrid Events by Outworldz.com</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript"  src="/flexgrid/js/flexigrid.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,23 +18,25 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchObjects.php',
+		url: 'SearchEvents.php',
 		dataType: 'json',
         method: 'GET',
 		colModel : [
-			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Name', name : 'Name', width : 200, sortable : true, align: 'left'},			
-			{display: 'Description', name : 'Description', width : 160, sortable : true, align: 'left'},			
-			{display: 'Region name', name : 'Regionname', width :225, sortable : true, align: 'left'},
-			
+			{display: 'Links', name : 'location', width : 35, sortable : false, align: 'left'},		
+			{display: 'Name', name : 'name', width : 170, sortable : true, align: 'left'},
+			{display: 'Description', name : 'description', width :300, sortable : true, align: 'left'},
+			{display: 'Time', name : 'time', width : 90, sortable : true, align: 'left'},
+			{display: 'L', name : 'duration', width : 20, sortable : false, align: 'left'},
+			{display: 'UTC', name : 'utc',  width : 100, sortable : false, align: 'left'},			
 			],
 		
 		searchitems : [
-		 {display: 'Name', name :'Name', isdefault: true},
-		 {display: 'Description', name :'Description', isdefault: false}
+		 {display: 'Name', name :'name', isdefault:true},
+		 {display: 'Description', name :'description', isdefault: false},
+		 {display: 'Time', name :'utc', isdefault: false},
 		 
 		],
-		sortname: 'Name',
+		sortname: 'utc',
 		sortorder: 'asc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',
@@ -57,14 +60,12 @@ $(document).ready(function(){
 </script>
 
 <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
-
 <link rel="shortcut icon" href="/favicon.ico">
 
 </head>
 
 <body>
 <div id="Links">
- 
 <a href="index.php" target="_self"><button>Objects</button></a>
 <a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
 <a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>

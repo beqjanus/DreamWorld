@@ -78,7 +78,26 @@
     $counter = 0;
     
     $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')       
-        order by  $sort  $ord";
+            and regions.gateway not like 'http://192.168%'
+            and regions.gateway not like 'http://172.16%'
+            and regions.gateway not like 'http://172.17%'
+            and regions.gateway not like 'http://172.18%'
+            and regions.gateway not like 'http://172.19%'
+            and regions.gateway not like 'http://172.20%'
+            and regions.gateway not like 'http://172.21%'
+            and regions.gateway not like 'http://172.22%'
+            and regions.gateway not like 'http://172.23%'
+            and regions.gateway not like 'http://172.24%'
+            and regions.gateway not like 'http://172.25%'
+            and regions.gateway not like 'http://172.26%'
+            and regions.gateway not like 'http://172.27%'
+            and regions.gateway not like 'http://172.28%'
+            and regions.gateway not like 'http://172.29%'
+            and regions.gateway not like 'http://172.30%'
+            and regions.gateway not like 'http://172.31%'            
+            and regions.gateway <> 'http://127.0.0.1'
+            and regions.gateway not like 'http://10.%'
+            order by  $sort  $ord";
     
    // $sqldata = array();
     flog ($query);

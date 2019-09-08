@@ -85,6 +85,20 @@ if ($service == "offline")
     flog("offline:" .  $hostname . ":" . $port);
     $query = $db->prepare("DELETE FROM hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
+    $query = $db->prepare("DELETE FROM objects  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM allparcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM parcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM parcelsales  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM popularplaces  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM regions  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+
+    
 }
 
 $db = NULL;

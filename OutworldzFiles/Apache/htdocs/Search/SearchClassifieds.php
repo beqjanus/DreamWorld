@@ -74,7 +74,31 @@
 
     $counter = 0;
      
-    $query = "SELECT * FROM ossearch.classifieds";
+    $query = "SELECT * FROM ossearch.classifieds
+            INNER JOIN hostsregister ON classifieds.gateway = hostsregister.gateway            
+            where
+            failcounter = 0
+            and gateway not like 'http://192.168%'
+            and gateway not like 'http://172.16%'
+            and gateway not like 'http://172.17%'
+            and gateway not like 'http://172.18%'
+            and gateway not like 'http://172.19%'
+            and gateway not like 'http://172.20%'
+            and gateway not like 'http://172.21%'
+            and gateway not like 'http://172.22%'
+            and gateway not like 'http://172.23%'
+            and gateway not like 'http://172.24%'
+            and gateway not like 'http://172.25%'
+            and gateway not like 'http://172.26%'
+            and gateway not like 'http://172.27%'
+            and gateway not like 'http://172.28%'
+            and gateway not like 'http://172.29%'
+            and gateway not like 'http://172.30%'
+            and gateway not like 'http://172.31%'            
+            and gateway <> 'http://127.0.0.1'
+            and gateway not like 'http://10.%'
+    
+    ";
     
     flog($query);
     

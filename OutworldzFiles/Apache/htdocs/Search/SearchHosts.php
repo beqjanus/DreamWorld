@@ -58,6 +58,26 @@ include("databaseinfo.php");
     
     $sql = "SELECT distinct lower(gateway) as gateway FROM hostsregister  where $qtype  like  CONCAT('%', :text1, '%')
         and failcounter = 0
+            and  $qtype  like  CONCAT('%', :text1, '%')
+            and gateway not like 'http://192.168%'
+            and gateway not like 'http://172.16%'
+            and gateway not like 'http://172.17%'
+            and gateway not like 'http://172.18%'
+            and gateway not like 'http://172.19%'
+            and gateway not like 'http://172.20%'
+            and gateway not like 'http://172.21%'
+            and gateway not like 'http://172.22%'
+            and gateway not like 'http://172.23%'
+            and gateway not like 'http://172.24%'
+            and gateway not like 'http://172.25%'
+            and gateway not like 'http://172.26%'
+            and gateway not like 'http://172.27%'
+            and gateway not like 'http://172.28%'
+            and gateway not like 'http://172.29%'
+            and gateway not like 'http://172.30%'
+            and gateway not like 'http://172.31%'            
+            and gateway not like 'http://127.0.0.1%'
+            and gateway not like 'http://10.%'
         order by gateway ";
     flog($sql );     
     $query = $db->prepare($sql);

@@ -64,14 +64,32 @@ include("../Metromap/includes/config.php");
   }
   
   $stack = array();
-
+//left  JOIN hostsregister ON  hostsregister.gateway  =Regions.gateway 
   $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
-    INNER JOIN Regions ON Objects.regionuuid = Regions.regionuuid 
-    INNER JOIN hostsregister ON Objects.gateway = hostsregister.gateway    
+    left  JOIN Regions ON Objects.regionuuid = Regions.regionuuid
+    
             where
-            failcounter = 0
+            Regions.gateway not like 'http://192.168%'
+            and Regions.gateway not like 'http://172.16%'
+            and Regions.gateway not like 'http://172.17%'
+            and Regions.gateway not like 'http://172.18%'
+            and Regions.gateway not like 'http://172.19%'
+            and Regions.gateway not like 'http://172.20%'
+            and Regions.gateway not like 'http://172.21%'
+            and Regions.gateway not like 'http://172.22%'
+            and Regions.gateway not like 'http://172.23%'
+            and Regions.gateway not like 'http://172.24%'
+            and Regions.gateway not like 'http://172.25%'
+            and Regions.gateway not like 'http://172.26%'
+            and Regions.gateway not like 'http://172.27%'
+            and Regions.gateway not like 'http://172.28%'
+            and Regions.gateway not like 'http://172.29%'
+            and Regions.gateway not like 'http://172.30%'
+            and Regions.gateway not like 'http://172.31%'            
+            and Regions.gateway <> 'http://127.0.0.1'
+            and Regions.gateway not like 'http://10.%'
             and " . $qtype . "  like CONCAT('%', :text1, '%')
-    order by " . $sort . ' ' .  $ord ;
+            order by " . $sort . ' ' .  $ord ;
     
 
     flog($q );  
@@ -97,7 +115,10 @@ include("../Metromap/includes/config.php");
         if ($gateway == "" ) {
           $hop = '';  
         } else {
+          secondlife:///app/teleport/3d.gimisa.ca|9000|gimisa5|128,128,20
           $hop = "<a href=\"secondlife://http|!!" . $gateway.  "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
+          $location = str_replace("/",",",$location);
+          #$hop = "<a href=\"secondlife://app/teleport/" . $gateway.  "/" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
         }
         
         $description = wordwrap($row["Description"],30, "<br>\n", false);

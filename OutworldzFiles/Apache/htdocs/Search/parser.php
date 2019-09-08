@@ -10,10 +10,12 @@ include("databaseinfo.php");
 $now = time();
 
 // Attempt to connect to the database
-try {
-  $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-}
+ try {
+   $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+   $db1 = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+   $db1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+ }
 catch(PDOException $e)
 {
   echo "Error connecting to the search database\n";
@@ -29,8 +31,8 @@ function GetURL($host, $port, $url)
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 
     $data = curl_exec($ch);
     if (curl_errno($ch) == 0)
@@ -42,16 +44,31 @@ function GetURL($host, $port, $url)
     curl_close($ch);
     return "";
 }
+function Delete ($gateway)  {
+    
+    $query = $GLOBALS['db1']->prepare("DELETE FROM objects  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $GLOBALS['db1']->prepare("DELETE FROM allparcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $GLOBALS['db1']->prepare("DELETE FROM parcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $GLOBALS['db1']->prepare("DELETE FROM parcelsales  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $GLOBALS['db1']->prepare("DELETE FROM popularplaces  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $GLOBALS['db1']->prepare("DELETE FROM regions  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+}
 
 function CheckHost($gateway, $hostname, $port)
 {
     global $db, $now;
-
     
     $xml = GetURL($hostname, $port, "collector/?method=collector");
     if ($xml == "") {//No data was retrieved? (CURL may have timed out)
         echo " - failed\n";
         $failcounter = 'failcounter + 1';
+        Delete($gateway);
     } else {
         echo " - success\n";
         $failcounter = "0";
@@ -91,6 +108,7 @@ function parse($gateway,$hostname, $port, $xml)
     //Don't try and parse if XML is invalid or we got an HTML 404 error.
     if ($objDOM->loadXML($xml) == False) {
         echo "No XML\n";
+        Delete($gateway);
         return;
     }
 
@@ -102,6 +120,7 @@ function parse($gateway,$hostname, $port, $xml)
     //If returned length is 0, collector method may have returned an error
     if ($regiondata->length == 0) {
         echo "No regiondata in XML\n";
+        Delete($gateway);
         return;
     }
 
@@ -383,9 +402,26 @@ $failcounter = 0;
 
 $sql = "SELECT gateway, host, port FROM hostsregister
             where
-           
-
-            nextcheck<$now AND checked=0 AND failcounter < 10
+            host not like '192.168%'
+            and host not like '172.16%'
+            and host not like '172.17%'
+            and host not like '172.18%'
+            and host not like '172.19%'
+            and host not like '172.20%'
+            and host not like '172.21%'
+            and host not like '172.22%'
+            and host not like '172.23%'
+            and host not like '172.24%'
+            and host not like '172.25%'
+            and host not like '172.26%'
+            and host not like '172.27%'
+            and host not like '172.28%'
+            and host not like '172.29%'
+            and host not like '172.30%'
+            and host not like '172.31%'            
+            and host <> '127.0.0.1'
+            and host not like '10.%'  
+            and nextcheck<$now AND checked=0 AND failcounter < 10
             order by host asc
             LIMIT 0,20";
        
