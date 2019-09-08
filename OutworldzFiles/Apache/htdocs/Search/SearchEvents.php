@@ -66,7 +66,7 @@ include("../Metromap/includes/config.php");
   }
   
   $stack = array();
-//left  JOIN hostsregister ON  hostsregister.gateway  =Regions.gateway 
+
   $q = "SELECT * from events  
             where " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
@@ -83,22 +83,13 @@ include("../Metromap/includes/config.php");
     $counter= 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-      
-      $v3  = "secondlife://http|!!" . $row["simname"]. "/" . $row["globalpos"];     
-      $hop = "hop://" . $row["simname"]. "/" . $row["globalpos"];
-      $hg = "secondlife://" . $row["simname"]. "/" . $row["globalpos"];
-      
-      // needs work
-      $local = "secondlife://" . $row["simname"]. "/" . $row["globalpos"];
-        
-      $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>
-<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a><br>
-<a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a><br>
-<a href=\"$local\"><img src=\"local.png\" height=\"24\"></a>";
     
+        $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+  
+        
+        $description = wordwrap($row["description"],45, "<br>\n", false) . '<br><br><a href="' . $v3 . '">Link: ' . $row["gateway"] . '</a>';
         $name = $row["name"];
-        $simname = $row['simname'];                
-        $description = wordwrap($row["description"],45, "<br>\n", false);
         $name = wordwrap($row["name"],25, "<br>\n", false);
         $time = wordwrap(date("D M j G:i:s T Y", $row["dateUTC"]),15, "<br>\n", false);
         

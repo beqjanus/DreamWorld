@@ -109,16 +109,12 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
+        $v3    = "secondlife:///app/teleport/" . $row["gateway"] . '/'. $row["regionname"];     
+      
         
-        if ($gateway == "" ) {
-            $hop = 'N/A';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!" . ${gateway} . "+" . $row["regionname"] . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
-        $row = array("hop"=>$hop,
+        $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],
                      "RegionName"=>$row["regionname"] ,
                      "Owner"=>$row["owner"]

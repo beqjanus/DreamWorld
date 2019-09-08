@@ -111,18 +111,18 @@
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
       
+       $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
+      $local = "secondlife:///app/teleport/" . $row["gateway"] ;     
+        
+      $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>
+<a href=\"$local\"><img src=\"local.png\" height=\"24\"></a>";
+    
+    
         flog("Name:". $row["name"]);
         $name = wordwrap($row["name"],25,"<br>\n", true);
         $description = wordwrap($row["description"],50,"<br>\n");
         
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
-        
-        if ($gateway == "" ) {
-            $hop = '';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+      
         
         if ($row["simname"] == '')
         {
@@ -145,7 +145,7 @@
         }
         
         $row = array("hop"=>$hop,
-                     "Grid"=>$row["gateway"],
+                     "Grid"=>$link,
                       //$row["classifieduuid"],
                        //$row["creatoruuid"],
                        //$row["creationdate"],

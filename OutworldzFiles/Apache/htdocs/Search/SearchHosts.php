@@ -88,16 +88,17 @@ include("databaseinfo.php");
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
         
-        if ($gateway == "" ) {
-          $hop = '';
-        } else {
-          $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+        $row["gateway"] = str_replace('http://','',$row["gateway"]);
+        $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;             
+        $hours = $row["checked"] - 1;
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
-        $row = array("hop"=>$hop, "Grid"=>$row["gateway"]);
+        $row = array(
+                     "hop"=>$link,
+                     "Grid"=>$row["gateway"],
+                     "Hours"=> $hours
+                     );
               
         $rowobj = new Row();
         $rowobj->cell = $row;

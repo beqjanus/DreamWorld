@@ -103,31 +103,20 @@ include("../Metromap/includes/config.php");
     $counter= 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        
+      
         $location = $row["Location"];
+        $v3    = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location;     
+        $local = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location ;     
         
-        $gateway = $row["AGateway"];
-        flog("Gateway: $gateway");
-        $gateway = substr($gateway,7);
-        
-        flog("Gateway: $gateway");
-        
-        if ($gateway == "" ) {
-          $hop = '';  
-        } else {
-          secondlife:///app/teleport/3d.gimisa.ca|9000|gimisa5|128,128,20
-          $hop = "<a href=\"secondlife://http|!!" . $gateway.  "+" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-          $location = str_replace("/",",",$location);
-          #$hop = "<a href=\"secondlife://app/teleport/" . $gateway.  "/" . $row["Regioname"] . "/" . $location .  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
-        
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+              
         $description = wordwrap($row["Description"],30, "<br>\n", false);
         $name = wordwrap($row["Name"],35, "<br>\n", false);
         
-        $row = array("hop"=>$hop,
+        $row = array("hop"=>$link ,
                      "Name"=>$name,
                      "Description"=>$description,
-                     "Regionname"=>$row["Regioname"]. '<br>' . $gateway ,
+                     "Regionname"=>$row["Regioname"]. "<br>Link: <br><a href=\"$v3\">" . $row["AGateway"] . '/' . $location . '</a>',
                      "Location"=>$location);
         
         $rowobj = new Row();

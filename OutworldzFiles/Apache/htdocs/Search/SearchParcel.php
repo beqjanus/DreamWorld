@@ -130,25 +130,26 @@
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
+         $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
+        
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
         
         $category = "";
-        if ($row["searchcategory"] == 1) { $category = "Any"; }
-        else if ($row["searchcategory"] == 2) { $category = "Linden Location";}
-        else if ($row["searchcategory"] == 3) { $category = "Arts and Culture";}
-        else if ($row["searchcategory"] == 4) { $category = "Business";}
-        else if ($row["searchcategory"] == 5) { $category = "Educational";}
-        else if ($row["searchcategory"] == 6) { $category = "Gaming";}
-        else if ($row["searchcategory"] == 7) { $category = "Hideout";}
-        else if ($row["searchcategory"] == 8) { $category = "Newcomer Friendly";}
-        else if ($row["searchcategory"] == 9) { $category = "Parks & Nature";}
-        else if ($row["searchcategory"] == 10) { $category = "Residential";}
-        else if ($row["searchcategory"] == 11) { $category = "Shopping";}
-        else if ($row["searchcategory"] == 12) { $category = "Rental";}
-        else if ($row["searchcategory"] == 13) { $category = "Other";}
-        else if ($row["searchcategory"] == 14) { $category = "????";}
-        else $category = "";
+        if ($row["searchcategory"] == 0) { $category = "Any"; }
+        else if ($row["searchcategory"] == 1) { $category = "Linden Location";}
+        else if ($row["searchcategory"] == 2) { $category = "Arts and Culture";}
+        else if ($row["searchcategory"] == 3) { $category = "Business";}
+        else if ($row["searchcategory"] == 4) { $category = "Educational";}
+        else if ($row["searchcategory"] == 5) { $category = "Gaming";}
+        else if ($row["searchcategory"] == 6) { $category = "Hideout";}
+        else if ($row["searchcategory"] == 7) { $category = "Newcomer Friendly";}
+        else if ($row["searchcategory"] == 8) { $category = "Parks & Nature";}
+        else if ($row["searchcategory"] == 9) { $category = "Residential";}
+        else if ($row["searchcategory"] == 10) { $category = "Shopping";}
+        else if ($row["searchcategory"] == 11) { $category = "Rental";}
+        else if ($row["searchcategory"] == 12) { $category = "Other";}
+        else if ($row["searchcategory"] == 13) { $category = "????";}
+        else $category = "?";
         
         $location = $row["landingpoint"];
         
@@ -156,22 +157,21 @@
         if ($row["build"] == 'true') {
             $x = '<input type="checkbox" checked="true">';
         }
-        
-        if  ($gateway == "") {
-            $hop = '';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!". $gateway . "+" . $row["regionname"] . "/" . $row["landingpoint"].  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+        $y = '<input type="checkbox" checked="false">';
+        if ($row["script"] == 'true') {
+            $y = '<input type="checkbox" checked="true">';
+        } 
         
         $description = wordwrap($row["description"], 30, "<br>");
         $parcelname = wordwrap($row["parcelname"], 20, "<br>");
         
-        $row = array("hop"=>$hop,
+        $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],
                      "Description"=>$description ,
                      "Regionname"=>$row["regionname"] ,
                      "Parcelname"=>$parcelname,
                      "Build"=>$x,
+                     "Script"=>$y,
                      "Dwell"=>$row["dwell"],
                      "Location"=>$row["landingpoint"],
                      "Category"=>$category,
