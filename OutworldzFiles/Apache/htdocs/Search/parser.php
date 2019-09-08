@@ -80,7 +80,7 @@ function CheckHost($gateway, $hostname, $port)
     $next = $now + 600;
 
     $query = $db->prepare("UPDATE hostsregister SET nextcheck = ?," .
-                          " checked = 1, failcounter = $failcounter" .
+                          " checked = checked + 1, failcounter = $failcounter" .
                           " WHERE host = ? AND port = ?");
     $query->execute( array($next, $hostname, $port) );
 
@@ -421,15 +421,17 @@ $sql = "SELECT gateway, host, port FROM hostsregister
             and host not like '172.31%'            
             and host <> '127.0.0.1'
             and host not like '10.%'  
-            and nextcheck<$now AND checked=0 AND failcounter < 10
+            and nextcheck < $now AND failcounter < 10
             order by host asc
             LIMIT 0,20";
-       
+
+// Skip after 10 tries, they need to re-register
+
 $jobsearch = $db->query($sql);
 
 //
 // If the sql query returns no rows, all entries in the hostsregister
-// table have been checked. Reset the checked flag and re-run the
+// table have been checked. Re-run the
 // query to select the next set of hosts to be checked.
 //
 if ($jobsearch->rowCount() == 0)
@@ -437,7 +439,8 @@ if ($jobsearch->rowCount() == 0)
     
     echo "Nothing to do\n";
   
-    $jobsearch = $db->query("UPDATE hostsregister SET checked = 0");
+    #$jobsearch = $db->query("UPDATE hostsregister SET checked = 0");
+    # the above is a bad idea. The 
 
     $jobsearch = $db->query($sql);
 }
@@ -445,7 +448,7 @@ if ($jobsearch->rowCount() == 0)
 while ($jobs = $jobsearch->fetch(PDO::FETCH_NUM))
 {    
     echo "Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] ;
-   
+    $jobs[0] = str_replace('http://','',$jobs[0]);
     CheckHost($jobs[0], $jobs[1],$jobs[2]);
 }
 
