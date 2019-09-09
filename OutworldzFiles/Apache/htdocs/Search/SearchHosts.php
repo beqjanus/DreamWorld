@@ -61,26 +61,26 @@ include("../Metromap/includes/config.php");
     
     $sql = "SELECT distinct host as host FROM hostsregister  where            
             failcounter = 0
-            and gateway not like 'http://192.168%'
-            and gateway not like 'http://172.16%'
-            and gateway not like 'http://172.17%'
-            and gateway not like 'http://172.18%'
-            and gateway not like 'http://172.19%'
-            and gateway not like 'http://172.20%'
-            and gateway not like 'http://172.21%'
-            and gateway not like 'http://172.22%'
-            and gateway not like 'http://172.23%'
-            and gateway not like 'http://172.24%'
-            and gateway not like 'http://172.25%'
-            and gateway not like 'http://172.26%'
-            and gateway not like 'http://172.27%'
-            and gateway not like 'http://172.28%'
-            and gateway not like 'http://172.29%'
-            and gateway not like 'http://172.30%'
-            and gateway not like 'http://172.31%'            
-            and gateway not like 'http://127.0.0.1%'
-            and gateway not like 'http://10.%'
-            order by gateway ";
+            and gateway not like '192.168%'
+            and gateway not like '172.16%'
+            and gateway not like '172.17%'
+            and gateway not like '172.18%'
+            and gateway not like '172.19%'
+            and gateway not like '172.20%'
+            and gateway not like '172.21%'
+            and gateway not like '172.22%'
+            and gateway not like '172.23%'
+            and gateway not like '172.24%'
+            and gateway not like '172.25%'
+            and gateway not like '172.26%'
+            and gateway not like '172.27%'
+            and gateway not like '172.28%'
+            and gateway not like '172.29%'
+            and gateway not like '172.30%'
+            and gateway not like '172.31%'            
+            and gateway not like '127.0.0.1%'
+            and gateway not like '10.%'
+            order by host ";
     
     $query = $db->prepare($sql);    
     $result = $query->execute($sqldata);
@@ -138,7 +138,7 @@ include("../Metromap/includes/config.php");
         }
         
         $total++;
-        }
+    }
 
     if ($total == 0) {
         flog("Nothing found");

@@ -88,10 +88,9 @@ include("../Metromap/includes/config.php");
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
   
         
-        $description = wordwrap($row["description"],45, "<br>\n", false) . '<br><br><a href="' . $v3 . '">Link: ' . $row["gateway"] . '</a>';
-        $name = $row["name"];
-        $name = wordwrap($row["name"],25, "<br>\n", false);
-        $time = wordwrap(date("D M j G:i:s T Y", $row["dateUTC"]),15, "<br>\n", false);
+        $description = $row["description"] .  '<br><br><a href="' . $v3 . '">Link: ' . $row["gateway"] . '</a>';
+        $name = $row["name"];    
+        $time = date("D M j G:i:s T Y", $row["dateUTC"]);
         
         $row = array( "time"        => $time,
                       "name"        => $name,

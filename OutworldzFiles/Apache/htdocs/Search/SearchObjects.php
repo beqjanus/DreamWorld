@@ -69,25 +69,25 @@ include("../Metromap/includes/config.php");
     left  JOIN Regions ON Objects.regionuuid = Regions.regionuuid
     
             where
-            Regions.gateway not like 'http://192.168%'
-            and Regions.gateway not like 'http://172.16%'
-            and Regions.gateway not like 'http://172.17%'
-            and Regions.gateway not like 'http://172.18%'
-            and Regions.gateway not like 'http://172.19%'
-            and Regions.gateway not like 'http://172.20%'
-            and Regions.gateway not like 'http://172.21%'
-            and Regions.gateway not like 'http://172.22%'
-            and Regions.gateway not like 'http://172.23%'
-            and Regions.gateway not like 'http://172.24%'
-            and Regions.gateway not like 'http://172.25%'
-            and Regions.gateway not like 'http://172.26%'
-            and Regions.gateway not like 'http://172.27%'
-            and Regions.gateway not like 'http://172.28%'
-            and Regions.gateway not like 'http://172.29%'
-            and Regions.gateway not like 'http://172.30%'
-            and Regions.gateway not like 'http://172.31%'            
+            Regions.gateway not like '192.168%'
+            and Regions.gateway not like '172.16%'
+            and Regions.gateway not like '172.17%'
+            and Regions.gateway not like '172.18%'
+            and Regions.gateway not like '172.19%'
+            and Regions.gateway not like '172.20%'
+            and Regions.gateway not like '172.21%'
+            and Regions.gateway not like '172.22%'
+            and Regions.gateway not like '172.23%'
+            and Regions.gateway not like '172.24%'
+            and Regions.gateway not like '172.25%'
+            and Regions.gateway not like '172.26%'
+            and Regions.gateway not like '172.27%'
+            and Regions.gateway not like '172.28%'
+            and Regions.gateway not like '172.29%'
+            and Regions.gateway not like '172.30%'
+            and Regions.gateway not like '172.31%'            
             and Regions.gateway <> 'http://127.0.0.1'
-            and Regions.gateway not like 'http://10.%'
+            and Regions.gateway not like '10.%'
             and " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
     
@@ -106,11 +106,8 @@ include("../Metromap/includes/config.php");
       
         $location = $row["Location"];
         $v3    = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location;     
-        $local = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location ;     
-        
+        $local = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location ;             
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
-              
-        $description = wordwrap($row["Description"],30, "<br>\n", false);
         $name = wordwrap($row["Name"],35, "<br>\n", false);
         
         $row = array("hop"=>$link ,

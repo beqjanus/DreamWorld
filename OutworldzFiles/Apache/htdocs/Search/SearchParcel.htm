@@ -21,12 +21,13 @@ $(document).ready(function(){
 		url: '/Search/SearchParcel.php',
 		dataType: 'json',
         method: 'GET',
+		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
 			{display: 'Parcel', name : 'Parcelname', width :125, sortable : true, align: 'left'},
 			{display: 'Description', name : 'Description', width : 210, sortable : true, align: 'left'},
-			{display: 'Build', name : 'Build', width : 35, sortable : true, align: 'left'},
-			{display: 'Script', name : 'Script', width : 40, sortable : true, align: 'left'},
+			{display: 'Build', name : 'Build', width : 35, sortable : false, align: 'left'},
+			{display: 'Script', name : 'Script', width : 40, sortable : false, align: 'left'},
 			{display: 'Category', name : 'Category', width : 80, sortable : true, align: 'left'},
 			{display: 'M/G', name : 'Mature', width : 30, sortable : true, align: 'left'},
 			{display: 'Rank', name : 'dwell', width : 35, sortable : true, align: 'left'}
@@ -35,12 +36,13 @@ $(document).ready(function(){
 		searchitems : [
 		 {display: 'Grid', name :'Grid', isdefault: true},
 		 {display: 'Description', name :'Description', isdefault: false},
-		 {display: 'Parcel name', name :'Parcelname', isdefault: false},
+		 {display: 'Parcel', name :'Parcelname', isdefault: false},
 		 {display: 'Mature', name :'Mature', isdefault: false}
 		 
+		 
 		],
-		sortname: 'dwell',
-		sortorder: 'desc',
+		sortname: 'Description',
+		sortorder: 'asc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',
 		useRp: true,
@@ -71,7 +73,7 @@ $(document).ready(function(){
 <div id="Links">
 <a href="index.php" target="_self"><button>Objects</button></a>
 <a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
-<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>
+<!--<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>-->
 <a href="SearchParcel.htm" target="_self"><button>Parcels</button></a>
 <a href="SearchHosts.htm" target="_self"><button>Grids</button></a>
 <a href="SearchRegions.htm" target="_self"><button>Regions</button></a>

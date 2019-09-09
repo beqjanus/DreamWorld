@@ -302,11 +302,13 @@ function parse($gateway,$hostname, $port, $xml)
 
             if ($parceldirectory == "true")
             {
-                echo "Insert popularplaces: $parcelname\n";
+                echo "Insert parcels: $parcelname\n";
                 $query = $db->prepare("INSERT INTO parcels VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :landing, " .
                                        ":desc, :cat, :build, :script, :public, ".
                                        ":dwell, :i_uuid, :r_cat, :r_gateway )");
+                
+                                    
                 $query->execute( array(
                                        "r_uuid"  => $regionuuid,
                                        "p_name"  => $parcelname,

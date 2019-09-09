@@ -34,7 +34,7 @@
     } else if ($sort == 'Description') {
         $sort = 'Description';
     } else {
-        $sort = 'Description';
+        $sort = 'dwell';
     }
     
     $ord = $_GET['sortorder'];
@@ -78,25 +78,25 @@
             where
             
              public = 'true'
-            and t1.gateway not like 'http://192.168%'
-            and t1.gateway not like 'http://172.16%'
-            and t1.gateway not like 'http://172.17%'
-            and t1.gateway not like 'http://172.18%'
-            and t1.gateway not like 'http://172.19%'
-            and t1.gateway not like 'http://172.20%'
-            and t1.gateway not like 'http://172.21%'
-            and t1.gateway not like 'http://172.22%'
-            and t1.gateway not like 'http://172.23%'
-            and t1.gateway not like 'http://172.24%'
-            and t1.gateway not like 'http://172.25%'
-            and t1.gateway not like 'http://172.26%'
-            and t1.gateway not like 'http://172.27%'
-            and t1.gateway not like 'http://172.28%'
-            and t1.gateway not like 'http://172.29%'
-            and t1.gateway not like 'http://172.30%'
-            and t1.gateway not like 'http://172.31%'            
+            and t1.gateway not like '192.168%'
+            and t1.gateway not like '172.16%'
+            and t1.gateway not like '172.17%'
+            and t1.gateway not like '172.18%'
+            and t1.gateway not like '172.19%'
+            and t1.gateway not like '172.20%'
+            and t1.gateway not like '172.21%'
+            and t1.gateway not like '172.22%'
+            and t1.gateway not like '172.23%'
+            and t1.gateway not like '172.24%'
+            and t1.gateway not like '172.25%'
+            and t1.gateway not like '172.26%'
+            and t1.gateway not like '172.27%'
+            and t1.gateway not like '172.28%'
+            and t1.gateway not like '172.29%'
+            and t1.gateway not like '172.30%'
+            and t1.gateway not like '172.31%'            
             and t1.gateway <> 'http://127.0.0.1'
-            and t1.gateway not like 'http://10.%'
+            and t1.gateway not like '10.%'
         and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
 
     flog($query);
@@ -162,9 +162,9 @@
             $y = '<input type="checkbox" checked="true">';
         } 
         
-        $description = wordwrap($row["description"], 30, "<br>");
-        $parcelname = wordwrap($row["parcelname"], 20, "<br>");
-        
+        $description = $row["description"];
+        $parcelname = $row["parcelname"];
+        $row["mature"] = str_replace('Mature','M',$row["mature"]);
         $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],
                      "Description"=>$description ,
