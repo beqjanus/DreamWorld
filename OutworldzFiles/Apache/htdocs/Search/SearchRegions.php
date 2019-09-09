@@ -78,7 +78,26 @@
     $counter = 0;
     
     $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')       
-        order by  $sort  $ord";
+            and regions.gateway not like '192.168%'
+            and regions.gateway not like '172.16%'
+            and regions.gateway not like '172.17%'
+            and regions.gateway not like '172.18%'
+            and regions.gateway not like '172.19%'
+            and regions.gateway not like '172.20%'
+            and regions.gateway not like '172.21%'
+            and regions.gateway not like '172.22%'
+            and regions.gateway not like '172.23%'
+            and regions.gateway not like '172.24%'
+            and regions.gateway not like '172.25%'
+            and regions.gateway not like '172.26%'
+            and regions.gateway not like '172.27%'
+            and regions.gateway not like '172.28%'
+            and regions.gateway not like '172.29%'
+            and regions.gateway not like '172.30%'
+            and regions.gateway not like '172.31%'            
+            and regions.gateway <> 'http://127.0.0.1'
+            and regions.gateway not like '10.%'
+            order by  $sort  $ord";
     
    // $sqldata = array();
     flog ($query);
@@ -90,16 +109,12 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
+        $v3    = "secondlife:///app/teleport/" . $row["gateway"] . '/'. $row["regionname"];     
+      
         
-        if ($gateway == "" ) {
-            $hop = 'N/A';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!" . ${gateway} . "+" . $row["regionname"] . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
-        $row = array("hop"=>$hop,
+        $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],
                      "RegionName"=>$row["regionname"] ,
                      "Owner"=>$row["owner"]

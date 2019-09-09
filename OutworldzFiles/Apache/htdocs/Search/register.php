@@ -24,6 +24,8 @@ if (isset($_GET['host']))    $hostname = $_GET['host'];
 if (isset($_GET['port']))    $port = $_GET['port'];
 if (isset($_GET['service'])) $service = $_GET['service'];
 
+$gateway = str_replace('http://','',$gateway);
+
 flog("gateway:" . $gateway );
 flog("hostname:" . $hostname );
 flog("port:" . $port);
@@ -38,7 +40,7 @@ if ($hostname == "" || $port == "")
 
 if ($gateway == "")
 {
-    $gateway = 'http://' . $hostname . ':8002'; 
+    $gateway = $hostname . ':8002'; 
 }
 
  // Attempt to connect to the database
@@ -68,7 +70,7 @@ if ($service == "online")
     {
         $query = $db->prepare("UPDATE hostsregister SET " .
                      "register = ?, " .
-                     "nextcheck = 0, checked = 0, failcounter = 0, gateway = ? " .
+                     "nextcheck = 0, failcounter = 0, gateway = ? " .
                      "WHERE host = ? AND port = ?");
         $query->execute( array($timestamp, $gateway, $hostname, $port) );
     }
@@ -85,6 +87,20 @@ if ($service == "offline")
     flog("offline:" .  $hostname . ":" . $port);
     $query = $db->prepare("DELETE FROM hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
+    $query = $db->prepare("DELETE FROM objects  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM allparcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM parcels  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM parcelsales  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM popularplaces  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+    $query = $db->prepare("DELETE FROM regions  WHERE gateway = ?");
+    $query->execute( array($gateway) );
+
+    
 }
 
 $db = NULL;

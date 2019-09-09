@@ -68,7 +68,7 @@ Public Class FormDiva
         AccountConfirmationRequired.Checked = Form1.PropMySetting.AccountConfirmationRequired
         GmailPassword.Text = Form1.PropMySetting.SmtpPassword
         GmailUsername.Text = Form1.PropMySetting.SmtPropUserName
-        SmtpPort.Text = Form1.PropMySetting.SmtpPort
+        SmtpPort.Text = CStr(Form1.PropMySetting.SmtpPort)
         SmtpHost.Text = Form1.PropMySetting.SmtpHost
         SplashPage.Text = Form1.PropMySetting.SplashPage
         GridName.Text = Form1.PropMySetting.SimName
@@ -268,7 +268,7 @@ Public Class FormDiva
         Dim digitsOnly As Regex = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
-        Form1.PropMySetting.SmtpPort = SmtpPort.Text
+        Form1.PropMySetting.SmtpPort = CInt(SmtpPort.Text)
         Form1.PropMySetting.SaveSettings()
 
     End Sub

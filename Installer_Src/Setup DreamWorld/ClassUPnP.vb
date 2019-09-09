@@ -87,12 +87,13 @@ Public Class UPnp
         'Create the new NAT Class
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
-            'generate the static mappings
-            Me.GetStaticMappings()
-            Me.GetDynamicMappings()
         Catch ex As Exception
             Log(ex.Message)
         End Try
+
+        'generate the static mappings
+        GetStaticMappings()
+        GetDynamicMappings()
 
         Print()
 

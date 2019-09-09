@@ -1,6 +1,7 @@
 <html lang="en-us">
 <!-- AGPL 3.0 by Fred Beckhusen -->
 <head>
+<meta license="AGPL 3.0 by Outworldz, LLC">
 <meta charset="utf-8">
 <title>Opensimulator search Classified Ads by Outworldz.com</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -20,6 +21,7 @@ $(document).ready(function(){
 		url: '/Search/SearchClassifieds.php',
 		dataType: 'json',
         method: 'GET',
+		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
 			{display: 'Name', name : 'Name', width : 140, sortable : true, align: 'left'},
@@ -68,7 +70,8 @@ $(document).ready(function(){
 <body>
 <div id="Links">
 <a href="index.php" target="_self"><button>Objects</button></a>
-<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>
+<a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
+<!--<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>-->
 <a href="SearchParcel.htm" target="_self"><button>Parcels</button></a>
 <a href="SearchHosts.htm" target="_self"><button>Grids</button></a>
 <a href="SearchRegions.htm" target="_self"><button>Regions</button></a>

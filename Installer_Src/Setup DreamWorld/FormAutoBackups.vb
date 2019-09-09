@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System.Threading
-Imports System.Threading.Tasks
 Imports System.Text.RegularExpressions
 
 Public Class FormAutoBackups

@@ -34,7 +34,7 @@
     } else if ($sort == 'Description') {
         $sort = 'Description';
     } else {
-        $sort = 'Description';
+        $sort = 'dwell';
     }
     
     $ord = $_GET['sortorder'];
@@ -73,11 +73,30 @@
     $stack = array();
     
     $query = "SELECT * FROM parcels  t1
-        inner join  regions on t1.regionUUID = regions.regionUUID
+            inner join  regions on t1.regionUUID = regions.regionUUID
             
             where
             
              public = 'true'
+            and t1.gateway not like '192.168%'
+            and t1.gateway not like '172.16%'
+            and t1.gateway not like '172.17%'
+            and t1.gateway not like '172.18%'
+            and t1.gateway not like '172.19%'
+            and t1.gateway not like '172.20%'
+            and t1.gateway not like '172.21%'
+            and t1.gateway not like '172.22%'
+            and t1.gateway not like '172.23%'
+            and t1.gateway not like '172.24%'
+            and t1.gateway not like '172.25%'
+            and t1.gateway not like '172.26%'
+            and t1.gateway not like '172.27%'
+            and t1.gateway not like '172.28%'
+            and t1.gateway not like '172.29%'
+            and t1.gateway not like '172.30%'
+            and t1.gateway not like '172.31%'            
+            and t1.gateway <> 'http://127.0.0.1'
+            and t1.gateway not like '10.%'
         and $qtype  like  CONCAT('%', :text1, '%') order by  $sort  $ord";
 
     flog($query);
@@ -111,25 +130,26 @@
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
+         $v3    = "secondlife:///app/teleport/" . $row["gateway"] . '/' . $row["landingpoint"] ;     
+        
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
         
         $category = "";
-        if ($row["searchcategory"] == 1) { $category = "Any"; }
-        else if ($row["searchcategory"] == 2) { $category = "Linden Location";}
-        else if ($row["searchcategory"] == 3) { $category = "Arts and Culture";}
-        else if ($row["searchcategory"] == 4) { $category = "Business";}
-        else if ($row["searchcategory"] == 5) { $category = "Educational";}
-        else if ($row["searchcategory"] == 6) { $category = "Gaming";}
-        else if ($row["searchcategory"] == 7) { $category = "Hideout";}
-        else if ($row["searchcategory"] == 8) { $category = "Newcomer Friendly";}
-        else if ($row["searchcategory"] == 9) { $category = "Parks & Nature";}
-        else if ($row["searchcategory"] == 10) { $category = "Residential";}
-        else if ($row["searchcategory"] == 11) { $category = "Shopping";}
-        else if ($row["searchcategory"] == 12) { $category = "Rental";}
+        if ($row["searchcategory"] == 0) { $category = "Any"; }
+        else if ($row["searchcategory"] == 1) { $category = "Linden Location";}
+        else if ($row["searchcategory"] == 2) { $category = "Arts and Culture";}
+        else if ($row["searchcategory"] == 3) { $category = "Business";}
+        else if ($row["searchcategory"] == 4) { $category = "Educational";}
+        else if ($row["searchcategory"] == 5) { $category = "Gaming";}
+        else if ($row["searchcategory"] == 6) { $category = "Hideout";}
+        else if ($row["searchcategory"] == 7) { $category = "Newcomer Friendly";}
+        else if ($row["searchcategory"] == 8) { $category = "Parks & Nature";}
+        else if ($row["searchcategory"] == 9) { $category = "Residential";}
+        else if ($row["searchcategory"] == 10) { $category = "Shopping";}
+        else if ($row["searchcategory"] == 11) { $category = "Rental";}
+        else if ($row["searchcategory"] == 12) { $category = "Other";}
         else if ($row["searchcategory"] == 13) { $category = "Other";}
-        else if ($row["searchcategory"] == 14) { $category = "????";}
-        else $category = "";
+        else $category = "?";
         
         $location = $row["landingpoint"];
         
@@ -137,22 +157,21 @@
         if ($row["build"] == 'true') {
             $x = '<input type="checkbox" checked="true">';
         }
+        $y = '<input type="checkbox" checked="false">';
+        if ($row["script"] == 'true') {
+            $y = '<input type="checkbox" checked="true">';
+        } 
         
-        if  ($gateway == "") {
-            $hop = '';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!". $gateway . "+" . $row["regionname"] . "/" . $row["landingpoint"].  "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
-        
-        $description = wordwrap($row["description"], 30, "<br>");
-        $parcelname = wordwrap($row["parcelname"], 20, "<br>");
-        
-        $row = array("hop"=>$hop,
+        $description = $row["description"];
+        $parcelname = $row["parcelname"];
+        $row["mature"] = str_replace('Mature','M',$row["mature"]);
+        $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],
                      "Description"=>$description ,
                      "Regionname"=>$row["regionname"] ,
                      "Parcelname"=>$parcelname,
                      "Build"=>$x,
+                     "Script"=>$y,
                      "Dwell"=>$row["dwell"],
                      "Location"=>$row["landingpoint"],
                      "Category"=>$category,

@@ -2,6 +2,11 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes.   Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.16 Beta
+Search improvements for local and global search - sped up Datasnapshot interval,
+better HGV3 link that does not require a second click.
+Shows # hours each sim has been online in search, and dwell time (the Second Life visitor metric).   
+
 V3.15 Beta 
 Opensim Snail dev master #38dbc0328881 2019-08-31 14:36
 Ctrl-R Region Form also shows the Estate name for each region

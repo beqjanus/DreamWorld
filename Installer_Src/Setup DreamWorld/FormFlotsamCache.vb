@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System.Text.RegularExpressions
-
 Public Class FormFlotsamCache
 
     Private gInitted As Boolean = False

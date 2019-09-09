@@ -74,7 +74,31 @@
 
     $counter = 0;
      
-    $query = "SELECT * FROM ossearch.classifieds";
+    $query = "SELECT * FROM ossearch.classifieds
+            INNER JOIN hostsregister ON classifieds.gateway = hostsregister.gateway            
+            where
+            failcounter = 0
+            and gateway not like '192.168%'
+            and gateway not like '172.16%'
+            and gateway not like '172.17%'
+            and gateway not like '172.18%'
+            and gateway not like '172.19%'
+            and gateway not like '172.20%'
+            and gateway not like '172.21%'
+            and gateway not like '172.22%'
+            and gateway not like '172.23%'
+            and gateway not like '172.24%'
+            and gateway not like '172.25%'
+            and gateway not like '172.26%'
+            and gateway not like '172.27%'
+            and gateway not like '172.28%'
+            and gateway not like '172.29%'
+            and gateway not like '172.30%'
+            and gateway not like '172.31%'            
+            and gateway <> 'http://127.0.0.1'
+            and gateway not like '10.%'
+    
+    ";
     
     flog($query);
     
@@ -87,18 +111,15 @@
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
       
+       $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
+      $local = "secondlife:///app/teleport/" . $row["gateway"] ;     
+        
+      $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>
+<a href=\"$local\"><img src=\"local.png\" height=\"24\"></a>";
+    
+    
         flog("Name:". $row["name"]);
-        $name = wordwrap($row["name"],25,"<br>\n", true);
-        $description = wordwrap($row["description"],50,"<br>\n");
-        
-        $gateway = $row["gateway"];
-        $gateway = substr($gateway,7);
-        
-        if ($gateway == "" ) {
-            $hop = '';
-        } else {
-            $hop = "<a href=\"secondlife://http|!!". $gateway . "\"  class=\"hop\"><img src=\"images/Hop.png\" height=\"25\"></a>";
-        }
+              
         
         if ($row["simname"] == '')
         {
@@ -121,7 +142,7 @@
         }
         
         $row = array("hop"=>$hop,
-                     "Grid"=>$row["gateway"],
+                     "Grid"=>$link,
                       //$row["classifieduuid"],
                        //$row["creatoruuid"],
                        //$row["creationdate"],

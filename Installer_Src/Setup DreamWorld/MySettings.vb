@@ -82,7 +82,7 @@ Public Class MySettings
 
             DiagFailed() = My.Settings.DiagFailed
 
-            DiagnosticPort() = My.Settings.DiagnosticPort
+            DiagnosticPort() = CInt(My.Settings.DiagnosticPort)
             DNSName() = My.Settings.DnsName
 
             EnableHypergrid() = My.Settings.EnableHypergrid
@@ -96,7 +96,7 @@ Public Class MySettings
             GloebitsMode() = My.Settings.GloebitsMode
             GloebitsEnable() = My.Settings.GloebitsEnable
 
-            HttpPort() = My.Settings.HttpPort
+            HttpPort() = CInt(My.Settings.HttpPort)
 
             KeepForDays() = My.Settings.KeepForDays
 
@@ -104,13 +104,12 @@ Public Class MySettings
 
             MapType() = My.Settings.MapType
             Myfolder() = Folder
-            MySqlPort() = My.Settings.MySqlPort
             MyX() = My.Settings.MyX
             MyY() = My.Settings.MyY
 
             Password() = My.Settings.Password
             Physics() = My.Settings.Physics
-            PrivatePort() = My.Settings.PrivatePort
+            PrivatePort() = CInt(My.Settings.PrivatePort)
             PublicIP() = My.Settings.PublicIP
 
             AllowGridGods() = CType(My.Settings.allow_grid_gods, Boolean)
@@ -143,7 +142,7 @@ Public Class MySettings
 
             'email
             SmtpHost() = "smtp.gmail.com"
-            SmtpPort() = "587"
+            SmtpPort() = 587
             SmtPropUserName() = My.Settings.SmtPropUserName
             SmtpPassword() = My.Settings.SmtpPassword
 
@@ -647,12 +646,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RegionPort() As String
+    Public Property MySqlRegionDBPort() As Integer
         Get
-            Return GetMySetting("RegionPort", MySqlPort())
+            Return CInt(GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
-            SetMySetting("RegionPort", Value)
+            SetMySetting("MySqlRegionDBPort", CStr(Value))
         End Set
     End Property
 
@@ -749,12 +748,12 @@ Public Class MySettings
 
     ' more stuff
 
-    Public Property FirstRegionPort() As String
+    Public Property FirstRegionPort() As Integer
         Get
-            Return GetMySetting("FirstRegionPort")  ' no default
+            Return CInt(GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
-            SetMySetting("FirstRegionPort", Value)
+            SetMySetting("FirstRegionPort", CStr(Value))
         End Set
     End Property
 
@@ -999,12 +998,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SmtpPort() As String
+    Public Property SmtpPort() As Integer
         Get
-            Return CType(GetMySetting("SmtpPort", "587"), String)
+            Return CInt(GetMySetting("SmtpPort", "587"))
         End Get
         Set
-            SetMySetting("SmtpPort", Value)
+            SetMySetting("SmtpPort", CStr(Value))
         End Set
     End Property
 
@@ -1088,12 +1087,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property PrivatePort() As String
+    Public Property PrivatePort() As Integer
         Get
-            Return CType(GetMySetting("PrivatePort", "8003"), String)
+            Return CInt(GetMySetting("PrivatePort", "8003"))
         End Get
         Set
-            SetMySetting("PrivatePort", Value)
+            SetMySetting("PrivatePort", CStr(Value))
         End Set
     End Property
 
@@ -1268,12 +1267,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property HttpPort() As String
+    Public Property HttpPort() As Integer
         Get
-            Return GetMySetting("HttpPort", "8002")
+            Return CInt(GetMySetting("HttpPort", "8002"))
         End Get
         Set
-            SetMySetting("HttpPort", Value)
+            SetMySetting("HttpPort", CStr(Value))
         End Set
     End Property
 
@@ -1466,12 +1465,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property MySqlPort() As String
+    Public Property MySqlRobustDBPort() As Integer
         Get
-            Return GetMySetting("MySqlPort", "3306")
+            Return CInt(GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
-            SetMySetting("MySqlPort", Value)
+            SetMySetting("MySqlRobustDBPort", CStr(Value))
         End Set
     End Property
 
@@ -1520,12 +1519,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property DiagnosticPort() As String
+    Public Property DiagnosticPort() As Integer
         Get
-            Return GetMySetting("DiagnosticPort", "8001")
+            Return CInt(GetMySetting("DiagnosticPort", "8001"))
         End Get
         Set
-            SetMySetting("DiagnosticPort", Value)
+            SetMySetting("DiagnosticPort", CStr(Value))
         End Set
     End Property
 

@@ -1,9 +1,9 @@
 <html lang="en-us">
-<!-- AGPL 3.0 by Fred Beckhusen -->
+<meta license="AGPL 3.0 by Outworldz, LLC">	
 <head>
 <meta charset="utf-8">
-<meta license="AGPL 3.0 by Outworldz, LLC">	
-<title>Opensimulator search Regions by Outworldz.com</title>
+<meta license="AGPL 3.0 by Outworldz, LLC">
+<title>Opensimulator search Hypergrid Events by Outworldz.com</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript"  src="/flexgrid/js/flexigrid.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -18,24 +18,26 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchRegions.php',
+		url: 'SearchEvents.php',
 		dataType: 'json',
         method: 'GET',
 		nowrap: false,
 		colModel : [
-			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Grid', name : 'Grid', width : 260, sortable : true, align: 'left'}	,		
-			{display: 'Region Name', name : 'RegionName', width : 200, sortable : true, align: 'left'},
-			{display: 'Owner', name : 'Owner', width :150, sortable : true, align: 'left'}
+			{display: 'Links', name : 'location', width : 35, sortable : false, align: 'left'},		
+			{display: 'Name', name : 'name', width : 170, sortable : true, align: 'left'},
+			{display: 'Description', name : 'description', width :300, sortable : true, align: 'left'},
+			{display: 'Time', name : 'time', width : 90, sortable : true, align: 'left'},
+			{display: 'L', name : 'duration', width : 20, sortable : false, align: 'left'},
+			{display: 'UTC', name : 'utc',  width : 100, sortable : false, align: 'left'},			
 			],
 		
 		searchitems : [
-		 {display: 'Grid', name :'Grid', isdefault: false},
-		 {display: 'Region Name', name :'RegionName', isdefault: false},
-		 {display: 'Owner', name :'Owner', isdefault: false}
+		 {display: 'Name', name :'name', isdefault:true},
+		 {display: 'Description', name :'description', isdefault: false},
+		 {display: 'Time', name :'utc', isdefault: false},
 		 
 		],
-		sortname: 'Grid',
+		sortname: 'utc',
 		sortorder: 'asc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',

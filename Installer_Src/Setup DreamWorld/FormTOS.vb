@@ -107,7 +107,7 @@ Public Class TosForm
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         If Form1.PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP + ":" + Form1.PropMySetting.HttpPort + "/wifi/termsofservice.html"
+            Dim webAddress As String = "http://" & CStr(Form1.PropMySetting.PublicIP) & ":" & CStr(Form1.PropMySetting.HttpPort) & "/wifi/termsofservice.html"
             Process.Start(webAddress)
         Else
             MsgBox("Opensim must be running to show you the TOS.")

@@ -31,10 +31,12 @@ include("../Metromap/includes/config.php");
   
 
   $sort = $_GET['sortname'];
-  if ($sort == 'Name') {
-    $sort = 'Name';
-  }else{
-    $sort = 'Description';
+  if ($sort == 'name') {
+    $sort = 'name';
+  }if ($sort == 'utc') {
+    $sort = 'dateutc';
+  } else{
+    $sort = 'description';
   }
   
   $ord = $_GET['sortorder'];
@@ -45,10 +47,10 @@ include("../Metromap/includes/config.php");
   }
   
   $qtype = $_GET['qtype'];
-  if ($qtype == 'Name') {
-    $qtype = 'Name';
+  if ($qtype == 'name') {
+    $qtype = 'name';
   } else {
-    $qtype = 'Description';
+    $qtype = 'description';
   }
   
   flog("text= $text");
@@ -64,31 +66,9 @@ include("../Metromap/includes/config.php");
   }
   
   $stack = array();
-//left  JOIN hostsregister ON  hostsregister.gateway  =Regions.gateway 
-  $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
-    left  JOIN Regions ON Objects.regionuuid = Regions.regionuuid
-    
-            where
-            Regions.gateway not like '192.168%'
-            and Regions.gateway not like '172.16%'
-            and Regions.gateway not like '172.17%'
-            and Regions.gateway not like '172.18%'
-            and Regions.gateway not like '172.19%'
-            and Regions.gateway not like '172.20%'
-            and Regions.gateway not like '172.21%'
-            and Regions.gateway not like '172.22%'
-            and Regions.gateway not like '172.23%'
-            and Regions.gateway not like '172.24%'
-            and Regions.gateway not like '172.25%'
-            and Regions.gateway not like '172.26%'
-            and Regions.gateway not like '172.27%'
-            and Regions.gateway not like '172.28%'
-            and Regions.gateway not like '172.29%'
-            and Regions.gateway not like '172.30%'
-            and Regions.gateway not like '172.31%'            
-            and Regions.gateway <> 'http://127.0.0.1'
-            and Regions.gateway not like '10.%'
-            and " . $qtype . "  like CONCAT('%', :text1, '%')
+
+  $q = "SELECT * from events  
+            where " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
     
 
@@ -103,18 +83,22 @@ include("../Metromap/includes/config.php");
     $counter= 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-      
-        $location = $row["Location"];
-        $v3    = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location;     
-        $local = "secondlife:///app/teleport/" . $row["AGateway"] . '/' . $location ;             
+    
+        $v3    = "secondlife:///app/teleport/" . $row["gateway"] ;     
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
-        $name = wordwrap($row["Name"],35, "<br>\n", false);
+  
         
-        $row = array("hop"=>$link ,
-                     "Name"=>$name,
-                     "Description"=>$description,
-                     "Regionname"=>$row["Regioname"]. "<br>Link: <br><a href=\"$v3\">" . $row["AGateway"] . '/' . $location . '</a>',
-                     "Location"=>$location);
+        $description = $row["description"] .  '<br><br><a href="' . $v3 . '">Link: ' . $row["gateway"] . '</a>';
+        $name = $row["name"];    
+        $time = date("D M j G:i:s T Y", $row["dateUTC"]);
+        
+        $row = array( "time"        => $time,
+                      "name"        => $name,
+                      "description" => $description,
+                      "duration"    => $row["duration"],
+                      "location"    => $link,
+                      "utc"         => $row["dateUTC"],
+                     );
         
         $rowobj = new Row();
         $rowobj->cell = $row;

@@ -23,7 +23,6 @@
 Imports System.ComponentModel
 Imports System.IO
 Imports System.Text.RegularExpressions
-Imports Outworldz
 
 Public Class FormRegion
 
@@ -343,8 +342,8 @@ Public Class FormRegion
                     PropRegionClass1.GetAllRegions()
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.PropUpdateView() = True
-                    Form1.SetFirewall()
-
+                    Dim fw = New Firewall
+                    fw.SetFirewall()
                 End If
             End If
         End If
@@ -372,7 +371,8 @@ Public Class FormRegion
             WriteRegion(N1)
             PropRegionClass1.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
-            Form1.SetFirewall()
+            Dim fw As New Firewall
+            fw.SetFirewall()
             'If RegionList.InstanceExists Then
             RegionList.LoadMyListView()
             'End If

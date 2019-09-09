@@ -208,11 +208,11 @@ Public Class FormBackupCheckboxes
 
     Private Sub CpyFile(From As String, Dest As String)
 
-        If From.EndsWith("Opensim.ini") Then Return
-        If From.EndsWith("OpenSim.log") Then Return
-        If From.EndsWith("OpenSimStats.log") Then Return
-        If From.EndsWith("PID.pid") Then Return
-        If From.EndsWith("DataSnapshot") Then Return
+        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
 
         'Create the file stream for the source file
         Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
