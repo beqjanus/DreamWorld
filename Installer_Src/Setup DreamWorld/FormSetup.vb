@@ -1045,8 +1045,8 @@ Public Class Form1
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
 
-        Dim MysqlConn As New MysqlInterface()
-        MysqlConn.DeleteRegionlist()
+        'Dim MysqlConn As New MysqlInterface()
+        MysqlInterface.DeleteRegionlist()
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
