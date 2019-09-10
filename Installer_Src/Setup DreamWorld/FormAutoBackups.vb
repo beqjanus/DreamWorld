@@ -57,7 +57,7 @@ Public Class FormAutoBackups
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoBackupKeepFilesForDays.Text = Form1.PropMySetting.KeepForDays.ToString(Form1.Usa)
+        AutoBackupKeepFilesForDays.Text = CStr(Form1.PropMySetting.KeepForDays)
 
         '0 = Hourly
         '1 = 12 Hour
@@ -132,7 +132,7 @@ Public Class FormAutoBackups
         If text = "5 days" Then Interval = 5 * 60 * 24
         If text = "6 days" Then Interval = 6 * 60 * 24
         If text = "Weekly" Then Interval = 7 * 60 * 24
-        Form1.PropMySetting.AutobackupInterval = Interval.ToString(Form1.Usa)
+        Form1.PropMySetting.AutobackupInterval = CStr(Interval)
         Form1.PropViewedSettings = True
         Form1.PropMySetting.SaveSettings()
     End Sub
@@ -143,8 +143,8 @@ Public Class FormAutoBackups
         AutoBackupKeepFilesForDays.Text = digitsOnly.Replace(AutoBackupKeepFilesForDays.Text, "")
 
         Try
-            If Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa) > 0 Then
-                Form1.PropMySetting.KeepForDays = Convert.ToInt32(AutoBackupKeepFilesForDays.Text, Form1.Usa)
+            If CInt(AutoBackupKeepFilesForDays.Text) > 0 Then
+                Form1.PropMySetting.KeepForDays = CInt(AutoBackupKeepFilesForDays.Text)
                 Form1.PropMySetting.SaveSettings()
             End If
         Catch ex As Exception

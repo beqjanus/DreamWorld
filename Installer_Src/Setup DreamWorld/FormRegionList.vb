@@ -36,7 +36,6 @@ Public Class RegionList
     Dim TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
     Dim ViewNotBusy As Boolean
-    Dim MysqlConn As MysqlInterface
 
     Private Enum ViewType As Integer
         Maps = 0
@@ -172,7 +171,7 @@ Public Class RegionList
 
     Private Sub SetScreen(View As Integer)
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString(Form1.Usa))
+        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString(Form1.Invarient))
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -322,17 +321,17 @@ Public Class RegionList
         AvatarView.Columns.Add("Type", 80, HorizontalAlignment.Center)
 
         ' index to display icons
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Form1.Usa))   ' 0 booting up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Form1.Usa)) ' 1 shutting down
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Form1.Usa)) ' 2 okay, up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Form1.Usa)) ' 3 disabled
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Form1.Usa))  ' 4 enabled, stopped
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Form1.Usa))  ' 5 Recycling down
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Form1.Usa))  ' 6 Recycling Up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.Usa))  ' 7 Unknown
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.Usa))  ' 8 - 1 User
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Usa))  ' 9 - 2 user
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Usa))  ' 9 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Form1.Invarient))   ' 0 booting up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Form1.Invarient)) ' 1 shutting down
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Form1.Invarient)) ' 2 okay, up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Form1.Invarient)) ' 3 disabled
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Form1.Invarient))  ' 4 enabled, stopped
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Form1.Invarient))  ' 5 Recycling down
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Form1.Invarient))  ' 6 Recycling Up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.Invarient))  ' 7 Unknown
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.Invarient))  ' 8 - 1 User
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Invarient))  ' 9 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 9 - 2 user
 
         Form1.PropUpdateView = True ' make form refresh
 
@@ -508,8 +507,8 @@ Public Class RegionList
                 ' Create items and subitems for each item.
 
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface()
-                L = MysqlConn.GetAgentList()
+
+                L = MysqlInterface.GetAgentList()
 
                 For Each Agent In L
                     Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -539,8 +538,7 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                Dim MysqlConn As New MysqlInterface()
-                L = MysqlConn.GetHGAgentList()
+                L = MysqlInterface.GetHGAgentList()
 
                 For Each Agent In L
                     If Agent.Value.Length > 0 Then
@@ -648,17 +646,17 @@ Public Class RegionList
                 If TheView1 = ViewType.Maps Then
 
                     If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Form1.Usa) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
+                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Form1.Invarient) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
                         Debug.Print(img)
 
                         Dim bmp As Image = LoadImage(img)
                         If bmp Is Nothing Then
-                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Usa))
+                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Invarient))
                         Else
                             ImageListLarge1.Images.Add(bmp)
                         End If
                     Else
-                        ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Usa))
+                        ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Invarient))
                     End If
                     Num = X
 
@@ -668,8 +666,8 @@ Public Class RegionList
                 Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
                         .Checked = PropRegionClass1.RegionEnabled(X)
                     }
-                item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Form1.Usa))
-                item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Form1.Usa))
+                item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Form1.Invarient))
+                item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Form1.Invarient))
                 item1.SubItems.Add(Letter)
                 Dim fmtXY = "00000" ' 65536
                 Dim fmtRam = "0000." ' 9999 MB
@@ -679,15 +677,15 @@ Public Class RegionList
                     Dim component1 As Process = Process.GetProcessById(PID)
                     If Form1.PropRegionHandles.ContainsKey(PID) Then
                         Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Form1.Usa)))
+                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Form1.Invarient)))
                     Else
                         item1.SubItems.Add("0")
                     End If
                 Catch ex As Exception
                     item1.SubItems.Add("0")
                 End Try
-                item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Form1.Usa))
-                item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Form1.Usa))
+                item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Form1.Invarient))
+                item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Form1.Invarient))
 
                 Dim size As String = ""
                 If PropRegionClass1.SizeX(X) = 256 Then
@@ -699,15 +697,14 @@ Public Class RegionList
                 ElseIf PropRegionClass1.SizeX(X) = 1024 Then
                     size = "4X4"
                 Else
-                    size = PropRegionClass1.SizeX(X).ToString(Form1.Usa)
+                    size = PropRegionClass1.SizeX(X).ToString(Form1.Invarient)
                 End If
                 item1.SubItems.Add(size)
 
-                MysqlConn = New MysqlInterface()
                 ' add estate name
                 Dim Estate = "-"
                 If MysqlIsRunning Then
-                    Estate = MysqlConn.EstateName(PropRegionClass1.UUID(X))
+                    Estate = MysqlInterface.EstateName(PropRegionClass1.UUID(X))
                 End If
                 item1.SubItems.Add(Estate)
 
@@ -720,54 +717,41 @@ Public Class RegionList
 
                 ' physics
                 Select Case PropRegionClass1.Physics(X)
-                    Case 0
+                    Case ""
+                        item1.SubItems.Add("-")
+                    Case "0"
                         item1.SubItems.Add("None")
-                    Case 1
+                    Case "1"
                         item1.SubItems.Add("ODE")
-                    Case 2
+                    Case "2"
                         item1.SubItems.Add("Bullet")
-                    Case 3
+                    Case "3"
                         item1.SubItems.Add("Bullet/Threaded")
-                    Case 4
+                    Case "4"
                         item1.SubItems.Add("ubODE")
-                    Case 5
+                    Case "5"
                         item1.SubItems.Add("ubODE Hybrid")
                     Case Else
-                        Select Case Form1.PropMySetting.Physics
-                            Case 0
-                                item1.SubItems.Add("None")
-                            Case 1
-                                item1.SubItems.Add("ODE")
-                            Case 2
-                                item1.SubItems.Add("Bullet")
-                            Case 3
-                                item1.SubItems.Add("Bullet/Threaded")
-                            Case 4
-                                item1.SubItems.Add("ubODE")
-                            Case 5
-                                item1.SubItems.Add("ubODE Hybrid")
-                            Case Else
-                                item1.SubItems.Add("-")
-                        End Select
+                        item1.SubItems.Add("-")
                 End Select
 
                 'birds
 
-                If PropRegionClass1.Birds(X) Then
+                If PropRegionClass1.Birds(X) = "True" Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("-")
                 End If
 
                 'Tides
-                If PropRegionClass1.Tides(X) Then
+                If PropRegionClass1.Tides(X) = "True" Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("-")
                 End If
 
                 'teleport
-                If PropRegionClass1.Teleport(X) Or
+                If PropRegionClass1.Teleport(X) = "True" Or
                     PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else
@@ -851,7 +835,7 @@ Public Class RegionList
                         If PropRegionClass1.AvatarCount(num) = 1 Then
                             response = MsgBox("There is one avatar in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         Else
-                            response = MsgBox("There are " + PropRegionClass1.AvatarCount(num).ToString(Form1.Usa) + " avatars in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
+                            response = MsgBox("There are " + PropRegionClass1.AvatarCount(num).ToString(Form1.Invarient) + " avatars in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                         End If
                         If response = vbNo Then
                             StopIt = False
@@ -1117,7 +1101,7 @@ Public Class RegionList
 
                 Dim extension As String = Path.GetExtension(ofd.FileName)
                 extension = Mid(extension, 2, 5)
-                If extension.ToLower(Form1.Usa) = "ini" Then
+                If extension.ToLower(Form1.Invarient) = "ini" Then
 
                     Dim filename = GetRegionsName(ofd.FileName)
 

@@ -150,16 +150,16 @@ Public Class UPnp
 
         Try
             ' Begin utilizing
-            If Exists(port, prot) Then Log("This mapping already exists:" & port.ToString(Form1.Usa))
+            If Exists(port, prot) Then Log("This mapping already exists:" & CStr(port))
 
             ' Check
-            If Not IsPrivateIP(localIP) Then Log("This is not a local IP address:" & localIP)
+            If Not IPCheck.IsPrivateIP(localIP) Then Log("This is not a local IP address:" & localIP)
 
             ' Final check!
             If Not staticEnabled Then Log("UPnP is not enabled, or there was an error with UPnP Initialization.")
 
             ' Okay, continue on
-            staticMapping.Add(port, prot.ToString(), port, localIP, True, desc + ":" + port.ToString(Form1.Usa))
+            staticMapping.Add(port, CStr(prot), port, localIP, True, desc + ":" + CStr(port))
         Catch ex As Exception
             Log(ex.Message)
         End Try
@@ -177,7 +177,7 @@ Public Class UPnp
 
         Try
             ' Begin utilizing
-            If Not Exists(port, prot) Then Log("This mapping doesn't exist!" & port.ToString(Form1.Usa))
+            If Not Exists(port, prot) Then Log("This mapping doesn't exist!" & CStr(port))
 
             ' Final check!
             If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
@@ -204,7 +204,7 @@ Public Class UPnp
             For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
 
                 ' Compare
-                If mapping.ExternalPort.Equals(port) AndAlso mapping.Protocol.ToString(Form1.Usa) = prot.ToString() Then
+                If mapping.ExternalPort.Equals(port) AndAlso mapping.Protocol = prot.ToString() Then
                     Return True
                 End If
 
@@ -261,41 +261,12 @@ Public Class UPnp
         Dim IPList As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
 
         For Each IPaddress In IPList.AddressList
-            If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) AndAlso IsPrivateIP(IPaddress.ToString()) Then
+            If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) AndAlso IPCheck.IsPrivateIP(IPaddress.ToString()) Then
                 Dim ip = IPaddress.ToString()
                 Return ip
             End If
         Next
         Return String.Empty
-    End Function
-
-    ''' <summary>
-    ''' Checks to see if an IP address is a local IP address.
-    ''' </summary>
-    ''' <param name="CheckIP">The IP address to check.</param>
-    ''' <returns>Boolean</returns>
-    ''' <remarks></remarks>
-    Private Shared Function IsPrivateIP(ByVal CheckIP As String) As Boolean
-
-        If CheckIP = "localhost" Then Return True
-
-        Dim Quad1, Quad2 As Integer
-        Try
-            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
-            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
-        Catch ex As Exception
-
-        End Try
-
-        Select Case Quad1
-            Case 10
-                Return True
-            Case 172
-                If Quad2 >= 16 And Quad2 <= 31 Then Return True
-            Case 192
-                If Quad2 = 168 Then Return True
-        End Select
-        Return False
     End Function
 
     ''' <summary>
@@ -333,13 +304,13 @@ Public Class UPnp
             Try
                 For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
                     If mapping.Enabled Then
-                        Log(String.Format(Form1.Usa, "Enabled: {0}", mapping.Description))
+                        Log(String.Format(Form1.Invarient, "Enabled: {0}", mapping.Description))
                     Else
-                        Log(String.Format(Form1.Usa, "**Disabled**: {0}", mapping.Description))
+                        Log(String.Format(Form1.Invarient, "**Disabled**: {0}", mapping.Description))
                     End If
-                    Log(String.Format(Form1.Usa, "Port: {0}", Convert.ToString(mapping.InternalPort, Form1.Usa)))
-                    Log(String.Format(Form1.Usa, "Protocol: {0}", Convert.ToString(mapping.Protocol, Form1.Usa)))
-                    Log(String.Format(Form1.Usa, "External IP Address: {0}", Convert.ToString(mapping.ExternalIPAddress, Form1.Usa)))
+                    Log(String.Format(Form1.Invarient, "Port: {0}", CStr(mapping.InternalPort)))
+                    Log(String.Format(Form1.Invarient, "Protocol: {0}", CStr(mapping.Protocol)))
+                    Log(String.Format(Form1.Invarient, "External IP Address: {0}", CStr(mapping.ExternalIPAddress)))
                     Log("--------------------------------------")
                 Next
             Catch ex As Exception
@@ -353,7 +324,7 @@ Public Class UPnp
     Public Sub Log(message As String)
         Try
             Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) + ":" + message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) + ":" + message)
             End Using
         Catch ex As Exception
         End Try

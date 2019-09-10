@@ -24,9 +24,9 @@ Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
 Imports MySql.Data.MySqlClient
 
-Public Class MysqlInterface
+Public Module MysqlInterface
 
-    Public Sub New()
+    Sub New()
         'nothing
     End Sub
 
@@ -35,38 +35,41 @@ Public Class MysqlInterface
         Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
         Try
             osconnection.Open()
-        Catch ex As Exception
-            Debug.Print("Failed to Connect to OsSearch")
-            Return
-        End Try
-        Try
             Dim stm As String = "DROP DATABASE ossearch;"
             Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
             cmd.ExecuteScalar()
-        Catch ex As Exception
+        Catch ex As InvalidOperationException
+            Debug.Print("Failed to Connect to OsSearch")
+            Return
+        Catch ex As MySqlException
+            Debug.Print("Failed to Connect to OsSearch")
+            Return
         Finally
             osconnection.Close()
         End Try
 
     End Sub
 
-    Public Shared Sub DeleteRegionlist()
+    Public Sub DeleteRegionlist()
 
         Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
         Try
             osconnection.Open()
-        Catch ex As Exception
+            Dim stm As String = "delete from hostsregister"
+            Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+            cmd.ExecuteScalar()
+        Catch ex As InvalidOperationException
             Debug.Print("Failed to Connect to OsSearch")
             Return
+        Catch ex As MySqlException
+            Debug.Print("Failed to Connect to OsSearch")
+            Return
+        Finally
+            osconnection.Close()
         End Try
-        Dim stm As String = "delete from hostsregister"
-        Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-        cmd.ExecuteScalar()
-        osconnection.Close()
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
@@ -131,7 +134,6 @@ Public Class MysqlInterface
         Return Dict
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Dim MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
@@ -162,7 +164,7 @@ Public Class MysqlInterface
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And RegionID <> '00000000-0000-0000-0000-000000000000'")
         If UserCount = Nothing Then Return 0
         'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount, Form1.Usa)
+        Return Convert.ToInt16(UserCount, Form1.Invarient)
 
     End Function
 
@@ -199,7 +201,7 @@ Public Class MysqlInterface
         Try
             MysqlConn.Open()
             Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.Usa)
+            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
             Return v
         Catch ex As Exception
             Debug.Print(ex.Message)
@@ -210,7 +212,7 @@ Public Class MysqlInterface
 
     End Function
 
-    Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Dim iPort As Integer = Convert.ToInt16(Port)
         Dim ClientSocket As New TcpClient
@@ -281,4 +283,4 @@ Public Class MysqlInterface
 
     End Function
 
-End Class
+End Module

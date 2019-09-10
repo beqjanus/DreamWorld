@@ -119,11 +119,11 @@ Public Class TosForm
 
         Dim response = MsgBox("Clicking Yes will force all users to re-agree to the TOS on next login or visit.", vbYesNo)
         If response = vbYes Then
-            Dim m As New MysqlInterface()
-            If m.IsMySqlRunning() Is Nothing Then
+
+            If MysqlInterface.IsMySqlRunning() Is Nothing Then
                 MsgBox("MySql is not running, so I cannot save the re-validate data. Start Opensim or Mysql and try again.")
             Else
-                m.QueryString("update opensim.griduser set TOS = '';")
+                MysqlInterface.QueryString("update opensim.griduser set TOS = '';")
             End If
         End If
 
