@@ -32,14 +32,14 @@ Public Class ClrCache
             Dim ctr As Integer = 0
             For Each script As String In folders
                 Dim ext = Path.GetExtension(script)
-                If ext.ToLower(Form1.Usa) <> ".state" And ext.ToLower(Form1.Usa) <> ".keep" Then
+                If ext.ToLower(Form1.Invarient) <> ".state" And ext.ToLower(Form1.Invarient) <> ".keep" Then
                     Try
                         My.Computer.FileSystem.DeleteFile(script)
                     Catch ex As Exception
                     End Try
 
                     ctr += 1
-                    Form1.Print("Updated " & ctr.ToString(Form1.Usa) & " scripts")
+                    Form1.Print("Updated " & CStr(ctr) & " scripts")
                     Application.DoEvents()
                 End If
             Next
@@ -71,7 +71,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
+                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & CStr(ctr))
                 Application.DoEvents()
             Next
         Catch ex As Exception
@@ -88,7 +88,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & ctr.ToString(Form1.Usa))
+                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & CStr(ctr))
                 Application.DoEvents()
             Next
         Catch ex As Exception
@@ -107,7 +107,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                Form1.Print(ctr.ToString(Form1.Usa) + " of " + fCount.ToString(Form1.Usa))
+                Form1.Print(CStr(ctr) + " of " + CStr(fCount))
                 Application.DoEvents()
             Next
         Catch ex As Exception

@@ -92,7 +92,7 @@ Public Class FormBackupCheckboxes
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Usa)   ' Set default folder
+        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient)   ' Set default folder
         Dim Dest As String
         If Form1.PropMySetting.BackupFolder = "AutoBackup" Then
             Dest = Form1.PropMySetting.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
@@ -206,7 +206,7 @@ Public Class FormBackupCheckboxes
         Next
     End Sub
 
-    Private Sub CpyFile(From As String, Dest As String)
+    Private Shared Sub CpyFile(From As String, Dest As String)
 
         If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
         If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return

@@ -20,28 +20,6 @@
 
 #End Region
 
-#Region "Copyright"
-
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
-
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
-#End Region
-
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -59,8 +37,9 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.15"
-    Private _SimVersion As String = "0.9.0 2019-08-31 #38dbc032888"
+    Private _MyVersion As String = "3.17"
+    Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
+
 
 #End Region
 
@@ -112,7 +91,7 @@ Public Class Form1
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
-    Private _usa As CultureInfo = New CultureInfo("en-US")
+    Private _invarient As CultureInfo = New CultureInfo("")   ' "" = Invarient Culture
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Dim Adv As AdvancedForm
@@ -605,12 +584,12 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property Usa As CultureInfo
+    Public Property Invarient As CultureInfo
         Get
-            Return _usa
+            Return _invarient
         End Get
         Set(value As CultureInfo)
-            _usa = value
+            _invarient = value
         End Set
     End Property
 
@@ -645,18 +624,17 @@ Public Class Form1
         PropRegionClass.UpdateAllRegionPorts() ' must be done before we are running
 
         Print("Setup Firewall")
-        Dim fw As New Firewall
-        fw.SetFirewall()   ' must be after UpdateAllRegionPorts
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
         PropRegionHandles.Clear()
 
         If PropMySetting.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Int16 = CType(PropMySetting.AutobackupInterval, Int16)
+            Dim BTime As Integer = CInt(PropMySetting.AutobackupInterval)
             If PropMySetting.AutoRestartInterval > 0 And PropMySetting.AutoRestartInterval < BTime Then
                 PropMySetting.AutoRestartInterval = BTime + 30
-                Print("Upping AutoRestart Time to " & BTime.ToString(Usa) + " + 30 Minutes.")
+                Print("Upping AutoRestart Time to " & CStr(BTime) + " + 30 Minutes.")
             End If
         End If
 
@@ -861,8 +839,8 @@ Public Class Form1
         CheckDiagPort()
 
         PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
-        Dim fw As New Firewall
-        fw.SetFirewall()   ' must be after UpdateAllRegionPorts
+
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -1044,8 +1022,6 @@ Public Class Form1
 
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
-
-        'Dim MysqlConn As New MysqlInterface()
         MysqlInterface.DeleteRegionlist()
 
         ' cannot load OAR or IAR, either
@@ -1211,7 +1187,7 @@ Public Class Form1
 
     Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.Usa)
+        Random = System.Convert.ToString(value, Form1.Invarient)
     End Function
 
     Public Sub Buttons(button As System.Object)
@@ -1857,12 +1833,6 @@ Public Class Form1
 
             PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(RegionNum), ";")
 
-            If PropRegionClass.DisableGloebits(RegionNum) Then
-                PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
-            Else
-                PropMySetting.SetOtherIni(simName, "DisableGloebits", "False")
-            End If
-
             PropMySetting.SetOtherIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
             PropMySetting.SetOtherIni(simName, "ExternalHostName", ExternLocalServerName())
 
@@ -1883,7 +1853,11 @@ Public Class Form1
             End If
             PropMySetting.SetOtherIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
             PropMySetting.SetOtherIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "SmartStart", CType(PropRegionClass.SmartStart(RegionNum), String))
 
+            ' Optional
             ' Extended in v 2.31 optional things
             If PropRegionClass.MapType(RegionNum) = "None" Then
                 PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "False")
@@ -1924,20 +1898,23 @@ Public Class Form1
                 PropMySetting.SetOtherIni(simName, "RenderMeshes", "")
             End If
 
-            If PropRegionClass.Physics(RegionNum) >= 0 Then
-                PropMySetting.SetOtherIni(simName, "Physics", CType(PropRegionClass.Physics(RegionNum), String))
-            End If
+            Select Case PropRegionClass.DisableGloebits(RegionNum)
+                Case ""
+                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
+                Case "False"
+                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
+                Case "True"
+                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "False")
+            End Select
 
-            PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "AllowGods", CType(PropRegionClass.AllowGods(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "RegionGod", CType(PropRegionClass.RegionGod(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "ManagerGod", CType(PropRegionClass.ManagerGod(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "RegionSnapShot", CStr(PropRegionClass.RegionSnapShot(RegionNum)))
-            PropMySetting.SetOtherIni(simName, "Birds", CType(PropRegionClass.Birds(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "Tides", CType(PropRegionClass.Tides(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "Teleport", CType(PropRegionClass.Teleport(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "SmartStart", CType(PropRegionClass.SmartStart(RegionNum), String))
+            PropMySetting.SetOtherIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
+            PropMySetting.SetOtherIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
+            PropMySetting.SetOtherIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
+            PropMySetting.SetOtherIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
+            PropMySetting.SetOtherIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
+            PropMySetting.SetOtherIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
+            PropMySetting.SetOtherIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
+            PropMySetting.SetOtherIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
 
             PropMySetting.SaveOtherINI()
 
@@ -1976,27 +1953,31 @@ Public Class Form1
             End If
 
             Select Case PropRegionClass.Physics(RegionNum)
-                Case 0
-                    PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
-                    PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case 1
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case 2
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case 3
+                Case ""
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
-                Case 4
+                Case "0"
+                    PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
+                    PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
+                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                Case "1"
+                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
+                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                Case "2"
+                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
+                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                Case "3"
+                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
+                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
+                Case "4"
                     PropMySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
-                Case 5
+                Case "5"
                     PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
                     PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
                     PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
@@ -2004,19 +1985,22 @@ Public Class Form1
                     ' do nothing
             End Select
 
-            If PropRegionClass.AllowGods(RegionNum) Then
-                PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
-            Else
-                PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", CType(PropMySetting.AllowGridGods, String))
-            End If
+            Select Case PropRegionClass.AllowGods(RegionNum)
+                Case ""
+                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", CStr(PropMySetting.AllowGridGods))
+                Case "False"
+                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "False")
+                Case "True"
+                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
+            End Select
 
-            If PropRegionClass.RegionGod(RegionNum) Then
+            If PropRegionClass.RegionGod(RegionNum) = "True" Then
                 PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", "True")
             Else
                 PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", CType(PropMySetting.RegionOwnerIsGod, String))
             End If
 
-            If PropRegionClass.ManagerGod(RegionNum) Then
+            If PropRegionClass.ManagerGod(RegionNum) = "True" Then
                 PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", "True")
             Else
                 PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", CType(PropMySetting.RegionManagerIsGod, String))
@@ -2030,7 +2014,7 @@ Public Class Form1
 
             PropMySetting.SaveOtherINI()
 
-            If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) Then
+            If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
                 BirdData = BirdData & "[" & simName & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
@@ -2065,7 +2049,7 @@ Public Class Form1
 
             End If
 
-            If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) Then
+            If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
         "[" & simName & "]" & vbCrLf &
@@ -3205,6 +3189,8 @@ Public Class Form1
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & Groupname)
             PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
 
+            SequentialPause()
+
         End If
         Return True
 
@@ -3456,7 +3442,7 @@ Public Class Form1
     Sub Logger(category As String, message As String, file As String)
         Try
             Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\" & file & ".log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Usa) & ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Invarient) & ":" & category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
         Catch
@@ -3612,9 +3598,7 @@ Public Class Form1
     Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         Dim WindowCounter As Integer = 0
         Try
-
             While myProcess.MainWindowHandle = CType(0, IntPtr)
-                Diagnostics.Debug.Print(windowName & " Handle = 0")
                 Sleep(100)
                 WindowCounter += 1
                 If WindowCounter > 200 Then '  20 seconds for process to start
@@ -3622,7 +3606,11 @@ Public Class Form1
                     Return False
                 End If
             End While
-        Catch
+        Catch ex As PlatformNotSupportedException
+            Return False
+        Catch ex As InvalidOperationException
+            Return False
+        Catch ex As NotSupportedException
             Return False
         End Try
 
@@ -3706,7 +3694,7 @@ Public Class Form1
 
             MyCPUCollection.Remove(1) ' drop 1st, older  item
             MyCPUCollection.Add(newspeed)
-            PercentCPU.Text = String.Format(Usa, "{0: 0}% CPU", newspeed)
+            PercentCPU.Text = String.Format(Invarient, "{0: 0}% CPU", newspeed)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -3782,10 +3770,8 @@ Public Class Form1
                 Diagnostics.Debug.Print("regionname {0}>", LongName)
 
                 Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                If RegionNumber >= 0 Then
-                    If PropRegionClass.Teleport(RegionNumber) Then
-                        ToSort.Add(LongName)
-                    End If
+                If RegionNumber >= 0 And PropRegionClass.Teleport(RegionNumber) = "True" Then
+                    ToSort.Add(LongName)
                 End If
 
             End While
@@ -4002,7 +3988,7 @@ Public Class Form1
                 For Each Y In PropRegionClass.RegionListByGroupNum(Group)
                     If Not L.Contains(PropRegionClass.RegionName(Y)) Then
                         ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "change region " & """" & PropRegionClass.RegionName(Y) & """" & "{ENTER}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Usa) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
                         L.Add(PropRegionClass.RegionName(Y))
                     End If
                 Next
@@ -4112,7 +4098,7 @@ Public Class Form1
                     ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(PropRegionClass.GroupName(Y), "alert CPU Intensive Backup Started {ENTER}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Usa) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
                     ConsoleCommand(PropRegionClass.GroupName(Y), "alert New content Is loading ...{ENTER}" & vbCrLf)
 
@@ -4174,7 +4160,7 @@ Public Class Form1
                         ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & chosen & "{ENTER}" & vbCrLf)
                         If backMeUp = vbYes Then
                             ConsoleCommand(PropRegionClass.GroupName(Y), "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
-                            ConsoleCommand(PropRegionClass.GroupName(Y), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Usa) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(Y), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
                         End If
                         ConsoleCommand(PropRegionClass.GroupName(Y), "alert New content Is loading..{ENTER}" & vbCrLf)
 
@@ -4226,7 +4212,7 @@ Public Class Form1
                 Dim ToBackup As String
 
                 Dim BackupName = SaveIAR.GBackupName
-                BackupName = BackupName.ToLower(Usa)
+                BackupName = BackupName.ToLower(Invarient)
                 If Not BackupName.EndsWith(".iar", StringComparison.InvariantCulture) Then
                     BackupName += ".iar"
                 End If
@@ -4279,7 +4265,7 @@ Public Class Form1
             ' Set prompt.
             Message = "Enter a name for your backup:"
             title = "Backup to OAR"
-            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Usa) & ".oar"
+            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar"
 
             ' Display message, title, and default value.
             myValue = InputBox(Message, title, defaultValue)
@@ -4439,7 +4425,7 @@ Public Class Form1
         If (Update.Length = 0) Then Update = "0"
 
         Try
-            If Convert.ToSingle(Update, Usa) > Convert.ToSingle(PropMyVersion, Usa) Then
+            If Convert.ToSingle(Update, Invarient) > Convert.ToSingle(PropMyVersion, Invarient) Then
                 If MsgBox("A dreamier version " & Update & " is available. Update Now?", vbYesNo) = vbYes Then UpdaterGo()
             End If
         Catch
@@ -4572,12 +4558,12 @@ Public Class Form1
         End If
 
         ' HG USE
-        Dim fw As New IP
-        If Not IP.IsPrivateIP(PropMySetting.DNSName) Then
+
+        If Not IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
             BumpProgress10()
             PropMySetting.PublicIP = PropMySetting.DNSName
             PropMySetting.SaveSettings()
-            Dim x = PropMySetting.PublicIP.ToLower(Usa)
+            Dim x = PropMySetting.PublicIP.ToLower(Invarient)
             If x.Contains("outworldz.net") Then
                 Print("Registering DynDNS address http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
             End If
@@ -4649,8 +4635,7 @@ Public Class Form1
 
     Private Sub DoDiag()
 
-        Dim IPClass As New IP
-        If IP.IsPrivateIP(PropMySetting.DNSName) Then
+        If IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
             Return
         End If
 
@@ -4675,8 +4660,8 @@ Public Class Form1
     End Sub
 
     Private Function ProbePublicPort() As Boolean
-        Dim fw As New IP
-        If IP.IsPrivateIP(PropMySetting.DNSName) Then
+
+        If IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
             Return True
         End If
         Print("Checking Network Connectivity")
@@ -4725,7 +4710,7 @@ Public Class Form1
 
         'Print("Running Loopback Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & "/?_TestLoopback=" & Random()
+        Dim loopbacktest As String = "http://" & PropMySetting.PublicIP & ":" & PropMySetting.DiagnosticPort & "/?_TestLoopback=" & Random()
         Try
             Log("Info", loopbacktest)
             result = client.DownloadString(loopbacktest)
@@ -4736,7 +4721,7 @@ Public Class Form1
 
         BumpProgress10()
 
-        If PropMySetting.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
+        'If PropMySetting.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
             Log("Info", "Passed:" & result)
@@ -4801,17 +4786,17 @@ Public Class Form1
             End If
 
             ' 8002 for TCP and UDP
-            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.TCP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.TCP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.TCP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.TCP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.TCP, "Opensim TCP Grid " & PropMySetting.HttpPort)
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.TCP, "Opensim TCP Grid " & PropMySetting.HttpPort)
             Print("Grid TCP Port is set to " & PropMySetting.HttpPort)
             BumpProgress10()
 
-            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.UDP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.UDP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.UDP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.UDP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Usa), UPnp.Protocol.UDP, "Opensim UDP Grid " & PropMySetting.HttpPort)
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.Protocol.UDP, "Opensim UDP Grid " & PropMySetting.HttpPort)
             Print("Grid UDP Port is set to " & PropMySetting.HttpPort)
             BumpProgress10()
 
@@ -4824,7 +4809,7 @@ Public Class Form1
                     Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.Protocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(X) & " ")
-                Print("Region UDP " & PropRegionClass.RegionName(X) & " is set to " & Convert.ToString(R, Usa))
+                Print("Region UDP " & PropRegionClass.RegionName(X) & " is set to " & CStr(R))
                 BumpProgress(1)
                 Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.Protocol.TCP) Then
@@ -4832,7 +4817,7 @@ Public Class Form1
                     Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.Protocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(X) & " ")
-                Print("Region TCP " & PropRegionClass.RegionName(X) & " is set to " & Convert.ToString(R, Usa))
+                Print("Region TCP " & PropRegionClass.RegionName(X) & " is set to " & CStr(R))
                 BumpProgress(1)
             Next
 
@@ -4938,8 +4923,7 @@ Public Class Form1
 
         Dim version As String = Nothing
         Try
-            Dim MysqlConn As New MysqlInterface()
-            version = MysqlConn.IsMySqlRunning()
+            version = MysqlInterface.IsMySqlRunning()
         Catch
             Log("Info", "MySQL was not running")
         End Try
@@ -5282,8 +5266,8 @@ Public Class Form1
         If PropMySetting.DNSName.Length = 0 Then
             Return True
         End If
-        Dim fw As New IP
-        If IP.IsPrivateIP(PropMySetting.DNSName) Then
+
+        If IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
             Return True
         End If
 
@@ -5388,8 +5372,7 @@ Public Class Form1
             ToolTip1.SetToolTip(Label3, "")
             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.IsBooted(RegionNum) Then
-                    Dim MysqlConn As New MysqlInterface()
-                    Dim count As Integer = MysqlConn.IsUserPresent(PropRegionClass.UUID(RegionNum))
+                    Dim count As Integer = MysqlInterface.IsUserPresent(PropRegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then
                         ToolTip1.SetToolTip(Label3, PropRegionClass.RegionName(RegionNum) & " " & ToolTip1.GetToolTip(Label3))
@@ -5802,6 +5785,7 @@ Public Class Form1
             FormHelp.Activate()
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
+
         End If
 
     End Sub
@@ -5997,7 +5981,7 @@ Public Class Form1
 
     Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         For Each filename In dll
-            If tofind.ToLower(Form1.Usa) = filename.ToLower(Form1.Usa) Then Return True
+            If tofind.ToLower(Form1.Invarient) = filename.ToLower(Form1.Invarient) Then Return True
         Next
         Return False
     End Function
@@ -6007,7 +5991,7 @@ Public Class Form1
         Dim stm = "delete from events"
         Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
         Dim rowsdeleted = cmd.ExecuteNonQuery()
-        Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Form1.Usa))
+        Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Form1.Invarient))
 
     End Sub
 
@@ -6113,7 +6097,7 @@ Public Class Form1
 
             Dim cmd As MySqlCommand = New MySqlCommand(stm, Connection)
             Dim rowsinserted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Insert: {0}", rowsinserted.ToString(Form1.Usa))
+            Diagnostics.Debug.Print("Insert: {0}", CStr(rowsinserted))
         Catch ex As Exception
 
             Diagnostics.Debug.Print(ex.Message)
@@ -6312,8 +6296,7 @@ Public Class Form1
 
         If Not PropMySetting.SearchMigration = 1 Then
 
-            Dim MysqlConn As New MysqlInterface()
-            MysqlConn.DeleteSearchDatabase()
+            MysqlInterface.DeleteSearchDatabase()
 
             Print("Setup search")
             Dim pi As ProcessStartInfo = New ProcessStartInfo()

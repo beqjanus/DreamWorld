@@ -54,21 +54,21 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Usa))
-        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Usa))
+        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Invarient))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Form1.Usa))
-        Debug.Print("Y>" + ValueY.ToString(Form1.Usa))
+        Debug.Print("X>" + ValueX.ToString(Form1.Invarient))
+        Debug.Print("Y>" + ValueY.ToString(Form1.Invarient))
 
     End Sub
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Usa))
-        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Usa))
+        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Invarient))
         SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString(Form1.Usa))
-        Debug.Print("W>" + ValueW.ToString(Form1.Usa))
+        Debug.Print("H>" + ValueH.ToString(Form1.Invarient))
+        Debug.Print("W>" + ValueW.ToString(Form1.Invarient))
 
     End Sub
 
@@ -106,8 +106,8 @@ Public Class ScreenPos
             ValueXOld,
             ValueYOld
         }
-        Debug.Print("X<" + ValueXOld.ToString(Form1.Usa))
-        Debug.Print("Y<" + ValueYOld.ToString(Form1.Usa))
+        Debug.Print("X<" + ValueXOld.ToString(Form1.Invarient))
+        Debug.Print("Y<" + ValueYOld.ToString(Form1.Invarient))
         Return r
 
     End Function
@@ -121,8 +121,8 @@ Public Class ScreenPos
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString(Form1.Usa))
-        Debug.Print("W<" + ValueWOld.ToString(Form1.Usa))
+        Debug.Print("H<" + ValueHOld.ToString(Form1.Invarient))
+        Debug.Print("W<" + ValueWOld.ToString(Form1.Invarient))
         Return r
 
     End Function

@@ -1,8 +1,8 @@
 ﻿Imports System.IO
 
-Public Class Firewall
+Public Module Firewall
 
-    Public Sub SetFirewall()
+    Sub SetFirewall()
 
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
@@ -31,7 +31,7 @@ Public Class Firewall
         End Try
     End Sub
 
-    Private Function AddFirewallRules() As String
+    Function AddFirewallRules() As String
 
         ' TCP only for 8001 (DiagnosticPort) and both for 8002
         Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & Form1.PropMySetting.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.PropMySetting.DiagnosticPort) & vbCrLf _
@@ -63,7 +63,7 @@ Public Class Firewall
 
     End Function
 
-    Private Function DeleteFirewallRules() As String
+    Function DeleteFirewallRules() As String
 
         Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Form1.PropMySetting.DiagnosticPort) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & CStr(Form1.PropMySetting.DiagnosticPort) & """" & vbCrLf _
@@ -90,4 +90,4 @@ Public Class Firewall
 
     End Function
 
-End Class
+End Module

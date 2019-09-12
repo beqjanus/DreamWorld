@@ -150,7 +150,7 @@ Public Class FormPermissions
             var = var / 10
             If (var > 1) Then var = 1
             If (var < 0) Then var = 0
-            Debug.Print(var.ToString(Form1.Usa))
+            Debug.Print(var.ToString(Form1.InVarient))
 
             Form1.PropMySetting.Density = var
             Form1.PropMySetting.SaveSettings()

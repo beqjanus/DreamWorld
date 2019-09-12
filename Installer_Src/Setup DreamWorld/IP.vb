@@ -1,6 +1,6 @@
-﻿Public Class IP
+﻿Public Module IPCheck
 
-    Public Shared Function IsPrivateIP(CheckIP As String) As Boolean
+    Public Function IsPrivateIP(CheckIP As String) As Boolean
 
         ''' <summary>
         ''' Checks to see if an IP address is a local IP address.
@@ -13,8 +13,8 @@
         Dim Quad1, Quad2 As Integer
 
         Try
-            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
-            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) & 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
+            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
         Catch
         End Try
 
@@ -29,4 +29,4 @@
         Return False
     End Function
 
-End Class
+End Module

@@ -280,7 +280,7 @@ Public Class MySettings
     Shared Function Random() As String
 
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.Usa)
+        Random = System.Convert.ToString(value, Form1.InVarient)
 
     End Function
 

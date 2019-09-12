@@ -126,10 +126,16 @@ Public Class NetServer
         Debug.Print(message)
         Try
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Usa) & ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) & ":" & category & ":" & message)
             End Using
-        Catch ex As Exception
-            Debug.Print(ex.Message)
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
         End Try
     End Sub
 
@@ -186,7 +192,7 @@ Public Class NetServer
         End Try
     End Sub
 
-    Private Function RegionListHTML(PropMySetting As MySettings, PropRegionClass As RegionMaker) As String
+    Private Shared Function RegionListHTML(PropMySetting As MySettings, PropRegionClass As RegionMaker) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
         'to http://localhost:8001/teleports.htm
@@ -203,26 +209,28 @@ Public Class NetServer
         Dim ToSort As New List(Of String)
         Try
             NewSQLConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-            While reader.Read()
-                Dim LongName = reader.GetString(0)
-
-                Diagnostics.Debug.Print("regionname {0}:", LongName)
-
-                Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                If RegionNumber >= 0 Then
-                    If PropRegionClass.Teleport(RegionNumber) Then
-                        ToSort.Add(LongName)
-                    End If
-                End If
-            End While
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            NewSQLConn.Close()
+        Catch ex As InvalidOperationException
+        Catch ex As MySqlException
+            Return HTML
         End Try
+
+        Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+        While reader.Read()
+            Dim LongName = reader.GetString(0)
+
+            Diagnostics.Debug.Print("regionname {0}:", LongName)
+
+            Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
+            If RegionNumber >= 0 Then
+                If PropRegionClass.Teleport(RegionNumber) = "True" Then
+                    ToSort.Add(LongName)
+                End If
+            End If
+        End While
+
+        NewSQLConn.Close()
 
         ' Acquire keys And sort them.
         ToSort.Sort()

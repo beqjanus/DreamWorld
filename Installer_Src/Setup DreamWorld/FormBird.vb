@@ -70,18 +70,18 @@ Public Class BirdForm
 
         Dim i As Integer
         For i = 1 To 100
-            BirdsFlockSizeDomain.Items.Add(i.ToString(Form1.Usa))
+            BirdsFlockSizeDomain.Items.Add(i.ToString(Form1.InVarient))
         Next
         BirdsFlockSizeDomain.SelectedIndex = CType(Form1.PropMySetting.BirdsFlockSize, Integer) - 1
 
-        ChatChanelTextBox.Text = Form1.PropMySetting.BirdsChatChannel.ToString(Form1.Usa)
-        MaxSpeedTextBox.Text = Form1.PropMySetting.BirdsMaxSpeed.ToString(Form1.Usa)
-        MaxForceTextBox.Text = Form1.PropMySetting.BirdsMaxForce.ToString(Form1.Usa)
-        BirdsNeighbourDistanceTextBox.Text = Form1.PropMySetting.BirdsNeighbourDistance.ToString(Form1.Usa)
-        DesiredSeparationTextBox.Text = Form1.PropMySetting.BirdsDesiredSeparation.ToString(Form1.Usa)
-        BirdsToleranceTextBox.Text = Form1.PropMySetting.BirdsTolerance.ToString(Form1.Usa)
-        BirdsBorderSizeTextBox.Text = Form1.PropMySetting.BirdsBorderSize.ToString(Form1.Usa)
-        BirdsMaxHeightTextBox.Text = Form1.PropMySetting.BirdsMaxHeight.ToString(Form1.Usa)
+        ChatChanelTextBox.Text = Form1.PropMySetting.BirdsChatChannel.ToString(Form1.InVarient)
+        MaxSpeedTextBox.Text = Form1.PropMySetting.BirdsMaxSpeed.ToString(Form1.InVarient)
+        MaxForceTextBox.Text = Form1.PropMySetting.BirdsMaxForce.ToString(Form1.InVarient)
+        BirdsNeighbourDistanceTextBox.Text = Form1.PropMySetting.BirdsNeighbourDistance.ToString(Form1.InVarient)
+        DesiredSeparationTextBox.Text = Form1.PropMySetting.BirdsDesiredSeparation.ToString(Form1.InVarient)
+        BirdsToleranceTextBox.Text = Form1.PropMySetting.BirdsTolerance.ToString(Form1.InVarient)
+        BirdsBorderSizeTextBox.Text = Form1.PropMySetting.BirdsBorderSize.ToString(Form1.InVarient)
+        BirdsMaxHeightTextBox.Text = Form1.PropMySetting.BirdsMaxHeight.ToString(Form1.InVarient)
         PrimNameTextBox.Text = Form1.PropMySetting.BirdsPrim
 
         Form1.HelpOnce("Birds")
@@ -140,7 +140,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -153,7 +153,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -166,7 +166,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -179,7 +179,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -192,7 +192,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -205,7 +205,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -218,7 +218,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
         Try
-            Form1.PropMySetting.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Form1.Usa)
+            Form1.PropMySetting.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Form1.InVarient)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)

@@ -28,6 +28,7 @@ Public Class FormHelp
 
     Public Property ScreenPosition As ScreenPos
         Get
+            _screenPosition.SaveXY(Me.Left, Me.Top)
             Return _screenPosition
         End Get
         Set(value As ScreenPos)

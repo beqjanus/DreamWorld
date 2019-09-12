@@ -128,7 +128,7 @@ Public Class FormDatabase
         RobustDbName.Text = Form1.PropMySetting.RobustDataBaseName
         RobustDBPassword.Text = Form1.PropMySetting.RobustPassword
         RobustDBUsername.Text = Form1.PropMySetting.RobustUsername
-        RobustDbPort.Text = Form1.PropMySetting.MySqlRobustDBPort.ToString(Form1.Usa)
+        RobustDbPort.Text = Form1.PropMySetting.MySqlRobustDBPort.ToString(Form1.Invarient)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
@@ -327,10 +327,9 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
+    Private Shared Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
 
-        Dim MysqlConn As New MysqlInterface()
-        MysqlConn.DeregisterRegions()
+        MysqlInterface.DeregisterRegions()
 
     End Sub
 
