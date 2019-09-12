@@ -2750,6 +2750,7 @@ Public Class Form1
     Private Sub KillApache()
 
         If Not PropMySetting.ApacheEnable Then Return
+        If PropMySetting.ApacheService Then Return
 
         If PropMySetting.ApacheService Then
             Dim ApacheProcess As New Process()
@@ -3526,20 +3527,23 @@ Public Class Form1
     ''' <param name="command">String</param>
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
-
+        Dim PID As Integer
         If name <> "Robust" Then
             Dim ID = PropRegionClass.FindRegionByName(name)
-            Dim PID = PropRegionClass.ProcessID(ID)
+            PID = PropRegionClass.ProcessID(ID)
             Try
                 If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
             Catch ex As Exception
                 Diagnostics.Debug.Print("Catch:" & ex.Message)
+                Return False
             End Try
         Else
+            PID = PropRobustProcID
             Try
-                ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
             Catch ex As Exception
                 Diagnostics.Debug.Print("Catch:" & ex.Message)
+                Return False
             End Try
         End If
 
@@ -3551,7 +3555,7 @@ Public Class Form1
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
 
-            AppActivate(name)
+            AppActivate(PID)
             SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
             SendKeys.SendWait(SendableKeys(command))
         Catch ex As Exception
