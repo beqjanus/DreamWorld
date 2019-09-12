@@ -3515,8 +3515,10 @@ Public Class Form1
     Public Function ConsoleCommand(name As String, command As String) As Boolean
         Dim PID As Integer
         If name <> "Robust" Then
-            Dim ID = PropRegionClass.FindRegionByName(name)
-            PID = PropRegionClass.ProcessID(ID)
+
+            Dim X As List(Of Integer) = PropRegionClass.RegionListByGroupNum(name)
+
+            PID = PropRegionClass.ProcessID(X(0))
             Try
                 If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
             Catch ex As Exception
