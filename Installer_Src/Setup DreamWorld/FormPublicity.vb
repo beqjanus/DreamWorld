@@ -100,6 +100,7 @@ Public Class FormPublicity
                 End If
 
                 PictureBox9.Image = Nothing
+
                 PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
                     My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
@@ -107,7 +108,9 @@ Public Class FormPublicity
                 End Try
 
                 Try
-                    PictureBox9.Image.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    Using newBitmap = New Bitmap(PictureBox9.Image)
+                        newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    End Using
                 Catch ex As ArgumentNullException
                     MsgBox("Warn: " & ex.Message)
                     Return
