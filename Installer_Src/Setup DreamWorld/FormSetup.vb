@@ -1409,8 +1409,12 @@ Public Class Form1
             PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & CStr(PropMySetting.PrivateURL)) ' local IP
             PropMySetting.SetOtherIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-            ' set new Min Timer Interval for how fast a script can go.
-            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CStr(PropRegionClass.MinTimerInterval(X)))
+            ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
+            Dim Xtime As String = "0.09090909"  '1/11 of a second is as fast as she can go
+            If PropRegionClass.MinTimerInterval(X).Length > 0 Then
+                Xtime = PropRegionClass.MinTimerInterval(X)
+            End If
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", Xtime)
 
             Dim name = PropRegionClass.RegionName(X)
 
@@ -1423,8 +1427,8 @@ Public Class Form1
 
             My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
-            Print("Error: Failed to set the Opensim.ini for sim " & regionName & ":" & ex.Message)
-            ErrorLog("Error: Failed to set the Opensim.ini for sim " & regionName & ":" & ex.Message)
+            Print("Error Failed to set the Opensim.ini for sim " & regionName & ":" & ex.Message)
+            ErrorLog("Error Failed to set the Opensim.ini for sim " & regionName & ":" & ex.Message)
         End Try
 
     End Sub
@@ -1603,7 +1607,7 @@ Public Class Form1
         Select Case PropMySetting.ServerType
             Case "Robust"
                 If PropMySetting.SearchEnabled Then
-
+                    ' RegionSnapShot
                     PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
                     If PropMySetting.SearchLocal Then
                         PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
@@ -1617,6 +1621,7 @@ Public Class Form1
                 Else
                     PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "False")
                 End If
+
                 PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
                 PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
 
@@ -1651,7 +1656,6 @@ Public Class Form1
         End If
 
         PropMySetting.SetOtherIni("Network", "ExternalHostNameForLSL", PropMySetting.GridServerName)
-        PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "true")
         PropMySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(PropMySetting.Primlimits, String))
 
         If PropMySetting.Primlimits Then
@@ -1781,10 +1785,10 @@ Public Class Form1
 
         ' Autobackup
         If PropMySetting.AutoBackup Then
-            Log("Info", "Auto backup is On")
+            Log("Info", "Auto backup Is On")
             PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "true")
         Else
-            Log("Info", "Auto backup is Off")
+            Log("Info", "Auto backup Is Off")
             PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "false")
         End If
 
@@ -1808,15 +1812,6 @@ Public Class Form1
     Private Sub DoRegions()
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Regions - write all region.ini files with public IP and Public port
-
-        Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
-
-        System.IO.File.Delete(BirdFile)
-
-        Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
-
-        System.IO.File.Delete(TideFile)
-
         ' has to be bound late so regions data is there.
 
         PropMySetting.FirstRegionPort = PropRegionClass.LowestPort()
@@ -1824,8 +1819,6 @@ Public Class Form1
 
         ' Self setting Region Ports
         Dim FirstPort As Integer = CType(PropMySetting.FirstRegionPort(), Integer)
-        Dim BirdData As String = ""
-        Dim TideData As String = ""
 
         For Each RegionNum As Integer In PropRegionClass.RegionNumbers
 
@@ -1851,11 +1844,10 @@ Public Class Form1
             Else
                 PropMySetting.SetOtherIni(simName, "MaxPrims", "")
             End If
+
             PropMySetting.SetOtherIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
             PropMySetting.SetOtherIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
             PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "SmartStart", CType(PropRegionClass.SmartStart(RegionNum), String))
 
             ' Optional
             ' Extended in v 2.31 optional things
@@ -1898,14 +1890,9 @@ Public Class Form1
                 PropMySetting.SetOtherIni(simName, "RenderMeshes", "")
             End If
 
-            Select Case PropRegionClass.DisableGloebits(RegionNum)
-                Case ""
-                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
-                Case "False"
-                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
-                Case "True"
-                    PropMySetting.SetOtherIni(simName, "DisableGloebits", "False")
-            End Select
+            If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
+                PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
+            End If
 
             PropMySetting.SetOtherIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
             PropMySetting.SetOtherIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
@@ -1919,7 +1906,7 @@ Public Class Form1
             PropMySetting.SaveOtherINI()
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            ' region.ini
+            ' Opensim.ini in Region Folder specific to this region
             PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
 
             If PropRegionClass.MapType(RegionNum) = "Simple" Then
@@ -2012,7 +1999,37 @@ Public Class Form1
             PropMySetting.SetOtherIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
             PropMySetting.SetOtherIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
 
+            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+
+            If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
+                PropMySetting.SetOtherIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+            End If
+
+            ' Search
+            Select Case PropRegionClass.Snapshot(RegionNum)
+                Case "True"
+                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
+                Case "False"
+                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "False")
+            End Select
+
             PropMySetting.SaveOtherINI()
+        Next
+
+    End Sub
+
+    Private Sub DoBirds()
+
+        Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
+        System.IO.File.Delete(BirdFile)
+        Dim BirdData As String = ""
+
+        ' Birds setup per region
+        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+
+            Dim simName = PropRegionClass.RegionName(RegionNum)
+
+            PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(RegionNum), ";")
 
             If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
@@ -2048,48 +2065,58 @@ Public Class Form1
             "BirdsAllowedControllers = ESTATE_OWNER, ESTATE_MANAGER" & vbCrLf & vbCrLf & vbCrLf
 
             End If
+        Next
+        IO.File.WriteAllText(BirdFile, BirdData, Encoding.Default) 'The text file will be created if it does not already exist
 
+    End Sub
+
+    Private Sub DoTides()
+        Dim TideData As String = ""
+        Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
+        System.IO.File.Delete(TideFile)
+
+        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+            Dim simName = PropRegionClass.RegionName(RegionNum)
+            'Tides Setup per region
             If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
-        "[" & simName & "]" & vbCrLf &
-    ";this determines whether the module does anything in this region" & vbCrLf &
-    ";# {TideEnabled} {} {Enable the tide to come in and out?} {true false} false" & vbCrLf &
-    "TideEnabled = True" & vbCrLf &
-        vbCrLf &
-    ";; Tides currently only work on single regions And varregions (non megaregions) " & vbCrLf &
-    ";# surrounded completely by water" & vbCrLf &
-    ";; Anything else will produce weird results where you may see a big" & vbCrLf &
-    ";; vertical 'step' in the ocean" & vbCrLf &
-    ";; update the tide every x simulator frames" & vbCrLf &
-    "TideUpdateRate = 50" & vbCrLf &
-        vbCrLf &
-    ";; low And high water marks in metres" & vbCrLf &
-    "TideHighWater = " & PropMySetting.TideHighLevel() & vbCrLf &
-    "TideLowWater = " & PropMySetting.TideLowLevel() & vbCrLf &
-    vbCrLf &
-    ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-    "TideCycleTime = " & PropMySetting.CycleTime() & vbCrLf &
-        vbCrLf &
-    ";; provide tide information on the console?" & vbCrLf &
-    "TideInfoDebug = " & CStr(PropMySetting.TideInfoDebug) & vbCrLf &
-        vbCrLf &
-    ";; chat tide info to the whole region?" & vbCrLf &
-    "TideInfoBroadcast = " & PropMySetting.BroadcastTideInfo() & vbCrLf &
-        vbCrLf &
-    ";; which channel to region chat on for the full tide info" & vbCrLf &
-    "TideInfoChannel = " & PropMySetting.TideInfoChannel & vbCrLf &
-    vbCrLf &
-    ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-    "TideLevelChannel = " & PropMySetting.TideLevelChannel() & vbCrLf &
-        vbCrLf &
-    ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
-    "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
+                    "[" & simName & "]" & vbCrLf &
+                ";this determines whether the module does anything in this region" & vbCrLf &
+                ";# {TideEnabled} {} {Enable the tide to come in And out?} {true false} false" & vbCrLf &
+                "TideEnabled = True" & vbCrLf &
+                    vbCrLf &
+                ";; Tides currently only work on single regions And varregions (non megaregions) " & vbCrLf &
+                ";# surrounded completely by water" & vbCrLf &
+                ";; Anything else will produce weird results where you may see a big" & vbCrLf &
+                ";; vertical 'step' in the ocean" & vbCrLf &
+                ";; update the tide every x simulator frames" & vbCrLf &
+                "TideUpdateRate = 50" & vbCrLf &
+                    vbCrLf &
+                ";; low And high water marks in metres" & vbCrLf &
+                "TideHighWater = " & PropMySetting.TideHighLevel() & vbCrLf &
+                "TideLowWater = " & PropMySetting.TideLowLevel() & vbCrLf &
+                vbCrLf &
+                ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
+                "TideCycleTime = " & PropMySetting.CycleTime() & vbCrLf &
+                    vbCrLf &
+                ";; provide tide information on the console?" & vbCrLf &
+                "TideInfoDebug = " & CStr(PropMySetting.TideInfoDebug) & vbCrLf &
+                    vbCrLf &
+                ";; chat tide info to the whole region?" & vbCrLf &
+                "TideInfoBroadcast = " & PropMySetting.BroadcastTideInfo() & vbCrLf &
+                    vbCrLf &
+                ";; which channel to region chat on for the full tide info" & vbCrLf &
+                "TideInfoChannel = " & PropMySetting.TideInfoChannel & vbCrLf &
+                vbCrLf &
+                ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
+                "TideLevelChannel = " & PropMySetting.TideLevelChannel() & vbCrLf &
+                    vbCrLf &
+                ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
+                "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
             End If
 
         Next
-        Diagnostics.Debug.Print(BirdFile)
-        IO.File.WriteAllText(BirdFile, BirdData, Encoding.Default) 'The text file will be created if it does not already exist
         IO.File.WriteAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist
 
     End Sub
@@ -2219,13 +2246,14 @@ Public Class Form1
     End Sub
 
     Private Sub SetDefaultSims()
-
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
+        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As System.IO.StreamReader
         Dim line As String
 
         Try
             ' add this sim name as a default to the file as HG regions, and add the other regions as fallback
-
             ' it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(PropMySetting.WelcomeRegion)
 
@@ -2307,10 +2335,6 @@ Public Class Form1
 
         Print("Creating INI Files")
 
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
-        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
-
         SetDefaultSims()
         DoTOS()
         DoGridCommon()
@@ -2323,6 +2347,8 @@ Public Class Form1
         DoGloebits()
         CopyOpensimProto()
         DoRegions() ' must be after Gloebits
+        DoTides()
+        DoBirds()
         MapSetup()
         DoPHP()
         DoApache()
@@ -2766,7 +2792,7 @@ Public Class Form1
 "/* General Domain */" & vbCrLf &
 "$CONF_domain        = " & """" & PropMySetting.PublicIP & """" & "; " & vbCrLf &
 "$CONF_port          = " & """" & PropMySetting.HttpPort & """" & "; " & vbCrLf &
-"$CONF_sim_domain    = " & """" & "http//" & PropMySetting.PublicIP & "/" & """" & ";" & vbCrLf &
+"$CONF_sim_domain    = " & """" & "http://" & PropMySetting.PublicIP & "/" & """" & ";" & vbCrLf &
 "$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
 "/* MySQL Database */ " & vbCrLf &
 "$CONF_db_server     = " & """" & PropMySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
