@@ -365,7 +365,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalAspects.vb" />
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="ExitHandler.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="Screenpos.vb" />

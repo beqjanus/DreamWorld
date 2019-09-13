@@ -32,6 +32,7 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
+Imports Ionic.Zip
 
 Public Class Form1
 
@@ -39,7 +40,6 @@ Public Class Form1
 
     Private _MyVersion As String = "3.17"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
-
 
 #End Region
 
@@ -4947,6 +4947,10 @@ Public Class Form1
             Application.DoEvents()
             Return True
         End If
+
+        ' Build data folder if it does not exist
+        MakeMysql()
+
         MysqlPictureBox.Image = My.Resources.nav_plain_red
         ToolTip1.SetToolTip(MysqlPictureBox, "Stopped")
         Application.DoEvents()
@@ -5030,6 +5034,21 @@ Public Class Form1
         Return True
 
     End Function
+
+    Private Sub MakeMysql()
+
+        Dim m As String = PropMyFolder & "\OutworldzFiles\Mysql\"
+        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
+            Print("Creating new, blank database")
+            Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
+                For Each ZipEntry In zip
+                    Application.DoEvents()
+                    ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
+                Next
+            End Using
+        End If
+
+    End Sub
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
