@@ -319,11 +319,17 @@ Public Class FormRegion
 
         Select Case PropRegionClass1.RegionSnapShot(N1)
             Case ""
-                PublishDefault.Checked = False
+                PublishDefault.Checked = True
+                NoPublish.Checked = False
+                Publish.Checked = False
             Case "False"
                 PublishDefault.Checked = False
+                NoPublish.Checked = True
+                Publish.Checked = False
             Case "True"
-                PublishDefault.Checked = True
+                PublishDefault.Checked = False
+                NoPublish.Checked = False
+                Publish.Checked = True
         End Select
 
         Select Case PropRegionClass1.Birds(N1)
