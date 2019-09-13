@@ -138,7 +138,7 @@ Public Class RegionMaker
         Public _LineCounter As Integer = 0
         Public _MaxAgents As Integer = 100
         Public _MaxPrims As Integer = 15000
-        Public _MinTimerInterval As Single = 0.2
+        Public _MinTimerInterval As Single = 1 / 11
         Public _NonPhysicalPrimMax As Integer = 1024
         Public _PhysicalPrimMax As Integer
         Public _ProcessID As Integer = 0
@@ -169,6 +169,7 @@ Public Class RegionMaker
         Public _RegionGod As String = ""
         Public _ManagerGod As String = ""
         Public _MapType As String = ""
+        Public _Snapshot As String = ""
         Public _Teleport As String = ""
         Public _DisableGloebits As String = ""
         Public _Tides As String = ""
@@ -189,6 +190,15 @@ Public Class RegionMaker
         Get
             Return RegionList.Count
         End Get
+    End Property
+
+    Public Property Snapshot(n As Integer) As String
+        Get
+            Return RegionList(n)._Snapshot
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Snapshot = Value
+        End Set
     End Property
 
     Public Property AllowGods(n As Integer) As String
@@ -318,11 +328,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property MinTimerInterval(n As Integer) As Single
+    Public Property MinTimerInterval(n As Integer) As String
         Get
             Return RegionList(n)._MinTimerInterval
         End Get
-        Set(ByVal Value As Single)
+        Set(ByVal Value As String)
             RegionList(n)._MinTimerInterval = Value
         End Set
     End Property
@@ -863,23 +873,20 @@ Public Class RegionMaker
                             CoordX(n) = CInt(parts(0))
                             CoordY(n) = CInt(parts(1))
 
-                            Try
-                                MinTimerInterval(n) = CType(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", "0.2"), Single)
-                            Catch
-                                MinTimerInterval(n) = 0.2
-                            End Try
-
-                            RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "False")
-                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "0")
-                            Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics", "2")
-                            MaxPrims(n) = CInt(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"))
-                            AllowGods(n) = Form1.PropMySetting.GetIni(fName, "AllowGods", "False")
-                            RegionGod(n) = Form1.PropMySetting.GetIni(fName, "RegionGod", "False")
-                            ManagerGod(n) = Form1.PropMySetting.GetIni(fName, "ManagerGod", "False")
-                            Birds(n) = Form1.PropMySetting.GetIni(fName, "Birds", "False")
-                            Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides", "False")
-                            Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport", "False")
-                            DisableGloebits(n) = Form1.PropMySetting.GetIni(fName, "DisableGloebits", "False")
+                            ' options params coming from INI file can be blank!
+                            MinTimerInterval(n) = Form1.PropMySetting.GetIni(fName, "MinTimerInterval", 1 / 11)
+                            RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
+                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
+                            Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics", "")
+                            MaxPrims(n) = CInt(Form1.PropMySetting.GetIni(fName, "MaxPrims", ""))
+                            AllowGods(n) = Form1.PropMySetting.GetIni(fName, "AllowGods", "")
+                            RegionGod(n) = Form1.PropMySetting.GetIni(fName, "RegionGod", "")
+                            ManagerGod(n) = Form1.PropMySetting.GetIni(fName, "ManagerGod", "")
+                            Birds(n) = Form1.PropMySetting.GetIni(fName, "Birds", "")
+                            Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides", "")
+                            Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport", "")
+                            DisableGloebits(n) = Form1.PropMySetting.GetIni(fName, "DisableGloebits", "")
+                            Snapshot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
 
                             Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
                                 Case "True"
@@ -1077,7 +1084,8 @@ Public Class RegionMaker
         & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(n)) & vbCrLf _
         & "ClampPrimSize = " & CStr(ClampPrimSize(n)) & vbCrLf _
         & "MaxPrims = " & MaxPrims(n) & vbCrLf _
-        & "RegionType = Estate" & vbCrLf & vbCrLf _
+        & "RegionType = Estate" & vbCrLf _
+        & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
         & "RegionSnapShot = " & RegionSnapShot(n) & vbCrLf _
         & "MapType = " & MapType(n) & vbCrLf _
@@ -1086,8 +1094,11 @@ Public Class RegionMaker
         & "RegionGod = " & RegionGod(n) & vbCrLf _
         & "ManagerGod = " & ManagerGod(n) & vbCrLf _
         & "Birds = " & Birds(n) & vbCrLf _
-        & "Tides = " & CStr(Tides(n)) & vbCrLf _
-        & "Teleport = " & CStr(Teleport(n)) & vbCrLf
+        & "Tides = " & Tides(n) & vbCrLf _
+        & "Teleport = " & Teleport(n) & vbCrLf _
+        & "DisableGloebits = " & DisableGloebits(n) & vbCrLf _
+        & "MinTimerInterval =" & vbCrLf _
+        & "SmartStart =" & vbCrLf
 
         Try
             My.Computer.FileSystem.DeleteFile(fname)
