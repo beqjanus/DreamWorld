@@ -2,13 +2,14 @@ Developer Notes for DreamWorld
 
 DreamWorld is a small Opensimulator world to demonstrate a easy to use Opensim Setup program.
 
-author: Fred Beckhusen, aka Ferd Frederix fred@mitsi.com, Outworld, LLC.
+author: Fred Beckhusen, aka Ferd Frederix fred@outworldz.com, Outworld, LLC.
 The vast majority of this project is made from Opensimulator, which is made by an enormous number of dedicated volunteers.  This is especially true for Diva Canto. Thank you very much!
  
 INTRODUCTION 
 
-The system supports a special installer that will put a easy-to-use copy of a slightly customized Diva Canto D2 OpenSim on Windows.    It is written in VB.Net and runs under Dot Net 4 and VB 2015 or 2017.
-It also has a copy of Opensim 0.9.0.1 .
+The system supports a special installer that will put a easy-to-use copy of OpenSim on Windows.    It is written in C# and Visual Basic Dot Net  and runs under Dot Net 4.6.1 and Microsoft Studio 2019.
+
+It has a executable copy of Opensim 0.9.0.1 included.
 
 LAUNCHING MANUALLY
 
@@ -43,38 +44,37 @@ Making A Different Installation:
 
 Everything that makes an opensim instance is located in a single folder "OutworldzFiles".   It is essentially a copy of the default installation with modifications to make it easy to install and ready to use.  
 
-cd OutworldzFiles\Opensim-0.9.0
-@rem git clone git://opensimulator.org/git/opensim
-@rem update Opensim from master
-git pull
-git checkout 0.9.0-post-fixes
+You pull the source code for Dreamgrid:.
+
+git clone git://github.com/Outworldz/Dreamworld
+
+Make a blank folder and pull the opensim src code from Opensimulator.org. 
+
+git clone git://opensimulator.org/git/opensim
+
+Put the .git folder into Outworldzfiles\Opensim.
+
+cd OutworldzFiles\Opensim
+git pull 
+
 runprebuild.bat
 compile.bat
-cd bin
-mautil -reg . reg-update 
   
-Updates: The system has a built in updater that it fetches from the Outworldz web site.   This is how the updater can be updated.  The updater, in turn, fetches a zip file that has the changes in it.
-
-V2.54 added a backup prompt. It does stop the entire system for the update. It never overwrites the database, the Settings, or the Regions.
-
-If you say yes to the Backup Prompt, it will save all critical files in the AutoBackup folder in a new folder marked with the date. I also added a "backup critical files" to the Content menu for manual use. Both copy the Wifi folders, all Regions and Mysql\data folder plus Settings.ini. If necessary, you can download any version from the web site and copy these files back where they come from, and you will be back where you were.
-
+Updates: The system has a built in updater that fetches a zip file from the Outworldz web site.   
 Backups and other details:
 
 The database will grow and grow!   So before you make any changes, you should make a backup copy of "OutworldzFiles" folder.    Do not use the original folder for live work as the blank db will get overwritten.    
 
-Blank DB:  If you wish to start over with the database being empty, delete all the files (not the folders!) in mysql/data.  Delete all the files in mysql\data\opensim. Leave the empty folder. I always keep '.keep' to prevent git from deleting the empty folder.
+Blank DB:  If you wish to start over with the database being empty, delete the Mysql\Data folder and unzip the file "Blank-Mysql-Data-folder.zip"
 
-You can also just delete the Data folder and unzip the file "Blank-Mysql-Data-folder.zip"
+Compiliation:  You need to use Microsoft Visual Studio 2017 or 2019.  Navigate to \Installer-Src\2010\SetupDreamWorld and open the Solution "Setup DreamWorld.sln".
 
-Compiliation:  You need to use Microsoft Visual Studio 2015 or 2017.  Navigate to \Installer-Src\2010\SetupDreamWorld and open the Solution "Setup DreamWorld.sln".
-
-To compile and run opensim, you can use Visual Studio or command line.   For VS, Navigate to Outworldz Dreamgrid Source\OutworldzFiles\Opensim. Open Opensim.sln in Visual Studio.  In the Opensim->Debug menu, add "-inidirectory=Regions/Welcome" to the command line arguments. Then set it to Debug mode and it will compile and run opensim
+To compile and run opensim, you can use Visual Studio or command line.   For VS, Navigate to Outworldz Dreamgrid Source\OutworldzFiles\Opensim. Open Opensim.sln in Visual Studio.  Then set it to Debug mode and it will compile and run 
 
 Navigate to Debug->Build Start. The app should compile.   Navigate to "Installer-Src\2010\SetupDreamWorld\Setup DreamWorld\bin\Release" and copy Start.exe and other DLL's it compile to the root folder to be ready for production.   
 
 
-fred@mitsi.com
+fred@outworldz.com
 ~ Ferd/Fred
 
 
