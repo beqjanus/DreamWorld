@@ -11,7 +11,7 @@ Public Class Update
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Show()
-        Me.Text = "Downloader For DreamGrid Updates"
+        Me.Text = "DreamGrid Downloader"
         MyFolder = My.Application.Info.DirectoryPath
 
         If Debugger.IsAttached = True Then
@@ -23,7 +23,7 @@ Public Class Update
             Label1.Text = ""
         End If
 
-        Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGridInstall.zip"
+        Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
 
         Try
             Label1.Text = "Downloading Update..."
@@ -31,7 +31,7 @@ Public Class Update
             Dim client As WebClient
             client = New WebClient()
             client.Credentials = New NetworkCredential("", "")
-            client.DownloadFile(FName, "DreamGridInstall.exe")
+            client.DownloadFile(FName, "DreamGrid.Zip")
         Catch ex As Exception
             Environment.Exit(1)
         End Try
