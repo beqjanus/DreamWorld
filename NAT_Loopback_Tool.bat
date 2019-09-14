@@ -63,12 +63,5 @@ goto end
 :ok
 Set Log=SUCCESS: %Interface%: %NewIp%
 echo Everything fine, exiting....
-REM This is the nasty way to say "sleep x" when the sleep tool is not available
-ping 127.0.0.1 -n 5 -w 1000 > nul
-
 :end
-REM Some logging...
-For /F %%I in ('date /T') Do Set StrDate=%%I
-For /F %%I in ('time /T') Do Set StrTime=%%I
-echo %StrDate% %StrTime%: %Log% >> SET_externalIP-log.txt
-endlocal
+
