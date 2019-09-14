@@ -4440,30 +4440,9 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            Dim result = MsgBox("An update is available. Do you want to read about it and maybe install it?", vbYesNo)
+            Dim result = MsgBox("A new update has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
             If result = vbYes Then
-                Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/Revisions.rtf"
-
-                Try
-                    Label1.Text = "Downloading Update..."
-                    Application.DoEvents()
-                    Dim client As WebClient
-                    client = New WebClient()
-                    client.Credentials = New NetworkCredential("", "")
-                    client.DownloadFile(FName, PropMySetting.Myfolder & "Outworldzfiles\Help\Revisions.rtf")
-                Catch ex As ArgumentNullException
-                Catch ex As WebException
-                Catch ex As NotSupportedException
-                End Try
-
-                Help("Revisions")
-                Application.DoEvents()
-                Sleep(10)
-
-                result = MsgBox("Do you want to exit Dreamgrid and install the update?", vbYesNo)
-                If result = vbYes Then
-                    UpdaterGo()
-                End If
+                UpdaterGo()
             End If
         Else
             ErrorLog("Could not download an Update")
@@ -4496,7 +4475,7 @@ Public Class Form1
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                     .Arguments = "",
                     .FileName = """" & PropMyFolder & "\Downloader.exe" & """",
-                    .WindowStyle = ProcessWindowStyle.Hidden
+                    .WindowStyle = ProcessWindowStyle.Normal
                 }
             UpdateProcess.StartInfo = pi
             UpdateProcess.EnableRaisingEvents = True
@@ -4538,7 +4517,7 @@ Public Class Form1
                 Dim pUpdate As Process = New Process()
                 Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                     .Arguments = "",
-                    .FileName = """" & PropMyFolder & "\DreamGridInstaller.exe" & """"
+                    .FileName = """" & PropMyFolder & "\DreamGridSetup.exe" & """"
                 }
                 pUpdate.StartInfo = pi
                 Try
