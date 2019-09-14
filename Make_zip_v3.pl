@@ -101,7 +101,7 @@ close OUT;
 
 if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Release/Start.exe", "$dir"))  {die $!;}
 
-goto label;
+
 
 say("Signing");
 use IO::All;
@@ -202,7 +202,6 @@ JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/share');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.git');
-
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
@@ -230,15 +229,16 @@ if ($publish)
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
-	if (!copy ("../Zips/DreamGrid-Update$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 
-}
-
-
-print "Revisions\n";
+	print "Revisions\n";
 if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+
+
+}
+
 
 
 say "Done!";
