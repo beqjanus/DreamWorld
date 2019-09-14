@@ -46,8 +46,9 @@ Public Class Form1
 #Region "Declarations"
 
     ' with events
-    Private WithEvents ApacheProcess As New Process()
+    Private WithEvents UpdateProcess As New Process()
 
+    Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
@@ -641,11 +642,6 @@ Public Class Form1
         PropOpensimIsRunning() = True
 
         If PropViewedSettings Then
-
-            ' must start after region Class Is instantiated
-            ' !!! is not working fkb
-            ' PropWebServer.StopWebServer()
-            'PropWebServer.StartServer(PropMyFolder, PropMySetting)
 
             If SetPublicIP() Then
                 OpenPorts()
@@ -4440,66 +4436,90 @@ Public Class Form1
 
 #Region "Updates"
 
+    Private Sub UpdaterProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles UpdateProcess.Exited
+
+        Dim ExitCode = UpdateProcess.ExitCode
+        If ExitCode = 0 Then
+            Dim result = MsgBox("An update is available. Do you want to read about it and maybe install it?", vbYesNo)
+            If result = vbYes Then
+                Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/Revisions.rtf"
+
+                Try
+                    Label1.Text = "Downloading Update..."
+                    Application.DoEvents()
+                    Dim client As WebClient
+                    client = New WebClient()
+                    client.Credentials = New NetworkCredential("", "")
+                    client.DownloadFile(FName, PropMySetting.Myfolder & "Outworldzfiles\Help\Revisions.rtf")
+                Catch ex As ArgumentNullException
+                Catch ex As WebException
+                Catch ex As NotSupportedException
+                End Try
+
+                Help("Revisions")
+                Application.DoEvents()
+                Sleep(10)
+
+                result = MsgBox("Do you want to exit Dreamgrid and install the update?", vbYesNo)
+                If result = vbYes Then
+                    UpdaterGo()
+                End If
+            End If
+        Else
+            ErrorLog("Could not download an Update")
+        End If
+
+    End Sub
+
     Sub CheckForUpdates()
 
         Print("Checking for Updates")
-        Dim Update As String = ""
-
+        Dim Update As String = Nothing
         Try
             Update = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
-        Catch ex As Exception
+        Catch ex As ArgumentNullException
+        Catch ex As WebException
+        Catch ex As NotSupportedException
             ErrorLog("Dang:The Outworldz web site is down")
         End Try
-        If (Update.Length = 0) Then Update = "0"
 
+        If Update.Length = 0 Then Update = "0"
+        Dim Delta As Single = 0
         Try
-            If Convert.ToSingle(Update, Invarient) > Convert.ToSingle(PropMyVersion, Invarient) Then
-                If MsgBox("A dreamier version " & Update & " is available. Update Now?", vbYesNo) = vbYes Then UpdaterGo()
-            End If
-        Catch
+            Delta = Convert.ToSingle(Update, Invarient) - Convert.ToSingle(PropMyVersion, Invarient)
+        Catch ex As FormatException
+        Catch ex As OverflowException
         End Try
+
+        If Delta > 0 Then
+            Print("An Update is available. Downloading it now.")
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                    .Arguments = "",
+                    .FileName = """" & PropMyFolder & "\Downloader.exe" & """",
+                    .WindowStyle = ProcessWindowStyle.Hidden
+                }
+            UpdateProcess.StartInfo = pi
+            UpdateProcess.EnableRaisingEvents = True
+            Try
+                UpdateProcess.Start()
+            Catch ex As ObjectDisposedException
+                Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually. ")
+            Catch ex As InvalidOperationException
+                Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually.")
+            Catch ex As System.ComponentModel.Win32Exception
+                Print("Error: Could not launch Downloader.exe. Perhaps you can can and launch it manually.")
+            End Try
+        End If
 
         BumpProgress10()
 
     End Sub
 
-    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
+    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
         CheckForUpdates()
 
     End Sub
-
-    Private Function Download() As String
-
-        Dim fileName As String = "UpdateGrid.exe"
-
-        Try
-            My.Computer.FileSystem.DeleteFile(PropMyFolder & "\" & fileName)
-        Catch
-            Log("Error", " Could Not delete " & PropMyFolder & "\" & fileName)
-        End Try
-
-        Try
-            fileName = client.DownloadString(SecureDomain() & "/Outworldz_Installer/GetUpdaterGrid.plx?fill=1" & GetPostData())
-        Catch
-            MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
-            Return ""
-        End Try
-
-        Try
-            Dim myWebClient As New WebClient()
-            Print("Downloading New updater, this will take a moment")
-            ' The DownloadFile() method downloads the Web resource and saves it into the current
-            ' file-system folder.
-            myWebClient.DownloadFile(SecureDomain() & "/Outworldz_Installer/" & fileName, fileName)
-        Catch e As Exception
-            MsgBox("Could Not fetch an update. Please Try again, later", vbInformation, "Info")
-            Log("Warn", e.Message)
-            Return ""
-        End Try
-        Return fileName
-
-    End Function
 
     Private Sub UpdaterGo()
 
@@ -4515,25 +4535,24 @@ Public Class Form1
                 KillApache()
                 StopMysql()
 
-                Dim fileloaded As String = Download()
-                If fileloaded.Length > 0 Then
-                    Dim pUpdate As Process = New Process()
-                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                        .Arguments = "",
-                        .FileName = """" & PropMyFolder & "\" & fileloaded & """"
-                    }
-                    pUpdate.StartInfo = pi
-                    Try
-                        Print("I'll see you again when I wake up all fresh and new!")
-                        Log("Info", "Launch Updater and exiting")
-                        pUpdate.Start()
-                    Catch ex As Exception
-                        ErrorLog("Error: Could not launch " & fileloaded & ". Perhaps you can can exit this program and launch it manually.")
-                    End Try
-                    End ' program
-                Else
-                    Print("Uh Oh!  The files I need could not be found online. The gnomes have absconded with them! Please check later.")
-                End If
+                Dim pUpdate As Process = New Process()
+                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                    .Arguments = "",
+                    .FileName = """" & PropMyFolder & "\DreamGridInstaller.exe" & """"
+                }
+                pUpdate.StartInfo = pi
+                Try
+                    Print("I'll see you again when I wake up all fresh and new!")
+                    Log("Info", "Launch Updater and exiting")
+                    pUpdate.Start()
+                Catch ex As ObjectDisposedException
+                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+                Catch ex As InvalidOperationException
+                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+                Catch ex As System.ComponentModel.Win32Exception
+                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+                End Try
+                End ' program
             End If
         End If
 
