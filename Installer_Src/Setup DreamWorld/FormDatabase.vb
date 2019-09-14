@@ -150,6 +150,7 @@ Public Class FormDatabase
 
         Initted1 = True
         Form1.HelpOnce("Database")
+        Form1.HelpOnce("ServerType")
         MsgBox("Changes to this area may require special changes to MySQL. If you change these, you will probably break things. Please read the Help section bvefore making changes!", vbInformation)
 
     End Sub
@@ -459,6 +460,10 @@ Public Class FormDatabase
         End Try
 
         Debug.Print(Form1.PropMySetting.ExternalHostName)
+    End Sub
+
+    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
+        Form1.Help("ServerType")
     End Sub
 
 #End Region
