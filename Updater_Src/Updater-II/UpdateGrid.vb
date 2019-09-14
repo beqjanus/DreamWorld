@@ -51,7 +51,8 @@ Public Class UpdateGrid
                     For Each ZipEntry In zip
                         Application.DoEvents()
                         ctr = ctr + 1
-                        If ZipEntry.FileName <> "DotNetZip.dll" Then
+                        If ZipEntry.FileName <> "DotNetZip.dll" And
+                            ZipEntry.FileName <> "DreamGridSetup.exe" Then
                             TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
                             ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                         End If

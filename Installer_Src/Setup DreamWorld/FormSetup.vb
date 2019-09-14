@@ -4502,38 +4502,27 @@ Public Class Form1
 
     Private Sub UpdaterGo()
 
-        Dim msg = MsgBox("Make a backup of important files and the database first? ", vbYesNo)
-        If msg = vbYes Then
-            Dim FormCriticaL = New FormBackupCheckboxes
-            ' Call the ShowDialog method to show the dialogbox.
-            Dim UserClickedOK As DialogResult = FormCriticaL.ShowDialog
+        KillApache()
+        StopMysql()
 
-            ' Process input if the user clicked OK.
-            If UserClickedOK = DialogResult.OK Then
-
-                KillApache()
-                StopMysql()
-
-                Dim pUpdate As Process = New Process()
-                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = """" & PropMyFolder & "\DreamGridSetup.exe" & """"
-                }
-                pUpdate.StartInfo = pi
-                Try
-                    Print("I'll see you again when I wake up all fresh and new!")
-                    Log("Info", "Launch Updater and exiting")
-                    pUpdate.Start()
-                Catch ex As ObjectDisposedException
-                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
-                Catch ex As InvalidOperationException
-                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
-                Catch ex As System.ComponentModel.Win32Exception
-                    ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
-                End Try
-                End ' program
-            End If
-        End If
+        Dim pUpdate As Process = New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "",
+            .FileName = """" & PropMyFolder & "\DreamGridSetup.exe" & """"
+        }
+        pUpdate.StartInfo = pi
+        Try
+            Print("I'll see you again when I wake up all fresh and new!")
+            Log("Info", "Launch Updater and exiting")
+            pUpdate.Start()
+        Catch ex As ObjectDisposedException
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+        Catch ex As InvalidOperationException
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+        Catch ex As System.ComponentModel.Win32Exception
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+        End Try
+        End ' program
 
     End Sub
 

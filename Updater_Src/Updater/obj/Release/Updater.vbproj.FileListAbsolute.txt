@@ -208,3 +208,16 @@ F:\Opensim\Outworldz Dreamgrid Source\Updater_Src\Updater\obj\Release\InstallDre
 F:\Opensim\Outworldz Dreamgrid Source\Updater_Src\Updater\bin\Release\InstallDreamGridV4.exe
 F:\Opensim\Outworldz Dreamgrid Source\Updater_Src\Updater\bin\Release\InstallDreamGridV4.pdb
 F:\Opensim\Outworldz Dreamgrid Source\Updater_Src\Updater\obj\Release\Updater.vbprojResolveAssemblyReference.cache
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Release\InstallDreamGridV4.exe.config
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Release\InstallDreamGridV4.exe
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Release\InstallDreamGridV4.pdb
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Release\DotNetZip.dll
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Release\DotNetZip.xml
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Updater.vbprojAssemblyReference.cache
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Outworldz.Resources.resources
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Outworldz.UpdateGrid.resources
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Updater.vbproj.GenerateResource.cache
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Updater.vbproj.CoreCompileInputs.cache
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\Updater.vbproj.CopyComplete
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\InstallDreamGridV4.exe
+O:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Release\InstallDreamGridV4.pdb

@@ -41,6 +41,7 @@ foreach my $path ( @deletions) {
 }
 
 unlink ("$dir/BareTail.udm");
+unlink ("$dir/DreamGrid.zip");
 unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/PHP5/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
@@ -215,6 +216,9 @@ JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
+JustDelete('O:/Opensim/Zip/Make_zip_v3.pl');
+JustDelete('O:/Opensim/Zip/Make_zip_v2.pl');
+
 
 #####################
 print "Make zip\n";
@@ -228,13 +232,14 @@ if ($publish)
 	say ("Publishing now");
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Up[date.zip";
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-
+	
 	print "Revisions\n";
-if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
-if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+	if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+	if (!copy ('Revisions.txt', 'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+	
 
 
 }
