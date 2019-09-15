@@ -4324,7 +4324,7 @@ Public Class Form1
             Return
         End Try
 
-        UploadPhoto()
+        'UploadPhoto()
 
         Application.DoEvents()
         Dim oarreader = New System.IO.StringReader(oars)

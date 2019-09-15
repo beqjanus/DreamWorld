@@ -100,9 +100,8 @@ Public Class FormPublicity
                 End If
 
                 PictureBox9.Image = Nothing
-
-                PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                 Try
+                    PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
                     My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
                 Catch ex As Exception
                 End Try
