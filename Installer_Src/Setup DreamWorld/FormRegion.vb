@@ -127,7 +127,7 @@ Public Class FormRegion
         PropRegionClass1 = RegionMaker.Instance()
         If Name.Length = 0 Then
             IsNew1 = True
-            RegionName.Text = Name & " ????"
+            RegionName.Text = Name & "Name of Region"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = "256"
             SizeY.Text = "256"
@@ -311,9 +311,9 @@ Public Class FormRegion
         End Select
 
         ' if none, turn it off
-        If PropRegionClass1.AllowGods(N1).Length = 0 And
-             PropRegionClass1.RegionGod(N1).Length = 0 And
-            PropRegionClass1.ManagerGod(N1).Length = 0 Then
+        If PropRegionClass1.AllowGods(N1) = "False" And
+             PropRegionClass1.RegionGod(N1) = "False" And
+            PropRegionClass1.ManagerGod(N1) = "False" Then
             Gods_Use_Default.Checked = True
         End If
 
