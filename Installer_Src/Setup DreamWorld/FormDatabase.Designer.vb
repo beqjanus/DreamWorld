@@ -51,6 +51,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername = New System.Windows.Forms.TextBox()
         Me.DBHelp = New System.Windows.Forms.PictureBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.AviWorldsButton = New System.Windows.Forms.RadioButton()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
         Me.SaveButton = New System.Windows.Forms.Button()
@@ -65,7 +66,6 @@ Partial Class FormDatabase
         Me.FullSQLBackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.AviWorldsButton = New System.Windows.Forms.RadioButton()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -339,6 +339,16 @@ Partial Class FormDatabase
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Server Type"
         '
+        'AviWorldsButton
+        '
+        Me.AviWorldsButton.AutoSize = True
+        Me.AviWorldsButton.Location = New System.Drawing.Point(17, 123)
+        Me.AviWorldsButton.Name = "AviWorldsButton"
+        Me.AviWorldsButton.Size = New System.Drawing.Size(144, 17)
+        Me.AviWorldsButton.TabIndex = 1886
+        Me.AviWorldsButton.Text = "Aviworlds Region  Server"
+        Me.AviWorldsButton.UseVisualStyleBackColor = True
+        '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
@@ -424,14 +434,14 @@ Partial Class FormDatabase
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.DatabaseSetupToolStripMenuItem.Text = "Database Setup"
         '
         'ServerTypeToolStripMenuItem
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.ServerTypeToolStripMenuItem.Text = "Server Type"
         '
         'BackupToolStripMenuItem
@@ -455,16 +465,6 @@ Partial Class FormDatabase
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
-        '
-        'AviWorldsButton
-        '
-        Me.AviWorldsButton.AutoSize = True
-        Me.AviWorldsButton.Location = New System.Drawing.Point(17, 123)
-        Me.AviWorldsButton.Name = "AviWorldsButton"
-        Me.AviWorldsButton.Size = New System.Drawing.Size(144, 17)
-        Me.AviWorldsButton.TabIndex = 1886
-        Me.AviWorldsButton.Text = "Aviworlds Region  Server"
-        Me.AviWorldsButton.UseVisualStyleBackColor = True
         '
         'FormDatabase
         '

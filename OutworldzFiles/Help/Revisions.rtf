@@ -6,6 +6,22 @@
 \pard\widctlpar\li720\ri720\sb100\tx810\cf0\expndtw0\caps0\f1\fs21\par
 
 \pard\nowidctlpar\li720\ri720\sb100 This is a high-level view of major changes. Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\line\par
+V3.17 is a release candidate for V3.2, the official release that everybody gets a notice to update to.\par
+There is no longer an "updater versus installer".  For backwards compatibility, there are still two files on the web server, but they are identical.  \par
+If you want to start over with a blank database, you can just delete mysql\\data and it will be rebuilt as a blank system\par
+New backgound updater process.\par
+"Welcome to " & SimName() & " , <USERNAME>") set for welcome message.\par
+Build process is much faster by using a temp folder instead of adding and deleting from a  zip. Also easier to audit.\par
+Put back support for older TLS 1.0 protocols so older systems can update.\par
+Console Commands did not always pop open the DOS window\par
+Load OAR in some earlier versions was borked.\par
+GDI+ error when changing Publicity Photo is fixed\par
+Snapshot, MinTimerInterval, Disable Gloebits fixed in region Overrides\par
+MYSQL speedup with a small cache: uery_cache_size=8M\par
+Compile instructions updated.\par
+Add help for ServerType, thanks to Garry Beaumont\par
+Access of shared member through an instance; qualifying expression will not be evaluated refactored\par
+\par
 V3.16 Beta\par
 Search improvements for local and global search - sped up Datasnapshot interval, better HGV3 link that does not require a second click.  Shows # hours each sim has been online in search, and dwell time (the Second Life visitor metric).   \par
 \par

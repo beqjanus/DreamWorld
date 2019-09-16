@@ -125,6 +125,7 @@ Partial Class Form1
         Me.MysqlPictureBox = New System.Windows.Forms.PictureBox()
         Me.RobustPictureBox = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.IceCastPicturebox = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
@@ -136,7 +137,8 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.IcecastLabel = New System.Windows.Forms.Label()
-        Me.IceCastPicturebox = New System.Windows.Forms.PictureBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -847,6 +849,16 @@ Partial Class Form1
         Me.PictureBox1.TabStop = False
         Me.ToolTip1.SetToolTip(Me.PictureBox1, "MySQL Status")
         '
+        'IceCastPicturebox
+        '
+        Me.IceCastPicturebox.Image = CType(resources.GetObject("IceCastPicturebox.Image"), System.Drawing.Image)
+        Me.IceCastPicturebox.Location = New System.Drawing.Point(442, 5)
+        Me.IceCastPicturebox.Name = "IceCastPicturebox"
+        Me.IceCastPicturebox.Size = New System.Drawing.Size(17, 17)
+        Me.IceCastPicturebox.TabIndex = 46
+        Me.IceCastPicturebox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.IceCastPicturebox, "IceCast Status")
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -958,16 +970,6 @@ Partial Class Form1
         Me.IcecastLabel.Size = New System.Drawing.Size(42, 13)
         Me.IcecastLabel.TabIndex = 47
         Me.IcecastLabel.Text = "Icecast"
-        '
-        'IceCastPicturebox
-        '
-        Me.IceCastPicturebox.Image = CType(resources.GetObject("IceCastPicturebox.Image"), System.Drawing.Image)
-        Me.IceCastPicturebox.Location = New System.Drawing.Point(442, 5)
-        Me.IceCastPicturebox.Name = "IceCastPicturebox"
-        Me.IceCastPicturebox.Size = New System.Drawing.Size(17, 17)
-        Me.IceCastPicturebox.TabIndex = 46
-        Me.IceCastPicturebox.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.IceCastPicturebox, "IceCast Status")
         '
         'Form1
         '
@@ -1139,4 +1141,6 @@ Partial Class Form1
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents IcecastLabel As Label
     Friend WithEvents IceCastPicturebox As PictureBox
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
 End Class
