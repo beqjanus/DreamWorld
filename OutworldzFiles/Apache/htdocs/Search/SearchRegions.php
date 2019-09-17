@@ -109,7 +109,7 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $v3    = "secondlife:///app/teleport/" . $row["gateway"] . '/'. $row["regionname"];     
+        $v3    = "secondlife:///app//teleport/" . $row["gateway"] . '/'. $row["regionname"];     
       
         
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
