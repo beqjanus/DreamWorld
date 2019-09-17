@@ -247,7 +247,7 @@ Public Module MysqlInterface
         Try
             MysqlConn = New MySqlConnection(Form1.RegionMySqlConnection)
             MysqlConn.Open()
-            Dim stm = "Select EstateID from opensim.estate_map where regionid = '" & UUID & "';"
+            Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
             Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
@@ -263,7 +263,7 @@ Public Module MysqlInterface
 
         Try
 
-            Dim stm1 = "Select EstateName from opensim.estate_settings where EstateID = '" & Val & "';"
+            Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
             Dim cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
             Dim reader2 As MySqlDataReader = cmd2.ExecuteReader()
 
