@@ -35,17 +35,20 @@ Partial Class FormPermissions
         Me.LSLCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Clouds = New System.Windows.Forms.CheckBox()
+        Me.ExportAllowed = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LimitsBox.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox4
@@ -161,6 +164,17 @@ Partial Class FormPermissions
         Me.ToolTip1.SetToolTip(Me.Clouds, "The original Second Life clouds")
         Me.Clouds.UseVisualStyleBackColor = True
         '
+        'ExportAllowed
+        '
+        Me.ExportAllowed.AutoSize = True
+        Me.ExportAllowed.Location = New System.Drawing.Point(12, 19)
+        Me.ExportAllowed.Name = "ExportAllowed"
+        Me.ExportAllowed.Size = New System.Drawing.Size(95, 17)
+        Me.ExportAllowed.TabIndex = 17
+        Me.ExportAllowed.Text = "Allow Exports?"
+        Me.ToolTip1.SetToolTip(Me.ExportAllowed, "Allow supporting viewers to export content,  UnChecked means no export")
+        Me.ExportAllowed.UseVisualStyleBackColor = True
+        '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.DomainUpDown1)
@@ -197,7 +211,7 @@ Partial Class FormPermissions
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(222, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(233, 28)
         Me.MenuStrip2.TabIndex = 1889
         Me.MenuStrip2.Text = "0"
         '
@@ -213,14 +227,25 @@ Partial Class FormPermissions
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.ExportAllowed)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 325)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 56)
+        Me.GroupBox1.TabIndex = 1864
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Export Permissions"
         '
         'FormPermissions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 333)
+        Me.ClientSize = New System.Drawing.Size(233, 396)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox8)
@@ -241,6 +266,8 @@ Partial Class FormPermissions
         Me.GroupBox7.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -262,4 +289,6 @@ Partial Class FormPermissions
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents ExportAllowed As CheckBox
 End Class

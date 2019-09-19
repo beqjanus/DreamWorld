@@ -724,6 +724,7 @@ Public Class Form1
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Me.Hide()
+
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
@@ -2124,6 +2125,8 @@ Public Class Form1
             ' Robust Process
             PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
 
+            PropMySetting.SetOtherIni("GridService", "ExportSupported", PropMySetting.ExportSupported)
+
             PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
             PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
             PropMySetting.SetOtherIni("Const", "BaseURL", "http://" & PropMySetting.PublicIP)
@@ -2331,12 +2334,13 @@ Public Class Form1
 
         Print("Creating INI Files")
 
-        SetDefaultSims()
+        SetDefaultSims() ' do not swap order of this with  DoRobust. This creates Robust.HG.ini from the .proto
+        DoRobust()
         DoTOS()
         DoGridCommon()
         DelLibrary()
         DoMySQL()
-        DoRobust()
+
         DoFlotsamINI()
         DoOpensimINI()
         DoWifi()
@@ -3008,9 +3012,9 @@ Public Class Form1
         ProgressBar1.Value = CType(counter / Len, Integer)
 
         ' Boot them up
-        For Each x In PropRegionClass.RegionNumbers()
-            If PropRegionClass.RegionEnabled(x) Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(x), SkipSmartStart)
+        For Each X In PropRegionClass.RegionNumbers()
+            If PropRegionClass.RegionEnabled(X) Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(X), SkipSmartStart)
                 ProgressBar1.Value = CType(counter / Len * 100, Integer)
                 counter += 1
             End If

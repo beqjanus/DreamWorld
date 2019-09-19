@@ -280,7 +280,7 @@ Public Class MySettings
     Shared Function Random() As String
 
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.InVarient)
+        Random = System.Convert.ToString(value, Form1.Invarient)
 
     End Function
 
@@ -309,6 +309,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property ExportSupported() As Boolean
+        Get
+            Return CType(GetMySetting("ExportSupported", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("ExportSupported", CStr(Value))
+        End Set
+    End Property
 
     Public Property SearchEnabled() As Boolean
         Get

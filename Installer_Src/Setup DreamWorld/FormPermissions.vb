@@ -70,6 +70,8 @@ Public Class FormPermissions
         If (var < 0) Then var = 0
         DomainUpDown1.SelectedIndex = v
 
+        ExportAllowed.Checked = Form1.PropMySetting.ExportSupported
+
         SetScreen()
         Form1.HelpOnce("Permissions")
         initted = True
@@ -150,11 +152,19 @@ Public Class FormPermissions
             var = var / 10
             If (var > 1) Then var = 1
             If (var < 0) Then var = 0
-            Debug.Print(var.ToString(Form1.InVarient))
+            Debug.Print(var.ToString(Form1.Invarient))
 
             Form1.PropMySetting.Density = var
             Form1.PropMySetting.SaveSettings()
         End If
+
+    End Sub
+
+    Private Sub ExportAllowed_CheckedChanged(sender As Object, e As EventArgs) Handles ExportAllowed.CheckedChanged
+
+        If Not initted Then Return
+        Form1.PropMySetting.ExportSupported = ExportAllowed.Checked
+        Form1.PropMySetting.SaveSettings()
 
     End Sub
 
