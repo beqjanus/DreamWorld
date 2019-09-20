@@ -13,8 +13,8 @@
         Dim Quad1, Quad2 As Integer
 
         Try
-            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
-            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
+            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
         Catch
         End Try
 

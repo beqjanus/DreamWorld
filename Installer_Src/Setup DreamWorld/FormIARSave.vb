@@ -78,7 +78,7 @@ Public Class FormIARSave
         ' This call is required by the designer.
         InitializeComponent()
 
-        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.InVarient) + ".iar"
+        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient) + ".iar"
 
     End Sub
 
@@ -116,6 +116,7 @@ Public Class FormIARSave
                 BackupNameTextBox.Text = ofd.SelectedPath
             End If
         End If
+        ofd.Dispose()
 
     End Sub
 

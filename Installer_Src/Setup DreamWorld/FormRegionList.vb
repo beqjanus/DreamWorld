@@ -345,7 +345,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub SingletonForm_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         RegionList.FormExists1 = False
         Form1.PropMySetting.RegionListVisible = False
@@ -455,6 +455,7 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
+
             Debug.Print("Clicked row " + RegionName)
             Dim R = PropRegionClass1.FindRegionByName(RegionName)
             If R >= 0 Then
@@ -803,104 +804,96 @@ Public Class RegionList
         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
 
         Dim Choices As New FormRegionPopup
-        Dim chosen As String
+        Dim chosen As String = ""
         Choices.Init(RegionName)
         Choices.ShowDialog()
-        Try
-            ' Read the chosen sim name
-            chosen = Choices.Choice()
-            If chosen = "Start" Then
+        ' Read the chosen sim name
+        chosen = Choices.Choice()
+        Choices.Dispose()
 
-                ' it was stopped, and off, so we start up
-                If Not Form1.StartMySQL() Then
-                    Form1.ProgressBar1.Value = 0
-                    Form1.ProgressBar1.Visible = True
-                    Form1.Print("Stopped")
-                End If
-                Form1.StartRobust()
-                Form1.Log("Starting", PropRegionClass1.RegionName(n))
-                Form1.CopyOpensimProto(PropRegionClass1.RegionName(n))
-                Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n), True)
-                Form1.Timer1.Start() 'Timer starts functioning
-                PropUpdateView() = True ' force a refresh
+        If chosen = "Start" Then
 
-            ElseIf chosen = "Stop" Then
+            ' it was stopped, and off, so we start up
+            If Not Form1.StartMySQL() Then
+                Form1.ProgressBar1.Value = 0
+                Form1.ProgressBar1.Visible = True
+                Form1.Print("Stopped")
+            End If
+            Form1.StartRobust()
+            Form1.Log("Starting", PropRegionClass1.RegionName(n))
+            Form1.CopyOpensimProto(PropRegionClass1.RegionName(n))
+            Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n), True)
+            Form1.Timer1.Start() 'Timer starts functioning
+            PropUpdateView() = True ' force a refresh
 
-                ' if any avatars in any region, give them a choice.
-                Dim StopIt As Boolean = True
-                For Each num In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
-                    ' Ask before killing any people
-                    If PropRegionClass1.AvatarCount(num) > 0 Then
-                        Dim response As MsgBoxResult
-                        If PropRegionClass1.AvatarCount(num) = 1 Then
-                            response = MsgBox("There is one avatar in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
-                        Else
-                            response = MsgBox("There are " + PropRegionClass1.AvatarCount(num).ToString(Form1.Invarient) + " avatars in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
-                        End If
-                        If response = vbNo Then
-                            StopIt = False
-                        End If
-                    End If
-                Next
+        ElseIf chosen = "Stop" Then
 
-                If (StopIt) Then
-                    Dim regionNum = PropRegionClass1.FindRegionByName(RegionName)
-                    Dim h As IntPtr = Form1.GetHwnd(PropRegionClass1.GroupName(n))
-                    If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
-                        Form1.SequentialPause()
-                        Form1.ConsoleCommand(PropRegionClass1.GroupName(regionNum), "q{ENTER}" + vbCrLf)
-                        Form1.Print("Stopping " + PropRegionClass1.GroupName(regionNum))
-                        ' shut down all regions in the DOS box
-                        For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
-                            PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
-                        Next
+            ' if any avatars in any region, give them a choice.
+            Dim StopIt As Boolean = True
+            For Each num In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
+                ' Ask before killing any people
+                If PropRegionClass1.AvatarCount(num) > 0 Then
+                    Dim response As MsgBoxResult
+                    If PropRegionClass1.AvatarCount(num) = 1 Then
+                        response = MsgBox("There is one avatar in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                     Else
-                        ' shut down all regions in the DOS box
-                        For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
-                            PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
-                        Next
+                        response = MsgBox("There are " + PropRegionClass1.AvatarCount(num).ToString(Form1.Invarient) + " avatars in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
                     End If
+                    If response = vbNo Then
+                        StopIt = False
+                    End If
+                End If
+            Next
 
-                    PropUpdateView = True ' make form refresh
+            If (StopIt) Then
+                Dim regionNum = PropRegionClass1.FindRegionByName(RegionName)
+                Dim h As IntPtr = Form1.GetHwnd(PropRegionClass1.GroupName(n))
+                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
+                    Form1.SequentialPause()
+                    Form1.ConsoleCommand(PropRegionClass1.GroupName(regionNum), "q{ENTER}" + vbCrLf)
+                    Form1.Print("Stopping " + PropRegionClass1.GroupName(regionNum))
+                    ' shut down all regions in the DOS box
+                    For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
+                        PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
+                    Next
+                Else
+                    ' shut down all regions in the DOS box
+                    For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
+                        PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                    Next
                 End If
 
                 PropUpdateView = True ' make form refresh
-
-            ElseIf chosen = "Edit" Then
-
-                Dim RegionForm As New FormRegion
-                RegionForm.Init(PropRegionClass1.RegionName(n))
-                RegionForm.Activate()
-                RegionForm.Visible = True
-                RegionForm.Select()
-                ' PropUpdateView = True ' make form refresh
-
-            ElseIf chosen = "Recycle" Then
-
-                'Dim h As IntPtr = Form1.GetHwnd(PropRegionClass.GroupName(n))
-                Form1.SequentialPause()
-                Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
-                Form1.Print("Recycle " + PropRegionClass1.GroupName(n))
-                Form1.PropRestartNow = True
-
-                ' shut down all regions in the DOS box
-
-                For Each RegionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
-                    PropRegionClass1.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
-                    PropRegionClass1.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Next
-                PropUpdateView = True ' make form refresh
-
             End If
 
-            If chosen.Length > 0 Then
-                Choices.Dispose()
-            End If
-        Catch
+            PropUpdateView = True ' make form refresh
 
-        End Try
+        ElseIf chosen = "Edit" Then
+
+            Dim RegionForm As New FormRegion
+            RegionForm.Init(PropRegionClass1.RegionName(n))
+            RegionForm.Activate()
+            RegionForm.Visible = True
+            RegionForm.Select()
+
+        ElseIf chosen = "Recycle" Then
+            'Dim h As IntPtr = Form1.GetHwnd(PropRegionClass.GroupName(n))
+            Form1.SequentialPause()
+            Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
+            Form1.Print("Recycle " + PropRegionClass1.GroupName(n))
+            Form1.PropRestartNow = True
+
+            ' shut down all regions in the DOS box
+
+            For Each RegionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
+                PropRegionClass1.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
+                PropRegionClass1.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+            Next
+            PropUpdateView = True ' make form refresh
+
+        End If
 
     End Sub
 
@@ -992,12 +985,12 @@ Public Class RegionList
         Try
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-            If chosen.Length > 0 Then
-                Chooseform.Dispose()
-            End If
         Catch ex As Exception
             chosen = ""
         End Try
+
+        Chooseform.Dispose()
+
         Return chosen
 
     End Function
@@ -1089,6 +1082,7 @@ Public Class RegionList
                 Dim dirpathname = PickGroup()
                 If dirpathname.Length = 0 Then
                     Form1.Print("Aborted")
+                    ofd.Dispose()
                     Return
                 End If
 
@@ -1096,6 +1090,7 @@ Public Class RegionList
                     dirpathname = InputBox("Enter the New Dos Box name")
                 End If
                 If dirpathname.Length = 0 Then
+                    ofd.Dispose()
                     Return
                 End If
 
@@ -1108,6 +1103,7 @@ Public Class RegionList
                     Dim i = PropRegionClass1.FindRegionByName(filename)
                     If i >= 0 Then
                         MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
+                        ofd.Dispose()
                         Return
                     End If
 
@@ -1127,6 +1123,7 @@ Public Class RegionList
                 LoadMyListView()
             End If
         End If
+        ofd.Dispose()
 
     End Sub
 
@@ -1186,7 +1183,10 @@ Class ListViewItemComparer
 
     Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
 
-        Return [String].Compare(CType(x, ListViewItem).SubItems(col).Text, CType(y, ListViewItem).SubItems(col).Text)
+        Dim a = CType(x, ListViewItem).SubItems(col).Text
+        Dim b = CType(y, ListViewItem).SubItems(col).Text
+
+        Return [String].Compare(a, b, StringComparison.InvariantCultureIgnoreCase)
 
     End Function
 

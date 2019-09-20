@@ -32,42 +32,41 @@ Public Module MysqlInterface
 
     Public Sub DeleteSearchDatabase()
 
-        Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
-        Try
-            osconnection.Open()
-            Dim stm As String = "DROP DATABASE ossearch;"
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-            cmd.ExecuteScalar()
-        Catch ex As InvalidOperationException
-            Debug.Print("Failed to Connect to OsSearch")
-            Return
-        Catch ex As MySqlException
-            Debug.Print("Failed to Connect to OsSearch")
-            Return
-        Finally
-            osconnection.Close()
-        End Try
+        Using osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
+            Try
+                osconnection.Open()
+                Dim stm As String = "DROP DATABASE ossearch;"
+                Using cmd As New MySqlCommand(stm, osconnection)
+                    cmd.ExecuteScalar()
+                End Using
+            Catch ex As InvalidOperationException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            Catch ex As MySqlException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            End Try
+        End Using
 
     End Sub
 
     Public Sub DeleteRegionlist()
 
-        Dim osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
-        Try
-            osconnection.Open()
-            Dim stm As String = "delete from hostsregister"
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-            cmd.ExecuteScalar()
-        Catch ex As InvalidOperationException
-            Debug.Print("Failed to Connect to OsSearch")
-            Return
-        Catch ex As MySqlException
-            Debug.Print("Failed to Connect to OsSearch")
-            Return
-        Finally
-            osconnection.Close()
-        End Try
-
+        Using osconnection As MySqlConnection = New MySqlConnection(Form1.OSSearchConnectionString())
+            Try
+                osconnection.Open()
+                Dim stm As String = "delete from hostsregister"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+                    cmd.ExecuteScalar()
+                End Using
+            Catch ex As InvalidOperationException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            Catch ex As MySqlException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            End Try
+        End Using
     End Sub
 
     Public Function GetAgentList() As Dictionary(Of String, String)
@@ -75,23 +74,23 @@ Public Module MysqlInterface
         Dim Dict As New Dictionary(Of String, String)
         If Form1.PropMySetting.ServerType <> "Robust" Then Return Dict
 
-        Dim NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
-        Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+        Using NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
+            Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
 
-        Try
-            NewSQLConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, NewSQLConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-            While reader.Read()
-                Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
-                Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
-            End While
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            NewSQLConn.Close()
-        End Try
+            Try
+                NewSQLConn.Open()
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
+                            Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
+                        End While
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                Console.WriteLine("Error: " & ex.ToString())
+            End Try
+        End Using
 
         Return Dict
 
@@ -102,53 +101,56 @@ Public Module MysqlInterface
         ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
-        Dim NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
+
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String = ""
         Dim UUID As String = ""
+        Using NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
 
-        Try
-            NewSQLConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-            While reader.Read()
-                Debug.Print(reader.GetString(0))
-                Dim LongName = reader.GetString(0)
-                UUID = reader.GetString(1)
-                For Each m In Regex.Matches(LongName, pattern)
-                    Debug.Print("Avatar {0}", m.Groups(2).Value)
-                    Debug.Print("Region UUID {0}", m.Groups(1).Value)
-                    Avatar = m.Groups(2).Value.ToString
-                    Dict.Add(Avatar, GetRegionName(UUID))
-                Next
-
-            End While
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            NewSQLConn.Close()
-        End Try
-
+                        While reader.Read()
+                            Debug.Print(reader.GetString(0))
+                            Dim LongName = reader.GetString(0)
+                            UUID = reader.GetString(1)
+                            For Each m In Regex.Matches(LongName, pattern)
+                                Debug.Print("Avatar {0}", m.Groups(2).Value)
+                                Debug.Print("Region UUID {0}", m.Groups(1).Value)
+                                Avatar = m.Groups(2).Value.ToString
+                                Dict.Add(Avatar, GetRegionName(UUID))
+                            Next
+                        End While
+                    End Using
+                End Using
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.ToString())
+            End Try
+        End Using
         Return Dict
+
     End Function
 
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Dim MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
         Try
-
             MysqlConn.Open()
 
             Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+            Using cmd As New MySqlCommand(stm, MysqlConn)
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
 
-            If reader.Read() Then
-                Debug.Print("Region Name = {0}", reader.GetString(0))
-                Val = reader.GetString(0)
-            End If
+                    If reader.Read() Then
+                        Debug.Print("Region Name = {0}", reader.GetString(0))
+                        Val = reader.GetString(0)
+                    End If
+                End Using
+            End Using
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
         Finally
@@ -195,39 +197,48 @@ Public Module MysqlInterface
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
-        Dim MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
-        Try
-            MysqlConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-            Dim v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
-            Return v
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        Finally
-            MysqlConn.Close()
-        End Try
-        Return Nothing
+        Using MysqlConn = New MySqlConnection(Form1.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim v As String
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
+                End Using
+                Return v
+            Catch ex As Exception
+                Debug.Print(ex.Message)
+            End Try
+        End Using
+
+        Return ""
 
     End Function
 
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Dim iPort As Integer = Convert.ToInt16(Port)
-        Dim ClientSocket As New TcpClient
+        Using ClientSocket As New TcpClient
+            Try
+                ClientSocket.Connect(ServerAddress, iPort)
+            Catch ex As ArgumentNullException
+                Return False
+            Catch ex As ArgumentOutOfRangeException
+                Return False
+            Catch ex As SocketException
+                Return False
+            Catch ex As ObjectDisposedException
+                Return False
+            End Try
 
-        Try
-            ClientSocket.Connect(ServerAddress, iPort)
-        Catch ex As Exception
-            Return False
-        End Try
+            If ClientSocket.Connected Then
+                Return True
+            End If
+        End Using
 
-        If ClientSocket.Connected Then
-            ClientSocket.Close()
-            Return True
-        End If
-        CheckPort = False
+        Return False
 
     End Function
 
@@ -243,40 +254,47 @@ Public Module MysqlInterface
         Debug.Print(Form1.RegionMySqlConnection)
         Dim name As String = ""
         Dim Val As String = ""
-        Dim MysqlConn As MySqlConnection
-        Try
-            MysqlConn = New MySqlConnection(Form1.RegionMySqlConnection)
-            MysqlConn.Open()
-            Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
-            Dim cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            If reader.Read() Then
-                Debug.Print("ID = {0}", reader.GetString(0))
-                Val = reader.GetString(0)
-            End If
-            reader.Close()
+        Try
+            Using MysqlConn As New MySqlConnection(Form1.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Debug.Print("ID = {0}", reader.GetString(0))
+                            Val = reader.GetString(0)
+                        End If
+                    End Using
+                End Using
+            End Using
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         End Try
 
         Try
-
             Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
-            Dim cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
-            Dim reader2 As MySqlDataReader = cmd2.ExecuteReader()
-
-            If reader2.Read() Then
-                Debug.Print("Name = {0}", reader2.GetString(0))
-                name = reader2.GetString(0)
-            End If
-            reader2.Close()
+            Using MysqlConn As New MySqlConnection(Form1.RegionMySqlConnection)
+                MysqlConn.Open()
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    Using reader2 As MySqlDataReader = cmd2.ExecuteReader()
+                        If reader2.Read() Then
+                            Debug.Print("Name = {0}", reader2.GetString(0))
+                            name = reader2.GetString(0)
+                        End If
+                    End Using
+                End Using
+            End Using
         Catch ex As MySqlException
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         Finally
-            MysqlConn.Close()
+
         End Try
 
         Return name

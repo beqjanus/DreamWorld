@@ -23,7 +23,6 @@
 Imports System.ComponentModel
 
 Public Class Choice
-    Implements IDisposable
 
 #Region "ScreenSize"
 

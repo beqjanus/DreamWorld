@@ -31,7 +31,6 @@ Public Class AdvancedForm
     Dim Voice As New FormVoice
     Dim Bird As New BirdForm
     Dim Tide As New Tides
-
     Dim Backups As New FormAutoBackups
     Dim FormRegions As New FormRegions
     Dim FormDiva As New FormDiva

@@ -373,14 +373,15 @@
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="ExitHandler.vb" />
     <Compile Include="IP.vb" />
+    <Compile Include="NativeMethods.vb" />
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />
     <Compile Include="ClassWebServer.vb" />
-    <Compile Include="Chooser.Designer.vb">
-      <DependentUpon>Chooser.vb</DependentUpon>
+    <Compile Include="FormChooser.Designer.vb">
+      <DependentUpon>FormChooser.vb</DependentUpon>
     </Compile>
-    <Compile Include="Chooser.vb">
+    <Compile Include="FormChooser.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormRegion.Designer.vb">
@@ -425,14 +426,16 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Chooser.en.resx">
-      <DependentUpon>Chooser.vb</DependentUpon>
+    <EmbeddedResource Include="FormChooser.en.resx">
+      <DependentUpon>FormChooser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBackupCheckboxes.resx">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBird.en.resx">
       <DependentUpon>FormBird.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
       <DependentUpon>FormCaches.vb</DependentUpon>
@@ -469,6 +472,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAutoBackups.resx">
       <DependentUpon>FormAutoBackups.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBird.resx">
       <DependentUpon>FormBird.vb</DependentUpon>
@@ -523,8 +527,8 @@
       <DependentUpon>FormSetup.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chooser.resx">
-      <DependentUpon>Chooser.vb</DependentUpon>
+    <EmbeddedResource Include="FormChooser.resx">
+      <DependentUpon>FormChooser.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSettings.resx">

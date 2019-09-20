@@ -870,7 +870,7 @@ Partial Class Form1
         'ChartWrapper1
         '
         Me.ChartWrapper1.AddMarkers = True
-        Me.ChartWrapper1.AxisXTitle = "Seconds"
+        Me.ChartWrapper1.AxisXTitle = "Minutes"
         Me.ChartWrapper1.AxisYTitle = "CPU %"
         Me.ChartWrapper1.LegendVisible = False
         Me.ChartWrapper1.Location = New System.Drawing.Point(312, 49)
@@ -895,7 +895,7 @@ Partial Class Form1
         'ChartWrapper2
         '
         Me.ChartWrapper2.AddMarkers = True
-        Me.ChartWrapper2.AxisXTitle = "Seconds"
+        Me.ChartWrapper2.AxisXTitle = "Minutes"
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
         Me.ChartWrapper2.Location = New System.Drawing.Point(312, 214)
@@ -977,7 +977,7 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(561, 141)
+        Me.ClientSize = New System.Drawing.Size(561, 387)
         Me.Controls.Add(Me.IcecastLabel)
         Me.Controls.Add(Me.IceCastPicturebox)
         Me.Controls.Add(Me.PictureBox1)

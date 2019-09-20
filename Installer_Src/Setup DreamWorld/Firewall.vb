@@ -16,19 +16,22 @@ Public Module Firewall
             .WindowStyle = ProcessWindowStyle.Hidden,
             .Verb = "runas"
         }
-        Dim ProcessFirewall As Process = New Process With {
-            .StartInfo = pi
-        }
+        Using ProcessFirewall As Process = New Process With {
+                .StartInfo = pi
+            }
 
-        Try
-            ProcessFirewall.Start()
-        Catch ex As ObjectDisposedException
-            Form1.Log("Error", "Could not set firewall:" & ex.Message)
-        Catch ex As InvalidOperationException
-            Form1.Log("Error", "Could not set firewall:" & ex.Message)
-        Catch ex As System.ComponentModel.Win32Exception
-            Form1.Log("Error", "Could not set firewall:" & ex.Message)
-        End Try
+            Try
+                ProcessFirewall.Start()
+                ProcessFirewall.WaitForExit()
+            Catch ex As ObjectDisposedException
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            Catch ex As InvalidOperationException
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            Catch ex As System.ComponentModel.Win32Exception
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            End Try
+        End Using
+
     End Sub
 
     Function AddFirewallRules() As String

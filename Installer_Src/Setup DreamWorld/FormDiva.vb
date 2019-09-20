@@ -363,6 +363,7 @@ Public Class FormDiva
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
         InstallProcess.Start()
         InstallProcess.WaitForExit()
+        InstallProcess.Dispose()
 
     End Sub
 

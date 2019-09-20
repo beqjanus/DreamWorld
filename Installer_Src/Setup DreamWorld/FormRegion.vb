@@ -702,12 +702,11 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox("Enter the New Dos Box name")
             End If
-            If chosen.Length > 0 Then
-                Chooseform.Dispose()
-            End If
         Catch ex As Exception
             chosen = ""
         End Try
+
+        Chooseform.Dispose()
         Return chosen
 
     End Function

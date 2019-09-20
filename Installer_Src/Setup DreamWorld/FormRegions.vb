@@ -111,17 +111,14 @@ Public Class FormRegions
         Dim counter As Integer = 0
 
         For Each Z As Integer In PropRegionClass1.RegionNumbers
-            Try
-                Dim RegionName = PropRegionClass1.RegionName(Z)
-                Dim RegionForm As New FormRegion
 
-                RegionForm.Init(RegionName)
-                RegionForm.Activate()
-                RegionForm.Visible = True
-                Application.DoEvents()
-            Catch ex As Exception
-                Form1.ErrorLog("Error:" & ex.Message)
-            End Try
+            Dim RegionName = PropRegionClass1.RegionName(Z)
+            Dim RegionForm As New FormRegion
+            RegionForm.Init(RegionName)
+            RegionForm.Activate()
+            RegionForm.Visible = True
+
+            Application.DoEvents()
             counter += 1
             Y += 100
             X += 100
@@ -133,7 +130,6 @@ Public Class FormRegions
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
         PropRegionClass1.CreateRegion("")
-
         Dim RegionForm As New FormRegion
         RegionForm.Init("")
         RegionForm.Activate()
