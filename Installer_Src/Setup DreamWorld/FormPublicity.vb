@@ -61,7 +61,7 @@ Public Class FormPublicity
 
         SetScreen()
 
-        GDPRCheckBox.Checked = Form1.PropMySetting.GDPR()
+        GDPRCheckBox.Checked = Form1.Settings.GDPR()
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
@@ -77,8 +77,8 @@ Public Class FormPublicity
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
         If initted Then
-            Form1.PropMySetting.GDPR() = GDPRCheckBox.Checked
-            Form1.PropMySetting.SaveSettings()
+            Form1.Settings.GDPR() = GDPRCheckBox.Checked
+            Form1.Settings.SaveSettings()
         End If
 
     End Sub

@@ -118,7 +118,7 @@ Public Class FormRegion
         '!!!  remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
-            Form1.PropMySetting.SmartStart = False
+            Form1.Settings.SmartStart = False
         End If
 
         Me.Focus()
@@ -663,7 +663,7 @@ Public Class FormRegion
             PropRegionClass1.ManagerGod(n) = "True"
         End If
 
-        Dim Host = Form1.PropMySetting.ExternalHostName
+        Dim Host = Form1.Settings.ExternalHostName
 
         Dim Foreigners As String = ""
         If DisallowForeigners.Checked Then
@@ -916,16 +916,16 @@ Public Class FormRegion
             MapBetter.Checked = False
             MapBest.Checked = False
 
-            If Form1.PropMySetting.MapType = "None" Then
+            If Form1.Settings.MapType = "None" Then
                 MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.PropMySetting.MapType = "Simple" Then
+            ElseIf Form1.Settings.MapType = "Simple" Then
                 MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.PropMySetting.MapType = "Good" Then
+            ElseIf Form1.Settings.MapType = "Good" Then
                 MapPicture.Image = My.Resources.Good
-            ElseIf Form1.PropMySetting.MapType = "Better" Then
+            ElseIf Form1.Settings.MapType = "Better" Then
                 MapPicture.Image = My.Resources.Better
-            ElseIf Form1.PropMySetting.MapType = "Best" Then
-                Form1.PropMySetting.MapType = "Best"
+            ElseIf Form1.Settings.MapType = "Best" Then
+                Form1.Settings.MapType = "Best"
             End If
         End If
 
@@ -1220,12 +1220,12 @@ Public Class FormRegion
             Dim X = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If X > -1 Then
 
-                If Form1.CheckPort(Form1.PropMySetting.PrivateURL, PropRegionClass1.GroupPort(X)) Then
+                If Form1.CheckPort(Form1.Settings.PrivateURL, PropRegionClass1.GroupPort(X)) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While Form1.CheckPort(Form1.PropMySetting.PrivateURL, PropRegionClass1.GroupPort(X)) And loopctr > 0
+                While Form1.CheckPort(Form1.Settings.PrivateURL, PropRegionClass1.GroupPort(X)) And loopctr > 0
                     Form1.Sleep(1000)
                     loopctr -= 1
                 End While

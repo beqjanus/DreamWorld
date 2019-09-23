@@ -65,12 +65,12 @@ Public Class FormDNSName
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
         Me.Text = "DynDNS"
-        DNSNameBoxBackup = Form1.PropMySetting.DNSName
-        DNSNameBox.Text = Form1.PropMySetting.DNSName
+        DNSNameBoxBackup = Form1.Settings.DNSName
+        DNSNameBox.Text = Form1.Settings.DNSName
 
-        UniqueId.Text = Form1.PropMySetting.MachineID()
-        EnableHypergrid.Checked = Form1.PropMySetting.EnableHypergrid
-        SuitcaseCheckbox.Checked = Form1.PropMySetting.Suitcase
+        UniqueId.Text = Form1.Settings.MachineID()
+        EnableHypergrid.Checked = Form1.Settings.EnableHypergrid
+        SuitcaseCheckbox.Checked = Form1.Settings.Suitcase
         NextNameButton.Enabled = True
 
         Form1.HelpOnce("DNS")
@@ -119,16 +119,16 @@ Public Class FormDNSName
         NextNameButton.Text = "Saving..."
 
         If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
-            Form1.PropMySetting.DNSName = DNSNameBox.Text
+            Form1.Settings.DNSName = DNSNameBox.Text
         End If
 
-        If Form1.PropMySetting.DNSName.Length = 0 Then
-            Form1.PropMySetting.PublicIP = Form1.PropMySetting.PrivateURL
+        If Form1.Settings.DNSName.Length = 0 Then
+            Form1.Settings.PublicIP = Form1.Settings.PrivateURL
         Else
-            Form1.PropMySetting.PublicIP = DNSNameBox.Text
+            Form1.Settings.PublicIP = DNSNameBox.Text
         End If
 
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
         changed = False ' suppress prompts
         Form1.PropViewedSettings = True
         Me.Close()
@@ -179,7 +179,7 @@ Public Class FormDNSName
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.MachineID() = UniqueId.Text
+        Form1.Settings.MachineID() = UniqueId.Text
         changed = True
 
     End Sub
@@ -187,7 +187,7 @@ Public Class FormDNSName
     Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.EnableHypergrid = EnableHypergrid.Checked
+        Form1.Settings.EnableHypergrid = EnableHypergrid.Checked
         changed = True
 
     End Sub
@@ -195,7 +195,7 @@ Public Class FormDNSName
     Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.Suitcase() = SuitcaseCheckbox.Checked
+        Form1.Settings.Suitcase() = SuitcaseCheckbox.Checked
 
         If Not SuitcaseCheckbox.Checked Then
             MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")

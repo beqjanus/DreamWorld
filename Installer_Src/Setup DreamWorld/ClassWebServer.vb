@@ -50,11 +50,11 @@ Public Class NetServer
         End Set
     End Property
 
-    Public Sub StartServer(pathinfo As String, PropMySetting As MySettings)
+    Public Sub StartServer(pathinfo As String, Settings As MySettings)
 
         ' stash some globs
-        Setting = PropMySetting
-        MyPort = CStr(Form1.PropMySetting.DiagnosticPort)
+        Setting = Settings
+        MyPort = CStr(Form1.Settings.DiagnosticPort)
         PropMyFolder = pathinfo
 
         If running Then Return
@@ -190,7 +190,7 @@ Public Class NetServer
         End Try
     End Sub
 
-    Private Shared Function RegionListHTML(PropMySetting As MySettings, PropRegionClass As RegionMaker) As String
+    Private Shared Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
         'to http://localhost:8001/teleports.htm
@@ -198,10 +198,10 @@ Public Class NetServer
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
-        HTML = "Welcome to |" & PropMySetting.SimName & "||" & CStr(PropMySetting.PublicIP) & ":" & CStr(PropMySetting.HttpPort) & ":" & PropMySetting.WelcomeRegion & "||" & vbCrLf
+        HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
 
-        Dim NewSQLConn As New MySqlConnection(PropMySetting.RobustConnStr)
-        Diagnostics.Debug.Print("Conn:" & PropMySetting.RobustConnStr)
+        Dim NewSQLConn As New MySqlConnection(Settings.RobustConnStr)
+        Diagnostics.Debug.Print("Conn:" & Settings.RobustConnStr)
         Dim UserStmt = "SELECT regionName from REGIONS"
 
         Dim ToSort As New List(Of String)
@@ -235,7 +235,7 @@ Public Class NetServer
         ToSort.Sort()
 
         For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & S & "||" & vbCrLf
+            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
         Next
 
         Return HTML

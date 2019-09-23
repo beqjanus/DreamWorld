@@ -55,9 +55,9 @@ Public Class FormVoice
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = "Vivox Voice Settings"
-        VivoxEnable.Checked = Form1.PropMySetting.VivoxEnabled
-        VivoxPassword.Text = Form1.PropMySetting.VivoxPassword
-        VivoxUserName.Text = Form1.PropMySetting.VivoxUserName
+        VivoxEnable.Checked = Form1.Settings.VivoxEnabled
+        VivoxPassword.Text = Form1.Settings.VivoxPassword
+        VivoxUserName.Text = Form1.Settings.VivoxUserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
         Form1.HelpOnce("Vivox")
@@ -66,13 +66,13 @@ Public Class FormVoice
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VivoxEnable.CheckedChanged
-        Form1.PropMySetting.VivoxEnabled = VivoxEnable.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.VivoxEnabled = VivoxEnable.Checked
+        Form1.Settings.SaveSettings()
     End Sub
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
@@ -82,15 +82,15 @@ Public Class FormVoice
 
     Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
 #Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.PropMySetting.VivoxUserName = VivoxUserName.Text
+        Form1.Settings.VivoxUserName = VivoxUserName.Text
 #Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
     End Sub
 
     Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
         VivoxPassword.UseSystemPasswordChar = False
-        Form1.PropMySetting.VivoxPassword = VivoxPassword.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.VivoxPassword = VivoxPassword.Text
+        Form1.Settings.SaveSettings()
     End Sub
 
     Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click

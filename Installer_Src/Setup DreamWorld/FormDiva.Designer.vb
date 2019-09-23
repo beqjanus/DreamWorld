@@ -58,6 +58,9 @@ Partial Class FormDiva
         Me.BlackRadioButton = New System.Windows.Forms.RadioButton()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.LocalSearchCheckBox = New System.Windows.Forms.CheckBox()
+        Me.AllGridSearchCheckBox = New System.Windows.Forms.CheckBox()
+        Me.EnableSearchCheckBox = New System.Windows.Forms.CheckBox()
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.X86Button = New System.Windows.Forms.Button()
@@ -68,9 +71,7 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LocalSearchCheckBox = New System.Windows.Forms.CheckBox()
-        Me.AllGridSearchCheckBox = New System.Windows.Forms.CheckBox()
-        Me.EnableSearchCheckBox = New System.Windows.Forms.CheckBox()
+        Me.EventsCheckBox = New System.Windows.Forms.CheckBox()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -396,6 +397,39 @@ Partial Class FormDiva
         Me.Label3.Text = "Web Port (80)"
         Me.ToolTip1.SetToolTip(Me.Label3, "80 or 8000")
         '
+        'LocalSearchCheckBox
+        '
+        Me.LocalSearchCheckBox.AutoSize = True
+        Me.LocalSearchCheckBox.Location = New System.Drawing.Point(18, 152)
+        Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
+        Me.LocalSearchCheckBox.Size = New System.Drawing.Size(89, 17)
+        Me.LocalSearchCheckBox.TabIndex = 186742
+        Me.LocalSearchCheckBox.Text = "Local Search"
+        Me.ToolTip1.SetToolTip(Me.LocalSearchCheckBox, "Search only your grid")
+        Me.LocalSearchCheckBox.UseVisualStyleBackColor = True
+        '
+        'AllGridSearchCheckBox
+        '
+        Me.AllGridSearchCheckBox.AutoSize = True
+        Me.AllGridSearchCheckBox.Location = New System.Drawing.Point(118, 152)
+        Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
+        Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(99, 17)
+        Me.AllGridSearchCheckBox.TabIndex = 186743
+        Me.AllGridSearchCheckBox.Text = "Search All grids"
+        Me.ToolTip1.SetToolTip(Me.AllGridSearchCheckBox, "Search All Outworldz Systems including yours")
+        Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
+        '
+        'EnableSearchCheckBox
+        '
+        Me.EnableSearchCheckBox.AutoSize = True
+        Me.EnableSearchCheckBox.Location = New System.Drawing.Point(18, 129)
+        Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
+        Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
+        Me.EnableSearchCheckBox.TabIndex = 186744
+        Me.EnableSearchCheckBox.Text = "Enable Search"
+        Me.ToolTip1.SetToolTip(Me.EnableSearchCheckBox, "Viewer can search for items marked ""Show In Search""")
+        Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
+        '
         'ApacheCheckbox
         '
         Me.ApacheCheckbox.AutoSize = True
@@ -408,6 +442,7 @@ Partial Class FormDiva
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.EventsCheckBox)
         Me.GroupBox2.Controls.Add(Me.EnableSearchCheckBox)
         Me.GroupBox2.Controls.Add(Me.AllGridSearchCheckBox)
         Me.GroupBox2.Controls.Add(Me.LocalSearchCheckBox)
@@ -490,38 +525,16 @@ Partial Class FormDiva
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.ApacheToolStripMenuItem.Text = "Apache"
         '
-        'LocalSearchCheckBox
+        'EventsCheckBox
         '
-        Me.LocalSearchCheckBox.AutoSize = True
-        Me.LocalSearchCheckBox.Location = New System.Drawing.Point(18, 152)
-        Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
-        Me.LocalSearchCheckBox.Size = New System.Drawing.Size(89, 17)
-        Me.LocalSearchCheckBox.TabIndex = 186742
-        Me.LocalSearchCheckBox.Text = "Local Search"
-        Me.ToolTip1.SetToolTip(Me.LocalSearchCheckBox, "Search only your grid")
-        Me.LocalSearchCheckBox.UseVisualStyleBackColor = True
-        '
-        'AllGridSearchCheckBox
-        '
-        Me.AllGridSearchCheckBox.AutoSize = True
-        Me.AllGridSearchCheckBox.Location = New System.Drawing.Point(118, 152)
-        Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
-        Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(99, 17)
-        Me.AllGridSearchCheckBox.TabIndex = 186743
-        Me.AllGridSearchCheckBox.Text = "Search All grids"
-        Me.ToolTip1.SetToolTip(Me.AllGridSearchCheckBox, "Search All Outworldz Systems including yours")
-        Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
-        '
-        'EnableSearchCheckBox
-        '
-        Me.EnableSearchCheckBox.AutoSize = True
-        Me.EnableSearchCheckBox.Location = New System.Drawing.Point(18, 129)
-        Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
-        Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
-        Me.EnableSearchCheckBox.TabIndex = 186744
-        Me.EnableSearchCheckBox.Text = "Enable Search"
-        Me.ToolTip1.SetToolTip(Me.EnableSearchCheckBox, "Viewer can search for items marked ""Show In Search""")
-        Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
+        Me.EventsCheckBox.AutoSize = True
+        Me.EventsCheckBox.Location = New System.Drawing.Point(118, 129)
+        Me.EventsCheckBox.Name = "EventsCheckBox"
+        Me.EventsCheckBox.Size = New System.Drawing.Size(95, 17)
+        Me.EventsCheckBox.TabIndex = 186745
+        Me.EventsCheckBox.Text = "Enable Events"
+        Me.ToolTip1.SetToolTip(Me.EventsCheckBox, "Viewer can search for Events at many grids")
+        Me.EventsCheckBox.UseVisualStyleBackColor = True
         '
         'FormDiva
         '
@@ -601,4 +614,5 @@ Partial Class FormDiva
     Friend WithEvents AllGridSearchCheckBox As CheckBox
     Friend WithEvents LocalSearchCheckBox As CheckBox
     Friend WithEvents EnableSearchCheckBox As CheckBox
+    Friend WithEvents EventsCheckBox As CheckBox
 End Class

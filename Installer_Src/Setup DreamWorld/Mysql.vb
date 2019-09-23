@@ -72,7 +72,7 @@ Public Module MysqlInterface
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
-        If Form1.PropMySetting.ServerType <> "Robust" Then Return Dict
+        If Form1.Settings.ServerType <> "Robust" Then Return Dict
 
         Using NewSQLConn As New MySqlConnection(Form1.RobustMysqlConnection)
             Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
@@ -172,7 +172,7 @@ Public Module MysqlInterface
 
     Public Function IsMySqlRunning() As String
 
-        Dim Mysql = CheckPort("127.0.0.1", Form1.PropMySetting.MySqlRegionDBPort)
+        Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
@@ -189,7 +189,7 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.PropMySetting.MySqlRobustDBPort, Integer))
+        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.Settings.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
             Form1.Print("All Regions are deregistered.")

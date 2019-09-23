@@ -78,11 +78,11 @@ Public Class FormRegions
         LoadWelcomeBox()
         LoadRegionBox()
 
-        X.Text = Form1.PropMySetting.HomeVectorX
-        Y.Text = Form1.PropMySetting.HomeVectorY
-        Z.Text = Form1.PropMySetting.HomeVectorZ
+        X.Text = Form1.Settings.HomeVectorX
+        Y.Text = Form1.Settings.HomeVectorY
+        Z.Text = Form1.Settings.HomeVectorZ
 
-        SmartStartEnabled.Checked = Form1.PropMySetting.SmartStart
+        SmartStartEnabled.Checked = Form1.Settings.SmartStart
 
         Form1.HelpOnce("Regions")
         SetScreen()
@@ -91,14 +91,14 @@ Public Class FormRegions
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
 
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
-        Form1.PropMySetting.WelcomeRegion = value
+        Form1.Settings.WelcomeRegion = value
 
         Debug.Print("Selected " & value)
 
@@ -148,7 +148,7 @@ Public Class FormRegions
             'End If
         Next
 
-        Dim s = WelcomeBox1.FindString(Form1.PropMySetting.WelcomeRegion)
+        Dim s = WelcomeBox1.FindString(Form1.Settings.WelcomeRegion)
         If s > -1 Then
             WelcomeBox1.SelectedIndex = s
         Else
@@ -188,19 +188,19 @@ Public Class FormRegions
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
-        Form1.PropMySetting.HomeVectorX = X.Text
+        Form1.Settings.HomeVectorX = X.Text
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Y.Text = digitsOnly.Replace(Y.Text, "")
-        Form1.PropMySetting.HomeVectorY = Y.Text
+        Form1.Settings.HomeVectorY = Y.Text
     End Sub
 
     Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
-        Form1.PropMySetting.HomeVectorZ = Z.Text
+        Form1.Settings.HomeVectorZ = Z.Text
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
@@ -254,7 +254,7 @@ Public Class FormRegions
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
 
-        Form1.PropMySetting.SmartStart = SmartStartEnabled.Checked
+        Form1.Settings.SmartStart = SmartStartEnabled.Checked
 
     End Sub
 

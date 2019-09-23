@@ -307,6 +307,14 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property EventTimerEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("EventTimerEnabled", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("EventTimerEnabled", CStr(Value))
+        End Set
+    End Property
     Public Property OutBoundPermissions() As Boolean
         Get
             Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)

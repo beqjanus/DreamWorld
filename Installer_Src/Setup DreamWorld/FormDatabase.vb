@@ -117,23 +117,23 @@ Public Class FormDatabase
 
         'Database
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        RegionDbName.Text = Form1.PropMySetting.RegionDBName
-        RegionDBUsername.Text = Form1.PropMySetting.RegionDBUsername
-        RegionMySqlPassword.Text = Form1.PropMySetting.RegionDbPassword
-        RegionServer.Text = Form1.PropMySetting.RegionServer
-        MysqlRegionPort.Text = CStr(Form1.PropMySetting.MySqlRegionDBPort)
+        RegionDbName.Text = Form1.Settings.RegionDBName
+        RegionDBUsername.Text = Form1.Settings.RegionDBUsername
+        RegionMySqlPassword.Text = Form1.Settings.RegionDbPassword
+        RegionServer.Text = Form1.Settings.RegionServer
+        MysqlRegionPort.Text = CStr(Form1.Settings.MySqlRegionDBPort)
 
         ' Robust DB
-        RobustServer.Text = Form1.PropMySetting.RobustServer
-        RobustDbName.Text = Form1.PropMySetting.RobustDataBaseName
-        RobustDBPassword.Text = Form1.PropMySetting.RobustPassword
-        RobustDBUsername.Text = Form1.PropMySetting.RobustUsername
-        RobustDbPort.Text = Form1.PropMySetting.MySqlRobustDBPort.ToString(Form1.Invarient)
+        RobustServer.Text = Form1.Settings.RobustServer
+        RobustDbName.Text = Form1.Settings.RobustDataBaseName
+        RobustDBPassword.Text = Form1.Settings.RobustPassword
+        RobustDBUsername.Text = Form1.Settings.RobustUsername
+        RobustDbPort.Text = Form1.Settings.MySqlRobustDBPort.ToString(Form1.Invarient)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
 
-        Select Case Form1.PropMySetting.ServerType
+        Select Case Form1.Settings.ServerType
             Case "Robust"
                 GridServerButton.Checked = True
             Case "Region"
@@ -164,13 +164,13 @@ Public Class FormDatabase
 
     Private Sub SaveAll()
 
-        Form1.PropMySetting.ServerType = ServerType1
+        Form1.Settings.ServerType = ServerType1
 
         If DNSName1.Length > 0 Then
-            Form1.PropMySetting.GridServerName = DNSName1
+            Form1.Settings.GridServerName = DNSName1
         End If
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
     End Sub
@@ -182,23 +182,23 @@ Public Class FormDatabase
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RobustServer = RobustServer.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RobustServer = RobustServer.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub DatabaseNameUser_TextChanged(sender As Object, e As EventArgs) Handles RegionDbName.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RegionDBName = RegionDbName.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionDBName = RegionDbName.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
         If Not Initted1 Then Return
-        Form1.PropMySetting.RegionDBUsername = RegionDBUsername.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionDBUsername = RegionDBUsername.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -211,31 +211,31 @@ Public Class FormDatabase
     Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RegionDbPassword = RegionMySqlPassword.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionDbPassword = RegionMySqlPassword.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
         If Not Initted1 Then Return
-        Form1.PropMySetting.RobustDataBaseName = RobustDbName.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RobustDataBaseName = RobustDbName.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RobustUsername = RobustDBUsername.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RobustUsername = RobustDBUsername.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RobustPassword = RobustDBPassword.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RobustPassword = RobustDBPassword.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -256,16 +256,16 @@ Public Class FormDatabase
         If Not Initted1 Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         RobustDbPort.Text = digitsOnly.Replace(RobustDbPort.Text, "")
-        Form1.PropMySetting.MySqlRobustDBPort = CInt(RobustDbPort.Text)
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.MySqlRobustDBPort = CInt(RobustDbPort.Text)
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RegionServer.TextChanged
 
         If Not Initted1 Then Return
-        Form1.PropMySetting.RegionServer = RegionServer.Text
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionServer = RegionServer.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -275,8 +275,8 @@ Public Class FormDatabase
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MysqlRegionPort.Text = digitsOnly.Replace(MysqlRegionPort.Text, "")
 
-        Form1.PropMySetting.MySqlRegionDBPort = CInt(MysqlRegionPort.Text)
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.MySqlRegionDBPort = CInt(MysqlRegionPort.Text)
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -350,7 +350,7 @@ Public Class FormDatabase
         RobustDBUsername.Enabled = True
         RobustDBPassword.Enabled = True
 
-        Form1.PropMySetting.DNSName = DNSNamebackup1
+        Form1.Settings.DNSName = DNSNamebackup1
         Changed1 = True
         ServerType1 = "Robust"
 
@@ -369,7 +369,7 @@ Public Class FormDatabase
         RobustDBPassword.Enabled = True
 
         ServerType1 = "Region"
-        DNSNamebackup1 = Form1.PropMySetting.DNSName
+        DNSNamebackup1 = Form1.Settings.DNSName
         Changed1 = True
 
     End Sub
@@ -386,13 +386,13 @@ Public Class FormDatabase
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
 
-        DNSNamebackup1 = Form1.PropMySetting.DNSName
+        DNSNamebackup1 = Form1.Settings.DNSName
         ServerType1 = "OsGrid"
         DNSName1 = "hg.osgrid.org"
         Dim client As New System.Net.WebClient ' downloadclient for web page
         Try
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.PropMySetting.ExternalHostName = ip
+            Form1.Settings.ExternalHostName = ip
         Catch ex As ArgumentNullException
         Catch ex As Net.WebException
         Catch ex As NotSupportedException
@@ -416,13 +416,13 @@ Public Class FormDatabase
         RobustDBUsername.Enabled = False
         RobustDBPassword.Enabled = False
 
-        DNSNamebackup1 = Form1.PropMySetting.DNSName
+        DNSNamebackup1 = Form1.Settings.DNSName
         ServerType1 = "Metro"
         DNSName1 = "hg.metro.land"
         Dim client As New System.Net.WebClient ' downloadclient for web page
         Try
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.PropMySetting.ExternalHostName = ip
+            Form1.Settings.ExternalHostName = ip
         Catch ex As ArgumentNullException
         Catch ex As Net.WebException
         Catch ex As NotSupportedException
@@ -430,7 +430,7 @@ Public Class FormDatabase
             client.Dispose()
         End Try
 
-        Debug.Print(Form1.PropMySetting.ExternalHostName)
+        Debug.Print(Form1.Settings.ExternalHostName)
 
         Changed1 = True
 
@@ -449,22 +449,22 @@ Public Class FormDatabase
         RobustDBPassword.Enabled = True
 
         ServerType1 = "AviWorlds"
-        DNSNamebackup1 = Form1.PropMySetting.DNSName
-        Form1.PropMySetting.DNSName = "login.aviworlds.com"
+        DNSNamebackup1 = Form1.Settings.DNSName
+        Form1.Settings.DNSName = "login.aviworlds.com"
 
-        If Form1.PropMySetting.ExternalHostName.Length = 0 Then
-            DNSName1 = Form1.PropMySetting.DNSName
+        If Form1.Settings.ExternalHostName.Length = 0 Then
+            DNSName1 = Form1.Settings.DNSName
         End If
         Changed1 = True
         Try
             Dim client As New System.Net.WebClient ' downloadclient for web page
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.PropMySetting.ExternalHostName = ip
+            Form1.Settings.ExternalHostName = ip
             client.Dispose()
         Catch ex As Net.WebException
         End Try
 
-        Debug.Print(Form1.PropMySetting.ExternalHostName)
+        Debug.Print(Form1.Settings.ExternalHostName)
     End Sub
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click

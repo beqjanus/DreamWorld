@@ -244,14 +244,14 @@ Public Class RegionList
         Pixels1 = 70
         RegionList.FormExists1 = True
 
-        Form1.PropMySetting.RegionListVisible = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListVisible = True
+        Form1.Settings.SaveSettings()
 
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
         ' Set the view to show details.
-        TheView1 = Form1.PropMySetting.RegionListView()
+        TheView1 = Form1.Settings.RegionListView()
         Dim W As View
 
         If TheView1 = ViewType.Details Then
@@ -348,8 +348,8 @@ Public Class RegionList
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         RegionList.FormExists1 = False
-        Form1.PropMySetting.RegionListVisible = False
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListVisible = False
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -417,7 +417,7 @@ Public Class RegionList
                 Debug.Print("Clicked row " + RegionName)
                 Dim R = PropRegionClass1.FindRegionByName(RegionName)
                 If R >= 0 Then
-                    Dim webAddress As String = "hop://" & Form1.PropMySetting.DNSName & ":" & Form1.PropMySetting.HttpPort & "/" & RegionName
+                    Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                     Dim result = Process.Start(webAddress)
                 End If
             Catch ex As Exception
@@ -476,15 +476,15 @@ Public Class RegionList
                 If (e.CurrentValue = CheckState.Unchecked) Then
                     PropRegionClass1.RegionEnabled(X) = True
                     ' and region file on disk
-                    Form1.PropMySetting.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetIni(PropRegionClass1.RegionName(X), "Enabled", "true")
-                    Form1.PropMySetting.SaveINI()
+                    Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "true")
+                    Form1.Settings.SaveINI()
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
                     PropRegionClass1.RegionEnabled(X) = False
                     ' and region file on disk
-                    Form1.PropMySetting.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetIni(PropRegionClass1.RegionName(X), "Enabled", "false")
-                    Form1.PropMySetting.SaveINI()
+                    Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "false")
+                    Form1.Settings.SaveINI()
                 End If
             End If
         Next
@@ -714,7 +714,7 @@ Public Class RegionList
                 If PropRegionClass1.MapType(X).Length > 0 Then
                     item1.SubItems.Add(PropRegionClass1.MapType(X))
                 Else
-                    item1.SubItems.Add(Form1.PropMySetting.MapType)
+                    item1.SubItems.Add(Form1.Settings.MapType)
                 End If
 
                 ' physics
@@ -754,13 +754,13 @@ Public Class RegionList
 
                 'teleport
                 If PropRegionClass1.Teleport(X) = "True" Or
-                    PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
+                    PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
                     item1.SubItems.Add("Yes")
                 Else
                     item1.SubItems.Add("-")
                 End If
 
-                If PropRegionClass1.RegionName(X) = Form1.PropMySetting.WelcomeRegion Then
+                If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
                     item1.SubItems.Add("Home")
                 Else
                     If PropRegionClass1.SmartStart(X) = True Then
@@ -963,8 +963,8 @@ Public Class RegionList
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
-        Form1.PropMySetting.RegionListView() = ViewType.Maps
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListView() = ViewType.Maps
+        Form1.Settings.SaveSettings()
         TheView1 = ViewType.Maps
         ListView1.View = View.LargeIcon
         ListView1.Show()
@@ -1008,8 +1008,8 @@ Public Class RegionList
 
     Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles ViewAvatars.Click
 
-        Form1.PropMySetting.RegionListView() = ViewType.Avatars
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListView() = ViewType.Avatars
+        Form1.Settings.SaveSettings()
         TheView1 = ViewType.Avatars
         SetScreen(TheView1)
         ListView1.View = View.Details
@@ -1021,8 +1021,8 @@ Public Class RegionList
 
     Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles ViewCompact.Click
 
-        Form1.PropMySetting.RegionListView() = ViewType.Icons
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListView() = ViewType.Icons
+        Form1.Settings.SaveSettings()
         TheView1 = ViewType.Icons
         SetScreen(TheView1)
         ListView1.View = View.SmallIcon
@@ -1035,8 +1035,8 @@ Public Class RegionList
 
     Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles ViewDetail.Click
 
-        Form1.PropMySetting.RegionListView() = ViewType.Details
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListView() = ViewType.Details
+        Form1.Settings.SaveSettings()
         TheView1 = ViewType.Details
         SetScreen(TheView1)
         ListView1.View = View.Details
@@ -1049,8 +1049,8 @@ Public Class RegionList
 
     Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles ViewMaps.Click
 
-        Form1.PropMySetting.RegionListView() = ViewType.Maps
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionListView() = ViewType.Maps
+        Form1.Settings.SaveSettings()
         TheView1 = ViewType.Maps
         SetScreen(TheView1)
         ListView1.View = View.LargeIcon
@@ -1156,7 +1156,7 @@ Public Class RegionList
         If regionname.Length = 0 Then Return
         Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
         Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
-        Dim webAddress As String = "http://" & Form1.PropMySetting.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Process.Start(webAddress)
 
     End Sub

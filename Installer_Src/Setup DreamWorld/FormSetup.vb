@@ -371,7 +371,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropMySetting As MySettings
+    Public Property Settings As MySettings
         Get
             Return _mySetting
         End Get
@@ -612,11 +612,11 @@ Public Class Form1
         ' clear region error handlers
         PropRegionHandles.Clear()
 
-        If PropMySetting.AutoBackup Then
+        If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Integer = CInt(PropMySetting.AutobackupInterval)
-            If PropMySetting.AutoRestartInterval > 0 And PropMySetting.AutoRestartInterval < BTime Then
-                PropMySetting.AutoRestartInterval = BTime + 30
+            Dim BTime As Integer = CInt(Settings.AutobackupInterval)
+            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+                Settings.AutoRestartInterval = BTime + 30
                 Print("Upping AutoRestart Time to " & CStr(BTime) + " + 30 Minutes.")
             End If
         End If
@@ -649,7 +649,7 @@ Public Class Form1
 
         ' old files to clean up
         Try
-            If PropMySetting.BirdsModuleStartup Then
+            If Settings.BirdsModuleStartup Then
                 My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
             Else
                 My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
@@ -661,11 +661,11 @@ Public Class Form1
             Return
         End If
 
-        If Not PropMySetting.RunOnce And PropMySetting.ServerType = "Robust" Then
+        If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
-            PropMySetting.RunOnce = True
-            PropMySetting.SaveSettings()
+            Settings.RunOnce = True
+            Settings.SaveSettings()
         End If
 
         Timer1.Interval = 1000
@@ -687,7 +687,7 @@ Public Class Form1
 
         Buttons(StopButton)
         ProgressBar1.Value = 100
-        Print("Grid address is" & vbCrLf & "http://" & PropMySetting.GridServerName & ":" & PropMySetting.HttpPort)
+        Print("Grid address is" & vbCrLf & "http://" & Settings.GridServerName & ":" & Settings.HttpPort)
 
         ' done with bootup
         ProgressBar1.Visible = False
@@ -746,9 +746,9 @@ Public Class Form1
             BumpProgress10()
         End If
 
-        PropMySetting.Init(PropMyFolder)
-        PropMySetting.Myfolder = PropMyFolder
-        PropMySetting.OpensimBinPath = PropOpensimBinPath
+        Settings.Init(PropMyFolder)
+        Settings.Myfolder = PropMyFolder
+        Settings.OpensimBinPath = PropOpensimBinPath
 
         If Me.Width > 320 Then
             PictureBox1.Image = My.Resources.Arrow2Left
@@ -759,10 +759,10 @@ Public Class Form1
         ' Save a random machine ID - we don't want any data to be sent that's personal or
         ' identifiable, but it needs to be unique
         Randomize()
-        If PropMySetting.MachineID().Length = 0 Then PropMySetting.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
+        If Settings.MachineID().Length = 0 Then Settings.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
 
         ' WebUI
-        ViewWebUI.Visible = PropMySetting.WifiEnabled
+        ViewWebUI.Visible = Settings.WifiEnabled
 
         Me.Text = "Dreamgrid V" & PropMyVersion
 
@@ -787,8 +787,8 @@ Public Class Form1
 
         GetGridServerName()
 
-        If (PropMySetting.SplashPage.Length = 0) Then
-            PropMySetting.SplashPage = SecureDomain() & "/Outworldz_installer/Welcome.htm"
+        If (Settings.SplashPage.Length = 0) Then
+            Settings.SplashPage = SecureDomain() & "/Outworldz_installer/Welcome.htm"
         End If
 
         CheckForUpdates()
@@ -804,8 +804,8 @@ Public Class Form1
         SetLoopback()
 
         'mnuShow shows the DOS box for Opensimulator
-        mnuShow.Checked = PropMySetting.ConsoleShow
-        mnuHide.Checked = Not PropMySetting.ConsoleShow
+        mnuShow.Checked = Settings.ConsoleShow
+        mnuHide.Checked = Not Settings.ConsoleShow
 
         If Not SetIniData() Then Return
 
@@ -813,7 +813,7 @@ Public Class Form1
         PropWebServer = NetServer.GetWebServer
 
         Print("Starting HTTP Server ")
-        PropWebServer.StartServer(PropMyFolder, PropMySetting)
+        PropWebServer.StartServer(PropMyFolder, Settings)
 
         CheckDiagPort()
 
@@ -825,10 +825,10 @@ Public Class Form1
         SetIAROARContent() ' load IAR and OAR web content
         LoadLocalIAROAR() ' load IAR and OAR local content
 
-        If PropMySetting.Password = "secret" Then
+        If Settings.Password = "secret" Then
             BumpProgress10()
             Dim Password = New PassGen
-            PropMySetting.Password = Password.GeneratePass()
+            Settings.Password = Password.GeneratePass()
         End If
 
         Print("Setup Graphs")
@@ -865,22 +865,22 @@ Public Class Form1
         ChartWrapper2.AddMarkers = True
         ChartWrapper2.MarkerFreq = 60
 
-        If PropMySetting.RegionListVisible Then
+        If Settings.RegionListVisible Then
             ShowRegionform()
         End If
         Sleep(2000)
         Print("Check MySql")
-        Dim isMySqlRunning = CheckPort("127.0.0.1", PropMySetting.MySqlRobustDBPort)
+        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
         If isMySqlRunning Then PropStopMysql() = False
 
         Buttons(StartButton)
         ProgressBar1.Value = 100
 
-        If PropMySetting.Autostart Then
+        If Settings.Autostart Then
             Print("Auto Startup")
             Startup()
         Else
-            PropMySetting.SaveSettings()
+            Settings.SaveSettings()
             Print("Ready to Launch!" & vbCrLf & "Click 'Start' to begin." & vbCrLf)
         End If
 
@@ -961,7 +961,7 @@ Public Class Form1
 
                 For Each X As Integer In PropRegionClass.RegionNumbers
                     If (Not PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And PropRegionClass.RegionEnabled(X) Then
-                        If CheckPort(PropMySetting.PrivateURL, PropRegionClass.GroupPort(X)) Then
+                        If CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(X)) Then
                             CountisRunning += 1
                         Else
                             StopGroup(PropRegionClass.GroupName(X))
@@ -1220,8 +1220,8 @@ Public Class Form1
         mnuShow.Checked = False
         mnuHide.Checked = True
 
-        PropMySetting.ConsoleShow = mnuShow.Checked
-        PropMySetting.SaveSettings()
+        Settings.ConsoleShow = mnuShow.Checked
+        Settings.SaveSettings()
 
         If PropOpensimIsRunning() Then
             Print("The Opensimulator Console will not be shown. Change will occur when Opensim is restarted")
@@ -1235,8 +1235,8 @@ Public Class Form1
         mnuShow.Checked = True
         mnuHide.Checked = False
 
-        PropMySetting.ConsoleShow = mnuShow.Checked
-        PropMySetting.SaveSettings()
+        Settings.ConsoleShow = mnuShow.Checked
+        Settings.SaveSettings()
 
         If PropOpensimIsRunning() Then
             Print("The Opensimulator Console will be shown the next time the system is started.")
@@ -1265,7 +1265,7 @@ Public Class Form1
     Private Sub WebUIToolStripMenuItem_Click(sender As System.Object, e As EventArgs)
         Print("The Web UI lets you add or view settings for the default avatar. ")
         If PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://127.0.0.1:" & PropMySetting.HttpPort
+            Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
             Process.Start(webAddress)
         End If
     End Sub
@@ -1318,29 +1318,29 @@ Public Class Form1
     Public Sub DoGloebits()
 
         'Gloebits.ini
-        PropMySetting.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
-        If PropMySetting.GloebitsEnable Then
-            PropMySetting.SetIni("Gloebit", "Enabled", "true")
+        Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
+        If Settings.GloebitsEnable Then
+            Settings.SetIni("Gloebit", "Enabled", "true")
         Else
-            PropMySetting.SetIni("Gloebit", "Enabled", "false")
+            Settings.SetIni("Gloebit", "Enabled", "false")
         End If
 
-        If PropMySetting.GloebitsMode Then
-            PropMySetting.SetIni("Gloebit", "GLBEnvironment", "production")
-            PropMySetting.SetIni("Gloebit", "GLBKey", PropMySetting.GLProdKey)
-            PropMySetting.SetIni("Gloebit", "GLBSecret", PropMySetting.GLProdSecret)
+        If Settings.GloebitsMode Then
+            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
         Else
-            PropMySetting.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            PropMySetting.SetIni("Gloebit", "GLBKey", PropMySetting.GLSandKey)
-            PropMySetting.SetIni("Gloebit", "GLBSecret", PropMySetting.GLSandSecret)
+            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
         End If
 
-        PropMySetting.SetIni("Gloebit", "GLBOwnerName", PropMySetting.GLBOwnerName)
-        PropMySetting.SetIni("Gloebit", "GLBOwnerEmail", PropMySetting.GLBOwnerEmail)
+        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
+        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        PropMySetting.SetIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
+        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
 
-        PropMySetting.SaveINI()
+        Settings.SaveINI()
 
     End Sub
 
@@ -1350,21 +1350,21 @@ Public Class Form1
     ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
     Public Function GetOpensimProto() As String
 
-        Select Case PropMySetting.ServerType
+        Select Case Settings.ServerType
             Case "Robust"
-                PropMySetting.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
+                Settings.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
                 Return PropOpensimBinPath & "bin\Opensim.proto"
             Case "Region"
-                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimRegion.proto", ";")
+                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimRegion.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimRegion.proto"
             Case "OsGrid"
-                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimOsGrid.proto", ";")
+                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimOsGrid.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimOsGrid.proto"
             Case "Metro"
-                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
+                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimMetro.proto"
             Case "AviWorlds"
-                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
+                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimAviWorlds.proto"
         End Select
         Return Nothing
@@ -1379,29 +1379,29 @@ Public Class Form1
 
         Try
 
-            PropMySetting.LoadIni(GetOpensimProto(), ";")
+            Settings.LoadIni(GetOpensimProto(), ";")
 
-            PropMySetting.SetIni("Const", "BaseHostname", PropMySetting.GridServerName)
+            Settings.SetIni("Const", "BaseHostname", Settings.GridServerName)
 
-            PropMySetting.SetIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
-            PropMySetting.SetIni("Const", "PrivURL", "http://" & CStr(PropMySetting.PrivateURL)) ' local IP
-            PropMySetting.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
+            Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
+            Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
+            Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
             ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
             Dim Xtime As Single = 1 / 11   '1/11 of a second is as fast as she can go
             If PropRegionClass.MinTimerInterval(X) > 0 Then
                 Xtime = PropRegionClass.MinTimerInterval(X)
             End If
-            PropMySetting.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
+            Settings.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
 
             Dim name = PropRegionClass.RegionName(X)
 
             ' save the http listener port away for the group
             PropRegionClass.GroupPort(X) = PropRegionClass.RegionPort(X)
 
-            PropMySetting.SetIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort)) '8003
-            PropMySetting.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
-            PropMySetting.SaveINI()
+            Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
+            Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
+            Settings.SaveINI()
 
             My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
@@ -1413,11 +1413,11 @@ Public Class Form1
 
     Public Function OSSearchConnectionString() As String
 
-        Return "server=" & PropMySetting.RobustServer() _
+        Return "server=" & Settings.RobustServer() _
         & ";database=" & "ossearch" _
-        & ";port=" & CStr(PropMySetting.MySqlRobustDBPort) _
-        & ";user=" & PropMySetting.RobustUsername _
-        & ";password=" & PropMySetting.RobustPassword _
+        & ";port=" & CStr(Settings.MySqlRobustDBPort) _
+        & ";user=" & Settings.RobustUsername _
+        & ";password=" & Settings.RobustPassword _
         & ";Old Guids=true;Allow Zero Datetime=true;"
 
     End Function
@@ -1425,11 +1425,11 @@ Public Class Form1
     Public Function RegionDBConnection() As String
 
         Return """" _
-        & "Data Source=" & PropMySetting.RegionServer _
-        & ";Database=" & PropMySetting.RegionDBName _
-        & ";Port=" & CStr(PropMySetting.MySqlRegionDBPort) _
-        & ";User ID=" & PropMySetting.RegionDBUsername _
-        & ";Password=" & PropMySetting.RegionDbPassword _
+        & "Data Source=" & Settings.RegionServer _
+        & ";Database=" & Settings.RegionDBName _
+        & ";Port=" & CStr(Settings.MySqlRegionDBPort) _
+        & ";User ID=" & Settings.RegionDBUsername _
+        & ";Password=" & Settings.RegionDbPassword _
         & ";Old Guids=true;Allow Zero Datetime=true" _
         & ";Connect Timeout=28800;Command Timeout=28800;" _
         & """"
@@ -1438,22 +1438,22 @@ Public Class Form1
 
     Public Function RegionMySqlConnection() As String
 
-        Return "server=" & PropMySetting.RegionServer _
-        & ";database=" & PropMySetting.RegionDBName _
-        & ";port=" & CStr(PropMySetting.MySqlRegionDBPort) _
-        & ";user=" & PropMySetting.RegionDBUsername _
-        & ";password=" & PropMySetting.RegionDbPassword
+        Return "server=" & Settings.RegionServer _
+        & ";database=" & Settings.RegionDBName _
+        & ";port=" & CStr(Settings.MySqlRegionDBPort) _
+        & ";user=" & Settings.RegionDBUsername _
+        & ";password=" & Settings.RegionDbPassword
 
     End Function
 
     Public Function RobustDBConnection() As String
 
         Return """" _
-            & "Data Source=" & PropMySetting.RobustServer _
-            & ";Database=" & PropMySetting.RobustDataBaseName _
-            & ";Port=" & CStr(PropMySetting.MySqlRobustDBPort) _
-            & ";User ID=" & PropMySetting.RobustUsername _
-            & ";Password=" & PropMySetting.RobustPassword _
+            & "Data Source=" & Settings.RobustServer _
+            & ";Database=" & Settings.RobustDataBaseName _
+            & ";Port=" & CStr(Settings.MySqlRobustDBPort) _
+            & ";User ID=" & Settings.RobustUsername _
+            & ";Password=" & Settings.RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
             & ";Connect Timeout=28800;Command Timeout=28800;" _
             & """"
@@ -1463,11 +1463,11 @@ Public Class Form1
     'fkb
     Public Function RobustMysqlConnection() As String
 
-        Return "server=" & PropMySetting.RobustServer _
-            & ";database=" & PropMySetting.RobustDataBaseName _
-            & ";port=" & CStr(PropMySetting.MySqlRobustDBPort) _
-            & ";user=" & PropMySetting.RobustUsername _
-            & ";password=" & PropMySetting.RobustPassword _
+        Return "server=" & Settings.RobustServer _
+            & ";database=" & Settings.RobustDataBaseName _
+            & ";port=" & CStr(Settings.MySqlRobustDBPort) _
+            & ";user=" & Settings.RobustUsername _
+            & ";password=" & Settings.RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true"
 
     End Function
@@ -1475,18 +1475,18 @@ Public Class Form1
     Public Sub SaveIceCast()
 
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
-        Dim name As String = rgx.Replace(PropMySetting.SimName, "")
+        Dim name As String = rgx.Replace(Settings.SimName, "")
 
         Dim icecast As String = "<icecast>" & vbCrLf +
-                           "<hostname>" & PropMySetting.PublicIP & "</hostname>" & vbCrLf +
+                           "<hostname>" & Settings.PublicIP & "</hostname>" & vbCrLf +
                             "<location>" & name & "</location>" & vbCrLf +
-                            "<admin>" & PropMySetting.AdminEmail & "</admin>" & vbCrLf +
+                            "<admin>" & Settings.AdminEmail & "</admin>" & vbCrLf +
                             "<shoutcast-mount>/stream</shoutcast-mount>" & vbCrLf +
                             "<listen-socket>" & vbCrLf +
-                            "    <port>" & CStr(PropMySetting.SCPortBase) & "</port>" & vbCrLf +
+                            "    <port>" & CStr(Settings.SCPortBase) & "</port>" & vbCrLf +
                             "</listen-socket>" & vbCrLf +
                             "<listen-socket>" & vbCrLf +
-                            "   <port>" & CStr(PropMySetting.SCPortBase1) & "</port>" & vbCrLf +
+                            "   <port>" & CStr(Settings.SCPortBase1) & "</port>" & vbCrLf +
                             "   <shoutcast-compat>1</shoutcast-compat>" & vbCrLf +
                             "</listen-socket>" & vbCrLf +
                              "<limits>" & vbCrLf +
@@ -1500,10 +1500,10 @@ Public Class Form1
                               "    <burst-size>65535</burst-size>" & vbCrLf +
                               "</limits>" & vbCrLf +
                               "<authentication>" & vbCrLf +
-                                  "<source-password>" & PropMySetting.SCPassword & "</source-password>" & vbCrLf +
-                                  "<relay-password>" & PropMySetting.SCPassword & "</relay-password>" & vbCrLf +
+                                  "<source-password>" & Settings.SCPassword & "</source-password>" & vbCrLf +
+                                  "<relay-password>" & Settings.SCPassword & "</relay-password>" & vbCrLf +
                                   "<admin-user>admin</admin-user>" & vbCrLf +
-                                  "<admin-password>" & PropMySetting.SCPassword & "</admin-password>" & vbCrLf +
+                                  "<admin-password>" & Settings.SCPassword & "</admin-password>" & vbCrLf +
                               "</authentication>" & vbCrLf +
                               "<http-headers>" & vbCrLf +
                               "    <header name=" & """" & "Access-Control-Allow-Origin" & """" & " value=" & """" & "*" & """" & "/>" & vbCrLf +
@@ -1531,12 +1531,12 @@ Public Class Form1
 
     Private Sub DoFlotsamINI()
 
-        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
-        PropMySetting.SetIni("AssetCache", "LogLevel", PropMySetting.CacheLogLevel)
-        PropMySetting.SetIni("AssetCache", "CacheDirectory", PropMySetting.CacheFolder)
-        PropMySetting.SetIni("AssetCache", "FileCacheEnabled", CType(PropMySetting.CacheEnabled, String))
-        PropMySetting.SetIni("AssetCache", "FileCacheTimeout", PropMySetting.CacheTimeout)
-        PropMySetting.SaveINI()
+        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
+        Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
+        Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
+        Settings.SetIni("AssetCache", "FileCacheEnabled", CType(Settings.CacheEnabled, String))
+        Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
+        Settings.SaveINI()
 
     End Sub
 
@@ -1545,7 +1545,7 @@ Public Class Form1
         'Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
 
-        Select Case PropMySetting.ServerType
+        Select Case Settings.ServerType
             Case "Robust"
                 My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
                 GridCommon = "Gridcommon-GridServer.ini"
@@ -1565,9 +1565,9 @@ Public Class Form1
         ' Put that gridcommon.ini file in place
         IO.File.Copy(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
-        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";")
-        PropMySetting.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(PropMySetting.OutBoundPermissions))
-        PropMySetting.SaveINI()
+        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";")
+        Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
+        Settings.SaveINI()
 
     End Sub
 
@@ -1603,7 +1603,7 @@ Public Class Form1
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim reader As StreamReader
-        Dim line As String = ""
+        Dim line As String
         Dim Output As String = ""
 
         reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
@@ -1643,38 +1643,38 @@ Public Class Form1
     Private Sub DoMySQL()
 
         ' load and patch it up for MySQL
-        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
+        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
 
-        PropMySetting.SetIni("DatabaseService", "ConnectionString", RegionDBConnection)
-        PropMySetting.SaveINI()
+        Settings.SetIni("DatabaseService", "ConnectionString", RegionDBConnection)
+        Settings.SaveINI()
 
     End Sub
 
     Private Sub DoOpensimINI()
 
         ' Opensim.ini
-        PropMySetting.LoadIni(GetOpensimProto(), ";")
+        Settings.LoadIni(GetOpensimProto(), ";")
 
-        Select Case PropMySetting.ServerType
+        Select Case Settings.ServerType
             Case "Robust"
-                If PropMySetting.SearchEnabled Then
+                If Settings.SearchEnabled Then
                     ' RegionSnapShot
-                    PropMySetting.SetIni("DataSnapshot", "index_sims", "True")
-                    If PropMySetting.SearchLocal Then
-                        PropMySetting.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
-                        PropMySetting.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
-                        PropMySetting.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                    Settings.SetIni("DataSnapshot", "index_sims", "True")
+                    If Settings.SearchLocal Then
+                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
+                        Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
+                        Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
                     Else
-                        PropMySetting.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                        PropMySetting.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                        PropMySetting.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                        Settings.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
                     End If
                 Else
-                    PropMySetting.SetIni("DataSnapshot", "index_sims", "False")
+                    Settings.SetIni("DataSnapshot", "index_sims", "False")
                 End If
 
-                PropMySetting.SetIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
-                PropMySetting.SetIni("Const", "GridName", PropMySetting.SimName)
+                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
+                Settings.SetIni("Const", "GridName", Settings.SimName)
 
             Case "Region"
             Case "OSGrid"
@@ -1685,81 +1685,81 @@ Public Class Form1
 
         ' set new Min Timer Interval for how fast a script can go.
 
-        PropMySetting.SetIni("XEngine", "MinTimerInterval", CStr(PropMySetting.MinTimerInterval))
+        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
 
         '' all grids requires these setting in Opensim.ini
-        PropMySetting.SetIni("Const", "DiagnosticsPort", CStr(PropMySetting.DiagnosticPort))
-        PropMySetting.SetIni("Const", "ApachePort", CStr(PropMySetting.ApachePort))
+        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
+        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
 
         ' once and only once toggle to get Opensim 2.91
-        If PropMySetting.DeleteScriptsOnStartupOnce() Then
+        If Settings.DeleteScriptsOnStartupOnce() Then
             KillOldFiles()  ' wipe out DLL's
             Dim Clr As New ClrCache()
-            PropMySetting.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
+            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
-            PropMySetting.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
+            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
 
-        If PropMySetting.LSLHTTP Then
+        If Settings.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            PropMySetting.SetIni("Network", "OutboundDisallowForUserScriptsExcept", PropMySetting.PrivateURL & "/32")
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
         End If
 
-        PropMySetting.SetIni("Network", "ExternalHostNameForLSL", PropMySetting.GridServerName)
-        PropMySetting.SetIni("PrimLimitsModule", "EnforcePrimLimits", CType(PropMySetting.Primlimits, String))
+        Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.GridServerName)
+        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CType(Settings.Primlimits, String))
 
-        If PropMySetting.Primlimits Then
-            PropMySetting.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
+        If Settings.Primlimits Then
+            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
         Else
-            PropMySetting.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
+            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
         End If
 
-        If PropMySetting.GloebitsEnable Then
-            PropMySetting.SetIni("Startup", "economymodule", "Gloebit")
+        If Settings.GloebitsEnable Then
+            Settings.SetIni("Startup", "economymodule", "Gloebit")
         Else
-            PropMySetting.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         ' LSL emails
-        PropMySetting.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
-        PropMySetting.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
-        PropMySetting.SetIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
-        PropMySetting.SetIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
-        PropMySetting.SetIni("SMTP", "host_domain_header_from", PropMySetting.GridServerName)
+        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
+        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
+        Settings.SetIni("SMTP", "host_domain_header_from", Settings.GridServerName)
 
         ' the old Clouds
-        If PropMySetting.Clouds Then
-            PropMySetting.SetIni("Cloud", "enabled", "true")
-            PropMySetting.SetIni("Cloud", "density", CStr(PropMySetting.Density))
+        If Settings.Clouds Then
+            Settings.SetIni("Cloud", "enabled", "true")
+            Settings.SetIni("Cloud", "density", CStr(Settings.Density))
         Else
-            PropMySetting.SetIni("Cloud", "enabled", "false")
+            Settings.SetIni("Cloud", "enabled", "false")
         End If
 
         ' Gods
 
-        If (PropMySetting.RegionOwnerIsGod Or PropMySetting.RegionManagerIsGod) Then
-            PropMySetting.SetIni("Permissions", "allow_grid_gods", "true")
+        If (Settings.RegionOwnerIsGod Or Settings.RegionManagerIsGod) Then
+            Settings.SetIni("Permissions", "allow_grid_gods", "true")
         Else
-            PropMySetting.SetIni("Permissions", "allow_grid_gods", "false")
+            Settings.SetIni("Permissions", "allow_grid_gods", "false")
         End If
 
-        If (PropMySetting.RegionOwnerIsGod) Then
-            PropMySetting.SetIni("Permissions", "region_owner_is_god", "true")
+        If (Settings.RegionOwnerIsGod) Then
+            Settings.SetIni("Permissions", "region_owner_is_god", "true")
         Else
-            PropMySetting.SetIni("Permissions", "region_owner_is_god", "false")
+            Settings.SetIni("Permissions", "region_owner_is_god", "false")
         End If
 
-        If (PropMySetting.RegionManagerIsGod) Then
-            PropMySetting.SetIni("Permissions", "region_manager_is_god", "true")
+        If (Settings.RegionManagerIsGod) Then
+            Settings.SetIni("Permissions", "region_manager_is_god", "true")
         Else
-            PropMySetting.SetIni("Permissions", "region_manager_is_god", "false")
+            Settings.SetIni("Permissions", "region_manager_is_god", "false")
         End If
 
-        If (PropMySetting.AllowGridGods) Then
-            PropMySetting.SetIni("Permissions", "allow_grid_gods", "true")
+        If (Settings.AllowGridGods) Then
+            Settings.SetIni("Permissions", "allow_grid_gods", "true")
         Else
-            PropMySetting.SetIni("Permissions", "allow_grid_gods", "false")
+            Settings.SetIni("Permissions", "allow_grid_gods", "false")
         End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one mesging =
@@ -1768,95 +1768,95 @@ Public Class Form1
         ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
         ' with threads 4 = physics = ubODE
 
-        Select Case PropMySetting.Physics
+        Select Case Settings.Physics
             Case 0
-                PropMySetting.SetIni("Startup", "meshing", "ZeroMesher")
-                PropMySetting.SetIni("Startup", "physics", "basicphysics")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "meshing", "ZeroMesher")
+                Settings.SetIni("Startup", "physics", "basicphysics")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 1
-                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 2
-                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 3
-                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
             Case 4
-                PropMySetting.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "ubODE")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
+                Settings.SetIni("Startup", "physics", "ubODE")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 5
-                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "ubODE")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "ubODE")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case Else
-                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
         End Select
 
-        PropMySetting.SetIni("Map", "RenderMaxHeight", PropMySetting.RenderMaxHeight)
-        PropMySetting.SetIni("Map", "RenderMinHeight", PropMySetting.RenderMinHeight)
+        Settings.SetIni("Map", "RenderMaxHeight", Settings.RenderMaxHeight)
+        Settings.SetIni("Map", "RenderMinHeight", Settings.RenderMinHeight)
 
-        If PropMySetting.MapType = "None" Then
-            PropMySetting.SetIni("Map", "GenerateMaptiles", "false")
-        ElseIf PropMySetting.MapType = "Simple" Then
-            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            PropMySetting.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "false")
-            PropMySetting.SetIni("Map", "TexturePrims", "false")
-            PropMySetting.SetIni("Map", "RenderMeshes", "false")
-        ElseIf PropMySetting.MapType = "Good" Then
-            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "false")
-            PropMySetting.SetIni("Map", "TexturePrims", "false")
-            PropMySetting.SetIni("Map", "RenderMeshes", "false")
-        ElseIf PropMySetting.MapType = "Better" Then
-            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetIni("Map", "TextureOnMapTile", "true")         ' versus true
-            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "true")
-            PropMySetting.SetIni("Map", "TexturePrims", "false")
-            PropMySetting.SetIni("Map", "RenderMeshes", "false")
-        ElseIf PropMySetting.MapType = "Best" Then
-            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetIni("Map", "TextureOnMapTile", "true")      ' versus true
-            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "true")
-            PropMySetting.SetIni("Map", "TexturePrims", "true")
-            PropMySetting.SetIni("Map", "RenderMeshes", "true")
+        If Settings.MapType = "None" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "false")
+        ElseIf Settings.MapType = "Simple" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
+            Settings.SetIni("Map", "TexturePrims", "false")
+            Settings.SetIni("Map", "RenderMeshes", "false")
+        ElseIf Settings.MapType = "Good" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
+            Settings.SetIni("Map", "TexturePrims", "false")
+            Settings.SetIni("Map", "RenderMeshes", "false")
+        ElseIf Settings.MapType = "Better" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "true")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
+            Settings.SetIni("Map", "TexturePrims", "false")
+            Settings.SetIni("Map", "RenderMeshes", "false")
+        ElseIf Settings.MapType = "Best" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "true")      ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
+            Settings.SetIni("Map", "TexturePrims", "true")
+            Settings.SetIni("Map", "RenderMeshes", "true")
         End If
 
         ' Autobackup
-        If PropMySetting.AutoBackup Then
+        If Settings.AutoBackup Then
             Log("Info", "Auto backup Is On")
-            PropMySetting.SetIni("AutoBackupModule", "AutoBackup", "true")
+            Settings.SetIni("AutoBackupModule", "AutoBackup", "true")
         Else
             Log("Info", "Auto backup Is Off")
-            PropMySetting.SetIni("AutoBackupModule", "AutoBackup", "false")
+            Settings.SetIni("AutoBackupModule", "AutoBackup", "false")
         End If
 
-        PropMySetting.SetIni("AutoBackupModule", "AutoBackupInterval", PropMySetting.AutobackupInterval)
-        PropMySetting.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(PropMySetting.KeepForDays))
-        PropMySetting.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
+        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
+        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
+        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         ' Voice
-        If PropMySetting.VivoxEnabled Then
-            PropMySetting.SetIni("VivoxVoice", "enabled", "true")
+        If Settings.VivoxEnabled Then
+            Settings.SetIni("VivoxVoice", "enabled", "true")
         Else
-            PropMySetting.SetIni("VivoxVoice", "enabled", "false")
+            Settings.SetIni("VivoxVoice", "enabled", "false")
         End If
-        PropMySetting.SetIni("VivoxVoice", "vivox_admin_user", PropMySetting.VivoxUserName)
-        PropMySetting.SetIni("VivoxVoice", "vivox_admin_password", PropMySetting.VivoxPassword)
+        Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
+        Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
 
-        PropMySetting.SaveINI()
+        Settings.SaveINI()
 
     End Sub
 
@@ -1865,210 +1865,210 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
-        PropMySetting.FirstRegionPort = PropRegionClass.LowestPort()
-        PropMySetting.SaveSettings()
+        Settings.FirstRegionPort = PropRegionClass.LowestPort()
+        Settings.SaveSettings()
 
         ' Self setting Region Ports
-        Dim FirstPort As Integer = CType(PropMySetting.FirstRegionPort(), Integer)
+        Dim FirstPort As Integer = CType(Settings.FirstRegionPort(), Integer)
 
         For Each RegionNum As Integer In PropRegionClass.RegionNumbers
 
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
-            PropMySetting.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+            Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
 
-            PropMySetting.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
-            PropMySetting.SetIni(simName, "ExternalHostName", ExternLocalServerName())
+            Settings.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
+            Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
             ' not a standard INI, only use by the Dreamers
             If PropRegionClass.RegionEnabled(RegionNum) Then
-                PropMySetting.SetIni(simName, "Enabled", "True")
+                Settings.SetIni(simName, "Enabled", "True")
             Else
-                PropMySetting.SetIni(simName, "Enabled", "False")
+                Settings.SetIni(simName, "Enabled", "False")
             End If
 
             ' Extended in v 2.1
-            PropMySetting.SetIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            PropMySetting.SetIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
-            If (PropMySetting.Primlimits) Then
-                PropMySetting.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            Settings.SetIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            Settings.SetIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+            If (Settings.Primlimits) Then
+                Settings.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
             Else
-                PropMySetting.SetIni(simName, "MaxPrims", "")
+                Settings.SetIni(simName, "MaxPrims", "")
             End If
 
-            PropMySetting.SetIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
-            PropMySetting.SetIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
-            PropMySetting.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            Settings.SetIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
+            Settings.SetIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
+            Settings.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
 
             ' Optional
             ' Extended in v 2.31 optional things
             If PropRegionClass.MapType(RegionNum) = "None" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "False")
+                Settings.SetIni(simName, "GenerateMaptiles", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Simple" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-                PropMySetting.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "False")
-                PropMySetting.SetIni(simName, "TexturePrims", "False")
-                PropMySetting.SetIni(simName, "RenderMeshes", "False")
+                Settings.SetIni(simName, "GenerateMaptiles", "True")
+                Settings.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+                Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
+                Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
+                Settings.SetIni(simName, "TexturePrims", "False")
+                Settings.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "False")
-                PropMySetting.SetIni(simName, "TexturePrims", "False")
-                PropMySetting.SetIni(simName, "RenderMeshes", "False")
+                Settings.SetIni(simName, "GenerateMaptiles", "True")
+                Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
+                Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
+                Settings.SetIni(simName, "TexturePrims", "False")
+                Settings.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
-                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "True")
-                PropMySetting.SetIni(simName, "TexturePrims", "False")
-                PropMySetting.SetIni(simName, "RenderMeshes", "False")
+                Settings.SetIni(simName, "GenerateMaptiles", "True")
+                Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
+                Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
+                Settings.SetIni(simName, "TexturePrims", "False")
+                Settings.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
-                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "True")
-                PropMySetting.SetIni(simName, "TexturePrims", "True")
-                PropMySetting.SetIni(simName, "RenderMeshes", "True")
+                Settings.SetIni(simName, "GenerateMaptiles", "True")
+                Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
+                Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
+                Settings.SetIni(simName, "TexturePrims", "True")
+                Settings.SetIni(simName, "RenderMeshes", "True")
             Else
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "")
-                PropMySetting.SetIni(simName, "MapImageModule", "")  ' versus MapImageModule
-                PropMySetting.SetIni(simName, "TextureOnMapTile", "")      ' versus True
-                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "")
-                PropMySetting.SetIni(simName, "TexturePrims", "")
-                PropMySetting.SetIni(simName, "RenderMeshes", "")
+                Settings.SetIni(simName, "GenerateMaptiles", "")
+                Settings.SetIni(simName, "MapImageModule", "")  ' versus MapImageModule
+                Settings.SetIni(simName, "TextureOnMapTile", "")      ' versus True
+                Settings.SetIni(simName, "DrawPrimOnMapTile", "")
+                Settings.SetIni(simName, "TexturePrims", "")
+                Settings.SetIni(simName, "RenderMeshes", "")
             End If
 
             If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                PropMySetting.SetIni(simName, "DisableGloebits", "True")
+                Settings.SetIni(simName, "DisableGloebits", "True")
             End If
 
-            PropMySetting.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
-            PropMySetting.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
-            PropMySetting.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
-            PropMySetting.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
-            PropMySetting.SetIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
-            PropMySetting.SetIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
-            PropMySetting.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
-            PropMySetting.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
-            PropMySetting.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
-            PropMySetting.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
+            Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
+            Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
+            Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
+            Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
+            Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
+            Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
+            Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
+            Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
+            Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
+            Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
 
-            PropMySetting.SaveINI()
+            Settings.SaveINI()
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             ' Opensim.ini in Region Folder specific to this region
-            PropMySetting.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
+            Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
 
             If PropRegionClass.MapType(RegionNum) = "Simple" Then
-                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-                PropMySetting.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "False")
-                PropMySetting.SetIni("Map", "TexturePrims", "False")
-                PropMySetting.SetIni("Map", "RenderMeshes", "False")
+                Settings.SetIni("Map", "GenerateMaptiles", "True")
+                Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+                Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
+                Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+                Settings.SetIni("Map", "TexturePrims", "False")
+                Settings.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
-                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "False")
-                PropMySetting.SetIni("Map", "TexturePrims", "False")
-                PropMySetting.SetIni("Map", "RenderMeshes", "False")
+                Settings.SetIni(simName, "GenerateMaptiles", "True")
+                Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
+                Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+                Settings.SetIni("Map", "TexturePrims", "False")
+                Settings.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
-                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
-                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "True")
-                PropMySetting.SetIni("Map", "TexturePrims", "False")
-                PropMySetting.SetIni("Map", "RenderMeshes", "False")
+                Settings.SetIni("Map", "GenerateMaptiles", "True")
+                Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
+                Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+                Settings.SetIni("Map", "TexturePrims", "False")
+                Settings.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
-                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
-                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "True")
-                PropMySetting.SetIni("Map", "TexturePrims", "True")
-                PropMySetting.SetIni("Map", "RenderMeshes", "True")
+                Settings.SetIni("Map", "GenerateMaptiles", "True")
+                Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
+                Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+                Settings.SetIni("Map", "TexturePrims", "True")
+                Settings.SetIni("Map", "RenderMeshes", "True")
             End If
 
             Select Case PropRegionClass.Physics(RegionNum)
                 Case ""
-                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+                    Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                    Settings.SetIni("Startup", "physics", "BulletSim")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
                 Case "0"
-                    PropMySetting.SetIni("Startup", "meshing", "ZeroMesher")
-                    PropMySetting.SetIni("Startup", "physics", "basicphysics")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                    Settings.SetIni("Startup", "meshing", "ZeroMesher")
+                    Settings.SetIni("Startup", "physics", "basicphysics")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "1"
-                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                    Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                    Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "2"
-                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                    Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                    Settings.SetIni("Startup", "physics", "BulletSim")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "3"
-                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+                    Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                    Settings.SetIni("Startup", "physics", "BulletSim")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
                 Case "4"
-                    PropMySetting.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "ubODE")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                    Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
+                    Settings.SetIni("Startup", "physics", "ubODE")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "5"
-                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetIni("Startup", "physics", "ubODE")
-                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                    Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                    Settings.SetIni("Startup", "physics", "ubODE")
+                    Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case Else
                     ' do nothing
             End Select
 
             Select Case PropRegionClass.AllowGods(RegionNum)
                 Case ""
-                    PropMySetting.SetIni("Permissions", "allow_grid_gods", CStr(PropMySetting.AllowGridGods))
+                    Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
                 Case "False"
-                    PropMySetting.SetIni("Permissions", "allow_grid_gods", "False")
+                    Settings.SetIni("Permissions", "allow_grid_gods", "False")
                 Case "True"
-                    PropMySetting.SetIni("Permissions", "allow_grid_gods", "True")
+                    Settings.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
 
             If PropRegionClass.RegionGod(RegionNum) = "True" Then
-                PropMySetting.SetIni("Permissions", "region_owner_is_god", "True")
+                Settings.SetIni("Permissions", "region_owner_is_god", "True")
             Else
-                PropMySetting.SetIni("Permissions", "region_owner_is_god", CType(PropMySetting.RegionOwnerIsGod, String))
+                Settings.SetIni("Permissions", "region_owner_is_god", CType(Settings.RegionOwnerIsGod, String))
             End If
 
             If PropRegionClass.ManagerGod(RegionNum) = "True" Then
-                PropMySetting.SetIni("Permissions", "region_manager_is_god", "True")
+                Settings.SetIni("Permissions", "region_manager_is_god", "True")
             Else
-                PropMySetting.SetIni("Permissions", "region_manager_is_god", CType(PropMySetting.RegionManagerIsGod, String))
+                Settings.SetIni("Permissions", "region_manager_is_god", CType(Settings.RegionManagerIsGod, String))
             End If
 
-            PropMySetting.SetIni("SmartStart", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
-            PropMySetting.SetIni("DisallowForeigners", "Enabled", CType(PropRegionClass.DisallowForeigners(RegionNum), String))
-            PropMySetting.SetIni("DisallowResidents", "Enabled", CType(PropRegionClass.DisallowResidents(RegionNum), String))
+            Settings.SetIni("SmartStart", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
+            Settings.SetIni("DisallowForeigners", "Enabled", CType(PropRegionClass.DisallowForeigners(RegionNum), String))
+            Settings.SetIni("DisallowResidents", "Enabled", CType(PropRegionClass.DisallowResidents(RegionNum), String))
 
             ' V3.15
-            PropMySetting.SetIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            PropMySetting.SetIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            Settings.SetIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
 
-            PropMySetting.SetIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+            Settings.SetIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
 
             If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                PropMySetting.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+                Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             End If
 
             ' Search
             Select Case PropRegionClass.Snapshot(RegionNum)
                 Case "True"
-                    PropMySetting.SetIni("DataSnapshot", "index_sims", "True")
+                    Settings.SetIni("DataSnapshot", "index_sims", "True")
                 Case "False"
-                    PropMySetting.SetIni("DataSnapshot", "index_sims", "False")
+                    Settings.SetIni("DataSnapshot", "index_sims", "False")
             End Select
 
-            PropMySetting.SaveINI()
+            Settings.SaveINI()
         Next
 
     End Sub
@@ -2084,9 +2084,9 @@ Public Class Form1
 
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
-            PropMySetting.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+            Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
 
-            If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
+            If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
                 BirdData = BirdData & "[" & simName & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
@@ -2094,27 +2094,27 @@ Public Class Form1
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
             "BirdsEnabled = True" & vbCrLf & vbCrLf &
             ";which channel do we listen on for in world commands" & vbCrLf &
-            "BirdsChatChannel = " & CType(PropMySetting.BirdsChatChannel, String) & vbCrLf & vbCrLf &
+            "BirdsChatChannel = " & CType(Settings.BirdsChatChannel, String) & vbCrLf & vbCrLf &
             ";the number of birds to flock" & vbCrLf &
-            "BirdsFlockSize = " & CType(PropMySetting.BirdsFlockSize, String) & vbCrLf & vbCrLf &
+            "BirdsFlockSize = " & CType(Settings.BirdsFlockSize, String) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " & CType(PropMySetting.BirdsMaxSpeed, String) & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " & CType(Settings.BirdsMaxSpeed, String) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " & CType(PropMySetting.BirdsMaxForce, String) & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " & CType(Settings.BirdsMaxForce, String) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " & CType(PropMySetting.BirdsNeighbourDistance, String) & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " & CType(Settings.BirdsNeighbourDistance, String) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " & CType(PropMySetting.BirdsDesiredSeparation, String) & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " & CType(Settings.BirdsDesiredSeparation, String) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " & CType(PropMySetting.BirdsTolerance, String) & vbCrLf & vbCrLf &
+            "BirdsTolerance = " & CType(Settings.BirdsTolerance, String) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " & CType(PropMySetting.BirdsBorderSize, String) & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " & CType(Settings.BirdsBorderSize, String) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " & CType(PropMySetting.BirdsMaxHeight, String) & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " & CType(Settings.BirdsMaxHeight, String) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
-            "BirdsPrim = " & PropMySetting.BirdsPrim & vbCrLf & vbCrLf &
+            "BirdsPrim = " & Settings.BirdsPrim & vbCrLf & vbCrLf &
             ";who Is allowed to send commands via chat Or script List of UUIDs Or ESTATE_OWNER Or ESTATE_MANAGER" & vbCrLf &
             ";Or everyone if Not specified" & vbCrLf &
             "BirdsAllowedControllers = ESTATE_OWNER, ESTATE_MANAGER" & vbCrLf & vbCrLf & vbCrLf
@@ -2133,7 +2133,7 @@ Public Class Form1
         For Each RegionNum As Integer In PropRegionClass.RegionNumbers
             Dim simName = PropRegionClass.RegionName(RegionNum)
             'Tides Setup per region
-            If PropMySetting.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
+            If Settings.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
                     "[" & simName & "]" & vbCrLf &
@@ -2149,23 +2149,23 @@ Public Class Form1
                 "TideUpdateRate = 50" & vbCrLf &
                     vbCrLf &
                 ";; low And high water marks in metres" & vbCrLf &
-                "TideHighWater = " & PropMySetting.TideHighLevel() & vbCrLf &
-                "TideLowWater = " & PropMySetting.TideLowLevel() & vbCrLf &
+                "TideHighWater = " & Settings.TideHighLevel() & vbCrLf &
+                "TideLowWater = " & Settings.TideLowLevel() & vbCrLf &
                 vbCrLf &
                 ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-                "TideCycleTime = " & PropMySetting.CycleTime() & vbCrLf &
+                "TideCycleTime = " & Settings.CycleTime() & vbCrLf &
                     vbCrLf &
                 ";; provide tide information on the console?" & vbCrLf &
-                "TideInfoDebug = " & CStr(PropMySetting.TideInfoDebug) & vbCrLf &
+                "TideInfoDebug = " & CStr(Settings.TideInfoDebug) & vbCrLf &
                     vbCrLf &
                 ";; chat tide info to the whole region?" & vbCrLf &
-                "TideInfoBroadcast = " & PropMySetting.BroadcastTideInfo() & vbCrLf &
+                "TideInfoBroadcast = " & Settings.BroadcastTideInfo() & vbCrLf &
                     vbCrLf &
                 ";; which channel to region chat on for the full tide info" & vbCrLf &
-                "TideInfoChannel = " & PropMySetting.TideInfoChannel & vbCrLf &
+                "TideInfoChannel = " & Settings.TideInfoChannel & vbCrLf &
                 vbCrLf &
                 ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-                "TideLevelChannel = " & PropMySetting.TideLevelChannel() & vbCrLf &
+                "TideLevelChannel = " & Settings.TideLevelChannel() & vbCrLf &
                     vbCrLf &
                 ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
                 "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
@@ -2179,55 +2179,55 @@ Public Class Form1
     Private Sub DoRobust()
 
         ''''''''''''''''''''''''''''''''''''''''''
-        If PropMySetting.ServerType = "Robust" Then
+        If Settings.ServerType = "Robust" Then
             ' Robust Process
-            PropMySetting.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
+            Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
 
-            PropMySetting.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
-            PropMySetting.SetIni("Const", "GridName", PropMySetting.SimName)
-            PropMySetting.SetIni("Const", "BaseURL", "http://" & PropMySetting.PublicIP)
-            PropMySetting.SetIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
-            PropMySetting.SetIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
-            PropMySetting.SetIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort))
-            PropMySetting.SetIni("Const", "http_listener_port", CStr(PropMySetting.HttpPort))
-            PropMySetting.SetIni("GridInfoService", "welcome", PropMySetting.SplashPage)
+            Settings.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
+            Settings.SetIni("Const", "GridName", Settings.SimName)
+            Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
+            Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
+            Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
+            Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
+            Settings.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
+            Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
-            If PropMySetting.Suitcase() Then
-                PropMySetting.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
+            If Settings.Suitcase() Then
+                Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
             Else
-                PropMySetting.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+                Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
             End If
 
             ' LSL emails
-            PropMySetting.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
-            PropMySetting.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
-            PropMySetting.SetIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
-            PropMySetting.SetIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
+            Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
+            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
+            Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
+            Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-            If PropMySetting.SearchLocal Then
-                PropMySetting.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+            If Settings.SearchLocal Then
+                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
             Else
-                PropMySetting.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                Settings.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
 
-            PropMySetting.SetIni("LoginService", "WelcomeMessage", PropMySetting.WelcomeMessage)
+            Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
             'FSASSETS
-            If PropMySetting.FsAssetsEnabled Then
-                PropMySetting.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-                PropMySetting.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+            If Settings.FsAssetsEnabled Then
+                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
             Else
-                PropMySetting.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-                PropMySetting.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
-            PropMySetting.SetIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory & "/data")
-            PropMySetting.SetIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
-            PropMySetting.SetIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
+            Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
+            Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
+            Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-            PropMySetting.SetIni("SmartStart", "Enabled", CStr(PropMySetting.SmartStart))
+            Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
-            PropMySetting.SaveINI()
+            Settings.SaveINI()
 
         End If
 
@@ -2237,66 +2237,66 @@ Public Class Form1
 
         ' TOSModule is disabled in Grids
         If (False) Then
-            PropMySetting.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";")
+            Settings.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";")
 
             'Disable it as it is broken for now.
 
-            'PropMySetting.SetIni("TOSModule", "Enabled", PropMySetting.TOSEnabled)
-            PropMySetting.SetIni("TOSModule", "Enabled", CStr(False))
-            'PropMySetting.SetIni("TOSModule", "Message", PropMySetting.TOSMessage)
-            'PropMySetting.SetIni("TOSModule", "Timeout", PropMySetting.TOSTimeout)
-            PropMySetting.SetIni("TOSModule", "ShowToLocalUsers", CStr(PropMySetting.ShowToLocalUsers))
-            PropMySetting.SetIni("TOSModule", "ShowToForeignUsers", CStr(PropMySetting.ShowToForeignUsers))
-            PropMySetting.SetIni("TOSModule", "TOS_URL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & "/wifi/termsofservice.html")
-            PropMySetting.SaveINI()
+            'Settings.SetIni("TOSModule", "Enabled", Settings.TOSEnabled)
+            Settings.SetIni("TOSModule", "Enabled", CStr(False))
+            'Settings.SetIni("TOSModule", "Message", Settings.TOSMessage)
+            'Settings.SetIni("TOSModule", "Timeout", Settings.TOSTimeout)
+            Settings.SetIni("TOSModule", "ShowToLocalUsers", CStr(Settings.ShowToLocalUsers))
+            Settings.SetIni("TOSModule", "ShowToForeignUsers", CStr(Settings.ShowToForeignUsers))
+            Settings.SetIni("TOSModule", "TOS_URL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/wifi/termsofservice.html")
+            Settings.SaveINI()
         End If
 
     End Sub
 
     Private Sub DoWifi()
 
-        PropMySetting.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
-        PropMySetting.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
+        Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
+        Settings.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
 
         ' Wifi Section
 
-        If PropMySetting.ServerType = "Robust" Then ' wifi could be on or off
-            If (PropMySetting.WifiEnabled) Then
-                PropMySetting.SetIni("WifiService", "Enabled", "True")
+        If Settings.ServerType = "Robust" Then ' wifi could be on or off
+            If (Settings.WifiEnabled) Then
+                Settings.SetIni("WifiService", "Enabled", "True")
             Else
-                PropMySetting.SetIni("WifiService", "Enabled", "False")
+                Settings.SetIni("WifiService", "Enabled", "False")
             End If
         Else ' it is always off
             ' shutdown wifi in Attached mode
-            PropMySetting.SetIni("WifiService", "Enabled", "False")
+            Settings.SetIni("WifiService", "Enabled", "False")
         End If
 
-        PropMySetting.SetIni("WifiService", "GridName", PropMySetting.SimName)
-        PropMySetting.SetIni("WifiService", "LoginURL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
-        PropMySetting.SetIni("WifiService", "WebAddress", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
+        Settings.SetIni("WifiService", "GridName", Settings.SimName)
+        Settings.SetIni("WifiService", "LoginURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        Settings.SetIni("WifiService", "WebAddress", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
 
         ' Wifi Admin'
-        PropMySetting.SetIni("WifiService", "AdminFirst", PropMySetting.AdminFirst)    ' Wifi
-        PropMySetting.SetIni("WifiService", "AdminLast", PropMySetting.AdminLast)      ' Admin
-        PropMySetting.SetIni("WifiService", "AdminPassword", PropMySetting.Password)   ' secret
-        PropMySetting.SetIni("WifiService", "AdminEmail", PropMySetting.AdminEmail)    ' send notificatins to this person
+        Settings.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
+        Settings.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
+        Settings.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
+        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notificatins to this person
 
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
-        PropMySetting.SetIni("WifiService", "SmtpHost", PropMySetting.SmtpHost)
-        PropMySetting.SetIni("WifiService", "SmtpPort", CStr(PropMySetting.SmtpPort))
-        PropMySetting.SetIni("WifiService", "SmtPropUserName", PropMySetting.SmtPropUserName)
-        PropMySetting.SetIni("WifiService", "SmtpPassword", PropMySetting.SmtpPassword)
+        Settings.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
+        Settings.SetIni("WifiService", "SmtpPort", CStr(Settings.SmtpPort))
+        Settings.SetIni("WifiService", "SmtPropUserName", Settings.SmtPropUserName)
+        Settings.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
 
-        PropMySetting.SetIni("WifiService", "HomeLocation", PropMySetting.WelcomeRegion & "/" & PropMySetting.HomeVectorX & "/" & PropMySetting.HomeVectorY & "/" & PropMySetting.HomeVectorZ)
+        Settings.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
 
-        If PropMySetting.AccountConfirmationRequired Then
-            PropMySetting.SetIni("WifiService", "AccountConfirmationRequired", "true")
+        If Settings.AccountConfirmationRequired Then
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "true")
         Else
-            PropMySetting.SetIni("WifiService", "AccountConfirmationRequired", "false")
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "false")
         End If
 
-        PropMySetting.SaveINI()
+        Settings.SaveINI()
 
     End Sub
 
@@ -2310,13 +2310,13 @@ Public Class Form1
         Try
             ' add this sim name as a default to the file as HG regions, and add the other regions as fallback
             ' it may have been deleted
-            Dim o As Integer = PropRegionClass.FindRegionByName(PropMySetting.WelcomeRegion)
+            Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
                 Return
             End If
 
-            Dim DefaultName = PropMySetting.WelcomeRegion
+            Dim DefaultName = Settings.WelcomeRegion
             '(replace spaces with underscore)
             DefaultName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
 
@@ -2338,7 +2338,7 @@ Public Class Form1
                         Diagnostics.Debug.Print(line)
                         outputFile.WriteLine(line)
 
-                        If PropMySetting.SmartStart Then
+                        If Settings.SmartStart Then
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
 
@@ -2359,7 +2359,7 @@ Public Class Form1
                         Else
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
-                                If RegionName <> PropMySetting.WelcomeRegion _
+                                If RegionName <> Settings.WelcomeRegion _
                                 And PropRegionClass.SmartStart(RegionNum) Then
 
                                     RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
@@ -2419,12 +2419,12 @@ Public Class Form1
 
     Public Sub CheckDefaultPorts()
         Try
-            If PropMySetting.DiagnosticPort = PropMySetting.HttpPort _
-        Or PropMySetting.DiagnosticPort = PropMySetting.PrivatePort _
-        Or PropMySetting.HttpPort = PropMySetting.PrivatePort Then
-                PropMySetting.DiagnosticPort = 8001
-                PropMySetting.HttpPort = 8002
-                PropMySetting.PrivatePort = 8003
+            If Settings.DiagnosticPort = Settings.HttpPort _
+        Or Settings.DiagnosticPort = Settings.PrivatePort _
+        Or Settings.HttpPort = Settings.PrivatePort Then
+                Settings.DiagnosticPort = 8001
+                Settings.HttpPort = 8002
+                Settings.PrivatePort = 8003
 
                 MsgBox("Port conflict detected. Sim Ports have been reset to the defaults", vbInformation, "Error")
             End If
@@ -2441,10 +2441,10 @@ Public Class Form1
 
         Dim Host As String
 
-        If PropMySetting.ExternalHostName.Length > 0 Then
-            Host = PropMySetting.ExternalHostName
+        If Settings.ExternalHostName.Length > 0 Then
+            Host = Settings.ExternalHostName
         Else
-            Host = PropMySetting.PublicIP
+            Host = Settings.PublicIP
         End If
         Return Host
 
@@ -2453,9 +2453,9 @@ Public Class Form1
     Public Sub SetRegionINI(regionname As String, key As String, value As String)
 
         Dim X = PropRegionClass.FindRegionByName(regionname)
-        PropMySetting.LoadIni(PropRegionClass.RegionPath(X), ";")
-        PropMySetting.SetIni(regionname, key, value)
-        PropMySetting.SaveINI()
+        Settings.LoadIni(PropRegionClass.RegionPath(X), ";")
+        Settings.SetIni(regionname, key, value)
+        Settings.SaveINI()
 
     End Sub
 
@@ -2474,17 +2474,17 @@ Public Class Form1
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If PropOpensimIsRunning() Then
-            If PropMySetting.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CType(PropMySetting.ApachePort, String)
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & CType(Settings.ApachePort, String)
                 Process.Start(webAddress)
             Else
-                Dim webAddress As String = "http://127.0.0.1:" & PropMySetting.HttpPort
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Process.Start(webAddress)
-                Print("Log in as '" & PropMySetting.AdminFirst & " " & PropMySetting.AdminLast & "' with a password of " & PropMySetting.Password & " to add user accounts.")
+                Print("Log in as '" & Settings.AdminFirst & " " & Settings.AdminLast & "' with a password of " & Settings.Password & " to add user accounts.")
             End If
         Else
-            If PropMySetting.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CType(PropMySetting.ApachePort, String)
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & CType(Settings.ApachePort, String)
                 Process.Start(webAddress)
             Else
                 Print("Opensim is not running. Cannot open the Web Interface.")
@@ -2588,11 +2588,11 @@ Public Class Form1
 
     Public Sub StartApache()
 
-        If PropMySetting.SearchEnabled Then
+        If Settings.SearchEnabled Then
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
             SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
-            SiteMapContents += "<loc>http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
             SiteMapContents += "<priority>1.0</priority>" & vbCrLf
             SiteMapContents += "</url>" & vbCrLf
@@ -2603,7 +2603,7 @@ Public Class Form1
             End Using
         End If
 
-        If Not PropMySetting.ApacheEnable Then
+        If Not Settings.ApacheEnable Then
             ApachePictureBox.Image = My.Resources.nav_plain_blue
             ToolTip1.SetToolTip(ApachePictureBox, "Disabled")
             Print("Apache web server is not enabled.")
@@ -2614,7 +2614,7 @@ Public Class Form1
         ToolTip1.SetToolTip(ApachePictureBox, "Offline")
         Application.DoEvents()
 
-        If PropMySetting.ApachePort = 80 Then
+        If Settings.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
             ApacheProcess.StartInfo.FileName = "net"
             ApacheProcess.StartInfo.CreateNoWindow = True
@@ -2628,7 +2628,7 @@ Public Class Form1
         Print("Check Apache")
         ' Stop MSFT server if we are on port 80 and enabled
 
-        Dim Running = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
+        Dim Running = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
         If Running Then
             Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
@@ -2637,7 +2637,7 @@ Public Class Form1
         End If
         Application.DoEvents()
 
-        If PropMySetting.ApacheService Then
+        If Settings.ApacheService Then
             Print("Checking Apache service")
             PropApacheUninstalling = True
             ApacheProcess.StartInfo.FileName = "sc"
@@ -2744,7 +2744,7 @@ Public Class Form1
                 Application.DoEvents()
                 Sleep(100)
 
-                Dim isRunning = CheckPort(PropMySetting.PrivateURL, CType(PropMySetting.ApachePort, Integer))
+                Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
                 If isRunning Then
                     Print("Apache webserver is running")
                     ApachePictureBox.Image = My.Resources.nav_plain_green
@@ -2760,41 +2760,41 @@ Public Class Form1
 
     Private Sub DoApache()
 
-        If Not PropMySetting.ApacheEnable Then Return
+        If Not Settings.ApacheEnable Then Return
 
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
-        PropMySetting.LoadApacheIni(ini)
-        PropMySetting.SetApacheIni("Listen", CType(PropMySetting.ApachePort, String))
-        PropMySetting.SetApacheIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
-        PropMySetting.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        PropMySetting.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        PropMySetting.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP5" & """")
-        PropMySetting.SetApacheIni("ServerName", PropMySetting.PublicIP)
-        PropMySetting.SetApacheIni("<VirtualHost", "  *:" & CType(PropMySetting.ApachePort, String) & ">")
-        PropMySetting.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        PropMySetting.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
-        PropMySetting.SetApacheIni("LoadModule php5_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
-        PropMySetting.SaveApacheINI(ini, "httpd.conf")
+        Settings.LoadApacheIni(ini)
+        Settings.SetApacheIni("Listen", CType(Settings.ApachePort, String))
+        Settings.SetApacheIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
+        Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP5" & """")
+        Settings.SetApacheIni("ServerName", Settings.PublicIP)
+        Settings.SetApacheIni("<VirtualHost", "  *:" & CType(Settings.ApachePort, String) & ">")
+        Settings.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        Settings.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
+        Settings.SetApacheIni("LoadModule php5_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
+        Settings.SaveApacheINI(ini, "httpd.conf")
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
-        PropMySetting.LoadApacheIni(ini)
-        PropMySetting.SetApacheIni("Listen", PropMySetting.PrivateURL & ":" & "443")
-        PropMySetting.SetApacheIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
-        PropMySetting.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
-        PropMySetting.SetApacheIni("ServerName", PropMySetting.PublicIP)
-        PropMySetting.SetApacheIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
-        PropMySetting.SaveApacheINI(ini, "httpd-ssl.conf")
+        Settings.LoadApacheIni(ini)
+        Settings.SetApacheIni("Listen", Settings.PrivateURL & ":" & "443")
+        Settings.SetApacheIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
+        Settings.SetApacheIni("ServerName", Settings.PublicIP)
+        Settings.SetApacheIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+        Settings.SaveApacheINI(ini, "httpd-ssl.conf")
 
     End Sub
 
     Private Sub DoPHP()
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP5\php.ini"
-        PropMySetting.LoadApacheIni(ini)
-        PropMySetting.SetApacheIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
-        PropMySetting.SaveApacheINI(ini, "php.ini")
+        Settings.LoadApacheIni(ini)
+        Settings.SetApacheIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        Settings.SaveApacheINI(ini, "php.ini")
 
     End Sub
 
@@ -2807,7 +2807,7 @@ Public Class Form1
         Using client As New WebClient ' downloadclient for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & PropMySetting.PublicIP & ":" & CType(PropMySetting.ApachePort, String) & "/?_Opensim=" & Random())
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/?_Opensim=" & Random())
             Catch ex As Exception
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
@@ -2824,10 +2824,10 @@ Public Class Form1
 
     Private Sub KillApache()
 
-        If Not PropMySetting.ApacheEnable Then Return
-        If PropMySetting.ApacheService Then Return
+        If Not Settings.ApacheEnable Then Return
+        If Settings.ApacheService Then Return
 
-        If PropMySetting.ApacheService Then
+        If Settings.ApacheService Then
             Dim ApacheProcess As New Process()
             Print("Stopping Apache ")
             Try
@@ -2857,19 +2857,19 @@ Public Class Form1
 
         Dim phptext = "<?php " & vbCrLf &
 "/* General Domain */" & vbCrLf &
-"$CONF_domain        = " & """" & PropMySetting.PublicIP & """" & "; " & vbCrLf &
-"$CONF_port          = " & """" & PropMySetting.HttpPort & """" & "; " & vbCrLf &
-"$CONF_sim_domain    = " & """" & "http://" & PropMySetting.PublicIP & "/" & """" & ";" & vbCrLf &
+"$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
+"$CONF_port          = " & """" & Settings.HttpPort & """" & "; " & vbCrLf &
+"$CONF_sim_domain    = " & """" & "http://" & Settings.PublicIP & "/" & """" & ";" & vbCrLf &
 "$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
 "/* MySQL Database */ " & vbCrLf &
-"$CONF_db_server     = " & """" & PropMySetting.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
-"$CONF_db_port       = " & """" & CStr(PropMySetting.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$CONF_db_user       = " & """" & PropMySetting.RobustUsername & """" & ";  // login " & vbCrLf &
-"$CONF_db_pass       = " & """" & PropMySetting.RobustPassword & """" & ";  // password " & vbCrLf &
-"$CONF_db_database   = " & """" & PropMySetting.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
+"$CONF_db_server     = " & """" & Settings.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
+"$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
+"$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
+"$CONF_db_database   = " & """" & Settings.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
 "/* The Coordinates Of the Grid-Center */ " & vbCrLf &
-"$CONF_center_coord_x = " & """" & PropMySetting.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
-"$CONF_center_coord_y = " & """" & PropMySetting.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
+"$CONF_center_coord_x = " & """" & Settings.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
+"$CONF_center_coord_y = " & """" & Settings.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
 "?>"
@@ -2879,11 +2879,11 @@ Public Class Form1
         End Using
 
         phptext = "<?php " & vbCrLf &
-"$DB_GRIDNAME = " & """" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & """" & ";" & vbCrLf &
-"$DB_HOST = " & """" & PropMySetting.RobustServer & """" & ";" & vbCrLf &
-"$DB_PORT = " & """" & CStr(PropMySetting.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$DB_USER = " & """" & PropMySetting.RobustUsername & """" & ";" & vbCrLf &
-"$DB_PASSWORD = " & """" & PropMySetting.RobustPassword & """" & ";" & vbCrLf &
+"$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
+"$DB_HOST = " & """" & Settings.RobustServer & """" & ";" & vbCrLf &
+"$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
+"$DB_USER = " & """" & Settings.RobustUsername & """" & ";" & vbCrLf &
+"$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
 
@@ -2898,11 +2898,11 @@ Public Class Form1
 
     Private Sub StopApache()
 
-        If Not PropMySetting.ApacheEnable Then Return
+        If Not Settings.ApacheEnable Then Return
 
         Print("Stopping Apache ")
 
-        If Not PropMySetting.ApacheService Then
+        If Not Settings.ApacheService Then
             Zap("httpd")
             Zap("rotatelogs")
             ApachePictureBox.Image = My.Resources.nav_plain_green
@@ -2917,13 +2917,13 @@ Public Class Form1
 
     Public Sub StartIcecast()
 
-        If Not PropMySetting.SCEnable Then
+        If Not Settings.SCEnable Then
             IceCastPicturebox.Image = My.Resources.nav_plain_blue
             ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is disabled")
             Return
         End If
 
-        Dim IceCastRunning = CheckPort(PropMySetting.PublicIP, PropMySetting.SCPortBase)
+        Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
         If IceCastRunning Then
             IceCastPicturebox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
@@ -2950,7 +2950,7 @@ Public Class Form1
             IcecastProcess.StartInfo.CreateNoWindow = False
             IcecastProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\icecast"
 
-            If PropMySetting.ConsoleShow Then
+            If Settings.ConsoleShow Then
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Else
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
@@ -2991,10 +2991,10 @@ Public Class Form1
 
         RobustPictureBox.Image = My.Resources.nav_plain_blue
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is Off")
-        If PropMySetting.ServerType <> "Robust" Then Return True
+        If Settings.ServerType <> "Robust" Then Return True
 
-        If PropMySetting.RobustServer <> "127.0.0.1" And PropMySetting.RobustServer <> "localhost" Then
-            Print("Using Robust on " & PropMySetting.RobustServer)
+        If Settings.RobustServer <> "127.0.0.1" And Settings.RobustServer <> "localhost" Then
+            Print("Using Robust on " & Settings.RobustServer)
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
             Return True
@@ -3051,7 +3051,7 @@ Public Class Form1
 
         End While
 
-        If PropMySetting.ConsoleShow = False Then
+        If Settings.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
         RobustPictureBox.Image = My.Resources.nav_plain_green
@@ -3087,8 +3087,8 @@ Public Class Form1
             End If
         Next
 
-        PropMySetting.DeleteScriptsOnStartupOnce() = False
-        PropMySetting.SaveSettings()
+        Settings.DeleteScriptsOnStartupOnce() = False
+        Settings.SaveSettings()
 
         Return True
 
@@ -3181,7 +3181,7 @@ Public Class Form1
         Buttons(StopButton)
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-        If Regionclass.SmartStart(RegionNumber) And PropMySetting.SmartStart And Not SkipSmartStart Then
+        If Regionclass.SmartStart(RegionNumber) And Settings.SmartStart And Not SkipSmartStart Then
             Print("Smart Start " & BootName)
             Return True
         End If
@@ -3221,7 +3221,7 @@ Public Class Form1
             Return False
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", PropMySetting.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
+        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
 
         Dim myProcess As Process = GetNewProcess()
         Dim Groupname = Regionclass.GroupName(RegionNumber)
@@ -3229,30 +3229,30 @@ Public Class Form1
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        myProcess.StartInfo.WorkingDirectory = PropMySetting.OpensimBinPath() & "bin"
+        myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath() & "bin"
 
-        myProcess.StartInfo.FileName = """" & PropMySetting.OpensimBinPath() & "bin\OpenSim.exe" & """"
+        myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "bin\OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & Regionclass.GroupName(RegionNumber) & """"
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
+            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
         Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
+            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
         Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
+            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
         Catch
         End Try
 
         Try
-            My.Computer.FileSystem.DeleteFile(PropMySetting.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
+            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
         Catch
         End Try
 
@@ -3368,7 +3368,7 @@ Public Class Form1
                 GroupName = PropRegionClass.GroupName(X)
 
                 ' Smart shutdown
-                If PropRegionClass.SmartStart(X) And PropMySetting.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                If PropRegionClass.SmartStart(X) And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     SequentialPause()
                     ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
                     Print("Smart Stop " & GroupName)
@@ -3380,8 +3380,8 @@ Public Class Form1
                     PropUpdateView = True ' make form refresh
                 End If
 
-                If (TimerValue / 6) >= (PropMySetting.AutoRestartInterval()) _
-                    And PropMySetting.AutoRestartInterval() > 0 _
+                If (TimerValue / 6) >= (Settings.AutoRestartInterval()) _
+                    And Settings.AutoRestartInterval() > 0 _
                     And Not AvatarsIsInGroup(GroupName) _
                     And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
@@ -3472,7 +3472,7 @@ Public Class Form1
             Or PropRegionClass.IsBooted(RegionNumber) _
             And TimerValue >= 0 Then
 
-            If PropMySetting.RestartOnCrash Then
+            If Settings.RestartOnCrash Then
                 PropUpdateView = True
                 ' shut down all regions in the DOS box
                 Print("DOS Box " & GroupName & " quit unexpectedly.  Restarting now...")
@@ -3509,7 +3509,7 @@ Public Class Form1
         Using client As New WebClient ' downloadclient for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & PropMySetting.RobustServer & ":" & PropMySetting.HttpPort & "/?_Opensim=" & Random())
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & Random())
             Catch ex As WebException
                 If ex.Message.Contains("404") Then Return True
                 Return False
@@ -3857,7 +3857,7 @@ Public Class Form1
         '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
-        HTML = "Welcome to |" & PropMySetting.SimName & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & PropMySetting.WelcomeRegion & "||" & vbCrLf
+        HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
 
         Dim NewSQLConn As New MySqlConnection(RobustMysqlConnection())
         Dim UserStmt = "SELECT regionName from REGIONS"
@@ -3888,7 +3888,7 @@ Public Class Form1
         ToSort.Sort()
 
         For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & ":" & S & "||" & vbCrLf
+            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
         Next
 
         Try
@@ -3908,7 +3908,7 @@ Public Class Form1
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
-        Print("Grid address is " & vbCrLf & "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
+        Print("Grid address is " & vbCrLf & "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
 
     End Sub
 
@@ -3966,6 +3966,13 @@ Public Class Form1
             RegisterDNS()
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
+
+
+        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
+            GetEvents() ' get the events from the Outworldz main server for all grids
+        End If
+
+
 
     End Sub
 
@@ -4106,13 +4113,13 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If PropMySetting.BackupFolder = "AutoBackup" Then
+        If Settings.BackupFolder = "AutoBackup" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
             End If
         Else
-            BackupPath = PropMySetting.BackupFolder & "/"
+            BackupPath = Settings.BackupFolder & "/"
             BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
 
             If Not Directory.Exists(BackupPath) Then
@@ -4124,8 +4131,8 @@ Public Class Form1
                 End If
 
                 MsgBox("Autoback folder cannot be located, so It has been reset to the default:" & BackupPath)
-                PropMySetting.BackupFolder = "AutoBackup"
-                PropMySetting.SaveSettings()
+                Settings.BackupFolder = "AutoBackup"
+                Settings.SaveSettings()
             End If
         End If
 
@@ -4644,21 +4651,21 @@ Public Class Form1
     Public Function SetPublicIP() As Boolean
 
         ' LAN USE
-        If PropMySetting.EnableHypergrid Then
+        If Settings.EnableHypergrid Then
             Print("Setup Hypergrid")
             BumpProgress10()
-            If PropMySetting.DNSName.Length > 0 Then
-                PropMySetting.PublicIP = PropMySetting.DNSName()
-                PropMySetting.SaveSettings()
+            If Settings.DNSName.Length > 0 Then
+                Settings.PublicIP = Settings.DNSName()
+                Settings.SaveSettings()
                 Dim ret = RegisterDNS()
                 Return ret
             Else
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-                PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
+                Settings.PublicIP = PropMyUPnpMap.LocalIP
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
                 Dim ret = RegisterDNS()
-                PropMySetting.SaveSettings()
+                Settings.SaveSettings()
                 Return ret
             End If
 
@@ -4666,13 +4673,13 @@ Public Class Form1
 
         ' HG USE
 
-        If Not IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
+        If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
             BumpProgress10()
-            PropMySetting.PublicIP = PropMySetting.DNSName
-            PropMySetting.SaveSettings()
-            Dim x = PropMySetting.PublicIP.ToLower(Invarient)
+            Settings.PublicIP = Settings.DNSName
+            Settings.SaveSettings()
+            Dim x = Settings.PublicIP.ToLower(Invarient)
             If x.Contains("outworldz.net") Then
-                Print("Registering DynDNS address http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
+                Print("Registering DynDNS address http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
             If RegisterDNS() Then
@@ -4681,31 +4688,31 @@ Public Class Form1
 
         End If
 
-        If PropMySetting.PublicIP = "localhost" Or PropMySetting.PublicIP = "127.0.0.1" Then
+        If Settings.PublicIP = "localhost" Or Settings.PublicIP = "127.0.0.1" Then
             RegisterDNS()
             Return True
         End If
 
-        Log("Info", "Public IP=" & PropMySetting.PublicIP)
+        Log("Info", "Public IP=" & Settings.PublicIP)
         If TestPublicLoopback() Then
             Dim client As New WebClient ' downloadclient for web pages
             Try
                 ' Set Public IP
-                PropMySetting.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & Random())
+                Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & Random())
             Catch ex As Exception
                 ErrorLog("Hmm, I cannot reach the Internet? Uh. Okay, continuing." & ex.Message)
-                PropMySetting.DiagFailed = True
+                Settings.DiagFailed = True
             Finally
                 client.Dispose()
             End Try
-            PropMySetting.SaveSettings()
+            Settings.SaveSettings()
             BumpProgress10()
 
             Return True
         End If
 
-        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
-        PropMySetting.SaveSettings()
+        Settings.PublicIP = PropMyUPnpMap.LocalIP
+        Settings.SaveSettings()
 
         BumpProgress10()
         Return False
@@ -4716,9 +4723,9 @@ Public Class Form1
 
         PropUseIcons = True
         Print("Check Diagnostics port")
-        Dim wsstarted = CheckPort("127.0.0.1", CType(PropMySetting.DiagnosticPort, Integer))
+        Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox("Diagnostics port " & PropMySetting.DiagnosticPort & " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
+            MsgBox("Diagnostics port " & Settings.DiagnosticPort & " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
             PropUseIcons = False
         End If
 
@@ -4732,7 +4739,7 @@ Public Class Form1
         End If
         ProgressBar1.Value = 0
         DoDiag()
-        If PropMySetting.DiagFailed = True Then
+        If Settings.DiagFailed = True Then
             Print("Hypergrid Diagnostics failed. These can be re-run at any time. Ip is set for LAN use only. See Help->Network Diagnostics', 'Loopback', and 'Port Forwards'")
         Else
             Print("Tests passed, Hypergrid should be working.")
@@ -4743,14 +4750,14 @@ Public Class Form1
 
     Private Sub DoDiag()
 
-        If IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
+        If IPCheck.IsPrivateIP(Settings.DNSName) Then
             Print("You are on a LAN IP. Test skipped.")
             Return
         End If
 
         Print("Running Network Diagnostics, please wait")
 
-        PropMySetting.DiagFailed = False
+        Settings.DiagFailed = False
 
         OpenPorts() ' Open router ports with UPnp
 
@@ -4760,7 +4767,7 @@ Public Class Form1
 
         TestPublicLoopback()
 
-        If PropMySetting.DiagFailed Then
+        If Settings.DiagFailed Then
             Dim answer = MsgBox("Diagnostics failed. Do you want to see the log?", vbYesNo)
             If answer = vbYes Then
                 ShowLog()
@@ -4768,7 +4775,7 @@ Public Class Form1
         Else
             NewDNSName()
         End If
-        Log("Info", "Diagnostics set the Grid address to " & PropMySetting.PublicIP)
+        Log("Info", "Diagnostics set the Grid address to " & Settings.PublicIP)
 
     End Sub
 
@@ -4783,13 +4790,13 @@ Public Class Form1
         ' anonymous random ID, both of the versions of Opensim and this program, and the
         ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
-        Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & PropMySetting.PublicIP & "&Port=" & PropMySetting.HttpPort & GetPostData()
+        Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
         Log("Info", Url)
         Try
             isPortOpen = client.DownloadString(Url)
         Catch ex As Exception
             ErrorLog("Dang:The Outworldz web site cannot find a path back")
-            PropMySetting.DiagFailed = True
+            Settings.DiagFailed = True
         Finally
             client.Dispose()
         End Try
@@ -4797,19 +4804,19 @@ Public Class Form1
         BumpProgress10()
 
         If isPortOpen = "yes" Then
-            PropMySetting.PublicIP = PropMySetting.PublicIP
-            Print("Public IP set to " & PropMySetting.PublicIP)
-            PropMySetting.SaveSettings()
+            Settings.PublicIP = Settings.PublicIP
+            Print("Public IP set to " & Settings.PublicIP)
+            Settings.SaveSettings()
             Return True
         Else
             Log("Warn", "Failed:" & isPortOpen)
-            PropMySetting.DiagFailed = True
-            Print("Internet address " & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
+            Settings.DiagFailed = True
+            Print("Internet address " & Settings.PublicIP & ":" & Settings.HttpPort & " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            PropMySetting.PublicIP = PropMyUPnpMap.LocalIP() ' failed, so try the machine address
+            Settings.PublicIP = PropMyUPnpMap.LocalIP() ' failed, so try the machine address
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            PropMySetting.SaveSettings()
-            Log("Info", "IP set to " & PropMySetting.PublicIP)
+            Settings.SaveSettings()
+            Log("Info", "IP set to " & Settings.PublicIP)
             Return False
         End If
 
@@ -4819,7 +4826,7 @@ Public Class Form1
 
         Print("Running PC Loopback Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & PropMySetting.PublicIP & ":" & PropMySetting.DiagnosticPort & "/?_TestLoopback=" & Random()
+        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & Random()
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
@@ -4837,22 +4844,22 @@ Public Class Form1
 
         BumpProgress10()
 
-        'If PropMySetting.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
+        'If Settings.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
             Log("Info", "Passed:" & result)
-            PropMySetting.LoopBackDiag = True
-            PropMySetting.SaveSettings()
+            Settings.LoopBackDiag = True
+            Settings.SaveSettings()
             Return True
         Else
 
-            PropMySetting.LoopBackDiag = False
-            PropMySetting.DiagFailed = True
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = True
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            PropMySetting.PublicIP = PropMyUPnpMap.LocalIP()
+            Settings.PublicIP = PropMyUPnpMap.LocalIP()
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
-            PropMySetting.SaveSettings()
+            Settings.SaveSettings()
         End If
         Return False
 
@@ -4860,14 +4867,14 @@ Public Class Form1
 
     Private Function TestPublicLoopback() As Boolean
 
-        If IPCheck.IsPrivateIP(PropMySetting.PublicIP) Then
+        If IPCheck.IsPrivateIP(Settings.PublicIP) Then
             Print("Internet Loopback skipped as this PC is using a LAN-only Address")
             Return True
         End If
 
         Print("Running Intenet Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & PropMySetting.PublicIP & ":" & PropMySetting.DiagnosticPort & "/?_TestLoopback=" & Random()
+        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & Random()
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
@@ -4885,22 +4892,22 @@ Public Class Form1
 
         BumpProgress10()
 
-        'If PropMySetting.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
+        'If Settings.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
             Log("Info", "Passed:" & result)
-            PropMySetting.LoopBackDiag = True
-            PropMySetting.SaveSettings()
+            Settings.LoopBackDiag = True
+            Settings.SaveSettings()
             Return True
         Else
 
-            PropMySetting.LoopBackDiag = False
-            PropMySetting.DiagFailed = True
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = True
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            PropMySetting.PublicIP = PropMyUPnpMap.LocalIP()
+            Settings.PublicIP = PropMyUPnpMap.LocalIP()
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
-            PropMySetting.SaveSettings()
+            Settings.SaveSettings()
         End If
         Return False
 
@@ -4912,56 +4919,56 @@ Public Class Form1
 
     Public Function OpenRouterPorts() As Boolean
 
-        If Not PropMyUPnpMap.UPnpEnabled And PropMySetting.UPnPEnabled Then
+        If Not PropMyUPnpMap.UPnpEnabled And Settings.UPnPEnabled Then
             Log("UPnP", "UPnP is not working in the router")
-            PropMySetting.UPnPEnabled = False
-            PropMySetting.SaveSettings()
+            Settings.UPnPEnabled = False
+            Settings.SaveSettings()
             Return False
         End If
 
-        If Not PropMySetting.UPnPEnabled Then
+        If Not Settings.UPnPEnabled Then
             Return False
         End If
 
         Log("UPnP", "Local IP seems to be " & PropMyUPnpMap.LocalIP)
 
         Try
-            If PropMySetting.SCEnable Then
+            If Settings.SCEnable Then
                 'Icecast 8080
-                If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.MyProtocol.TCP) Then
-                    PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.SCPortBase), UPnp.MyProtocol.TCP)
+                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP) Then
+                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(PropMySetting.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & CStr(PropMySetting.SCPortBase))
-                Print("Icecast Port is set to " & CStr(PropMySetting.SCPortBase))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & CStr(Settings.SCPortBase))
+                Print("Icecast Port is set to " & CStr(Settings.SCPortBase))
                 BumpProgress10()
-                If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.SCPortBase1), UPnp.MyProtocol.TCP) Then
-                    PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.SCPortBase1), UPnp.MyProtocol.TCP)
+                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
+                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(PropMySetting.SCPortBase1, Integer), UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & CStr(PropMySetting.SCPortBase))
-                Print("Icecast Port1 is set to " & CStr(PropMySetting.SCPortBase1))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & CStr(Settings.SCPortBase))
+                Print("Icecast Port1 is set to " & CStr(Settings.SCPortBase1))
             End If
 
-            If PropMySetting.ApachePort > 0 Then
-                If PropMyUPnpMap.Exists(PropMySetting.ApachePort, UPnp.MyProtocol.TCP) Then
-                    PropMyUPnpMap.Remove(PropMySetting.ApachePort, UPnp.MyProtocol.TCP)
+            If Settings.ApachePort > 0 Then
+                If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
+                    PropMyUPnpMap.Remove(Settings.ApachePort, UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, PropMySetting.ApachePort, UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & CStr(PropMySetting.SCPortBase))
-                Print("Apache Port is set to " & CType(PropMySetting.ApachePort, String))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & CStr(Settings.SCPortBase))
+                Print("Apache Port is set to " & CType(Settings.ApachePort, String))
             End If
 
             ' 8002 for TCP and UDP
-            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.TCP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.TCP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & PropMySetting.HttpPort)
-            Print("Grid TCP Port is set to " & PropMySetting.HttpPort)
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
+            Print("Grid TCP Port is set to " & Settings.HttpPort)
             BumpProgress10()
 
-            If PropMyUPnpMap.Exists(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.UDP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.UDP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(PropMySetting.HttpPort, Invarient), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & PropMySetting.HttpPort)
-            Print("Grid UDP Port is set to " & PropMySetting.HttpPort)
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
+            Print("Grid UDP Port is set to " & Settings.HttpPort)
             BumpProgress10()
 
             For Each X As Integer In PropRegionClass.RegionNumbers
@@ -4997,31 +5004,31 @@ Public Class Form1
     Private Function GetPostData() As String
 
         Dim UPnp As String = "Fail"
-        If PropMySetting.UPnpDiag Then
+        If Settings.UPnpDiag Then
             UPnp = "Pass"
         End If
         Dim Loopb As String = "Fail"
-        If PropMySetting.LoopBackDiag Then
+        If Settings.LoopBackDiag Then
             Loopb = "Pass"
         End If
 
         Dim Grid As String = "Grid"
 
         ' no DNS password used if DNS name is null
-        Dim m = PropMySetting.MachineID()
-        If PropMySetting.DNSName.Length = 0 Then
+        Dim m = Settings.MachineID()
+        If Settings.DNSName.Length = 0 Then
             m = ""
         End If
 
         Dim data As String = "&MachineID=" & m _
-        & "&FriendlyName=" & WebUtility.UrlEncode(PropMySetting.SimName) _
+        & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
         & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
         & "&uPnp=" & CStr(UPnp) _
         & "&Loop=" & CStr(Loopb) _
         & "&Type=" & CStr(Grid) _
         & "&Ver=" & CStr(PropUseIcons) _
-        & "&isPublic=" & CStr(PropMySetting.GDPR()) _
+        & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&r=" & Random()
         Return data
 
@@ -5033,21 +5040,21 @@ Public Class Form1
         Try
             If OpenRouterPorts() Then ' open UPnp port
                 Log("Info", "UPnP: Ok")
-                PropMySetting.UPnpDiag = True
-                PropMySetting.SaveSettings()
+                Settings.UPnpDiag = True
+                Settings.SaveSettings()
                 BumpProgress10()
                 Return True
             Else
                 Print("Info:UPnP Failed or is disabled in the router")
-                PropMySetting.UPnpDiag = False
-                PropMySetting.SaveSettings()
+                Settings.UPnpDiag = False
+                Settings.SaveSettings()
                 BumpProgress10()
                 Return False
             End If
         Catch e As Exception
             Log("Error", " UPnP Exception: " & e.Message)
-            PropMySetting.UPnpDiag = False
-            PropMySetting.SaveSettings()
+            Settings.UPnpDiag = False
+            Settings.SaveSettings()
             BumpProgress10()
             Return False
         End Try
@@ -5100,7 +5107,7 @@ Public Class Form1
 
     Public Function StartMySQL() As Boolean
 
-        Dim isMySqlRunning = CheckPort(PropMySetting.RobustServer(), PropMySetting.MySqlRobustDBPort)
+        Dim isMySqlRunning = CheckPort(Settings.RobustServer(), Settings.MySqlRobustDBPort)
 
         If isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
@@ -5122,12 +5129,12 @@ Public Class Form1
         Print("Starting MySql Database")
 
         ' SAVE INI file
-        PropMySetting.LoadIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#")
-        PropMySetting.SetIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
-        PropMySetting.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
-        PropMySetting.SetIni("mysqld", "port", CStr(PropMySetting.MySqlRobustDBPort))
-        PropMySetting.SetIni("client", "port", CStr(PropMySetting.MySqlRobustDBPort))
-        PropMySetting.SaveINI()
+        Settings.LoadIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#")
+        Settings.SetIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
+        Settings.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
+        Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
+        Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
+        Settings.SaveINI()
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\StartManually.bat"
@@ -5232,7 +5239,7 @@ Public Class Form1
 
         ChDir(PropMyFolder & "\OutworldzFiles\mysql\bin")
         pi.WindowStyle = ProcessWindowStyle.Normal
-        pi.Arguments = CStr(PropMySetting.MySqlRobustDBPort)
+        pi.Arguments = CStr(Settings.MySqlRobustDBPort)
 
         pi.FileName = "CheckAndRepair.bat"
         Using pMySqlDiag1 As Process = New Process With {
@@ -5278,7 +5285,7 @@ Public Class Form1
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
-            "mysqladmin.exe -u root --port " & CStr(PropMySetting.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
         Catch ex As Exception
             ErrorLog("Error:StopMySQL.bat" & ex.Message)
@@ -5367,7 +5374,7 @@ Public Class Form1
 
     Private Sub StopMysql()
 
-        Dim isMySqlRunning = CheckPort("127.0.0.1", PropMySetting.MySqlRobustDBPort)
+        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
 
         If Not isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_red
@@ -5388,7 +5395,7 @@ Public Class Form1
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "--port " & CStr(PropMySetting.MySqlRobustDBPort) & " -u root shutdown",
+            .Arguments = "--port " & CStr(Settings.MySqlRobustDBPort) & " -u root shutdown",
             .FileName = """" & PropMyFolder & "\OutworldzFiles\mysql\bin\mysqladmin.exe" & """",
             .UseShellExecute = True, ' so we can redirect streams and minimize
             .WindowStyle = ProcessWindowStyle.Hidden
@@ -5434,7 +5441,7 @@ Public Class Form1
     Public Function GetNewDnsName() As String
 
         Dim client As New WebClient
-        Dim Checkname As String = String.Empty
+        Dim Checkname As String
         Try
             Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & Random())
         Catch ex As ArgumentNullException
@@ -5457,22 +5464,22 @@ Public Class Form1
 
     Public Function RegisterDNS() As Boolean
 
-        If PropMySetting.DNSName.Length = 0 Then
+        If Settings.DNSName.Length = 0 Then
             Return True
         End If
 
-        If IPCheck.IsPrivateIP(PropMySetting.DNSName) Then
+        If IPCheck.IsPrivateIP(Settings.DNSName) Then
             Return True
         End If
 
-        'Print("Checking " & "http://" & PropMySetting.DNSName & ":" & PropMySetting.HttpPort)
+        'Print("Checking " & "http://" & Settings.DNSName & ":" & Settings.HttpPort)
 
         Dim client As New WebClient
         Dim Checkname As String
 
         Try
             Application.DoEvents()
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & PropMySetting.DNSName & GetPostData())
+            Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
         Catch ex As ArgumentNullException
             ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
             Return False
@@ -5494,7 +5501,7 @@ Public Class Form1
     Public Function RegisterName(name As String) As String
 
         Dim Checkname As String = String.Empty
-        If PropMySetting.ServerType <> "Robust" Then
+        If Settings.ServerType <> "Robust" Then
             Return name
         End If
         Dim client As New WebClient ' downloadclient for web pages
@@ -5524,14 +5531,14 @@ Public Class Form1
 
     Private Sub NewDNSName()
 
-        If PropMySetting.DNSName.Length = 0 And PropMySetting.EnableHypergrid Then
+        If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
                 If RegisterName(newname).Length >= 0 Then
                     BumpProgress10()
-                    PropMySetting.DNSName = newname
-                    PropMySetting.PublicIP = newname
-                    PropMySetting.SaveSettings()
+                    Settings.DNSName = newname
+                    Settings.PublicIP = newname
+                    Settings.SaveSettings()
                     MsgBox("Your system's name has been set to " & newname & ". You can change the name in the DNS menu at any time", vbInformation, "Info")
                 End If
             End If
@@ -5617,7 +5624,7 @@ Public Class Form1
         If PropOpensimIsRunning() Then
             Dim regionnum = PropRegionClass.FindRegionByName(CType(sender.text, String))
             Dim port As String = CStr(PropRegionClass.RegionPort(regionnum))
-            Dim webAddress As String = "http://localhost:" & PropMySetting.HttpPort & "/bin/data/sim.html?port=" & port
+            Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Process.Start(webAddress)
         Else
             Print("Opensim is not running. Cannot open the Web Interface.")
@@ -5783,11 +5790,11 @@ Public Class Form1
     End Sub
 
     Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
-        If PropOpensimIsRunning() And PropMySetting.SCEnable Then
-            Dim webAddress As String = "http://" & PropMySetting.PublicIP & ":" & CStr(PropMySetting.SCPortBase)
+        If PropOpensimIsRunning() And Settings.SCEnable Then
+            Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.SCPortBase)
             Print("Icecast lets you stream music into your sim. The Music URL is " & webAddress & "/stream")
             Process.Start(webAddress)
-        ElseIf PropMySetting.SCEnable = False Then
+        ElseIf Settings.SCEnable = False Then
             Print("Shoutcast is not Enabled.")
         Else
             Print("Opensim is not running. Click Start to boot the system.")
@@ -5862,10 +5869,10 @@ Public Class Form1
 
         Next
 
-        If PropMySetting.BackupFolder = "AutoBackup" Then
+        If Settings.BackupFolder = "AutoBackup" Then
             Filename = PropMyFolder & "\OutworldzFiles\AutoBackup\"
         Else
-            Filename = PropMySetting.BackupFolder
+            Filename = Settings.BackupFolder
         End If
 
         Log("Info", "Auto OAR")
@@ -5914,10 +5921,10 @@ Public Class Form1
 
         Next
 
-        If PropMySetting.BackupFolder = "AutoBackup" Then
+        If Settings.BackupFolder = "AutoBackup" Then
             Filename = PropMyFolder & "\OutworldzFiles\AutoBackup\"
         Else
-            Filename = PropMySetting.BackupFolder
+            Filename = Settings.BackupFolder
         End If
 
         Try
@@ -6144,7 +6151,7 @@ Public Class Form1
 
     Public Sub SequentialPause()
 
-        If PropMySetting.Sequential Then
+        If Settings.Sequential Then
 
             For Each X As Integer In PropRegionClass.RegionNumbers
                 If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
@@ -6341,7 +6348,7 @@ Public Class Form1
 
     Private Sub GetEvents()
 
-        If Not PropMySetting.SearchEnabled Then Return
+        If Not Settings.SearchEnabled Then Return
 
         Dim Simevents As New Dictionary(Of String, String)
         Dim ctr As Integer = 0
@@ -6382,7 +6389,6 @@ Public Class Form1
                             Next
                             WriteEvent(osconnection, Simevents)
                         End While
-                        Print(CStr(ctr) & " HG Events Loaded")
                     End Using ' reader
 
                 End Using ' client
@@ -6398,40 +6404,40 @@ Public Class Form1
         PropMyUPnpMap = New UPnp(PropMyFolder)
 
         ' setup some defaults
-        PropMySetting.PublicIP = PropMyUPnpMap.LocalIP
-        Print("Lan IP=" & PropMySetting.PublicIP)
-        PropMySetting.PrivateURL = PropMySetting.PublicIP
-        PropMySetting.GridServerName = PropMySetting.PublicIP
+        Settings.PublicIP = PropMyUPnpMap.LocalIP
+        Print("Lan IP=" & Settings.PublicIP)
+        Settings.PrivateURL = Settings.PublicIP
+        Settings.GridServerName = Settings.PublicIP
 
         ' Set them back to the DNS name if there is one
-        If PropMySetting.DNSName.Length > 0 Then
-            PropMySetting.PublicIP = PropMySetting.DNSName
-            PropMySetting.GridServerName = PropMySetting.DNSName
-            Print("DNS Name=" & PropMySetting.PublicIP)
+        If Settings.DNSName.Length > 0 Then
+            Settings.PublicIP = Settings.DNSName
+            Settings.GridServerName = Settings.DNSName
+            Print("DNS Name=" & Settings.PublicIP)
         End If
 
-        If PropMySetting.ServerType = "Robust" Then
-            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+        If Settings.ServerType = "Robust" Then
+            Settings.ExternalHostName = Settings.PublicIP
             Print("Robust Server mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "OsGrid" Then
-            Dim ip As String = ""
-            PropMySetting.PublicIP = "hg.osgrid.org"
+            Print("IP=" & Settings.ExternalHostName)
+        ElseIf Settings.ServerType = "OsGrid" Then
+            Dim ip As String
+            Settings.PublicIP = "hg.osgrid.org"
             Try
                 Using client As New WebClient ' downloadclient for web page
                     ip = client.DownloadString("http://api.ipify.org/?r=" & Form1.Random())
-                    PropMySetting.ExternalHostName = ip
+                    Settings.ExternalHostName = ip
                 End Using
             Catch ex As WebException
             End Try
             Print("OSGrid Region mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "Region" Then
-            PropMySetting.ExternalHostName = PropMySetting.PublicIP
+            Print("IP=" & Settings.ExternalHostName)
+        ElseIf Settings.ServerType = "Region" Then
+            Settings.ExternalHostName = Settings.PublicIP
             Print("Region mode.")
-            Print("IP=" & PropMySetting.ExternalHostName)
-            PropMySetting.GridServerName = PropMySetting.PublicIP
-        ElseIf PropMySetting.ServerType = "Metro" Then
+            Print("IP=" & Settings.ExternalHostName)
+            Settings.GridServerName = Settings.PublicIP
+        ElseIf Settings.ServerType = "Metro" Then
             Dim ip As String = ""
             Try
                 Using client As New WebClient ' downloadclient for web page
@@ -6442,11 +6448,11 @@ Public Class Form1
             Catch ex As WebException
             Catch ex As NotSupportedException
             End Try
-            PropMySetting.ExternalHostName = ip
-            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Settings.ExternalHostName = ip
+            Settings.GridServerName = Settings.PublicIP
             Print("Metro Region mode")
-            Print("Host=" & PropMySetting.ExternalHostName)
-        ElseIf PropMySetting.ServerType = "AviWorlds" Then
+            Print("Host=" & Settings.ExternalHostName)
+        ElseIf Settings.ServerType = "AviWorlds" Then
             Dim ip As String = ""
             Try
                 Using client As New WebClient ' downloadclient for web page
@@ -6456,15 +6462,15 @@ Public Class Form1
             Catch ex As WebException
             Catch ex As NotSupportedException
             End Try
-            PropMySetting.ExternalHostName = ip
-            PropMySetting.GridServerName = PropMySetting.PublicIP
+            Settings.ExternalHostName = ip
+            Settings.GridServerName = Settings.PublicIP
             Print("AviWorlds Region mode")
-            Print("IP=" & PropMySetting.ExternalHostName)
+            Print("IP=" & Settings.ExternalHostName)
         End If
 
-        If PropMySetting.OverrideName.Length > 0 Then
-            PropMySetting.ExternalHostName = PropMySetting.OverrideName
-            Print("Region IP=" & PropMySetting.ExternalHostName)
+        If Settings.OverrideName.Length > 0 Then
+            Settings.ExternalHostName = Settings.OverrideName
+            Print("Region IP=" & Settings.ExternalHostName)
         End If
     End Sub
 
@@ -6486,7 +6492,7 @@ Public Class Form1
 
     Private Sub RunDataSnapshot()
 
-        If Not PropMySetting.SearchLocal Then Return
+        If Not Settings.SearchLocal Then Return
         Diagnostics.Debug.Print("Scanning Datasnapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
@@ -6512,11 +6518,11 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If PropMySetting.ServerType = "Metro" _
-            Or PropMySetting.ServerType = "OsGrid" _
-            Or PropMySetting.ServerType = "AviWorlds" Then Return
+        If Settings.ServerType = "Metro" _
+            Or Settings.ServerType = "OsGrid" _
+            Or Settings.ServerType = "AviWorlds" Then Return
 
-        If Not PropMySetting.SearchMigration = 1 Then
+        If Not Settings.SearchMigration = 1 Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -6544,8 +6550,8 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            PropMySetting.SearchMigration = 1
-            PropMySetting.SaveSettings()
+            Settings.SearchMigration = 1
+            Settings.SaveSettings()
 
         End If
 

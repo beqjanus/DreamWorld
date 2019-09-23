@@ -28,15 +28,15 @@ Public Class FormFlotsamCache
 
         Form1.HelpOnce("Flotsam Cache")
 
-        CacheFolder.Text = Form1.PropMySetting.CacheFolder
-        CacheEnabledBox.Checked = Form1.PropMySetting.CacheEnabled
-        CacheTimeout.Text = Form1.PropMySetting.CacheTimeout
-        LogLevelBox.SelectedIndex = CType(Form1.PropMySetting.CacheLogLevel, Integer)
+        CacheFolder.Text = Form1.Settings.CacheFolder
+        CacheEnabledBox.Checked = Form1.Settings.CacheEnabled
+        CacheTimeout.Text = Form1.Settings.CacheTimeout
+        LogLevelBox.SelectedIndex = CType(Form1.Settings.CacheLogLevel, Integer)
 
         Dim fsize As Double
         Dim folder As String
         If CacheFolder.Text = ".\assetcache" Then
-            folder = Form1.PropMySetting.OpensimBinPath & "bin/assetcache"
+            folder = Form1.Settings.OpensimBinPath & "bin/assetcache"
         Else
             folder = CacheFolder.Text
         End If
@@ -55,12 +55,12 @@ Public Class FormFlotsamCache
 
     Private Sub Form_unload() Handles Me.Closing
 
-        Form1.PropMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.InVarient)
-        Form1.PropMySetting.CacheFolder = CacheFolder.Text
-        Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
-        Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
+        Form1.Settings.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.InVarient)
+        Form1.Settings.CacheFolder = CacheFolder.Text
+        Form1.Settings.CacheEnabled = CacheEnabledBox.Checked
+        Form1.Settings.CacheTimeout = CacheTimeout.Text
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
 
     End Sub
 

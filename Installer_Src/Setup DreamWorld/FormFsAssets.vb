@@ -89,9 +89,9 @@ Public Class FormFsAssets
 
         Form1.HelpOnce("FSAssets")
 
-        EnableFsAssetsCheckbox.Checked = Form1.PropMySetting.FsAssetsEnabled
-        DataFolder.Text = Form1.PropMySetting.BaseDirectory
-        ShowStatsCheckBox.Checked = CType(Form1.PropMySetting.ShowConsoleStats, Boolean)
+        EnableFsAssetsCheckbox.Checked = Form1.Settings.FsAssetsEnabled
+        DataFolder.Text = Form1.Settings.BaseDirectory
+        ShowStatsCheckBox.Checked = CType(Form1.Settings.ShowConsoleStats, Boolean)
 
         Initted1 = True
 
@@ -104,7 +104,7 @@ Public Class FormFsAssets
             Dim result As MsgBoxResult = MsgBox("OK to Save, or Cancel Changes?", vbOKCancel)
             If result = vbOK Then
                 Form1.PropViewedSettings = True
-                Form1.PropMySetting.SaveSettings()
+                Form1.Settings.SaveSettings()
             End If
         End If
 
@@ -116,7 +116,7 @@ Public Class FormFsAssets
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles EnableFsAssetsCheckbox.CheckedChanged
         If Not initted Then Return
-        Form1.PropMySetting.FsAssetsEnabled = EnableFsAssetsCheckbox.Checked
+        Form1.Settings.FsAssetsEnabled = EnableFsAssetsCheckbox.Checked
         Changed = True
     End Sub
 
@@ -137,8 +137,8 @@ Public Class FormFsAssets
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.SelectedPath
             If thing.Length > 0 Then
-                Form1.PropMySetting.BaseDirectory = thing
-                Form1.PropMySetting.SaveSettings()
+                Form1.Settings.BaseDirectory = thing
+                Form1.Settings.SaveSettings()
                 DataFolder.Text = thing
                 Changed = True
             End If
@@ -150,14 +150,14 @@ Public Class FormFsAssets
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
+        Form1.Settings.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
         Changed = True
 
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
         Me.Close()
     End Sub
 

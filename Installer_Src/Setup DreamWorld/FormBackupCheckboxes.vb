@@ -74,7 +74,7 @@ Public Class FormBackupCheckboxes
             MySqlCheckBox.Checked = False
         End If
 
-        If Form1.PropMySetting.FsAssetsEnabled Then
+        If Form1.Settings.FsAssetsEnabled Then
             FSAssetsCheckBox.Enabled = True
             FSAssetsCheckBox.Checked = True
         Else
@@ -94,17 +94,17 @@ Public Class FormBackupCheckboxes
 
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient)   ' Set default folder
         Dim Dest As String
-        If Form1.PropMySetting.BackupFolder = "AutoBackup" Then
-            Dest = Form1.PropMySetting.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
+        If Form1.Settings.BackupFolder = "AutoBackup" Then
+            Dest = Form1.Settings.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
         Else
-            Dest = Form1.PropMySetting.BackupFolder + "\" + Foldername
+            Dest = Form1.Settings.BackupFolder + "\" + Foldername
         End If
         Try
             If RegionCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
                 Print("Backing up Regions Folder")
-                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
                 Application.DoEvents()
             End If
 
@@ -112,7 +112,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
                 Print("Backing up MySql\Data Folder")
-                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
                 Application.DoEvents()
             End If
 
@@ -121,10 +121,10 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
 
                 Dim folder As String
-                If Form1.PropMySetting.BaseDirectory = "./fsassets" Then
-                    folder = Form1.PropMySetting.OpensimBinPath & "bin\FSAssets"
+                If Form1.Settings.BaseDirectory = "./fsassets" Then
+                    folder = Form1.Settings.OpensimBinPath & "bin\FSAssets"
                 Else
-                    folder = Form1.PropMySetting.BaseDirectory
+                    folder = Form1.Settings.BaseDirectory
                 End If
                 Print("Backing up FSAssets Folder")
                 Cpy(folder, Dest + "\FSAssets")
@@ -136,14 +136,14 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
                 Print("Backing up Wifi Folders")
-                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-                Cpy(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
                 Application.DoEvents()
             End If
 
             If SettingsBox.Checked Then
                 Print("Backing up Settings")
-                My.Computer.FileSystem.CopyFile(Form1.PropMySetting.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
+                My.Computer.FileSystem.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
             End If
             Print("Finished with backup at " + Dest)
         Catch ex As Exception

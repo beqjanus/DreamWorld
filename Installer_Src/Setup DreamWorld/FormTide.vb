@@ -55,14 +55,14 @@ Public Class Tides
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        TideEnabledCheckbox.Checked = CType(Form1.PropMySetting.TideEnabled, Boolean)
-        TideHighLevelTextBox.Text = Form1.PropMySetting.TideHighLevel()
-        TideLowLevelTextBox.Text = Form1.PropMySetting.TideLowLevel()
-        CycleTimeTextBox.Text = Form1.PropMySetting.CycleTime.ToString(Form1.InVarient)
-        BroadcastTideInfo.Checked = CType(Form1.PropMySetting.BroadcastTideInfo, Boolean)
-        TideInfoChannelTextBox.Text = Form1.PropMySetting.TideInfoChannel
-        TideHiLoChannelTextBox.Text = Form1.PropMySetting.TideLevelChannel
-        TideInfoDebugCheckBox.Checked = Form1.PropMySetting.TideInfoDebug
+        TideEnabledCheckbox.Checked = CType(Form1.Settings.TideEnabled, Boolean)
+        TideHighLevelTextBox.Text = Form1.Settings.TideHighLevel()
+        TideLowLevelTextBox.Text = Form1.Settings.TideLowLevel()
+        CycleTimeTextBox.Text = Form1.Settings.CycleTime.ToString(Form1.InVarient)
+        BroadcastTideInfo.Checked = CType(Form1.Settings.BroadcastTideInfo, Boolean)
+        TideInfoChannelTextBox.Text = Form1.Settings.TideInfoChannel
+        TideHiLoChannelTextBox.Text = Form1.Settings.TideLevelChannel
+        TideInfoDebugCheckBox.Checked = Form1.Settings.TideInfoDebug
         SetScreen()
         Form1.HelpOnce("Tides")
     End Sub
@@ -70,48 +70,48 @@ Public Class Tides
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub TideEnabledCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TideEnabledCheckbox.CheckedChanged
-        Form1.PropMySetting.TideEnabled = TideEnabledCheckbox.Checked
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideEnabled = TideEnabledCheckbox.Checked
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideHghLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHighLevelTextBox.TextChanged
-        Form1.PropMySetting.TideHighLevel() = TideHighLevelTextBox.Text
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideHighLevel() = TideHighLevelTextBox.Text
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
-        Form1.PropMySetting.TideLowLevel() = TideLowLevelTextBox.Text
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideLowLevel() = TideLowLevelTextBox.Text
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
-        Form1.PropMySetting.CycleTime = CycleTimeTextBox.Text
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.CycleTime = CycleTimeTextBox.Text
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub BroadcastTideInfo_CheckedChanged(sender As Object, e As EventArgs) Handles BroadcastTideInfo.CheckedChanged
-        Form1.PropMySetting.BroadcastTideInfo = BroadcastTideInfo.Checked
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.BroadcastTideInfo = BroadcastTideInfo.Checked
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideInfoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideInfoChannelTextBox.TextChanged
-        Form1.PropMySetting.TideInfoChannel = TideInfoChannelTextBox.Text
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideInfoChannel = TideInfoChannelTextBox.Text
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
-        Form1.PropMySetting.TideLevelChannel = TideHiLoChannelTextBox.Text
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideLevelChannel = TideHiLoChannelTextBox.Text
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideInfoDebugCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TideInfoDebugCheckBox.CheckedChanged
-        Form1.PropMySetting.TideInfoDebug = TideInfoDebugCheckBox.Checked
-        Form1.PropMySetting.SaveINI()
+        Form1.Settings.TideInfoDebug = TideInfoDebugCheckBox.Checked
+        Form1.Settings.SaveINI()
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click

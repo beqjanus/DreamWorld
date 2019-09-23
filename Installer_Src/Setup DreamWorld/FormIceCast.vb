@@ -57,11 +57,11 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ShoutcastPort.Text = Form1.PropMySetting.SCPortBase.ToString(Form1.InVarient)
-        ShoutcastPort1.Text = Form1.PropMySetting.SCPortBase1.ToString(Form1.InVarient)
-        AdminPassword.Text = Form1.PropMySetting.SCAdminPassword
-        ShoutcastPassword.Text = Form1.PropMySetting.SCPassword
-        ShoutcastEnable.Checked = Form1.PropMySetting.SCEnable
+        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.InVarient)
+        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.InVarient)
+        AdminPassword.Text = Form1.Settings.SCAdminPassword
+        ShoutcastPassword.Text = Form1.Settings.SCPassword
+        ShoutcastEnable.Checked = Form1.Settings.SCEnable
 
         AdminPassword.UseSystemPasswordChar = True
         ShoutcastPassword.UseSystemPasswordChar = True
@@ -75,7 +75,7 @@ Public Class Icecast
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
         Try
-            Form1.PropMySetting.SCPortBase = CType(ShoutcastPort.Text, Integer)
+            Form1.Settings.SCPortBase = CType(ShoutcastPort.Text, Integer)
         Catch
         End Try
 
@@ -83,7 +83,7 @@ Public Class Icecast
 
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
-        Form1.PropMySetting.SCAdminPassword = AdminPassword.Text
+        Form1.Settings.SCAdminPassword = AdminPassword.Text
 
     End Sub
 
@@ -95,13 +95,13 @@ Public Class Icecast
 
     Private Sub ShoutcastEnable_CheckedChanged(sender As Object, e As EventArgs) Handles ShoutcastEnable.CheckedChanged
 
-        Form1.PropMySetting.SCEnable = ShoutcastEnable.Checked
+        Form1.Settings.SCEnable = ShoutcastEnable.Checked
 
     End Sub
 
     Private Sub ShoutcastPassword_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.TextChanged
 
-        Form1.PropMySetting.SCPassword = ShoutcastPassword.Text
+        Form1.Settings.SCPassword = ShoutcastPassword.Text
 
     End Sub
 
@@ -114,17 +114,17 @@ Public Class Icecast
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
         Form1.SaveIceCast()
 
     End Sub
 
     Private Sub LoadURL_Click(sender As Object, e As EventArgs) Handles LoadURL.Click
         If Form1.PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://" + Form1.PropMySetting.PublicIP + ":" + ShoutcastPort.Text
+            Dim webAddress As String = "http://" + Form1.Settings.PublicIP + ":" + ShoutcastPort.Text
             Form1.Print("Icecast lets you stream music into your sim. The address will be " + webAddress)
             Process.Start(webAddress)
-        ElseIf Form1.PropMySetting.SCEnable = False Then
+        ElseIf Form1.Settings.SCEnable = False Then
             Form1.Print("Shoutcast is not Enabled.")
         Else
             Form1.Print("Shoutcast is not running. Click Start to boot the system.")
@@ -143,7 +143,7 @@ Public Class Icecast
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
         Try
-            Form1.PropMySetting.SCPortBase1 = CType(ShoutcastPort1.Text, Integer)
+            Form1.Settings.SCPortBase1 = CType(ShoutcastPort1.Text, Integer)
         Catch
         End Try
 

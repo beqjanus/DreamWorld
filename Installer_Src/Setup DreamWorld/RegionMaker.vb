@@ -102,11 +102,11 @@ Public Class RegionMaker
         GetAllRegions()
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
-            Form1.PropMySetting.WelcomeRegion = "Welcome"
+            Form1.Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome")
             GetAllRegions()
-            Form1.PropMySetting.WelcomeRegion = "Welcome"
-            Form1.PropMySetting.SaveSettings()
+            Form1.Settings.WelcomeRegion = "Welcome"
+            Form1.Settings.SaveSettings()
         End If
         ' RegionDump()
 
@@ -702,15 +702,15 @@ Public Class RegionMaker
                     End If
 
                     Dim Removelist As New List(Of String)
-                    If Form1.PropMySetting.SmartStart Then
+                    If Form1.Settings.SmartStart Then
                         For Each Keypair In TeleportAvatarDict
                             Application.DoEvents()
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
                                     Form1.Print("Teleporting " & AgentName & " to " & Keypair.Value)
-                                    Form1.ConsoleCommand(Form1.PropMySetting.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
-                                    Form1.ConsoleCommand(Form1.PropMySetting.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
+                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As Exception
@@ -729,7 +729,7 @@ Public Class RegionMaker
                         End Try
                     Next
 
-                    If Form1.PropMySetting.ConsoleShow = False Then
+                    If Form1.Settings.ConsoleShow = False Then
                         Dim hwnd = Form1.GetHwnd(GroupName(n))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
@@ -777,7 +777,7 @@ Public Class RegionMaker
             ._SizeY = 256,
             ._CoordX = LargestX() + 4,
             ._CoordY = LargestY() + 0,
-            ._RegionPort = Form1.PropMySetting.PrivatePort + 1, '8003 + 1
+            ._RegionPort = Form1.Settings.PrivatePort + 1, '8003 + 1
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
@@ -852,10 +852,10 @@ Public Class RegionMaker
                             CreateRegion(fName)
 
                             ' must be after Createregion or port blows up
-                            Form1.PropMySetting.LoadIni(ini, ";")
+                            Form1.Settings.LoadIni(ini, ";")
                             ' we do not save the above as we are making a new one.
 
-                            RegionEnabled(n) = CBool(Form1.PropMySetting.GetIni(fName, "Enabled", "True"))
+                            RegionEnabled(n) = CBool(Form1.Settings.GetIni(fName, "Enabled", "True"))
 
                             RegionPath(n) = ini ' save the path
                             FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
@@ -870,44 +870,44 @@ Public Class RegionMaker
 
                             GroupName(n) = gname
 
-                            UUID(n) = Form1.PropMySetting.GetIni(fName, "RegionUUID", "")
-                            SizeX(n) = CInt(Form1.PropMySetting.GetIni(fName, "SizeX", "256"))
-                            SizeY(n) = CInt(Form1.PropMySetting.GetIni(fName, "SizeY", "256"))
-                            RegionPort(n) = CInt(Form1.PropMySetting.GetIni(fName, "InternalPort", "0"))
+                            UUID(n) = Form1.Settings.GetIni(fName, "RegionUUID", "")
+                            SizeX(n) = CInt(Form1.Settings.GetIni(fName, "SizeX", "256"))
+                            SizeY(n) = CInt(Form1.Settings.GetIni(fName, "SizeY", "256"))
+                            RegionPort(n) = CInt(Form1.Settings.GetIni(fName, "InternalPort", "0"))
 
                             ' extended props V2.1
-                            NonPhysicalPrimMax(n) = CInt(Form1.PropMySetting.GetIni(fName, "NonPhysicalPrimMax", "1024"))
-                            PhysicalPrimMax(n) = CInt(Form1.PropMySetting.GetIni(fName, "PhysicalPrimMax", "64"))
-                            ClampPrimSize(n) = CBool(Form1.PropMySetting.GetIni(fName, "ClampPrimSize", "False"))
-                            MaxPrims(n) = CInt(Form1.PropMySetting.GetIni(fName, "MaxPrims", "15000"))
-                            MaxAgents(n) = CInt(Form1.PropMySetting.GetIni(fName, "MaxAgents", "100"))
+                            NonPhysicalPrimMax(n) = CInt(Form1.Settings.GetIni(fName, "NonPhysicalPrimMax", "1024"))
+                            PhysicalPrimMax(n) = CInt(Form1.Settings.GetIni(fName, "PhysicalPrimMax", "64"))
+                            ClampPrimSize(n) = CBool(Form1.Settings.GetIni(fName, "ClampPrimSize", "False"))
+                            MaxPrims(n) = CInt(Form1.Settings.GetIni(fName, "MaxPrims", "15000"))
+                            MaxAgents(n) = CInt(Form1.Settings.GetIni(fName, "MaxAgents", "100"))
 
                             ' Location is int,int format.
-                            Dim C = Form1.PropMySetting.GetIni(fName, "Location", "1000,1000")
+                            Dim C = Form1.Settings.GetIni(fName, "Location", "1000,1000")
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                             CoordX(n) = CInt(parts(0))
                             CoordY(n) = CInt(parts(1))
 
                             ' options params coming from INI file can be blank!
-                            MinTimerInterval(n) = CSng(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", CStr(1 / 11)))
-                            RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
-                            MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
-                            Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics", "")
-                            MaxPrims(n) = CInt(Form1.PropMySetting.GetIni(fName, "MaxPrims", ""))
-                            AllowGods(n) = Form1.PropMySetting.GetIni(fName, "AllowGods", "")
-                            RegionGod(n) = Form1.PropMySetting.GetIni(fName, "RegionGod", "")
-                            ManagerGod(n) = Form1.PropMySetting.GetIni(fName, "ManagerGod", "")
-                            Birds(n) = Form1.PropMySetting.GetIni(fName, "Birds", "")
-                            Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides", "")
-                            Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport", "")
-                            DisableGloebits(n) = Form1.PropMySetting.GetIni(fName, "DisableGloebits", "")
-                            DisallowForeigners(n) = Form1.PropMySetting.GetIni(fName, "DisallowForeigners", "")
-                            DisallowResidents(n) = Form1.PropMySetting.GetIni(fName, "DisallowResidents", "")
+                            MinTimerInterval(n) = CSng(Form1.Settings.GetIni(fName, "MinTimerInterval", CStr(1 / 11)))
+                            RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
+                            MapType(n) = Form1.Settings.GetIni(fName, "MapType", "")
+                            Physics(n) = Form1.Settings.GetIni(fName, "Physics", "")
+                            MaxPrims(n) = CInt(Form1.Settings.GetIni(fName, "MaxPrims", ""))
+                            AllowGods(n) = Form1.Settings.GetIni(fName, "AllowGods", "")
+                            RegionGod(n) = Form1.Settings.GetIni(fName, "RegionGod", "")
+                            ManagerGod(n) = Form1.Settings.GetIni(fName, "ManagerGod", "")
+                            Birds(n) = Form1.Settings.GetIni(fName, "Birds", "")
+                            Tides(n) = Form1.Settings.GetIni(fName, "Tides", "")
+                            Teleport(n) = Form1.Settings.GetIni(fName, "Teleport", "")
+                            DisableGloebits(n) = Form1.Settings.GetIni(fName, "DisableGloebits", "")
+                            DisallowForeigners(n) = Form1.Settings.GetIni(fName, "DisallowForeigners", "")
+                            DisallowResidents(n) = Form1.Settings.GetIni(fName, "DisallowResidents", "")
 
-                            Snapshot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
+                            Snapshot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
 
-                            Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
+                            Select Case Form1.Settings.GetIni(fName, "SmartStart", "False")
                                 Case "True"
                                     SmartStart(n) = True
                                 Case "False"
@@ -1045,16 +1045,16 @@ Public Class RegionMaker
         End If
 
         Form1.Print("Setup all region ports")
-        Dim Portnumber As Integer = CInt(Form1.PropMySetting.FirstRegionPort())
+        Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
-            Form1.PropMySetting.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
+            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
 
-            Form1.PropMySetting.SetIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
             Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
-            Form1.PropMySetting.SaveINI()
+            Form1.Settings.SaveINI()
             Portnumber += 1
         Next
 
@@ -1172,9 +1172,9 @@ Public Class RegionMaker
 
     Shared Function GetAgentNameByUUID(UUID As String) As String
 
-        If Form1.PropMySetting.ServerType <> "Robust" Then Return ""
+        If Form1.Settings.ServerType <> "Robust" Then Return ""
 
-        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.PropMySetting.RobustConnStr)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustConnStr)
         Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
         Dim Name As String = ""
         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1199,9 +1199,9 @@ Public Class RegionMaker
         Return ""
     End Function
 
-    Public Function ParsePost(POST As String, PropMySetting As MySettings) As String
+    Public Function ParsePost(POST As String, Settings As MySettings) As String
 
-        If PropMySetting Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If Settings Is Nothing Then Return "<html><head></head><body>Error</html>"
         If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
         ' set Region.Booted to true if the POST from the region indicates it is online requires a
         ' section in Opensim.ini where [RegionReady] has this:
@@ -1275,7 +1275,7 @@ Public Class RegionMaker
                         TeleportAvatarDict.Add(AgentUUID, RegionName(n))
 
                         ' redirect to welcome
-                        Dim wname = PropMySetting.WelcomeRegion
+                        Dim wname = Settings.WelcomeRegion
                         Dim RegionNum As Integer = FindRegionByName(wname)
                         Debug.Print("Sending to " & UUID(RegionNum))
                         Return UUID(RegionNum)
@@ -1341,7 +1341,7 @@ Public Class RegionMaker
 
         ElseIf POST.Contains("get_partner") Then
             Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(POST, PropMySetting.MachineID().ToLower(Form1.Invarient))
+            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID().ToLower(Form1.Invarient))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
@@ -1349,7 +1349,7 @@ Public Class RegionMaker
             Dim p1 As String
             If match1.Success Then
                 p1 = match1.Groups(1).Value
-                Dim s = GetPartner(p1, PropMySetting)
+                Dim s = GetPartner(p1, Settings)
                 Debug.Print(s)
                 Return s
             Else
@@ -1360,7 +1360,7 @@ Public Class RegionMaker
             ' Partner prim
         ElseIf POST.Contains("set_partner") Then
             Debug.Print("set Partner")
-            Dim PWok As Boolean = CheckPassword(POST, CStr(PropMySetting.MachineID()))
+            Dim PWok As Boolean = CheckPassword(POST, CStr(Settings.MachineID()))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*?)&")
@@ -1376,11 +1376,11 @@ Public Class RegionMaker
                 End If
                 Dim result As New Guid
                 If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
-                    Dim Partner = GetPartner(p1, PropMySetting)
+                    Dim Partner = GetPartner(p1, Settings)
                     Debug.Print("Partner=" + p2)
 
                     Try
-                        Dim myConnection As MySqlConnection = New MySqlConnection(PropMySetting.RobustConnStr)
+                        Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustConnStr)
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
                         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                                 .Connection = myConnection

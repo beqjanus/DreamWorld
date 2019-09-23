@@ -53,24 +53,24 @@ Public Class FormPermissions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        EnableMaxPrims.Checked = Form1.PropMySetting.Primlimits()
+        EnableMaxPrims.Checked = Form1.Settings.Primlimits()
 
         'gods
-        AllowGods.Checked = Form1.PropMySetting.AllowGridGods
-        RegionGod.Checked = Form1.PropMySetting.RegionOwnerIsGod
-        ManagerGod.Checked = Form1.PropMySetting.RegionManagerIsGod
-        Clouds.Checked = Form1.PropMySetting.Clouds
-        LSLCheckbox.Checked = Form1.PropMySetting.LSLHTTP()
-        Dim var As Double = Form1.PropMySetting.Density
+        AllowGods.Checked = Form1.Settings.AllowGridGods
+        RegionGod.Checked = Form1.Settings.RegionOwnerIsGod
+        ManagerGod.Checked = Form1.Settings.RegionManagerIsGod
+        Clouds.Checked = Form1.Settings.Clouds
+        LSLCheckbox.Checked = Form1.Settings.LSLHTTP()
+        Dim var As Double = Form1.Settings.Density
 
         If var = -1 Then var = 5
 
         Dim v = CInt(var * 10)
         If (var > 9) Then var = 9
         If (var < 0) Then var = 0
-        DomainUpDown1.SelectedIndex = v
+        DomainUpDown1.SelectedIndex = var
 
-        OutBoundPermissionsCheckbox.Checked = Form1.PropMySetting.OutBoundPermissions
+        OutBoundPermissionsCheckbox.Checked = Form1.Settings.OutBoundPermissions
 
         SetScreen()
         Form1.HelpOnce("Permissions")
@@ -81,7 +81,7 @@ Public Class FormPermissions
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -96,8 +96,8 @@ Public Class FormPermissions
     Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
 
         If initted Then
-            Form1.PropMySetting.LSLHTTP() = LSLCheckbox.Checked
-            Form1.PropMySetting.SaveSettings()
+            Form1.Settings.LSLHTTP() = LSLCheckbox.Checked
+            Form1.Settings.SaveSettings()
         End If
 
     End Sub
@@ -105,8 +105,8 @@ Public Class FormPermissions
     Private Sub EnableMaxPrims_CheckedChanged(sender As Object, e As EventArgs) Handles EnableMaxPrims.CheckedChanged
 
         If initted Then
-            Form1.PropMySetting.Primlimits() = EnableMaxPrims.Checked
-            Form1.PropMySetting.SaveSettings()
+            Form1.Settings.Primlimits() = EnableMaxPrims.Checked
+            Form1.Settings.SaveSettings()
         End If
 
     End Sub
@@ -114,32 +114,32 @@ Public Class FormPermissions
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.AllowGridGods = AllowGods.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.AllowGridGods = AllowGods.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.RegionOwnerIsGod = RegionGod.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionOwnerIsGod = RegionGod.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.RegionManagerIsGod = ManagerGod.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.RegionManagerIsGod = ManagerGod.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles Clouds.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.Clouds = Clouds.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.Clouds = Clouds.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -149,13 +149,13 @@ Public Class FormPermissions
             Dim var As Double = CType(DomainUpDown1.SelectedIndex, Double)
 
             If var = -1 Then var = 0.5
-            var = var / 10
+            var /= 10
             If (var > 1) Then var = 1
             If (var < 0) Then var = 0
             Debug.Print(var.ToString(Form1.Invarient))
 
-            Form1.PropMySetting.Density = var
-            Form1.PropMySetting.SaveSettings()
+            Form1.Settings.Density = var
+            Form1.Settings.SaveSettings()
         End If
 
     End Sub
@@ -167,8 +167,8 @@ Public Class FormPermissions
     Private Sub HGExportCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles OutBoundPermissionsCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 

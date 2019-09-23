@@ -68,9 +68,9 @@ Public Class TosForm
         reader.Close()
         Editor1.BodyHtml = HTML
 
-        ShowToLocalUsersCheckbox.Checked = Form1.PropMySetting.ShowToLocalUsers
-        ShowToHGUsersCheckbox.Checked = Form1.PropMySetting.ShowToForeignUsers
-        TOSEnable.Checked = Form1.PropMySetting.TOSEnabled
+        ShowToLocalUsersCheckbox.Checked = Form1.Settings.ShowToLocalUsers
+        ShowToHGUsersCheckbox.Checked = Form1.Settings.ShowToForeignUsers
+        TOSEnable.Checked = Form1.Settings.TOSEnabled
         SetScreen()
 
         Form1.HelpOnce("TOS")
@@ -85,29 +85,29 @@ Public Class TosForm
 
     Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToLocalUsersCheckbox.CheckedChanged
 
-        Form1.PropMySetting.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub ShowToHGUsersCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToHGUsersCheckbox.CheckedChanged
 
-        Form1.PropMySetting.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub TOSEnable_CheckedChanged(sender As Object, e As EventArgs) Handles TOSEnable.CheckedChanged
 
-        Form1.PropMySetting.TOSEnabled = TOSEnable.Checked
-        Form1.PropMySetting.SaveSettings()
+        Form1.Settings.TOSEnabled = TOSEnable.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         If Form1.PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://" & CStr(Form1.PropMySetting.PublicIP) & ":" & CStr(Form1.PropMySetting.HttpPort) & "/wifi/termsofservice.html"
+            Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/termsofservice.html"
             Process.Start(webAddress)
         Else
             MsgBox("Opensim must be running to show you the TOS.")

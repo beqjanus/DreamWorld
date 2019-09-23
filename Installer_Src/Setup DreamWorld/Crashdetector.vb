@@ -26,7 +26,7 @@ Module CrashDetector
 
     Public Sub Find()
 
-        If Not Form1.PropMySetting.RestartonPhysics() Then Return
+        If Not Form1.Settings.RestartonPhysics() Then Return
 
         Dim Used As New List(Of String)
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
