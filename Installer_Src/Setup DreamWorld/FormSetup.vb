@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.17"
+    Private _MyVersion As String = "3.18"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
