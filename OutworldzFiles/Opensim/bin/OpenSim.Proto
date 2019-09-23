@@ -44,14 +44,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=7004
+http_listener_port=8018
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=WorkArea
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=mach.outworldz.net
+BaseHostname=10.6.1.14
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,24 +59,24 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.135
+PrivURL=http://10.6.1.14
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=7002
+PublicPort=8002
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
-PrivatePort=7003
+PrivatePort=8003
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Mach
+GridName=DreamGrid
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
-DiagnosticsPort=7001
+DiagnosticsPort=8001
 ApachePort=80
 
 [Startup]
@@ -404,8 +404,23 @@ TexturePrims=false
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
 RenderMeshes=false
-RenderMaxHeight=4000
+RenderMaxHeight=4096.
 RenderMinHeight=-100
+
+;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
+; MapColorWater = "#3399FF"
+
+;# {MapColor1} {} {Terrain color 1 for textured maps} {"#A58976"}
+; MapColor1 = "#A58976"
+
+;# {MapColor2} {} {Terrain color 2 for textured maps} {"#455931"}
+; MapColor2 = "#455931"
+
+;# {MapColor3} {} {Terrain color 3 for textured maps} {"#A29A8D"}
+; MapColor3 = "#A29A8D"
+
+;# {MapColor4} {} {Terrain color 4 for textured maps} {"#C8C8C8"}
+; MapColor4 = "#C8C8C8"
 
 [PrimLimitsModule]
 
@@ -487,7 +502,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=mach.outworldz.net
+host_domain_header_from=10.6.1.14
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -500,7 +515,7 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=Gmail for notification
+SMTP_SERVER_LOGIN=
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
 SMTP_SERVER_PASSWORD=Gmail password
@@ -555,7 +570,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.135/32
+OutboundDisallowForUserScriptsExcept=10.6.1.14/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -572,7 +587,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=mach.outworldz.net
+ExternalHostNameForLSL=10.6.1.14
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -704,7 +719,7 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-; OfflineMessageURL = ${Const|BaseURL}:${Const|PublicPort}
+OfflineMessageURL = ${Const|PrivURL}:${Const|PrivatePort}
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
 ; StorageProvider = OpenSim.Data.MySQL.dll
@@ -716,13 +731,13 @@ MuteListModule=MuteListModule
 ;# {MuteListURL} {OfflineMessageModule:OfflineMessageModule} {} {} http://yourserver/Mute.php
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
-MuteListURL=http://www.outworldz.com/Mute.php
+;MuteListURL=http://www.outworldz.com/Mute.php
 
 ;; Control whether group invites and notices are stored for offline users.
 ;; Default is true.
 ;; This applies to both core groups module.
 ForwardOfflineGroupMessages=true
-OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
+
 
 [BulletSim]
 
@@ -854,7 +869,7 @@ enable_windlight=true
 ;; searchable data.
 ;; If false, no data will be exposed, DataSnapshot module will be off,
 ;; and you can ignore the rest of these search-related configs.
-index_sims=False
+index_sims=True
 
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
@@ -1161,11 +1176,20 @@ GroupsExternalURI=${Const|PrivURL}:${Const|PrivatePort}
 ;; groups service if the service is using these keys
 ; XmlRpcServiceReadKey    = 1234
 ; XmlRpcServiceWriteKey   = 1234
+
+    ;; Default Groups - add avatar to default group.  Only works with V2 groups.
+    ;; Ensure that GroupsService is set in [UserAccountService] section eg. (GroupsService = "OpenSim.Addons.Groups.dll:GroupsService")
+    ;; Set the DefaultGroupID to the UUID of the group
+    ;; Set the DefaultGroupRole to the name of the group role.  Defaults to Everyone if not provided or if supplied role is not found.
+    ; DefaultGroupID = "00000000-0000-0000-0000-000000000000"
+    ; DefaultGroupRole = "Everyone"
+
 [InterestManagement]
 
 ;# {UpdatePrioritizationScheme} {} {Update prioritization scheme?} {BestAvatarResponsiveness Time Distance SimpleAngularDistance FrontBack} BestAvatarResponsiveness
 ;; This section controls how state updates are prioritized for each client
 ;; Valid values are BestAvatarResponsiveness, Time, Distance,
+     ;; SimpleAngularDistance, FrontBack
 ; UpdatePrioritizationScheme=BestAvatarResponsiveness
 ; TEST OPTION KEEP AS FALSE
 ; if true, don't send object updates if outside view range
@@ -1219,7 +1243,7 @@ ProfileServiceURL=${Const|BaseURL}:${Const|PublicPort}
 ;# {URL} {} {Set URL for Baked texture service} {}
 ;; Sets the URL for the baked texture ROBUST service.
 ;; Disabled when unset.
-;URL=${Const|BaseURL}:${Const|PublicPort}
+URL=${Const|PrivURL}:${Const|PrivatePort}   
 ;;
 ;; Optional module to highlight God names in the viewer.
 ;; Uncomment and customize appropriately if you want this behavior.
@@ -1321,7 +1345,7 @@ AutoBackupSkipAssets=false
 AutoBackupKeepFilesForDays=30
 AutoBackupNaming=Time
 AutoBackupDilationThreshold=0.8
-AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
+AutoBackupDir=O:/Opensim/Outworldz Dreamgrid 3/OutworldzFiles/AutoBackup/
 
 ; Automatically changed by Dreamworld - do not change this - Should be True ( case snsitive)
 [WebStats]
