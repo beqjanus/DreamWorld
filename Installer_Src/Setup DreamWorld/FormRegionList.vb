@@ -476,15 +476,15 @@ Public Class RegionList
                 If (e.CurrentValue = CheckState.Unchecked) Then
                     PropRegionClass1.RegionEnabled(X) = True
                     ' and region file on disk
-                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "true")
-                    Form1.PropMySetting.SaveOtherINI()
+                    Form1.PropMySetting.LoadIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.PropMySetting.SetIni(PropRegionClass1.RegionName(X), "Enabled", "true")
+                    Form1.PropMySetting.SaveINI()
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
                     PropRegionClass1.RegionEnabled(X) = False
                     ' and region file on disk
-                    Form1.PropMySetting.LoadOtherIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.PropMySetting.SetOtherIni(PropRegionClass1.RegionName(X), "Enabled", "false")
-                    Form1.PropMySetting.SaveOtherINI()
+                    Form1.PropMySetting.LoadIni(PropRegionClass1.RegionPath(X), ";")
+                    Form1.PropMySetting.SetIni(PropRegionClass1.RegionName(X), "Enabled", "false")
+                    Form1.PropMySetting.SaveINI()
                 End If
             End If
         Next
@@ -591,6 +591,7 @@ Public Class RegionList
             ListView1.BeginUpdate()
 
             ImageListLarge1 = New ImageList()
+
             If Pixels1 = 0 Then Pixels1 = 20
             ImageListLarge1.ImageSize = New Size(Pixels1, Pixels1)
             ListView1.Items.Clear()

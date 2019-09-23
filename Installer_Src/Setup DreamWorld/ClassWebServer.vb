@@ -143,7 +143,7 @@ Public Class NetServer
     End Sub
 
     Public Sub ListenerCallback(ByVal result As IAsyncResult)
-
+        If result Is Nothing Then Return
         Try
             Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
             ' Call EndGetContext to signal the completion of the asynchronous operation.

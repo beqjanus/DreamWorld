@@ -26,13 +26,12 @@ Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Net.Sockets
-Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
+Imports Ionic.Zip
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
-Imports Ionic.Zip
 
 Public Class Form1
 
@@ -1276,7 +1275,7 @@ Public Class Form1
 #Region "INI"
 
     Public Sub CopyOpensimProto(Optional name As String = "")
-
+        If name Is Nothing Then Return
         If name.Length > 0 Then
             Dim X = PropRegionClass.FindRegionByName(name)
             If (X > -1) Then Opensimproto(X)
@@ -1319,29 +1318,29 @@ Public Class Form1
     Public Sub DoGloebits()
 
         'Gloebits.ini
-        PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
+        PropMySetting.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
         If PropMySetting.GloebitsEnable Then
-            PropMySetting.SetOtherIni("Gloebit", "Enabled", "true")
+            PropMySetting.SetIni("Gloebit", "Enabled", "true")
         Else
-            PropMySetting.SetOtherIni("Gloebit", "Enabled", "false")
+            PropMySetting.SetIni("Gloebit", "Enabled", "false")
         End If
 
         If PropMySetting.GloebitsMode Then
-            PropMySetting.SetOtherIni("Gloebit", "GLBEnvironment", "production")
-            PropMySetting.SetOtherIni("Gloebit", "GLBKey", PropMySetting.GLProdKey)
-            PropMySetting.SetOtherIni("Gloebit", "GLBSecret", PropMySetting.GLProdSecret)
+            PropMySetting.SetIni("Gloebit", "GLBEnvironment", "production")
+            PropMySetting.SetIni("Gloebit", "GLBKey", PropMySetting.GLProdKey)
+            PropMySetting.SetIni("Gloebit", "GLBSecret", PropMySetting.GLProdSecret)
         Else
-            PropMySetting.SetOtherIni("Gloebit", "GLBEnvironment", "sandbox")
-            PropMySetting.SetOtherIni("Gloebit", "GLBKey", PropMySetting.GLSandKey)
-            PropMySetting.SetOtherIni("Gloebit", "GLBSecret", PropMySetting.GLSandSecret)
+            PropMySetting.SetIni("Gloebit", "GLBEnvironment", "sandbox")
+            PropMySetting.SetIni("Gloebit", "GLBKey", PropMySetting.GLSandKey)
+            PropMySetting.SetIni("Gloebit", "GLBSecret", PropMySetting.GLSandSecret)
         End If
 
-        PropMySetting.SetOtherIni("Gloebit", "GLBOwnerName", PropMySetting.GLBOwnerName)
-        PropMySetting.SetOtherIni("Gloebit", "GLBOwnerEmail", PropMySetting.GLBOwnerEmail)
+        PropMySetting.SetIni("Gloebit", "GLBOwnerName", PropMySetting.GLBOwnerName)
+        PropMySetting.SetIni("Gloebit", "GLBOwnerEmail", PropMySetting.GLBOwnerEmail)
 
-        PropMySetting.SetOtherIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
+        PropMySetting.SetIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
 
-        PropMySetting.SaveOtherINI()
+        PropMySetting.SaveINI()
 
     End Sub
 
@@ -1353,19 +1352,19 @@ Public Class Form1
 
         Select Case PropMySetting.ServerType
             Case "Robust"
-                PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
+                PropMySetting.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
                 Return PropOpensimBinPath & "bin\Opensim.proto"
             Case "Region"
-                PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\OpensimRegion.proto", ";")
+                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimRegion.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimRegion.proto"
             Case "OsGrid"
-                PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\OpensimOsGrid.proto", ";")
+                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimOsGrid.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimOsGrid.proto"
             Case "Metro"
-                PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
+                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimMetro.proto"
             Case "AviWorlds"
-                PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
+                PropMySetting.LoadIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimAviWorlds.proto"
         End Select
         Return Nothing
@@ -1380,29 +1379,29 @@ Public Class Form1
 
         Try
 
-            PropMySetting.LoadOtherIni(GetOpensimProto(), ";")
+            PropMySetting.LoadIni(GetOpensimProto(), ";")
 
-            PropMySetting.SetOtherIni("Const", "BaseHostname", PropMySetting.GridServerName)
+            PropMySetting.SetIni("Const", "BaseHostname", PropMySetting.GridServerName)
 
-            PropMySetting.SetOtherIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
-            PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & CStr(PropMySetting.PrivateURL)) ' local IP
-            PropMySetting.SetOtherIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
+            PropMySetting.SetIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
+            PropMySetting.SetIni("Const", "PrivURL", "http://" & CStr(PropMySetting.PrivateURL)) ' local IP
+            PropMySetting.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
             ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
             Dim Xtime As Single = 1 / 11   '1/11 of a second is as fast as she can go
             If PropRegionClass.MinTimerInterval(X) > 0 Then
                 Xtime = PropRegionClass.MinTimerInterval(X)
             End If
-            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CStr(Xtime))
+            PropMySetting.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
 
             Dim name = PropRegionClass.RegionName(X)
 
             ' save the http listener port away for the group
             PropRegionClass.GroupPort(X) = PropRegionClass.RegionPort(X)
 
-            PropMySetting.SetOtherIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort)) '8003
-            PropMySetting.SetOtherIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
-            PropMySetting.SaveOtherINI()
+            PropMySetting.SetIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort)) '8003
+            PropMySetting.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
+            PropMySetting.SaveINI()
 
             My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
@@ -1532,12 +1531,12 @@ Public Class Form1
 
     Private Sub DoFlotsamINI()
 
-        PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
-        PropMySetting.SetOtherIni("AssetCache", "LogLevel", PropMySetting.CacheLogLevel)
-        PropMySetting.SetOtherIni("AssetCache", "CacheDirectory", PropMySetting.CacheFolder)
-        PropMySetting.SetOtherIni("AssetCache", "FileCacheEnabled", CType(PropMySetting.CacheEnabled, String))
-        PropMySetting.SetOtherIni("AssetCache", "FileCacheTimeout", PropMySetting.CacheTimeout)
-        PropMySetting.SaveOtherINI()
+        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
+        PropMySetting.SetIni("AssetCache", "LogLevel", PropMySetting.CacheLogLevel)
+        PropMySetting.SetIni("AssetCache", "CacheDirectory", PropMySetting.CacheFolder)
+        PropMySetting.SetIni("AssetCache", "FileCacheEnabled", CType(PropMySetting.CacheEnabled, String))
+        PropMySetting.SetIni("AssetCache", "FileCacheTimeout", PropMySetting.CacheTimeout)
+        PropMySetting.SaveINI()
 
     End Sub
 
@@ -1566,43 +1565,116 @@ Public Class Form1
         ' Put that gridcommon.ini file in place
         IO.File.Copy(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
+        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";")
+        PropMySetting.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(PropMySetting.OutBoundPermissions))
+        PropMySetting.SaveINI()
+
+    End Sub
+
+    Private Sub EditForeigners()
+
+        ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
+
+        Dim Authorizationlist As String = ""
+        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+
+            Dim simName = PropRegionClass.RegionName(RegionNum)
+            '(replace spaces with underscore)
+            simName = simName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+            Dim df As Boolean = False
+            Dim dr As Boolean = False
+            If PropRegionClass.DisallowForeigners(RegionNum) = "True" Then
+                df = True
+            End If
+            If PropRegionClass.DisallowResidents(RegionNum) = "True" Then
+                dr = True
+            End If
+            If Not dr And Not df Then
+
+            ElseIf dr And Not df Then
+                Authorizationlist += "Region_" & simName & " = DisallowResidents" & vbCrLf
+            ElseIf Not dr And df Then
+                Authorizationlist += "Region_" & simName & " = DisallowForeigners" & vbCrLf
+            ElseIf dr And df Then
+                Authorizationlist += "Region_" & simName & " = DisallowResidents " & vbCrLf
+            End If
+
+        Next
+
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim reader As StreamReader
+        Dim line As String = ""
+        Dim Output As String = ""
+
+        reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+        'now loop through each line
+        Dim skip As Boolean = False
+        While reader.Peek <> -1
+            line = reader.ReadLine()
+
+            If line.Contains("; START") Then
+                Output += line & vbCrLf
+                Output += Authorizationlist
+                skip = True
+            ElseIf line.Contains("; END") Then
+                Output += line & vbCrLf
+                skip = False
+            Else
+                If Not skip Then Output += line & vbCrLf
+            End If
+
+        End While
+
+        'close the reader
+        reader.Close()
+
+        Try
+            My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+        Catch ex As Exception
+            'Nothing to do, this was just cleanup
+        End Try
+
+        Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
+            outputFile.Write(Output)
+        End Using
+
     End Sub
 
     Private Sub DoMySQL()
 
         ' load and patch it up for MySQL
-        PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
+        PropMySetting.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
 
-        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RegionDBConnection)
-        PropMySetting.SaveOtherINI()
+        PropMySetting.SetIni("DatabaseService", "ConnectionString", RegionDBConnection)
+        PropMySetting.SaveINI()
 
     End Sub
 
     Private Sub DoOpensimINI()
 
         ' Opensim.ini
-        PropMySetting.LoadOtherIni(GetOpensimProto(), ";")
+        PropMySetting.LoadIni(GetOpensimProto(), ";")
 
         Select Case PropMySetting.ServerType
             Case "Robust"
                 If PropMySetting.SearchEnabled Then
                     ' RegionSnapShot
-                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
+                    PropMySetting.SetIni("DataSnapshot", "index_sims", "True")
                     If PropMySetting.SearchLocal Then
-                        PropMySetting.SetOtherIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
-                        PropMySetting.SetOtherIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
-                        PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                        PropMySetting.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
+                        PropMySetting.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                        PropMySetting.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
                     Else
-                        PropMySetting.SetOtherIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                        PropMySetting.SetOtherIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                        PropMySetting.SetOtherIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                        PropMySetting.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
+                        PropMySetting.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                        PropMySetting.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
                     End If
                 Else
-                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "False")
+                    PropMySetting.SetIni("DataSnapshot", "index_sims", "False")
                 End If
 
-                PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
-                PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
+                PropMySetting.SetIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
+                PropMySetting.SetIni("Const", "GridName", PropMySetting.SimName)
 
             Case "Region"
             Case "OSGrid"
@@ -1613,81 +1685,81 @@ Public Class Form1
 
         ' set new Min Timer Interval for how fast a script can go.
 
-        PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CStr(PropMySetting.MinTimerInterval))
+        PropMySetting.SetIni("XEngine", "MinTimerInterval", CStr(PropMySetting.MinTimerInterval))
 
         '' all grids requires these setting in Opensim.ini
-        PropMySetting.SetOtherIni("Const", "DiagnosticsPort", CStr(PropMySetting.DiagnosticPort))
-        PropMySetting.SetOtherIni("Const", "ApachePort", CStr(PropMySetting.ApachePort))
+        PropMySetting.SetIni("Const", "DiagnosticsPort", CStr(PropMySetting.DiagnosticPort))
+        PropMySetting.SetIni("Const", "ApachePort", CStr(PropMySetting.ApachePort))
 
         ' once and only once toggle to get Opensim 2.91
         If PropMySetting.DeleteScriptsOnStartupOnce() Then
             KillOldFiles()  ' wipe out DLL's
             Dim Clr As New ClrCache()
-            PropMySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "True")
+            PropMySetting.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
-            PropMySetting.SetOtherIni("XEngine", "DeleteScriptsOnStartup", "False")
+            PropMySetting.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If
 
         If PropMySetting.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            PropMySetting.SetOtherIni("Network", "OutboundDisallowForUserScriptsExcept", PropMySetting.PrivateURL & "/32")
+            PropMySetting.SetIni("Network", "OutboundDisallowForUserScriptsExcept", PropMySetting.PrivateURL & "/32")
         End If
 
-        PropMySetting.SetOtherIni("Network", "ExternalHostNameForLSL", PropMySetting.GridServerName)
-        PropMySetting.SetOtherIni("PrimLimitsModule", "EnforcePrimLimits", CType(PropMySetting.Primlimits, String))
+        PropMySetting.SetIni("Network", "ExternalHostNameForLSL", PropMySetting.GridServerName)
+        PropMySetting.SetIni("PrimLimitsModule", "EnforcePrimLimits", CType(PropMySetting.Primlimits, String))
 
         If PropMySetting.Primlimits Then
-            PropMySetting.SetOtherIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
+            PropMySetting.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
         Else
-            PropMySetting.SetOtherIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
+            PropMySetting.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
         End If
 
         If PropMySetting.GloebitsEnable Then
-            PropMySetting.SetOtherIni("Startup", "economymodule", "Gloebit")
+            PropMySetting.SetIni("Startup", "economymodule", "Gloebit")
         Else
-            PropMySetting.SetOtherIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+            PropMySetting.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         ' LSL emails
-        PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
-        PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
-        PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
-        PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
-        PropMySetting.SetOtherIni("SMTP", "host_domain_header_from", PropMySetting.GridServerName)
+        PropMySetting.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
+        PropMySetting.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
+        PropMySetting.SetIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
+        PropMySetting.SetIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
+        PropMySetting.SetIni("SMTP", "host_domain_header_from", PropMySetting.GridServerName)
 
         ' the old Clouds
         If PropMySetting.Clouds Then
-            PropMySetting.SetOtherIni("Cloud", "enabled", "true")
-            PropMySetting.SetOtherIni("Cloud", "density", CStr(PropMySetting.Density))
+            PropMySetting.SetIni("Cloud", "enabled", "true")
+            PropMySetting.SetIni("Cloud", "density", CStr(PropMySetting.Density))
         Else
-            PropMySetting.SetOtherIni("Cloud", "enabled", "false")
+            PropMySetting.SetIni("Cloud", "enabled", "false")
         End If
 
         ' Gods
 
         If (PropMySetting.RegionOwnerIsGod Or PropMySetting.RegionManagerIsGod) Then
-            PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "true")
+            PropMySetting.SetIni("Permissions", "allow_grid_gods", "true")
         Else
-            PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "false")
+            PropMySetting.SetIni("Permissions", "allow_grid_gods", "false")
         End If
 
         If (PropMySetting.RegionOwnerIsGod) Then
-            PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", "true")
+            PropMySetting.SetIni("Permissions", "region_owner_is_god", "true")
         Else
-            PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", "false")
+            PropMySetting.SetIni("Permissions", "region_owner_is_god", "false")
         End If
 
         If (PropMySetting.RegionManagerIsGod) Then
-            PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", "true")
+            PropMySetting.SetIni("Permissions", "region_manager_is_god", "true")
         Else
-            PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", "false")
+            PropMySetting.SetIni("Permissions", "region_manager_is_god", "false")
         End If
 
         If (PropMySetting.AllowGridGods) Then
-            PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "true")
+            PropMySetting.SetIni("Permissions", "allow_grid_gods", "true")
         Else
-            PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "false")
+            PropMySetting.SetIni("Permissions", "allow_grid_gods", "false")
         End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one mesging =
@@ -1698,93 +1770,93 @@ Public Class Form1
 
         Select Case PropMySetting.Physics
             Case 0
-                PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
-                PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+                PropMySetting.SetIni("Startup", "meshing", "ZeroMesher")
+                PropMySetting.SetIni("Startup", "physics", "basicphysics")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 1
-                PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "OpenDynamicsEngine")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 2
-                PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 3
-                PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "true")
+                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "true")
             Case 4
-                PropMySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+                PropMySetting.SetIni("Startup", "meshing", "ubODEMeshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "ubODE")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case 5
-                PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "false")
+                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "ubODE")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "false")
             Case Else
-                PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "true")
+                PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "true")
         End Select
 
-        PropMySetting.SetOtherIni("Map", "RenderMaxHeight", PropMySetting.RenderMaxHeight)
-        PropMySetting.SetOtherIni("Map", "RenderMinHeight", PropMySetting.RenderMinHeight)
+        PropMySetting.SetIni("Map", "RenderMaxHeight", PropMySetting.RenderMaxHeight)
+        PropMySetting.SetIni("Map", "RenderMinHeight", PropMySetting.RenderMinHeight)
 
         If PropMySetting.MapType = "None" Then
-            PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "false")
+            PropMySetting.SetIni("Map", "GenerateMaptiles", "false")
         ElseIf PropMySetting.MapType = "Simple" Then
-            PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetOtherIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "false")         ' versus true
-            PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "false")
-            PropMySetting.SetOtherIni("Map", "TexturePrims", "false")
-            PropMySetting.SetOtherIni("Map", "RenderMeshes", "false")
+            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
+            PropMySetting.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+            PropMySetting.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
+            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "false")
+            PropMySetting.SetIni("Map", "TexturePrims", "false")
+            PropMySetting.SetIni("Map", "RenderMeshes", "false")
         ElseIf PropMySetting.MapType = "Good" Then
-            PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "false")         ' versus true
-            PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "false")
-            PropMySetting.SetOtherIni("Map", "TexturePrims", "false")
-            PropMySetting.SetOtherIni("Map", "RenderMeshes", "false")
+            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
+            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            PropMySetting.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
+            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "false")
+            PropMySetting.SetIni("Map", "TexturePrims", "false")
+            PropMySetting.SetIni("Map", "RenderMeshes", "false")
         ElseIf PropMySetting.MapType = "Better" Then
-            PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "true")         ' versus true
-            PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "true")
-            PropMySetting.SetOtherIni("Map", "TexturePrims", "false")
-            PropMySetting.SetOtherIni("Map", "RenderMeshes", "false")
+            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
+            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            PropMySetting.SetIni("Map", "TextureOnMapTile", "true")         ' versus true
+            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "true")
+            PropMySetting.SetIni("Map", "TexturePrims", "false")
+            PropMySetting.SetIni("Map", "RenderMeshes", "false")
         ElseIf PropMySetting.MapType = "Best" Then
-            PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "true")
-            PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "true")      ' versus true
-            PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "true")
-            PropMySetting.SetOtherIni("Map", "TexturePrims", "true")
-            PropMySetting.SetOtherIni("Map", "RenderMeshes", "true")
+            PropMySetting.SetIni("Map", "GenerateMaptiles", "true")
+            PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            PropMySetting.SetIni("Map", "TextureOnMapTile", "true")      ' versus true
+            PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "true")
+            PropMySetting.SetIni("Map", "TexturePrims", "true")
+            PropMySetting.SetIni("Map", "RenderMeshes", "true")
         End If
 
         ' Autobackup
         If PropMySetting.AutoBackup Then
             Log("Info", "Auto backup Is On")
-            PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "true")
+            PropMySetting.SetIni("AutoBackupModule", "AutoBackup", "true")
         Else
             Log("Info", "Auto backup Is Off")
-            PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackup", "false")
+            PropMySetting.SetIni("AutoBackupModule", "AutoBackup", "false")
         End If
 
-        PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackupInterval", PropMySetting.AutobackupInterval)
-        PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(PropMySetting.KeepForDays))
-        PropMySetting.SetOtherIni("AutoBackupModule", "AutoBackupDir", BackupPath())
+        PropMySetting.SetIni("AutoBackupModule", "AutoBackupInterval", PropMySetting.AutobackupInterval)
+        PropMySetting.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(PropMySetting.KeepForDays))
+        PropMySetting.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         ' Voice
         If PropMySetting.VivoxEnabled Then
-            PropMySetting.SetOtherIni("VivoxVoice", "enabled", "true")
+            PropMySetting.SetIni("VivoxVoice", "enabled", "true")
         Else
-            PropMySetting.SetOtherIni("VivoxVoice", "enabled", "false")
+            PropMySetting.SetIni("VivoxVoice", "enabled", "false")
         End If
-        PropMySetting.SetOtherIni("VivoxVoice", "vivox_admin_user", PropMySetting.VivoxUserName)
-        PropMySetting.SetOtherIni("VivoxVoice", "vivox_admin_password", PropMySetting.VivoxPassword)
+        PropMySetting.SetIni("VivoxVoice", "vivox_admin_user", PropMySetting.VivoxUserName)
+        PropMySetting.SetIni("VivoxVoice", "vivox_admin_password", PropMySetting.VivoxPassword)
 
-        PropMySetting.SaveOtherINI()
+        PropMySetting.SaveINI()
 
     End Sub
 
@@ -1803,196 +1875,200 @@ Public Class Form1
 
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
-            PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(RegionNum), ";")
+            PropMySetting.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
 
-            PropMySetting.SetOtherIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
-            PropMySetting.SetOtherIni(simName, "ExternalHostName", ExternLocalServerName())
+            PropMySetting.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
+            PropMySetting.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
             ' not a standard INI, only use by the Dreamers
             If PropRegionClass.RegionEnabled(RegionNum) Then
-                PropMySetting.SetOtherIni(simName, "Enabled", "True")
+                PropMySetting.SetIni(simName, "Enabled", "True")
             Else
-                PropMySetting.SetOtherIni(simName, "Enabled", "False")
+                PropMySetting.SetIni(simName, "Enabled", "False")
             End If
 
             ' Extended in v 2.1
-            PropMySetting.SetOtherIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
             If (PropMySetting.Primlimits) Then
-                PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+                PropMySetting.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
             Else
-                PropMySetting.SetOtherIni(simName, "MaxPrims", "")
+                PropMySetting.SetIni(simName, "MaxPrims", "")
             End If
 
-            PropMySetting.SetOtherIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
-            PropMySetting.SetOtherIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            PropMySetting.SetIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
+            PropMySetting.SetIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
+            PropMySetting.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
 
             ' Optional
             ' Extended in v 2.31 optional things
             If PropRegionClass.MapType(RegionNum) = "None" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "False")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Simple" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-                PropMySetting.SetOtherIni(simName, "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetOtherIni(simName, "DrawPrimOnMapTile", "False")
-                PropMySetting.SetOtherIni(simName, "TexturePrims", "False")
-                PropMySetting.SetOtherIni(simName, "RenderMeshes", "False")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
+                PropMySetting.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+                PropMySetting.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
+                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "False")
+                PropMySetting.SetIni(simName, "TexturePrims", "False")
+                PropMySetting.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni(simName, "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetOtherIni(simName, "DrawPrimOnMapTile", "False")
-                PropMySetting.SetOtherIni(simName, "TexturePrims", "False")
-                PropMySetting.SetOtherIni(simName, "RenderMeshes", "False")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
+                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
+                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "False")
+                PropMySetting.SetIni(simName, "TexturePrims", "False")
+                PropMySetting.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni(simName, "TextureOnMapTile", "True")         ' versus True
-                PropMySetting.SetOtherIni(simName, "DrawPrimOnMapTile", "True")
-                PropMySetting.SetOtherIni(simName, "TexturePrims", "False")
-                PropMySetting.SetOtherIni(simName, "RenderMeshes", "False")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
+                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
+                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "True")
+                PropMySetting.SetIni(simName, "TexturePrims", "False")
+                PropMySetting.SetIni(simName, "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni(simName, "TextureOnMapTile", "True")      ' versus True
-                PropMySetting.SetOtherIni(simName, "DrawPrimOnMapTile", "True")
-                PropMySetting.SetOtherIni(simName, "TexturePrims", "True")
-                PropMySetting.SetOtherIni(simName, "RenderMeshes", "True")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
+                PropMySetting.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
+                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "True")
+                PropMySetting.SetIni(simName, "TexturePrims", "True")
+                PropMySetting.SetIni(simName, "RenderMeshes", "True")
             Else
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "")
-                PropMySetting.SetOtherIni(simName, "MapImageModule", "")  ' versus MapImageModule
-                PropMySetting.SetOtherIni(simName, "TextureOnMapTile", "")      ' versus True
-                PropMySetting.SetOtherIni(simName, "DrawPrimOnMapTile", "")
-                PropMySetting.SetOtherIni(simName, "TexturePrims", "")
-                PropMySetting.SetOtherIni(simName, "RenderMeshes", "")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "")
+                PropMySetting.SetIni(simName, "MapImageModule", "")  ' versus MapImageModule
+                PropMySetting.SetIni(simName, "TextureOnMapTile", "")      ' versus True
+                PropMySetting.SetIni(simName, "DrawPrimOnMapTile", "")
+                PropMySetting.SetIni(simName, "TexturePrims", "")
+                PropMySetting.SetIni(simName, "RenderMeshes", "")
             End If
 
             If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                PropMySetting.SetOtherIni(simName, "DisableGloebits", "True")
+                PropMySetting.SetIni(simName, "DisableGloebits", "True")
             End If
 
-            PropMySetting.SetOtherIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
-            PropMySetting.SetOtherIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
-            PropMySetting.SetOtherIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
-            PropMySetting.SetOtherIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
-            PropMySetting.SetOtherIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
+            PropMySetting.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
+            PropMySetting.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
+            PropMySetting.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
+            PropMySetting.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
+            PropMySetting.SetIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
+            PropMySetting.SetIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
+            PropMySetting.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
+            PropMySetting.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
+            PropMySetting.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
+            PropMySetting.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
 
-            PropMySetting.SaveOtherINI()
+            PropMySetting.SaveINI()
 
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             ' Opensim.ini in Region Folder specific to this region
-            PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
+            PropMySetting.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
 
             If PropRegionClass.MapType(RegionNum) = "Simple" Then
-                PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-                PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "False")
-                PropMySetting.SetOtherIni("Map", "TexturePrims", "False")
-                PropMySetting.SetOtherIni("Map", "RenderMeshes", "False")
+                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
+                PropMySetting.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+                PropMySetting.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
+                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "False")
+                PropMySetting.SetIni("Map", "TexturePrims", "False")
+                PropMySetting.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
-                PropMySetting.SetOtherIni(simName, "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "False")         ' versus True
-                PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "False")
-                PropMySetting.SetOtherIni("Map", "TexturePrims", "False")
-                PropMySetting.SetOtherIni("Map", "RenderMeshes", "False")
+                PropMySetting.SetIni(simName, "GenerateMaptiles", "True")
+                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
+                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "False")
+                PropMySetting.SetIni("Map", "TexturePrims", "False")
+                PropMySetting.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
-                PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "True")         ' versus True
-                PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "True")
-                PropMySetting.SetOtherIni("Map", "TexturePrims", "False")
-                PropMySetting.SetOtherIni("Map", "RenderMeshes", "False")
+                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
+                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
+                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "True")
+                PropMySetting.SetIni("Map", "TexturePrims", "False")
+                PropMySetting.SetIni("Map", "RenderMeshes", "False")
             ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
-                PropMySetting.SetOtherIni("Map", "GenerateMaptiles", "True")
-                PropMySetting.SetOtherIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-                PropMySetting.SetOtherIni("Map", "TextureOnMapTile", "True")      ' versus True
-                PropMySetting.SetOtherIni("Map", "DrawPrimOnMapTile", "True")
-                PropMySetting.SetOtherIni("Map", "TexturePrims", "True")
-                PropMySetting.SetOtherIni("Map", "RenderMeshes", "True")
+                PropMySetting.SetIni("Map", "GenerateMaptiles", "True")
+                PropMySetting.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+                PropMySetting.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
+                PropMySetting.SetIni("Map", "DrawPrimOnMapTile", "True")
+                PropMySetting.SetIni("Map", "TexturePrims", "True")
+                PropMySetting.SetIni("Map", "RenderMeshes", "True")
             End If
 
             Select Case PropRegionClass.Physics(RegionNum)
                 Case ""
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
+                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "True")
                 Case "0"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "ZeroMesher")
-                    PropMySetting.SetOtherIni("Startup", "physics", "basicphysics")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                    PropMySetting.SetIni("Startup", "meshing", "ZeroMesher")
+                    PropMySetting.SetIni("Startup", "physics", "basicphysics")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "1"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "OpenDynamicsEngine")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "OpenDynamicsEngine")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "2"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "3"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "BulletSim")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "True")
+                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "BulletSim")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "True")
                 Case "4"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "ubODEMeshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                    PropMySetting.SetIni("Startup", "meshing", "ubODEMeshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "ubODE")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case "5"
-                    PropMySetting.SetOtherIni("Startup", "meshing", "Meshmerizer")
-                    PropMySetting.SetOtherIni("Startup", "physics", "ubODE")
-                    PropMySetting.SetOtherIni("Startup", "UseSeparatePhysicsThread", "False")
+                    PropMySetting.SetIni("Startup", "meshing", "Meshmerizer")
+                    PropMySetting.SetIni("Startup", "physics", "ubODE")
+                    PropMySetting.SetIni("Startup", "UseSeparatePhysicsThread", "False")
                 Case Else
                     ' do nothing
             End Select
 
             Select Case PropRegionClass.AllowGods(RegionNum)
                 Case ""
-                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", CStr(PropMySetting.AllowGridGods))
+                    PropMySetting.SetIni("Permissions", "allow_grid_gods", CStr(PropMySetting.AllowGridGods))
                 Case "False"
-                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "False")
+                    PropMySetting.SetIni("Permissions", "allow_grid_gods", "False")
                 Case "True"
-                    PropMySetting.SetOtherIni("Permissions", "allow_grid_gods", "True")
+                    PropMySetting.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
 
             If PropRegionClass.RegionGod(RegionNum) = "True" Then
-                PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", "True")
+                PropMySetting.SetIni("Permissions", "region_owner_is_god", "True")
             Else
-                PropMySetting.SetOtherIni("Permissions", "region_owner_is_god", CType(PropMySetting.RegionOwnerIsGod, String))
+                PropMySetting.SetIni("Permissions", "region_owner_is_god", CType(PropMySetting.RegionOwnerIsGod, String))
             End If
 
             If PropRegionClass.ManagerGod(RegionNum) = "True" Then
-                PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", "True")
+                PropMySetting.SetIni("Permissions", "region_manager_is_god", "True")
             Else
-                PropMySetting.SetOtherIni("Permissions", "region_manager_is_god", CType(PropMySetting.RegionManagerIsGod, String))
+                PropMySetting.SetIni("Permissions", "region_manager_is_god", CType(PropMySetting.RegionManagerIsGod, String))
             End If
 
-            PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
+            PropMySetting.SetIni("SmartStart", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
+            PropMySetting.SetIni("DisallowForeigners", "Enabled", CType(PropRegionClass.DisallowForeigners(RegionNum), String))
+            PropMySetting.SetIni("DisallowResidents", "Enabled", CType(PropRegionClass.DisallowResidents(RegionNum), String))
 
             ' V3.15
-            PropMySetting.SetOtherIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            PropMySetting.SetOtherIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
+            PropMySetting.SetIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
 
-            PropMySetting.SetOtherIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+            PropMySetting.SetIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
 
             If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                PropMySetting.SetOtherIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+                PropMySetting.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             End If
 
             ' Search
             Select Case PropRegionClass.Snapshot(RegionNum)
                 Case "True"
-                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "True")
+                    PropMySetting.SetIni("DataSnapshot", "index_sims", "True")
                 Case "False"
-                    PropMySetting.SetOtherIni("DataSnapshot", "index_sims", "False")
+                    PropMySetting.SetIni("DataSnapshot", "index_sims", "False")
             End Select
 
-            PropMySetting.SaveOtherINI()
+            PropMySetting.SaveINI()
         Next
 
     End Sub
@@ -2008,7 +2084,7 @@ Public Class Form1
 
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
-            PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(RegionNum), ";")
+            PropMySetting.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
 
             If PropMySetting.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
@@ -2105,55 +2181,53 @@ Public Class Form1
         ''''''''''''''''''''''''''''''''''''''''''
         If PropMySetting.ServerType = "Robust" Then
             ' Robust Process
-            PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
+            PropMySetting.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
 
-            PropMySetting.SetOtherIni("GridService", "ExportSupported", CStr(PropMySetting.ExportSupported))
-
-            PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
-            PropMySetting.SetOtherIni("Const", "GridName", PropMySetting.SimName)
-            PropMySetting.SetOtherIni("Const", "BaseURL", "http://" & PropMySetting.PublicIP)
-            PropMySetting.SetOtherIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
-            PropMySetting.SetOtherIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
-            PropMySetting.SetOtherIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort))
-            PropMySetting.SetOtherIni("Const", "http_listener_port", CStr(PropMySetting.HttpPort))
-            PropMySetting.SetOtherIni("GridInfoService", "welcome", PropMySetting.SplashPage)
+            PropMySetting.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
+            PropMySetting.SetIni("Const", "GridName", PropMySetting.SimName)
+            PropMySetting.SetIni("Const", "BaseURL", "http://" & PropMySetting.PublicIP)
+            PropMySetting.SetIni("Const", "PrivURL", "http://" & PropMySetting.PrivateURL)
+            PropMySetting.SetIni("Const", "PublicPort", CStr(PropMySetting.HttpPort)) ' 8002
+            PropMySetting.SetIni("Const", "PrivatePort", CStr(PropMySetting.PrivatePort))
+            PropMySetting.SetIni("Const", "http_listener_port", CStr(PropMySetting.HttpPort))
+            PropMySetting.SetIni("GridInfoService", "welcome", PropMySetting.SplashPage)
 
             If PropMySetting.Suitcase() Then
-                PropMySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
+                PropMySetting.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
             Else
-                PropMySetting.SetOtherIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+                PropMySetting.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
             End If
 
             ' LSL emails
-            PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
-            PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
-            PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
-            PropMySetting.SetOtherIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
+            PropMySetting.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", PropMySetting.SmtpHost)
+            PropMySetting.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(PropMySetting.SmtpPort))
+            PropMySetting.SetIni("SMTP", "SMTP_SERVER_LOGIN", PropMySetting.SmtPropUserName)
+            PropMySetting.SetIni("SMTP", "SMTP_SERVER_PASSWORD", PropMySetting.SmtpPassword)
 
             If PropMySetting.SearchLocal Then
-                PropMySetting.SetOtherIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
+                PropMySetting.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(PropMySetting.ApachePort, String) & "/Search/query.php")
             Else
-                PropMySetting.SetOtherIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                PropMySetting.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
 
-            PropMySetting.SetOtherIni("LoginService", "WelcomeMessage", PropMySetting.WelcomeMessage)
+            PropMySetting.SetIni("LoginService", "WelcomeMessage", PropMySetting.WelcomeMessage)
 
             'FSASSETS
             If PropMySetting.FsAssetsEnabled Then
-                PropMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-                PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+                PropMySetting.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                PropMySetting.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
             Else
-                PropMySetting.SetOtherIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-                PropMySetting.SetOtherIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+                PropMySetting.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+                PropMySetting.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
-            PropMySetting.SetOtherIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory & "/data")
-            PropMySetting.SetOtherIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
-            PropMySetting.SetOtherIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
+            PropMySetting.SetIni("AssetService", "BaseDirectory", PropMySetting.BaseDirectory & "/data")
+            PropMySetting.SetIni("AssetService", "SpoolDirectory", PropMySetting.BaseDirectory & "/tmp")
+            PropMySetting.SetIni("AssetService", "ShowConsoleStats", PropMySetting.ShowConsoleStats)
 
-            PropMySetting.SetOtherIni("AutoLoadTeleport", "Enabled", CStr(PropMySetting.SmartStart))
+            PropMySetting.SetIni("SmartStart", "Enabled", CStr(PropMySetting.SmartStart))
 
-            PropMySetting.SaveOtherINI()
+            PropMySetting.SaveINI()
 
         End If
 
@@ -2163,66 +2237,66 @@ Public Class Form1
 
         ' TOSModule is disabled in Grids
         If (False) Then
-            PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";")
+            PropMySetting.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";")
 
             'Disable it as it is broken for now.
 
-            'PropMySetting.SetOtherIni("TOSModule", "Enabled", PropMySetting.TOSEnabled)
-            PropMySetting.SetOtherIni("TOSModule", "Enabled", CStr(False))
-            'PropMySetting.SetOtherIni("TOSModule", "Message", PropMySetting.TOSMessage)
-            'PropMySetting.SetOtherIni("TOSModule", "Timeout", PropMySetting.TOSTimeout)
-            PropMySetting.SetOtherIni("TOSModule", "ShowToLocalUsers", CStr(PropMySetting.ShowToLocalUsers))
-            PropMySetting.SetOtherIni("TOSModule", "ShowToForeignUsers", CStr(PropMySetting.ShowToForeignUsers))
-            PropMySetting.SetOtherIni("TOSModule", "TOS_URL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & "/wifi/termsofservice.html")
-            PropMySetting.SaveOtherINI()
+            'PropMySetting.SetIni("TOSModule", "Enabled", PropMySetting.TOSEnabled)
+            PropMySetting.SetIni("TOSModule", "Enabled", CStr(False))
+            'PropMySetting.SetIni("TOSModule", "Message", PropMySetting.TOSMessage)
+            'PropMySetting.SetIni("TOSModule", "Timeout", PropMySetting.TOSTimeout)
+            PropMySetting.SetIni("TOSModule", "ShowToLocalUsers", CStr(PropMySetting.ShowToLocalUsers))
+            PropMySetting.SetIni("TOSModule", "ShowToForeignUsers", CStr(PropMySetting.ShowToForeignUsers))
+            PropMySetting.SetIni("TOSModule", "TOS_URL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort & "/wifi/termsofservice.html")
+            PropMySetting.SaveINI()
         End If
 
     End Sub
 
     Private Sub DoWifi()
 
-        PropMySetting.LoadOtherIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
-        PropMySetting.SetOtherIni("DatabaseService", "ConnectionString", RobustDBConnection)
+        PropMySetting.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
+        PropMySetting.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
 
         ' Wifi Section
 
         If PropMySetting.ServerType = "Robust" Then ' wifi could be on or off
             If (PropMySetting.WifiEnabled) Then
-                PropMySetting.SetOtherIni("WifiService", "Enabled", "True")
+                PropMySetting.SetIni("WifiService", "Enabled", "True")
             Else
-                PropMySetting.SetOtherIni("WifiService", "Enabled", "False")
+                PropMySetting.SetIni("WifiService", "Enabled", "False")
             End If
         Else ' it is always off
             ' shutdown wifi in Attached mode
-            PropMySetting.SetOtherIni("WifiService", "Enabled", "False")
+            PropMySetting.SetIni("WifiService", "Enabled", "False")
         End If
 
-        PropMySetting.SetOtherIni("WifiService", "GridName", PropMySetting.SimName)
-        PropMySetting.SetOtherIni("WifiService", "LoginURL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
-        PropMySetting.SetOtherIni("WifiService", "WebAddress", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
+        PropMySetting.SetIni("WifiService", "GridName", PropMySetting.SimName)
+        PropMySetting.SetIni("WifiService", "LoginURL", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
+        PropMySetting.SetIni("WifiService", "WebAddress", "http://" & PropMySetting.PublicIP & ":" & PropMySetting.HttpPort)
 
         ' Wifi Admin'
-        PropMySetting.SetOtherIni("WifiService", "AdminFirst", PropMySetting.AdminFirst)    ' Wifi
-        PropMySetting.SetOtherIni("WifiService", "AdminLast", PropMySetting.AdminLast)      ' Admin
-        PropMySetting.SetOtherIni("WifiService", "AdminPassword", PropMySetting.Password)   ' secret
-        PropMySetting.SetOtherIni("WifiService", "AdminEmail", PropMySetting.AdminEmail)    ' send notificatins to this person
+        PropMySetting.SetIni("WifiService", "AdminFirst", PropMySetting.AdminFirst)    ' Wifi
+        PropMySetting.SetIni("WifiService", "AdminLast", PropMySetting.AdminLast)      ' Admin
+        PropMySetting.SetIni("WifiService", "AdminPassword", PropMySetting.Password)   ' secret
+        PropMySetting.SetIni("WifiService", "AdminEmail", PropMySetting.AdminEmail)    ' send notificatins to this person
 
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
-        PropMySetting.SetOtherIni("WifiService", "SmtpHost", PropMySetting.SmtpHost)
-        PropMySetting.SetOtherIni("WifiService", "SmtpPort", CStr(PropMySetting.SmtpPort))
-        PropMySetting.SetOtherIni("WifiService", "SmtPropUserName", PropMySetting.SmtPropUserName)
-        PropMySetting.SetOtherIni("WifiService", "SmtpPassword", PropMySetting.SmtpPassword)
+        PropMySetting.SetIni("WifiService", "SmtpHost", PropMySetting.SmtpHost)
+        PropMySetting.SetIni("WifiService", "SmtpPort", CStr(PropMySetting.SmtpPort))
+        PropMySetting.SetIni("WifiService", "SmtPropUserName", PropMySetting.SmtPropUserName)
+        PropMySetting.SetIni("WifiService", "SmtpPassword", PropMySetting.SmtpPassword)
 
-        PropMySetting.SetOtherIni("WifiService", "HomeLocation", PropMySetting.WelcomeRegion & "/" & PropMySetting.HomeVectorX & "/" & PropMySetting.HomeVectorY & "/" & PropMySetting.HomeVectorZ)
+        PropMySetting.SetIni("WifiService", "HomeLocation", PropMySetting.WelcomeRegion & "/" & PropMySetting.HomeVectorX & "/" & PropMySetting.HomeVectorY & "/" & PropMySetting.HomeVectorZ)
 
         If PropMySetting.AccountConfirmationRequired Then
-            PropMySetting.SetOtherIni("WifiService", "AccountConfirmationRequired", "true")
+            PropMySetting.SetIni("WifiService", "AccountConfirmationRequired", "true")
         Else
-            PropMySetting.SetOtherIni("WifiService", "AccountConfirmationRequired", "false")
+            PropMySetting.SetIni("WifiService", "AccountConfirmationRequired", "false")
         End If
 
-        PropMySetting.SaveOtherINI()
+        PropMySetting.SaveINI()
 
     End Sub
 
@@ -2320,9 +2394,9 @@ Public Class Form1
         DoRobust()
         DoTOS()
         DoGridCommon()
+        EditForeigners()
         DelLibrary()
         DoMySQL()
-
         DoFlotsamINI()
         DoOpensimINI()
         DoWifi()
@@ -2379,9 +2453,9 @@ Public Class Form1
     Public Sub SetRegionINI(regionname As String, key As String, value As String)
 
         Dim X = PropRegionClass.FindRegionByName(regionname)
-        PropMySetting.LoadOtherIni(PropRegionClass.RegionPath(X), ";")
-        PropMySetting.SetOtherIni(regionname, key, value)
-        PropMySetting.SaveOtherINI()
+        PropMySetting.LoadIni(PropRegionClass.RegionPath(X), ";")
+        PropMySetting.SetIni(regionname, key, value)
+        PropMySetting.SaveINI()
 
     End Sub
 
@@ -3094,7 +3168,7 @@ Public Class Form1
     ''' <param name="BootName">Name of region to start</param>
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional SkipSmartStart As Boolean = False) As Boolean
-
+        If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
             ErrorLog("Tried to start a region but there is no regionclass!")
             Return False
@@ -3538,7 +3612,7 @@ Public Class Form1
     ''' <param name="command">String</param>
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
-
+        If command Is Nothing Then Return False
         If command.Length > 0 Then
 
             Dim PID As Integer
@@ -5048,12 +5122,12 @@ Public Class Form1
         Print("Starting MySql Database")
 
         ' SAVE INI file
-        PropMySetting.LoadOtherIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#")
-        PropMySetting.SetOtherIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
-        PropMySetting.SetOtherIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
-        PropMySetting.SetOtherIni("mysqld", "port", CStr(PropMySetting.MySqlRobustDBPort))
-        PropMySetting.SetOtherIni("client", "port", CStr(PropMySetting.MySqlRobustDBPort))
-        PropMySetting.SaveOtherINI()
+        PropMySetting.LoadIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#")
+        PropMySetting.SetIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
+        PropMySetting.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
+        PropMySetting.SetIni("mysqld", "port", CStr(PropMySetting.MySqlRobustDBPort))
+        PropMySetting.SetIni("client", "port", CStr(PropMySetting.MySqlRobustDBPort))
+        PropMySetting.SaveINI()
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\StartManually.bat"
@@ -5933,7 +6007,7 @@ Public Class Form1
     End Sub
 
     Public Sub Viewlog(name As String)
-
+        If name Is Nothing Then Return
         Dim AllLogs As Boolean = False
         Dim path As New List(Of String)
 
@@ -6118,6 +6192,7 @@ Public Class Form1
 #Region "Search"
 
     Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
+        If dll Is Nothing Then Return False
         For Each filename In dll
             If tofind.ToLower(Form1.Invarient) = filename.ToLower(Form1.Invarient) Then Return True
         Next
@@ -6214,6 +6289,8 @@ Public Class Form1
     End Function
 
     Public Shared Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
+
+        If D Is Nothing Then Return
 
         Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,gateway,eventflags) values (" _
                         & "'" & D.Item("simname") & "'," _

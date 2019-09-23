@@ -114,6 +114,7 @@ Public Class FormRegion
 
     Public Sub Init(Name As String)
 
+        If Name = Nothing Then Return
         '!!!  remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
@@ -165,6 +166,14 @@ Public Class FormRegion
             ClampPrimSize.Checked = PropRegionClass1.ClampPrimSize(N1)
             MaxPrims.Text = PropRegionClass1.MaxPrims(N1).ToString(Form1.Invarient)
             MaxAgents.Text = PropRegionClass1.MaxAgents(N1).ToString(Form1.Invarient)
+
+            If PropRegionClass1.DisallowResidents(N1) = "True" Then
+                DisallowResidents.Checked = True
+            End If
+
+            If PropRegionClass1.DisallowForeigners(N1) = "True" Then
+                DisallowForeigners.Checked = True
+            End If
 
             SmartStartCheckBox.Checked = CType(PropRegionClass1.SmartStart(N1).ToString(Form1.Invarient), Boolean)
 
@@ -365,6 +374,24 @@ Public Class FormRegion
             SmartStartCheckBox.Checked = False
         End If
 
+        Select Case PropRegionClass1.DisallowForeigners(N1)
+            Case ""
+                DisallowForeigners.Checked = False
+            Case "False"
+                DisallowForeigners.Checked = False
+            Case "True"
+                DisallowForeigners.Checked = True
+        End Select
+
+        Select Case PropRegionClass1.DisallowResidents(N1)
+            Case ""
+                DisallowResidents.Checked = False
+            Case "False"
+                DisallowResidents.Checked = False
+            Case "True"
+                DisallowResidents.Checked = True
+        End Select
+
         Me.Focus()
         Initted1 = True
         Form1.HelpOnce("Region")
@@ -449,7 +476,7 @@ Public Class FormRegion
 
     Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
         ' check for invalid chars in file name for INI file
-
+        If fileName Is Nothing Then Return False
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
@@ -638,39 +665,50 @@ Public Class FormRegion
 
         Dim Host = Form1.PropMySetting.ExternalHostName
 
-        Dim Region = "; * Regions configuration file" &
-                        "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
-                        "; Automatically changed by Dreamworld" & vbCrLf &
-                        "[" & RegionName.Text & "]" & vbCrLf &
-                        "RegionUUID = " & UUID.Text & vbCrLf &
-                        "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
-                        "InternalAddress = 0.0.0.0" & vbCrLf &
-                        "InternalPort = " & RegionPort.Text & vbCrLf &
-                        "AllowAlternatePorts = False" & vbCrLf &
-                        "ExternalHostName = " & Host & vbCrLf &
-                        "SizeX = " & SizeX.Text & vbCrLf &
-                        "SizeY = " & SizeY.Text & vbCrLf &
-                        "Enabled = " & EnabledCheckBox.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
-                        "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
-                        "ClampPrimSize = " & ClampPrimSize.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "MaxAgents = " & MaxAgents.Text & vbCrLf &
-                        "MaxPrims = " & MaxPrims.Text & vbCrLf &
-                        "RegionType = Estate" & vbCrLf & vbCrLf &
-                        ";# Extended region properties from Dreamgrid" & vbCrLf &
-                        "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
-                        "RegionSnapShot = " & Snapshot & vbCrLf &
-                        "MapType = " & Map & vbCrLf &
-                        "Physics = " & Phys & vbCrLf &
-                        "AllowGods = " & CType(AllowGods.Checked, Boolean) & vbCrLf &
-                        "RegionGod = " & CType(RegionGod.Checked, Boolean) & vbCrLf &
-                        "ManagerGod = " & CType(ManagerGod.Checked, Boolean) & vbCrLf &
-                        "Birds = " & BirdsCheckBox.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "Tides = " & TidesCheckbox.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "Teleport = " & TPCheckBox1.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "DisableGloebits = " & DisableGBCheckBox.Checked.ToString(Form1.Invarient) & vbCrLf &
-                        "SmartStart = " & SmartStartCheckBox.Checked.ToString(Form1.Invarient) & vbCrLf
+        Dim Foreigners As String = ""
+        If DisallowForeigners.Checked Then
+            Foreigners = "True"
+        End If
 
+        Dim Residents As String = ""
+        If DisallowResidents.Checked Then
+            Residents = "True"
+        End If
+
+        Dim Region = "; * Regions configuration file" &
+                            "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
+                            "; Automatically changed by Dreamworld" & vbCrLf &
+                            "[" & RegionName.Text & "]" & vbCrLf &
+                            "RegionUUID = " & UUID.Text & vbCrLf &
+                            "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                            "InternalAddress = 0.0.0.0" & vbCrLf &
+                            "InternalPort = " & RegionPort.Text & vbCrLf &
+                            "AllowAlternatePorts = False" & vbCrLf &
+                            "ExternalHostName = " & Host & vbCrLf &
+                            "SizeX = " & SizeX.Text & vbCrLf &
+                            "SizeY = " & SizeY.Text & vbCrLf &
+                            "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                            "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
+                            "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
+                            "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
+                            "MaxAgents = " & MaxAgents.Text & vbCrLf &
+                            "MaxPrims = " & MaxPrims.Text & vbCrLf &
+                            "RegionType = Estate" & vbCrLf & vbCrLf &
+                            ";# Extended region properties from Dreamgrid" & vbCrLf &
+                            "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
+                            "RegionSnapShot = " & Snapshot & vbCrLf &
+                            "MapType = " & Map & vbCrLf &
+                            "Physics = " & Phys & vbCrLf &
+                            "AllowGods = " & CStr(AllowGods.Checked) & vbCrLf &
+                            "RegionGod = " & CStr(RegionGod.Checked) & vbCrLf &
+                            "ManagerGod = " & CStr(ManagerGod.Checked) & vbCrLf &
+                            "Birds = " & CStr(BirdsCheckBox.Checked) & vbCrLf &
+                            "Tides = " & CStr(TidesCheckbox.Checked) & vbCrLf &
+                            "Teleport = " & CStr(TPCheckBox1.Checked) & vbCrLf &
+                            "DisableGloebits = " & CStr(DisableGBCheckBox.Checked) & vbCrLf &
+                            "DisallowForeigners = " & Foreigners & vbCrLf &
+                            "DisallowResidents = " & Residents & vbCrLf &
+                            "SmartStart = " & CStr(SmartStartCheckBox.Checked) & vbCrLf
         Debug.Print(Region)
 
         Try
@@ -1235,6 +1273,14 @@ Public Class FormRegion
 
     Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged
 
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles DisallowForeigners.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles DisallowResidents.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 

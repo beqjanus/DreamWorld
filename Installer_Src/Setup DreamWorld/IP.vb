@@ -8,6 +8,8 @@
         ''' <param name="CheckIP">The IP address to check, or localhost.</param>
         ''' <returns>Boolean</returns>
         ''' <remarks></remarks>
+        '''
+        If CheckIP Is Nothing Then Return False
         If CheckIP = "localhost" Then Return True
 
         Dim Quad1, Quad2 As Integer

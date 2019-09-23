@@ -31,11 +31,13 @@ Public Class RegionMaker
 #Region "Declarations"
 
     Private Shared FInstance As RegionMaker = Nothing
-    Private _grouplist As New Dictionary(Of String, Integer)
+#Disable Warning CA1051 ' Do not declare visible instance fields
+    Public Grouplist As New Dictionary(Of String, Integer)
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Private RegionList As New List(Of Region_data)
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
-    Dim json As JSONresult
+    Dim json As New JSONresult
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
     Dim WebserverList As New List(Of String)
 
@@ -146,6 +148,8 @@ Public Class RegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
+        Public _DisallowForeigners As String = ""
+        Public _DisallowResidents As String = ""
         Public _RegionSmartStart As Boolean = False
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
@@ -180,10 +184,22 @@ Public Class RegionMaker
 
 #Region "Properties"
 
-    Public ReadOnly Property Grouplist As Dictionary(Of String, Integer)
+    Public Property DisallowResidents(n As Integer) As String
         Get
-            Return _grouplist
+            Return RegionList(n)._DisallowResidents
         End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowResidents = Value
+        End Set
+    End Property
+
+    Public Property DisallowForeigners(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowForeigners
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowForeigners = Value
+        End Set
     End Property
 
     Public ReadOnly Property RegionCount() As Integer
@@ -836,7 +852,7 @@ Public Class RegionMaker
                             CreateRegion(fName)
 
                             ' must be after Createregion or port blows up
-                            Form1.PropMySetting.LoadOtherIni(ini, ";")
+                            Form1.PropMySetting.LoadIni(ini, ";")
                             ' we do not save the above as we are making a new one.
 
                             RegionEnabled(n) = CBool(Form1.PropMySetting.GetIni(fName, "Enabled", "True"))
@@ -886,6 +902,9 @@ Public Class RegionMaker
                             Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides", "")
                             Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport", "")
                             DisableGloebits(n) = Form1.PropMySetting.GetIni(fName, "DisableGloebits", "")
+                            DisallowForeigners(n) = Form1.PropMySetting.GetIni(fName, "DisallowForeigners", "")
+                            DisallowResidents(n) = Form1.PropMySetting.GetIni(fName, "DisallowResidents", "")
+
                             Snapshot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
 
                             Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
@@ -1029,13 +1048,13 @@ Public Class RegionMaker
         Dim Portnumber As Integer = CInt(Form1.PropMySetting.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
-            Form1.PropMySetting.LoadOtherIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
+            Form1.PropMySetting.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
 
-            Form1.PropMySetting.SetOtherIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.PropMySetting.SetIni(simName, "InternalPort", CStr(Portnumber))
             Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
-            Form1.PropMySetting.SaveOtherINI()
+            Form1.PropMySetting.SaveINI()
             Portnumber += 1
         Next
 
@@ -1097,8 +1116,10 @@ Public Class RegionMaker
         & "Tides = " & Tides(n) & vbCrLf _
         & "Teleport = " & Teleport(n) & vbCrLf _
         & "DisableGloebits = " & DisableGloebits(n) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(n) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(n) & vbCrLf _
         & "MinTimerInterval =" & vbCrLf _
-        & "SmartStart =" & vbCrLf
+        & "SmartStart =" & SmartStart(n) & vbCrLf
 
         Try
             My.Computer.FileSystem.DeleteFile(fname)
@@ -1180,6 +1201,8 @@ Public Class RegionMaker
 
     Public Function ParsePost(POST As String, PropMySetting As MySettings) As String
 
+        If PropMySetting Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
         ' set Region.Booted to true if the POST from the region indicates it is online requires a
         ' section in Opensim.ini where [RegionReady] has this:
 

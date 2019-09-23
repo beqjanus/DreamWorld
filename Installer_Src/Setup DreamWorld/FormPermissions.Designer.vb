@@ -35,13 +35,13 @@ Partial Class FormPermissions
         Me.LSLCheckbox = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Clouds = New System.Windows.Forms.CheckBox()
-        Me.ExportAllowed = New System.Windows.Forms.CheckBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.DomainUpDown1 = New System.Windows.Forms.DomainUpDown()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.OutBoundPermissionsCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LimitsBox.SuspendLayout()
@@ -164,17 +164,6 @@ Partial Class FormPermissions
         Me.ToolTip1.SetToolTip(Me.Clouds, "The original Second Life clouds")
         Me.Clouds.UseVisualStyleBackColor = True
         '
-        'ExportAllowed
-        '
-        Me.ExportAllowed.AutoSize = True
-        Me.ExportAllowed.Location = New System.Drawing.Point(12, 19)
-        Me.ExportAllowed.Name = "ExportAllowed"
-        Me.ExportAllowed.Size = New System.Drawing.Size(95, 17)
-        Me.ExportAllowed.TabIndex = 17
-        Me.ExportAllowed.Text = "Allow Exports?"
-        Me.ToolTip1.SetToolTip(Me.ExportAllowed, "Allow supporting viewers to export content,  UnChecked means no export")
-        Me.ExportAllowed.UseVisualStyleBackColor = True
-        '
         'GroupBox7
         '
         Me.GroupBox7.Controls.Add(Me.DomainUpDown1)
@@ -232,19 +221,30 @@ Partial Class FormPermissions
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.ExportAllowed)
+        Me.GroupBox1.Controls.Add(Me.OutBoundPermissionsCheckbox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 325)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 56)
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 59)
         Me.GroupBox1.TabIndex = 1864
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Export Permissions"
+        '
+        'OutBoundPermissionsCheckbox
+        '
+        Me.OutBoundPermissionsCheckbox.AutoSize = True
+        Me.OutBoundPermissionsCheckbox.Location = New System.Drawing.Point(15, 19)
+        Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
+        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(120, 17)
+        Me.OutBoundPermissionsCheckbox.TabIndex = 18
+        Me.OutBoundPermissionsCheckbox.Text = "Allow HG to export?"
+        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, "Objects can be takes from your grid via Hypergrid.")
+        Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
         '
         'FormPermissions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(233, 396)
+        Me.ClientSize = New System.Drawing.Size(233, 391)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox7)
@@ -290,5 +290,5 @@ Partial Class FormPermissions
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents ExportAllowed As CheckBox
+    Friend WithEvents OutBoundPermissionsCheckbox As CheckBox
 End Class

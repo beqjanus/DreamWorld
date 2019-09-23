@@ -70,7 +70,7 @@ Public Class FormPermissions
         If (var < 0) Then var = 0
         DomainUpDown1.SelectedIndex = v
 
-        ExportAllowed.Checked = Form1.PropMySetting.ExportSupported
+        OutBoundPermissionsCheckbox.Checked = Form1.PropMySetting.OutBoundPermissions
 
         SetScreen()
         Form1.HelpOnce("Permissions")
@@ -160,16 +160,16 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub ExportAllowed_CheckedChanged(sender As Object, e As EventArgs) Handles ExportAllowed.CheckedChanged
-
-        If Not initted Then Return
-        Form1.PropMySetting.ExportSupported = ExportAllowed.Checked
-        Form1.PropMySetting.SaveSettings()
-
-    End Sub
-
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         Form1.Help("Permissions")
+    End Sub
+
+    Private Sub HGExportCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles OutBoundPermissionsCheckbox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.PropMySetting.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
+        Form1.PropMySetting.SaveSettings()
+
     End Sub
 
 #End Region
