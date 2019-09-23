@@ -44,7 +44,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8018
+http_listener_port=8019
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -409,19 +409,14 @@ RenderMinHeight=-100
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
-
 ;# {MapColor1} {} {Terrain color 1 for textured maps} {"#A58976"}
 ; MapColor1 = "#A58976"
-
 ;# {MapColor2} {} {Terrain color 2 for textured maps} {"#455931"}
 ; MapColor2 = "#455931"
-
 ;# {MapColor3} {} {Terrain color 3 for textured maps} {"#A29A8D"}
 ; MapColor3 = "#A29A8D"
-
 ;# {MapColor4} {} {Terrain color 4 for textured maps} {"#C8C8C8"}
 ; MapColor4 = "#C8C8C8"
-
 [PrimLimitsModule]
 
 ;# {EnforcePrimLimits} {} {Enforce parcel prim limits} {true false} false
@@ -446,17 +441,17 @@ permissionmodules=DefaultPermissionsModule
 ;# {allow_grid_gods} {} {Allow grid gods?} {true false} false
 ;; This allows users with a UserLevel of 200 or more to assume god
 ;; powers in the regions in this simulator.
-allow_grid_gods=false
+allow_grid_gods=true
 
 ;; This allows some control over permissions
 ;; please note that this still doesn't duplicate SL, and is not intended to
 ;# {region_owner_is_god} {} {Allow region owner gods} {true false} true
 ;; Allow region owners to assume god powers in their regions
-region_owner_is_god=false
+region_owner_is_god=true
 
 ;# {region_manager_is_god} {} {Allow region manager gods} {true false} false
 ;; Allow region managers to assume god powers in regions they manage
-region_manager_is_god=false
+region_manager_is_god=true
 
 ;# {simple_build_permissions} {} {Allow building in parcel by access list (no groups)} {true false} false
 ;; More control over permissions
@@ -719,7 +714,8 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL = ${Const|PrivURL}:${Const|PrivatePort}
+OfflineMessageURL=${Const|PrivURL}:${Const|PrivatePort}
+
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
 ; StorageProvider = OpenSim.Data.MySQL.dll
@@ -732,12 +728,10 @@ MuteListModule=MuteListModule
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
 ;MuteListURL=http://www.outworldz.com/Mute.php
-
 ;; Control whether group invites and notices are stored for offline users.
 ;; Default is true.
 ;; This applies to both core groups module.
 ForwardOfflineGroupMessages=true
-
 
 [BulletSim]
 
@@ -1176,20 +1170,18 @@ GroupsExternalURI=${Const|PrivURL}:${Const|PrivatePort}
 ;; groups service if the service is using these keys
 ; XmlRpcServiceReadKey    = 1234
 ; XmlRpcServiceWriteKey   = 1234
-
-    ;; Default Groups - add avatar to default group.  Only works with V2 groups.
-    ;; Ensure that GroupsService is set in [UserAccountService] section eg. (GroupsService = "OpenSim.Addons.Groups.dll:GroupsService")
-    ;; Set the DefaultGroupID to the UUID of the group
-    ;; Set the DefaultGroupRole to the name of the group role.  Defaults to Everyone if not provided or if supplied role is not found.
-    ; DefaultGroupID = "00000000-0000-0000-0000-000000000000"
-    ; DefaultGroupRole = "Everyone"
-
+;; Default Groups - add avatar to default group.  Only works with V2 groups.
+;; Ensure that GroupsService is set in [UserAccountService] section eg. (GroupsService = "OpenSim.Addons.Groups.dll:GroupsService")
+;; Set the DefaultGroupID to the UUID of the group
+;; Set the DefaultGroupRole to the name of the group role.  Defaults to Everyone if not provided or if supplied role is not found.
+; DefaultGroupID = "00000000-0000-0000-0000-000000000000"
+; DefaultGroupRole = "Everyone"
 [InterestManagement]
 
 ;# {UpdatePrioritizationScheme} {} {Update prioritization scheme?} {BestAvatarResponsiveness Time Distance SimpleAngularDistance FrontBack} BestAvatarResponsiveness
 ;; This section controls how state updates are prioritized for each client
 ;; Valid values are BestAvatarResponsiveness, Time, Distance,
-     ;; SimpleAngularDistance, FrontBack
+;; SimpleAngularDistance, FrontBack
 ; UpdatePrioritizationScheme=BestAvatarResponsiveness
 ; TEST OPTION KEEP AS FALSE
 ; if true, don't send object updates if outside view range
@@ -1243,7 +1235,8 @@ ProfileServiceURL=${Const|BaseURL}:${Const|PublicPort}
 ;# {URL} {} {Set URL for Baked texture service} {}
 ;; Sets the URL for the baked texture ROBUST service.
 ;; Disabled when unset.
-URL=${Const|PrivURL}:${Const|PrivatePort}   
+URL=${Const|PrivURL}:${Const|PrivatePort}
+
 ;;
 ;; Optional module to highlight God names in the viewer.
 ;; Uncomment and customize appropriately if you want this behavior.
