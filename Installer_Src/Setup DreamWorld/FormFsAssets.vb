@@ -143,12 +143,14 @@ Public Class FormFsAssets
                 Changed = True
             End If
         End If
+        openFileDialog1.Dispose()
+
     End Sub
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.InVarient)
+        Form1.PropMySetting.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
         Changed = True
 
     End Sub

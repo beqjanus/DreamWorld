@@ -24,7 +24,10 @@ Imports System.IO
 
 Public Class ClrCache
 
-    Public Sub WipeScripts()
+    Public Sub New()
+    End Sub
+
+    Public Shared Sub WipeScripts()
 
         If Not Form1.PropOpensimIsRunning() Then
             Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
@@ -47,7 +50,7 @@ Public Class ClrCache
 
     End Sub
 
-    Public Sub WipeBakes()
+    Public Shared Sub WipeBakes()
 
         Form1.Print("Clearing bake cache")
         Try
@@ -57,7 +60,7 @@ Public Class ClrCache
 
     End Sub
 
-    Public Sub WipeAssets()
+    Public Shared Sub WipeAssets()
 
         Form1.Print("Clearing Asset cache. This may take a long time!")
         If Form1.PropOpensimIsRunning Then
@@ -79,7 +82,7 @@ Public Class ClrCache
 
     End Sub
 
-    Public Sub WipeImage()
+    Public Shared Sub WipeImage()
 
         Try
             Form1.Print("Clearing Image cache.")
@@ -96,7 +99,7 @@ Public Class ClrCache
 
     End Sub
 
-    Public Sub WipeMesh()
+    Public Shared Sub WipeMesh()
 
         Try
             Form1.Print("Clearing Mesh cache")
@@ -113,6 +116,10 @@ Public Class ClrCache
         Catch ex As Exception
         End Try
 
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
     End Sub
 
 End Class

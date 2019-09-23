@@ -8,13 +8,15 @@
         ''' <param name="CheckIP">The IP address to check, or localhost.</param>
         ''' <returns>Boolean</returns>
         ''' <remarks></remarks>
+        '''
+        If CheckIP Is Nothing Then Return False
         If CheckIP = "localhost" Then Return True
 
         Dim Quad1, Quad2 As Integer
 
         Try
-            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".")))
-            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".") + 1).Substring(0, CheckIP.IndexOf(".")))
+            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
         Catch
         End Try
 

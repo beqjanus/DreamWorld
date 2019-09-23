@@ -185,6 +185,7 @@ Public Class FormAutoBackups
             .Description = "Pick folder for backups"
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+        openFileDialog1.Dispose()
 
         ' Process input if the user clicked OK.
         If UserClickedOK = DialogResult.OK Then

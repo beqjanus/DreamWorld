@@ -99,7 +99,7 @@ Public Class FormCaches
 
     Private Sub Form_unload() Handles Me.Closing
 
-        Form1.PropMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.InVarient)
+        Form1.PropMySetting.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Invarient)
         Form1.PropMySetting.CacheFolder = CacheFolder.Text
         Form1.PropMySetting.CacheEnabled = CacheEnabledBox.Checked
         Form1.PropMySetting.CacheTimeout = CacheTimeout.Text
@@ -110,25 +110,23 @@ Public Class FormCaches
 
     Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim Clr As New ClrCache()
-
         If CheckBox1.Checked Then
-            Clr.WipeScripts()
+            ClrCache.WipeScripts()
         End If
 
         If CheckBox2.Checked Then
-            Clr.WipeBakes()
+            ClrCache.WipeBakes()
         End If
 
         If CheckBox3.Checked Then
-            Clr.WipeAssets()
+            ClrCache.WipeAssets()
         End If
 
         If CheckBox4.Checked Then
-            Clr.WipeImage()
+            ClrCache.WipeImage()
         End If
         If CheckBox5.Checked Then
-            Clr.WipeMesh()
+            ClrCache.WipeMesh()
         End If
 
         If Not Form1.PropOpensimIsRunning() Then
@@ -190,6 +188,8 @@ Public Class FormCaches
                 Form1.PropViewedSettings = True
             End If
         End If
+        openFileDialog1.Dispose()
+
     End Sub
 
 End Class

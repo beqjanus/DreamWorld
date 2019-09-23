@@ -56,6 +56,8 @@ Partial Class FormRegion
         Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
+        Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
+        Me.DisallowForeigners = New System.Windows.Forms.CheckBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -99,7 +101,7 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
+        Me.DisallowResidents = New System.Windows.Forms.CheckBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Advanced.SuspendLayout()
@@ -399,7 +401,7 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 105)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(14, 149)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
@@ -425,6 +427,28 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox.TabIndex = 40
         Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 0.2  Minimum should not be less than 0.091 which is 1/5th of 55 FPS SL sp" &
         "eed.")
+        '
+        'DisableGBCheckBox
+        '
+        Me.DisableGBCheckBox.AutoSize = True
+        Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 85)
+        Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
+        Me.DisableGBCheckBox.Size = New System.Drawing.Size(102, 17)
+        Me.DisableGBCheckBox.TabIndex = 24
+        Me.DisableGBCheckBox.Text = "Disable Gloebits"
+        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.DisableGBCheckBox.UseVisualStyleBackColor = True
+        '
+        'DisallowForeigners
+        '
+        Me.DisallowForeigners.AutoSize = True
+        Me.DisallowForeigners.Location = New System.Drawing.Point(15, 105)
+        Me.DisallowForeigners.Name = "DisallowForeigners"
+        Me.DisallowForeigners.Size = New System.Drawing.Size(135, 17)
+        Me.DisallowForeigners.TabIndex = 25
+        Me.DisallowForeigners.Text = "Disable Foreign Visitors"
+        Me.ToolTip1.SetToolTip(Me.DisallowForeigners, "No HG Visitors allowed in this region")
+        Me.DisallowForeigners.UseVisualStyleBackColor = True
         '
         'Advanced
         '
@@ -590,14 +614,16 @@ Partial Class FormRegion
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.DisallowResidents)
+        Me.GroupBox7.Controls.Add(Me.DisallowForeigners)
         Me.GroupBox7.Controls.Add(Me.DisableGBCheckBox)
         Me.GroupBox7.Controls.Add(Me.SmartStartCheckBox)
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
-        Me.GroupBox7.Location = New System.Drawing.Point(228, 334)
+        Me.GroupBox7.Location = New System.Drawing.Point(226, 297)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(177, 144)
+        Me.GroupBox7.Size = New System.Drawing.Size(177, 181)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules:"
@@ -691,7 +717,7 @@ Partial Class FormRegion
         Me.MapBox.Controls.Add(Me.MapGood)
         Me.MapBox.Location = New System.Drawing.Point(226, 44)
         Me.MapBox.Name = "MapBox"
-        Me.MapBox.Size = New System.Drawing.Size(173, 284)
+        Me.MapBox.Size = New System.Drawing.Size(173, 247)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
@@ -792,7 +818,7 @@ Partial Class FormRegion
         Me.GroupBox1.Controls.Add(Me.PhysicsODE)
         Me.GroupBox1.Location = New System.Drawing.Point(23, 297)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 186)
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 199)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
@@ -908,16 +934,16 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
-        'DisableGBCheckBox
+        'DisallowResidents
         '
-        Me.DisableGBCheckBox.AutoSize = True
-        Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 85)
-        Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
-        Me.DisableGBCheckBox.Size = New System.Drawing.Size(102, 17)
-        Me.DisableGBCheckBox.TabIndex = 24
-        Me.DisableGBCheckBox.Text = "Disable Gloebits"
-        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, "If set, the global Tide settungs will apply to this region")
-        Me.DisableGBCheckBox.UseVisualStyleBackColor = True
+        Me.DisallowResidents.AutoSize = True
+        Me.DisallowResidents.Location = New System.Drawing.Point(15, 126)
+        Me.DisallowResidents.Name = "DisallowResidents"
+        Me.DisallowResidents.Size = New System.Drawing.Size(111, 17)
+        Me.DisallowResidents.TabIndex = 26
+        Me.DisallowResidents.Text = "Disable Residents"
+        Me.ToolTip1.SetToolTip(Me.DisallowResidents, "Only Admins and Managers allowed in this region")
+        Me.DisallowResidents.UseVisualStyleBackColor = True
         '
         'FormRegion
         '
@@ -1042,4 +1068,6 @@ Partial Class FormRegion
     Friend WithEvents Label14 As Label
     Friend WithEvents ScriptTimerTextBox As TextBox
     Friend WithEvents DisableGBCheckBox As CheckBox
+    Friend WithEvents DisallowForeigners As CheckBox
+    Friend WithEvents DisallowResidents As CheckBox
 End Class

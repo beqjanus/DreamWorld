@@ -31,11 +31,13 @@ Public Class RegionMaker
 #Region "Declarations"
 
     Private Shared FInstance As RegionMaker = Nothing
-    Private _grouplist As New Dictionary(Of String, Integer)
+#Disable Warning CA1051 ' Do not declare visible instance fields
+    Public Grouplist As New Dictionary(Of String, Integer)
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Private RegionList As New List(Of Region_data)
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
-    Dim json As JSONresult
+    Dim json As New JSONresult
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
     Dim WebserverList As New List(Of String)
 
@@ -118,7 +120,7 @@ Public Class RegionMaker
 
 #Disable Warning CA1051 ' Do not declare visible instance fields
 
-    Public Class JSONresult
+    Private Class JSONresult
         Public alert As String
         Public login As String
         Public region_id As String
@@ -146,6 +148,8 @@ Public Class RegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
+        Public _DisallowForeigners As String = ""
+        Public _DisallowResidents As String = ""
         Public _RegionSmartStart As Boolean = False
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
@@ -180,10 +184,22 @@ Public Class RegionMaker
 
 #Region "Properties"
 
-    Public ReadOnly Property Grouplist As Dictionary(Of String, Integer)
+    Public Property DisallowResidents(n As Integer) As String
         Get
-            Return _grouplist
+            Return RegionList(n)._DisallowResidents
         End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowResidents = Value
+        End Set
+    End Property
+
+    Public Property DisallowForeigners(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowForeigners
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowForeigners = Value
+        End Set
     End Property
 
     Public ReadOnly Property RegionCount() As Integer
@@ -328,11 +344,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property MinTimerInterval(n As Integer) As String
+    Public Property MinTimerInterval(n As Integer) As Single
         Get
             Return RegionList(n)._MinTimerInterval
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Single)
             RegionList(n)._MinTimerInterval = Value
         End Set
     End Property
@@ -645,8 +661,8 @@ Public Class RegionMaker
                 ' This search returns the substring between two strings, so the first index Is moved
                 ' to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
-                Dim first As Integer = POST.IndexOf("{")
-                Dim last As Integer = POST.LastIndexOf("}")
+                Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
+                Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
                 Dim rawJSON = POST.Substring(first, last - first + 1)
                 WebserverList.RemoveAt(LOOPVAR)
 
@@ -836,7 +852,7 @@ Public Class RegionMaker
                             CreateRegion(fName)
 
                             ' must be after Createregion or port blows up
-                            Form1.PropMySetting.LoadOtherIni(ini, ";")
+                            Form1.PropMySetting.LoadIni(ini, ";")
                             ' we do not save the above as we are making a new one.
 
                             RegionEnabled(n) = CBool(Form1.PropMySetting.GetIni(fName, "Enabled", "True"))
@@ -844,12 +860,12 @@ Public Class RegionMaker
                             RegionPath(n) = ini ' save the path
                             FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
 
-                            Dim theEnd As Integer = FolderPath(n).LastIndexOf("\")
+                            Dim theEnd As Integer = FolderPath(n).LastIndexOf("\", StringComparison.InvariantCulture)
                             IniPath(n) = FolderPath(n).Substring(0, theEnd + 1)
 
                             ' need folder name in case there are more than 1 ini
-                            Dim theStart = FolderPath(n).IndexOf("Regions\") + 8
-                            theEnd = FolderPath(n).LastIndexOf("\")
+                            Dim theStart = FolderPath(n).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
+                            theEnd = FolderPath(n).LastIndexOf("\", StringComparison.InvariantCulture)
                             Dim gname = FolderPath(n).Substring(theStart, theEnd - theStart)
 
                             GroupName(n) = gname
@@ -874,7 +890,7 @@ Public Class RegionMaker
                             CoordY(n) = CInt(parts(1))
 
                             ' options params coming from INI file can be blank!
-                            MinTimerInterval(n) = Form1.PropMySetting.GetIni(fName, "MinTimerInterval", 1 / 11)
+                            MinTimerInterval(n) = CSng(Form1.PropMySetting.GetIni(fName, "MinTimerInterval", CStr(1 / 11)))
                             RegionSnapShot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
                             MapType(n) = Form1.PropMySetting.GetIni(fName, "MapType", "")
                             Physics(n) = Form1.PropMySetting.GetIni(fName, "Physics", "")
@@ -886,6 +902,9 @@ Public Class RegionMaker
                             Tides(n) = Form1.PropMySetting.GetIni(fName, "Tides", "")
                             Teleport(n) = Form1.PropMySetting.GetIni(fName, "Teleport", "")
                             DisableGloebits(n) = Form1.PropMySetting.GetIni(fName, "DisableGloebits", "")
+                            DisallowForeigners(n) = Form1.PropMySetting.GetIni(fName, "DisallowForeigners", "")
+                            DisallowResidents(n) = Form1.PropMySetting.GetIni(fName, "DisallowResidents", "")
+
                             Snapshot(n) = Form1.PropMySetting.GetIni(fName, "RegionSnapShot", "")
 
                             Select Case Form1.PropMySetting.GetIni(fName, "SmartStart", "False")
@@ -1019,7 +1038,7 @@ Public Class RegionMaker
     ''' <summary>
     ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
     ''' </summary>
-    Public Sub UpdateAllRegionPorts()
+    Public Shared Sub UpdateAllRegionPorts()
 
         If Form1.PropOpensimIsRunning Then
             Return
@@ -1029,13 +1048,13 @@ Public Class RegionMaker
         Dim Portnumber As Integer = CInt(Form1.PropMySetting.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
-            Form1.PropMySetting.LoadOtherIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
+            Form1.PropMySetting.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
 
-            Form1.PropMySetting.SetOtherIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.PropMySetting.SetIni(simName, "InternalPort", CStr(Portnumber))
             Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
-            Form1.PropMySetting.SaveOtherINI()
+            Form1.PropMySetting.SaveINI()
             Portnumber += 1
         Next
 
@@ -1097,8 +1116,10 @@ Public Class RegionMaker
         & "Tides = " & Tides(n) & vbCrLf _
         & "Teleport = " & Teleport(n) & vbCrLf _
         & "DisableGloebits = " & DisableGloebits(n) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(n) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(n) & vbCrLf _
         & "MinTimerInterval =" & vbCrLf _
-        & "SmartStart =" & vbCrLf
+        & "SmartStart =" & SmartStart(n) & vbCrLf
 
         Try
             My.Computer.FileSystem.DeleteFile(fname)
@@ -1129,6 +1150,9 @@ Public Class RegionMaker
 
     Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
 
+        If Mysetting Is Nothing Then
+            Return ""
+        End If
         Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustConnStr)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1141,6 +1165,7 @@ Public Class RegionMaker
         Debug.Print("User=" + p1 + ", Partner=" + a)
 
         myConnection.Close()
+        myCommand1.Dispose()
         Return a
 
     End Function
@@ -1151,13 +1176,16 @@ Public Class RegionMaker
 
         Dim myConnection As MySqlConnection = New MySqlConnection(Form1.PropMySetting.RobustConnStr)
         Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
-        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-            .Connection = myConnection
-        }
-        myConnection.Open()
-        myCommand1.Prepare()
-        myCommand1.Parameters.AddWithValue("p1", UUID & "%")
-        Dim Name = CStr(myCommand1.ExecuteScalar())
+        Dim Name As String = ""
+        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                .Connection = myConnection
+            }
+            myConnection.Open()
+            myCommand1.Prepare()
+            myCommand1.Parameters.AddWithValue("p1", UUID & "%")
+            Name = CStr(myCommand1.ExecuteScalar())
+        End Using
+
         Debug.Print("User=" + UUID + ", name=" + Name)
         Dim pattern As Regex = New Regex(".*?;.*?;(.*)")
         Dim match As Match = pattern.Match(Name)
@@ -1173,6 +1201,8 @@ Public Class RegionMaker
 
     Public Function ParsePost(POST As String, PropMySetting As MySettings) As String
 
+        If PropMySetting Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
         ' set Region.Booted to true if the POST from the region indicates it is online requires a
         ' section in Opensim.ini where [RegionReady] has this:
 
@@ -1346,30 +1376,31 @@ Public Class RegionMaker
                 End If
                 Dim result As New Guid
                 If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
+                    Dim Partner = GetPartner(p1, PropMySetting)
+                    Debug.Print("Partner=" + p2)
+
                     Try
-
-                        Dim Partner = GetPartner(p1, PropMySetting)
-                        Debug.Print("Partner=" + p2)
-
                         Dim myConnection As MySqlConnection = New MySqlConnection(PropMySetting.RobustConnStr)
-
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-                        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                            .Connection = myConnection
-                        }
-                        myConnection.Open()
-                        myCommand1.Prepare()
+                        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                                .Connection = myConnection
+                            }
+                            myConnection.Open()
+                            myCommand1.Prepare()
 
-                        myCommand1.Parameters.AddWithValue("p1", p1)
-                        myCommand1.Parameters.AddWithValue("p2", p2)
+                            myCommand1.Parameters.AddWithValue("p1", p1)
+                            myCommand1.Parameters.AddWithValue("p2", p2)
 
-                        myCommand1.ExecuteScalar()
-                        myConnection.Close()
-                        Debug.Print(Partner)
-                        Return Partner
+                            myCommand1.ExecuteScalar()
+                            myConnection.Close()
+                        End Using
                     Catch ex As Exception
                         Debug.Print(ex.Message)
                     End Try
+
+                    Debug.Print(Partner)
+                    Return Partner
+
                 End If
             End If
             Debug.Print("NULL response")
@@ -1379,45 +1410,6 @@ Public Class RegionMaker
         End If
 
         Return ""
-
-    End Function
-
-#End Region
-
-#Region "Unused"
-
-    Shared Function Right(value As String, length As Integer) As String
-        ' Get rightmost characters of specified length.
-        Return value.Substring(value.Length - length)
-    End Function
-
-    ' UNUSED ***
-    Public Function FindGroupNamebyRegionName(RegionName As String) As String
-
-        Dim i As Integer = 0
-        For Each obj As Region_data In RegionList
-            If RegionName = obj._Group Then
-                Return obj._Group
-            End If
-            i += 1
-        Next
-
-        Return ""
-    End Function
-
-    ' UNUSED ***
-    Public Function FindRegionByProcessID(PID As Integer) As Integer
-
-        Dim i As Integer = 0
-        For Each obj As Region_data In RegionList
-            If PID = obj._ProcessID Then
-                Debug.Print("Current Region is " + obj._RegionName)
-                Return i
-            End If
-            i += 1
-        Next
-        Form1.ErrorLog("PID not found:" + CStr(PID))
-        Return -1
 
     End Function
 

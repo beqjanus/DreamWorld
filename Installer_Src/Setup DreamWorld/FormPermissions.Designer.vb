@@ -40,12 +40,15 @@ Partial Class FormPermissions
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.OutBoundPermissionsCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox4.SuspendLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.LimitsBox.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox4
@@ -197,7 +200,7 @@ Partial Class FormPermissions
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(222, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(233, 28)
         Me.MenuStrip2.TabIndex = 1889
         Me.MenuStrip2.Text = "0"
         '
@@ -213,14 +216,36 @@ Partial Class FormPermissions
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.OutBoundPermissionsCheckbox)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 325)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 59)
+        Me.GroupBox1.TabIndex = 1864
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Export Permissions"
+        '
+        'OutBoundPermissionsCheckbox
+        '
+        Me.OutBoundPermissionsCheckbox.AutoSize = True
+        Me.OutBoundPermissionsCheckbox.Location = New System.Drawing.Point(15, 19)
+        Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
+        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(120, 17)
+        Me.OutBoundPermissionsCheckbox.TabIndex = 18
+        Me.OutBoundPermissionsCheckbox.Text = "Allow HG to export?"
+        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, "Objects can be takes from your grid via Hypergrid.")
+        Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
         '
         'FormPermissions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(222, 333)
+        Me.ClientSize = New System.Drawing.Size(233, 391)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.GroupBox8)
@@ -241,6 +266,8 @@ Partial Class FormPermissions
         Me.GroupBox7.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -262,4 +289,6 @@ Partial Class FormPermissions
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents OutBoundPermissionsCheckbox As CheckBox
 End Class

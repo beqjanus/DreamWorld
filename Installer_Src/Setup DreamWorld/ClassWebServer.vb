@@ -54,7 +54,7 @@ Public Class NetServer
 
         ' stash some globs
         Setting = PropMySetting
-        MyPort = CStr(PropMySetting.DiagnosticPort)
+        MyPort = CStr(Form1.PropMySetting.DiagnosticPort)
         PropMyFolder = pathinfo
 
         If running Then Return
@@ -75,25 +75,28 @@ Public Class NetServer
 
         listen = True
 
-        Dim listener = New System.Net.HttpListener()
-        listener.Prefixes.Clear()
+        Using listener As New System.Net.HttpListener()
+            listener.Prefixes.Clear()
+            listener.Prefixes.Add("http://+:" & MyPort & "/")
 
-        listener.Prefixes.Add("http://+:" & MyPort & "/")
+            Try
+                listener.Start() ' Throws Exception
+            Catch ex As HttpListenerException
+                Log("Error", ex.Message)
+                Return
+            Catch ex As ObjectDisposedException
+                Log("Error", ex.Message)
+                Return
+            End Try
 
-        Try
-            listener.Start() ' Throws Exception
-        Catch ex As Exception
-            Log("Error", ex.Message)
-            Return
-        End Try
+            Dim result As IAsyncResult
+            While listen
+                result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
+                result.AsyncWaitHandle.WaitOne()
+            End While
 
-        Dim result As IAsyncResult
-        While listen
-            result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
-            result.AsyncWaitHandle.WaitOne()
-        End While
+        End Using
 
-        listener.Close()
         running = False
         Log("Info", "Webserver thread shutdown")
 
@@ -140,6 +143,7 @@ Public Class NetServer
     End Sub
 
     Public Sub ListenerCallback(ByVal result As IAsyncResult)
+        If result Is Nothing Then Return
         Try
             Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
             ' Call EndGetContext to signal the completion of the asynchronous operation.
@@ -148,46 +152,40 @@ Public Class NetServer
             ' The data sent by client
             Dim request As HttpListenerRequest = context.Request
 
-            Dim body As System.IO.Stream = request.InputStream
-            Dim encoding As System.Text.Encoding = request.ContentEncoding
-            Dim reader As System.IO.StreamReader = New System.IO.StreamReader(body, encoding)
+            Dim body As Stream = request.InputStream
+            Using reader As System.IO.StreamReader = New System.IO.StreamReader(body, request.ContentEncoding)
+                Dim responseString As String = ""
+                Dim Uri = request.Url.OriginalString
+                Dim lcUri = LCase(Uri)
 
-            Dim responseString As String = ""
-            ' process the input
-
-            Dim Uri = request.Url.OriginalString
-            Dim lcUri = LCase(Uri)
-
-            If lcUri.Contains("teleports.htm") Then
-                responseString = RegionListHTML(Setting, PropRegionClass1)
-            Else
-                If (request.HasEntityBody) Then
-                    Dim POST As String = reader.ReadToEnd()
-                    responseString = PropRegionClass1.ParsePost(POST, Setting)
+                If lcUri.Contains("teleports.htm") Then
+                    responseString = RegionListHTML(Setting, PropRegionClass1)
                 Else
-                    responseString = PropRegionClass1.ParsePost(Uri, Setting)
+                    If (request.HasEntityBody) Then
+                        Dim POST As String = reader.ReadToEnd()
+                        responseString = PropRegionClass1.ParsePost(POST, Setting)
+                    Else
+                        responseString = PropRegionClass1.ParsePost(Uri, Setting)
+                    End If
+
                 End If
 
-                body.Close()
-            End If
+            End Using
 
             ' Get the response object to send our confirmation.
-            Dim response As HttpListenerResponse = context.Response
+            Using response As HttpListenerResponse = context.Response
+                ' Construct a minimal response string.
+                Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(response.ToString)
+                ' Get the response OutputStream and write the response to it.
+                response.ContentLength64 = buffer.Length
+                ' Identify the content type.
+                response.ContentType = "text/html"
+                Using output As System.IO.Stream = response.OutputStream
+                    output.Write(buffer, 0, buffer.Length)
+                    output.Flush()
+                End Using
 
-            ' Construct a minimal response string.
-            Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)
-            ' Get the response OutputStream and write the response to it.
-            response.ContentLength64 = buffer.Length
-            ' Identify the content type.
-            response.ContentType = "text/html"
-            Dim output As System.IO.Stream = response.OutputStream
-            output.Write(buffer, 0, buffer.Length)
-            ' Properly flush and close the output stream
-            output.Flush()
-            output.Close()
-
-            'If you are finished with the request, it should be closed also.
-            response.Close()
+            End Using
         Catch
         End Try
     End Sub
@@ -230,6 +228,7 @@ Public Class NetServer
             End If
         End While
 
+        cmd.Dispose()
         NewSQLConn.Close()
 
         ' Acquire keys And sort them.

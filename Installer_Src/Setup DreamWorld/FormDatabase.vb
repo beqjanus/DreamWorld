@@ -389,15 +389,16 @@ Public Class FormDatabase
         DNSNamebackup1 = Form1.PropMySetting.DNSName
         ServerType1 = "OsGrid"
         DNSName1 = "hg.osgrid.org"
-
+        Dim client As New System.Net.WebClient ' downloadclient for web page
         Try
-            Dim client As New System.Net.WebClient ' downloadclient for web page
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
             Form1.PropMySetting.ExternalHostName = ip
+        Catch ex As ArgumentNullException
         Catch ex As Net.WebException
+        Catch ex As NotSupportedException
+        Finally
+            client.Dispose()
         End Try
-
-        Debug.Print(Form1.PropMySetting.ExternalHostName)
 
         Changed1 = True
 
@@ -418,12 +419,15 @@ Public Class FormDatabase
         DNSNamebackup1 = Form1.PropMySetting.DNSName
         ServerType1 = "Metro"
         DNSName1 = "hg.metro.land"
-
+        Dim client As New System.Net.WebClient ' downloadclient for web page
         Try
-            Dim client As New System.Net.WebClient ' downloadclient for web page
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
             Form1.PropMySetting.ExternalHostName = ip
+        Catch ex As ArgumentNullException
         Catch ex As Net.WebException
+        Catch ex As NotSupportedException
+        Finally
+            client.Dispose()
         End Try
 
         Debug.Print(Form1.PropMySetting.ExternalHostName)
@@ -456,6 +460,7 @@ Public Class FormDatabase
             Dim client As New System.Net.WebClient ' downloadclient for web page
             Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
             Form1.PropMySetting.ExternalHostName = ip
+            client.Dispose()
         Catch ex As Net.WebException
         End Try
 

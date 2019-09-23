@@ -50,7 +50,7 @@ Public Class MySettings
         gFolder = Folder
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
-            LoadMyIni()
+            LoadSettingsIni()
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
@@ -58,7 +58,7 @@ Public Class MySettings
                 outputFile.WriteLine(contents)
             End Using
 
-            LoadMyIni()
+            LoadSettingsIni()
 
             AdminFirst() = My.Settings.AdminFirst
             AdminLast() = My.Settings.AdminLast
@@ -160,9 +160,6 @@ Public Class MySettings
 
         End If
 
-        ' new vars have to exist before we can read them, and this hack is the only way to set this
-        ' is to test if they do exis
-
         If Theme().Length = 0 Then
             Theme() = "White"
             Form1.CopyWifi("White")
@@ -180,7 +177,7 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
-    Public Sub SetOtherIni(section As String, key As String, value As String)
+    Public Sub SetIni(section As String, key As String, value As String)
 
         ' sets values into any INI file
         Try
@@ -204,7 +201,7 @@ Public Class MySettings
 
     End Sub
 
-    Public Sub LoadMyIni()
+    Public Sub LoadSettingsIni()
 
         Myparser = New FileIniDataParser()
 
@@ -220,7 +217,7 @@ Public Class MySettings
 
     End Sub
 
-    Public Sub LoadOtherIni(arg As String, comment As String)
+    Public Sub LoadIni(arg As String, comment As String)
 
         parser = New FileIniDataParser()
 
@@ -256,7 +253,7 @@ Public Class MySettings
 
     End Function
 
-    Public Sub SaveOtherINI()
+    Public Sub SaveINI()
 
         Try
             parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
@@ -280,7 +277,7 @@ Public Class MySettings
     Shared Function Random() As String
 
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.InVarient)
+        Random = System.Convert.ToString(value, Form1.Invarient)
 
     End Function
 
@@ -309,6 +306,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property OutBoundPermissions() As Boolean
+        Get
+            Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("OutBoundPermissions", CStr(Value))
+        End Set
+    End Property
 
     Public Property SearchEnabled() As Boolean
         Get

@@ -22,7 +22,7 @@
 
 Imports System.IO
 
-Public Class CrashDetector
+Module CrashDetector
 
     Public Sub Find()
 
@@ -68,4 +68,4 @@ Public Class CrashDetector
 
     End Sub
 
-End Class
+End Module

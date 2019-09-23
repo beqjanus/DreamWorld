@@ -41,7 +41,7 @@ Public Class UPnp
     ''' The different supported protocols
     ''' </summary>
     ''' <remarks></remarks>
-    Public Enum Protocol
+    Public Enum MyProtocol
         ''' <summary>
         ''' Transmission Control Protocol
         ''' </summary>
@@ -146,7 +146,7 @@ Public Class UPnp
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
     ''' <param name="desc">A small description of the port.</param>
     ''' <remarks></remarks>
-    Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As Protocol, ByVal desc As String)
+    Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As MyProtocol, ByVal desc As String)
 
         Try
             ' Begin utilizing
@@ -173,7 +173,7 @@ Public Class UPnp
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
 
     ''' <remarks></remarks>
-    Public Sub Remove(ByVal port As Integer, ByVal prot As Protocol)
+    Public Sub Remove(ByVal port As Integer, ByVal prot As MyProtocol)
 
         Try
             ' Begin utilizing
@@ -195,7 +195,7 @@ Public Class UPnp
     ''' <param name="Port">The port to check.</param>
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
     ''' <remarks></remarks>
-    Public Function Exists(ByVal port As Integer, ByVal prot As Protocol) As Boolean
+    Public Function Exists(ByVal port As Integer, ByVal prot As MyProtocol) As Boolean
         Try
             ' Final check!
             If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
