@@ -3949,7 +3949,7 @@ Public Class Form1
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
-        ' Just once at the 5 minute mark, aftre regions have booted.
+        ' Just once at the 5 minute mark, after regions have booted.
         If PropDNSSTimer = 300 Then
             RunDataSnapshot() ' Fetch assets marked for search at boot
         End If
@@ -6526,7 +6526,7 @@ Public Class Form1
 
             MysqlInterface.DeleteSearchDatabase()
 
-            Print("Setup search")
+            Print("Setup search database")
             Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
