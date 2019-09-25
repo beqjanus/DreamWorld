@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.18"
+    Private _MyVersion As String = "3.19"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -3967,12 +3967,9 @@ Public Class Form1
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
-
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
-
-
 
     End Sub
 
