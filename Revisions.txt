@@ -1,6 +1,18 @@
 Revisions for Dreamgrid
 
-This is a high-level view of major changes. Revs such as 3.0 or 3.1 are releases. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
+This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
+
+V3.19 
+Updated manual for upcoming 3.2 release
+Fixed glitch in V3.18 in Cloud Density
+Disallow Foreigners switch added per-region. This lets you keep assets in your grid by disallowing assets to leave, yet allowing HG visitors to come and go.
+Disallow Resident switch added per-region. This allows only Region Owners and Estate Managers in any given region.
+Checked all  IM vars against  opensim src and made minor changes thay may help with the offline IMs getting stuck.  Port 8003 should not need to be opened to allow IMs.
+
+V3.18
+Export Checkbox in Settings->permissions to disallow export of prims from viewers. Default -> Allow
+If an OAR is loaded into a Var region > 4X4, allow it.
+Removed lots of warnings in Visual Studio 2019.
 
 V3.17 is a release candidate for V3.2, the official release that everybody gets a notice to update to.
 There is no longer an "updater versus installer".  For backwards compatibility, there are still two files on the web server, but they are identical.  
