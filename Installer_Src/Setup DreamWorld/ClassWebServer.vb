@@ -153,8 +153,9 @@ Public Class NetServer
             Dim request As HttpListenerRequest = context.Request
 
             Dim body As Stream = request.InputStream
+            Dim responseString As String = ""
             Using reader As System.IO.StreamReader = New System.IO.StreamReader(body, request.ContentEncoding)
-                Dim responseString As String = ""
+
                 Dim Uri = request.Url.OriginalString
                 Dim lcUri = LCase(Uri)
 
@@ -175,7 +176,7 @@ Public Class NetServer
             ' Get the response object to send our confirmation.
             Using response As HttpListenerResponse = context.Response
                 ' Construct a minimal response string.
-                Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(response.ToString)
+                Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(responseString)
                 ' Get the response OutputStream and write the response to it.
                 response.ContentLength64 = buffer.Length
                 ' Identify the content type.
