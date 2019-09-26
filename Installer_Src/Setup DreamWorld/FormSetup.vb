@@ -5042,7 +5042,7 @@ Public Class Form1
                 BumpProgress10()
                 Return True
             Else
-                Print("Info:UPnP Failed or is disabled in the router")
+                Print("Info:UPnP is disabled.")
                 Settings.UPnpDiag = False
                 Settings.SaveSettings()
                 BumpProgress10()
