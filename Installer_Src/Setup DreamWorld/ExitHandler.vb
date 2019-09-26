@@ -31,21 +31,17 @@ Public Class Handler
 
         ' Handle any process that exits by stacking it. DoExitHandlerPoll will clean up stack
         Dim pid = 0
-        Try
-            pid = CType(sender.Id, Integer)
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        Finally
-        End Try
+        pid = CType(sender.Id, Integer)
+
         Try
             Exitlist1.Add(RegionHandles1.Item(pid))
             Debug.Print(RegionHandles1.Item(pid) & " Exited")
-        Catch ex As Exception
+        Catch ex As NotSupportedException
         End Try
 
         Try
             RegionHandles1.Remove(pid)
-        Catch ex As Exception
+        Catch ex As ArgumentNullException
         End Try
 
     End Sub
