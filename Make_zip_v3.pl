@@ -100,7 +100,9 @@ sub process_file {
 
 close OUT;
 
-if (!copy ("$dir/Installer_Src/Setup DreamWorld/bin/Release/Start.exe", "$dir"))  {die $!;}
+
+use File::Copy::Recursive qw(dircopy);
+dircopy("$dir/Installer_Src/Setup DreamWorld/bin/Release",$dir) or die("$!\n");
 
 
 
