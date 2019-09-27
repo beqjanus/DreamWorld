@@ -114,7 +114,7 @@ Public Class FormRegion
 
     Public Sub Init(Name As String)
 
-        If Name = Nothing Then Return
+        '
         '!!!  remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
