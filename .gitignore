@@ -1,4 +1,5 @@
 baretail.udm
+/OutworldzFiles/Apache/htdocs/Joomla
 *.pid
 **/WifiPages-Custom
 OutworldzFiles/mysql/data/mysql/*.*
