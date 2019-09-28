@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.19"
+    Private _MyVersion As String = "3.191"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -2769,19 +2769,19 @@ Public Class Form1
         Settings.SetApacheIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP5" & """")
+        Settings.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
         Settings.SetApacheIni("ServerName", Settings.PublicIP)
         Settings.SetApacheIni("<VirtualHost", "  *:" & CType(Settings.ApachePort, String) & ">")
         Settings.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
-        Settings.SetApacheIni("LoadModule php5_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP5/php5apache2_4.dll" & """")
+        Settings.SetApacheIni("LoadModule PHP7_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
         Settings.SaveApacheINI(ini, "httpd.conf")
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         Settings.LoadApacheIni(ini)
         Settings.SetApacheIni("Listen", Settings.PrivateURL & ":" & "443")
-        Settings.SetApacheIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        Settings.SetApacheIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetApacheIni("ServerName", Settings.PublicIP)
         Settings.SetApacheIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
@@ -2791,9 +2791,9 @@ Public Class Form1
 
     Private Sub DoPHP()
 
-        Dim ini = PropMyFolder & "\Outworldzfiles\PHP5\php.ini"
+        Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadApacheIni(ini)
-        Settings.SetApacheIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP5/ext""")
+        Settings.SetApacheIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SaveApacheINI(ini, "php.ini")
 
     End Sub
@@ -2890,7 +2890,7 @@ Public Class Form1
         Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
         End Using
-        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\PHP5\databaseinfo.php", False)
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\PHP7\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
         End Using
 
@@ -6493,7 +6493,7 @@ Public Class Form1
         Diagnostics.Debug.Print("Scanning Datasnapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
-        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\PHP5\"
+        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\PHP7\"
         pi.FileName = "Run_parser.bat"
         pi.UseShellExecute = False  ' needed to make window hidden
         pi.WindowStyle = ProcessWindowStyle.Hidden

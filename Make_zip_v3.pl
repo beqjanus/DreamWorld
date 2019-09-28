@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.19' ; 
+my $type  = '-V3.191' ; 
 use Cwd;
 my $dir = getcwd;
 
@@ -114,7 +114,7 @@ my @files = io->dir($dir)->all(0);
 my @signs;
 foreach my $file (@files) {
     my $name = $file->name;
-    next if $name =~ /Installer_Src|\.git|baretail|obj|Downloader/;
+    next if $name =~ /Installer_Src|\.git|baretail|obj|Downloader|Bouncy|Google|Tuple/;
     if ($name =~ /dll$|exe$/ ) {
         
         my $r = qq!../Certs/sigcheck64.exe "$name"!;
@@ -238,6 +238,9 @@ if ($publish)
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
+	
+	
 	
 	print "Revisions\n";
 	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 	'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
