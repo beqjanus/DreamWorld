@@ -34,7 +34,7 @@ Public Class UPnp
 
     Private staticEnabled As Boolean = True
     Private dynamicEnabled As Boolean = True
-    Private _MyFolder As String = ""
+
     Private CacheIP As String = ""
 
     ''' <summary>
