@@ -41,6 +41,7 @@ Public Class AdvancedForm
     Dim FormPermissions As New FormPermissions
     Dim FormDNSName As New FormDNSName
     Dim FormPublicity As New FormPublicity
+    Dim FormServerType As New FormServerType
 
 #End Region
 
@@ -276,11 +277,20 @@ Public Class AdvancedForm
     End Sub
 
     Private Sub CacheButton1_Click(sender As Object, e As EventArgs) Handles CacheButton1.Click
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Form1.FormCaches.Close()
-        Form1.FormCaches = New FormCaches
-        Form1.FormCaches.Activate()
-        Form1.FormCaches.Visible = True
+
+        FormCaches.Close()
+        FormCaches = New FormCaches
+        FormCaches.Activate()
+        FormCaches.Visible = True
+
+    End Sub
+
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
+
+        FormServerType.Close()
+        FormServerType = New FormServerType
+        FormCaches.Activate()
+        FormServerType.Visible = True
 
     End Sub
 
