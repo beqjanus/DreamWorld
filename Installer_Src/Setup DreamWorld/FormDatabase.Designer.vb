@@ -50,18 +50,9 @@ Partial Class FormDatabase
         Me.RobustDBPassword = New System.Windows.Forms.TextBox()
         Me.RobustDBUsername = New System.Windows.Forms.TextBox()
         Me.DBHelp = New System.Windows.Forms.PictureBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.AviWorldsButton = New System.Windows.Forms.RadioButton()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.SaveButton = New System.Windows.Forms.Button()
-        Me.GridRegionButton = New System.Windows.Forms.RadioButton()
-        Me.osGridRadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.GridServerButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ServerTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FullSQLBackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,8 +60,6 @@ Partial Class FormDatabase
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -323,108 +312,19 @@ Partial Class FormDatabase
         Me.DBHelp.TabIndex = 1859
         Me.DBHelp.TabStop = False
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.AviWorldsButton)
-        Me.GroupBox1.Controls.Add(Me.PictureBox1)
-        Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
-        Me.GroupBox1.Controls.Add(Me.SaveButton)
-        Me.GroupBox1.Controls.Add(Me.GridRegionButton)
-        Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
-        Me.GroupBox1.Controls.Add(Me.GridServerButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(528, 32)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(190, 215)
-        Me.GroupBox1.TabIndex = 1884
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Server Type"
-        '
-        'AviWorldsButton
-        '
-        Me.AviWorldsButton.AutoSize = True
-        Me.AviWorldsButton.Location = New System.Drawing.Point(17, 123)
-        Me.AviWorldsButton.Name = "AviWorldsButton"
-        Me.AviWorldsButton.Size = New System.Drawing.Size(144, 17)
-        Me.AviWorldsButton.TabIndex = 1886
-        Me.AviWorldsButton.Text = "Aviworlds Region  Server"
-        Me.AviWorldsButton.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(151, 5)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(28, 32)
-        Me.PictureBox1.TabIndex = 1885
-        Me.PictureBox1.TabStop = False
-        '
-        'MetroRadioButton2
-        '
-        Me.MetroRadioButton2.AutoSize = True
-        Me.MetroRadioButton2.Location = New System.Drawing.Point(17, 100)
-        Me.MetroRadioButton2.Name = "MetroRadioButton2"
-        Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
-        Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
-        Me.MetroRadioButton2.UseVisualStyleBackColor = True
-        '
-        'SaveButton
-        '
-        Me.SaveButton.Location = New System.Drawing.Point(48, 165)
-        Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(62, 23)
-        Me.SaveButton.TabIndex = 1883
-        Me.SaveButton.Text = "Save"
-        Me.SaveButton.UseVisualStyleBackColor = True
-        '
-        'GridRegionButton
-        '
-        Me.GridRegionButton.AutoSize = True
-        Me.GridRegionButton.Location = New System.Drawing.Point(17, 55)
-        Me.GridRegionButton.Name = "GridRegionButton"
-        Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
-        Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.Text = "Region Server"
-        Me.ToolTip1.SetToolTip(Me.GridRegionButton, "Expansion server to attach to a DreamGrid")
-        Me.GridRegionButton.UseVisualStyleBackColor = True
-        '
-        'osGridRadioButton1
-        '
-        Me.osGridRadioButton1.AutoSize = True
-        Me.osGridRadioButton1.Location = New System.Drawing.Point(17, 77)
-        Me.osGridRadioButton1.Name = "osGridRadioButton1"
-        Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
-        Me.osGridRadioButton1.TabIndex = 1881
-        Me.osGridRadioButton1.Text = "OSGrid Region Server"
-        Me.ToolTip1.SetToolTip(Me.osGridRadioButton1, "Attach to OsGrid")
-        Me.osGridRadioButton1.UseVisualStyleBackColor = True
-        '
-        'GridServerButton
-        '
-        Me.GridServerButton.AutoSize = True
-        Me.GridServerButton.Checked = True
-        Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
-        Me.GridServerButton.Name = "GridServerButton"
-        Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
-        Me.GridServerButton.TabIndex = 1879
-        Me.GridServerButton.TabStop = True
-        Me.GridServerButton.Text = "Grid Server With Robust"
-        Me.ToolTip1.SetToolTip(Me.GridServerButton, "Normal Grid mode")
-        Me.GridServerButton.UseVisualStyleBackColor = True
-        '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.BackupToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(747, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(532, 28)
         Me.MenuStrip2.TabIndex = 1885
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem, Me.ServerTypeToolStripMenuItem})
+        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
@@ -436,13 +336,6 @@ Partial Class FormDatabase
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.DatabaseSetupToolStripMenuItem.Text = "Database Setup"
-        '
-        'ServerTypeToolStripMenuItem
-        '
-        Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.ServerTypeToolStripMenuItem.Text = "Server Type"
         '
         'BackupToolStripMenuItem
         '
@@ -456,23 +349,22 @@ Partial Class FormDatabase
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
-        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
-        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
         '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(747, 274)
+        Me.ClientSize = New System.Drawing.Size(532, 274)
         Me.Controls.Add(Me.MenuStrip2)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
         Me.Controls.Add(Me.DBHelp)
@@ -485,9 +377,6 @@ Partial Class FormDatabase
         Me.GridGroup.ResumeLayout(False)
         Me.GridGroup.PerformLayout()
         CType(Me.DBHelp, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
@@ -518,23 +407,14 @@ Partial Class FormDatabase
     Friend WithEvents RegionServer As TextBox
     Friend WithEvents MysqlRegionPort As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents MetroRadioButton2 As RadioButton
-    Friend WithEvents GridRegionButton As RadioButton
-    Friend WithEvents osGridRadioButton1 As RadioButton
-    Friend WithEvents GridServerButton As RadioButton
-    Friend WithEvents SaveButton As Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ServerTypeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FullSQLBackupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DataOnlyToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClearRegionTable As Button
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents AviWorldsButton As RadioButton
 End Class

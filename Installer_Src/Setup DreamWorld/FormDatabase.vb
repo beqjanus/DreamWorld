@@ -25,9 +25,7 @@ Imports System.Text.RegularExpressions
 Public Class FormDatabase
 
     Dim initted As Boolean = False
-    Dim DNSNamebackup As String = ""
     Dim changed As Boolean = False
-    Dim ServerType As String = ""
     Dim DNSName As String = ""
 
 #Region "Properties"
@@ -41,30 +39,12 @@ Public Class FormDatabase
         End Set
     End Property
 
-    Public Property DNSNamebackup1 As String
-        Get
-            Return DNSNamebackup
-        End Get
-        Set(value As String)
-            DNSNamebackup = value
-        End Set
-    End Property
-
     Public Property Changed1 As Boolean
         Get
             Return changed
         End Get
         Set(value As Boolean)
             changed = value
-        End Set
-    End Property
-
-    Public Property ServerType1 As String
-        Get
-            Return ServerType
-        End Get
-        Set(value As String)
-            ServerType = value
         End Set
     End Property
 
@@ -133,21 +113,6 @@ Public Class FormDatabase
 
         SetScreen()
 
-        Select Case Form1.Settings.ServerType
-            Case "Robust"
-                GridServerButton.Checked = True
-            Case "Region"
-                GridRegionButton.Checked = True
-            Case "OsGrid"
-                osGridRadioButton1.Checked = True
-            Case "Metro"
-                MetroRadioButton2.Checked = True
-            Case "AviWorlds"
-                AviWorldsButton.Checked = True
-            Case Else
-                GridServerButton.Checked = True
-        End Select
-
         Initted1 = True
         Form1.HelpOnce("Database")
         Form1.HelpOnce("ServerType")
@@ -164,11 +129,6 @@ Public Class FormDatabase
 
     Private Sub SaveAll()
 
-        Form1.Settings.ServerType = ServerType1
-
-        If DNSName1.Length > 0 Then
-            Form1.Settings.GridServerName = DNSName1
-        End If
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
@@ -284,22 +244,9 @@ Public Class FormDatabase
 
 #Region "Grid type"
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-
-        SaveAll()
-        Me.Close()
-
-    End Sub
-
     Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
 
         Form1.Help("Database")
-
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        Form1.Help("GridType")
 
     End Sub
 
@@ -332,143 +279,6 @@ Public Class FormDatabase
 
         MysqlInterface.DeregisterRegions()
 
-    End Sub
-
-#End Region
-
-#Region "Radio Buttons"
-
-    Private Sub GridServerButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
-
-        If Not Initted1 Then Return
-        If Not GridServerButton.Checked Then Return
-
-        RobustServer.Enabled = True
-        RobustDbName.Enabled = True
-        RobustDBPassword.Enabled = True
-        RobustDbPort.Enabled = True
-        RobustDBUsername.Enabled = True
-        RobustDBPassword.Enabled = True
-
-        Form1.Settings.DNSName = DNSNamebackup1
-        Changed1 = True
-        ServerType1 = "Robust"
-
-    End Sub
-
-    Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
-
-        If Not Initted1 Then Return
-        If Not GridRegionButton.Checked Then Return
-
-        RobustServer.Enabled = True
-        RobustDbName.Enabled = True
-        RobustDBPassword.Enabled = True
-        RobustDbPort.Enabled = True
-        RobustDBUsername.Enabled = True
-        RobustDBPassword.Enabled = True
-
-        ServerType1 = "Region"
-        DNSNamebackup1 = Form1.Settings.DNSName
-        Changed1 = True
-
-    End Sub
-
-    Private Sub OsGridRadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles osGridRadioButton1.CheckedChanged
-
-        If Not Initted1 Then Return
-        If Not osGridRadioButton1.Checked Then Return
-
-        RobustServer.Enabled = False
-        RobustDbName.Enabled = False
-        RobustDBPassword.Enabled = False
-        RobustDbPort.Enabled = False
-        RobustDBUsername.Enabled = False
-        RobustDBPassword.Enabled = False
-
-        DNSNamebackup1 = Form1.Settings.DNSName
-        ServerType1 = "OsGrid"
-        DNSName1 = "hg.osgrid.org"
-        Dim client As New System.Net.WebClient ' downloadclient for web page
-        Try
-            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.Settings.ExternalHostName = ip
-        Catch ex As ArgumentNullException
-        Catch ex As Net.WebException
-        Catch ex As NotSupportedException
-        Finally
-            client.Dispose()
-        End Try
-
-        Changed1 = True
-
-    End Sub
-
-    Private Sub MetroRadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
-
-        If Not Initted1 Then Return
-        If Not MetroRadioButton2.Checked Then Return
-
-        RobustServer.Enabled = False
-        RobustDbName.Enabled = False
-        RobustDBPassword.Enabled = False
-        RobustDbPort.Enabled = False
-        RobustDBUsername.Enabled = False
-        RobustDBPassword.Enabled = False
-
-        DNSNamebackup1 = Form1.Settings.DNSName
-        ServerType1 = "Metro"
-        DNSName1 = "hg.metro.land"
-        Dim client As New System.Net.WebClient ' downloadclient for web page
-        Try
-            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.Settings.ExternalHostName = ip
-        Catch ex As ArgumentNullException
-        Catch ex As Net.WebException
-        Catch ex As NotSupportedException
-        Finally
-            client.Dispose()
-        End Try
-
-        Debug.Print(Form1.Settings.ExternalHostName)
-
-        Changed1 = True
-
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles AviWorldsButton.CheckedChanged
-
-        If Not Initted1 Then Return
-        If Not AviWorldsButton.Checked Then Return
-
-        RobustServer.Enabled = True
-        RobustDbName.Enabled = True
-        RobustDBPassword.Enabled = True
-        RobustDbPort.Enabled = True
-        RobustDBUsername.Enabled = True
-        RobustDBPassword.Enabled = True
-
-        ServerType1 = "AviWorlds"
-        DNSNamebackup1 = Form1.Settings.DNSName
-        Form1.Settings.DNSName = "login.aviworlds.com"
-
-        If Form1.Settings.ExternalHostName.Length = 0 Then
-            DNSName1 = Form1.Settings.DNSName
-        End If
-        Changed1 = True
-        Try
-            Dim client As New System.Net.WebClient ' downloadclient for web page
-            Dim ip As String = client.DownloadString("http://api.ipify.org/?r=" + Form1.Random())
-            Form1.Settings.ExternalHostName = ip
-            client.Dispose()
-        Catch ex As Net.WebException
-        End Try
-
-        Debug.Print(Form1.Settings.ExternalHostName)
-    End Sub
-
-    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
-        Form1.Help("ServerType")
     End Sub
 
 #End Region
