@@ -5,20 +5,24 @@ require( "flog.php" );
 include("databaseinfo.php");
 include("../Metromap/includes/config.php");
     
- // Attempt to connect to the database
-    try {
-        $db = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-        $db1 = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-        $db1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-    }
+ 
+   
+  $dsn = "mysql:host=$CONF_db_server;port=$CONF_db_port;dbname=$CONF_db_database";
+  
+  $options = [
+    PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+  ];
+  try {
     
-    catch(PDOException $e)
-    {
-        echo "Error connecting to database\n";
-        file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
-        exit;
-    }
+    $db = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
+    
+  } catch (Exception $e) {
+    error_log($e->getMessage());
+    exit('Something weird happened'); //something a user can understand
+  }
+
  
  
     $text = $_GET['query'];     

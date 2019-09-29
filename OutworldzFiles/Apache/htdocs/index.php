@@ -6,26 +6,6 @@
  <body>
 
 
-<?php
-//include the log and database files
-
-include("MetroMap/includes/config.php");
-
-
-
-// Attempt to connect to the database
-try {
-  $db = new PDO("mysql:host=$CONF_db_server;dbname=$CONF_db_database", $CONF_db_user, $CONF_db_pass, $CONF_db_port);
-  #$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e)
-{
-  echo "Error connecting to database\n";
-  file_put_contents('../../../PHPLog.log', $e->getMessage() . "\n-----\n", FILE_APPEND);
-  exit;
-}
-
-?>
 
 <html>
     <head>
