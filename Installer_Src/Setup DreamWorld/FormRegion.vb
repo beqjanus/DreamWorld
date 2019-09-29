@@ -114,7 +114,6 @@ Public Class FormRegion
 
     Public Sub Init(Name As String)
 
-        '
         '!!!  remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
@@ -123,6 +122,7 @@ Public Class FormRegion
 
         Me.Focus()
 
+        If Name Is Nothing Then Return
         Name = Name.Trim() ' remove spaces
 
         PropRegionClass1 = RegionMaker.Instance()

@@ -43,15 +43,15 @@ Partial Class AdvancedForm
         Me.DNSButton = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.CacheButton1 = New System.Windows.Forms.Button()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
         'TOSButton
         '
-        Me.TOSButton.Location = New System.Drawing.Point(478, 76)
+        Me.TOSButton.Location = New System.Drawing.Point(167, 221)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(145, 23)
         Me.TOSButton.TabIndex = 15
@@ -61,7 +61,7 @@ Partial Class AdvancedForm
         '
         'TideButton
         '
-        Me.TideButton.Location = New System.Drawing.Point(478, 47)
+        Me.TideButton.Location = New System.Drawing.Point(167, 192)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(145, 23)
         Me.TideButton.TabIndex = 14
@@ -81,7 +81,7 @@ Partial Class AdvancedForm
         '
         'VoiceButton1
         '
-        Me.VoiceButton1.Location = New System.Drawing.Point(478, 105)
+        Me.VoiceButton1.Location = New System.Drawing.Point(167, 250)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
         Me.VoiceButton1.TabIndex = 16
@@ -91,7 +91,7 @@ Partial Class AdvancedForm
         '
         'Shoutcast
         '
-        Me.Shoutcast.Location = New System.Drawing.Point(170, 48)
+        Me.Shoutcast.Location = New System.Drawing.Point(15, 192)
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
@@ -101,7 +101,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(169, 105)
+        Me.MapsButton.Location = New System.Drawing.Point(14, 249)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -131,7 +131,7 @@ Partial Class AdvancedForm
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(319, 104)
+        Me.RegionsButton1.Location = New System.Drawing.Point(166, 105)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
@@ -141,7 +141,7 @@ Partial Class AdvancedForm
         '
         'DivaButton1
         '
-        Me.DivaButton1.Location = New System.Drawing.Point(478, 134)
+        Me.DivaButton1.Location = New System.Drawing.Point(167, 279)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(145, 23)
         Me.DivaButton1.TabIndex = 18
@@ -151,7 +151,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(169, 133)
+        Me.PortsButton1.Location = New System.Drawing.Point(14, 277)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -162,7 +162,7 @@ Partial Class AdvancedForm
         'PhysicsButton1
         '
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(319, 47)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(166, 48)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
@@ -182,7 +182,7 @@ Partial Class AdvancedForm
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(320, 133)
+        Me.Button3.Location = New System.Drawing.Point(167, 134)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(143, 23)
         Me.Button3.TabIndex = 13
@@ -192,7 +192,7 @@ Partial Class AdvancedForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(319, 18)
+        Me.Button2.Location = New System.Drawing.Point(166, 19)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(143, 23)
         Me.Button2.TabIndex = 9
@@ -202,7 +202,7 @@ Partial Class AdvancedForm
         '
         'DNSButton
         '
-        Me.DNSButton.Location = New System.Drawing.Point(170, 19)
+        Me.DNSButton.Location = New System.Drawing.Point(15, 163)
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(143, 23)
         Me.DNSButton.TabIndex = 5
@@ -212,7 +212,7 @@ Partial Class AdvancedForm
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(319, 75)
+        Me.Button4.Location = New System.Drawing.Point(166, 76)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 23)
         Me.Button4.TabIndex = 11
@@ -229,6 +229,26 @@ Partial Class AdvancedForm
         Me.CacheButton1.Text = "Caches"
         Me.ToolTip1.SetToolTip(Me.CacheButton1, "Click to set up the Database")
         Me.CacheButton1.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(167, 163)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(145, 23)
+        Me.Button1.TabIndex = 20
+        Me.Button1.Text = "Server Type"
+        Me.ToolTip1.SetToolTip(Me.Button1, "Click to set up Various Server Types")
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(14, 219)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(143, 23)
+        Me.Button5.TabIndex = 21
+        Me.Button5.Text = "JOpensim"
+        Me.ToolTip1.SetToolTip(Me.Button5, "Click to set up a PHP based Web Interface")
+        Me.Button5.UseVisualStyleBackColor = True
         '
         'GroupBox8
         '
@@ -254,30 +274,10 @@ Partial Class AdvancedForm
         Me.GroupBox8.Controls.Add(Me.Shoutcast)
         Me.GroupBox8.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(629, 177)
+        Me.GroupBox8.Size = New System.Drawing.Size(332, 324)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Global Settings"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(478, 18)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(145, 23)
-        Me.Button1.TabIndex = 20
-        Me.Button1.Text = "Server Type"
-        Me.ToolTip1.SetToolTip(Me.Button1, "Click to set up Various Server Types")
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(169, 75)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(143, 23)
-        Me.Button5.TabIndex = 21
-        Me.Button5.Text = "JOpensim"
-        Me.ToolTip1.SetToolTip(Me.Button5, "Click to set up a PHP based Web Interface")
-        Me.Button5.UseVisualStyleBackColor = True
         '
         'AdvancedForm
         '
@@ -285,7 +285,7 @@ Partial Class AdvancedForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(655, 201)
+        Me.ClientSize = New System.Drawing.Size(359, 348)
         Me.Controls.Add(Me.GroupBox8)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
