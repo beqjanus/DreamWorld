@@ -67,35 +67,21 @@ Public Class UPnp
         End Get
     End Property
 
-    Public Property Myfolder1 As String
-        Get
-            Return _MyFolder
-        End Get
-        Set(value As String)
-            _MyFolder = value
-        End Set
-    End Property
-
     ''' <summary>
     ''' The UPnp Managed Class
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub New(Folder As String)
-
-        Myfolder1 = Folder
-
+    Public Sub New()
         'Create the new NAT Class
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
         Catch ex As Exception
-            Log(ex.Message)
+
         End Try
 
         'generate the static mappings
         GetStaticMappings()
         GetDynamicMappings()
-
-        Print()
 
     End Sub
 
@@ -108,16 +94,10 @@ Public Class UPnp
 
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
-                Log("Router does not support Static mappings.")
                 staticEnabled = False
                 Return
             End If
-
-            If staticMapping.Count = 0 Then
-                Log("Router does not have any active UPnP mappings.")
-            End If
         Catch ex As Exception
-            Log("Router does not support Static mappings." & ex.Message)
             staticEnabled = False
         End Try
     End Sub
@@ -133,7 +113,6 @@ Public Class UPnp
                 dynamicEnabled = False
             End If
         Catch ex As Exception
-            Log("Router does not support Dynamic mappings." & ex.Message)
             dynamicEnabled = False
         End Try
     End Sub
@@ -149,19 +128,9 @@ Public Class UPnp
     Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As MyProtocol, ByVal desc As String)
 
         Try
-            ' Begin utilizing
-            If Exists(port, prot) Then Log("This mapping already exists:" & CStr(port))
-
-            ' Check
-            If Not IPCheck.IsPrivateIP(localIP) Then Log("This is not a local IP address:" & localIP)
-
-            ' Final check!
-            If Not staticEnabled Then Log("UPnP is not enabled, or there was an error with UPnP Initialization.")
-
             ' Okay, continue on
             staticMapping.Add(port, CStr(prot), port, localIP, True, desc + ":" + CStr(port))
         Catch ex As Exception
-            Log(ex.Message)
         End Try
 
     End Sub
@@ -176,16 +145,8 @@ Public Class UPnp
     Public Sub Remove(ByVal port As Integer, ByVal prot As MyProtocol)
 
         Try
-            ' Begin utilizing
-            If Not Exists(port, prot) Then Log("This mapping doesn't exist!" & CStr(port))
-
-            ' Final check!
-            If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
-
-            ' Okay, continue on
             staticMapping.Remove(port, prot.ToString)
         Catch ex As Exception
-            Log(ex.Message)
         End Try
     End Sub
 
@@ -197,9 +158,6 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public Function Exists(ByVal port As Integer, ByVal prot As MyProtocol) As Boolean
         Try
-            ' Final check!
-            If Not staticEnabled Then Log("UPnp is not enabled, or there was an error with UPnp Initialization.")
-
             ' Begin checking
             For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
 
@@ -210,7 +168,6 @@ Public Class UPnp
 
             Next
         Catch ex As Exception
-            Log(ex.Message)
         End Try
 
         'Nothing!
@@ -246,7 +203,7 @@ Public Class UPnp
                 LIP = CacheIP
             End If
         Catch ex As Exception
-            Log(ex.Message)
+
         End Try
         Return LIP
 
@@ -280,7 +237,7 @@ Public Class UPnp
             If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
         Catch ex As Exception
-            Log(ex.Message)
+
         End Try
     End Sub
 
@@ -291,43 +248,6 @@ Public Class UPnp
     Public Sub Dispose() Implements IDisposable.Dispose
         Dispose(True)
         GC.SuppressFinalize(Me)
-    End Sub
-
-    ''' Prints out some debugging information to use.
-
-    Public Sub Print()
-
-        ' Loop through all the data after a check
-        If staticEnabled Then
-
-            Log("---------Static Mappings-----------------------")
-            Try
-                For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
-                    If mapping.Enabled Then
-                        Log(String.Format(Form1.Invarient, "Enabled: {0}", mapping.Description))
-                    Else
-                        Log(String.Format(Form1.Invarient, "**Disabled**: {0}", mapping.Description))
-                    End If
-                    Log(String.Format(Form1.Invarient, "Port: {0}", CStr(mapping.InternalPort)))
-                    Log(String.Format(Form1.Invarient, "Protocol: {0}", CStr(mapping.Protocol)))
-                    Log(String.Format(Form1.Invarient, "External IP Address: {0}", CStr(mapping.ExternalIPAddress)))
-                    Log("--------------------------------------")
-                Next
-            Catch ex As Exception
-                Log(ex.Message)
-            End Try
-
-        End If
-
-    End Sub
-
-    Public Sub Log(message As String)
-        Try
-            Using outputFile As New StreamWriter(Myfolder1 & "\OutworldzFiles\UPnp.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) + ":" + message)
-            End Using
-        Catch ex As Exception
-        End Try
     End Sub
 
 End Class
