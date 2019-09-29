@@ -235,6 +235,7 @@ Public Class RegionList
         user1 = 8
         user2 = 9
         SmartStart = 10
+        Home = 11
 
     End Enum
 
@@ -632,8 +633,12 @@ Public Class RegionList
                     Letter = "Running"
                     Num = DGICON.user2
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                    Letter = "Running"
-                    Num = DGICON.up
+                    If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                        Num = DGICON.Home
+                    Else
+                        Letter = "Running"
+                        Num = DGICON.up
+                    End If
                 ElseIf Not PropRegionClass1.RegionEnabled(X) Then
                     Letter = "Disabled"
                     Num = DGICON.disabled
