@@ -352,6 +352,12 @@
     <Compile Include="FormRestart.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormServerType.Designer.vb">
+      <DependentUpon>FormServerType.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormServerType.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormSetup.Designer.vb">
       <DependentUpon>FormSetup.vb</DependentUpon>
     </Compile>
@@ -372,8 +378,11 @@
     </Compile>
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="ExitHandler.vb" />
+    <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="NativeMethods.vb" />
+    <Compile Include="PublicIP.vb" />
+    <Compile Include="RandomNumber.vb" />
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />
@@ -519,6 +528,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRestart.resx">
       <DependentUpon>FormRestart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormServerType.resx">
+      <DependentUpon>FormServerType.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetup.en.resx">
       <DependentUpon>FormSetup.vb</DependentUpon>
