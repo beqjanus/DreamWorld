@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.191"
+    Private _MyVersion As String = "3.192"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -184,15 +184,6 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
-
-    Public Property FormCaches As FormCaches
-        Get
-            Return _formCaches
-        End Get
-        Set(value As FormCaches)
-            _formCaches = value
-        End Set
-    End Property
 
     Public Property PropAborting As Boolean
         Get
@@ -601,7 +592,7 @@ Public Class Form1
         ToolBar(False)
         Buttons(BusyButton)
 
-        GetGridServerName()
+        GridNames.SetServerNames()
 
         Print("Setup Ports")
         RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
@@ -622,7 +613,7 @@ Public Class Form1
         End If
 
         PropOpensimIsRunning() = True
-
+        PropMyUPnpMap = New UPnp()
         If PropViewedSettings Then
 
             If SetPublicIP() Then
@@ -687,7 +678,7 @@ Public Class Form1
 
         Buttons(StopButton)
         ProgressBar1.Value = 100
-        Print("Grid address is" & vbCrLf & "http://" & Settings.GridServerName & ":" & Settings.HttpPort)
+        Print("Grid address is" & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with bootup
         ProgressBar1.Visible = False
@@ -759,7 +750,7 @@ Public Class Form1
         ' Save a random machine ID - we don't want any data to be sent that's personal or
         ' identifiable, but it needs to be unique
         Randomize()
-        If Settings.MachineID().Length = 0 Then Settings.MachineID() = Random()  ' a random machine ID may be generated.  Happens only once
+        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
         ' WebUI
         ViewWebUI.Visible = Settings.WifiEnabled
@@ -785,7 +776,7 @@ Public Class Form1
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
         End If
 
-        GetGridServerName()
+        GridNames.SetServerNames()
 
         If (Settings.SplashPage.Length = 0) Then
             Settings.SplashPage = SecureDomain() & "/Outworldz_installer/Welcome.htm"
@@ -1163,11 +1154,6 @@ Public Class Form1
 
 #Region "Menus"
 
-    Public Shared Function Random() As String
-        Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.Invarient)
-    End Function
-
     Public Sub Buttons(button As System.Object)
         ' Turns off all 4 stacked buttons, then enables one of them
         BusyButton.Visible = False
@@ -1381,7 +1367,7 @@ Public Class Form1
 
             Settings.LoadIni(GetOpensimProto(), ";")
 
-            Settings.SetIni("Const", "BaseHostname", Settings.GridServerName)
+            Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
 
             Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
             Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
@@ -1706,7 +1692,7 @@ Public Class Form1
             Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
         End If
 
-        Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.GridServerName)
+        Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.BaseHostName)
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CType(Settings.Primlimits, String))
 
         If Settings.Primlimits Then
@@ -1726,7 +1712,7 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
         Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
-        Settings.SetIni("SMTP", "host_domain_header_from", Settings.GridServerName)
+        Settings.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName)
 
         ' the old Clouds
         If Settings.Clouds Then
@@ -2807,7 +2793,7 @@ Public Class Form1
         Using client As New WebClient ' downloadclient for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/?_Opensim=" & Random())
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
@@ -3509,7 +3495,7 @@ Public Class Form1
         Using client As New WebClient ' downloadclient for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & Random())
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As WebException
                 If ex.Message.Contains("404") Then Return True
                 Return False
@@ -3612,7 +3598,7 @@ Public Class Form1
     ''' <param name="command">String</param>
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
-        If command Is Nothing Then Return False
+
         If command.Length > 0 Then
 
             Dim PID As Integer
@@ -4404,7 +4390,7 @@ Public Class Form1
         Print("Refreshing Free OARs")
         Dim oars As String = ""
         Try
-            oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & Random())
+            oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
         Catch ex As Exception
             ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
             Return
@@ -4461,7 +4447,7 @@ Public Class Form1
         Print("Refreshing Free IARs")
         Dim iars As String = ""
         Try
-            iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & Random())
+            iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
         Catch ex As Exception
             ErrorLog("Info:No IARS, dang, something is wrong with the Internet :-(")
             Return
@@ -4659,6 +4645,7 @@ Public Class Form1
             Else
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
+
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
                 Dim ret = RegisterDNS()
@@ -4695,7 +4682,7 @@ Public Class Form1
             Dim client As New WebClient ' downloadclient for web pages
             Try
                 ' Set Public IP
-                Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & Random())
+                Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
             Catch ex As Exception
                 ErrorLog("Hmm, I cannot reach the Internet? Uh. Okay, continuing." & ex.Message)
                 Settings.DiagFailed = True
@@ -4823,7 +4810,7 @@ Public Class Form1
 
         Print("Running PC Loopback Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & Random()
+        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
@@ -4840,8 +4827,6 @@ Public Class Form1
         End Using
 
         BumpProgress10()
-
-        'If Settings.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
             Log("Info", "Passed:" & result)
@@ -4871,7 +4856,7 @@ Public Class Form1
 
         Print("Running Intenet Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & Random()
+        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
@@ -5026,7 +5011,7 @@ Public Class Form1
         & "&Type=" & CStr(Grid) _
         & "&Ver=" & CStr(PropUseIcons) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
-        & "&r=" & Random()
+        & "&r=" & RandomNumber.Random()
         Return data
 
     End Function
@@ -5440,7 +5425,7 @@ Public Class Form1
         Dim client As New WebClient
         Dim Checkname As String
         Try
-            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & Random())
+            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
         Catch ex As ArgumentNullException
             ErrorLog("Error:Cannot get new name:" & ex.Message)
             client.Dispose()
@@ -6363,7 +6348,7 @@ Public Class Form1
                 DeleteEvents(osconnection)
 
                 Using client As New WebClient()
-                    Dim Stream = client.OpenRead(SecureDomain() & "/events.txt?r=" & Random())
+                    Dim Stream = client.OpenRead(SecureDomain() & "/events.txt?r=" & RandomNumber.Random)
                     Using reader = New StreamReader(Stream)
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
@@ -6394,81 +6379,6 @@ Public Class Form1
             ErrorLog(ex.Message)
         End Try
 
-    End Sub
-
-    Private Sub GetGridServerName()
-
-        PropMyUPnpMap = New UPnp(PropMyFolder)
-
-        ' setup some defaults
-        Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Print("Lan IP=" & Settings.PublicIP)
-        Settings.PrivateURL = Settings.PublicIP
-        Settings.GridServerName = Settings.PublicIP
-
-        ' Set them back to the DNS name if there is one
-        If Settings.DNSName.Length > 0 Then
-            Settings.PublicIP = Settings.DNSName
-            Settings.GridServerName = Settings.DNSName
-            Print("DNS Name=" & Settings.PublicIP)
-        End If
-
-        If Settings.ServerType = "Robust" Then
-            Settings.ExternalHostName = Settings.PublicIP
-            Print("Robust Server mode")
-            Print("IP=" & Settings.ExternalHostName)
-        ElseIf Settings.ServerType = "OsGrid" Then
-            Dim ip As String
-            Settings.PublicIP = "hg.osgrid.org"
-            Try
-                Using client As New WebClient ' downloadclient for web page
-                    ip = client.DownloadString("http://api.ipify.org/?r=" & Form1.Random())
-                    Settings.ExternalHostName = ip
-                End Using
-            Catch ex As WebException
-            End Try
-            Print("OSGrid Region mode")
-            Print("IP=" & Settings.ExternalHostName)
-        ElseIf Settings.ServerType = "Region" Then
-            Settings.ExternalHostName = Settings.PublicIP
-            Print("Region mode.")
-            Print("IP=" & Settings.ExternalHostName)
-            Settings.GridServerName = Settings.PublicIP
-        ElseIf Settings.ServerType = "Metro" Then
-            Dim ip As String = ""
-            Try
-                Using client As New WebClient ' downloadclient for web page
-                    ip = client.DownloadString("http://api.ipify.org/?r=" & Form1.Random())
-
-                End Using
-            Catch ex As ArgumentNullException
-            Catch ex As WebException
-            Catch ex As NotSupportedException
-            End Try
-            Settings.ExternalHostName = ip
-            Settings.GridServerName = Settings.PublicIP
-            Print("Metro Region mode")
-            Print("Host=" & Settings.ExternalHostName)
-        ElseIf Settings.ServerType = "AviWorlds" Then
-            Dim ip As String = ""
-            Try
-                Using client As New WebClient ' downloadclient for web page
-                    ip = client.DownloadString("http://api.ipify.org/?r=" & Form1.Random())
-                End Using
-            Catch ex As ArgumentNullException
-            Catch ex As WebException
-            Catch ex As NotSupportedException
-            End Try
-            Settings.ExternalHostName = ip
-            Settings.GridServerName = Settings.PublicIP
-            Print("AviWorlds Region mode")
-            Print("IP=" & Settings.ExternalHostName)
-        End If
-
-        If Settings.OverrideName.Length > 0 Then
-            Settings.ExternalHostName = Settings.OverrideName
-            Print("Region IP=" & Settings.ExternalHostName)
-        End If
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click

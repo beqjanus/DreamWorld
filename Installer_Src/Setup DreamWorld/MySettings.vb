@@ -315,6 +315,7 @@ Public Class MySettings
             SetMySetting("EventTimerEnabled", CStr(Value))
         End Set
     End Property
+
     Public Property OutBoundPermissions() As Boolean
         Get
             Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)
@@ -443,12 +444,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property GridServerName() As String
+    Public Property BaseHostName() As String
         Get
-            Return GetMySetting("GridServerName", DNSName)
+            Return GetMySetting("BaseHostName", DNSName)
         End Get
         Set
-            SetMySetting("GridServerName", Value)
+            SetMySetting("BaseHostName", Value)
         End Set
     End Property
 
