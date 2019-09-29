@@ -3,7 +3,7 @@
     Public Sub SetServerNames()
         'GridNames.SetServerNames
         ' setup some defaults
-        Dim PropMyUPnpMap = New UPnp(Form1.PropMyFolder)
+        Dim PropMyUPnpMap = New UPnp()
 
         ' all private  in case of local mode
         Form1.Settings.PublicIP = PropMyUPnpMap.LocalIP
@@ -49,11 +49,11 @@
             Form1.Print("Region IP=" & Form1.Settings.ExternalHostName)
         End If
 
-        Form1.Print("WAN IP =" & PublicIP.IP)
-        Form1.Print("LAN IP = " & Form1.Settings.PrivateURL)
-        Form1.Print("DNS =" & Form1.Settings.DNSName)
-        Form1.Print("Region = " & Form1.Settings.ExternalHostName)
-        Form1.Print("Gridserver = " & Form1.Settings.BaseHostName)
+        Form1.Print("WAN IP   = " & PublicIP.IP)
+        Form1.Print("LAN IP   = " & Form1.Settings.PrivateURL)
+        Form1.Print("DNS Name = " & Form1.Settings.DNSName)
+        Form1.Print("Region   = " & Form1.Settings.ExternalHostName)
+        Form1.Print("Hostname = " & Form1.Settings.BaseHostName)
 
     End Sub
 
