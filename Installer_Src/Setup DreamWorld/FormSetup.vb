@@ -613,7 +613,7 @@ Public Class Form1
         End If
 
         PropOpensimIsRunning() = True
-        PropMyUPnpMap = New UPnp()
+
         If PropViewedSettings Then
 
             If SetPublicIP() Then
@@ -785,7 +785,7 @@ Public Class Form1
         CheckForUpdates()
 
         CheckDefaultPorts()
-
+        PropMyUPnpMap = New UPnp()
         If SetPublicIP() Then
             OpenPorts()
         End If
@@ -3599,6 +3599,7 @@ Public Class Form1
     ''' <returns></returns>
     Public Function ConsoleCommand(name As String, command As String) As Boolean
 
+        If command Is Nothing Then Return False
         If command.Length > 0 Then
 
             Dim PID As Integer
