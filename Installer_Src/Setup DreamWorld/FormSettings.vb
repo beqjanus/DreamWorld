@@ -42,6 +42,7 @@ Public Class AdvancedForm
     Dim FormDNSName As New FormDNSName
     Dim FormPublicity As New FormPublicity
     Dim FormServerType As New FormServerType
+    Dim FormJOpenSim As New FormJOpenSim
 
 #End Region
 
@@ -291,6 +292,15 @@ Public Class AdvancedForm
         FormServerType = New FormServerType
         FormCaches.Activate()
         FormServerType.Visible = True
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+        FormJOpenSim.Close()
+        FormJOpenSim = New FormJOpenSim
+        FormJOpenSim.Activate()
+        FormJOpenSim.Visible = True
 
     End Sub
 
