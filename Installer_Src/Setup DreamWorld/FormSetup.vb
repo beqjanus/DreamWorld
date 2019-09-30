@@ -16,10 +16,22 @@
 'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
 'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
 'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
+'DEALINGS IN THE SOFTWARE.
 
 #End Region
 
+#Region "Todo"
+
+' todo
+' Ctype String to Cstr
+' rm MAP-* in Opensim\bin
+' Singlarity Search Needs help
+' Old Web maps must use port 8001
+' Warn if Welcome region is not enabled on startup.
+
+#End Region
+
+Imports System
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -574,6 +586,17 @@ Public Class Form1
         End With
 
         Print("Starting...")
+
+        Dim DefaultName = Settings.WelcomeRegion
+        Dim N = PropRegionClass.FindRegionByName(DefaultName)
+        If N = -1 Or PropRegionClass.RegionEnabled(N) = False Then
+            Dim result = MsgBox("The default 'Welcome' region " & DefaultName & " is not enabled. Continue?", vbYesNo)
+            If result = vbNo Then
+                Print("Stopped.")
+                Return
+            End If
+        End If
+
         PropOpensimIsRunning() = True
 
         PropExitHandlerIsBusy = False
@@ -1605,7 +1628,6 @@ Public Class Form1
 
         '' all grids requires these setting in Opensim.ini
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
-        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
 
         ' once and only once toggle to get Opensim 2.91
         If Settings.DeleteScriptsOnStartupOnce() Then
@@ -5404,7 +5426,7 @@ Public Class Form1
             client.Dispose()
         End Try
 
-        If Checkname = "UPDATED" Or Checkname = "NEW" Then Return True
+        If Checkname = "UPDATED" Then Return True
         Return False
 
     End Function
@@ -5430,7 +5452,7 @@ Public Class Form1
         Finally
             client.Dispose()
         End Try
-        If Checkname = "NEW" Or Checkname = "UPDATED" Then
+        If Checkname = "UPDATED" Then
             Return name
         End If
         If Checkname = "NAK" Then
