@@ -1153,7 +1153,7 @@ Public Class RegionMaker
         If Mysetting Is Nothing Then
             Return ""
         End If
-        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustConnStr)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustMysqlConnection)
         Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
         Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
             .Connection = myConnection
@@ -1174,7 +1174,7 @@ Public Class RegionMaker
 
         If Form1.Settings.ServerType <> "Robust" Then Return ""
 
-        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustConnStr)
+        Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
         Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
         Dim Name As String = ""
         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1320,7 +1320,7 @@ Public Class RegionMaker
                     ' Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
-                    Dim myConnection As MySqlConnection = New MySqlConnection(Form1.PropRobustConnStr)
+                    Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
                     Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1380,7 +1380,7 @@ Public Class RegionMaker
                     Debug.Print("Partner=" + p2)
 
                     Try
-                        Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustConnStr)
+                        Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
                         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                                 .Connection = myConnection
