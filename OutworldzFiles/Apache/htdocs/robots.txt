@@ -2,3 +2,17 @@ User-agent: *
 Crawl-delay: 1
 Allow: *
 Allow: /Sitemap.xml
+Disallow: Opensim/administrator/
+Disallow: Opensim/bin/
+Disallow: Opensim/cache/
+Disallow: Opensim/cli/
+Disallow: Opensim/components/
+Disallow: Opensim/includes/
+Disallow: Opensim/installation/
+Disallow: Opensim/language/
+Disallow: Opensim/layouts/
+Disallow: Opensim/libraries/
+Disallow: Opensim/logs/
+Disallow: Opensim/modules/
+Disallow: Opensim/plugins/
+Disallow: Opensim/tmp/
