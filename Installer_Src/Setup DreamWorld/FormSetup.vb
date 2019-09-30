@@ -449,15 +449,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropRobustConnStr As String
-        Get
-            Return RobustDBConnection()
-        End Get
-        Set(value As String)
-            Diagnostics.Debug.Print("Set PropRobustConnStr")
-        End Set
-    End Property
-
     Public Property PropRobustExited() As Boolean
         Get
             Return _RobustExited
@@ -1324,7 +1315,7 @@ Public Class Form1
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", RobustDBConnection)
+        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI()
 
@@ -1396,67 +1387,6 @@ Public Class Form1
         End Try
 
     End Sub
-
-    Public Function OSSearchConnectionString() As String
-
-        Return "server=" & Settings.RobustServer() _
-        & ";database=" & "ossearch" _
-        & ";port=" & CStr(Settings.MySqlRobustDBPort) _
-        & ";user=" & Settings.RobustUsername _
-        & ";password=" & Settings.RobustPassword _
-        & ";Old Guids=true;Allow Zero Datetime=true;"
-
-    End Function
-
-    Public Function RegionDBConnection() As String
-
-        Return """" _
-        & "Data Source=" & Settings.RegionServer _
-        & ";Database=" & Settings.RegionDBName _
-        & ";Port=" & CStr(Settings.MySqlRegionDBPort) _
-        & ";User ID=" & Settings.RegionDBUsername _
-        & ";Password=" & Settings.RegionDbPassword _
-        & ";Old Guids=true;Allow Zero Datetime=true" _
-        & ";Connect Timeout=28800;Command Timeout=28800;" _
-        & """"
-
-    End Function
-
-    Public Function RegionMySqlConnection() As String
-
-        Return "server=" & Settings.RegionServer _
-        & ";database=" & Settings.RegionDBName _
-        & ";port=" & CStr(Settings.MySqlRegionDBPort) _
-        & ";user=" & Settings.RegionDBUsername _
-        & ";password=" & Settings.RegionDbPassword
-
-    End Function
-
-    Public Function RobustDBConnection() As String
-
-        Return """" _
-            & "Data Source=" & Settings.RobustServer _
-            & ";Database=" & Settings.RobustDataBaseName _
-            & ";Port=" & CStr(Settings.MySqlRobustDBPort) _
-            & ";User ID=" & Settings.RobustUsername _
-            & ";Password=" & Settings.RobustPassword _
-            & ";Old Guids=true;Allow Zero Datetime=true" _
-            & ";Connect Timeout=28800;Command Timeout=28800;" _
-            & """"
-
-    End Function
-
-    'fkb
-    Public Function RobustMysqlConnection() As String
-
-        Return "server=" & Settings.RobustServer _
-            & ";database=" & Settings.RobustDataBaseName _
-            & ";port=" & CStr(Settings.MySqlRobustDBPort) _
-            & ";user=" & Settings.RobustUsername _
-            & ";password=" & Settings.RobustPassword _
-            & ";Old Guids=true;Allow Zero Datetime=true"
-
-    End Function
 
     Public Sub SaveIceCast()
 
@@ -1631,7 +1561,7 @@ Public Class Form1
         ' load and patch it up for MySQL
         Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
 
-        Settings.SetIni("DatabaseService", "ConnectionString", RegionDBConnection)
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
         Settings.SaveINI()
 
     End Sub
@@ -2169,7 +2099,7 @@ Public Class Form1
             ' Robust Process
             Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
 
-            Settings.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
+            Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
             Settings.SetIni("Const", "GridName", Settings.SimName)
             Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
             Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
@@ -2242,7 +2172,7 @@ Public Class Form1
     Private Sub DoWifi()
 
         Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
-        Settings.SetIni("DatabaseService", "ConnectionString", RobustDBConnection)
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         ' Wifi Section
 
@@ -3845,31 +3775,29 @@ Public Class Form1
         Dim HTML As String
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
-
-        Dim NewSQLConn As New MySqlConnection(RobustMysqlConnection())
-        Dim UserStmt = "SELECT regionName from REGIONS"
-
         Dim ToSort As New List(Of String)
-        Try
-            NewSQLConn.Open()
-            Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection())
+            Dim UserStmt = "SELECT regionName from REGIONS"
+            Try
+                NewSQLConn.Open()
+                Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            While reader.Read()
-                Dim LongName = reader.GetString(0)
-                Diagnostics.Debug.Print("regionname {0}>", LongName)
+                While reader.Read()
+                    Dim LongName = reader.GetString(0)
+                    Diagnostics.Debug.Print("regionname {0}>", LongName)
 
-                Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                If RegionNumber >= 0 And PropRegionClass.Teleport(RegionNumber) = "True" Then
-                    ToSort.Add(LongName)
-                End If
+                    Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
+                    If RegionNumber >= 0 And PropRegionClass.Teleport(RegionNumber) = "True" Then
+                        ToSort.Add(LongName)
+                    End If
 
-            End While
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.Message)
-        Finally
-            NewSQLConn.Close()
-        End Try
+                End While
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.Message)
+
+            End Try
+        End Using
 
         ' Acquire keys And sort them.
         ToSort.Sort()
@@ -5476,7 +5404,7 @@ Public Class Form1
             client.Dispose()
         End Try
 
-        If Checkname = "UPDATED" Then Return True
+        If Checkname = "UPDATED" Or Checkname = "NEW" Then Return True
         Return False
 
     End Function
@@ -6336,7 +6264,7 @@ Public Class Form1
         Dim Simevents As New Dictionary(Of String, String)
         Dim ctr As Integer = 0
         Try
-            Using osconnection As MySqlConnection = New MySqlConnection(OSSearchConnectionString())
+            Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
                 Try
                     osconnection.Open()
                 Catch ex As InvalidOperationException
