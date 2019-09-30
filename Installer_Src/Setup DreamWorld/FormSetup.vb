@@ -2680,37 +2680,37 @@ Public Class Form1
 
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
-        Settings.LoadApacheIni(ini)
-        Settings.SetApacheIni("Listen", CType(Settings.ApachePort, String))
-        Settings.SetApacheIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
-        Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetApacheIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetApacheIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
-        Settings.SetApacheIni("ServerName", Settings.PublicIP)
-        Settings.SetApacheIni("<VirtualHost", "  *:" & CType(Settings.ApachePort, String) & ">")
-        Settings.SetApacheIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        Settings.SetApacheIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
-        Settings.SetApacheIni("LoadModule PHP7_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
-        Settings.SaveApacheINI(ini, "httpd.conf")
+        Settings.LoadLiteralIni(ini)
+        Settings.SetLiteralIni("Listen", CType(Settings.ApachePort, String))
+        Settings.SetLiteralIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
+        Settings.SetLiteralIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
+        Settings.SetLiteralIni("ServerName", Settings.PublicIP)
+        Settings.SetLiteralIni("<VirtualHost", "  *:" & CType(Settings.ApachePort, String) & ">")
+        Settings.SetLiteralIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        Settings.SetLiteralIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
+        Settings.SetLiteralIni("LoadModule PHP7_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
+        Settings.SaveLiteralIni(ini, "httpd.conf")
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
-        Settings.LoadApacheIni(ini)
-        Settings.SetApacheIni("Listen", Settings.PrivateURL & ":" & "443")
-        Settings.SetApacheIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
-        Settings.SetApacheIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
-        Settings.SetApacheIni("ServerName", Settings.PublicIP)
-        Settings.SetApacheIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
-        Settings.SaveApacheINI(ini, "httpd-ssl.conf")
+        Settings.LoadLiteralIni(ini)
+        Settings.SetLiteralIni("Listen", Settings.PrivateURL & ":" & "443")
+        Settings.SetLiteralIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
+        Settings.SetLiteralIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
+        Settings.SetLiteralIni("ServerName", Settings.PublicIP)
+        Settings.SetLiteralIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+        Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 
     End Sub
 
     Private Sub DoPHP()
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
-        Settings.LoadApacheIni(ini)
-        Settings.SetApacheIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
-        Settings.SaveApacheINI(ini, "php.ini")
+        Settings.LoadLiteralIni(ini)
+        Settings.SetLiteralIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
+        Settings.SaveLiteralIni(ini, "php.ini")
 
     End Sub
 

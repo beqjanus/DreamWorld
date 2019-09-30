@@ -250,12 +250,6 @@
     <Compile Include="FormIARSave.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormJOpenSim.Designer.vb">
-      <DependentUpon>FormJOpenSim.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormJOpenSim.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormRegionPopup.Designer.vb">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </Compile>
@@ -475,9 +469,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormJOpenSim.resx">
-      <DependentUpon>FormJOpenSim.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPermissions.en.resx">
       <DependentUpon>FormPermissions.vb</DependentUpon>

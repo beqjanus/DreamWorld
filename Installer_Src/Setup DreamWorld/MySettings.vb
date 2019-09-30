@@ -1661,7 +1661,7 @@ Public Class MySettings
 #Region "Apache"
 
     ' reader ApacheStrings
-    Public Sub LoadApacheIni(ini As String)
+    Public Sub LoadLiteralIni(ini As String)
 
         Apachein.Clear()
         Using Reader As New StreamReader(ini, System.Text.Encoding.ASCII)
@@ -1672,7 +1672,7 @@ Public Class MySettings
 
     End Sub
 
-    Public Sub SetApacheIni(Name As String, value As String)
+    Public Sub SetLiteralIni(Name As String, value As String)
 
         Apacheout.Clear()
 
@@ -1693,7 +1693,7 @@ Public Class MySettings
     End Sub
 
     'writer of ApacheStrings
-    Public Sub SaveApacheINI(ini As String, name As String)
+    Public Sub SaveLiteralIni(ini As String, name As String)
 
         ' make a backup
         Try

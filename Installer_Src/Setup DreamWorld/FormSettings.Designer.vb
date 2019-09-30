@@ -44,7 +44,6 @@ Partial Class AdvancedForm
         Me.Button4 = New System.Windows.Forms.Button()
         Me.CacheButton1 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
@@ -101,7 +100,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(14, 249)
+        Me.MapsButton.Location = New System.Drawing.Point(16, 222)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -151,7 +150,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(14, 277)
+        Me.PortsButton1.Location = New System.Drawing.Point(16, 250)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -240,19 +239,8 @@ Partial Class AdvancedForm
         Me.ToolTip1.SetToolTip(Me.Button1, "Click to set up Various Server Types")
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(14, 219)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(143, 23)
-        Me.Button5.TabIndex = 21
-        Me.Button5.Text = "JOpensim"
-        Me.ToolTip1.SetToolTip(Me.Button5, "Click to set up a PHP based Web Interface")
-        Me.Button5.UseVisualStyleBackColor = True
-        '
         'GroupBox8
         '
-        Me.GroupBox8.Controls.Add(Me.Button5)
         Me.GroupBox8.Controls.Add(Me.Button1)
         Me.GroupBox8.Controls.Add(Me.CacheButton1)
         Me.GroupBox8.Controls.Add(Me.Button4)
@@ -315,6 +303,5 @@ Partial Class AdvancedForm
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents CacheButton1 As Button
-    Friend WithEvents Button5 As Button
     Friend WithEvents Button1 As Button
 End Class
