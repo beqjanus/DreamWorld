@@ -39,15 +39,14 @@ Partial Class FormServerType
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.MetroRadioButton2)
         Me.GroupBox1.Controls.Add(Me.SaveButton)
         Me.GroupBox1.Controls.Add(Me.GridRegionButton)
         Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
         Me.GroupBox1.Controls.Add(Me.GridServerButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 39)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 32)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(190, 187)
+        Me.GroupBox1.Size = New System.Drawing.Size(190, 171)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Server Type"
@@ -55,7 +54,7 @@ Partial Class FormServerType
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(151, 5)
+        Me.PictureBox1.Location = New System.Drawing.Point(76, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(28, 32)
         Me.PictureBox1.TabIndex = 1885
@@ -133,7 +132,7 @@ Partial Class FormServerType
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
         Me.ServerTypeToolStripMenuItem.Text = "Server Type"
         '
         'FormServerType
@@ -141,6 +140,7 @@ Partial Class FormServerType
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(214, 215)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
