@@ -332,8 +332,8 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.Invarient))  ' 7 Unknown
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.Invarient))  ' 8 - 1 User
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Invarient))  ' 9 - 2 user
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 9 - 2 user
-
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 10 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Form1.Invarient))  '  11- home
         Form1.PropUpdateView = True ' make form refresh
 
         LoadMyListView()
