@@ -200,37 +200,32 @@ Public Class NetServer
         Dim HTML As String
 
         HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
-
-        Dim NewSQLConn As New MySqlConnection(Settings.RobustConnStr)
-        Diagnostics.Debug.Print("Conn:" & Settings.RobustConnStr)
-        Dim UserStmt = "SELECT regionName from REGIONS"
-
         Dim ToSort As New List(Of String)
-        Try
-            NewSQLConn.Open()
-        Catch ex As InvalidOperationException
-        Catch ex As MySqlException
-            Return HTML
-        End Try
 
-        Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-        Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Diagnostics.Debug.Print("Conn:" & Settings.RobustMysqlConnection)
+            Dim UserStmt = "SELECT regionName from REGIONS"
+            Try
+                NewSQLConn.Open()
+            Catch ex As InvalidOperationException
+            Catch ex As MySqlException
+                Return HTML
+            End Try
 
-        While reader.Read()
-            Dim LongName = reader.GetString(0)
+            Using cmd As New MySqlCommand(UserStmt, NewSQLConn)
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-            Diagnostics.Debug.Print("regionname {0}:", LongName)
-
-            Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-            If RegionNumber >= 0 Then
-                If PropRegionClass.Teleport(RegionNumber) = "True" Then
-                    ToSort.Add(LongName)
-                End If
-            End If
-        End While
-
-        cmd.Dispose()
-        NewSQLConn.Close()
+                While reader.Read()
+                    Dim LongName = reader.GetString(0)
+                    Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
+                    If RegionNumber >= 0 Then
+                        If PropRegionClass.Teleport(RegionNumber) = "True" Then
+                            ToSort.Add(LongName)
+                        End If
+                    End If
+                End While
+            End Using
+        End Using
 
         ' Acquire keys And sort them.
         ToSort.Sort()
