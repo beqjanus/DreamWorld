@@ -70,7 +70,6 @@ Public Class MySettings
             AccountConfirmationRequired() = My.Settings.AccountConfirmationRequired
 
             BackupFolder() = My.Settings.BackupFolder
-            BootStart() = My.Settings.BootStart
 
             Clouds() = False    ' does not exist in old code, so set it off
             Density() = 0.5
@@ -123,7 +122,6 @@ Public Class MySettings
             RegionDBUsername() = My.Settings.RegionDBUsername
 
             ' Robust
-            RobustConnStr() = Form1.PropRobustConnStr
             RobustServer() = My.Settings.RobustServer
             RobustPassword() = My.Settings.RobustPassword
             RobustUsername() = My.Settings.RobustUsername
@@ -307,6 +305,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property JOpenSimEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("JOpenSimEnabled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("JOpenSimEnabled", CStr(Value))
+        End Set
+    End Property
+
     Public Property EventTimerEnabled() As Boolean
         Get
             Return CType(GetMySetting("EventTimerEnabled", "True"), Boolean)
@@ -403,17 +410,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)
-        End Set
-    End Property
-
-    ''' /end fsassets
-
-    Public Property RobustConnStr() As String
-        Get
-            Return GetMySetting("RobustConnString", "")
-        End Get
-        Set
-            SetMySetting("RobustConnString", Value)
         End Set
     End Property
 
@@ -1597,15 +1593,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property BootStart() As Boolean
-        Get
-            Return CType(GetMySetting("BootStart", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("BootStart", CStr(Value))
-        End Set
-    End Property
-
     Public Property EnableHypergrid() As Boolean
         Get
             Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
@@ -1727,6 +1714,70 @@ Public Class MySettings
         End Try
 
     End Sub
+
+#End Region
+
+#Region "Robust"
+
+    Public Function RobustDBConnection() As String
+
+        Return """" _
+            & "Data Source=" & RobustServer _
+            & ";Database=" & RobustDataBaseName _
+            & ";Port=" & CStr(MySqlRobustDBPort) _
+            & ";User ID=" & RobustUsername _
+            & ";Password=" & RobustPassword _
+            & ";Old Guids=true;Allow Zero Datetime=true" _
+            & ";Connect Timeout=28800;Command Timeout=28800;" _
+            & """"
+
+    End Function
+
+    Public Function RobustMysqlConnection() As String
+
+        Return "server=" & RobustServer _
+            & ";database=" & RobustDataBaseName _
+            & ";port=" & CStr(MySqlRobustDBPort) _
+            & ";user=" & RobustUsername _
+            & ";password=" & RobustPassword _
+            & ";Old Guids=true;Allow Zero Datetime=true"
+
+    End Function
+
+    Public Function OSSearchConnectionString() As String
+
+        Return "server=" & RobustServer() _
+        & ";database=" & "ossearch" _
+        & ";port=" & CStr(MySqlRobustDBPort) _
+        & ";user=" & RobustUsername _
+        & ";password=" & RobustPassword _
+        & ";Old Guids=true;Allow Zero Datetime=true;"
+
+    End Function
+
+    Public Function RegionDBConnection() As String
+
+        Return """" _
+        & "Data Source=" & RegionServer _
+        & ";Database=" & RegionDBName _
+        & ";Port=" & CStr(MySqlRegionDBPort) _
+        & ";User ID=" & RegionDBUsername _
+        & ";Password=" & RegionDbPassword _
+        & ";Old Guids=true;Allow Zero Datetime=true" _
+        & ";Connect Timeout=28800;Command Timeout=28800;" _
+        & """"
+
+    End Function
+
+    Public Function RegionMySqlConnection() As String
+
+        Return "server=" & RegionServer _
+        & ";database=" & RegionDBName _
+        & ";port=" & CStr(MySqlRegionDBPort) _
+        & ";user=" & RegionDBUsername _
+        & ";password=" & RegionDbPassword
+
+    End Function
 
 #End Region
 
