@@ -635,6 +635,7 @@ Public Class RegionList
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
                         Num = DGICON.Home
+                        Letter = "Running"
                     Else
                         Letter = "Running"
                         Num = DGICON.up
