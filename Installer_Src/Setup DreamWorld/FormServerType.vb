@@ -142,20 +142,6 @@
 
     End Sub
 
-    Private Sub ServerTypeToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
-
-        Form1.Help("ServerType")
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("ServerType")
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.Help("ServerType")
-    End Sub
-
 #End Region
 
 End Class

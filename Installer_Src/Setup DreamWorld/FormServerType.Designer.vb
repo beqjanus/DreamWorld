@@ -23,7 +23,6 @@ Partial Class FormServerType
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MetroRadioButton2 = New System.Windows.Forms.RadioButton()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.GridRegionButton = New System.Windows.Forms.RadioButton()
@@ -33,7 +32,6 @@ Partial Class FormServerType
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ServerTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -50,15 +48,6 @@ Partial Class FormServerType
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Server Type"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(76, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(28, 32)
-        Me.PictureBox1.TabIndex = 1885
-        Me.PictureBox1.TabStop = False
         '
         'MetroRadioButton2
         '
@@ -132,7 +121,7 @@ Partial Class FormServerType
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ServerTypeToolStripMenuItem.Text = "Server Type"
         '
         'FormServerType
@@ -140,7 +129,6 @@ Partial Class FormServerType
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(214, 215)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -148,7 +136,6 @@ Partial Class FormServerType
         Me.Text = "Server Type"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -157,7 +144,6 @@ Partial Class FormServerType
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents MetroRadioButton2 As RadioButton
     Friend WithEvents SaveButton As Button
     Friend WithEvents GridRegionButton As RadioButton
