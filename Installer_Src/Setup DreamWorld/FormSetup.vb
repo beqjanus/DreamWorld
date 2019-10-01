@@ -1116,17 +1116,19 @@ Public Class Form1
 
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
         For Each adapter As NetworkInterface In Adapters
+            Diagnostics.Debug.Print(adapter.Name)
+
             If adapter.Name = "Loopback" Then
                 Print("Setting Loopback to WAN IP address")
-                Dim LoopbackProcess As New Process
-                LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                LoopbackProcess.StartInfo.FileName = PropMyFolder & "\NAT_Loopback_Tool.bat"
-                LoopbackProcess.StartInfo.CreateNoWindow = False
-                LoopbackProcess.StartInfo.Arguments = """" & adapter.Name & """"
-                LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                LoopbackProcess.Start()
-                LoopbackProcess.WaitForExit()
-                LoopbackProcess.Dispose()
+                Using LoopbackProcess As New Process
+                    LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                    LoopbackProcess.StartInfo.FileName = PropMyFolder & "\NAT_Loopback_Tool.bat"
+                    LoopbackProcess.StartInfo.CreateNoWindow = False
+                    LoopbackProcess.StartInfo.Arguments = """" & adapter.Name & """"
+                    LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    LoopbackProcess.Start()
+                    LoopbackProcess.WaitForExit()
+                End Using
             End If
         Next
 
@@ -1632,7 +1634,7 @@ Public Class Form1
         ' once and only once toggle to get Opensim 2.91
         If Settings.DeleteScriptsOnStartupOnce() Then
             KillOldFiles()  ' wipe out DLL's
-            Dim Clr As New ClrCache()
+            ClrCache.WipeScripts()
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
@@ -2606,39 +2608,40 @@ Public Class Form1
             Sleep(4000)
 
             Try
-                Dim ApacheProcess As New Process With {
-                    .EnableRaisingEvents = True
-                }
-                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\Apache\bin\httpd.exe"
-                ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\Apache\bin\"
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                ApacheProcess.Start()
-                Application.DoEvents()
-                ApacheProcess.WaitForExit()
-                code = ApacheProcess.ExitCode
-                If code <> 0 Then
-                    MsgBox("Apache failed to install:" & CStr(code), vbInformation, "Error")
-                Else
-                    PropApacheUninstalling = False ' installed now, trap errors
-                End If
-                Sleep(100)
-                Print("Starting Apache web server")
-                ApacheProcess.StartInfo.FileName = "net"
-                ApacheProcess.StartInfo.Arguments = "start " & "ApacheHTTPServer"
-                ApacheProcess.Start()
-                Application.DoEvents()
-                ApacheProcess.WaitForExit()
-                code = ApacheProcess.ExitCode
-                If code <> 0 Then
-                    Print("Apache failed to start:" & CStr(code))
-                Else
-                    ApachePictureBox.Image = My.Resources.nav_plain_green
-                    ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
+                Using ApacheProcess As New Process With {
+                        .EnableRaisingEvents = True
+                    }
+                    ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                    ApacheProcess.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\Apache\bin\httpd.exe"
+                    ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+                    ApacheProcess.StartInfo.CreateNoWindow = True
+                    ApacheProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\Apache\bin\"
+                    ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    ApacheProcess.Start()
                     Application.DoEvents()
-                End If
+                    ApacheProcess.WaitForExit()
+                    code = ApacheProcess.ExitCode
+                    If code <> 0 Then
+                        MsgBox("Apache failed to install:" & CStr(code), vbInformation, "Error")
+                    Else
+                        PropApacheUninstalling = False ' installed now, trap errors
+                    End If
+                    Sleep(100)
+                    Print("Starting Apache web server")
+                    ApacheProcess.StartInfo.FileName = "net"
+                    ApacheProcess.StartInfo.Arguments = "start " & "ApacheHTTPServer"
+                    ApacheProcess.Start()
+                    Application.DoEvents()
+                    ApacheProcess.WaitForExit()
+                    code = ApacheProcess.ExitCode
+                    If code <> 0 Then
+                        Print("Apache failed to start:" & CStr(code))
+                    Else
+                        ApachePictureBox.Image = My.Resources.nav_plain_green
+                        ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
+                        Application.DoEvents()
+                    End If
+                End Using
             Catch ex As Exception
                 Print("Apache failed to start:" & ex.Message)
             End Try
@@ -2746,7 +2749,13 @@ Public Class Form1
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/?_Opensim=" & RandomNumber.Random)
-            Catch ex As Exception
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As WebException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As NotSupportedException
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
             End Try
@@ -2766,24 +2775,24 @@ Public Class Form1
         If Settings.ApacheService Then Return
 
         If Settings.ApacheService Then
-            Dim ApacheProcess As New Process()
-            Print("Stopping Apache ")
-            Try
-                ApacheProcess.StartInfo.FileName = "net.exe"
-                ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                ApacheProcess.Start()
-                ApacheProcess.WaitForExit()
-                Dim code = ApacheProcess.ExitCode
-                If code <> 0 Then
-                    Log("Info", "No Apache to stop")
-                End If
-            Catch ex As Exception
-                Print("Error Apache did Not stop" & ex.Message)
-            Finally
-                ApacheProcess.Dispose()
-            End Try
+            Using ApacheProcess As New Process()
+                Print("Stopping Apache ")
+                Try
+                    ApacheProcess.StartInfo.FileName = "net.exe"
+                    ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
+                    ApacheProcess.StartInfo.CreateNoWindow = True
+                    ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    ApacheProcess.Start()
+                    ApacheProcess.WaitForExit()
+                    Dim code = ApacheProcess.ExitCode
+                    If code <> 0 Then
+                        Log("Info", "No Apache to stop")
+                    End If
+                Catch ex As Exception
+                    Print("Error Apache did Not stop" & ex.Message)
+
+                End Try
+            End Using
         Else
             Zap("httpd")
             Zap("rotatelogs")
@@ -3154,7 +3163,7 @@ Public Class Form1
         Application.DoEvents()
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
-            Log("Info", "Region " & BootName & " failed to start as it is already running")
+            Print(BootName & " is already running")
             Dim listP = Process.GetProcesses
             Dim id As Integer = 0
             For Each p In listP
@@ -3456,10 +3465,17 @@ Public Class Form1
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("404") Then Return True
+                Return False
             Catch ex As WebException
                 If ex.Message.Contains("404") Then Return True
                 Return False
+            Catch ex As NotSupportedException
+                If ex.Message.Contains("404") Then Return True
+                Return False
             End Try
+
             If Up.Length = 0 And PropOpensimIsRunning() Then
                 Return False
             End If
@@ -3983,26 +3999,26 @@ Public Class Form1
         Dim RegionNumber = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionNumber)
         If size = 256 Then  ' 1x1
-            Dim VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
-            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-            VarForm.Init(RegionNumber)
-            VarForm.ShowDialog()
-            VarForm.Dispose()
+            Using VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
+                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+                VarForm.Init(RegionNumber)
+                VarForm.ShowDialog()
+            End Using
         ElseIf size = 512 Then  ' 2x2
-            Dim VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
-            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-            VarForm.ShowDialog()
-            VarForm.Dispose()
+            Using VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
+                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+                VarForm.ShowDialog()
+            End Using
         ElseIf size = 768 Then ' 3x3
-            Dim VarForm As New FormDisplacement3x3 ' form for choosing a  region in  a var
-            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-            VarForm.ShowDialog()
-            VarForm.Dispose()
+            Using VarForm As New FormDisplacement3x3 ' form for choosing a  region in  a var
+                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+                VarForm.ShowDialog()
+            End Using
         ElseIf size = 1024 Then ' 4x4
-            Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
-            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-            VarForm.ShowDialog()
-            VarForm.Dispose()
+            Using VarForm As New FormDisplacement ' form for choosing a region in  a var
+                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+                VarForm.ShowDialog()
+            End Using
         Else
             Return ""
         End If
@@ -4012,16 +4028,17 @@ Public Class Form1
     End Function
 
     Private Sub AddLog(name As String)
-        Dim LogMenu As New ToolStripMenuItem With {
-            .Text = name,
-            .ToolTipText = "Click to view this log",
-            .Size = New Size(269, 26),
-            .Image = My.Resources.Resources.document_view,
-            .DisplayStyle = ToolStripItemDisplayStyle.Text
-        }
-        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
-        ViewLogsToolStripMenuItem.Visible = True
-        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
+        Using LogMenu As New ToolStripMenuItem With {
+                .Text = name,
+                .ToolTipText = "Click to view this log",
+                .Size = New Size(269, 26),
+                .Image = My.Resources.Resources.document_view,
+                .DisplayStyle = ToolStripItemDisplayStyle.Text
+            }
+            AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
+            ViewLogsToolStripMenuItem.Visible = True
+            ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
+        End Using
 
     End Sub
 
@@ -4342,48 +4359,52 @@ Public Class Form1
 
     Private Sub SetIAROARContent()
 
-        Dim client As New WebClient ' downloadclient for web pages
-        IslandToolStripMenuItem.Visible = False
-        ClothingInventoryToolStripMenuItem.Visible = False
-
-        Print("Refreshing Free OARs")
         Dim oars As String = ""
-        Try
-            oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
-        Catch ex As Exception
-            ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
-            Return
-        Finally
-            client.Dispose()
-        End Try
+        Using client As New WebClient ' downloadclient for web pages
+            IslandToolStripMenuItem.Visible = False
+            ClothingInventoryToolStripMenuItem.Visible = False
+            Print("Refreshing Free OARs")
+            Try
+                oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
+                Return
+            Catch ex As WebException
+                ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
+                Return
+            Catch ex As NotSupportedException
+                ErrorLog("No Oars, dang, something Is wrong with the Internet :-(")
+                Return
+            End Try
+        End Using
 
-        'UploadPhoto()
-
-        Application.DoEvents()
-        Dim oarreader = New StringReader(oars)
         Dim line As String = ""
-        Dim ContentSeen As Boolean = False
-        While Not ContentSeen
-            line = oarreader.ReadLine()
-            If line <> Nothing Then
-                Log("Info", "" & line)
-                Dim OarMenu As New ToolStripMenuItem With {
-                    .Text = line,
-                    .ToolTipText = "Click to load this content",
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
-                }
-                AddHandler OarMenu.Click, New EventHandler(AddressOf OarClick)
-                IslandToolStripMenuItem.Visible = True
-                IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                PropContentAvailable = True
-            Else
-                ContentSeen = True
-            End If
-        End While
+        Application.DoEvents()
+        Using oarreader = New StringReader(oars)
+            Dim ContentSeen As Boolean = False
+            While Not ContentSeen
+                line = oarreader.ReadLine()
+                If line <> Nothing Then
+                    Log("Info", "" & line)
+                    Dim OarMenu As New ToolStripMenuItem With {
+                        .Text = line,
+                        .ToolTipText = "Click to load this content",
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
+                    AddHandler OarMenu.Click, New EventHandler(AddressOf OarClick)
+                    IslandToolStripMenuItem.Visible = True
+                    IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                    PropContentAvailable = True
+                Else
+                    ContentSeen = True
+                End If
+            End While
+        End Using
+
         BumpProgress10()
 
         ' read help files for menu
-        line = ""
+
         Dim folders() = IO.Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
 
         For Each aline As String In folders
@@ -4405,34 +4426,43 @@ Public Class Form1
         Log("Info", "OARS loaded")
         Print("Refreshing Free IARs")
         Dim iars As String = ""
-        Try
-            iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
-        Catch ex As Exception
-            ErrorLog("Info:No IARS, dang, something is wrong with the Internet :-(")
-            Return
-        End Try
 
-        Dim iarreader = New StringReader(iars)
-        ContentSeen = False
-        While Not ContentSeen
-            line = iarreader.ReadLine()
-            If line <> Nothing Then
-                Log("Info", "" & line)
-                Dim IarMenu As New ToolStripMenuItem With {
-                    .Text = line,
-                    .ToolTipText = "Click to load this content the next time the simulator is started",
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
-                }
-                AddHandler IarMenu.Click, New EventHandler(AddressOf IarClick)
-                ClothingInventoryToolStripMenuItem.Visible = True
-                ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                PropContentAvailable = True
-            Else
-                ContentSeen = True
-            End If
-        End While
+        Using client As New WebClient ' downloadclient for web pages
+            Try
+                iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                ErrorLog("No IARS, dang, something Is wrong with the Internet :-(")
+                Return
+            Catch ex As WebException
+                ErrorLog("No IARS, dang, something Is wrong with the Internet :-(")
+                Return
+            Catch ex As NotSupportedException
+                ErrorLog("No IARS, dang, something Is wrong with the Internet :-(")
+                Return
+            End Try
 
-        Log("Info", " IARS loaded")
+            Using iarreader As New StringReader(iars)
+                Dim ContentSeen As Boolean = False
+                While Not ContentSeen
+                    line = iarreader.ReadLine()
+                    If line <> Nothing Then
+                        Log("Info", "" & line)
+                        Dim IarMenu As New ToolStripMenuItem With {
+                            .Text = line,
+                            .ToolTipText = "Click to load this content the next time the simulator is started",
+                            .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        }
+                        AddHandler IarMenu.Click, New EventHandler(AddressOf IarClick)
+                        ClothingInventoryToolStripMenuItem.Visible = True
+                        ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
+                        PropContentAvailable = True
+                    Else
+                        ContentSeen = True
+                    End If
+                End While
+            End Using
+        End Using
+        Log("Info", "IARS loaded")
 
         BumpProgress10()
         AddLog("All Logs")
@@ -4485,19 +4515,22 @@ Public Class Form1
 
     Public Sub CheckForUpdates()
 
-        Dim client As New WebClient ' downloadclient for web pages
-        Print("Checking for Updates")
         Dim Update As String = Nothing
-        Try
-            Update = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
-        Catch ex As ArgumentNullException
-        Catch ex As WebException
-        Catch ex As NotSupportedException
-            ErrorLog("Dang:The Outworldz web site is down")
-        Finally
-            client.Dispose()
-        End Try
-
+        Using client As New WebClient ' downloadclient for web pages
+            Print("Checking for Updates")
+            Try
+                Update = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
+            Catch ex As ArgumentNullException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Return
+            Catch ex As WebException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Return
+            Catch ex As NotSupportedException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Return
+            End Try
+        End Using
         If Update.Length = 0 Then Update = "0"
         Dim Delta As Single = 0
         Try
@@ -4507,7 +4540,7 @@ Public Class Form1
         End Try
 
         If Delta > 0 Then
-            Print("An Update is available. Downloading it now.")
+            Print("An Update is available.")
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                     .Arguments = "",
                     .FileName = """" & PropMyFolder & "\Downloader.exe" & """",
@@ -4518,7 +4551,7 @@ Public Class Form1
             Try
                 UpdateProcess.Start()
             Catch ex As ObjectDisposedException
-                Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually. ")
+                Print("Error: Could Not launch Downloader.exe. Perhaps you can can launch it manually. ")
             Catch ex As InvalidOperationException
                 Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually.")
             Catch ex As ComponentModel.Win32Exception
@@ -4638,16 +4671,22 @@ Public Class Form1
 
         Log("Info", "Public IP=" & Settings.PublicIP)
         If TestPublicLoopback() Then
-            Dim client As New WebClient ' downloadclient for web pages
-            Try
-                ' Set Public IP
-                Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
-            Catch ex As Exception
-                ErrorLog("Hmm, I cannot reach the Internet? Uh. Okay, continuing." & ex.Message)
-                Settings.DiagFailed = True
-            Finally
-                client.Dispose()
-            End Try
+            Using client As New WebClient ' downloadclient for web pages
+                Try
+                    ' Set Public IP
+                    Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
+                Catch ex As ArgumentNullException
+                    ErrorLog("Dang:The Outworldz web site is down")
+                    Settings.DiagFailed = True
+                Catch ex As WebException
+                    ErrorLog("Dang:The Outworldz web site is down")
+                    Settings.DiagFailed = True
+                Catch ex As NotSupportedException
+                    ErrorLog("Dang:The Outworldz web site is down")
+                    Settings.DiagFailed = True
+                End Try
+            End Using
+
             Settings.SaveSettings()
             BumpProgress10()
 
@@ -4727,23 +4766,27 @@ Public Class Form1
         Print("Checking Public Internet ")
 
         Dim isPortOpen As String = ""
-        Dim client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' downloadclient for web pages
 
-        ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
-        ' anonymous random ID, both of the versions of Opensim and this program, and the
-        ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
+            ' anonymous random ID, both of the versions of Opensim and this program, and the
+            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
-        Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
-        Log("Info", Url)
-        Try
-            isPortOpen = client.DownloadString(Url)
-        Catch ex As Exception
-            ErrorLog("Dang:The Outworldz web site cannot find a path back")
-            Settings.DiagFailed = True
-        Finally
-            client.Dispose()
-        End Try
-
+            Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
+            Log("Info", Url)
+            Try
+                isPortOpen = client.DownloadString(Url)
+            Catch ex As ArgumentNullException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Settings.DiagFailed = True
+            Catch ex As WebException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Settings.DiagFailed = True
+            Catch ex As NotSupportedException
+                ErrorLog("Dang:The Outworldz web site is down")
+                Settings.DiagFailed = True
+            End Try
+        End Using
         BumpProgress10()
 
         If isPortOpen = "yes" Then
