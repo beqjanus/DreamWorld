@@ -240,7 +240,7 @@ if ($publish)
 	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	
-	
+
 	print "Revisions\n";
 	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 	'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 	if (!copy ('Revisions.txt', 						'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
