@@ -23,11 +23,10 @@
 #Region "Todo"
 
 ' todo
-' Ctype String to Cstr
+
 ' rm MAP-* in Opensim\bin
 ' Singlarity Search Needs help
 ' Old Web maps must use port 8001
-' Warn if Welcome region is not enabled on startup.
 
 #End Region
 
@@ -574,6 +573,16 @@ Public Class Form1
 
 #Region "StartStop"
 
+    Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
+        Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
+
+        If desiredAssembly.Name = "the name of your assembly" Then
+            Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
+        Else
+            Return Nothing
+        End If
+    End Function
+
     ''' <summary>
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
@@ -585,11 +594,20 @@ Public Class Form1
             .InstanceName = "_Total"
         End With
 
+        AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+
         Dim DefaultName As String = ""
         Print("Starting...")
 
         Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        If N = -1 Or PropRegionClass.RegionEnabled(N) = False Then
+        If N = -1 Then
+            Dim result = MsgBox("The default 'Welcome' region " & DefaultName & " is not found in the system. Continue?", vbYesNo)
+            If result = vbNo Then
+                Print("Stopped.")
+                Return
+            End If
+        End If
+        If PropRegionClass.RegionEnabled(N) = False Then
             Dim result = MsgBox("The default 'Welcome' region " & DefaultName & " is not enabled. Continue?", vbYesNo)
             If result = vbNo Then
                 Print("Stopped.")
@@ -1476,7 +1494,7 @@ Public Class Form1
         Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
-        Settings.SetIni("AssetCache", "FileCacheEnabled", CType(Settings.CacheEnabled, String))
+        Settings.SetIni("AssetCache", "FileCacheEnabled", Settings.CacheEnabled)
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
         Settings.SaveINI()
 
@@ -1603,9 +1621,9 @@ Public Class Form1
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                     If Settings.SearchLocal Then
-                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
-                        Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
+                        Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
+                        Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                         Settings.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
@@ -1624,6 +1642,12 @@ Public Class Form1
             Case "AviWorlds"
 
         End Select
+
+        ' Support viewers object cache, default true
+        ' users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez.
+        ' change to false if you need to use old viewers that do Not support this feature
+
+        Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
         ' set new Min Timer Interval for how fast a script can go.
 
@@ -1648,7 +1672,7 @@ Public Class Form1
         End If
 
         Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.BaseHostName)
-        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CType(Settings.Primlimits, String))
+        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
 
         If Settings.Primlimits Then
             Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
@@ -1829,17 +1853,17 @@ Public Class Form1
             End If
 
             ' Extended in v 2.1
-            Settings.SetIni(simName, "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            Settings.SetIni(simName, "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
+            Settings.SetIni(simName, "NonPhysicalPrimMax", CStr(PropRegionClass.NonPhysicalPrimMax(RegionNum)))
+            Settings.SetIni(simName, "PhysicalPrimMax", CStr(PropRegionClass.PhysicalPrimMax(RegionNum)))
             If (Settings.Primlimits) Then
-                Settings.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+                Settings.SetIni(simName, "MaxPrims", CStr(PropRegionClass.MaxPrims(RegionNum)))
             Else
                 Settings.SetIni(simName, "MaxPrims", "")
             End If
 
-            Settings.SetIni(simName, "MaxAgents", CType(PropRegionClass.MaxAgents(RegionNum), String))
-            Settings.SetIni(simName, "ClampPrimSize", CType(PropRegionClass.ClampPrimSize(RegionNum), String))
-            Settings.SetIni(simName, "MaxPrims", CType(PropRegionClass.MaxPrims(RegionNum), String))
+            Settings.SetIni(simName, "MaxAgents", CStr(PropRegionClass.MaxAgents(RegionNum)))
+            Settings.SetIni(simName, "ClampPrimSize", CStr(PropRegionClass.ClampPrimSize(RegionNum)))
+            Settings.SetIni(simName, "MaxPrims", CStr(PropRegionClass.MaxPrims(RegionNum)))
 
             ' Optional
             ' Extended in v 2.31 optional things
@@ -1978,24 +2002,23 @@ Public Class Form1
             If PropRegionClass.RegionGod(RegionNum) = "True" Then
                 Settings.SetIni("Permissions", "region_owner_is_god", "True")
             Else
-                Settings.SetIni("Permissions", "region_owner_is_god", CType(Settings.RegionOwnerIsGod, String))
+                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
             End If
 
             If PropRegionClass.ManagerGod(RegionNum) = "True" Then
                 Settings.SetIni("Permissions", "region_manager_is_god", "True")
             Else
-                Settings.SetIni("Permissions", "region_manager_is_god", CType(Settings.RegionManagerIsGod, String))
+                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
             End If
 
-            Settings.SetIni("SmartStart", "Enabled", CType(PropRegionClass.SmartStart(RegionNum), String))
-            Settings.SetIni("DisallowForeigners", "Enabled", CType(PropRegionClass.DisallowForeigners(RegionNum), String))
-            Settings.SetIni("DisallowResidents", "Enabled", CType(PropRegionClass.DisallowResidents(RegionNum), String))
+            Settings.SetIni("SmartStart", "Enabled", CStr(PropRegionClass.SmartStart(RegionNum)))
+            Settings.SetIni("DisallowForeigners", "Enabled", CStr(PropRegionClass.DisallowForeigners(RegionNum)))
+            Settings.SetIni("DisallowResidents", "Enabled", CStr(PropRegionClass.DisallowResidents(RegionNum)))
 
             ' V3.15
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", CType(PropRegionClass.NonPhysicalPrimMax(RegionNum), String))
-            Settings.SetIni("Startup", "PhysicalPrimMax", CType(PropRegionClass.PhysicalPrimMax(RegionNum), String))
-
-            Settings.SetIni("XEngine", "MinTimerInterval", CType(PropRegionClass.MinTimerInterval(RegionNum), String))
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", CStr(PropRegionClass.NonPhysicalPrimMax(RegionNum)))
+            Settings.SetIni("Startup", "PhysicalPrimMax", CStr(PropRegionClass.PhysicalPrimMax(RegionNum)))
+            Settings.SetIni("XEngine", "MinTimerInterval", CStr(PropRegionClass.MinTimerInterval(RegionNum)))
 
             If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
                 Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2035,23 +2058,23 @@ Public Class Form1
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
             "BirdsEnabled = True" & vbCrLf & vbCrLf &
             ";which channel do we listen on for in world commands" & vbCrLf &
-            "BirdsChatChannel = " & CType(Settings.BirdsChatChannel, String) & vbCrLf & vbCrLf &
+            "BirdsChatChannel = " & CStr(Settings.BirdsChatChannel) & vbCrLf & vbCrLf &
             ";the number of birds to flock" & vbCrLf &
-            "BirdsFlockSize = " & CType(Settings.BirdsFlockSize, String) & vbCrLf & vbCrLf &
+            "BirdsFlockSize = " & CStr(Settings.BirdsFlockSize) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " & CType(Settings.BirdsMaxSpeed, String) & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " & CStr(Settings.BirdsMaxSpeed) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " & CType(Settings.BirdsMaxForce, String) & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " & CStr(Settings.BirdsMaxForce) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " & CType(Settings.BirdsNeighbourDistance, String) & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " & CStr(Settings.BirdsNeighbourDistance) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " & CType(Settings.BirdsDesiredSeparation, String) & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " & CStr(Settings.BirdsDesiredSeparation) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " & CType(Settings.BirdsTolerance, String) & vbCrLf & vbCrLf &
+            "BirdsTolerance = " & CStr(Settings.BirdsTolerance) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " & CType(Settings.BirdsBorderSize, String) & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " & CStr(Settings.BirdsBorderSize) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " & CType(Settings.BirdsMaxHeight, String) & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " & CStr(Settings.BirdsMaxHeight) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
@@ -2146,7 +2169,7 @@ Public Class Form1
             Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
             If Settings.SearchLocal Then
-                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CType(Settings.ApachePort, String) & "/Search/query.php")
+                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
             Else
                 Settings.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
@@ -2416,7 +2439,7 @@ Public Class Form1
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CType(Settings.ApachePort, String)
+                Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort)
                 Process.Start(webAddress)
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
@@ -2425,7 +2448,7 @@ Public Class Form1
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CType(Settings.ApachePort, String)
+                Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort)
                 Process.Start(webAddress)
             Else
                 Print("Opensim is not running. Cannot open the Web Interface.")
@@ -2533,7 +2556,7 @@ Public Class Form1
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
             SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
             SiteMapContents += "<priority>1.0</priority>" & vbCrLf
             SiteMapContents += "</url>" & vbCrLf
@@ -2707,13 +2730,13 @@ Public Class Form1
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", CType(Settings.ApachePort, String))
+        Settings.SetLiteralIni("Listen", CStr(Settings.ApachePort))
         Settings.SetLiteralIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
         Settings.SetLiteralIni("ServerName", Settings.PublicIP)
-        Settings.SetLiteralIni("<VirtualHost", "  *:" & CType(Settings.ApachePort, String) & ">")
+        Settings.SetLiteralIni("<VirtualHost", "  *:" & CStr(Settings.ApachePort) & ">")
         Settings.SetLiteralIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetLiteralIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         Settings.SetLiteralIni("LoadModule PHP7_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
@@ -2749,7 +2772,7 @@ Public Class Form1
         Using client As New WebClient ' downloadclient for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CType(Settings.ApachePort, String) & "/?_Opensim=" & RandomNumber.Random)
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As ArgumentNullException
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
@@ -4100,7 +4123,7 @@ Public Class Form1
 
     Private Sub IarClick(sender As Object, e As EventArgs)
 
-        Dim file As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
+        Dim file As String = Mid(CStr(sender.text), 1, InStr(CStr(sender.text), "|") - 2)
         file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
         If LoadIARContent(file) Then
             Print("Opensimulator will load " & file & ".  This may take time to load.")
@@ -4260,7 +4283,7 @@ Public Class Form1
 
     Private Sub OarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Mid(CType(sender.text, String), 1, InStr(CType(sender.text, String), "|") - 2)
+        Dim File As String = Mid(CStr(sender.text), 1, InStr(CStr(sender.text), "|") - 2)
         File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
         sender.checked = True
@@ -5607,7 +5630,7 @@ Public Class Form1
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim regionnum = PropRegionClass.FindRegionByName(CType(sender.text, String))
+            Dim regionnum = PropRegionClass.FindRegionByName(CStr(sender.text))
             Dim port As String = CStr(PropRegionClass.RegionPort(regionnum))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Process.Start(webAddress)
@@ -6099,7 +6122,7 @@ Public Class Form1
         If My.Computer.Keyboard.CapsLock Then
             For Pos = 1 To Len(Str)
                 Dim C As String = Mid(Str, Pos, 1)
-                Mid(Str, Pos) = CType(IIf(UCase(C) = C, LCase(C), UCase(C)), String)
+                Mid(Str, Pos) = CStr(IIf(UCase(C) = C, LCase(C), UCase(C)))
             Next
         End If
         Return Str

@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.191' ; 
+my $type  = '-V3.192' ; 
 use Cwd;
 my $dir = getcwd;
 
@@ -156,12 +156,6 @@ sleep(5);
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
-use IO::Uncompress::Unzip qw(unzip $UnzipError  );
-use IO::File ;
-
-Perlunzip( "mysql/Blank-Mysql-Data-folder.zip", 'mysql');
-
-label:
 
 print "Processing Main Zip\n";
 
@@ -188,7 +182,7 @@ ProcessDir ("OutworldzFiles\\IAR");
 ProcessDir ("OutworldzFiles\\Icecast");
 ProcessDir ("OutworldzFiles\\Mysql");
 ProcessDir ("OutworldzFiles\\OAR");
-ProcessDir ("OutworldzFiles\\PHP5");
+ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
 
 
@@ -233,11 +227,16 @@ if ($publish)
 {
 	say ("Publishing now");
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip";
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";	
+	
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip"))  {die $!;}
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
+	
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
+	
 	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	

@@ -218,17 +218,16 @@ Public Class MySettings
     Public Sub LoadIni(arg As String, comment As String)
 
         parser = New FileIniDataParser()
-
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
-
             Data = parser.ReadFile(arg, System.Text.Encoding.ASCII)
         Catch ex As Exception
             MsgBox("Error in arg:" + ex.Message)
         End Try
         INI = arg
+
     End Sub
 
 #End Region
@@ -272,13 +271,6 @@ Public Class MySettings
 
     End Sub
 
-    Shared Function Random() As String
-
-        Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.Invarient)
-
-    End Function
-
     Shared Function Stripqq(input As String) As String
 
         Return Replace(input, """", "")
@@ -304,6 +296,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property SupportViewerObjectsCache() As Boolean
+        Get
+            Return CType(GetMySetting("SupportViewerObjectsCache", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("SupportViewerObjectsCache", CStr(Value))
+        End Set
+    End Property
 
     Public Property JOpenSimEnabled() As Boolean
         Get

@@ -758,6 +758,7 @@
     <None Include="Resources\Arrow2Right.png" />
     <None Include="Resources\Arrow2Left.png" />
     <None Include="Resources\home.png" />
+    <None Include="Resources\DotNetZip.dll" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />
