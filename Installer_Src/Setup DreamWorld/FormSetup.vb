@@ -585,10 +585,10 @@ Public Class Form1
             .InstanceName = "_Total"
         End With
 
+        Dim DefaultName As String = ""
         Print("Starting...")
 
-        Dim DefaultName = Settings.WelcomeRegion
-        Dim N = PropRegionClass.FindRegionByName(DefaultName)
+        Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If N = -1 Or PropRegionClass.RegionEnabled(N) = False Then
             Dim result = MsgBox("The default 'Welcome' region " & DefaultName & " is not enabled. Continue?", vbYesNo)
             If result = vbNo Then
@@ -697,6 +697,7 @@ Public Class Form1
         ' done with bootup
         ProgressBar1.Visible = False
         ToolBar(True)
+
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
