@@ -325,7 +325,28 @@ Public Class FormDiva
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
         If Not initted Then Return
+        If Form1.Settings.ApacheEnable And Not ApacheCheckbox.Checked Then
+            RemoveApache()
+        End If
+
         Form1.Settings.ApacheEnable = ApacheCheckbox.Checked
+
+    End Sub
+
+    Private Sub RemoveApache()
+
+        Dim ApacheProcess As New Process()
+        ApacheProcess.StartInfo.FileName = "sc"
+        ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+        ApacheProcess.Start()
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+        Form1.Sleep(1000)
+        ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
+        ApacheProcess.Start()
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+        Form1.Print("Apache has been removed as a service")
 
     End Sub
 
