@@ -299,7 +299,7 @@ Public Class MySettings
 
     Public Property SupportViewerObjectsCache() As Boolean
         Get
-            Return CType(GetMySetting("SupportViewerObjectsCache", "False"), Boolean)
+            Return CType(GetMySetting("SupportViewerObjectsCache", "True"), Boolean)
         End Get
         Set
             SetMySetting("SupportViewerObjectsCache", CStr(Value))
