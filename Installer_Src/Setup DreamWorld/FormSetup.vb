@@ -3155,6 +3155,14 @@ Public Class Form1
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Log("Info", "Region " & BootName & " failed to start as it is already running")
+            Dim listP = Process.GetProcesses
+            Dim id As Integer = 0
+            For Each p In listP
+                If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
+                    Regionclass.ProcessID(RegionNumber) = p.Id
+                End If
+            Next
+
             Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
             Return False
         End If
