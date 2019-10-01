@@ -2,15 +2,23 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.193 
+Unchecking Apache as a Service removes the service
+Bug in Email prevented it from emailintg confimation of a new user
+Bug in Settings caused Clear Cache button to crash
+Cache setting added to enable viewer caches.
+Iconic Zip DLL embeded in exe for updates.
+
 V3.192
 Update PHP to PHP7
-Add Home Icon
+Add Home Icon for the Welcome region when it is booted
 Detect running Opensims and add them to PID so we can stop them
 Test with Joomla/JOpensim
 Refactors for Region Type, Usings, RobustDBConnection
 
+
 V3.191
-Stupid Oops in Regions -c opuld not add a new region
+Stupid Oops in Regions,could not add a new region
 
 V3.19 
 Updated manual for upcoming 3.2 release
