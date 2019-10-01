@@ -594,6 +594,7 @@ Public Class Form1
             .InstanceName = "_Total"
         End With
 
+        ' dotnetzip is part of the resources so we can overwrite it.
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
         Dim DefaultName As String = ""
@@ -677,7 +678,14 @@ Public Class Form1
             Else
                 My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
             End If
-        Catch
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As FileNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As System.Security.SecurityException
         End Try
 
         If Not StartRobust() Then
@@ -687,6 +695,11 @@ Public Class Form1
         If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
             MsgBox("Please type the Grid Owner's avatar name into the Robust window. Press <enter> for UUID and Model name. Then press this OK button", vbInformation, "Info")
+
+            If Settings.ConsoleShow = False Then
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            End If
+
             Settings.RunOnce = True
             Settings.SaveSettings()
         End If
@@ -2249,7 +2262,7 @@ Public Class Form1
         ' Gmail requires you set to set low security access
         Settings.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
         Settings.SetIni("WifiService", "SmtpPort", CStr(Settings.SmtpPort))
-        Settings.SetIni("WifiService", "SmtPropUserName", Settings.SmtPropUserName)
+        Settings.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
         Settings.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
 
         Settings.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
@@ -2596,7 +2609,7 @@ Public Class Form1
         If Running Then
             Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
+            ToolTip1.SetToolTip(ApachePictureBox, "Apache is running")
             Return
         End If
         Application.DoEvents()
@@ -2646,7 +2659,7 @@ Public Class Form1
                     ApacheProcess.WaitForExit()
                     code = ApacheProcess.ExitCode
                     If code <> 0 Then
-                        MsgBox("Apache failed to install:" & CStr(code), vbInformation, "Error")
+                        Print("Apache Did not install")
                     Else
                         PropApacheUninstalling = False ' installed now, trap errors
                     End If
@@ -3654,7 +3667,13 @@ Public Class Form1
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = "Robust" Then
-            Return RobustProcess.MainWindowHandle
+            Dim h As IntPtr
+            Try
+                h = RobustProcess.MainWindowHandle
+            Catch ex As Exception
+                h = IntPtr.Zero
+            End Try
+            Return h
         End If
 
         Dim Regionlist = PropRegionClass.RegionListByGroupNum(Groupname)
