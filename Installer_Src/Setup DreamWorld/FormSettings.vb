@@ -36,6 +36,7 @@ Public Class AdvancedForm
     Dim FormDiva As New FormDiva
     Dim FormPhysics As New FormPhysics
     Dim FormDatabase As New FormDatabase
+    Dim FormCache As New FormCaches
     Dim FormRestart As New FormRestart
     Dim FormPorts As New FormPorts
     Dim FormPermissions As New FormPermissions
@@ -278,10 +279,10 @@ Public Class AdvancedForm
 
     Private Sub CacheButton1_Click(sender As Object, e As EventArgs) Handles CacheButton1.Click
 
-        FormCaches.Close()
-        FormCaches = New FormCaches
-        FormCaches.Activate()
-        FormCaches.Visible = True
+        FormCache.Close()
+        FormCache = New FormCaches
+        FormCache.Activate()
+        FormCache.Visible = True
 
     End Sub
 
