@@ -335,18 +335,19 @@ Public Class FormDiva
 
     Private Sub RemoveApache()
 
-        Dim ApacheProcess As New Process()
-        ApacheProcess.StartInfo.FileName = "sc"
-        ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-        ApacheProcess.Start()
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
-        Form1.Sleep(1000)
-        ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
-        ApacheProcess.Start()
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
-        Form1.Print("Apache has been removed as a service")
+        Using ApacheProcess As New Process()
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+            ApacheProcess.Start()
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+            Form1.Sleep(1000)
+            ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
+            ApacheProcess.Start()
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+            Form1.Print("Apache has been removed as a service")
+        End Using
 
     End Sub
 
