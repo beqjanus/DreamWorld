@@ -48,7 +48,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.192"
+    Private _MyVersion As String = "3.193"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -2771,7 +2771,7 @@ Public Class Form1
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("extension_dir", " = """ & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
+        Settings.SetLiteralIni("doc_root", " = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
         Settings.SaveLiteralIni(ini, "php.ini")
 
     End Sub
@@ -2884,9 +2884,8 @@ Public Class Form1
 
         If Not Settings.ApacheEnable Then Return
 
-        Print("Stopping Apache ")
-
         If Not Settings.ApacheService Then
+            Print("Stopping Apache ")
             Zap("httpd")
             Zap("rotatelogs")
             ApachePictureBox.Image = My.Resources.nav_plain_green
