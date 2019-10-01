@@ -92,6 +92,8 @@ Public Class FormCaches
             folder = CacheFolder.Text
         End If
 
+        ViewerCacheCheckbox.Checked = Form1.Settings.SupportViewerObjectsCache
+
         gInitted = True
 
         Form1.HelpOnce("Cache")
@@ -103,6 +105,8 @@ Public Class FormCaches
         Form1.Settings.CacheFolder = CacheFolder.Text
         Form1.Settings.CacheEnabled = CacheEnabledBox.Checked
         Form1.Settings.CacheTimeout = CacheTimeout.Text
+        Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
+
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
 
@@ -148,6 +152,7 @@ Public Class FormCaches
     End Sub
 
     Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
+        If Not gInitted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
         Form1.PropViewedSettings = True
@@ -162,6 +167,7 @@ Public Class FormCaches
     End Sub
 
     Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
+        If Not gInitted Then Return
         Form1.PropViewedSettings = True
     End Sub
 
@@ -191,5 +197,14 @@ Public Class FormCaches
         openFileDialog1.Dispose()
 
     End Sub
+
+    Private Sub ViewerCacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ViewerCacheCheckbox.CheckedChanged
+
+        ' Support viewers object cache, default true
+        ' Users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. Change to false if you need to use old viewers that do not support this feature
+        Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
+
+    End Sub
+
 
 End Class
