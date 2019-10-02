@@ -196,6 +196,12 @@
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
     <Compile Include="Firewall.vb" />
+    <Compile Include="FormApache.Designer.vb">
+      <DependentUpon>FormApache.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormApache.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormBackupCheckboxes.Designer.vb">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
     </Compile>
@@ -435,6 +441,9 @@
     <Compile Include="UploadImage.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormApache.resx">
+      <DependentUpon>FormApache.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormChooser.en.resx">
       <DependentUpon>FormChooser.vb</DependentUpon>
     </EmbeddedResource>
