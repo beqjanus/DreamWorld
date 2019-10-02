@@ -2743,26 +2743,39 @@ Public Class Form1
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", CStr(Settings.ApachePort))
-        Settings.SetLiteralIni("ServerRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
-        Settings.SetLiteralIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetLiteralIni("Use VDir", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetLiteralIni("PHPIniDir", """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
-        Settings.SetLiteralIni("ServerName", Settings.PublicIP)
-        Settings.SetLiteralIni("<VirtualHost", "  *:" & CStr(Settings.ApachePort) & ">")
-        Settings.SetLiteralIni("ErrorLog", """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        Settings.SetLiteralIni("CustomLog", """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
-        Settings.SetLiteralIni("LoadModule PHP7_module", """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
+        Settings.SetLiteralIni("Listen", "Listen " & CStr(Settings.ApachePort))
+        Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
+        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
+        Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
+        Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
+        Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & CStr(Settings.ApachePort) & ">")
+        Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
+        ' needed for Php5 upgrade
+        Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
+        Settings.SetLiteralIni("LoadModule php_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
+
         Settings.SaveLiteralIni(ini, "httpd.conf")
+
+        Try
+            Directory.Delete(PropMyFolder & "\Outworldzfiles\PHP5", True)
+        Catch ex As DirectoryNotFoundException
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        End Try
+
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", Settings.PrivateURL & ":" & "443")
-        Settings.SetLiteralIni("extension_dir", """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
-        Settings.SetLiteralIni("DocumentRoot", """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
-        Settings.SetLiteralIni("ServerName", Settings.PublicIP)
-        Settings.SetLiteralIni("SSLSessionCache", "shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+        Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
+        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
+        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
+        Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
+        Settings.SetLiteralIni("SSLSessionCache", "SSLSessionCache shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
 
     End Sub
@@ -3202,7 +3215,7 @@ Public Class Form1
         If isRegionRunning Then
             Print(BootName & " is already running")
             Dim listP = Process.GetProcesses
-            Dim id As Integer = 0
+
             For Each p In listP
                 If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
                     Regionclass.ProcessID(RegionNumber) = p.Id
@@ -3553,16 +3566,16 @@ Public Class Form1
     Private Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
-        PropMyFolder & "\OutworldzFiles\Error.log",
-        PropMyFolder & "\OutworldzFiles\Outworldz.log",
-        PropMyFolder & "\OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt",
-        PropMyFolder & "\OutworldzFiles\Diagnostics.log",
-        PropMyFolder & "\OutworldzFiles\UPnp.log",
-        PropMyFolder & "\OutworldzFiles\Opensim\bin\Robust.log",
-        PropMyFolder & "\OutworldzFiles\http.log",
-        PropMyFolder & "\OutworldzFiles\PHPLog.log",
-        PropMyFolder & "\http.log"      ' an old mistake
-    }
+            PropMyFolder & "\OutworldzFiles\Error.log",
+            PropMyFolder & "\OutworldzFiles\Outworldz.log",
+            PropMyFolder & "\OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt",
+            PropMyFolder & "\OutworldzFiles\Diagnostics.log",
+            PropMyFolder & "\OutworldzFiles\UPnp.log",
+            PropMyFolder & "\OutworldzFiles\Opensim\bin\Robust.log",
+            PropMyFolder & "\OutworldzFiles\http.log",
+            PropMyFolder & "\OutworldzFiles\PHPLog.log",
+            PropMyFolder & "\http.log"      ' an old mistake
+        }
 
         For Each thing As String In Logfiles
             ' clear out the log files
@@ -4071,17 +4084,16 @@ Public Class Form1
     End Function
 
     Private Sub AddLog(name As String)
-        Using LogMenu As New ToolStripMenuItem With {
+        Dim LogMenu As New ToolStripMenuItem With {
                 .Text = name,
                 .ToolTipText = "Click to view this log",
                 .Size = New Size(269, 26),
                 .Image = My.Resources.Resources.document_view,
                 .DisplayStyle = ToolStripItemDisplayStyle.Text
             }
-            AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
-            ViewLogsToolStripMenuItem.Visible = True
-            ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
-        End Using
+        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
+        ViewLogsToolStripMenuItem.Visible = True
+        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
 
     End Sub
 
@@ -4511,7 +4523,6 @@ Public Class Form1
         AddLog("All Logs")
         AddLog("Robust")
         AddLog("Outworldz")
-        AddLog("UPnP")
         AddLog("Icecast")
         AddLog("MySQL")
         AddLog("All Settings")
