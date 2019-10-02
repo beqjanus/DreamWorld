@@ -146,6 +146,7 @@ Public Class FormRegion
             ScriptTimerTextBox.Text = 0.2.ToString(Form1.Invarient)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
+            PropRegionClass1.GetAllRegions()
         Else
             IsNew1 = False
             N1 = PropRegionClass1.FindRegionByName(Name)
@@ -410,17 +411,17 @@ Public Class FormRegion
                     v = MsgBox(message + vbCrLf + "Discard all changes And Exit anyway?", vbYesNo, "Info")
                     If v = vbYes Then
                         If RegionList.InstanceExists Then
-                            PropRegionClass1.GetAllRegions()
+                            'PropRegionClass1.GetAllRegions()
                             RegionList.LoadMyListView()
                         End If
                         Me.Close()
                     End If
                 Else
                     WriteRegion(N1)
-                    PropRegionClass1.GetAllRegions()
+                    'PropRegionClass1.GetAllRegions()
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.PropUpdateView() = True
-                    Firewall.SetFirewall()
+
                 End If
             End If
         End If
@@ -434,10 +435,10 @@ Public Class FormRegion
             Dim v = MsgBox(message + vbCrLf + "Discard all changes And Exit anyway?", vbYesNo, "Info")
             If v = vbYes Then
 
-                If RegionList.InstanceExists Then
-                    PropRegionClass1.GetAllRegions()
-                    RegionList.LoadMyListView()
-                End If
+                'If RegionList.InstanceExists Then
+                'PropRegionClass1.GetAllRegions()
+                RegionList.LoadMyListView()
+                'End If
 
                 Me.Close()
             End If
@@ -446,9 +447,9 @@ Public Class FormRegion
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
 
             WriteRegion(N1)
-            PropRegionClass1.GetAllRegions()
+            'PropRegionClass1.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
-            Firewall.SetFirewall()
+
             RegionList.LoadMyListView()
 
             Changed1 = False
