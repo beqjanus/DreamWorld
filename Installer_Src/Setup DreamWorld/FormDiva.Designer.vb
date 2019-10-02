@@ -95,9 +95,9 @@ Partial Class FormDiva
         Me.Web.Controls.Add(Me.Label10)
         Me.Web.Controls.Add(Me.AdminPassword)
         Me.Web.Location = New System.Drawing.Point(28, 50)
-        Me.Web.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Web.Margin = New System.Windows.Forms.Padding(4)
         Me.Web.Name = "Web"
-        Me.Web.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Web.Padding = New System.Windows.Forms.Padding(4)
         Me.Web.Size = New System.Drawing.Size(250, 268)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
@@ -107,7 +107,7 @@ Partial Class FormDiva
         '
         Me.WiFi.Image = Global.Outworldz.My.Resources.Resources.about
         Me.WiFi.Location = New System.Drawing.Point(179, 14)
-        Me.WiFi.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WiFi.Margin = New System.Windows.Forms.Padding(4)
         Me.WiFi.Name = "WiFi"
         Me.WiFi.Size = New System.Drawing.Size(38, 42)
         Me.WiFi.TabIndex = 1858
@@ -117,7 +117,7 @@ Partial Class FormDiva
         '
         Me.WifiEnabled.AutoSize = True
         Me.WifiEnabled.Location = New System.Drawing.Point(24, 35)
-        Me.WifiEnabled.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WifiEnabled.Margin = New System.Windows.Forms.Padding(4)
         Me.WifiEnabled.Name = "WifiEnabled"
         Me.WifiEnabled.Size = New System.Drawing.Size(141, 21)
         Me.WifiEnabled.TabIndex = 26
@@ -137,7 +137,7 @@ Partial Class FormDiva
         'AdminEmail
         '
         Me.AdminEmail.Location = New System.Drawing.Point(108, 165)
-        Me.AdminEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminEmail.Margin = New System.Windows.Forms.Padding(4)
         Me.AdminEmail.Name = "AdminEmail"
         Me.AdminEmail.Size = New System.Drawing.Size(124, 22)
         Me.AdminEmail.TabIndex = 30
@@ -156,7 +156,7 @@ Partial Class FormDiva
         '
         Me.AccountConfirmationRequired.AutoSize = True
         Me.AccountConfirmationRequired.Location = New System.Drawing.Point(24, 216)
-        Me.AccountConfirmationRequired.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AccountConfirmationRequired.Margin = New System.Windows.Forms.Padding(4)
         Me.AccountConfirmationRequired.Name = "AccountConfirmationRequired"
         Me.AccountConfirmationRequired.Size = New System.Drawing.Size(233, 21)
         Me.AccountConfirmationRequired.TabIndex = 31
@@ -166,7 +166,7 @@ Partial Class FormDiva
         'AdminLast
         '
         Me.AdminLast.Location = New System.Drawing.Point(108, 108)
-        Me.AdminLast.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminLast.Margin = New System.Windows.Forms.Padding(4)
         Me.AdminLast.Name = "AdminLast"
         Me.AdminLast.Size = New System.Drawing.Size(124, 22)
         Me.AdminLast.TabIndex = 28
@@ -174,7 +174,7 @@ Partial Class FormDiva
         'AdminFirst
         '
         Me.AdminFirst.Location = New System.Drawing.Point(108, 80)
-        Me.AdminFirst.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminFirst.Margin = New System.Windows.Forms.Padding(4)
         Me.AdminFirst.Name = "AdminFirst"
         Me.AdminFirst.Size = New System.Drawing.Size(124, 22)
         Me.AdminFirst.TabIndex = 27
@@ -202,7 +202,7 @@ Partial Class FormDiva
         'AdminPassword
         '
         Me.AdminPassword.Location = New System.Drawing.Point(108, 138)
-        Me.AdminPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.AdminPassword.Name = "AdminPassword"
         Me.AdminPassword.Size = New System.Drawing.Size(124, 22)
         Me.AdminPassword.TabIndex = 29
@@ -220,9 +220,9 @@ Partial Class FormDiva
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.GmailUsername)
         Me.GroupBox6.Location = New System.Drawing.Point(28, 332)
-        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox6.Size = New System.Drawing.Size(250, 188)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
@@ -231,7 +231,7 @@ Partial Class FormDiva
         'SmtpPort
         '
         Me.SmtpPort.Location = New System.Drawing.Point(120, 134)
-        Me.SmtpPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SmtpPort.Margin = New System.Windows.Forms.Padding(4)
         Me.SmtpPort.Name = "SmtpPort"
         Me.SmtpPort.Size = New System.Drawing.Size(40, 22)
         Me.SmtpPort.TabIndex = 36
@@ -249,7 +249,7 @@ Partial Class FormDiva
         'SmtpHost
         '
         Me.SmtpHost.Location = New System.Drawing.Point(121, 101)
-        Me.SmtpHost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SmtpHost.Margin = New System.Windows.Forms.Padding(4)
         Me.SmtpHost.Name = "SmtpHost"
         Me.SmtpHost.Size = New System.Drawing.Size(118, 22)
         Me.SmtpHost.TabIndex = 186735
@@ -267,7 +267,7 @@ Partial Class FormDiva
         'GmailPassword
         '
         Me.GmailPassword.Location = New System.Drawing.Point(119, 69)
-        Me.GmailPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GmailPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.GmailPassword.Name = "GmailPassword"
         Me.GmailPassword.Size = New System.Drawing.Size(118, 22)
         Me.GmailPassword.TabIndex = 34
@@ -296,7 +296,7 @@ Partial Class FormDiva
         'GmailUsername
         '
         Me.GmailUsername.Location = New System.Drawing.Point(119, 38)
-        Me.GmailUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GmailUsername.Margin = New System.Windows.Forms.Padding(4)
         Me.GmailUsername.Name = "GmailUsername"
         Me.GmailUsername.Size = New System.Drawing.Size(118, 22)
         Me.GmailUsername.TabIndex = 33
@@ -314,7 +314,7 @@ Partial Class FormDiva
         'GridName
         '
         Me.GridName.Location = New System.Drawing.Point(26, 104)
-        Me.GridName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GridName.Margin = New System.Windows.Forms.Padding(4)
         Me.GridName.Name = "GridName"
         Me.GridName.Size = New System.Drawing.Size(273, 22)
         Me.GridName.TabIndex = 1869
@@ -332,7 +332,7 @@ Partial Class FormDiva
         'SplashPage
         '
         Me.SplashPage.Location = New System.Drawing.Point(22, 152)
-        Me.SplashPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SplashPage.Margin = New System.Windows.Forms.Padding(4)
         Me.SplashPage.Name = "SplashPage"
         Me.SplashPage.Size = New System.Drawing.Size(276, 22)
         Me.SplashPage.TabIndex = 1866
@@ -350,9 +350,9 @@ Partial Class FormDiva
         Me.GroupBox1.Controls.Add(Me.SplashPage)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Location = New System.Drawing.Point(300, 50)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(349, 238)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
@@ -371,7 +371,7 @@ Partial Class FormDiva
         'GreetingTextBox
         '
         Me.GreetingTextBox.Location = New System.Drawing.Point(22, 201)
-        Me.GreetingTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GreetingTextBox.Margin = New System.Windows.Forms.Padding(4)
         Me.GreetingTextBox.Name = "GreetingTextBox"
         Me.GreetingTextBox.Size = New System.Drawing.Size(276, 22)
         Me.GreetingTextBox.TabIndex = 1875
@@ -380,7 +380,7 @@ Partial Class FormDiva
         '
         Me.CustomButton1.AutoSize = True
         Me.CustomButton1.Location = New System.Drawing.Point(230, 40)
-        Me.CustomButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CustomButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.CustomButton1.Name = "CustomButton1"
         Me.CustomButton1.Size = New System.Drawing.Size(76, 21)
         Me.CustomButton1.TabIndex = 1874
@@ -402,7 +402,7 @@ Partial Class FormDiva
         '
         Me.WhiteRadioButton.AutoSize = True
         Me.WhiteRadioButton.Location = New System.Drawing.Point(84, 40)
-        Me.WhiteRadioButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WhiteRadioButton.Margin = New System.Windows.Forms.Padding(4)
         Me.WhiteRadioButton.Name = "WhiteRadioButton"
         Me.WhiteRadioButton.Size = New System.Drawing.Size(65, 21)
         Me.WhiteRadioButton.TabIndex = 1873
@@ -414,7 +414,7 @@ Partial Class FormDiva
         '
         Me.BlackRadioButton.AutoSize = True
         Me.BlackRadioButton.Location = New System.Drawing.Point(158, 40)
-        Me.BlackRadioButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BlackRadioButton.Margin = New System.Windows.Forms.Padding(4)
         Me.BlackRadioButton.Name = "BlackRadioButton"
         Me.BlackRadioButton.Size = New System.Drawing.Size(63, 21)
         Me.BlackRadioButton.TabIndex = 1872
@@ -437,7 +437,7 @@ Partial Class FormDiva
         '
         Me.LocalSearchCheckBox.AutoSize = True
         Me.LocalSearchCheckBox.Location = New System.Drawing.Point(22, 190)
-        Me.LocalSearchCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LocalSearchCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
         Me.LocalSearchCheckBox.Size = New System.Drawing.Size(113, 21)
         Me.LocalSearchCheckBox.TabIndex = 186742
@@ -449,7 +449,7 @@ Partial Class FormDiva
         '
         Me.AllGridSearchCheckBox.AutoSize = True
         Me.AllGridSearchCheckBox.Location = New System.Drawing.Point(148, 190)
-        Me.AllGridSearchCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AllGridSearchCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
         Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(129, 21)
         Me.AllGridSearchCheckBox.TabIndex = 186743
@@ -461,7 +461,7 @@ Partial Class FormDiva
         '
         Me.EnableSearchCheckBox.AutoSize = True
         Me.EnableSearchCheckBox.Location = New System.Drawing.Point(22, 161)
-        Me.EnableSearchCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.EnableSearchCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
         Me.EnableSearchCheckBox.Size = New System.Drawing.Size(123, 21)
         Me.EnableSearchCheckBox.TabIndex = 186744
@@ -473,7 +473,7 @@ Partial Class FormDiva
         '
         Me.EventsCheckBox.AutoSize = True
         Me.EventsCheckBox.Location = New System.Drawing.Point(148, 161)
-        Me.EventsCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.EventsCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.EventsCheckBox.Name = "EventsCheckBox"
         Me.EventsCheckBox.Size = New System.Drawing.Size(121, 21)
         Me.EventsCheckBox.TabIndex = 186745
@@ -485,7 +485,7 @@ Partial Class FormDiva
         '
         Me.ApacheCheckbox.AutoSize = True
         Me.ApacheCheckbox.Location = New System.Drawing.Point(21, 84)
-        Me.ApacheCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ApacheCheckbox.Margin = New System.Windows.Forms.Padding(4)
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
         Me.ApacheCheckbox.Size = New System.Drawing.Size(203, 21)
         Me.ApacheCheckbox.TabIndex = 1866
@@ -505,9 +505,9 @@ Partial Class FormDiva
         Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
         Me.GroupBox2.Location = New System.Drawing.Point(300, 295)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Size = New System.Drawing.Size(349, 225)
         Me.GroupBox2.TabIndex = 186738
         Me.GroupBox2.TabStop = False
@@ -516,7 +516,7 @@ Partial Class FormDiva
         'X86Button
         '
         Me.X86Button.Location = New System.Drawing.Point(22, 38)
-        Me.X86Button.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.X86Button.Margin = New System.Windows.Forms.Padding(4)
         Me.X86Button.Name = "X86Button"
         Me.X86Button.Size = New System.Drawing.Size(195, 29)
         Me.X86Button.TabIndex = 186740
@@ -526,7 +526,7 @@ Partial Class FormDiva
         'ApachePort
         '
         Me.ApachePort.Location = New System.Drawing.Point(180, 104)
-        Me.ApachePort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ApachePort.Margin = New System.Windows.Forms.Padding(4)
         Me.ApachePort.Name = "ApachePort"
         Me.ApachePort.Size = New System.Drawing.Size(40, 22)
         Me.ApachePort.TabIndex = 186736
@@ -535,7 +535,7 @@ Partial Class FormDiva
         '
         Me.ApacheServiceCheckBox.AutoSize = True
         Me.ApacheServiceCheckBox.Location = New System.Drawing.Point(21, 112)
-        Me.ApacheServiceCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ApacheServiceCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(144, 21)
         Me.ApacheServiceCheckBox.TabIndex = 1868
@@ -546,7 +546,7 @@ Partial Class FormDiva
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.PictureBox1.Location = New System.Drawing.Point(234, 26)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(38, 42)
         Me.PictureBox1.TabIndex = 1859
@@ -596,7 +596,7 @@ Partial Class FormDiva
         Me.Controls.Add(Me.Web)
         Me.Controls.Add(Me.GroupBox6)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
         Me.Text = "Web Server Panel"
