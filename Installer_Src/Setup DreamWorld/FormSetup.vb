@@ -2755,7 +2755,7 @@ Public Class Form1
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         ' needed for Php5 upgrade
         Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
-        Settings.SetLiteralIni("LoadModule php_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
+        Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
