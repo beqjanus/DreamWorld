@@ -1679,9 +1679,9 @@ Public Class MySettings
 
         For Each Item As String In Apachein
 #Disable Warning CA1307 ' Specify StringComparison
-            If Item.StartsWith(Name) Then
+            If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
 #Enable Warning CA1307 ' Specify StringComparison
-                Apacheout.Add(Name & " " & value)
+                Apacheout.Add(value)
             Else
                 Apacheout.Add(Item)
             End If
