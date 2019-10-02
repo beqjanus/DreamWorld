@@ -24,6 +24,7 @@ Public Class AdvancedForm
 
 #Region "Declarations"
 
+    Dim FormApache As New FormApache
     Dim Tos As New TosForm
     Dim Maps As New FormMaps
     Dim Gloebits As New Gloebits
@@ -292,6 +293,15 @@ Public Class AdvancedForm
         FormServerType = New FormServerType
         FormCaches.Activate()
         FormServerType.Visible = True
+
+    End Sub
+
+    Private Sub ApacheButton_Click(sender As Object, e As EventArgs) Handles ApacheButton.Click
+
+        FormApache.Close()
+        FormApache = New FormApache
+        FormApache.Activate()
+        FormApache.Visible = True
 
     End Sub
 

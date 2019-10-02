@@ -49,9 +49,12 @@
             Form1.Print("Region IP=" & Form1.Settings.ExternalHostName)
         End If
 
+        Dim n = Form1.Settings.DNSName
+        If n.Length = 0 Then n = "(none)"
+
         Form1.Print("WAN IP   = " & PublicIP.IP)
         Form1.Print("LAN IP   = " & Form1.Settings.PrivateURL)
-        Form1.Print("DNS Name = " & Form1.Settings.DNSName)
+        Form1.Print("DNS Name = " & n)
         Form1.Print("Region   = " & Form1.Settings.ExternalHostName)
         Form1.Print("Hostname = " & Form1.Settings.BaseHostName)
 

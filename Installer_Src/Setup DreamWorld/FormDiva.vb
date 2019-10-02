@@ -322,75 +322,6 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
-
-        If Not initted Then Return
-        If Form1.Settings.ApacheEnable And Not ApacheCheckbox.Checked Then
-            RemoveApache()
-        End If
-
-        Form1.Settings.ApacheEnable = ApacheCheckbox.Checked
-
-    End Sub
-
-    Private Sub RemoveApache()
-
-        Using ApacheProcess As New Process()
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-            ApacheProcess.Start()
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-            Form1.Sleep(1000)
-            ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
-            ApacheProcess.Start()
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-            Form1.Print("Apache has been removed as a service")
-        End Using
-
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        Form1.Help("Apache")
-
-    End Sub
-
-    Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.ApacheService = ApacheServiceCheckBox.Checked
-
-    End Sub
-
-    Private Sub ApachePort_TextChanged(sender As Object, e As EventArgs) Handles ApachePort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
-        If ApachePort.Text.Length > 0 Then
-            Form1.Settings.ApachePort = CType(ApachePort.Text, Integer)
-        End If
-
-    End Sub
-
-    Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
-
-        Dim InstallProcess As New Process
-        InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x64.exe"
-        InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        InstallProcess.Start()
-        InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
-        InstallProcess.Start()
-        InstallProcess.WaitForExit()
-        InstallProcess.Dispose()
-
-    End Sub
-
     Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
         If Not initted Then Return
@@ -400,10 +331,6 @@ Public Class FormDiva
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
         Form1.Help("Diva")
-    End Sub
-
-    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
-        Form1.Help("Apache")
     End Sub
 
 #End Region
