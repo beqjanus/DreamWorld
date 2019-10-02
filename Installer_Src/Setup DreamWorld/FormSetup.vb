@@ -2783,7 +2783,7 @@ Public Class Form1
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("doc_root", " = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
         Settings.SaveLiteralIni(ini, "php.ini")
 
     End Sub
