@@ -107,24 +107,7 @@ Public Class FormDiva
             AdminPassword.Enabled = False
         End If
 
-        ApacheCheckbox.Checked = Form1.Settings.ApacheEnable
-        ApachePort.Text = CType(Form1.Settings.ApachePort, String)
-        ApacheServiceCheckBox.Checked = Form1.Settings.ApacheService
-
-        If Form1.Settings.SearchLocal Then
-            LocalSearchCheckBox.Checked = True
-            AllGridSearchCheckBox.Checked = False
-        Else
-            LocalSearchCheckBox.Checked = False
-            AllGridSearchCheckBox.Checked = True
-        End If
-
-        EnableSearchCheckBox.Checked = Form1.Settings.SearchEnabled
-
         GreetingTextBox.Text = Form1.Settings.WelcomeMessage
-
-        EventsCheckBox.Checked = Form1.Settings.EventTimerEnabled
-
         Form1.HelpOnce("Diva")
 
         initted = True
@@ -335,32 +318,5 @@ Public Class FormDiva
 
 #End Region
 
-#Region "Search"
-
-    Private Sub EnableSearch_CheckBoxChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
-        Form1.Settings.SearchEnabled = EnableSearchCheckBox.Checked
-    End Sub
-
-    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
-        If LocalSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = True
-            AllGridSearchCheckBox.Checked = False
-        End If
-    End Sub
-
-    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
-        If AllGridSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = False
-            LocalSearchCheckBox.Checked = False
-        End If
-    End Sub
-
-    Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
-
-        Form1.Settings.EventTimerEnabled = EventsCheckBox.Checked
-
-    End Sub
-
-#End Region
 
 End Class
