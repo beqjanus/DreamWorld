@@ -23,14 +23,15 @@ Public Class Update
             Label1.Text = ""
         End If
 
-        Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
-
         Try
             Label1.Text = "Downloading Update..."
             Application.DoEvents()
             Dim client As WebClient
             client = New WebClient()
             client.Credentials = New NetworkCredential("", "")
+            Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGridSetup.exe"
+            client.DownloadFile(FName, "DreamGridSetup.exe")
+            FName = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
             client.DownloadFile(FName, "DreamGrid.Zip")
         Catch ex As Exception
             Environment.Exit(1)

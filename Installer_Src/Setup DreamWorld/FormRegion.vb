@@ -146,7 +146,7 @@ Public Class FormRegion
             ScriptTimerTextBox.Text = 0.2.ToString(Form1.Invarient)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
-            PropRegionClass1.GetAllRegions()
+            'PropRegionClass1.GetAllRegions()
         Else
             IsNew1 = False
             N1 = PropRegionClass1.FindRegionByName(Name)

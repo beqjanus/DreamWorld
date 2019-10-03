@@ -38,6 +38,7 @@ Public Class UpdateGrid
             MyFolder = MyFolder.Replace("\Updater_Src\Updater-II\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
         End If
+        ChDir(MyFolder)
 
         If Not File.Exists(MyFolder & "\" & Filename) Then
             TextPrint("DreamGrid.zip file was not found. Aborting.")
@@ -66,8 +67,9 @@ Public Class UpdateGrid
                     For Each ZipEntry In zip
                         Application.DoEvents()
                         ctr = ctr + 1
-                        If ZipEntry.FileName <> "DreamGridSetup.exe" Then
+                        If ZipEntry.FileName <> "DotNetZip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
                             TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
+                            Application.DoEvents()
                             ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                         End If
                     Next
