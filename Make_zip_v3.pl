@@ -221,7 +221,7 @@ print "Make zip\n";
 unlink "O:/Opensim/Zips/DreamGrid$type.zip";
 my $x = `../7z.exe -tzip -r a  O:\\Opensim\\Zips\\DreamGrid$type.zip O:\\Opensim\\Zip\\*.*`;
 
-sleep(1)
+sleep(1);
 
 if ($publish)
 {
