@@ -5,6 +5,9 @@
  </head>
  <body>
 
+<?php
+  include("./Metromap/includes/config.php");
+?>
 
 
 <html>
