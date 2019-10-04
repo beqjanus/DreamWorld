@@ -13,7 +13,21 @@ Public Class UpdateGrid
     Dim Filename As String = "DreamGrid.zip"
     Dim MyFolder As String = ""
 
+    Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
+        Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
+
+        If desiredAssembly.Name = "the name of your assembly" Then
+            Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
+        Else
+            Return Nothing
+        End If
+    End Function
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' dotnetzip is part of the resources so we can overwrite it.
+        AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+
         Label1.Text = "Dreamgrid Updater"
         Me.Text = "Outworldz Dreamgrid Setup"
         Me.Show()
@@ -24,6 +38,7 @@ Public Class UpdateGrid
             MyFolder = MyFolder.Replace("\Updater_Src\Updater-II\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
         End If
+        ChDir(MyFolder)
 
         If Not File.Exists(MyFolder & "\" & Filename) Then
             TextPrint("DreamGrid.zip file was not found. Aborting.")
@@ -39,6 +54,7 @@ Public Class UpdateGrid
 
             Label1.Text = "Checking MySQL"
             StopMYSQL()
+            StopApache()
 
             Try
                 My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -51,9 +67,9 @@ Public Class UpdateGrid
                     For Each ZipEntry In zip
                         Application.DoEvents()
                         ctr = ctr + 1
-                        If ZipEntry.FileName <> "DotNetZip.dll" And
-                            ZipEntry.FileName <> "DreamGridSetup.exe" Then
+                        If ZipEntry.FileName <> "DotNetZip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
                             TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
+                            Application.DoEvents()
                             ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                         End If
                     Next
@@ -85,12 +101,45 @@ Public Class UpdateGrid
         Catch
         End Try
 
+        pi.Arguments = "-u root -port=3306 shutdown"
+        p.StartInfo = pi
+        Try
+            p.Start()
+        Catch
+        End Try
         pi.Arguments = "-u root -port=3309 shutdown"
         p.StartInfo = pi
         Try
             p.Start()
         Catch
         End Try
+
+    End Sub
+
+    Private Sub StopApache()
+
+        Using ApacheProcess As New Process()
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+            ApacheProcess.Start()
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+        End Using
+
+        Zap("httpd")
+        Zap("rotatelogs")
+
+    End Sub
+
+    Private Sub Zap(processName As String)
+
+        ' Kill process by name
+        For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
+            Try
+                P.Kill()
+            Catch
+            End Try
+        Next
 
     End Sub
 

@@ -48,7 +48,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.194"
+    Private _MyVersion As String = "3.195"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -4596,7 +4596,7 @@ Public Class Form1
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                     .Arguments = "",
                     .FileName = """" & PropMyFolder & "\Downloader.exe" & """",
-                    .WindowStyle = ProcessWindowStyle.Normal
+                    .WindowStyle = ProcessWindowStyle.Minimized
                 }
             UpdateProcess.StartInfo = pi
             UpdateProcess.EnableRaisingEvents = True

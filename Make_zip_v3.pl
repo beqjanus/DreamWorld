@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.193' ; 
+my $type  = '-V3.195' ; 
 use Cwd;
 my $dir = getcwd;
 
@@ -221,7 +221,7 @@ print "Make zip\n";
 unlink "O:/Opensim/Zips/DreamGrid$type.zip";
 my $x = `../7z.exe -tzip -r a  O:\\Opensim\\Zips\\DreamGrid$type.zip O:\\Opensim\\Zip\\*.*`;
 
-
+sleep(1);
 
 if ($publish)
 {
