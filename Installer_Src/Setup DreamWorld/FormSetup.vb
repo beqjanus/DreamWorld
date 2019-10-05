@@ -2748,6 +2748,7 @@ Public Class Form1
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
+        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & CStr(Settings.ApachePort) & ">")
