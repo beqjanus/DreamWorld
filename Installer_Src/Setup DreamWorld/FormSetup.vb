@@ -144,6 +144,8 @@ Public Class Form1
 
     Public Event RobustExited As EventHandler
 
+    Private Update_version As String = Nothing
+
 #End Region
 
 #Region "ScreenSize"
@@ -2622,10 +2624,7 @@ Public Class Form1
             ApacheProcess.Start()
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            Dim code = ApacheProcess.ExitCode
-            If code <> 0 Then
-                ErrorLog("ApacheHTTPServer did not stop, may have been stopped or did not exist")
-            End If
+
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             ApacheProcess.Start()
             Application.DoEvents()
@@ -2657,8 +2656,8 @@ Public Class Form1
                     ApacheProcess.Start()
                     Application.DoEvents()
                     ApacheProcess.WaitForExit()
-                    code = ApacheProcess.ExitCode
-                    If code <> 0 Then
+
+                    If ApacheProcess.ExitCode <> 0 Then
                         Print("Apache Did not install")
                     Else
                         PropApacheUninstalling = False ' installed now, trap errors
@@ -2670,9 +2669,9 @@ Public Class Form1
                     ApacheProcess.Start()
                     Application.DoEvents()
                     ApacheProcess.WaitForExit()
-                    code = ApacheProcess.ExitCode
-                    If code <> 0 Then
-                        Print("Apache failed to start:" & CStr(code))
+
+                    If ApacheProcess.ExitCode <> 0 Then
+                        Print("Apache failed to start:" & CStr(ApacheProcess.ExitCode))
                     Else
                         ApachePictureBox.Image = My.Resources.nav_plain_green
                         ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
@@ -2748,7 +2747,6 @@ Public Class Form1
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
-        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & CStr(Settings.ApachePort) & ">")
@@ -2784,6 +2782,7 @@ Public Class Form1
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
+        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
         Settings.SaveLiteralIni(ini, "php.ini")
 
@@ -4556,23 +4555,23 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            Dim result = MsgBox("A new update has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
+            'My.Computer.FileSystem.RenameFile(PropMyFolder & "\DreamGrid.zip", "DreamGrid-V" & CStr(Update_version) & ".zip")
+            Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
             If result = vbYes Then
-                UpdaterGo()
+                UpdaterGo("DreamGrid-V" & CStr(Update_version) & ".zip")
             End If
         Else
-            ErrorLog("Could not download an Update")
+            ErrorLog("Could not download an Update: ExitCode=" & CStr(ExitCode))
         End If
 
     End Sub
 
     Public Sub CheckForUpdates()
 
-        Dim Update As String = Nothing
         Using client As New WebClient ' downloadclient for web pages
             Print("Checking for Updates")
             Try
-                Update = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
+                Update_version = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
             Catch ex As ArgumentNullException
                 ErrorLog("Dang:The Outworldz web site is down")
                 Return
@@ -4584,21 +4583,36 @@ Public Class Form1
                 Return
             End Try
         End Using
-        If Update.Length = 0 Then Update = "0"
+        If Update_version.Length = 0 Then Update_version = "0"
         Dim Delta As Single = 0
         Try
-            Delta = Convert.ToSingle(Update, Invarient) - Convert.ToSingle(PropMyVersion, Invarient)
+            Delta = Convert.ToSingle(Update_version, Invarient) - Convert.ToSingle(PropMyVersion, Invarient)
         Catch ex As FormatException
         Catch ex As OverflowException
         End Try
 
         If Delta > 0 Then
-            Print("An Update is available.")
+
+            If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & CStr(Update_version) & ".zip") Then
+                Dim result = MsgBox("Update V" & Update_version & " has been downloaded. Install it now?", vbYesNo)
+                If result = vbOK Then
+                    UpdaterGo("DreamGrid-V" & CStr(Update_version) & ".zip")
+                End If
+                Return
+            End If
+
+            Print("Update V" & Update_version & " is available. Downloading it in background.")
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                    .Arguments = "",
-                    .FileName = """" & PropMyFolder & "\Downloader.exe" & """",
-                    .WindowStyle = ProcessWindowStyle.Minimized
-                }
+                .Arguments = "DreamGrid-V" & CStr(Update_version) & ".zip",
+                .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
+            }
+
+            If Debugger.IsAttached Then
+                pi.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                pi.WindowStyle = ProcessWindowStyle.Minimized
+            End If
+
             UpdateProcess.StartInfo = pi
             UpdateProcess.EnableRaisingEvents = True
             Try
@@ -4622,14 +4636,14 @@ Public Class Form1
 
     End Sub
 
-    Private Sub UpdaterGo()
+    Private Sub UpdaterGo(Filename As String)
 
         KillApache()
         StopMysql()
 
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "",
+            .Arguments = Filename,
             .FileName = """" & PropMyFolder & "\DreamGridSetup.exe" & """"
         }
         pUpdate.StartInfo = pi
@@ -4638,11 +4652,11 @@ Public Class Form1
             Log("Info", "Launch Updater and exiting")
             pUpdate.Start()
         Catch ex As ObjectDisposedException
-            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe.")
         Catch ex As InvalidOperationException
-            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe.")
         Catch ex As ComponentModel.Win32Exception
-            ErrorLog("Error: Could not launch DreamGridInstaller.exe. Perhaps you can can exit this program and launch it manually.")
+            ErrorLog("Error: Could not launch DreamGridInstaller.exe.")
         End Try
         End ' program
 
