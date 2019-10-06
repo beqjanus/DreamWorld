@@ -481,7 +481,7 @@ Public Class FormRegion
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-        Catch
+        Catch ex As ArgumentNullException
         End Try
 
         Return value
@@ -493,7 +493,7 @@ Public Class FormRegion
         Dim Message As String
 
         If Len(RegionName.Text) = 0 Then
-            Message = "Region name must Not be blank"
+            Message = "Region name must not be blank"
             Form1.ErrorLog(Message)
             Return Message
         End If
@@ -716,8 +716,20 @@ Public Class FormRegion
             Using outputFile As New StreamWriter(PropRegionClass1.RegionPath(n), False)
                 outputFile.Write(Region)
             End Using
-        Catch ex As Exception
-            Form1.ErrorLog("Cannot write region:" + ex.Message)
+        Catch ex As UnauthorizedAccessException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As ArgumentNullException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As ArgumentException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As DirectoryNotFoundException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As PathTooLongException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As IOException
+            MsgBox("Cannot write region:" + ex.Message)
+        Catch ex As Security.SecurityException
+            MsgBox("Cannot write region:" + ex.Message)
         End Try
 
         Form1.PropUpdateView = True
@@ -795,10 +807,7 @@ Public Class FormRegion
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordY.Text = digitsOnly.Replace(CoordY.Text, "")
         If Initted1 And CoordY.Text.Length >= 0 Then
-            Try
-                CoordY.Text = CoordY.Text
-            Catch
-            End Try
+            CoordX.Text = CoordY.Text
             Changed1 = True
         End If
 
@@ -808,15 +817,7 @@ Public Class FormRegion
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordX.Text = digitsOnly.Replace(CoordX.Text, "")
-
-        If Initted1 And CoordX.Text.Length >= 0 Then
-            Try
-                CoordX.Text = CoordX.Text
-            Catch
-
-            End Try
-            Changed1 = True
-        End If
+        Changed1 = True
 
     End Sub
 
