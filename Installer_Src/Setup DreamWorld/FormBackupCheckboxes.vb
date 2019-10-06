@@ -104,7 +104,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
                 Print("Backing up Regions Folder")
-                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
                 Application.DoEvents()
             End If
 
@@ -112,7 +112,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
                 Print("Backing up MySql\Data Folder")
-                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
                 Application.DoEvents()
             End If
 
@@ -127,7 +127,7 @@ Public Class FormBackupCheckboxes
                     folder = Form1.Settings.BaseDirectory
                 End If
                 Print("Backing up FSAssets Folder")
-                Cpy(folder, Dest + "\FSAssets")
+                FileStuff.CopyFolder(folder, Dest + "\FSAssets")
                 Application.DoEvents()
             End If
 
@@ -136,19 +136,19 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
                 Print("Backing up Wifi Folders")
-                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-                Cpy(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
                 Application.DoEvents()
             End If
-
-            If SettingsBox.Checked Then
-                Print("Backing up Settings")
-                My.Computer.FileSystem.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini")
-            End If
-            Print("Finished with backup at " + Dest)
         Catch ex As Exception
             MsgBox("Something went wrong: " + ex.Message)
         End Try
+
+        If SettingsBox.Checked Then
+            Print("Backing up Settings")
+            FileStuff.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
+        End If
+        Print("Finished with backup at " + Dest)
 
         DialogResult = DialogResult.OK
 
@@ -178,34 +178,6 @@ Public Class FormBackupCheckboxes
 
         Form1.Help("Backup Manually")
 
-    End Sub
-
-    Public Sub Cpy(ByVal sourcePath As String, ByVal destinationPath As String)
-
-        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
-
-        ' If the destination folder don't exist then create it
-        If Not System.IO.Directory.Exists(destinationPath) Then
-            System.IO.Directory.CreateDirectory(destinationPath)
-        End If
-
-        Dim fileSystemInfo As System.IO.FileSystemInfo
-        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
-            Dim destinationFileName As String =
-                System.IO.Path.Combine(destinationPath, fileSystemInfo.Name)
-
-            ' Now check whether its a file or a folder and take action accordingly
-            If TypeOf fileSystemInfo Is System.IO.FileInfo Then
-                Print(fileSystemInfo.Name)
-                Application.DoEvents()
-                CpyFile(fileSystemInfo.FullName, destinationFileName)
-            Else
-                ' Recursively call the mothod to copy all the nested folders
-                Cpy(fileSystemInfo.FullName, destinationFileName)
-                Application.DoEvents()
-            End If
-
-        Next
     End Sub
 
     Private Shared Sub CpyFile(From As String, Dest As String)
