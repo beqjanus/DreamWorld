@@ -167,7 +167,7 @@ Public Class UPnp
                 End If
 
             Next
-        Catch ex As Exception
+        Catch
         End Try
 
         'Nothing!
@@ -191,7 +191,7 @@ Public Class UPnp
                         Dim EndPoint As IPEndPoint = TryCast(sock.LocalEndPoint, IPEndPoint)
                         LIP = EndPoint.Address.ToString()
                     End Using
-                Catch ex As Exception
+                Catch
                     LIP = LocalIPForced()
 
                     If LIP.Length = 0 Then
@@ -202,8 +202,7 @@ Public Class UPnp
             Else
                 LIP = CacheIP
             End If
-        Catch ex As Exception
-
+        Catch
         End Try
         Return LIP
 
@@ -236,7 +235,7 @@ Public Class UPnp
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
-        Catch ex As Exception
+        Catch
 
         End Try
     End Sub
