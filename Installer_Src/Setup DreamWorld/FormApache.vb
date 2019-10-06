@@ -21,6 +21,7 @@
 #End Region
 
 Imports System.Text.RegularExpressions
+
 Public Class FormApache
 
     Dim initted As Boolean = False
@@ -57,6 +58,7 @@ Public Class FormApache
 #End Region
 
 #Region "Start/Stop"
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         SetScreen()
@@ -79,6 +81,7 @@ Public Class FormApache
         initted = True
 
     End Sub
+
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Form1.Settings.SaveSettings()
@@ -89,7 +92,6 @@ Public Class FormApache
 #End Region
 
 #Region "Clickers"
-
 
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
@@ -158,5 +160,14 @@ Public Class FormApache
         Form1.Help("Apache")
     End Sub
 
+    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
+        If LocalSearchCheckBox.Checked Then AllGridSearchCheckBox.Checked = False
+    End Sub
+
+    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
+        If AllGridSearchCheckBox.Checked Then LocalSearchCheckBox.Checked = False
+    End Sub
+
 #End Region
+
 End Class
