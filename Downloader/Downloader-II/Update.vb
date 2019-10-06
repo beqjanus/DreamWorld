@@ -22,24 +22,36 @@ Public Class Update
             ' for testing, as the compiler buries itself in ../../../debug
             Label1.Text = ""
         End If
+        ChDir(MyFolder)
 
-        Try
-            Label1.Text = "Downloading Update..."
-            Application.DoEvents()
-            Dim client As WebClient
-            client = New WebClient()
-            client.Credentials = New NetworkCredential("", "")
-            Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGridSetup.exe"
-            client.DownloadFile(FName, "DreamGridSetup.exe")
-            FName = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
-            client.DownloadFile(FName, "DreamGrid.Zip")
-        Catch ex As Exception
-            Environment.Exit(1)
-        End Try
+        Dim Version = ""
+        Dim Filename As String = ""
+        Dim args() As String = System.Environment.GetCommandLineArgs()
+        If args.Length = 2 Then
+            Filename = args(1)
+        End If
+        If Filename.StartsWith("DreamGrid-V") Then
+            Try
+                Label1.Text = "Downloading Update..."
+                Application.DoEvents()
+                Dim client As WebClient
+                client = New WebClient()
+                client.Credentials = New NetworkCredential("", "")
+                Dim FName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGridSetup.exe"
+                client.DownloadFile(FName, "DreamGridSetup.exe")
 
-        Label1.Text = "Download Complete"
+                FName = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
+                client.DownloadFile(FName, Filename)
+            Catch ex As Exception
+                Environment.Exit(1)
+            End Try
 
-        Environment.Exit(0)
+            Label1.Text = "Download Complete"
+
+            Environment.Exit(0)
+        End If
+
+        Environment.Exit(1)
 
     End Sub
 
