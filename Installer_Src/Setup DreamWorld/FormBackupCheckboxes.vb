@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System.IO
-
 Public Class FormBackupCheckboxes
 
 #Region "ScreenSize"

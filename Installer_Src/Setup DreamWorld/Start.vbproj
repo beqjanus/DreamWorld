@@ -195,7 +195,7 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
-    <Compile Include="DeleteFile.vb" />
+    <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
       <DependentUpon>FormApache.vb</DependentUpon>

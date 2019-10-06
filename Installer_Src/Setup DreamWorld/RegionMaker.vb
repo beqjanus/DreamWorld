@@ -30,14 +30,14 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
+    Public Grouplist As New Dictionary(Of String, Integer)
     Private Shared FInstance As RegionMaker = Nothing
 #Disable Warning CA1051 ' Do not declare visible instance fields
-    Public Grouplist As New Dictionary(Of String, Integer)
 #Enable Warning CA1051 ' Do not declare visible instance fields
-    Private RegionList As New List(Of Region_data)
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
     Dim json As New JSONresult
+    Private RegionList As New List(Of Region_data)
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
     Dim WebserverList As New List(Of String)
 
@@ -127,524 +127,30 @@ Public Class RegionMaker
         Public region_name As String
     End Class
 
-    ' hold a copy of the Main region data on a per-form basis
-    Private Class Region_data
+    ''' <summary>
+    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
+    ''' </summary>
+    Public Shared Sub UpdateAllRegionPorts()
 
-        Public _AvatarCount As Integer = 0
-        Public _ClampPrimSize As Boolean = False
-        Public _CoordX As Integer = 1000
-        Public _CoordY As Integer = 1000
-        Public _FolderPath As String = ""
-        Public _Group As String = ""  ' the path to the folder that holds the region ini
-        Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
-        Public _LineCounter As Integer = 0
-        Public _MaxAgents As Integer = 100
-        Public _MaxPrims As Integer = 15000
-        Public _MinTimerInterval As Single = 1 / 11
-        Public _NonPhysicalPrimMax As Integer = 1024
-        Public _PhysicalPrimMax As Integer
-        Public _ProcessID As Integer = 0
-        Public _RegionEnabled As Boolean = False
-        Public _RegionName As String = ""
-        Public _RegionPath As String = ""  ' The full path to the region ini file
-        Public _RegionPort As Integer = 0
-        Public _DisallowForeigners As String = ""
-        Public _DisallowResidents As String = ""
-        Public _RegionSmartStart As Boolean = False
-        Public _SizeX As Integer = 256
-        Public _SizeY As Integer = 256
-        Public _Status As Integer = 0
-        Public _Timer As Integer = 0
-        Public _UUID As String = ""
-
-#End Region
-
-#Region "OptionalStorage"
-
-        ''' <summary>
-        ''' <Must be all strings as a blank means use the default
-        ''' </summary>
-        'extended vars
-        Public _AllowGods As String = ""
-
-        Public _Birds As String = ""
-        Public _RegionSnapShot As String = ""
-        Public _Physics As String = "  "
-        Public _RegionGod As String = ""
-        Public _ManagerGod As String = ""
-        Public _MapType As String = ""
-        Public _Snapshot As String = ""
-        Public _Teleport As String = ""
-        Public _DisableGloebits As String = ""
-        Public _Tides As String = ""
-
-#End Region
-
-    End Class
-
-#Region "Properties"
-
-    Public Property DisallowResidents(n As Integer) As String
-        Get
-            Return RegionList(n)._DisallowResidents
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisallowResidents = Value
-        End Set
-    End Property
-
-    Public Property DisallowForeigners(n As Integer) As String
-        Get
-            Return RegionList(n)._DisallowForeigners
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisallowForeigners = Value
-        End Set
-    End Property
-
-    Public ReadOnly Property RegionCount() As Integer
-        Get
-            Return RegionList.Count
-        End Get
-    End Property
-
-    Public Property Snapshot(n As Integer) As String
-        Get
-            Return RegionList(n)._Snapshot
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Snapshot = Value
-        End Set
-    End Property
-
-    Public Property AllowGods(n As Integer) As String
-        Get
-            Return RegionList(n)._AllowGods
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._AllowGods = Value
-        End Set
-    End Property
-
-    Public Property AvatarCount(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._AvatarCount)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._AvatarCount = Value
-        End Set
-    End Property
-
-    Public Property Birds(n As Integer) As String
-        Get
-            Return RegionList(n)._Birds
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Birds = Value
-        End Set
-    End Property
-
-    Public Property ClampPrimSize(n As Integer) As Boolean
-        Get
-            Return CBool(RegionList(n)._ClampPrimSize)
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value
-        End Set
-    End Property
-
-    Public Property CoordX(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordX)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value
-        End Set
-    End Property
-
-    Public Property CoordY(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordY)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value
-        End Set
-    End Property
-
-    Public Property FolderPath(n As Integer) As String
-        Get
-            Return CStr(RegionList(n)._FolderPath)
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._FolderPath = Value
-        End Set
-    End Property
-
-    Public Property GroupName(n As Integer) As String
-        Get
-            Return RegionList(n)._Group
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Group = Value
-        End Set
-    End Property
-
-    ''' ''''''''''''''''''' PATHS ''''''''''''''''''''
-    Public Property IniPath(n As Integer) As String
-        Get
-            Return CStr(RegionList(n)._IniPath)
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._IniPath = Value
-        End Set
-    End Property
-
-    Public Property LineCounter(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._LineCounter)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._LineCounter = Value
-        End Set
-    End Property
-
-    Public Property ManagerGod(n As Integer) As String
-        Get
-            Return RegionList(n)._ManagerGod
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._ManagerGod = Value
-        End Set
-    End Property
-
-    Public Property MapType(n As Integer) As String
-        Get
-            Return RegionList(n)._MapType
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._MapType = Value
-        End Set
-    End Property
-
-    Public Property MaxAgents(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxAgents
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxAgents = Value
-        End Set
-    End Property
-
-    Public Property MaxPrims(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxPrims
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxPrims = Value
-        End Set
-    End Property
-
-    Public Property MinTimerInterval(n As Integer) As Single
-        Get
-            Return RegionList(n)._MinTimerInterval
-        End Get
-        Set(ByVal Value As Single)
-            RegionList(n)._MinTimerInterval = Value
-        End Set
-    End Property
-
-    Public Property NonPhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._NonPhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._NonPhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property PhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._PhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._PhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property Physics(n As Integer) As String
-        Get
-            Return RegionList(n)._Physics
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Physics = Value
-        End Set
-    End Property
-
-    Public Property ProcessID(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._ProcessID
-            Catch
-                Return 0
-            End Try
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._ProcessID = Value
-        End Set
-    End Property
-
-    Public Property RegionEnabled(n As Integer) As Boolean
-        Get
-            Return RegionList(n)._RegionEnabled
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._RegionEnabled = Value
-        End Set
-    End Property
-
-    Public Property RegionGod(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionGod
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionGod = Value
-        End Set
-    End Property
-
-    Public Property RegionName(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionName
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionName = Value
-        End Set
-    End Property
-
-    Public Property RegionPath(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionPath
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionPath = Value
-        End Set
-    End Property
-
-    Public Property RegionPort(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._RegionPort
-            Catch
-                Form1.ErrorLog("Bad region port: " + CStr(RegionList(n)._RegionPort))
-            End Try
-            Return 0
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._RegionPort = Value
-        End Set
-    End Property
-
-    Public Property SizeX(n As Integer) As Integer
-        Get
-            Return RegionList(n)._SizeX
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._SizeX = Value
-        End Set
-    End Property
-
-    Public Property SizeY(n As Integer) As Integer
-        Get
-            Return RegionList(n)._SizeY
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._SizeY = Value
-        End Set
-    End Property
-
-    Public Property SmartStart(n As Integer) As Boolean
-
-        Get
-            Return RegionList(n)._RegionSmartStart
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._RegionSmartStart = Value
-        End Set
-
-    End Property
-
-    Public Property Status(n As Integer) As Integer
-        Get
-            Return RegionList(n)._Status
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Status = Value
-        End Set
-    End Property
-
-    Public Property Timer(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._Timer
-            Catch
-                Return 0
-            End Try
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Timer = Value
-        End Set
-    End Property
-
-    Public Property UUID(n As Integer) As String
-        Get
-            Return RegionList(n)._UUID
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._UUID = Value
-        End Set
-    End Property
-
-#End Region
-
-#Region "Options"
-
-    Public Property RegionSnapShot(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionSnapShot
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionSnapShot = Value
-        End Set
-    End Property
-
-    Public Property DisableGloebits(n As Integer) As String
-        Get
-            Return RegionList(n)._DisableGloebits
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisableGloebits = Value
-        End Set
-    End Property
-
-    Public Property Teleport(n As Integer) As String
-        Get
-            Return RegionList(n)._Teleport
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Teleport = Value
-        End Set
-    End Property
-
-    Public Property Tides(n As Integer) As String
-        Get
-            Return RegionList(n)._Tides
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Tides = Value
-        End Set
-    End Property
-
-#End Region
-
-#Region "Functions"
-
-    Public Sub DebugGroup()
-        For Each pair In Grouplist
-            Debug.Print("Group name: {0}, httpport: {1}", pair.Key, pair.Value)
-        Next
-    End Sub
-
-    Public Sub DebugRegions(n As Integer)
-
-        Form1.Log("RegionNumber", CStr(n) & vbCrLf &
-            " PID:" & RegionList(n)._ProcessID & vbCrLf &
-            " Group:" & RegionList(n)._Group & vbCrLf &
-            " Region:" & RegionList(n)._RegionName & vbCrLf &
-            " Status=" & CStr(RegionList(n)._Status) & vbCrLf &
-            " LineCtr=" & CStr(RegionList(n)._LineCounter) & vbCrLf &
-           " RegionEnabled=" & RegionList(n)._RegionEnabled & vbCrLf &
-           " Timer=" & CStr(RegionList(n)._Timer))
-
-    End Sub
-
-    Public Function FindRegionByName(Name As String) As Integer
-
-        Dim i As Integer = 0
-        For Each obj As Region_data In RegionList
-            If Name = obj._RegionName Then
-                Debug.Print("Current Region is " + obj._RegionName)
-                Return i
-            End If
-            i += 1
-        Next
-
-        'RegionDump()
-        Return -1
-
-    End Function
-
-    Public Function IsBooted(RegionNumber As Integer) As Boolean
-        If Status(RegionNumber) = SIMSTATUSENUM.Booted Then
-            Return True
+        If Form1.PropOpensimIsRunning Then
+            Return
         End If
-        Return False
-    End Function
 
-    Public Sub RegionDump()
+        Form1.Print("Setup all region ports")
+        Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
+        For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
+            Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
+            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
 
-        If Not Form1.PropDebug Then Return
-        Dim ctr = 0
-        For Each r As Region_data In RegionList
-            DebugRegions(ctr)
-            ctr += 1
+            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
+            ' Self setting Region Ports
+            Form1.PropMaxPortUsed = Portnumber
+            Form1.Settings.SaveINI()
+            Portnumber += 1
         Next
 
     End Sub
-
-    Public Function RegionListByGroupNum(Gname As String) As List(Of Integer)
-
-        Dim L As New List(Of Integer)
-        Dim ctr = 0
-        For Each n As Region_data In RegionList
-            If n._Group = Gname Or Gname = "*" Then
-                L.Add(ctr)
-            End If
-            ctr += 1
-        Next
-        If (L.Count = 0) Then
-            Debug.Print(" Not found:" & Gname)
-        End If
-        Return L
-
-    End Function
-
-    Public Function RegionNumbers() As List(Of Integer)
-        Dim L As New List(Of Integer)
-        Dim ctr = 0
-        For Each n As Region_data In RegionList
-            L.Add(ctr)
-            ctr += 1
-        Next
-        'Debug.Print("List Len = " + L.Count.ToString)
-        Return L
-    End Function
-
-    Private Function FindRegionByUUID(Name As String) As Integer
-
-        Dim i As Integer = 0
-        For Each obj As Region_data In RegionList
-            If Name = obj._UUID Then
-                Debug.Print("Current Region is " + obj._RegionName)
-                Return i
-            End If
-            i += 1
-        Next
-        Return -1
-
-    End Function
-
-#End Region
 
     Public Sub CheckPost()
 
@@ -1035,31 +541,6 @@ Public Class RegionMaker
         Return Min
     End Function
 
-    ''' <summary>
-    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
-    ''' </summary>
-    Public Shared Sub UpdateAllRegionPorts()
-
-        If Form1.PropOpensimIsRunning Then
-            Return
-        End If
-
-        Form1.Print("Setup all region ports")
-        Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
-        For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
-            Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
-            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionNum), ";")
-
-            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
-            Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
-            ' Self setting Region Ports
-            Form1.PropMaxPortUsed = Portnumber
-            Form1.Settings.SaveINI()
-            Portnumber += 1
-        Next
-
-    End Sub
-
     Public Sub WriteRegionObject(name As String)
 
         Dim n As Integer = FindRegionByName(name)
@@ -1129,6 +610,525 @@ Public Class RegionMaker
 
     End Sub
 
+    ' hold a copy of the Main region data on a per-form basis
+    Private Class Region_data
+
+        Public _AvatarCount As Integer = 0
+        Public _ClampPrimSize As Boolean = False
+        Public _CoordX As Integer = 1000
+        Public _CoordY As Integer = 1000
+        Public _DisallowForeigners As String = ""
+        Public _DisallowResidents As String = ""
+        Public _FolderPath As String = ""
+        Public _Group As String = ""  ' the path to the folder that holds the region ini
+        Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
+        Public _LineCounter As Integer = 0
+        Public _MaxAgents As Integer = 100
+        Public _MaxPrims As Integer = 15000
+        Public _MinTimerInterval As Single = 1 / 11
+        Public _NonPhysicalPrimMax As Integer = 1024
+        Public _PhysicalPrimMax As Integer
+        Public _ProcessID As Integer = 0
+        Public _RegionEnabled As Boolean = False
+        Public _RegionName As String = ""
+        Public _RegionPath As String = ""  ' The full path to the region ini file
+        Public _RegionPort As Integer = 0
+        Public _RegionSmartStart As Boolean = False
+        Public _SizeX As Integer = 256
+        Public _SizeY As Integer = 256
+        Public _Status As Integer = 0
+        Public _Timer As Integer = 0
+        Public _UUID As String = ""
+
+#End Region
+
+#Region "OptionalStorage"
+
+        ''' <summary>
+        ''' <Must be all strings as a blank means use the default
+        ''' </summary>
+        'extended vars
+        Public _AllowGods As String = ""
+
+        Public _Birds As String = ""
+        Public _DisableGloebits As String = ""
+        Public _ManagerGod As String = ""
+        Public _MapType As String = ""
+        Public _Physics As String = "  "
+        Public _RegionGod As String = ""
+        Public _RegionSnapShot As String = ""
+        Public _Snapshot As String = ""
+        Public _Teleport As String = ""
+        Public _Tides As String = ""
+
+#End Region
+
+    End Class
+
+#Region "Properties"
+
+    Public ReadOnly Property RegionCount() As Integer
+        Get
+            Return RegionList.Count
+        End Get
+    End Property
+
+    Public Property AllowGods(n As Integer) As String
+        Get
+            Return RegionList(n)._AllowGods
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._AllowGods = Value
+        End Set
+    End Property
+
+    Public Property AvatarCount(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._AvatarCount)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._AvatarCount = Value
+        End Set
+    End Property
+
+    Public Property Birds(n As Integer) As String
+        Get
+            Return RegionList(n)._Birds
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Birds = Value
+        End Set
+    End Property
+
+    Public Property ClampPrimSize(n As Integer) As Boolean
+        Get
+            Return CBool(RegionList(n)._ClampPrimSize)
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._ClampPrimSize = Value
+        End Set
+    End Property
+
+    Public Property CoordX(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordX)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordX = Value
+        End Set
+    End Property
+
+    Public Property CoordY(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordY)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordY = Value
+        End Set
+    End Property
+
+    Public Property DisallowForeigners(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowForeigners
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowForeigners = Value
+        End Set
+    End Property
+
+    Public Property DisallowResidents(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowResidents
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowResidents = Value
+        End Set
+    End Property
+
+    Public Property FolderPath(n As Integer) As String
+        Get
+            Return CStr(RegionList(n)._FolderPath)
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._FolderPath = Value
+        End Set
+    End Property
+
+    Public Property GroupName(n As Integer) As String
+        Get
+            Return RegionList(n)._Group
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Group = Value
+        End Set
+    End Property
+
+    ''' ''''''''''''''''''' PATHS ''''''''''''''''''''
+    Public Property IniPath(n As Integer) As String
+        Get
+            Return CStr(RegionList(n)._IniPath)
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._IniPath = Value
+        End Set
+    End Property
+
+    Public Property LineCounter(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._LineCounter)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._LineCounter = Value
+        End Set
+    End Property
+
+    Public Property ManagerGod(n As Integer) As String
+        Get
+            Return RegionList(n)._ManagerGod
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._ManagerGod = Value
+        End Set
+    End Property
+
+    Public Property MapType(n As Integer) As String
+        Get
+            Return RegionList(n)._MapType
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._MapType = Value
+        End Set
+    End Property
+
+    Public Property MaxAgents(n As Integer) As Integer
+        Get
+            Return RegionList(n)._MaxAgents
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._MaxAgents = Value
+        End Set
+    End Property
+
+    Public Property MaxPrims(n As Integer) As Integer
+        Get
+            Return RegionList(n)._MaxPrims
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._MaxPrims = Value
+        End Set
+    End Property
+
+    Public Property MinTimerInterval(n As Integer) As Single
+        Get
+            Return RegionList(n)._MinTimerInterval
+        End Get
+        Set(ByVal Value As Single)
+            RegionList(n)._MinTimerInterval = Value
+        End Set
+    End Property
+
+    Public Property NonPhysicalPrimMax(n As Integer) As Integer
+        Get
+            Return RegionList(n)._NonPhysicalPrimMax
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._NonPhysicalPrimMax = Value
+        End Set
+    End Property
+
+    Public Property PhysicalPrimMax(n As Integer) As Integer
+        Get
+            Return RegionList(n)._PhysicalPrimMax
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._PhysicalPrimMax = Value
+        End Set
+    End Property
+
+    Public Property Physics(n As Integer) As String
+        Get
+            Return RegionList(n)._Physics
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Physics = Value
+        End Set
+    End Property
+
+    Public Property ProcessID(n As Integer) As Integer
+        Get
+            Try
+                Return RegionList(n)._ProcessID
+            Catch
+                Return 0
+            End Try
+
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._ProcessID = Value
+        End Set
+    End Property
+
+    Public Property RegionEnabled(n As Integer) As Boolean
+        Get
+            Return RegionList(n)._RegionEnabled
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._RegionEnabled = Value
+        End Set
+    End Property
+
+    Public Property RegionGod(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionGod
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionGod = Value
+        End Set
+    End Property
+
+    Public Property RegionName(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionName
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionName = Value
+        End Set
+    End Property
+
+    Public Property RegionPath(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionPath
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionPath = Value
+        End Set
+    End Property
+
+    Public Property RegionPort(n As Integer) As Integer
+        Get
+            Try
+                Return RegionList(n)._RegionPort
+            Catch
+                Form1.ErrorLog("Bad region port: " + CStr(RegionList(n)._RegionPort))
+            End Try
+            Return 0
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._RegionPort = Value
+        End Set
+    End Property
+
+    Public Property SizeX(n As Integer) As Integer
+        Get
+            Return RegionList(n)._SizeX
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._SizeX = Value
+        End Set
+    End Property
+
+    Public Property SizeY(n As Integer) As Integer
+        Get
+            Return RegionList(n)._SizeY
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._SizeY = Value
+        End Set
+    End Property
+
+    Public Property SmartStart(n As Integer) As Boolean
+
+        Get
+            Return RegionList(n)._RegionSmartStart
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._RegionSmartStart = Value
+        End Set
+
+    End Property
+
+    Public Property Snapshot(n As Integer) As String
+        Get
+            Return RegionList(n)._Snapshot
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Snapshot = Value
+        End Set
+    End Property
+
+    Public Property Status(n As Integer) As Integer
+        Get
+            Return RegionList(n)._Status
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._Status = Value
+        End Set
+    End Property
+
+    Public Property Timer(n As Integer) As Integer
+        Get
+            Try
+                Return RegionList(n)._Timer
+            Catch
+                Return 0
+            End Try
+
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._Timer = Value
+        End Set
+    End Property
+
+    Public Property UUID(n As Integer) As String
+        Get
+            Return RegionList(n)._UUID
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._UUID = Value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Options"
+
+    Public Property DisableGloebits(n As Integer) As String
+        Get
+            Return RegionList(n)._DisableGloebits
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisableGloebits = Value
+        End Set
+    End Property
+
+    Public Property RegionSnapShot(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionSnapShot
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionSnapShot = Value
+        End Set
+    End Property
+
+    Public Property Teleport(n As Integer) As String
+        Get
+            Return RegionList(n)._Teleport
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Teleport = Value
+        End Set
+    End Property
+
+    Public Property Tides(n As Integer) As String
+        Get
+            Return RegionList(n)._Tides
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Tides = Value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Functions"
+
+    Public Sub DebugGroup()
+        For Each pair In Grouplist
+            Debug.Print("Group name: {0}, httpport: {1}", pair.Key, pair.Value)
+        Next
+    End Sub
+
+    Public Sub DebugRegions(n As Integer)
+
+        Form1.Log("RegionNumber", CStr(n) & vbCrLf &
+            " PID:" & RegionList(n)._ProcessID & vbCrLf &
+            " Group:" & RegionList(n)._Group & vbCrLf &
+            " Region:" & RegionList(n)._RegionName & vbCrLf &
+            " Status=" & CStr(RegionList(n)._Status) & vbCrLf &
+            " LineCtr=" & CStr(RegionList(n)._LineCounter) & vbCrLf &
+           " RegionEnabled=" & RegionList(n)._RegionEnabled & vbCrLf &
+           " Timer=" & CStr(RegionList(n)._Timer))
+
+    End Sub
+
+    Public Function FindRegionByName(Name As String) As Integer
+
+        Dim i As Integer = 0
+        For Each obj As Region_data In RegionList
+            If Name = obj._RegionName Then
+                Debug.Print("Current Region is " + obj._RegionName)
+                Return i
+            End If
+            i += 1
+        Next
+
+        'RegionDump()
+        Return -1
+
+    End Function
+
+    Public Function IsBooted(RegionNumber As Integer) As Boolean
+        If Status(RegionNumber) = SIMSTATUSENUM.Booted Then
+            Return True
+        End If
+        Return False
+    End Function
+
+    Public Sub RegionDump()
+
+        If Not Form1.PropDebug Then Return
+        Dim ctr = 0
+        For Each r As Region_data In RegionList
+            DebugRegions(ctr)
+            ctr += 1
+        Next
+
+    End Sub
+
+    Public Function RegionListByGroupNum(Gname As String) As List(Of Integer)
+
+        Dim L As New List(Of Integer)
+        Dim ctr = 0
+        For Each n As Region_data In RegionList
+            If n._Group = Gname Or Gname = "*" Then
+                L.Add(ctr)
+            End If
+            ctr += 1
+        Next
+        If (L.Count = 0) Then
+            Debug.Print(" Not found:" & Gname)
+        End If
+        Return L
+
+    End Function
+
+    Public Function RegionNumbers() As List(Of Integer)
+        Dim L As New List(Of Integer)
+        Dim ctr = 0
+        For Each n As Region_data In RegionList
+            L.Add(ctr)
+            ctr += 1
+        Next
+        'Debug.Print("List Len = " + L.Count.ToString)
+        Return L
+    End Function
+
+    Private Function FindRegionByUUID(Name As String) As Integer
+
+        Dim i As Integer = 0
+        For Each obj As Region_data In RegionList
+            If Name = obj._UUID Then
+                Debug.Print("Current Region is " + obj._RegionName)
+                Return i
+            End If
+            i += 1
+        Next
+        Return -1
+
+    End Function
+
+#End Region
+
 #Region "POST"
 
     Shared Function CheckPassword(POST As String, Machine As String) As Boolean
@@ -1142,28 +1142,6 @@ Public Class RegionMaker
             If Machine = p1.ToLower(Form1.Invarient) Then Return True
         End If
         Return False
-
-    End Function
-
-    Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
-
-        If Mysetting Is Nothing Then
-            Return ""
-        End If
-        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustMysqlConnection)
-        Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-            .Connection = myConnection
-        }
-        myConnection.Open()
-        myCommand1.Prepare()
-        myCommand1.Parameters.AddWithValue("p1", p1)
-        Dim a = CStr(myCommand1.ExecuteScalar())
-        Debug.Print("User=" + p1 + ", Partner=" + a)
-
-        myConnection.Close()
-        myCommand1.Dispose()
-        Return a
 
     End Function
 
@@ -1194,6 +1172,28 @@ Public Class RegionMaker
         End If
         myConnection.Close()
         Return ""
+    End Function
+
+    Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
+
+        If Mysetting Is Nothing Then
+            Return ""
+        End If
+        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustMysqlConnection)
+        Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
+        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+            .Connection = myConnection
+        }
+        myConnection.Open()
+        myCommand1.Prepare()
+        myCommand1.Parameters.AddWithValue("p1", p1)
+        Dim a = CStr(myCommand1.ExecuteScalar())
+        Debug.Print("User=" + p1 + ", Partner=" + a)
+
+        myConnection.Close()
+        myCommand1.Dispose()
+        Return a
+
     End Function
 
     Public Function ParsePost(POST As String, Settings As MySettings) As String

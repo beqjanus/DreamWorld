@@ -57,8 +57,8 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.InVarient)
-        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.InVarient)
+        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.Invarient)
+        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.Invarient)
         AdminPassword.Text = Form1.Settings.SCAdminPassword
         ShoutcastPassword.Text = Form1.Settings.SCPassword
         ShoutcastEnable.Checked = Form1.Settings.SCEnable

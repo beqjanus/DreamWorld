@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System.IO
 Imports System.Net
 Imports System.Net.Sockets
 Imports System.Runtime.InteropServices

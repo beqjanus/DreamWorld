@@ -30,7 +30,6 @@
 
 #End Region
 
-Imports System
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -674,21 +673,22 @@ Public Class Form1
         StartApache()
 
         ' old files to clean up
-        Try
-            If Settings.BirdsModuleStartup Then
+
+        If Settings.BirdsModuleStartup Then
+            Try
                 My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
-            Else
-                My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
-            End If
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As System.Security.SecurityException
-        End Try
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As FileNotFoundException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As System.Security.SecurityException
+            End Try
+        Else
+            FileStuff.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
+        End If
 
         If Not StartRobust() Then
             Return
@@ -1059,11 +1059,7 @@ Public Class Form1
     Private Sub KillFiles(AL As List(Of String))
 
         For Each filename As String In AL
-            Try
-                My.Computer.FileSystem.DeleteFile(PropMyFolder & filename)
-            Catch ex As Exception
-                Diagnostics.Debug.Print(ex.Message)
-            End Try
+            FileStuff.DeleteFile(PropMyFolder & filename)
         Next
 
     End Sub
@@ -1538,7 +1534,7 @@ Public Class Form1
         End Select
 
         ' Put that gridcommon.ini file in place
-        IO.File.Copy(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
+        FileStuff.CopyFile(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
         Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";")
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
@@ -1603,11 +1599,7 @@ Public Class Form1
         'close the reader
         reader.Close()
 
-        Try
-            My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
-        Catch ex As Exception
-            'Nothing to do, this was just cleanup
-        End Try
+        FileStuff.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
 
         Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
             outputFile.Write(Output)
@@ -2299,11 +2291,7 @@ Public Class Form1
             '(replace spaces with underscore)
             DefaultName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
 
-            Try
-                My.Computer.FileSystem.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
-            Catch ex As Exception
-                'Nothing to do, this was just cleanup
-            End Try
+            FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
             Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\Robust.HG.ini")
                 reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\Robust.HG.ini.proto")
@@ -2770,7 +2758,6 @@ Public Class Form1
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
-        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("SSLSessionCache", "SSLSessionCache shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
@@ -2782,7 +2769,7 @@ Public Class Form1
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("extension_dir", "extension_dir " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
+        Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
         Settings.SaveLiteralIni(ini, "php.ini")
 
@@ -2925,15 +2912,9 @@ Public Class Form1
             Return
         End If
 
-        Try
-            My.Computer.FileSystem.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\access.log")
-        Catch ex As Exception
-        End Try
+        FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\access.log")
 
-        Try
-            My.Computer.FileSystem.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\error.log")
-        Catch ex As Exception
-        End Try
+        FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\error.log")
 
         PropIcecastProcID = 0
         Print("Starting Icecast")
@@ -3239,25 +3220,10 @@ Public Class Form1
         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & Regionclass.GroupName(RegionNumber) & """"
 
-        Try
-            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
-        Catch
-        End Try
-
-        Try
-            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
-        Catch
-        End Try
-
-        Try
-            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
-        Catch
-        End Try
-
-        Try
-            My.Computer.FileSystem.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
-        Catch
-        End Try
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
 
         If myProcess.Start() Then
 
@@ -3577,10 +3543,7 @@ Public Class Form1
 
         For Each thing As String In Logfiles
             ' clear out the log files
-            Try
-                My.Computer.FileSystem.DeleteFile(thing)
-            Catch ex As Exception
-            End Try
+            FileStuff.DeleteFile(thing)
         Next
 
     End Sub
@@ -3906,10 +3869,7 @@ Public Class Form1
             HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
         Next
 
-        Try
-            My.Computer.FileSystem.DeleteFile(HTMLFILE)
-        Catch
-        End Try
+        FileStuff.DeleteFile(HTMLFILE)
 
         Try
             Using outputFile As New StreamWriter(HTMLFILE, True)
@@ -5189,11 +5149,8 @@ Public Class Form1
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\StartManually.bat"
-        Try
-            My.Computer.FileSystem.DeleteFile(testProgram)
-        Catch ex As Exception
-            ErrorLog("Error: Cannot Delete File: " & ex.Message)
-        End Try
+        FileStuff.DeleteFile(testProgram)
+
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
@@ -5308,11 +5265,8 @@ Public Class Form1
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\InstallAsAService.bat"
-        Try
-            My.Computer.FileSystem.DeleteFile(testProgram)
-        Catch ex As Exception
-            ErrorLog("Delete File: " & ex.Message)
-        End Try
+        FileStuff.DeleteFile(testProgram)
+
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
@@ -5328,11 +5282,7 @@ Public Class Form1
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\StopMySQL.bat"
-        Try
-            My.Computer.FileSystem.DeleteFile(testProgram)
-        Catch ex As Exception
-            ErrorLog("Delete File: " & ex.Message)
-        End Try
+        FileStuff.DeleteFile(testProgram)
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
@@ -5381,10 +5331,8 @@ Public Class Form1
                     ' thing = thing.Replace("\", "/") ' because Opensim uses unix-like slashes,
                     ' that's why
 
-                    Try
-                        My.Computer.FileSystem.DeleteFile(PropMyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat")
-                    Catch
-                    End Try
+                    FileStuff.DeleteFile(PropMyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat")
+
                     Try
                         Dim filename As String = PropMyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat"
                         Using outputFile As New StreamWriter(filename, True)
@@ -6391,7 +6339,8 @@ Public Class Form1
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log("INFO", "Deleting dll " & localdllname)
-                My.Computer.FileSystem.DeleteFile(localdllname)
+                FileStuff.DeleteFile(localdllname)
+
             End If
         Next
 
