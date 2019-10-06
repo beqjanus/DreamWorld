@@ -2,6 +2,28 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.2 release  Not yet - found another issue with the update to PHP7
+
+
+V3.196
+Added Garry Beaumonts wrecked home Icon that shows when the Welcome region is disabled.
+Missing PHP7 extension prevented PHP from making maps, links or search.
+Clearing asest cache when running did not work. It went to robust instead of the online regions. It worked if you were offline.
+Added a Module for File/folder copy and delete to clean up warnings and catch all possible errors.
+Apache Settings allowed both Local and Global search to be set. Now a toggle for one or the other.
+
+V3.195
+New updater process loads files in background to a specific zip file. You can choose to ignore this version. It will reprompt the next release.  
+Dot Net zip set back to be 1.11.0 to be compatible with older updater. This causes a crash in the DLL.
+
+V3.194
+Big speed up on registering DYN DNS
+Speed up Saving regions
+Move Apache to its own setting.
+Add co_root to Apache to only run programs in htdocs
+Metro Maps was missing an include
+
+
 V3.193 
 Unchecking Apache as a Service removes the service
 Bug in Email prevented it from emailintg confimation of a new user
