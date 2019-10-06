@@ -10,7 +10,7 @@ Imports System.Threading
 
 Public Class UpdateGrid
 
-    Dim Filename As String = "DreamGrid.zip"
+    Dim Filename As String = ""
     Dim MyFolder As String = ""
 
     Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
@@ -28,8 +28,8 @@ Public Class UpdateGrid
         ' dotnetzip is part of the resources so we can overwrite it.
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
-        Label1.Text = "Dreamgrid Updater"
-        Me.Text = "Outworldz Dreamgrid Setup"
+        Label1.Text = "DreamGrid Updater"
+        Me.Text = "Outworldz DreamGrid Setup"
         Me.Show()
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
@@ -40,48 +40,63 @@ Public Class UpdateGrid
         End If
         ChDir(MyFolder)
 
-        If Not File.Exists(MyFolder & "\" & Filename) Then
-            TextPrint("DreamGrid.zip file was not found. Aborting.")
-            Application.DoEvents()
-            Thread.Sleep(5000)
-            End
+        Dim args() As String = System.Environment.GetCommandLineArgs()
+        If args.Length = 2 Then
+            Filename = args(1)
         Else
-
-            Dim result = MsgBox("Unzipping and updating your system. Proceed?", vbYesNo)
-            If result = vbNo Then End
-
-            Application.DoEvents()
-
-            Label1.Text = "Checking MySQL"
-            StopMYSQL()
-            StopApache()
-
-            Try
-                My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
-            Catch ex As Exception
-            End Try
-
-            Dim ctr As Integer
-            Try
-                Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
-                    For Each ZipEntry In zip
-                        Application.DoEvents()
-                        ctr = ctr + 1
-                        If ZipEntry.FileName <> "DotNetZip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
-                            TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
-                            Application.DoEvents()
-                            ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
-                        End If
-                    Next
-                End Using
-            Catch ex As Exception
-                TextPrint("Unable to extract file: " + ex.Message)
-            End Try
-            TextPrint("Completed!")
-            Thread.Sleep(3000)
-            End
-
+            MsgBox("Syntax: DreamGridSetup.exe Dreamgrid-VX.Y.zip")
         End If
+
+        If Filename.StartsWith("DreamGrid-V") Then
+
+            If Not File.Exists(MyFolder & "\" & Filename) Then
+                TextPrint("File not found. Aborting." & vbCrLf & "Syntax: DreamGridSetup.exe  Dreamgrid-VX.X.zip.")
+                Application.DoEvents()
+                Thread.Sleep(5000)
+                End
+            Else
+
+                Dim result = MsgBox("Ready to update your system. Proceed?", vbYesNo)
+                If result = vbNo Then End
+
+                Application.DoEvents()
+
+                Label1.Text = "Stopping MySQL"
+                StopMYSQL()
+                Label1.Text = "Stopping Apache"
+                StopApache()
+
+                Try
+                    My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Catch ex As Exception
+                End Try
+
+                Dim ctr As Integer
+                Try
+                    Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
+                        For Each ZipEntry In zip
+                            Application.DoEvents()
+                            ctr = ctr + 1
+                            If ZipEntry.FileName <> "DotNetZip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
+                                TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
+                                Application.DoEvents()
+                                ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
+                            End If
+                        Next
+                    End Using
+                Catch ex As Exception
+                    TextPrint("Unable to extract file: " + ex.Message)
+                    Thread.Sleep(3000)
+                End Try
+                Application.DoEvents()
+                TextPrint("Completed!")
+                Application.DoEvents()
+                Thread.Sleep(3000)
+                End
+            End If
+        End If
+        End
+
     End Sub
 
     Public Sub TextPrint(ByVal str As String)

@@ -5,15 +5,16 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $type  = '-V3.195' ; 
+my $v = "3.195";
+
+my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
 
-say ("Stop Apache!");
+
 say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
-
 
 say("Clean up opensim");
 my @deletions = (
@@ -40,8 +41,11 @@ foreach my $path ( @deletions) {
 	DeleteandKeep($path);
 }
 
-unlink ("$dir/BareTail.udm");
-unlink ("$dir/DreamGrid.zip");
+DelZips();
+DelMaps();
+
+unlink "$dir/BareTail.udm";
+unlink "$dir/DreamGrid.zip";
 unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/PHP5/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
@@ -68,7 +72,6 @@ unlink "$dir/OutworldzFiles/Init.txt" ;
 unlink "$dir/OutworldzFiles/upnp.log" ;
 unlink "$dir/OutworldzFiles/http.log" ;
 unlink "$dir/OutworldzFiles/Error.log" ;
-
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
 
@@ -104,6 +107,8 @@ close OUT;
 use File::Copy::Recursive qw(dircopy);
 dircopy("$dir/Installer_Src/Setup DreamWorld/bin/Release",$dir) or die("$!\n");
 
+unlink "$dir/Start.exe.lastcodeanalysissucceeded";
+unlink "$dir/Start.exe.CodeAnalysisLog.xml";
 
 
 say("Signing");
@@ -226,19 +231,13 @@ sleep(1);
 if ($publish)
 {
 	say ("Publishing now");
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip";
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip";
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip";	
-	
+		
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip" || die $!;
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!; 	
+		
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid$type.zip"))  {die $!;}
-	
-	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update$type.zip"))  {die $!;}
-	
+	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
-	
 	
 
 	print "Revisions\n";
@@ -327,6 +326,7 @@ sub DeleteandKeep {
 	while (-e $path) 
     {
         print "Directory '$path' still exists\n";
+		sleep(1);
     }
     
 	mkdir $path ;
@@ -340,7 +340,6 @@ sub DeleteandKeep {
 # for importers
 sub Perlunzip {
 	
-	
 	use Archive::Zip qw(:ERROR_CODES :CONSTANTS);
 	use Exporter 'import';
 	
@@ -352,4 +351,20 @@ sub Perlunzip {
 	unless ($zip->extractTree($filter || '', $out_file) == AZ_OK) {
 		warn "unzip not successful: $!\n";
 	}
+}
+
+
+sub DelZips
+{
+	while ($_ = glob("$dir/*.zip")) {
+		unlink ($_)  or die("Can't remove $_: $!");
+	}	
+}
+
+
+sub DelMaps
+{
+	while ($_ = glob("$dir/Outworldzfiles/opensim/bin/Map-*.png")) {
+		unlink ($_)  or die("Can't remove $_: $!");
+	}	
 }
