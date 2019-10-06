@@ -102,21 +102,24 @@ Public Class FormPublicity
                 PictureBox9.Image = Nothing
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
-                    My.Computer.FileSystem.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-                Catch ex As Exception
+                Catch ex As IO.FileNotFoundException
+                Catch ex As ArgumentNullException
+                Catch ex As OutOfMemoryException
                 End Try
 
-                Try
-                    Using newBitmap = New Bitmap(PictureBox9.Image)
+                FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+
+                Using newBitmap = New Bitmap(PictureBox9.Image)
+                    Try
                         newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
-                    End Using
-                Catch ex As ArgumentNullException
-                    MsgBox("Warn: " & ex.Message)
-                    Return
-                Catch ex As Runtime.InteropServices.ExternalException
-                    MsgBox("Warn:" & ex.Message)
-                    Return
-                End Try
+                    Catch ex As ArgumentNullException
+                        MsgBox("Warn: " & ex.Message)
+                        Return
+                    Catch ex As Runtime.InteropServices.ExternalException
+                        MsgBox("Warn:" & ex.Message)
+                        Return
+                    End Try
+                End Using
 
                 Dim Myupload As New UploadImage
                 Myupload.PostContentUploadFile()
