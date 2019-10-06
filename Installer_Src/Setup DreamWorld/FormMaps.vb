@@ -149,7 +149,7 @@ Public Class FormMaps
 
         Try
             Form1.Print("Clearing Maptiles")
-            My.Computer.FileSystem.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
+            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
         Catch ex As Exception
         End Try

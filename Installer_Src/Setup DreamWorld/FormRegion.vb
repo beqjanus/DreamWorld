@@ -766,11 +766,7 @@ Public Class FormRegion
 
         Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
         If msg = vbYes Then
-            Try
-                My.Computer.FileSystem.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
-            Catch
-            End Try
-
+            FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(PropRegionClass1.RegionPath(N1), RegionName.Text + ".bak")
                 PropRegionClass1.GetAllRegions()

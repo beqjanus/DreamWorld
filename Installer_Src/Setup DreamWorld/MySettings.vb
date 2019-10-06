@@ -1688,7 +1688,7 @@ Public Class MySettings
             End If
         Next
         If Not found Then
-            Form1.ErrorLog("Error: Did not find " & Name & " to set value of " & value)
+            Diagnostics.Debug.Print("Error: Did not find " & Name & " to set value of " & value)
         End If
         Apachein.Clear()
         For Each item In Apacheout
@@ -1700,11 +1700,8 @@ Public Class MySettings
     Public Sub SaveLiteralIni(ini As String, name As String)
 
         ' make a backup
-        Try
-            My.Computer.FileSystem.DeleteFile(ini & ".bak")
-        Catch ex As Exception
-            Debug.Print(ex.Message)
-        End Try
+
+        FileStuff.DeleteFile(ini & ".bak")
 
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")

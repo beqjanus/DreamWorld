@@ -1121,10 +1121,7 @@ Public Class RegionMaker
         & "MinTimerInterval =" & vbCrLf _
         & "SmartStart =" & SmartStart(n) & vbCrLf
 
-        Try
-            My.Computer.FileSystem.DeleteFile(fname)
-        Catch
-        End Try
+        FileStuff.DeleteFile(fname)
 
         Using outputFile As New StreamWriter(fname, True)
             outputFile.WriteLine(proto)
