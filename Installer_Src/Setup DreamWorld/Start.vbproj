@@ -195,6 +195,7 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Culture.vb" />
+    <Compile Include="DeleteFile.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
       <DependentUpon>FormApache.vb</DependentUpon>
@@ -768,6 +769,7 @@
     <None Include="Resources\Arrow2Left.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\DotNetZip.dll" />
+    <None Include="Resources\home_02.png" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

@@ -236,6 +236,7 @@ Public Class RegionList
         user2 = 9
         SmartStart = 10
         Home = 11
+        HomeOffline = 12
 
     End Enum
 
@@ -334,6 +335,7 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Invarient))  ' 9 - 2 user
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 10 - 2 user
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Form1.Invarient))  '  11- home
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Form1.Invarient))  '  12- home _offline
         Form1.PropUpdateView = True ' make form refresh
 
         LoadMyListView()
@@ -642,7 +644,11 @@ Public Class RegionList
                     End If
                 ElseIf Not PropRegionClass1.RegionEnabled(X) Then
                     Letter = "Disabled"
-                    Num = DGICON.disabled
+                    If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                        Num = DGICON.HomeOffline
+                    Else
+                        Num = DGICON.disabled
+                    End If
                 ElseIf PropRegionClass1.RegionEnabled(X) Then
                     Letter = "Stopped"
                     Num = DGICON.stopped
