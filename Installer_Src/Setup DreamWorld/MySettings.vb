@@ -1676,17 +1676,20 @@ Public Class MySettings
     Public Sub SetLiteralIni(Name As String, value As String)
 
         Apacheout.Clear()
-
+        Dim found As Boolean = False
         For Each Item As String In Apachein
 #Disable Warning CA1307 ' Specify StringComparison
             If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
 #Enable Warning CA1307 ' Specify StringComparison
                 Apacheout.Add(value)
+                found = True
             Else
                 Apacheout.Add(Item)
             End If
         Next
-
+        If Not found Then
+            Form1.ErrorLog("Error: Did not find " & Name & " to set value of " & value)
+        End If
         Apachein.Clear()
         For Each item In Apacheout
             Apachein.Add(item)
