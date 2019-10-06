@@ -158,14 +158,6 @@ Public Class FormCaches
         Form1.PropViewedSettings = True
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        If Form1.PropOpensimIsRunning Then
-            Form1.ConsoleCommand("Robust", "fcache clear")
-        End If
-
-    End Sub
-
     Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
         If Not gInitted Then Return
         Form1.PropViewedSettings = True
@@ -205,6 +197,5 @@ Public Class FormCaches
         Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
-
 
 End Class
