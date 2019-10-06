@@ -197,10 +197,12 @@ Public Class FormBackupCheckboxes
             ' Now check whether its a file or a folder and take action accordingly
             If TypeOf fileSystemInfo Is System.IO.FileInfo Then
                 Print(fileSystemInfo.Name)
+                Application.DoEvents()
                 CpyFile(fileSystemInfo.FullName, destinationFileName)
             Else
                 ' Recursively call the mothod to copy all the nested folders
                 Cpy(fileSystemInfo.FullName, destinationFileName)
+                Application.DoEvents()
             End If
 
         Next
