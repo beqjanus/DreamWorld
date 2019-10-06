@@ -59,15 +59,19 @@ Public Class NetServer
 
         If running Then Return
 
+        Log("Info", "Starting Diagnostic Webserver")
+        WebThread = New Thread(AddressOf Looper)
         Try
-            Log("Info", "Starting Diagnostic Webserver")
-            WebThread = New Thread(AddressOf Looper)
             WebThread.SetApartmentState(ApartmentState.STA)
-            WebThread.Start()
-            running = True
-        Catch ex As Exception
+        Catch ex As ArgumentException
+            Log("Error", ex.Message)
+        Catch ex As ThreadStartException
+            Log("Error", ex.Message)
+        Catch ex As InvalidOperationException
             Log("Error", ex.Message)
         End Try
+        WebThread.Start()
+        running = True
 
     End Sub
 
