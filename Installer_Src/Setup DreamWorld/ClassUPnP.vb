@@ -235,8 +235,8 @@ Public Class UPnp
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
-        Catch
-
+        Catch ex As ArgumentException
+        Catch ex As NullReferenceException
         End Try
     End Sub
 
