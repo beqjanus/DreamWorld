@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.196";
+my $v = "3.197";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -119,7 +119,7 @@ my @files = io->dir($dir)->all(0);
 my @signs;
 foreach my $file (@files) {
     my $name = $file->name;
-    next if $name =~ /Installer_Src|\.git|baretail|obj|Downloader|Bouncy|Google|Tuple/;
+    next if $name =~ /Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple/;
     if ($name =~ /dll$|exe$/ ) {
         
         my $r = qq!../Certs/sigcheck64.exe "$name"!;
@@ -325,6 +325,7 @@ sub DeleteandKeep {
 	rmtree $path;	 
 	while (-e $path) 
     {
+		rmtree $path;	 
         print "Directory '$path' still exists\n";
 		sleep(1);
     }
