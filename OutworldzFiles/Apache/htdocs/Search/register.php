@@ -12,7 +12,7 @@
 
 require( "flog.php" );
 
-include("databaseinfo.php");
+include("../Metromap/includes/config.php");
 
 $gateway = "";
 $hostname = "";

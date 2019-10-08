@@ -4,7 +4,7 @@
 //of the libopenmetaverse library.
 
 require( "flog.php" );
-include("databaseinfo.php");
+include("../Metromap/includes/config.php");
 
 
    

@@ -2,7 +2,7 @@
 // runs parse right now
 
 require( "flog.php" );
-include("databaseinfo.php");
+include("../Metromap/includes/config.php");
 
 //Supress all Warnings/Errors
 //error_reporting(0);
@@ -405,7 +405,7 @@ function parse($gateway,$hostname, $port, $xml)
 
 $failcounter = 0;
 
-$sql = "SELECT gateway, host, port FROM hostsregister
+$sql = "SELECT gateway, host, port FROM ossearch.hostsregister
             where
             host not like '192.168%'
             and host not like '172.16%'

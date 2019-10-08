@@ -2,7 +2,7 @@
 // AGPL 3.0 by Fred Beckhusen
   require( "flog.php" );
 
-  include("databaseinfo.php");
+  include("../Metromap/includes/config..php");
    
   $dsn = "mysql:host=$CONF_db_server;port=$CONF_db_port;dbname=$CONF_db_database";
   
