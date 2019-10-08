@@ -145,11 +145,20 @@ Public Class FormApache
 
         Dim InstallProcess As New Process
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x64.exe"
+        '
+        '2012
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x64.exe"
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         InstallProcess.Start()
         InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\vcredist_x86.exe"
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x86.exe"
+        InstallProcess.Start()
+        InstallProcess.WaitForExit()
+        ' 2015
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x64.exe"
+        InstallProcess.Start()
+        InstallProcess.WaitForExit()
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe.exe"
         InstallProcess.Start()
         InstallProcess.WaitForExit()
         InstallProcess.Dispose()
@@ -161,11 +170,17 @@ Public Class FormApache
     End Sub
 
     Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
-        If LocalSearchCheckBox.Checked Then AllGridSearchCheckBox.Checked = False
+        If LocalSearchCheckBox.Checked Then
+            Form1.Settings.SearchLocal = True
+            AllGridSearchCheckBox.Checked = False
+        End If
     End Sub
 
     Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
-        If AllGridSearchCheckBox.Checked Then LocalSearchCheckBox.Checked = False
+        If AllGridSearchCheckBox.Checked Then
+            Form1.Settings.SearchLocal = False
+            LocalSearchCheckBox.Checked = False
+        End If
     End Sub
 
 #End Region
