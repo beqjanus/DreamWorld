@@ -141,7 +141,7 @@ function dir_places_query($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $sql = "SELECT regions.*, parcels.* FROM parcels  inner join  regions  on parcels.regionuuid = regions.regionuuid WHERE $cat_where" .
+    $sql = "SELECT regions.*, parcels.* FROM ossearch.parcels  inner join  ossearch.regions  on parcels.regionuuid = regions.regionuuid WHERE $cat_where" .
            " (parcelname LIKE :text1" .
            " OR description LIKE :text2)" .
            $type .         
@@ -232,7 +232,7 @@ function dir_popular_query($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $query = $db->prepare("SELECT regions.*, popularplaces.* FROM popularplaces  inner join  regions  on parcels.regionuuid = regions.regionuuid "
+    $query = $db->prepare("SELECT regions.*, popularplaces.* FROM ossearch.popularplaces  inner join  ossearch.regions  on parcels.regionuuid = regions.regionuuid "
 
                           . $where .
                           " LIMIT $query_start,101");
@@ -346,7 +346,7 @@ function dir_land_query($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $sql = "SELECT *,saleprice/area AS lsq FROM parcelsales" . $where .
+    $sql = "SELECT *,saleprice/area AS lsq FROM ossearch.parcelsales" . $where .
            " ORDER BY " . $order . " LIMIT $query_start,101";
            
     flog($sql) ;    
@@ -499,7 +499,7 @@ function dir_events_query($method_name, $params, $app_data)
          $query_start = 0;
 
     $sql = "SELECT owneruuid,name,eventid,dateUTC,eventflags,globalPos" .
-           " FROM events". $where. " LIMIT $query_start,101";
+           " FROM ossearch.events". $where. " LIMIT $query_start,101";
            
     flog($sql);
     
@@ -614,7 +614,7 @@ function dir_classified_query ($method_name, $params, $app_data)
     if (!is_int($query_start))
          $query_start = 0;
 
-    $sql = "SELECT * FROM classifieds" . $where .
+    $sql = "SELECT * FROM ossearch.classifieds" . $where .
            " ORDER BY priceforlisting DESC" .
            " LIMIT $query_start,101";
     $query = $db->prepare($sql);
@@ -665,7 +665,7 @@ function event_info_query($method_name, $params, $app_data)
 
                 
                 
-    $query = $db->prepare("SELECT * FROM events WHERE eventID = ?");
+    $query = $db->prepare("SELECT * FROM ossearch.events WHERE eventID = ?");
     $result = $query->execute( array($eventID) );
 
     $data = array();
@@ -746,7 +746,7 @@ function classifieds_info_query($method_name, $params, $app_data)
     
     flog("User viewed classified id :" . $classifiedID );
 
-    $query = $db->prepare("SELECT * FROM classifieds WHERE classifieduuid = ?");
+    $query = $db->prepare("SELECT * FROM ossearch.classifieds WHERE classifieduuid = ?");
     $result = $query->execute( array($classifiedID) );
 
     $data = array();

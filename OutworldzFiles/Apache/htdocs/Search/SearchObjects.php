@@ -71,8 +71,8 @@ include("../Metromap/includes/config.php");
   
   $stack = array();
 //left  JOIN hostsregister ON  hostsregister.gateway  =Regions.gateway 
-  $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM Objects
-    left  JOIN Regions ON Objects.regionuuid = Regions.regionuuid
+  $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM ossearch.Objects
+    left  JOIN ossearch.Regions ON Objects.regionuuid = Regions.regionuuid
     
             where
             Regions.gateway not like '192.168%'

@@ -79,7 +79,7 @@
     $counter = 0;
      
     $query = "SELECT * FROM ossearch.classifieds
-            INNER JOIN hostsregister ON classifieds.gateway = hostsregister.gateway            
+            INNER JOIN ossearch.hostsregister ON classifieds.gateway = hostsregister.gateway            
             where
             failcounter = 0
             and gateway not like '192.168%'

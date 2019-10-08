@@ -63,7 +63,7 @@ include("../Metromap/includes/config.php");
 
     $counter = 0;
     
-    $sql = "SELECT distinct host as host FROM hostsregister  where            
+    $sql = "SELECT distinct host as host FROM ossearch.hostsregister  where            
             failcounter = 0
             and gateway not like '192.168%'
             and gateway not like '172.16%'
@@ -112,7 +112,7 @@ include("../Metromap/includes/config.php");
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
         // get the hours of runtime        
-        $sql1 = "SELECT sum(checked) as minutes FROM hostsregister where host = :text1";
+        $sql1 = "SELECT sum(checked) as minutes FROM ossearch.hostsregister where host = :text1";
         $query1 = $db1->prepare($sql1);
         $result1 = $query1->execute(array('text1'=>$host));        
         

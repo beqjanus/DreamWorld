@@ -82,7 +82,7 @@
 
     $counter = 0;
     
-    $query = "SELECT * FROM regions where  $qtype  like  CONCAT('%', :text1, '%')       
+    $query = "SELECT * FROM ossearch.regions where  $qtype  like  CONCAT('%', :text1, '%')       
             and regions.gateway not like '192.168%'
             and regions.gateway not like '172.16%'
             and regions.gateway not like '172.17%'

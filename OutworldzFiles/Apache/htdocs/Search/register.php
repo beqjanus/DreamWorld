@@ -63,7 +63,7 @@ if ($service == "online")
 {
     file_put_contents('../../../PHPLog.log', "Registered as online:" . $hostname . ":" . $port . "\n", FILE_APPEND);
     // Check if there is already a database row for this host
-    $query = $db->prepare("SELECT register FROM hostsregister WHERE host = ? AND port = ?");
+    $query = $db->prepare("SELECT register FROM ossearch.hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
 
     // Get the request time as a timestamp for later
@@ -72,7 +72,7 @@ if ($service == "online")
     // If a database row was returned check the nextcheck date
     if ($query->rowCount() > 0)
     {
-        $query = $db->prepare("UPDATE hostsregister SET " .
+        $query = $db->prepare("UPDATE osearch.hostsregister SET " .
                      "register = ?, " .
                      "nextcheck = 0, failcounter = 0, gateway = ? " .
                      "WHERE host = ? AND port = ?");
@@ -81,7 +81,7 @@ if ($service == "online")
     else
     {
         // The SELECT did not return a result. Insert a new record.
-        $query = $db->prepare("INSERT INTO hostsregister VALUES (?, ?, ?, 0, 0, 0, ?)");
+        $query = $db->prepare("INSERT INTO ossearch.hostsregister VALUES (?, ?, ?, 0, 0, 0, ?)");
         $query->execute( array($hostname, $port, $timestamp, $gateway) );
     }
 }
@@ -89,19 +89,19 @@ if ($service == "online")
 if ($service == "offline")
 {
     flog("offline:" .  $hostname . ":" . $port);
-    $query = $db->prepare("DELETE FROM hostsregister WHERE host = ? AND port = ?");
+    $query = $db->prepare("DELETE FROM osearch.hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
-    $query = $db->prepare("DELETE FROM objects  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.objects  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM allparcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.allparcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM parcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.parcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM parcelsales  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.parcelsales  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM popularplaces  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.popularplaces  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM regions  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM osearch.regions  WHERE gateway = ?");
     $query->execute( array($gateway) );
 
     

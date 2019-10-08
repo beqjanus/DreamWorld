@@ -71,7 +71,7 @@ include("../Metromap/includes/config.php");
   
   $stack = array();
 
-  $q = "SELECT * from events  
+  $q = "SELECT * from ossearch.events  
             where " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
     
