@@ -16,6 +16,18 @@ say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
+
+if ($publish)
+{
+	say ("Unlinking");
+	#if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die ;
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip" || die $!;
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!; 	
+
+}
+
+
 say("Clean up opensim");
 my @deletions = (
 	"$dir/OutworldzFiles/AutoBackup",	
@@ -231,7 +243,8 @@ sleep(1);
 if ($publish)
 {
 	say ("Publishing now");
-		
+	
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip" || die $!;
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!; 	
 		
