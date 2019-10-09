@@ -158,7 +158,7 @@ Public Class FormApache
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x64.exe"
         InstallProcess.Start()
         InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe.exe"
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe"
         InstallProcess.Start()
         InstallProcess.WaitForExit()
         InstallProcess.Dispose()
