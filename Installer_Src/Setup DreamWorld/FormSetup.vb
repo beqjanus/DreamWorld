@@ -630,7 +630,6 @@ Public Class Form1
 
         Print("Setup Ports")
         RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-
         Print("Setup Firewall")
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
@@ -826,12 +825,6 @@ Public Class Form1
 
         GridNames.SetServerNames()
 
-        If (Settings.SplashPage.Length = 0) Then
-            Settings.SplashPage = SecureDomain() & "/Outworldz_installer/Welcome.htm"
-        End If
-
-        CheckForUpdates()
-
         CheckDefaultPorts()
         PropMyUPnpMap = New UPnp()
         If SetPublicIP() Then
@@ -848,6 +841,8 @@ Public Class Form1
 
         If Not SetIniData() Then Return
 
+        CheckForUpdates()
+
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
 
@@ -856,8 +851,10 @@ Public Class Form1
 
         CheckDiagPort()
 
+        Print("Setup Ports")
         RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
 
+        Print("Setup Firewall")
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         mnuSettings.Visible = True
@@ -1657,7 +1654,6 @@ Public Class Form1
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
         ' set new Min Timer Interval for how fast a script can go.
-
         Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
 
         '' all grids requires these setting in Opensim.ini
@@ -1692,6 +1688,14 @@ Public Class Form1
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
+
+        ' Main Frame time
+        ' This defines the rate of several simulation events.
+        ' Default value should meet most needs.
+        ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
+        'FrameTime = 0.0909
+
+        Settings.SetIni("Startup", "FrameTime", CStr(1 / 11))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
@@ -1927,6 +1931,7 @@ Public Class Form1
             Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
             Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
             Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
+            Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionNum))
 
             Settings.SaveINI()
 
@@ -2488,10 +2493,6 @@ Public Class Form1
         Buttons(StopButton)
         Timer1.Enabled = False
         PropAborting = True
-
-    End Sub
-
-    Private Sub ClearCachesToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -3349,7 +3350,7 @@ Public Class Form1
                     PropUpdateView = True ' make form refresh
                 End If
 
-                If (TimerValue / 6) >= (Settings.AutoRestartInterval()) _
+                If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
                     And Settings.AutoRestartInterval() > 0 _
                     And Not AvatarsIsInGroup(GroupName) _
                     And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -3911,8 +3912,8 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        ' 10 seconds check for a restart RegionRestart requires  MOD 10
-        If PropDNSSTimer Mod 10 = 0 Then
+        ' 5 seconds check for a restart RegionRestart requires  MOD 5
+        If PropDNSSTimer Mod 5 = 0 Then
             PropRegionClass.CheckPost()
             ScanAgents() ' update agent count
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
