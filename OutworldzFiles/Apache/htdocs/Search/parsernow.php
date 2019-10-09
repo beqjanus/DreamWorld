@@ -164,7 +164,7 @@ function parse($gateway,$hostname, $port, $xml)
         //
         // First, check if we already have a region that is the same
         //
-        $check = $db->prepare("SELECT * FROM regions WHERE regionUUID = ?");
+        $check = $db->prepare("SELECT * FROM ossearch.regions WHERE regionUUID = ?");
         $check->execute( array($regionuuid) );
 
         if ($check->rowCount() > 0)
@@ -300,7 +300,7 @@ function parse($gateway,$hostname, $port, $xml)
             
             //Prepare for the insert of data in to the popularplaces table. This gets
             //rid of any obsolete data for parcels no longer set to show in search.
-            $query = $db->prepare("DELETE FROM popularplaces WHERE parcelUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.popularplaces WHERE parcelUUID = ?");
             $query->execute( array($parceluuid) );
 
             if ($parceldirectory == "true")

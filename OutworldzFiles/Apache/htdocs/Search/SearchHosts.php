@@ -96,7 +96,7 @@ include("../Metromap/includes/config.php");
         $host = $row["host"];
         
         // get the port
-        $sql1 = "SELECT gateway FROM hostsregister  where host = :text1";
+        $sql1 = "SELECT gateway FROM ossearch.hostsregister  where host = :text1";
         
         $query1 = $db1->prepare($sql1);
         $result1 = $query1->execute(array('text1' => $host));
