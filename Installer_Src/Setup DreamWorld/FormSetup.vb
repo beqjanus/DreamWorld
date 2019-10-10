@@ -4750,7 +4750,7 @@ Public Class Form1
         ProgressBar1.Value = 0
         DoDiag()
         If Settings.DiagFailed = True Then
-            Print("Hypergrid Diagnostics failed. These can be re-run at any time. Ip is set for LAN use only. See Help->Network Diagnostics', 'Loopback', and 'Port Forwards'")
+            Print("Hypergrid Diagnostics failed. These can be re-run at any time.  See Help->Network Diagnostics', 'Loopback', and 'Port Forwards'")
         Else
             Print("Tests passed, Hypergrid should be working.")
         End If
@@ -4791,8 +4791,6 @@ Public Class Form1
 
     Private Function ProbePublicPort() As Boolean
 
-        Print("Checking Public Internet ")
-
         Dim isPortOpen As String = ""
         Using client As New WebClient ' downloadclient for web pages
 
@@ -4801,9 +4799,14 @@ Public Class Form1
             ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
-            Log("Info", Url)
+            If Settings.ServerType <> "Robust" Then
+                Return True
+            End If
+            Print("Checking Port Forwards")
+
             Try
                 isPortOpen = client.DownloadString(Url)
+                Sleep(100)
             Catch ex As ArgumentNullException
                 ErrorLog("Dang:The Outworldz web site is down")
                 Settings.DiagFailed = True
@@ -4818,17 +4821,14 @@ Public Class Form1
         BumpProgress10()
 
         If isPortOpen = "yes" Then
-            Settings.PublicIP = Settings.PublicIP
-            Print("Public IP set to " & Settings.PublicIP)
+            Settings.DiagFailed = False
+            Print("Port Forward test passed")
             Settings.SaveSettings()
             Return True
         Else
             Log("Warn", "Failed:" & isPortOpen)
             Settings.DiagFailed = True
             Print("Internet address " & Settings.PublicIP & ":" & Settings.HttpPort & " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
-#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            Settings.PublicIP = PropMyUPnpMap.LocalIP() ' failed, so try the machine address
-#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
             Settings.SaveSettings()
             Log("Info", "IP set to " & Settings.PublicIP)
             Return False
@@ -4838,12 +4838,14 @@ Public Class Form1
 
     Private Function TestPrivateLoopback() As Boolean
 
-        Print("Running PC Loopback Test")
+
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Dim loopbacktest As String = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Print("Checking LAN Loopback")
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
+                Sleep(100)
             Catch ex As ArgumentNullException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
                 Return False
@@ -4864,13 +4866,9 @@ Public Class Form1
             Settings.SaveSettings()
             Return True
         Else
-
             Settings.LoopBackDiag = False
+            Log("Info", "Failed:" & result)
             Settings.DiagFailed = True
-#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            Settings.PublicIP = PropMyUPnpMap.LocalIP()
-#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-
             Settings.SaveSettings()
         End If
         Return False
@@ -4880,24 +4878,34 @@ Public Class Form1
     Private Function TestPublicLoopback() As Boolean
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Print("Internet Loopback skipped as this PC is using a LAN-only Address")
+            Log("Info", "Is Private IP, Loopback test skipped")
             Return True
         End If
 
-        Print("Running Intenet Test")
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random
+        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random
+
+        If Settings.ServerType <> "Robust" Then
+            Log("Info", "Server type Region,  Loopback test skipped")
+            Return True
+        End If
+
+        Print("Checking Router Loopback")
         Using client As New WebClient
             Try
                 result = client.DownloadString(loopbacktest)
+                Sleep(100)
             Catch ex As ArgumentNullException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Settings.DiagFailed = True
                 Return False
             Catch ex As WebException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Settings.DiagFailed = True
                 Return False
             Catch ex As NotSupportedException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Settings.DiagFailed = True
                 Return False
             End Try
         End Using
@@ -4907,19 +4915,12 @@ Public Class Form1
         'If Settings.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
 
         If result = "Test Completed" Then
+            Print("Loopback Passed")
             Log("Info", "Passed:" & result)
             Settings.LoopBackDiag = True
+            Settings.DiagFailed = False
             Settings.SaveSettings()
             Return True
-        Else
-
-            Settings.LoopBackDiag = False
-            Settings.DiagFailed = True
-#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-            Settings.PublicIP = PropMyUPnpMap.LocalIP()
-#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-
-            Settings.SaveSettings()
         End If
         Return False
 
