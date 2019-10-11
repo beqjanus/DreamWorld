@@ -72,14 +72,16 @@ Public Class Form1
         SWMAX = 11
     End Enum
 
-    ' with events
     Public Language As New Culture
 
+    ' with events
     Private WithEvents UpdateProcess As New Process()
+
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
+
     Private _Aborting As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
@@ -577,6 +579,9 @@ Public Class Form1
     Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
         Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
 
+        ' for future use in embedding dll's
+        Return Nothing
+
         If desiredAssembly.Name = "DotNetZip" Then
             Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
         Else
@@ -802,7 +807,7 @@ Public Class Form1
         ' WebUI
         ViewWebUI.Visible = Settings.WifiEnabled
 
-        Me.Text = "Dreamgrid V" & PropMyVersion
+        Me.Text += " V" & PropMyVersion
 
         PropOpensimIsRunning() = False ' true when opensim is running
 

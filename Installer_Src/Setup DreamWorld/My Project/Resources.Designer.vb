@@ -321,6 +321,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to DreamGrid.
+        '''</summary>
+        Friend ReadOnly Property DreamGrid() As String
+            Get
+                Return ResourceManager.GetString("DreamGrid", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property earth_network() As System.Drawing.Bitmap
@@ -347,6 +356,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("exit_icon", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Exit.
+        '''</summary>
+        Friend ReadOnly Property Exit_text() As String
+            Get
+                Return ResourceManager.GetString("Exit_text", resourceCulture)
             End Get
         End Property
         
@@ -701,11 +719,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Starting ....
+        '''  Looks up a localized string similar to Start.
+        '''</summary>
+        Friend ReadOnly Property Start_text() As String
+            Get
+                Return ResourceManager.GetString("Start_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Starting Up ....
         '''</summary>
         Friend ReadOnly Property Starting() As String
             Get
                 Return ResourceManager.GetString("Starting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Stop.
+        '''</summary>
+        Friend ReadOnly Property Stop_text() As String
+            Get
+                Return ResourceManager.GetString("Stop_text", resourceCulture)
             End Get
         End Property
         

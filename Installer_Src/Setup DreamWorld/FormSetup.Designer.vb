@@ -153,7 +153,7 @@ Partial Class Form1
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(63, 23)
         Me.StopButton.TabIndex = 17
-        Me.StopButton.Text = "Stop"
+        Me.StopButton.Text = My.Resources.Stop_text
         Me.StopButton.UseVisualStyleBackColor = True
         '
         'StartButton
@@ -162,7 +162,7 @@ Partial Class Form1
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(63, 23)
         Me.StartButton.TabIndex = 16
-        Me.StartButton.Text = "Start"
+        Me.StartButton.Text = My.Resources.Start_text
         Me.StartButton.UseVisualStyleBackColor = True
         '
         'InstallButton
@@ -194,7 +194,7 @@ Partial Class Form1
         Me.mnuExit.Name = "mnuExit"
         Me.mnuExit.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
         Me.mnuExit.Size = New System.Drawing.Size(134, 22)
-        Me.mnuExit.Text = "Exit"
+        Me.mnuExit.Text = My.Resources.Exit_text
         '
         'mnuSettings
         '
@@ -1008,7 +1008,7 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DreamGrid"
+        Me.Text = My.Resources.DreamGrid
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).EndInit()

@@ -33,9 +33,8 @@ Public Class Culture
         If Debugger.IsAttached Then
             Dim c As String = My.Application.UICulture.Name
             My.Application.ChangeUICulture("fr-FR")
-            MsgBox(My.Resources.Starting)
-            MsgBox(My.Resources.Stopped)
-            My.Application.ChangeUICulture(c)
+
+            'My.Application.ChangeUICulture(c)
         End If
 
     End Sub

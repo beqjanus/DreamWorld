@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>Grille de rêve</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
   <data name="Starting" xml:space="preserve">
-    <value>Départ ...</value>
+    <value>Démarrage ...</value>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Début</value>
   </data>
   <data name="Stopped" xml:space="preserve">
     <value>... Arrêté</value>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>Arrêtez</value>
   </data>
 </root>
