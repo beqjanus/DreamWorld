@@ -4848,11 +4848,11 @@ Public Class Form1
             Try
                 result = client.DownloadString(weblink)
             Catch ex As ArgumentNullException
-                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
+                ErrorLog("Err:Loopback fail:" & weblink & ":" & ex.Message)
             Catch ex As WebException
-                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
+                ErrorLog("Err:Loopback fail:" & weblink & ":" & ex.Message)
             Catch ex As NotSupportedException
-                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
+                ErrorLog("Err:Loopback fail:" & weblink & ":" & ex.Message)
             End Try
         End Using
 
