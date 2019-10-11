@@ -73,8 +73,9 @@ Public Class Form1
     End Enum
 
     ' with events
-    Private WithEvents UpdateProcess As New Process()
+    Public Language As New Culture
 
+    Private WithEvents UpdateProcess As New Process()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -93,7 +94,6 @@ Public Class Form1
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
     Private _ForceTerrain As Boolean = False
-    Private _formCaches As New FormCaches
     Private _gUseIcons As Boolean = False
     Private _IcecastProcID As Integer
     Private _Initted As Boolean = False
@@ -577,7 +577,7 @@ Public Class Form1
     Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
         Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
 
-        If desiredAssembly.Name = "the name of your assembly" Then
+        If desiredAssembly.Name = "DotNetZip" Then
             Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
         Else
             Return Nothing
@@ -599,7 +599,7 @@ Public Class Form1
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
         Dim DefaultName As String = ""
-        Print("Starting...")
+        Print(My.Resources.Starting)
 
         Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If N = -1 Then
@@ -612,7 +612,7 @@ Public Class Form1
         If PropRegionClass.RegionEnabled(N) = False Then
             Dim result = MsgBox("The default 'Welcome' region " & DefaultName & " is not enabled. Continue?", vbYesNo)
             If result = vbNo Then
-                Print("Stopped.")
+                Print(My.Resources.Stopped)
                 Return
             End If
         End If
@@ -765,7 +765,7 @@ Public Class Form1
         ' setup a debug path
         PropMyFolder = My.Application.Info.DirectoryPath
 
-        If Debugger.IsAttached = True Then
+        If Debugger.IsAttached Then
             ' for debugging when compiling
             PropDebug = True
             PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
@@ -984,6 +984,7 @@ Public Class Form1
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
+        Dim last As Integer = PropRegionClass.RegionNumbers.Count
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -1008,10 +1009,16 @@ Public Class Form1
                     If CountisRunning = 0 Then Exit For
                 Next
 
-                If CountisRunning = 1 Then
+                If CountisRunning = 1 And last > 1 Then
                     Print("1 region is still running")
+                    last = 1
+                    PropUpdateView = True ' make form refresh
                 Else
-                    Print(CStr(CountisRunning) & " regions are still running")
+                    If CountisRunning <> last Then
+                        Print(CStr(CountisRunning) & " regions are still running")
+                        last = CountisRunning
+                        PropUpdateView = True ' make form refresh
+                    End If
                 End If
 
                 If CountisRunning = 0 Then
@@ -1023,17 +1030,12 @@ Public Class Form1
                 If v >= 0 And v <= 100 Then
                     ProgressBar1.Value = CType(v, Integer)
                 End If
-                PropUpdateView = True ' make form refresh
-
             End While
+            PropUpdateView = True ' make form refresh
         End If
 
         PropRegionHandles.Clear()
-
         StopAllRegions()
-
-        PropUpdateView = True ' make form refresh
-
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
 
         RobustPictureBox.Image = My.Resources.nav_plain_green
@@ -2961,7 +2963,13 @@ Public Class Form1
         If IsRobustRunning() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
-            Return True
+
+            For Each p In Process.GetProcesses
+                If p.MainWindowTitle = "Robust" Then
+                    PropRobustProcID = p.Id
+                    Return True
+                End If
+            Next
         End If
 
         PropRestartRobust = False
@@ -4665,7 +4673,6 @@ Public Class Form1
             Else
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
                 Dim ret = RegisterDNS()
@@ -4698,19 +4705,21 @@ Public Class Form1
         End If
 
         Log("Info", "Public IP=" & Settings.PublicIP)
-        If TestPublicLoopback() Then
+        TestPublicLoopback()
+        If Settings.DiagFailed Then
+
             Using client As New WebClient ' downloadclient for web pages
                 Try
                     ' Set Public IP
                     Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
                 Catch ex As ArgumentNullException
-                    ErrorLog("Dang:The Outworldz web site is down")
+                    ErrorLog("Dang:The api.ipify.org web site is down")
                     Settings.DiagFailed = True
                 Catch ex As WebException
-                    ErrorLog("Dang:The Outworldz web site is down")
+                    ErrorLog("Dang:The api.ipify.org web site is down")
                     Settings.DiagFailed = True
                 Catch ex As NotSupportedException
-                    ErrorLog("Dang:The Outworldz web site is down")
+                    ErrorLog("Dang:The api.ipify.org web site is down")
                     Settings.DiagFailed = True
                 End Try
             End Using
@@ -4728,6 +4737,10 @@ Public Class Form1
         Return False
 
     End Function
+
+#End Region
+
+#Region "Diagnostics"
 
     Private Sub CheckDiagPort()
 
@@ -4752,7 +4765,8 @@ Public Class Form1
         If Settings.DiagFailed = True Then
             Print("Hypergrid Diagnostics failed. These can be re-run at any time.  See Help->Network Diagnostics', 'Loopback', and 'Port Forwards'")
         Else
-            Print("Tests passed, Hypergrid should be working.")
+            Print("Tests passed for In and Out")
+            Print("Hypergrid should be working.")
         End If
         ProgressBar1.Value = 100
 
@@ -4765,17 +4779,16 @@ Public Class Form1
             Return
         End If
 
-        Print("Running Network Diagnostics, please wait")
+        Print("---------------------------")
+        Print("Running Network Diagnostics")
 
         Settings.DiagFailed = False
 
         OpenPorts() ' Open router ports with UPnp
-
-        ProbePublicPort()
-
-        TestPrivateLoopback()
-
-        TestPublicLoopback()
+        ProbePublicPort() ' Probe using Outworldz like Canyouseeme.org does on HTTP port
+        TestPrivateLoopback()   ' Diagnostics
+        TestPublicLoopback()    ' Http port
+        TestAllRegionPorts()    ' All Dos boxes, actually
 
         If Settings.DiagFailed Then
             Dim answer = MsgBox("Diagnostics failed. Do you want to see the log?", vbYesNo)
@@ -4785,11 +4798,15 @@ Public Class Form1
         Else
             NewDNSName()
         End If
-        Log("Info", "Diagnostics set the Grid address to " & Settings.PublicIP)
+        Print("---------------------------")
 
     End Sub
 
-    Private Function ProbePublicPort() As Boolean
+    Private Sub ProbePublicPort()
+
+        If Settings.ServerType <> "Robust" Then
+            Return
+        End If
 
         Dim isPortOpen As String = ""
         Using client As New WebClient ' downloadclient for web pages
@@ -4798,132 +4815,125 @@ Public Class Form1
             ' anonymous random ID, both of the versions of Opensim and this program, and the
             ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
-            Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
-            If Settings.ServerType <> "Robust" Then
-                Return True
-            End If
             Print("Checking Port Forwards")
-
+            Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
             Try
                 isPortOpen = client.DownloadString(Url)
-                Sleep(100)
             Catch ex As ArgumentNullException
-                ErrorLog("Dang:The Outworldz web site is down")
-                Settings.DiagFailed = True
+                ErrorLog("Dang: The Outworldz web site is down. Use Canyouseeme.org on port 8002 instead")
             Catch ex As WebException
-                ErrorLog("Dang:The Outworldz web site is down")
-                Settings.DiagFailed = True
+                ErrorLog("Dang:The Outworldz web site is down. Use Canyouseeme.org on port 8002 instead")
             Catch ex As NotSupportedException
-                ErrorLog("Dang:The Outworldz web site is down")
-                Settings.DiagFailed = True
+                ErrorLog("Dang:The Outworldz web site is down. Use Canyouseeme.org on port 8002 instead")
             End Try
         End Using
-        BumpProgress10()
 
         If isPortOpen = "yes" Then
-            Settings.DiagFailed = False
-            Print("Port Forward test passed")
-            Settings.SaveSettings()
-            Return True
-        Else
-            Log("Warn", "Failed:" & isPortOpen)
-            Settings.DiagFailed = True
-            Print("Internet address " & Settings.PublicIP & ":" & Settings.HttpPort & " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
-            Settings.SaveSettings()
-            Log("Info", "IP set to " & Settings.PublicIP)
-            Return False
-        End If
-
-    End Function
-
-    Private Function TestPrivateLoopback() As Boolean
-
-        Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
-        Print("Checking LAN Loopback")
-        Using client As New WebClient
-            Try
-                result = client.DownloadString(loopbacktest)
-                Sleep(100)
-            Catch ex As ArgumentNullException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Return False
-            Catch ex As WebException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Return False
-            Catch ex As NotSupportedException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Return False
-            End Try
-        End Using
-
-        BumpProgress10()
-
-        If result = "Test Completed" Then
-            Log("Info", "Passed:" & result)
-            Settings.LoopBackDiag = True
-            Settings.SaveSettings()
-            Return True
+            Print("Incoming Hypergrid is working")
         Else
             Settings.LoopBackDiag = False
-            Log("Info", "Failed:" & result)
             Settings.DiagFailed = True
-            Settings.SaveSettings()
+            Log("Warn", "Failed:" & isPortOpen)
+            Print("Internet address " & Settings.PublicIP & ":" & Settings.HttpPort & " appears to not be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help->Port Forwards.")
         End If
-        Return False
 
-    End Function
+    End Sub
 
-    Private Function TestPublicLoopback() As Boolean
-
-        If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Log("Info", "Is Private IP, Loopback test skipped")
-            Return True
-        End If
+    Private Sub TestPrivateLoopback()
 
         Dim result As String = ""
-        Dim loopbacktest As String = "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random
-
-        If Settings.ServerType <> "Robust" Then
-            Log("Info", "Server type Region,  Loopback test skipped")
-            Return True
-        End If
-
-        Print("Checking Router Loopback")
+        Print("Checking LAN Loopback")
+        Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
         Using client As New WebClient
             Try
-                result = client.DownloadString(loopbacktest)
-                Sleep(100)
+                result = client.DownloadString(weblink)
             Catch ex As ArgumentNullException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Settings.DiagFailed = True
-                Return False
+                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
             Catch ex As WebException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Settings.DiagFailed = True
-                Return False
+                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
             Catch ex As NotSupportedException
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Settings.DiagFailed = True
-                Return False
+                ErrorLog("Err:Loopback fail:" & weblink & ":" * ex.Message)
             End Try
         End Using
 
-        BumpProgress10()
-
-        'If Settings.PublicIP = PropMyUPnpMap.LocalIP() Then Return False
-
         If result = "Test Completed" Then
-            Print("Loopback Passed")
-            Log("Info", "Passed:" & result)
-            Settings.LoopBackDiag = True
-            Settings.DiagFailed = False
-            Settings.SaveSettings()
-            Return True
+            Print("Passed LAN Loopback")
+        Else
+            Print("Failed to connect to " & weblink)
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = True
         End If
-        Return False
 
-    End Function
+    End Sub
+
+    Private Sub TestPublicLoopback()
+
+        If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+            Log("Info", "Private IP, Loopback test skipped")
+            Return
+        End If
+
+        If Settings.ServerType <> "Robust" Then
+            Log("Info", "Server type is Region, Loopback on HTTP Port skipped")
+            Return
+        End If
+        Print("Checking Router Loopback")
+        PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
+
+    End Sub
+
+    Private Sub PortTest(Weblink As String, Port As Integer)
+
+        Dim result As String = ""
+        Using client As New WebClient
+            Try
+                result = client.DownloadString(Weblink)
+            Catch ex As ArgumentNullException
+                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
+            Catch ex As NotSupportedException
+                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+            End Try
+        End Using
+
+        If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
+            Print("Loopback Passed for " & CStr(Port))
+            Log("Info", "Passed:" & result)
+        Else
+            Print("Failed!")
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = True
+            Log("Info", "Failed:" & result)
+        End If
+
+    End Sub
+
+    Private Sub TestAllRegionPorts()
+
+        Dim result As String = ""
+        Dim Len = PropRegionClass.RegionCount()
+        Dim counter = 1
+        ProgressBar1.Value = CType(counter / Len, Integer)
+
+        Dim Used As New List(Of String)
+        ' Boot them up
+        For Each X As Integer In PropRegionClass.RegionNumbers()
+            If PropRegionClass.IsBooted(X) Then
+
+                Dim RegionName = PropRegionClass.RegionName(X)
+
+                If Used.Contains(RegionName) Then Continue For
+                Used.Add(RegionName)
+
+                Dim Port = PropRegionClass.GroupPort(X)
+                Print("Checking Loopback for " & RegionName)
+                ProgressBar1.Value = CType(counter / Len * 100, Integer)
+                PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
+
+            End If
+        Next
+
+    End Sub
 
 #End Region
 
@@ -4939,6 +4949,7 @@ Public Class Form1
         End If
 
         If Not Settings.UPnPEnabled Then
+            Log("UPnP", "UPnP is not Enabled")
             Return False
         End If
 

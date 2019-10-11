@@ -701,6 +701,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Starting ....
+        '''</summary>
+        Friend ReadOnly Property Starting() As String
+            Get
+                Return ResourceManager.GetString("Starting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ... Stopped.
+        '''</summary>
+        Friend ReadOnly Property Stopped() As String
+            Get
+                Return ResourceManager.GetString("Stopped", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property text_align_justified() As System.Drawing.Bitmap
