@@ -47,7 +47,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.197"
+    Private _MyVersion As String = "3.198"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -4837,7 +4837,6 @@ Public Class Form1
     End Function
 
     Private Function TestPrivateLoopback() As Boolean
-
 
         Dim result As String = ""
         Dim loopbacktest As String = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
