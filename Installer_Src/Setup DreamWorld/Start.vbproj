@@ -390,6 +390,11 @@
     <Compile Include="NativeMethods.vb" />
     <Compile Include="PublicIP.vb" />
     <Compile Include="RandomNumber.vb" />
+    <Compile Include="Resources\Resources.fr-FR.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.fr-FR.resx</DependentUpon>
+    </Compile>
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />
@@ -577,6 +582,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVoice.resx">
       <DependentUpon>FormVoice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources.fr-FR.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.fr-FR.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -768,8 +778,9 @@
     <None Include="Resources\Arrow2Right.png" />
     <None Include="Resources\Arrow2Left.png" />
     <None Include="Resources\home.png" />
-    <None Include="Resources\DotNetZip.dll" />
     <None Include="Resources\home_02.png" />
+    <None Include="Resources\Ionic.Zip.dll" />
+    <None Include="Resources\DotNetZip.dll" />
     <Content Include="Resources\wp_habitat.gif" />
     <Content Include="Resources\wp_Inside_in_shadows.gif" />
     <Content Include="Resources\wp_Mooferd.gif" />

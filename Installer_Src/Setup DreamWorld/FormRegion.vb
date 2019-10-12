@@ -132,18 +132,18 @@ Public Class FormRegion
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = "256"
             SizeY.Text = "256"
-            CoordX.Text = (PropRegionClass1.LargestX() + 4).ToString(Form1.Invarient)
-            CoordY.Text = (PropRegionClass1.LargestY() + 0).ToString(Form1.Invarient)
-            RegionPort.Text = (PropRegionClass1.LargestPort() + 1).ToString(Form1.Invarient)
+            CoordX.Text = CStr(PropRegionClass1.LargestX() + 4)
+            CoordY.Text = CStr(PropRegionClass1.LargestY() + 0)
+            RegionPort.Text = CStr(PropRegionClass1.LargestPort() + 1)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
-            NonphysicalPrimMax.Text = 1024.ToString(Form1.Invarient)
-            PhysicalPrimMax.Text = 64.ToString(Form1.Invarient)
+            NonphysicalPrimMax.Text = CStr(1024)
+            PhysicalPrimMax.Text = CStr(64)
             ClampPrimSize.Checked = False
-            MaxPrims.Text = 45000.ToString(Form1.Invarient)
-            MaxAgents.Text = 100.ToString(Form1.Invarient)
-            ScriptTimerTextBox.Text = 0.2.ToString(Form1.Invarient)
+            MaxPrims.Text = CStr(45000)
+            MaxAgents.Text = CStr(100)
+            ScriptTimerTextBox.Text = CStr(0.2)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
             'PropRegionClass1.GetAllRegions()
@@ -162,11 +162,11 @@ Public Class FormRegion
                 Me.Close()
             End If
 
-            NonphysicalPrimMax.Text = PropRegionClass1.NonPhysicalPrimMax(N1).ToString(Form1.Invarient)
-            PhysicalPrimMax.Text = PropRegionClass1.PhysicalPrimMax(N1).ToString(Form1.Invarient)
+            NonphysicalPrimMax.Text = CStr(PropRegionClass1.NonPhysicalPrimMax(N1))
+            PhysicalPrimMax.Text = CStr(PropRegionClass1.PhysicalPrimMax(N1))
             ClampPrimSize.Checked = PropRegionClass1.ClampPrimSize(N1)
-            MaxPrims.Text = PropRegionClass1.MaxPrims(N1).ToString(Form1.Invarient)
-            MaxAgents.Text = PropRegionClass1.MaxAgents(N1).ToString(Form1.Invarient)
+            MaxPrims.Text = CStr(PropRegionClass1.MaxPrims(N1))
+            MaxAgents.Text = CStr(PropRegionClass1.MaxAgents(N1))
 
             If PropRegionClass1.DisallowResidents(N1) = "True" Then
                 DisallowResidents.Checked = True
@@ -175,12 +175,6 @@ Public Class FormRegion
             If PropRegionClass1.DisallowForeigners(N1) = "True" Then
                 DisallowForeigners.Checked = True
             End If
-
-            SmartStartCheckBox.Checked = CType(PropRegionClass1.SmartStart(N1).ToString(Form1.Invarient), Boolean)
-
-            Me.Show() ' time to show the results
-            Me.Activate()
-            Application.DoEvents()
 
             ' Size buttons can be zero if not in ini
             If PropRegionClass1.SizeY(N1) = 0 And PropRegionClass1.SizeX(N1) = 0 Then
@@ -223,8 +217,8 @@ Public Class FormRegion
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = Convert.ToString(PropRegionClass1.SizeX(N1), Form1.Invarient)
-                SizeY.Text = Convert.ToString(PropRegionClass1.SizeY(N1), Form1.Invarient)
+                SizeX.Text = CStr(PropRegionClass1.SizeX(N1))
+                SizeY.Text = CStr(PropRegionClass1.SizeY(N1))
             End If
 
             ' global coords
@@ -243,6 +237,9 @@ Public Class FormRegion
         End If
 
         ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Invarient)
+        FrametimeBox.Text = CStr(PropRegionClass1.FrameTime(N1))
+        SmartStartCheckBox.Checked = PropRegionClass1.SmartStart(N1)
+
         Select Case PropRegionClass1.DisableGloebits(N1)
             Case ""
                 DisableGBCheckBox.Checked = False
@@ -393,7 +390,9 @@ Public Class FormRegion
                 DisallowResidents.Checked = True
         End Select
 
-        Me.Focus()
+        Me.Show() ' time to show the results
+        Me.Activate()
+
         Initted1 = True
         Form1.HelpOnce("Region")
 
@@ -1279,6 +1278,10 @@ Public Class FormRegion
     End Sub
 
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles DisallowResidents.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
         If Initted1 Then Changed1 = True
     End Sub
 

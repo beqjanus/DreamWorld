@@ -58,7 +58,18 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
         Me.DisallowForeigners = New System.Windows.Forms.CheckBox()
+        Me.DisallowResidents = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Physicsubhybrid = New System.Windows.Forms.RadioButton()
+        Me.Physics_Default = New System.Windows.Forms.RadioButton()
+        Me.PhysicsSeparate = New System.Windows.Forms.RadioButton()
+        Me.PhysicsNone = New System.Windows.Forms.RadioButton()
+        Me.PhysicsubODE = New System.Windows.Forms.RadioButton()
+        Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
+        Me.PhysicsODE = New System.Windows.Forms.RadioButton()
+        Me.FrametimeBox = New System.Windows.Forms.TextBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -89,21 +100,13 @@ Partial Class FormRegion
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Physicsubhybrid = New System.Windows.Forms.RadioButton()
-        Me.Physics_Default = New System.Windows.Forms.RadioButton()
-        Me.PhysicsSeparate = New System.Windows.Forms.RadioButton()
-        Me.PhysicsNone = New System.Windows.Forms.RadioButton()
-        Me.PhysicsubODE = New System.Windows.Forms.RadioButton()
-        Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
-        Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DisallowResidents = New System.Windows.Forms.CheckBox()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.Advanced.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -112,7 +115,6 @@ Partial Class FormRegion
         Me.GroupBox4.SuspendLayout()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -425,8 +427,8 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
         Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
         Me.ScriptTimerTextBox.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 0.2  Minimum should not be less than 0.091 which is 1/5th of 55 FPS SL sp" &
-        "eed.")
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 1/11 sec. Minimum should not be less than 0.091 which is 1/5th of 55 FPS " &
+        "SL speed.")
         '
         'DisableGBCheckBox
         '
@@ -450,9 +452,127 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.DisallowForeigners, "No HG Visitors allowed in this region")
         Me.DisallowForeigners.UseVisualStyleBackColor = True
         '
+        'DisallowResidents
+        '
+        Me.DisallowResidents.AutoSize = True
+        Me.DisallowResidents.Location = New System.Drawing.Point(15, 126)
+        Me.DisallowResidents.Name = "DisallowResidents"
+        Me.DisallowResidents.Size = New System.Drawing.Size(111, 17)
+        Me.DisallowResidents.TabIndex = 26
+        Me.DisallowResidents.Text = "Disable Residents"
+        Me.ToolTip1.SetToolTip(Me.DisallowResidents, "Only Admins and Managers allowed in this region")
+        Me.DisallowResidents.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Physicsubhybrid)
+        Me.GroupBox1.Controls.Add(Me.Physics_Default)
+        Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
+        Me.GroupBox1.Controls.Add(Me.PhysicsNone)
+        Me.GroupBox1.Controls.Add(Me.PhysicsubODE)
+        Me.GroupBox1.Controls.Add(Me.PhysicsBullet)
+        Me.GroupBox1.Controls.Add(Me.PhysicsODE)
+        Me.GroupBox1.Location = New System.Drawing.Point(23, 297)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(189, 195)
+        Me.GroupBox1.TabIndex = 1879
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Physics Engine"
+        Me.ToolTip1.SetToolTip(Me.GroupBox1, "This defines the rate of several simulation events. It can be reduced to improve " &
+        "the simulation of moving objects, with possible increase of cpu and network load" &
+        "s.")
+        '
+        'Physicsubhybrid
+        '
+        Me.Physicsubhybrid.AutoSize = True
+        Me.Physicsubhybrid.Location = New System.Drawing.Point(6, 118)
+        Me.Physicsubhybrid.Name = "Physicsubhybrid"
+        Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
+        Me.Physicsubhybrid.TabIndex = 138
+        Me.Physicsubhybrid.TabStop = True
+        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.Physicsubhybrid.UseVisualStyleBackColor = True
+        '
+        'Physics_Default
+        '
+        Me.Physics_Default.AutoSize = True
+        Me.Physics_Default.Location = New System.Drawing.Point(6, 26)
+        Me.Physics_Default.Name = "Physics_Default"
+        Me.Physics_Default.Size = New System.Drawing.Size(81, 17)
+        Me.Physics_Default.TabIndex = 137
+        Me.Physics_Default.TabStop = True
+        Me.Physics_Default.Text = "Use Default"
+        Me.Physics_Default.UseVisualStyleBackColor = True
+        '
+        'PhysicsSeparate
+        '
+        Me.PhysicsSeparate.AutoSize = True
+        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 164)
+        Me.PhysicsSeparate.Name = "PhysicsSeparate"
+        Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
+        Me.PhysicsSeparate.TabIndex = 37
+        Me.PhysicsSeparate.TabStop = True
+        Me.PhysicsSeparate.Text = "Bullet physics in separate thread."
+        Me.PhysicsSeparate.UseVisualStyleBackColor = True
+        '
+        'PhysicsNone
+        '
+        Me.PhysicsNone.AutoSize = True
+        Me.PhysicsNone.Location = New System.Drawing.Point(6, 50)
+        Me.PhysicsNone.Name = "PhysicsNone"
+        Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
+        Me.PhysicsNone.TabIndex = 33
+        Me.PhysicsNone.TabStop = True
+        Me.PhysicsNone.Text = "None"
+        Me.PhysicsNone.UseVisualStyleBackColor = True
+        '
+        'PhysicsubODE
+        '
+        Me.PhysicsubODE.AutoSize = True
+        Me.PhysicsubODE.Location = New System.Drawing.Point(6, 96)
+        Me.PhysicsubODE.Name = "PhysicsubODE"
+        Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
+        Me.PhysicsubODE.TabIndex = 35
+        Me.PhysicsubODE.TabStop = True
+        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
+        Me.PhysicsubODE.UseVisualStyleBackColor = True
+        '
+        'PhysicsBullet
+        '
+        Me.PhysicsBullet.AutoSize = True
+        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 141)
+        Me.PhysicsBullet.Name = "PhysicsBullet"
+        Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
+        Me.PhysicsBullet.TabIndex = 136
+        Me.PhysicsBullet.TabStop = True
+        Me.PhysicsBullet.Text = "Bullet Physics"
+        Me.PhysicsBullet.UseVisualStyleBackColor = True
+        '
+        'PhysicsODE
+        '
+        Me.PhysicsODE.AutoSize = True
+        Me.PhysicsODE.Location = New System.Drawing.Point(6, 73)
+        Me.PhysicsODE.Name = "PhysicsODE"
+        Me.PhysicsODE.Size = New System.Drawing.Size(136, 17)
+        Me.PhysicsODE.TabIndex = 34
+        Me.PhysicsODE.TabStop = True
+        Me.PhysicsODE.Text = "Open Dynamics Engine"
+        Me.PhysicsODE.UseVisualStyleBackColor = True
+        '
+        'FrametimeBox
+        '
+        Me.FrametimeBox.Location = New System.Drawing.Point(181, 254)
+        Me.FrametimeBox.Name = "FrametimeBox"
+        Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
+        Me.FrametimeBox.TabIndex = 42
+        Me.ToolTip1.SetToolTip(Me.FrametimeBox, "Default 1/11 sec. Minimum should not be less than 0.091 which is 1/5th of 55 FPS " &
+        "SL speed.")
+        '
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Advanced.Controls.Add(Me.Label15)
+        Me.Advanced.Controls.Add(Me.FrametimeBox)
         Me.Advanced.Controls.Add(Me.Label14)
         Me.Advanced.Controls.Add(Me.ScriptTimerTextBox)
         Me.Advanced.Controls.Add(Me.RegionPort)
@@ -474,10 +594,19 @@ Partial Class FormRegion
         Me.Advanced.Controls.Add(Me.CoordX)
         Me.Advanced.Location = New System.Drawing.Point(15, 256)
         Me.Advanced.Name = "Advanced"
-        Me.Advanced.Size = New System.Drawing.Size(254, 274)
+        Me.Advanced.Size = New System.Drawing.Size(254, 287)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Advanced"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(9, 257)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(100, 13)
+        Me.Label15.TabIndex = 43
+        Me.Label15.Text = "Frames Per Second"
         '
         'Label6
         '
@@ -607,7 +736,7 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
         Me.GroupBox6.Location = New System.Drawing.Point(266, 34)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(423, 496)
+        Me.GroupBox6.Size = New System.Drawing.Size(423, 509)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Region Specific Settings"
@@ -807,99 +936,6 @@ Partial Class FormRegion
         Me.GroupBox5.TabIndex = 1885
         Me.GroupBox5.TabStop = False
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.Physicsubhybrid)
-        Me.GroupBox1.Controls.Add(Me.Physics_Default)
-        Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
-        Me.GroupBox1.Controls.Add(Me.PhysicsNone)
-        Me.GroupBox1.Controls.Add(Me.PhysicsubODE)
-        Me.GroupBox1.Controls.Add(Me.PhysicsBullet)
-        Me.GroupBox1.Controls.Add(Me.PhysicsODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(23, 297)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(189, 199)
-        Me.GroupBox1.TabIndex = 1879
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
-        '
-        'Physicsubhybrid
-        '
-        Me.Physicsubhybrid.AutoSize = True
-        Me.Physicsubhybrid.Location = New System.Drawing.Point(6, 118)
-        Me.Physicsubhybrid.Name = "Physicsubhybrid"
-        Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
-        Me.Physicsubhybrid.TabIndex = 138
-        Me.Physicsubhybrid.TabStop = True
-        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
-        Me.Physicsubhybrid.UseVisualStyleBackColor = True
-        '
-        'Physics_Default
-        '
-        Me.Physics_Default.AutoSize = True
-        Me.Physics_Default.Location = New System.Drawing.Point(6, 26)
-        Me.Physics_Default.Name = "Physics_Default"
-        Me.Physics_Default.Size = New System.Drawing.Size(81, 17)
-        Me.Physics_Default.TabIndex = 137
-        Me.Physics_Default.TabStop = True
-        Me.Physics_Default.Text = "Use Default"
-        Me.Physics_Default.UseVisualStyleBackColor = True
-        '
-        'PhysicsSeparate
-        '
-        Me.PhysicsSeparate.AutoSize = True
-        Me.PhysicsSeparate.Location = New System.Drawing.Point(6, 164)
-        Me.PhysicsSeparate.Name = "PhysicsSeparate"
-        Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
-        Me.PhysicsSeparate.TabIndex = 37
-        Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = "Bullet physics in separate thread."
-        Me.PhysicsSeparate.UseVisualStyleBackColor = True
-        '
-        'PhysicsNone
-        '
-        Me.PhysicsNone.AutoSize = True
-        Me.PhysicsNone.Location = New System.Drawing.Point(6, 50)
-        Me.PhysicsNone.Name = "PhysicsNone"
-        Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
-        Me.PhysicsNone.TabIndex = 33
-        Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = "None"
-        Me.PhysicsNone.UseVisualStyleBackColor = True
-        '
-        'PhysicsubODE
-        '
-        Me.PhysicsubODE.AutoSize = True
-        Me.PhysicsubODE.Location = New System.Drawing.Point(6, 96)
-        Me.PhysicsubODE.Name = "PhysicsubODE"
-        Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
-        Me.PhysicsubODE.TabIndex = 35
-        Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
-        Me.PhysicsubODE.UseVisualStyleBackColor = True
-        '
-        'PhysicsBullet
-        '
-        Me.PhysicsBullet.AutoSize = True
-        Me.PhysicsBullet.Location = New System.Drawing.Point(6, 141)
-        Me.PhysicsBullet.Name = "PhysicsBullet"
-        Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
-        Me.PhysicsBullet.TabIndex = 136
-        Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = "Bullet Physics"
-        Me.PhysicsBullet.UseVisualStyleBackColor = True
-        '
-        'PhysicsODE
-        '
-        Me.PhysicsODE.AutoSize = True
-        Me.PhysicsODE.Location = New System.Drawing.Point(6, 73)
-        Me.PhysicsODE.Name = "PhysicsODE"
-        Me.PhysicsODE.Size = New System.Drawing.Size(136, 17)
-        Me.PhysicsODE.TabIndex = 34
-        Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = "Open Dynamics Engine"
-        Me.PhysicsODE.UseVisualStyleBackColor = True
-        '
         'Button2
         '
         Me.Button2.Location = New System.Drawing.Point(89, 221)
@@ -934,23 +970,12 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
-        'DisallowResidents
-        '
-        Me.DisallowResidents.AutoSize = True
-        Me.DisallowResidents.Location = New System.Drawing.Point(15, 126)
-        Me.DisallowResidents.Name = "DisallowResidents"
-        Me.DisallowResidents.Size = New System.Drawing.Size(111, 17)
-        Me.DisallowResidents.TabIndex = 26
-        Me.DisallowResidents.Text = "Disable Residents"
-        Me.ToolTip1.SetToolTip(Me.DisallowResidents, "Only Admins and Managers allowed in this region")
-        Me.DisallowResidents.UseVisualStyleBackColor = True
-        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(700, 539)
+        Me.ClientSize = New System.Drawing.Size(700, 555)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.GroupBox6)
@@ -968,6 +993,8 @@ Partial Class FormRegion
         Me.Text = "Region"
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Advanced.ResumeLayout(False)
         Me.Advanced.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -983,8 +1010,6 @@ Partial Class FormRegion
         Me.MapBox.ResumeLayout(False)
         Me.MapBox.PerformLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
@@ -1070,4 +1095,6 @@ Partial Class FormRegion
     Friend WithEvents DisableGBCheckBox As CheckBox
     Friend WithEvents DisallowForeigners As CheckBox
     Friend WithEvents DisallowResidents As CheckBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents FrametimeBox As TextBox
 End Class

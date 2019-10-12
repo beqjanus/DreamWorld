@@ -48,17 +48,17 @@ function GetURL($host, $port, $url)
 }
 function Delete ($gateway)  {
     
-    $query = $GLOBALS['db1']->prepare("DELETE FROM objects  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.objects  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM allparcels  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.allparcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM parcels  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.parcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM parcelsales  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.parcelsales  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM popularplaces  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.popularplaces  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM regions  WHERE gateway = ?");
+    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.regions  WHERE gateway = ?");
     $query->execute( array($gateway) );
 }
 
@@ -81,7 +81,7 @@ function CheckHost($gateway, $hostname, $port)
     //won't be checked again until at least this much time has gone by.
     $next = $now + 600;
 
-    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ?," .
+    $query = $db->prepare("UPDATE ossearch.hostsregister SET nextcheck = ?," .
                           " checked = checked + 1, failcounter = $failcounter" .
                           " WHERE host = ? AND port = ?");
     $query->execute( array($next, $hostname, $port) );
@@ -135,7 +135,7 @@ function parse($gateway,$hostname, $port, $xml)
     $expire = $regiondata->getElementsByTagName("expire")->item(0)->nodeValue;
     $next = $now + $expire;
 
-    $query = $db->prepare("UPDATE hostsregister SET nextcheck = ? WHERE host = ? AND port = ?");
+    $query = $db->prepare("UPDATE ossearch.hostsregister SET nextcheck = ? WHERE host = ? AND port = ?");
     $query->execute( array($next, $hostname, $port) );
 
     //
@@ -163,20 +163,20 @@ function parse($gateway,$hostname, $port, $xml)
         //
         // First, check if we already have a region that is the same
         //
-        $check = $db->prepare("SELECT * FROM regions WHERE regionUUID = ?");
+        $check = $db->prepare("SELECT * FROM ossearch.regions WHERE regionUUID = ?");
         $check->execute( array($regionuuid) );
 
         if ($check->rowCount() > 0)
         {
-            $query = $db->prepare("DELETE FROM regions WHERE regionUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.regions WHERE regionUUID = ?");
             $query->execute( array($regionuuid) );
-            $query = $db->prepare("DELETE FROM parcels WHERE regionUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.parcels WHERE regionUUID = ?");
             $query->execute( array($regionuuid) );
-            $query = $db->prepare("DELETE FROM allparcels WHERE regionUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.allparcels WHERE regionUUID = ?");
             $query->execute( array($regionuuid) );
-            $query = $db->prepare("DELETE FROM parcelsales WHERE regionUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.parcelsales WHERE regionUUID = ?");
             $query->execute( array($regionuuid) );
-            $query = $db->prepare("DELETE FROM objects WHERE regionuuid = ?");
+            $query = $db->prepare("DELETE FROM ossearch.objects WHERE regionuuid = ?");
             $query->execute( array($regionuuid) );
         }
 
@@ -193,7 +193,7 @@ function parse($gateway,$hostname, $port, $xml)
         // gateway modified fkb
         
         echo "Insert region: $regionname\n";
-        $query = $db->prepare("INSERT INTO regions VALUES(:r_name, :r_uuid, :r_handle, :url, :u_name, :u_uuid, :r_gateway)");
+        $query = $db->prepare("INSERT INTO ossearch.regions VALUES(:r_name, :r_uuid, :r_handle, :url, :u_name, :u_uuid, :r_gateway)");
         $query->execute( array( "r_name" => $regionname,
                                 "r_uuid" => $regionuuid,
                                 "r_handle" => $regionhandle,
@@ -270,7 +270,7 @@ function parse($gateway,$hostname, $port, $xml)
 
           
 
-            $query = $db->prepare("DELETE FROM allparcels WHERE parcelUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.allparcels WHERE parcelUUID = ?");
             $query->execute( array($parceluuid) );
 
 
@@ -281,7 +281,7 @@ function parse($gateway,$hostname, $port, $xml)
             
             echo "Insert into all parcels: $parcelname\n";
             // Missing delete - should really be an update_or_insert
-            $query = $db->prepare("INSERT INTO allparcels VALUES(" .
+            $query = $db->prepare("INSERT INTO ossearch.allparcels VALUES(" .
                                     ":r_uuid, :p_name, :o_uuid, :g_uuid, " .
                                     ":landing, :p_uuid, :i_uuid, :area, :r_gateway )");
             $query->execute( array(
@@ -305,7 +305,7 @@ function parse($gateway,$hostname, $port, $xml)
             if ($parceldirectory == "true")
             {
                 echo "Insert popularplaces: $parcelname\n";
-                $query = $db->prepare("INSERT INTO parcels VALUES(" .
+                $query = $db->prepare("INSERT INTO ossearch.parcels VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :landing, " .
                                        ":desc, :cat, :build, :script, :public, ".
                                        ":dwell, :i_uuid, :r_cat, :r_gateway )");
@@ -325,7 +325,7 @@ function parse($gateway,$hostname, $port, $xml)
                                        "r_gateway" => $gateway
                                       ) );
 
-                $query = $db->prepare("INSERT INTO popularplaces VALUES(" .
+                $query = $db->prepare("INSERT INTO ossearch.popularplaces VALUES(" .
                                        ":p_uuid, :p_name, :dwell, " .
                                        ":i_uuid, :has_pic, :r_cat, :r_gateway )");
                 $query->execute( array(
@@ -342,7 +342,7 @@ function parse($gateway,$hostname, $port, $xml)
             if ($parcelforsale == "true")
             {
                 echo "Insert parcelsales: $parcelname\n";
-                $query = $db->prepare("INSERT INTO parcelsales VALUES(" .
+                $query = $db->prepare("INSERT INTO ossearch.parcelsales VALUES(" .
                                        ":r_uuid, :p_name, :p_uuid, :area, " .
                                        ":price, :landing, :i_uuid, :dwell, " .
                                        ":e_id, :r_cat, :r_gateway)");

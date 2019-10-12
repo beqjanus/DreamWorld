@@ -20,6 +20,38 @@
 
 #End Region
 
+Imports System.Globalization
+
 Public Class Culture
+    Private _Language As String
+
+    Public Sub New()
+
+        Dim culture As CultureInfo = CultureInfo.CurrentCulture
+        Language = culture.EnglishName
+
+        If Debugger.IsAttached Then
+            Dim c As String = My.Application.UICulture.Name
+            My.Application.ChangeUICulture("fr-FR")
+
+            'My.Application.ChangeUICulture(c)
+        End If
+
+    End Sub
+
+    Public Property Language As String
+        Get
+            Return _Language
+        End Get
+        Set(value As String)
+            _Language = value
+        End Set
+    End Property
+
+    Public Function Translate(input As String) As String
+
+        ' reserved for MSFT translator
+
+    End Function
 
 End Class

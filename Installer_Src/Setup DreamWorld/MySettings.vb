@@ -1299,7 +1299,7 @@ Public Class MySettings
 
     Public Property LoopBackDiag() As Boolean
         Get
-            Return CType(GetMySetting("LoopBackDiag"), Boolean)
+            Return CType(GetMySetting("LoopBackDiag", "True"), Boolean)
         End Get
         Set
             SetMySetting("LoopBackDiag", CStr(Value))
@@ -1317,7 +1317,7 @@ Public Class MySettings
 
     Public Property SplashPage() As String
         Get
-            Return GetMySetting("SplashPage")
+            Return GetMySetting("SplashPage", Form1.SecureDomain() & "/Outworldz_installer/Welcome.htm")
         End Get
         Set
             SetMySetting("SplashPage", Value)
@@ -1326,7 +1326,7 @@ Public Class MySettings
 
     Public Property Physics() As Integer
         Get
-            Return CType(GetMySetting("Physics"), Integer)
+            Return CType(GetMySetting("Physics", "3"), Integer)
         End Get
         Set
             SetMySetting("Physics", CType(Value, String))
@@ -1335,7 +1335,7 @@ Public Class MySettings
 
     Public Property MyX() As Integer
         Get
-            Return CType(GetMySetting("MyX"), Integer)
+            Return CType(GetMySetting("MyX", "0"), Integer)
         End Get
         Set
             SetMySetting("MyX", CStr(Value))
@@ -1344,7 +1344,7 @@ Public Class MySettings
 
     Public Property MyY() As Integer
         Get
-            Return CType(GetMySetting("MyY"), Integer)
+            Return CType(GetMySetting("MyY", "0"), Integer)
         End Get
         Set
             SetMySetting("MyY", CStr(Value))

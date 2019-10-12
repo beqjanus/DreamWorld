@@ -346,10 +346,32 @@
   <data name="home" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="home_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\home_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="DotNetZip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DotNetZip.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="home_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\home_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>Exit</value>
+    <comment>.</comment>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Starting Up ...</value>
+    <comment>Form1</comment>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>... Stopped</value>
+    <comment>Form1</comment>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>Stop</value>
+    <comment>_text</comment>
   </data>
 </root>

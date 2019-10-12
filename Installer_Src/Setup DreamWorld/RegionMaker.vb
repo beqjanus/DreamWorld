@@ -136,7 +136,6 @@ Public Class RegionMaker
             Return
         End If
 
-        Form1.Print("Setup all region ports")
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
@@ -304,6 +303,7 @@ Public Class RegionMaker
             ._Teleport = "",
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
+            ._FrameTime = "",
             ._RegionSmartStart = False
         }
 
@@ -600,6 +600,7 @@ Public Class RegionMaker
         & "DisallowForeigners = " & DisallowForeigners(n) & vbCrLf _
         & "DisallowResidents = " & DisallowResidents(n) & vbCrLf _
         & "MinTimerInterval =" & vbCrLf _
+        & "Frametime =" & vbCrLf _
         & "SmartStart =" & SmartStart(n) & vbCrLf
 
         FileStuff.DeleteFile(fname)
@@ -652,6 +653,7 @@ Public Class RegionMaker
 
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
+        Public _FrameTime As String = ""
         Public _ManagerGod As String = ""
         Public _MapType As String = ""
         Public _Physics As String = "  "
@@ -991,6 +993,18 @@ Public Class RegionMaker
 #End Region
 
 #Region "Options"
+
+    Public Property FrameTime(n As Integer) As String
+        Get
+            If RegionList(n)._FrameTime.Length = 0 Then
+                Return CStr(1 / 11)
+            End If
+            Return RegionList(n)._FrameTime
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._FrameTime = Value
+        End Set
+    End Property
 
     Public Property DisableGloebits(n As Integer) As String
         Get
