@@ -89,7 +89,7 @@ SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
 # changed by Dreamgrid
 DocumentRoot "O:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/htdocs"
 # changed by Dreamgrid
-ServerName mach.outworldz.net
+ServerName 192.168.2.135
 
 ServerAdmin not@set.yet
 

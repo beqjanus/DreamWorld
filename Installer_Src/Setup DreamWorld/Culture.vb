@@ -48,7 +48,9 @@ Public Class Culture
         End Set
     End Property
 
-    Public Function Translate()
+    Public Function Translate(input As String) As String
+
+        ' reserved for MSFT translator
 
     End Function
 
