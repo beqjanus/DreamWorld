@@ -6447,7 +6447,7 @@ Public Class Form1
             Or Settings.ServerType = "OsGrid" _
             Or Settings.ServerType = "AviWorlds" Then Return
 
-        If Not Settings.SearchMigration = 1 Then
+        If Not Settings.SearchMigration = 2 Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -6475,7 +6475,7 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            Settings.SearchMigration = 1
+            Settings.SearchMigration = 2
             Settings.SaveSettings()
 
         End If
