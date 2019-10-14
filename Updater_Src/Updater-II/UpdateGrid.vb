@@ -16,8 +16,8 @@ Public Class UpdateGrid
     Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
         Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
 
-        If desiredAssembly.Name = "the name of your assembly" Then
-            Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
+        If desiredAssembly.Name = "Ionic.Zip" Then
+            Return Reflection.Assembly.Load(My.Resources.Ionic_Zip) 'replace with your assembly's resource name
         Else
             Return Nothing
         End If
@@ -25,7 +25,6 @@ Public Class UpdateGrid
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ' dotnetzip is part of the resources so we can overwrite it.
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
         Label1.Text = "DreamGrid Updater"
@@ -50,7 +49,7 @@ Public Class UpdateGrid
         If Filename.StartsWith("DreamGrid-V") Then
 
             If Not File.Exists(MyFolder & "\" & Filename) Then
-                TextPrint("File not found. Aborting." & vbCrLf & "Syntax: DreamGridSetup.exe  Dreamgrid-VX.X.zip.")
+                TextPrint("File not found. Aborting." & vbCrLf & "Syntax: DreamGridSetup.exe  Dreamgrid-Vn.n.zip.")
                 Application.DoEvents()
                 Thread.Sleep(5000)
                 End
@@ -77,7 +76,7 @@ Public Class UpdateGrid
                         For Each ZipEntry In zip
                             Application.DoEvents()
                             ctr = ctr + 1
-                            If ZipEntry.FileName <> "DotNetZip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
+                            If ZipEntry.FileName <> "DreamGridSetup.exe" Then
                                 TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
                                 Application.DoEvents()
                                 ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
@@ -94,6 +93,8 @@ Public Class UpdateGrid
                 Thread.Sleep(3000)
                 End
             End If
+        Else
+            MsgBox("Cannot locate zip file. Syntax: DreamGridSetup.exe Dreamgrid-VX.Y.zip")
         End If
         End
 
