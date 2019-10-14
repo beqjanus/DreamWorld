@@ -13,14 +13,14 @@ Public Class Update
         Me.Show()
         Me.Text = "DreamGrid Downloader"
         MyFolder = My.Application.Info.DirectoryPath
-
+        Label1.Text = ""
         If Debugger.IsAttached = True Then
             ' for debugging when compiling
 
             MyFolder = MyFolder.Replace("\Downloader\Downloader-II\bin\Debug", "")
             MyFolder = MyFolder.Replace("\Downloader\Downloader-II\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
-            Label1.Text = ""
+
         End If
         ChDir(MyFolder)
 
@@ -49,6 +49,8 @@ Public Class Update
             Label1.Text = "Download Complete"
 
             Environment.Exit(0)
+        Else
+            MsgBox("Syntax: Downloder DreamGrid-Vn.n.zip")
         End If
 
         Environment.Exit(1)
