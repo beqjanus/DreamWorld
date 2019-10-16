@@ -4311,8 +4311,8 @@ Public Class Form1
                     Dim ToBackup As String
 
                     Dim BackupName = SaveIAR.GBackupName
-                    BackupName = BackupName.ToLower(Invarient)
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCulture) Then
+                    'BackupName = BackupName.ToLower(Invarient)
+                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                         BackupName += ".iar"
                     End If
 
