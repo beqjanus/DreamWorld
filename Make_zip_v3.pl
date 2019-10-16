@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.199";
+my $v = "3.2";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -115,9 +115,11 @@ sub process_file {
 
 close OUT;
 
+my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
+sign($exes);
 
 use File::Copy::Recursive qw(dircopy);
-dircopy("$dir/Installer_Src/Setup DreamWorld/bin/Release",$dir) or die("$!\n");
+dircopy($exes,$dir) or die("$!\n");
 
 unlink "$dir/Start.exe.lastcodeanalysissucceeded";
 unlink "$dir/Start.exe.CodeAnalysisLog.xml";
@@ -125,44 +127,8 @@ unlink "$dir/Start.exe.CodeAnalysisLog.xml";
 
 say("Signing");
 use IO::All;
+sign($dir);
 
-my @files = io->dir($dir)->all(0);  
-
-my @signs;
-foreach my $file (@files) {
-    my $name = $file->name;
-    next if $name =~ /Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple/;
-    if ($name =~ /dll$|exe$/ ) {
-        
-        my $r = qq!../Certs/sigcheck64.exe "$name"!;
-        print $r. "\n";
-        my $result1 = `$r`;
-        if ($result1 =~ /Publisher:.*Outworldz, LLC/) {
-            next;
-        }
-		$result1 =~ s/\n//g;
-		if ($result1 =~ /Verified(.*)/i) {
-			push(@signs,$name);
-		};
-		
-        
-        my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "D7EA8E5F8E6D27B138ECD93811DAA6B02B0BA333" "$name"!;
-        print $f;
-        my $result = `$f`;
-        print $result. "\n";
-		$result =~ s/\n//g;
-		if ($result =~ /Verified(.*)/)
-		{
-			say($1);
-		}
-        if ($result !~ /success/) {
-            say ("***** Failed to sign!");
-			die;
-        }
-    }
-}
-
-say (join("\n",@signs));
 
 say("Mysql");
 chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
@@ -178,7 +144,7 @@ print "Processing Main Zip\n";
 
 JustDelete('O:\\Opensim\\Zip');
 
-@files =   `cmd /c dir /b `;
+my @files =   `cmd /c dir /b `;
 
 foreach my $file (@files) {
 	chomp $file;
@@ -381,4 +347,46 @@ sub DelMaps
 	while ($_ = glob("$dir/Outworldzfiles/opensim/bin/Map-*.png")) {
 		unlink ($_)  or die("Can't remove $_: $!");
 	}	
+}
+
+sub sign
+{
+		
+	my @files = io->dir(shift)->all(0);  
+
+	my @signs;
+	foreach my $file (@files) {
+		my $name = $file->name;
+		next if $name =~ /Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple/;
+		if ($name =~ /dll$|exe$/ ) {
+			
+			my $r = qq!../Certs/sigcheck64.exe "$name"!;
+			print $r. "\n";
+			my $result1 = `$r`;
+			if ($result1 =~ /Publisher:.*Outworldz, LLC/) {
+				next;
+			}
+			$result1 =~ s/\n//g;
+			if ($result1 =~ /Verified(.*)/i) {
+				push(@signs,$name);
+			};
+			
+			
+			my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "D7EA8E5F8E6D27B138ECD93811DAA6B02B0BA333" "$name"!;
+			print $f;
+			my $result = `$f`;
+			print $result. "\n";
+			$result =~ s/\n//g;
+			if ($result =~ /Verified(.*)/)
+			{
+				say($1);
+			}
+			if ($result !~ /success/) {
+				say ("***** Failed to sign!");
+				die;
+			}
+		}
+	}
+	
+	say (join("\n",@signs));
 }
