@@ -575,19 +575,6 @@ Public Class Form1
 
 #Region "StartStop"
 
-    Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
-        Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
-
-        ' for future use in embedding dll's
-        Return Nothing
-
-        If desiredAssembly.Name = "DotNetZip" Then
-            Return Reflection.Assembly.Load(My.Resources.DotNetZip) 'replace with your assembly's resource name
-        Else
-            Return Nothing
-        End If
-    End Function
-
     ''' <summary>
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
@@ -598,9 +585,6 @@ Public Class Form1
             .CounterName = "% Processor Time"
             .InstanceName = "_Total"
         End With
-
-        ' dotnetzip is part of the resources so we can overwrite it.
-        AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
 
         Dim DefaultName As String = ""
         Print(My.Resources.Starting)
