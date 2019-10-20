@@ -72,8 +72,6 @@ Public Class Form1
         SWMAX = 11
     End Enum
 
-    Public Language As New Culture
-
     ' with events
     Private WithEvents UpdateProcess As New Process()
 
@@ -82,6 +80,7 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
 
+    Private _Language As New Culture
     Private _Aborting As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
@@ -1428,7 +1427,7 @@ Public Class Form1
             If PropRegionClass.MinTimerInterval(X) > 0 Then
                 Xtime = PropRegionClass.MinTimerInterval(X)
             End If
-            Settings.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
+            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Invarient))
 
             Dim name = PropRegionClass.RegionName(X)
 
@@ -1702,7 +1701,7 @@ Public Class Form1
         ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
         'FrameTime = 0.0909
 
-        Settings.SetIni("Startup", "FrameTime", CStr(1 / 11))
+        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Invarient))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
@@ -1714,7 +1713,7 @@ Public Class Form1
         ' the old Clouds
         If Settings.Clouds Then
             Settings.SetIni("Cloud", "enabled", "true")
-            Settings.SetIni("Cloud", "density", CStr(Settings.Density))
+            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Invarient))
         Else
             Settings.SetIni("Cloud", "enabled", "false")
         End If
@@ -1782,8 +1781,8 @@ Public Class Form1
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
         End Select
 
-        Settings.SetIni("Map", "RenderMaxHeight", Settings.RenderMaxHeight)
-        Settings.SetIni("Map", "RenderMinHeight", Settings.RenderMinHeight)
+        Settings.SetIni("Map", "RenderMaxHeight", CInt(Settings.RenderMaxHeight))
+        Settings.SetIni("Map", "RenderMinHeight", CInt(Settings.RenderMinHeight))
 
         If Settings.MapType = "None" Then
             Settings.SetIni("Map", "GenerateMaptiles", "false")
@@ -2081,19 +2080,19 @@ Public Class Form1
             ";the number of birds to flock" & vbCrLf &
             "BirdsFlockSize = " & CStr(Settings.BirdsFlockSize) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " & CStr(Settings.BirdsMaxSpeed) & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " & Settings.BirdsMaxSpeed.ToString(Invarient) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " & CStr(Settings.BirdsMaxForce) & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " & Settings.BirdsMaxForce.ToString(Invarient) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " & CStr(Settings.BirdsNeighbourDistance) & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " & Settings.BirdsNeighbourDistance.ToString(Invarient) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " & CStr(Settings.BirdsDesiredSeparation) & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " & Settings.BirdsDesiredSeparation.ToString(Invarient) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " & CStr(Settings.BirdsTolerance) & vbCrLf & vbCrLf &
+            "BirdsTolerance = " & Settings.BirdsTolerance.ToString(Invarient) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " & CStr(Settings.BirdsBorderSize) & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " & Settings.BirdsBorderSize.ToString(Invarient) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " & CStr(Settings.BirdsMaxHeight) & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " & Settings.BirdsMaxHeight.ToString(Invarient) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
@@ -2132,11 +2131,11 @@ Public Class Form1
                 "TideUpdateRate = 50" & vbCrLf &
                     vbCrLf &
                 ";; low And high water marks in metres" & vbCrLf &
-                "TideHighWater = " & Settings.TideHighLevel() & vbCrLf &
-                "TideLowWater = " & Settings.TideLowLevel() & vbCrLf &
+                "TideHighWater = " & Convert.ToString(Settings.TideHighLevel(), Invarient) & vbCrLf &
+                "TideLowWater = " & Convert.ToString(Settings.TideLowLevel(), Invarient) & vbCrLf &
                 vbCrLf &
                 ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-                "TideCycleTime = " & Settings.CycleTime() & vbCrLf &
+                "TideCycleTime = " & CStr(Settings.CycleTime()) & vbCrLf &
                     vbCrLf &
                 ";; provide tide information on the console?" & vbCrLf &
                 "TideInfoDebug = " & CStr(Settings.TideInfoDebug) & vbCrLf &
@@ -2145,10 +2144,10 @@ Public Class Form1
                 "TideInfoBroadcast = " & Settings.BroadcastTideInfo() & vbCrLf &
                     vbCrLf &
                 ";; which channel to region chat on for the full tide info" & vbCrLf &
-                "TideInfoChannel = " & Settings.TideInfoChannel & vbCrLf &
+                "TideInfoChannel = " & CStr(Settings.TideInfoChannel) & vbCrLf &
                 vbCrLf &
                 ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-                "TideLevelChannel = " & Settings.TideLevelChannel() & vbCrLf &
+                "TideLevelChannel = " & CStr(Settings.TideLevelChannel()) & vbCrLf &
                     vbCrLf &
                 ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
                 "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
@@ -2859,8 +2858,8 @@ Public Class Form1
 "$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
 "$CONF_db_database   = " & """" & Settings.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
 "/* The Coordinates Of the Grid-Center */ " & vbCrLf &
-"$CONF_center_coord_x = " & """" & Settings.MapCenterX & """" & ";		// the Center-X-Coordinate " & vbCrLf &
-"$CONF_center_coord_y = " & """" & Settings.MapCenterY & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
+"$CONF_center_coord_x = " & """" & CStr(Settings.MapCenterX) & """" & ";		// the Center-X-Coordinate " & vbCrLf &
+"$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
 "?>"
@@ -4311,7 +4310,7 @@ Public Class Form1
                     Dim ToBackup As String
 
                     Dim BackupName = SaveIAR.GBackupName
-                    'BackupName = BackupName.ToLower(Invarient)
+
                     If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                         BackupName += ".iar"
                     End If
@@ -4529,10 +4528,9 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            'My.Computer.FileSystem.RenameFile(PropMyFolder & "\DreamGrid.zip", "DreamGrid-V" & CStr(Update_version) & ".zip")
             Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
             If result = vbYes Then
-                UpdaterGo("DreamGrid-V" & CStr(Update_version) & ".zip")
+                UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
             End If
         Else
             ErrorLog("Could not download an Update: ExitCode=" & CStr(ExitCode))
@@ -4570,14 +4568,14 @@ Public Class Form1
             If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & CStr(Update_version) & ".zip") Then
                 Dim result = MsgBox("Update V" & Update_version & " has been downloaded. Install it now?", vbYesNo)
                 If result = vbOK Then
-                    UpdaterGo("DreamGrid-V" & CStr(Update_version) & ".zip")
+                    UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
                 End If
                 Return
             End If
 
             Print("Update V" & Update_version & " is available. Downloading it in background.")
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "DreamGrid-V" & CStr(Update_version) & ".zip",
+                .Arguments = "DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip",
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 
@@ -5050,7 +5048,7 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" & m _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
+        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Invarient)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
         & "&uPnp=" & CStr(UPnp) _
         & "&Loop=" & CStr(Loopb) _
