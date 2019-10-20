@@ -802,7 +802,6 @@ Public Class FormRegion
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordY.Text = digitsOnly.Replace(CoordY.Text, "")
         If Initted1 And CoordY.Text.Length >= 0 Then
-            CoordX.Text = CoordY.Text
             Changed1 = True
         End If
 
