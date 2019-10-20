@@ -1710,25 +1710,25 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "false")
         End If
 
-        If (Settings.RegionOwnerIsGod) Then
-            Settings.SetIni("Permissions", "region_owner_is_god", "true")
-        Else
-            Settings.SetIni("Permissions", "region_owner_is_god", "false")
-        End If
+        'If (Settings.RegionOwnerIsGod) Then
+        'Settings.SetIni("Permissions", "region_owner_is_god", "true")
+        'Else
+        'Settings.SetIni("Permissions", "region_owner_is_god", "false")
+        'End If
 
-        If (Settings.RegionManagerIsGod) Then
-            Settings.SetIni("Permissions", "region_manager_is_god", "true")
-        Else
-            Settings.SetIni("Permissions", "region_manager_is_god", "false")
-        End If
+        'If (Settings.RegionManagerIsGod) Then
+        'Settings.SetIni("Permissions", "region_manager_is_god", "true")
+        'Else
+        'Settings.SetIni("Permissions", "region_manager_is_god", "false")
+        'End If
 
-        If (Settings.AllowGridGods) Then
-            Settings.SetIni("Permissions", "allow_grid_gods", "true")
-        Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "false")
-        End If
+        'If (Settings.AllowGridGods) Then
+        'Settings.SetIni("Permissions", "allow_grid_gods", "true")
+        'Else
+        'Settings.SetIni("Permissions", "allow_grid_gods", "false")
+        'End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one mesging =
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one
         ' ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
 
         ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
@@ -2001,18 +2001,25 @@ Public Class Form1
                     Settings.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
 
-            If PropRegionClass.RegionGod(RegionNum) = "True" Then
-                Settings.SetIni("Permissions", "region_owner_is_god", "True")
-            Else
-                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-            End If
+            Select Case PropRegionClass.RegionGod(RegionNum)
+                Case ""
+                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.AllowGridGods))
+                Case "False"
+                    Settings.SetIni("Permissions", "region_owner_is_god", "False")
+                Case "True"
+                    Settings.SetIni("Permissions", "region_owner_is_god", "True")
+            End Select
 
-            If PropRegionClass.ManagerGod(RegionNum) = "True" Then
-                Settings.SetIni("Permissions", "region_manager_is_god", "True")
-            Else
-                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-            End If
+            Select Case PropRegionClass.ManagerGod(RegionNum)
+                Case ""
+                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.AllowGridGods))
+                Case "False"
+                    Settings.SetIni("Permissions", "region_manager_is_god", "False")
+                Case "True"
+                    Settings.SetIni("Permissions", "region_manager_is_god", "True")
+            End Select
 
+            ' no main setting for these
             Settings.SetIni("SmartStart", "Enabled", CStr(PropRegionClass.SmartStart(RegionNum)))
             Settings.SetIni("DisallowForeigners", "Enabled", CStr(PropRegionClass.DisallowForeigners(RegionNum)))
             Settings.SetIni("DisallowResidents", "Enabled", CStr(PropRegionClass.DisallowResidents(RegionNum)))
@@ -2028,6 +2035,8 @@ Public Class Form1
 
             ' Search
             Select Case PropRegionClass.Snapshot(RegionNum)
+                Case ""
+                    Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
                 Case "True"
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                 Case "False"

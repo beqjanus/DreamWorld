@@ -184,9 +184,9 @@ Partial Class FormApache
         Me.GroupBox1.Controls.Add(Me.EnableSearchCheckBox)
         Me.GroupBox1.Controls.Add(Me.LocalSearchCheckBox)
         Me.GroupBox1.Location = New System.Drawing.Point(235, 29)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox1.TabIndex = 186741
         Me.GroupBox1.TabStop = False
@@ -200,7 +200,7 @@ Partial Class FormApache
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormApache"
         Me.Text = "Apache Webserver"
         Me.GroupBox2.ResumeLayout(False)
