@@ -56,12 +56,12 @@ Public Class Tides
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         TideEnabledCheckbox.Checked = CType(Form1.Settings.TideEnabled, Boolean)
-        TideHighLevelTextBox.Text = Form1.Settings.TideHighLevel()
-        TideLowLevelTextBox.Text = Form1.Settings.TideLowLevel()
+        TideHighLevelTextBox.Text = Convert.ToString(Form1.Settings.TideHighLevel(), Form1.Invarient)
+        TideLowLevelTextBox.Text = Convert.ToString(Form1.Settings.TideLowLevel(), Form1.Invarient)
         CycleTimeTextBox.Text = Form1.Settings.CycleTime.ToString(Form1.Invarient)
         BroadcastTideInfo.Checked = CType(Form1.Settings.BroadcastTideInfo, Boolean)
-        TideInfoChannelTextBox.Text = Form1.Settings.TideInfoChannel
-        TideHiLoChannelTextBox.Text = Form1.Settings.TideLevelChannel
+        TideInfoChannelTextBox.Text = CStr(Form1.Settings.TideInfoChannel)
+        TideHiLoChannelTextBox.Text = CStr(Form1.Settings.TideLevelChannel)
         TideInfoDebugCheckBox.Checked = Form1.Settings.TideInfoDebug
         SetScreen()
         Form1.HelpOnce("Tides")
@@ -80,17 +80,17 @@ Public Class Tides
     End Sub
 
     Private Sub TideHghLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHighLevelTextBox.TextChanged
-        Form1.Settings.TideHighLevel() = TideHighLevelTextBox.Text
+        Form1.Settings.TideHighLevel() = CType(TideHighLevelTextBox.Text, Single)
         Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
-        Form1.Settings.TideLowLevel() = TideLowLevelTextBox.Text
+        Form1.Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
         Form1.Settings.SaveINI()
     End Sub
 
     Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
-        Form1.Settings.CycleTime = CycleTimeTextBox.Text
+        Form1.Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
         Form1.Settings.SaveINI()
     End Sub
 
@@ -100,12 +100,12 @@ Public Class Tides
     End Sub
 
     Private Sub TideInfoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideInfoChannelTextBox.TextChanged
-        Form1.Settings.TideInfoChannel = TideInfoChannelTextBox.Text
+        Form1.Settings.TideInfoChannel = CType(TideInfoChannelTextBox.Text, Integer)
         Form1.Settings.SaveINI()
     End Sub
 
     Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
-        Form1.Settings.TideLevelChannel = TideHiLoChannelTextBox.Text
+        Form1.Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
         Form1.Settings.SaveINI()
     End Sub
 

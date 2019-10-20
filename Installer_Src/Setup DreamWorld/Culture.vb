@@ -29,12 +29,12 @@ Public Class Culture
 
         Dim culture As CultureInfo = CultureInfo.CurrentCulture
         Language = culture.EnglishName
+        My.Application.ChangeUICulture("en-US")
 
+        ' debug only
         If Debugger.IsAttached Then
             Dim c As String = My.Application.UICulture.Name
             My.Application.ChangeUICulture("fr-FR")
-
-            'My.Application.ChangeUICulture(c)
         End If
 
     End Sub
@@ -48,10 +48,10 @@ Public Class Culture
         End Set
     End Property
 
-    Public Function Translate(input As String) As String
+    Public Shared Function Translate(input As String) As String
 
         ' reserved for MSFT translator
-
+        Return ""
     End Function
 
 End Class

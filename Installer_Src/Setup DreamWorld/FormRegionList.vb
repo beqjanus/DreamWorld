@@ -353,6 +353,7 @@ Public Class RegionList
         RegionList.FormExists1 = False
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
+        _ImageListSmall.Dispose()
 
     End Sub
 

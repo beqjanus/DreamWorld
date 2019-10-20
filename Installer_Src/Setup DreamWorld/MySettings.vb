@@ -75,8 +75,8 @@ Public Class MySettings
             Density() = 0.5
             ConsoleUser() = My.Settings.ConsoleUser
             ConsolePass() = My.Settings.ConsolePass
-            CoordX() = My.Settings.CoordX
-            CoordY() = My.Settings.CoordY
+            CoordX() = CInt(My.Settings.CoordX)
+            CoordY() = CInt(My.Settings.CoordY)
             ConsoleShow = My.Settings.ConsoleShow
 
             DiagFailed() = My.Settings.DiagFailed
@@ -532,39 +532,39 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RenderMaxHeight() As String
+    Public Property RenderMaxHeight() As Integer
         Get
             Return GetMySetting("RenderMaxHeight", "4000")
         End Get
         Set
-            SetMySetting("RenderMaxHeight", Value)
+            SetMySetting("RenderMaxHeight", CStr(Value))
         End Set
     End Property
 
-    Public Property RenderMinHeight() As String
+    Public Property RenderMinHeight() As Integer
         Get
             Return GetMySetting("RenderMinHeight", "-100")
         End Get
         Set
-            SetMySetting("RenderMinHeight", Value)
+            SetMySetting("RenderMinHeight", CStr(Value))
         End Set
     End Property
 
-    Public Property MapCenterY() As String
+    Public Property MapCenterY() As Integer
         Get
             Return GetMySetting("MapCenterY", "1000")
         End Get
         Set
-            SetMySetting("MapCenterY", Value)
+            SetMySetting("MapCenterY", CStr(Value))
         End Set
     End Property
 
-    Public Property MapCenterX() As String
+    Public Property MapCenterX() As Integer
         Get
             Return GetMySetting("MapCenterX", "1000")
         End Get
         Set
-            SetMySetting("MapCenterX", Value)
+            SetMySetting("MapCenterX", CStr(Value))
         End Set
     End Property
 
@@ -704,30 +704,30 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property TideHighLevel() As String
+    Public Property TideHighLevel() As Single
         Get
             Return GetMySetting("TideHighLevel", "20")
         End Get
         Set
-            SetMySetting("TideHighLevel", Value)
+            SetMySetting("TideHighLevel", Convert.ToString(Value, Form1.Invarient))
         End Set
     End Property
 
-    Public Property TideLowLevel() As String
+    Public Property TideLowLevel() As Single
         Get
             Return GetMySetting("TideLowLevel", "17")
         End Get
         Set
-            SetMySetting("TideLowLevel", Value)
+            SetMySetting("TideLowLevel", Convert.ToString(Value, Form1.Invarient))
         End Set
     End Property
 
-    Public Property CycleTime() As String
+    Public Property CycleTime() As Integer
         Get
             Return GetMySetting("CycleTime", "900")
         End Get
         Set
-            SetMySetting("CycleTime", Value)
+            SetMySetting("CycleTime", CStr(Value))
         End Set
     End Property
 
@@ -740,21 +740,21 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property TideInfoChannel() As String
+    Public Property TideInfoChannel() As Integer
         Get
             Return GetMySetting("TideInfoChannel", "5555")
         End Get
         Set
-            SetMySetting("TideInfoChannel", Value)
+            SetMySetting("TideInfoChannel", CStr(Value))
         End Set
     End Property
 
-    Public Property TideLevelChannel() As String
+    Public Property TideLevelChannel() As Integer
         Get
             Return GetMySetting("TideLevelChannel", "5556")
         End Get
         Set
-            SetMySetting("TideLevelChannel", Value)
+            SetMySetting("TideLevelChannel", CStr(Value))
         End Set
     End Property
 
@@ -796,12 +796,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property BirdsFlockSize() As String
+    Public Property BirdsFlockSize() As Integer
         Get
             Return GetMySetting("BirdsFlockSize", "25")
         End Get
         Set
-            SetMySetting("BirdsFlockSize", Value)
+            SetMySetting("BirdsFlockSize", CStr(Value))
         End Set
     End Property
 
@@ -1081,21 +1081,21 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As String
+    Public Property CoordX() As Integer
         Get
             Return CType(GetMySetting("CoordX", "1000"), String)
         End Get
         Set
-            SetMySetting("CoordX", Value)
+            SetMySetting("CoordX", CStr(Value))
         End Set
     End Property
 
-    Public Property CoordY() As String
+    Public Property CoordY() As Integer
         Get
             Return CType(GetMySetting("CoordY", "1000"), String)
         End Get
         Set
-            SetMySetting("CoordY", Value)
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

@@ -75,8 +75,8 @@ Public Class FormMaps
         End If
 
         If Form1.Settings.ApacheEnable Then
-            MapYStart.Text = Form1.Settings.MapCenterY
-            MapXStart.Text = Form1.Settings.MapCenterX
+            MapYStart.Text = CStr(Form1.Settings.MapCenterY)
+            MapXStart.Text = CStr(Form1.Settings.MapCenterX)
             MapYStart.Enabled = True
             MapXStart.Enabled = True
             LargeMapButton.Enabled = True
@@ -88,8 +88,8 @@ Public Class FormMaps
             SmallMapButton.Enabled = False
         End If
 
-        RenderMaxH.Text = Form1.Settings.RenderMaxHeight
-        RenderMinH.Text = Form1.Settings.RenderMinHeight
+        RenderMaxH.Text = CStr(Form1.Settings.RenderMaxHeight)
+        RenderMinH.Text = CStr(Form1.Settings.RenderMinHeight)
 
         Form1.HelpOnce("Maps")
         SetScreen()
@@ -175,29 +175,30 @@ Public Class FormMaps
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
-        Form1.Settings.MapCenterX = MapXStart.Text
+        Form1.Settings.MapCenterX = CInt(MapXStart.Text)
     End Sub
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
-        Form1.Settings.MapCenterY = MapYStart.Text
+        Form1.Settings.MapCenterY = CInt(MapYStart.Text)
     End Sub
 
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d-\.]")
+        Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
-        If CType(RenderMaxH.Text, Single) <= 4096 And CType(RenderMaxH.Text, Single) > 100 Then
-            Form1.Settings.RenderMaxHeight = RenderMaxH.Text
+        If CInt(RenderMaxH.Text) <= 4096 And CInt(RenderMaxH.Text) > 100 Then
+            Form1.Settings.RenderMaxHeight = CInt(RenderMaxH.Text)
+
         End If
 
     End Sub
 
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d-\.]")
+        Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
-        If CType(RenderMaxH.Text, Single) >= -100 Then
-            Form1.Settings.RenderMinHeight = RenderMinH.Text
+        If CInt(RenderMaxH.Text) >= -100 Then
+            Form1.Settings.RenderMinHeight = CInt(RenderMinH.Text)
         End If
 
     End Sub

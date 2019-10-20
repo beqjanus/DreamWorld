@@ -72,7 +72,7 @@ Public Class BirdForm
         For i = 1 To 100
             BirdsFlockSizeDomain.Items.Add(i.ToString(Form1.Invarient))
         Next
-        BirdsFlockSizeDomain.SelectedIndex = CType(Form1.Settings.BirdsFlockSize, Integer) - 1
+        BirdsFlockSizeDomain.SelectedIndex = Form1.Settings.BirdsFlockSize - 1
 
         ChatChanelTextBox.Text = Form1.Settings.BirdsChatChannel.ToString(Form1.Invarient)
         MaxSpeedTextBox.Text = Form1.Settings.BirdsMaxSpeed.ToString(Form1.Invarient)
@@ -93,7 +93,7 @@ Public Class BirdForm
             Form1.PropViewedSettings = True
             MsgBox("These changes go into effect only when Opensim and Robust are both restarted", vbInformation)
         End If
-        Form1.Settings.BirdsFlockSize = BirdsFlockSizeDomain.Text
+        Form1.Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
         Form1.Settings.SaveSettings()
 
     End Sub

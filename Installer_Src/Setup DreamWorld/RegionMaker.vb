@@ -30,10 +30,8 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-    Public Grouplist As New Dictionary(Of String, Integer)
+    Private _Grouplist As New Dictionary(Of String, Integer)
     Private Shared FInstance As RegionMaker = Nothing
-#Disable Warning CA1051 ' Do not declare visible instance fields
-#Enable Warning CA1051 ' Do not declare visible instance fields
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
     Dim json As New JSONresult
@@ -75,18 +73,18 @@ Public Class RegionMaker
     Public Property GroupPort(index As Integer) As Integer
         Get
             Dim RegionName = GroupName(index)
-            If Grouplist.ContainsKey(RegionName) Then
-                Return Grouplist.Item(RegionName)
+            If _Grouplist.ContainsKey(RegionName) Then
+                Return _Grouplist.Item(RegionName)
             End If
             Return 0
         End Get
         Set(ByVal Value As Integer)
             Dim RegionName = GroupName(index)
-            If Grouplist.ContainsKey(RegionName) Then
-                Grouplist.Remove(RegionName)
-                Grouplist.Add(RegionName, Value)
+            If _Grouplist.ContainsKey(RegionName) Then
+                _Grouplist.Remove(RegionName)
+                _Grouplist.Add(RegionName, Value)
             Else
-                Grouplist.Add(RegionName, Value)
+                _Grouplist.Add(RegionName, Value)
             End If
 
             'DebugGroup
@@ -572,7 +570,7 @@ Public Class RegionMaker
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
         & "RegionUUID = " & UUID(n) & vbCrLf _
-        & "Location = " & CStr(CoordX(n)) & "," & CoordY(n) & vbCrLf _
+        & "Location = " & CoordX(n).ToString(Form1.Invarient) & "," & CoordY(n).ToString(Form1.Invarient) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(n) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
@@ -1047,7 +1045,7 @@ Public Class RegionMaker
 #Region "Functions"
 
     Public Sub DebugGroup()
-        For Each pair In Grouplist
+        For Each pair In _Grouplist
             Debug.Print("Group name: {0}, httpport: {1}", pair.Key, pair.Value)
         Next
     End Sub
