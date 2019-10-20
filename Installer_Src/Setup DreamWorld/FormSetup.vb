@@ -2524,8 +2524,11 @@ Public Class Form1
             PropRegionClass.ProcessID(X) = 0
             PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
         Next
+        Try
+            PropExitList.Clear()
+        Catch
+        End Try
 
-        PropExitList.Clear()
 
     End Sub
 
