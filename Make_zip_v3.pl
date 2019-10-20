@@ -19,12 +19,10 @@ chomp $publish;
 
 if ($publish)
 {
-	say ("Unlinking");
-	#if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
+	say ("Unlinking");	
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die ;
 	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip" || die $!;
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!; 	
-
+	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!;	
 }
 
 
@@ -167,6 +165,8 @@ ProcessDir ("OutworldzFiles\\Mysql");
 ProcessDir ("OutworldzFiles\\OAR");
 ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
+ProcessDir ("OutworldzFiles\\fr-FR");
+ProcessDir ("OutworldzFiles\\en");
 
 
 
@@ -210,21 +210,14 @@ if ($publish)
 {
 	say ("Publishing now");
 	
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip";
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip" || die $!;
-	unlink "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" || die $!; 	
-		
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
-
 	print "Revisions\n";
 	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 	'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 	if (!copy ('Revisions.txt', 						'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 	if (!copy ('Revisions.txt', 						'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
-	
-
 
 }
 
