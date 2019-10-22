@@ -4091,7 +4091,7 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder = "AutoBackup" Then
+        If Settings.BackupFolder.ToLower = "autobackup" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -4101,7 +4101,6 @@ Public Class Form1
             BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
 
             If Not Directory.Exists(BackupPath) Then
-
                 BackupPath = PropCurSlashDir & "/OutworldzFiles/Autobackup/"
 
                 If Not Directory.Exists(BackupPath) Then
