@@ -1831,11 +1831,9 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
-        Settings.FirstRegionPort = PropRegionClass.LowestPort()
-        Settings.SaveSettings()
 
         ' Self setting Region Ports
-        Dim FirstPort As Integer = CType(Settings.FirstRegionPort(), Integer)
+        Dim SimPort As Integer = CType(Settings.FirstRegionPort(), Integer)
 
         For Each RegionNum As Integer In PropRegionClass.RegionNumbers
 
@@ -1843,7 +1841,11 @@ Public Class Form1
 
             Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
 
-            Settings.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
+            Settings.SetIni(simName, "InternalPort", CStr(SimPort))
+            PropMaxPortUsed = SimPort
+            PropRegionClass.RegionPort(RegionNum) = SimPort
+            SimPort += 1
+
             Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
             ' not a standard INI, only use by the Dreamers
@@ -2516,8 +2518,11 @@ Public Class Form1
             PropRegionClass.ProcessID(X) = 0
             PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
         Next
+        Try
+            PropExitList.Clear()
+        Catch
+        End Try
 
-        PropExitList.Clear()
 
     End Sub
 
@@ -4681,6 +4686,7 @@ Public Class Form1
 
         If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
             BumpProgress10()
+            Print("Registering Statistics")
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
             Dim x = Settings.PublicIP.ToLower(Invarient)
@@ -6454,7 +6460,7 @@ Public Class Form1
             Or Settings.ServerType = "OsGrid" _
             Or Settings.ServerType = "AviWorlds" Then Return
 
-        If Not Settings.SearchMigration = 1 Then
+        If Not Settings.SearchMigration = 2 Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -6482,7 +6488,7 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            Settings.SearchMigration = 1
+            Settings.SearchMigration = 2
             Settings.SaveSettings()
 
         End If

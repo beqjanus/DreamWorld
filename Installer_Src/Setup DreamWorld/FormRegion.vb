@@ -809,6 +809,7 @@ Public Class FormRegion
 
     Private Sub CoordX_TextChanged(sender As Object, e As EventArgs) Handles CoordX.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         CoordX.Text = digitsOnly.Replace(CoordX.Text, "")
         Changed1 = True
@@ -817,6 +818,7 @@ Public Class FormRegion
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
 
+        If Not initted Then Return
         If Initted1 And RadioButton1.Checked Then
             SizeX.Text = "256"
             SizeY.Text = "256"
@@ -889,10 +891,8 @@ Public Class FormRegion
                     RadioButton3.Checked = False
                     RadioButton4.Checked = False
                 End If
-
                 SizeY.Text = SizeX.Text
                 Changed1 = True
-
             End If
         End If
 
@@ -1283,6 +1283,8 @@ Public Class FormRegion
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
         If Initted1 Then Changed1 = True
     End Sub
+
+
 
 #End Region
 

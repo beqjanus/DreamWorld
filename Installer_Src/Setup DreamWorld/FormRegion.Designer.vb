@@ -104,6 +104,7 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label16 = New System.Windows.Forms.Label()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -393,12 +394,12 @@ Partial Class FormRegion
         '
         'RegionPort
         '
+        Me.RegionPort.Enabled = False
         Me.RegionPort.Location = New System.Drawing.Point(97, 39)
         Me.RegionPort.Name = "RegionPort"
         Me.RegionPort.Size = New System.Drawing.Size(40, 20)
         Me.RegionPort.TabIndex = 39
         Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
-        Me.RegionPort.Visible = False
         '
         'SmartStartCheckBox
         '
@@ -571,6 +572,7 @@ Partial Class FormRegion
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.Advanced.Controls.Add(Me.Label16)
         Me.Advanced.Controls.Add(Me.Label15)
         Me.Advanced.Controls.Add(Me.FrametimeBox)
         Me.Advanced.Controls.Add(Me.Label14)
@@ -970,6 +972,15 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(143, 42)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(63, 13)
+        Me.Label16.TabIndex = 44
+        Me.Label16.Text = "Region Port"
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1097,4 +1108,5 @@ Partial Class FormRegion
     Friend WithEvents DisallowResidents As CheckBox
     Friend WithEvents Label15 As Label
     Friend WithEvents FrametimeBox As TextBox
+    Friend WithEvents Label16 As Label
 End Class
