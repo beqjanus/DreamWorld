@@ -101,7 +101,7 @@ Public Class FormBackupCheckboxes
             If RegionCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-                Print("Backing up Regions Folder")
+                PrintStatus("Backing up Regions Folder")
                 FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
                 Application.DoEvents()
             End If
@@ -109,7 +109,7 @@ Public Class FormBackupCheckboxes
             If MySqlCheckBox.Checked Then
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-                Print("Backing up MySql\Data Folder")
+                PrintStatus("Backing up MySql\Data Folder")
                 FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
                 Application.DoEvents()
             End If
@@ -124,7 +124,7 @@ Public Class FormBackupCheckboxes
                 Else
                     folder = Form1.Settings.BaseDirectory
                 End If
-                Print("Backing up FSAssets Folder")
+                PrintStatus("Backing up FSAssets Folder")
                 FileStuff.CopyFolder(folder, Dest + "\FSAssets")
                 Application.DoEvents()
             End If
@@ -133,7 +133,7 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-                Print("Backing up Wifi Folders")
+                PrintStatus("Backing up Wifi Folders")
                 FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
                 FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
                 Application.DoEvents()
@@ -143,16 +143,16 @@ Public Class FormBackupCheckboxes
         End Try
 
         If SettingsBox.Checked Then
-            Print("Backing up Settings")
+            PrintStatus("Backing up Settings")
             FileStuff.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
+        PrintStatus("Finished with backup at " + Dest)
         Print("Finished with backup at " + Dest)
-
         DialogResult = DialogResult.OK
 
     End Sub
 
-    Private Sub Print(Value As String)
+    Private Sub PrintStatus(Value As String)
 
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
