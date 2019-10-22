@@ -1,1 +1,0 @@
-perl mySqlTuner.pl --nocolor 1 --host 127.0.0.1 --port 3306 --buffers  --checkversion --forcemem 32000 --forceswap  16000 --user root   --mysqladmin "mysqladmin.exe"
