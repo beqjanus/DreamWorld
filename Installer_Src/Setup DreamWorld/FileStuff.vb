@@ -18,11 +18,11 @@ Module FileStuff
 
             ' Now check whether its a file or a folder and take action accordingly
             If TypeOf fileSystemInfo Is System.IO.FileInfo Then
-                Print(fileSystemInfo.Name)
+                Form1.Print(fileSystemInfo.Name)
                 Application.DoEvents()
                 CopyFile(fileSystemInfo.FullName, destinationFileName, True)
             Else
-                ' Recursively call the mothod to copy all the nested folders
+                ' Recursively call the method to copy all the nested folders
                 CopyFile(fileSystemInfo.FullName, destinationFileName, True)
                 Application.DoEvents()
             End If
