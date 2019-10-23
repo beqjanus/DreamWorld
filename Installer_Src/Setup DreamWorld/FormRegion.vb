@@ -126,6 +126,8 @@ Public Class FormRegion
         Name = Name.Trim() ' remove spaces
 
         PropRegionClass1 = RegionMaker.Instance()
+        PropRegionClass1.GetAllRegions()
+
         If Name.Length = 0 Then
             IsNew1 = True
             RegionName.Text = Name & "Name of Region"
@@ -146,8 +148,9 @@ Public Class FormRegion
             ScriptTimerTextBox.Text = CStr(0.2)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
-            'PropRegionClass1.GetAllRegions()
+
         Else
+
             IsNew1 = False
             N1 = PropRegionClass1.FindRegionByName(Name)
             Oldname1 = PropRegionClass1.RegionName(N1) ' backup in case of rename
@@ -417,10 +420,10 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(N1)
-                    'PropRegionClass1.GetAllRegions()
+
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.PropUpdateView() = True
-
+                    PropRegionClass1.GetAllRegions()
                 End If
             End If
         End If
@@ -650,8 +653,9 @@ Public Class FormRegion
         End If
 
         If Physics_Default.Checked Then
-            PropRegionClass1.Physics(n) = "True"
+            PropRegionClass1.Physics(n) = Phys
         End If
+
         If AllowGods.Checked Then
             PropRegionClass1.AllowGods(n) = "True"
         End If
