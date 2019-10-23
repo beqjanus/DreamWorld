@@ -433,7 +433,8 @@ Public Class RegionMaker
                                         LineCounter(n) = CInt(Backup(o)._LineCounter)
                                         Timer(n) = CInt(Backup(o)._Timer)
                                     End If
-                                Catch
+                                Catch ex As Exception
+                                    Debug.Print(ex.Message)
                                 End Try
 
                             End If
@@ -449,7 +450,8 @@ Public Class RegionMaker
             Next
 
             initted = True
-        Catch
+        Catch ex As Exception
+            Debug.Print(ex.Message)
         End Try
 
     End Sub
