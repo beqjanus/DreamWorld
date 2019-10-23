@@ -2,7 +2,21 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-V3.2 release
+V3.21 
+Saving a region and them immediately re-opening it did not show changes. The changes were saved to disk but not reloaded into RAM.
+Rework the way ports increment from the starting number
+Catch error in a crashed region that goes down while shutting down.
+Strict typechecking on some region variables. Inegers, singles and doubles versus strings.
+Add Sean';s latest Radio IAR to the free IAR collection
+Y coordinate changed when X changed - was supposed to be region size.
+God mode overrides fixed. They always overrode the global for Level 200 Gods to off, even if uinselected.
+Prevent a lower versus upper case issue if the puny human entered 'autobackup'.
+
+
+V3.2 Release Rollup
+A wrong "print" caused a crash when a backup was manually run.
+Always use English culture until translations are available.
+
 
 V3.197
 LocalSearch in Settings did not 'stick;
