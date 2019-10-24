@@ -81,6 +81,7 @@ Public Class Form1
     Private WithEvents RobustProcess As New Process()
 
     Private _Language As New Culture
+    Private _PortsChanged As Boolean = True
     Private _Aborting As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
@@ -197,6 +198,8 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
+
 
     Public Property PropAborting As Boolean
         Get
@@ -2307,7 +2310,7 @@ Public Class Form1
 
                     If line.Contains("Region_REPLACE") Then
 
-                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion, FallbackRegion" & """"
+                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
                         Diagnostics.Debug.Print(line)
                         outputFile.WriteLine(line)
 
@@ -2315,7 +2318,7 @@ Public Class Form1
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
 
-                                If RegionName <> DefaultName Then
+                                If RegionName <> Settings.WelcomeRegion Then
                                     If PropRegionClass.SmartStart(RegionNum) Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
@@ -2326,6 +2329,8 @@ Public Class Form1
 
                                     Diagnostics.Debug.Print(line)
                                     outputFile.WriteLine(line)
+                                Else
+                                    Diagnostics.Debug.Print(line)
                                 End If
 
                             Next
