@@ -147,7 +147,7 @@ Public Class FormBackupCheckboxes
             FileStuff.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
         PrintStatus("Finished with backup at " + Dest)
-        Print("Finished with backup at " + Dest)
+        Form1.Print("Finished with backup at " + Dest)
         DialogResult = DialogResult.OK
 
     End Sub
