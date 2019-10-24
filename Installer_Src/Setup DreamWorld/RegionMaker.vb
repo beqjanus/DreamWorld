@@ -79,6 +79,7 @@ Public Class RegionMaker
             Return 0
         End Get
         Set(ByVal Value As Integer)
+
             Dim RegionName = GroupName(index)
             If _Grouplist.ContainsKey(RegionName) Then
                 _Grouplist.Remove(RegionName)
@@ -133,7 +134,8 @@ Public Class RegionMaker
         If Form1.PropOpensimIsRunning Then
             Return
         End If
-
+        Form1.Print("Updating Region Ports")
+        Form1.Settings.PortsChanged = True
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
