@@ -572,6 +572,7 @@ Public Class FormRegion
     Private Sub WriteRegion(n As Integer)
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
+        Form1.Settings.PortsChanged = True
 
         Dim Filepath = PropRegionClass1.RegionPath(n)
         Dim Folderpath = PropRegionClass1.FolderPath(n)
@@ -777,6 +778,7 @@ Public Class FormRegion
             End Try
         End If
 
+        Form1.Settings.PortsChanged = True
         Form1.PropUpdateView = True
 
         Me.Close()

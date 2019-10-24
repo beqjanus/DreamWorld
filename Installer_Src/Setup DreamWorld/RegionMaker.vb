@@ -134,8 +134,9 @@ Public Class RegionMaker
         If Form1.PropOpensimIsRunning Then
             Return
         End If
+
         Form1.Print("Updating Region Ports")
-        Form1.Settings.PortsChanged = True
+
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
@@ -148,6 +149,7 @@ Public Class RegionMaker
             Form1.Settings.SaveINI()
             Portnumber += 1
         Next
+        Form1.Settings.PortsChanged = True
 
     End Sub
 

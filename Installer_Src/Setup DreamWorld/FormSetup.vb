@@ -619,10 +619,12 @@ Public Class Form1
 
         GridNames.SetServerNames()
 
-        Print("Setup Ports")
-        RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        If Settings.PortsChanged Then
+            Print("Setup Ports")
+            RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
+            Print("Setup Firewall")
+            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        End If
 
         ' clear region error handlers
         PropRegionHandles.Clear()
@@ -842,11 +844,12 @@ Public Class Form1
 
         CheckDiagPort()
 
-        Print("Setup Ports")
-        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
-
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        If Settings.PortsChanged Then
+            Print("Setup Ports")
+            RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+            Print("Setup Firewall")
+            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        End If
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -1834,6 +1837,8 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
+        If Not Settings.PortsChanged Then Return
+        Settings.PortsChanged = False
 
         ' Self setting Region Ports
         Dim SimPort As Integer = CType(Settings.FirstRegionPort(), Integer)
