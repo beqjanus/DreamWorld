@@ -1159,8 +1159,9 @@ Public Class RegionList
     End Function
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
+
         Form1.PropRestartRobust = True
-        Form1.ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+
     End Sub
 
     Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click

@@ -117,6 +117,7 @@ Public Class Form1
     Private _RestartNow As Boolean = False
     Private _RobustExited As Boolean = False
     Private _RobustProcID As Integer
+    Private _RestartRobust As Boolean
 
     Private _RobustCrashCounter As Integer = 0
     Private _MysqlCrashCounter As Integer = 0
@@ -455,6 +456,15 @@ Public Class Form1
         End Get
         Set(value As Boolean)
             _RestartNow = value
+        End Set
+    End Property
+
+    Public Property PropRestartRobust As Boolean
+        Get
+            Return _RestartRobust
+        End Get
+        Set(value As Boolean)
+            _RestartRobust = value
         End Set
     End Property
 
@@ -1068,11 +1078,7 @@ Public Class Form1
 
         PropRegionHandles.Clear()
         StopAllRegions()
-        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
-
-        RobustPictureBox.Image = My.Resources.nav_plain_green
-        ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
-        MysqlInterface.DeleteRegionlist()
+        StopRobust()
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
@@ -1086,6 +1092,25 @@ Public Class Form1
         Return True
 
     End Function
+
+    Public Sub StopRobust()
+
+        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
+        Dim ctr As Integer = 0
+        ' wait 60 seconds for robust to quit
+        While IsRobustRunning() And ctr < 60
+            Sleep(1000)
+            ctr += 1
+            Application.DoEvents()
+        End While
+        ' trust, but verify
+        If Not IsRobustRunning() Then
+            RobustPictureBox.Image = My.Resources.nav_plain_blue
+            ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
+            MysqlInterface.DeleteRegionlist() '!!! not sure we should use this when robust quits now
+        End If
+
+    End Sub
 
     Private Sub KillFiles(AL As List(Of String))
 
@@ -3092,6 +3117,9 @@ Public Class Form1
         RobustPictureBox.Image = My.Resources.nav_plain_green
         Log("Info", "Robust is running")
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
+
+        PropRobustExited = False
+
         Application.DoEvents()
         Return True
 
@@ -3202,6 +3230,11 @@ Public Class Form1
 
         PropRobustProcID = Nothing
         If PropAborting Then Return
+
+        If PropRestartRobust Then
+            PropRobustExited = True
+            Return
+        End If
 
         If Settings.RestartOnCrash And _RobustCrashCounter < 10 Then
             PropRobustExited = True
@@ -3400,6 +3433,9 @@ Public Class Form1
         If PropExitHandlerIsBusy Then Return ' not reentrant
         If PropAborting Then Return ' not if we are aborting
 
+        If PropRestartRobust And PropRobustExited = True Then
+            StartRobust()
+        End If
         ' From the cross-threaded exited function.  These can only be set if Settings.RestartOnCrash is true
         If PropMysqlExited Then StartMySQL()
         If PropRobustExited Then StartRobust()
