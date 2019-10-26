@@ -25,7 +25,7 @@
 ' todo
 
 ' rm MAP-* in Opensim\bin
-' Singlarity Search Needs help
+' Singularity Search Needs help
 ' Old Web maps must use port 8001
 
 #End Region
@@ -135,7 +135,7 @@ Public Class Form1
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
-    Private _invarient As CultureInfo = New CultureInfo("")   ' "" = Invarient Culture
+    Private _invarient As CultureInfo = New CultureInfo("")   ' "" = Invariant Culture
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private Adv As AdvancedForm
@@ -767,7 +767,7 @@ Public Class Form1
         ProgressBar1.Value = 100
         Print("Grid address is" & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
-        ' done with bootup
+        ' done with boot up
         ProgressBar1.Visible = False
         ToolBar(True)
 
@@ -778,7 +778,7 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Form Load is main() for all Dreamgrid
+    ''' Form Load is main() for all DreamGrid
     ''' </summary>
     ''' <param name="sender">Unused</param>
     ''' <param name="e">Unused</param>
@@ -814,7 +814,7 @@ Public Class Form1
             ' for testing, as the compiler buries itself in ../../../debug
         End If
 
-        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
+        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
@@ -858,7 +858,7 @@ Public Class Form1
 
         PropInitted = True
 
-        ClearLogFiles() ' clear log fles
+        ClearLogFiles() ' clear log files
 
         If Not IO.File.Exists(PropMyFolder & "\BareTail.udm") Then
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
@@ -2327,7 +2327,7 @@ Public Class Form1
         Settings.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
         Settings.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
         Settings.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
-        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notificatins to this person
+        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
 
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
@@ -2563,7 +2563,7 @@ Public Class Form1
         ProgressBar1.Visible = False
         ToolBar(False)
 
-        Print("Dreamgrid Stopped/Aborted")
+        Print("DreamGrid Stopped/Aborted")
         Buttons(StopButton)
         Timer1.Enabled = False
         PropAborting = True
@@ -2677,6 +2677,7 @@ Public Class Form1
             Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(ApachePictureBox, "Apache is running")
+            PropApacheExited = False
             Return
         End If
         Application.DoEvents()
@@ -2859,7 +2860,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsApacheRunning() As Boolean
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
@@ -3175,7 +3176,7 @@ Public Class Form1
         _ApacheCrashCounter = 0
         PropgApacheProcessID = Nothing
 
-        Dim yesno = MsgBox("Apache quit. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Apache quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
@@ -3194,7 +3195,7 @@ Public Class Form1
         End If
         _IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Icecast quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
@@ -3209,12 +3210,12 @@ Public Class Form1
 
         If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
             _MysqlCrashCounter += 1
-            PropApacheExited = True
+            PropMysqlExited = True
             Return
         End If
         _MysqlCrashCounter = 0
 
-        Dim yesno = MsgBox("Mysql quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Mysql quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             Dim files() As String
@@ -3243,7 +3244,7 @@ Public Class Form1
         End If
         _RobustCrashCounter = 0
 
-        Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Robust exited after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
@@ -3437,10 +3438,18 @@ Public Class Form1
             StartRobust()
         End If
         ' From the cross-threaded exited function.  These can only be set if Settings.RestartOnCrash is true
-        If PropMysqlExited Then StartMySQL()
-        If PropRobustExited Then StartRobust()
-        If PropApacheExited Then StartApache()
-        If PropIceCastExited Then StartIcecast()
+        If PropMysqlExited Then
+            StartMySQL()
+        End If
+        If PropRobustExited Then
+            StartRobust()
+        End If
+        If PropApacheExited Then
+            StartApache()
+        End If
+        If PropIceCastExited Then
+            StartIcecast()
+        End If
 
         Dim GroupName As String
         Dim RegionNumber As Integer
@@ -3506,14 +3515,14 @@ Public Class Form1
 
             End If
 
-            ' if a restart is signalled, boot it up
+            ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Autostart And Not PropAborting Then
                 PropUpdateView = True
                 Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
                 PropUpdateView = True
             End If
 
-            ' if a restart is signalled, boot it up
+            ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
                 PropUpdateView = True
                 Boot(PropRegionClass, PropRegionClass.RegionName(X))
@@ -3532,7 +3541,7 @@ Public Class Form1
 
         Print(RegionName & " shutdown")
         Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-        ' Need a region number and a Name name is either a region or a Group. For groups we need to
+        ' Need a region number and a Name. Name is either a region or a Group. For groups we need to
         ' get a region name from the group
         GroupName = RegionName ' assume a group
         RegionNumber = PropRegionClass.FindRegionByName(RegionName)
@@ -3556,7 +3565,7 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' Maybe we crashed during warmup or runniung. Skip prompt if auto restart on crash and
+        ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
         ' restart the beast
         If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
             Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
@@ -3597,7 +3606,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsRobustRunning() As Boolean
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
@@ -3856,7 +3865,7 @@ Public Class Form1
     'End Sub
 
     ''' <summary>
-    ''' quiery MySQL to find any avatars in the DOS bos so we can stop it, or not
+    ''' query MySQL to find any avatars in the DOS box so we can stop it, or not
     ''' </summary>
     ''' <param name="groupname"></param>
     ''' <returns></returns>
@@ -4017,7 +4026,7 @@ Public Class Form1
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
-    ''' sims , updates lists of agents builds teleports.html for older teleports checks for crashesd regions
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4123,7 +4132,7 @@ Public Class Form1
             ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" & vbCrLf)
             Print("Opensim Is loading your item. You will find it in Inventory in " & Path & " soon.")
         Else
-            Print("Load IAR cancelled - must use the full user name and password.")
+            Print("Load IAR canceled - must use the full user name and password.")
         End If
         Me.Focus()
         Return True
@@ -4214,7 +4223,7 @@ Public Class Form1
             End If
         Else
             BackupPath = Settings.BackupFolder & "/"
-            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
 
             If Not Directory.Exists(BackupPath) Then
                 BackupPath = PropCurSlashDir & "/OutworldzFiles/Autobackup/"
@@ -4223,7 +4232,7 @@ Public Class Form1
                     MkDir(BackupPath)
                 End If
 
-                MsgBox("Autoback folder cannot be located, so It has been reset to the default:" & BackupPath)
+                MsgBox("Autobackup folder cannot be located, so it has been reset to the default:" & BackupPath)
                 Settings.BackupFolder = "AutoBackup"
                 Settings.SaveSettings()
             End If
@@ -4260,7 +4269,7 @@ Public Class Form1
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.FileName
                 If thing.Length > 0 Then
-                    thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                    thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
                     If LoadIARContent(thing) Then
                         Print("Opensimulator will load " & thing & ".  This may take time to load.")
                     End If
@@ -4297,7 +4306,7 @@ Public Class Form1
             Try
                 If Not once Then
                     Print("Opensimulator will load " & thing & ". This may take some time.")
-                    thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
@@ -4356,7 +4365,7 @@ Public Class Form1
                     Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                     Dim thing = openFileDialog1.FileName
                     If thing.Length > 0 Then
-                        thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionNumber)
                         For Each Y In PropRegionClass.RegionListByGroupNum(Group)
@@ -4494,7 +4503,7 @@ Public Class Form1
     Private Sub SetIAROARContent()
 
         Dim oars As String = ""
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             IslandToolStripMenuItem.Visible = False
             ClothingInventoryToolStripMenuItem.Visible = False
             Print("Refreshing Free OARs")
@@ -4561,7 +4570,7 @@ Public Class Form1
         Print("Refreshing Free IARs")
         Dim iars As String = ""
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Try
                 iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
@@ -4616,8 +4625,8 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Upload in a seperate thraed the photo, if any. Cannot be called unless main web server is
-    ''' known to be online.
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
     ''' </summary>
     Private Sub UploadPhoto()
 
@@ -4636,7 +4645,7 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
+            Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit DreamGrid and install the update?", vbYesNo)
             If result = vbYes Then
                 UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
             End If
@@ -4648,7 +4657,7 @@ Public Class Form1
 
     Public Sub CheckForUpdates()
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Print("Checking for Updates")
             Try
                 Update_version = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
@@ -4698,11 +4707,11 @@ Public Class Form1
             Try
                 UpdateProcess.Start()
             Catch ex As ObjectDisposedException
-                Print("Error: Could Not launch Downloader.exe. Perhaps you can can launch it manually. ")
+                Print("Error: Could Not launch Downloader.exe. Perhaps you can launch it manually. ")
             Catch ex As InvalidOperationException
-                Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually.")
+                Print("Error: Could not launch Downloader.exe. Perhaps you can launch it manually.")
             Catch ex As ComponentModel.Win32Exception
-                Print("Error: Could not launch Downloader.exe. Perhaps you can can and launch it manually.")
+                Print("Error: Could not launch Downloader.exe. Perhaps you can launch it manually.")
             End Try
         End If
 
@@ -4820,7 +4829,7 @@ Public Class Form1
         TestPublicLoopback()
         If Settings.DiagFailed Then
 
-            Using client As New WebClient ' downloadclient for web pages
+            Using client As New WebClient ' download client for web pages
                 Try
                     ' Set Public IP
                     Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
@@ -4860,7 +4869,7 @@ Public Class Form1
         Print("Check Diagnostics port")
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox("Diagnostics port " & Settings.DiagnosticPort & " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
+            MsgBox("Diagnostics port " & Settings.DiagnosticPort & " is not working DreamGrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
             PropUseIcons = False
         End If
 
@@ -4921,7 +4930,7 @@ Public Class Form1
         End If
 
         Dim isPortOpen As String = ""
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
 
             ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
             ' anonymous random ID, both of the versions of Opensim and this program, and the
@@ -5247,7 +5256,7 @@ Public Class Form1
         If isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(MysqlPictureBox, "Mysql is Running")
-            Application.DoEvents()
+            PropMysqlExited = False
             Return True
         End If
 
@@ -5332,7 +5341,8 @@ Public Class Form1
 
         MysqlPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(MysqlPictureBox, "Running")
-        Application.DoEvents()
+        PropMysqlExited = False
+
         Return True
 
     End Function
@@ -5454,7 +5464,7 @@ Public Class Form1
 
                 Dim yesno = MsgBox("Are you sure? Your database will re-loaded from the backup and all existing content replaced. Avatars, sims, inventory, all of it.", vbYesNo, "Restore?")
                 If yesno = vbYes Then
-                    ' thing = thing.Replace("\", "/") ' because Opensim uses unix-like slashes,
+                    ' thing = thing.Replace("\", "/") ' because Opensim uses UNIX-like slashes,
                     ' that's why
 
                     FileStuff.DeleteFile(PropMyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat")
@@ -5484,7 +5494,7 @@ Public Class Form1
                     Print("")
                 End If
             Else
-                Print("Restore cancelled")
+                Print("Restore canceled")
             End If
         End If
     End Sub
@@ -5629,7 +5639,7 @@ Public Class Form1
         If Settings.ServerType <> "Robust" Then
             Return name
         End If
-        Dim client As New WebClient ' downloadclient for web pages
+        Dim client As New WebClient ' download client for web pages
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
         Catch ex As ArgumentNullException
@@ -5812,7 +5822,7 @@ Public Class Form1
         End If
 
         Dim HowManyAreOnline As Integer = 0
-        Dim Message = InputBox("What do you want to say to everyone online?")
+        Dim Message = InputBox("What do you want to say to everyone on line?")
         If Message.Length > 0 Then
             For Each X As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.AvatarCount(X) > 0 Then
@@ -5823,7 +5833,7 @@ Public Class Form1
 
             Next
             If HowManyAreOnline = 0 Then
-                Print("Nobody is online")
+                Print("Nobody is on line")
             Else
                 Print("Message sent to " & CStr(HowManyAreOnline) & " regions")
             End If
@@ -6454,19 +6464,11 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
-
-            'Diagnostics.Debug.Print(localdllname)
-
-            'For Each thing In dlls
-            ' Diagnostics.Debug.Print(thing)
-            'Next
-
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log("INFO", "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
-
             End If
         Next
 
@@ -6496,7 +6498,7 @@ Public Class Form1
                     Using reader = New StreamReader(Stream)
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
-                            '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
+
                             ctr += 1
                             ' Split line on comma.
                             Dim array As String() = s.Split("|".ToCharArray())
@@ -6544,7 +6546,7 @@ Public Class Form1
     Private Sub RunDataSnapshot()
 
         If Not Settings.SearchLocal Then Return
-        Diagnostics.Debug.Print("Scanning Datasnapshot")
+        Diagnostics.Debug.Print("Scanning Data snapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
         FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\PHP7\"

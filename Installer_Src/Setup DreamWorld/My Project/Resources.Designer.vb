@@ -691,9 +691,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property server_gWSCLient() As System.Drawing.Bitmap
+        Friend ReadOnly Property Server_Client() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("server_gWSCLient", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Server_Client", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
