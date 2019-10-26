@@ -20,9 +20,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_DuplicateKeyHandling = Fail
-		RESX_ConfirmAddLanguageFile = True
-		RESX_AutoCreateNewLanguageFiles = True
 		SolutionGuid = {8A3689AC-C2EC-4C3F-9BD8-815842380D9F}
+		RESX_AutoCreateNewLanguageFiles = False
+		RESX_ConfirmAddLanguageFile = False
+		RESX_DuplicateKeyHandling = Fail
 	EndGlobalSection
 EndGlobal
