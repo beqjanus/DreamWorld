@@ -47,7 +47,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.21"
+    Private _MyVersion As String = "3.22"
     Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
 
 #End Region
@@ -117,6 +117,19 @@ Public Class Form1
     Private _RestartNow As Boolean = False
     Private _RobustExited As Boolean = False
     Private _RobustProcID As Integer
+
+    Private _RobustCrashCounter As Integer = 0
+    Private _MysqlCrashCounter As Integer = 0
+    Private _ApacheCrashCounter As Integer = 0
+    Private _IcecastCrashCounter As Integer = 0
+    Private _RegionCrashCounter As Integer = 0
+    Private _RestartIceCast As Integer = 0
+    Private _IceCastExited As Integer = 0
+    Private _RestartMysql As Integer = 0
+    Private _MysqlExited As Integer = 0
+    Private _RestartApache As Integer = 0
+    Private _ApacheExited As Integer = 0
+
     Private _SecureDomain As String = "https://outworldz.com" ' https, which breaks stuff
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
@@ -442,6 +455,51 @@ Public Class Form1
         End Get
         Set(value As Boolean)
             _RestartNow = value
+        End Set
+    End Property
+
+    Public Property PropIceCastExited() As Boolean
+        Get
+            Return _IceCastExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _IceCastExited = Value
+        End Set
+    End Property
+
+    Public Property PropRestartMySql() As Boolean
+        Get
+            Return _RestartMysql
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartMysql = Value
+        End Set
+    End Property
+
+    Public Property PropMysqlExited() As Boolean
+        Get
+            Return _MysqlExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _MysqlExited = Value
+        End Set
+    End Property
+
+    Public Property PropRestartApache() As Boolean
+        Get
+            Return _RestartApache
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartApache = Value
+        End Set
+    End Property
+
+    Public Property PropApacheExited() As Boolean
+        Get
+            Return _ApacheExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _ApacheExited = Value
         End Set
     End Property
 
@@ -2708,6 +2766,7 @@ Public Class Form1
                     Print("Apache webserver is running")
                     ApachePictureBox.Image = My.Resources.nav_plain_green
                     ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
+                    PropApacheExited = False
                     Return
                 End If
 
@@ -2943,6 +3002,8 @@ Public Class Form1
         IceCastPicturebox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
 
+        PropIceCastExited = False
+
     End Sub
 
 #End Region
@@ -2962,8 +3023,6 @@ Public Class Form1
                 End If
             Next
         End If
-
-        PropRestartRobust = False
 
         RobustPictureBox.Image = My.Resources.nav_plain_blue
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is Off")
@@ -3077,9 +3136,18 @@ Public Class Form1
     ' Handle Exited event and display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
 
-        PropgApacheProcessID = Nothing
+        If PropAborting Then Return
         If PropApacheUninstalling Then Return
-        Dim yesno = MsgBox("Apache quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
+
+        If Settings.RestartOnCrash And _ApacheCrashCounter < 10 Then
+            _ApacheCrashCounter += 1
+            PropApacheExited = True
+            Return
+        End If
+        _ApacheCrashCounter = 0
+        PropgApacheProcessID = Nothing
+
+        Dim yesno = MsgBox("Apache quit. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
@@ -3091,7 +3159,15 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        Dim yesno = MsgBox("Icecast quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
+        If Settings.RestartOnCrash And _IcecastCrashCounter < 10 Then
+            _IcecastCrashCounter += 1
+            PropIceCastExited = True
+            Return
+        End If
+        _IcecastCrashCounter = 0
+
+        Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
+
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & IceCastLog & """")
@@ -3102,7 +3178,13 @@ Public Class Form1
     Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
 
         If PropAborting Then Return
-        PropOpensimIsRunning() = False
+
+        If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
+            _MysqlCrashCounter += 1
+            PropApacheExited = True
+            Return
+        End If
+        _MysqlCrashCounter = 0
 
         Dim yesno = MsgBox("Mysql quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
@@ -3121,10 +3203,12 @@ Public Class Form1
         PropRobustProcID = Nothing
         If PropAborting Then Return
 
-        If PropRestartRobust() Then
+        If Settings.RestartOnCrash And _RobustCrashCounter < 10 Then
             PropRobustExited = True
-            Return ' let the exit handler do the job due to cross thread ops
+            _RobustCrashCounter += 1
+            Return
         End If
+        _RobustCrashCounter = 0
 
         Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
@@ -3312,20 +3396,22 @@ Public Class Form1
 
     Private Sub ExitHandlerPoll()
 
-        ' 10 Second ticker
-        If PropExitHandlerIsBusy Then Return
-        If PropAborting Then Return
+        ' background process to scan for things to do.
+        If PropExitHandlerIsBusy Then Return ' not reentrant
+        If PropAborting Then Return ' not if we are aborting
 
-        If PropRobustExited And PropRestartRobust Then
-            StartRobust()
-        End If
+        ' From the cross-threaded exited function.  These can only be set if Settings.RestartOnCrash is true
+        If PropMysqlExited Then StartMySQL()
+        If PropRobustExited Then StartRobust()
+        If PropApacheExited Then StartApache()
+        If PropIceCastExited Then StartIcecast()
 
         Dim GroupName As String
         Dim RegionNumber As Integer
         Dim TimerValue As Integer
 
         For Each X As Integer In PropRegionClass.RegionNumbers
-            'Application.DoEvents()
+
             ' count up to auto restart , when high enough, restart the sim
             If PropRegionClass.Timer(X) >= 0 Then
                 PropRegionClass.Timer(X) = PropRegionClass.Timer(X) + 1
@@ -4085,7 +4171,7 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToLower = "autobackup" Then
+        If Settings.BackupFolder.ToLower(Invarient) = "autobackup" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -5205,6 +5291,8 @@ Public Class Form1
         End While
 
         If Not PropOpensimIsRunning Then Return False
+
+        PropMysqlExited = False
 
         MysqlPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(MysqlPictureBox, "Running")
