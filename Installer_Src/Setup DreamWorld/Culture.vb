@@ -51,7 +51,7 @@ Public Class Culture
     Public Shared Function Translate(input As String) As String
 
         ' reserved for MSFT translator
-        Return ""
+        Return input
     End Function
 
 End Class
