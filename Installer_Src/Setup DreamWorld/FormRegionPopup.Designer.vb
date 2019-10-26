@@ -24,6 +24,7 @@ Partial Class FormRegionPopup
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.EditButton1 = New System.Windows.Forms.Button()
         Me.StartButton3 = New System.Windows.Forms.Button()
         Me.RecycleButton2 = New System.Windows.Forms.Button()
@@ -33,22 +34,34 @@ Partial Class FormRegionPopup
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.EditButton1)
         Me.GroupBox1.Controls.Add(Me.StartButton3)
         Me.GroupBox1.Controls.Add(Me.RecycleButton2)
         Me.GroupBox1.Controls.Add(Me.StopButton1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(157, 157)
+        Me.GroupBox1.Size = New System.Drawing.Size(157, 191)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Text"
+        '
+        'Button1
+        '
+        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(15, 28)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(121, 23)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "Teleport To"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'EditButton1
         '
         Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(20, 115)
+        Me.EditButton1.Location = New System.Drawing.Point(15, 160)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(121, 23)
         Me.EditButton1.TabIndex = 8
@@ -59,7 +72,7 @@ Partial Class FormRegionPopup
         '
         Me.StartButton3.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StartButton3.Location = New System.Drawing.Point(20, 28)
+        Me.StartButton3.Location = New System.Drawing.Point(15, 73)
         Me.StartButton3.Name = "StartButton3"
         Me.StartButton3.Size = New System.Drawing.Size(121, 23)
         Me.StartButton3.TabIndex = 7
@@ -70,7 +83,7 @@ Partial Class FormRegionPopup
         '
         Me.RecycleButton2.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RecycleButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RecycleButton2.Location = New System.Drawing.Point(16, 86)
+        Me.RecycleButton2.Location = New System.Drawing.Point(11, 131)
         Me.RecycleButton2.Name = "RecycleButton2"
         Me.RecycleButton2.Size = New System.Drawing.Size(125, 23)
         Me.RecycleButton2.TabIndex = 6
@@ -81,7 +94,7 @@ Partial Class FormRegionPopup
         '
         Me.StopButton1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
         Me.StopButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopButton1.Location = New System.Drawing.Point(16, 57)
+        Me.StopButton1.Location = New System.Drawing.Point(11, 102)
         Me.StopButton1.Name = "StopButton1"
         Me.StopButton1.Size = New System.Drawing.Size(125, 23)
         Me.StopButton1.TabIndex = 5
@@ -92,7 +105,7 @@ Partial Class FormRegionPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(173, 175)
+        Me.ClientSize = New System.Drawing.Size(173, 215)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -108,4 +121,5 @@ Partial Class FormRegionPopup
     Friend WithEvents StartButton3 As Button
     Friend WithEvents RecycleButton2 As Button
     Friend WithEvents StopButton1 As Button
+    Friend WithEvents Button1 As Button
 End Class

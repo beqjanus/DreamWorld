@@ -23,6 +23,7 @@
 Public Class FormRegionPopup
 
     Dim gPick As String = ""
+    Private _RegionName As String = ""
 
 #Region "ScreenSize"
 
@@ -60,6 +61,8 @@ Public Class FormRegionPopup
     End Sub
 
     Public Sub Init(RegionName As String)
+
+        _RegionName = RegionName
 
         Dim X = Form1.PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
@@ -126,6 +129,13 @@ Public Class FormRegionPopup
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click
         gPick = "Edit"
         DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim link = "http://secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & _RegionName
+        System.Diagnostics.Process.Start(link)
+
     End Sub
 
 End Class
