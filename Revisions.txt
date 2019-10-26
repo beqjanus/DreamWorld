@@ -3,12 +3,12 @@ Revisions for Dreamgrid
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
 V3.23
+Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel. 
 Robust, Apache, Icecast and Mysql can be set to  auto restart if they crash
 Update Mysq.Data.dll
 Update Visual Studio 2017 to latest FXcops and reduce footprint on unused extension in Github
 Removed embedded zip compressors for smaller footprint.
 Drop unused icons
-
 
 V3.22
 Shorten boot time by being smart about Firewall updates. On a very fast machine, it takes 9 seconds to get to robust start. Firewall took up 31 seconds more.  Now it takes 0 unless you add a region.

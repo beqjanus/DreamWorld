@@ -1,8 +1,8 @@
 <?php 
 /* General Domain */
-$CONF_domain        = "Aselikoth.Outworldz.net"; 
+$CONF_domain        = "192.168.2.135"; 
 $CONF_port          = "8002"; 
-$CONF_sim_domain    = "http://Aselikoth.Outworldz.net/";
+$CONF_sim_domain    = "http://192.168.2.135/";
 $CONF_install_path  = "/Metromap";   // Installation path 
 /* MySQL Database */ 
 $CONF_db_server     = "127.0.0.1"; // Address Of Robust Server 

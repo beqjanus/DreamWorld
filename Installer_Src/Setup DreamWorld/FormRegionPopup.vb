@@ -132,10 +132,8 @@ Public Class FormRegionPopup
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Dim link = "http://secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & _RegionName
-        System.Diagnostics.Process.Start(link)
-
+        gPick = "Teleport"
+        DialogResult = DialogResult.OK
     End Sub
 
 End Class
