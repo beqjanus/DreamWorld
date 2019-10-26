@@ -148,7 +148,6 @@ Public Class FormRegion
             ScriptTimerTextBox.Text = CStr(0.2)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
-
         Else
 
             IsNew1 = False
@@ -1289,8 +1288,6 @@ Public Class FormRegion
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
         If Initted1 Then Changed1 = True
     End Sub
-
-
 
 #End Region
 

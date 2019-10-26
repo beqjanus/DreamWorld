@@ -72,9 +72,13 @@ Public Class Form1
         SWMAX = 11
     End Enum
 
-    ' with events
-    Private WithEvents UpdateProcess As New Process()
+    Public Event ApacheExited As EventHandler
 
+    Public Event Exited As EventHandler
+
+    Public Event RobustExited As EventHandler
+
+    Private WithEvents UpdateProcess As New Process()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -111,13 +115,9 @@ Public Class Form1
     Private _regionForm As RegionList
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartNow As Boolean = False
-    Private _RestartRobust As Boolean = False
     Private _RobustExited As Boolean = False
     Private _RobustProcID As Integer
-
-    ' not https, which breaks stuff
     Private _SecureDomain As String = "https://outworldz.com" ' https, which breaks stuff
-
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
@@ -125,9 +125,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private Adv As AdvancedForm
-
-    ' Graph
-    Private cpu As New PerformanceCounter
+    Private cpu As New PerformanceCounter ' Graph
 
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -136,14 +134,7 @@ Public Class Form1
     Private speed2 As Single
     Private speed3 As Single
 
-    ' UPNP PropAborting
     Private ws As NetServer
-
-    Public Event ApacheExited As EventHandler
-
-    Public Event Exited As EventHandler
-
-    Public Event RobustExited As EventHandler
 
     Private Update_version As String = Nothing
 
@@ -198,8 +189,6 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
-
-
 
     Public Property PropAborting As Boolean
         Get
@@ -453,15 +442,6 @@ Public Class Form1
         End Get
         Set(value As Boolean)
             _RestartNow = value
-        End Set
-    End Property
-
-    Public Property PropRestartRobust() As Boolean
-        Get
-            Return _RestartRobust
-        End Get
-        Set(ByVal Value As Boolean)
-            _RestartRobust = Value
         End Set
     End Property
 
@@ -2533,7 +2513,6 @@ Public Class Form1
         Catch
         End Try
 
-
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
@@ -3100,7 +3079,7 @@ Public Class Form1
 
         PropgApacheProcessID = Nothing
         If PropApacheUninstalling Then Return
-        Dim yesno = MsgBox("Apache quit. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Apache quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
@@ -3112,7 +3091,7 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Icecast quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & IceCastLog & """")
@@ -3125,7 +3104,7 @@ Public Class Form1
         If PropAborting Then Return
         PropOpensimIsRunning() = False
 
-        Dim yesno = MsgBox("Mysql exited. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Mysql quit 10 times. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             Dim files() As String

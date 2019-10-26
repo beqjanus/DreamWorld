@@ -29,6 +29,8 @@ Public Class Culture
 
         Dim culture As CultureInfo = CultureInfo.CurrentCulture
         Language = culture.EnglishName
+
+        ' Force  English for now
         My.Application.ChangeUICulture("en-US")
 
         ' debug only
@@ -50,7 +52,7 @@ Public Class Culture
 
     Public Shared Function Translate(input As String) As String
 
-        ' reserved for MSFT translator
+        ' reserved for future chat translator
         Return input
     End Function
 
