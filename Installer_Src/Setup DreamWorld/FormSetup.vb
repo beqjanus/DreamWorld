@@ -20,16 +20,6 @@
 
 #End Region
 
-#Region "Todo"
-
-' todo
-
-' rm MAP-* in Opensim\bin
-' Singularity Search Needs help
-' Old Web maps must use port 8001
-
-#End Region
-
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -47,8 +37,8 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.23"
-    Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
+    Private _MyVersion As String = "3.24"
+    Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
 
@@ -86,6 +76,7 @@ Public Class Form1
 
     Private _Language As New Culture
     Private _PortsChanged As Boolean = True
+
     Private _Aborting As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
@@ -1451,9 +1442,7 @@ Public Class Form1
             Case "Metro"
                 Settings.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimMetro.proto"
-            Case "AviWorlds"
-                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
-                Return PropOpensimBinPath & "bin\OpensimAviWorlds.proto"
+
         End Select
         Return Nothing
 
@@ -1583,9 +1572,6 @@ Public Class Form1
                 GridCommon = "Gridcommon-OsGridServer.ini"
             Case "Metro"
                 GridCommon = "Gridcommon-MetroServer.ini"
-            Case "AviWorlds"
-                My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
-                GridCommon = "Gridcommon-RegionServer.ini"
 
         End Select
 
@@ -1702,7 +1688,6 @@ Public Class Form1
             Case "Region"
             Case "OSGrid"
             Case "Metro"
-            Case "AviWorlds"
 
         End Select
 
@@ -1715,11 +1700,11 @@ Public Class Form1
         ' set new Min Timer Interval for how fast a script can go.
         Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
 
-        '' all grids requires these setting in Opensim.ini
+        ' all grids requires these setting in Opensim.ini
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
 
-        ' once and only once toggle to get Opensim 2.91
-        If Settings.DeleteScriptsOnStartupOnce() Then
+        ' Get Opensimulator Scripts to date if needed
+        If Settings.DeleteScriptsOnStartupLevel < PropMyVersion Then
             KillOldFiles()  ' wipe out DLL's
             ClrCache.WipeScripts()
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
@@ -1778,24 +1763,6 @@ Public Class Form1
         Else
             Settings.SetIni("Permissions", "allow_grid_gods", "false")
         End If
-
-        'If (Settings.RegionOwnerIsGod) Then
-        'Settings.SetIni("Permissions", "region_owner_is_god", "true")
-        'Else
-        'Settings.SetIni("Permissions", "region_owner_is_god", "false")
-        'End If
-
-        'If (Settings.RegionManagerIsGod) Then
-        'Settings.SetIni("Permissions", "region_manager_is_god", "true")
-        'Else
-        'Settings.SetIni("Permissions", "region_manager_is_god", "false")
-        'End If
-
-        'If (Settings.AllowGridGods) Then
-        'Settings.SetIni("Permissions", "allow_grid_gods", "true")
-        'Else
-        'Settings.SetIni("Permissions", "allow_grid_gods", "false")
-        'End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one
         ' ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
@@ -3151,7 +3118,7 @@ Public Class Form1
             End If
         Next
 
-        Settings.DeleteScriptsOnStartupOnce() = False
+        Settings.DeleteScriptsOnStartupLevel() = PropMyVersion ' we have scripts cleared to proper level
         Settings.SaveSettings()
 
         Return True
@@ -6572,8 +6539,7 @@ Public Class Form1
     Private Sub SetupSearch()
 
         If Settings.ServerType = "Metro" _
-            Or Settings.ServerType = "OsGrid" _
-            Or Settings.ServerType = "AviWorlds" Then Return
+            Or Settings.ServerType = "OsGrid" Then Return
 
         If Not Settings.SearchMigration = 2 Then
 

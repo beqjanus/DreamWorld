@@ -2,6 +2,10 @@ Revisions for Dreamgrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
+V3.24
+Updated to Relerased Opensim  "0.9.1.0 Server Release Notes hash #defa235859889dbd"
+
+
 V3.23
 Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel. 
 Robust, Apache, Icecast and Mysql can be set to  auto restart if they crash
