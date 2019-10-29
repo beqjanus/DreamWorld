@@ -499,12 +499,12 @@ Public Class MySettings
 
     End Property
 
-    Public Property DeleteScriptsOnStartupOnce() As Boolean
+    Public Property DeleteScriptsOnStartupLevel() As Double
         Get
-            Return CType(GetMySetting("DeleteScriptsOnStartupOnce", "True"), Boolean)
+            Return CType(GetMySetting("DeleteScriptsOnStartupLevel", 0), Double)
         End Get
         Set
-            SetMySetting("DeleteScriptsOnStartupOnce", CStr(Value))
+            SetMySetting("DeleteScriptsOnStartupLevel", CStr(Value))
         End Set
     End Property
 
