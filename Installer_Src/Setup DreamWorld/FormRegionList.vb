@@ -907,6 +907,9 @@ Public Class RegionList
             Next
             PropUpdateView = True ' make form refresh
 
+        ElseIf chosen = "Teleport" Then
+            Dim link = "http://secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            System.Diagnostics.Process.Start(link)
         End If
 
     End Sub
