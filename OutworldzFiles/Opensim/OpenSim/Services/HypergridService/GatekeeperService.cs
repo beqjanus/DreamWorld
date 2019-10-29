@@ -78,6 +78,7 @@ namespace OpenSim.Services.HypergridService
         private static Uri m_Uri;
         private static GridRegion m_DefaultGatewayRegion;
         private bool m_allowDuplicatePresences = false;
+        private static string m_messageKey;
 
         private static bool m_ALT_Enabled = false;
         private static Int32 m_DiagnosticsPort;
@@ -164,6 +165,7 @@ namespace OpenSim.Services.HypergridService
                     m_allowDuplicatePresences = presenceConfig.GetBoolean("AllowDuplicatePresences", m_allowDuplicatePresences);
                 }
 
+                // Auto Load Teleport
 
                 IConfig ALTConfig = config.Configs["AutoLoadTeleport"];    // get data from 
                
@@ -180,6 +182,13 @@ namespace OpenSim.Services.HypergridService
                 {
                     m_log.Info("[AutoLoadTeleport]: Disabled");
                 }
+
+                // </Auto Load Teleport>
+
+                IConfig messagingConfig = config.Configs["Messaging"];
+                if (messagingConfig != null)
+                    m_messageKey = messagingConfig.GetString("MessageKey", String.Empty);
+
                 m_log.Debug("[GATEKEEPER SERVICE]: Starting...");
             }
         }
@@ -722,7 +731,7 @@ namespace OpenSim.Services.HypergridService
             msg.Position = Vector3.Zero;
             msg.RegionID = scopeID.Guid;
             msg.binaryBucket = new byte[1] {0};
-            InstantMessageServiceConnector.SendInstantMessage(regURL,msg);
+            InstantMessageServiceConnector.SendInstantMessage(regURL,msg, m_messageKey);
 
             m_GridUserService.LoggedOut(agentID.ToString(),
                 UUID.Zero, guinfo.LastRegionID, guinfo.LastPosition, guinfo.LastLookAt);

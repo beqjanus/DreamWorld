@@ -150,16 +150,16 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="ProtocolVersions.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ServerUtils.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="CommandManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="HttpServerBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ProtocolVersions.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ServerUtils.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ServicesServerBase.cs">

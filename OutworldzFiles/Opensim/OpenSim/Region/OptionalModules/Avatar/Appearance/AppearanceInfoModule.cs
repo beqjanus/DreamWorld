@@ -180,7 +180,6 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
                         {
                             MainConsole.Instance.Output(
                                 "Sending appearance information for {0} to all other avatars in {1}",
-                                null,
                                 sp.Name, scene.RegionInfo.RegionName);
 
                             scene.AvatarFactory.SendAppearance(sp.UUID);
@@ -193,7 +192,6 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
                             {
                                 MainConsole.Instance.Output(
                                     "Sending appearance information for {0} to all other avatars in {1}",
-                                    null,
                                     sp.Name, scene.RegionInfo.RegionName);
 
                                 scene.AvatarFactory.SendAppearance(sp.UUID);
@@ -240,7 +238,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
                             {
                                 bool bakedTextureValid = scene.AvatarFactory.ValidateBakedTextureCache(sp);
                                 MainConsole.Instance.Output(
-                                    "{0} baked appearance texture is {1}", null, sp.Name, bakedTextureValid ? "OK" : "incomplete");
+                                    "{0} baked appearance texture is {1}", sp.Name, bakedTextureValid ? "OK" : "incomplete");
                             }
                         );
                     }
@@ -271,12 +269,10 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
                         if (rebakesRequested > 0)
                             MainConsole.Instance.Output(
                                 "Requesting rebake of {0} uploaded textures for {1} in {2}",
-                                null,
                                 rebakesRequested, sp.Name, scene.RegionInfo.RegionName);
                         else
                             MainConsole.Instance.Output(
                                 "No texture IDs available for rebake request for {0} in {1}",
-                                null,
                                 sp.Name, scene.RegionInfo.RegionName);
                     }
                 }
@@ -320,7 +316,6 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
             {
                 MainConsole.Instance.Output(
                     "{0} matched {1}",
-                    null,
                     rawUuid,
                     string.Join(", ", matchedAvatars.ToList().ConvertAll<string>(sp => sp.Name).ToArray()));
             }
@@ -413,13 +408,13 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
                         sb.AppendFormat("Wearables checks for {0}\n\n", sp.Name);
 
                         AvatarWearable[] wearables = sp.Appearance.Wearables;
-                        if(wearables.Count() == 0)
+                        if(wearables.Length == 0)
                         {
                             MainConsole.Instance.Output("avatar has no wearables");
                             return;
                         }
                         
-                        for (int i = 0; i < wearables.Count(); i++)
+                        for (int i = 0; i < wearables.Length; i++)
                         {
                             AvatarWearable aw = wearables[i];
 
@@ -477,8 +472,9 @@ namespace OpenSim.Region.OptionalModules.Avatar.Appearance
             cdt.AddColumn("Type", 10);
             cdt.AddColumn("Item UUID", ConsoleDisplayUtil.UuidSize);
             cdt.AddColumn("Asset UUID", ConsoleDisplayUtil.UuidSize);
+            AvatarWearable[] wearables = sp.Appearance.Wearables;
 
-            for (int i = (int)WearableType.Shape; i < (int)WearableType.Physics; i++)
+            for (int i = 0; i < wearables.Length; i++)
             {
                 AvatarWearable aw = sp.Appearance.Wearables[i];
 

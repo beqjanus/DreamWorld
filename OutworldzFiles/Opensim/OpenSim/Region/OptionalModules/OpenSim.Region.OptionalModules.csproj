@@ -252,10 +252,10 @@
 	  <Compile Include="Agent\InternetRelayClientView\IRCStackModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Agent\InternetRelayClientView\Server\IRCClientView.cs">
+	  <Compile Include="Agent\InternetRelayClientView\Server\IRCServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Agent\TextureSender\J2KDecoderCommandModule.cs">
@@ -279,10 +279,10 @@
 	  <Compile Include="Avatar\Chat\IRCBridgeModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\Chat\RegionState.cs">
+	  <Compile Include="Avatar\Chat\IRCConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\Chat\IRCConnector.cs">
+	  <Compile Include="Avatar\Chat\RegionState.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Avatar\Concierge\ConciergeModule.cs">
@@ -300,6 +300,12 @@
 	  <Compile Include="Avatar\Voice\VivoxVoice\VivoxVoiceModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Avatar\XmlRpcGroups\GroupsMessagingModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\IGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -309,10 +315,10 @@
 	  <Compile Include="Avatar\XmlRpcGroups\XmlRpcGroupsServicesConnectorModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\GroupsMessagingModule.cs">
+	  <Compile Include="DataSnapshot\DataRequestHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\GroupsModule.cs">
+	  <Compile Include="DataSnapshot\DataSnapshotManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="DataSnapshot\EstateSnapshot.cs">
@@ -327,13 +333,7 @@
 	  <Compile Include="DataSnapshot\ObjectSnapshot.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="DataSnapshot\DataRequestHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="DataSnapshot\SnapshotStore.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="DataSnapshot\DataSnapshotManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="DataSnapshot\Interfaces\IDataSnapshot.cs">
@@ -366,16 +366,16 @@
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Scripting\JsonStore\JsonStoreModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scripting\JsonStore\JsonStoreScriptModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Scripting\JsonStore\JsonStore.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scripting\JsonStore\JsonStoreCommands.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scripting\JsonStore\JsonStoreModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Scripting\JsonStore\JsonStoreScriptModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scripting\RegionReadyModule\RegionReadyModule.cs">
@@ -441,19 +441,19 @@
 	  <Compile Include="ViewerSupport\SpecialUIModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\AutoBackup\AutoBackupModuleState.cs">
+	  <Compile Include="World\AutoBackup\AutoBackupModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\AutoBackup\AutoBackupModule.cs">
+	  <Compile Include="World\AutoBackup\AutoBackupModuleState.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\MoneyModule\SampleMoneyModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\NPC\NPCModule.cs">
+	  <Compile Include="World\NPC\NPCAvatar.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\NPC\NPCAvatar.cs">
+	  <Compile Include="World\NPC\NPCModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\SceneCommands\SceneCommandsModule.cs">

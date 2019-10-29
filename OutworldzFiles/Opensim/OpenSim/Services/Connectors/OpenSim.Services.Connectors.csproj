@@ -190,10 +190,10 @@
 	  <Compile Include="AgentPreferences\AgentPreferencesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Asset\HGAssetServiceConnector.cs">
+	  <Compile Include="Asset\AssetServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Asset\AssetServicesConnector.cs">
+	  <Compile Include="Asset\HGAssetServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Authentication\AuthenticationServicesConnector.cs">
@@ -223,6 +223,9 @@
 	  <Compile Include="GridUser\GridUserServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Hypergrid\GatekeeperServiceConnector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Hypergrid\HeloServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -230,9 +233,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Hypergrid\UserAgentServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Hypergrid\GatekeeperServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="InstantMessage\InstantMessageServiceConnector.cs">
