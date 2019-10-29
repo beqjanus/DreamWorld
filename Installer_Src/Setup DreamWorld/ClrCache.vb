@@ -38,7 +38,10 @@ Public Class ClrCache
                 If ext.ToLower(Form1.Invarient) <> ".state" And ext.ToLower(Form1.Invarient) <> ".keep" Then
                     FileStuff.DeleteFile(script)
                     ctr += 1
-                    Form1.Print("Updated " & CStr(ctr) & " scripts")
+                    If ctr Mod 100 = 0 Then
+                        Form1.Print("Updated " & CStr(ctr) & " scripts")
+                    End If
+
                     Application.DoEvents()
                 End If
             Next
