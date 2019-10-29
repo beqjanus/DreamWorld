@@ -205,19 +205,19 @@
 	  <Compile Include="Plugins\Dataserver.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Plugins\HttpRequest.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Plugins\Listener.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="Plugins\SensorRepeat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Plugins\Timer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Plugins\XmlRequest.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Plugins\HttpRequest.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Plugins\SensorRepeat.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

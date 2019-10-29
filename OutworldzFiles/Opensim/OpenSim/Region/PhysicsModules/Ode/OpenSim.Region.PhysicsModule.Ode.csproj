@@ -124,9 +124,6 @@
 	  <Compile Include="AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OdePhysicsJoint.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ODEApi.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -137,6 +134,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ODEModule.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OdePhysicsJoint.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="ODEPrim.cs">

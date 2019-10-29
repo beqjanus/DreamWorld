@@ -4,10 +4,10 @@
 <admin>email@somewhere.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
-    <port>7000</port>
+    <port>8080</port>
 </listen-socket>
 <listen-socket>
-   <port>7001</port>
+   <port>8081</port>
    <shoutcast-compat>1</shoutcast-compat>
 </listen-socket>
 <limits>

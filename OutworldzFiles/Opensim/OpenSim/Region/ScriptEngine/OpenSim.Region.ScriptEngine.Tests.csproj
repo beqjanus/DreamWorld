@@ -209,6 +209,9 @@
 	  <Compile Include="Shared\Tests\LSL_ApiAvatarTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Shared\Tests\LSL_ApiHttpTests.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Shared\Tests\LSL_ApiInventoryTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -243,9 +246,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Shared\Tests\LSL_TypesTestVector3.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Shared\Tests\LSL_ApiHttpTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Shared\Tests\OSSL_ApiAppearanceTest.cs">

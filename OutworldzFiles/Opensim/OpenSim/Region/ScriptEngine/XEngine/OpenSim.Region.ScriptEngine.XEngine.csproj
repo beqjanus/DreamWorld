@@ -186,9 +186,6 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Include="XWorkItem.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="EventManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -196,6 +193,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="XEngine.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="XWorkItem.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

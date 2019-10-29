@@ -32,6 +32,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading;
@@ -67,6 +68,7 @@ using PresenceInfo = OpenSim.Services.Interfaces.PresenceInfo;
 using PrimType = OpenSim.Region.Framework.Scenes.PrimType;
 using AssetLandmark = OpenSim.Framework.AssetLandmark;
 using RegionFlags = OpenSim.Framework.RegionFlags;
+using RegionInfo = OpenSim.Framework.RegionInfo;
 
 using LSL_Float = OpenSim.Region.ScriptEngine.Shared.LSL_Types.LSLFloat;
 using LSL_Integer = OpenSim.Region.ScriptEngine.Shared.LSL_Types.LSLInteger;
@@ -7799,7 +7801,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
         private float validParticleScale(float value)
         {
-            if (value > 4.0f) return 4.0f;
+            if (value > 7.96f) return 7.96f;
             return value;
         }
 
@@ -12899,8 +12901,6 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
         public LSL_Key llRequestSimulatorData(string simulator, int data)
         {
-            IOSSL_Api ossl = (IOSSL_Api)m_ScriptEngine.GetApi(m_item.ItemID, "OSSL");
-
             try
             {
                 m_host.AddScriptLPS(1);
@@ -12980,8 +12980,6 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                             reply = "UNKNOWN";
                         break;
                     case ScriptBaseClass.DATA_SIM_RELEASE:
-                        if (ossl != null)
-                            ossl.CheckThreatLevel(ThreatLevel.High, "llRequestSimulatorData");
                         reply = "OpenSim";
                         break;
                     default:
@@ -14368,9 +14366,12 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             if (!UUID.TryParse(id, out key))
                 return ret;
 
+            int count = 0;
             ScenePresence av = World.GetScenePresence(key);
             if (av != null)
             {
+                List<SceneObjectGroup> Attachments = null;
+                int? nAnimated = null;
                 foreach (object o in args.Data)
                 {
                     switch (int.Parse(o.ToString()))
@@ -14498,29 +14499,32 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                             ret.Add(new LSL_Vector(Vector3.Zero));
                             break;
                         case ScriptBaseClass.OBJECT_PRIM_COUNT:
-                            List<SceneObjectGroup> Attachments = av.GetAttachments();
-                            int count = 0;
+                            if (Attachments == null)
+                                Attachments = av.GetAttachments();
+                            count = 0;
                             try
                             {
                                 foreach (SceneObjectGroup Attachment in Attachments)
                                     count += Attachment.PrimCount;
-                            } catch { };
+                            }
+                            catch { };
                             ret.Add(new LSL_Integer(count));
                             break;
                         case ScriptBaseClass.OBJECT_TOTAL_INVENTORY_COUNT:
-                            List<SceneObjectGroup> invAttachments = av.GetAttachments();
-                            int invcount = 0;
+                            if (Attachments == null)
+                                Attachments = av.GetAttachments();
+                            count = 0;
                             try
                             {
-                                foreach (SceneObjectGroup Attachment in invAttachments)
+                                foreach (SceneObjectGroup Attachment in Attachments)
                                 {
                                     SceneObjectPart[] parts = Attachment.Parts;
                                     int nparts = parts.Count();
                                     for(int i = 0; i < nparts; i++)
-                                        invcount += parts[i].Inventory.Count;
+                                        count += parts[i].Inventory.Count;
                                 }
                             } catch { };
-                            ret.Add(new LSL_Integer(invcount));
+                            ret.Add(new LSL_Integer(count));
                             break;
                         case ScriptBaseClass.OBJECT_REZZER_KEY:
                             ret.Add(new LSL_Key((string)id));
@@ -14531,6 +14535,68 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                         case ScriptBaseClass.OBJECT_TEMP_ATTACHED:
                             ret.Add(new LSL_Integer(0));
                             break;
+                        case ScriptBaseClass.OBJECT_ATTACHED_SLOTS_AVAILABLE:
+                            if (Attachments == null)
+                                Attachments = av.GetAttachments();
+                            ret.Add(new LSL_Integer(38 - Attachments.Count));
+                            break;
+                        case ScriptBaseClass.OBJECT_CREATION_TIME:
+                            ret.Add(new LSL_String(""));
+                            break;
+                        case ScriptBaseClass.OBJECT_SELECT_COUNT:
+                            ret.Add(new LSL_Integer(0));
+                            break;
+                        case ScriptBaseClass.OBJECT_SIT_COUNT:
+                            ret.Add(new LSL_Integer(0));
+                            break;
+                        case ScriptBaseClass.OBJECT_ANIMATED_COUNT:
+                            count = 0;
+                            if (nAnimated.HasValue)
+                                count = nAnimated.Value;
+                            else
+                            {
+                                if (Attachments == null)
+                                    Attachments = av.GetAttachments();
+                                try
+                                {
+                                    for(int i = 0; i < Attachments.Count;++i)
+                                    {
+                                        if(Attachments[i].RootPart.Shape.MeshFlagEntry)
+                                            ++count;
+                                    }
+                                }
+                                catch { };
+                                nAnimated = count;
+                            }
+                            ret.Add(new LSL_Integer(count));
+                            break;
+
+                        case ScriptBaseClass.OBJECT_ANIMATED_SLOTS_AVAILABLE:
+                            count = 0;
+                            if (nAnimated.HasValue)
+                                count = nAnimated.Value;
+                            else
+                            {
+                                if (Attachments == null)
+                                    Attachments = av.GetAttachments();
+                                count = 0;
+                                try
+                                {
+                                    for (int i = 0; i < Attachments.Count; ++i)
+                                    {
+                                        if (Attachments[i].RootPart.Shape.MeshFlagEntry)
+                                            ++count;
+                                    }
+                                }
+                                catch { };
+                                nAnimated = count;
+                            }
+                            count = 2 - count; // for now hardcoded max (simulator features, viewers settings, etc)
+                            if(count < 0)
+                                count = 0;
+                            ret.Add(new LSL_Integer(count));
+                            break;
+
                         default:
                             // Invalid or unhandled constant.
                             ret.Add(new LSL_Integer(ScriptBaseClass.OBJECT_UNKNOWN_DETAIL));
@@ -14713,9 +14779,8 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                             break;
                         case ScriptBaseClass.OBJECT_TOTAL_INVENTORY_COUNT:
                             SceneObjectPart[] parts = obj.ParentGroup.Parts;
-                            int nparts = parts.Count();
-                            int count = 0;
-                            for(int i = 0; i < nparts; i++)
+                            count = 0;
+                            for(int i = 0; i < parts.Count(); i++)
                                 count += parts[i].Inventory.Count;
                             ret.Add(new LSL_Integer(count));
                             break;
@@ -14734,6 +14799,28 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                             {
                                 ret.Add(new LSL_Integer(0));
                             }
+                            break;
+                        case ScriptBaseClass.OBJECT_ATTACHED_SLOTS_AVAILABLE:
+                            ret.Add(new LSL_Integer(0));
+                            break;
+                        case ScriptBaseClass.OBJECT_CREATION_TIME:
+                            DateTime date = Util.ToDateTime(m_host.ParentGroup.RootPart.CreationDate);
+                            ret.Add(new LSL_String(date.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)));
+                            break;
+                        case ScriptBaseClass.OBJECT_SELECT_COUNT:
+                            ret.Add(new LSL_Integer(0));
+                            break;
+                        case ScriptBaseClass.OBJECT_SIT_COUNT:
+                            ret.Add(new LSL_Integer(m_host.ParentGroup.GetSittingAvatarsCount()));
+                            break;
+                        case ScriptBaseClass.OBJECT_ANIMATED_COUNT:
+                            if(m_host.ParentGroup.RootPart.Shape.MeshFlagEntry)
+                                ret.Add(new LSL_Integer(1));
+                            else
+                                ret.Add(new LSL_Integer(0));
+                            break;
+                        case ScriptBaseClass.OBJECT_ANIMATED_SLOTS_AVAILABLE:
+                            ret.Add(new LSL_Integer(0));
                             break;
                         default:
                             // Invalid or unhandled constant.

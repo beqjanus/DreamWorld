@@ -121,10 +121,16 @@
 	  <Compile Include="IPhysicsParameters.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="NullPhysicsScene.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="PhysicsActor.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PhysicsJoint.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="PhysicsScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PhysicsSensor.cs">
@@ -134,12 +140,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="VehicleConstants.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="NullPhysicsScene.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="PhysicsScene.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

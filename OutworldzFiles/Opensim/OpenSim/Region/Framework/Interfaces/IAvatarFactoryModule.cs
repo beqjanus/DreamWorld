@@ -31,13 +31,13 @@ using OpenSim.Framework;
 
 namespace OpenSim.Region.Framework.Interfaces
 {
-    public delegate void ReportOutputAction(string format, string level, params object[] args);
+    public delegate void ReportOutputAction(string format, params object[] args);
 
     public interface IAvatarFactoryModule
     {
         void SetAppearance(IScenePresence sp, AvatarAppearance appearance, WearableCacheItem[] cacheItems);
         void SetAppearance(IScenePresence sp, Primitive.TextureEntry textureEntry, byte[] visualParams, WearableCacheItem[] cacheItems);
-
+        void SetPreferencesHoverZ(UUID agentId, float val);
         /// <summary>
         /// Send the appearance of an avatar to others in the scene.
         /// </summary>
