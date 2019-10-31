@@ -814,8 +814,9 @@ Public Class Form1
             Print("Installing Desktop icon clicky thingy")
             Create_ShortCut(PropMyFolder & "\Start.exe")
             BumpProgress10()
-            PropViewedSettings = True
         End If
+
+        PropViewedSettings = True
 
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
