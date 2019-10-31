@@ -814,6 +814,7 @@ Public Class Form1
             Print("Installing Desktop icon clicky thingy")
             Create_ShortCut(PropMyFolder & "\Start.exe")
             BumpProgress10()
+            PropViewedSettings = True
         End If
 
         Settings.Init(PropMyFolder)
@@ -1399,9 +1400,9 @@ Public Class Form1
         'Gloebits.ini
         Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
         If Settings.GloebitsEnable Then
-            Settings.SetIni("Gloebit", "Enabled", "true")
+            Settings.SetIni("Gloebit", "Enabled", "True")
         Else
-            Settings.SetIni("Gloebit", "Enabled", "false")
+            Settings.SetIni("Gloebit", "Enabled", "False")
         End If
 
         If Settings.GloebitsMode Then
@@ -1750,18 +1751,18 @@ Public Class Form1
 
         ' the old Clouds
         If Settings.Clouds Then
-            Settings.SetIni("Cloud", "enabled", "true")
+            Settings.SetIni("Cloud", "enabled", "True")
             Settings.SetIni("Cloud", "density", Settings.Density.ToString(Invarient))
         Else
-            Settings.SetIni("Cloud", "enabled", "false")
+            Settings.SetIni("Cloud", "enabled", "False")
         End If
 
         ' Gods
 
         If (Settings.RegionOwnerIsGod Or Settings.RegionManagerIsGod) Then
-            Settings.SetIni("Permissions", "allow_grid_gods", "true")
+            Settings.SetIni("Permissions", "allow_grid_gods", "True")
         Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "false")
+            Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one
@@ -1774,75 +1775,75 @@ Public Class Form1
             Case 0
                 Settings.SetIni("Startup", "meshing", "ZeroMesher")
                 Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 1
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 2
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 3
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
             Case 4
                 Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 5
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case Else
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
         End Select
 
         Settings.SetIni("Map", "RenderMaxHeight", CInt(Settings.RenderMaxHeight))
         Settings.SetIni("Map", "RenderMinHeight", CInt(Settings.RenderMinHeight))
 
         If Settings.MapType = "None" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "false")
+            Settings.SetIni("Map", "GenerateMaptiles", "False")
         ElseIf Settings.MapType = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Good" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "true")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "true")      ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
-            Settings.SetIni("Map", "TexturePrims", "true")
-            Settings.SetIni("Map", "RenderMeshes", "true")
+            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "True")
+            Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
         ' Autobackup
         If Settings.AutoBackup Then
             Log("Info", "Auto backup Is On")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "true")
+            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         Else
             Log("Info", "Auto backup Is Off")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "false")
+            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
         End If
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
@@ -1851,9 +1852,9 @@ Public Class Form1
 
         ' Voice
         If Settings.VivoxEnabled Then
-            Settings.SetIni("VivoxVoice", "enabled", "true")
+            Settings.SetIni("VivoxVoice", "enabled", "True")
         Else
-            Settings.SetIni("VivoxVoice", "enabled", "false")
+            Settings.SetIni("VivoxVoice", "enabled", "False")
         End If
         Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
         Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
@@ -1867,8 +1868,9 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
-        If Not Settings.PortsChanged Then Return
+        If Not Settings.PortsChanged And Not PropViewedSettings Then Return
         Settings.PortsChanged = False
+        PropViewedSettings = False
 
         ' Self setting Region Ports
         Dim SimPort As Integer = CType(Settings.FirstRegionPort(), Integer)
@@ -2306,9 +2308,9 @@ Public Class Form1
         Settings.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
 
         If Settings.AccountConfirmationRequired Then
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "true")
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "True")
         Else
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "false")
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "False")
         End If
 
         Settings.SaveINI()

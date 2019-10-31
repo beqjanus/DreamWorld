@@ -249,6 +249,8 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
+        Form1.PropRegionClass.GetAllRegions()
+
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
@@ -311,6 +313,9 @@ Public Class RegionList
         ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("Teleport", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("SmartStart", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Allow God", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Owner God", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Manager God", 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -481,13 +486,13 @@ Public Class RegionList
                     PropRegionClass1.RegionEnabled(X) = True
                     ' and region file on disk
                     Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "true")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "True")
                     Form1.Settings.SaveINI()
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
                     PropRegionClass1.RegionEnabled(X) = False
                     ' and region file on disk
                     Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "false")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "False")
                     Form1.Settings.SaveINI()
                 End If
             End If
@@ -724,11 +729,7 @@ Public Class RegionList
                 item1.SubItems.Add(Estate)
 
                 'Map
-                If PropRegionClass1.MapType(X).Length > 0 Then
-                    item1.SubItems.Add(PropRegionClass1.MapType(X))
-                Else
-                    item1.SubItems.Add(Form1.Settings.MapType)
-                End If
+                item1.SubItems.Add(PropRegionClass1.MapType(X))
 
                 ' physics
                 Select Case PropRegionClass1.Physics(X)
@@ -782,6 +783,10 @@ Public Class RegionList
                         item1.SubItems.Add("-")
                     End If
                 End If
+
+                item1.SubItems.Add(PropRegionClass1.AllowGods(X))
+                item1.SubItems.Add(PropRegionClass1.RegionGod(X))
+                item1.SubItems.Add(PropRegionClass1.ManagerGod(X))
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 

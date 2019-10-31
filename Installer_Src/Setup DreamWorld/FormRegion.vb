@@ -295,7 +295,7 @@ Public Class FormRegion
                 AllowGods.Checked = False
             Case "True"
                 AllowGods.Checked = True
-                Gods_Use_Default.Checked = True
+                Gods_Use_Default.Checked = False
 
         End Select
 
@@ -306,7 +306,7 @@ Public Class FormRegion
                 RegionGod.Checked = False
             Case "True"
                 RegionGod.Checked = True
-                Gods_Use_Default.Checked = True
+                Gods_Use_Default.Checked = False
         End Select
 
         Select Case PropRegionClass1.ManagerGod(N1)
@@ -315,8 +315,8 @@ Public Class FormRegion
             Case "False"
                 ManagerGod.Checked = False
             Case "True"
-                ManagerGod.Checked = False
-                Gods_Use_Default.Checked = True
+                ManagerGod.Checked = True
+                Gods_Use_Default.Checked = False
         End Select
 
         ' if none, turn it off
@@ -656,15 +656,26 @@ Public Class FormRegion
             PropRegionClass1.Physics(n) = Phys
         End If
 
+
+        If Gods_Use_Default.Checked Then
+            AllowGods.Checked = False
+            RegionGod.Checked = False
+            ManagerGod.Checked = False
+        End If
         If AllowGods.Checked Then
             PropRegionClass1.AllowGods(n) = "True"
+        Else
+            PropRegionClass1.AllowGods(n) = ""
         End If
         If RegionGod.Checked Then
-            PropRegionClass1.RegionGod(n) = "true"
+            PropRegionClass1.RegionGod(n) = "True"
+        Else
+            PropRegionClass1.RegionGod(n) = ""
         End If
-
         If ManagerGod.Checked Then
             PropRegionClass1.ManagerGod(n) = "True"
+        Else
+            PropRegionClass1.ManagerGod(n) = ""
         End If
 
         Dim Host = Form1.Settings.ExternalHostName
@@ -1078,6 +1089,11 @@ Public Class FormRegion
             Gods_Use_Default.Checked = False
             Form1.Log("Info", "Region " + Name + " is allowing Gods")
         Else
+            If AllowGods.Checked = False And
+                RegionGod.Checked = False And
+                ManagerGod.Checked = False Then
+                Gods_Use_Default.Checked = True
+            End If
             Form1.Log("Info", "Region " + Name + " is not allowing Gods")
         End If
 
@@ -1091,6 +1107,11 @@ Public Class FormRegion
             Gods_Use_Default.Checked = False
             Form1.Log("Info", "Region " + Name + " is allowing Region Gods")
         Else
+            If AllowGods.Checked = False And
+                RegionGod.Checked = False And
+                ManagerGod.Checked = False Then
+                Gods_Use_Default.Checked = True
+            End If
             Form1.Log("Info", "Region " + Name + " is not allowing Region Gods")
         End If
 
@@ -1104,6 +1125,11 @@ Public Class FormRegion
             Gods_Use_Default.Checked = False
             Form1.Log("Info", "Region " + Name + " is allowing Manager Gods")
         Else
+            If AllowGods.Checked = False And
+                RegionGod.Checked = False And
+                ManagerGod.Checked = False Then
+                Gods_Use_Default.Checked = True
+            End If
             Form1.Log("Info", "Region " + Name + " is not allowing Manager Gods")
         End If
         If Initted1 Then Changed1 = True
