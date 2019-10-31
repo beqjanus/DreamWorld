@@ -2052,7 +2052,7 @@ Public Class Form1
 
             Select Case PropRegionClass.ManagerGod(RegionNum)
                 Case ""
-                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.AllowGridGods))
+                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
                 Case "False"
                     Settings.SetIni("Permissions", "region_manager_is_god", "False")
                 Case "True"
