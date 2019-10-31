@@ -68,18 +68,16 @@ Public Class ClrCache
             Return
         End If
 
-        Try
-            Form1.Print("Clearing Asset cache. This may take a long time!")
-            Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
-            Dim ctr As Integer = 0
-            For Each folder As String In folders
-                FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print("Deleted " & CStr(ctr))
-                Application.DoEvents()
-            Next
-        Catch ex As Exception
-        End Try
+
+        Form1.Print("Clearing Asset cache. This may take a long time!")
+        Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
+        Dim ctr As Integer = 0
+        For Each folder As String In folders
+            FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+            ctr += 1
+            If ctr Mod 100 = 0 Then Form1.Print("Deleted " & CStr(ctr))
+            Application.DoEvents()
+        Next
 
     End Sub
 
