@@ -253,9 +253,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
-
         Form1.Settings.SmartStart = SmartStartEnabled.Checked
-
     End Sub
 
 End Class

@@ -132,20 +132,20 @@ Public Class FormRegion
             IsNew1 = True
             RegionName.Text = Name & "Name of Region"
             UUID.Text = Guid.NewGuid().ToString
-            SizeX.Text = "256"
-            SizeY.Text = "256"
-            CoordX.Text = CStr(PropRegionClass1.LargestX() + 4)
-            CoordY.Text = CStr(PropRegionClass1.LargestY() + 0)
-            RegionPort.Text = CStr(PropRegionClass1.LargestPort() + 1)
+            SizeX.Text = 256.ToString(Form1.Invarient)
+            SizeY.Text = 256.ToString(Form1.Invarient)
+            CoordX.Text = (PropRegionClass1.LargestX() + 4).ToString(Form1.Invarient)
+            CoordY.Text = (PropRegionClass1.LargestY() + 0).ToString(Form1.Invarient)
+            RegionPort.Text = (PropRegionClass1.LargestPort() + 1).ToString(Form1.Invarient)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
-            NonphysicalPrimMax.Text = CStr(1024)
-            PhysicalPrimMax.Text = CStr(64)
+            NonphysicalPrimMax.Text = 1024.ToString(Form1.Invarient)
+            PhysicalPrimMax.Text = 64.ToString(Form1.Invarient)
             ClampPrimSize.Checked = False
-            MaxPrims.Text = CStr(45000)
-            MaxAgents.Text = CStr(100)
-            ScriptTimerTextBox.Text = CStr(0.2)
+            MaxPrims.Text = 45000.ToString(Form1.Invarient)
+            MaxAgents.Text = 100.ToString(Form1.Invarient)
+            ScriptTimerTextBox.Text = 0.2.ToString(Form1.Invarient)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass1.CreateRegion("")
         Else
@@ -178,7 +178,7 @@ Public Class FormRegion
                 DisallowForeigners.Checked = True
             End If
 
-            ' Size buttons can be zero if not in ini
+            ' Size buttons can be zero
             If PropRegionClass1.SizeY(N1) = 0 And PropRegionClass1.SizeX(N1) = 0 Then
                 RadioButton1.Checked = True
                 RadioButton2.Checked = False
@@ -223,7 +223,7 @@ Public Class FormRegion
                 SizeY.Text = CStr(PropRegionClass1.SizeY(N1))
             End If
 
-            ' global coords
+            ' global coordinates
             If PropRegionClass1.CoordX(N1) <> 0 Then
                 CoordX.Text = PropRegionClass1.CoordX(N1).ToString(Form1.Invarient)
             End If
@@ -240,6 +240,11 @@ Public Class FormRegion
 
         ScriptTimerTextBox.Text = PropRegionClass1.MinTimerInterval(N1).ToString(Form1.Invarient)
         FrametimeBox.Text = CStr(PropRegionClass1.FrameTime(N1))
+
+        If PropRegionClass1.SkipAutobackup(N1) = "True" Then
+            SkipAutoCheckBox.Checked = "True"
+        End If
+
         SmartStartCheckBox.Checked = PropRegionClass1.SmartStart(N1)
 
         Select Case PropRegionClass1.DisableGloebits(N1)
@@ -367,12 +372,6 @@ Public Class FormRegion
             Case "True"
                 TPCheckBox1.Checked = True
         End Select
-
-        If PropRegionClass1.SmartStart(N1) Then
-            SmartStartCheckBox.Checked = True
-        Else
-            SmartStartCheckBox.Checked = False
-        End If
 
         Select Case PropRegionClass1.DisallowForeigners(N1)
             Case ""
@@ -656,7 +655,6 @@ Public Class FormRegion
             PropRegionClass1.Physics(n) = Phys
         End If
 
-
         If Gods_Use_Default.Checked Then
             AllowGods.Checked = False
             RegionGod.Checked = False
@@ -688,6 +686,11 @@ Public Class FormRegion
         Dim Residents As String = ""
         If DisallowResidents.Checked Then
             Residents = "True"
+        End If
+
+        Dim SkipAuto As String = ""
+        If SkipAutoCheckBox.Checked Then
+            SkipAuto = "True"
         End If
 
         Dim Region = "; * Regions configuration file" &
@@ -723,7 +726,9 @@ Public Class FormRegion
                             "DisableGloebits = " & CStr(DisableGBCheckBox.Checked) & vbCrLf &
                             "DisallowForeigners = " & Foreigners & vbCrLf &
                             "DisallowResidents = " & Residents & vbCrLf &
+                            "SkipAutoBackup = " & SkipAuto & vbCrLf &
                             "SmartStart = " & CStr(SmartStartCheckBox.Checked) & vbCrLf
+
         Debug.Print(Region)
 
         Try
@@ -836,8 +841,8 @@ Public Class FormRegion
 
         If Not initted Then Return
         If Initted1 And RadioButton1.Checked Then
-            SizeX.Text = "256"
-            SizeY.Text = "256"
+            SizeX.Text = 256.ToString(Form1.Invarient)
+            SizeY.Text = 256.ToString(Form1.Invarient)
             Changed1 = True
         End If
 
@@ -846,8 +851,8 @@ Public Class FormRegion
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
 
         If Initted1 And RadioButton2.Checked Then
-            SizeX.Text = "512"
-            SizeY.Text = "512"
+            SizeX.Text = 512.ToString(Form1.Invarient)
+            SizeY.Text = 512.ToString(Form1.Invarient)
             Changed1 = True
         End If
 
@@ -856,8 +861,8 @@ Public Class FormRegion
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
 
         If Initted1 And RadioButton3.Checked Then
-            SizeX.Text = "768"
-            SizeY.Text = "768"
+            SizeX.Text = 768.ToString(Form1.Invarient)
+            SizeY.Text = 768.ToString(Form1.Invarient)
             Changed1 = True
         End If
 
@@ -866,8 +871,8 @@ Public Class FormRegion
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
 
         If Initted1 And RadioButton4.Checked Then
-            SizeX.Text = "1024"
-            SizeY.Text = "1024"
+            SizeX.Text = 1024.ToString(Form1.Invarient)
+            SizeY.Text = 1024.ToString(Form1.Invarient)
             Changed1 = True
         End If
 
@@ -1312,6 +1317,10 @@ Public Class FormRegion
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub SkipAutoCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SkipAutoCheckBox.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 

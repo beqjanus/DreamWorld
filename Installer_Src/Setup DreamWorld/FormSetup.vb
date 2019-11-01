@@ -1100,7 +1100,6 @@ Public Class Form1
         If Not IsRobustRunning() Then
             RobustPictureBox.Image = My.Resources.nav_plain_blue
             ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
-            MysqlInterface.DeleteRegionlist() '!!! not sure we should use this when robust quits now
         End If
 
     End Sub
@@ -1838,14 +1837,7 @@ Public Class Form1
             Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
-        ' Autobackup
-        If Settings.AutoBackup Then
-            Log("Info", "Auto backup Is On")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        Else
-            Log("Info", "Auto backup Is Off")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
+        ' on off handled per region
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
@@ -1881,6 +1873,17 @@ Public Class Form1
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
             Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+
+            ' Autobackup
+            If Settings.AutoBackup &
+                PropRegionClass.SkipAutobackup(RegionNum) = "" Or
+                PropRegionClass.SkipAutobackup(RegionNum) = "False" Then
+                Log("Info", "Auto backup Is On")
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+            Else
+                Log("Info", "Auto backup Is Off")
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+            End If
 
             Settings.SetIni(simName, "InternalPort", CStr(SimPort))
             PropMaxPortUsed = SimPort
@@ -1963,6 +1966,7 @@ Public Class Form1
             Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
             Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
             Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
+            Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionNum))
             Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
             Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionNum))
 

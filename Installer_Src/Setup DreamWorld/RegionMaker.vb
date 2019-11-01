@@ -306,6 +306,7 @@ Public Class RegionMaker
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
             ._FrameTime = "",
+            ._SkipAutobackup = "",
             ._RegionSmartStart = False
         }
 
@@ -655,6 +656,7 @@ Public Class RegionMaker
         'extended vars
         Public _AllowGods As String = ""
 
+        Public _SkipAutobackup As String = ""
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
@@ -703,6 +705,15 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Birds = Value
+        End Set
+    End Property
+
+    Public Property SkipAutobackup(n As Integer) As String
+        Get
+            Return RegionList(n)._SkipAutobackup
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._SkipAutobackup = Value
         End Set
     End Property
 

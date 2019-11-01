@@ -68,7 +68,9 @@ Partial Class FormRegion
         Me.PhysicsBullet = New System.Windows.Forms.RadioButton()
         Me.PhysicsODE = New System.Windows.Forms.RadioButton()
         Me.FrametimeBox = New System.Windows.Forms.TextBox()
+        Me.SkipAutoCheckBox = New System.Windows.Forms.CheckBox()
         Me.Advanced = New System.Windows.Forms.GroupBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -104,7 +106,6 @@ Partial Class FormRegion
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label16 = New System.Windows.Forms.Label()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -404,7 +405,7 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(14, 149)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(13, 172)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
@@ -569,6 +570,17 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.FrametimeBox, "Default 1/11 sec. Minimum should not be less than 0.091 which is 1/5th of 55 FPS " &
         "SL speed.")
         '
+        'SkipAutoCheckBox
+        '
+        Me.SkipAutoCheckBox.AutoSize = True
+        Me.SkipAutoCheckBox.Location = New System.Drawing.Point(15, 149)
+        Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
+        Me.SkipAutoCheckBox.Size = New System.Drawing.Size(108, 17)
+        Me.SkipAutoCheckBox.TabIndex = 27
+        Me.SkipAutoCheckBox.Text = "Skip Autobackup"
+        Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, "Will not save an OAR with Autobackup.")
+        Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
+        '
         'Advanced
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
@@ -600,6 +612,15 @@ Partial Class FormRegion
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Advanced"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(143, 42)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(63, 13)
+        Me.Label16.TabIndex = 44
+        Me.Label16.Text = "Region Port"
         '
         'Label15
         '
@@ -745,6 +766,7 @@ Partial Class FormRegion
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.SkipAutoCheckBox)
         Me.GroupBox7.Controls.Add(Me.DisallowResidents)
         Me.GroupBox7.Controls.Add(Me.DisallowForeigners)
         Me.GroupBox7.Controls.Add(Me.DisableGBCheckBox)
@@ -754,7 +776,7 @@ Partial Class FormRegion
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
         Me.GroupBox7.Location = New System.Drawing.Point(226, 297)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(177, 181)
+        Me.GroupBox7.Size = New System.Drawing.Size(177, 199)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules:"
@@ -972,15 +994,6 @@ Partial Class FormRegion
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.DatabaseSetupToolStripMenuItem.Text = "Help"
         '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(143, 42)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(63, 13)
-        Me.Label16.TabIndex = 44
-        Me.Label16.Text = "Region Port"
-        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1109,4 +1122,5 @@ Partial Class FormRegion
     Friend WithEvents Label15 As Label
     Friend WithEvents FrametimeBox As TextBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents SkipAutoCheckBox As CheckBox
 End Class

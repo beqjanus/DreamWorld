@@ -787,6 +787,7 @@ Public Class RegionList
                 item1.SubItems.Add(PropRegionClass1.AllowGods(X))
                 item1.SubItems.Add(PropRegionClass1.RegionGod(X))
                 item1.SubItems.Add(PropRegionClass1.ManagerGod(X))
+                item1.SubItems.Add(PropRegionClass1.SkipAutobackup(X))
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 
@@ -898,7 +899,7 @@ Public Class RegionList
             RegionForm.Select()
 
         ElseIf chosen = "Recycle" Then
-            'Dim h As IntPtr = Form1.GetHwnd(PropRegionClass.GroupName(n))
+
             Form1.SequentialPause()
             Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
             Form1.Print("Recycle " + PropRegionClass1.GroupName(n))
@@ -913,7 +914,7 @@ Public Class RegionList
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
-            Dim link = "http://secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            Dim link = "secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
             System.Diagnostics.Process.Start(link)
         End If
 

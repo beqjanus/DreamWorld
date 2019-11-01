@@ -1,9 +1,13 @@
+
 Revisions for Dreamgrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
 V3.25 
 God mode fixes galore.  
+Teleport hop link updated to secondlife:///app/teleport/(URL):PORT/Regionname in Region List
+Clear script cache automagically if Opensim version or hash changes
+
 
 V3.24
 Updated to Released Opensim  "0.9.1.1 Yeti "Server Release Notes" hash #defa235859889dbd". This is one patch past 0.9.1.0 for server release notes.
@@ -209,11 +213,11 @@ God mode for level 200+ incorrect also set Region Owner gods to on.
 
 V2.95
 Compiled with Opensim Master 6-8-2019 #38e937f91b08a2e52  
-Helps fix fix prims not being seen – if still losing them, lower your viewer bandwidth
+Helps fix fix prims not being seen ? if still losing them, lower your viewer bandwidth
 Create inventory entries for textures uploaded with a model
 MySQL could use up too many handles
 Fixed %CPU to 2 digits on main screen
-Databaseinfo.php and config.php are set automatically to match possible database user/password changes – used in Search, examples, and maps.
+Databaseinfo.php and config.php are set automatically to match possible database user/password changes ? used in Search, examples, and maps.
 Stop printing extra '0 regions running' while it checks them all, just stop.
 Add Microsoft Runtime for Visual C++ 2012 32 and 64 bit
 
@@ -225,15 +229,15 @@ V2.93
 Auto detect any loopback adapter named "Loopback", and set it up when the grid starts.
 This set loopback adapters with the correct IP automatically.
 V2.92
-Correct the count of HG Avatars in Region List – was showing only the 1st one
+Correct the count of HG Avatars in Region List ? was showing only the 1st one
 Added a longer timeout to Mysql connections.
 Drop Xbakes 
-“real' check if sim is still shutting down by poking port.
+?real' check if sim is still shutting down by poking port.
 
 V2.91 
 Fixed nasty bug on Regions that caused crashes when region was renamed
 Icons change in region list for 1 or more avatars
-Allow oSSetDynamic texture and other settings so Aine Caoime’s  (Anya Kee-vah) dance machine works for anyon.
+Allow oSSetDynamic texture and other settings so Aine Caoime?s  (Anya Kee-vah) dance machine works for anyon.
 Programmable Welcome Message on viewer screen
 OsGrid and Metro support.  
 Comes with MSFT signed installers for Apaches' necessary DLL's.
@@ -274,11 +278,11 @@ Events re-added by a pull from Outworldz e very hour and on startup
 
 V 2.83
 Apache 2.4 and PHP 5 added - may be enabled by a new switch in Web Control panel. You can run HTML and JavaScript with it or host your own Port 80 Web pages, assuming your ISP allows port 80.
-Hypergrid.org‘s “MetroMap” (large and small) added to the url http:://(grid):80/Metromap and to the Wifi Home Screen.
+Hypergrid.org?s ?MetroMap? (large and small) added to the url http:://(grid):80/Metromap and to the Wifi Home Screen.
 You can run 3rd party programs such as PhpMyAdmin, Strawberry Perl and other CGI programs by adding the application.  
 Perl examples for Template::Toolkit and DBIX::Class to manipulate the database are included in the Apache\htdocs\PerlExamples folder.
 PHP Examples are in the Apache\htdocs\Search folder for Classifieds, Logging, Dumping Objects, Parcels, Regions, and Hosts.
-Objects and regions marked as ‘Show in Search’ are Searchable in the Viewer (Ctrl-F in Firestorm). Requires Apache and PHP Switch to be enabled in Web Pages. Classifieds do not work yet.
+Objects and regions marked as ?Show in Search? are Searchable in the Viewer (Ctrl-F in Firestorm). Requires Apache and PHP Switch to be enabled in Web Pages. Classifieds do not work yet.
 Load OAR defaults to all options off.
 New Auto-Restart on Crash switch enabled by default.
 New Auto-Restart on Bulletsim Crash.
@@ -286,7 +290,7 @@ Memory leak plugged
 Sort order sorted for X,Y and RAM in Region Panel by adding leading zeros.
 Faster startup started faster by skipping phase II settings unless you have edited something.
 Predefined Colored logs
-Enable these colored logs by selecting Save on Exit option ‘To File in Application Directory’ 
+Enable these colored logs by selecting Save on Exit option ?To File in Application Directory? 
 
 2.82 
 Disabling a region while shutting it down caused the Regions panel to not render.
@@ -562,7 +566,7 @@ Add an extra {ENTER} before typing commands
 
 V2.33
 Single threaded updater - the multi-threaded version would not start a thread on some machinery.
-Gloebits Sell enabled bug fixed by setting “sell” true
+Gloebits Sell enabled bug fixed by setting ?sell? true
 Bird Startup Fix
 More Region Error check
 Maps shows a blank tile when off.
@@ -616,7 +620,7 @@ Modules:
  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically with a timer. If no avatars are in the region, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the default.
  - Birds Module by jonc and Jak Daniels: 
 
-There is an IAR called !OpensimBirds.iar’ in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
+There is an IAR called !OpensimBirds.iar? in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
 
 birds-prim SeaGull1 <enter> (or use SeaGull2, whichever bird you have put out)
 birds-start<enter>
