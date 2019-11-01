@@ -102,6 +102,7 @@ Public Class Form1
     Private _mySetting As New MySettings
     Private _myUPnpMap As UPnp
     Private _OpensimBinPath As String
+    Private _OldSimVersion As String
     Private _regionClass As RegionMaker
     Private _regionForm As RegionList
     Private _regionHandles As New Dictionary(Of Integer, String)
@@ -194,6 +195,15 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
+    Public Property SimVersion As String
+        Get
+            Return _SimVersion
+        End Get
+        Set(value As String)
+            _SimVersion = value
+        End Set
+    End Property
 
     Public Property PropAborting As Boolean
         Get
@@ -621,6 +631,8 @@ Public Class Form1
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
+
+        Print("Version = " & PropMyVersion)
 
         With cpu
             .CategoryName = "Processor"
@@ -1705,9 +1717,12 @@ Public Class Form1
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
 
         ' Get Opensimulator Scripts to date if needed
-        If Settings.DeleteScriptsOnStartupLevel < PropMyVersion Then
+        If Settings.DeleteScriptsOnStartupLevel <> SimVersion Then
             KillOldFiles()  ' wipe out DLL's
             ClrCache.WipeScripts()
+            Settings.DeleteScriptsOnStartupLevel() = SimVersion ' we have scripts cleared to proper Opensim Version
+            Settings.SaveSettings()
+
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
@@ -3125,8 +3140,6 @@ Public Class Form1
             End If
         Next
 
-        Settings.DeleteScriptsOnStartupLevel() = PropMyVersion ' we have scripts cleared to proper level
-        Settings.SaveSettings()
 
         Return True
 
