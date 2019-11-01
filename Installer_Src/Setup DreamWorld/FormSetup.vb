@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.24"
+    Private _MyVersion As String = "3.25"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -3402,6 +3402,7 @@ Public Class Form1
 
         ' background process to scan for things to do.
         If PropExitHandlerIsBusy Then Return ' not reentrant
+
         If PropAborting Then Return ' not if we are aborting
 
         If PropRestartRobust And PropRobustExited = True Then
