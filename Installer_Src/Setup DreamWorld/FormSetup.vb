@@ -1478,9 +1478,9 @@ Public Class Form1
             Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
             ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
-            Dim Xtime As Single = 1 / 11   '1/11 of a second is as fast as she can go
-            If PropRegionClass.MinTimerInterval(X) > 0 Then
-                Xtime = PropRegionClass.MinTimerInterval(X)
+            Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
+            If PropRegionClass.MinTimerInterval(X) <> "" Then
+                Xtime = CDbl(PropRegionClass.MinTimerInterval(X))
             End If
             Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Invarient))
 
@@ -1852,12 +1852,6 @@ Public Class Form1
             Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
-        ' on off handled per region
-
-        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
-
         ' Voice
         If Settings.VivoxEnabled Then
             Settings.SetIni("VivoxVoice", "enabled", "True")
@@ -1893,11 +1887,9 @@ Public Class Form1
             If Settings.AutoBackup &
                 PropRegionClass.SkipAutobackup(RegionNum) = "" Or
                 PropRegionClass.SkipAutobackup(RegionNum) = "False" Then
-                Log("Info", "Auto backup Is On")
-                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+                Settings.SetIni(simName, "AutoBackup", "True")
             Else
-                Log("Info", "Auto backup Is Off")
-                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+                Settings.SetIni(simName, "AutoBackup", "False")
             End If
 
             Settings.SetIni(simName, "InternalPort", CStr(SimPort))
@@ -1968,10 +1960,7 @@ Public Class Form1
                 Settings.SetIni(simName, "RenderMeshes", "")
             End If
 
-            If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                Settings.SetIni(simName, "DisableGloebits", "True")
-            End If
-
+            Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionNum))
             Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
             Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
             Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
@@ -1990,6 +1979,27 @@ Public Class Form1
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             ' Opensim.ini in Region Folder specific to this region
             Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
+
+            ' Autobackup
+            If Settings.AutoBackup Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+            End If
+
+            If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "" Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+            End If
+
+            If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "True" Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+            End If
+
+            If Not Settings.AutoBackup Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+            End If
+
+            Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
+            Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
+            Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
             If PropRegionClass.MapType(RegionNum) = "Simple" Then
                 Settings.SetIni("Map", "GenerateMaptiles", "True")
@@ -3139,7 +3149,6 @@ Public Class Form1
                 counter += 1
             End If
         Next
-
 
         Return True
 

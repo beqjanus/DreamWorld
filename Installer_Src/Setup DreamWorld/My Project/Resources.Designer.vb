@@ -431,6 +431,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property map_1_9510_10006_objects() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_1_9510_10006_objects", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property media_fast_forward() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("media_fast_forward", resourceCulture)
