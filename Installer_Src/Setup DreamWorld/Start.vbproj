@@ -384,8 +384,14 @@
     </Compile>
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="ExitHandler.vb" />
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="NativeMethods.vb" />
     <Compile Include="PublicIP.vb" />
     <Compile Include="RandomNumber.vb" />
@@ -416,11 +422,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -647,69 +648,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
-    <None Include="Resources\tangled.bmp" />
+    <None Include="Resources\Better.jpg" />
+    <None Include="Resources\map-1-9510-10006-objects.jpg" />
     <None Include="Resources\data.png" />
     <None Include="Resources\BuiltbyFred.jpg" />
-    <None Include="Resources\wp_1.gif" />
-    <None Include="Resources\wp_2.gif" />
-    <None Include="Resources\wp_3.gif" />
-    <None Include="Resources\wp_4.gif" />
-    <None Include="Resources\wp_5.gif" />
-    <None Include="Resources\wp_6.gif" />
-    <None Include="Resources\wp_7.gif" />
-    <None Include="Resources\wp_8.gif" />
-    <None Include="Resources\wp_9.gif" />
-    <None Include="Resources\wp_10.gif" />
-    <None Include="Resources\wp_11.gif" />
-    <None Include="Resources\wp_12.gif" />
-    <None Include="Resources\wp_13.gif" />
-    <None Include="Resources\wp_14.png" />
-    <None Include="Resources\wp_16.png" />
-    <None Include="Resources\wp_17.png" />
-    <None Include="Resources\wp_18.png" />
-    <None Include="Resources\wp_19.png" />
-    <None Include="Resources\wp_21.png" />
-    <None Include="Resources\wp_22.png" />
-    <None Include="Resources\wp_23.png" />
-    <None Include="Resources\wp_25.png" />
-    <None Include="Resources\wp_26.png" />
-    <None Include="Resources\wp_27.png" />
-    <None Include="Resources\wp_28.png" />
-    <None Include="Resources\wp_29.png" />
-    <None Include="Resources\wp_30.png" />
-    <None Include="Resources\wp_31.png" />
-    <None Include="Resources\wp_32.png" />
-    <None Include="Resources\wp_33.png" />
-    <None Include="Resources\wp_34.png" />
-    <None Include="Resources\wp_35.png" />
-    <None Include="Resources\wp_36.png" />
-    <None Include="Resources\wp_37.png" />
-    <None Include="Resources\wp_38.png" />
-    <None Include="Resources\wp_39.png" />
-    <None Include="Resources\wp_40.png" />
-    <None Include="Resources\wp_41.png" />
-    <None Include="Resources\wp_20.png" />
-    <None Include="Resources\wp_15.png" />
-    <None Include="Resources\wp_24.png" />
-    <None Include="Resources\wp_42.gif" />
     <None Include="Resources\document_chart.png" />
-    <None Include="Resources\wp_43.gif" />
-    <None Include="Resources\wp_44.gif" />
-    <None Include="Resources\wp_45.gif" />
-    <None Include="Resources\wp_46.gif" />
-    <None Include="Resources\wp_47.gif" />
-    <None Include="Resources\wp_48.gif" />
-    <None Include="Resources\wp_49.gif" />
-    <None Include="Resources\wp_50.gif" />
-    <None Include="Resources\wp_51.gif" />
-    <None Include="Resources\wp_52.gif" />
-    <None Include="Resources\wp_53.gif" />
-    <None Include="Resources\wp_54.gif" />
-    <None Include="Resources\wp_55.gif" />
-    <None Include="Resources\wp_56.gif" />
-    <None Include="Resources\wp_57.gif" />
     <None Include="Resources\Best.jpg" />
-    <None Include="Resources\Better.jpg" />
     <None Include="Resources\Good.jpg" />
     <None Include="Resources\Simple.jpg" />
     <None Include="Resources\transform.png" />
@@ -729,15 +673,12 @@
     <None Include="Resources\check2.png" />
     <None Include="Resources\media_stop.png" />
     <None Include="Resources\media_stop_red.png" />
-    <None Include="Resources\orange-planets-background.jpg" />
     <None Include="Resources\water.jpg" />
-    <None Include="Resources\fairy.jpg" />
     <None Include="Resources\blankbox.jpg" />
     <None Include="Resources\offline.jpg" />
     <None Include="Resources\OfflineMap.jpg" />
     <Content Include="cubes_blue.ico" />
     <None Include="Resources\cubes_blue.ico" />
-    <None Include="Resources\map-1-9510-10006-objects.jpg" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\gear.png" />
     <None Include="Resources\gear_run.png" />
@@ -750,13 +691,11 @@
     <None Include="Resources\recycle1.png" />
     <None Include="Resources\text_align_justified.png" />
     <None Include="Resources\document_view1.png" />
-    <None Include="Resources\document_view2.png" />
     <None Include="Resources\redo.png" />
     <None Include="Resources\navigate_up.png" />
     <None Include="Resources\navigate_down.png" />
     <None Include="Resources\package.png" />
     <None Include="Resources\PDF..png" />
-    <None Include="Resources\PDF.1.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\printer3.png" />
     <None Include="Resources\ClicktoInsertPhoto.jpg" />
@@ -770,14 +709,6 @@
     <None Include="Resources\home.png" />
     <None Include="Resources\home_02.png" />
     <None Include="Resources\user1_into.png" />
-    <Content Include="Resources\wp_habitat.gif" />
-    <Content Include="Resources\wp_Inside_in_shadows.gif" />
-    <Content Include="Resources\wp_Mooferd.gif" />
-    <Content Include="Resources\wp_Que.gif" />
-    <Content Include="Resources\wp_To_Piers_Anthony.gif" />
-    <Content Include="Resources\wp_wavy_love_of_animals.gif" />
-    <Content Include="Resources\wp_zebra.gif" />
-    <None Include="Resources\download1.png" />
     <None Include="Resources\flash.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\replace2.png" />
