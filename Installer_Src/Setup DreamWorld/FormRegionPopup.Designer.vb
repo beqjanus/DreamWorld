@@ -41,7 +41,7 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Controls.Add(Me.StopButton1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(157, 191)
+        Me.GroupBox1.Size = New System.Drawing.Size(157, 176)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Text"
@@ -50,7 +50,7 @@ Partial Class FormRegionPopup
         '
         Me.Button1.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(15, 28)
+        Me.Button1.Location = New System.Drawing.Point(15, 19)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 23)
         Me.Button1.TabIndex = 9
@@ -61,7 +61,7 @@ Partial Class FormRegionPopup
         '
         Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(15, 160)
+        Me.EditButton1.Location = New System.Drawing.Point(19, 135)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(121, 23)
         Me.EditButton1.TabIndex = 8
@@ -72,7 +72,7 @@ Partial Class FormRegionPopup
         '
         Me.StartButton3.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StartButton3.Location = New System.Drawing.Point(15, 73)
+        Me.StartButton3.Location = New System.Drawing.Point(15, 48)
         Me.StartButton3.Name = "StartButton3"
         Me.StartButton3.Size = New System.Drawing.Size(121, 23)
         Me.StartButton3.TabIndex = 7
@@ -83,7 +83,7 @@ Partial Class FormRegionPopup
         '
         Me.RecycleButton2.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RecycleButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RecycleButton2.Location = New System.Drawing.Point(11, 131)
+        Me.RecycleButton2.Location = New System.Drawing.Point(15, 106)
         Me.RecycleButton2.Name = "RecycleButton2"
         Me.RecycleButton2.Size = New System.Drawing.Size(125, 23)
         Me.RecycleButton2.TabIndex = 6
@@ -94,7 +94,7 @@ Partial Class FormRegionPopup
         '
         Me.StopButton1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
         Me.StopButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopButton1.Location = New System.Drawing.Point(11, 102)
+        Me.StopButton1.Location = New System.Drawing.Point(15, 77)
         Me.StopButton1.Name = "StopButton1"
         Me.StopButton1.Size = New System.Drawing.Size(125, 23)
         Me.StopButton1.TabIndex = 5
