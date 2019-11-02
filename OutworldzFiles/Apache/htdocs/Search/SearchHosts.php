@@ -108,7 +108,7 @@ include("../Metromap/includes/config.php");
         }
         
         // make hyperlink
-        $v3    = "secondlife:///app//teleport/" . $gateway;
+        $v3    = "hop://" . $gateway;
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
         
         // get the hours of runtime        

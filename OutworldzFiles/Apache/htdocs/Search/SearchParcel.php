@@ -136,7 +136,7 @@
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-         $v3    = "secondlife:///app//teleport/" . $row["gateway"] . '/' . $row["landingpoint"] ;     
+         $v3    = "hop://" . $row["gateway"] . '/' . $row["landingpoint"] ;     
         
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
         

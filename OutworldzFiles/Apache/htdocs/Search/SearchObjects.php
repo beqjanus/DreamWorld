@@ -111,7 +111,7 @@ include("../Metromap/includes/config.php");
     {
       
         $location = $row["Location"];
-        $v3    = "secondlife:///app//teleport/" . $row["AGateway"] . '/' .  $row["Regioname"] . '/'. $location;     
+        $v3    = "hop://" . $row["AGateway"] . '/' .  $row["Regioname"] . '/'. $location;     
         $local = "secondlife:///app//teleport/" . $row["AGateway"] . '/' .  $row["Regioname"] . $location ;             
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
         $name = wordwrap($row["Name"],35, "<br>\n", false);
