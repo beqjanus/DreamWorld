@@ -405,7 +405,7 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(13, 172)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(15, 172)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
@@ -418,10 +418,10 @@ Partial Class FormRegion
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(9, 229)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(107, 13)
+        Me.Label14.Size = New System.Drawing.Size(113, 13)
         Me.Label14.TabIndex = 41
-        Me.Label14.Text = "Script Timer Minimum"
-        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed minimum setting.")
+        Me.Label14.Text = "Script Timer Rate (0.9)"
+        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed setting. 1/11 second is default (0.9)")
         '
         'ScriptTimerTextBox
         '
@@ -627,9 +627,10 @@ Partial Class FormRegion
         Me.Label15.AutoSize = True
         Me.Label15.Location = New System.Drawing.Point(9, 257)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(100, 13)
+        Me.Label15.Size = New System.Drawing.Size(86, 13)
         Me.Label15.TabIndex = 43
-        Me.Label15.Text = "Frames Per Second"
+        Me.Label15.Text = "Frame Rate (0.9)"
+        Me.ToolTip1.SetToolTip(Me.Label15, "SL runs 55 FPS>  Opensim is 11 second is default (0.9)")
         '
         'Label6
         '

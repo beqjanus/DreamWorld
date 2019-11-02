@@ -311,11 +311,13 @@ Public Class RegionList
         ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
         ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Teleport", 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Teleport", 65, HorizontalAlignment.Center)
         ListView1.Columns.Add("SmartStart", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Allow God", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Owner God", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Allow God", 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Owner God", 75, HorizontalAlignment.Center)
         ListView1.Columns.Add("Manager God", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("No Autobackup", 90, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Publicity", 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -788,6 +790,7 @@ Public Class RegionList
                 item1.SubItems.Add(PropRegionClass1.RegionGod(X))
                 item1.SubItems.Add(PropRegionClass1.ManagerGod(X))
                 item1.SubItems.Add(PropRegionClass1.SkipAutobackup(X))
+                item1.SubItems.Add(PropRegionClass1.RegionSnapShot(X))
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 
@@ -914,8 +917,12 @@ Public Class RegionList
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
-            Dim link = "secondlife///app//teleport/" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
-            System.Diagnostics.Process.Start(link)
+            Dim link = "hop:" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            Try
+                System.Diagnostics.Process.Start(link)
+            Catch
+            End Try
+
         End If
 
     End Sub
