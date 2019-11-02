@@ -4,9 +4,13 @@ Revisions for Dreamgrid
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
 V3.25 
-God mode fixes galore.  
-Teleport hop link updated to secondlife:///app/teleport/(URL):PORT/Regionname in Region List
+Disable region Auto Backup added to region Overides
+Drop a useless old images to reduce size of exe
+God mode fixes galore, reset defaults in Region INI to blanks
+Added Overrides to Region List Details for carious Gods, Publicity and to skip region Auto Backup
+Teleport hop link updated to hop in region list as secondlife link no longer works in Firestorm 6 series.
 Clear script cache automagically if Opensim version or hash changes
+
 
 
 V3.24
