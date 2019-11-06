@@ -53,7 +53,8 @@ Public Class RegionMaker
         ShuttingDown = 5
         RestartPending = 6
         RetartingNow = 7
-        Autostart = 8
+        [Resume] = 8
+        Suspended = 9
 
     End Enum
 
@@ -1278,7 +1279,7 @@ Public Class RegionMaker
             WebserverList.Add(POST)
 
         ElseIf POST.Contains("ALT=") Then
-            ' mart Start AutoStart Region mode
+            ' Smart Start AutoStart Region mode
             Debug.Print("Smart Start:" + POST)
 
             ' Auto Start Telport, AKA Smart Start
@@ -1296,7 +1297,7 @@ Public Class RegionMaker
                         Return RegionUUID
                     Else
                         Form1.Print("Smart Start " & RegionName(n))
-                        Status(n) = SIMSTATUSENUM.Autostart
+                        Status(n) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(n))
                         Catch ex As Exception
