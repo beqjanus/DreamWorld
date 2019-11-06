@@ -4358,16 +4358,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         public void SendAppearanceToAgentNF(ScenePresence avatar)
         {
-            if(avatar.UUID == UUID)
-            {
-                avatar.ControllingClient.SendAppearance(
-                    UUID, Appearance.VisualParams, Appearance.Texture.GetBytes());
-            }
-            else
-            {
-                avatar.ControllingClient.SendAppearance(
-                    UUID, Appearance.VisualParams, Appearance.Texture.GetBakesBytes());
-            }
+            avatar.ControllingClient.SendAppearance(UUID, Appearance.VisualParams, Appearance.Texture.GetBakesBytes(), Appearance.AvatarPreferencesHoverZ);
         }
 
         public void SendAnimPackToAgent(ScenePresence p)
@@ -5081,7 +5072,11 @@ namespace OpenSim.Region.Framework.Scenes
             }
             catch { }
 
-            Animator.ResetAnimations();
+            // we are losing animator somewhere
+            if (Animator == null)
+                Animator = new ScenePresenceAnimator(this);
+            else
+                Animator.ResetAnimations();
 
             Overrides.CopyAOPairsFrom(cAgent.MovementAnimationOverRides);
             int nanim = ControllingClient.NextAnimationSequenceNumber;

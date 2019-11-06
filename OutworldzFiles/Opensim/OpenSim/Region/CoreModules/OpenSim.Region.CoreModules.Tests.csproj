@@ -256,10 +256,10 @@
 	  <Compile Include="Avatar\Inventory\Transfer\Tests\InventoryTransferModuleTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\InventoryAccess\Tests\InventoryAccessModuleTests.cs">
+	  <Compile Include="Framework\InventoryAccess\Tests\HGAssetMapperTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Framework\InventoryAccess\Tests\HGAssetMapperTests.cs">
+	  <Compile Include="Framework\InventoryAccess\Tests\InventoryAccessModuleTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Framework\UserManagement\Tests\HGUserManagementModuleTests.cs">

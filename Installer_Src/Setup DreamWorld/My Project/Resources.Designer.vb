@@ -301,16 +301,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Byte[].
-        '''</summary>
-        Friend ReadOnly Property DotNetZip() As Byte()
-            Get
-                Dim obj As Object = ResourceManager.GetObject("DotNetZip", resourceCulture)
-                Return CType(obj,Byte())
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property download() As System.Drawing.Bitmap
@@ -434,6 +424,16 @@ Namespace My.Resources
         Friend ReadOnly Property home_02() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("home_02", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property map_1_9510_10006_objects() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_1_9510_10006_objects", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -701,9 +701,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property server_gWSCLient() As System.Drawing.Bitmap
+        Friend ReadOnly Property Server_Client() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("server_gWSCLient", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Server_Client", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

@@ -88,7 +88,7 @@ include("../Metromap/includes/config.php");
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
     
-        $v3    = "secondlife:///app//teleport/" . $row["gateway"] ;     
+        $v3    = "hop://" . $row["gateway"] ;     
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
   
         

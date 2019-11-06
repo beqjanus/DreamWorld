@@ -145,9 +145,6 @@
 	  <Compile Include="HelperTypes.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SculptMap.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Mesh.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -155,6 +152,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PrimMesher.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SculptMap.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SculptMesh.cs">

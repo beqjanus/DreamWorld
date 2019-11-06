@@ -989,11 +989,13 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             //RegionInfo4 block
 
             //RegionFlagsExtended
-            zc.AddZeros(1); // we dont have this
-                //zc.AddByte(1); 
-                //zc.AddUInt64(regionFlags); // we have nothing other base flags
-                //RegionProtocols
-                //zc.AddUInt64(0); // bit 0 signals server side texture baking"
+            //zc.AddZeros(1); // if we dont have this else
+            zc.AddByte(1); 
+            zc.AddUInt64(regionFlags); // we have nothing other base flags
+            //RegionProtocols
+                // bit 0 signals server side texture baking
+                // bit 63 signals more than 6 baked textures support"
+            zc.AddUInt64(1UL << 63);
 
             buf.DataLength = zc.Finish();
             m_udpServer.SendUDPPacket(m_udpClient, buf, ThrottleOutPacketType.Unknown);
@@ -3848,19 +3850,17 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             packet.QueryData = new DirGroupsReplyPacket.QueryDataBlock();
             packet.QueryData.QueryID = queryID;
 
-            packet.QueryReplies = new DirGroupsReplyPacket.QueryRepliesBlock[
-                    data.Length];
+            packet.QueryReplies = new DirGroupsReplyPacket.QueryRepliesBlock[data.Length];
 
             int i = 0;
             foreach (DirGroupsReplyData d in data)
             {
                 packet.QueryReplies[i] = new DirGroupsReplyPacket.QueryRepliesBlock();
                 packet.QueryReplies[i].GroupID = d.groupID;
-                packet.QueryReplies[i].GroupName =
-                        Utils.StringToBytes(d.groupName);
+                packet.QueryReplies[i].GroupName = Util.StringToBytes(d.groupName, 35);
                 packet.QueryReplies[i].Members = d.members;
                 packet.QueryReplies[i].SearchOrder = d.searchOrder;
-                i++;
+                ++i;
             }
 
             OutPacket(packet, ThrottleOutPacketType.Task);
@@ -4434,7 +4434,7 @@ namespace OpenSim.Region.ClientStack.LindenUDP
                 //0xff, 0xff, 0, 1, 158 // ID 158 (low frequency bigendian) zeroencoded
                 };
 
-        public void SendAppearance(UUID targetID, byte[] visualParams, byte[] textureEntry)
+        public void SendAppearance(UUID targetID, byte[] visualParams, byte[] textureEntry, float hover)
         {
             // doing post zero encode, because odds of beeing bad are not that low
             UDPPacketBuffer buf = m_udpServer.GetNewUDPBuffer(m_udpClient.RemoteEndPoint);
@@ -4469,7 +4469,10 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             // no AppearanceData
             data[pos++] = 0;
             // no AppearanceHover
-            data[pos++] = 0;
+            data[pos++] = 1;
+            Utils.FloatToBytesSafepos(0, data, pos); pos += 4;
+            Utils.FloatToBytesSafepos(0, data, pos); pos += 4;
+            Utils.FloatToBytesSafepos(hover, data, pos); pos += 4;
 
             buf.DataLength = pos;
             m_udpServer.SendUDPPacket(m_udpClient, buf, ThrottleOutPacketType.Task | ThrottleOutPacketType.HighPriority, null, false, true);
@@ -11292,10 +11295,9 @@ namespace OpenSim.Region.ClientStack.LindenUDP
                     if (lma == null)
                     {
                         // Really doesn't exist
-                        TeleportCancelPacket tpCancel = (TeleportCancelPacket)PacketPool.Instance.GetPacket(PacketType.TeleportCancel);
-                        tpCancel.Info.SessionID = tpReq.Info.SessionID;
-                        tpCancel.Info.AgentID = tpReq.Info.AgentID;
-                        OutPacket(tpCancel, ThrottleOutPacketType.Task);
+                        m_log.WarnFormat("[llClient]: landmark asset {0} not found",lmid.ToString());
+                        SendTeleportFailed("Could not find the landmark asset data");
+                        return true;
                     }
                 }
 
@@ -11306,10 +11308,7 @@ namespace OpenSim.Region.ClientStack.LindenUDP
                 catch (NullReferenceException)
                 {
                     // asset not found generates null ref inside the assetlandmark constructor.
-                    TeleportCancelPacket tpCancel = (TeleportCancelPacket)PacketPool.Instance.GetPacket(PacketType.TeleportCancel);
-                    tpCancel.Info.SessionID = tpReq.Info.SessionID;
-                    tpCancel.Info.AgentID = tpReq.Info.AgentID;
-                    OutPacket(tpCancel, ThrottleOutPacketType.Task);
+                    SendTeleportFailed("Could not find the landmark asset data");
                     return true;
                 }
             }
@@ -11332,11 +11331,7 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             else
             {
                 //no event handler so cancel request
-                TeleportCancelPacket tpCancel = (TeleportCancelPacket)PacketPool.Instance.GetPacket(PacketType.TeleportCancel);
-                tpCancel.Info.AgentID = tpReq.Info.AgentID;
-                tpCancel.Info.SessionID = tpReq.Info.SessionID;
-                OutPacket(tpCancel, ThrottleOutPacketType.Task);
-
+                SendTeleportFailed("Could not find the landmark asset data");
             }
             return true;
         }
@@ -11397,10 +11392,7 @@ namespace OpenSim.Region.ClientStack.LindenUDP
             else
             {
                 //no event handler so cancel request
-                TeleportCancelPacket tpCancel = (TeleportCancelPacket)PacketPool.Instance.GetPacket(PacketType.TeleportCancel);
-                tpCancel.Info.SessionID = tpLocReq.AgentData.SessionID;
-                tpCancel.Info.AgentID = tpLocReq.AgentData.AgentID;
-                OutPacket(tpCancel, ThrottleOutPacketType.Task);
+                SendTeleportFailed("Could not process the teleport");
             }
             return true;
         }

@@ -79,6 +79,7 @@ Public Class RegionMaker
             Return 0
         End Get
         Set(ByVal Value As Integer)
+
             Dim RegionName = GroupName(index)
             If _Grouplist.ContainsKey(RegionName) Then
                 _Grouplist.Remove(RegionName)
@@ -134,6 +135,8 @@ Public Class RegionMaker
             Return
         End If
 
+        Form1.Print("Updating Region Ports")
+
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
             Dim simName = Form1.PropRegionClass.RegionName(RegionNum)
@@ -146,6 +149,7 @@ Public Class RegionMaker
             Form1.Settings.SaveINI()
             Portnumber += 1
         Next
+        Form1.Settings.PortsChanged = True
 
     End Sub
 
@@ -292,7 +296,7 @@ Public Class RegionMaker
             ._MaxPrims = 15000,
             ._MaxAgents = 100,
             ._MapType = "",
-            ._MinTimerInterval = 0.2,
+            ._MinTimerInterval = 0.2.ToString(Form1.Invarient),
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -302,7 +306,8 @@ Public Class RegionMaker
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
             ._FrameTime = "",
-            ._RegionSmartStart = False
+            ._SkipAutobackup = "",
+            ._RegionSmartStart = ""
         }
 
         RegionList.Add(r)
@@ -393,8 +398,8 @@ Public Class RegionMaker
                             CoordX(n) = CInt(parts(0))
                             CoordY(n) = CInt(parts(1))
 
-                            ' options params coming from INI file can be blank!
-                            MinTimerInterval(n) = CSng(Form1.Settings.GetIni(fName, "MinTimerInterval", CStr(1 / 11)))
+                            ' options parameters coming from INI file can be blank!
+                            MinTimerInterval(n) = Form1.Settings.GetIni(fName, "MinTimerInterval", "")
                             RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
                             MapType(n) = Form1.Settings.GetIni(fName, "MapType", "")
                             Physics(n) = Form1.Settings.GetIni(fName, "Physics", "")
@@ -408,7 +413,7 @@ Public Class RegionMaker
                             DisableGloebits(n) = Form1.Settings.GetIni(fName, "DisableGloebits", "")
                             DisallowForeigners(n) = Form1.Settings.GetIni(fName, "DisallowForeigners", "")
                             DisallowResidents(n) = Form1.Settings.GetIni(fName, "DisallowResidents", "")
-
+                            SkipAutobackup(n) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "")
                             Snapshot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
 
                             Select Case Form1.Settings.GetIni(fName, "SmartStart", "False")
@@ -626,7 +631,7 @@ Public Class RegionMaker
         Public _LineCounter As Integer = 0
         Public _MaxAgents As Integer = 100
         Public _MaxPrims As Integer = 15000
-        Public _MinTimerInterval As Single = 1 / 11
+
         Public _NonPhysicalPrimMax As Integer = 1024
         Public _PhysicalPrimMax As Integer
         Public _ProcessID As Integer = 0
@@ -634,7 +639,7 @@ Public Class RegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
-        Public _RegionSmartStart As Boolean = False
+        Public _RegionSmartStart As String = ""
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer = 0
@@ -648,14 +653,15 @@ Public Class RegionMaker
         ''' <summary>
         ''' <Must be all strings as a blank means use the default
         ''' </summary>
-        'extended vars
-        Public _AllowGods As String = ""
 
+        Public _AllowGods As String = ""
+        Public _SkipAutobackup As String = ""
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
         Public _ManagerGod As String = ""
         Public _MapType As String = ""
+        Public _MinTimerInterval As String = ""
         Public _Physics As String = "  "
         Public _RegionGod As String = ""
         Public _RegionSnapShot As String = ""
@@ -667,38 +673,50 @@ Public Class RegionMaker
 
     End Class
 
-#Region "Properties"
+#Region "Standard INI"
 
-    Public ReadOnly Property RegionCount() As Integer
+    Public Property UUID(n As Integer) As String
         Get
-            Return RegionList.Count
-        End Get
-    End Property
-
-    Public Property AllowGods(n As Integer) As String
-        Get
-            Return RegionList(n)._AllowGods
+            Return RegionList(n)._UUID
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._AllowGods = Value
+            RegionList(n)._UUID = Value
         End Set
     End Property
 
-    Public Property AvatarCount(n As Integer) As Integer
+    Public Property MaxAgents(n As Integer) As Integer
         Get
-            Return CInt(RegionList(n)._AvatarCount)
+            Return RegionList(n)._MaxAgents
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._AvatarCount = Value
+            RegionList(n)._MaxAgents = Value
         End Set
     End Property
 
-    Public Property Birds(n As Integer) As String
+    Public Property MaxPrims(n As Integer) As Integer
         Get
-            Return RegionList(n)._Birds
+            Return RegionList(n)._MaxPrims
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Birds = Value
+        Set(ByVal Value As Integer)
+            RegionList(n)._MaxPrims = Value
+        End Set
+    End Property
+
+    Public Property NonPhysicalPrimMax(n As Integer) As Integer
+        Get
+            Return RegionList(n)._NonPhysicalPrimMax
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._NonPhysicalPrimMax = Value
+        End Set
+    End Property
+
+    Public Property PhysicalPrimMax(n As Integer) As Integer
+        Get
+            Return RegionList(n)._PhysicalPrimMax
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._PhysicalPrimMax = Value
         End Set
     End Property
 
@@ -729,22 +747,91 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property DisallowForeigners(n As Integer) As String
+    Public Property SizeX(n As Integer) As Integer
         Get
-            Return RegionList(n)._DisallowForeigners
+            Return RegionList(n)._SizeX
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisallowForeigners = Value
+        Set(ByVal Value As Integer)
+            RegionList(n)._SizeX = Value
         End Set
     End Property
 
-    Public Property DisallowResidents(n As Integer) As String
+    Public Property SizeY(n As Integer) As Integer
         Get
-            Return RegionList(n)._DisallowResidents
+            Return RegionList(n)._SizeY
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisallowResidents = Value
+        Set(ByVal Value As Integer)
+            RegionList(n)._SizeY = Value
         End Set
+    End Property
+
+#End Region
+
+#Region "NeedBackup"
+
+    Public Property AvatarCount(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._AvatarCount)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._AvatarCount = Value
+        End Set
+    End Property
+
+    Public Property ProcessID(n As Integer) As Integer
+        Get
+            Try
+                Return RegionList(n)._ProcessID
+            Catch
+                Return 0
+            End Try
+
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._ProcessID = Value
+        End Set
+    End Property
+
+    Public Property Status(n As Integer) As Integer
+        Get
+            Return RegionList(n)._Status
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._Status = Value
+        End Set
+    End Property
+
+    Public Property LineCounter(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._LineCounter)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._LineCounter = Value
+        End Set
+    End Property
+
+    Public Property Timer(n As Integer) As Integer
+        Get
+            Try
+                Return RegionList(n)._Timer
+            Catch
+                Return 0
+            End Try
+
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._Timer = Value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Properties"
+
+    Public ReadOnly Property RegionCount() As Integer
+        Get
+            Return RegionList.Count
+        End Get
     End Property
 
     Public Property FolderPath(n As Integer) As String
@@ -765,126 +852,12 @@ Public Class RegionMaker
         End Set
     End Property
 
-    ''' ''''''''''''''''''' PATHS ''''''''''''''''''''
     Public Property IniPath(n As Integer) As String
         Get
             Return CStr(RegionList(n)._IniPath)
         End Get
         Set(ByVal Value As String)
             RegionList(n)._IniPath = Value
-        End Set
-    End Property
-
-    Public Property LineCounter(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._LineCounter)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._LineCounter = Value
-        End Set
-    End Property
-
-    Public Property ManagerGod(n As Integer) As String
-        Get
-            Return RegionList(n)._ManagerGod
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._ManagerGod = Value
-        End Set
-    End Property
-
-    Public Property MapType(n As Integer) As String
-        Get
-            Return RegionList(n)._MapType
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._MapType = Value
-        End Set
-    End Property
-
-    Public Property MaxAgents(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxAgents
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxAgents = Value
-        End Set
-    End Property
-
-    Public Property MaxPrims(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxPrims
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxPrims = Value
-        End Set
-    End Property
-
-    Public Property MinTimerInterval(n As Integer) As Single
-        Get
-            Return RegionList(n)._MinTimerInterval
-        End Get
-        Set(ByVal Value As Single)
-            RegionList(n)._MinTimerInterval = Value
-        End Set
-    End Property
-
-    Public Property NonPhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._NonPhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._NonPhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property PhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._PhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._PhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property Physics(n As Integer) As String
-        Get
-            Return RegionList(n)._Physics
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Physics = Value
-        End Set
-    End Property
-
-    Public Property ProcessID(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._ProcessID
-            Catch
-                Return 0
-            End Try
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._ProcessID = Value
-        End Set
-    End Property
-
-    Public Property RegionEnabled(n As Integer) As Boolean
-        Get
-            Return RegionList(n)._RegionEnabled
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._RegionEnabled = Value
-        End Set
-    End Property
-
-    Public Property RegionGod(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionGod
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionGod = Value
         End Set
     End Property
 
@@ -920,34 +893,9 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property SizeX(n As Integer) As Integer
-        Get
-            Return RegionList(n)._SizeX
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._SizeX = Value
-        End Set
-    End Property
+#End Region
 
-    Public Property SizeY(n As Integer) As Integer
-        Get
-            Return RegionList(n)._SizeY
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._SizeY = Value
-        End Set
-    End Property
-
-    Public Property SmartStart(n As Integer) As Boolean
-
-        Get
-            Return RegionList(n)._RegionSmartStart
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._RegionSmartStart = Value
-        End Set
-
-    End Property
+#Region "Options"
 
     Public Property Snapshot(n As Integer) As String
         Get
@@ -958,47 +906,118 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property Status(n As Integer) As Integer
+    Public Property AllowGods(n As Integer) As String
         Get
-            Return RegionList(n)._Status
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Status = Value
-        End Set
-    End Property
-
-    Public Property Timer(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._Timer
-            Catch
-                Return 0
-            End Try
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Timer = Value
-        End Set
-    End Property
-
-    Public Property UUID(n As Integer) As String
-        Get
-            Return RegionList(n)._UUID
+            Return RegionList(n)._AllowGods
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._UUID = Value
+            RegionList(n)._AllowGods = Value
         End Set
     End Property
 
-#End Region
+    Public Property Birds(n As Integer) As String
+        Get
+            Return RegionList(n)._Birds
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Birds = Value
+        End Set
+    End Property
 
-#Region "Options"
+    Public Property SkipAutobackup(n As Integer) As String
+        Get
+            Return RegionList(n)._SkipAutobackup
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._SkipAutobackup = Value
+        End Set
+    End Property
+
+    Public Property DisallowForeigners(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowForeigners
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowForeigners = Value
+        End Set
+    End Property
+
+    Public Property DisallowResidents(n As Integer) As String
+        Get
+            Return RegionList(n)._DisallowResidents
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._DisallowResidents = Value
+        End Set
+    End Property
+
+    Public Property ManagerGod(n As Integer) As String
+        Get
+            Return RegionList(n)._ManagerGod
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._ManagerGod = Value
+        End Set
+    End Property
+
+    Public Property MapType(n As Integer) As String
+        Get
+            Return RegionList(n)._MapType
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._MapType = Value
+        End Set
+    End Property
+
+    Public Property MinTimerInterval(n As Integer) As String
+        Get
+            Return RegionList(n)._MinTimerInterval
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._MinTimerInterval = Value
+        End Set
+    End Property
+
+    Public Property Physics(n As Integer) As String
+        Get
+            Return RegionList(n)._Physics
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._Physics = Value
+        End Set
+    End Property
+
+    Public Property RegionEnabled(n As Integer) As Boolean
+        Get
+            Return RegionList(n)._RegionEnabled
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._RegionEnabled = Value
+        End Set
+    End Property
+
+    Public Property RegionGod(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionGod
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionGod = Value
+        End Set
+    End Property
+
+    Public Property SmartStart(n As Integer) As String
+
+        Get
+            Return RegionList(n)._RegionSmartStart
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionSmartStart = Value
+        End Set
+
+    End Property
 
     Public Property FrameTime(n As Integer) As String
         Get
-            If RegionList(n)._FrameTime.Length = 0 Then
-                Return CStr(1 / 11)
-            End If
             Return RegionList(n)._FrameTime
         End Get
         Set(ByVal Value As String)

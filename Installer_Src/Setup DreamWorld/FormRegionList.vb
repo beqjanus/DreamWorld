@@ -249,6 +249,8 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
+        Form1.PropRegionClass.GetAllRegions()
+
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
@@ -309,8 +311,13 @@ Public Class RegionList
         ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
         ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
         ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Teleport", 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Teleport", 65, HorizontalAlignment.Center)
         ListView1.Columns.Add("SmartStart", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Allow God", 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Owner God", 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Manager God", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("No Autobackup", 90, HorizontalAlignment.Center)
+        ListView1.Columns.Add("Publicity", 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
@@ -481,13 +488,13 @@ Public Class RegionList
                     PropRegionClass1.RegionEnabled(X) = True
                     ' and region file on disk
                     Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "true")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "True")
                     Form1.Settings.SaveINI()
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
                     PropRegionClass1.RegionEnabled(X) = False
                     ' and region file on disk
                     Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "false")
+                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "False")
                     Form1.Settings.SaveINI()
                 End If
             End If
@@ -724,11 +731,7 @@ Public Class RegionList
                 item1.SubItems.Add(Estate)
 
                 'Map
-                If PropRegionClass1.MapType(X).Length > 0 Then
-                    item1.SubItems.Add(PropRegionClass1.MapType(X))
-                Else
-                    item1.SubItems.Add(Form1.Settings.MapType)
-                End If
+                item1.SubItems.Add(PropRegionClass1.MapType(X))
 
                 ' physics
                 Select Case PropRegionClass1.Physics(X)
@@ -782,6 +785,12 @@ Public Class RegionList
                         item1.SubItems.Add("-")
                     End If
                 End If
+
+                item1.SubItems.Add(PropRegionClass1.AllowGods(X))
+                item1.SubItems.Add(PropRegionClass1.RegionGod(X))
+                item1.SubItems.Add(PropRegionClass1.ManagerGod(X))
+                item1.SubItems.Add(PropRegionClass1.SkipAutobackup(X))
+                item1.SubItems.Add(PropRegionClass1.RegionSnapShot(X))
 
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 
@@ -893,7 +902,7 @@ Public Class RegionList
             RegionForm.Select()
 
         ElseIf chosen = "Recycle" Then
-            'Dim h As IntPtr = Form1.GetHwnd(PropRegionClass.GroupName(n))
+
             Form1.SequentialPause()
             Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
             Form1.Print("Recycle " + PropRegionClass1.GroupName(n))
@@ -906,6 +915,13 @@ Public Class RegionList
                 PropRegionClass1.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
             Next
             PropUpdateView = True ' make form refresh
+
+        ElseIf chosen = "Teleport" Then
+            Dim link = "hop:" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            Try
+                System.Diagnostics.Process.Start(link)
+            Catch
+            End Try
 
         End If
 
@@ -1159,8 +1175,9 @@ Public Class RegionList
     End Function
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
+
         Form1.PropRestartRobust = True
-        Form1.ConsoleCommand("Robust", "q{ENTER}" + vbCrLf)
+
     End Sub
 
     Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click

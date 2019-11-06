@@ -20,16 +20,6 @@
 
 #End Region
 
-#Region "Todo"
-
-' todo
-
-' rm MAP-* in Opensim\bin
-' Singlarity Search Needs help
-' Old Web maps must use port 8001
-
-#End Region
-
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
@@ -47,8 +37,8 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.21"
-    Private _SimVersion As String = "0.9.0 2019-08-02 #5b39860573"
+    Private _MyVersion As String = "3.25"
+    Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
 
@@ -72,15 +62,21 @@ Public Class Form1
         SWMAX = 11
     End Enum
 
-    ' with events
-    Private WithEvents UpdateProcess As New Process()
+    Public Event ApacheExited As EventHandler
 
+    Public Event Exited As EventHandler
+
+    Public Event RobustExited As EventHandler
+
+    Private WithEvents UpdateProcess As New Process()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
 
     Private _Language As New Culture
+    Private _PortsChanged As Boolean = True
+
     Private _Aborting As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
@@ -106,27 +102,36 @@ Public Class Form1
     Private _mySetting As New MySettings
     Private _myUPnpMap As UPnp
     Private _OpensimBinPath As String
+    Private _OldSimVersion As String
     Private _regionClass As RegionMaker
     Private _regionForm As RegionList
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartNow As Boolean = False
-    Private _RestartRobust As Boolean = False
     Private _RobustExited As Boolean = False
     Private _RobustProcID As Integer
+    Private _RestartRobust As Boolean
 
-    ' not https, which breaks stuff
+    Private _RobustCrashCounter As Integer = 0
+    Private _MysqlCrashCounter As Integer = 0
+    Private _ApacheCrashCounter As Integer = 0
+    Private _IcecastCrashCounter As Integer = 0
+    Private _RegionCrashCounter As Integer = 0
+    Private _RestartIceCast As Integer = 0
+    Private _IceCastExited As Integer = 0
+    Private _RestartMysql As Integer = 0
+    Private _MysqlExited As Integer = 0
+    Private _RestartApache As Integer = 0
+    Private _ApacheExited As Integer = 0
+
     Private _SecureDomain As String = "https://outworldz.com" ' https, which breaks stuff
-
     Private _SelectedBox As String = ""
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
-    Private _invarient As CultureInfo = New CultureInfo("")   ' "" = Invarient Culture
+    Private _invarient As CultureInfo = New CultureInfo("")   ' "" = Invariant Culture
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private Adv As AdvancedForm
-
-    ' Graph
-    Private cpu As New PerformanceCounter
+    Private cpu As New PerformanceCounter ' Graph
 
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -135,14 +140,7 @@ Public Class Form1
     Private speed2 As Single
     Private speed3 As Single
 
-    ' UPNP PropAborting
     Private ws As NetServer
-
-    Public Event ApacheExited As EventHandler
-
-    Public Event Exited As EventHandler
-
-    Public Event RobustExited As EventHandler
 
     Private Update_version As String = Nothing
 
@@ -197,6 +195,15 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
+
+    Public Property SimVersion As String
+        Get
+            Return _SimVersion
+        End Get
+        Set(value As String)
+            _SimVersion = value
+        End Set
+    End Property
 
     Public Property PropAborting As Boolean
         Get
@@ -453,12 +460,57 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropRestartRobust() As Boolean
+    Public Property PropRestartRobust As Boolean
         Get
             Return _RestartRobust
         End Get
+        Set(value As Boolean)
+            _RestartRobust = value
+        End Set
+    End Property
+
+    Public Property PropIceCastExited() As Boolean
+        Get
+            Return _IceCastExited
+        End Get
         Set(ByVal Value As Boolean)
-            _RestartRobust = Value
+            _IceCastExited = Value
+        End Set
+    End Property
+
+    Public Property PropRestartMySql() As Boolean
+        Get
+            Return _RestartMysql
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartMysql = Value
+        End Set
+    End Property
+
+    Public Property PropMysqlExited() As Boolean
+        Get
+            Return _MysqlExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _MysqlExited = Value
+        End Set
+    End Property
+
+    Public Property PropRestartApache() As Boolean
+        Get
+            Return _RestartApache
+        End Get
+        Set(ByVal Value As Boolean)
+            _RestartApache = Value
+        End Set
+    End Property
+
+    Public Property PropApacheExited() As Boolean
+        Get
+            Return _ApacheExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _ApacheExited = Value
         End Set
     End Property
 
@@ -580,6 +632,8 @@ Public Class Form1
     ''' </summary>
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
+        Print("Version = " & PropMyVersion)
+
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -616,10 +670,12 @@ Public Class Form1
 
         GridNames.SetServerNames()
 
-        Print("Setup Ports")
-        RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        If Settings.PortsChanged Then
+            Print("Setup Ports")
+            RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
+            Print("Setup Firewall")
+            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        End If
 
         ' clear region error handlers
         PropRegionHandles.Clear()
@@ -714,7 +770,7 @@ Public Class Form1
         ProgressBar1.Value = 100
         Print("Grid address is" & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
-        ' done with bootup
+        ' done with boot up
         ProgressBar1.Visible = False
         ToolBar(True)
 
@@ -725,7 +781,7 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Form Load is main() for all Dreamgrid
+    ''' Form Load is main() for all DreamGrid
     ''' </summary>
     ''' <param name="sender">Unused</param>
     ''' <param name="e">Unused</param>
@@ -761,7 +817,7 @@ Public Class Form1
             ' for testing, as the compiler buries itself in ../../../debug
         End If
 
-        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because Mysql uses unix like slashes, that's why
+        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
@@ -771,6 +827,8 @@ Public Class Form1
             Create_ShortCut(PropMyFolder & "\Start.exe")
             BumpProgress10()
         End If
+
+        PropViewedSettings = True
 
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
@@ -805,7 +863,7 @@ Public Class Form1
 
         PropInitted = True
 
-        ClearLogFiles() ' clear log fles
+        ClearLogFiles() ' clear log files
 
         If Not IO.File.Exists(PropMyFolder & "\BareTail.udm") Then
             IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
@@ -839,11 +897,12 @@ Public Class Form1
 
         CheckDiagPort()
 
-        Print("Setup Ports")
-        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
-
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        If Settings.PortsChanged Then
+            Print("Setup Ports")
+            RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+            Print("Setup Firewall")
+            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+        End If
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -1024,11 +1083,7 @@ Public Class Form1
 
         PropRegionHandles.Clear()
         StopAllRegions()
-        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
-
-        RobustPictureBox.Image = My.Resources.nav_plain_green
-        ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
-        MysqlInterface.DeleteRegionlist()
+        StopRobust()
 
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
@@ -1042,6 +1097,24 @@ Public Class Form1
         Return True
 
     End Function
+
+    Public Sub StopRobust()
+
+        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
+        Dim ctr As Integer = 0
+        ' wait 60 seconds for robust to quit
+        While IsRobustRunning() And ctr < 60
+            Sleep(1000)
+            ctr += 1
+            Application.DoEvents()
+        End While
+        ' trust, but verify
+        If Not IsRobustRunning() Then
+            RobustPictureBox.Image = My.Resources.nav_plain_blue
+            ToolTip1.SetToolTip(RobustPictureBox, "Stopped")
+        End If
+
+    End Sub
 
     Private Sub KillFiles(AL As List(Of String))
 
@@ -1339,9 +1412,9 @@ Public Class Form1
         'Gloebits.ini
         Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
         If Settings.GloebitsEnable Then
-            Settings.SetIni("Gloebit", "Enabled", "true")
+            Settings.SetIni("Gloebit", "Enabled", "True")
         Else
-            Settings.SetIni("Gloebit", "Enabled", "false")
+            Settings.SetIni("Gloebit", "Enabled", "False")
         End If
 
         If Settings.GloebitsMode Then
@@ -1382,9 +1455,7 @@ Public Class Form1
             Case "Metro"
                 Settings.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimMetro.proto"
-            Case "AviWorlds"
-                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimAviWorlds.proto", ";")
-                Return PropOpensimBinPath & "bin\OpensimAviWorlds.proto"
+
         End Select
         Return Nothing
 
@@ -1407,9 +1478,9 @@ Public Class Form1
             Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
             ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
-            Dim Xtime As Single = 1 / 11   '1/11 of a second is as fast as she can go
-            If PropRegionClass.MinTimerInterval(X) > 0 Then
-                Xtime = PropRegionClass.MinTimerInterval(X)
+            Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
+            If PropRegionClass.MinTimerInterval(X) <> "" Then
+                Xtime = CDbl(PropRegionClass.MinTimerInterval(X))
             End If
             Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Invarient))
 
@@ -1514,9 +1585,6 @@ Public Class Form1
                 GridCommon = "Gridcommon-OsGridServer.ini"
             Case "Metro"
                 GridCommon = "Gridcommon-MetroServer.ini"
-            Case "AviWorlds"
-                My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
-                GridCommon = "Gridcommon-RegionServer.ini"
 
         End Select
 
@@ -1633,7 +1701,6 @@ Public Class Form1
             Case "Region"
             Case "OSGrid"
             Case "Metro"
-            Case "AviWorlds"
 
         End Select
 
@@ -1646,13 +1713,16 @@ Public Class Form1
         ' set new Min Timer Interval for how fast a script can go.
         Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
 
-        '' all grids requires these setting in Opensim.ini
+        ' all grids requires these setting in Opensim.ini
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
 
-        ' once and only once toggle to get Opensim 2.91
-        If Settings.DeleteScriptsOnStartupOnce() Then
+        ' Get Opensimulator Scripts to date if needed
+        If Settings.DeleteScriptsOnStartupLevel <> SimVersion Then
             KillOldFiles()  ' wipe out DLL's
             ClrCache.WipeScripts()
+            Settings.DeleteScriptsOnStartupLevel() = SimVersion ' we have scripts cleared to proper Opensim Version
+            Settings.SaveSettings()
+
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
@@ -1696,37 +1766,19 @@ Public Class Form1
 
         ' the old Clouds
         If Settings.Clouds Then
-            Settings.SetIni("Cloud", "enabled", "true")
+            Settings.SetIni("Cloud", "enabled", "True")
             Settings.SetIni("Cloud", "density", Settings.Density.ToString(Invarient))
         Else
-            Settings.SetIni("Cloud", "enabled", "false")
+            Settings.SetIni("Cloud", "enabled", "False")
         End If
 
         ' Gods
 
         If (Settings.RegionOwnerIsGod Or Settings.RegionManagerIsGod) Then
-            Settings.SetIni("Permissions", "allow_grid_gods", "true")
+            Settings.SetIni("Permissions", "allow_grid_gods", "True")
         Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "false")
+            Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
-
-        'If (Settings.RegionOwnerIsGod) Then
-        'Settings.SetIni("Permissions", "region_owner_is_god", "true")
-        'Else
-        'Settings.SetIni("Permissions", "region_owner_is_god", "false")
-        'End If
-
-        'If (Settings.RegionManagerIsGod) Then
-        'Settings.SetIni("Permissions", "region_manager_is_god", "true")
-        'Else
-        'Settings.SetIni("Permissions", "region_manager_is_god", "false")
-        'End If
-
-        'If (Settings.AllowGridGods) Then
-        'Settings.SetIni("Permissions", "allow_grid_gods", "true")
-        'Else
-        'Settings.SetIni("Permissions", "allow_grid_gods", "false")
-        'End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one
         ' ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
@@ -1738,86 +1790,73 @@ Public Class Form1
             Case 0
                 Settings.SetIni("Startup", "meshing", "ZeroMesher")
                 Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 1
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 2
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 3
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
             Case 4
                 Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case 5
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "false")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
             Case Else
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "true")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
         End Select
 
         Settings.SetIni("Map", "RenderMaxHeight", CInt(Settings.RenderMaxHeight))
         Settings.SetIni("Map", "RenderMinHeight", CInt(Settings.RenderMinHeight))
 
         If Settings.MapType = "None" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "false")
+            Settings.SetIni("Map", "GenerateMaptiles", "False")
         ElseIf Settings.MapType = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Good" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "false")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "false")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "true")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
-            Settings.SetIni("Map", "TexturePrims", "false")
-            Settings.SetIni("Map", "RenderMeshes", "false")
+            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
         ElseIf Settings.MapType = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "true")
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "true")      ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "true")
-            Settings.SetIni("Map", "TexturePrims", "true")
-            Settings.SetIni("Map", "RenderMeshes", "true")
+            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "True")
+            Settings.SetIni("Map", "RenderMeshes", "True")
         End If
-
-        ' Autobackup
-        If Settings.AutoBackup Then
-            Log("Info", "Auto backup Is On")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "true")
-        Else
-            Log("Info", "Auto backup Is Off")
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "false")
-        End If
-
-        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         ' Voice
         If Settings.VivoxEnabled Then
-            Settings.SetIni("VivoxVoice", "enabled", "true")
+            Settings.SetIni("VivoxVoice", "enabled", "True")
         Else
-            Settings.SetIni("VivoxVoice", "enabled", "false")
+            Settings.SetIni("VivoxVoice", "enabled", "False")
         End If
         Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
         Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
@@ -1831,6 +1870,9 @@ Public Class Form1
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
+        If Not Settings.PortsChanged And Not PropViewedSettings Then Return
+        Settings.PortsChanged = False
+        PropViewedSettings = False
 
         ' Self setting Region Ports
         Dim SimPort As Integer = CType(Settings.FirstRegionPort(), Integer)
@@ -1840,6 +1882,15 @@ Public Class Form1
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
             Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+
+            ' Autobackup
+            If Settings.AutoBackup &
+                PropRegionClass.SkipAutobackup(RegionNum) = "" Or
+                PropRegionClass.SkipAutobackup(RegionNum) = "False" Then
+                Settings.SetIni(simName, "AutoBackup", "True")
+            Else
+                Settings.SetIni(simName, "AutoBackup", "False")
+            End If
 
             Settings.SetIni(simName, "InternalPort", CStr(SimPort))
             PropMaxPortUsed = SimPort
@@ -1909,10 +1960,7 @@ Public Class Form1
                 Settings.SetIni(simName, "RenderMeshes", "")
             End If
 
-            If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
-                Settings.SetIni(simName, "DisableGloebits", "True")
-            End If
-
+            Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionNum))
             Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
             Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
             Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
@@ -1922,6 +1970,7 @@ Public Class Form1
             Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
             Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
             Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
+            Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionNum))
             Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
             Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionNum))
 
@@ -1930,6 +1979,27 @@ Public Class Form1
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             ' Opensim.ini in Region Folder specific to this region
             Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
+
+            ' Autobackup
+            If Settings.AutoBackup Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+            End If
+
+            If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "" Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
+            End If
+
+            If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "True" Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+            End If
+
+            If Not Settings.AutoBackup Then
+                Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
+            End If
+
+            Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
+            Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
+            Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
             If PropRegionClass.MapType(RegionNum) = "Simple" Then
                 Settings.SetIni("Map", "GenerateMaptiles", "True")
@@ -2005,7 +2075,7 @@ Public Class Form1
 
             Select Case PropRegionClass.RegionGod(RegionNum)
                 Case ""
-                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.AllowGridGods))
+                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
                 Case "False"
                     Settings.SetIni("Permissions", "region_owner_is_god", "False")
                 Case "True"
@@ -2014,7 +2084,7 @@ Public Class Form1
 
             Select Case PropRegionClass.ManagerGod(RegionNum)
                 Case ""
-                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.AllowGridGods))
+                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
                 Case "False"
                     Settings.SetIni("Permissions", "region_manager_is_god", "False")
                 Case "True"
@@ -2256,7 +2326,7 @@ Public Class Form1
         Settings.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
         Settings.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
         Settings.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
-        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notificatins to this person
+        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
 
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
@@ -2268,9 +2338,9 @@ Public Class Form1
         Settings.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
 
         If Settings.AccountConfirmationRequired Then
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "true")
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "True")
         Else
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "false")
+            Settings.SetIni("WifiService", "AccountConfirmationRequired", "False")
         End If
 
         Settings.SaveINI()
@@ -2492,7 +2562,7 @@ Public Class Form1
         ProgressBar1.Visible = False
         ToolBar(False)
 
-        Print("Dreamgrid Stopped/Aborted")
+        Print("DreamGrid Stopped/Aborted")
         Buttons(StopButton)
         Timer1.Enabled = False
         PropAborting = True
@@ -2524,7 +2594,6 @@ Public Class Form1
             PropExitList.Clear()
         Catch
         End Try
-
 
     End Sub
 
@@ -2607,6 +2676,7 @@ Public Class Form1
             Print("Webserver is running")
             ApachePictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(ApachePictureBox, "Apache is running")
+            PropApacheExited = False
             Return
         End If
         Application.DoEvents()
@@ -2721,6 +2791,7 @@ Public Class Form1
                     Print("Apache webserver is running")
                     ApachePictureBox.Image = My.Resources.nav_plain_green
                     ToolTip1.SetToolTip(ApachePictureBox, "Webserver is running")
+                    PropApacheExited = False
                     Return
                 End If
 
@@ -2788,7 +2859,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsApacheRunning() As Boolean
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
@@ -2956,6 +3027,8 @@ Public Class Form1
         IceCastPicturebox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
 
+        PropIceCastExited = False
+
     End Sub
 
 #End Region
@@ -2975,8 +3048,6 @@ Public Class Form1
                 End If
             Next
         End If
-
-        PropRestartRobust = False
 
         RobustPictureBox.Image = My.Resources.nav_plain_blue
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is Off")
@@ -3046,6 +3117,9 @@ Public Class Form1
         RobustPictureBox.Image = My.Resources.nav_plain_green
         Log("Info", "Robust is running")
         ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
+
+        PropRobustExited = False
+
         Application.DoEvents()
         Return True
 
@@ -3076,9 +3150,6 @@ Public Class Form1
             End If
         Next
 
-        Settings.DeleteScriptsOnStartupOnce() = False
-        Settings.SaveSettings()
-
         Return True
 
     End Function
@@ -3090,9 +3161,18 @@ Public Class Form1
     ' Handle Exited event and display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
 
-        PropgApacheProcessID = Nothing
+        If PropAborting Then Return
         If PropApacheUninstalling Then Return
-        Dim yesno = MsgBox("Apache quit. Do you want to see the error log file?", vbYesNo, "Error")
+
+        If Settings.RestartOnCrash And _ApacheCrashCounter < 10 Then
+            _ApacheCrashCounter += 1
+            PropApacheExited = True
+            Return
+        End If
+        _ApacheCrashCounter = 0
+        PropgApacheProcessID = Nothing
+
+        Dim yesno = MsgBox("Apache quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
@@ -3104,7 +3184,15 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        Dim yesno = MsgBox("Icecast quit. Do you want to see the error log file?", vbYesNo, "Error")
+        If Settings.RestartOnCrash And _IcecastCrashCounter < 10 Then
+            _IcecastCrashCounter += 1
+            PropIceCastExited = True
+            Return
+        End If
+        _IcecastCrashCounter = 0
+
+        Dim yesno = MsgBox("Icecast quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
+
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & IceCastLog & """")
@@ -3115,9 +3203,15 @@ Public Class Form1
     Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
 
         If PropAborting Then Return
-        PropOpensimIsRunning() = False
 
-        Dim yesno = MsgBox("Mysql exited. Do you want to see the error log file?", vbYesNo, "Error")
+        If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
+            _MysqlCrashCounter += 1
+            PropMysqlExited = True
+            Return
+        End If
+        _MysqlCrashCounter = 0
+
+        Dim yesno = MsgBox("Mysql quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             Dim files() As String
@@ -3134,12 +3228,19 @@ Public Class Form1
         PropRobustProcID = Nothing
         If PropAborting Then Return
 
-        If PropRestartRobust() Then
+        If PropRestartRobust Then
             PropRobustExited = True
-            Return ' let the exit handler do the job due to cross thread ops
+            Return
         End If
 
-        Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
+        If Settings.RestartOnCrash And _RobustCrashCounter < 10 Then
+            PropRobustExited = True
+            _RobustCrashCounter += 1
+            Return
+        End If
+        _RobustCrashCounter = 0
+
+        Dim yesno = MsgBox("Robust exited after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
@@ -3325,12 +3426,26 @@ Public Class Form1
 
     Private Sub ExitHandlerPoll()
 
-        ' 10 Second ticker
-        If PropExitHandlerIsBusy Then Return
-        If PropAborting Then Return
+        ' background process to scan for things to do.
+        If PropExitHandlerIsBusy Then Return ' not reentrant
 
-        If PropRobustExited And PropRestartRobust Then
+        If PropAborting Then Return ' not if we are aborting
+
+        If PropRestartRobust And PropRobustExited = True Then
             StartRobust()
+        End If
+        ' From the cross-threaded exited function.  These can only be set if Settings.RestartOnCrash is true
+        If PropMysqlExited Then
+            StartMySQL()
+        End If
+        If PropRobustExited Then
+            StartRobust()
+        End If
+        If PropApacheExited Then
+            StartApache()
+        End If
+        If PropIceCastExited Then
+            StartIcecast()
         End If
 
         Dim GroupName As String
@@ -3338,7 +3453,7 @@ Public Class Form1
         Dim TimerValue As Integer
 
         For Each X As Integer In PropRegionClass.RegionNumbers
-            'Application.DoEvents()
+
             ' count up to auto restart , when high enough, restart the sim
             If PropRegionClass.Timer(X) >= 0 Then
                 PropRegionClass.Timer(X) = PropRegionClass.Timer(X) + 1
@@ -3397,14 +3512,14 @@ Public Class Form1
 
             End If
 
-            ' if a restart is signalled, boot it up
+            ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Autostart And Not PropAborting Then
                 PropUpdateView = True
                 Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
                 PropUpdateView = True
             End If
 
-            ' if a restart is signalled, boot it up
+            ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
                 PropUpdateView = True
                 Boot(PropRegionClass, PropRegionClass.RegionName(X))
@@ -3423,7 +3538,7 @@ Public Class Form1
 
         Print(RegionName & " shutdown")
         Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-        ' Need a region number and a Name name is either a region or a Group. For groups we need to
+        ' Need a region number and a Name. Name is either a region or a Group. For groups we need to
         ' get a region name from the group
         GroupName = RegionName ' assume a group
         RegionNumber = PropRegionClass.FindRegionByName(RegionName)
@@ -3447,7 +3562,7 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' Maybe we crashed during warmup or runniung. Skip prompt if auto restart on crash and
+        ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
         ' restart the beast
         If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
             Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
@@ -3488,7 +3603,7 @@ Public Class Form1
     ''' <returns>boolean</returns>
     Private Function IsRobustRunning() As Boolean
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
@@ -3747,7 +3862,7 @@ Public Class Form1
     'End Sub
 
     ''' <summary>
-    ''' quiery MySQL to find any avatars in the DOS bos so we can stop it, or not
+    ''' query MySQL to find any avatars in the DOS box so we can stop it, or not
     ''' </summary>
     ''' <param name="groupname"></param>
     ''' <returns></returns>
@@ -3908,7 +4023,7 @@ Public Class Form1
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
-    ''' sims , updates lists of agents builds teleports.html for older teleports checks for crashesd regions
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4014,7 +4129,7 @@ Public Class Form1
             ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" & vbCrLf)
             Print("Opensim Is loading your item. You will find it in Inventory in " & Path & " soon.")
         Else
-            Print("Load IAR cancelled - must use the full user name and password.")
+            Print("Load IAR canceled - must use the full user name and password.")
         End If
         Me.Focus()
         Return True
@@ -4098,14 +4213,14 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToLower = "autobackup" Then
+        If Settings.BackupFolder.ToLower(Invarient) = "autobackup" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
             End If
         Else
             BackupPath = Settings.BackupFolder & "/"
-            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
 
             If Not Directory.Exists(BackupPath) Then
                 BackupPath = PropCurSlashDir & "/OutworldzFiles/Autobackup/"
@@ -4114,7 +4229,7 @@ Public Class Form1
                     MkDir(BackupPath)
                 End If
 
-                MsgBox("Autoback folder cannot be located, so It has been reset to the default:" & BackupPath)
+                MsgBox("Autobackup folder cannot be located, so it has been reset to the default:" & BackupPath)
                 Settings.BackupFolder = "AutoBackup"
                 Settings.SaveSettings()
             End If
@@ -4151,7 +4266,7 @@ Public Class Form1
             If UserClickedOK = DialogResult.OK Then
                 Dim thing = openFileDialog1.FileName
                 If thing.Length > 0 Then
-                    thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                    thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
                     If LoadIARContent(thing) Then
                         Print("Opensimulator will load " & thing & ".  This may take time to load.")
                     End If
@@ -4188,7 +4303,7 @@ Public Class Form1
             Try
                 If Not once Then
                     Print("Opensimulator will load " & thing & ". This may take some time.")
-                    thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
@@ -4247,7 +4362,7 @@ Public Class Form1
                     Dim backMeUp = MsgBox("Make a backup first and then load the new content?", vbYesNo, "Backup?")
                     Dim thing = openFileDialog1.FileName
                     If thing.Length > 0 Then
-                        thing = thing.Replace("\", "/")    ' because Opensim uses unix-like slashes, that's why
+                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionNumber)
                         For Each Y In PropRegionClass.RegionListByGroupNum(Group)
@@ -4385,7 +4500,7 @@ Public Class Form1
     Private Sub SetIAROARContent()
 
         Dim oars As String = ""
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             IslandToolStripMenuItem.Visible = False
             ClothingInventoryToolStripMenuItem.Visible = False
             Print("Refreshing Free OARs")
@@ -4452,7 +4567,7 @@ Public Class Form1
         Print("Refreshing Free IARs")
         Dim iars As String = ""
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Try
                 iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
@@ -4507,8 +4622,8 @@ Public Class Form1
     End Sub
 
     ''' <summary>
-    ''' Upload in a seperate thraed the photo, if any. Cannot be called unless main web server is
-    ''' known to be online.
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
     ''' </summary>
     Private Sub UploadPhoto()
 
@@ -4527,7 +4642,7 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit Dreamgrid and install the update?", vbYesNo)
+            Dim result = MsgBox("Update Version" & Update_version & " has been downloaded. Do you want to exit DreamGrid and install the update?", vbYesNo)
             If result = vbYes Then
                 UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
             End If
@@ -4539,7 +4654,7 @@ Public Class Form1
 
     Public Sub CheckForUpdates()
 
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
             Print("Checking for Updates")
             Try
                 Update_version = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
@@ -4589,11 +4704,11 @@ Public Class Form1
             Try
                 UpdateProcess.Start()
             Catch ex As ObjectDisposedException
-                Print("Error: Could Not launch Downloader.exe. Perhaps you can can launch it manually. ")
+                Print("Error: Could Not launch Downloader.exe. Perhaps you can launch it manually. ")
             Catch ex As InvalidOperationException
-                Print("Error: Could not launch Downloader.exe. Perhaps you can can launch it manually.")
+                Print("Error: Could not launch Downloader.exe. Perhaps you can launch it manually.")
             Catch ex As ComponentModel.Win32Exception
-                Print("Error: Could not launch Downloader.exe. Perhaps you can can and launch it manually.")
+                Print("Error: Could not launch Downloader.exe. Perhaps you can launch it manually.")
             End Try
         End If
 
@@ -4711,7 +4826,7 @@ Public Class Form1
         TestPublicLoopback()
         If Settings.DiagFailed Then
 
-            Using client As New WebClient ' downloadclient for web pages
+            Using client As New WebClient ' download client for web pages
                 Try
                     ' Set Public IP
                     Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
@@ -4751,7 +4866,7 @@ Public Class Form1
         Print("Check Diagnostics port")
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox("Diagnostics port " & Settings.DiagnosticPort & " is not working, As Dreamgrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
+            MsgBox("Diagnostics port " & Settings.DiagnosticPort & " is not working DreamGrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.", vbInformation, "There is a problem")
             PropUseIcons = False
         End If
 
@@ -4812,7 +4927,7 @@ Public Class Form1
         End If
 
         Dim isPortOpen As String = ""
-        Using client As New WebClient ' downloadclient for web pages
+        Using client As New WebClient ' download client for web pages
 
             ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
             ' anonymous random ID, both of the versions of Opensim and this program, and the
@@ -5138,7 +5253,7 @@ Public Class Form1
         If isMySqlRunning Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(MysqlPictureBox, "Mysql is Running")
-            Application.DoEvents()
+            PropMysqlExited = False
             Return True
         End If
 
@@ -5219,9 +5334,12 @@ Public Class Form1
 
         If Not PropOpensimIsRunning Then Return False
 
+        PropMysqlExited = False
+
         MysqlPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(MysqlPictureBox, "Running")
-        Application.DoEvents()
+        PropMysqlExited = False
+
         Return True
 
     End Function
@@ -5343,7 +5461,7 @@ Public Class Form1
 
                 Dim yesno = MsgBox("Are you sure? Your database will re-loaded from the backup and all existing content replaced. Avatars, sims, inventory, all of it.", vbYesNo, "Restore?")
                 If yesno = vbYes Then
-                    ' thing = thing.Replace("\", "/") ' because Opensim uses unix-like slashes,
+                    ' thing = thing.Replace("\", "/") ' because Opensim uses UNIX-like slashes,
                     ' that's why
 
                     FileStuff.DeleteFile(PropMyFolder & "\OutworldzFiles\mysql\bin\RestoreMysql.bat")
@@ -5373,7 +5491,7 @@ Public Class Form1
                     Print("")
                 End If
             Else
-                Print("Restore cancelled")
+                Print("Restore canceled")
             End If
         End If
     End Sub
@@ -5518,7 +5636,7 @@ Public Class Form1
         If Settings.ServerType <> "Robust" Then
             Return name
         End If
-        Dim client As New WebClient ' downloadclient for web pages
+        Dim client As New WebClient ' download client for web pages
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
         Catch ex As ArgumentNullException
@@ -5701,7 +5819,7 @@ Public Class Form1
         End If
 
         Dim HowManyAreOnline As Integer = 0
-        Dim Message = InputBox("What do you want to say to everyone online?")
+        Dim Message = InputBox("What do you want to say to everyone on line?")
         If Message.Length > 0 Then
             For Each X As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.AvatarCount(X) > 0 Then
@@ -5712,7 +5830,7 @@ Public Class Form1
 
             Next
             If HowManyAreOnline = 0 Then
-                Print("Nobody is online")
+                Print("Nobody is on line")
             Else
                 Print("Message sent to " & CStr(HowManyAreOnline) & " regions")
             End If
@@ -6343,19 +6461,11 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
-
-            'Diagnostics.Debug.Print(localdllname)
-
-            'For Each thing In dlls
-            ' Diagnostics.Debug.Print(thing)
-            'Next
-
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log("INFO", "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
-
             End If
         Next
 
@@ -6385,7 +6495,7 @@ Public Class Form1
                     Using reader = New StreamReader(Stream)
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
-                            '"owneruuid^00000000-0000-0000-0000-000000000001|coveramount^0|creatoruuid^00000000-0000-0000-0000-000000000001|covercharge^0|eventflags^0|name^TEMPELRITTERambiente bei der Teststrecke fuer Avatare in Deutsch im Greenworld Grid|dateUTC^1554958800|duration^1440|description^Teste einmal, wie fit Du bereits in virtuellen Welten bist. Und entdecke dabei das  Greenworld Grid Kannst Du laufen, die Kamerakontrolle, etwas bauen und schnell reagieren? Dann versuche Dein Glueck auf der Teststrecke im Tempelritterambiente auf der Sim vhs im OSGrid! Die Teststrecke hat 6 Stationen. Du kannst jederzeit abbrechen oder neu beginnen. Es macht Spass und hilft Dir, Dich besser als Newbie, Anfaenger oder Fortgeschrittener einzustufen. Die Teststrecke beginnt beim roten Infostaender im Garten von StartPunkt. Klicke darauf und loese die erste Aufgabe. Danach wirst Du zur naechsten Station teleportiert. Viel Glueck. StartPunkt in virtueller Welt - Ihr Das macht Sinn!|globalPos^128,128,25|simname^http://greenworld.online:9022:startpunkt|category^0|parcelUUID^00000000-0000-0000-0000-000000000001|"
+
                             ctr += 1
                             ' Split line on comma.
                             Dim array As String() = s.Split("|".ToCharArray())
@@ -6433,7 +6543,7 @@ Public Class Form1
     Private Sub RunDataSnapshot()
 
         If Not Settings.SearchLocal Then Return
-        Diagnostics.Debug.Print("Scanning Datasnapshot")
+        Diagnostics.Debug.Print("Scanning Data snapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
         FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\PHP7\"
@@ -6459,8 +6569,7 @@ Public Class Form1
     Private Sub SetupSearch()
 
         If Settings.ServerType = "Metro" _
-            Or Settings.ServerType = "OsGrid" _
-            Or Settings.ServerType = "AviWorlds" Then Return
+            Or Settings.ServerType = "OsGrid" Then Return
 
         If Not Settings.SearchMigration = 2 Then
 

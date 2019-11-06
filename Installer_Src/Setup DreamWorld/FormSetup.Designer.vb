@@ -205,7 +205,7 @@ Partial Class Form1
         '
         'RegionsToolStripMenuItem
         '
-        Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
+        Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
         Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
@@ -575,7 +575,7 @@ Partial Class Form1
         '
         'DiagnosticsToolStripMenuItem
         '
-        Me.DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
+        Me.DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.DiagnosticsToolStripMenuItem.Name = "DiagnosticsToolStripMenuItem"
         Me.DiagnosticsToolStripMenuItem.Size = New System.Drawing.Size(265, 22)
         Me.DiagnosticsToolStripMenuItem.Text = "Network Diagnostics"
@@ -728,7 +728,7 @@ Partial Class Form1
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_gWSCLient
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
         Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = "Check and Repair Database"

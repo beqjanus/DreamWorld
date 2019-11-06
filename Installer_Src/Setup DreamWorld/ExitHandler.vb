@@ -37,6 +37,7 @@ Public Class Handler
             Exitlist1.Add(RegionHandles1.Item(pid))
             Debug.Print(RegionHandles1.Item(pid) & " Exited")
         Catch ex As KeyNotFoundException
+        Catch ex As ArgumentNullException
         Catch ex As NotSupportedException
         End Try
 

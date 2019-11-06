@@ -117,6 +117,9 @@
 	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Include="Compiler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="CSCodeGenerator.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -126,16 +129,13 @@
 	  <Compile Include="ICodeConverter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LSL2CSCodeTransformer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Compiler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="lsl.lexer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="lsl.parser.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LSL2CSCodeTransformer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

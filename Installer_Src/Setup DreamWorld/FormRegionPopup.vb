@@ -23,6 +23,7 @@
 Public Class FormRegionPopup
 
     Dim gPick As String = ""
+    Private _RegionName As String = ""
 
 #Region "ScreenSize"
 
@@ -61,6 +62,8 @@ Public Class FormRegionPopup
 
     Public Sub Init(RegionName As String)
 
+        _RegionName = RegionName
+
         Dim X = Form1.PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
         GroupBox1.Text = Form1.PropRegionClass.GroupName(X)
@@ -69,11 +72,13 @@ Public Class FormRegionPopup
             StartButton3.Enabled = False
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
+            Button1.Enabled = False
         Else
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
+                Button1.Enabled = True
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
@@ -81,6 +86,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
+                Button1.Enabled = False
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
@@ -88,6 +94,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
+                Button1.Enabled = False
             End If
 
             ' stopped
@@ -95,6 +102,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
+                Button1.Enabled = False
             End If
         End If
 
@@ -125,6 +133,11 @@ Public Class FormRegionPopup
 
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click
         gPick = "Edit"
+        DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        gPick = "Teleport"
         DialogResult = DialogResult.OK
     End Sub
 

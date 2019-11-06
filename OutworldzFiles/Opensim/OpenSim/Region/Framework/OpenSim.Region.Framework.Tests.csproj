@@ -251,6 +251,9 @@
 	  <Compile Include="Scenes\Tests\SceneObjectCopyTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Scenes\Tests\SceneObjectCrossingTests.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Scenes\Tests\SceneObjectDeRezTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -296,6 +299,9 @@
 	  <Compile Include="Scenes\Tests\ScenePresenceSitTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="Scenes\Tests\ScenePresenceTeleportTests.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="Scenes\Tests\SceneStatisticsTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -315,12 +321,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Scenes\Tests\UuidGathererTests.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\Tests\SceneObjectCrossingTests.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="Scenes\Tests\ScenePresenceTeleportTests.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

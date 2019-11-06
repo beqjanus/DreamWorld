@@ -206,8 +206,8 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
+        Form1.Log("Info", "Loading Settings.ini")
         Try
-            Form1.Log("Info", "Loading Settings.ini")
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
         Catch ex As Exception
             Form1.ErrorLog("Failed to load Settings.ini")
@@ -217,6 +217,7 @@ Public Class MySettings
 
     Public Sub LoadIni(arg As String, comment As String)
 
+        Form1.Log("Info", "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -252,6 +253,7 @@ Public Class MySettings
 
     Public Sub SaveINI()
 
+        Form1.Log("Info", "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
         Catch ex As Exception
@@ -262,6 +264,7 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
+        Form1.Log("Info", "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.ASCII)
         Catch ex As Exception
@@ -296,6 +299,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property PortsChanged As Boolean
+        Get
+            Return CType(GetMySetting("PortsChanged", "True"), Boolean)
+        End Get
+        Set(value As Boolean)
+            SetMySetting("PortsChanged", CStr(value))
+        End Set
+    End Property
 
     Public Property SupportViewerObjectsCache() As Boolean
         Get
@@ -487,12 +499,12 @@ Public Class MySettings
 
     End Property
 
-    Public Property DeleteScriptsOnStartupOnce() As Boolean
+    Public Property DeleteScriptsOnStartupLevel() As String
         Get
-            Return CType(GetMySetting("DeleteScriptsOnStartupOnce", "True"), Boolean)
+            Return GetMySetting("DeleteScriptsOnStartupLevel", "")
         End Get
         Set
-            SetMySetting("DeleteScriptsOnStartupOnce", CStr(Value))
+            SetMySetting("DeleteScriptsOnStartupLevel", Value)
         End Set
     End Property
 

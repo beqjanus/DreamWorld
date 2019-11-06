@@ -197,10 +197,10 @@
 	  <Compile Include="J2KImage.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLImageManager.cs">
+	  <Compile Include="LLClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OutgoingPacket.cs">
+	  <Compile Include="LLImageManager.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLUDPClient.cs">
@@ -209,7 +209,16 @@
 	  <Compile Include="LLUDPServer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="LLUDPServerCommands.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="LLUDPZeroEncoder.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="OpenSimUDPBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OutgoingPacket.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PacketPool.cs">
@@ -222,15 +231,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="UnackedPacketCollection.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLUDPZeroEncoder.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLUDPServerCommands.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLClientView.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

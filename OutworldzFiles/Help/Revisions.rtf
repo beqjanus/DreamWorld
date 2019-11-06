@@ -1,6 +1,6 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Verdana;}}
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Verdana;}{\f2\fnil\fcharset0 Verdana;}}
 {\colortbl ;\red68\green114\blue196;\red0\green0\blue0;\red0\green0\blue255;}
-{\*\generator Riched20 10.0.18362}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+{\*\generator Riched20 10.0.19013}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\widctlpar\fi720\sl276\slmult1\cf1\expndtw10\caps\f0\fs52 Revisions for Dreamgrid\par
 
 \pard\widctlpar\li720\ri720\sb100\tx810\cf0\expndtw0\caps0\f1\fs21\par
@@ -8,21 +8,43 @@
 \pard\nowidctlpar\li720\ri720\sb100\par
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\par
 \par
+\cf2\f2 V3.25 \par
+Disable region Auto Backup added to region Overides\par
+Drop a useless old images to reduce size of exe\par
+God mode fixes galore, reset defaults in Region INI to blanks\par
+Added Overrides to Region List Details for carious Gods, Publicity and to skip region Auto Backup\par
+Teleport hop link updated to hop in region list as secondlife link no longer works in Firestorm 6 series.\par
+Clear script cache automagically if Opensim version or hash changes\par
+\par
+V3.24\par
+Updated to Released Opensim  "0.9.1.1 Yeti "Server Release Notes" hash #defa235859889dbd". This is one patch past 0.9.1.0 for server release notes.\par
+\par
+V3.23\par
+Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel. \par
+Robust, Apache, Icecast and Mysql can be set to auto restart if they crash.\par
+Update Mysq.Data.dll\par
+Update Visual Studio 2017 to latest FXcops and reduce footprint on unused extension in Github\par
+Removed embedded zip compressors for smaller footprint.\par
+Drop unused icons\par
+\par
+V3.22\par
+Shorten boot time by being smart about Firewall updates. On a very fast machine, it takes 9 seconds to get to robust start. Firewall took up 31 seconds more.  Now it takes 0 unless you add a region.\par
+Restart Robust, Apache,Mysql and Apache if Auto restart is Enabled\par
+\par
 V3.21 \par
 Saving a region and them immediately re-opening it did not show changes. The changes were saved to disk but not reloaded into RAM.\par
 Rework the way ports increment from the starting number\par
 Catch error in a crashed region that goes down while shutting down.\par
-Strict typechecking on some region variables. Inegers, singles and doubles versus strings.\par
-Add Sean';s latest Radio IAR to the free IAR collection\par
+Strict type checking on some region variables. Integers, singles and doubles versus strings.\par
+Add Sean's latest Radio IAR to the free IAR collection\par
 Y coordinate changed when X changed - was supposed to be region size.\par
-God mode overrides fixed. They always overrode the global for Level 200 Gods to off, even if uinselected.\par
-Prevent a lower versus upper case issue if the puny human entered 'autobackup'.\par
-\par
+God mode overrides fixed. They always overrode the global for Level 200 Gods to off, even if unselected.\par
+Prevent a lower versus upper case issue if the puny human entered 'autobackup'.\cf0\par
 \par
 V3.2 Release Rollup\par
 A wrong "print" caused a crash when a backup was manually run.\par
 Always use English culture until translations are available.\par
-\par
+\f1\par
 \par
 V3.197\par
 LocalSearch in Settings did not 'stick;\par
