@@ -2307,7 +2307,7 @@ Public Class Form1
 
                     If line.Contains("Region_REPLACE") Then
 
-                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion, FallbackRegion" & """"
+                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
                         Diagnostics.Debug.Print(line)
                         outputFile.WriteLine(line)
 
@@ -2315,7 +2315,7 @@ Public Class Form1
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
 
-                                If RegionName <> DefaultName Then
+                                If RegionName <> Settings.WelcomeRegion Then
                                     If PropRegionClass.SmartStart(RegionNum) Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
@@ -2326,6 +2326,8 @@ Public Class Form1
 
                                     Diagnostics.Debug.Print(line)
                                     outputFile.WriteLine(line)
+                                Else
+                                    Diagnostics.Debug.Print(line)
                                 End If
 
                             Next
