@@ -2092,7 +2092,7 @@ Public Class Form1
             End Select
 
             ' no main setting for these
-            Settings.SetIni("SmartStart", "Enabled", CStr(PropRegionClass.SmartStart(RegionNum)))
+            Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
             Settings.SetIni("DisallowForeigners", "Enabled", CStr(PropRegionClass.DisallowForeigners(RegionNum)))
             Settings.SetIni("DisallowResidents", "Enabled", CStr(PropRegionClass.DisallowResidents(RegionNum)))
 
@@ -2386,7 +2386,7 @@ Public Class Form1
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
 
                                 If RegionName <> Settings.WelcomeRegion Then
-                                    If PropRegionClass.SmartStart(RegionNum) Then
+                                    If PropRegionClass.SmartStart(RegionNum) = "True" Then
                                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                         line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
                                     Else
@@ -2405,8 +2405,7 @@ Public Class Form1
                             For Each RegionNum As Integer In PropRegionClass.RegionNumbers
                                 Dim RegionName = PropRegionClass.RegionName(RegionNum)
                                 If RegionName <> Settings.WelcomeRegion _
-                                And PropRegionClass.SmartStart(RegionNum) Then
-
+                                And PropRegionClass.SmartStart(RegionNum) = "True" Then
                                     RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                     line = "Region_" & RegionName & " = " & "FallbackRegion"
                                     Diagnostics.Debug.Print(line)
@@ -3271,7 +3270,7 @@ Public Class Form1
         Buttons(StopButton)
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-        If Regionclass.SmartStart(RegionNumber) And Settings.SmartStart And Not SkipSmartStart Then
+        If Regionclass.SmartStart(RegionNumber) = "True" And Settings.SmartStart And Not SkipSmartStart Then
             Print("Smart Start " & BootName)
             Return True
         End If
@@ -3465,7 +3464,7 @@ Public Class Form1
                 GroupName = PropRegionClass.GroupName(X)
 
                 ' Smart shutdown
-                If PropRegionClass.SmartStart(X) And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     SequentialPause()
                     ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
                     Print("Smart Stop " & GroupName)
