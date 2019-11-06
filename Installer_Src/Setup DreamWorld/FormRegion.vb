@@ -235,8 +235,9 @@ Public Class FormRegion
         If PropRegionClass.SkipAutobackup(N1) = "True" Then
             SkipAutoCheckBox.Checked = "True"
         End If
-
-        SmartStartCheckBox.Checked = PropRegionClass.SmartStart(N1)
+        If PropRegionClass.SmartStart(N1) = "True" Then
+            SmartStartCheckBox.Checked = True
+        End If
 
         Select Case PropRegionClass.DisableGloebits(N1)
             Case ""
