@@ -25,7 +25,7 @@ Imports System.IO
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
-Imports System.Net.Sockets
+Imports System.Net.SocketsSmartstart
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
@@ -2092,7 +2092,7 @@ Public Class Form1
             End Select
 
             ' no main setting for these
-            Settings.SetIni("SmartStart", "Enabled", CStr(PropRegionClass.SmartStart(RegionNum)))
+            Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
             Settings.SetIni("DisallowForeigners", "Enabled", CStr(PropRegionClass.DisallowForeigners(RegionNum)))
             Settings.SetIni("DisallowResidents", "Enabled", CStr(PropRegionClass.DisallowResidents(RegionNum)))
 
@@ -2375,46 +2375,33 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
+                    ' Replace the block with a list of regions with the 
+                    ' Region_Name = DefaultRegion, DefaultHGRegion is Welcome
+                    ' Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is enabled
+                    ' Region_Name = FallbackRegion if not a SmartStart
+
                     If line.Contains("Region_REPLACE") Then
 
-                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
-                        Diagnostics.Debug.Print(line)
-                        outputFile.WriteLine(line)
-
-                        If Settings.SmartStart Then
-                            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                                Dim RegionName = PropRegionClass.RegionName(RegionNum)
-
-                                If RegionName <> Settings.WelcomeRegion Then
-                                    If PropRegionClass.SmartStart(RegionNum) Then
-                                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                        line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
-                                    Else
-                                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                        line = "Region_" & RegionName & " = " & "FallbackRegion"
-                                    End If
-
-                                    Diagnostics.Debug.Print(line)
-                                    outputFile.WriteLine(line)
+                        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+                            Dim RegionName = PropRegionClass.RegionName(RegionNum)
+                            If RegionName <> Settings.WelcomeRegion Then
+                                If Settings.SmartStart And PropRegionClass.SmartStart(RegionNum) = "True" & Then
+                                    RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                                    line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
                                 Else
-                                    Diagnostics.Debug.Print(line)
-                                End If
-
-                            Next
-                        Else
-                            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                                Dim RegionName = PropRegionClass.RegionName(RegionNum)
-                                If RegionName <> Settings.WelcomeRegion _
-                                And PropRegionClass.SmartStart(RegionNum) Then
-
                                     RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                     line = "Region_" & RegionName & " = " & "FallbackRegion"
-                                    Diagnostics.Debug.Print(line)
-                                    outputFile.WriteLine(line)
-
                                 End If
-                            Next
-                        End If
+                                Diagnostics.Debug.Print(line)
+                                outputFile.WriteLine(line)
+                            Else
+                                line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
+                                Diagnostics.Debug.Print(line)
+                                outputFile.WriteLine(line)
+                            End If
+
+                        Next
+
                     Else
                         outputFile.WriteLine(line)
                     End If
@@ -3271,7 +3258,7 @@ Public Class Form1
         Buttons(StopButton)
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-        If Regionclass.SmartStart(RegionNumber) And Settings.SmartStart And Not SkipSmartStart Then
+        If Regionclass.SmartStart(RegionNumber) = "True" And Settings.SmartStart And Not SkipSmartStart Then
             Print("Smart Start " & BootName)
             Return True
         End If
@@ -3465,7 +3452,7 @@ Public Class Form1
                 GroupName = PropRegionClass.GroupName(X)
 
                 ' Smart shutdown
-                If PropRegionClass.SmartStart(X) And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     SequentialPause()
                     ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
                     Print("Smart Stop " & GroupName)
