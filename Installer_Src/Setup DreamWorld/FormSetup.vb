@@ -3536,15 +3536,15 @@ Public Class Form1
             If PropRegionClass.Timer(X) >= 0 Then
                 PropRegionClass.Timer(X) = PropRegionClass.Timer(X) + 1
             End If
+            GroupName = PropRegionClass.GroupName(X)
 
             If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(X) >= 0 Then
                 TimerValue = PropRegionClass.Timer(X)
                 ' if it is past time and no one is in the sim...
-                GroupName = PropRegionClass.GroupName(X)
-
                 ' Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
-                    DoSuspend_Resume(PropRegionClass.ProcessID(X))
+                    Print("Suspending " & GroupName)
+                    DoSuspend_Resume(PropRegionClass.RegionName(X))
                 End If
 
                 If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
@@ -3584,6 +3584,7 @@ Public Class Form1
 
             ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                Print("Resuming" & GroupName)
                 DoSuspend_Resume(PropRegionClass.RegionName(X), True)
                 PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted
                 PropUpdateView = True

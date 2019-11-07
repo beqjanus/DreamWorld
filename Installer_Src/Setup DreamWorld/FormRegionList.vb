@@ -239,6 +239,7 @@ Public Class RegionList
         SmartStart = 10
         Home = 11
         HomeOffline = 12
+        Suspended = 13
 
     End Enum
 
@@ -356,6 +357,7 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 10 - 2 user
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Form1.Invarient))  '  11- home
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Form1.Invarient))  '  12- home _offline
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Form1.Invarient))  '  13- Suspended
         Form1.PropUpdateView = True ' make form refresh
 
         LoadMyListView()
@@ -622,6 +624,9 @@ Public Class RegionList
                         And PropRegionClass1.SmartStart(X) Then
                     Letter = "Waiting"
                     Num = DGICON.SmartStart
+                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                    Letter = "Suspended"
+                    Num = DGICON.Suspended
                 ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                     Letter = "Recycling Down"
                     Num = DGICON.recyclingdown

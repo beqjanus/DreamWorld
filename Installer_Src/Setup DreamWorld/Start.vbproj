@@ -728,7 +728,6 @@
     <None Include="packages.config" />
     <None Include="Resources\gear_pause.png" />
     <None Include="Resources\exit.png" />
-    <None Include="Resources\about1.png" />
     <None Include="Resources\about.png" />
     <None Include="Resources\question_and_answer.png" />
     <None Include="Resources\window_edit.png" />
