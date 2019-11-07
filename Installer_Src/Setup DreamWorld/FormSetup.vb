@@ -3389,7 +3389,10 @@ Public Class Form1
 
 #Region "ExitHandlers"
 
-    Private Sub DoSuspend_Resume(PID As Integer, Optional ResumeSwitch As Boolean = False)
+    Private Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
+
+        Dim RegionNum = PropRegionClass.FindRegionByName(RegionName)
+        Dim PID = PropRegionClass.ProcessID(RegionNum)
 
         Dim R As String
         If ResumeSwitch Then
@@ -3413,6 +3416,18 @@ Public Class Form1
 
         Try
             SuspendProcess.Start()
+            Dim GroupName = PropRegionClass.GroupName(RegionNum)
+            For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+                If ResumeSwitch Then
+                    PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.StartCounting
+                    PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Booted
+                Else
+                    PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
+                End If
+            Next
+            PropUpdateView = True ' make form refresh
+
         Catch ex As ObjectDisposedException
             Print("Error: Could Not launch SR.exe. ")
         Catch ex As InvalidOperationException
@@ -3467,17 +3482,7 @@ Public Class Form1
 
                 ' Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
-
                     DoSuspend_Resume(PropRegionClass.ProcessID(X))
-
-                    'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
-                    'P.SuspendP()
-                    For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                        PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
-                    Next
-                    PropUpdateView = True ' make form refresh
-
                 End If
 
                 If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
@@ -3517,13 +3522,8 @@ Public Class Form1
 
             ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                PropUpdateView = True
-                '!!!
-                'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
-                'P.Resume()
-                DoSuspend_Resume(PropRegionClass.ProcessID(X), True)
+                DoSuspend_Resume(PropRegionClass.RegionName(X), True)
                 PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted
-                'Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
                 PropUpdateView = True
             End If
 

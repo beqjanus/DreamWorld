@@ -697,7 +697,6 @@
     <None Include="Resources\navigate_up.png" />
     <None Include="Resources\navigate_down.png" />
     <None Include="Resources\package.png" />
-    <None Include="Resources\PDF..png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\printer3.png" />
     <None Include="Resources\ClicktoInsertPhoto.jpg" />

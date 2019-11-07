@@ -1,4 +1,2 @@
 ﻿[*.vb]
 
-# BC42353: Function doesn't return a value on all code paths
-dotnet_diagnostic.BC42353.severity = silent
