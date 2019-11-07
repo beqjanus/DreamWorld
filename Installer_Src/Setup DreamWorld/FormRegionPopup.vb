@@ -22,8 +22,12 @@
 
 Public Class FormRegionPopup
 
-    Dim gPick As String = ""
+#Region "Private Fields"
+
     Private _RegionName As String = ""
+    Dim gPick As String = ""
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -56,9 +60,11 @@ Public Class FormRegionPopup
 
 #End Region
 
-    Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        SetScreen()
-    End Sub
+#Region "Public Methods"
+
+    Public Function Choice() As String
+        Return gPick
+    End Function
 
     Public Sub Init(RegionName As String)
 
@@ -112,22 +118,12 @@ Public Class FormRegionPopup
 
     End Sub
 
-    Public Function Choice() As String
-        Return gPick
-    End Function
+#End Region
 
-    Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton1.Click
-        gPick = "Stop"
-        DialogResult = DialogResult.OK
-    End Sub
+#Region "Private Methods"
 
-    Private Sub StartButton3_Click(sender As Object, e As EventArgs) Handles StartButton3.Click
-        gPick = "Start"
-        DialogResult = DialogResult.OK
-    End Sub
-
-    Private Sub RecycleButton2_Click(sender As Object, e As EventArgs) Handles RecycleButton2.Click
-        gPick = "Recycle"
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        gPick = "Teleport"
         DialogResult = DialogResult.OK
     End Sub
 
@@ -136,9 +132,25 @@ Public Class FormRegionPopup
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        gPick = "Teleport"
+    Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        SetScreen()
+    End Sub
+
+    Private Sub RecycleButton2_Click(sender As Object, e As EventArgs) Handles RecycleButton2.Click
+        gPick = "Recycle"
         DialogResult = DialogResult.OK
     End Sub
+
+    Private Sub StartButton3_Click(sender As Object, e As EventArgs) Handles StartButton3.Click
+        gPick = "Start"
+        DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton1.Click
+        gPick = "Stop"
+        DialogResult = DialogResult.OK
+    End Sub
+
+#End Region
 
 End Class

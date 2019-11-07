@@ -32,8 +32,18 @@ Namespace My
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
 
+#Region "Private Methods"
+
+        Private Sub MyApplication_NetworkAvailabilityChanged(
+                ByVal sender As Object,
+                ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
+            ) Handles Me.UnhandledException
+
+            Form1.Print("A network change occured. A restart may be necessary.")
+        End Sub
+
         Private Sub MyApplication_UnhandledException(
-            ByVal sender As Object,
+                    ByVal sender As Object,
             ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
          ) Handles Me.UnhandledException
 
@@ -48,13 +58,7 @@ Namespace My
             End If
         End Sub
 
-        Private Sub MyApplication_NetworkAvailabilityChanged(
-                ByVal sender As Object,
-                ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
-            ) Handles Me.UnhandledException
-
-            Form1.Print("A network change occured. A restart may be necessary.")
-        End Sub
+#End Region
 
     End Class
 

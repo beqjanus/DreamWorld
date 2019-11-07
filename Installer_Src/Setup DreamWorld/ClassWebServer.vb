@@ -26,20 +26,22 @@ Imports System.Threading
 Imports MySql.Data.MySqlClient
 
 Public Class NetServer
-    Private running As Boolean = False
 
-    Dim listen As Boolean = True
+#Region "Private Fields"
 
-    Private WebThread As Thread
     Private Shared blnFlag As Boolean
     Private Shared singleWebserver As NetServer
-    Private PropMyFolder As String
-
+    Dim listen As Boolean = True
     Private MyPort As String
-
+    Private PropMyFolder As String
     Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
-
+    Private running As Boolean = False
     Dim Setting As MySettings
+    Private WebThread As Thread
+
+#End Region
+
+#Region "Public Properties"
 
     Public Property PropRegionClass1 As RegionMaker
         Get
@@ -50,101 +52,9 @@ Public Class NetServer
         End Set
     End Property
 
-    Public Sub StartServer(pathinfo As String, Settings As MySettings)
+#End Region
 
-        ' stash some globs
-        Setting = Settings
-        MyPort = CStr(Form1.Settings.DiagnosticPort)
-        PropMyFolder = pathinfo
-
-        If running Then Return
-
-        Log("Info", "Starting Diagnostic Webserver")
-        WebThread = New Thread(AddressOf Looper)
-        Try
-            WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As ArgumentException
-            Log("Error", ex.Message)
-        Catch ex As ThreadStartException
-            Log("Error", ex.Message)
-        Catch ex As InvalidOperationException
-            Log("Error", ex.Message)
-        End Try
-        WebThread.Start()
-        running = True
-
-    End Sub
-
-    Private Sub Looper()
-
-        listen = True
-
-        Using listener As New System.Net.HttpListener()
-            listener.Prefixes.Clear()
-            listener.Prefixes.Add("http://+:" & MyPort & "/")
-
-            Try
-                listener.Start() ' Throws Exception
-            Catch ex As HttpListenerException
-                Log("Error", ex.Message)
-                Return
-            Catch ex As ObjectDisposedException
-                Log("Error", ex.Message)
-                Return
-            End Try
-
-            Dim result As IAsyncResult
-            While listen
-                result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
-                result.AsyncWaitHandle.WaitOne()
-            End While
-
-        End Using
-
-        running = False
-        Log("Info", "Webserver thread shutdown")
-
-    End Sub
-
-    Public Sub StopWebServer()
-
-        Log("Info", "Stopping Webserver")
-        listen = False
-        Application.DoEvents()
-        WebThread.Abort()
-        'WebThread.Join()
-        Log("Info", "Shutdown Complete")
-
-    End Sub
-
-    Friend Shared Function GetWebServer() As NetServer
-
-        If Not blnFlag Then
-            singleWebserver = New NetServer
-            blnFlag = True
-            Return singleWebserver
-        Else
-            Return singleWebserver
-        End If
-
-    End Function
-
-    Private Sub Log(category As String, message As String)
-        Debug.Print(message)
-        Try
-            Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) & ":" & category & ":" & message)
-            End Using
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
-        End Try
-    End Sub
+#Region "Public Methods"
 
     Public Sub ListenerCallback(ByVal result As IAsyncResult)
         If result Is Nothing Then Return
@@ -195,6 +105,62 @@ Public Class NetServer
         End Try
     End Sub
 
+    Public Sub StartServer(pathinfo As String, Settings As MySettings)
+
+        ' stash some globs
+        Setting = Settings
+        MyPort = CStr(Form1.Settings.DiagnosticPort)
+        PropMyFolder = pathinfo
+
+        If running Then Return
+
+        Log("Info", "Starting Diagnostic Webserver")
+        WebThread = New Thread(AddressOf Looper)
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As ArgumentException
+            Log("Error", ex.Message)
+        Catch ex As ThreadStartException
+            Log("Error", ex.Message)
+        Catch ex As InvalidOperationException
+            Log("Error", ex.Message)
+        End Try
+        WebThread.Start()
+        running = True
+
+    End Sub
+
+    Public Sub StopWebServer()
+
+        Log("Info", "Stopping Webserver")
+        listen = False
+        Application.DoEvents()
+        WebThread.Abort()
+        'WebThread.Join()
+        Log("Info", "Shutdown Complete")
+
+    End Sub
+
+#End Region
+
+#Region "Internal Methods"
+
+    Friend Shared Function GetWebServer() As NetServer
+
+        If Not blnFlag Then
+            singleWebserver = New NetServer
+            blnFlag = True
+            Return singleWebserver
+        Else
+            Return singleWebserver
+        End If
+
+    End Function
+
+#End Region
+
+#Region "Private Methods"
+
     Private Shared Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
@@ -241,5 +207,55 @@ Public Class NetServer
         Return HTML
 
     End Function
+
+    Private Sub Log(category As String, message As String)
+        Debug.Print(message)
+        Try
+            Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) & ":" & category & ":" & message)
+            End Using
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
+        End Try
+    End Sub
+
+    Private Sub Looper()
+
+        listen = True
+
+        Using listener As New System.Net.HttpListener()
+            listener.Prefixes.Clear()
+            listener.Prefixes.Add("http://+:" & MyPort & "/")
+
+            Try
+                listener.Start() ' Throws Exception
+            Catch ex As HttpListenerException
+                Log("Error", ex.Message)
+                Return
+            Catch ex As ObjectDisposedException
+                Log("Error", ex.Message)
+                Return
+            End Try
+
+            Dim result As IAsyncResult
+            While listen
+                result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
+                result.AsyncWaitHandle.WaitOne()
+            End While
+
+        End Using
+
+        running = False
+        Log("Info", "Webserver thread shutdown")
+
+    End Sub
+
+#End Region
 
 End Class

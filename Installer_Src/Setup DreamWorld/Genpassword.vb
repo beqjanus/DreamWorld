@@ -24,8 +24,15 @@ Imports System.Security.Cryptography
 Imports System.Text
 
 Public Class PassGen
-    Private possibleChars As String
+
+#Region "Private Fields"
+
     Private len As Int32
+    Private possibleChars As String
+
+#End Region
+
+#Region "Public Methods"
 
     Public Function GeneratePass() As String
         possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
@@ -48,6 +55,10 @@ Public Class PassGen
 
     End Function
 
+#End Region
+
+#Region "Private Methods"
+
     Private Shared Function GetRandomInt() As Integer
         Dim randomBytes As Byte() = New Byte(3) {}
         Dim rng As New RNGCryptoServiceProvider()
@@ -56,5 +67,7 @@ Public Class PassGen
         Dim randomInt As Integer = BitConverter.ToInt32(randomBytes, 0)
         Return randomInt
     End Function
+
+#End Region
 
 End Class

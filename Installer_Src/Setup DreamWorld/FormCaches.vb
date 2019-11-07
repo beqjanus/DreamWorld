@@ -23,7 +23,12 @@
 Imports System.Text.RegularExpressions
 
 Public Class FormCaches
+
+#Region "Private Fields"
+
     Private gInitted As Boolean = False
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -55,6 +60,64 @@ Public Class FormCaches
     End Sub
 
 #End Region
+
+#Region "Private Methods"
+
+    Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If CheckBox1.Checked Then
+            ClrCache.WipeScripts()
+        End If
+
+        If CheckBox2.Checked Then
+            ClrCache.WipeBakes()
+        End If
+
+        If CheckBox3.Checked Then
+            ClrCache.WipeAssets()
+        End If
+
+        If CheckBox4.Checked Then
+            ClrCache.WipeImage()
+        End If
+        If CheckBox5.Checked Then
+            ClrCache.WipeMesh()
+        End If
+
+        If Not Form1.PropOpensimIsRunning() Then
+            Form1.Print("All Server Caches cleared")
+        Else
+            Form1.Print("All Server Caches except Scripts and Avatar bakes were cleared. Opensim must be stopped to clear script and bake caches.")
+        End If
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
+        If Not gInitted Then Return
+        Form1.PropViewedSettings = True
+    End Sub
+
+    Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
+        If Not gInitted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
+        Form1.PropViewedSettings = True
+    End Sub
+
+    Private Sub Form_unload() Handles Me.Closing
+
+        Form1.Settings.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Invarient)
+        Form1.Settings.CacheFolder = CacheFolder.Text
+        Form1.Settings.CacheEnabled = CacheEnabledBox.Checked
+        Form1.Settings.CacheTimeout = CacheTimeout.Text
+        Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
+    End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -99,72 +162,12 @@ Public Class FormCaches
         Form1.HelpOnce("Cache")
     End Sub
 
-    Private Sub Form_unload() Handles Me.Closing
-
-        Form1.Settings.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Invarient)
-        Form1.Settings.CacheFolder = CacheFolder.Text
-        Form1.Settings.CacheEnabled = CacheEnabledBox.Checked
-        Form1.Settings.CacheTimeout = CacheTimeout.Text
-        Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        If CheckBox1.Checked Then
-            ClrCache.WipeScripts()
-        End If
-
-        If CheckBox2.Checked Then
-            ClrCache.WipeBakes()
-        End If
-
-        If CheckBox3.Checked Then
-            ClrCache.WipeAssets()
-        End If
-
-        If CheckBox4.Checked Then
-            ClrCache.WipeImage()
-        End If
-        If CheckBox5.Checked Then
-            ClrCache.WipeMesh()
-        End If
-
-        If Not Form1.PropOpensimIsRunning() Then
-            Form1.Print("All Server Caches cleared")
-        Else
-            Form1.Print("All Server Caches except Scripts and Avatar bakes were cleared. Opensim must be stopped to clear script and bake caches.")
-        End If
-
-        Me.Close()
-
-    End Sub
-
-    Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
-        Form1.Help("Cache")
-    End Sub
-
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
         Form1.Help("Cache")
     End Sub
 
-    Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
-        If Not gInitted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
-        Form1.PropViewedSettings = True
-    End Sub
-
-    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
-        If Not gInitted Then Return
-        Form1.PropViewedSettings = True
-    End Sub
-
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        Form1.Help("Flotsam Cache")
+    Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
+        Form1.Help("Cache")
     End Sub
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -190,6 +193,10 @@ Public Class FormCaches
 
     End Sub
 
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        Form1.Help("Flotsam Cache")
+    End Sub
+
     Private Sub ViewerCacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ViewerCacheCheckbox.CheckedChanged
 
         ' Support viewers object cache, default true
@@ -197,5 +204,7 @@ Public Class FormCaches
         Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
+
+#End Region
 
 End Class

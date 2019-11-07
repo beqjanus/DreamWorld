@@ -22,7 +22,17 @@
 
 Public Class FormFlotsamCache
 
+#Region "Private Fields"
+
     Private gInitted As Boolean = False
+
+#End Region
+
+#Region "Private Methods"
+
+    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
+
+    End Sub
 
     Private Sub Form_Load() Handles Me.Load
 
@@ -64,8 +74,6 @@ Public Class FormFlotsamCache
 
     End Sub
 
-    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
-
-    End Sub
+#End Region
 
 End Class

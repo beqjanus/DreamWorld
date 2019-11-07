@@ -55,6 +55,8 @@ Public Class FormAutoBackups
 
 #End Region
 
+#Region "Private Methods"
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoBackupKeepFilesForDays.Text = CStr(Form1.Settings.KeepForDays)
@@ -98,6 +100,8 @@ Public Class FormAutoBackups
         SetScreen()
 
     End Sub
+
+#End Region
 
 #Region "Changes"
 
@@ -171,12 +175,6 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        Backup()
-
-    End Sub
-
     Private Sub Backup()
 
         'Create an instance of the open file dialog box.
@@ -199,8 +197,10 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
-        Form1.Help("Backup")
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+
+        Form1.BackupDB()
+
     End Sub
 
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
@@ -211,10 +211,14 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-        Form1.BackupDB()
+        Backup()
 
+    End Sub
+
+    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
+        Form1.Help("Backup")
     End Sub
 
 #End Region

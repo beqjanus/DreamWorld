@@ -27,6 +27,8 @@ Public Class FormBackupCheckboxes
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
 
+    Private Handler As New EventHandler(AddressOf Resize_page)
+
     Public Property ScreenPosition As ScreenPos
         Get
             Return _screenPosition
@@ -35,8 +37,6 @@ Public Class FormBackupCheckboxes
             _screenPosition = value
         End Set
     End Property
-
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -54,38 +54,39 @@ Public Class FormBackupCheckboxes
 
 #End Region
 
-    Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Form1.HelpOnce("Backup Manually")
+#Region "Private Methods"
 
-        TextBox1.BackColor = Me.BackColor
-        ' init the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
+    Private Shared Sub CpyFile(From As String, Dest As String)
 
-        If Not Form1.CheckMysql Then
-            MySqlCheckBox.Enabled = True
-            MySqlCheckBox.Checked = True
-        Else
-            MySqlCheckBox.Enabled = False
-            MySqlCheckBox.Checked = False
-        End If
+        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
 
-        If Form1.Settings.FsAssetsEnabled Then
-            FSAssetsCheckBox.Enabled = True
-            FSAssetsCheckBox.Checked = True
-        Else
-            FSAssetsCheckBox.Enabled = False
-            FSAssetsCheckBox.Checked = False
-        End If
+        'Create the file stream for the source file
+        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+        'Create the file stream for the destination file
+        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
+        'Determine the size in bytes of the source file (-1 as our position starts at 0)
+        Dim lngLen As Long = streamRead.Length - 1
+        Dim byteBuffer(1048576) As Byte   'our stream buffer
+        Dim intBytesRead As Integer    'number of bytes read
 
-    End Sub
+        While streamRead.Position < lngLen    'keep streaming until EOF
+            'Read from the Source
+            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
+            'Write to the Target
+            streamWrite.Write(byteBuffer, 0, intBytesRead)
 
-    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs)
-        Dim ln As Integer = TextBox1.Text.Length
-        TextBox1.SelectionStart = ln
-        TextBox1.ScrollToCaret()
+            Application.DoEvents()    'do it
+        End While
+
+        'Clean up
+        streamWrite.Flush()
+        streamWrite.Close()
+        streamRead.Close()
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -151,23 +152,38 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub PrintStatus(Value As String)
-
-        TextBox1.Text = TextBox1.Text & vbCrLf & Value
-        Trim()
-
-    End Sub
-
-    Private Sub Trim()
-        If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
-            TextBox1.Text = Mid(TextBox1.Text, 14000)
-        End If
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         DialogResult = DialogResult.OK
         Me.Close()
+
+    End Sub
+
+    Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Form1.HelpOnce("Backup Manually")
+
+        TextBox1.BackColor = Me.BackColor
+        ' init the scrolling text box
+        TextBox1.SelectionStart = 0
+        TextBox1.ScrollToCaret()
+        TextBox1.SelectionStart = TextBox1.Text.Length
+        TextBox1.ScrollToCaret()
+
+        If Not Form1.CheckMysql Then
+            MySqlCheckBox.Enabled = True
+            MySqlCheckBox.Checked = True
+        Else
+            MySqlCheckBox.Enabled = False
+            MySqlCheckBox.Checked = False
+        End If
+
+        If Form1.Settings.FsAssetsEnabled Then
+            FSAssetsCheckBox.Enabled = True
+            FSAssetsCheckBox.Checked = True
+        Else
+            FSAssetsCheckBox.Enabled = False
+            FSAssetsCheckBox.Checked = False
+        End If
 
     End Sub
 
@@ -177,37 +193,25 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Shared Sub CpyFile(From As String, Dest As String)
+    Private Sub PrintStatus(Value As String)
 
-        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
-
-        'Create the file stream for the source file
-        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
-        'Create the file stream for the destination file
-        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
-        'Determine the size in bytes of the source file (-1 as our position starts at 0)
-        Dim lngLen As Long = streamRead.Length - 1
-        Dim byteBuffer(1048576) As Byte   'our stream buffer
-        Dim intBytesRead As Integer    'number of bytes read
-
-        While streamRead.Position < lngLen    'keep streaming until EOF
-            'Read from the Source
-            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
-            'Write to the Target
-            streamWrite.Write(byteBuffer, 0, intBytesRead)
-
-            Application.DoEvents()    'do it
-        End While
-
-        'Clean up
-        streamWrite.Flush()
-        streamWrite.Close()
-        streamRead.Close()
+        TextBox1.Text = TextBox1.Text & vbCrLf & Value
+        Trim()
 
     End Sub
+
+    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs)
+        Dim ln As Integer = TextBox1.Text.Length
+        TextBox1.SelectionStart = ln
+        TextBox1.ScrollToCaret()
+    End Sub
+
+    Private Sub Trim()
+        If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
+            TextBox1.Text = Mid(TextBox1.Text, 14000)
+        End If
+    End Sub
+
+#End Region
 
 End Class

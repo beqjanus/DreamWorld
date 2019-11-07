@@ -55,11 +55,7 @@ Public Class Choice
 
 #End Region
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        SetScreen()
-
-    End Sub
+#Region "Public Methods"
 
     Public Sub FillGrid(type As String, Optional JustRunning As Boolean = False)
         Dim columnHeaderStyle As New DataGridViewCellStyle With {
@@ -108,6 +104,10 @@ Public Class Choice
 
     End Sub
 
+#End Region
+
+#Region "Private Methods"
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles OKButton1.Click
 
         Dim selectedRowCount = DataGridView.Rows.GetRowCount(DataGridViewElementStates.Selected)
@@ -119,6 +119,20 @@ Public Class Choice
         End If
     End Sub
 
+    Private Sub CancelButton1_Click(sender As Object, e As EventArgs) Handles CancelButton1.Click
+        DialogResult = DialogResult.Cancel
+    End Sub
+
+    Private Sub CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
+        OKButton1.Enabled = True
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        SetScreen()
+
+    End Sub
+
     Private Sub RowClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView.CellDoubleClick
 
         If e.RowIndex = -1 Then
@@ -128,12 +142,6 @@ Public Class Choice
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
-        OKButton1.Enabled = True
-    End Sub
-
-    Private Sub CancelButton1_Click(sender As Object, e As EventArgs) Handles CancelButton1.Click
-        DialogResult = DialogResult.Cancel
-    End Sub
+#End Region
 
 End Class

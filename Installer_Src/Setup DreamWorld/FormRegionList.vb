@@ -222,6 +222,8 @@ Public Class RegionList
 
 #End Region
 
+#Region "Public Enums"
+
     ' icons image list layout
     Enum DGICON
         bootingup = 0
@@ -240,7 +242,18 @@ Public Class RegionList
 
     End Enum
 
+#End Region
+
 #Region "Loader"
+
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        RegionList.FormExists1 = False
+        Form1.Settings.RegionListVisible = False
+        Form1.Settings.SaveSettings()
+        _ImageListSmall.Dispose()
+
+    End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Pixels1 = 70
@@ -352,15 +365,6 @@ Public Class RegionList
         SetScreen(TheView1)
 
         Form1.HelpOnce("RegionList")
-
-    End Sub
-
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-
-        RegionList.FormExists1 = False
-        Form1.Settings.RegionListVisible = False
-        Form1.Settings.SaveSettings()
-        _ImageListSmall.Dispose()
 
     End Sub
 
@@ -1093,10 +1097,6 @@ Public Class RegionList
 
 #Region "Mysql"
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("RegionList")
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         Dim ofd As New OpenFileDialog
@@ -1156,23 +1156,6 @@ Public Class RegionList
 
     End Sub
 
-    Private Function GetRegionsName(Region As String) As String
-
-        Dim p1 As String = ""
-        Using reader = New StreamReader(Region)
-            While reader.Peek <> -1 And p1.Length = 0
-                Dim line = reader.ReadLine
-                Dim pattern1 As Regex = New Regex("^ *\[(.*?)\] *$")
-                Dim match1 As Match = pattern1.Match(line)
-                If match1.Success Then
-                    p1 = match1.Groups(1).Value
-                End If
-            End While
-        End Using
-        Return p1
-
-    End Function
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
 
         Form1.PropRestartRobust = True
@@ -1190,6 +1173,27 @@ Public Class RegionList
 
     End Sub
 
+    Private Function GetRegionsName(Region As String) As String
+
+        Dim p1 As String = ""
+        Using reader = New StreamReader(Region)
+            While reader.Peek <> -1 And p1.Length = 0
+                Dim line = reader.ReadLine
+                Dim pattern1 As Regex = New Regex("^ *\[(.*?)\] *$")
+                Dim match1 As Match = pattern1.Match(line)
+                If match1.Success Then
+                    p1 = match1.Groups(1).Value
+                End If
+            End While
+        End Using
+        Return p1
+
+    End Function
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("RegionList")
+    End Sub
+
 #End Region
 
 End Class
@@ -1200,8 +1204,16 @@ End Class
 Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
+
+#Region "Private Fields"
+
     Private col As Integer
+
+#End Region
+
 #Enable Warning IDE0044 ' Add readonly modifier
+
+#Region "Public Constructors"
 
     Public Sub New()
         col = 1
@@ -1211,6 +1223,10 @@ Class ListViewItemComparer
         col = column
     End Sub
 
+#End Region
+
+#Region "Public Methods"
+
     Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
 
         Dim a = CType(x, ListViewItem).SubItems(col).Text
@@ -1219,6 +1235,8 @@ Class ListViewItemComparer
         Return [String].Compare(a, b, StringComparison.InvariantCultureIgnoreCase)
 
     End Function
+
+#End Region
 
 End Class
 

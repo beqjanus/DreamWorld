@@ -25,9 +25,13 @@ Imports System.Text.RegularExpressions
 
 Public Class FormDNSName
 
+#Region "Private Fields"
+
+    Dim changed As Boolean = False
     Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
-    Dim changed As Boolean = False
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -92,25 +96,49 @@ Public Class FormDNSName
 
 #Region "Buttons"
 
-    Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
+    Private Sub Closeme() Handles Me.Closed
 
-        If DNSNameBox.Text.Length > 0 Then
-
-            DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
-            DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
-
-            DNSNameBox.Text = Regex.Replace(DNSNameBox.Text, ":\d+", "") ' no :8002 on end.
-
-            Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
-            DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
-
+        If changed Then
+            Dim resp = MsgBox("Changes have been made! Save (Y/N)", vbYesNo)
+            If resp = vbYes Then SaveAll()
         End If
 
     End Sub
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton1.Click
+    Private Sub DynDNSPassword_Click(sender As Object, e As EventArgs) Handles DynDNSHelp.Click
 
-        SaveAll()
+        Form1.Help("DNS")
+
+    End Sub
+
+    Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.EnableHypergrid = EnableHypergrid.Checked
+        changed = True
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("DNS")
+    End Sub
+
+    Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
+
+        NextNameButton.Text = "Busy..."
+        DNSNameBox.Text = String.Empty
+        Application.DoEvents()
+        Dim newname = Form1.GetNewDnsName()
+        NextNameButton.Text = "Next Name"
+        If newname.Length = 0 Then
+            MsgBox("Please enter a valid DNS name such as Name.Outworldz.net, or register for one at http://www.noip.com", vbInformation, "Name Needed")
+            NextNameButton.Enabled = False
+        Else
+            NextNameButton.Enabled = True
+            DNSNameBox.Text = newname
+        End If
+
+        changed = True
 
     End Sub
 
@@ -135,30 +163,20 @@ Public Class FormDNSName
 
     End Sub
 
-    Private Sub Closeme() Handles Me.Closed
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton1.Click
 
-        If changed Then
-            Dim resp = MsgBox("Changes have been made! Save (Y/N)", vbYesNo)
-            If resp = vbYes Then SaveAll()
-        End If
+        SaveAll()
 
     End Sub
 
-    Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
+    Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
 
-        NextNameButton.Text = "Busy..."
-        DNSNameBox.Text = String.Empty
-        Application.DoEvents()
-        Dim newname = Form1.GetNewDnsName()
-        NextNameButton.Text = "Next Name"
-        If newname.Length = 0 Then
-            MsgBox("Please enter a valid DNS name such as Name.Outworldz.net, or register for one at http://www.noip.com", vbInformation, "Name Needed")
-            NextNameButton.Enabled = False
-        Else
-            NextNameButton.Enabled = True
-            DNSNameBox.Text = newname
+        If Not initted Then Return
+        Form1.Settings.Suitcase() = SuitcaseCheckbox.Checked
+
+        If Not SuitcaseCheckbox.Checked Then
+            MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")
         End If
-
         changed = True
 
     End Sub
@@ -176,42 +194,28 @@ Public Class FormDNSName
 
     End Sub
 
+    Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
+
+        If DNSNameBox.Text.Length > 0 Then
+
+            DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
+            DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
+
+            DNSNameBox.Text = Regex.Replace(DNSNameBox.Text, ":\d+", "") ' no :8002 on end.
+
+            Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
+            DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
+
+        End If
+
+    End Sub
+
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
         Form1.Settings.MachineID() = UniqueId.Text
         changed = True
 
-    End Sub
-
-    Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.EnableHypergrid = EnableHypergrid.Checked
-        changed = True
-
-    End Sub
-
-    Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.Suitcase() = SuitcaseCheckbox.Checked
-
-        If Not SuitcaseCheckbox.Checked Then
-            MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")
-        End If
-        changed = True
-
-    End Sub
-
-    Private Sub DynDNSPassword_Click(sender As Object, e As EventArgs) Handles DynDNSHelp.Click
-
-        Form1.Help("DNS")
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("DNS")
     End Sub
 
 #End Region

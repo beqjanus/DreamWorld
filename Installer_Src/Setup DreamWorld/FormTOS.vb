@@ -55,53 +55,17 @@ Public Class TosForm
 
 #End Region
 
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+#Region "Private Methods"
 
-        'Load file PropMyFolder + "TOS.txt"
-        Dim reader As System.IO.StreamReader
-        reader = System.IO.File.OpenText(Form1.PropMyFolder + "\tos.html")
-        'now loop through each line
-        Dim HTML As String = ""
-        While reader.Peek <> -1
-            HTML = HTML + reader.ReadLine() + vbCrLf
-        End While
-        reader.Close()
-        Editor1.BodyHtml = HTML
+    Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        ShowToLocalUsersCheckbox.Checked = Form1.Settings.ShowToLocalUsers
-        ShowToHGUsersCheckbox.Checked = Form1.Settings.ShowToForeignUsers
-        TOSEnable.Checked = Form1.Settings.TOSEnabled
-        SetScreen()
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
+            outputFile.WriteLine(Editor1.BodyHtml)
+        End Using
 
-        Form1.HelpOnce("TOS")
-
-    End Sub
-
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        'nothing
-
-    End Sub
-
-    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToLocalUsersCheckbox.CheckedChanged
-
-        Form1.Settings.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub ShowToHGUsersCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToHGUsersCheckbox.CheckedChanged
-
-        Form1.Settings.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub TOSEnable_CheckedChanged(sender As Object, e As EventArgs) Handles TOSEnable.CheckedChanged
-
-        Form1.Settings.TOSEnabled = TOSEnable.Checked
-        Form1.Settings.SaveSettings()
-
+        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+            outputFile.WriteLine(Editor1.BodyHtml)
+        End Using
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -129,6 +93,47 @@ Public Class TosForm
 
     End Sub
 
+    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToLocalUsersCheckbox.CheckedChanged
+
+        Form1.Settings.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
+        Form1.Help("TOS")
+
+    End Sub
+
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        'nothing
+
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        'Load file PropMyFolder + "TOS.txt"
+        Dim reader As System.IO.StreamReader
+        reader = System.IO.File.OpenText(Form1.PropMyFolder + "\tos.html")
+        'now loop through each line
+        Dim HTML As String = ""
+        While reader.Peek <> -1
+            HTML = HTML + reader.ReadLine() + vbCrLf
+        End While
+        reader.Close()
+        Editor1.BodyHtml = HTML
+
+        ShowToLocalUsersCheckbox.Checked = Form1.Settings.ShowToLocalUsers
+        ShowToHGUsersCheckbox.Checked = Form1.Settings.ShowToForeignUsers
+        TOSEnable.Checked = Form1.Settings.TOSEnabled
+        SetScreen()
+
+        Form1.HelpOnce("TOS")
+
+    End Sub
+
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
@@ -143,21 +148,20 @@ Public Class TosForm
 
     End Sub
 
-    Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
+    Private Sub ShowToHGUsersCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToHGUsersCheckbox.CheckedChanged
 
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
-
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
-    End Sub
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        Form1.Help("TOS")
+        Form1.Settings.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
+        Form1.Settings.SaveSettings()
 
     End Sub
+
+    Private Sub TOSEnable_CheckedChanged(sender As Object, e As EventArgs) Handles TOSEnable.CheckedChanged
+
+        Form1.Settings.TOSEnabled = TOSEnable.Checked
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+#End Region
 
 End Class

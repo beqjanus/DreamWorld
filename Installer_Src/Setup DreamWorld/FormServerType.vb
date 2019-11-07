@@ -1,9 +1,14 @@
 ﻿Public Class FormServerType
-    Dim initted As Boolean = False
-    Dim Changed As Boolean = False
-    Dim ServerType As String = ""
-    Dim DNSName As String = ""
+
+#Region "Private Fields"
+
     Dim BaseHostName As String = ""
+    Dim Changed As Boolean = False
+    Dim DNSName As String = ""
+    Dim initted As Boolean = False
+    Dim ServerType As String = ""
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -37,6 +42,18 @@
 
 #End Region
 
+#Region "Private Methods"
+
+    Private Sub Form_exit() Handles Me.Closed
+        If Changed Then
+            Dim result = MsgBox("Do you wish to save your changes?", vbYesNo)
+            If result = vbYes Then
+                Form1.PropViewedSettings = True
+                SaveAll()
+            End If
+        End If
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         SetScreen()
 
@@ -58,16 +75,6 @@
         Form1.HelpOnce("ServerType")
     End Sub
 
-    Private Sub Form_exit() Handles Me.Closed
-        If Changed Then
-            Dim result = MsgBox("Do you wish to save your changes?", vbYesNo)
-            If result = vbYes Then
-                Form1.PropViewedSettings = True
-                SaveAll()
-            End If
-        End If
-    End Sub
-
     Private Sub SaveAll()
 
         Form1.Settings.ServerType = ServerType
@@ -80,7 +87,20 @@
 
     End Sub
 
+#End Region
+
 #Region "Radio Buttons"
+
+    Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
+
+        If Not initted Then Return
+        If Not GridRegionButton.Checked Then Return
+
+        ServerType = "Region"
+        ' do not override for grid servers
+        Changed = True
+
+    End Sub
 
     Private Sub GridServerButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridServerButton.CheckedChanged
 
@@ -92,13 +112,15 @@
 
     End Sub
 
-    Private Sub GridRegionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles GridRegionButton.CheckedChanged
+    Private Sub MetroRadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
 
         If Not initted Then Return
-        If Not GridRegionButton.Checked Then Return
+        If Not MetroRadioButton2.Checked Then Return
 
-        ServerType = "Region"
-        ' do not override for grid servers
+        ServerType = "Metro"
+        DNSName = "hg.metro.land"
+        BaseHostName = "hg.metro.land"
+
         Changed = True
 
     End Sub
@@ -116,29 +138,16 @@
 
     End Sub
 
-    Private Sub MetroRadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles MetroRadioButton2.CheckedChanged
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        If Not initted Then Return
-        If Not MetroRadioButton2.Checked Then Return
-
-        ServerType = "Metro"
-        DNSName = "hg.metro.land"
-        BaseHostName = "hg.metro.land"
-
-        Changed = True
+        SaveAll()
+        Close()
 
     End Sub
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
 
         Form1.Help("ServerType")
-
-    End Sub
-
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-
-        SaveAll()
-        Close()
 
     End Sub
 

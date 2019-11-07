@@ -24,37 +24,22 @@ Imports System.IO
 
 Public Class ClrCache
 
+#Region "Public Constructors"
+
     Public Sub New()
     End Sub
 
-    Public Shared Sub WipeScripts()
+#End Region
 
-        If Not Form1.PropOpensimIsRunning() Then
-            Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
-            Form1.Print("Clearing Script cache. This may take a long time!")
-            Dim ctr As Integer = 0
-            For Each script As String In folders
-                Dim ext = Path.GetExtension(script)
-                If ext.ToLower(Form1.Invarient) <> ".state" And ext.ToLower(Form1.Invarient) <> ".keep" Then
-                    FileStuff.DeleteFile(script)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then
-                        Form1.Print("Updated " & CStr(ctr) & " scripts")
-                    End If
+#Region "Protected Destructors"
 
-                    Application.DoEvents()
-                End If
-            Next
-        End If
-
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
     End Sub
 
-    Public Shared Sub WipeBakes()
+#End Region
 
-        Form1.Print("Clearing bake cache")
-        FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-
-    End Sub
+#Region "Public Methods"
 
     Public Shared Sub WipeAssets()
 
@@ -68,7 +53,6 @@ Public Class ClrCache
             Return
         End If
 
-
         Form1.Print("Clearing Asset cache. This may take a long time!")
         Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
         Dim ctr As Integer = 0
@@ -78,6 +62,13 @@ Public Class ClrCache
             If ctr Mod 100 = 0 Then Form1.Print("Deleted " & CStr(ctr))
             Application.DoEvents()
         Next
+
+    End Sub
+
+    Public Shared Sub WipeBakes()
+
+        Form1.Print("Clearing bake cache")
+        FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
 
@@ -123,8 +114,28 @@ Public Class ClrCache
 
     End Sub
 
-    Protected Overrides Sub Finalize()
-        MyBase.Finalize()
+    Public Shared Sub WipeScripts()
+
+        If Not Form1.PropOpensimIsRunning() Then
+            Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+            Form1.Print("Clearing Script cache. This may take a long time!")
+            Dim ctr As Integer = 0
+            For Each script As String In folders
+                Dim ext = Path.GetExtension(script)
+                If ext.ToLower(Form1.Invarient) <> ".state" And ext.ToLower(Form1.Invarient) <> ".keep" Then
+                    FileStuff.DeleteFile(script)
+                    ctr += 1
+                    If ctr Mod 100 = 0 Then
+                        Form1.Print("Updated " & CStr(ctr) & " scripts")
+                    End If
+
+                    Application.DoEvents()
+                End If
+            Next
+        End If
+
     End Sub
+
+#End Region
 
 End Class

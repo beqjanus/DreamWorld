@@ -24,20 +24,15 @@ Imports System.Text.RegularExpressions
 
 Public Class FormDatabase
 
-    Dim initted As Boolean = False
+#Region "Private Fields"
+
     Dim changed As Boolean = False
     Dim DNSName As String = ""
+    Dim initted As Boolean = False
+
+#End Region
 
 #Region "Properties"
-
-    Public Property Initted1 As Boolean
-        Get
-            Return initted
-        End Get
-        Set(value As Boolean)
-            initted = value
-        End Set
-    End Property
 
     Public Property Changed1 As Boolean
         Get
@@ -54,6 +49,15 @@ Public Class FormDatabase
         End Get
         Set(value As String)
             DNSName = value
+        End Set
+    End Property
+
+    Public Property Initted1 As Boolean
+        Get
+            Return initted
+        End Get
+        Set(value As Boolean)
+            initted = value
         End Set
     End Property
 
@@ -93,6 +97,13 @@ Public Class FormDatabase
 
 #Region "Load/Exit"
 
+    Private Sub Form_exit() Handles Me.Closed
+        If Changed1 Then
+            Form1.PropViewedSettings = True
+            SaveAll()
+        End If
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         'Database
@@ -120,13 +131,6 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub Form_exit() Handles Me.Closed
-        If Changed1 Then
-            Form1.PropViewedSettings = True
-            SaveAll()
-        End If
-    End Sub
-
     Private Sub SaveAll()
 
         Form1.PropViewedSettings = True
@@ -139,11 +143,9 @@ Public Class FormDatabase
 
 #Region "Database"
 
-    Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
+    Private Sub Database_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
 
-        If Not Initted1 Then Return
-        Form1.Settings.RobustServer = RobustServer.Text
-        Form1.Settings.SaveSettings()
+        Form1.Help("Database")
 
     End Sub
 
@@ -151,13 +153,6 @@ Public Class FormDatabase
 
         If Not Initted1 Then Return
         Form1.Settings.RegionDBName = RegionDbName.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
-        If Not Initted1 Then Return
-        Form1.Settings.RegionDBUsername = RegionDBUsername.Text
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -176,38 +171,10 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
+    Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
         If Not Initted1 Then Return
-        Form1.Settings.RobustDataBaseName = RobustDbName.Text
+        Form1.Settings.RegionDBUsername = RegionDBUsername.Text
         Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
-
-        If Not Initted1 Then Return
-        Form1.Settings.RobustUsername = RobustDBUsername.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
-
-        If Not Initted1 Then Return
-        Form1.Settings.RobustPassword = RobustDBPassword.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub RobustDbPortTextbox_click(sender As Object, e As EventArgs) Handles RobustDBPassword.Click
-
-        RobustDBPassword.UseSystemPasswordChar = False
-
-    End Sub
-
-    Private Sub Database_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
-
-        Form1.Help("Database")
 
     End Sub
 
@@ -221,10 +188,47 @@ Public Class FormDatabase
 
     End Sub
 
+    Private Sub RobustDbPortTextbox_click(sender As Object, e As EventArgs) Handles RobustDBPassword.Click
+
+        RobustDBPassword.UseSystemPasswordChar = False
+
+    End Sub
+
+    Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
+
+        If Not Initted1 Then Return
+        Form1.Settings.RobustPassword = RobustDBPassword.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
+
+        If Not Initted1 Then Return
+        Form1.Settings.RobustServer = RobustServer.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
+
+        If Not Initted1 Then Return
+        Form1.Settings.RobustUsername = RobustDBUsername.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RegionServer.TextChanged
 
         If Not Initted1 Then Return
         Form1.Settings.RegionServer = RegionServer.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
+        If Not Initted1 Then Return
+        Form1.Settings.RobustDataBaseName = RobustDbName.Text
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -244,9 +248,9 @@ Public Class FormDatabase
 
 #Region "Grid type"
 
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
+    Private Shared Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
 
-        Form1.Help("Database")
+        MysqlInterface.DeregisterRegions()
 
     End Sub
 
@@ -261,6 +265,12 @@ Public Class FormDatabase
         Form1.Help("Database")
     End Sub
 
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+
+        Form1.BackupDB()
+
+    End Sub
+
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
 
         Dim CriticalForm = New FormBackupCheckboxes
@@ -269,15 +279,9 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
 
-        Form1.BackupDB()
-
-    End Sub
-
-    Private Shared Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
-
-        MysqlInterface.DeregisterRegions()
+        Form1.Help("Database")
 
     End Sub
 

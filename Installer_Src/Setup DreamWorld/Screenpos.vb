@@ -25,11 +25,18 @@ Imports IniParser
 
 Public Class ScreenPos
 #Disable Warning IDE0044 ' Add readonly modifier
-    Dim myINI As String
+
+#Region "Private Fields"
+
+    Dim Data As IniParser.Model.IniData
     Dim gName As String
+    Dim myINI As String
 #Enable Warning IDE0044 ' Add readonly modifier
     Dim parser As FileIniDataParser
-    Dim Data As IniParser.Model.IniData
+
+#End Region
+
+#Region "Public Constructors"
 
     Public Sub New(Name As String)
 
@@ -52,25 +59,9 @@ Public Class ScreenPos
 
     End Sub
 
-    Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
+#End Region
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Invarient))
-        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Invarient))
-        SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Form1.Invarient))
-        Debug.Print("Y>" + ValueY.ToString(Form1.Invarient))
-
-    End Sub
-
-    Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
-
-        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Invarient))
-        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Invarient))
-        SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString(Form1.Invarient))
-        Debug.Print("W>" + ValueW.ToString(Form1.Invarient))
-
-    End Sub
+#Region "Public Methods"
 
     Public Function Exists() As Boolean
         Dim Value = CType(Data("Data")(gName + "_Initted"), Integer)
@@ -78,6 +69,21 @@ Public Class ScreenPos
         SaveFormSettings()
         If Value = 0 Then Return False
         Return True
+    End Function
+
+    Public Function GetHW() As List(Of Integer)
+
+        Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
+        Dim ValueWOld = CType(Data("Data")(gName + "_W"), Integer)
+
+        Dim r As New List(Of Integer) From {
+            ValueHOld,
+            ValueWOld
+        }
+        Debug.Print("H<" + ValueHOld.ToString(Form1.Invarient))
+        Debug.Print("W<" + ValueWOld.ToString(Form1.Invarient))
+        Return r
+
     End Function
 
     Public Function GetXY() As List(Of Integer)
@@ -112,33 +118,6 @@ Public Class ScreenPos
 
     End Function
 
-    Public Function GetHW() As List(Of Integer)
-
-        Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data")(gName + "_W"), Integer)
-
-        Dim r As New List(Of Integer) From {
-            ValueHOld,
-            ValueWOld
-        }
-        Debug.Print("H<" + ValueHOld.ToString(Form1.Invarient))
-        Debug.Print("W<" + ValueWOld.ToString(Form1.Invarient))
-        Return r
-
-    End Function
-
-    Private Sub SetXYIni(section As String, key As String, value As String)
-
-        ' sets values into any INI file
-        Try
-            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
-            Data(section)(key) = value ' replace it
-        Catch ex As Exception
-            Form1.ErrorLog(ex.Message)
-        End Try
-
-    End Sub
-
     Public Sub LoadXYIni()
 
         Try
@@ -159,5 +138,43 @@ Public Class ScreenPos
         End Try
 
     End Sub
+
+    Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
+
+        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Invarient))
+        SaveFormSettings()
+        Debug.Print("H>" + ValueH.ToString(Form1.Invarient))
+        Debug.Print("W>" + ValueW.ToString(Form1.Invarient))
+
+    End Sub
+
+    Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
+
+        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Invarient))
+        SaveFormSettings()
+        Debug.Print("X>" + ValueX.ToString(Form1.Invarient))
+        Debug.Print("Y>" + ValueY.ToString(Form1.Invarient))
+
+    End Sub
+
+#End Region
+
+#Region "Private Methods"
+
+    Private Sub SetXYIni(section As String, key As String, value As String)
+
+        ' sets values into any INI file
+        Try
+            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
+            Data(section)(key) = value ' replace it
+        Catch ex As Exception
+            Form1.ErrorLog(ex.Message)
+        End Try
+
+    End Sub
+
+#End Region
 
 End Class

@@ -2,38 +2,6 @@
 
 Public Module Firewall
 
-    Sub SetFirewall()
-
-        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
-
-        Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
-        ns.WriteLine(CMD)
-        ns.Close()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "",
-            .FileName = Form1.PropMyFolder & "\fw.bat",
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .Verb = "runas"
-        }
-        Using ProcessFirewall As Process = New Process With {
-                .StartInfo = pi
-            }
-
-            Try
-                ProcessFirewall.Start()
-                ProcessFirewall.WaitForExit()
-            Catch ex As ObjectDisposedException
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
-            Catch ex As InvalidOperationException
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
-            Catch ex As System.ComponentModel.Win32Exception
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
-            End Try
-        End Using
-
-    End Sub
-
     Function AddFirewallRules() As String
 
         ' TCP only for 8001 (DiagnosticPort) and both for 8002
@@ -92,5 +60,37 @@ Public Module Firewall
         Return Command
 
     End Function
+
+    Sub SetFirewall()
+
+        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
+
+        Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
+        ns.WriteLine(CMD)
+        ns.Close()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "",
+            .FileName = Form1.PropMyFolder & "\fw.bat",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .Verb = "runas"
+        }
+        Using ProcessFirewall As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                ProcessFirewall.Start()
+                ProcessFirewall.WaitForExit()
+            Catch ex As ObjectDisposedException
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            Catch ex As InvalidOperationException
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            Catch ex As System.ComponentModel.Win32Exception
+                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+            End Try
+        End Using
+
+    End Sub
 
 End Module

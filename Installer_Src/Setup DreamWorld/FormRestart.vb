@@ -24,10 +24,15 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRestart
 
-    Dim initted As Boolean = False
+#Region "Private Fields"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+    Dim initted As Boolean = False
+
+#End Region
+
+#Region "Public Properties"
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -38,19 +43,15 @@ Public Class FormRestart
         End Set
     End Property
 
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
-    End Sub
+#End Region
 
-    Private Sub SetScreen()
-        Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
+#Region "Private Methods"
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -71,42 +72,24 @@ Public Class FormRestart
 
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
 
 #Region "AutoStart"
-
-    Private Sub AutoStartCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoStartCheckbox.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.Autostart = AutoStartCheckbox.Checked
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
-
-        Form1.Help("Restart")
-
-    End Sub
-
-    Private Sub AutoRestartBox_TextChanged(sender As Object, e As EventArgs) Handles AutoRestartBox.TextChanged
-
-        If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
-
-        Try
-            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.Invarient)
-            Form1.Settings.SaveSettings()
-        Catch ex As FormatException
-        End Try
-
-    End Sub
 
     Private Sub ARTimerBox_CheckedChanged(sender As Object, e As EventArgs) Handles ARTimerBox.CheckedChanged
 
@@ -128,12 +111,30 @@ Public Class FormRestart
 
     End Sub
 
-    Private Sub SequentialCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SequentialCheckBox1.CheckedChanged
+    Private Sub AutoRestartBox_TextChanged(sender As Object, e As EventArgs) Handles AutoRestartBox.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.Sequential = SequentialCheckBox1.Checked
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
+
+        Try
+            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Form1.Invarient)
+            Form1.Settings.SaveSettings()
+        Catch ex As FormatException
+        End Try
+
+    End Sub
+
+    Private Sub AutoStartCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoStartCheckbox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.Autostart = AutoStartCheckbox.Checked
         Form1.Settings.SaveSettings()
 
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Restart")
     End Sub
 
     Private Sub RestartOnCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnCrash.CheckedChanged
@@ -144,8 +145,18 @@ Public Class FormRestart
         Form1.Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+    Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
+
         Form1.Help("Restart")
+
+    End Sub
+
+    Private Sub SequentialCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SequentialCheckBox1.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.Sequential = SequentialCheckBox1.Checked
+        Form1.Settings.SaveSettings()
+
     End Sub
 
 #End Region

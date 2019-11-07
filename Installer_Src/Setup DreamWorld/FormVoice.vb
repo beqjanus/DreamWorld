@@ -53,6 +53,20 @@ Public Class FormVoice
 
 #End Region
 
+#Region "Private Methods"
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VivoxEnable.CheckedChanged
+        Form1.Settings.VivoxEnabled = VivoxEnable.Checked
+        Form1.Settings.SaveSettings()
+    End Sub
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = "Vivox Voice Settings"
         VivoxEnable.Checked = Form1.Settings.VivoxEnabled
@@ -63,38 +77,9 @@ Public Class FormVoice
         Form1.HelpOnce("Vivox")
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VivoxEnable.CheckedChanged
-        Form1.Settings.VivoxEnabled = VivoxEnable.Checked
-        Form1.Settings.SaveSettings()
-    End Sub
-
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Process.Start(webAddress)
-    End Sub
-
-    Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
-#Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.Settings.VivoxUserName = VivoxUserName.Text
-#Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.Settings.SaveSettings()
-    End Sub
-
-    Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
-        VivoxPassword.UseSystemPasswordChar = False
-        Form1.Settings.VivoxPassword = VivoxPassword.Text
-        Form1.Settings.SaveSettings()
-    End Sub
-
-    Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click
-        VivoxPassword.UseSystemPasswordChar = False
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
@@ -104,5 +89,24 @@ Public Class FormVoice
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         Form1.Help("Vivox")
     End Sub
+
+    Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click
+        VivoxPassword.UseSystemPasswordChar = False
+    End Sub
+
+    Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
+        VivoxPassword.UseSystemPasswordChar = False
+        Form1.Settings.VivoxPassword = VivoxPassword.Text
+        Form1.Settings.SaveSettings()
+    End Sub
+
+    Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
+#Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
+        Form1.Settings.VivoxUserName = VivoxUserName.Text
+#Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
+        Form1.Settings.SaveSettings()
+    End Sub
+
+#End Region
 
 End Class

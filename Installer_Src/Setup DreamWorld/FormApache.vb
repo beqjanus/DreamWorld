@@ -24,7 +24,11 @@ Imports System.Text.RegularExpressions
 
 Public Class FormApache
 
+#Region "Private Fields"
+
     Dim initted As Boolean = False
+
+#End Region
 
 #Region "FormPos"
 
@@ -59,6 +63,13 @@ Public Class FormApache
 
 #Region "Start/Stop"
 
+    Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
+
+        Form1.Settings.SaveSettings()
+        Form1.PropViewedSettings = True
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         SetScreen()
@@ -82,22 +93,56 @@ Public Class FormApache
 
     End Sub
 
-    Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
-
-        Form1.Settings.SaveSettings()
-        Form1.PropViewedSettings = True
-
-    End Sub
-
 #End Region
 
 #Region "Clickers"
+
+    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
+        If AllGridSearchCheckBox.Checked Then
+            Form1.Settings.SearchLocal = False
+            LocalSearchCheckBox.Checked = False
+        End If
+    End Sub
 
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
         If Not initted Then Return
         Form1.Settings.ApacheEnable = ApacheCheckbox.Checked
 
+    End Sub
+
+    Private Sub ApachePort_TextChanged(sender As Object, e As EventArgs) Handles ApachePort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
+        If ApachePort.Text.Length > 0 Then
+            Form1.Settings.ApachePort = CType(ApachePort.Text, Integer)
+        End If
+
+    End Sub
+
+    Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.ApacheService = ApacheServiceCheckBox.Checked
+
+    End Sub
+
+    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+        Form1.Help("Apache")
+    End Sub
+
+    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
+        If LocalSearchCheckBox.Checked Then
+            Form1.Settings.SearchLocal = True
+            AllGridSearchCheckBox.Checked = False
+        End If
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        Form1.Help("Apache")
     End Sub
 
     Private Sub RemoveApache()
@@ -115,29 +160,6 @@ Public Class FormApache
             ApacheProcess.WaitForExit()
             Form1.Print("Apache has been removed as a service")
         End Using
-
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.Help("Apache")
-    End Sub
-
-    Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.ApacheService = ApacheServiceCheckBox.Checked
-
-    End Sub
-
-    Private Sub ApachePort_TextChanged(sender As Object, e As EventArgs) Handles ApachePort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
-        If ApachePort.Text.Length > 0 Then
-            Form1.Settings.ApachePort = CType(ApachePort.Text, Integer)
-        End If
 
     End Sub
 
@@ -164,26 +186,6 @@ Public Class FormApache
         InstallProcess.Dispose()
 
     End Sub
-
-    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
-        Form1.Help("Apache")
-    End Sub
-
-    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
-        If LocalSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = True
-            AllGridSearchCheckBox.Checked = False
-        End If
-    End Sub
-
-    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
-        If AllGridSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = False
-            LocalSearchCheckBox.Checked = False
-        End If
-    End Sub
-
-
 
 #End Region
 

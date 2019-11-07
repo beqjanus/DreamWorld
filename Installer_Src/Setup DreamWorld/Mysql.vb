@@ -30,6 +30,50 @@ Public Module MysqlInterface
         'nothing
     End Sub
 
+    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+
+        Dim iPort As Integer = Convert.ToInt16(Port)
+        Using ClientSocket As New TcpClient
+            Try
+                ClientSocket.Connect(ServerAddress, iPort)
+            Catch ex As ArgumentNullException
+                Return False
+            Catch ex As ArgumentOutOfRangeException
+                Return False
+            Catch ex As SocketException
+                Return False
+            Catch ex As ObjectDisposedException
+                Return False
+            End Try
+
+            If ClientSocket.Connected Then
+                Return True
+            End If
+        End Using
+
+        Return False
+
+    End Function
+
+    Public Sub DeleteRegionlist()
+
+        Using osconnection As MySqlConnection = New MySqlConnection(Form1.Settings.OSSearchConnectionString())
+            Try
+                osconnection.Open()
+                Dim stm As String = "delete from hostsregister"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+                    cmd.ExecuteScalar()
+                End Using
+            Catch ex As InvalidOperationException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            Catch ex As MySqlException
+                Debug.Print("Failed to Connect to OsSearch")
+                Return
+            End Try
+        End Using
+    End Sub
+
     Public Sub DeleteSearchDatabase()
 
         Using osconnection As MySqlConnection = New MySqlConnection(Form1.Settings.OSSearchConnectionString())
@@ -50,24 +94,79 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub DeleteRegionlist()
+    Public Sub DeregisterRegions()
 
-        Using osconnection As MySqlConnection = New MySqlConnection(Form1.Settings.OSSearchConnectionString())
-            Try
-                osconnection.Open()
-                Dim stm As String = "delete from hostsregister"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-                    cmd.ExecuteScalar()
-                End Using
-            Catch ex As InvalidOperationException
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            Catch ex As MySqlException
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            End Try
-        End Using
+        If Form1.PropOpensimIsRunning Then
+            MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
+            Return
+        End If
+
+        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.Settings.MySqlRobustDBPort, Integer))
+        If Mysql Then
+            QueryString("delete from robust.regions;")
+            Form1.Print("All Regions are deregistered.")
+        End If
+
     End Sub
+
+    ''' <summary>
+    ''' Returns Estate Name give an Estate UUID
+    ''' </summary>
+    ''' <param name="UUID"></param>
+    ''' <returns>Name as string</returns>
+    Public Function EstateName(UUID As String) As String
+
+        If Form1.Settings.RegionMySqlConnection.Length = 0 Then Return ""
+
+        Debug.Print(Form1.Settings.RegionMySqlConnection)
+        Dim name As String = ""
+        Dim Val As String = ""
+
+        Try
+            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Debug.Print("ID = {0}", reader.GetString(0))
+                            Val = reader.GetString(0)
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return ""
+        End Try
+
+        Try
+            Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
+            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    Using reader2 As MySqlDataReader = cmd2.ExecuteReader()
+                        If reader2.Read() Then
+                            Debug.Print("Name = {0}", reader2.GetString(0))
+                            name = reader2.GetString(0)
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return ""
+        Finally
+
+        End Try
+
+        Return name
+
+    End Function
 
     Public Function GetAgentList() As Dictionary(Of String, String)
 
@@ -133,6 +232,47 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function IsMySqlRunning() As String
+
+        Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
+        If Mysql Then
+            Dim version = QueryString("SELECT VERSION()")
+            Debug.Print("MySQL version: {0}", version)
+            Return version
+        End If
+        Return Nothing
+
+    End Function
+
+    Public Function IsUserPresent(regionUUID As String) As Integer
+
+        Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And RegionID <> '00000000-0000-0000-0000-000000000000'")
+        If UserCount = Nothing Then Return 0
+        'Debug.Print("User Count: {0}", UserCount)
+        Return Convert.ToInt16(UserCount, Form1.Invarient)
+
+    End Function
+
+    Public Function QueryString(SQL As String) As String
+        Using MysqlConn = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim v As String
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
+                End Using
+                Return v
+            Catch ex As Exception
+                Debug.Print(ex.Message)
+            End Try
+        End Using
+
+        Return ""
+
+    End Function
+
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Dim MysqlConn = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
@@ -158,146 +298,6 @@ Public Module MysqlInterface
         End Try
 
         Return Val
-
-    End Function
-
-    Public Function IsUserPresent(regionUUID As String) As Integer
-
-        Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And RegionID <> '00000000-0000-0000-0000-000000000000'")
-        If UserCount = Nothing Then Return 0
-        'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount, Form1.Invarient)
-
-    End Function
-
-    Public Function IsMySqlRunning() As String
-
-        Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
-        If Mysql Then
-            Dim version = QueryString("SELECT VERSION()")
-            Debug.Print("MySQL version: {0}", version)
-            Return version
-        End If
-        Return Nothing
-
-    End Function
-
-    Public Sub DeregisterRegions()
-
-        If Form1.PropOpensimIsRunning Then
-            MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
-            Return
-        End If
-
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.Settings.MySqlRobustDBPort, Integer))
-        If Mysql Then
-            QueryString("delete from robust.regions;")
-            Form1.Print("All Regions are deregistered.")
-        End If
-
-    End Sub
-
-    Public Function QueryString(SQL As String) As String
-        Using MysqlConn = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
-            Try
-                MysqlConn.Open()
-                Dim v As String
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
-                End Using
-                Return v
-            Catch ex As Exception
-                Debug.Print(ex.Message)
-            End Try
-        End Using
-
-        Return ""
-
-    End Function
-
-    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
-
-        Dim iPort As Integer = Convert.ToInt16(Port)
-        Using ClientSocket As New TcpClient
-            Try
-                ClientSocket.Connect(ServerAddress, iPort)
-            Catch ex As ArgumentNullException
-                Return False
-            Catch ex As ArgumentOutOfRangeException
-                Return False
-            Catch ex As SocketException
-                Return False
-            Catch ex As ObjectDisposedException
-                Return False
-            End Try
-
-            If ClientSocket.Connected Then
-                Return True
-            End If
-        End Using
-
-        Return False
-
-    End Function
-
-    ''' <summary>
-    ''' Returns Estate Name give an Estate UUID
-    ''' </summary>
-    ''' <param name="UUID"></param>
-    ''' <returns>Name as string</returns>
-    Public Function EstateName(UUID As String) As String
-
-        If Form1.Settings.RegionMySqlConnection.Length = 0 Then Return ""
-
-        Debug.Print(Form1.Settings.RegionMySqlConnection)
-        Dim name As String = ""
-        Dim Val As String = ""
-
-        Try
-            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
-                MysqlConn.Open()
-                Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            Debug.Print("ID = {0}", reader.GetString(0))
-                            Val = reader.GetString(0)
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-            Return ""
-        End Try
-
-        Try
-            Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
-            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
-                MysqlConn.Open()
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                Using cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    Using reader2 As MySqlDataReader = cmd2.ExecuteReader()
-                        If reader2.Read() Then
-                            Debug.Print("Name = {0}", reader2.GetString(0))
-                            name = reader2.GetString(0)
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-            Return ""
-        Finally
-
-        End Try
-
-        Return name
 
     End Function
 

@@ -53,6 +53,24 @@ Public Class FormDisplacement
 
 #End Region
 
+#Region "Private Methods"
+
+    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
+
+        Form1.PropForceMerge = False
+        MergeOARToolStripMenuItem.Checked = False
+        ClearOARToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
+
+        Form1.PropForceTerrain = True
+        ForceTerrainToolStripMenuItem.Checked = True
+        ClearTerrainToolStripMenuItem.Checked = False
+
+    End Sub
+
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetScreen()
         Form1.PropSelectedBox = ""
@@ -84,8 +102,79 @@ Public Class FormDisplacement
         Form1.HelpOnce("Load OAR")
     End Sub
 
+    Private Sub HrlpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HrlpToolStripMenuItem.Click
+        Form1.Help("Load OAR")
+    End Sub
+
+    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
+
+        Form1.PropForceParcel = False
+        LoadParcelToolStripMenuItem.Checked = False
+        IgnoreParcelToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
+
+        Form1.PropForceParcel = True
+        LoadParcelToolStripMenuItem.Checked = True
+        IgnoreParcelToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
+
+        Form1.PropForceMerge = True
+        MergeOARToolStripMenuItem.Checked = True
+        ClearOARToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearTerrainToolStripMenuItem.Click
+
+        Form1.PropForceTerrain = False
+        ForceTerrainToolStripMenuItem.Checked = False
+        ClearTerrainToolStripMenuItem.Checked = True
+
+    End Sub
+
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Form1.PropSelectedBox = " --displacement <0,768,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
+        Form1.PropSelectedBox = " --displacement <512,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
+        Form1.PropSelectedBox = " --displacement <256,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
+        Form1.PropSelectedBox = " --displacement <0,256,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
+        Form1.PropSelectedBox = " --displacement <768,0,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles PictureBox14.Click
+        Form1.PropSelectedBox = " --displacement <512,0,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox15_Click(sender As Object, e As EventArgs) Handles PictureBox15.Click
+        Form1.PropSelectedBox = " --displacement <256,0,0> "
+        Me.Close()
+    End Sub
+
+    Private Sub PictureBox16_Click(sender As Object, e As EventArgs) Handles PictureBox16.Click
+        Form1.PropSelectedBox = " --displacement <0,0,0>  "
         Me.Close()
     End Sub
 
@@ -129,95 +218,10 @@ Public Class FormDisplacement
         Me.Close()
     End Sub
 
-    Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles PictureBox10.Click
-        Form1.PropSelectedBox = " --displacement <512,256,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles PictureBox11.Click
-        Form1.PropSelectedBox = " --displacement <256,256,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles PictureBox12.Click
-        Form1.PropSelectedBox = " --displacement <0,256,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles PictureBox13.Click
-        Form1.PropSelectedBox = " --displacement <768,0,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles PictureBox14.Click
-        Form1.PropSelectedBox = " --displacement <512,0,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox15_Click(sender As Object, e As EventArgs) Handles PictureBox15.Click
-        Form1.PropSelectedBox = " --displacement <256,0,0> "
-        Me.Close()
-    End Sub
-
-    Private Sub PictureBox16_Click(sender As Object, e As EventArgs) Handles PictureBox16.Click
-        Form1.PropSelectedBox = " --displacement <0,0,0>  "
-        Me.Close()
-    End Sub
-
-    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
-
-        Form1.PropForceMerge = False
-        MergeOARToolStripMenuItem.Checked = False
-        ClearOARToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
-
-        Form1.PropForceMerge = True
-        MergeOARToolStripMenuItem.Checked = True
-        ClearOARToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
-
-        Form1.PropForceTerrain = True
-        ForceTerrainToolStripMenuItem.Checked = True
-        ClearTerrainToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearTerrainToolStripMenuItem.Click
-
-        Form1.PropForceTerrain = False
-        ForceTerrainToolStripMenuItem.Checked = False
-        ClearTerrainToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
-
-        Form1.PropForceParcel = True
-        LoadParcelToolStripMenuItem.Checked = True
-        IgnoreParcelToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
-
-        Form1.PropForceParcel = False
-        LoadParcelToolStripMenuItem.Checked = False
-        IgnoreParcelToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub HrlpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HrlpToolStripMenuItem.Click
-        Form1.Help("Load OAR")
-    End Sub
-
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
         Form1.PropUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
+
+#End Region
 
 End Class

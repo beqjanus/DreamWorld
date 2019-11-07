@@ -24,7 +24,11 @@ Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
 
+#Region "Private Fields"
+
     Dim initted As Boolean = False
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -57,21 +61,10 @@ Public Class FormPublicity
 
 #End Region
 
-    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+#Region "Private Methods"
 
-        SetScreen()
-
-        GDPRCheckBox.Checked = Form1.Settings.GDPR()
-
-        Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch ex As Exception
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        End Try
-
-        Form1.HelpOnce("Publicity")
-        initted = True
-
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Publicity")
     End Sub
 
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
@@ -129,12 +122,27 @@ Public Class FormPublicity
 
     End Sub
 
+    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        SetScreen()
+
+        GDPRCheckBox.Checked = Form1.Settings.GDPR()
+
+        Try
+            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+        Catch ex As Exception
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        End Try
+
+        Form1.HelpOnce("Publicity")
+        initted = True
+
+    End Sub
+
     Private Sub PublicPhoto_Click(sender As Object, e As EventArgs) Handles PublicPhoto.Click
         Form1.Help("Publicity")
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Publicity")
-    End Sub
+#End Region
 
 End Class

@@ -24,7 +24,11 @@ Imports System.Text.RegularExpressions
 
 Public Class FormPorts
 
+#Region "Private Fields"
+
     Dim initted As Boolean
+
+#End Region
 
 #Region "FormPos"
 
@@ -57,6 +61,15 @@ Public Class FormPorts
 
 #End Region
 
+#Region "Private Methods"
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         SetScreen()
@@ -77,13 +90,6 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
     Private Sub UPnPEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles uPnPEnabled.CheckedChanged
 
         If Not initted Then Return
@@ -92,38 +98,12 @@ Public Class FormPorts
 
     End Sub
 
+#End Region
+
 #Region "Ports"
 
-    Private Sub ExternalHostName_TextChanged(sender As Object, e As EventArgs) Handles ExternalHostName.TextChanged
-
-        If Not initted Then Return
-
-        Form1.Settings.OverrideName = ExternalHostName.Text
-
-    End Sub
-
-    Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
-        Form1.Settings.PrivatePort = CInt(PrivatePort.Text)
-        Form1.Settings.SaveSettings()
-        Form1.CheckDefaultPorts()
-
-    End Sub
-
-    Private Sub HTTPPort_TextChanged(sender As Object, e As EventArgs) Handles HTTPPort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
-        Form1.Settings.HttpPort = CInt(HTTPPort.Text)
-        Form1.Settings.SaveSettings()
-        Form1.CheckDefaultPorts()
-
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Ports")
     End Sub
 
     Private Sub DiagnosticPort_TextChanged(sender As Object, e As EventArgs) Handles DiagnosticPort.TextChanged
@@ -139,6 +119,14 @@ Public Class FormPorts
 
     End Sub
 
+    Private Sub ExternalHostName_TextChanged(sender As Object, e As EventArgs) Handles ExternalHostName.TextChanged
+
+        If Not initted Then Return
+
+        Form1.Settings.OverrideName = ExternalHostName.Text
+
+    End Sub
+
     Private Sub FirstRegionPort_TextChanged_1(sender As Object, e As EventArgs) Handles FirstRegionPort.TextChanged
 
         If Not initted Then Return
@@ -151,11 +139,31 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
-        Form1.Help("Ports")
+    Private Sub HTTPPort_TextChanged(sender As Object, e As EventArgs) Handles HTTPPort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
+        Form1.Settings.HttpPort = CInt(HTTPPort.Text)
+        Form1.Settings.SaveSettings()
+        Form1.CheckDefaultPorts()
+
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+    Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
+        Form1.Settings.PrivatePort = CInt(PrivatePort.Text)
+        Form1.Settings.SaveSettings()
+        Form1.CheckDefaultPorts()
+
+    End Sub
+
+    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
         Form1.Help("Ports")
     End Sub
 

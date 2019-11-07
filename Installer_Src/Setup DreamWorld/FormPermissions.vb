@@ -22,10 +22,15 @@
 
 Public Class FormPermissions
 
-    Dim initted As Boolean = False
+#Region "Private Fields"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+    Dim initted As Boolean = False
+
+#End Region
+
+#Region "Public Properties"
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -36,19 +41,15 @@ Public Class FormPermissions
         End Set
     End Property
 
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
-    End Sub
+#End Region
 
-    Private Sub SetScreen()
-        Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
+#Region "Private Methods"
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -78,59 +79,29 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
 
 #Region "Subs"
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
-
-        Form1.Help("Permissions")
-
-    End Sub
-
-    Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
-
-        If initted Then
-            Form1.Settings.LSLHTTP() = LSLCheckbox.Checked
-            Form1.Settings.SaveSettings()
-        End If
-
-    End Sub
-
-    Private Sub EnableMaxPrims_CheckedChanged(sender As Object, e As EventArgs) Handles EnableMaxPrims.CheckedChanged
-
-        If initted Then
-            Form1.Settings.Primlimits() = EnableMaxPrims.Checked
-            Form1.Settings.SaveSettings()
-        End If
-
-    End Sub
 
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If Not initted Then Return
         Form1.Settings.AllowGridGods = AllowGods.Checked
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.RegionOwnerIsGod = RegionGod.Checked
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.RegionManagerIsGod = ManagerGod.Checked
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -141,6 +112,10 @@ Public Class FormPermissions
         Form1.Settings.Clouds = Clouds.Checked
         Form1.Settings.SaveSettings()
 
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Permissions")
     End Sub
 
     Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged
@@ -160,14 +135,50 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Permissions")
+    Private Sub EnableMaxPrims_CheckedChanged(sender As Object, e As EventArgs) Handles EnableMaxPrims.CheckedChanged
+
+        If initted Then
+            Form1.Settings.Primlimits() = EnableMaxPrims.Checked
+            Form1.Settings.SaveSettings()
+        End If
+
     End Sub
 
     Private Sub HGExportCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles OutBoundPermissionsCheckbox.CheckedChanged
 
         If Not initted Then Return
         Form1.Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
+
+        If initted Then
+            Form1.Settings.LSLHTTP() = LSLCheckbox.Checked
+            Form1.Settings.SaveSettings()
+        End If
+
+    End Sub
+
+    Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.RegionManagerIsGod = ManagerGod.Checked
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+
+        Form1.Help("Permissions")
+
+    End Sub
+
+    Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.RegionOwnerIsGod = RegionGod.Checked
         Form1.Settings.SaveSettings()
 
     End Sub

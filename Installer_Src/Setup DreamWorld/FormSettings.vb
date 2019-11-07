@@ -24,26 +24,26 @@ Public Class AdvancedForm
 
 #Region "Declarations"
 
+    Dim Backups As New FormAutoBackups
+    Dim Bird As New BirdForm
     Dim FormApache As New FormApache
-    Dim Tos As New TosForm
-    Dim Maps As New FormMaps
+    Dim FormCache As New FormCaches
+    Dim FormDatabase As New FormDatabase
+    Dim FormDiva As New FormDiva
+    Dim FormDNSName As New FormDNSName
+    Dim FormPermissions As New FormPermissions
+    Dim FormPhysics As New FormPhysics
+    Dim FormPorts As New FormPorts
+    Dim FormPublicity As New FormPublicity
+    Dim FormRegions As New FormRegions
+    Dim FormRestart As New FormRestart
+    Dim FormServerType As New FormServerType
     Dim Gloebits As New Gloebits
     Dim Icecast As New Icecast
-    Dim Voice As New FormVoice
-    Dim Bird As New BirdForm
+    Dim Maps As New FormMaps
     Dim Tide As New Tides
-    Dim Backups As New FormAutoBackups
-    Dim FormRegions As New FormRegions
-    Dim FormDiva As New FormDiva
-    Dim FormPhysics As New FormPhysics
-    Dim FormDatabase As New FormDatabase
-    Dim FormCache As New FormCaches
-    Dim FormRestart As New FormRestart
-    Dim FormPorts As New FormPorts
-    Dim FormPermissions As New FormPermissions
-    Dim FormDNSName As New FormDNSName
-    Dim FormPublicity As New FormPublicity
-    Dim FormServerType As New FormServerType
+    Dim Tos As New TosForm
+    Dim Voice As New FormVoice
 
 #End Region
 
@@ -78,12 +78,16 @@ Public Class AdvancedForm
 
 #End Region
 
+#Region "Private Methods"
+
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SetScreen()
         Me.Visible = True
 
     End Sub
+
+#End Region
 
 #Region "Help"
 
@@ -108,74 +112,12 @@ Public Class AdvancedForm
 
 #Region "Clicks"
 
-    Private Sub VoiceButton1_Click(sender As Object, e As EventArgs) Handles VoiceButton1.Click
+    Private Sub ApacheButton_Click(sender As Object, e As EventArgs) Handles ApacheButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Voice.Close()
-        Voice = New FormVoice
-        Voice.Activate()
-        Voice.Visible = True
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GloebitsButton.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Gloebits.Close()
-        Gloebits = New Gloebits
-        Gloebits.Activate()
-        Gloebits.Visible = True
-
-    End Sub
-
-    Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Icecast.Close()
-        Icecast = New Icecast With {
-            .Visible = True
-        }
-        Icecast.Activate()
-
-    End Sub
-
-    Private Sub TOSButton_Click(sender As Object, e As EventArgs) Handles TOSButton.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Tos.Close()
-        Tos = New TosForm
-        Tos.Activate()
-        Tos.Visible = True
-
-    End Sub
-
-    Private Sub Birds_Click(sender As Object, e As EventArgs) Handles Birds.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Bird.Close()
-        Bird = New BirdForm
-        Bird.Activate()
-        Bird.Visible = True
-
-    End Sub
-
-    Private Sub TideButton_Click(sender As Object, e As EventArgs) Handles TideButton.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Tide.Close()
-        Tide = New Tides
-        Tide.Activate()
-        Tide.Visible = True
-
-    End Sub
-
-    Private Sub MapsButton_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        Maps.Close()
-        Maps = New FormMaps
-        Maps.Activate()
-        Maps.Visible = True
+        FormApache.Close()
+        FormApache = New FormApache
+        FormApache.Activate()
+        FormApache.Visible = True
 
     End Sub
 
@@ -189,22 +131,23 @@ Public Class AdvancedForm
 
     End Sub
 
-    Private Sub RegionsButton1_Click(sender As Object, e As EventArgs) Handles RegionsButton1.Click
+    Private Sub Birds_Click(sender As Object, e As EventArgs) Handles Birds.Click
 
-        FormRegions.Close()
-        FormRegions = New FormRegions
-        FormRegions.Activate()
-        FormRegions.Visible = True
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Bird.Close()
+        Bird = New BirdForm
+        Bird.Activate()
+        Bird.Visible = True
 
     End Sub
 
-    Private Sub DivaButton1_Click(sender As Object, e As EventArgs) Handles DivaButton1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GloebitsButton.Click
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
-        FormDiva.Close()
-        FormDiva = New FormDiva
-        FormDiva.Activate()
-        FormDiva.Visible = True
+        Gloebits.Close()
+        Gloebits = New Gloebits
+        Gloebits.Activate()
+        Gloebits.Visible = True
 
     End Sub
 
@@ -218,43 +161,12 @@ Public Class AdvancedForm
 
     End Sub
 
-    Private Sub PhysicsButton1_Click(sender As Object, e As EventArgs) Handles PhysicsButton1.Click
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        FormPhysics.Close()
-        FormPhysics = New FormPhysics
-        FormPhysics.Activate()
-        FormPhysics.Visible = True
-
-    End Sub
-
-    Private Sub DatabaseButton2_Click(sender As Object, e As EventArgs) Handles DatabaseButton2.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        FormDatabase.Close()
-        FormDatabase = New FormDatabase
-        FormDatabase.Activate()
-        FormDatabase.Visible = True
-
-    End Sub
-
-    Private Sub DNSButton_Click(sender As Object, e As EventArgs) Handles DNSButton.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        FormDNSName.Close()
-        FormDNSName = New FormDNSName
-        FormDNSName.Activate()
-        FormDNSName.Visible = True
-
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-        FormRestart.Close()
-        FormRestart = New FormRestart
-        FormRestart.Activate()
-        FormRestart.Visible = True
+        FormServerType.Close()
+        FormServerType = New FormServerType
+        FormCaches.Activate()
+        FormServerType.Visible = True
 
     End Sub
 
@@ -265,6 +177,16 @@ Public Class AdvancedForm
         FormPermissions = New FormPermissions
         FormPermissions.Activate()
         FormPermissions.Visible = True
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        FormRestart.Close()
+        FormRestart = New FormRestart
+        FormRestart.Activate()
+        FormRestart.Visible = True
 
     End Sub
 
@@ -287,21 +209,103 @@ Public Class AdvancedForm
 
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub DatabaseButton2_Click(sender As Object, e As EventArgs) Handles DatabaseButton2.Click
 
-        FormServerType.Close()
-        FormServerType = New FormServerType
-        FormCaches.Activate()
-        FormServerType.Visible = True
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        FormDatabase.Close()
+        FormDatabase = New FormDatabase
+        FormDatabase.Activate()
+        FormDatabase.Visible = True
 
     End Sub
 
-    Private Sub ApacheButton_Click(sender As Object, e As EventArgs) Handles ApacheButton.Click
+    Private Sub DivaButton1_Click(sender As Object, e As EventArgs) Handles DivaButton1.Click
 
-        FormApache.Close()
-        FormApache = New FormApache
-        FormApache.Activate()
-        FormApache.Visible = True
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        FormDiva.Close()
+        FormDiva = New FormDiva
+        FormDiva.Activate()
+        FormDiva.Visible = True
+
+    End Sub
+
+    Private Sub DNSButton_Click(sender As Object, e As EventArgs) Handles DNSButton.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        FormDNSName.Close()
+        FormDNSName = New FormDNSName
+        FormDNSName.Activate()
+        FormDNSName.Visible = True
+
+    End Sub
+
+    Private Sub MapsButton_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Maps.Close()
+        Maps = New FormMaps
+        Maps.Activate()
+        Maps.Visible = True
+
+    End Sub
+
+    Private Sub PhysicsButton1_Click(sender As Object, e As EventArgs) Handles PhysicsButton1.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        FormPhysics.Close()
+        FormPhysics = New FormPhysics
+        FormPhysics.Activate()
+        FormPhysics.Visible = True
+
+    End Sub
+
+    Private Sub RegionsButton1_Click(sender As Object, e As EventArgs) Handles RegionsButton1.Click
+
+        FormRegions.Close()
+        FormRegions = New FormRegions
+        FormRegions.Activate()
+        FormRegions.Visible = True
+
+    End Sub
+
+    Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Icecast.Close()
+        Icecast = New Icecast With {
+            .Visible = True
+        }
+        Icecast.Activate()
+
+    End Sub
+
+    Private Sub TideButton_Click(sender As Object, e As EventArgs) Handles TideButton.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Tide.Close()
+        Tide = New Tides
+        Tide.Activate()
+        Tide.Visible = True
+
+    End Sub
+
+    Private Sub TOSButton_Click(sender As Object, e As EventArgs) Handles TOSButton.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Tos.Close()
+        Tos = New TosForm
+        Tos.Activate()
+        Tos.Visible = True
+
+    End Sub
+
+    Private Sub VoiceButton1_Click(sender As Object, e As EventArgs) Handles VoiceButton1.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Voice.Close()
+        Voice = New FormVoice
+        Voice.Activate()
+        Voice.Visible = True
 
     End Sub
 

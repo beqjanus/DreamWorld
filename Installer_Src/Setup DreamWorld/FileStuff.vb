@@ -2,6 +2,22 @@
 
 Module FileStuff
 
+    Sub CopyFile(Source As String, Dest As String, overwrite As Boolean)
+
+        Try
+            My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As FileNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        Catch ex As NotSupportedException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As System.Security.SecurityException
+        End Try
+
+    End Sub
+
     Public Sub CopyFolder(ByVal sourcePath As String, ByVal destinationPath As String)
 
         Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
@@ -31,22 +47,6 @@ Module FileStuff
             End If
 
         Next
-    End Sub
-
-    Sub CopyFile(Source As String, Dest As String, overwrite As Boolean)
-
-        Try
-            My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As System.Security.SecurityException
-        End Try
-
     End Sub
 
     Sub DeleteDirectory(folder As String, param As FileIO.DeleteDirectoryOption)

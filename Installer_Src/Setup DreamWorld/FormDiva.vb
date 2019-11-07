@@ -24,8 +24,12 @@ Imports System.Text.RegularExpressions
 
 Public Class FormDiva
 
+#Region "Private Fields"
+
     Dim initted As Boolean = False
     Dim setpassword As Boolean = False
+
+#End Region
 
 #Region "FormPos"
 
@@ -57,6 +61,18 @@ Public Class FormDiva
     End Sub
 
 #End Region
+
+#Region "Private Methods"
+
+    Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
+
+        Form1.Settings.SaveSettings()
+        Form1.PropViewedSettings = True
+        If setpassword And Form1.PropOpensimIsRunning() Then
+            Form1.ConsoleCommand("Robust", "reset user password " & Form1.Settings.AdminFirst & " " & Form1.Settings.AdminLast & " " & Form1.Settings.Password & "{ENTER}" + vbCrLf)
+        End If
+
+    End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -114,17 +130,23 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
+#End Region
 
+#Region "Wifi"
+
+    Private Sub AccountConfirmationRequired_CheckedChanged(sender As Object, e As EventArgs) Handles AccountConfirmationRequired.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.AccountConfirmationRequired = AccountConfirmationRequired.Checked
         Form1.Settings.SaveSettings()
-        Form1.PropViewedSettings = True
-        If setpassword And Form1.PropOpensimIsRunning() Then
-            Form1.ConsoleCommand("Robust", "reset user password " & Form1.Settings.AdminFirst & " " & Form1.Settings.AdminLast & " " & Form1.Settings.Password & "{ENTER}" + vbCrLf)
-        End If
 
     End Sub
 
-#Region "Wifi"
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles WiFi.Click
+
+        Form1.Help("Diva")
+
+    End Sub
 
     Private Sub WifiEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles WifiEnabled.CheckedChanged
         If Not initted Then Return
@@ -152,23 +174,25 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub AccountConfirmationRequired_CheckedChanged(sender As Object, e As EventArgs) Handles AccountConfirmationRequired.CheckedChanged
+#End Region
+
+#Region "Gmail"
+
+    Private Sub AdminFirst_TextChanged_2(sender As Object, e As EventArgs) Handles AdminFirst.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.AccountConfirmationRequired = AccountConfirmationRequired.Checked
+        Form1.Settings.AdminFirst = AdminFirst.Text
         Form1.Settings.SaveSettings()
 
     End Sub
 
-    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles WiFi.Click
+    Private Sub AdminLast_TextChanged(sender As Object, e As EventArgs) Handles AdminLast.TextChanged
 
-        Form1.Help("Diva")
+        If Not initted Then Return
+        Form1.Settings.AdminLast = AdminLast.Text
+        Form1.Settings.SaveSettings()
 
     End Sub
-
-#End Region
-
-#Region "Gmail"
 
     Private Sub AdminPassword_Click(sender As Object, e As EventArgs) Handles AdminPassword.Click
 
@@ -180,14 +204,6 @@ Public Class FormDiva
 
         If Not initted Then Return
         Form1.Settings.Password = AdminPassword.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
-
-        If Not initted Then Return
-        Form1.Settings.SmtPropUserName = GmailUsername.Text
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -206,18 +222,10 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub AdminFirst_TextChanged_2(sender As Object, e As EventArgs) Handles AdminFirst.TextChanged
+    Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.AdminFirst = AdminFirst.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub AdminLast_TextChanged(sender As Object, e As EventArgs) Handles AdminLast.TextChanged
-
-        If Not initted Then Return
-        Form1.Settings.AdminLast = AdminLast.Text
+        Form1.Settings.SmtPropUserName = GmailUsername.Text
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -229,14 +237,6 @@ Public Class FormDiva
         Form1.Settings.SaveSettings()
 
         setpassword = True
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged_3(sender As Object, e As EventArgs) Handles AdminEmail.TextChanged
-
-        If Not initted Then Return
-        Form1.Settings.AdminEmail = AdminEmail.Text
-        Form1.Settings.SaveSettings()
 
     End Sub
 
@@ -258,22 +258,17 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub TextBox1_TextChanged_3(sender As Object, e As EventArgs) Handles AdminEmail.TextChanged
+
+        If Not initted Then Return
+        Form1.Settings.AdminEmail = AdminEmail.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
 #End Region
 
 #Region "Splash"
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
-
-        If Not initted Then Return
-        Form1.Settings.SplashPage = SplashPage.Text
-
-    End Sub
-
-    Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
-
-        Form1.Settings.SimName = GridName.Text
-
-    End Sub
 
     Private Sub BlackRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles BlackRadioButton.CheckedChanged
 
@@ -285,14 +280,21 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub WhiteRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles WhiteRadioButton.CheckedChanged
+    Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
-        If WhiteRadioButton.Checked Then
-            Form1.CopyWifi("White")
-            Form1.Print("Theme set to White")
-            Form1.Settings.Theme = "White"
-        End If
+        If Not initted Then Return
+        Form1.Settings.WelcomeMessage = GreetingTextBox.Text
 
+    End Sub
+
+    Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
+
+        Form1.Settings.SimName = GridName.Text
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("Diva")
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles CustomButton1.CheckedChanged
@@ -305,15 +307,21 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.WelcomeMessage = GreetingTextBox.Text
+        Form1.Settings.SplashPage = SplashPage.Text
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("Diva")
+    Private Sub WhiteRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles WhiteRadioButton.CheckedChanged
+
+        If WhiteRadioButton.Checked Then
+            Form1.CopyWifi("White")
+            Form1.Print("Theme set to White")
+            Form1.Settings.Theme = "White"
+        End If
+
     End Sub
 
 #End Region

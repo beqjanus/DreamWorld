@@ -53,6 +53,48 @@ Public Class FormDisplacement1X1
 
 #End Region
 
+#Region "Public Methods"
+
+    Public Sub Init(RegionNumber As Integer)
+
+        'Dim RegionPhoto = New RegionPhoto(Name)
+
+        'map-1-1000-1000-objects
+        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionNumber)
+        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionNumber)
+
+        Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
+        Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Try
+            Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
+            PictureBox3.Image = Pic
+            Pic = Nothing
+        Catch ex As Exception
+            PictureBox3.Image = My.Resources.water
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Private Methods"
+
+    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
+
+        Form1.PropForceMerge = False
+        MergeOARToolStripMenuItem.Checked = False
+        ClearOARToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
+
+        Form1.PropForceTerrain = True
+        ForceTerrainToolStripMenuItem.Checked = True
+        OriginalTererainToolStripMenuItem.Checked = False
+
+    End Sub
+
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         SetScreen()
@@ -87,60 +129,15 @@ Public Class FormDisplacement1X1
 
     End Sub
 
-    Public Sub Init(RegionNumber As Integer)
-
-        'Dim RegionPhoto = New RegionPhoto(Name)
-
-        'map-1-1000-1000-objects
-        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionNumber)
-        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionNumber)
-
-        Dim place As String = "map-1-" & Xcoord & "-" & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
-        Try
-            Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
-            PictureBox3.Image = Pic
-            Pic = Nothing
-        Catch ex As Exception
-            PictureBox3.Image = My.Resources.water
-        End Try
-
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        Form1.Help("Load OAR")
     End Sub
 
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.PropSelectedBox = " --displacement <0,0,0>  "
-        Me.Close()
-    End Sub
+    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
-
-        Form1.PropForceMerge = False
-        MergeOARToolStripMenuItem.Checked = False
-        ClearOARToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
-
-        Form1.PropForceMerge = True
-        MergeOARToolStripMenuItem.Checked = True
-        ClearOARToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
-
-        Form1.PropForceTerrain = True
-        ForceTerrainToolStripMenuItem.Checked = True
-        OriginalTererainToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
-
-        Form1.PropForceTerrain = False
-        ForceTerrainToolStripMenuItem.Checked = False
-        OriginalTererainToolStripMenuItem.Checked = True
+        Form1.PropForceParcel = False
+        LoadParcelToolStripMenuItem.Checked = False
+        IgnoreParcelToolStripMenuItem.Checked = True
 
     End Sub
 
@@ -152,20 +149,31 @@ Public Class FormDisplacement1X1
 
     End Sub
 
-    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
+    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        Form1.PropForceParcel = False
-        LoadParcelToolStripMenuItem.Checked = False
-        IgnoreParcelToolStripMenuItem.Checked = True
+        Form1.PropForceMerge = True
+        MergeOARToolStripMenuItem.Checked = True
+        ClearOARToolStripMenuItem.Checked = False
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("Load OAR")
+    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
+
+        Form1.PropForceTerrain = False
+        ForceTerrainToolStripMenuItem.Checked = False
+        OriginalTererainToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        Form1.PropSelectedBox = " --displacement <0,0,0>  "
+        Me.Close()
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
         Form1.PropUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
     End Sub
+
+#End Region
 
 End Class

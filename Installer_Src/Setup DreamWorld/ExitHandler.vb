@@ -22,10 +22,32 @@
 
 Public Class Handler
 
+#Region "Fields"
+
     Private WithEvents MyProcess As New Process()
 
-    Dim RegionHandles1 As New Dictionary(Of Integer, String)
+#End Region
+
+#Region "Private Fields"
+
     Dim Exitlist1 As New ArrayList()
+    Dim RegionHandles1 As New Dictionary(Of Integer, String)
+
+#End Region
+
+#Region "Public Methods"
+
+    Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As ArrayList) As Process
+
+        Exitlist1 = ExitList
+        RegionHandles1 = RegionHandles
+        Return MyProcess
+
+    End Function
+
+#End Region
+
+#Region "Private Methods"
 
     Private Sub OpensimProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyProcess.Exited
 
@@ -48,12 +70,6 @@ Public Class Handler
 
     End Sub
 
-    Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As ArrayList) As Process
-
-        Exitlist1 = ExitList
-        RegionHandles1 = RegionHandles
-        Return MyProcess
-
-    End Function
+#End Region
 
 End Class

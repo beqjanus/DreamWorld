@@ -23,7 +23,14 @@
 Imports System.Globalization
 
 Public Class Culture
+
+#Region "Private Fields"
+
     Private _Language As String
+
+#End Region
+
+#Region "Public Constructors"
 
     Public Sub New()
 
@@ -41,6 +48,10 @@ Public Class Culture
 
     End Sub
 
+#End Region
+
+#Region "Public Properties"
+
     Public Property Language As String
         Get
             Return _Language
@@ -50,10 +61,16 @@ Public Class Culture
         End Set
     End Property
 
+#End Region
+
+#Region "Public Methods"
+
     Public Shared Function Translate(input As String) As String
 
         ' reserved for future chat translator
         Return input
     End Function
+
+#End Region
 
 End Class

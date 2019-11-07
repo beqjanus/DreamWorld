@@ -61,6 +61,13 @@ Public Class Gloebits
 
 #Region "Load/Quit"
 
+    Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.DoGloebits()
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         ContactEmailTextBox.Text = Form1.Settings.GLBOwnerEmail
@@ -82,24 +89,9 @@ Public Class Gloebits
         Initted = True
     End Sub
 
-    Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.DoGloebits()
-
-    End Sub
-
 #End Region
 
 #Region "Mode"
-
-    Private Sub SandboxButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles SandboxButton.CheckedChanged
-        If SandboxButton.Checked = True Then
-            ProductionButton.Checked = False
-            Form1.Settings.GloebitsMode = False
-            Form1.Settings.SaveSettings()
-        End If
-    End Sub
 
     Private Sub ProductionButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles ProductionButton.CheckedChanged
         If ProductionButton.Checked = True Then
@@ -109,23 +101,17 @@ Public Class Gloebits
         End If
     End Sub
 
+    Private Sub SandboxButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles SandboxButton.CheckedChanged
+        If SandboxButton.Checked = True Then
+            ProductionButton.Checked = False
+            Form1.Settings.GloebitsMode = False
+            Form1.Settings.SaveSettings()
+        End If
+    End Sub
+
 #End Region
 
 #Region "Sandbox"
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SandKeyTextBox.TextChanged
-        Form1.Settings.GLSandKey = SandKeyTextBox.Text
-        Form1.Settings.SaveSettings()
-    End Sub
-
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles SandSecretTextBox.TextChanged
-        Form1.Settings.GLSandSecret = SandSecretTextBox.Text
-        Form1.Settings.SaveSettings()
-    End Sub
-
-    Private Sub TextBox2_click(sender As Object, e As EventArgs) Handles SandSecretTextBox.Click
-        SandSecretTextBox.UseSystemPasswordChar = False
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SandBoxSignUpButton.Click
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
@@ -142,9 +128,32 @@ Public Class Gloebits
         Process.Start(webAddress)
     End Sub
 
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SandKeyTextBox.TextChanged
+        Form1.Settings.GLSandKey = SandKeyTextBox.Text
+        Form1.Settings.SaveSettings()
+    End Sub
+
+    Private Sub TextBox2_click(sender As Object, e As EventArgs) Handles SandSecretTextBox.Click
+        SandSecretTextBox.UseSystemPasswordChar = False
+    End Sub
+
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles SandSecretTextBox.TextChanged
+        Form1.Settings.GLSandSecret = SandSecretTextBox.Text
+        Form1.Settings.SaveSettings()
+    End Sub
+
 #End Region
 
 #Region "Production"
+
+    Private Sub ProdKeyTextBox_Click(sender As Object, e As EventArgs) Handles ProdKeyTextBox.Click
+        ProdKeyTextBox.UseSystemPasswordChar = False
+    End Sub
+
+    Private Sub ProdKeyTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdKeyTextBox.TextChanged
+        Form1.Settings.GLProdKey = ProdKeyTextBox.Text
+        Form1.Settings.SaveSettings()
+    End Sub
 
     Private Sub ProdSecretTextBox_Click(sender As Object, e As EventArgs) Handles ProdSecretTextBox.Click
         ProdSecretTextBox.UseSystemPasswordChar = False
@@ -155,13 +164,9 @@ Public Class Gloebits
         Form1.Settings.SaveSettings()
     End Sub
 
-    Private Sub ProdKeyTextBox_Click(sender As Object, e As EventArgs) Handles ProdKeyTextBox.Click
-        ProdKeyTextBox.UseSystemPasswordChar = False
-    End Sub
-
-    Private Sub ProdKeyTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdKeyTextBox.TextChanged
-        Form1.Settings.GLProdKey = ProdKeyTextBox.Text
-        Form1.Settings.SaveSettings()
+    Private Sub ProductionCreateAppButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateAppButton.Click
+        Dim webAddress As String = "https://www.gloebit.com/merchant-tools/"
+        Process.Start(webAddress)
     End Sub
 
     Private Sub ProductionCreateButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateButton.Click
@@ -174,20 +179,9 @@ Public Class Gloebits
         Process.Start(webAddress)
     End Sub
 
-    Private Sub ProductionCreateAppButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateAppButton.Click
-        Dim webAddress As String = "https://www.gloebit.com/merchant-tools/"
-        Process.Start(webAddress)
-    End Sub
-
 #End Region
 
 #Region "OwnerInfo"
-
-    Private Sub OwnerNameTextbox_TextChanged(sender As Object, e As EventArgs) Handles OwnerNameTextbox.TextChanged
-        Form1.Settings.GLBOwnerName = OwnerNameTextbox.Text
-        Form1.Settings.SaveSettings()
-
-    End Sub
 
     Private Sub ContactEmailTextBox_TextChanged(sender As Object, e As EventArgs) Handles ContactEmailTextBox.TextChanged
 
@@ -203,6 +197,12 @@ Public Class Gloebits
 
     End Sub
 
+    Private Sub OwnerNameTextbox_TextChanged(sender As Object, e As EventArgs) Handles OwnerNameTextbox.TextChanged
+        Form1.Settings.GLBOwnerName = OwnerNameTextbox.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
 #End Region
 
 #Region "Help"
@@ -212,16 +212,16 @@ Public Class Gloebits
         Process.Start(webAddress)
     End Sub
 
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Dim webAddress As String = "http://dev.gloebit.com/monetize/"
-        Process.Start(webAddress)
-    End Sub
-
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Process.Start(webAddress)
 
+    End Sub
+
+    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
+        Dim webAddress As String = "http://dev.gloebit.com/monetize/"
+        Process.Start(webAddress)
     End Sub
 
 #End Region

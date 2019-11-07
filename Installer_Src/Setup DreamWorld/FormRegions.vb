@@ -26,21 +26,16 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
+#Region "Private Fields"
+
     Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
+
+#End Region
 
 #Region "ScreenSize"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
-
-    Public Property ScreenPosition As ScreenPos
-        Get
-            Return _screenPosition
-        End Get
-        Set(value As ScreenPos)
-            _screenPosition = value
-        End Set
-    End Property
 
     Public Property PropRegionClass1 As RegionMaker
         Get
@@ -48,6 +43,15 @@ Public Class FormRegions
         End Get
         Set(value As RegionMaker)
             PropRegionClass = value
+        End Set
+    End Property
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
         End Set
     End Property
 
@@ -68,64 +72,7 @@ Public Class FormRegions
 
 #End Region
 
-    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-
-        '!!!  remove for production
-        If Debugger.IsAttached = False Then
-            SmartStartEnabled.Enabled = False
-        End If
-
-        LoadWelcomeBox()
-        LoadRegionBox()
-
-        X.Text = Form1.Settings.HomeVectorX
-        Y.Text = Form1.Settings.HomeVectorY
-        Z.Text = Form1.Settings.HomeVectorZ
-
-        SmartStartEnabled.Checked = Form1.Settings.SmartStart
-
-        Form1.HelpOnce("Regions")
-        SetScreen()
-
-    End Sub
-
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
-
-        Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
-        Form1.Settings.WelcomeRegion = value
-
-        Debug.Print("Selected " & value)
-
-    End Sub
-
-    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles RegionButton.Click
-
-        Dim X As Integer = 300
-        Dim Y As Integer = 200
-        Dim counter As Integer = 0
-
-        For Each Z As Integer In PropRegionClass1.RegionNumbers
-
-            Dim RegionName = PropRegionClass1.RegionName(Z)
-            Dim RegionForm As New FormRegion
-            RegionForm.Init(RegionName)
-            RegionForm.Activate()
-            RegionForm.Visible = True
-
-            Application.DoEvents()
-            counter += 1
-            Y += 100
-            X += 100
-
-        Next
-
-    End Sub
+#Region "Private Methods"
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
@@ -135,72 +82,6 @@ Public Class FormRegions
         RegionForm.Activate()
         RegionForm.Visible = True
 
-    End Sub
-
-    Private Sub LoadWelcomeBox()
-
-        ' Default welcome region load
-        WelcomeBox1.Items.Clear()
-
-        For Each X As Integer In PropRegionClass1.RegionNumbers
-            'If PropRegionClass.RegionEnabled(X) Then
-            WelcomeBox1.Items.Add(PropRegionClass1.RegionName(X))
-            'End If
-        Next
-
-        Dim s = WelcomeBox1.FindString(Form1.Settings.WelcomeRegion)
-        If s > -1 Then
-            WelcomeBox1.SelectedIndex = s
-        Else
-            MsgBox("Choose your Welcome region ", vbInformation, "Choose")
-            Dim chosen = Form1.ChooseRegion(False)
-            Dim Index = WelcomeBox1.FindString(chosen)
-            WelcomeBox1.SelectedIndex = Index
-        End If
-
-    End Sub
-
-    Private Sub LoadRegionBox()
-        ' All region load
-        RegionBox.Items.Clear()
-
-        For Each X As Integer In PropRegionClass1.RegionNumbers
-            RegionBox.Items.Add(PropRegionClass1.RegionName(X))
-        Next
-
-    End Sub
-
-    Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
-
-        Dim value As String = TryCast(RegionBox.SelectedItem, String)
-        Dim RegionForm As New FormRegion
-        RegionForm.Init(value)
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
-
-    End Sub
-
-    Private Sub RegionHelp_Click(sender As Object, e As EventArgs) Handles RegionHelp.Click
-        Form1.Help("Regions")
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        X.Text = digitsOnly.Replace(X.Text, "")
-        Form1.Settings.HomeVectorX = X.Text
-    End Sub
-
-    Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        Y.Text = digitsOnly.Replace(Y.Text, "")
-        Form1.Settings.HomeVectorY = Y.Text
-    End Sub
-
-    Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        Z.Text = digitsOnly.Replace(Z.Text, "")
-        Form1.Settings.HomeVectorZ = Z.Text
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
@@ -248,12 +129,139 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
+        Form1.Settings.SmartStart = SmartStartEnabled.Checked
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
+
+        Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
+        Form1.Settings.WelcomeRegion = value
+
+        Debug.Print("Selected " & value)
+
+    End Sub
+
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         Form1.Help("Regions")
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
-        Form1.Settings.SmartStart = SmartStartEnabled.Checked
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        Form1.Settings.SaveSettings()
+
     End Sub
+
+    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        '!!!  remove for production
+        If Debugger.IsAttached = False Then
+            SmartStartEnabled.Enabled = False
+        End If
+
+        LoadWelcomeBox()
+        LoadRegionBox()
+
+        X.Text = Form1.Settings.HomeVectorX
+        Y.Text = Form1.Settings.HomeVectorY
+        Z.Text = Form1.Settings.HomeVectorZ
+
+        SmartStartEnabled.Checked = Form1.Settings.SmartStart
+
+        Form1.HelpOnce("Regions")
+        SetScreen()
+
+    End Sub
+
+    Private Sub LoadRegionBox()
+        ' All region load
+        RegionBox.Items.Clear()
+
+        For Each X As Integer In PropRegionClass1.RegionNumbers
+            RegionBox.Items.Add(PropRegionClass1.RegionName(X))
+        Next
+
+    End Sub
+
+    Private Sub LoadWelcomeBox()
+
+        ' Default welcome region load
+        WelcomeBox1.Items.Clear()
+
+        For Each X As Integer In PropRegionClass1.RegionNumbers
+            'If PropRegionClass.RegionEnabled(X) Then
+            WelcomeBox1.Items.Add(PropRegionClass1.RegionName(X))
+            'End If
+        Next
+
+        Dim s = WelcomeBox1.FindString(Form1.Settings.WelcomeRegion)
+        If s > -1 Then
+            WelcomeBox1.SelectedIndex = s
+        Else
+            MsgBox("Choose your Welcome region ", vbInformation, "Choose")
+            Dim chosen = Form1.ChooseRegion(False)
+            Dim Index = WelcomeBox1.FindString(chosen)
+            WelcomeBox1.SelectedIndex = Index
+        End If
+
+    End Sub
+
+    Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
+
+        Dim value As String = TryCast(RegionBox.SelectedItem, String)
+        Dim RegionForm As New FormRegion
+        RegionForm.Init(value)
+        RegionForm.Activate()
+        RegionForm.Visible = True
+        RegionForm.Select()
+
+    End Sub
+
+    Private Sub RegionButton1_Click(sender As Object, e As EventArgs) Handles RegionButton.Click
+
+        Dim X As Integer = 300
+        Dim Y As Integer = 200
+        Dim counter As Integer = 0
+
+        For Each Z As Integer In PropRegionClass1.RegionNumbers
+
+            Dim RegionName = PropRegionClass1.RegionName(Z)
+            Dim RegionForm As New FormRegion
+            RegionForm.Init(RegionName)
+            RegionForm.Activate()
+            RegionForm.Visible = True
+
+            Application.DoEvents()
+            counter += 1
+            Y += 100
+            X += 100
+
+        Next
+
+    End Sub
+
+    Private Sub RegionHelp_Click(sender As Object, e As EventArgs) Handles RegionHelp.Click
+        Form1.Help("Regions")
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        X.Text = digitsOnly.Replace(X.Text, "")
+        Form1.Settings.HomeVectorX = X.Text
+    End Sub
+
+    Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Y.Text = digitsOnly.Replace(Y.Text, "")
+        Form1.Settings.HomeVectorY = Y.Text
+    End Sub
+
+    Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Z.Text = digitsOnly.Replace(Z.Text, "")
+        Form1.Settings.HomeVectorZ = Z.Text
+    End Sub
+
+#End Region
 
 End Class

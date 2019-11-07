@@ -23,8 +23,15 @@
 Imports System.Text.RegularExpressions
 
 Public Class FormMaps
+
+#Region "Private Fields"
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+#End Region
+
+#Region "Public Properties"
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -35,19 +42,48 @@ Public Class FormMaps
         End Set
     End Property
 
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
+#End Region
+
+#Region "Private Methods"
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
+
+        Try
+            Form1.Print("Clearing Maptiles")
+            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
+        Catch ex As Exception
+        End Try
+        Form1.Print("Maptiles cleared. Set maps on and reboot to make new maps")
+
     End Sub
 
-    Private Sub SetScreen()
-        Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
+        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CStr(Form1.Settings.ApachePort) & "/Metromap/index.php"
+        Process.Start(webAddress)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html"
+        Process.Start(webAddress)
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
+        Form1.Help("Maps")
+
+    End Sub
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
+        Dim webAddress As String = "http://" + Form1.Settings.PublicIP & ":" & Form1.Settings.ApachePort & "/Metromap/indexmax.php"
+        Process.Start(webAddress)
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -96,10 +132,25 @@ Public Class FormMaps
 
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Form1.Settings.MapType = "Best"
+        MapPicture.Image = My.Resources.Best
+
+    End Sub
+
+    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
+
+        Form1.Settings.MapType = "Better"
+        MapPicture.Image = My.Resources.Better
+
+    End Sub
+
+    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
+
+        Form1.Settings.MapType = "Good"
+
+        MapPicture.Image = My.Resources.Good
 
     End Sub
 
@@ -121,55 +172,6 @@ Public Class FormMaps
         Form1.Settings.MapType = "Simple"
         MapPicture.Image = My.Resources.Simple
 
-    End Sub
-
-    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
-
-        Form1.Settings.MapType = "Good"
-
-        MapPicture.Image = My.Resources.Good
-
-    End Sub
-
-    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
-
-        Form1.Settings.MapType = "Better"
-        MapPicture.Image = My.Resources.Better
-
-    End Sub
-
-    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
-
-        Form1.Settings.MapType = "Best"
-        MapPicture.Image = My.Resources.Best
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
-
-        Try
-            Form1.Print("Clearing Maptiles")
-            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
-            My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
-        Catch ex As Exception
-        End Try
-        Form1.Print("Maptiles cleared. Set maps on and reboot to make new maps")
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html"
-        Process.Start(webAddress)
-    End Sub
-
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
-        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CStr(Form1.Settings.ApachePort) & "/Metromap/index.php"
-        Process.Start(webAddress)
-    End Sub
-
-    Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
-        Dim webAddress As String = "http://" + Form1.Settings.PublicIP & ":" & Form1.Settings.ApachePort & "/Metromap/indexmax.php"
-        Process.Start(webAddress)
     End Sub
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
@@ -203,10 +205,21 @@ Public Class FormMaps
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        Form1.Help("Maps")
-
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
 
 End Class

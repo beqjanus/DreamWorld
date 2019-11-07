@@ -55,20 +55,7 @@ Public Class Icecast
 
 #End Region
 
-    Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.Invarient)
-        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.Invarient)
-        AdminPassword.Text = Form1.Settings.SCAdminPassword
-        ShoutcastPassword.Text = Form1.Settings.SCPassword
-        ShoutcastEnable.Checked = Form1.Settings.SCEnable
-
-        AdminPassword.UseSystemPasswordChar = True
-        ShoutcastPassword.UseSystemPasswordChar = True
-        SetScreen()
-        Form1.HelpOnce("Icecast")
-
-    End Sub
+#Region "Public Methods"
 
     Public Sub ShoutcastPortTextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort.TextChanged
 
@@ -81,11 +68,9 @@ Public Class Icecast
 
     End Sub
 
-    Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
+#End Region
 
-        Form1.Settings.SCAdminPassword = AdminPassword.Text
-
-    End Sub
+#Region "Private Methods"
 
     Private Sub AdminPassword_Click(sender As Object, e As EventArgs) Handles AdminPassword.Click
 
@@ -93,21 +78,15 @@ Public Class Icecast
 
     End Sub
 
-    Private Sub ShoutcastEnable_CheckedChanged(sender As Object, e As EventArgs) Handles ShoutcastEnable.CheckedChanged
+    Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
-        Form1.Settings.SCEnable = ShoutcastEnable.Checked
-
-    End Sub
-
-    Private Sub ShoutcastPassword_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.TextChanged
-
-        Form1.Settings.SCPassword = ShoutcastPassword.Text
+        Form1.Settings.SCAdminPassword = AdminPassword.Text
 
     End Sub
 
-    Private Sub ShoutcastPassword_CLickChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.Click
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        ShoutcastPassword.UseSystemPasswordChar = False
+        Form1.Help("Icecast")
 
     End Sub
 
@@ -138,6 +117,39 @@ Public Class Icecast
 
     End Sub
 
+    Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.Invarient)
+        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.Invarient)
+        AdminPassword.Text = Form1.Settings.SCAdminPassword
+        ShoutcastPassword.Text = Form1.Settings.SCPassword
+        ShoutcastEnable.Checked = Form1.Settings.SCEnable
+
+        AdminPassword.UseSystemPasswordChar = True
+        ShoutcastPassword.UseSystemPasswordChar = True
+        SetScreen()
+        Form1.HelpOnce("Icecast")
+
+    End Sub
+
+    Private Sub ShoutcastEnable_CheckedChanged(sender As Object, e As EventArgs) Handles ShoutcastEnable.CheckedChanged
+
+        Form1.Settings.SCEnable = ShoutcastEnable.Checked
+
+    End Sub
+
+    Private Sub ShoutcastPassword_CLickChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.Click
+
+        ShoutcastPassword.UseSystemPasswordChar = False
+
+    End Sub
+
+    Private Sub ShoutcastPassword_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.TextChanged
+
+        Form1.Settings.SCPassword = ShoutcastPassword.Text
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort1.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
@@ -149,10 +161,6 @@ Public Class Icecast
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        Form1.Help("Icecast")
-
-    End Sub
+#End Region
 
 End Class

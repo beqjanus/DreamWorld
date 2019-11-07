@@ -27,44 +27,18 @@ Imports System.Runtime.InteropServices
 Public Class UPnp
     Implements IDisposable
 
-    Dim UPnpnat As NATUPNPLib.UPnPNAT
-    Dim staticMapping As NATUPNPLib.IStaticPortMappingCollection
-    Dim dynamicMapping As NATUPNPLib.IDynamicPortMappingCollection
-
-    Private staticEnabled As Boolean = True
-    Private dynamicEnabled As Boolean = True
+#Region "Private Fields"
 
     Private CacheIP As String = ""
+    Private dynamicEnabled As Boolean = True
+    Dim dynamicMapping As NATUPNPLib.IDynamicPortMappingCollection
+    Private staticEnabled As Boolean = True
+    Dim staticMapping As NATUPNPLib.IStaticPortMappingCollection
+    Dim UPnpnat As NATUPNPLib.UPnPNAT
 
-    ''' <summary>
-    ''' The different supported protocols
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Enum MyProtocol
-        ''' <summary>
-        ''' Transmission Control Protocol
-        ''' </summary>
+#End Region
 
-        TCP
-
-        ''' <summary>
-        ''' User Datagram Protocol
-        ''' </summary>
-        UDP
-
-    End Enum
-
-    ''' <summary>
-    ''' Returns if UPnp is enabled.
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public ReadOnly Property UPnpEnabled As Boolean
-        Get
-            Return staticEnabled = True OrElse dynamicEnabled = True
-        End Get
-    End Property
+#Region "Public Constructors"
 
     ''' <summary>
     ''' The UPnp Managed Class
@@ -84,37 +58,64 @@ Public Class UPnp
 
     End Sub
 
-    ''' <summary>
-    ''' Returns all static port mappings
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub GetStaticMappings()
-        Try
+#End Region
 
-            staticMapping = UPnpnat.StaticPortMappingCollection()
-            If staticMapping Is Nothing Then
-                staticEnabled = False
-                Return
-            End If
-        Catch ex As Exception
-            staticEnabled = False
-        End Try
-    End Sub
+#Region "Public Enums"
 
     ''' <summary>
-    ''' Returns all dynamic port mappings
+    ''' The different supported protocols
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub GetDynamicMappings()
-        Try
-            dynamicMapping = UPnpnat.DynamicPortMappingCollection()
-            If dynamicMapping Is Nothing Then
-                dynamicEnabled = False
+    Public Enum MyProtocol
+        ''' <summary>
+        ''' Transmission Control Protocol
+        ''' </summary>
+
+        TCP
+
+        ''' <summary>
+        ''' User Datagram Protocol
+        ''' </summary>
+        UDP
+
+    End Enum
+
+#End Region
+
+#Region "Public Properties"
+
+    ''' <summary>
+    ''' Returns if UPnp is enabled.
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public ReadOnly Property UPnpEnabled As Boolean
+        Get
+            Return staticEnabled = True OrElse dynamicEnabled = True
+        End Get
+    End Property
+
+#End Region
+
+#Region "Public Methods"
+
+    ''' <summary>
+    ''' Attempts to locate the local IP address of this computer.
+    ''' </summary>
+    ''' <returns>String</returns>
+    ''' <remarks></remarks>
+    Public Shared Function LocalIPForced() As String
+        Dim IPList As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
+
+        For Each IPaddress In IPList.AddressList
+            If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) AndAlso IPCheck.IsPrivateIP(IPaddress.ToString()) Then
+                Dim ip = IPaddress.ToString()
+                Return ip
             End If
-        Catch ex As Exception
-            dynamicEnabled = False
-        End Try
-    End Sub
+        Next
+        Return String.Empty
+    End Function
 
     ''' <summary>
     ''' Adds a port mapping to the UPnp enabled device.
@@ -135,18 +136,12 @@ Public Class UPnp
     End Sub
 
     ''' <summary>
-    ''' Removes a port mapping from the UPnp enabled device.
+    ''' Dispose!
     ''' </summary>
-    ''' <param name="Port">The port to remove.</param>
-    ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
-
     ''' <remarks></remarks>
-    Public Sub Remove(ByVal port As Integer, ByVal prot As MyProtocol)
-
-        Try
-            staticMapping.Remove(port, prot.ToString)
-        Catch ex As Exception
-        End Try
+    Public Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
     End Sub
 
     ''' <summary>
@@ -207,23 +202,24 @@ Public Class UPnp
 
     End Function
 
-    ''' <summary>
-    ''' Attempts to locate the local IP address of this computer.
-    ''' </summary>
-    ''' <returns>String</returns>
     ''' <remarks></remarks>
-    Public Shared Function LocalIPForced() As String
-        Dim IPList As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
+    Public Sub Remove(ByVal port As Integer, ByVal prot As MyProtocol)
 
-        For Each IPaddress In IPList.AddressList
-            If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) AndAlso IPCheck.IsPrivateIP(IPaddress.ToString()) Then
-                Dim ip = IPaddress.ToString()
-                Return ip
-            End If
-        Next
-        Return String.Empty
-    End Function
+        Try
+            staticMapping.Remove(port, prot.ToString)
+        Catch ex As Exception
+        End Try
+    End Sub
 
+#End Region
+
+#Region "Protected Methods"
+
+    ''' <summary>
+    ''' Removes a port mapping from the UPnp enabled device.
+    ''' </summary>
+    ''' <param name="Port">The port to remove.</param>
+    ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
     ''' <summary>
     ''' Disposes of the UPnp class
     ''' </summary>
@@ -239,13 +235,42 @@ Public Class UPnp
         End Try
     End Sub
 
+#End Region
+
+#Region "Private Methods"
+
     ''' <summary>
-    ''' Dispose!
+    ''' Returns all dynamic port mappings
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub Dispose() Implements IDisposable.Dispose
-        Dispose(True)
-        GC.SuppressFinalize(Me)
+    Private Sub GetDynamicMappings()
+        Try
+            dynamicMapping = UPnpnat.DynamicPortMappingCollection()
+            If dynamicMapping Is Nothing Then
+                dynamicEnabled = False
+            End If
+        Catch ex As Exception
+            dynamicEnabled = False
+        End Try
     End Sub
+
+    ''' <summary>
+    ''' Returns all static port mappings
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub GetStaticMappings()
+        Try
+
+            staticMapping = UPnpnat.StaticPortMappingCollection()
+            If staticMapping Is Nothing Then
+                staticEnabled = False
+                Return
+            End If
+        Catch ex As Exception
+            staticEnabled = False
+        End Try
+    End Sub
+
+#End Region
 
 End Class

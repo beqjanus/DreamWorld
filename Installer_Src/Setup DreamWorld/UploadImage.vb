@@ -27,10 +27,7 @@ Public Class UploadImage
 
     'Private Delegate Sub UploadStateChange(ByVal Data As String, ByVal Info As UploadInfo)
 
-    Shared Sub UploadError(ByVal Data As String)
-        ' Your Upload failure Routine Goes here
-        Form1.ErrorLog("Upload Error:" + Data)
-    End Sub
+#Region "Public Methods"
 
     Shared Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
@@ -40,18 +37,39 @@ Public Class UploadImage
 
     End Sub
 
-    Private Class HttpRequestState
-        Public Request As HttpWebRequest
-        Public Params As Specialized.NameValueCollection
-        Public FileName As String
+    Shared Sub UploadError(ByVal Data As String)
+        ' Your Upload failure Routine Goes here
+        Form1.ErrorLog("Upload Error:" + Data)
+    End Sub
 
-        Public Sub New(ByRef _req As HttpWebRequest, ByVal _param As Specialized.NameValueCollection, ByVal _file As String)
-            Me.Request = _req
-            Me.Params = _param
-            Me.FileName = _file
-        End Sub
+    Public Sub PostContentUploadFile()
 
-    End Class
+        Try
+            Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
+
+            Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
+            Dim params As New Specialized.NameValueCollection From {
+                {"MachineID", Form1.Settings.MachineID()},
+                {"DnsName", Form1.Settings.PublicIP}
+            }
+
+            Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)
+            req.Method = "POST"
+            req.KeepAlive = True
+            req.ReadWriteTimeout = System.Threading.Timeout.Infinite
+            req.Credentials = System.Net.CredentialCache.DefaultCredentials
+
+            Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
+                New HttpRequestState(req, params, File))
+        Catch ex As Exception
+            Form1.Log("Error", ex.Message)
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Private Methods"
 
     Private Sub RequestStreamAvailable(ByVal ar As IAsyncResult)
         Dim r_State As HttpRequestState = TryCast(ar.AsyncState, HttpRequestState)
@@ -155,30 +173,33 @@ Public Class UploadImage
 
     End Sub
 
-    Public Sub PostContentUploadFile()
+#End Region
 
-        Try
-            Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
+#Region "Private Classes"
 
-            Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
-            Dim params As New Specialized.NameValueCollection From {
-                {"MachineID", Form1.Settings.MachineID()},
-                {"DnsName", Form1.Settings.PublicIP}
-            }
+    Private Class HttpRequestState
 
-            Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)
-            req.Method = "POST"
-            req.KeepAlive = True
-            req.ReadWriteTimeout = System.Threading.Timeout.Infinite
-            req.Credentials = System.Net.CredentialCache.DefaultCredentials
+#Region "Public Fields"
 
-            Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
-                New HttpRequestState(req, params, File))
-        Catch ex As Exception
-            Form1.Log("Error", ex.Message)
-        End Try
+        Public FileName As String
+        Public Params As Specialized.NameValueCollection
+        Public Request As HttpWebRequest
 
-    End Sub
+#End Region
+
+#Region "Public Constructors"
+
+        Public Sub New(ByRef _req As HttpWebRequest, ByVal _param As Specialized.NameValueCollection, ByVal _file As String)
+            Me.Request = _req
+            Me.Params = _param
+            Me.FileName = _file
+        End Sub
+
+#End Region
+
+    End Class
+
+#End Region
 
 End Class
 

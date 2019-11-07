@@ -22,7 +22,11 @@
 
 Public Class FormPhysics
 
+#Region "Private Fields"
+
     Dim initted As Boolean
+
+#End Region
 
 #Region "ScreenSize"
 
@@ -55,6 +59,8 @@ Public Class FormPhysics
 
 #End Region
 
+#Region "Private Methods"
+
     Private Sub Physics_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SetScreen()
@@ -74,7 +80,17 @@ Public Class FormPhysics
 
     End Sub
 
+#End Region
+
 #Region "Physics"
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Physics")
+    End Sub
+
+    Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+        Form1.Help("Physics")
+    End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
@@ -83,26 +99,26 @@ Public Class FormPhysics
 
     End Sub
 
-    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
-        If Not initted Then Return
-        If PhysicsNone.Checked Then
-            Form1.Settings.Physics = 0
-            Form1.Settings.SaveSettings()
-        End If
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
-        If Not initted Then Return
-        If PhysicsODE.Checked Then
-            Form1.Settings.Physics = 1
-            Form1.Settings.SaveSettings()
-        End If
-    End Sub
-
     Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
         If Not initted Then Return
         If PhysicsBullet.Checked Then
             Form1.Settings.Physics = 2
+            Form1.Settings.SaveSettings()
+        End If
+    End Sub
+
+    Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
+        If Not initted Then Return
+        If PhysicsHybrid.Checked Then
+            Form1.Settings.Physics = 5
+            Form1.Settings.SaveSettings()
+        End If
+    End Sub
+
+    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
+        If Not initted Then Return
+        If PhysicsNone.Checked Then
+            Form1.Settings.Physics = 0
             Form1.Settings.SaveSettings()
         End If
     End Sub
@@ -123,20 +139,12 @@ Public Class FormPhysics
         End If
     End Sub
 
-    Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
         If Not initted Then Return
-        If PhysicsHybrid.Checked Then
-            Form1.Settings.Physics = 5
+        If PhysicsODE.Checked Then
+            Form1.Settings.Physics = 1
             Form1.Settings.SaveSettings()
         End If
-    End Sub
-
-    Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
-        Form1.Help("Physics")
-    End Sub
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Physics")
     End Sub
 
 #End Region

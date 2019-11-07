@@ -22,20 +22,30 @@
 
 Public Class FormIARSave
 
-    Private _gObject As String = "/"
+#Region "Private Fields"
+
     Private _gAvatarName As String = ""
-    Private _gBackupPath As String = ""
     Private _gBackupName As String = ""
+    Private _gBackupPath As String = ""
+    Private _gObject As String = "/"
     Private _gPassword As String = ""
 
-    Public Property GObject As String
-        Get
-            Return _gObject
-        End Get
-        Set(value As String)
-            _gObject = value
-        End Set
-    End Property
+#End Region
+
+#Region "Public Constructors"
+
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient) + ".iar"
+
+    End Sub
+
+#End Region
+
+#Region "Public Properties"
 
     Public Property GAvatarName As String
         Get
@@ -43,15 +53,6 @@ Public Class FormIARSave
         End Get
         Set(value As String)
             _gAvatarName = value
-        End Set
-    End Property
-
-    Public Property GBackupPath As String
-        Get
-            Return _gBackupPath
-        End Get
-        Set(value As String)
-            _gBackupPath = value
         End Set
     End Property
 
@@ -64,6 +65,24 @@ Public Class FormIARSave
         End Set
     End Property
 
+    Public Property GBackupPath As String
+        Get
+            Return _gBackupPath
+        End Get
+        Set(value As String)
+            _gBackupPath = value
+        End Set
+    End Property
+
+    Public Property GObject As String
+        Get
+            Return _gObject
+        End Get
+        Set(value As String)
+            _gObject = value
+        End Set
+    End Property
+
     Public Property GPassword As String
         Get
             Return _gPassword
@@ -73,23 +92,16 @@ Public Class FormIARSave
         End Set
     End Property
 
-    Public Sub New()
+#End Region
 
-        ' This call is required by the designer.
-        InitializeComponent()
+#Region "Private Methods"
 
-        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient) + ".iar"
-
+    Private Sub AviName_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+        GAvatarName = AviName.Text
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
-        Form1.Help("SaveIar")
-
-    End Sub
-
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
+    Private Sub BackupNameTextBox_TextChanged_1(sender As Object, e As EventArgs) Handles BackupNameTextBox.TextChanged
+        GBackupName = BackupNameTextBox.Text
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -106,6 +118,24 @@ Public Class FormIARSave
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
     End Sub
 
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        Form1.Help("SaveIar")
+
+    End Sub
+
+    Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
+        GObject = ObjectNameBox.Text
+    End Sub
+
+    Private Sub Password_TextChanged_1(sender As Object, e As EventArgs) Handles Password.TextChanged
+        GPassword = Password.Text
+    End Sub
+
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         Dim ofd As New FolderBrowserDialog
@@ -120,20 +150,6 @@ Public Class FormIARSave
 
     End Sub
 
-    Private Sub BackupNameTextBox_TextChanged_1(sender As Object, e As EventArgs) Handles BackupNameTextBox.TextChanged
-        GBackupName = BackupNameTextBox.Text
-    End Sub
-
-    Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
-        GObject = ObjectNameBox.Text
-    End Sub
-
-    Private Sub Password_TextChanged_1(sender As Object, e As EventArgs) Handles Password.TextChanged
-        GPassword = Password.Text
-    End Sub
-
-    Private Sub AviName_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
-        GAvatarName = AviName.Text
-    End Sub
+#End Region
 
 End Class

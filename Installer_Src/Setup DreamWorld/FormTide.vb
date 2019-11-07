@@ -53,6 +53,29 @@ Public Class Tides
 
 #End Region
 
+#Region "Private Methods"
+
+    Private Sub BroadcastTideInfo_CheckedChanged(sender As Object, e As EventArgs) Handles BroadcastTideInfo.CheckedChanged
+        Form1.Settings.BroadcastTideInfo = BroadcastTideInfo.Checked
+        Form1.Settings.SaveINI()
+    End Sub
+
+    Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
+        Form1.Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
+        Form1.Settings.SaveINI()
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Tides")
+    End Sub
+
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Form1.PropViewedSettings = True
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         TideEnabledCheckbox.Checked = CType(Form1.Settings.TideEnabled, Boolean)
@@ -67,11 +90,8 @@ Public Class Tides
         Form1.HelpOnce("Tides")
     End Sub
 
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
-
+    Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
+        Form1.Help("Tides")
     End Sub
 
     Private Sub TideEnabledCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TideEnabledCheckbox.CheckedChanged
@@ -84,18 +104,8 @@ Public Class Tides
         Form1.Settings.SaveINI()
     End Sub
 
-    Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
-        Form1.Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
-        Form1.Settings.SaveINI()
-    End Sub
-
-    Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
-        Form1.Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
-        Form1.Settings.SaveINI()
-    End Sub
-
-    Private Sub BroadcastTideInfo_CheckedChanged(sender As Object, e As EventArgs) Handles BroadcastTideInfo.CheckedChanged
-        Form1.Settings.BroadcastTideInfo = BroadcastTideInfo.Checked
+    Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
+        Form1.Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
         Form1.Settings.SaveINI()
     End Sub
 
@@ -104,22 +114,16 @@ Public Class Tides
         Form1.Settings.SaveINI()
     End Sub
 
-    Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
-        Form1.Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
-        Form1.Settings.SaveINI()
-    End Sub
-
     Private Sub TideInfoDebugCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TideInfoDebugCheckBox.CheckedChanged
         Form1.Settings.TideInfoDebug = TideInfoDebugCheckBox.Checked
         Form1.Settings.SaveINI()
     End Sub
 
-    Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
-        Form1.Help("Tides")
+    Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
+        Form1.Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
+        Form1.Settings.SaveINI()
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Tides")
-    End Sub
+#End Region
 
 End Class

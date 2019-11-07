@@ -24,12 +24,17 @@ Public Class FormFsAssets
 
 #Region "Declarations"
 
-    Dim initted As Boolean = False
     Dim _changed As Boolean = False
+    Dim initted As Boolean = False
 
 #End Region
 
 #Region "ScreenSize"
+
+    'The following detects  the location of the form in screen coordinates
+    Private _screenPosition As ScreenPos
+
+    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -39,11 +44,6 @@ Public Class FormFsAssets
             _screenPosition = value
         End Set
     End Property
-
-    'The following detects  the location of the form in screen coordinates
-    Private _screenPosition As ScreenPos
-
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -85,18 +85,6 @@ Public Class FormFsAssets
 
 #Region "LoadSave"
 
-    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-
-        Form1.HelpOnce("FSAssets")
-
-        EnableFsAssetsCheckbox.Checked = Form1.Settings.FsAssetsEnabled
-        DataFolder.Text = Form1.Settings.BaseDirectory
-        ShowStatsCheckBox.Checked = CType(Form1.Settings.ShowConsoleStats, Boolean)
-
-        Initted1 = True
-
-    End Sub
-
     Private Sub Form_exit() Handles Me.Closed
 
         If Changed Then
@@ -110,6 +98,18 @@ Public Class FormFsAssets
 
     End Sub
 
+    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        Form1.HelpOnce("FSAssets")
+
+        EnableFsAssetsCheckbox.Checked = Form1.Settings.FsAssetsEnabled
+        DataFolder.Text = Form1.Settings.BaseDirectory
+        ShowStatsCheckBox.Checked = CType(Form1.Settings.ShowConsoleStats, Boolean)
+
+        Initted1 = True
+
+    End Sub
+
 #End Region
 
 #Region "Subs"
@@ -118,6 +118,18 @@ Public Class FormFsAssets
         If Not initted Then Return
         Form1.Settings.FsAssetsEnabled = EnableFsAssetsCheckbox.Checked
         Changed = True
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
+        Changed = True
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("FSAssets")
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -147,22 +159,10 @@ Public Class FormFsAssets
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Form1.Settings.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
-        Changed = True
-
-    End Sub
-
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Form1.Settings.SaveSettings()
         Me.Close()
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("FSAssets")
     End Sub
 
 #End Region

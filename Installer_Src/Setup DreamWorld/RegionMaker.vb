@@ -30,8 +30,8 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-    Private _Grouplist As New Dictionary(Of String, Integer)
     Private Shared FInstance As RegionMaker = Nothing
+    Private _Grouplist As New Dictionary(Of String, Integer)
     Dim Backup As New ArrayList()
     Private initted As Boolean = False
     Dim json As New JSONresult
@@ -119,13 +119,6 @@ Public Class RegionMaker
 #Region "Classes"
 
 #Disable Warning CA1051 ' Do not declare visible instance fields
-
-    Private Class JSONresult
-        Public alert As String
-        Public login As String
-        Public region_id As String
-        Public region_name As String
-    End Class
 
     ''' <summary>
     ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
@@ -622,8 +615,25 @@ Public Class RegionMaker
 
     End Sub
 
+    Private Class JSONresult
+
+#Region "Public Fields"
+
+        Public alert As String
+        Public login As String
+        Public region_id As String
+        Public region_name As String
+
+#End Region
+
+    End Class
+
+#Region "Private Classes"
+
     ' hold a copy of the Main region data on a per-form basis
     Private Class Region_data
+
+#Region "Public Fields"
 
         Public _AvatarCount As Integer = 0
         Public _ClampPrimSize As Boolean = False
@@ -654,6 +664,8 @@ Public Class RegionMaker
 
 #End Region
 
+#End Region
+
 #Region "OptionalStorage"
 
         ''' <summary>
@@ -661,7 +673,6 @@ Public Class RegionMaker
         ''' </summary>
 
         Public _AllowGods As String = ""
-        Public _SkipAutobackup As String = ""
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
@@ -671,6 +682,7 @@ Public Class RegionMaker
         Public _Physics As String = "  "
         Public _RegionGod As String = ""
         Public _RegionSnapShot As String = ""
+        Public _SkipAutobackup As String = ""
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
         Public _Tides As String = ""
@@ -679,14 +691,34 @@ Public Class RegionMaker
 
     End Class
 
+#End Region
+
 #Region "Standard INI"
 
-    Public Property UUID(n As Integer) As String
+    Public Property ClampPrimSize(n As Integer) As Boolean
         Get
-            Return RegionList(n)._UUID
+            Return CBool(RegionList(n)._ClampPrimSize)
         End Get
-        Set(ByVal Value As String)
-            RegionList(n)._UUID = Value
+        Set(ByVal Value As Boolean)
+            RegionList(n)._ClampPrimSize = Value
+        End Set
+    End Property
+
+    Public Property CoordX(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordX)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordX = Value
+        End Set
+    End Property
+
+    Public Property CoordY(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordY)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordY = Value
         End Set
     End Property
 
@@ -726,33 +758,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property ClampPrimSize(n As Integer) As Boolean
-        Get
-            Return CBool(RegionList(n)._ClampPrimSize)
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value
-        End Set
-    End Property
-
-    Public Property CoordX(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordX)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value
-        End Set
-    End Property
-
-    Public Property CoordY(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordY)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value
-        End Set
-    End Property
-
     Public Property SizeX(n As Integer) As Integer
         Get
             Return RegionList(n)._SizeX
@@ -771,6 +776,15 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property UUID(n As Integer) As String
+        Get
+            Return RegionList(n)._UUID
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._UUID = Value
+        End Set
+    End Property
+
 #End Region
 
 #Region "NeedBackup"
@@ -781,6 +795,15 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._AvatarCount = Value
+        End Set
+    End Property
+
+    Public Property LineCounter(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._LineCounter)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._LineCounter = Value
         End Set
     End Property
 
@@ -804,15 +827,6 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._Status = Value
-        End Set
-    End Property
-
-    Public Property LineCounter(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._LineCounter)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._LineCounter = Value
         End Set
     End Property
 
@@ -903,15 +917,6 @@ Public Class RegionMaker
 
 #Region "Options"
 
-    Public Property Snapshot(n As Integer) As String
-        Get
-            Return RegionList(n)._Snapshot
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._Snapshot = Value
-        End Set
-    End Property
-
     Public Property AllowGods(n As Integer) As String
         Get
             Return RegionList(n)._AllowGods
@@ -930,12 +935,12 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property SkipAutobackup(n As Integer) As String
+    Public Property DisableGloebits(n As Integer) As String
         Get
-            Return RegionList(n)._SkipAutobackup
+            Return RegionList(n)._DisableGloebits
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._SkipAutobackup = Value
+            RegionList(n)._DisableGloebits = Value
         End Set
     End Property
 
@@ -954,6 +959,15 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As String)
             RegionList(n)._DisallowResidents = Value
+        End Set
+    End Property
+
+    Public Property FrameTime(n As Integer) As String
+        Get
+            Return RegionList(n)._FrameTime
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._FrameTime = Value
         End Set
     End Property
 
@@ -1011,6 +1025,24 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property RegionSnapShot(n As Integer) As String
+        Get
+            Return RegionList(n)._RegionSnapShot
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._RegionSnapShot = Value
+        End Set
+    End Property
+
+    Public Property SkipAutobackup(n As Integer) As String
+        Get
+            Return RegionList(n)._SkipAutobackup
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._SkipAutobackup = Value
+        End Set
+    End Property
+
     Public Property SmartStart(n As Integer) As String
 
         Get
@@ -1022,30 +1054,12 @@ Public Class RegionMaker
 
     End Property
 
-    Public Property FrameTime(n As Integer) As String
+    Public Property Snapshot(n As Integer) As String
         Get
-            Return RegionList(n)._FrameTime
+            Return RegionList(n)._Snapshot
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._FrameTime = Value
-        End Set
-    End Property
-
-    Public Property DisableGloebits(n As Integer) As String
-        Get
-            Return RegionList(n)._DisableGloebits
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._DisableGloebits = Value
-        End Set
-    End Property
-
-    Public Property RegionSnapShot(n As Integer) As String
-        Get
-            Return RegionList(n)._RegionSnapShot
-        End Get
-        Set(ByVal Value As String)
-            RegionList(n)._RegionSnapShot = Value
+            RegionList(n)._Snapshot = Value
         End Set
     End Property
 
