@@ -670,12 +670,11 @@ Public Class Form1
 
         GridNames.SetServerNames()
 
-        If Settings.PortsChanged Then
-            Print("Setup Ports")
-            RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-            Print("Setup Firewall")
-            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-        End If
+
+        Print("Setup Ports")
+        RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
+        Print("Setup Firewall")
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
         PropRegionHandles.Clear()
@@ -830,6 +829,7 @@ Public Class Form1
 
         PropViewedSettings = True
 
+
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
         Settings.OpensimBinPath = PropOpensimBinPath
@@ -897,12 +897,12 @@ Public Class Form1
 
         CheckDiagPort()
 
-        If Settings.PortsChanged Then
-            Print("Setup Ports")
-            RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
-            Print("Setup Firewall")
-            Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-        End If
+
+        Print("Setup Ports")
+        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+        Print("Setup Firewall")
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -2385,45 +2385,33 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
+                    ' Replace the block with a list of regions with the 
+                    ' Region_Name = DefaultRegion, DefaultHGRegion is Welcome
+                    ' Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is enabled
+                    ' Region_Name = FallbackRegion if not a SmartStart
+
                     If line.Contains("Region_REPLACE") Then
 
-                        line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
-                        Diagnostics.Debug.Print(line)
-                        outputFile.WriteLine(line)
-
-                        If Settings.SmartStart Then
-                            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                                Dim RegionName = PropRegionClass.RegionName(RegionNum)
-
-                                If RegionName <> Settings.WelcomeRegion Then
-                                    If PropRegionClass.SmartStart(RegionNum) = "True" Then
-                                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                        line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
-                                    Else
-                                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                        line = "Region_" & RegionName & " = " & "FallbackRegion"
-                                    End If
-
-                                    Diagnostics.Debug.Print(line)
-                                    outputFile.WriteLine(line)
+                        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+                            Dim RegionName = PropRegionClass.RegionName(RegionNum)
+                            If RegionName <> Settings.WelcomeRegion Then
+                                If Settings.SmartStart And PropRegionClass.SmartStart(RegionNum) = "True" Then
+                                    RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                                    line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
                                 Else
-                                    Diagnostics.Debug.Print(line)
-                                End If
-
-                            Next
-                        Else
-                            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                                Dim RegionName = PropRegionClass.RegionName(RegionNum)
-                                If RegionName <> Settings.WelcomeRegion _
-                                And PropRegionClass.SmartStart(RegionNum) = "True" Then
                                     RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                                     line = "Region_" & RegionName & " = " & "FallbackRegion"
-                                    Diagnostics.Debug.Print(line)
-                                    outputFile.WriteLine(line)
-
                                 End If
-                            Next
-                        End If
+                                Diagnostics.Debug.Print(line)
+                                outputFile.WriteLine(line)
+                            Else
+                                line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
+                                Diagnostics.Debug.Print(line)
+                                outputFile.WriteLine(line)
+                            End If
+
+                        Next
+
                     Else
                         outputFile.WriteLine(line)
                     End If
@@ -3179,7 +3167,7 @@ Public Class Form1
         _ApacheCrashCounter = 0
         PropgApacheProcessID = Nothing
 
-        Dim yesno = MsgBox("Apache quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Apache exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
@@ -3198,7 +3186,7 @@ Public Class Form1
         End If
         _IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox("Icecast quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Icecast exited. Do you want to see the error log file?", vbYesNo, "Error")
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
@@ -3218,7 +3206,7 @@ Public Class Form1
         End If
         _MysqlCrashCounter = 0
 
-        Dim yesno = MsgBox("Mysql quit after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Mysql exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             Dim files() As String
@@ -3247,7 +3235,7 @@ Public Class Form1
         End If
         _RobustCrashCounter = 0
 
-        Dim yesno = MsgBox("Robust exited after 10 retries. Do you want to see the error log file?", vbYesNo, "Error")
+        Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, "Error")
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
@@ -3267,7 +3255,7 @@ Public Class Form1
     Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional SkipSmartStart As Boolean = False) As Boolean
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
-            ErrorLog("Tried to start a region but there is no regionclass!")
+            ErrorLog("Tried to start a region but there is no region maker object!")
             Return False
         End If
 
@@ -3278,10 +3266,12 @@ Public Class Form1
         Buttons(StopButton)
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-        If Regionclass.SmartStart(RegionNumber) = "True" And Settings.SmartStart And Not SkipSmartStart Then
-            Print("Smart Start " & BootName)
-            Return True
-        End If
+
+        '!!!
+        'If Regionclass.SmartStart(RegionNumber) = "True" And Settings.SmartStart And Not SkipSmartStart Then
+        ' Print("Smart Start " & BootName)
+        'Return True
+        'End If
 
         Log("Info", "Region: Starting Region " & BootName)
 
@@ -3432,7 +3422,37 @@ Public Class Form1
 #End Region
 
 #Region "ExitHandlers"
+    Private Sub DoSuspend_Resume(PID As Integer, Optional ResumeSwitch As Boolean = False)
 
+        Dim R As String
+        If ResumeSwitch Then
+            R = " -r "
+        End If
+        Dim SuspendProcess As New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+              .Arguments = R & PID,
+              .FileName = """" & PropMyFolder & "\SR.exe" & """"
+          }
+
+        If Debugger.IsAttached Then
+            pi.WindowStyle = ProcessWindowStyle.Normal
+        Else
+            pi.WindowStyle = ProcessWindowStyle.Minimized
+        End If
+
+        SuspendProcess.StartInfo = pi
+
+        Try
+            SuspendProcess.Start()
+        Catch ex As ObjectDisposedException
+            Print("Error: Could Not launch SR.exe. ")
+        Catch ex As InvalidOperationException
+            Print("Error: Could not launch SR.exe. ")
+        Catch ex As ComponentModel.Win32Exception
+            Print("Error: Could not launch SR.exe. ")
+        End Try
+
+    End Sub
     Private Sub ExitHandlerPoll()
 
         ' background process to scan for things to do.
@@ -3475,15 +3495,27 @@ Public Class Form1
 
                 ' Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
-                    SequentialPause()
-                    ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
-                    Print("Smart Stop " & GroupName)
-                    ' shut down all regions in the DOS box
-                    For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                        PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                    Next
-                    PropUpdateView = True ' make form refresh
+
+                    '!!!!
+                    If (Debugger.IsAttached) Then
+
+                        DoSuspend_Resume(PropRegionClass.ProcessID(X))
+
+                        'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
+                        'P.Suspend()
+                        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+                            PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
+                        Next
+
+                    Else
+                        SequentialPause()
+                        ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
+                        Print("Smart Stop " & GroupName)
+                        ' shut down all regions in the DOS box
+
+                        PropUpdateView = True ' make form refresh
+                    End If
                 End If
 
                 If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
@@ -3522,9 +3554,14 @@ Public Class Form1
             End If
 
             ' if a restart is signaled, boot it up
-            If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Autostart And Not PropAborting Then
+            If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
                 PropUpdateView = True
-                Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
+                '!!!
+                'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
+                'P.Resume()
+                DoSuspend_Resume(PropRegionClass.ProcessID(X), True)
+                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted
+                'Boot(PropRegionClass, PropRegionClass.RegionName(X), True)
                 PropUpdateView = True
             End If
 
