@@ -150,7 +150,12 @@ Public Class RegionMaker
             Form1.Settings.SaveINI()
             Portnumber += 1
         Next
-        Form1.Settings.PortsChanged = True
+
+        If Not Form1.Settings.PortsChanged Then Return
+        Form1.Print("Setup Firewall")
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+
+        Form1.Settings.PortsChanged = False
 
     End Sub
 

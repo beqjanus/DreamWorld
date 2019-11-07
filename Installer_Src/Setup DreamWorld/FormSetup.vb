@@ -670,11 +670,8 @@ Public Class Form1
 
         GridNames.SetServerNames()
 
-
         Print("Setup Ports")
         RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         ' clear region error handlers
         PropRegionHandles.Clear()
@@ -687,8 +684,6 @@ Public Class Form1
                 Print("Upping AutoRestart Time to " & CStr(BTime) + " + 30 Minutes.")
             End If
         End If
-
-        PropOpensimIsRunning() = True
 
         If PropViewedSettings Then
 
@@ -755,7 +750,7 @@ Public Class Form1
 
         ' Launch the rockets
         Print("Start Regions")
-        If Not StartOpensimulator(SkipSmartStart) Then
+        If Not StartOpensimulator() Then
             Return
         End If
 
@@ -798,7 +793,7 @@ Public Class Form1
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = 0
         TextBox1.BackColor = Me.BackColor
-        ' init the scrolling text box
+        ' initialize the scrolling text box
         TextBox1.SelectionStart = 0
         TextBox1.ScrollToCaret()
         TextBox1.SelectionStart = TextBox1.Text.Length
@@ -825,10 +820,9 @@ Public Class Form1
             Print("Installing Desktop icon clicky thingy")
             Create_ShortCut(PropMyFolder & "\Start.exe")
             BumpProgress10()
+            Settings.PortsChanged = True
+            PropViewedSettings = True
         End If
-
-        PropViewedSettings = True
-
 
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
@@ -897,12 +891,8 @@ Public Class Form1
 
         CheckDiagPort()
 
-
         Print("Setup Ports")
         RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
-        Print("Setup Firewall")
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-
 
         mnuSettings.Visible = True
         SetIAROARContent() ' load IAR and OAR web content
@@ -951,7 +941,7 @@ Public Class Form1
         If Settings.RegionListVisible Then
             ShowRegionform()
         End If
-        Sleep(2000)
+
         Print("Check MySql")
         Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
         If isMySqlRunning Then PropStopMysql() = False
@@ -1864,24 +1854,8 @@ Public Class Form1
         Settings.SaveINI()
 
     End Sub
-    Private Sub DoRegions()
-        '!!! Unused
-        If Not Settings.PortsChanged And Not PropViewedSettings Then Return
-        Settings.PortsChanged = False
-        PropViewedSettings = False
 
-        ' Self setting Region Ports
-        Dim SimPort As Integer = CType(Settings.FirstRegionPort(), Integer)
-        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-            Dim RegionName = PropRegionClass.RegionName(RegionNum)
-            DoRegion(RegionName, SimPort)
-            SimPort += 1
-            PropMaxPortUsed = SimPort
-        Next
-
-    End Sub
-
-    Private Sub DoRegion(simName As String, Optional simPort As Integer = 0)
+    Private Sub DoRegion(simName As String)
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
@@ -1899,15 +1873,7 @@ Public Class Form1
             Settings.SetIni(simName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(simName, "InternalPort", CStr(simPort))
-
-        If simPort = 0 Then
-            simPort = PropRegionClass.RegionPort(RegionNum)
-        End If
-
-
-        PropRegionClass.RegionPort(RegionNum) = simPort
-
+        Settings.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
         Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
@@ -2183,6 +2149,7 @@ Public Class Form1
     End Sub
 
     Private Sub DoTides()
+
         Dim TideData As String = ""
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
         System.IO.File.Delete(TideFile)
@@ -2385,7 +2352,7 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
-                    ' Replace the block with a list of regions with the 
+                    ' Replace the block with a list of regions with the
                     ' Region_Name = DefaultRegion, DefaultHGRegion is Welcome
                     ' Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is enabled
                     ' Region_Name = FallbackRegion if not a SmartStart
@@ -2411,7 +2378,6 @@ Public Class Form1
                             End If
 
                         Next
-
                     Else
                         outputFile.WriteLine(line)
                     End If
@@ -3124,7 +3090,7 @@ Public Class Form1
 
 #Region "Opensimulator"
 
-    Public Function StartOpensimulator(Optional SkipSmartStart As Boolean = False) As Boolean
+    Public Function StartOpensimulator() As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -3139,7 +3105,7 @@ Public Class Form1
         ' Boot them up
         For Each X As Integer In PropRegionClass.RegionNumbers()
             If PropRegionClass.RegionEnabled(X) Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(X), SkipSmartStart)
+                Boot(PropRegionClass, PropRegionClass.RegionName(X))
                 ProgressBar1.Value = CType(counter / Len * 100, Integer)
                 counter += 1
             End If
@@ -3252,7 +3218,7 @@ Public Class Form1
     ''' </summary>
     ''' <param name="BootName">Name of region to start</param>
     ''' <returns>success = true</returns>
-    Public Function Boot(Regionclass As RegionMaker, BootName As String, Optional SkipSmartStart As Boolean = False) As Boolean
+    Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
             ErrorLog("Tried to start a region but there is no region maker object!")
@@ -3266,12 +3232,6 @@ Public Class Form1
         Buttons(StopButton)
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-
-        '!!!
-        'If Regionclass.SmartStart(RegionNumber) = "True" And Settings.SmartStart And Not SkipSmartStart Then
-        ' Print("Smart Start " & BootName)
-        'Return True
-        'End If
 
         Log("Info", "Region: Starting Region " & BootName)
 
@@ -3297,6 +3257,12 @@ Public Class Form1
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Log("Info", "Region " & BootName & " skipped as it is already Recycling Down")
+            Return True
+        End If
+
+        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume
+            Log("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
             Return True
         End If
 
@@ -3422,6 +3388,7 @@ Public Class Form1
 #End Region
 
 #Region "ExitHandlers"
+
     Private Sub DoSuspend_Resume(PID As Integer, Optional ResumeSwitch As Boolean = False)
 
         Dim R As String
@@ -3453,6 +3420,7 @@ Public Class Form1
         End Try
 
     End Sub
+
     Private Sub ExitHandlerPoll()
 
         ' background process to scan for things to do.
@@ -3507,7 +3475,6 @@ Public Class Form1
                             PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                             PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
                         Next
-
                     Else
                         SequentialPause()
                         ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)

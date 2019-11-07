@@ -4,10 +4,6 @@ Public Module Firewall
 
     Sub SetFirewall()
 
-        If Not Form1.Settings.PortsChanged Then Return
-        ' true, so we save the firewall and turn it false again
-        Form1.Settings.PortsChanged = False
-
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
         Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)

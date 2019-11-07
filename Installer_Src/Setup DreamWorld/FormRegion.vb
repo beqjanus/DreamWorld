@@ -486,7 +486,6 @@ Public Class FormRegion
 
         If Len(RegionName.Text) = 0 Then
             Message = "Region name must not be blank"
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
@@ -494,65 +493,54 @@ Public Class FormRegion
         Dim result As Guid
         If Not Guid.TryParse(UUID.Text, result) Then
             Message = "Region UUID Is invalid " + UUID.Text
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         ' global coords
         If Convert.ToInt16(CoordX.Text, Form1.Invarient) = 0 Then
             Message = "Region Coordinate X cannot be zero"
-            Form1.ErrorLog(Message)
             Return Message
         ElseIf Convert.ToInt16(CoordX.Text, Form1.Invarient) > 65536 Then
             Message = "Region Coordinate X Is too large"
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If Convert.ToInt16(CoordY.Text, Form1.Invarient) = 0 Then
             Message = "Region CoordY cannot be zero"
-            Form1.ErrorLog(Message)
             Return Message
         ElseIf Convert.ToInt16(CoordY.Text, Form1.Invarient) > 65536 Then
             Message = "Region CoordY Is too large"
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If Convert.ToInt16(RegionPort.Text, Form1.Invarient) = 0 Then
             Message = "Region Port cannot be zero Or undefined"
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         Dim aresult As Guid
         If Not Guid.TryParse(UUID.Text, aresult) Then
             Message = "Not a valid UUID"
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
             Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
             Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
             Message = "Not a valid MaxPrims Value. Must be greater than 0."
-            Form1.ErrorLog(Message)
             Return Message
         End If
 
         If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
             Message = "Not a valid MaxAgents Value. Must be greater than 0."
-            Form1.ErrorLog(Message)
             Return Message
         End If
 

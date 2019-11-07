@@ -147,7 +147,7 @@ Public Class FormPorts
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
         Form1.Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
         Form1.Settings.SaveSettings()
-        RegionMaker.UpdateAllRegionPorts()
+        Form1.Settings.PortsChanged = True
 
     End Sub
 

@@ -222,7 +222,7 @@ Public Class RegionList
 
 #End Region
 
-    ' icons imagelist layout
+    ' icons image list layout
     Enum DGICON
         bootingup = 0
         shuttingdown = 1
@@ -283,7 +283,7 @@ Public Class RegionList
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(2)
         Me.AvatarView.ListViewItemSorter = New ListViewItemComparer(1)
 
-        ' Select the item and subitems when selection is made.
+        ' Select the item and sub items when selection is made.
         ListView1.FullRowSelect = True
         AvatarView.FullRowSelect = True
 
@@ -844,8 +844,7 @@ Public Class RegionList
             End If
             Form1.StartRobust()
             Form1.Log("Starting", PropRegionClass1.RegionName(n))
-            Form1.CopyOpensimProto(PropRegionClass1.RegionName(n))
-            Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n), True)
+            Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n))
             Form1.Timer1.Start() 'Timer starts functioning
             PropUpdateView() = True ' force a refresh
 
