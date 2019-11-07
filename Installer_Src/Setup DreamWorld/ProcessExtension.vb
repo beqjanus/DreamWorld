@@ -16,7 +16,9 @@ Module ProcessExtension
         DIRECT_IMPERSONATION = (&H200)
 
     End Enum
-
+    <DllImport("ntdll.dll", SetLastError:=False)>
+    Private Function NtSuspendProcess(ByVal ProcessHandle As IntPtr) As IntPtr
+    End Function
 
     <DllImport("kernel32.dll")>
     Private Function OpenThread(ByVal dwDesiredAccess As ThreadAccess, ByVal bInheritHandle As Boolean, ByVal dwThreadId As UInteger) As IntPtr
@@ -29,9 +31,12 @@ Module ProcessExtension
     Private Function ResumeThread(ByVal hThread As IntPtr) As Integer
     End Function
     <Extension()>
+    Sub SuspendP(ByVal processId As Integer)
+
+
+    End Sub
+    <Extension()>
     Sub Suspend(ByVal process As Process)
-
-
 
 
         For Each thread As ProcessThread In process.Threads

@@ -3393,12 +3393,14 @@ Public Class Form1
 
         Dim R As String
         If ResumeSwitch Then
-            R = " -r "
+            R = " -rpid "
+        Else
+            R = " -pid "
         End If
         Dim SuspendProcess As New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
               .Arguments = R & PID,
-              .FileName = """" & PropMyFolder & "\SR.exe" & """"
+              .FileName = """" & PropMyFolder & "\NtSuspendProcess64.exe" & """"
           }
 
         If Debugger.IsAttached Then
@@ -3417,6 +3419,8 @@ Public Class Form1
             Print("Error: Could not launch SR.exe. ")
         Catch ex As ComponentModel.Win32Exception
             Print("Error: Could not launch SR.exe. ")
+        Finally
+            SuspendProcess.Close()
         End Try
 
     End Sub
@@ -3464,25 +3468,16 @@ Public Class Form1
                 ' Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
 
-                    '!!!!
-                    If (Debugger.IsAttached) Then
+                    DoSuspend_Resume(PropRegionClass.ProcessID(X))
 
-                        DoSuspend_Resume(PropRegionClass.ProcessID(X))
+                    'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
+                    'P.SuspendP()
+                    For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+                        PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
+                    Next
+                    PropUpdateView = True ' make form refresh
 
-                        'Dim P = Process.GetProcessById(PropRegionClass.ProcessID(X))
-                        'P.Suspend()
-                        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                            PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
-                        Next
-                    Else
-                        SequentialPause()
-                        ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
-                        Print("Smart Stop " & GroupName)
-                        ' shut down all regions in the DOS box
-
-                        PropUpdateView = True ' make form refresh
-                    End If
                 End If
 
                 If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
