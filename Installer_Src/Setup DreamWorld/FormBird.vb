@@ -183,6 +183,7 @@ Public Class BirdForm
 
         ' This call is required by the designer.
         'InitializeComponent()
+        Dim c = New Culture
 
         ' Add any initialization after the InitializeComponent() call.
         SetScreen()
@@ -243,6 +244,8 @@ Public Class BirdForm
         changed = True
 
     End Sub
+
+
 
 #End Region
 

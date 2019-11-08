@@ -83,7 +83,12 @@ Public Class AdvancedForm
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SetScreen()
+
+        Dim x = Threading.Thread.CurrentThread.CurrentUICulture
+
         Me.Visible = True
+        Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
+
 
     End Sub
 

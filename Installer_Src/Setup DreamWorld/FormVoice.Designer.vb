@@ -53,7 +53,7 @@ Partial Class FormVoice
         Me.GroupBox1.Size = New System.Drawing.Size(245, 135)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Setup Voice Service"
+        Me.GroupBox1.Text = My.Resources.Setup_Voice_Service
         '
         'RunOnBoot
         '
@@ -70,7 +70,7 @@ Partial Class FormVoice
         Me.RequestPassword.Name = "RequestPassword"
         Me.RequestPassword.Size = New System.Drawing.Size(168, 23)
         Me.RequestPassword.TabIndex = 0
-        Me.RequestPassword.Text = "Click to Request Voice Service"
+        Me.RequestPassword.Text = My.Resources.Click_to_Request_Voice_Service
         Me.RequestPassword.UseVisualStyleBackColor = True
         '
         'Label2
@@ -80,7 +80,7 @@ Partial Class FormVoice
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 13)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Password"
+        Me.Label2.Text = My.Resources.Password
         '
         'Label1
         '
@@ -89,7 +89,7 @@ Partial Class FormVoice
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(43, 13)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = "User ID"
+        Me.Label1.Text = My.Resources.UserID
         '
         'VivoxEnable
         '
@@ -98,7 +98,7 @@ Partial Class FormVoice
         Me.VivoxEnable.Name = "VivoxEnable"
         Me.VivoxEnable.Size = New System.Drawing.Size(59, 17)
         Me.VivoxEnable.TabIndex = 1
-        Me.VivoxEnable.Text = "Enable"
+        Me.VivoxEnable.Text = My.Resources.Enable
         Me.VivoxEnable.UseVisualStyleBackColor = True
         '
         'VivoxPassword
@@ -132,14 +132,14 @@ Partial Class FormVoice
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = "Help"
+        Me.ToolStripMenuItem30.Text = My.Resources.Help
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        Me.DatabaseSetupToolStripMenuItem.Text = My.Resources.Help
         '
         'FormVoice
         '
@@ -151,7 +151,7 @@ Partial Class FormVoice
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormVoice"
-        Me.Text = "Vivox Voice"
+        Me.Text = My.Resources.Voice
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

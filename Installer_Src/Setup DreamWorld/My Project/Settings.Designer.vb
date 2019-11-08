@@ -824,30 +824,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property AvatarShow() As String
-            Get
-                Return CType(Me("AvatarShow"),String)
-            End Get
-            Set
-                Me("AvatarShow") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property ViewerEase() As String
-            Get
-                Return CType(Me("ViewerEase"),String)
-            End Get
-            Set
-                Me("ViewerEase") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Opensim")>  _
         Public Property GridFolder() As String
             Get
@@ -879,30 +855,6 @@ Namespace My
             End Get
             Set
                 Me("MySqlRobustDBPort") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property allow_grid_gods() As String
-            Get
-                Return CType(Me("allow_grid_gods"),String)
-            End Get
-            Set
-                Me("allow_grid_gods") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property parcel_owner_is_god() As String
-            Get
-                Return CType(Me("parcel_owner_is_god"),String)
-            End Get
-            Set
-                Me("parcel_owner_is_god") = value
             End Set
         End Property
         
@@ -968,18 +920,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property DiagsRun() As String
-            Get
-                Return CType(Me("DiagsRun"),String)
-            End Get
-            Set
-                Me("DiagsRun") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
         Public Property WelcomeRegion() As String
             Get
@@ -1035,6 +975,66 @@ Namespace My
             End Get
             Set
                 Me("ConsoleShow") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("true")>  _
+        Public Property AvatarShow() As String
+            Get
+                Return CType(Me("AvatarShow"),String)
+            End Get
+            Set
+                Me("AvatarShow") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("false")>  _
+        Public Property ViewerEase() As String
+            Get
+                Return CType(Me("ViewerEase"),String)
+            End Get
+            Set
+                Me("ViewerEase") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("false")>  _
+        Public Property allow_grid_gods() As String
+            Get
+                Return CType(Me("allow_grid_gods"),String)
+            End Get
+            Set
+                Me("allow_grid_gods") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("false")>  _
+        Public Property parcel_owner_is_god() As String
+            Get
+                Return CType(Me("parcel_owner_is_god"),String)
+            End Get
+            Set
+                Me("parcel_owner_is_god") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("false")>  _
+        Public Property DiagsRun() As String
+            Get
+                Return CType(Me("DiagsRun"),String)
+            End Get
+            Set
+                Me("DiagsRun") = value
             End Set
         End Property
     End Class

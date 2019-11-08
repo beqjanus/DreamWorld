@@ -52,6 +52,7 @@ Partial Class BirdForm
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.BirdHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -59,6 +60,7 @@ Partial Class BirdForm
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.PrimNameTextBox)
         Me.GroupBox1.Controls.Add(Me.Label10)
@@ -80,9 +82,11 @@ Partial Class BirdForm
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.BirdsFlockSizeDomain)
         Me.GroupBox1.Controls.Add(Me.BirdsModuleStartupbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 94)
+        Me.GroupBox1.Location = New System.Drawing.Point(27, 141)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(260, 331)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(390, 496)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Bird Module"
@@ -90,228 +94,244 @@ Partial Class BirdForm
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(85, 294)
+        Me.Label11.Location = New System.Drawing.Point(128, 441)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(148, 13)
+        Me.Label11.Size = New System.Drawing.Size(224, 20)
         Me.Label11.TabIndex = 23
         Me.Label11.Text = "Prim Name (default=SeaGull1)"
-        Me.ToolTip1.SetToolTip(Me.Label11, "How high are we allowed to flock")
+        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.How_High)
         '
         'PrimNameTextBox
         '
-        Me.PrimNameTextBox.Location = New System.Drawing.Point(7, 287)
+        Me.PrimNameTextBox.Location = New System.Drawing.Point(10, 430)
+        Me.PrimNameTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PrimNameTextBox.Name = "PrimNameTextBox"
-        Me.PrimNameTextBox.Size = New System.Drawing.Size(72, 20)
+        Me.PrimNameTextBox.Size = New System.Drawing.Size(106, 26)
         Me.PrimNameTextBox.TabIndex = 11
         Me.PrimNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.PrimNameTextBox, resources.GetString("PrimNameTextBox.ToolTip"))
+        Me.ToolTip1.SetToolTip(Me.PrimNameTextBox, My.Resources.Prim_Name)
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(85, 268)
+        Me.Label10.Location = New System.Drawing.Point(128, 402)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(129, 13)
+        Me.Label10.Size = New System.Drawing.Size(192, 20)
         Me.Label10.TabIndex = 21
         Me.Label10.Text = "Max Height (default=45.0)"
-        Me.ToolTip1.SetToolTip(Me.Label10, "How high are we allowed to flock")
         '
         'BirdsMaxHeightTextBox
         '
-        Me.BirdsMaxHeightTextBox.Location = New System.Drawing.Point(7, 261)
+        Me.BirdsMaxHeightTextBox.Location = New System.Drawing.Point(10, 392)
+        Me.BirdsMaxHeightTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsMaxHeightTextBox.Name = "BirdsMaxHeightTextBox"
-        Me.BirdsMaxHeightTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.BirdsMaxHeightTextBox.Size = New System.Drawing.Size(62, 26)
         Me.BirdsMaxHeightTextBox.TabIndex = 10
         Me.BirdsMaxHeightTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.BirdsMaxHeightTextBox, "How close to the edges of things can we get without being worried")
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(85, 242)
+        Me.Label9.Location = New System.Drawing.Point(128, 363)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(129, 13)
+        Me.Label9.Size = New System.Drawing.Size(195, 20)
         Me.Label9.TabIndex = 19
         Me.Label9.Text = "Border Size (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label9, "How close to the edge of a region can we get?")
         '
         'BirdsBorderSizeTextBox
         '
-        Me.BirdsBorderSizeTextBox.Location = New System.Drawing.Point(7, 235)
+        Me.BirdsBorderSizeTextBox.Location = New System.Drawing.Point(10, 352)
+        Me.BirdsBorderSizeTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsBorderSizeTextBox.Name = "BirdsBorderSizeTextBox"
-        Me.BirdsBorderSizeTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.BirdsBorderSizeTextBox.Size = New System.Drawing.Size(62, 26)
         Me.BirdsBorderSizeTextBox.TabIndex = 9
         Me.BirdsBorderSizeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.BirdsBorderSizeTextBox, "How close to the edges of things can we get without being worried")
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(85, 216)
+        Me.Label8.Location = New System.Drawing.Point(128, 324)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(123, 13)
+        Me.Label8.Size = New System.Drawing.Size(0, 20)
         Me.Label8.TabIndex = 17
-        Me.Label8.Text = "Tolerance (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label8, "How far away from other birds we would like to stay")
         '
         'BirdsToleranceTextBox
         '
-        Me.BirdsToleranceTextBox.Location = New System.Drawing.Point(7, 209)
+        Me.BirdsToleranceTextBox.Location = New System.Drawing.Point(10, 314)
+        Me.BirdsToleranceTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsToleranceTextBox.Name = "BirdsToleranceTextBox"
-        Me.BirdsToleranceTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.BirdsToleranceTextBox.Size = New System.Drawing.Size(62, 26)
         Me.BirdsToleranceTextBox.TabIndex = 8
         Me.BirdsToleranceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.BirdsToleranceTextBox, "How close to the edges of things can we get without being worried")
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(85, 190)
+        Me.Label6.Location = New System.Drawing.Point(128, 285)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(159, 13)
+        Me.Label6.Size = New System.Drawing.Size(240, 20)
         Me.Label6.TabIndex = 13
         Me.Label6.Text = "Desired Separation (default=5.0)"
-        Me.ToolTip1.SetToolTip(Me.Label6, "How far away from other birds we would like to stay")
+        Me.ToolTip1.SetToolTip(Me.Label6, Global.Outworldz.My.Resources.Resources.How_Far)
         '
         'DesiredSeparationTextBox
         '
-        Me.DesiredSeparationTextBox.Location = New System.Drawing.Point(7, 183)
+        Me.DesiredSeparationTextBox.Location = New System.Drawing.Point(10, 274)
+        Me.DesiredSeparationTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DesiredSeparationTextBox.Name = "DesiredSeparationTextBox"
-        Me.DesiredSeparationTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.DesiredSeparationTextBox.Size = New System.Drawing.Size(62, 26)
         Me.DesiredSeparationTextBox.TabIndex = 7
         Me.DesiredSeparationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.DesiredSeparationTextBox, "How far away from other birds we would like to stay")
+        Me.ToolTip1.SetToolTip(Me.DesiredSeparationTextBox, Global.Outworldz.My.Resources.Resources.How_Far)
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(85, 164)
+        Me.Label5.Location = New System.Drawing.Point(128, 246)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(163, 13)
+        Me.Label5.Size = New System.Drawing.Size(243, 20)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "Neighbor Distance (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label5, "How far away from other birds we would like to stay")
+        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.How_Far)
         '
         'BirdsNeighbourDistanceTextBox
         '
-        Me.BirdsNeighbourDistanceTextBox.Location = New System.Drawing.Point(7, 157)
+        Me.BirdsNeighbourDistanceTextBox.Location = New System.Drawing.Point(10, 236)
+        Me.BirdsNeighbourDistanceTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsNeighbourDistanceTextBox.Name = "BirdsNeighbourDistanceTextBox"
-        Me.BirdsNeighbourDistanceTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.BirdsNeighbourDistanceTextBox.Size = New System.Drawing.Size(62, 26)
         Me.BirdsNeighbourDistanceTextBox.TabIndex = 6
         Me.BirdsNeighbourDistanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.BirdsNeighbourDistanceTextBox, "Max distance for other birds to be considered in the same flock as us")
+        Me.ToolTip1.SetToolTip(Me.BirdsNeighbourDistanceTextBox, Global.Outworldz.My.Resources.Resources.Max_Dist)
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(85, 134)
+        Me.Label4.Location = New System.Drawing.Point(128, 201)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(119, 13)
+        Me.Label4.Size = New System.Drawing.Size(177, 20)
         Me.Label4.TabIndex = 9
         Me.Label4.Text = "Max Force (default=0.2)"
-        Me.ToolTip1.SetToolTip(Me.Label4, "The maximum acceleration allowed to the current velocity of the bird")
+        Me.ToolTip1.SetToolTip(Me.Label4, Global.Outworldz.My.Resources.Resources.Max_Accel)
         '
         'MaxForceTextBox
         '
-        Me.MaxForceTextBox.Location = New System.Drawing.Point(7, 131)
+        Me.MaxForceTextBox.Location = New System.Drawing.Point(10, 196)
+        Me.MaxForceTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaxForceTextBox.Name = "MaxForceTextBox"
-        Me.MaxForceTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.MaxForceTextBox.Size = New System.Drawing.Size(62, 26)
         Me.MaxForceTextBox.TabIndex = 5
         Me.MaxForceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.MaxForceTextBox, "How far in meters each bird can travel per update")
+        Me.ToolTip1.SetToolTip(Me.MaxForceTextBox, Global.Outworldz.My.Resources.Resources.How_Far_Travel)
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(85, 108)
+        Me.Label3.Location = New System.Drawing.Point(128, 162)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(123, 13)
+        Me.Label3.Size = New System.Drawing.Size(183, 20)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Max Speed (default=1.0)"
         '
         'MaxSpeedTextBox
         '
-        Me.MaxSpeedTextBox.Location = New System.Drawing.Point(7, 105)
+        Me.MaxSpeedTextBox.Location = New System.Drawing.Point(10, 158)
+        Me.MaxSpeedTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaxSpeedTextBox.Name = "MaxSpeedTextBox"
-        Me.MaxSpeedTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.MaxSpeedTextBox.Size = New System.Drawing.Size(62, 26)
         Me.MaxSpeedTextBox.TabIndex = 4
         Me.MaxSpeedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.MaxSpeedTextBox, "How far in meters each bird can travel per update")
+        Me.ToolTip1.SetToolTip(Me.MaxSpeedTextBox, Global.Outworldz.My.Resources.Resources.How_Far_Travel)
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(85, 82)
+        Me.Label2.Location = New System.Drawing.Point(128, 123)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 13)
+        Me.Label2.Size = New System.Drawing.Size(106, 20)
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Chat Channel"
-        Me.ToolTip1.SetToolTip(Me.Label2, "Which channel do we listen on for in world commands.  Negative numbers cannot be " &
-        "chatted by humans")
+        Me.ToolTip1.SetToolTip(Me.Label2, Global.Outworldz.My.Resources.Resources.Which_Channel)
         '
         'ChatChanelTextBox
         '
-        Me.ChatChanelTextBox.Location = New System.Drawing.Point(7, 78)
+        Me.ChatChanelTextBox.Location = New System.Drawing.Point(10, 117)
+        Me.ChatChanelTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ChatChanelTextBox.Name = "ChatChanelTextBox"
-        Me.ChatChanelTextBox.Size = New System.Drawing.Size(43, 20)
+        Me.ChatChanelTextBox.Size = New System.Drawing.Size(62, 26)
         Me.ChatChanelTextBox.TabIndex = 3
         Me.ChatChanelTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(85, 55)
+        Me.Label1.Location = New System.Drawing.Point(128, 82)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(82, 13)
+        Me.Label1.Size = New System.Drawing.Size(114, 20)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Birds Flock Size"
-        Me.ToolTip1.SetToolTip(Me.Label1, "The number of birds to flock")
+        Me.Label1.Text = "Bird Flock Size"
+        Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Resources.Num_Birds)
         '
         'BirdsFlockSizeDomain
         '
-        Me.BirdsFlockSizeDomain.Location = New System.Drawing.Point(7, 52)
+        Me.BirdsFlockSizeDomain.Location = New System.Drawing.Point(10, 78)
+        Me.BirdsFlockSizeDomain.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsFlockSizeDomain.Name = "BirdsFlockSizeDomain"
-        Me.BirdsFlockSizeDomain.Size = New System.Drawing.Size(60, 20)
+        Me.BirdsFlockSizeDomain.Size = New System.Drawing.Size(90, 26)
         Me.BirdsFlockSizeDomain.TabIndex = 2
         Me.BirdsFlockSizeDomain.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'BirdsModuleStartupbox
         '
         Me.BirdsModuleStartupbox.AutoSize = True
-        Me.BirdsModuleStartupbox.Location = New System.Drawing.Point(7, 20)
+        Me.BirdsModuleStartupbox.Location = New System.Drawing.Point(10, 30)
+        Me.BirdsModuleStartupbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdsModuleStartupbox.Name = "BirdsModuleStartupbox"
-        Me.BirdsModuleStartupbox.Size = New System.Drawing.Size(124, 17)
+        Me.BirdsModuleStartupbox.Size = New System.Drawing.Size(182, 24)
         Me.BirdsModuleStartupbox.TabIndex = 1
-        Me.BirdsModuleStartupbox.Text = "Enable Bird Module?"
-        Me.ToolTip1.SetToolTip(Me.BirdsModuleStartupbox, "This determines whether the module does anything")
+        Me.BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Resources.Enable_Birds
+        Me.ToolTip1.SetToolTip(Me.BirdsModuleStartupbox, Global.Outworldz.My.Resources.Resources.Determines)
         Me.BirdsModuleStartupbox.UseVisualStyleBackColor = True
         '
         'BirdHelp
         '
         Me.BirdHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.BirdHelp.Location = New System.Drawing.Point(139, 46)
+        Me.BirdHelp.Location = New System.Drawing.Point(208, 69)
+        Me.BirdHelp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BirdHelp.Name = "BirdHelp"
-        Me.BirdHelp.Size = New System.Drawing.Size(28, 32)
+        Me.BirdHelp.Size = New System.Drawing.Size(42, 48)
         Me.BirdHelp.TabIndex = 1858
         Me.BirdHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.BirdHelp, "Click for Help on Birds")
+        Me.ToolTip1.SetToolTip(Me.BirdHelp, Global.Outworldz.My.Resources.Resources.Bird_help)
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(18, 55)
+        Me.Button1.Location = New System.Drawing.Point(27, 82)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(108, 23)
+        Me.Button1.Size = New System.Drawing.Size(162, 34)
         Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Load Bird IAR"
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Bird_IAR
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(284, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(426, 36)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -320,26 +340,38 @@ Partial Class BirdForm
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = "Help"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(128, 324)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(182, 20)
+        Me.Label7.TabIndex = 24
+        Me.Label7.Text = "Tolerance (default=25.0)"
+        Me.ToolTip1.SetToolTip(Me.Label7, "Tolerance (default=25.0)")
         '
         'BirdForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(284, 480)
+        Me.ClientSize = New System.Drawing.Size(426, 720)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.BirdHelp)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "BirdForm"
         Me.Text = "Bird Module"
@@ -381,4 +413,5 @@ Partial Class BirdForm
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label7 As Label
 End Class

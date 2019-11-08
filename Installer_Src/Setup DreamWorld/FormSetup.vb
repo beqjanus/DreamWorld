@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.25"
+    Private _MyVersion As String = "3.26"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -150,14 +150,12 @@ Public Class Form1
 
     Private _SecureDomain As String = "https://outworldz.com"
 
-    ' https, which breaks stuff
     Private _SelectedBox As String = ""
 
     Private _StopMysql As Boolean = True
 
     Private _UpdateView As Boolean = True
 
-    ' "" = Invariant Culture
     Private _UserName As String = ""
 
     Private _viewedSettings As Boolean = False
@@ -168,7 +166,6 @@ Public Class Form1
 
     Private MyCPUCollection(181) As Double
 
-    ' Graph
     Private MyRAMCollection(181) As Double
 
     Private speed As Single
@@ -695,7 +692,7 @@ Public Class Form1
     ''' </summary>
     Public Sub Startup(Optional SkipSmartStart As Boolean = False)
 
-        Print("Version = " & PropMyVersion)
+        Print(My.Resources.Version & " " & PropMyVersion)
 
         With cpu
             .CategoryName = "Processor"
@@ -1857,8 +1854,8 @@ Public Class Form1
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
         End Select
 
-        Settings.SetIni("Map", "RenderMaxHeight", CInt(Settings.RenderMaxHeight))
-        Settings.SetIni("Map", "RenderMinHeight", CInt(Settings.RenderMinHeight))
+        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Invarient))
+        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Invarient))
 
         If Settings.MapType = "None" Then
             Settings.SetIni("Map", "GenerateMaptiles", "False")
@@ -1923,7 +1920,7 @@ Public Class Form1
             Settings.SetIni(simName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(simName, "InternalPort", CStr(PropRegionClass.RegionPort(RegionNum)))
+        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionNum), Invarient))
         Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
@@ -1934,17 +1931,17 @@ Public Class Form1
         End If
 
         ' Extended in v 2.1
-        Settings.SetIni(simName, "NonPhysicalPrimMax", CStr(PropRegionClass.NonPhysicalPrimMax(RegionNum)))
-        Settings.SetIni(simName, "PhysicalPrimMax", CStr(PropRegionClass.PhysicalPrimMax(RegionNum)))
+        Settings.SetIni(simName, "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Invarient))
+        Settings.SetIni(simName, "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Invarient))
         If (Settings.Primlimits) Then
-            Settings.SetIni(simName, "MaxPrims", CStr(PropRegionClass.MaxPrims(RegionNum)))
+            Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Invarient))
         Else
             Settings.SetIni(simName, "MaxPrims", "")
         End If
 
-        Settings.SetIni(simName, "MaxAgents", CStr(PropRegionClass.MaxAgents(RegionNum)))
-        Settings.SetIni(simName, "ClampPrimSize", CStr(PropRegionClass.ClampPrimSize(RegionNum)))
-        Settings.SetIni(simName, "MaxPrims", CStr(PropRegionClass.MaxPrims(RegionNum)))
+        Settings.SetIni(simName, "MaxAgents", Convert.ToString(PropRegionClass.MaxAgents(RegionNum), Invarient))
+        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Invarient))
+        Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Invarient))
 
         ' Optional
         ' Extended in v 2.31 optional things
@@ -2025,7 +2022,7 @@ Public Class Form1
         End If
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
+        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Invarient))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         If PropRegionClass.MapType(RegionNum) = "Simple" Then
@@ -2120,13 +2117,13 @@ Public Class Form1
 
         ' no main setting for these
         Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
-        Settings.SetIni("DisallowForeigners", "Enabled", CStr(PropRegionClass.DisallowForeigners(RegionNum)))
-        Settings.SetIni("DisallowResidents", "Enabled", CStr(PropRegionClass.DisallowResidents(RegionNum)))
+        Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Invarient))
+        Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Invarient))
 
         ' V3.15
-        Settings.SetIni("Startup", "NonPhysicalPrimMax", CStr(PropRegionClass.NonPhysicalPrimMax(RegionNum)))
-        Settings.SetIni("Startup", "PhysicalPrimMax", CStr(PropRegionClass.PhysicalPrimMax(RegionNum)))
-        Settings.SetIni("XEngine", "MinTimerInterval", CStr(PropRegionClass.MinTimerInterval(RegionNum)))
+        Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Invarient))
+        Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Invarient))
+        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Invarient))
 
         If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2157,9 +2154,9 @@ Public Class Form1
             Settings.SetIni("Const", "GridName", Settings.SimName)
             Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
             Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
-            Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-            Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
-            Settings.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
+            Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Invarient)) ' 8002
+            Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Invarient))
+            Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Invarient))
             Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
             If Settings.Suitcase() Then
@@ -2170,12 +2167,12 @@ Public Class Form1
 
             ' LSL emails
             Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
+            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Invarient))
             Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
             Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
             If Settings.SearchLocal Then
-                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
+                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Invarient) & "/Search/query.php")
             Else
                 Settings.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
@@ -2232,7 +2229,7 @@ Public Class Form1
                 "TideLowWater = " & Convert.ToString(Settings.TideLowLevel(), Invarient) & vbCrLf &
                 vbCrLf &
                 ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-                "TideCycleTime = " & CStr(Settings.CycleTime()) & vbCrLf &
+                "TideCycleTime = " & Convert.ToString(Settings.CycleTime(), Invarient) & vbCrLf &
                     vbCrLf &
                 ";; provide tide information on the console?" & vbCrLf &
                 "TideInfoDebug = " & CStr(Settings.TideInfoDebug) & vbCrLf &
@@ -2244,7 +2241,7 @@ Public Class Form1
                 "TideInfoChannel = " & CStr(Settings.TideInfoChannel) & vbCrLf &
                 vbCrLf &
                 ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-                "TideLevelChannel = " & CStr(Settings.TideLevelChannel()) & vbCrLf &
+                "TideLevelChannel = " & Convert.ToString(Settings.TideLevelChannel(), Invarient) & vbCrLf &
                     vbCrLf &
                 ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
                 "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
@@ -2306,7 +2303,7 @@ Public Class Form1
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
         Settings.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
-        Settings.SetIni("WifiService", "SmtpPort", CStr(Settings.SmtpPort))
+        Settings.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Invarient))
         Settings.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
         Settings.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
 
@@ -2544,7 +2541,7 @@ Public Class Form1
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Invarient)
                 Process.Start(webAddress)
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
@@ -2553,7 +2550,7 @@ Public Class Form1
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Invarient)
                 Process.Start(webAddress)
             Else
                 Print("Opensim is not running. Cannot open the Web Interface.")
@@ -2659,7 +2656,7 @@ Public Class Form1
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
             SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Invarient) & "/" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
             SiteMapContents += "<priority>1.0</priority>" & vbCrLf
             SiteMapContents += "</url>" & vbCrLf
@@ -2832,14 +2829,14 @@ Public Class Form1
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", "Listen " & CStr(Settings.ApachePort))
+        Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Invarient))
         Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
-        Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & CStr(Settings.ApachePort) & ">")
+        Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Invarient) & ">")
         Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         ' needed for Php5 upgrade
@@ -6676,6 +6673,7 @@ Public Class Form1
         End If
 
     End Sub
+
 
 #End Region
 

@@ -56,7 +56,7 @@ Partial Class FormApache
         Me.GroupBox2.Size = New System.Drawing.Size(220, 162)
         Me.GroupBox2.TabIndex = 186739
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Apache Webserver + Search and Map"
+        Me.GroupBox2.Text = My.Resources.ApacheWebServer
         '
         'X86Button
         '
@@ -64,7 +64,7 @@ Partial Class FormApache
         Me.X86Button.Name = "X86Button"
         Me.X86Button.Size = New System.Drawing.Size(146, 24)
         Me.X86Button.TabIndex = 186740
-        Me.X86Button.Text = "Install C++ Runtime"
+        Me.X86Button.Text = My.Resources.InstallRuntime
         Me.X86Button.UseVisualStyleBackColor = True
         '
         'ApachePort
@@ -81,7 +81,7 @@ Partial Class FormApache
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(113, 17)
         Me.ApacheServiceCheckBox.TabIndex = 1868
-        Me.ApacheServiceCheckBox.Text = "Run  As A Service"
+        Me.ApacheServiceCheckBox.Text = My.Resources.RunasAService
         Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
         '
         'Label3
@@ -91,7 +91,7 @@ Partial Class FormApache
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(115, 13)
         Me.Label3.TabIndex = 186737
-        Me.Label3.Text = "Web Port (80, or 8000)"
+        Me.Label3.Text = My.Resources.Web_Port
         '
         'PictureBox1
         '
@@ -109,7 +109,7 @@ Partial Class FormApache
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
         Me.ApacheCheckbox.Size = New System.Drawing.Size(157, 17)
         Me.ApacheCheckbox.TabIndex = 1866
-        Me.ApacheCheckbox.Text = "Enable Apache Web server"
+        Me.ApacheCheckbox.Text = My.Resources.EnableApache
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
         '
         'EventsCheckBox
@@ -119,7 +119,7 @@ Partial Class FormApache
         Me.EventsCheckBox.Name = "EventsCheckBox"
         Me.EventsCheckBox.Size = New System.Drawing.Size(95, 17)
         Me.EventsCheckBox.TabIndex = 186745
-        Me.EventsCheckBox.Text = "Enable Events"
+        Me.EventsCheckBox.Text = My.Resources.Enable_Events
         Me.EventsCheckBox.UseVisualStyleBackColor = True
         '
         'EnableSearchCheckBox
@@ -129,7 +129,7 @@ Partial Class FormApache
         Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
         Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
         Me.EnableSearchCheckBox.TabIndex = 186744
-        Me.EnableSearchCheckBox.Text = "Enable Search"
+        Me.EnableSearchCheckBox.Text = My.Resources.Enable_Search
         Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
         '
         'AllGridSearchCheckBox
@@ -139,7 +139,7 @@ Partial Class FormApache
         Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
         Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(99, 17)
         Me.AllGridSearchCheckBox.TabIndex = 186743
-        Me.AllGridSearchCheckBox.Text = "Search All grids"
+        Me.AllGridSearchCheckBox.Text = My.Resources.Search_All_Grids
         Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
         '
         'LocalSearchCheckBox
@@ -149,7 +149,7 @@ Partial Class FormApache
         Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
         Me.LocalSearchCheckBox.Size = New System.Drawing.Size(89, 17)
         Me.LocalSearchCheckBox.TabIndex = 186742
-        Me.LocalSearchCheckBox.Text = "Local Search"
+        Me.LocalSearchCheckBox.Text = My.Resources.Local_Search
         Me.LocalSearchCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -168,14 +168,14 @@ Partial Class FormApache
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.HelpToolStripMenuItem.Text = My.Resources.Help
         '
         'ApacheToolStripMenuItem
         '
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
-        Me.ApacheToolStripMenuItem.Text = "Apache"
+        Me.ApacheToolStripMenuItem.Text = My.Resources.Apache
         '
         'GroupBox1
         '
@@ -190,7 +190,7 @@ Partial Class FormApache
         Me.GroupBox1.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox1.TabIndex = 186741
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Search"
+        Me.GroupBox1.Text = My.Resources.Search
         '
         'FormApache
         '
@@ -202,7 +202,7 @@ Partial Class FormApache
         Me.Controls.Add(Me.GroupBox2)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormApache"
-        Me.Text = "Apache Webserver"
+        Me.Text = My.Resources.Apache_Webserver
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -92,14 +92,14 @@ Partial Class FormPublicity
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(44, 20)
-        Me.ToolStripMenuItem30.Text = "Help"
+        Me.ToolStripMenuItem30.Text = My.Resources.Help
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = "Help"
+        Me.DatabaseSetupToolStripMenuItem.Text = My.Resources.Help
         '
         'FormPublicity
         '

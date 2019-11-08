@@ -194,12 +194,6 @@
     <Setting Name="RunOnce" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AvatarShow" Type="System.String" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="ViewerEase" Type="System.String" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="GridFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">Opensim</Value>
     </Setting>
@@ -208,12 +202,6 @@
     </Setting>
     <Setting Name="MySqlRobustDBPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>
-    </Setting>
-    <Setting Name="allow_grid_gods" Type="System.String" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="parcel_owner_is_god" Type="System.String" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DBName" Type="System.String" Scope="User">
       <Value Profile="(Default)">opensim</Value>
@@ -230,9 +218,6 @@
     <Setting Name="MyIP" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DiagsRun" Type="System.String" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="WelcomeRegion" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -247,6 +232,21 @@
     </Setting>
     <Setting Name="ConsoleShow" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AvatarShow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">true</Value>
+    </Setting>
+    <Setting Name="ViewerEase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="allow_grid_gods" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="parcel_owner_is_god" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
+    </Setting>
+    <Setting Name="DiagsRun" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false</Value>
     </Setting>
   </Settings>
 </SettingsFile>

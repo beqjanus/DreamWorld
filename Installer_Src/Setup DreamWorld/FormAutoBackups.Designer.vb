@@ -63,7 +63,7 @@ Partial Class FormAutoBackups
         Me.GroupBox3.Size = New System.Drawing.Size(253, 184)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auto Backup"
+        Me.GroupBox3.Text = My.Resources.Auto_Backup
         '
         'PictureBox1
         '
@@ -74,7 +74,7 @@ Partial Class FormAutoBackups
         Me.PictureBox1.Size = New System.Drawing.Size(41, 33)
         Me.PictureBox1.TabIndex = 1858
         Me.PictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox1, "Click to change the folder")
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, My.Resources.Click_to_change_the_folder)
         '
         'AutoBackupHelp
         '
@@ -92,7 +92,7 @@ Partial Class FormAutoBackups
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(76, 13)
         Me.Label6.TabIndex = 16
-        Me.Label6.Text = "Backup Folder"
+        Me.Label6.Text = My.Resources.Backup_Folder
         '
         'BaseFolder
         '
@@ -100,8 +100,7 @@ Partial Class FormAutoBackups
         Me.BaseFolder.Name = "BaseFolder"
         Me.BaseFolder.Size = New System.Drawing.Size(176, 20)
         Me.BaseFolder.TabIndex = 4
-        Me.ToolTip1.SetToolTip(Me.BaseFolder, "Normally set to ""AutoBackup"" folder in OutworldzFiles.  Click to change the folde" &
-        "r")
+        Me.ToolTip1.SetToolTip(Me.BaseFolder, My.Resources.Normally_set)
         '
         'Label9
         '
@@ -110,7 +109,7 @@ Partial Class FormAutoBackups
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(74, 13)
         Me.Label9.TabIndex = 14
-        Me.Label9.Text = "Keep for Days"
+        Me.Label9.Text = My.Resources.Keep_for_Days
         '
         'AutoBackupKeepFilesForDays
         '
@@ -118,7 +117,7 @@ Partial Class FormAutoBackups
         Me.AutoBackupKeepFilesForDays.Name = "AutoBackupKeepFilesForDays"
         Me.AutoBackupKeepFilesForDays.Size = New System.Drawing.Size(47, 20)
         Me.AutoBackupKeepFilesForDays.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.AutoBackupKeepFilesForDays, "How long to keep the backups. After this time in days, the oldest get deleted.")
+        Me.ToolTip1.SetToolTip(Me.AutoBackupKeepFilesForDays, My.Resources.How_Long)
         '
         'Label8
         '
@@ -127,7 +126,7 @@ Partial Class FormAutoBackups
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(45, 13)
         Me.Label8.TabIndex = 12
-        Me.Label8.Text = "Interval:"
+        Me.Label8.Text = My.Resources.Interval
         '
         'AutoBackupInterval
         '
@@ -138,7 +137,7 @@ Partial Class FormAutoBackups
         Me.AutoBackupInterval.Name = "AutoBackupInterval"
         Me.AutoBackupInterval.Size = New System.Drawing.Size(121, 21)
         Me.AutoBackupInterval.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.AutoBackupInterval, "How long Openim runs before an Auto backup occurs")
+        Me.ToolTip1.SetToolTip(Me.AutoBackupInterval, My.Resources.How_Long_runs)
         '
         'AutoBackup
         '
@@ -147,8 +146,8 @@ Partial Class FormAutoBackups
         Me.AutoBackup.Name = "AutoBackup"
         Me.AutoBackup.Size = New System.Drawing.Size(65, 17)
         Me.AutoBackup.TabIndex = 1
-        Me.AutoBackup.Text = "Enabled"
-        Me.ToolTip1.SetToolTip(Me.AutoBackup, "If enabled, Openim will save OARS  after running this long")
+        Me.AutoBackup.Text = My.Resources.Enabled
+        Me.ToolTip1.SetToolTip(Me.AutoBackup, My.Resources.If_Enabled_Save_Oars)
         Me.AutoBackup.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -167,14 +166,14 @@ Partial Class FormAutoBackups
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = "Help"
+        Me.ToolStripMenuItem30.Text = My.Resources.Help
         '
         'ServerTypeToolStripMenuItem
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
         Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.ServerTypeToolStripMenuItem.Text = "Help"
+        Me.ServerTypeToolStripMenuItem.Text = My.Resources.Help
         '
         'BackupToolStripMenuItem
         '
@@ -182,21 +181,21 @@ Partial Class FormAutoBackups
         Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
-        Me.BackupToolStripMenuItem.Text = "Backup"
+        Me.BackupToolStripMenuItem.Text = My.Resources.Backup
         '
         'FullSQLBackupToolStripMenuItem
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
+        Me.FullSQLBackupToolStripMenuItem.Text = My.Resources.Backup_Data_Files
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
+        Me.DataOnlyToolStripMenuItem.Text = My.Resources.Export_SQL_file
         '
         'FormAutoBackups
         '
@@ -208,7 +207,7 @@ Partial Class FormAutoBackups
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormAutoBackups"
-        Me.Text = "Auto Backups"
+        Me.Text = My.Resources.Auto_Backup
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

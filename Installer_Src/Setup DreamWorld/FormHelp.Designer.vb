@@ -194,7 +194,7 @@ Partial Class FormHelp
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormHelp"
-        Me.Text = "Help"
+        Me.Text = My.Resources.Help
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)

@@ -54,7 +54,7 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Size = New System.Drawing.Size(601, 203)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Backup "
+        Me.GroupBox1.Text = My.Resources.Backup
         '
         'TextBox1
         '
@@ -75,7 +75,7 @@ Partial Class FormBackupCheckboxes
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 12
-        Me.Button2.Text = "Skip"
+        Me.Button2.Text = My.Resources.Skip
         Me.Button2.UseVisualStyleBackColor = True
         '
         'SettingsBox
@@ -87,7 +87,7 @@ Partial Class FormBackupCheckboxes
         Me.SettingsBox.Name = "SettingsBox"
         Me.SettingsBox.Size = New System.Drawing.Size(104, 17)
         Me.SettingsBox.TabIndex = 11
-        Me.SettingsBox.Text = "Backup Settings"
+        Me.SettingsBox.Text = My.Resources.Backup_Settings
         Me.SettingsBox.UseVisualStyleBackColor = True
         '
         'Button1
@@ -96,7 +96,7 @@ Partial Class FormBackupCheckboxes
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Backup"
+        Me.Button1.Text = My.Resources.Backup
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CustomCheckBox
@@ -108,7 +108,7 @@ Partial Class FormBackupCheckboxes
         Me.CustomCheckBox.Name = "CustomCheckBox"
         Me.CustomCheckBox.Size = New System.Drawing.Size(160, 17)
         Me.CustomCheckBox.TabIndex = 9
-        Me.CustomCheckBox.Text = "Backup Custom Web Pages"
+        Me.CustomCheckBox.Text = My.Resources.Backup_Custom
         Me.CustomCheckBox.UseVisualStyleBackColor = True
         '
         'FSAssetsCheckBox
@@ -120,7 +120,7 @@ Partial Class FormBackupCheckboxes
         Me.FSAssetsCheckBox.Name = "FSAssetsCheckBox"
         Me.FSAssetsCheckBox.Size = New System.Drawing.Size(139, 17)
         Me.FSAssetsCheckBox.TabIndex = 8
-        Me.FSAssetsCheckBox.Text = "Backup FSAssets folder"
+        Me.FSAssetsCheckBox.Text = My.Resources.Backup_FSAssets
         Me.FSAssetsCheckBox.UseVisualStyleBackColor = True
         '
         'MySqlCheckBox
@@ -132,7 +132,7 @@ Partial Class FormBackupCheckboxes
         Me.MySqlCheckBox.Name = "MySqlCheckBox"
         Me.MySqlCheckBox.Size = New System.Drawing.Size(150, 17)
         Me.MySqlCheckBox.TabIndex = 7
-        Me.MySqlCheckBox.Text = "Backup Mysql\Data folder"
+        Me.MySqlCheckBox.Text = My.Resources.Backup_Mysql
         Me.MySqlCheckBox.UseVisualStyleBackColor = True
         '
         'RegionCheckBox
@@ -144,7 +144,7 @@ Partial Class FormBackupCheckboxes
         Me.RegionCheckBox.Name = "RegionCheckBox"
         Me.RegionCheckBox.Size = New System.Drawing.Size(138, 17)
         Me.RegionCheckBox.TabIndex = 6
-        Me.RegionCheckBox.Text = "Backup Region INI files"
+        Me.RegionCheckBox.Text = My.Resources.Backup_Region
         Me.RegionCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -162,14 +162,14 @@ Partial Class FormBackupCheckboxes
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.HelpToolStripMenuItem.Text = My.Resources.Help
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = "Help"
+        Me.HelpToolStripMenuItem1.Text = My.Resources.Help
         '
         'FormBackupCheckboxes
         '
@@ -180,7 +180,7 @@ Partial Class FormBackupCheckboxes
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormBackupCheckboxes"
-        Me.Text = "System Backup"
+        Me.Text = My.Resources.System_Backup
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

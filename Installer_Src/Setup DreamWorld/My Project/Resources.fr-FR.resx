@@ -117,11 +117,272 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Apache" xml:space="preserve">
+    <value>Apache</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>Apache Webserver + Recherche et carte</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>Apache Webserver</value>
+  </data>
+  <data name="Auto_Backup" xml:space="preserve">
+    <value>Sauvegarde automatique</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Sauvegarde</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Sauvegarde de pages Web personnalisées</value>
+  </data>
+  <data name="Backup_Data_Files" xml:space="preserve">
+    <value>Fichiers de données de sauvegarde</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>Dossier de sauvegarde</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>Dossier de sauvegarde FSAssets</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>Dossier de sauvegarde de données Mysql</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>Région de sauvegarde des fichiers INI</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Cliquez pour configurer votre planification de sauvegarde</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Paramètres de sauvegarde</value>
+  </data>
+  <data name="Bird_Flock_Size" xml:space="preserve">
+    <value>Oiseau Taille Flock</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>Cliquez pour Aide sur les oiseaux</value>
+  </data>
+  <data name="Bird_IAR" xml:space="preserve">
+    <value>Charger des oiseaux IAR</value>
+  </data>
+  <data name="Bird_Module" xml:space="preserve">
+    <value>Oiseau Module</value>
+  </data>
+  <data name="Bird_Settings" xml:space="preserve">
+    <value>Réglages oiseaux</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>Taille de la bordure (par défaut = 25,0)</value>
+  </data>
+  <data name="Caches" xml:space="preserve">
+    <value>Caches</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>Cliquez pour mettre en place le module Oiseaux</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Cliquez pour mettre en place Caches pour les scripts, les actifs et les images</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>Cliquez pour mettre en place Monnaie</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Cliquez pour mettre en place la base de données</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>Cliquez pour activer Hypergrid ou modifier le nom DNS</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>Cliquez pour Configuration Shoutcast / Icecast</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>Cliquez pour définir des cartes</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>Cliquez pour mettre en place par défaut physique</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Cliquez pour configurer vos ports</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>Cliquez pour mettre en place Publicité à Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>Cliquez pour mettre en place des régions</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Cliquer pour configurer Start / Stop</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>Cliquez pour configurer des serveurs tels que grille, région, OSGrid ou Metro</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>Cliquez pour mettre en place Tides</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>Cliquez pour modifier le dossier</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>Cliquez pour demander le service vocal</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>Cliquer pour configurer Vivox voix</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>Cliquez pour configurer votre Panneau de configuration Web</value>
+  </data>
+  <data name="Common_Settings" xml:space="preserve">
+    <value>Paramètres communs</value>
+  </data>
+  <data name="Database_Setup" xml:space="preserve">
+    <value>Configuration de base de données</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>Cela permet de déterminer si le module ne fait rien</value>
+  </data>
   <data name="DreamGrid" xml:space="preserve">
-    <value>Grille de rêve</value>
+    <value>DreamGrid</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Activer</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>Activer le serveur Web Apache</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Activée</value>
+  </data>
+  <data name="Enable_Birds" xml:space="preserve">
+    <value>Activer le module Bird?</value>
+  </data>
+  <data name="Enable_Events" xml:space="preserve">
+    <value>activer les événements</value>
+  </data>
+  <data name="Enable_Search" xml:space="preserve">
+    <value>activer la recherche</value>
   </data>
   <data name="Exit_text" xml:space="preserve">
     <value>Sortie</value>
+  </data>
+  <data name="Export_SQL_file" xml:space="preserve">
+    <value>Exporter un fichier SQL</value>
+  </data>
+  <data name="Gloebits_Currency" xml:space="preserve">
+    <value>Gloebits Monnaie</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aidez-moi</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>Comment peut-on se sans être inquiété près des bords des choses?</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>Nous aimerions rester Comment loin des autres oiseaux?</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>Dans quelle mesure en mètres chaque oiseau peut se déplacer par jour</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>Quelle est la hauteur nous a permis de troupeau?</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>Combien de temps pour garder les sauvegardes. Passé ce délai en jours, le plus ancien sont supprimés.</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>Depuis combien de temps Opensim fonctionne avant une sauvegarde automatique se produit</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>Hypergrid Nom DNS</value>
+  </data>
+  <data name="Icecast_Shoutcast" xml:space="preserve">
+    <value>Icecast / Shoutcast</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>Si elle est activée, Opensim sauvera AVIRONS après l'exécution de cette longue</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>Installer C ++ Runtime</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervalle</value>
+  </data>
+  <data name="Keep_for_Days" xml:space="preserve">
+    <value>Gardez pendant des jours</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>Recherche locale</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>Plans</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>L'accélération maximale autorisée à la vitesse actuelle de l'oiseau</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>Distance maximale pour d'autres oiseaux à considérer dans le même troupeau</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>Force max (valeur par défaut = 0,2)</value>
+  </data>
+  <data name="Max_Heght" xml:space="preserve">
+    <value>Hauteur max (valeur par défaut = 45,0)</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Vitesse maximum (valeur par défaut = 1,0)</value>
+  </data>
+  <data name="Neighbor" xml:space="preserve">
+    <value>Distance Neighbor (valeur par défaut = 25,0)</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>Ports réseau</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>Normalement à OutworldzFiles / AutoBackup dossier avec « AutoBackup ». Cliquez pour modifier le dossier.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>Le nombre d'oiseaux troupeau</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>La physique</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Nom Prim (valeur par défaut = SeaGull1)</value>
+  </data>
+  <data name="Publicity" xml:space="preserve">
+    <value>Publicité</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Régions</value>
+  </data>
+  <data name="Restart_Settings" xml:space="preserve">
+    <value>Redémarrez Paramètres</value>
+  </data>
+  <data name="RunasAService" xml:space="preserve">
+    <value>Exécuter en tant que service A</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Chercher</value>
+  </data>
+  <data name="Search_All_Grids" xml:space="preserve">
+    <value>Recherche Tous Grids</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Séparation souhaitée (par défaut = 5,0)</value>
+  </data>
+  <data name="Server_Type" xml:space="preserve">
+    <value>Type de serveur</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>Cliquez pour mettre en place vos Conditions d'utilisation</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>Installation des services voix</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Sauter</value>
   </data>
   <data name="Starting" xml:space="preserve">
     <value>Démarrage ...</value>
@@ -133,6 +394,39 @@
     <value>... Arrêté</value>
   </data>
   <data name="Stop_text" xml:space="preserve">
-    <value>Arrêté</value>
+    <value>Arrêtez</value>
+  </data>
+  <data name="System_Backup" xml:space="preserve">
+    <value>système de sauvegarde</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>Conditions d'utilisation</value>
+  </data>
+  <data name="Tides" xml:space="preserve">
+    <value>Les marées</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>La tolérance (valeur par défaut = 25,0)</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>Identifiant d'utilisateur</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Vivox_Voice" xml:space="preserve">
+    <value>Vivox voix</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>Voix</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Panneau de configuration Web</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>Port Web (80 ou 8000)</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>Quel canal que les oiseaux écoutent les commandes dans le monde. Les nombres négatifs ne peuvent pas être utilisés par les humains</value>
   </data>
 </root>

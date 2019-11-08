@@ -385,7 +385,7 @@ Partial Class FormDisplacement
         Me.HrlpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HrlpToolStripMenuItem.Name = "HrlpToolStripMenuItem"
         Me.HrlpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HrlpToolStripMenuItem.Text = "Help"
+        Me.HrlpToolStripMenuItem.Text = My.Resources.Help
         '
         'FormDisplacement
         '
