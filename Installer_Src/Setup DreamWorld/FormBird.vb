@@ -172,7 +172,7 @@ Public Class BirdForm
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If changed Then
             Form1.PropViewedSettings = True
-            MsgBox("These changes go into effect only when Opensim and Robust are both restarted", vbInformation)
+            MsgBox(My.Resources.These_Changes, vbInformation)
         End If
         Form1.Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
         Form1.Settings.SaveSettings()
@@ -244,8 +244,6 @@ Public Class BirdForm
         changed = True
 
     End Sub
-
-
 
 #End Region
 

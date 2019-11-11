@@ -44,7 +44,7 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Size = New System.Drawing.Size(157, 176)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Text"
+        Me.GroupBox1.Text = My.Resources.Region_Controls
         '
         'Button1
         '
@@ -54,7 +54,7 @@ Partial Class FormRegionPopup
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 23)
         Me.Button1.TabIndex = 9
-        Me.Button1.Text = "Teleport To"
+        Me.Button1.Text = My.Resources.Teleport
         Me.Button1.UseVisualStyleBackColor = True
         '
         'EditButton1
@@ -65,7 +65,7 @@ Partial Class FormRegionPopup
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(121, 23)
         Me.EditButton1.TabIndex = 8
-        Me.EditButton1.Text = "Edit"
+        Me.EditButton1.Text = My.Resources.Edit
         Me.EditButton1.UseVisualStyleBackColor = True
         '
         'StartButton3
@@ -76,7 +76,7 @@ Partial Class FormRegionPopup
         Me.StartButton3.Name = "StartButton3"
         Me.StartButton3.Size = New System.Drawing.Size(121, 23)
         Me.StartButton3.TabIndex = 7
-        Me.StartButton3.Text = "Start"
+        Me.StartButton3.Text = My.Resources.Start_text
         Me.StartButton3.UseVisualStyleBackColor = True
         '
         'RecycleButton2
@@ -87,7 +87,7 @@ Partial Class FormRegionPopup
         Me.RecycleButton2.Name = "RecycleButton2"
         Me.RecycleButton2.Size = New System.Drawing.Size(125, 23)
         Me.RecycleButton2.TabIndex = 6
-        Me.RecycleButton2.Text = "Restart"
+        Me.RecycleButton2.Text = My.Resources.Restart
         Me.RecycleButton2.UseVisualStyleBackColor = True
         '
         'StopButton1
@@ -98,7 +98,7 @@ Partial Class FormRegionPopup
         Me.StopButton1.Name = "StopButton1"
         Me.StopButton1.Size = New System.Drawing.Size(125, 23)
         Me.StopButton1.TabIndex = 5
-        Me.StopButton1.Text = "Stop"
+        Me.StopButton1.Text = My.Resources.Stop_text
         Me.StopButton1.UseVisualStyleBackColor = True
         '
         'FormRegionPopup

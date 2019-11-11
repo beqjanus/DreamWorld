@@ -115,17 +115,32 @@ Public Class Gloebits
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SandBoxSignUpButton.Click
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SandBoxReqAppButton.Click
         Dim webAddress As String = "https://sandbox.gloebit.com/merchant-signup/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub CreateAppButton2_Click(sender As Object, e As EventArgs) Handles SandBoxCreateAppButton.Click
         Dim webAddress As String = "https://www.gloebit.com"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SandKeyTextBox.TextChanged
@@ -166,17 +181,32 @@ Public Class Gloebits
 
     Private Sub ProductionCreateAppButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateAppButton.Click
         Dim webAddress As String = "https://www.gloebit.com/merchant-tools/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub ProductionCreateButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateButton.Click
         Dim webAddress As String = "https://www.gloebit.com/signup/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub ProductionReqAppButton_Click(sender As Object, e As EventArgs) Handles ProductionReqAppButton.Click
         Dim webAddress As String = "https://www.gloebit.com/merchant-signup/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
 #End Region
@@ -209,19 +239,34 @@ Public Class Gloebits
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
 
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
         Dim webAddress As String = "http://dev.gloebit.com/monetize/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
 #End Region

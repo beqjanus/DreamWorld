@@ -274,7 +274,7 @@ Public Class FormDiva
 
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
-            Form1.Print("Theme set to Black")
+            Form1.Print(My.Resources.Theme_Black)
             Form1.Settings.Theme = "Black"
         End If
 
@@ -301,7 +301,7 @@ Public Class FormDiva
 
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
-            Form1.Print("Theme set to Custom")
+            Form1.Print(My.Resources.theme_Custom)
             Form1.Settings.Theme = "Custom"
         End If
 
@@ -318,7 +318,7 @@ Public Class FormDiva
 
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
-            Form1.Print("Theme set to White")
+            Form1.Print(My.Resources.Theme_White)
             Form1.Settings.Theme = "White"
         End If
 

@@ -104,7 +104,7 @@ Public Module MysqlInterface
         Dim Mysql = CheckPort("127.0.0.1", CType(Form1.Settings.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
-            Form1.Print("All Regions are deregistered.")
+            Form1.Print(My.Resources.Deregister_All)
         End If
 
     End Sub

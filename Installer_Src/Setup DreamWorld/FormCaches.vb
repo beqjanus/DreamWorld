@@ -85,9 +85,9 @@ Public Class FormCaches
         End If
 
         If Not Form1.PropOpensimIsRunning() Then
-            Form1.Print("All Server Caches cleared")
+            Form1.Print(My.Resources.Caches_Cleared)
         Else
-            Form1.Print("All Server Caches except Scripts and Avatar bakes were cleared. Opensim must be stopped to clear script and bake caches.")
+            Form1.Print(My.Resources.Cache_Most_Cleared)
         End If
 
         Me.Close()

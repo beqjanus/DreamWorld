@@ -126,7 +126,7 @@ Partial Class FormRegion
         Me.CoordY.Name = "CoordY"
         Me.CoordY.Size = New System.Drawing.Size(38, 20)
         Me.CoordY.TabIndex = 13
-        Me.ToolTip1.SetToolTip(Me.CoordY, "The Up-Down position on the world map")
+        Me.ToolTip1.SetToolTip(Me.CoordY, My.Resources.CoordY)
         '
         'CoordX
         '
@@ -134,7 +134,7 @@ Partial Class FormRegion
         Me.CoordX.Name = "CoordX"
         Me.CoordX.Size = New System.Drawing.Size(40, 20)
         Me.CoordX.TabIndex = 12
-        Me.ToolTip1.SetToolTip(Me.CoordX, "The L-R position on the world map")
+        Me.ToolTip1.SetToolTip(Me.CoordX, My.Resources.Coordx)
         '
         'RegionName
         '
@@ -142,7 +142,7 @@ Partial Class FormRegion
         Me.RegionName.Name = "RegionName"
         Me.RegionName.Size = New System.Drawing.Size(144, 20)
         Me.RegionName.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.RegionName, "Alpha-Numeric plus Spaces")
+        Me.ToolTip1.SetToolTip(Me.RegionName, My.Resources.RegionName)
         '
         'RadioButton4
         '
@@ -198,7 +198,7 @@ Partial Class FormRegion
         Me.SizeY.Name = "SizeY"
         Me.SizeY.Size = New System.Drawing.Size(43, 20)
         Me.SizeY.TabIndex = 8
-        Me.ToolTip1.SetToolTip(Me.SizeY, "Must be the same as X")
+        Me.ToolTip1.SetToolTip(Me.SizeY, My.Resources.MustX)
         '
         'SizeX
         '
@@ -206,7 +206,7 @@ Partial Class FormRegion
         Me.SizeX.Name = "SizeX"
         Me.SizeX.Size = New System.Drawing.Size(43, 20)
         Me.SizeX.TabIndex = 7
-        Me.ToolTip1.SetToolTip(Me.SizeX, "Must be the same as Y")
+        Me.ToolTip1.SetToolTip(Me.SizeX, My.Resources.MustY)
         '
         'MaxAgents
         '
@@ -214,8 +214,7 @@ Partial Class FormRegion
         Me.MaxAgents.Name = "MaxAgents"
         Me.MaxAgents.Size = New System.Drawing.Size(40, 20)
         Me.MaxAgents.TabIndex = 20
-        Me.ToolTip1.SetToolTip(Me.MaxAgents, "Clamps how many Avatars + NPC's can be in a region before the region is shown as " &
-        "Full.   The actual value is set in Estate Settings in the viewer.")
+        Me.ToolTip1.SetToolTip(Me.MaxAgents, My.Resources.Max_Agents)
         '
         'Label5
         '
@@ -225,8 +224,7 @@ Partial Class FormRegion
         Me.Label5.Size = New System.Drawing.Size(137, 13)
         Me.Label5.TabIndex = 30
         Me.Label5.Text = "Nonphysical Prim Max Size "
-        Me.ToolTip1.SetToolTip(Me.Label5, "As big as 1500 meters with Singularity. You cannot make a regular prim bigger tha" &
-        "n this.")
+        Me.ToolTip1.SetToolTip(Me.Label5, My.Resources.Max_NonPhys)
         '
         'Label9
         '
@@ -236,7 +234,7 @@ Partial Class FormRegion
         Me.Label9.Size = New System.Drawing.Size(115, 13)
         Me.Label9.TabIndex = 31
         Me.Label9.Text = "Physical Prim Max Size"
-        Me.ToolTip1.SetToolTip(Me.Label9, "You cannot make a physical prim bigger than this.")
+        Me.ToolTip1.SetToolTip(Me.Label9, My.Resources.Max_Phys)
         '
         'PhysicalPrimMax
         '
@@ -244,7 +242,7 @@ Partial Class FormRegion
         Me.PhysicalPrimMax.Name = "PhysicalPrimMax"
         Me.PhysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.PhysicalPrimMax.TabIndex = 17
-        Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, "You cannot make a prim go physical that is larger than this.")
+        Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, My.Resources.Max_Phys)
         '
         'Label10
         '
@@ -253,8 +251,8 @@ Partial Class FormRegion
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(88, 13)
         Me.Label10.TabIndex = 34
-        Me.Label10.Text = "Clamp Prim Size?"
-        Me.ToolTip1.SetToolTip(Me.Label10, "Clamp Prim Size is an option to ensure no prim can exceed the set size.")
+        Me.Label10.Text = My.Resources.ClampPrim
+        Me.ToolTip1.SetToolTip(Me.Label10, My.Resources.ClampSize)
         '
         'Label11
         '
@@ -263,8 +261,8 @@ Partial Class FormRegion
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(160, 13)
         Me.Label11.TabIndex = 36
-        Me.Label11.Text = "Max Number of Prims in a Parcel"
-        Me.ToolTip1.SetToolTip(Me.Label11, "Viewer stops counting at 45,000")
+        Me.Label11.Text = My.Resources.Max_NumPrims
+        Me.ToolTip1.SetToolTip(Me.Label11, My.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
         '
@@ -272,9 +270,7 @@ Partial Class FormRegion
         Me.MaxPrims.Name = "MaxPrims"
         Me.MaxPrims.Size = New System.Drawing.Size(40, 20)
         Me.MaxPrims.TabIndex = 19
-        Me.ToolTip1.SetToolTip(Me.MaxPrims, "Not normally enforced by Opensim.  Viewer will not show more than 45K. Setting th" &
-        "is here and enabling this in settings will enforce the limit and may return prim" &
-        "s!")
+        Me.ToolTip1.SetToolTip(Me.MaxPrims, My.Resources.Not_Normal)
         '
         'NonphysicalPrimMax
         '
@@ -282,7 +278,7 @@ Partial Class FormRegion
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
         Me.NonphysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.NonphysicalPrimMax.TabIndex = 16
-        Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, "You cannot make a regular prim bigger than this.")
+        Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, My.Resources.Normal_Prim)
         '
         'Label12
         '
@@ -292,8 +288,7 @@ Partial Class FormRegion
         Me.Label12.Size = New System.Drawing.Size(120, 13)
         Me.Label12.TabIndex = 38
         Me.Label12.Text = "Max Agents in a Region"
-        Me.ToolTip1.SetToolTip(Me.Label12, "Clamps how many Avatars + NPC's can be in a sim before the region is shown as Ful" &
-        "l. The actual value is set in Estate Settings in the viewer.")
+        Me.ToolTip1.SetToolTip(Me.Label12, My.Resources.Max_Agents)
         '
         'ClampPrimSize
         '
@@ -302,7 +297,7 @@ Partial Class FormRegion
         Me.ClampPrimSize.Name = "ClampPrimSize"
         Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
         Me.ClampPrimSize.TabIndex = 18
-        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, "Clamp Prim Size ensures no prim can exceed the set size.")
+        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, My.Resources.ClampSize)
         Me.ClampPrimSize.UseVisualStyleBackColor = True
         '
         'BirdsCheckBox
@@ -313,7 +308,7 @@ Partial Class FormRegion
         Me.BirdsCheckBox.Size = New System.Drawing.Size(85, 17)
         Me.BirdsCheckBox.TabIndex = 21
         Me.BirdsCheckBox.Text = "Birds Enable"
-        Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, "If set, the global Bird settungs will apply to this region")
+        Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, My.Resources.GBoids)
         Me.BirdsCheckBox.UseVisualStyleBackColor = True
         '
         'TidesCheckbox
@@ -324,7 +319,7 @@ Partial Class FormRegion
         Me.TidesCheckbox.Size = New System.Drawing.Size(88, 17)
         Me.TidesCheckbox.TabIndex = 21
         Me.TidesCheckbox.Text = "Tides Enable"
-        Me.ToolTip1.SetToolTip(Me.TidesCheckbox, "If set, the global Tide settungs will apply to this region")
+        Me.ToolTip1.SetToolTip(Me.TidesCheckbox, My.Resources.gTides)
         Me.TidesCheckbox.UseVisualStyleBackColor = True
         '
         'TPCheckBox1
@@ -335,7 +330,7 @@ Partial Class FormRegion
         Me.TPCheckBox1.Size = New System.Drawing.Size(110, 17)
         Me.TPCheckBox1.TabIndex = 22
         Me.TPCheckBox1.Text = "Teleporter Enable"
-        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, "If set, the global Tide settungs will apply to this region")
+        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, My.Resources.gTides)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
         '
         'MapHelp
@@ -346,7 +341,7 @@ Partial Class FormRegion
         Me.MapHelp.Size = New System.Drawing.Size(28, 27)
         Me.MapHelp.TabIndex = 1857
         Me.MapHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MapHelp, "Overrides the global Map Settings for this one region")
+        Me.ToolTip1.SetToolTip(Me.MapHelp, My.Resources.OverridesMap)
         '
         'GodHelp
         '
@@ -356,7 +351,7 @@ Partial Class FormRegion
         Me.GodHelp.Size = New System.Drawing.Size(30, 27)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, "Allow or disallow  Gods in the one region")
+        Me.ToolTip1.SetToolTip(Me.GodHelp, My.Resources.Allow_Gods)
         '
         'AllowGods
         '
@@ -365,7 +360,7 @@ Partial Class FormRegion
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(141, 17)
         Me.AllowGods.TabIndex = 1858
-        Me.AllowGods.Text = "Allow Gods in this region"
+        Me.AllowGods.Text = My.Resources.Allow_Gods
         Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
         Me.AllowGods.UseVisualStyleBackColor = True
         '
@@ -376,9 +371,8 @@ Partial Class FormRegion
         Me.ManagerGod.Name = "ManagerGod"
         Me.ManagerGod.Size = New System.Drawing.Size(138, 17)
         Me.ManagerGod.TabIndex = 6
-        Me.ManagerGod.Text = "Estate Manager is god?"
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, "Estate  Manager is God - Estate managers can become gods, but just for this estat" &
-        "e.")
+        Me.ManagerGod.Text = My.Resources.EstateManagerGod
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, My.Resources.EMGod)
         Me.ManagerGod.UseVisualStyleBackColor = True
         '
         'RegionGod
@@ -388,9 +382,8 @@ Partial Class FormRegion
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(132, 17)
         Me.RegionGod.TabIndex = 1855
-        Me.RegionGod.Text = "Region owner is god? "
-        Me.ToolTip1.SetToolTip(Me.RegionGod, "Region Owner is God - When you first create a region, you are prompted for the ow" &
-        "ner name. If checked, this person has God mode rights to any regions they own.")
+        Me.RegionGod.Text = My.Resources.Region_Owner_Is_God_text
+        Me.ToolTip1.SetToolTip(Me.RegionGod, My.Resources.Region_Owner_Is_God_text)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'RegionPort
@@ -400,7 +393,7 @@ Partial Class FormRegion
         Me.RegionPort.Name = "RegionPort"
         Me.RegionPort.Size = New System.Drawing.Size(40, 20)
         Me.RegionPort.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RegionPort, "old port")
+
         '
         'SmartStartCheckBox
         '
@@ -409,8 +402,8 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
-        Me.SmartStartCheckBox.Text = "Smart Start"
-        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.SmartStartCheckBox.Text = My.Resources.Smart_Start
+        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, My.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
         'Label14
@@ -420,8 +413,8 @@ Partial Class FormRegion
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(113, 13)
         Me.Label14.TabIndex = 41
-        Me.Label14.Text = "Script Timer Rate (0.9)"
-        Me.ToolTip1.SetToolTip(Me.Label14, "Script timer speed setting. 1/11 second is default (0.9)")
+        Me.Label14.Text = My.Resources.Script_Timer_Rate
+        Me.ToolTip1.SetToolTip(Me.Label14, My.Resources.Script_Timer_Text)
         '
         'ScriptTimerTextBox
         '
@@ -429,8 +422,7 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
         Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
         Me.ScriptTimerTextBox.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, "Default 1/11 sec. Minimum should not be less than 0.091 which is 1/5th of 55 FPS " &
-        "SL speed.")
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, My.Resources.STComment)
         '
         'DisableGBCheckBox
         '
@@ -439,8 +431,8 @@ Partial Class FormRegion
         Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
         Me.DisableGBCheckBox.Size = New System.Drawing.Size(102, 17)
         Me.DisableGBCheckBox.TabIndex = 24
-        Me.DisableGBCheckBox.Text = "Disable Gloebits"
-        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, "If set, the global Tide settungs will apply to this region")
+        Me.DisableGBCheckBox.Text = My.Resources.Disable_Gloebits
+        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, My.Resources.Disable_Gloebits_text)
         Me.DisableGBCheckBox.UseVisualStyleBackColor = True
         '
         'DisallowForeigners
@@ -450,8 +442,8 @@ Partial Class FormRegion
         Me.DisallowForeigners.Name = "DisallowForeigners"
         Me.DisallowForeigners.Size = New System.Drawing.Size(135, 17)
         Me.DisallowForeigners.TabIndex = 25
-        Me.DisallowForeigners.Text = "Disable Foreign Visitors"
-        Me.ToolTip1.SetToolTip(Me.DisallowForeigners, "No HG Visitors allowed in this region")
+        Me.DisallowForeigners.Text = My.Resources.Disable_Foreigners
+        Me.ToolTip1.SetToolTip(Me.DisallowForeigners, My.Resources.No_HG)
         Me.DisallowForeigners.UseVisualStyleBackColor = True
         '
         'DisallowResidents
@@ -461,8 +453,8 @@ Partial Class FormRegion
         Me.DisallowResidents.Name = "DisallowResidents"
         Me.DisallowResidents.Size = New System.Drawing.Size(111, 17)
         Me.DisallowResidents.TabIndex = 26
-        Me.DisallowResidents.Text = "Disable Residents"
-        Me.ToolTip1.SetToolTip(Me.DisallowResidents, "Only Admins and Managers allowed in this region")
+        Me.DisallowResidents.Text = My.Resources.Disable_Residents
+        Me.ToolTip1.SetToolTip(Me.DisallowResidents, My.Resources.Only_Owners)
         Me.DisallowResidents.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -479,10 +471,8 @@ Partial Class FormRegion
         Me.GroupBox1.Size = New System.Drawing.Size(189, 195)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
-        Me.ToolTip1.SetToolTip(Me.GroupBox1, "This defines the rate of several simulation events. It can be reduced to improve " &
-        "the simulation of moving objects, with possible increase of cpu and network load" &
-        "s.")
+        Me.GroupBox1.Text = My.Resources.Physics
+        Me.ToolTip1.SetToolTip(Me.GroupBox1, My.Resources.Sim_Rate)
         '
         'Physicsubhybrid
         '
@@ -492,7 +482,7 @@ Partial Class FormRegion
         Me.Physicsubhybrid.Size = New System.Drawing.Size(134, 17)
         Me.Physicsubhybrid.TabIndex = 138
         Me.Physicsubhybrid.TabStop = True
-        Me.Physicsubhybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.Physicsubhybrid.Text = My.Resources.UbitHybrid
         Me.Physicsubhybrid.UseVisualStyleBackColor = True
         '
         'Physics_Default
@@ -503,7 +493,7 @@ Partial Class FormRegion
         Me.Physics_Default.Size = New System.Drawing.Size(81, 17)
         Me.Physics_Default.TabIndex = 137
         Me.Physics_Default.TabStop = True
-        Me.Physics_Default.Text = "Use Default"
+        Me.Physics_Default.Text = My.Resources.UseDefault
         Me.Physics_Default.UseVisualStyleBackColor = True
         '
         'PhysicsSeparate
@@ -514,7 +504,7 @@ Partial Class FormRegion
         Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
         Me.PhysicsSeparate.TabIndex = 37
         Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = "Bullet physics in separate thread."
+        Me.PhysicsSeparate.Text = My.Resources.BP
         Me.PhysicsSeparate.UseVisualStyleBackColor = True
         '
         'PhysicsNone
@@ -525,7 +515,7 @@ Partial Class FormRegion
         Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
         Me.PhysicsNone.TabIndex = 33
         Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = "None"
+        Me.PhysicsNone.Text = My.Resources.None
         Me.PhysicsNone.UseVisualStyleBackColor = True
         '
         'PhysicsubODE
@@ -536,7 +526,7 @@ Partial Class FormRegion
         Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
         Me.PhysicsubODE.TabIndex = 35
         Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
+        Me.PhysicsubODE.Text = "Ubit " & My.Resources.ODE
         Me.PhysicsubODE.UseVisualStyleBackColor = True
         '
         'PhysicsBullet
@@ -547,7 +537,7 @@ Partial Class FormRegion
         Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
         Me.PhysicsBullet.TabIndex = 136
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = "Bullet Physics"
+        Me.PhysicsBullet.Text = My.Resources.bullet
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE
@@ -558,7 +548,7 @@ Partial Class FormRegion
         Me.PhysicsODE.Size = New System.Drawing.Size(136, 17)
         Me.PhysicsODE.TabIndex = 34
         Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = "Open Dynamics Engine"
+        Me.PhysicsODE.Text = My.Resources.ODE
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
         'FrametimeBox
@@ -567,8 +557,7 @@ Partial Class FormRegion
         Me.FrametimeBox.Name = "FrametimeBox"
         Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
         Me.FrametimeBox.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.FrametimeBox, "Default 1/11 sec. Minimum should not be less than 0.091 which is 1/5th of 55 FPS " &
-        "SL speed.")
+        Me.ToolTip1.SetToolTip(Me.FrametimeBox, My.Resources.FrameTime)
         '
         'SkipAutoCheckBox
         '
@@ -577,8 +566,8 @@ Partial Class FormRegion
         Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
         Me.SkipAutoCheckBox.Size = New System.Drawing.Size(108, 17)
         Me.SkipAutoCheckBox.TabIndex = 27
-        Me.SkipAutoCheckBox.Text = "Skip Autobackup"
-        Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, "Will not save an OAR with Autobackup.")
+        Me.SkipAutoCheckBox.Text = My.Resources.Skip_Autobackup
+        Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, My.Resources.WillNotSave)
         Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
         '
         'Advanced
@@ -611,7 +600,7 @@ Partial Class FormRegion
         Me.Advanced.Size = New System.Drawing.Size(254, 287)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
-        Me.Advanced.Text = "Advanced"
+        Me.Advanced.Text = My.Resources.Region
         '
         'Label16
         '
@@ -620,7 +609,7 @@ Partial Class FormRegion
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(63, 13)
         Me.Label16.TabIndex = 44
-        Me.Label16.Text = "Region Port"
+        Me.Label16.Text = My.Resources.RegionPort
         '
         'Label15
         '
@@ -629,8 +618,8 @@ Partial Class FormRegion
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(86, 13)
         Me.Label15.TabIndex = 43
-        Me.Label15.Text = "Frame Rate (0.9)"
-        Me.ToolTip1.SetToolTip(Me.Label15, "SL runs 55 FPS>  Opensim is 11 second is default (0.9)")
+        Me.Label15.Text = My.Resources.FrameRate
+        Me.ToolTip1.SetToolTip(Me.Label15, My.Resources.FRText)
         '
         'Label6
         '
@@ -648,7 +637,7 @@ Partial Class FormRegion
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(77, 13)
         Me.Label4.TabIndex = 16
-        Me.Label4.Text = "Map Coords: X"
+        Me.Label4.Text = My.Resources.Mapx
         '
         'Label1
         '
@@ -673,7 +662,7 @@ Partial Class FormRegion
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(75, 13)
         Me.Label8.TabIndex = 25
-        Me.Label8.Text = "Region Name:"
+        Me.Label8.Text = My.Resources.RegionName
         '
         'GroupBox2
         '
@@ -691,7 +680,7 @@ Partial Class FormRegion
         Me.GroupBox2.Size = New System.Drawing.Size(227, 114)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Sim Size"
+        Me.GroupBox2.Text = My.Resources.Sim_Size
         '
         'Label7
         '
@@ -700,7 +689,7 @@ Partial Class FormRegion
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(21, 13)
         Me.Label7.TabIndex = 9
-        Me.Label7.Text = "Or:"
+        Me.Label7.Text = My.Resources.ors
         '
         'Label3
         '
@@ -726,7 +715,7 @@ Partial Class FormRegion
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(59, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Save"
+        Me.Button1.Text = My.Resources.Save
         Me.Button1.UseVisualStyleBackColor = True
         '
         'DeleteButton
@@ -763,7 +752,7 @@ Partial Class FormRegion
         Me.GroupBox6.Size = New System.Drawing.Size(423, 509)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Region Specific Settings"
+        Me.GroupBox6.Text = My.Resources.Region_Specific_Settings
         '
         'GroupBox7
         '
@@ -780,7 +769,7 @@ Partial Class FormRegion
         Me.GroupBox7.Size = New System.Drawing.Size(177, 199)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Modules:"
+        Me.GroupBox7.Text = My.Resources.Modules
         '
         'Label13
         '
@@ -789,7 +778,7 @@ Partial Class FormRegion
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(234, 13)
         Me.Label13.TabIndex = 1884
-        Me.Label13.Text = "Region specific settings override default settings"
+        Me.Label13.Text = My.Resources.RegionOverrides
         '
         'GroupBox3
         '
@@ -801,7 +790,7 @@ Partial Class FormRegion
         Me.GroupBox3.Size = New System.Drawing.Size(189, 106)
         Me.GroupBox3.TabIndex = 1883
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Search"
+        Me.GroupBox3.Text = My.Resources.Search
         '
         'Publish
         '
@@ -811,7 +800,7 @@ Partial Class FormRegion
         Me.Publish.Size = New System.Drawing.Size(175, 17)
         Me.Publish.TabIndex = 1881
         Me.Publish.TabStop = True
-        Me.Publish.Text = "Publish Items marked for search"
+        Me.Publish.Text = My.Resources.Publish_Items
         Me.Publish.UseVisualStyleBackColor = True
         '
         'NoPublish
@@ -822,7 +811,7 @@ Partial Class FormRegion
         Me.NoPublish.Size = New System.Drawing.Size(144, 17)
         Me.NoPublish.TabIndex = 1880
         Me.NoPublish.TabStop = True
-        Me.NoPublish.Text = "Do not publish this region"
+        Me.NoPublish.Text = My.Resources.No_Publish_Items
         Me.NoPublish.UseVisualStyleBackColor = True
         '
         'PublishDefault
@@ -833,7 +822,7 @@ Partial Class FormRegion
         Me.PublishDefault.Size = New System.Drawing.Size(81, 17)
         Me.PublishDefault.TabIndex = 1879
         Me.PublishDefault.TabStop = True
-        Me.PublishDefault.Text = "Use Default"
+        Me.PublishDefault.Text = My.Resources.UseDefault
         Me.PublishDefault.UseVisualStyleBackColor = True
         '
         'GroupBox4
@@ -848,7 +837,7 @@ Partial Class FormRegion
         Me.GroupBox4.Size = New System.Drawing.Size(186, 135)
         Me.GroupBox4.TabIndex = 1882
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
+        Me.GroupBox4.Text = My.Resources.Permissions
         '
         'Gods_Use_Default
         '
@@ -857,7 +846,7 @@ Partial Class FormRegion
         Me.Gods_Use_Default.Name = "Gods_Use_Default"
         Me.Gods_Use_Default.Size = New System.Drawing.Size(82, 17)
         Me.Gods_Use_Default.TabIndex = 1859
-        Me.Gods_Use_Default.Text = "Use Default"
+        Me.Gods_Use_Default.Text = My.Resources.UseDefault
         Me.Gods_Use_Default.UseVisualStyleBackColor = True
         '
         'MapBox
@@ -874,7 +863,7 @@ Partial Class FormRegion
         Me.MapBox.Size = New System.Drawing.Size(173, 247)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = "Maps"
+        Me.MapBox.Text = My.Resources.Maps
         '
         'Maps_Use_Default
         '
@@ -884,7 +873,7 @@ Partial Class FormRegion
         Me.Maps_Use_Default.Size = New System.Drawing.Size(81, 17)
         Me.Maps_Use_Default.TabIndex = 1858
         Me.Maps_Use_Default.TabStop = True
-        Me.Maps_Use_Default.Text = "Use Default"
+        Me.Maps_Use_Default.Text = My.Resources.UseDefault
         Me.Maps_Use_Default.UseVisualStyleBackColor = True
         '
         'MapPicture
@@ -905,7 +894,7 @@ Partial Class FormRegion
         Me.MapNone.Size = New System.Drawing.Size(51, 17)
         Me.MapNone.TabIndex = 7
         Me.MapNone.TabStop = True
-        Me.MapNone.Text = "None"
+        Me.MapNone.Text = My.Resources.None
         Me.MapNone.UseVisualStyleBackColor = True
         '
         'MapSimple
@@ -916,7 +905,7 @@ Partial Class FormRegion
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
-        Me.MapSimple.Text = "Simple but fast"
+        Me.MapSimple.Text = My.Resources.Simple_but_Fast
         Me.MapSimple.UseVisualStyleBackColor = True
         '
         'MapBetter
@@ -927,7 +916,7 @@ Partial Class FormRegion
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
-        Me.MapBetter.Text = "Better (Prims, Slow)"
+        Me.MapBetter.Text = My.Resources.Better1
         Me.MapBetter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.MapBetter.UseVisualStyleBackColor = True
         '
@@ -939,7 +928,7 @@ Partial Class FormRegion
         Me.MapBest.Size = New System.Drawing.Size(144, 17)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
-        Me.MapBest.Text = "Best (Prims +Mesh, Slow)"
+        Me.MapBest.Text = My.Resources.Best1
         Me.MapBest.UseVisualStyleBackColor = True
         '
         'MapGood
@@ -950,7 +939,7 @@ Partial Class FormRegion
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
-        Me.MapGood.Text = "Good (Warp3D)"
+        Me.MapGood.Text = My.Resources.Good1
         Me.MapGood.UseVisualStyleBackColor = True
         '
         'GroupBox5
@@ -967,7 +956,7 @@ Partial Class FormRegion
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 1880
-        Me.Button2.Text = "Deregister"
+        Me.Button2.Text = My.Resources.Deregister
         Me.Button2.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -1015,7 +1004,7 @@ Partial Class FormRegion
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormRegion"
-        Me.Text = "Region"
+        Me.Text = My.Resources.Region
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)

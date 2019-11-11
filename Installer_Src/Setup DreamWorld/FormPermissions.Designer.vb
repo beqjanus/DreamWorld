@@ -64,7 +64,7 @@ Partial Class FormPermissions
         Me.GroupBox4.Size = New System.Drawing.Size(248, 146)
         Me.GroupBox4.TabIndex = 49
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
+        Me.GroupBox4.Text = My.Resources.Permissions
         '
         'AllowGods
         '
@@ -74,7 +74,7 @@ Partial Class FormPermissions
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(179, 21)
         Me.AllowGods.TabIndex = 14
-        Me.AllowGods.Text = "Allow 200+ Level gods?"
+        Me.AllowGods.Text = My.Resources.Allow200
         Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
         Me.AllowGods.UseVisualStyleBackColor = True
         '
@@ -87,7 +87,7 @@ Partial Class FormPermissions
         Me.GodHelp.Size = New System.Drawing.Size(40, 42)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, "Click for Help on God Modes")
+        Me.ToolTip1.SetToolTip(Me.GodHelp, My.Resources.Help_Godmodes)
         '
         'ManagerGod
         '
@@ -97,9 +97,8 @@ Partial Class FormPermissions
         Me.ManagerGod.Name = "ManagerGod"
         Me.ManagerGod.Size = New System.Drawing.Size(185, 21)
         Me.ManagerGod.TabIndex = 16
-        Me.ManagerGod.Text = "Region manager is god?"
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, "Region Manager is God - Estate managers can become gods, but just for this estate" &
-        ".")
+        Me.ManagerGod.Text = My.Resources.Region_manager_god
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, My.Resources.Region_Manager_is_God)
         Me.ManagerGod.UseVisualStyleBackColor = True
         '
         'RegionGod
@@ -110,9 +109,8 @@ Partial Class FormPermissions
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(200, 21)
         Me.RegionGod.TabIndex = 15
-        Me.RegionGod.Text = "Allow Region owner gods? "
-        Me.ToolTip1.SetToolTip(Me.RegionGod, " Region Owner is God - When you first create a region, you are prompted for the o" &
-        "wner name. If checked, this person has God mode rights to any regions they own.")
+        Me.RegionGod.Text = My.Resources.AllowRegionGods
+        Me.ToolTip1.SetToolTip(Me.RegionGod, My.Resources.Region_Owner_Is_God_text)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'LimitsBox
@@ -125,7 +123,7 @@ Partial Class FormPermissions
         Me.LimitsBox.Size = New System.Drawing.Size(252, 60)
         Me.LimitsBox.TabIndex = 1861
         Me.LimitsBox.TabStop = False
-        Me.LimitsBox.Text = "Prim Limits"
+        Me.LimitsBox.Text = My.Resources.Prim_Limits
         '
         'EnableMaxPrims
         '
@@ -135,9 +133,8 @@ Partial Class FormPermissions
         Me.EnableMaxPrims.Name = "EnableMaxPrims"
         Me.EnableMaxPrims.Size = New System.Drawing.Size(184, 21)
         Me.EnableMaxPrims.TabIndex = 19
-        Me.EnableMaxPrims.Text = "Enable MAXPRIMS limits"
-        Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, "Maxprims limits the number of prims on a parcel.  if disabled, there are no limit" &
-        "s.")
+        Me.EnableMaxPrims.Text = My.Resources.Max_Prims
+        Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, My.Resources.Max_PrimLimit)
         Me.EnableMaxPrims.UseVisualStyleBackColor = True
         '
         'GroupBox8
@@ -150,8 +147,9 @@ Partial Class FormPermissions
         Me.GroupBox8.Size = New System.Drawing.Size(252, 59)
         Me.GroupBox8.TabIndex = 1862
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Allow LSL to contact the server"
-        '
+        Me.GroupBox8.Text = My.Resources.Allow_LSL
+
+
         'LSLCheckbox
         '
         Me.LSLCheckbox.AutoSize = True
@@ -160,9 +158,8 @@ Partial Class FormPermissions
         Me.LSLCheckbox.Name = "LSLCheckbox"
         Me.LSLCheckbox.Size = New System.Drawing.Size(74, 21)
         Me.LSLCheckbox.TabIndex = 210
-        Me.LSLCheckbox.Text = "Enable"
-        Me.ToolTip1.SetToolTip(Me.LSLCheckbox, "LSL scripts cannot reach your server by default.   If you turn this on, they can " &
-        "read web pages on your PC. ")
+        Me.LSLCheckbox.Text = My.Resources.Enable
+        Me.ToolTip1.SetToolTip(Me.LSLCheckbox, My.Resources.LSL_Allow)
         Me.LSLCheckbox.UseVisualStyleBackColor = True
         '
         'Clouds
@@ -174,7 +171,7 @@ Partial Class FormPermissions
         Me.Clouds.Size = New System.Drawing.Size(74, 21)
         Me.Clouds.TabIndex = 17
         Me.Clouds.Text = "Enable"
-        Me.ToolTip1.SetToolTip(Me.Clouds, "The original Second Life clouds")
+        Me.ToolTip1.SetToolTip(Me.Clouds, My.Resources.Allow_cloud)
         Me.Clouds.UseVisualStyleBackColor = True
         '
         'OutBoundPermissionsCheckbox
@@ -185,8 +182,8 @@ Partial Class FormPermissions
         Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
         Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(208, 21)
         Me.OutBoundPermissionsCheckbox.TabIndex = 18
-        Me.OutBoundPermissionsCheckbox.Text = "Allow items to leave via HG?"
-        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, "Objects can be taken from your grid via Hypergrid.")
+        Me.OutBoundPermissionsCheckbox.Text = My.Resources.Allow_leave
+        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, My.Resources.Allow_objects)
         Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
         '
         'GroupBox7
@@ -200,7 +197,7 @@ Partial Class FormPermissions
         Me.GroupBox7.Size = New System.Drawing.Size(252, 69)
         Me.GroupBox7.TabIndex = 1863
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Clouds"
+        Me.GroupBox7.Text = My.Resources.Clouds
         '
         'DomainUpDown1
         '
@@ -258,7 +255,7 @@ Partial Class FormPermissions
         Me.GroupBox1.Size = New System.Drawing.Size(252, 73)
         Me.GroupBox1.TabIndex = 1864
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Export Permissions"
+        Me.GroupBox1.Text = My.Resources.Export_Permission
         '
         'FormPermissions
         '
@@ -275,7 +272,7 @@ Partial Class FormPermissions
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormPermissions"
-        Me.Text = "Permissions"
+        Me.Text = My.Resources.Permissions
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

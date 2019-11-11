@@ -69,7 +69,7 @@ Partial Class Tides
         Me.GroupBox1.Size = New System.Drawing.Size(221, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Global Tide Settings"
+        Me.GroupBox1.Text = My.Resources.Global_Tide_Settings
         '
         'RunOnBoot
         '
@@ -87,8 +87,8 @@ Partial Class Tides
         Me.TideInfoDebugCheckBox.Name = "TideInfoDebugCheckBox"
         Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(164, 17)
         Me.TideInfoDebugCheckBox.TabIndex = 7
-        Me.TideInfoDebugCheckBox.Text = "Send Debug Info To Console"
-        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, "Provide tide information on the console?")
+        Me.TideInfoDebugCheckBox.Text = My.Resources.Send_Debug_Info
+        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, My.Resources.Provide_Info)
         Me.TideInfoDebugCheckBox.UseVisualStyleBackColor = True
         '
         'BroadcastTideInfo
@@ -98,8 +98,8 @@ Partial Class Tides
         Me.BroadcastTideInfo.Name = "BroadcastTideInfo"
         Me.BroadcastTideInfo.Size = New System.Drawing.Size(119, 17)
         Me.BroadcastTideInfo.TabIndex = 4
-        Me.BroadcastTideInfo.Text = "Broadcast Tide Info"
-        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, "chat tide info to the whole region?chat tide info to the whole region?")
+        Me.BroadcastTideInfo.Text = My.Resources.Broadcast_Tide_Info
+        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, My.Resources.Broadcast_Tide_Chat)
         Me.BroadcastTideInfo.UseVisualStyleBackColor = True
         '
         'Label5
@@ -109,7 +109,7 @@ Partial Class Tides
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(100, 13)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Tide Hi/Lo Channel"
+        Me.Label5.Text = My.Resources.Tide_Hi_Lo_Channel
         '
         'TideHiLoChannelTextBox
         '
@@ -125,7 +125,7 @@ Partial Class Tides
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(91, 13)
         Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Tide Info Channel"
+        Me.Label4.Text = My.Resources.Tide_Info_Channel
         '
         'TideInfoChannelTextBox
         '
@@ -141,7 +141,7 @@ Partial Class Tides
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Cycle Time in seconds"
+        Me.Label3.Text = My.Resources.Cycle_Time_in_seconds
         '
         'CycleTimeTextBox
         '
@@ -149,7 +149,7 @@ Partial Class Tides
         Me.CycleTimeTextBox.Name = "CycleTimeTextBox"
         Me.CycleTimeTextBox.Size = New System.Drawing.Size(48, 20)
         Me.CycleTimeTextBox.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, "how long in seconds for a complete cycle time low->high->low")
+        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, My.Resources.Cycle_time_text)
         '
         'Label2
         '
@@ -158,7 +158,7 @@ Partial Class Tides
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(91, 13)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Low  Water Level"
+        Me.Label2.Text = My.Resources.Low_Water_Level
         '
         'TideLowLevelTextBox
         '
@@ -166,7 +166,7 @@ Partial Class Tides
         Me.TideLowLevelTextBox.Name = "TideLowLevelTextBox"
         Me.TideLowLevelTextBox.Size = New System.Drawing.Size(48, 20)
         Me.TideLowLevelTextBox.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, "low And high water marks in metres")
+        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, My.Resources.Low_High)
         '
         'Label1
         '
@@ -175,7 +175,7 @@ Partial Class Tides
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "High Water Level"
+        Me.Label1.Text = My.Resources.High_Water_Level
         '
         'TideHighLevelTextBox
         '
@@ -183,7 +183,7 @@ Partial Class Tides
         Me.TideHighLevelTextBox.Name = "TideHighLevelTextBox"
         Me.TideHighLevelTextBox.Size = New System.Drawing.Size(48, 20)
         Me.TideHighLevelTextBox.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, "low And high water marks in metres")
+        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, My.Resources.High_Water_Level_text)
         '
         'TideEnabledCheckbox
         '
@@ -192,13 +192,13 @@ Partial Class Tides
         Me.TideEnabledCheckbox.Name = "TideEnabledCheckbox"
         Me.TideEnabledCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.TideEnabledCheckbox.TabIndex = 0
-        Me.TideEnabledCheckbox.Text = "Enable"
+        Me.TideEnabledCheckbox.Text = My.Resources.Enable
         Me.TideEnabledCheckbox.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
-        Me.ToolTip1.ToolTipTitle = "Enable the tide to come in and out?"
+        Me.ToolTip1.ToolTipTitle = My.Resources.Tide_Enable
         '
         'MenuStrip2
         '
@@ -235,7 +235,7 @@ Partial Class Tides
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Tides"
-        Me.Text = "Tides"
+        Me.Text = My.Resources.Tides
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

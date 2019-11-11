@@ -129,7 +129,7 @@ Public Class RegionMaker
             Return
         End If
 
-        Form1.Print("Updating Region Ports")
+        Form1.Print(My.Resources.Updating_Ports)
 
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
@@ -145,7 +145,7 @@ Public Class RegionMaker
         Next
 
         If Not Form1.Settings.PortsChanged Then Return
-        Form1.Print("Setup Firewall")
+        Form1.Print(My.Resources.Setup_Firewall)
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         Form1.Settings.PortsChanged = False
@@ -188,7 +188,7 @@ Public Class RegionMaker
                 ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
-                    Form1.Print("Region " & json.region_name & " is ready")
+                    Form1.Print(json.region_name & " " & My.Resources.Ready)
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -214,7 +214,7 @@ Public Class RegionMaker
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
-                                    Form1.Print("Teleporting " & AgentName & " to " & Keypair.Value)
+                                    Form1.Print(My.Resources.Teleporting & " " & AgentName & " -> " & Keypair.Value)
                                     Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
                                     Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
@@ -244,7 +244,7 @@ Public Class RegionMaker
 
                     Return ' does not work as expected
 
-                    Form1.Print("Region " & json.region_name & " shutdown")
+                    Form1.Print(json.region_name & " " & My.Resources.Stopped)
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -350,8 +350,15 @@ Public Class RegionMaker
 
                     Dim fName = ""
                     Try
-                        'Form1.Log("Info","Loading region from " + FolderName)
-                        Dim inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
+                        Dim inis = Nothing
+                        Try
+                            inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
+                        Catch ex As ArgumentException
+                        Catch ex As UnauthorizedAccessException
+                        Catch ex As DirectoryNotFoundException
+                        Catch ex As PathTooLongException
+                        Catch ex As IOException
+                        End Try
 
                         For Each ini As String In inis
                             fName = System.IO.Path.GetFileNameWithoutExtension(ini)
@@ -447,7 +454,7 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
-                        MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, "Error")
+                        MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, My.Resources.Err)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
@@ -549,7 +556,7 @@ Public Class RegionMaker
 
         Dim n As Integer = FindRegionByName(name)
         If n < 0 Then
-            MsgBox("Cannot find region " + name, vbInformation, "Error")
+            MsgBox("Cannot find region " + name, vbInformation, My.Resources.Err)
             Return
         End If
 
@@ -1311,11 +1318,11 @@ Public Class RegionMaker
                 Dim n = FindRegionByUUID(RegionUUID)
                 If n > -1 And RegionEnabled(n) And SmartStart(n) Then
                     If Status(n) = SIMSTATUSENUM.Booted Then
-                        Form1.Print("Avatar in " & RegionName(n))
+                        Form1.Print(My.Resources.Someone_is_in & " " & RegionName(n))
                         Debug.Print("Sending to " & RegionUUID)
                         Return RegionUUID
                     Else
-                        Form1.Print("Smart Start " & RegionName(n))
+                        Form1.Print(My.Resources.Smart_Start & " " & RegionName(n))
                         Status(n) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(n))

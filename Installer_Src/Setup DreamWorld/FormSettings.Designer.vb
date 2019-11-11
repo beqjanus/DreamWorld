@@ -277,7 +277,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(332, 324)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Global Settings"
+        Me.GroupBox8.Text = My.Resources.GlobalSettings
         '
         'AdvancedForm
         '

@@ -47,7 +47,7 @@ Partial Class FormServerType
         Me.GroupBox1.Size = New System.Drawing.Size(190, 171)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Server Type"
+        Me.GroupBox1.Text = My.Resources.Server_Type
         '
         'MetroRadioButton2
         '
@@ -56,7 +56,7 @@ Partial Class FormServerType
         Me.MetroRadioButton2.Name = "MetroRadioButton2"
         Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
         Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.Text = "Hypergrid.org Region  Server"
+        Me.MetroRadioButton2.Text = My.Resources.MetroOrg
         Me.MetroRadioButton2.UseVisualStyleBackColor = True
         '
         'SaveButton
@@ -65,7 +65,7 @@ Partial Class FormServerType
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(62, 23)
         Me.SaveButton.TabIndex = 1883
-        Me.SaveButton.Text = "Save"
+        Me.SaveButton.Text = My.Resources.Save
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'GridRegionButton
@@ -75,7 +75,7 @@ Partial Class FormServerType
         Me.GridRegionButton.Name = "GridRegionButton"
         Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
         Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.Text = "Region Server"
+        Me.GridRegionButton.Text = My.Resources.Region_Server
         Me.GridRegionButton.UseVisualStyleBackColor = True
         '
         'osGridRadioButton1
@@ -85,7 +85,7 @@ Partial Class FormServerType
         Me.osGridRadioButton1.Name = "osGridRadioButton1"
         Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
         Me.osGridRadioButton1.TabIndex = 1881
-        Me.osGridRadioButton1.Text = "OSGrid Region Server"
+        Me.osGridRadioButton1.Text = My.Resources.OSGrid_Region_Server
         Me.osGridRadioButton1.UseVisualStyleBackColor = True
         '
         'GridServerButton
@@ -97,7 +97,7 @@ Partial Class FormServerType
         Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
         Me.GridServerButton.TabIndex = 1879
         Me.GridServerButton.TabStop = True
-        Me.GridServerButton.Text = "Grid Server With Robust"
+        Me.GridServerButton.Text = My.Resources.Grid_Server_With_Robust
         Me.GridServerButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -122,7 +122,7 @@ Partial Class FormServerType
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
         Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ServerTypeToolStripMenuItem.Text = "Server Type"
+        Me.ServerTypeToolStripMenuItem.Text = My.Resources.Server_Type
         '
         'FormServerType
         '
@@ -133,7 +133,7 @@ Partial Class FormServerType
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormServerType"
-        Me.Text = "Server Type"
+        Me.Text = My.Resources.Server_Type
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

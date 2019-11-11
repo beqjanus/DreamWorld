@@ -620,7 +620,7 @@ Public Class FormRegion
 
             NewGroup = RegionChosen()
             If NewGroup.Length = 0 Then
-                Form1.Print("Aborted")
+                Form1.Print(My.Resources.Aborted)
                 Return
             End If
 
@@ -990,7 +990,7 @@ Public Class FormRegion
 
                 If loopctr > 0 Then
                     Form1.ConsoleCommand("Robust", "deregister region id " + UUID.Text + "{ENTER}" + vbCrLf)
-                    Form1.Print("Region deregistered")
+                    Form1.Print(My.Resources.Deregister)
                 End If
             End If
 

@@ -57,8 +57,8 @@ Partial Class FormDNSName
         Me.SuitcaseCheckbox.Name = "SuitcaseCheckbox"
         Me.SuitcaseCheckbox.Size = New System.Drawing.Size(150, 17)
         Me.SuitcaseCheckbox.TabIndex = 1877
-        Me.SuitcaseCheckbox.Text = "Enable Inventory Suitcase"
-        Me.ToolTip1.SetToolTip(Me.SuitcaseCheckbox, "Disbale the suitcase is less secure but easier to travel with")
+        Me.SuitcaseCheckbox.Text = My.Resources.Suitcase_enable
+        Me.ToolTip1.SetToolTip(Me.SuitcaseCheckbox, My.Resources.Disable_Suitcase_txt)
         Me.SuitcaseCheckbox.UseVisualStyleBackColor = True
         '
         'EnableHypergrid
@@ -68,8 +68,8 @@ Partial Class FormDNSName
         Me.EnableHypergrid.Name = "EnableHypergrid"
         Me.EnableHypergrid.Size = New System.Drawing.Size(107, 17)
         Me.EnableHypergrid.TabIndex = 1873
-        Me.EnableHypergrid.Text = "Enable Hypergrid"
-        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, "Enables Hypergrid to all sims.")
+        Me.EnableHypergrid.Text = My.Resources.Enable_Hypergrid
+        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, My.Resources.Enable_Hypergrid)
         Me.EnableHypergrid.UseVisualStyleBackColor = True
         '
         'DynDNSHelp
@@ -80,7 +80,7 @@ Partial Class FormDNSName
         Me.DynDNSHelp.Size = New System.Drawing.Size(30, 34)
         Me.DynDNSHelp.TabIndex = 1874
         Me.DynDNSHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.DynDNSHelp, "Click for Help")
+        Me.ToolTip1.SetToolTip(Me.DynDNSHelp, My.Resources.Click_For_Help)
         '
         'UniqueId
         '
@@ -88,7 +88,7 @@ Partial Class FormDNSName
         Me.UniqueId.Name = "UniqueId"
         Me.UniqueId.Size = New System.Drawing.Size(132, 20)
         Me.UniqueId.TabIndex = 1875
-        Me.ToolTip1.SetToolTip(Me.UniqueId, "Reserves your DYN DNS name, this is like a password to your name.")
+        Me.ToolTip1.SetToolTip(Me.UniqueId, My.Resources.Reserve_Password)
         '
         'TestButton1
         '
@@ -96,8 +96,8 @@ Partial Class FormDNSName
         Me.TestButton1.Name = "TestButton1"
         Me.TestButton1.Size = New System.Drawing.Size(75, 23)
         Me.TestButton1.TabIndex = 1872
-        Me.TestButton1.Text = "Test DNS"
-        Me.ToolTip1.SetToolTip(Me.TestButton1, "test DNS and return IP address")
+        Me.TestButton1.Text = My.Resources.Test_DNS
+        Me.ToolTip1.SetToolTip(Me.TestButton1, My.Resources.Test_DNS)
         Me.TestButton1.UseVisualStyleBackColor = True
         '
         'NextNameButton
@@ -106,8 +106,8 @@ Partial Class FormDNSName
         Me.NextNameButton.Name = "NextNameButton"
         Me.NextNameButton.Size = New System.Drawing.Size(78, 23)
         Me.NextNameButton.TabIndex = 1870
-        Me.NextNameButton.Text = "Next Name"
-        Me.ToolTip1.SetToolTip(Me.NextNameButton, "Get a free DYN DNS Name")
+        Me.NextNameButton.Text = My.Resources.Next_Name
+        Me.ToolTip1.SetToolTip(Me.NextNameButton, My.Resources.FreeName)
         Me.NextNameButton.UseVisualStyleBackColor = True
         '
         'DNSNameBox
@@ -116,7 +116,7 @@ Partial Class FormDNSName
         Me.DNSNameBox.Name = "DNSNameBox"
         Me.DNSNameBox.Size = New System.Drawing.Size(253, 20)
         Me.DNSNameBox.TabIndex = 1869
-        Me.ToolTip1.SetToolTip(Me.DNSNameBox, "Alpha-Numeric plus - ( no spaces or special chars)")
+        Me.ToolTip1.SetToolTip(Me.DNSNameBox, My.Resources.AlphaNum)
         '
         'SaveButton1
         '
@@ -124,8 +124,8 @@ Partial Class FormDNSName
         Me.SaveButton1.Name = "SaveButton1"
         Me.SaveButton1.Size = New System.Drawing.Size(63, 23)
         Me.SaveButton1.TabIndex = 1879
-        Me.SaveButton1.Text = "Save"
-        Me.ToolTip1.SetToolTip(Me.SaveButton1, "test DNS and return IP address")
+        Me.SaveButton1.Text = My.Resources.Save
+        Me.ToolTip1.SetToolTip(Me.SaveButton1, My.Resources.Save)
         Me.SaveButton1.UseVisualStyleBackColor = True
         '
         'OsGridButton
@@ -153,7 +153,7 @@ Partial Class FormDNSName
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(224, 13)
         Me.Label2.TabIndex = 1878
-        Me.Label2.Text = "DNS Name or SomeName.Outworldz.net or IP"
+        Me.Label2.Text = My.Resources.DNSNameText
         '
         'Label1
         '
@@ -162,7 +162,7 @@ Partial Class FormDNSName
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(97, 13)
         Me.Label1.TabIndex = 1876
-        Me.Label1.Text = "DynDNS password"
+        Me.Label1.Text = My.Resources.DynDNS_password
         '
         'MenuStrip1
         '
@@ -198,8 +198,8 @@ Partial Class FormDNSName
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormDNSName"
-        Me.Text = "DNS Name & Hypergrid"
-        Me.ToolTip1.SetToolTip(Me, "Get Help")
+        Me.Text = My.Resources.DNS_HG_Name
+        Me.ToolTip1.SetToolTip(Me, My.Resources.Help)
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()

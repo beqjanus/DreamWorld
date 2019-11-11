@@ -45,7 +45,7 @@ Partial Class TosForm
         Me.ShowToHGUsersCheckbox.Name = "ShowToHGUsersCheckbox"
         Me.ShowToHGUsersCheckbox.Size = New System.Drawing.Size(298, 17)
         Me.ShowToHGUsersCheckbox.TabIndex = 3
-        Me.ShowToHGUsersCheckbox.Text = "Show TOS To Hyper grid Users on First Hyper grid Login?"
+        Me.ShowToHGUsersCheckbox.Text = "Show TOS To Hypergrid Users on First Hyper grid Login?"
         Me.ShowToHGUsersCheckbox.UseVisualStyleBackColor = True
         Me.ShowToHGUsersCheckbox.Visible = False
         '
@@ -86,7 +86,7 @@ Partial Class TosForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 23)
         Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Preview in Browser"
+        Me.Button1.Text = My.Resources.Preview_in_Browser
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
@@ -129,7 +129,7 @@ Partial Class TosForm
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
         Me.ApplyButton.TabIndex = 9
-        Me.ApplyButton.Text = "Apply"
+        Me.ApplyButton.Text = My.Resources.Apply
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -175,7 +175,7 @@ Partial Class TosForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "TosForm"
-        Me.Text = "Terms of Service"
+        Me.Text = My.Resources.Terms_of_Service
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)

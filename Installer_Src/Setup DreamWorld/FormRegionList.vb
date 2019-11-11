@@ -431,14 +431,19 @@ Public Class RegionList
         For Each item In regions
             Try
                 Dim RegionName = item.SubItems(1).Text
-                Debug.Print("Clicked row " + RegionName)
+
                 Dim R = PropRegionClass1.FindRegionByName(RegionName)
                 If R >= 0 Then
                     Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
-                    Dim result = Process.Start(webAddress)
+                    Try
+                        Dim result = Process.Start(webAddress)
+                    Catch ex As ObjectDisposedException
+                    Catch ex As InvalidOperationException
+                    Catch ex As System.ComponentModel.Win32Exception
+                    End Try
                 End If
             Catch ex As Exception
-                ' Form1.Log("Error", ex.Message)
+                ' Form1.Log(My.Resources.Err, ex.Message)
             End Try
         Next
         PropUpdateView() = True
@@ -472,8 +477,6 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
-
-            Debug.Print("Clicked row " + RegionName)
             Dim R = PropRegionClass1.FindRegionByName(RegionName)
             If R >= 0 Then
                 StartStopEdit(R, RegionName)
@@ -588,7 +591,7 @@ Public Class RegionList
             ViewNotBusy1 = True
             PropUpdateView() = False
         Catch ex As Exception
-            Form1.Log("Error", " RegionList " & ex.Message)
+            Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
         End Try
 
     End Sub
@@ -678,7 +681,6 @@ Public Class RegionList
 
                     If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                         Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Form1.Invarient) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
-                        Debug.Print(img)
 
                         Dim bmp As Image = LoadImage(img)
                         If bmp Is Nothing Then
@@ -823,7 +825,7 @@ Public Class RegionList
             ViewNotBusy1 = True
             PropUpdateView() = False
         Catch ex As Exception
-            Form1.Log("Error", " RegionList " & ex.Message)
+            Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
             PropRegionClass1.GetAllRegions()
         End Try
 
@@ -849,7 +851,7 @@ Public Class RegionList
             If Not Form1.StartMySQL() Then
                 Form1.ProgressBar1.Value = 0
                 Form1.ProgressBar1.Visible = True
-                Form1.Print("Stopped")
+                Form1.Print(My.Resources.Stopped)
             End If
             Form1.StartRobust()
             Form1.Log("Starting", PropRegionClass1.RegionName(n))
@@ -882,7 +884,7 @@ Public Class RegionList
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(PropRegionClass1.GroupName(regionNum), "q{ENTER}" + vbCrLf)
-                    Form1.Print("Stopping " + PropRegionClass1.GroupName(regionNum))
+                    Form1.Print(My.Resources.Stopping & " " + PropRegionClass1.GroupName(regionNum))
                     ' shut down all regions in the DOS box
                     For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
                         PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
@@ -913,7 +915,7 @@ Public Class RegionList
 
             Form1.SequentialPause()
             Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
-            Form1.Print("Recycle " + PropRegionClass1.GroupName(n))
+            Form1.Print(My.Resources.Recycle1 & "  " + PropRegionClass1.GroupName(n))
             Form1.PropRestartNow = True
 
             ' shut down all regions in the DOS box
@@ -928,7 +930,9 @@ Public Class RegionList
             Dim link = "hop:" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-            Catch
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
             End Try
 
         End If
@@ -978,7 +982,7 @@ Public Class RegionList
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
-                    Form1.Print("Restarting " & PropRegionClass1.GroupName(X))
+                    Form1.Print(My.Resources.Restarting & " " & PropRegionClass1.GroupName(X))
                 End If
 
                 ' shut down all regions in the DOS box
@@ -1115,7 +1119,7 @@ Public Class RegionList
 
                 Dim dirpathname = PickGroup()
                 If dirpathname.Length = 0 Then
-                    Form1.Print("Aborted")
+                    Form1.Print(My.Resources.Aborted)
                     ofd.Dispose()
                     Return
                 End If
@@ -1150,7 +1154,7 @@ Public Class RegionList
 
                     File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
                 Else
-                    Form1.Print("Unrecognized file type" + extension + ". Import Region.ini file to the system.")
+                    Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                 End If
 
                 PropRegionClass1.GetAllRegions()
@@ -1174,8 +1178,12 @@ Public Class RegionList
         Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
         Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
-        Process.Start(webAddress)
-
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Function GetRegionsName(Region As String) As String

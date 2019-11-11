@@ -81,7 +81,7 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Size = New System.Drawing.Size(222, 210)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
-        Me.StandaloneGroup.Text = "Local Region Database"
+        Me.StandaloneGroup.Text = My.Resources.Region_Database
         '
         'ClearRegionTable
         '
@@ -89,7 +89,7 @@ Partial Class FormDatabase
         Me.ClearRegionTable.Name = "ClearRegionTable"
         Me.ClearRegionTable.Size = New System.Drawing.Size(107, 23)
         Me.ClearRegionTable.TabIndex = 1886
-        Me.ClearRegionTable.Text = "Clear Region List"
+        Me.ClearRegionTable.Text = My.Resources.ClearRegion
         Me.ClearRegionTable.UseVisualStyleBackColor = True
         '
         'MysqlRegionPort
@@ -107,7 +107,7 @@ Partial Class FormDatabase
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(58, 13)
         Me.Label2.TabIndex = 42
-        Me.Label2.Text = "MySql Port"
+        Me.Label2.Text = My.Resources.MySqlPort
         '
         'Label1
         '
@@ -116,7 +116,7 @@ Partial Class FormDatabase
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Region Server"
+        Me.Label1.Text = My.Resources.RegionServer
         '
         'RegionServer
         '
@@ -124,7 +124,7 @@ Partial Class FormDatabase
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(107, 20)
         Me.RegionServer.TabIndex = 46
-        Me.ToolTip1.SetToolTip(Me.RegionServer, "The server to connect to. 'localhost' is the default.")
+        Me.ToolTip1.SetToolTip(Me.RegionServer, My.Resources.Region_ServerName)
         '
         'Label22
         '
@@ -133,7 +133,7 @@ Partial Class FormDatabase
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(53, 13)
         Me.Label22.TabIndex = 17
-        Me.Label22.Text = "Password"
+        Me.Label22.Text = My.Resources.Password
         '
         'Label20
         '
@@ -142,7 +142,7 @@ Partial Class FormDatabase
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(53, 13)
         Me.Label20.TabIndex = 13
-        Me.Label20.Text = "DB Name"
+        Me.Label20.Text = My.Resources.DBName
         '
         'RegionDbName
         '
@@ -150,7 +150,7 @@ Partial Class FormDatabase
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(107, 20)
         Me.RegionDbName.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.RegionDbName, "Do not change unless the datbase has already been created")
+        Me.ToolTip1.SetToolTip(Me.RegionDbName, My.Resources.Do_NotChange)
         '
         'RegionDBUsername
         '
@@ -158,7 +158,7 @@ Partial Class FormDatabase
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RegionDBUsername.TabIndex = 43
-        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, "Do not change unless the datbase has already been created and this exists")
+        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, My.Resources.Do_NotChange)
         '
         'Label21
         '
@@ -175,7 +175,7 @@ Partial Class FormDatabase
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(107, 20)
         Me.RegionMySqlPassword.TabIndex = 44
-        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, "Read the other tooltips!")
+        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, My.Resources.Do_NotChange)
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
         'GridGroup
@@ -197,7 +197,7 @@ Partial Class FormDatabase
         Me.GridGroup.Size = New System.Drawing.Size(219, 210)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
-        Me.GridGroup.Text = "Robust Database"
+        Me.GridGroup.Text = "Robust"
         '
         'Label3
         '
@@ -206,7 +206,7 @@ Partial Class FormDatabase
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(77, 13)
         Me.Label3.TabIndex = 1885
-        Me.Label3.Text = "Assets as FIles"
+        Me.Label3.Text = My.Resources.FSA
         '
         'Button1
         '
@@ -214,7 +214,7 @@ Partial Class FormDatabase
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(107, 23)
         Me.Button1.TabIndex = 1884
-        Me.Button1.Text = "FsAssets Server"
+        Me.Button1.Text = My.Resources.FSassets_Server
         Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
@@ -223,7 +223,7 @@ Partial Class FormDatabase
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(107, 20)
         Me.RobustServer.TabIndex = 37
-        Me.ToolTip1.SetToolTip(Me.RobustServer, "The server to connect to. 'localhost' is the default.")
+        Me.ToolTip1.SetToolTip(Me.RobustServer, My.Resources.Region_ServerName)
         '
         'Label16
         '
@@ -232,7 +232,7 @@ Partial Class FormDatabase
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(75, 13)
         Me.Label16.TabIndex = 38
-        Me.Label16.Text = "Robust Server"
+        Me.Label16.Text = "Robust"
         '
         'Dbnameindex
         '
@@ -241,7 +241,7 @@ Partial Class FormDatabase
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(72, 13)
         Me.Dbnameindex.TabIndex = 35
-        Me.Dbnameindex.Text = "Robust Name"
+        Me.Dbnameindex.Text = My.Resources.Name
         '
         'Label9
         '
@@ -250,7 +250,7 @@ Partial Class FormDatabase
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 13)
         Me.Label9.TabIndex = 35
-        Me.Label9.Text = "Password"
+        Me.Label9.Text = My.Resources.Password
         '
         'RobustDbPort
         '
@@ -258,7 +258,7 @@ Partial Class FormDatabase
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
         Me.RobustDbPort.TabIndex = 41
-        Me.ToolTip1.SetToolTip(Me.RobustDbPort, "Default = 3306")
+        Me.ToolTip1.SetToolTip(Me.RobustDbPort, My.Resources.MySQL_Port_Default)
         '
         'RobustDbName
         '
@@ -266,7 +266,7 @@ Partial Class FormDatabase
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
         Me.RobustDbName.TabIndex = 38
-        Me.ToolTip1.SetToolTip(Me.RobustDbName, "Do not change unless the datbase has already been created")
+        Me.ToolTip1.SetToolTip(Me.RobustDbName, My.Resources.Do_NotChange)
         '
         'Label15
         '
@@ -275,7 +275,7 @@ Partial Class FormDatabase
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(55, 13)
         Me.Label15.TabIndex = 34
-        Me.Label15.Text = "Username"
+        Me.Label15.Text = My.Resources.UserName
         '
         'Label8
         '
@@ -284,7 +284,7 @@ Partial Class FormDatabase
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(58, 13)
         Me.Label8.TabIndex = 32
-        Me.Label8.Text = "MySql Port"
+        Me.Label8.Text = My.Resources.MySqlPort
         '
         'RobustDBPassword
         '
@@ -292,7 +292,7 @@ Partial Class FormDatabase
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBPassword.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, "Read the other tooltips!")
+        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, My.Resources.Do_NotChange)
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
         'RobustDBUsername
@@ -301,7 +301,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBUsername.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, "Do not change unless the datbase has already been created and this exists")
+        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, My.Resources.Do_NotChange)
         '
         'DBHelp
         '
@@ -335,7 +335,7 @@ Partial Class FormDatabase
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = "Database Setup"
+        Me.DatabaseSetupToolStripMenuItem.Text = My.Resources.Database_Setup
         '
         'BackupToolStripMenuItem
         '
@@ -343,21 +343,21 @@ Partial Class FormDatabase
         Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
-        Me.BackupToolStripMenuItem.Text = "Backup"
+        Me.BackupToolStripMenuItem.Text = My.Resources.Backup
         '
         'FullSQLBackupToolStripMenuItem
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.FullSQLBackupToolStripMenuItem.Text = "Backup Data Files"
+        Me.FullSQLBackupToolStripMenuItem.Text = My.Resources.Backup_Data
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DataOnlyToolStripMenuItem.Text = "Export .SQL file"
+        Me.DataOnlyToolStripMenuItem.Text = My.Resources.export
         '
         'FormDatabase
         '
@@ -371,7 +371,7 @@ Partial Class FormDatabase
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
-        Me.Text = "Database"
+        Me.Text = My.Resources.Database
         Me.StandaloneGroup.ResumeLayout(False)
         Me.StandaloneGroup.PerformLayout()
         Me.GridGroup.ResumeLayout(False)

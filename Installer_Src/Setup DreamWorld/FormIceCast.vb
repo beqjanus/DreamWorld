@@ -101,12 +101,17 @@ Public Class Icecast
     Private Sub LoadURL_Click(sender As Object, e As EventArgs) Handles LoadURL.Click
         If Form1.PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" + Form1.Settings.PublicIP + ":" + ShoutcastPort.Text
-            Form1.Print("Icecast lets you stream music into your sim. The address will be " + webAddress)
-            Process.Start(webAddress)
+            Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
+            Try
+                Process.Start(webAddress)
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
         ElseIf Form1.Settings.SCEnable = False Then
-            Form1.Print("Shoutcast is not Enabled.")
+            Form1.Print(My.Resources.IceCast_disabled)
         Else
-            Form1.Print("Shoutcast is not running. Click Start to boot the system.")
+            Form1.Print(My.Resources.Not_Running)
         End If
 
     End Sub

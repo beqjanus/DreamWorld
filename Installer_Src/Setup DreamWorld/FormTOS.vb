@@ -72,7 +72,12 @@ Public Class TosForm
 
         If Form1.PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/termsofservice.html"
-            Process.Start(webAddress)
+            Try
+                Process.Start(webAddress)
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
         Else
             MsgBox("Opensim must be running to show you the TOS.")
         End If

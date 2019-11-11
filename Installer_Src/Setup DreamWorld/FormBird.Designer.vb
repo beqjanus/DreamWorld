@@ -89,7 +89,7 @@ Partial Class BirdForm
         Me.GroupBox1.Size = New System.Drawing.Size(390, 496)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Bird Module"
+        Me.GroupBox1.Text = My.Resources.BirdModule
         '
         'Label11
         '
@@ -99,7 +99,7 @@ Partial Class BirdForm
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(224, 20)
         Me.Label11.TabIndex = 23
-        Me.Label11.Text = "Prim Name (default=SeaGull1)"
+        Me.Label11.Text = My.Resources.Prim_Name
         Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.How_High)
         '
         'PrimNameTextBox
@@ -120,7 +120,7 @@ Partial Class BirdForm
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(192, 20)
         Me.Label10.TabIndex = 21
-        Me.Label10.Text = "Max Height (default=45.0)"
+        Me.Label10.Text = My.Resources.Max_Height
         '
         'BirdsMaxHeightTextBox
         '
@@ -139,7 +139,7 @@ Partial Class BirdForm
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(195, 20)
         Me.Label9.TabIndex = 19
-        Me.Label9.Text = "Border Size (default=25.0)"
+        Me.Label9.Text = My.Resources.BorderSize
         '
         'BirdsBorderSizeTextBox
         '
@@ -176,7 +176,7 @@ Partial Class BirdForm
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(240, 20)
         Me.Label6.TabIndex = 13
-        Me.Label6.Text = "Desired Separation (default=5.0)"
+        Me.Label6.Text = My.Resources.DesiredSep
         Me.ToolTip1.SetToolTip(Me.Label6, Global.Outworldz.My.Resources.Resources.How_Far)
         '
         'DesiredSeparationTextBox
@@ -197,7 +197,7 @@ Partial Class BirdForm
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(243, 20)
         Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Neighbor Distance (default=25.0)"
+        Me.Label5.Text = My.Resources.Neighbor_Distance
         Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.How_Far)
         '
         'BirdsNeighbourDistanceTextBox
@@ -218,7 +218,7 @@ Partial Class BirdForm
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(177, 20)
         Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Max Force (default=0.2)"
+        Me.Label4.Text = My.Resources.Max_Force
         Me.ToolTip1.SetToolTip(Me.Label4, Global.Outworldz.My.Resources.Resources.Max_Accel)
         '
         'MaxForceTextBox
@@ -239,7 +239,7 @@ Partial Class BirdForm
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(183, 20)
         Me.Label3.TabIndex = 7
-        Me.Label3.Text = "Max Speed (default=1.0)"
+        Me.Label3.Text = My.Resources.Max_Speed
         '
         'MaxSpeedTextBox
         '
@@ -259,7 +259,7 @@ Partial Class BirdForm
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(106, 20)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Chat Channel"
+        Me.Label2.Text = My.Resources.ChatChannel
         Me.ToolTip1.SetToolTip(Me.Label2, Global.Outworldz.My.Resources.Resources.Which_Channel)
         '
         'ChatChanelTextBox
@@ -279,7 +279,7 @@ Partial Class BirdForm
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(114, 20)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Bird Flock Size"
+        Me.Label1.Text = My.Resources.BirdFlockSize
         Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Resources.Num_Birds)
         '
         'BirdsFlockSizeDomain
@@ -358,8 +358,8 @@ Partial Class BirdForm
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(182, 20)
         Me.Label7.TabIndex = 24
-        Me.Label7.Text = "Tolerance (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label7, "Tolerance (default=25.0)")
+        Me.Label7.Text = My.Resources.Tolerance
+        Me.ToolTip1.SetToolTip(Me.Label7, My.Resources.Tolerance)
         '
         'BirdForm
         '
@@ -374,7 +374,7 @@ Partial Class BirdForm
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "BirdForm"
-        Me.Text = "Bird Module"
+        Me.Text = My.Resources.BirdModule
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.BirdHelp, System.ComponentModel.ISupportInitialize).EndInit()

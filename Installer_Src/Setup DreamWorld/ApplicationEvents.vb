@@ -39,7 +39,7 @@ Namespace My
                 ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
             ) Handles Me.UnhandledException
 
-            Form1.Print("A network change occured. A restart may be necessary.")
+            Form1.Print(My.Resources.Network_Change)
         End Sub
 
         Private Sub MyApplication_UnhandledException(
@@ -49,11 +49,17 @@ Namespace My
 
             Form1.Log("FATAL", e.Exception.Message)
 
-            Dim resp As MsgBoxResult = MsgBox("An application exception has occurred. Do you want to try to continue, or abort/exit?" + e.Exception.Message, vbOKCancel)
+            Dim resp As MsgBoxResult = MsgBox(My.Resources.Appexception + e.Exception.Message, vbOKCancel)
             If resp = vbOK Then
                 e.ExitApplication = False
             Else
-                System.Diagnostics.Process.Start(Form1.PropMyFolder + "\baretail.exe", """" + Form1.PropMyFolder + "\OutworldzFiles\Outworldz.log" + """")
+                Try
+                    System.Diagnostics.Process.Start(Form1.PropMyFolder + "\baretail.exe", """" + Form1.PropMyFolder + "\OutworldzFiles\Outworldz.log" + """")
+                Catch ex As ObjectDisposedException
+                Catch ex As InvalidOperationException
+                Catch ex As System.ComponentModel.Win32Exception
+                End Try
+
                 End
             End If
         End Sub

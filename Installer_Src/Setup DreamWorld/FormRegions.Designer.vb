@@ -69,7 +69,7 @@ Partial Class FormRegions
         Me.GroupBox2.Size = New System.Drawing.Size(176, 340)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Regions"
+        Me.GroupBox2.Text = My.Resources.Regions
         '
         'Button1
         '
@@ -77,7 +77,7 @@ Partial Class FormRegions
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(148, 23)
         Me.Button1.TabIndex = 1866
-        Me.Button1.Text = "Clear All Registrations"
+        Me.Button1.Text = My.Resources.ClearReg
         Me.Button1.UseVisualStyleBackColor = True
         '
         'NormalizeButton1
@@ -86,7 +86,7 @@ Partial Class FormRegions
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(148, 23)
         Me.NormalizeButton1.TabIndex = 1865
-        Me.NormalizeButton1.Text = "Normalize Regions"
+        Me.NormalizeButton1.Text = My.Resources.NormalizeRegions
         Me.NormalizeButton1.UseVisualStyleBackColor = True
         '
         'Z
@@ -117,7 +117,7 @@ Partial Class FormRegions
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(115, 13)
         Me.Label2.TabIndex = 1861
-        Me.Label2.Text = "New User Home X,Y,Z"
+        Me.Label2.Text = My.Resources.New_User_Home
         '
         'Label1
         '
@@ -126,7 +126,7 @@ Partial Class FormRegions
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(65, 13)
         Me.Label1.TabIndex = 1860
-        Me.Label1.Text = "Edit Region:"
+        Me.Label1.Text = My.Resources.EditRegion
         '
         'RegionButton
         '
@@ -134,14 +134,14 @@ Partial Class FormRegions
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(148, 23)
         Me.RegionButton.TabIndex = 4
-        Me.RegionButton.Text = "Configure All Regions"
+        Me.RegionButton.Text = My.Resources.Configger
         Me.RegionButton.UseVisualStyleBackColor = True
         '
         'RegionBox
         '
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
-        Me.RegionBox.Items.AddRange(New Object() {"Choose a region"})
+        Me.RegionBox.Items.AddRange(New Object() {My.Resources.ChooseRegion})
         Me.RegionBox.Location = New System.Drawing.Point(3, 244)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
@@ -165,7 +165,7 @@ Partial Class FormRegions
         Me.WelcomeRegion.Name = "WelcomeRegion"
         Me.WelcomeRegion.Size = New System.Drawing.Size(123, 13)
         Me.WelcomeRegion.TabIndex = 32
-        Me.WelcomeRegion.Text = "Default region for visitors"
+        Me.WelcomeRegion.Text = My.Resources.DefaultRegion
         '
         'WelcomeBox1
         '
@@ -191,7 +191,7 @@ Partial Class FormRegions
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(148, 23)
         Me.AddRegion.TabIndex = 2
-        Me.AddRegion.Text = "Add Region"
+        Me.AddRegion.Text = My.Resources.AddRegion
         Me.AddRegion.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -226,7 +226,7 @@ Partial Class FormRegions
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(120, 17)
         Me.SmartStartEnabled.TabIndex = 1867
-        Me.SmartStartEnabled.Text = "Smart Start Enabled"
+        Me.SmartStartEnabled.Text = My.Resources.Smart_Start_Enabled
         Me.SmartStartEnabled.UseVisualStyleBackColor = True
         '
         'FormRegions
@@ -239,7 +239,7 @@ Partial Class FormRegions
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
-        Me.Text = "Region"
+        Me.Text = My.Resources.Region
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()

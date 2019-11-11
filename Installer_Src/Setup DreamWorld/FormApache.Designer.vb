@@ -81,7 +81,7 @@ Partial Class FormApache
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(113, 17)
         Me.ApacheServiceCheckBox.TabIndex = 1868
-        Me.ApacheServiceCheckBox.Text = My.Resources.RunasAService
+        Me.ApacheServiceCheckBox.Text = My.Resources.Run_as_a_Service
         Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
         '
         'Label3

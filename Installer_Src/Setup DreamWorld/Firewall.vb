@@ -81,14 +81,12 @@ Public Module Firewall
 
             Try
                 ProcessFirewall.Start()
-                ProcessFirewall.WaitForExit()
-            Catch ex As ObjectDisposedException
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
             Catch ex As InvalidOperationException
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+                Form1.Log(My.Resources.Err, "Could not set firewall:" & ex.Message)
             Catch ex As System.ComponentModel.Win32Exception
-                Form1.Log("Error", "Could not set firewall:" & ex.Message)
+                Form1.Log(My.Resources.Err, "Could not set firewall:" & ex.Message)
             End Try
+            ProcessFirewall.WaitForExit()
         End Using
 
     End Sub

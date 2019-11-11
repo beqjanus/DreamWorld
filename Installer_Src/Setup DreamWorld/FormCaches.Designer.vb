@@ -65,7 +65,7 @@ Partial Class FormCaches
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(89, 17)
         Me.CheckBox1.TabIndex = 0
-        Me.CheckBox1.Text = " Script cache"
+        Me.CheckBox1.Text = My.Resources.Script_cache
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CheckBox2
@@ -75,7 +75,7 @@ Partial Class FormCaches
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(124, 17)
         Me.CheckBox2.TabIndex = 1
-        Me.CheckBox2.Text = "Avatar Bakes Cache"
+        Me.CheckBox2.Text = My.Resources.Avatar_Cache
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox3
@@ -85,7 +85,7 @@ Partial Class FormCaches
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(86, 17)
         Me.CheckBox3.TabIndex = 2
-        Me.CheckBox3.Text = "Asset Cache"
+        Me.CheckBox3.Text = My.Resources.Asset_Cache
         Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'CheckBox4
@@ -95,7 +95,7 @@ Partial Class FormCaches
         Me.CheckBox4.Name = "CheckBox4"
         Me.CheckBox4.Size = New System.Drawing.Size(89, 17)
         Me.CheckBox4.TabIndex = 3
-        Me.CheckBox4.Text = "Image Cache"
+        Me.CheckBox4.Text = My.Resources.Image_Cache
         Me.CheckBox4.UseVisualStyleBackColor = True
         '
         'CheckBox5
@@ -105,7 +105,7 @@ Partial Class FormCaches
         Me.CheckBox5.Name = "CheckBox5"
         Me.CheckBox5.Size = New System.Drawing.Size(86, 17)
         Me.CheckBox5.TabIndex = 4
-        Me.CheckBox5.Text = "Mesh Cache"
+        Me.CheckBox5.Text = My.Resources.Mesh_Cache
         Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -122,7 +122,7 @@ Partial Class FormCaches
         Me.GroupBox1.Size = New System.Drawing.Size(183, 204)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Choose which cache to empty"
+        Me.GroupBox1.Text = My.Resources.Choose_Cache
         '
         'MapHelp
         '
@@ -132,7 +132,7 @@ Partial Class FormCaches
         Me.MapHelp.Size = New System.Drawing.Size(28, 27)
         Me.MapHelp.TabIndex = 1858
         Me.MapHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MapHelp, "Click For Help")
+        Me.ToolTip1.SetToolTip(Me.MapHelp, My.Resources.Click_For_Help)
         '
         'Button1
         '
@@ -140,7 +140,7 @@ Partial Class FormCaches
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(130, 23)
         Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Clear Selected Caches"
+        Me.Button1.Text = My.Resources.Clear_Selected_Caches
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -184,7 +184,7 @@ Partial Class FormCaches
         Me.GroupBox2.Size = New System.Drawing.Size(361, 154)
         Me.GroupBox2.TabIndex = 18602
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Flotsam Asset Cache"
+        Me.GroupBox2.Text = My.Resources.Flotsam_Asset_Cache
         '
         'PictureBox1
         '
@@ -204,7 +204,7 @@ Partial Class FormCaches
         Me.PictureBox2.Size = New System.Drawing.Size(28, 27)
         Me.PictureBox2.TabIndex = 1860
         Me.PictureBox2.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox2, "Click For Help")
+        Me.ToolTip1.SetToolTip(Me.PictureBox2, My.Resources.Click_For_Help)
         '
         'CacheTimeout
         '
@@ -212,8 +212,7 @@ Partial Class FormCaches
         Me.CacheTimeout.Name = "CacheTimeout"
         Me.CacheTimeout.Size = New System.Drawing.Size(52, 20)
         Me.CacheTimeout.TabIndex = 1868
-        Me.ToolTip1.SetToolTip(Me.CacheTimeout, "Thebigger the number, the larger the cache.  Useful values can be up to several d" &
-        "ays.")
+        Me.ToolTip1.SetToolTip(Me.CacheTimeout, My.Resources.Timeout_in_hours)
         '
         'CacheEnabledBox
         '
@@ -222,7 +221,7 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
         Me.CacheEnabledBox.TabIndex = 1867
-        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, "Default: Checked")
+        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, My.Resources.Default_Checked)
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
         '
         'Label5
@@ -232,8 +231,7 @@ Partial Class FormCaches
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(85, 13)
         Me.Label5.TabIndex = 1865
-        Me.Label5.Text = "Timeout in hours"
-        '
+        Me.Label5.Text = My.Resources.Timeout_in_hours
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -241,7 +239,7 @@ Partial Class FormCaches
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 13)
         Me.Label4.TabIndex = 1864
-        Me.Label4.Text = "Cache Enabled"
+        Me.Label4.Text = My.Resources.Cache_Enabled
         '
         'Label2
         '
@@ -250,7 +248,7 @@ Partial Class FormCaches
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 13)
         Me.Label2.TabIndex = 1863
-        Me.Label2.Text = "Log Level"
+        Me.Label2.Text = My.Resources.Log_Level
         '
         'CacheFolder
         '
@@ -266,12 +264,12 @@ Partial Class FormCaches
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 13)
         Me.Label1.TabIndex = 1861
-        Me.Label1.Text = "Cache Directory"
+        Me.Label1.Text = My.Resources.Cache_Directory
         '
         'LogLevelBox
         '
         Me.LogLevelBox.FormattingEnabled = True
-        Me.LogLevelBox.Items.AddRange(New Object() {"0 - (Error) Errors only", "1 - (Info)  Hit Rate Stats", "2 - (Debug) Cache Activity"})
+        Me.LogLevelBox.Items.AddRange(New Object() {My.Resources.ErrorLevel0, My.Resources.ErrorLevel1, My.Resources.ErrorLevel2})
         Me.LogLevelBox.Location = New System.Drawing.Point(131, 77)
         Me.LogLevelBox.Name = "LogLevelBox"
         Me.LogLevelBox.Size = New System.Drawing.Size(148, 21)
@@ -285,7 +283,7 @@ Partial Class FormCaches
         Me.GroupBox3.Size = New System.Drawing.Size(357, 50)
         Me.GroupBox3.TabIndex = 18603
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Viewer Cache"
+        Me.GroupBox3.Text = My.Resources.Viewer_Cache
         '
         'ViewerCacheCheckbox
         '
@@ -294,10 +292,8 @@ Partial Class FormCaches
         Me.ViewerCacheCheckbox.Name = "ViewerCacheCheckbox"
         Me.ViewerCacheCheckbox.Size = New System.Drawing.Size(65, 17)
         Me.ViewerCacheCheckbox.TabIndex = 1
-        Me.ViewerCacheCheckbox.Text = "Enabled"
-        Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, "Default: Enabled. Users may need to reduce viewer bandwidth if some prims Or terr" &
-        "ain parts fail to rez. Change to false if you need to use old viewers that do no" &
-        "t support this feature")
+        Me.ViewerCacheCheckbox.Text = My.Resources.Enabled
+        Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, My.Resources.Viewer_Cache_text)
         Me.ViewerCacheCheckbox.UseVisualStyleBackColor = True
         '
         'FormCaches
@@ -312,7 +308,7 @@ Partial Class FormCaches
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
-        Me.Text = "Cache Control"
+        Me.Text = My.Resources.Cache_Control
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()

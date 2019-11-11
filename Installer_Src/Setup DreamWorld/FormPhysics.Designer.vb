@@ -53,7 +53,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Size = New System.Drawing.Size(189, 151)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
+        Me.GroupBox1.Text = My.Resources.Physics_Engine
         '
         'PhysicsHybrid
         '
@@ -63,7 +63,7 @@ Partial Class FormPhysics
         Me.PhysicsHybrid.Size = New System.Drawing.Size(134, 17)
         Me.PhysicsHybrid.TabIndex = 1859
         Me.PhysicsHybrid.TabStop = True
-        Me.PhysicsHybrid.Text = "Ubit ODE/Bullet Hybrid"
+        Me.PhysicsHybrid.Text = "Ubit ODE+Bullet"
         Me.PhysicsHybrid.UseVisualStyleBackColor = True
         '
         'GodHelp
@@ -83,7 +83,7 @@ Partial Class FormPhysics
         Me.PhysicsSeparate.Size = New System.Drawing.Size(180, 17)
         Me.PhysicsSeparate.TabIndex = 13
         Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = "Bullet physics in separate thread."
+        Me.PhysicsSeparate.Text = My.Resources.BP
         Me.PhysicsSeparate.UseVisualStyleBackColor = True
         '
         'PhysicsNone
@@ -94,7 +94,7 @@ Partial Class FormPhysics
         Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
         Me.PhysicsNone.TabIndex = 9
         Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = "None"
+        Me.PhysicsNone.Text = My.Resources.None
         Me.PhysicsNone.UseVisualStyleBackColor = True
         '
         'PhysicsubODE
@@ -105,7 +105,7 @@ Partial Class FormPhysics
         Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
         Me.PhysicsubODE.TabIndex = 11
         Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
+        Me.PhysicsubODE.Text = "Ubit " & My.Resources.ODE
         Me.PhysicsubODE.UseVisualStyleBackColor = True
         '
         'PhysicsBullet
@@ -116,7 +116,7 @@ Partial Class FormPhysics
         Me.PhysicsBullet.Size = New System.Drawing.Size(90, 17)
         Me.PhysicsBullet.TabIndex = 12
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = "Bullet Physics"
+        Me.PhysicsBullet.Text = My.Resources.bullet
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE
@@ -127,7 +127,7 @@ Partial Class FormPhysics
         Me.PhysicsODE.Size = New System.Drawing.Size(136, 17)
         Me.PhysicsODE.TabIndex = 10
         Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = "Open Dynamics Engine"
+        Me.PhysicsODE.Text = My.Resources.ODE
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -165,7 +165,7 @@ Partial Class FormPhysics
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
-        Me.Text = "Physics"
+        Me.Text = My.Resources.Physics
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

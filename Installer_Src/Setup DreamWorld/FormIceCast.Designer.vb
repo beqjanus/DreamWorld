@@ -52,7 +52,7 @@ Partial Class Icecast
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
         Me.ShoutcastEnable.Size = New System.Drawing.Size(59, 17)
         Me.ShoutcastEnable.TabIndex = 0
-        Me.ShoutcastEnable.Text = "Enable"
+        Me.ShoutcastEnable.Text = My.Resources.Enable
         Me.ShoutcastEnable.UseVisualStyleBackColor = True
         '
         'ShoutcastPassword
@@ -69,7 +69,7 @@ Partial Class Icecast
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Password"
+        Me.Label1.Text = My.Resources.Password
         '
         'GroupBox1
         '
@@ -89,7 +89,7 @@ Partial Class Icecast
         Me.GroupBox1.Size = New System.Drawing.Size(214, 201)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Icecast Server"
+        Me.GroupBox1.Text = My.Resources.iceCastServer
         '
         'Label4
         '
@@ -98,7 +98,7 @@ Partial Class Icecast
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(32, 13)
         Me.Label4.TabIndex = 1861
-        Me.Label4.Text = "Port2"
+        Me.Label4.Text = My.Resources.port2
         '
         'ShoutcastPort1
         '
@@ -123,7 +123,7 @@ Partial Class Icecast
         Me.LoadURL.Name = "LoadURL"
         Me.LoadURL.Size = New System.Drawing.Size(150, 29)
         Me.LoadURL.TabIndex = 6
-        Me.LoadURL.Text = "Admin Web Page"
+        Me.LoadURL.Text = My.Resources.Admin_Web_Page
         Me.LoadURL.UseVisualStyleBackColor = True
         '
         'Label3
@@ -133,7 +133,7 @@ Partial Class Icecast
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Admin Password"
+        Me.Label3.Text = My.Resources.AdminPassword
         '
         'AdminPassword
         '
@@ -149,7 +149,7 @@ Partial Class Icecast
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(32, 13)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Port1"
+        Me.Label2.Text = My.Resources.Port1
         '
         'ShoutcastPort
         '
@@ -197,7 +197,7 @@ Partial Class Icecast
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Icecast"
         Me.Text = "IceCast"
-        Me.ToolTip1.SetToolTip(Me, "Click for help on setting up Shoutcast")
+        Me.ToolTip1.SetToolTip(Me, My.Resources.icecast_help)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

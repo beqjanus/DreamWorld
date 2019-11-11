@@ -46,7 +46,7 @@ Partial Class FormPublicity
         Me.GroupBox11.Size = New System.Drawing.Size(221, 183)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = "Public Photo"
+        Me.GroupBox11.Text = My.Resources.Public_Photo
         '
         'PublicPhoto
         '
@@ -64,7 +64,7 @@ Partial Class FormPublicity
         Me.GDPRCheckBox.Name = "GDPRCheckBox"
         Me.GDPRCheckBox.Size = New System.Drawing.Size(162, 17)
         Me.GDPRCheckBox.TabIndex = 7
-        Me.GDPRCheckBox.Text = "Publish Grid to Hyperica.com"
+        Me.GDPRCheckBox.Text = My.Resources.Publish_grid
         Me.GDPRCheckBox.UseVisualStyleBackColor = True
         '
         'PictureBox9
@@ -111,7 +111,7 @@ Partial Class FormPublicity
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
-        Me.Text = "Publicity"
+        Me.Text = My.Resources.Publicity
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         CType(Me.PublicPhoto, System.ComponentModel.ISupportInitialize).EndInit()

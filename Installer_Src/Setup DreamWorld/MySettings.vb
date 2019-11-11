@@ -188,7 +188,7 @@ Public Class MySettings
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.ASCII)
         Catch ex As Exception
-            MsgBox("Error in arg:" + ex.Message)
+            MsgBox(ex.Message)
         End Try
         INI = arg
 
@@ -263,7 +263,7 @@ Public Class MySettings
     Public Function GetMySetting(key As String, Optional D As String = "") As String
         Try
             Dim value = GetMyIni("Data", key, D)
-            Return value
+            Return value.ToString(Form1.Invarient)
         Catch
             Return D
         End Try
@@ -287,7 +287,7 @@ Public Class MySettings
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.ASCII)
         Catch ex As Exception
-            MsgBox("Unable to save settings to " + myINI)
+            MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -454,7 +454,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsBorderSize() As Double
         Get
-            Return Val("0" + GetMySetting("BirdsBorderSize", "25"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As OverflowException
+            Catch ex As InvalidCastException
+            End Try
+            Return 25
         End Get
         Set
             SetMySetting("BirdsBorderSize", Convert.ToString(Value, Form1.Invarient))
@@ -480,7 +486,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsDesiredSeparation() As Double
         Get
-            Return Val("0" + GetMySetting("BirdsDesiredSeparation", "5"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As OverflowException
+            Catch ex As InvalidCastException
+            End Try
+            Return 5
         End Get
         Set
             SetMySetting("BirdsDesiredSeparation", Convert.ToString(Value, Form1.Invarient))
@@ -507,7 +519,13 @@ Public Class MySettings
 
     Public Property BirdsMaxForce() As Double
         Get
-            Return Val("0" + GetMySetting("BirdsMaxForce", "0.2"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As OverflowException
+            Catch ex As InvalidCastException
+            End Try
+            Return 0.2
         End Get
         Set
             SetMySetting("BirdsMaxForce", Convert.ToString(Value, Form1.Invarient))
@@ -520,7 +538,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsMaxHeight() As Double
         Get
-            Return Val(0 + GetMySetting("BirdsMaxHeight", "25"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As OverflowException
+            Catch ex As InvalidCastException
+            End Try
+            Return 25
         End Get
         Set
             SetMySetting("BirdsMaxHeight", Convert.ToString(Value, Form1.Invarient))
@@ -533,7 +557,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsMaxSpeed() As Double
         Get
-            Return Val(0 + GetMySetting("BirdsMaxSpeed", "1.0"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As OverflowException
+            Catch ex As InvalidCastException
+            End Try
+            Return 1.0
         End Get
         Set
             SetMySetting("BirdsMaxSpeed", Convert.ToString(Value, Form1.Invarient))
@@ -555,7 +585,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsNeighbourDistance() As Double
         Get
-            Return Val(0 + GetMySetting("BirdsNeighbourDistance", "25"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As InvalidCastException
+            Catch ex As OverflowException
+            End Try
+            Return 25
         End Get
         Set
             SetMySetting("BirdsNeighbourDistance", Convert.ToString(Value, Form1.Invarient))
@@ -583,7 +619,13 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsTolerance() As Double
         Get
-            Return Val(0 + GetMySetting("BirdsTolerance", "25"))
+            Try
+                Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As InvalidCastException
+            Catch ex As OverflowException
+            End Try
+            Return 25
         End Get
         Set
             SetMySetting("BirdsTolerance", Convert.ToString(Value, Form1.Invarient))
@@ -710,11 +752,12 @@ Public Class MySettings
     Public Property Density() As Double
         Get
             Try
-                Return Val(0 + GetMySetting("Density", "0.5"))
-            Catch
-                Return 0.5
+                Return Convert.ToDouble(GetMySetting("Density", "0.5"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As InvalidCastException
+            Catch ex As OverflowException
             End Try
-
+            Return 0.5
         End Get
         Set
             SetMySetting("Density", Convert.ToString(Value, Form1.Invarient))
@@ -993,13 +1036,15 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property MinTimerInterval() As Single
+    Public Property MinTimerInterval() As Double
         Get
             Try
-                Return Val("0" + GetMySetting("MinTimerInterval", "0.2"))
-            Catch
-                Return 0.2
+                Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As InvalidCastException
+            Catch ex As OverflowException
             End Try
+            Return 0.2
         End Get
         Set
             SetMySetting("MinTimerInterval", Convert.ToString(Value, Form1.Invarient))
@@ -1225,7 +1270,14 @@ Public Class MySettings
 
     Public Property RenderMaxHeight() As Double
         Get
-            Return Val("0" + GetMySetting("RenderMaxHeight", 4096))
+            Try
+                Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Form1.Invarient)
+            Catch ex As FormatException
+            Catch ex As InvalidCastException
+            Catch ex As OverflowException
+            End Try
+            Return 4096
+
         End Get
         Set
             SetMySetting("RenderMaxHeight", Convert.ToString(Value, Form1.Invarient))

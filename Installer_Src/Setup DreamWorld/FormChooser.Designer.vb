@@ -53,7 +53,7 @@ Partial Class Choice
         Me.Group.Name = "Group"
         Me.Group.ReadOnly = True
         Me.Group.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Group.ToolTipText = "Click to choose a group"
+        Me.Group.ToolTipText = My.Resources.Click_2_Choose
         '
         'OKButton1
         '
@@ -72,7 +72,7 @@ Partial Class Choice
         Me.CancelButton1.Name = "CancelButton1"
         Me.CancelButton1.Size = New System.Drawing.Size(56, 24)
         Me.CancelButton1.TabIndex = 4
-        Me.CancelButton1.Text = "Cancel"
+        Me.CancelButton1.Text = My.Resources.Cancel
         Me.CancelButton1.UseVisualStyleBackColor = True
         '
         'Choice
@@ -85,7 +85,7 @@ Partial Class Choice
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Choice"
-        Me.Text = "Choose Region"
+        Me.Text = My.Resources.ChooseRegion
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

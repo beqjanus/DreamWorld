@@ -18,30 +18,22 @@
         End If
 
         If Form1.Settings.ServerType = "Robust" Then
-
             Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
-            Form1.Print("Robust Server mode")
-
+            Form1.Print("Robust")
         ElseIf Form1.Settings.ServerType = "OsGrid" Then
-
             Form1.Settings.PublicIP = "hg.osgrid.org"
             Form1.Settings.ExternalHostName = PublicIP.IP()
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-            Form1.Print("OSGrid Region mode")
-
+            Form1.Print("OSGrid")
         ElseIf Form1.Settings.ServerType = "Region" Then
-
-            Form1.Print("Region mode.")
+            Form1.Print("Region")
             Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-
         ElseIf Form1.Settings.ServerType = "Metro" Then
-
             Form1.Settings.PublicIP = "hg.osgrid.org"
             Form1.Settings.ExternalHostName = PublicIP.IP()
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-            Form1.Print("Metro Region mode")
-
+            Form1.Print("Metro")
         End If
 
         If Form1.Settings.OverrideName.Length > 0 Then
@@ -54,8 +46,8 @@
 
         Form1.Print("WAN IP   = " & PublicIP.IP)
         Form1.Print("LAN IP   = " & Form1.Settings.PrivateURL)
-        Form1.Print("DNS Name = " & n)
-        Form1.Print("Region   = " & Form1.Settings.ExternalHostName)
+        Form1.Print("DNS = " & n)
+        Form1.Print("Region = " & Form1.Settings.ExternalHostName)
         Form1.Print("Hostname = " & Form1.Settings.BaseHostName)
 
     End Sub

@@ -39,6 +39,7 @@ Public Class Culture
 
         ' Force  English for now
         My.Application.ChangeUICulture("en-US")
+        My.Application.ChangeCulture("en-US")
 
         ' debug only
         If Debugger.IsAttached Then

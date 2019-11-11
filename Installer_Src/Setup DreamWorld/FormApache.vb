@@ -150,15 +150,25 @@ Public Class FormApache
         Using ApacheProcess As New Process()
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-            ApacheProcess.Start()
+            Try
+                ApacheProcess.Start()
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
             Form1.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
-            ApacheProcess.Start()
+            Try
+                ApacheProcess.Start()
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            Form1.Print("Apache has been removed as a service")
+            Form1.Print(My.Resources.Apache_has_been_removed)
         End Using
 
     End Sub
@@ -171,17 +181,40 @@ Public Class FormApache
         '2012
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x64.exe"
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        InstallProcess.Start()
+        Try
+            InstallProcess.Start()
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+
         InstallProcess.WaitForExit()
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x86.exe"
-        InstallProcess.Start()
+        Try
+            InstallProcess.Start()
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+
         InstallProcess.WaitForExit()
         ' 2015
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x64.exe"
-        InstallProcess.Start()
+        Try
+            InstallProcess.Start()
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+
         InstallProcess.WaitForExit()
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe"
-        InstallProcess.Start()
+        Try
+            InstallProcess.Start()
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
         InstallProcess.WaitForExit()
         InstallProcess.Dispose()
 

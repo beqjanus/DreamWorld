@@ -50,7 +50,7 @@ Partial Class FormIARSave
         Me.AviName.Name = "AviName"
         Me.AviName.Size = New System.Drawing.Size(179, 20)
         Me.AviName.TabIndex = 14
-        Me.ToolTip1.SetToolTip(Me.AviName, "Avatar First and Last name")
+        Me.ToolTip1.SetToolTip(Me.AviName, My.Resources.Avatar_First_and_Last_Name)
         '
         'BackupNameTextBox
         '
@@ -67,8 +67,7 @@ Partial Class FormIARSave
         Me.ObjectNameBox.Size = New System.Drawing.Size(179, 20)
         Me.ObjectNameBox.TabIndex = 12
         Me.ObjectNameBox.Text = "/"
-        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, "Enter the Object name ('/' will  backup everything, and '/Objects/box' will back " &
-        "up box in folder Objects)")
+        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, My.Resources.Enter_Name)
         '
         'GroupBox1
         '
@@ -88,7 +87,7 @@ Partial Class FormIARSave
         Me.GroupBox1.Size = New System.Drawing.Size(395, 198)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "IAR "
+        Me.GroupBox1.Text = "IAR"
         '
         'Button2
         '
@@ -96,7 +95,7 @@ Partial Class FormIARSave
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 22
-        Me.Button2.Text = "Cancel"
+        Me.Button2.Text = My.Resources.Cancel
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
@@ -105,7 +104,7 @@ Partial Class FormIARSave
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 21
-        Me.Button1.Text = "Save IAR"
+        Me.Button1.Text = My.Resources.Save_IAR
         Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1
@@ -124,7 +123,7 @@ Partial Class FormIARSave
         Me.Pwd.Name = "Pwd"
         Me.Pwd.Size = New System.Drawing.Size(87, 13)
         Me.Pwd.TabIndex = 19
-        Me.Pwd.Text = "Avatar Password"
+        Me.Pwd.Text = My.Resources.Avatar_Password
         '
         'Label3
         '
@@ -133,7 +132,7 @@ Partial Class FormIARSave
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 18
-        Me.Label3.Text = "Avatar Name"
+        Me.Label3.Text = My.Resources.Avatar_Name
         '
         'Label2
         '
@@ -142,7 +141,7 @@ Partial Class FormIARSave
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Backup Name"
+        Me.Label2.Text = My.Resources.Backup_Name
         '
         'Label1
         '
@@ -151,7 +150,7 @@ Partial Class FormIARSave
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(113, 13)
         Me.Label1.TabIndex = 16
-        Me.Label1.Text = "Object Path and name"
+        Me.Label1.Text = My.Resources.Object_Path
         '
         'Password
         '
@@ -193,7 +192,7 @@ Partial Class FormIARSave
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormIARSave"
-        Me.Text = "Save IAR"
+        Me.Text = My.Resources.Save_IAR
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

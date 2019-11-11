@@ -199,7 +199,7 @@ Partial Class FormDisplacement3x3
         Me.OptionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.package
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
         Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(77, 20)
-        Me.OptionsToolStripMenuItem.Text = "Options"
+        Me.OptionsToolStripMenuItem.Text = My.Resources.Options
         '
         'ObjectMergeToolStripMenuItem
         '
@@ -207,19 +207,19 @@ Partial Class FormDisplacement3x3
         Me.ObjectMergeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.ObjectMergeToolStripMenuItem.Name = "ObjectMergeToolStripMenuItem"
         Me.ObjectMergeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ObjectMergeToolStripMenuItem.Text = "Object Merge"
+        Me.ObjectMergeToolStripMenuItem.Text = My.Resources.Merge_Objects
         '
         'MergeOARToolStripMenuItem
         '
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
         Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.MergeOARToolStripMenuItem.Text = "Merge OAR"
+        Me.MergeOARToolStripMenuItem.Text = My.Resources.Merge_OAR
         '
         'ClearOARToolStripMenuItem
         '
         Me.ClearOARToolStripMenuItem.Name = "ClearOARToolStripMenuItem"
         Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.ClearOARToolStripMenuItem.Text = "Clear and Load"
+        Me.ClearOARToolStripMenuItem.Text = My.Resources.Clear_and_Load
         '
         'TerrainToolStripMenuItem
         '
@@ -227,19 +227,19 @@ Partial Class FormDisplacement3x3
         Me.TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
         Me.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem"
         Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.TerrainToolStripMenuItem.Text = "Terrain"
+        Me.TerrainToolStripMenuItem.Text = My.Resources.Terrain
         '
         'ForceTerrainToolStripMenuItem
         '
         Me.ForceTerrainToolStripMenuItem.Name = "ForceTerrainToolStripMenuItem"
         Me.ForceTerrainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
-        Me.ForceTerrainToolStripMenuItem.Text = "Load Terrain"
+        Me.ForceTerrainToolStripMenuItem.Text = My.Resources.Load_Terrain
         '
         'ClearTerrainToolStripMenuItem
         '
         Me.ClearTerrainToolStripMenuItem.Name = "ClearTerrainToolStripMenuItem"
         Me.ClearTerrainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
-        Me.ClearTerrainToolStripMenuItem.Text = "Ignore Terrain"
+        Me.ClearTerrainToolStripMenuItem.Text = My.Resources.Ignore_Terrain
         '
         'ParcelsToolStripMenuItem
         '
@@ -247,26 +247,26 @@ Partial Class FormDisplacement3x3
         Me.ParcelsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_marked
         Me.ParcelsToolStripMenuItem.Name = "ParcelsToolStripMenuItem"
         Me.ParcelsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ParcelsToolStripMenuItem.Text = "Parcels"
+        Me.ParcelsToolStripMenuItem.Text = My.Resources.Parcels
         '
         'LoadParcelToolStripMenuItem
         '
         Me.LoadParcelToolStripMenuItem.Name = "LoadParcelToolStripMenuItem"
         Me.LoadParcelToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
-        Me.LoadParcelToolStripMenuItem.Text = "Load Parcel"
+        Me.LoadParcelToolStripMenuItem.Text = My.Resources.Load_Parcel
         '
         'IgnoreParcelToolStripMenuItem
         '
         Me.IgnoreParcelToolStripMenuItem.Name = "IgnoreParcelToolStripMenuItem"
         Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
-        Me.IgnoreParcelToolStripMenuItem.Text = "Ignore Parcel"
+        Me.IgnoreParcelToolStripMenuItem.Text = My.Resources.Ignore_Parcel
         '
         'SetOwnerToolStripMenuItem
         '
         Me.SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user3
         Me.SetOwnerToolStripMenuItem.Name = "SetOwnerToolStripMenuItem"
         Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SetOwnerToolStripMenuItem.Text = "Set Owner"
+        Me.SetOwnerToolStripMenuItem.Text = My.Resources.Set_Owner
         '
         'HelpToolStripMenuItem
         '
@@ -294,7 +294,7 @@ Partial Class FormDisplacement3x3
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormDisplacement3x3"
-        Me.Text = "Choose where to put the OAR:"
+        Me.Text = My.Resources.Choose_Where
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()

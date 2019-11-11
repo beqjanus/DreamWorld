@@ -79,7 +79,12 @@ Public Class FormVoice
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click

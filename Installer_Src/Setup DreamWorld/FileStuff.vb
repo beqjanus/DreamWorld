@@ -36,7 +36,18 @@ Module FileStuff
             If File.Exists(fileSystemInfo.FullName) Then
                 Form1.Print(fileSystemInfo.Name)
                 Application.DoEvents()
-                CopyFile(fileSystemInfo.FullName, destinationFileName, True)
+                Try
+                    CopyFile(fileSystemInfo.FullName, destinationFileName, True)
+                Catch ex As FileNotFoundException
+                Catch ex As PathTooLongException
+                Catch ex As IOException
+                Catch ex As UnauthorizedAccessException
+                Catch ex As ArgumentNullException
+                Catch ex As ArgumentException
+                Catch ex As InvalidOperationException
+                Catch ex As NotSupportedException
+                Catch ex As System.Security.SecurityException
+                End Try
             Else
                 ' Recursively call the method to copy all the nested folders
                 If (Not System.IO.Directory.Exists(fileSystemInfo.FullName)) Then

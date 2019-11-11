@@ -89,7 +89,6 @@ Public Class AdvancedForm
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
 
-
     End Sub
 
 #End Region
@@ -99,7 +98,12 @@ Public Class AdvancedForm
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
         Dim webAddress As String = Form1.SecureDomain + "/Outworldz_installer/technical.htm#Regions"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
 
     End Sub
 

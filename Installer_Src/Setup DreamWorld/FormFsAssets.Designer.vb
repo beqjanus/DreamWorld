@@ -47,7 +47,7 @@ Partial Class FormFsAssets
         Me.EnableFsAssetsCheckbox.Name = "EnableFsAssetsCheckbox"
         Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.EnableFsAssetsCheckbox.TabIndex = 43
-        Me.EnableFsAssetsCheckbox.Text = "Enable"
+        Me.EnableFsAssetsCheckbox.Text = My.Resources.Enable
         Me.EnableFsAssetsCheckbox.UseVisualStyleBackColor = True
         '
         'b
@@ -64,7 +64,7 @@ Partial Class FormFsAssets
         Me.b.Size = New System.Drawing.Size(280, 207)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
-        Me.b.Text = "File System Assets Database"
+        Me.b.Text = My.Resources.FSassets
         '
         'SaveButton
         '
@@ -72,7 +72,7 @@ Partial Class FormFsAssets
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 1893
-        Me.SaveButton.Text = "Save"
+        Me.SaveButton.Text = My.Resources.Save
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ShowStatsCheckBox
@@ -82,7 +82,7 @@ Partial Class FormFsAssets
         Me.ShowStatsCheckBox.Name = "ShowStatsCheckBox"
         Me.ShowStatsCheckBox.Size = New System.Drawing.Size(133, 17)
         Me.ShowStatsCheckBox.TabIndex = 1892
-        Me.ShowStatsCheckBox.Text = "Show stats on console"
+        Me.ShowStatsCheckBox.Text = My.Resources.Show_Stats
         Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
         '
         'Label6
@@ -92,7 +92,7 @@ Partial Class FormFsAssets
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(68, 13)
         Me.Label6.TabIndex = 1888
-        Me.Label6.Text = "Data  Folder:"
+        Me.Label6.Text = My.Resources.Data_Folder
         '
         'PictureBox2
         '
@@ -152,7 +152,7 @@ Partial Class FormFsAssets
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.b)
         Me.Name = "FormFsAssets"
-        Me.Text = "File System Assets"
+        Me.Text = My.Resources.FSassets
         Me.b.ResumeLayout(False)
         Me.b.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()

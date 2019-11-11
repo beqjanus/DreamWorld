@@ -85,7 +85,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
-        Dim result As MsgBoxResult = MsgBox("This moves all regions so the chosen region is at 1000,1000 to fit the map. Proceed?", vbYesNo)
+        Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, vbYesNo)
         If result = vbYes Then
 
             Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
@@ -110,7 +110,7 @@ Public Class FormRegions
             Next
 
             If (Err) Then
-                MsgBox("Cannot normalize map as a Region will be less than 0 ")
+                MsgBox(My.Resources.Cannot_Normalize)
                 Return
             End If
 
@@ -198,7 +198,7 @@ Public Class FormRegions
         If s > -1 Then
             WelcomeBox1.SelectedIndex = s
         Else
-            MsgBox("Choose your Welcome region ", vbInformation, "Choose")
+            MsgBox(My.Resources.Choose_Welcome, vbInformation, My.Resources.ChooseRegion)
             Dim chosen = Form1.ChooseRegion(False)
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index

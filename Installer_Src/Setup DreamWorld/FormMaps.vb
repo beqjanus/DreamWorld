@@ -48,24 +48,39 @@ Public Class FormMaps
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
 
+        Form1.Print(My.Resources.Clearing_Maptiles)
+        FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
         Try
-            Form1.Print("Clearing Maptiles")
-            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
-        Catch ex As Exception
+        Catch ex As ArgumentException
+        Catch ex As IO.PathTooLongException
+        Catch ex As NotSupportedException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As IO.IOException
+
         End Try
-        Form1.Print("Maptiles cleared. Set maps on and reboot to make new maps")
+        Form1.Print(My.Resources.Maps_Erased)
 
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CStr(Form1.Settings.ApachePort) & "/Metromap/index.php"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
@@ -83,7 +98,12 @@ Public Class FormMaps
 
     Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
         Dim webAddress As String = "http://" + Form1.Settings.PublicIP & ":" & Form1.Settings.ApachePort & "/Metromap/indexmax.php"
-        Process.Start(webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As ObjectDisposedException
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load

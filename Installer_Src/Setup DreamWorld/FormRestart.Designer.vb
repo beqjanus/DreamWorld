@@ -59,7 +59,7 @@ Partial Class FormRestart
         Me.AutoStart.Size = New System.Drawing.Size(223, 205)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
-        Me.AutoStart.Text = "Auto Restart"
+        Me.AutoStart.Text = My.Resources.AutoRestart
         '
         'RestartOnPhysicsCrash
         '
@@ -68,9 +68,8 @@ Partial Class FormRestart
         Me.RestartOnPhysicsCrash.Name = "RestartOnPhysicsCrash"
         Me.RestartOnPhysicsCrash.Size = New System.Drawing.Size(144, 17)
         Me.RestartOnPhysicsCrash.TabIndex = 1866
-        Me.RestartOnPhysicsCrash.Text = "Restart on Physics Crash"
-        Me.ToolTip1.SetToolTip(Me.RestartOnPhysicsCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
+        Me.RestartOnPhysicsCrash.Text = My.Resources.Restart_on_Physics_Crash
+        Me.ToolTip1.SetToolTip(Me.RestartOnPhysicsCrash, My.Resources.Restart_on_Physics_Crash_Text)
         Me.RestartOnPhysicsCrash.UseVisualStyleBackColor = True
         '
         'RestartOnCrash
@@ -81,8 +80,7 @@ Partial Class FormRestart
         Me.RestartOnCrash.Size = New System.Drawing.Size(105, 17)
         Me.RestartOnCrash.TabIndex = 1865
         Me.RestartOnCrash.Text = "Restart on Crash"
-        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
+        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, My.Resources.Restart_On_Crash)
         Me.RestartOnCrash.UseVisualStyleBackColor = True
         '
         'SequentialCheckBox1
@@ -92,9 +90,8 @@ Partial Class FormRestart
         Me.SequentialCheckBox1.Name = "SequentialCheckBox1"
         Me.SequentialCheckBox1.Size = New System.Drawing.Size(150, 17)
         Me.SequentialCheckBox1.TabIndex = 1864
-        Me.SequentialCheckBox1.Text = "Start Regions Sequentially"
-        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
+        Me.SequentialCheckBox1.Text = My.Resources.StartSequentially
+        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, My.Resources.Sequentially_text)
         Me.SequentialCheckBox1.UseVisualStyleBackColor = True
         '
         'ARTimerBox
@@ -104,9 +101,8 @@ Partial Class FormRestart
         Me.ARTimerBox.Name = "ARTimerBox"
         Me.ARTimerBox.Size = New System.Drawing.Size(115, 17)
         Me.ARTimerBox.TabIndex = 1863
-        Me.ARTimerBox.Text = "Restart periodically"
-        Me.ToolTip1.SetToolTip(Me.ARTimerBox, "If enabled the Regions will all auto restart after Inteveral many minutes running" &
-        ".")
+        Me.ARTimerBox.Text = My.Resources.Restart_Periodically
+        Me.ToolTip1.SetToolTip(Me.ARTimerBox, My.Resources.Restart_Periodically_Minutes)
         Me.ARTimerBox.UseVisualStyleBackColor = True
         '
         'Label25
@@ -116,7 +112,7 @@ Partial Class FormRestart
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(130, 13)
         Me.Label25.TabIndex = 1862
-        Me.Label25.Text = "Restart Interval in Minutes"
+        Me.Label25.Text = My.Resources.Restart_Interval
         '
         'AutoRestartBox
         '
@@ -124,7 +120,7 @@ Partial Class FormRestart
         Me.AutoRestartBox.Name = "AutoRestartBox"
         Me.AutoRestartBox.Size = New System.Drawing.Size(36, 20)
         Me.AutoRestartBox.TabIndex = 47
-        Me.ToolTip1.SetToolTip(Me.AutoRestartBox, "0 = off, expressed in minutes until auto restart occurs.")
+        Me.ToolTip1.SetToolTip(Me.AutoRestartBox, My.Resources.AutorestartBox)
         '
         'RunOnBoot
         '
@@ -150,9 +146,8 @@ Partial Class FormRestart
         Me.AutoStartCheckbox.Name = "AutoStartCheckbox"
         Me.AutoStartCheckbox.Size = New System.Drawing.Size(133, 17)
         Me.AutoStartCheckbox.TabIndex = 45
-        Me.AutoStartCheckbox.Text = "Enable One Click Start"
-        Me.ToolTip1.SetToolTip(Me.AutoStartCheckbox, "if enabled, there is no need to click the Start button. It will start when launch" &
-        "ed.")
+        Me.AutoStartCheckbox.Text = My.Resources.EnableOneClick
+        Me.ToolTip1.SetToolTip(Me.AutoStartCheckbox, My.Resources.StartLaunch)
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -190,7 +185,7 @@ Partial Class FormRestart
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormRestart"
-        Me.Text = "Restart"
+        Me.Text = My.Resources.Restart
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()
