@@ -76,106 +76,119 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Controls.Add(Me.RegionDBUsername)
         Me.StandaloneGroup.Controls.Add(Me.Label21)
         Me.StandaloneGroup.Controls.Add(Me.RegionMySqlPassword)
-        Me.StandaloneGroup.Location = New System.Drawing.Point(284, 37)
+        Me.StandaloneGroup.Location = New System.Drawing.Point(518, 56)
+        Me.StandaloneGroup.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StandaloneGroup.Name = "StandaloneGroup"
-        Me.StandaloneGroup.Size = New System.Drawing.Size(222, 210)
+        Me.StandaloneGroup.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StandaloneGroup.Size = New System.Drawing.Size(416, 315)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
-        Me.StandaloneGroup.Text = My.Resources.Region_Database
+        Me.StandaloneGroup.Text = "Region Database"
         '
         'ClearRegionTable
         '
-        Me.ClearRegionTable.Location = New System.Drawing.Point(94, 165)
+        Me.ClearRegionTable.Location = New System.Drawing.Point(25, 248)
+        Me.ClearRegionTable.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ClearRegionTable.Name = "ClearRegionTable"
-        Me.ClearRegionTable.Size = New System.Drawing.Size(107, 23)
+        Me.ClearRegionTable.Size = New System.Drawing.Size(160, 34)
         Me.ClearRegionTable.TabIndex = 1886
-        Me.ClearRegionTable.Text = My.Resources.ClearRegion
+        Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.Resources.ClearRegion
         Me.ClearRegionTable.UseVisualStyleBackColor = True
         '
         'MysqlRegionPort
         '
-        Me.MysqlRegionPort.Location = New System.Drawing.Point(94, 130)
+        Me.MysqlRegionPort.Location = New System.Drawing.Point(27, 199)
+        Me.MysqlRegionPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MysqlRegionPort.Name = "MysqlRegionPort"
-        Me.MysqlRegionPort.Size = New System.Drawing.Size(47, 20)
+        Me.MysqlRegionPort.Size = New System.Drawing.Size(68, 26)
         Me.MysqlRegionPort.TabIndex = 43
         Me.ToolTip1.SetToolTip(Me.MysqlRegionPort, "3306")
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(18, 132)
+        Me.Label2.Location = New System.Drawing.Point(202, 202)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 13)
+        Me.Label2.Size = New System.Drawing.Size(94, 20)
         Me.Label2.TabIndex = 42
-        Me.Label2.Text = My.Resources.MySqlPort
+        Me.Label2.Text = "MySQL Port"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(16, 25)
+        Me.Label1.Location = New System.Drawing.Point(199, 42)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(75, 13)
+        Me.Label1.Size = New System.Drawing.Size(110, 20)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = My.Resources.RegionServer
+        Me.Label1.Text = "Region Server"
         '
         'RegionServer
         '
-        Me.RegionServer.Location = New System.Drawing.Point(94, 22)
+        Me.RegionServer.Location = New System.Drawing.Point(27, 37)
+        Me.RegionServer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RegionServer.Name = "RegionServer"
-        Me.RegionServer.Size = New System.Drawing.Size(107, 20)
+        Me.RegionServer.Size = New System.Drawing.Size(158, 26)
         Me.RegionServer.TabIndex = 46
-        Me.ToolTip1.SetToolTip(Me.RegionServer, My.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(17, 105)
+        Me.Label22.Location = New System.Drawing.Point(201, 162)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(53, 13)
+        Me.Label22.Size = New System.Drawing.Size(78, 20)
         Me.Label22.TabIndex = 17
-        Me.Label22.Text = My.Resources.Password
+        Me.Label22.Text = "Password"
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(16, 52)
+        Me.Label20.Location = New System.Drawing.Point(199, 82)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(53, 13)
+        Me.Label20.Size = New System.Drawing.Size(125, 20)
         Me.Label20.TabIndex = 13
-        Me.Label20.Text = My.Resources.DBName
+        Me.Label20.Text = "Database Name"
         '
         'RegionDbName
         '
-        Me.RegionDbName.Location = New System.Drawing.Point(94, 49)
+        Me.RegionDbName.Location = New System.Drawing.Point(27, 78)
+        Me.RegionDbName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RegionDbName.Name = "RegionDbName"
-        Me.RegionDbName.Size = New System.Drawing.Size(107, 20)
+        Me.RegionDbName.Size = New System.Drawing.Size(158, 26)
         Me.RegionDbName.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.RegionDbName, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'RegionDBUsername
         '
-        Me.RegionDBUsername.Location = New System.Drawing.Point(94, 75)
+        Me.RegionDBUsername.Location = New System.Drawing.Point(27, 116)
+        Me.RegionDBUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RegionDBUsername.Name = "RegionDBUsername"
-        Me.RegionDBUsername.Size = New System.Drawing.Size(107, 20)
+        Me.RegionDBUsername.Size = New System.Drawing.Size(158, 26)
         Me.RegionDBUsername.TabIndex = 43
-        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(17, 78)
+        Me.Label21.Location = New System.Drawing.Point(201, 121)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(55, 13)
+        Me.Label21.Size = New System.Drawing.Size(83, 20)
         Me.Label21.TabIndex = 16
         Me.Label21.Text = "Username"
         '
         'RegionMySqlPassword
         '
-        Me.RegionMySqlPassword.Location = New System.Drawing.Point(94, 104)
+        Me.RegionMySqlPassword.Location = New System.Drawing.Point(27, 160)
+        Me.RegionMySqlPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
-        Me.RegionMySqlPassword.Size = New System.Drawing.Size(107, 20)
+        Me.RegionMySqlPassword.Size = New System.Drawing.Size(158, 26)
         Me.RegionMySqlPassword.TabIndex = 44
-        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
         'GridGroup
@@ -183,6 +196,7 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.Label3)
         Me.GridGroup.Controls.Add(Me.Button1)
         Me.GridGroup.Controls.Add(Me.RobustServer)
+        Me.GridGroup.Controls.Add(Me.DBHelp)
         Me.GridGroup.Controls.Add(Me.Label16)
         Me.GridGroup.Controls.Add(Me.Dbnameindex)
         Me.GridGroup.Controls.Add(Me.Label9)
@@ -192,9 +206,11 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.Label8)
         Me.GridGroup.Controls.Add(Me.RobustDBPassword)
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
-        Me.GridGroup.Location = New System.Drawing.Point(25, 37)
+        Me.GridGroup.Location = New System.Drawing.Point(38, 56)
+        Me.GridGroup.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GridGroup.Name = "GridGroup"
-        Me.GridGroup.Size = New System.Drawing.Size(219, 210)
+        Me.GridGroup.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GridGroup.Size = New System.Drawing.Size(450, 315)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust"
@@ -202,123 +218,137 @@ Partial Class FormDatabase
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(17, 170)
+        Me.Label3.Location = New System.Drawing.Point(26, 255)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 13)
+        Me.Label3.Size = New System.Drawing.Size(116, 20)
         Me.Label3.TabIndex = 1885
-        Me.Label3.Text = My.Resources.FSA
+        Me.Label3.Text = "Assets as Files"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(98, 165)
+        Me.Button1.Location = New System.Drawing.Point(147, 248)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(107, 23)
+        Me.Button1.Size = New System.Drawing.Size(160, 34)
         Me.Button1.TabIndex = 1884
-        Me.Button1.Text = My.Resources.FSassets_Server
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server
         Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
         '
-        Me.RobustServer.Location = New System.Drawing.Point(98, 25)
+        Me.RobustServer.Location = New System.Drawing.Point(41, 52)
+        Me.RobustServer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RobustServer.Name = "RobustServer"
-        Me.RobustServer.Size = New System.Drawing.Size(107, 20)
+        Me.RobustServer.Size = New System.Drawing.Size(158, 26)
         Me.RobustServer.TabIndex = 37
-        Me.ToolTip1.SetToolTip(Me.RobustServer, My.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(17, 27)
+        Me.Label16.Location = New System.Drawing.Point(222, 53)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(75, 13)
+        Me.Label16.Size = New System.Drawing.Size(61, 20)
         Me.Label16.TabIndex = 38
         Me.Label16.Text = "Robust"
         '
         'Dbnameindex
         '
         Me.Dbnameindex.AutoSize = True
-        Me.Dbnameindex.Location = New System.Drawing.Point(17, 51)
+        Me.Dbnameindex.Location = New System.Drawing.Point(222, 89)
+        Me.Dbnameindex.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Dbnameindex.Name = "Dbnameindex"
-        Me.Dbnameindex.Size = New System.Drawing.Size(72, 13)
+        Me.Dbnameindex.Size = New System.Drawing.Size(51, 20)
         Me.Dbnameindex.TabIndex = 35
-        Me.Dbnameindex.Text = My.Resources.Name
+        Me.Dbnameindex.Text = GetType(Outworldz.My.Resources.Resources).Name
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(15, 103)
+        Me.Label9.Location = New System.Drawing.Point(218, 167)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(53, 13)
+        Me.Label9.Size = New System.Drawing.Size(78, 20)
         Me.Label9.TabIndex = 35
-        Me.Label9.Text = My.Resources.Password
+        Me.Label9.Text = "Password"
         '
         'RobustDbPort
         '
-        Me.RobustDbPort.Location = New System.Drawing.Point(98, 127)
+        Me.RobustDbPort.Location = New System.Drawing.Point(41, 204)
+        Me.RobustDbPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RobustDbPort.Name = "RobustDbPort"
-        Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
+        Me.RobustDbPort.Size = New System.Drawing.Size(68, 26)
         Me.RobustDbPort.TabIndex = 41
-        Me.ToolTip1.SetToolTip(Me.RobustDbPort, My.Resources.MySQL_Port_Default)
+        Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.Resources.MySQL_Port_Default)
         '
         'RobustDbName
         '
-        Me.RobustDbName.Location = New System.Drawing.Point(98, 51)
+        Me.RobustDbName.Location = New System.Drawing.Point(41, 90)
+        Me.RobustDbName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RobustDbName.Name = "RobustDbName"
-        Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
+        Me.RobustDbName.Size = New System.Drawing.Size(158, 26)
         Me.RobustDbName.TabIndex = 38
-        Me.ToolTip1.SetToolTip(Me.RobustDbName, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(15, 77)
+        Me.Label15.Location = New System.Drawing.Point(218, 129)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(55, 13)
+        Me.Label15.Size = New System.Drawing.Size(89, 20)
         Me.Label15.TabIndex = 34
-        Me.Label15.Text = My.Resources.UserName
+        Me.Label15.Text = "User Name"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(17, 129)
+        Me.Label8.Location = New System.Drawing.Point(222, 207)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(58, 13)
+        Me.Label8.Size = New System.Drawing.Size(94, 20)
         Me.Label8.TabIndex = 32
-        Me.Label8.Text = My.Resources.MySqlPort
+        Me.Label8.Text = "MySQL Port"
         '
         'RobustDBPassword
         '
-        Me.RobustDBPassword.Location = New System.Drawing.Point(98, 103)
+        Me.RobustDBPassword.Location = New System.Drawing.Point(41, 168)
+        Me.RobustDBPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RobustDBPassword.Name = "RobustDBPassword"
-        Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
+        Me.RobustDBPassword.Size = New System.Drawing.Size(158, 26)
         Me.RobustDBPassword.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
         'RobustDBUsername
         '
-        Me.RobustDBUsername.Location = New System.Drawing.Point(98, 77)
+        Me.RobustDBUsername.Location = New System.Drawing.Point(41, 130)
+        Me.RobustDBUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RobustDBUsername.Name = "RobustDBUsername"
-        Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
+        Me.RobustDBUsername.Size = New System.Drawing.Size(158, 26)
         Me.RobustDBUsername.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, My.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'DBHelp
         '
         Me.DBHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DBHelp.Location = New System.Drawing.Point(250, 37)
+        Me.DBHelp.Location = New System.Drawing.Point(274, 18)
+        Me.DBHelp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DBHelp.Name = "DBHelp"
-        Me.DBHelp.Size = New System.Drawing.Size(28, 32)
+        Me.DBHelp.Size = New System.Drawing.Size(42, 31)
         Me.DBHelp.TabIndex = 1859
         Me.DBHelp.TabStop = False
         '
         'MenuStrip2
         '
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.BackupToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(532, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(949, 35)
         Me.MenuStrip2.TabIndex = 1885
         Me.MenuStrip2.Text = "0"
         '
@@ -327,51 +357,51 @@ Partial Class FormDatabase
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = My.Resources.Help
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = My.Resources.Database_Setup
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(239, 34)
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Database_Setup
         '
         'BackupToolStripMenuItem
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
         Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
-        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
-        Me.BackupToolStripMenuItem.Text = My.Resources.Backup
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(105, 29)
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup
         '
         'FullSQLBackupToolStripMenuItem
         '
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
-        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.FullSQLBackupToolStripMenuItem.Text = My.Resources.Backup_Data
+        Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(256, 34)
+        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data
         '
         'DataOnlyToolStripMenuItem
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
-        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DataOnlyToolStripMenuItem.Text = My.Resources.export
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(256, 34)
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.export
         '
         'FormDatabase
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(532, 274)
+        Me.ClientSize = New System.Drawing.Size(949, 411)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
-        Me.Controls.Add(Me.DBHelp)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
-        Me.Text = My.Resources.Database
+        Me.Text = "Database"
         Me.StandaloneGroup.ResumeLayout(False)
         Me.StandaloneGroup.PerformLayout()
         Me.GridGroup.ResumeLayout(False)

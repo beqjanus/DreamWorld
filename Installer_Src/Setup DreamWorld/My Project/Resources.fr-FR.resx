@@ -1899,9 +1899,6 @@
   <data name="Stop_text" xml:space="preserve">
     <value>Arrêtez</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Suitcase_enable" xml:space="preserve">
     <value>Activer L'Inventaire Valise</value>
   </data>

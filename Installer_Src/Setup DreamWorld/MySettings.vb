@@ -244,11 +244,35 @@ Public Class MySettings
 
     End Function
 
-    Public Function GetIni(section As String, key As String, D As String) As String
+    Public Function GetIni(section As String, key As String, D As String, Optional V As String = Nothing) As Object
 
         Dim R = Stripqq(Data(section)(key))
         If R = Nothing Then R = D
-        Return R
+        If V Is Nothing Then Return R
+
+        Debug.Print(V)
+        Try
+            If V = "Boolean" Then
+                Return CBool(R)
+            ElseIf V = "String" Then
+                Return R
+            ElseIf V = "Double" Then
+                Return Convert.ToDouble(R, Form1.Invarient)
+            ElseIf V = "Single" Then
+                Return Convert.ToSingle(R, Form1.Invarient)
+            ElseIf V = "Integer" Then
+                Return Convert.ToInt32(R, Form1.Invarient)
+            Else
+                Return R
+            End If
+        Catch ex As FormatException
+            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
+        Catch ex As OverflowException
+            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
+        Catch ex As Exception
+            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
+        End Try
+
 
     End Function
 
@@ -302,7 +326,14 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
-
+    Public Property Language() As String
+        Get
+            Return CType(GetMySetting("Language"), String)
+        End Get
+        Set
+            SetMySetting("Language", Value)
+        End Set
+    End Property
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)

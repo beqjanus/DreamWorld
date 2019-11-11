@@ -177,14 +177,14 @@ Public Class RegionList
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
-
+        '1106, 460
         If hw.Item(0) = 0 Then
-            Me.Height = 400
+            Me.Height = 460
         Else
             Me.Height = hw.Item(0)
         End If
         If hw.Item(1) = 0 Then
-            Me.Width = 560
+            Me.Width = 1106
         Else
             Me.Width = hw.Item(1)
         End If
@@ -214,7 +214,7 @@ Public Class RegionList
     Private Sub RegionList_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
 
         Dim X = Me.Width - 45
-        Dim Y = Me.Height - 125
+        Dim Y = Me.Height - 150
         ListView1.Size = New System.Drawing.Size(X, Y)
         AvatarView.Size = New System.Drawing.Size(X, Y)
 

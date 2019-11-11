@@ -42,70 +42,79 @@ Partial Class FormServerType
         Me.GroupBox1.Controls.Add(Me.GridRegionButton)
         Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
         Me.GroupBox1.Controls.Add(Me.GridServerButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 32)
+        Me.GroupBox1.Location = New System.Drawing.Point(18, 49)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(190, 171)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(321, 263)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Server_Type
+        Me.GroupBox1.Text = "Server Type"
         '
         'MetroRadioButton2
         '
         Me.MetroRadioButton2.AutoSize = True
-        Me.MetroRadioButton2.Location = New System.Drawing.Point(17, 100)
+        Me.MetroRadioButton2.Location = New System.Drawing.Point(26, 154)
+        Me.MetroRadioButton2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MetroRadioButton2.Name = "MetroRadioButton2"
-        Me.MetroRadioButton2.Size = New System.Drawing.Size(162, 17)
+        Me.MetroRadioButton2.Size = New System.Drawing.Size(234, 24)
         Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.Text = My.Resources.MetroOrg
+        Me.MetroRadioButton2.Text = Global.Outworldz.My.Resources.Resources.MetroOrg
         Me.MetroRadioButton2.UseVisualStyleBackColor = True
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(48, 140)
+        Me.SaveButton.Location = New System.Drawing.Point(72, 215)
+        Me.SaveButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(62, 23)
+        Me.SaveButton.Size = New System.Drawing.Size(93, 35)
         Me.SaveButton.TabIndex = 1883
-        Me.SaveButton.Text = My.Resources.Save
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'GridRegionButton
         '
         Me.GridRegionButton.AutoSize = True
-        Me.GridRegionButton.Location = New System.Drawing.Point(17, 55)
+        Me.GridRegionButton.Location = New System.Drawing.Point(26, 85)
+        Me.GridRegionButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GridRegionButton.Name = "GridRegionButton"
-        Me.GridRegionButton.Size = New System.Drawing.Size(93, 17)
+        Me.GridRegionButton.Size = New System.Drawing.Size(135, 24)
         Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.Text = My.Resources.Region_Server
+        Me.GridRegionButton.Text = Global.Outworldz.My.Resources.Resources.Region_Server
         Me.GridRegionButton.UseVisualStyleBackColor = True
         '
         'osGridRadioButton1
         '
         Me.osGridRadioButton1.AutoSize = True
-        Me.osGridRadioButton1.Location = New System.Drawing.Point(17, 77)
+        Me.osGridRadioButton1.Location = New System.Drawing.Point(26, 118)
+        Me.osGridRadioButton1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.osGridRadioButton1.Name = "osGridRadioButton1"
-        Me.osGridRadioButton1.Size = New System.Drawing.Size(130, 17)
+        Me.osGridRadioButton1.Size = New System.Drawing.Size(192, 24)
         Me.osGridRadioButton1.TabIndex = 1881
-        Me.osGridRadioButton1.Text = My.Resources.OSGrid_Region_Server
+        Me.osGridRadioButton1.Text = Global.Outworldz.My.Resources.Resources.OSGrid_Region_Server
         Me.osGridRadioButton1.UseVisualStyleBackColor = True
         '
         'GridServerButton
         '
         Me.GridServerButton.AutoSize = True
         Me.GridServerButton.Checked = True
-        Me.GridServerButton.Location = New System.Drawing.Point(17, 32)
+        Me.GridServerButton.Location = New System.Drawing.Point(26, 49)
+        Me.GridServerButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GridServerButton.Name = "GridServerButton"
-        Me.GridServerButton.Size = New System.Drawing.Size(140, 17)
+        Me.GridServerButton.Size = New System.Drawing.Size(206, 24)
         Me.GridServerButton.TabIndex = 1879
         Me.GridServerButton.TabStop = True
-        Me.GridServerButton.Text = My.Resources.Grid_Server_With_Robust
+        Me.GridServerButton.Text = Global.Outworldz.My.Resources.Resources.Grid_Server_With_Robust
         Me.GridServerButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(214, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(372, 35)
         Me.MenuStrip1.TabIndex = 1886
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -114,26 +123,27 @@ Partial Class FormServerType
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ServerTypeToolStripMenuItem})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HelpToolStripMenuItem.Text = My.Resources.Help
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'ServerTypeToolStripMenuItem
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
-        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ServerTypeToolStripMenuItem.Text = My.Resources.Server_Type
+        Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(205, 34)
+        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Server_Type
         '
         'FormServerType
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(214, 215)
+        Me.ClientSize = New System.Drawing.Size(372, 331)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormServerType"
-        Me.Text = My.Resources.Server_Type
+        Me.Text = "Server Type"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

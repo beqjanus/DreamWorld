@@ -370,7 +370,7 @@ Public Class RegionMaker
                             Form1.Settings.LoadIni(ini, ";")
                             ' we do not save the above as we are making a new one.
 
-                            RegionEnabled(n) = CBool(Form1.Settings.GetIni(fName, "Enabled", "True"))
+                            RegionEnabled(n) = Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
 
                             RegionPath(n) = ini ' save the path
                             FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
@@ -385,17 +385,17 @@ Public Class RegionMaker
 
                             GroupName(n) = gname
 
-                            UUID(n) = Form1.Settings.GetIni(fName, "RegionUUID", "")
-                            SizeX(n) = CInt(Form1.Settings.GetIni(fName, "SizeX", "256"))
-                            SizeY(n) = CInt(Form1.Settings.GetIni(fName, "SizeY", "256"))
-                            RegionPort(n) = CInt(Form1.Settings.GetIni(fName, "InternalPort", "0"))
+                            UUID(n) = Form1.Settings.GetIni(fName, "RegionUUID", "", "String")
+                            SizeX(n) = Form1.Settings.GetIni(fName, "SizeX", "256", "Integer")
+                            SizeY(n) = Form1.Settings.GetIni(fName, "SizeY", "256", "Integer")
+                            RegionPort(n) = Form1.Settings.GetIni(fName, "InternalPort", "0", "Integer")
 
                             ' extended props V2.1
-                            NonPhysicalPrimMax(n) = CInt(Form1.Settings.GetIni(fName, "NonPhysicalPrimMax", "1024"))
-                            PhysicalPrimMax(n) = CInt(Form1.Settings.GetIni(fName, "PhysicalPrimMax", "64"))
-                            ClampPrimSize(n) = CBool(Form1.Settings.GetIni(fName, "ClampPrimSize", "False"))
-                            MaxPrims(n) = CInt(Form1.Settings.GetIni(fName, "MaxPrims", "15000"))
-                            MaxAgents(n) = CInt(Form1.Settings.GetIni(fName, "MaxAgents", "100"))
+                            NonPhysicalPrimMax(n) = Form1.Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer")
+                            PhysicalPrimMax(n) = Form1.Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer")
+                            ClampPrimSize(n) = Form1.Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean")
+                            MaxPrims(n) = Form1.Settings.GetIni(fName, "MaxPrims", "15000", "Integer")
+                            MaxAgents(n) = Form1.Settings.GetIni(fName, "MaxAgents", "100", "Integer")
 
                             ' Location is int,int format.
                             Dim C = Form1.Settings.GetIni(fName, "Location", "1000,1000")
@@ -405,24 +405,24 @@ Public Class RegionMaker
                             CoordY(n) = CInt(parts(1))
 
                             ' options parameters coming from INI file can be blank!
-                            MinTimerInterval(n) = Form1.Settings.GetIni(fName, "MinTimerInterval", "")
-                            RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
-                            MapType(n) = Form1.Settings.GetIni(fName, "MapType", "")
-                            Physics(n) = Form1.Settings.GetIni(fName, "Physics", "")
-                            MaxPrims(n) = CInt(Form1.Settings.GetIni(fName, "MaxPrims", ""))
-                            AllowGods(n) = Form1.Settings.GetIni(fName, "AllowGods", "")
-                            RegionGod(n) = Form1.Settings.GetIni(fName, "RegionGod", "")
-                            ManagerGod(n) = Form1.Settings.GetIni(fName, "ManagerGod", "")
-                            Birds(n) = Form1.Settings.GetIni(fName, "Birds", "")
-                            Tides(n) = Form1.Settings.GetIni(fName, "Tides", "")
-                            Teleport(n) = Form1.Settings.GetIni(fName, "Teleport", "")
-                            DisableGloebits(n) = Form1.Settings.GetIni(fName, "DisableGloebits", "")
-                            DisallowForeigners(n) = Form1.Settings.GetIni(fName, "DisallowForeigners", "")
-                            DisallowResidents(n) = Form1.Settings.GetIni(fName, "DisallowResidents", "")
-                            SkipAutobackup(n) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "")
-                            Snapshot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "")
+                            MinTimerInterval(n) = Form1.Settings.GetIni(fName, "MinTimerInterval", "", "String")
+                            RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
+                            MapType(n) = Form1.Settings.GetIni(fName, "MapType", "", "String")
+                            Physics(n) = Form1.Settings.GetIni(fName, "Physics", "", "String")
+                            MaxPrims(n) = Form1.Settings.GetIni(fName, "MaxPrims", "", "String")
+                            AllowGods(n) = Form1.Settings.GetIni(fName, "AllowGods", "", "String")
+                            RegionGod(n) = Form1.Settings.GetIni(fName, "RegionGod", "", "String")
+                            ManagerGod(n) = Form1.Settings.GetIni(fName, "ManagerGod", "", "String")
+                            Birds(n) = Form1.Settings.GetIni(fName, "Birds", "", "String")
+                            Tides(n) = Form1.Settings.GetIni(fName, "Tides", "", "String")
+                            Teleport(n) = Form1.Settings.GetIni(fName, "Teleport", "", "String")
+                            DisableGloebits(n) = Form1.Settings.GetIni(fName, "DisableGloebits", "", "String")
+                            DisallowForeigners(n) = Form1.Settings.GetIni(fName, "DisallowForeigners", "", "String")
+                            DisallowResidents(n) = Form1.Settings.GetIni(fName, "DisallowResidents", "", "String")
+                            SkipAutobackup(n) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "", "String")
+                            Snapshot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
 
-                            Select Case Form1.Settings.GetIni(fName, "SmartStart", "False")
+                            Select Case Form1.Settings.GetIni(fName, "SmartStart", "False", "String")
                                 Case "True"
                                     SmartStart(n) = True
                                 Case "False"
@@ -652,17 +652,13 @@ Public Class RegionMaker
         Public _Group As String = ""  ' the path to the folder that holds the region ini
         Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
         Public _LineCounter As Integer = 0
-        Public _MaxAgents As Integer = 100
-        Public _MaxPrims As Integer = 15000
 
-        Public _NonPhysicalPrimMax As Integer = 1024
-        Public _PhysicalPrimMax As Integer
         Public _ProcessID As Integer = 0
         Public _RegionEnabled As Boolean = False
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
-        Public _RegionSmartStart As String = ""
+
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer = 0
@@ -678,7 +674,13 @@ Public Class RegionMaker
         ''' <summary>
         ''' <Must be all strings as a blank means use the default
         ''' </summary>
+        '''
+        Public _RegionSmartStart As String = ""
 
+        Public _NonPhysicalPrimMax As String = ""
+        Public _PhysicalPrimMax As String = ""
+        Public _MaxAgents As String = ""
+        Public _MaxPrims As String = ""
         Public _AllowGods As String = ""
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
@@ -701,7 +703,41 @@ Public Class RegionMaker
 #End Region
 
 #Region "Standard INI"
+    Public Property MaxAgents(n As Integer) As String
+        Get
+            Return RegionList(n)._MaxAgents
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._MaxAgents = Value
+        End Set
+    End Property
 
+    Public Property MaxPrims(n As Integer) As String
+        Get
+            Return RegionList(n)._MaxPrims
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._MaxPrims = Value
+        End Set
+    End Property
+
+    Public Property NonPhysicalPrimMax(n As Integer) As String
+        Get
+            Return RegionList(n)._NonPhysicalPrimMax
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._NonPhysicalPrimMax = Value
+        End Set
+    End Property
+
+    Public Property PhysicalPrimMax(n As Integer) As String
+        Get
+            Return RegionList(n)._PhysicalPrimMax
+        End Get
+        Set(ByVal Value As String)
+            RegionList(n)._PhysicalPrimMax = Value
+        End Set
+    End Property
     Public Property ClampPrimSize(n As Integer) As Boolean
         Get
             Return CBool(RegionList(n)._ClampPrimSize)
@@ -729,41 +765,7 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property MaxAgents(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxAgents
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxAgents = Value
-        End Set
-    End Property
-
-    Public Property MaxPrims(n As Integer) As Integer
-        Get
-            Return RegionList(n)._MaxPrims
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._MaxPrims = Value
-        End Set
-    End Property
-
-    Public Property NonPhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._NonPhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._NonPhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property PhysicalPrimMax(n As Integer) As Integer
-        Get
-            Return RegionList(n)._PhysicalPrimMax
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._PhysicalPrimMax = Value
-        End Set
-    End Property
+  
 
     Public Property SizeX(n As Integer) As Integer
         Get

@@ -686,166 +686,7 @@ Public Class Form1
 #End Region
 
 #Region "StartStop"
-
-    ''' <summary>
-    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
-    ''' </summary>
-    Public Sub Startup(Optional SkipSmartStart As Boolean = False)
-
-        Print(My.Resources.Version & " " & PropMyVersion)
-
-        With cpu
-            .CategoryName = "Processor"
-            .CounterName = "% Processor Time"
-            .InstanceName = "_Total"
-        End With
-
-        Dim DefaultName As String = ""
-        Print(My.Resources.Starting)
-
-        Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        If N = -1 Then
-            Dim result = MsgBox(My.Resources.Default_Welcome, vbYesNo)
-            If result = vbNo Then
-                Print(My.Resources.Stopped)
-                Dim FormRegions = New FormRegions
-                FormRegions.Activate()
-                FormRegions.Visible = True
-                Return
-            End If
-        End If
-        If PropRegionClass.RegionEnabled(N) = False Then
-            Dim result = MsgBox(My.Resources.Default_Not_enabled, vbYesNo)
-            If result = vbNo Then
-                Print(My.Resources.Stopped)
-                Dim FormRegions = New FormRegions
-                FormRegions.Activate()
-                FormRegions.Visible = True
-                Return
-            End If
-        End If
-
-        PropOpensimIsRunning() = True
-
-        PropExitHandlerIsBusy = False
-        PropAborting = False  ' suppress exit warning messages
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = True
-        ToolBar(False)
-        Buttons(BusyButton)
-
-        GridNames.SetServerNames()
-
-        Print(My.Resources.Setup_Ports)
-        RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
-
-        ' clear region error handlers
-        PropRegionHandles.Clear()
-
-        If Settings.AutoBackup Then
-            ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Integer = CInt(Settings.AutobackupInterval)
-            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
-                Settings.AutoRestartInterval = BTime + 30
-                Print(My.Resources.AutorestartTime & CStr(BTime) & " + 30.")
-            End If
-        End If
-
-        If PropViewedSettings Then
-
-            If SetPublicIP() Then
-                OpenPorts()
-            End If
-
-            Print(My.Resources.Reading_Region_files)
-            PropRegionClass.GetAllRegions()
-            If Not SetIniData() Then Return   ' set up the INI files
-        End If
-
-        If Not StartMySQL() Then
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = True
-            ToolBar(False)
-            Buttons(StartButton)
-            Print(My.Resources.Stopped)
-            Return
-        End If
-
-        SetupSearch()
-
-        StartApache()
-
-        ' old files to clean up
-
-        If Settings.BirdsModuleStartup Then
-            Try
-                My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As FileNotFoundException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As System.Security.SecurityException
-            End Try
-        Else
-            FileStuff.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
-        End If
-
-        If Not StartRobust() Then
-            Return
-        End If
-
-        If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
-            ConsoleCommand("Robust", "create user{ENTER}")
-            MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
-
-            If Settings.ConsoleShow = False Then
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-            End If
-
-            Settings.RunOnce = True
-            Settings.SaveSettings()
-        End If
-
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
-
-        StartIcecast()
-
-        ' Launch the rockets
-        Print(My.Resources.Start_Regions)
-        If Not StartOpensimulator() Then
-            Return
-        End If
-
-        ' show the IAR and OAR menu when we are up
-        If PropContentAvailable Then
-            IslandToolStripMenuItem.Visible = True
-            ClothingInventoryToolStripMenuItem.Visible = True
-        End If
-
-        Buttons(StopButton)
-        ProgressBar1.Value = 100
-        Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
-
-        ' done with boot up
-        ProgressBar1.Visible = False
-        ToolBar(True)
-
-    End Sub
-
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
-        ReallyQuit()
-    End Sub
-
-    ''' <summary>
-    ''' Form Load is main() for all DreamGrid
-    ''' </summary>
-    ''' <param name="sender">Unused</param>
-    ''' <param name="e">Unused</param>
-    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+    Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         Me.Hide()
 
@@ -893,6 +734,9 @@ Public Class Form1
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
         Settings.OpensimBinPath = PropOpensimBinPath
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
 
         If Me.Width > 385 Then
             PictureBox1.Image = My.Resources.Arrow2Left
@@ -1034,6 +878,173 @@ Public Class Form1
         ProgressBar1.Value = 0
         Print("Zzzz...")
         End
+    End Sub
+
+    ''' <summary>
+    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
+    ''' </summary>
+    Public Sub Startup(Optional SkipSmartStart As Boolean = False)
+
+        Print(My.Resources.Version & " " & PropMyVersion)
+
+        With cpu
+            .CategoryName = "Processor"
+            .CounterName = "% Processor Time"
+            .InstanceName = "_Total"
+        End With
+
+        Dim DefaultName As String = ""
+        Print(My.Resources.Starting)
+
+        Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+        If N = -1 Then
+            Dim result = MsgBox(My.Resources.Default_Welcome, vbYesNo)
+            If result = vbNo Then
+                Print(My.Resources.Stopped)
+                Dim FormRegions = New FormRegions
+                FormRegions.Activate()
+                FormRegions.Visible = True
+                Return
+            End If
+        End If
+        If PropRegionClass.RegionEnabled(N) = False Then
+            Dim result = MsgBox(My.Resources.Default_Not_enabled, vbYesNo)
+            If result = vbNo Then
+                Print(My.Resources.Stopped)
+                Dim FormRegions = New FormRegions
+                FormRegions.Activate()
+                FormRegions.Visible = True
+                Return
+            End If
+        End If
+
+        PropOpensimIsRunning() = True
+
+        PropExitHandlerIsBusy = False
+        PropAborting = False  ' suppress exit warning messages
+        ProgressBar1.Value = 0
+        ProgressBar1.Visible = True
+        ToolBar(False)
+        Buttons(BusyButton)
+
+        GridNames.SetServerNames()
+
+        Print(My.Resources.Setup_Ports)
+        RegionMaker.UpdateAllRegionPorts() ' must be done before we are running
+
+        ' clear region error handlers
+        PropRegionHandles.Clear()
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+
+        If Settings.AutoBackup Then
+            ' add 30 minutes to allow time to auto backup and then restart
+            Dim BTime As Integer = CInt(Settings.AutobackupInterval)
+            If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+                Settings.AutoRestartInterval = BTime + 30
+                Print(My.Resources.AutorestartTime & CStr(BTime) & " + 30.")
+            End If
+        End If
+
+        If PropViewedSettings Then
+
+            If SetPublicIP() Then
+                OpenPorts()
+            End If
+
+            Print(My.Resources.Reading_Region_files)
+            PropRegionClass.GetAllRegions()
+            If Not SetIniData() Then Return   ' set up the INI files
+        End If
+
+        If Not StartMySQL() Then
+            ProgressBar1.Value = 0
+            ProgressBar1.Visible = True
+            ToolBar(False)
+            Buttons(StartButton)
+            Print(My.Resources.Stopped)
+            Return
+        End If
+
+        SetupSearch()
+
+        StartApache()
+
+        ' old files to clean up
+
+        If Settings.BirdsModuleStartup Then
+            Try
+                My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As FileNotFoundException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As System.Security.SecurityException
+            End Try
+        Else
+            FileStuff.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
+        End If
+
+        If Not StartRobust() Then
+            Return
+        End If
+
+        If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
+            ConsoleCommand("Robust", "create user{ENTER}")
+            MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
+
+            If Settings.ConsoleShow = False Then
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            End If
+
+            Settings.RunOnce = True
+            Settings.SaveSettings()
+        End If
+
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
+
+        StartIcecast()
+
+        ' Launch the rockets
+        Print(My.Resources.Start_Regions)
+        If Not StartOpensimulator() Then
+            Return
+        End If
+
+        ' show the IAR and OAR menu when we are up
+        If PropContentAvailable Then
+            IslandToolStripMenuItem.Visible = True
+            ClothingInventoryToolStripMenuItem.Visible = True
+        End If
+
+        Buttons(StopButton)
+        ProgressBar1.Value = 100
+        Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+
+        ' done with boot up
+        ProgressBar1.Visible = False
+        ToolBar(True)
+
+    End Sub
+
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
+        ReallyQuit()
+    End Sub
+
+    ''' <summary>
+    ''' Form Load is main() for all DreamGrid
+    ''' </summary>
+    ''' <param name="sender">Unused</param>
+    ''' <param name="e">Unused</param>
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
+        frmHome_Load(sender, e)
+
     End Sub
 
 #End Region
@@ -6953,6 +6964,41 @@ Public Class Form1
 
         End If
 
+    End Sub
+
+    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
+
+        Settings.Language = "en-US"
+        Settings.SaveSettings()
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        frmHome_Load(sender, e) 'Load everything in your form load event again
+
+    End Sub
+
+    Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
+
+        Settings.Language = "fr-FR"
+        Settings.SaveSettings()
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        frmHome_Load(sender, e) 'Load everything in your form load event again
+
+    End Sub
+
+    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
+
+        Settings.Language = "pt-PT"
+        Settings.SaveSettings()
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        frmHome_Load(sender, e) 'Load everything in your form load event again
     End Sub
 
 #End Region

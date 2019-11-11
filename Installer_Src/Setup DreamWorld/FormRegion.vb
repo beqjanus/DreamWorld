@@ -571,26 +571,56 @@ Public Class FormRegion
             Return Message
         End If
 
-        If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
+        Try
+            If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
+                Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
+                Return Message
+            End If
+        Catch ex As InvalidCastException
             Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
             Return Message
-        End If
+        Catch ex As OverflowException
+            Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
+            Return Message
+        End Try
 
-        If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
+        Try
+            If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
+                Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
+                Return Message
+            End If
+        Catch ex As InvalidCastException
             Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
             Return Message
-        End If
+        Catch ex As OverflowException
+            Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
+            Return Message
+        End Try
 
-        If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
+        Try
+            If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
+                Message = "Not a valid MaxPrims Value. Must be greater than 0."
+                Return Message
+            End If
+        Catch ex As InvalidCastException
             Message = "Not a valid MaxPrims Value. Must be greater than 0."
             Return Message
-        End If
-
-        If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
+        Catch ex As OverflowException
+            Message = "Not a valid MaxPrims Value. Must be greater than 0."
+            Return Message
+        End Try
+        Try
+            If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
+                Message = "Not a valid MaxAgents Value. Must be greater than 0."
+                Return Message
+            End If
+        Catch ex As InvalidCastException
             Message = "Not a valid MaxAgents Value. Must be greater than 0."
             Return Message
-        End If
-
+        Catch ex As OverflowException
+            Message = "Not a valid MaxAgents Value. Must be greater than 0."
+            Return Message
+        End Try
         Return ""
     End Function
 

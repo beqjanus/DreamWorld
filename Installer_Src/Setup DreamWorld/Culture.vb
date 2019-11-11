@@ -44,8 +44,8 @@ Public Class Culture
         ' debug only
         If Debugger.IsAttached Then
             Dim c As String = My.Application.UICulture.Name
-            My.Application.ChangeUICulture("fr-FR")
-            My.Application.ChangeCulture("fr-FR")
+            My.Application.ChangeUICulture("pt-PT")
+            My.Application.ChangeCulture("pt-PT")
         End If
 
     End Sub
