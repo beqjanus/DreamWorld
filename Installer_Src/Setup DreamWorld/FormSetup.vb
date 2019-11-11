@@ -214,7 +214,7 @@ Public Class Form1
 
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
 
-        Dim Y = Me.Height - 90
+        Dim Y = Me.Height - 130
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
 
     End Sub
@@ -3477,7 +3477,7 @@ Public Class Form1
         Application.DoEvents()
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
-            Print(BootName & " is already running")
+            Print(BootName & " is already running") ' !!!
             Dim listP = Process.GetProcesses
 
             For Each p In listP
@@ -3494,7 +3494,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess()
         Dim Groupname = Regionclass.GroupName(RegionNumber)
-        Print(My.Resources.Starting & "" & Groupname)
+        Print(My.Resources.Starting & " " & Groupname)
 
         DoRegion(BootName)
 
@@ -3841,7 +3841,7 @@ Public Class Form1
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http: //" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
                 If ex.Message.Contains("404") Then Return True
                 Return False
