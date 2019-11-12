@@ -935,6 +935,10 @@ Public Class Form1
         ' clear region error handlers
         PropRegionHandles.Clear()
 
+        If Settings.Language.Length = 0 Then
+            Settings.Language = "en-US"
+        End If
+
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
 
