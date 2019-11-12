@@ -549,7 +549,7 @@ Partial Class Form1
         '
         Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
         Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(256, 34)
-        Me.AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.AddUser
+        Me.AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User
         '
         'ChangePasswordToolStripMenuItem
         '

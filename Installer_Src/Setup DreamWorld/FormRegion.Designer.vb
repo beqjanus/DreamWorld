@@ -145,7 +145,7 @@ Partial Class FormRegion
         Me.RegionName.Name = "RegionName"
         Me.RegionName.Size = New System.Drawing.Size(214, 26)
         Me.RegionName.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.RegionName)
+        Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.Region_Name)
         '
         'RadioButton4
         '
@@ -409,8 +409,8 @@ Partial Class FormRegion
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(186, 24)
         Me.RegionGod.TabIndex = 1855
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_text
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_text)
+        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'SmartStartCheckBox
@@ -569,7 +569,7 @@ Partial Class FormRegion
         Me.PhysicsBullet.Size = New System.Drawing.Size(130, 24)
         Me.PhysicsBullet.TabIndex = 136
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.bullet
+        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE

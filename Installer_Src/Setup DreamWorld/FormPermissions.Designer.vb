@@ -110,7 +110,7 @@ Partial Class FormPermissions
         Me.RegionGod.Size = New System.Drawing.Size(222, 24)
         Me.RegionGod.TabIndex = 15
         Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.AllowRegionGods
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_text)
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'LimitsBox

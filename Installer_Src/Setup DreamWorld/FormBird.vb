@@ -74,7 +74,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
         Try
-            Form1.Settings.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -87,7 +87,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
         Try
-            Form1.Settings.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -111,7 +111,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
         Try
-            Form1.Settings.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -124,7 +124,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
         Try
-            Form1.Settings.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -161,7 +161,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
         Try
-            Form1.Settings.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -182,8 +182,7 @@ Public Class BirdForm
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         ' This call is required by the designer.
-        'InitializeComponent()
-        Dim c = New Culture
+        InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         SetScreen()
@@ -194,18 +193,18 @@ Public Class BirdForm
 
         Dim i As Integer
         For i = 1 To 100
-            BirdsFlockSizeDomain.Items.Add(i.ToString(Form1.Invarient))
+            BirdsFlockSizeDomain.Items.Add(i.ToString(Globalization.CultureInfo.InvariantCulture))
         Next
         BirdsFlockSizeDomain.SelectedIndex = Form1.Settings.BirdsFlockSize - 1
 
-        ChatChanelTextBox.Text = Form1.Settings.BirdsChatChannel.ToString(Form1.Invarient)
-        MaxSpeedTextBox.Text = Form1.Settings.BirdsMaxSpeed.ToString(Form1.Invarient)
-        MaxForceTextBox.Text = Form1.Settings.BirdsMaxForce.ToString(Form1.Invarient)
-        BirdsNeighbourDistanceTextBox.Text = Form1.Settings.BirdsNeighbourDistance.ToString(Form1.Invarient)
-        DesiredSeparationTextBox.Text = Form1.Settings.BirdsDesiredSeparation.ToString(Form1.Invarient)
-        BirdsToleranceTextBox.Text = Form1.Settings.BirdsTolerance.ToString(Form1.Invarient)
-        BirdsBorderSizeTextBox.Text = Form1.Settings.BirdsBorderSize.ToString(Form1.Invarient)
-        BirdsMaxHeightTextBox.Text = Form1.Settings.BirdsMaxHeight.ToString(Form1.Invarient)
+        ChatChanelTextBox.Text = Form1.Settings.BirdsChatChannel.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxSpeedTextBox.Text = Form1.Settings.BirdsMaxSpeed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxForceTextBox.Text = Form1.Settings.BirdsMaxForce.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsNeighbourDistanceTextBox.Text = Form1.Settings.BirdsNeighbourDistance.ToString(Globalization.CultureInfo.InvariantCulture)
+        DesiredSeparationTextBox.Text = Form1.Settings.BirdsDesiredSeparation.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsToleranceTextBox.Text = Form1.Settings.BirdsTolerance.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsBorderSizeTextBox.Text = Form1.Settings.BirdsBorderSize.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsMaxHeightTextBox.Text = Form1.Settings.BirdsMaxHeight.ToString(Globalization.CultureInfo.InvariantCulture)
         PrimNameTextBox.Text = Form1.Settings.BirdsPrim
 
         Form1.HelpOnce("Birds")
@@ -217,7 +216,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
         Try
-            Form1.Settings.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)
@@ -230,7 +229,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
         Try
-            Form1.Settings.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Form1.Invarient)
+            Form1.Settings.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Globalization.CultureInfo.InvariantCulture)
             changed = True
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation)

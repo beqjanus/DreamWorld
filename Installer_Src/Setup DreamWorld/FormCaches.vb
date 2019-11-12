@@ -108,7 +108,7 @@ Public Class FormCaches
 
     Private Sub Form_unload() Handles Me.Closing
 
-        Form1.Settings.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Form1.Invarient)
+        Form1.Settings.CacheLogLevel = LogLevelBox.SelectedIndex.ToString(Globalization.CultureInfo.InvariantCulture)
         Form1.Settings.CacheFolder = CacheFolder.Text
         Form1.Settings.CacheEnabled = CacheEnabledBox.Checked
         Form1.Settings.CacheTimeout = CacheTimeout.Text

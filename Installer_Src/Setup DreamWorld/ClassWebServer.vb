@@ -114,7 +114,7 @@ Public Class NetServer
 
         If running Then Return
 
-        Log("Info", "Starting Diagnostic Webserver")
+        Log(My.Resources.Info, "Starting Diagnostic Webserver")
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -132,12 +132,12 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log("Info", "Stopping Webserver")
+        Log(My.Resources.Info, "Stopping Webserver")
         listen = False
         Application.DoEvents()
         WebThread.Abort()
         'WebThread.Join()
-        Log("Info", "Shutdown Complete")
+        Log(My.Resources.Info, "Shutdown Complete")
 
     End Sub
 
@@ -212,7 +212,7 @@ Public Class NetServer
         Debug.Print(message)
         Try
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Form1.Invarient) & ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
             End Using
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentNullException
@@ -252,7 +252,7 @@ Public Class NetServer
         End Using
 
         running = False
-        Log("Info", "Webserver thread shutdown")
+        Log(My.Resources.Info, "Webserver thread shutdown")
 
     End Sub
 

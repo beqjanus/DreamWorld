@@ -95,7 +95,7 @@ Partial Class RegionList
         Me.Addregion.Size = New System.Drawing.Size(140, 34)
         Me.Addregion.TabIndex = 18593
         Me.Addregion.Text = Global.Outworldz.My.Resources.Resources.Add
-        Me.ToolTip1.SetToolTip(Me.Addregion, Global.Outworldz.My.Resources.Resources.Add_a_Region)
+        Me.ToolTip1.SetToolTip(Me.Addregion, Global.Outworldz.My.Resources.Resources.Add_Region)
         Me.Addregion.UseVisualStyleBackColor = True
         '
         'AllNome
@@ -216,7 +216,7 @@ Partial Class RegionList
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(140, 34)
         Me.Button3.TabIndex = 18605
-        Me.Button3.Text = Global.Outworldz.My.Resources.Resources.RegionStats
+        Me.Button3.Text = Global.Outworldz.My.Resources.Resources.Region_Stats
         Me.ToolTip1.SetToolTip(Me.Button3, Global.Outworldz.My.Resources.Resources.View_Stats)
         Me.Button3.UseVisualStyleBackColor = True
         '

@@ -124,8 +124,8 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Form1.Invarient)
-        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Form1.Invarient)
+        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)
+        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)
         AdminPassword.Text = Form1.Settings.SCAdminPassword
         ShoutcastPassword.Text = Form1.Settings.SCPassword
         ShoutcastEnable.Checked = Form1.Settings.SCEnable
@@ -161,7 +161,8 @@ Public Class Icecast
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
         Try
             Form1.Settings.SCPortBase1 = CType(ShoutcastPort1.Text, Integer)
-        Catch
+        Catch ex As OverflowException
+        Catch ex As InvalidCastException
         End Try
 
     End Sub

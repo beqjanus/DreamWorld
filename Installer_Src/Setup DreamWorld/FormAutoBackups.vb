@@ -152,7 +152,7 @@ Public Class FormAutoBackups
                 Form1.Settings.SaveSettings()
             End If
         Catch ex As Exception
-            MsgBox("Must be a number of days", vbInformation)
+            MsgBox(My.Resources.Must_be_Days, vbInformation)
             Form1.Settings.KeepForDays = 30
             Form1.Settings.SaveSettings()
         End Try

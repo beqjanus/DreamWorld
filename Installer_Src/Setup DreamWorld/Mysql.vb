@@ -249,7 +249,7 @@ Public Module MysqlInterface
         Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And RegionID <> '00000000-0000-0000-0000-000000000000'")
         If UserCount = Nothing Then Return 0
         'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount, Form1.Invarient)
+        Return Convert.ToInt16(UserCount, Globalization.CultureInfo.InvariantCulture)
 
     End Function
 
@@ -261,7 +261,7 @@ Public Module MysqlInterface
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
                 Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    v = Convert.ToString(cmd.ExecuteScalar(), Form1.Invarient)
+                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
                 Return v
             Catch ex As Exception

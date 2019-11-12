@@ -124,7 +124,7 @@ Partial Class FormPhysics
         Me.PhysicsBullet.Size = New System.Drawing.Size(130, 24)
         Me.PhysicsBullet.TabIndex = 12
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.bullet
+        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE

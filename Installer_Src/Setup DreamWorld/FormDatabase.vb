@@ -119,7 +119,7 @@ Public Class FormDatabase
         RobustDbName.Text = Form1.Settings.RobustDataBaseName
         RobustDBPassword.Text = Form1.Settings.RobustPassword
         RobustDBUsername.Text = Form1.Settings.RobustUsername
-        RobustDbPort.Text = Form1.Settings.MySqlRobustDBPort.ToString(Form1.Invarient)
+        RobustDbPort.Text = Form1.Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
@@ -127,7 +127,6 @@ Public Class FormDatabase
         Initted1 = True
         Form1.HelpOnce("Database")
         Form1.HelpOnce("ServerType")
-        MsgBox("Changes to this area may require special changes to MySQL. If you change these, you will probably break things. Please read the Help section bvefore making changes!", vbInformation)
 
     End Sub
 

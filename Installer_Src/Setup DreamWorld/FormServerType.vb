@@ -46,7 +46,7 @@
 
     Private Sub Form_exit() Handles Me.Closed
         If Changed Then
-            Dim result = MsgBox("Do you wish to save your changes?", vbYesNo)
+            Dim result = MsgBox(My.Resources.Save_changes, vbYesNo)
             If result = vbYes Then
                 Form1.PropViewedSettings = True
                 SaveAll()

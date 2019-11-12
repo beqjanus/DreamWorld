@@ -162,7 +162,7 @@ Public Class FormDisplacement2x2
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.PropUserName = InputBox("Enter the First and Last name who will own any unassigned objects", "")
+        Form1.PropUserName = InputBox(My.Resources.UnassignedPerson, "")
     End Sub
 
 #End Region

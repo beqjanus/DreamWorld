@@ -180,7 +180,7 @@ Public Class MySettings
 
     Public Sub LoadIni(arg As String, comment As String)
 
-        Form1.Log("Info", "Loading INI " & arg)
+        Form1.Log(My.Resources.Info, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -201,7 +201,7 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        Form1.Log("Info", "Loading Settings.ini")
+        Form1.Log(My.Resources.Info, "Loading Settings.ini")
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
         Catch ex As Exception
@@ -214,7 +214,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -226,7 +226,7 @@ Public Class MySettings
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             MyData(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -257,11 +257,11 @@ Public Class MySettings
             ElseIf V = "String" Then
                 Return R
             ElseIf V = "Double" Then
-                Return Convert.ToDouble(R, Form1.Invarient)
+                Return Convert.ToDouble(R, Globalization.CultureInfo.InvariantCulture)
             ElseIf V = "Single" Then
-                Return Convert.ToSingle(R, Form1.Invarient)
+                Return Convert.ToSingle(R, Globalization.CultureInfo.InvariantCulture)
             ElseIf V = "Integer" Then
-                Return Convert.ToInt32(R, Form1.Invarient)
+                Return Convert.ToInt32(R, Globalization.CultureInfo.InvariantCulture)
             Else
                 Return R
             End If
@@ -287,7 +287,7 @@ Public Class MySettings
     Public Function GetMySetting(key As String, Optional D As String = "") As String
         Try
             Dim value = GetMyIni("Data", key, D)
-            Return value.ToString(Form1.Invarient)
+            Return value.ToString(Globalization.CultureInfo.InvariantCulture)
         Catch
             Return D
         End Try
@@ -296,7 +296,7 @@ Public Class MySettings
 
     Public Sub SaveINI()
 
-        Form1.Log("Info", "Save INI " & INI)
+        Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
         Catch ex As Exception
@@ -307,7 +307,7 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        Form1.Log("Info", "Save Settings " & myINI)
+        Form1.Log(My.Resources.Info, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.ASCII)
         Catch ex As Exception
@@ -319,7 +319,7 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
-        SetMyIni("Data", key, value.ToString(Form1.Invarient))
+        SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
@@ -339,7 +339,7 @@ Public Class MySettings
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
         End Get
         Set
-            SetMySetting("AccountConfirmationRequired", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("AccountConfirmationRequired", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -375,7 +375,7 @@ Public Class MySettings
             Return CType(GetMySetting("Allow_grid_gods", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Allow_grid_gods", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Allow_grid_gods", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -384,7 +384,7 @@ Public Class MySettings
             Return CType(GetMySetting("ApacheEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ApacheEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("ApacheEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -402,7 +402,7 @@ Public Class MySettings
             Return CType(GetMySetting("ApacheService", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ApacheService", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("ApacheService", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -411,7 +411,7 @@ Public Class MySettings
             Return CType(GetMySetting("AutoBackup", "True"), Boolean)
         End Get
         Set
-            SetMySetting("AutoBackup", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("AutoBackup", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -429,7 +429,7 @@ Public Class MySettings
             Return CType(GetMySetting("AutoRestartEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("AutoRestartEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("AutoRestartEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -438,7 +438,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("AutoRestartInterval", "0"))
         End Get
         Set
-            SetMySetting("AutoRestartInterval", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("AutoRestartInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -447,7 +447,7 @@ Public Class MySettings
             Return CType(GetMySetting("Autostart", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Autostart", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Autostart", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -486,7 +486,7 @@ Public Class MySettings
     Public Property BirdsBorderSize() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As OverflowException
             Catch ex As InvalidCastException
@@ -494,7 +494,7 @@ Public Class MySettings
             Return 25
         End Get
         Set
-            SetMySetting("BirdsBorderSize", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsBorderSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -507,7 +507,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("BirdsChatChannel", "118"))
         End Get
         Set
-            SetMySetting("BirdsChatChannel", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsChatChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -518,7 +518,7 @@ Public Class MySettings
     Public Property BirdsDesiredSeparation() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As OverflowException
             Catch ex As InvalidCastException
@@ -526,7 +526,7 @@ Public Class MySettings
             Return 5
         End Get
         Set
-            SetMySetting("BirdsDesiredSeparation", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsDesiredSeparation", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -535,7 +535,7 @@ Public Class MySettings
             Return CType(GetMySetting("BirdsEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BirdsEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -544,14 +544,14 @@ Public Class MySettings
             Return Val("0" + GetMySetting("BirdsFlockSize", "25"))
         End Get
         Set
-            SetMySetting("BirdsFlockSize", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsFlockSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
     Public Property BirdsMaxForce() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As OverflowException
             Catch ex As InvalidCastException
@@ -559,7 +559,7 @@ Public Class MySettings
             Return 0.2
         End Get
         Set
-            SetMySetting("BirdsMaxForce", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsMaxForce", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -570,7 +570,7 @@ Public Class MySettings
     Public Property BirdsMaxHeight() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As OverflowException
             Catch ex As InvalidCastException
@@ -578,7 +578,7 @@ Public Class MySettings
             Return 25
         End Get
         Set
-            SetMySetting("BirdsMaxHeight", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsMaxHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -589,7 +589,7 @@ Public Class MySettings
     Public Property BirdsMaxSpeed() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As OverflowException
             Catch ex As InvalidCastException
@@ -597,7 +597,7 @@ Public Class MySettings
             Return 1.0
         End Get
         Set
-            SetMySetting("BirdsMaxSpeed", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsMaxSpeed", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -606,7 +606,7 @@ Public Class MySettings
             Return CType(GetMySetting("BirdsModuleStartup", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BirdsModuleStartup", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsModuleStartup", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -617,7 +617,7 @@ Public Class MySettings
     Public Property BirdsNeighbourDistance() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As InvalidCastException
             Catch ex As OverflowException
@@ -625,7 +625,7 @@ Public Class MySettings
             Return 25
         End Get
         Set
-            SetMySetting("BirdsNeighbourDistance", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsNeighbourDistance", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -651,7 +651,7 @@ Public Class MySettings
     Public Property BirdsTolerance() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As InvalidCastException
             Catch ex As OverflowException
@@ -659,7 +659,7 @@ Public Class MySettings
             Return 25
         End Get
         Set
-            SetMySetting("BirdsTolerance", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BirdsTolerance", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -668,7 +668,7 @@ Public Class MySettings
             Return CType(GetMySetting("BroadcastTideInfo", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BroadcastTideInfo", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("BroadcastTideInfo", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -677,7 +677,7 @@ Public Class MySettings
             Return CType(GetMySetting("CacheEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("CacheEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("CacheEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -713,7 +713,7 @@ Public Class MySettings
             Return CType(GetMySetting("Clouds", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Clouds", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Clouds", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -731,7 +731,7 @@ Public Class MySettings
             Return CType(GetMySetting("ConsoleShow", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ConsoleShow", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("ConsoleShow", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -749,7 +749,7 @@ Public Class MySettings
             Return Val(0 + GetMySetting("CoordX", "1000"))
         End Get
         Set
-            SetMySetting("CoordX", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -758,7 +758,7 @@ Public Class MySettings
             Return Val(0 + GetMySetting("CoordY", "1000"))
         End Get
         Set
-            SetMySetting("CoordY", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -767,7 +767,7 @@ Public Class MySettings
             Return Val(0 + GetMySetting("CycleTime", "900"))
         End Get
         Set
-            SetMySetting("CycleTime", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("CycleTime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -783,7 +783,7 @@ Public Class MySettings
     Public Property Density() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("Density", "0.5"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As InvalidCastException
             Catch ex As OverflowException
@@ -791,7 +791,7 @@ Public Class MySettings
             Return 0.5
         End Get
         Set
-            SetMySetting("Density", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Density", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -800,7 +800,7 @@ Public Class MySettings
             Return CType(GetMySetting("DiagFailed"), Boolean)
         End Get
         Set
-            SetMySetting("DiagFailed", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("DiagFailed", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -809,7 +809,7 @@ Public Class MySettings
             Return Val(0 + GetMySetting("DiagnosticPort", "8001"))
         End Get
         Set
-            SetMySetting("DiagnosticPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("DiagnosticPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -827,7 +827,7 @@ Public Class MySettings
             Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
         End Get
         Set
-            SetMySetting("EnableHypergrid", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("EnableHypergrid", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -836,7 +836,7 @@ Public Class MySettings
             Return CType(GetMySetting("EventTimerEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("EventTimerEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("EventTimerEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -854,7 +854,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
-            SetMySetting("FirstRegionPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -864,7 +864,7 @@ Public Class MySettings
             Return CType(GetMySetting("FsAssetsEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("FsAssetsEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("FsAssetsEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -873,7 +873,7 @@ Public Class MySettings
             Return CType(GetMySetting("GDPR", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GDPR", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("GDPR", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -900,7 +900,7 @@ Public Class MySettings
             Return CType(GetMySetting("GloebitsEnable", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GloebitsEnable", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("GloebitsEnable", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -909,7 +909,7 @@ Public Class MySettings
             Return CType(GetMySetting("GloebitsMode", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GloebitsMode", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("GloebitsMode", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -981,7 +981,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("HttpPort", "8002"))
         End Get
         Set
-            SetMySetting("HttpPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -990,7 +990,7 @@ Public Class MySettings
             Return CType(GetMySetting("JOpenSimEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("JOpenSimEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("JOpenSimEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -999,7 +999,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("KeepForDays", "7"))
         End Get
         Set
-            SetMySetting("KeepForDays", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1018,7 +1018,7 @@ Public Class MySettings
             Return CType(GetMySetting("LoopBackDiag", "True"), Boolean)
         End Get
         Set
-            SetMySetting("LoopBackDiag", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("LoopBackDiag", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1027,7 +1027,7 @@ Public Class MySettings
             Return CType(GetMySetting("LSL_HTTP", "False"), Boolean)
         End Get
         Set
-            SetMySetting("LSL_HTTP", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("LSL_HTTP", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1045,7 +1045,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MapCenterX", "1000"))
         End Get
         Set
-            SetMySetting("MapCenterX", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1054,7 +1054,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MapCenterY", "1000"))
         End Get
         Set
-            SetMySetting("MapCenterY", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1070,7 +1070,7 @@ Public Class MySettings
     Public Property MinTimerInterval() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As InvalidCastException
             Catch ex As OverflowException
@@ -1078,7 +1078,7 @@ Public Class MySettings
             Return 0.2
         End Get
         Set
-            SetMySetting("MinTimerInterval", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MinTimerInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1097,7 +1097,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
-            SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1106,7 +1106,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
-            SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1115,7 +1115,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MyX", "0"))
         End Get
         Set
-            SetMySetting("MyX", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MyX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1124,7 +1124,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("MyY", "0"))
         End Get
         Set
-            SetMySetting("MyY", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1142,7 +1142,7 @@ Public Class MySettings
             Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)
         End Get
         Set
-            SetMySetting("OutBoundPermissions", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("OutBoundPermissions", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1178,7 +1178,7 @@ Public Class MySettings
             Return CType(GetMySetting("PortsChanged", "True"), Boolean)
         End Get
         Set(value As Boolean)
-            SetMySetting("PortsChanged", Convert.ToString(value, Form1.Invarient))
+            SetMySetting("PortsChanged", Convert.ToString(value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1187,7 +1187,7 @@ Public Class MySettings
             Return CType(GetMySetting("Primlimits", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Primlimits", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Primlimits", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1196,7 +1196,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("PrivatePort", "8003"))
         End Get
         Set
-            SetMySetting("PrivatePort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1205,7 +1205,7 @@ Public Class MySettings
             Return GetMySetting("PrivateURL")   ' no default
         End Get
         Set
-            SetMySetting("PrivateURL", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("PrivateURL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1223,7 +1223,7 @@ Public Class MySettings
             Return CType(GetMySetting("RanAllDiags", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RanAllDiags", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RanAllDiags", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1259,7 +1259,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("RegionListView", "2"))
         End Get
         Set
-            SetMySetting("RegionListView", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RegionListView", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1268,7 +1268,7 @@ Public Class MySettings
             Return CType(GetMySetting("RegionListVisible", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RegionListVisible", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RegionListVisible", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1277,7 +1277,7 @@ Public Class MySettings
             Return CType(GetMySetting("Region_manager_is_god", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Region_manager_is_god", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Region_manager_is_god", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1286,7 +1286,7 @@ Public Class MySettings
             Return CType(GetMySetting("Region_owner_is_god", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Region_owner_is_god", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Region_owner_is_god", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1302,7 +1302,7 @@ Public Class MySettings
     Public Property RenderMaxHeight() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Form1.Invarient)
+                Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As FormatException
             Catch ex As InvalidCastException
             Catch ex As OverflowException
@@ -1311,7 +1311,7 @@ Public Class MySettings
 
         End Get
         Set
-            SetMySetting("RenderMaxHeight", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RenderMaxHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1320,7 +1320,7 @@ Public Class MySettings
             Return Val("0" + GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
-            SetMySetting("RenderMinHeight", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RenderMinHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1329,7 +1329,7 @@ Public Class MySettings
             Return CType(GetMySetting("RestartOnCrash", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RestartOnCrash", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RestartOnCrash", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1338,7 +1338,7 @@ Public Class MySettings
             Return CType(GetMySetting("RestartonPhysics", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RestartonPhysics", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RestartonPhysics", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1365,7 +1365,7 @@ Public Class MySettings
             Return CType(GetMySetting("RobustServer"), String)
         End Get
         Set
-            SetMySetting("RobustServer", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RobustServer", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1383,7 +1383,7 @@ Public Class MySettings
             Return CType(GetMySetting("RunOnce", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RunOnce", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("RunOnce", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1401,7 +1401,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_Enable", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SC_Enable", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SC_Enable", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1419,7 +1419,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_PortBase", "8080"), Integer)
         End Get
         Set
-            SetMySetting("SC_PortBase", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SC_PortBase", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1428,7 +1428,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_PortBase1", "8081"), Integer)
         End Get
         Set
-            SetMySetting("SC_PortBase1", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SC_PortBase1", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1437,7 +1437,7 @@ Public Class MySettings
             Return CType(GetMySetting("SearchEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("SearchEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SearchEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1446,7 +1446,7 @@ Public Class MySettings
             Return CType(GetMySetting("SearchLocal", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SearchLocal", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SearchLocal", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1455,7 +1455,7 @@ Public Class MySettings
             Return CType(GetMySetting("SearchMigration", "0"), Integer)
         End Get
         Set
-            SetMySetting("SearchMigration", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SearchMigration", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1464,7 +1464,7 @@ Public Class MySettings
             Return CType(GetMySetting("Sequential", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Sequential", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Sequential", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1492,7 +1492,7 @@ Public Class MySettings
             Return CType(GetMySetting("ShowToForeignUsers", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ShowToForeignUsers", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("ShowToForeignUsers", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1501,7 +1501,7 @@ Public Class MySettings
             Return CType(GetMySetting("ShowToLocalUsers", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ShowToLocalUsers", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("ShowToLocalUsers", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1537,7 +1537,7 @@ Public Class MySettings
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SmartStart", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SmartStart", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
 
     End Property
@@ -1565,7 +1565,7 @@ Public Class MySettings
             Return CInt(GetMySetting("SmtpPort", "587"))
         End Get
         Set
-            SetMySetting("SmtpPort", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SmtpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1592,7 +1592,7 @@ Public Class MySettings
             Return CType(GetMySetting("Suitcase", "True"), Boolean)
         End Get
         Set
-            SetMySetting("Suitcase", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("Suitcase", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1601,7 +1601,7 @@ Public Class MySettings
             Return CType(GetMySetting("SupportViewerObjectsCache", "True"), Boolean)
         End Get
         Set
-            SetMySetting("SupportViewerObjectsCache", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("SupportViewerObjectsCache", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1619,7 +1619,7 @@ Public Class MySettings
             Return CType(GetMySetting("TideEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TideEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1628,7 +1628,7 @@ Public Class MySettings
             Return GetMySetting("TideHighLevel", "20")
         End Get
         Set
-            SetMySetting("TideHighLevel", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideHighLevel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1637,7 +1637,7 @@ Public Class MySettings
             Return GetMySetting("TideInfoChannel", "5555")
         End Get
         Set
-            SetMySetting("TideInfoChannel", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideInfoChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1647,7 +1647,7 @@ Public Class MySettings
             Return CType(GetMySetting("TideInfoDebug", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TideInfoDebug", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideInfoDebug", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1656,7 +1656,7 @@ Public Class MySettings
             Return GetMySetting("TideLevelChannel", "5556")
         End Get
         Set
-            SetMySetting("TideLevelChannel", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideLevelChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1665,7 +1665,7 @@ Public Class MySettings
             Return GetMySetting("TideLowLevel", "17")
         End Get
         Set
-            SetMySetting("TideLowLevel", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TideLowLevel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1674,7 +1674,7 @@ Public Class MySettings
             Return CType(GetMySetting("TOSEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TOSEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("TOSEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1683,7 +1683,7 @@ Public Class MySettings
             Return CType(GetMySetting("UPnpDiag", "False"), Boolean)
         End Get
         Set
-            SetMySetting("UPnpDiag", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("UPnpDiag", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1692,7 +1692,7 @@ Public Class MySettings
             Return CType(GetMySetting("UPnPEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("UPnPEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1701,7 +1701,7 @@ Public Class MySettings
             Return CType(GetMySetting("VivoxEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("VivoxEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("VivoxEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1749,7 +1749,7 @@ Public Class MySettings
             Return CType(GetMySetting("WifiEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("WifiEnabled", Convert.ToString(Value, Form1.Invarient))
+            SetMySetting("WifiEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 

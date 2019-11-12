@@ -79,7 +79,7 @@ Public Class TosForm
             Catch ex As System.ComponentModel.Win32Exception
             End Try
         Else
-            MsgBox("Opensim must be running to show you the TOS.")
+            MsgBox(My.Resources.Not_Running)
         End If
 
     End Sub

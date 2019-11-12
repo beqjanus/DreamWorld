@@ -55,7 +55,7 @@ Partial Class FormFlotsamCache
         Me.PictureBox1.Size = New System.Drawing.Size(44, 41)
         Me.PictureBox1.TabIndex = 1870
         Me.PictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Resources.Click_Folder)
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Resources.Click_to_change_the_folder)
         '
         'GroupBox1
         '

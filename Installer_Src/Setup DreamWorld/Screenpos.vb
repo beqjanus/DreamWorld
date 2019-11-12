@@ -80,8 +80,8 @@ Public Class ScreenPos
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString(Form1.Invarient))
-        Debug.Print("W<" + ValueWOld.ToString(Form1.Invarient))
+        Debug.Print("H<" + ValueHOld.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("W<" + ValueWOld.ToString(Globalization.CultureInfo.InvariantCulture))
         Return r
 
     End Function
@@ -112,8 +112,8 @@ Public Class ScreenPos
             ValueXOld,
             ValueYOld
         }
-        Debug.Print("X<" + ValueXOld.ToString(Form1.Invarient))
-        Debug.Print("Y<" + ValueYOld.ToString(Form1.Invarient))
+        Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.InvariantCulture))
         Return r
 
     End Function
@@ -121,7 +121,7 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-            Form1.Log("Info", "Loading " + myINI)
+            Form1.Log(My.Resources.Info, "Loading " + myINI)
             Data = parser.ReadFile(myINI, System.Text.Encoding.ASCII)
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -141,21 +141,21 @@ Public Class ScreenPos
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data", gName + "_H", ValueH.ToString(Form1.Invarient))
-        SetXYIni("Data", gName + "_W", ValueW.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_H", ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data", gName + "_W", ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
         SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString(Form1.Invarient))
-        Debug.Print("W>" + ValueW.ToString(Form1.Invarient))
+        Debug.Print("H>" + ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("W>" + ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString(Form1.Invarient))
-        SetXYIni("Data", gName + "_Y", ValueY.ToString(Form1.Invarient))
+        SetXYIni("Data", gName + "_X", ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data", gName + "_Y", ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Form1.Invarient))
-        Debug.Print("Y>" + ValueY.ToString(Form1.Invarient))
+        Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
@@ -167,7 +167,7 @@ Public Class ScreenPos
 
         ' sets values into any INI file
         Try
-            Form1.Log("Info", "Writing section [" + section + "] " + key + "=" + value)
+            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)

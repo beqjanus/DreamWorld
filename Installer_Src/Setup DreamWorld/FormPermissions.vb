@@ -127,7 +127,7 @@ Public Class FormPermissions
             var /= 10
             If (var > 1) Then var = 1
             If (var < 0) Then var = 0
-            Debug.Print(var.ToString(Form1.Invarient))
+            Debug.Print(var.ToString(Globalization.CultureInfo.InvariantCulture))
 
             Form1.Settings.Density = var
             Form1.Settings.SaveSettings()

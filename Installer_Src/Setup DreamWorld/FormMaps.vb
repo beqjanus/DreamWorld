@@ -49,15 +49,15 @@ Public Class FormMaps
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
 
         Form1.Print(My.Resources.Clearing_Maptiles)
-        FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Dim f As String = Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000"
         Try
-            My.Computer.FileSystem.CreateDirectory(Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000")
+            FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
+            My.Computer.FileSystem.CreateDirectory(f)
         Catch ex As ArgumentException
         Catch ex As IO.PathTooLongException
         Catch ex As NotSupportedException
         Catch ex As UnauthorizedAccessException
         Catch ex As IO.IOException
-
         End Try
         Form1.Print(My.Resources.Maps_Erased)
 

@@ -89,7 +89,7 @@ Public Class FormFsAssets
 
         If Changed Then
 
-            Dim result As MsgBoxResult = MsgBox("OK to Save, or Cancel Changes?", vbOKCancel)
+            Dim result As MsgBoxResult = MsgBox(My.Resources.Changes_Made, vbYesNo)
             If result = vbOK Then
                 Form1.PropViewedSettings = True
                 Form1.Settings.SaveSettings()
@@ -123,7 +123,7 @@ Public Class FormFsAssets
     Private Sub CheckBox1_CheckedChanged_1(sender As Object, e As EventArgs) Handles ShowStatsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Form1.Invarient)
+        Form1.Settings.ShowConsoleStats = ShowStatsCheckBox.Checked.ToString(Globalization.CultureInfo.InvariantCulture)
         Changed = True
 
     End Sub

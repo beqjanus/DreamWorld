@@ -50,7 +50,7 @@ Module FileStuff
                 End Try
             Else
                 ' Recursively call the method to copy all the nested folders
-                If (Not System.IO.Directory.Exists(fileSystemInfo.FullName)) Then
+                If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
                     System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)

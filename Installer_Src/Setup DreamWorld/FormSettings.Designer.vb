@@ -95,7 +95,7 @@ Partial Class AdvancedForm
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
-        Me.Shoutcast.Text = My.Resources.Icecast_Shoutcast
+        Me.Shoutcast.Text = My.Resources.Icecast
         Me.ToolTip1.SetToolTip(Me.Shoutcast, My.Resources.Click_Icecast)
         Me.Shoutcast.UseVisualStyleBackColor = True
         '

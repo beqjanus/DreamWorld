@@ -127,20 +127,20 @@ Public Class FormRegion
             IsNew1 = True
             RegionName.Text = Name & "Name of Region"
             UUID.Text = Guid.NewGuid().ToString
-            SizeX.Text = 256.ToString(Form1.Invarient)
-            SizeY.Text = 256.ToString(Form1.Invarient)
-            CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Form1.Invarient)
-            CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Form1.Invarient)
-            RegionPort.Text = (PropRegionClass.LargestPort() + 1).ToString(Form1.Invarient)
+            SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
+            SizeY.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
+            RegionPort.Text = (PropRegionClass.LargestPort() + 1).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
-            NonphysicalPrimMax.Text = 1024.ToString(Form1.Invarient)
-            PhysicalPrimMax.Text = 64.ToString(Form1.Invarient)
+            NonphysicalPrimMax.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
+            PhysicalPrimMax.Text = 64.ToString(Globalization.CultureInfo.InvariantCulture)
             ClampPrimSize.Checked = False
-            MaxPrims.Text = 45000.ToString(Form1.Invarient)
-            MaxAgents.Text = 100.ToString(Form1.Invarient)
-            ScriptTimerTextBox.Text = 0.2.ToString(Form1.Invarient)
+            MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
+            MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
+            ScriptTimerTextBox.Text = 0.2.ToString(Globalization.CultureInfo.InvariantCulture)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass.CreateRegion("")
         Else
@@ -155,7 +155,7 @@ Public Class FormRegion
             UUID.Text = PropRegionClass.UUID(N1)   ' on screen
 
             If UUID.Text.Length = 0 Then
-                MsgBox("Error: UUID Is zero!")
+                MsgBox(My.Resources.UUID0)
                 Me.Close()
             End If
 
@@ -171,36 +171,36 @@ Public Class FormRegion
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = 256.ToString(Form1.Invarient)
-                SizeY.Text = 256.ToString(Form1.Invarient)
+                SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
+                SizeY.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
             ElseIf PropRegionClass.SizeY(N1) = 256 And PropRegionClass.SizeX(N1) = 256 Then
                 RadioButton1.Checked = True
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = 256.ToString(Form1.Invarient)
-                SizeY.Text = 256.ToString(Form1.Invarient)
+                SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
+                SizeY.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
             ElseIf PropRegionClass.SizeY(N1) = 512 And PropRegionClass.SizeX(N1) = 512 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = True
                 RadioButton3.Checked = False
                 RadioButton4.Checked = False
-                SizeX.Text = 512.ToString(Form1.Invarient)
-                SizeY.Text = 512.ToString(Form1.Invarient)
+                SizeX.Text = 512.ToString(Globalization.CultureInfo.InvariantCulture)
+                SizeY.Text = 512.ToString(Globalization.CultureInfo.InvariantCulture)
             ElseIf PropRegionClass.SizeY(N1) = 768 And PropRegionClass.SizeX(N1) = 768 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = True
                 RadioButton4.Checked = False
-                SizeX.Text = 768.ToString(Form1.Invarient)
-                SizeY.Text = 768.ToString(Form1.Invarient)
+                SizeX.Text = 768.ToString(Globalization.CultureInfo.InvariantCulture)
+                SizeY.Text = 768.ToString(Globalization.CultureInfo.InvariantCulture)
             ElseIf PropRegionClass.SizeY(N1) = 1024 And PropRegionClass.SizeX(N1) = 1024 Then
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
                 RadioButton3.Checked = False
                 RadioButton4.Checked = True
-                SizeX.Text = 1024.ToString(Form1.Invarient)
-                SizeY.Text = 1024.ToString(Form1.Invarient)
+                SizeX.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
+                SizeY.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
             Else
                 RadioButton1.Checked = False
                 RadioButton2.Checked = False
@@ -212,16 +212,16 @@ Public Class FormRegion
 
             ' global coordinates
             If PropRegionClass.CoordX(N1) <> 0 Then
-                CoordX.Text = PropRegionClass.CoordX(N1).ToString(Form1.Invarient)
+                CoordX.Text = PropRegionClass.CoordX(N1).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
             If PropRegionClass.CoordY(N1) <> 0 Then
-                CoordY.Text = PropRegionClass.CoordY(N1).ToString(Form1.Invarient)
+                CoordY.Text = PropRegionClass.CoordY(N1).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
             ' and port
             If PropRegionClass.RegionPort(N1) <> 0 Then
-                RegionPort.Text = PropRegionClass.RegionPort(N1).ToString(Form1.Invarient)
+                RegionPort.Text = PropRegionClass.RegionPort(N1).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
         End If
 
@@ -233,8 +233,8 @@ Public Class FormRegion
             DisallowForeigners.Checked = True
         End If
 
-        ScriptTimerTextBox.Text = PropRegionClass.MinTimerInterval(N1).ToString(Form1.Invarient)
-        FrametimeBox.Text = PropRegionClass.FrameTime(N1).ToString(Form1.Invarient)
+        ScriptTimerTextBox.Text = PropRegionClass.MinTimerInterval(N1).ToString(Globalization.CultureInfo.InvariantCulture)
+        FrametimeBox.Text = PropRegionClass.FrameTime(N1).ToString(Globalization.CultureInfo.InvariantCulture)
 
         If PropRegionClass.SkipAutobackup(N1) = "True" Then
             SkipAutoCheckBox.Checked = "True"
@@ -287,7 +287,7 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        MaxPrims.Text = PropRegionClass.MaxPrims(N1).ToString(Form1.Invarient)
+        MaxPrims.Text = PropRegionClass.MaxPrims(N1).ToString(Globalization.CultureInfo.InvariantCulture)
 
         Select Case PropRegionClass.AllowGods(N1)
             Case ""
@@ -399,7 +399,7 @@ Public Class FormRegion
 
         Dim message = RegionValidate()
         If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + "Discard all changes And Exit anyway?", vbYesNo, "Info")
+            Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
             If v = vbYes Then
 
                 'If RegionList.InstanceExists Then
@@ -430,11 +430,11 @@ Public Class FormRegion
         If Changed1 Then
 
             Form1.PropViewedSettings = True
-            Dim v = MsgBox("Save changes?", vbYesNo, "Region Save")
+            Dim v = MsgBox(My.Resources.Save_changes, vbYesNo, My.Resources.Save_changes)
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + "Discard all changes And Exit anyway?", vbYesNo, "Info")
+                    v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
                     If v = vbYes Then
                         If RegionList.InstanceExists Then
                             'Propregionclass.GetAllRegions()
@@ -484,7 +484,7 @@ Public Class FormRegion
             ' Read the chosen sim name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             If chosen = "! Add New Name" Then
-                chosen = InputBox("Enter the New Dos Box name")
+                chosen = InputBox(My.Resources.Enter_Dos_Name)
             End If
         Catch ex As Exception
             chosen = ""
@@ -497,7 +497,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        Dim msg = MsgBox("Are you sure you want To delete this region? ", vbYesNo, "Delete?")
+        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info)
         If msg = vbYes Then
             FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
@@ -544,23 +544,23 @@ Public Class FormRegion
         End If
 
         ' global coords
-        If Convert.ToInt16(CoordX.Text, Form1.Invarient) = 0 Then
+        If Convert.ToInt16(CoordX.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region Coordinate X cannot be zero"
             Return Message
-        ElseIf Convert.ToInt16(CoordX.Text, Form1.Invarient) > 65536 Then
+        ElseIf Convert.ToInt16(CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region Coordinate X Is too large"
             Return Message
         End If
 
-        If Convert.ToInt16(CoordY.Text, Form1.Invarient) = 0 Then
+        If Convert.ToInt16(CoordY.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region CoordY cannot be zero"
             Return Message
-        ElseIf Convert.ToInt16(CoordY.Text, Form1.Invarient) > 65536 Then
+        ElseIf Convert.ToInt16(CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region CoordY Is too large"
             Return Message
         End If
 
-        If Convert.ToInt16(RegionPort.Text, Form1.Invarient) = 0 Then
+        If Convert.ToInt16(RegionPort.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region Port cannot be zero Or undefined"
             Return Message
         End If
@@ -826,19 +826,19 @@ Public Class FormRegion
                 outputFile.Write(Region)
             End Using
         Catch ex As UnauthorizedAccessException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As ArgumentNullException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As ArgumentException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As DirectoryNotFoundException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As PathTooLongException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As IOException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         Catch ex As Security.SecurityException
-            MsgBox("Cannot write region:" + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region + ex.Message)
         End Try
 
         Form1.PropUpdateView = True
@@ -874,8 +874,8 @@ Public Class FormRegion
 
         If Not initted Then Return
         If Initted1 And RadioButton1.Checked Then
-            SizeX.Text = 256.ToString(Form1.Invarient)
-            SizeY.Text = 256.ToString(Form1.Invarient)
+            SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
+            SizeY.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
             Changed1 = True
         End If
 
@@ -884,8 +884,8 @@ Public Class FormRegion
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
 
         If Initted1 And RadioButton2.Checked Then
-            SizeX.Text = 512.ToString(Form1.Invarient)
-            SizeY.Text = 512.ToString(Form1.Invarient)
+            SizeX.Text = 512.ToString(Globalization.CultureInfo.InvariantCulture)
+            SizeY.Text = 512.ToString(Globalization.CultureInfo.InvariantCulture)
             Changed1 = True
         End If
 
@@ -894,8 +894,8 @@ Public Class FormRegion
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
 
         If Initted1 And RadioButton3.Checked Then
-            SizeX.Text = 768.ToString(Form1.Invarient)
-            SizeY.Text = 768.ToString(Form1.Invarient)
+            SizeX.Text = 768.ToString(Globalization.CultureInfo.InvariantCulture)
+            SizeY.Text = 768.ToString(Globalization.CultureInfo.InvariantCulture)
             Changed1 = True
         End If
 
@@ -904,8 +904,8 @@ Public Class FormRegion
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
 
         If Initted1 And RadioButton4.Checked Then
-            SizeX.Text = 1024.ToString(Form1.Invarient)
-            SizeY.Text = 1024.ToString(Form1.Invarient)
+            SizeX.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
+            SizeY.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
             Changed1 = True
         End If
 
@@ -918,7 +918,7 @@ Public Class FormRegion
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox("Region name can't use special characters such as < > : """" / \ | ? *", vbInformation, "Info")
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info)
                 Return
             End If
             Changed1 = True
@@ -932,7 +932,7 @@ Public Class FormRegion
 
         If Initted1 And SizeX.Text.Length >= 0 Then
             If Not IsPowerOf256(CType(SizeX.Text, Integer)) Then
-                MsgBox("Must be a multiple of 256: 256,512,768,1024,1280,1536,1792,2048,2304,2560, ..", vbInformation, "Size X,Y")
+                MsgBox("256,512,768,1024,1280,1536,1792,2048,2304,2560, ..", vbInformation, "X,Y")
             Else
                 If CType(SizeX.Text, Double) > 1024 Then
                     RadioButton1.Checked = False
@@ -950,13 +950,13 @@ Public Class FormRegion
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
         If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox("Changing the UUID will lose all data in the old sim and create a new, empty sim. Are you sure you wish to change the UUID?", vbYesNo, "Info")
+            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, My.Resources.Info)
             If resp = vbYes Then
                 Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    Dim ok = MsgBox("Not a valid UUID. Do you want a new, Random UUID?", vbOKCancel, "Info")
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, My.Resources.Info)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
                     End If
@@ -974,14 +974,14 @@ Public Class FormRegion
 
         If AllowGods.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Info", "Region " + Name + " is allowing Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Gods")
         Else
             If AllowGods.Checked = False And
                 RegionGod.Checked = False And
                 ManagerGod.Checked = False Then
                 Gods_Use_Default.Checked = True
             End If
-            Form1.Log("Info", "Region " + Name + " is not allowing Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -991,7 +991,7 @@ Public Class FormRegion
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
-            Form1.Log("Info", "Region " + Name + " has birds enabled")
+            Form1.Log(My.Resources.Info, "Region " + Name + " has birds enabled")
         End If
         If Initted1 Then Changed1 = True
 
@@ -999,7 +999,7 @@ Public Class FormRegion
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        Dim response As MsgBoxResult = MsgBox("This will allow another region to be placed at this spot. Continue?", vbYesNo)
+        Dim response As MsgBoxResult = MsgBox(My.Resources.Another_Region, vbYesNo)
         If response = vbYes Then
 
             Form1.StartMySQL()
@@ -1057,7 +1057,7 @@ Public Class FormRegion
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
-            Form1.Log("Info", "Region " + Name + " is set to default for Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is set to default for Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1072,14 +1072,14 @@ Public Class FormRegion
 
         If ManagerGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Info", "Region " + Name + " is allowing Manager Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Manager Gods")
         Else
             If AllowGods.Checked = False And
                 RegionGod.Checked = False And
                 ManagerGod.Checked = False Then
                 Gods_Use_Default.Checked = True
             End If
-            Form1.Log("Info", "Region " + Name + " is not allowing Manager Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Manager Gods")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1088,7 +1088,7 @@ Public Class FormRegion
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         If MapBest.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to Best")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Best")
             MapPicture.Image = My.Resources.Best
         End If
         If Initted1 Then Changed1 = True
@@ -1098,7 +1098,7 @@ Public Class FormRegion
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         If MapBetter.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to Better")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Better")
             MapPicture.Image = My.Resources.Better
         End If
         If Initted1 Then Changed1 = True
@@ -1108,7 +1108,7 @@ Public Class FormRegion
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         If MapGood.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to Good")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Good")
             MapPicture.Image = My.Resources.Good
         End If
         If Initted1 Then Changed1 = True
@@ -1122,7 +1122,7 @@ Public Class FormRegion
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to None")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to None")
             MapPicture.Image = My.Resources.blankbox
         End If
         If Initted1 Then Changed1 = True
@@ -1132,7 +1132,7 @@ Public Class FormRegion
     Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
 
         If Maps_Use_Default.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to Default")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Default")
             MapNone.Checked = False
             MapSimple.Checked = False
             MapGood.Checked = False
@@ -1159,7 +1159,7 @@ Public Class FormRegion
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         If MapSimple.Checked Then
-            Form1.Log("Info", "Region " + Name + " Map is set to Simple")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Simple")
             MapPicture.Image = My.Resources.Simple
         End If
         If Initted1 Then Changed1 = True
@@ -1185,7 +1185,7 @@ Public Class FormRegion
     Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
 
         If NoPublish.Checked Then
-            Form1.Log("Info", "Region " + Name + " is not set to publish snapshots")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not set to publish snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1202,7 +1202,7 @@ Public Class FormRegion
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics is set to default")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics is set to default")
             PhysicsNone.Checked = False
             PhysicsODE.Checked = False
             PhysicsubODE.Checked = False
@@ -1217,7 +1217,7 @@ Public Class FormRegion
     Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
 
         If PhysicsBullet.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to Bullet")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Bullet")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1226,7 +1226,7 @@ Public Class FormRegion
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
 
         If PhysicsNone.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to None")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to None")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1235,7 +1235,7 @@ Public Class FormRegion
     Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
 
         If PhysicsODE.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to ODE")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to ODE")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1244,7 +1244,7 @@ Public Class FormRegion
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
 
         If PhysicsSeparate.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to Bullet in a Thread")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Bullet in a Thread")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1253,7 +1253,7 @@ Public Class FormRegion
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
 
         If PhysicsubODE.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to Ubit's ODE")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's ODE")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1262,9 +1262,9 @@ Public Class FormRegion
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
         If Publish.Checked Then
-            Form1.Log("Info", "Region " + Name + " is publishing snapshots")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is publishing snapshots")
         Else
-            Form1.Log("Info", "Region " + Name + " is not publishing snapshots")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not publishing snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1273,7 +1273,7 @@ Public Class FormRegion
     Private Sub PublishDefault_CheckedChanged(sender As Object, e As EventArgs) Handles PublishDefault.CheckedChanged
 
         If PublishDefault.Checked Then
-            Form1.Log("Info", "Region " + Name + " is set to default for snapshots")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is set to default for snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1281,7 +1281,7 @@ Public Class FormRegion
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles Physicsubhybrid.CheckedChanged
         If Physicsubhybrid.Checked Then
-            Form1.Log("Info", "Region " + Name + " Physics Is set to Ubit's Hybrid ")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's Hybrid ")
         End If
         If Initted1 Then Changed1 = True
     End Sub
@@ -1290,14 +1290,14 @@ Public Class FormRegion
 
         If RegionGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log("Info", "Region " + Name + " is allowing Region Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Region Gods")
         Else
             If AllowGods.Checked = False And
                 RegionGod.Checked = False And
                 ManagerGod.Checked = False Then
                 Gods_Use_Default.Checked = True
             End If
-            Form1.Log("Info", "Region " + Name + " is not allowing Region Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1333,7 +1333,7 @@ Public Class FormRegion
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
         If SmartStartCheckBox.Checked Then
-            Form1.Log("Info", "Region " + Name + " has Smart Start enabled")
+            Form1.Log(My.Resources.Info, "Region " + Name + " has Smart Start enabled")
 
         End If
         If Initted1 Then Changed1 = True
@@ -1352,7 +1352,7 @@ Public Class FormRegion
     Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
 
         If TidesCheckbox.Checked Then
-            Form1.Log("Info", "Region " + Name + " has tides enabled")
+            Form1.Log(My.Resources.Info, "Region " + Name + " has tides enabled")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1361,7 +1361,7 @@ Public Class FormRegion
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
-            Form1.Log("Info", "Region " + Name + " has Teleport Board enabled")
+            Form1.Log(My.Resources.Info, "Region " + Name + " has Teleport Board enabled")
         End If
         If Initted1 Then Changed1 = True
 

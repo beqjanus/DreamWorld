@@ -91,7 +91,7 @@ Public Class FormBackupCheckboxes
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient)   ' Set default folder
+        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
         If Form1.Settings.BackupFolder = "AutoBackup" Then
             Dest = Form1.Settings.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
@@ -140,14 +140,14 @@ Public Class FormBackupCheckboxes
                 Application.DoEvents()
             End If
         Catch ex As Exception
-            MsgBox("Something went wrong: " + ex.Message)
+            MsgBox(ex.Message)
         End Try
 
         If SettingsBox.Checked Then
-            PrintStatus("Backing up Settings")
+            PrintStatus(My.Resources.Backing_up_Settings)
             FileStuff.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
-        PrintStatus("Finished with backup at " + Dest)
+        PrintStatus(My.Resources.Finished_with_backup & Dest)
         DialogResult = DialogResult.OK
 
     End Sub

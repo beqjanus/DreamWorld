@@ -96,15 +96,11 @@ Public Class Form1
 
     Private _Initted As Boolean = False
 
-    Private _invarient As CultureInfo = New CultureInfo("")
-
     Private _IPv4Address As String
 
     Private _IsRunning As Boolean = False
 
     Private _KillSource As Boolean = False
-
-    Private _Language As New Culture
 
     Private _MaxPortUsed As Integer = 0
 
@@ -118,23 +114,15 @@ Public Class Form1
 
     Private _myUPnpMap As UPnp
 
-    Private _OldSimVersion As String
-
     Private _OpensimBinPath As String
 
-    Private _PortsChanged As Boolean = True
-
     Private _regionClass As RegionMaker
-
-    Private _RegionCrashCounter As Integer = 0
 
     Private _regionForm As RegionList
 
     Private _regionHandles As New Dictionary(Of Integer, String)
 
     Private _RestartApache As Integer = 0
-
-    Private _RestartIceCast As Integer = 0
 
     Private _RestartMysql As Integer = 0
 
@@ -255,15 +243,6 @@ Public Class Form1
 #End Region
 
 #Region "Properties"
-
-    Public Property Invarient As CultureInfo
-        Get
-            Return _invarient
-        End Get
-        Set(value As CultureInfo)
-            _invarient = value
-        End Set
-    End Property
 
     Public Property PropAborting As Boolean
         Get
@@ -686,6 +665,7 @@ Public Class Form1
 #End Region
 
 #Region "StartStop"
+
     Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         Me.Hide()
@@ -883,7 +863,7 @@ Public Class Form1
     ''' <summary>
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
-    Public Sub Startup(Optional SkipSmartStart As Boolean = False)
+    Public Sub Startup()
 
         Print(My.Resources.Version & " " & PropMyVersion)
 
@@ -1081,7 +1061,7 @@ Public Class Form1
                 TotalRunningRegions += 1
             End If
         Next
-        Log("Info", "Total Enabled Regions=" & CStr(TotalRunningRegions))
+        Log(My.Resources.Info, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
         For Each X As Integer In PropRegionClass.RegionNumbers
             If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
@@ -1128,7 +1108,7 @@ Public Class Form1
                     PropUpdateView = True ' make form refresh
                 Else
                     If CountisRunning <> last Then
-                        Print(CStr(CountisRunning) & " " & My.Resources.Regions_Are)
+                        Print(CStr(CountisRunning) & " " & My.Resources.Regions_Are_Running)
                         last = CountisRunning
                         PropUpdateView = True ' make form refresh
                     End If
@@ -1283,7 +1263,6 @@ Public Class Form1
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                     Try
                         LoopbackProcess.Start()
-                    Catch ex As ObjectDisposedException
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
@@ -1317,7 +1296,7 @@ Public Class Form1
 
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
-            Log("Info", "Stopping process " & processName)
+            Log(My.Resources.Info, "Stopping process " & processName)
             Try
                 P.Kill()
             Catch
@@ -1344,7 +1323,7 @@ Public Class Form1
 
     Public Sub Print(Value As String)
 
-        Log("Info", Value)
+        Log(My.Resources.Info, Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
 
@@ -1354,7 +1333,6 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -1364,7 +1342,7 @@ Public Class Form1
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
         Dim MyShortcut As IWshShortcut
-        Log("Info", "creating shortcut on desktop")
+        Log(My.Resources.Info, "creating shortcut on desktop")
         ' The shortcut will be created on the desktop
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         MyShortcut = CType(WshShell.CreateShortcut(DesktopFolder & "\Outworldz.lnk"), IWshShortcut)
@@ -1381,7 +1359,6 @@ Public Class Form1
         Dim webAddress As String = SecureDomain & "/Outworldz_Installer"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -1433,7 +1410,6 @@ Public Class Form1
             Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
             Try
                 Process.Start(webAddress)
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -1574,7 +1550,7 @@ Public Class Form1
                 Xtime = 1.0 / 11.0
             End If
         End If
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Invarient))
+        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
         Dim name = PropRegionClass.RegionName(X)
 
@@ -1689,19 +1665,19 @@ Public Class Form1
             ";the number of birds to flock" & vbCrLf &
             "BirdsFlockSize = " & CStr(Settings.BirdsFlockSize) & vbCrLf & vbCrLf &
             ";how far each bird can travel per update" & vbCrLf &
-            "BirdsMaxSpeed = " & Settings.BirdsMaxSpeed.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsMaxSpeed = " & Settings.BirdsMaxSpeed.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";the maximum acceleration allowed to the current velocity of the bird" & vbCrLf &
-            "BirdsMaxForce = " & Settings.BirdsMaxForce.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsMaxForce = " & Settings.BirdsMaxForce.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";max distance for other birds to be considered in the same flock as us" & vbCrLf &
-            "BirdsNeighbourDistance = " & Settings.BirdsNeighbourDistance.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsNeighbourDistance = " & Settings.BirdsNeighbourDistance.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";how far away from other birds we would Like To stay" & vbCrLf &
-            "BirdsDesiredSeparation = " & Settings.BirdsDesiredSeparation.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsDesiredSeparation = " & Settings.BirdsDesiredSeparation.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";how close To the edges Of things can we Get without being worried" & vbCrLf &
-            "BirdsTolerance = " & Settings.BirdsTolerance.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsTolerance = " & Settings.BirdsTolerance.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";how close To the edge Of a region can we Get?" & vbCrLf &
-            "BirdsBorderSize = " & Settings.BirdsBorderSize.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsBorderSize = " & Settings.BirdsBorderSize.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";how high are we allowed To flock" & vbCrLf &
-            "BirdsMaxHeight = " & Settings.BirdsMaxHeight.ToString(Invarient) & vbCrLf & vbCrLf &
+            "BirdsMaxHeight = " & Settings.BirdsMaxHeight.ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf & vbCrLf &
             ";By Default the Module will create a flock Of plain wooden spheres," & vbCrLf &
             ";however this can be overridden To the name Of an existing prim that" & vbCrLf &
             ";needs To already exist In the scene - i.e. be rezzed In the region." & vbCrLf &
@@ -1847,7 +1823,7 @@ Public Class Form1
         ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
         'FrameTime = 0.0909
 
-        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Invarient))
+        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
@@ -1859,7 +1835,7 @@ Public Class Form1
         ' the old Clouds
         If Settings.Clouds Then
             Settings.SetIni("Cloud", "enabled", "True")
-            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Invarient))
+            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Globalization.CultureInfo.InvariantCulture))
         Else
             Settings.SetIni("Cloud", "enabled", "False")
         End If
@@ -1909,8 +1885,8 @@ Public Class Form1
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
         End Select
 
-        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Invarient))
-        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Invarient))
+        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Globalization.CultureInfo.InvariantCulture))
 
         If Settings.MapType = "None" Then
             Settings.SetIni("Map", "GenerateMaptiles", "False")
@@ -1975,7 +1951,7 @@ Public Class Form1
             Settings.SetIni(simName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionNum), Invarient))
+        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionNum), Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
@@ -1986,17 +1962,17 @@ Public Class Form1
         End If
 
         ' Extended in v 2.1
-        Settings.SetIni(simName, "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Invarient))
-        Settings.SetIni(simName, "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Invarient))
+        Settings.SetIni(simName, "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(simName, "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
         If (Settings.Primlimits) Then
-            Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Invarient))
+            Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Globalization.CultureInfo.InvariantCulture))
         Else
             Settings.SetIni(simName, "MaxPrims", "")
         End If
 
-        Settings.SetIni(simName, "MaxAgents", Convert.ToString(PropRegionClass.MaxAgents(RegionNum), Invarient))
-        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Invarient))
-        Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Invarient))
+        Settings.SetIni(simName, "MaxAgents", Convert.ToString(PropRegionClass.MaxAgents(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Globalization.CultureInfo.InvariantCulture))
 
         ' Optional
         ' Extended in v 2.31 optional things
@@ -2077,7 +2053,7 @@ Public Class Form1
         End If
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Invarient))
+        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         If PropRegionClass.MapType(RegionNum) = "Simple" Then
@@ -2172,13 +2148,13 @@ Public Class Form1
 
         ' no main setting for these
         Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
-        Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Invarient))
-        Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Invarient))
+        Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Globalization.CultureInfo.InvariantCulture))
 
         ' V3.15
-        Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Invarient))
-        Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Invarient))
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Invarient))
+        Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Globalization.CultureInfo.InvariantCulture))
 
         If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2209,9 +2185,9 @@ Public Class Form1
             Settings.SetIni("Const", "GridName", Settings.SimName)
             Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
             Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
-            Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Invarient)) ' 8002
-            Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Invarient))
-            Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Invarient))
+            Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002
+            Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
             Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
             If Settings.Suitcase() Then
@@ -2222,12 +2198,12 @@ Public Class Form1
 
             ' LSL emails
             Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Invarient))
+            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
             Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
             Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
             If Settings.SearchLocal Then
-                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Invarient) & "/Search/query.php")
+                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Search/query.php")
             Else
                 Settings.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
             End If
@@ -2286,11 +2262,11 @@ Public Class Form1
                 "TideUpdateRate = 50" & vbCrLf &
                     vbCrLf &
                 ";; low And high water marks in metres" & vbCrLf &
-                "TideHighWater = " & Convert.ToString(Settings.TideHighLevel(), Invarient) & vbCrLf &
-                "TideLowWater = " & Convert.ToString(Settings.TideLowLevel(), Invarient) & vbCrLf &
+                "TideHighWater = " & Convert.ToString(Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture) & vbCrLf &
+                "TideLowWater = " & Convert.ToString(Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture) & vbCrLf &
                 vbCrLf &
                 ";; how long in seconds for a complete cycle time low->high->low" & vbCrLf &
-                "TideCycleTime = " & Convert.ToString(Settings.CycleTime(), Invarient) & vbCrLf &
+                "TideCycleTime = " & Convert.ToString(Settings.CycleTime(), Globalization.CultureInfo.InvariantCulture) & vbCrLf &
                     vbCrLf &
                 ";; provide tide information on the console?" & vbCrLf &
                 "TideInfoDebug = " & CStr(Settings.TideInfoDebug) & vbCrLf &
@@ -2302,7 +2278,7 @@ Public Class Form1
                 "TideInfoChannel = " & CStr(Settings.TideInfoChannel) & vbCrLf &
                 vbCrLf &
                 ";; which channel to region chat on for just the tide level in metres" & vbCrLf &
-                "TideLevelChannel = " & Convert.ToString(Settings.TideLevelChannel(), Invarient) & vbCrLf &
+                "TideLevelChannel = " & Convert.ToString(Settings.TideLevelChannel(), Globalization.CultureInfo.InvariantCulture) & vbCrLf &
                     vbCrLf &
                 ";; How many times to repeat Tide Warning messages at high/low tide" & vbCrLf &
                 "TideAnnounceCount = 1" & vbCrLf & vbCrLf & vbCrLf & vbCrLf
@@ -2364,7 +2340,7 @@ Public Class Form1
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
         Settings.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
-        Settings.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Invarient))
+        Settings.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
         Settings.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
 
@@ -2600,10 +2576,9 @@ Public Class Form1
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Invarient)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
-                Catch ex As ObjectDisposedException
                 Catch ex As InvalidOperationException
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
@@ -2611,7 +2586,6 @@ Public Class Form1
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
-                Catch ex As ObjectDisposedException
                 Catch ex As InvalidOperationException
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
@@ -2620,10 +2594,9 @@ Public Class Form1
             End If
         Else
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Invarient)
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
-                Catch ex As ObjectDisposedException
                 Catch ex As InvalidOperationException
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
@@ -2676,7 +2649,6 @@ Public Class Form1
         Dim webAddress As String = SecureDomain & "/cgi/freesculpts.plx"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -2700,7 +2672,6 @@ Public Class Form1
         Dim webAddress As String = SecureDomain() & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -2718,8 +2689,6 @@ Public Class Form1
             }
             Try
                 ProcessUpnp.Start()
-            Catch ex As ObjectDisposedException
-                ErrorLog("ErrorUPnp failed to launch: " & ex.Message)
             Catch ex As InvalidOperationException
                 ErrorLog("ErrorUPnp failed to launch: " & ex.Message)
             Catch ex As System.ComponentModel.Win32Exception
@@ -2739,7 +2708,7 @@ Public Class Form1
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
             SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Invarient) & "/" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
             SiteMapContents += "<priority>1.0</priority>" & vbCrLf
             SiteMapContents += "</url>" & vbCrLf
@@ -2769,7 +2738,6 @@ Public Class Form1
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             Try
                 ApacheProcess.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -2797,7 +2765,6 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -2807,7 +2774,6 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -2818,7 +2784,6 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -2828,7 +2793,6 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -2952,14 +2916,14 @@ Public Class Form1
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Invarient))
+        Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
-        Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Invarient) & ">")
+        Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
         Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
         ' needed for Php5 upgrade
@@ -3252,7 +3216,6 @@ Public Class Form1
                     Dim Log As String = """" & PropOpensimBinPath & "bin\Robust.log" & """"
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe " & Log)
-                    Catch ex As ObjectDisposedException
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
@@ -3271,7 +3234,7 @@ Public Class Form1
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
         RobustPictureBox.Image = My.Resources.nav_plain_green
-        Log("Info", "Robust is running")
+        Log(My.Resources.Info, "Robust is running")
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
         PropRobustExited = False
@@ -3333,7 +3296,6 @@ Public Class Form1
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -3358,7 +3320,6 @@ Public Class Form1
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & IceCastLog & """")
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -3393,7 +3354,6 @@ Public Class Form1
             For Each FileName As String In files
                 Try
                     System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                Catch ex As ObjectDisposedException
                 Catch ex As InvalidOperationException
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
@@ -3419,12 +3379,11 @@ Public Class Form1
         End If
         _RobustCrashCounter = 0
 
-        Dim yesno = MsgBox("Robust exited. Do you want to see the error log file?", vbYesNo, My.Resources.Err)
+        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, My.Resources.Err)
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -3456,36 +3415,36 @@ Public Class Form1
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
 
-        Log("Info", "Region: Starting Region " & BootName)
+        Log(My.Resources.Info, "Region: Starting Region " & BootName)
 
         If Regionclass.IsBooted(RegionNumber) Then
-            Log("Info", "Region " & BootName & " already running")
+            Log(My.Resources.Info, "Region " & BootName & " already running")
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-            Log("Info", "Region " & BootName & " skipped as it is already Warming Up")
+            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
-            Log("Info", "Region " & BootName & " skipped as it is already Booted Up")
+            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booted Up")
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-            Log("Info", "Region " & BootName & " skipped as it is already Shutting Down")
+            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            Log("Info", "Region " & BootName & " skipped as it is already Recycling Down")
+            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Suspended Then
             Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume
-            Log("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+            Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
             Return True
         End If
 
@@ -3530,7 +3489,6 @@ Public Class Form1
         Dim ok As Boolean = False
         Try
             ok = myProcess.Start
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -3584,12 +3542,12 @@ Public Class Form1
             ' Called by a sim restart, do not change status
             'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-            Log("Info", PropRegionClass.RegionName(RegionNumber) & " Stopped")
+            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
             ' End If
 
             PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
         Next
-        Log("Info", Groupname & " Group is now stopped")
+        Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
 
     End Sub
@@ -3611,11 +3569,11 @@ Public Class Form1
             ' Called by a sim restart, do not change status
             'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-            Log("Info", PropRegionClass.RegionName(RegionNumber) & " Stopped")
+            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
             'End If
             PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
         Next
-        Log("Info", Groupname & " Group is now stopped")
+        Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
 
     End Sub
@@ -3653,8 +3611,6 @@ Public Class Form1
 
         Try
             SuspendProcess.Start()
-        Catch ex As ObjectDisposedException
-            Print(My.Resources.NTSuspend)
         Catch ex As InvalidOperationException
             Print(My.Resources.NTSuspend)
         Catch ex As ComponentModel.Win32Exception
@@ -3827,7 +3783,6 @@ Public Class Form1
                 If (yesno = vbYes) Then
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
-                    Catch ex As ObjectDisposedException
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
@@ -3895,7 +3850,7 @@ Public Class Form1
     Public Sub Logger(category As String, message As String, file As String)
         Try
             Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\" & file & ".log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Invarient) & ":" & category & ":" & message)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
         Catch
@@ -3932,7 +3887,6 @@ Public Class Form1
     Private Sub ShowLog()
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropMyFolder & "\OutworldzFiles\Outworldz.log" & """")
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -4170,7 +4124,7 @@ Public Class Form1
             End While
 
             MyCPUCollection(0) = newspeed
-            PercentCPU.Text = String.Format(Invarient, "{0: 0}% CPU", newspeed)
+            PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", newspeed)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -4367,14 +4321,14 @@ Public Class Form1
             End If
         Next
         If num = -1 Then
-            MsgBox("No regions are ready, so cannot load the IAR", vbInformation, "Info")
+            MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info)
             Return False
         End If
 
-        Dim Path As String = InputBox("Folder to save  Inventory (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To & " (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
-        Dim user = InputBox("First and Last name that will get this IAR?")
-        Dim password = InputBox("Password for user " & user & "?")
+        Dim user = InputBox(My.Resources.Enter_1_2)
+        Dim password = InputBox(My.Resources.Password)
         If user.Length > 0 And password.Length > 0 Then
             ConsoleCommand(PropRegionClass.GroupName(num), "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
             ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" & vbCrLf)
@@ -4450,7 +4404,7 @@ Public Class Form1
                 For Each Y In PropRegionClass.RegionListByGroupNum(Group)
                     If Not L.Contains(PropRegionClass.RegionName(Y)) Then
                         ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "change region " & """" & PropRegionClass.RegionName(Y) & """" & "{ENTER}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                         L.Add(PropRegionClass.RegionName(Y))
                     End If
                 Next
@@ -4464,7 +4418,7 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToLower(Invarient) = "autobackup" Then
+        If Settings.BackupFolder.ToLower(Globalization.CultureInfo.InvariantCulture) = "autobackup" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -4480,7 +4434,7 @@ Public Class Form1
                     MkDir(BackupPath)
                 End If
 
-                MsgBox("Autobackup folder cannot be located, so it has been reset to the default:" & BackupPath)
+                MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
                 Settings.BackupFolder = "AutoBackup"
                 Settings.SaveSettings()
             End If
@@ -4553,13 +4507,13 @@ Public Class Form1
         For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
             Try
                 If Not once Then
-                    Print(My.Resources.Loading & " " & thing)
+                    Print(My.Resources.Opensimulator_is_loading & " " & thing)
                     thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
                     ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -4621,7 +4575,7 @@ Public Class Form1
                             ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
                                 ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(PropRegionClass.GroupName(Y), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(PropRegionClass.GroupName(Y), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
                             ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -4727,7 +4681,7 @@ Public Class Form1
             ' Set prompt.
             Message = My.Resources.EnterName
             title = "Backup to OAR"
-            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Invarient) & ".oar"
+            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
 
             ' Display message, title, and default value.
             myValue = InputBox(Message, title, defaultValue)
@@ -4776,10 +4730,10 @@ Public Class Form1
             While Not ContentSeen
                 line = oarreader.ReadLine()
                 If line <> Nothing Then
-                    Log("Info", "" & line)
+                    Log(My.Resources.Info, "" & line)
                     Dim OarMenu As New ToolStripMenuItem With {
                         .Text = line,
-                        .ToolTipText = My.Resources.ClickToLoad,
+                        .ToolTipText = My.Resources.Click_to_load,
                         .DisplayStyle = ToolStripItemDisplayStyle.Text
                     }
                     AddHandler OarMenu.Click, New EventHandler(AddressOf OarClick)
@@ -4811,7 +4765,7 @@ Public Class Form1
                 aline = System.IO.Path.GetFileNameWithoutExtension(aline)
                 Dim HelpMenu As New ToolStripMenuItem With {
                     .Text = aline,
-                    .ToolTipText = My.Resources.ClickToLoad,
+                    .ToolTipText = My.Resources.Click_to_load,
                     .DisplayStyle = ToolStripItemDisplayStyle.Text,
                     .Image = My.Resources.question_and_answer
                 }
@@ -4842,10 +4796,10 @@ Public Class Form1
                 While Not ContentSeen
                     line = iarreader.ReadLine()
                     If line <> Nothing Then
-                        Log("Info", "" & line)
+                        Log(My.Resources.Info, "" & line)
                         Dim IarMenu As New ToolStripMenuItem With {
                             .Text = line,
-                            .ToolTipText = My.Resources.ClickToLoad,
+                            .ToolTipText = My.Resources.Click_to_load,
                             .DisplayStyle = ToolStripItemDisplayStyle.Text
                         }
                         AddHandler IarMenu.Click, New EventHandler(AddressOf IarClick)
@@ -4913,7 +4867,7 @@ Public Class Form1
         If Update_version.Length = 0 Then Update_version = "0"
         Dim Delta As Single = 0
         Try
-            Delta = Convert.ToSingle(Update_version, Invarient) - Convert.ToSingle(PropMyVersion, Invarient)
+            Delta = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture) - Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
         Catch ex As FormatException
         Catch ex As OverflowException
         End Try
@@ -4921,16 +4875,16 @@ Public Class Form1
         If Delta > 0 Then
 
             If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & CStr(Update_version) & ".zip") Then
-                Dim result = MsgBox("Update V" & Update_version & " has been downloaded. Install it now?", vbYesNo)
+                Dim result = MsgBox("V" & Update_version & My.Resources.Update_Downloaded, vbYesNo)
                 If result = vbOK Then
-                    UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
+                    UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
                 End If
                 Return
             End If
 
             Print(My.Resources.Update_is_available & ":" & Update_version)
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip",
+                .Arguments = "DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip",
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 
@@ -4944,8 +4898,6 @@ Public Class Form1
             UpdateProcess.EnableRaisingEvents = True
             Try
                 UpdateProcess.Start()
-            Catch ex As ObjectDisposedException
-                Print(My.Resources.ErrUpdate)
             Catch ex As InvalidOperationException
                 Print(My.Resources.ErrUpdate)
             Catch ex As ComponentModel.Win32Exception
@@ -4974,11 +4926,9 @@ Public Class Form1
             .FileName = """" & PropMyFolder & "\DreamGridSetup.exe" & """"
         }
         pUpdate.StartInfo = pi
+        Print(My.Resources.SeeYouSoon)
         Try
-            Print(My.Resources.SeeYouSoon)
             pUpdate.Start()
-        Catch ex As ObjectDisposedException
-            ErrorLog(My.Resources.ErrInstall)
         Catch ex As InvalidOperationException
             ErrorLog(My.Resources.ErrInstall)
         Catch ex As ComponentModel.Win32Exception
@@ -4994,7 +4944,7 @@ Public Class Form1
         If ExitCode = 0 Then
             Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_is_available, vbYesNo)
             If result = vbYes Then
-                UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Invarient) & ".zip")
+                UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
             End If
         Else
             ErrorLog("ExitCode=" & CStr(ExitCode))
@@ -5017,12 +4967,11 @@ Public Class Form1
                 Return False
             Catch ex As SocketException
                 Return False
-            Catch ex As ObjectDisposedException
-                Return False
+
             End Try
 
             If ClientSocket.Connected Then
-                Log("Info", " port probe success on port " & CStr(Port))
+                Log(My.Resources.Info, " port probe success on port " & CStr(Port))
                 Return True
             End If
         End Using
@@ -5057,7 +5006,7 @@ Public Class Form1
             Print(My.Resources.Public_IP)
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
-            Dim x = Settings.PublicIP.ToLower(Invarient)
+            Dim x = Settings.PublicIP.ToLower(Globalization.CultureInfo.InvariantCulture)
             If x.Contains("outworldz.net") Then
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
@@ -5073,7 +5022,7 @@ Public Class Form1
             Return True
         End If
 
-        Log("Info", "Public IP=" & Settings.PublicIP)
+        Log(My.Resources.Info, "Public IP=" & Settings.PublicIP)
         TestPublicLoopback()
         If Settings.DiagFailed Then
 
@@ -5185,7 +5134,7 @@ Public Class Form1
         End Using
 
         If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
-            Print(My.Resources.Loopback_Passed & " " & Port.ToString(Invarient))
+            Print(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
         Else
             Print(My.Resources.Loopback_Failed & " " & Weblink)
             Settings.LoopBackDiag = False
@@ -5282,12 +5231,12 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Log("Info", "Private IP, Loopback test skipped")
+            Log(My.Resources.Info, "Private IP, Loopback test skipped")
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-            Log("Info", "Server type is Region, Loopback on HTTP Port skipped")
+            Log(My.Resources.Info, "Server type is Region, Loopback on HTTP Port skipped")
             Return
         End If
         Print(My.Resources.Checking_Loopback)
@@ -5323,37 +5272,37 @@ Public Class Form1
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Invarient))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
 
                 BumpProgress10()
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase.ToString(Invarient))
-                Print(My.Resources.Icecast_is_Set & ":" & Settings.SCPortBase1.ToString(Invarient))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
+                Print(My.Resources.Icecast_is_Set & ":" & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
 
             If Settings.ApachePort > 0 Then
                 If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Settings.ApachePort, UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase.ToString(Invarient))
-                Print(My.Resources.Apache_is_Set & ":" & Settings.ApachePort.ToString(Invarient))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
+                Print(My.Resources.Apache_is_Set & ":" & Settings.ApachePort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
 
             ' 8002 for TCP and UDP
-            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
-            Print(My.Resources.Grid_TCP_is_set * ":" & Settings.HttpPort.ToString(Invarient))
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
+            Print(My.Resources.Grid_TCP_is_set * ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
             BumpProgress10()
 
-            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP) Then
-                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP)
+            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP)
             End If
-            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Invarient), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
-            Print(My.Resources.Grid_UDP_is_set & ":" & Settings.HttpPort.ToString(Invarient))
+            PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
+            Print(My.Resources.Grid_UDP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
             BumpProgress10()
 
             For Each X As Integer In PropRegionClass.RegionNumbers
@@ -5366,7 +5315,7 @@ Public Class Form1
                 End If
 
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(X) & " ")
-                Print(PropRegionClass.RegionName(X) & " UDP:" & R.ToString(Invarient))
+                Print(PropRegionClass.RegionName(X) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 BumpProgress(2)
                 Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
@@ -5374,7 +5323,7 @@ Public Class Form1
                     Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(X) & " ")
-                Print(PropRegionClass.RegionName(X) & " TCP:" & R.ToString(Invarient))
+                Print(PropRegionClass.RegionName(X) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 BumpProgress(1)
             Next
 
@@ -5408,7 +5357,7 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" & m _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Invarient)) _
+        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
         & "&uPnp=" & CStr(UPnp) _
         & "&Loop=" & CStr(Loopb) _
@@ -5465,7 +5414,7 @@ Public Class Form1
                 pMySqlBackup.Start()
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
-            Catch ex As ObjectDisposedException
+
             End Try
 
         End Using
@@ -5478,7 +5427,7 @@ Public Class Form1
         Try
             version = MysqlInterface.IsMySqlRunning()
         Catch
-            Log("Info", "MySQL was not running")
+            Log(My.Resources.Info, "MySQL was not running")
         End Try
 
         If version Is Nothing Then
@@ -5549,7 +5498,7 @@ Public Class Form1
             ProcessMySql.Start()
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
-        Catch ex As ObjectDisposedException
+
         End Try
 
         ' wait for MySql to come up
@@ -5577,7 +5526,6 @@ Public Class Form1
                     For Each FileName As String In files
                         Try
                             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                        Catch ex As ObjectDisposedException
                         Catch ex As InvalidOperationException
                         Catch ex As System.ComponentModel.Win32Exception
                         End Try
@@ -5635,7 +5583,7 @@ Public Class Form1
                 pMySqlDiag1.Start()
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
-            Catch ex As ObjectDisposedException
+
             End Try
             pMySqlDiag1.WaitForExit()
         End Using
@@ -5755,7 +5703,7 @@ Public Class Form1
                         pMySqlRestore.Start()
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
-                    Catch ex As ObjectDisposedException
+
                     End Try
 
                     Print(My.Resources.Do_Not_Interrupt)
@@ -5806,14 +5754,15 @@ Public Class Form1
 
         Try
             p.Start()
-            p.WaitForExit()
-            p.Close()
-            MysqlPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped)
-            Application.DoEvents()
-        Catch ex As Exception
-            ErrorLog("Error: failed to stop MySQL:" & ex.Message)
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
         End Try
+
+        p.WaitForExit()
+        p.Close()
+        MysqlPictureBox.Image = My.Resources.nav_plain_red
+        ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped)
+        Application.DoEvents()
 
     End Sub
 
@@ -6033,7 +5982,6 @@ Public Class Form1
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
                 Process.Start(webAddress)
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -6062,7 +6010,7 @@ Public Class Form1
         End If
         Dim rname = ChooseRegion(True)
         If rname.Length > 0 Then
-            Dim Message = InputBox("What do you want to say to this region?")
+            Dim Message = InputBox(My.Resources.What_to_say_2_region)
             Dim X = PropRegionClass.FindRegionByName(rname)
             ConsoleCommand(PropRegionClass.GroupName(X), "change region  " & PropRegionClass.RegionName(X) & "{ENTER}" & vbCrLf)
             ConsoleCommand(PropRegionClass.GroupName(X), "alert " & Message & "{ENTER}" & vbCrLf)
@@ -6087,7 +6035,7 @@ Public Class Form1
     End Sub
 
     Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
-        SendMsg("info")
+        SendMsg(My.Resources.Info)
     End Sub
 
     Private Sub JustOneRegionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllUsersAllSimsToolStripMenuItem.Click
@@ -6098,7 +6046,7 @@ Public Class Form1
         End If
 
         Dim HowManyAreOnline As Integer = 0
-        Dim Message = InputBox("What do you want to say to everyone on line?")
+        Dim Message = InputBox(My.Resources.What_2_say_To_all)
         If Message.Length > 0 Then
             For Each X As Integer In PropRegionClass.RegionNumbers
                 If PropRegionClass.AvatarCount(X) > 0 Then
@@ -6194,7 +6142,7 @@ Public Class Form1
     End Sub
 
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
-        Dim person = InputBox("Enter the first and last name of the user:")
+        Dim person = InputBox(My.Resources.Enter_1_2)
         If person.Length > 0 Then
             ConsoleCommand("Robust", "show account " & person & "{ENTER}")
         End If
@@ -6206,7 +6154,6 @@ Public Class Form1
             Print(My.Resources.Icecast_Desc & webAddress & "/stream")
             Try
                 Process.Start(webAddress)
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -6251,7 +6198,6 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Inventory_Archives"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6261,7 +6207,6 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.9.0%2B"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6406,7 +6351,7 @@ Public Class Form1
 
         Dim File As String = PropMyFolder & "/OutworldzFiles/IAR/" & sender.text.ToString() 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Loading & sender.text.ToString())
+            Print(My.Resources.Opensimulator_is_loading & sender.text.ToString())
         End If
 
     End Sub
@@ -6415,7 +6360,7 @@ Public Class Form1
 
         Dim File = PropMyFolder & "/OutworldzFiles/OAR/" & sender.text.ToString() 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Loading & sender.text.ToString())
+            Print(My.Resources.Opensimulator_is_loading & sender.text.ToString())
         End If
 
     End Sub
@@ -6424,7 +6369,6 @@ Public Class Form1
         Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6434,7 +6378,6 @@ Public Class Form1
         Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6522,7 +6465,6 @@ Public Class Form1
 
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", logs)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6558,7 +6500,6 @@ Public Class Form1
         Dim webAddress As String = PropMyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -6613,7 +6554,6 @@ Public Class Form1
 
             Try
                 PowerShell.Start()
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -6677,7 +6617,7 @@ Public Class Form1
     Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         If dll Is Nothing Then Return False
         For Each filename In dll
-            If tofind.ToLower(Form1.Invarient) = filename.ToLower(Form1.Invarient) Then Return True
+            If tofind.ToLower(Globalization.CultureInfo.InvariantCulture) = filename.ToLower(Globalization.CultureInfo.InvariantCulture) Then Return True
         Next
         Return False
     End Function
@@ -6687,7 +6627,7 @@ Public Class Form1
         Dim stm = "delete from events"
         Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
             Dim rowsdeleted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Form1.Invarient))
+            Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
         End Using
 
     End Sub
@@ -6814,7 +6754,7 @@ Public Class Form1
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                Log("INFO", "Deleting dll " & localdllname)
+                Log(My.Resources.Info, "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
             End If
         Next
@@ -6908,9 +6848,6 @@ Public Class Form1
             Try
                 ProcessPHP.Start()
                 ProcessPHP.WaitForExit()
-            Catch ex As ObjectDisposedException
-                FileIO.FileSystem.CurrentDirectory = PropMyFolder
-                ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
             Catch ex As InvalidOperationException
                 FileIO.FileSystem.CurrentDirectory = PropMyFolder
                 ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
@@ -6946,10 +6883,6 @@ Public Class Form1
                 Try
                     ProcessMysql.Start()
                     ProcessMysql.WaitForExit()
-                Catch ex As ObjectDisposedException
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = PropMyFolder
-                    Return
                 Catch ex As InvalidOperationException
                     ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = PropMyFolder
@@ -6970,39 +6903,118 @@ Public Class Form1
 
     End Sub
 
-    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
-
-        Settings.Language = "en-US"
+    Private Sub Language(sender, e)
         Settings.SaveSettings()
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         frmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
 
+    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
+        Settings.Language = "en-US"
+        Language(sender, e)
     End Sub
 
     Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
-
         Settings.Language = "fr-FR"
-        Settings.SaveSettings()
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-        Me.Controls.Clear() 'removes all the controls on the form
-        InitializeComponent() 'load all the controls again
-        frmHome_Load(sender, e) 'Load everything in your form load event again
-
+        Language(sender, e)
     End Sub
 
     Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
-
         Settings.Language = "pt-PT"
-        Settings.SaveSettings()
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-        Me.Controls.Clear() 'removes all the controls on the form
-        InitializeComponent() 'load all the controls again
-        frmHome_Load(sender, e) 'Load everything in your form load event again
+        Language(sender, e)
+    End Sub
+
+    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
+        Settings.Language = "ar-AR"
+        Language(sender, e)
+    End Sub
+
+    Private Sub BasqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasqueToolStripMenuItem.Click
+        Settings.Language = "eu"
+        Language(sender, e)
+    End Sub
+
+    Private Sub CatalanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalanToolStripMenuItem.Click
+        Settings.Language = "ca-CA"
+        Language(sender, e)
+    End Sub
+
+    Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
+        Settings.Language = "cs-CS"
+        Language(sender, e)
+    End Sub
+
+    Private Sub ChineseSimplifedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChineseSimplifedToolStripMenuItem.Click
+        Settings.Language = "zh-CN"
+        Language(sender, e)
+    End Sub
+
+    Private Sub ChineseTraditionalToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChineseTraditionalToolStripMenuItem.Click
+        Settings.Language = "zh-TW"
+        Language(sender, e)
+    End Sub
+
+    Private Sub DutchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DutchToolStripMenuItem.Click
+        Settings.Language = "nl-NL"
+        Language(sender, e)
+    End Sub
+
+    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
+        Settings.Language = "fa-FA"
+        Language(sender, e)
+    End Sub
+
+    Private Sub FinnishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinnishToolStripMenuItem.Click
+        Settings.Language = "fi-FI"
+        Language(sender, e)
+    End Sub
+
+    Private Sub GermanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GermanToolStripMenuItem.Click
+        Settings.Language = "de-DE"
+        Language(sender, e)
+    End Sub
+
+    Private Sub GreekToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GreekToolStripMenuItem.Click
+        Settings.Language = "el-EL"
+        Language(sender, e)
+    End Sub
+
+    Private Sub HebrewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HebrewToolStripMenuItem.Click
+        Settings.Language = "he-HE"
+        Language(sender, e)
+    End Sub
+
+    Private Sub IcelandicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IcelandicToolStripMenuItem.Click
+        Settings.Language = "is-IS"
+        Language(sender, e)
+    End Sub
+
+    Private Sub IrishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IrishToolStripMenuItem.Click
+        Settings.Language = "ga-GA"
+        Language(sender, e)
+    End Sub
+
+    Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
+        Settings.Language = "no-NO"
+        Language(sender, e)
+    End Sub
+
+    Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
+        Settings.Language = "ar-AR"
+        Language(sender, e)
+    End Sub
+
+    Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
+        Settings.Language = "ar-AR"
+        Language(sender, e)
+    End Sub
+
+    Private Sub SwedishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SwedishToolStripMenuItem.Click
+        Settings.Language = "es-MX"
+        Language(sender, e)
     End Sub
 
 #End Region

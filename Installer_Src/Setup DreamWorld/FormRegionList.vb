@@ -171,7 +171,7 @@ Public Class RegionList
 
     Private Sub SetScreen(View As Integer)
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString(Form1.Invarient))
+        ScreenPosition = New ScreenPos(MyBase.Name & View.ToString(Globalization.CultureInfo.InvariantCulture))
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -344,20 +344,20 @@ Public Class RegionList
         AvatarView.Columns.Add("Type", 80, HorizontalAlignment.Center)
 
         ' index to display icons
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Form1.Invarient))   ' 0 booting up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Form1.Invarient)) ' 1 shutting down
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Form1.Invarient)) ' 2 okay, up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Form1.Invarient)) ' 3 disabled
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Form1.Invarient))  ' 4 enabled, stopped
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Form1.Invarient))  ' 5 Recycling down
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Form1.Invarient))  ' 6 Recycling Up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Form1.Invarient))  ' 7 Unknown
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Form1.Invarient))  ' 8 - 1 User
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Form1.Invarient))  ' 9 - 2 user
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Form1.Invarient))  ' 10 - 2 user
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Form1.Invarient))  '  11- home
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Form1.Invarient))  '  12- home _offline
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Form1.Invarient))  '  13- Suspended
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("user2", Globalization.CultureInfo.InvariantCulture))  ' 8 - 1 User
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("users1", Globalization.CultureInfo.InvariantCulture))  ' 9 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
         Form1.PropUpdateView = True ' make form refresh
 
         LoadMyListView()
@@ -437,7 +437,6 @@ Public Class RegionList
                     Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                     Try
                         Dim result = Process.Start(webAddress)
-                    Catch ex As ObjectDisposedException
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
@@ -472,9 +471,9 @@ Public Class RegionList
     End Sub
 
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
+
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
         Dim item As ListViewItem
-
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
             Dim R = PropRegionClass1.FindRegionByName(RegionName)
@@ -487,7 +486,12 @@ Public Class RegionList
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
-        Dim Item As ListViewItem = ListView1.Items.Item(e.Index)
+        Dim Item As ListViewItem = Nothing
+        Try
+            Item = ListView1.Items.Item(e.Index)
+        Catch ex As ArgumentOutOfRangeException
+        End Try
+
         Dim n As Integer = PropRegionClass1.FindRegionByName(Item.Text)
         If n = -1 Then Return
         Dim GroupName = PropRegionClass1.GroupName(n)
@@ -680,16 +684,16 @@ Public Class RegionList
                 If TheView1 = ViewType.Maps Then
 
                     If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Form1.Invarient) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
+                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
 
                         Dim bmp As Image = LoadImage(img)
                         If bmp Is Nothing Then
-                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Invarient))
+                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                         Else
                             ImageListLarge1.Images.Add(bmp)
                         End If
                     Else
-                        ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Form1.Invarient))
+                        ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                     End If
                     Num = X
 
@@ -699,8 +703,8 @@ Public Class RegionList
                 Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
                         .Checked = PropRegionClass1.RegionEnabled(X)
                     }
-                item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Form1.Invarient))
-                item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Form1.Invarient))
+                item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Globalization.CultureInfo.InvariantCulture))
+                item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Globalization.CultureInfo.InvariantCulture))
                 item1.SubItems.Add(Letter)
                 Dim fmtXY = "00000" ' 65536
                 Dim fmtRam = "0000." ' 9999 MB
@@ -710,15 +714,15 @@ Public Class RegionList
                     Dim component1 As Process = Process.GetProcessById(PID)
                     If Form1.PropRegionHandles.ContainsKey(PID) Then
                         Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Form1.Invarient)))
+                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                     Else
                         item1.SubItems.Add("0")
                     End If
                 Catch ex As Exception
                     item1.SubItems.Add("0")
                 End Try
-                item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Form1.Invarient))
-                item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Form1.Invarient))
+                item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
+                item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
                 Dim size As String = ""
                 If PropRegionClass1.SizeX(X) = 256 Then
@@ -730,7 +734,7 @@ Public Class RegionList
                 ElseIf PropRegionClass1.SizeX(X) = 1024 Then
                     size = "4X4"
                 Else
-                    size = PropRegionClass1.SizeX(X).ToString(Form1.Invarient)
+                    size = PropRegionClass1.SizeX(X).ToString(Globalization.CultureInfo.InvariantCulture)
                 End If
                 item1.SubItems.Add(size)
 
@@ -868,9 +872,9 @@ Public Class RegionList
                 If PropRegionClass1.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
                     If PropRegionClass1.AvatarCount(num) = 1 Then
-                        response = MsgBox("There is one avatar in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
+                        response = MsgBox(My.Resources.OneAvatar + PropRegionClass1.RegionName(num) + My.Resources.Do_you_still_want, vbYesNo)
                     Else
-                        response = MsgBox("There are " + PropRegionClass1.AvatarCount(num).ToString(Form1.Invarient) + " avatars in " + PropRegionClass1.RegionName(num) + ".  Do you still want to stop it?", vbYesNo)
+                        response = MsgBox(PropRegionClass1.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + PropRegionClass1.RegionName(num) + ". " & My.Resources.Do_you_still_want, vbYesNo)
                     End If
                     If response = vbNo Then
                         StopIt = False
@@ -930,7 +934,6 @@ Public Class RegionList
             Dim link = "hop:" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-            Catch ex As ObjectDisposedException
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -1039,7 +1042,7 @@ Public Class RegionList
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        Form1.Startup(True)
+        Form1.Startup()
 
     End Sub
 
@@ -1125,7 +1128,7 @@ Public Class RegionList
                 End If
 
                 If dirpathname = "! Add New Name" Then
-                    dirpathname = InputBox("Enter the New Dos Box name")
+                    dirpathname = InputBox(My.Resources.Enter_Dos_Name)
                 End If
                 If dirpathname.Length = 0 Then
                     ofd.Dispose()
@@ -1134,13 +1137,13 @@ Public Class RegionList
 
                 Dim extension As String = Path.GetExtension(ofd.FileName)
                 extension = Mid(extension, 2, 5)
-                If extension.ToLower(Form1.Invarient) = "ini" Then
+                If extension.ToLower(Globalization.CultureInfo.InvariantCulture) = "ini" Then
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
                     Dim i = PropRegionClass1.FindRegionByName(filename)
                     If i >= 0 Then
-                        MsgBox("Region name " + filename + " already exists", vbInformation, "Info")
+                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
                         ofd.Dispose()
                         Return
                     End If
@@ -1180,7 +1183,6 @@ Public Class RegionList
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try

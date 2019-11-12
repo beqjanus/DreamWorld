@@ -78,7 +78,7 @@ Public Class FormPublicity
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "PNG Files (*.PNG,*.png)|*.png;|All Files (*.*)|*.*",
+            .Filter = "PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*",
             .FilterIndex = 1,
             .Multiselect = False
         }
@@ -88,7 +88,7 @@ Public Class FormPublicity
                 Dim pattern As Regex = New Regex("PNG$|png$")
                 Dim match As Match = pattern.Match(ofd.FileName)
                 If Not match.Success Then
-                    MsgBox("Must be a PNG file", vbInformation)
+                    MsgBox(My.Resources.Must_PNG, vbInformation)
                     Return
                 End If
 
@@ -106,10 +106,10 @@ Public Class FormPublicity
                     Try
                         newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                     Catch ex As ArgumentNullException
-                        MsgBox("Warn: " & ex.Message)
+                        MsgBox(ex.Message)
                         Return
                     Catch ex As Runtime.InteropServices.ExternalException
-                        MsgBox("Warn:" & ex.Message)
+                        MsgBox(ex.Message)
                         Return
                     End Try
                 End Using

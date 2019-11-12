@@ -217,7 +217,7 @@ Partial Class FormRegions
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(278, 34)
         Me.AddRegion.TabIndex = 2
-        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.AddRegion
+        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region
         Me.AddRegion.UseVisualStyleBackColor = True
         '
         'MenuStrip2

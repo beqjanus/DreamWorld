@@ -280,7 +280,7 @@ Partial Class Gloebits
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
         Me.ProductionReqAppButton.Size = New System.Drawing.Size(226, 38)
         Me.ProductionReqAppButton.TabIndex = 10
-        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.RequestApp
+        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
         Me.ProductionReqAppButton.UseVisualStyleBackColor = True
         '
         'Label14
@@ -403,7 +403,7 @@ Partial Class Gloebits
         Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
         Me.SandBoxReqAppButton.Size = New System.Drawing.Size(226, 38)
         Me.SandBoxReqAppButton.TabIndex = 4
-        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.RequestApp
+        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
         Me.SandBoxReqAppButton.UseVisualStyleBackColor = True
         '
         'SandSecretTextBox

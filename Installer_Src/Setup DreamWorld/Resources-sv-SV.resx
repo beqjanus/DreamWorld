@@ -1,0 +1,2205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted" xml:space="preserve">
+    <value>Avbruten</value>
+  </data>
+  <data name="About1" xml:space="preserve">
+    <value>Handla om</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="Add_Region" xml:space="preserve">
+    <value>Lägg Region</value>
+  </data>
+  <data name="Add_User" xml:space="preserve">
+    <value>Lägg till användare</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Admin lösenord</value>
+  </data>
+  <data name="Admin_Web_Page" xml:space="preserve">
+    <value>Admin webbsida</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Allt</value>
+  </data>
+  <data name="AllNone" xml:space="preserve">
+    <value>Alla / Ingen</value>
+  </data>
+  <data name="Allow200" xml:space="preserve">
+    <value>Låt 200+ Nivå gudar</value>
+  </data>
+  <data name="AllowRegionGods" xml:space="preserve">
+    <value>Låt Region ägare gudar</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>Den ursprungliga Second Life moln</value>
+  </data>
+  <data name="Allow_Gods" xml:space="preserve">
+    <value>Tillåta eller inte tillåta Gods</value>
+  </data>
+  <data name="Allow_leave" xml:space="preserve">
+    <value>Låt objekt att lämna</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>Låt LSL att kontakta servern</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>Objekt kan tas från elnätet via Hypergrid</value>
+  </data>
+  <data name="All_Global_Settings" xml:space="preserve">
+    <value>Alla Globala inställningar</value>
+  </data>
+  <data name="All_Users_All_Sims" xml:space="preserve">
+    <value>Alla användare, alla Sims</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>Alfanumeriskt plus-minustecken (utan mellanslag eller speciella tecken)</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>Detta gör det möjligt för en annan region som skall placeras på denna plats. Fortsätta?</value>
+  </data>
+  <data name="Apache" xml:space="preserve">
+    <value>Apache</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>Tjänsten misslyckades att installera</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>Web Server hindrade inte</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>Webserver + Sök och karta</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>Webbserver är inte aktiverad</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>Apache avslutas. Vill du se felloggfilen?</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>Web Server gick inte att starta</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache har tagits bort som en tjänst</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>Web Server Port är inställda</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>Web Server körs</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>Starta Web Server</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>Apache webbserver</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>Ett undantag ansökan har skett. Vill du försöka fortsätta eller avbryta / avsluta?</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>Är du säker? Din databas kommer rloaded från säkerhetskopian och allt befintligt innehåll ut. Avatarer, sims, inventering, every kommer att skrivas över.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Är du säker på att du vill radera denna region?</value>
+  </data>
+  <data name="Asset_Cache" xml:space="preserve">
+    <value>Asset Cache</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>Autobackup mapp kan inte hittas, så mappen har återställts till standard.</value>
+  </data>
+  <data name="AutoRestart" xml:space="preserve">
+    <value>Auto omstart</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - Off. Hur många minuter tills automatisk omstart inträffar?</value>
+  </data>
+  <data name="Autorestarting" xml:space="preserve">
+    <value>automatisk omstart</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>Ökande Auto Restart tid att låta säkerhetskopior avsluta med 30 minuter efter omstarten Interval</value>
+  </data>
+  <data name="Auto_Backup" xml:space="preserve">
+    <value>Automatisk säkerhetskopiering</value>
+  </data>
+  <data name="Auto_Startup" xml:space="preserve">
+    <value>automatisk Startup</value>
+  </data>
+  <data name="Avatars" xml:space="preserve">
+    <value>Avatars</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>Avatarer är i världen! Vill du verkligen vill sluta?</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>Klicka för att se avatarer</value>
+  </data>
+  <data name="Avatar_Cache" xml:space="preserve">
+    <value>Avatar Bakes Cache</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name" xml:space="preserve">
+    <value>Avatar för- och efternamn</value>
+  </data>
+  <data name="Avatar_Name" xml:space="preserve">
+    <value>Avatar namn</value>
+  </data>
+  <data name="Avatar_Password" xml:space="preserve">
+    <value>Avatar Lösenord</value>
+  </data>
+  <data name="Backing_up_Settings" xml:space="preserve">
+    <value>Säkerhetskopiera inställningar</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Säkerhetskopiering</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Backup anpassad webbsidor</value>
+  </data>
+  <data name="Backup_Data" xml:space="preserve">
+    <value>Backup datafiler</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>Backup databaser</value>
+  </data>
+  <data name="Backup_Data_Files" xml:space="preserve">
+    <value>Backup datafiler</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>backup Folder</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>Backup FSAssets mapp</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>Backup Mysql Data mapp</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>backup Name</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>Backup Region ini-filer</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Klicka för att ställa in din backup schema</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Bästa (Prims + Mesh, mycket långsamt)</value>
+  </data>
+  <data name="Better1" xml:space="preserve">
+    <value>Bättre (Prims, Slow)</value>
+  </data>
+  <data name="BirdModule" xml:space="preserve">
+    <value>Bird Module</value>
+  </data>
+  <data name="Bird_Flock_Size" xml:space="preserve">
+    <value>Bird Flock storlek</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>Klicka för att få hjälp Birds</value>
+  </data>
+  <data name="Bird_IAR" xml:space="preserve">
+    <value>Fyll Bird IAR</value>
+  </data>
+  <data name="Bird_Settings" xml:space="preserve">
+    <value>Bird Inställningar</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Svart</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>Gräns ​​Storlek (default = 25,0)</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>Bullet fysik i separat tråd</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>Chat tidvattnet information till regionen så skript kan flytta med strömmen?</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>Broadcast Tide Info</value>
+  </data>
+  <data name="Bullet_Physics" xml:space="preserve">
+    <value>bullet fysik</value>
+  </data>
+  <data name="Busy" xml:space="preserve">
+    <value>Upptagen</value>
+  </data>
+  <data name="Caches" xml:space="preserve">
+    <value>cachar</value>
+  </data>
+  <data name="Caches_Cleared" xml:space="preserve">
+    <value>Alla cachar rensas</value>
+  </data>
+  <data name="Cache_Control" xml:space="preserve">
+    <value>cache kontroll</value>
+  </data>
+  <data name="Cache_Directory" xml:space="preserve">
+    <value>cache Directory</value>
+  </data>
+  <data name="Cache_Enabled" xml:space="preserve">
+    <value>cache aktiverad</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>Alla server cachar utom skript och Avatar bakar röjdes. Opensim måste stoppas till tryckbokstäver och baka cachar.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>Fyll IAR avbryts - måste använda hela användarnamnet och lösenordet.</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Avbokad</value>
+  </data>
+  <data name="Cannot_find_region" xml:space="preserve">
+    <value>Kan inte hitta region</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>Det går inte att normalisera kartan som region kommer att vara på en plats mindre än 0</value>
+  </data>
+  <data name="Cannot_resolve" xml:space="preserve">
+    <value>Det går inte att lösa</value>
+  </data>
+  <data name="Cannot_save_region" xml:space="preserve">
+    <value>Det går inte att spara region:</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>Mitten av kartan samordna</value>
+  </data>
+  <data name="Center_Map" xml:space="preserve">
+    <value>Karta Center Plats:</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>Ändringar har gjorts. Spara?</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>Ändra lösenord</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>Ändra UUID kommer att förlora all data i gamla sim och skapa en ny, tom sim. Är du säker på att du vill ändra UUID?</value>
+  </data>
+  <data name="ChatChannel" xml:space="preserve">
+    <value>Chat Channel</value>
+  </data>
+  <data name="Checking_Apache_service" xml:space="preserve">
+    <value>Kontroll Apache tjänsten</value>
+  </data>
+  <data name="Checking_for_Updates" xml:space="preserve">
+    <value>Kollar efter uppdateringar</value>
+  </data>
+  <data name="Checking_LAN_Loopback" xml:space="preserve">
+    <value>Kontroll LAN loopback</value>
+  </data>
+  <data name="Checking_Loopback" xml:space="preserve">
+    <value>kontroll Loopback</value>
+  </data>
+  <data name="Checking_Router" xml:space="preserve">
+    <value>kontroll Router</value>
+  </data>
+  <data name="Check_and_Repair_Database" xml:space="preserve">
+    <value>Kontrollera och reparera databas</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>Kontroll Diagnostik port</value>
+  </data>
+  <data name="Check_for_Updates" xml:space="preserve">
+    <value>Sök efter uppdateringar</value>
+  </data>
+  <data name="Check_MySql" xml:space="preserve">
+    <value>kontroll MySql</value>
+  </data>
+  <data name="ChooseRegion" xml:space="preserve">
+    <value>Välj Region</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>Välj vilken cache för att tömma</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>Välj din Välkommen region</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>Välj var att sätta OAR:</value>
+  </data>
+  <data name="ClampPrim" xml:space="preserve">
+    <value>Clamp Prim storlek?</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Clamp Prim Size' är ett alternativ för att säkerställa att ingen prim kan överskrida den inställda storleken</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>Clearing Asset Cache. Det kan ta lång tid.</value>
+  </data>
+  <data name="Clearing_Bake" xml:space="preserve">
+    <value>Clearing Bake Cache</value>
+  </data>
+  <data name="Clearing_Image" xml:space="preserve">
+    <value>Clearing Bild Cache</value>
+  </data>
+  <data name="Clearing_Maptiles" xml:space="preserve">
+    <value>Clearing Karta Tiles</value>
+  </data>
+  <data name="Clearing_Mesh" xml:space="preserve">
+    <value>Clearing Mesh Cache</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>Clearing Script Cache. Det kan ta lång tid.</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>Ta bort alla registreringar</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>Rensa Region List</value>
+  </data>
+  <data name="Clear_and_Load" xml:space="preserve">
+    <value>Tydlig och Load</value>
+  </data>
+  <data name="Clear_Cache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="Clear_Selected_Caches" xml:space="preserve">
+    <value>Clear Selected cachar</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>Klicka för att starta eller stoppa Robust</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>Regioner kan starta eller stoppa i grupper, beroende på hur din regioner mappen är organiserad.</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>Klicka för att välja en grupp</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>Klicka här för att ställa in Birds modulen</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Klicka för att ställa in cachar för skript, tillgångar och bilder</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>Klicka för att ställa in Currency</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Klicka här för att ställa in databasen</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>Hjälptext</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>Klicka för att aktivera Hypergrid eller ändra DNS-namn</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>Klicka för att Setup Shoutcast / Icecast</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>Klicka för att ställa in Maps</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>Klicka för att ställa in default Physics</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Klicka för att ställa in Ports</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>Klicka för att ställa upp publicitet på Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>Klicka för att ställa in Regioner</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Klicka för att ställa upp Start / Stop</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>Klicka för att välja en typ server. Default = Grid, men du kan ansluta som Region server, OsGrid eller Metro Region servrar</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>Det går inte att köra diagnostik om inte systemet är igång. Klicka på 'Start' och försök igen.</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>Klicka på 'Start' för att börja.</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>Klicka för att ställa in Tides</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>Klicka för att ändra mappen</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>Klicka för att ladda innehållet</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>Klicka för att begära Voice service</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>Klicka för att ställa in Vivox Voice</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>Klicka för att ställa in din webbKontrollPanelen</value>
+  </data>
+  <data name="Clouds" xml:space="preserve">
+    <value>Clouds</value>
+  </data>
+  <data name="Common_Settings" xml:space="preserve">
+    <value>Vanliga inställningar</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>Konfigurera alla regioner</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bekräftelse krävs för att logga in?</value>
+  </data>
+  <data name="Consoles" xml:space="preserve">
+    <value>konsoler</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>Den Opensim Dos Box kan minimeras automatiskt</value>
+  </data>
+  <data name="Contact_Email" xml:space="preserve">
+    <value>Kontakta E-post</value>
+  </data>
+  <data name="Contact_Info" xml:space="preserve">
+    <value>Kontaktinformation</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>Kontaktnamn</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Innehåll</value>
+  </data>
+  <data name="Coordx" xml:space="preserve">
+    <value>East-West position på världskartan</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>Den North_South position på världskartan</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>CPU Intensiv Backup igång</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>Skapa App och Få Keys</value>
+  </data>
+  <data name="CreateSandbox" xml:space="preserve">
+    <value>Skapa Sandbox</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>Skapa Production konto</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>Skapa en ny, tom databas</value>
+  </data>
+  <data name="Creating_INI_Files" xml:space="preserve">
+    <value>Skapa ini-filer</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>Nuvarande storlek på disk</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Beställnings</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>Cycle Tid i sekunder</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>Hur länge i sekunder för en komplett cykeltiden. låg-&gt; hög-&gt; låg</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Databas</value>
+  </data>
+  <data name="Database_Help" xml:space="preserve">
+    <value>databas Hjälp</value>
+  </data>
+  <data name="Database_Setup" xml:space="preserve">
+    <value>Database Setup</value>
+  </data>
+  <data name="Data_Folder" xml:space="preserve">
+    <value>Data Folder</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Databas namn</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>Dynamic DNS-namn används redan. Kanske du använder fel lösenord?</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="DefaultRegion" xml:space="preserve">
+    <value>standard~~POS=TRUNC region</value>
+  </data>
+  <data name="Default_8001" xml:space="preserve">
+    <value>Standard 8001</value>
+  </data>
+  <data name="Default_8002" xml:space="preserve">
+    <value>Standard 8002</value>
+  </data>
+  <data name="Default_8003" xml:space="preserve">
+    <value>Standard 8003</value>
+  </data>
+  <data name="Default_8004" xml:space="preserve">
+    <value>Standard 8004</value>
+  </data>
+  <data name="Default_Checked" xml:space="preserve">
+    <value>Standard: Kontrollerad</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>Standard 'Välkommen' region är inte aktiverad. Fortsätta?</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>Standard 'Välkommen' region inte finns i systemet. Fortsätta?</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>raderade</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>Radera Maps Alla</value>
+  </data>
+  <data name="Deregister" xml:space="preserve">
+    <value>Region har tagits bort</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>Alla regioner är avregistreras</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>detaljer</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>Detta avgör om modulen gör något</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>Diagnostik misslyckades. Vill du se loggen?</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>Denna port fungerar inte. DreamGrid inte körs på en tillräckligt hög säkerhetsnivå, eller blockeras av brandvägg eller anti-virus, så ikoner regionen är inaktiverade.</value>
+  </data>
+  <data name="Diag_Port" xml:space="preserve">
+    <value>diagnostik port</value>
+  </data>
+  <data name="did_not_start" xml:space="preserve">
+    <value>inte starta</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="Disable_Foreigners" xml:space="preserve">
+    <value>Inaktivera reseguider</value>
+  </data>
+  <data name="Disable_Gloebits" xml:space="preserve">
+    <value>inaktivera Gloebits</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>De globala Gloebits gäller inte denna region om set.</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>inaktivera Residents</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>Detta kommer att vara mindre säker Om du inaktiverar resväska, men kommer att vara lättare att rez objekt på utländska nät</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>Inaktivera Inventory Suitcase exponerar all ditt lager till andra nät. Men det är lätt att ge föremål från vilken plats som helst.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>Kasta alla ändringar och avsluta?</value>
+  </data>
+  <data name="DivaEnabled" xml:space="preserve">
+    <value>Diva WiFi aktiverat</value>
+  </data>
+  <data name="DivaPanel" xml:space="preserve">
+    <value>Diva Panel</value>
+  </data>
+  <data name="DnsName" xml:space="preserve">
+    <value>Grid-adress är</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>DNS-namn eller SomeName.Outworldz.net eller IP</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>DNS-namn &amp; Hypergrid</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>Ändra inte om databasen har redan skapats</value>
+  </data>
+  <data name="Do_Not_Interrupt" xml:space="preserve">
+    <value>Stör inte!</value>
+  </data>
+  <data name="Do_you_still_want" xml:space="preserve">
+    <value>Har du fortfarande vill sluta?</value>
+  </data>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>Registrera DynDNS adress</value>
+  </data>
+  <data name="DynDNS_password" xml:space="preserve">
+    <value>DynDNS lösenord</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>Edit Region</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>Estate Manager är Gud - Estate chefer kan bli gudar, men bara för denna egendom</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Gör det möjligt</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>Aktivera webbservern Apache</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiverad</value>
+  </data>
+  <data name="EnableOneClick" xml:space="preserve">
+    <value>Aktivera One-Klicka på Start</value>
+  </data>
+  <data name="Enable_Birds" xml:space="preserve">
+    <value>Aktivera Bird Module</value>
+  </data>
+  <data name="Enable_Events" xml:space="preserve">
+    <value>aktivera händelser</value>
+  </data>
+  <data name="Enable_Hypergrid" xml:space="preserve">
+    <value>aktivera Hypergrid</value>
+  </data>
+  <data name="Enable_Search" xml:space="preserve">
+    <value>aktivera Sök</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Ange ett namn för säkerhetskopian</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>Ange det första och sista namnet på användaren</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Skriv in det nya Dos Box namn</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>Ange det objektnamn ( '/' kommer säkerhetskopiera allt, och '/ objekt / box' kommer att backa upp 'box' i mapp Objects</value>
+  </data>
+  <data name="Err" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>Fel: Det gick inte att starta DreamGridInstaller.exe.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>endast (fel) Fel - 0</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - (info) träff Stats</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - (Debug) Cache Aktivitet</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>Fel: Det gick inte att ställa in Opensim.ini för regionen</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Fel: Kan inte förstå innehållet i region fil:</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>Fel: Det gick inte att starta Downloader.exe. Kanske kan du starta den manuellt.</value>
+  </data>
+  <data name="EstateManagerGod" xml:space="preserve">
+    <value>Estate Manager är gud</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>Utgång</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>Export säkerhetskopia</value>
+  </data>
+  <data name="Export_Permission" xml:space="preserve">
+    <value>export Tillstånd</value>
+  </data>
+  <data name="Export_SQL_file" xml:space="preserve">
+    <value>Export SQL-fil</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>Extern värdnamn för Region servrar</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>Standard för yttre Host Name är ett ämne, som blir din DNS-namn eller IP. Endast ställa in detta om du kör en region server utan NAT.</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>Flotsam Asset Cache</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>Det gick inte att ansluta till webbplatsen.</value>
+  </data>
+  <data name="Fatal" xml:space="preserve">
+    <value>Dödlig</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Finished_with_backup" xml:space="preserve">
+    <value>Kom med backup:</value>
+  </data>
+  <data name="First_name" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="Flotsam_Asset_Cache" xml:space="preserve">
+    <value>Flotsam Asset Cache</value>
+  </data>
+  <data name="Folder_To_Save_To" xml:space="preserve">
+    <value>Mapp att spara till</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>Bildhastighet (0,9)</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Standard 1/11 sek. Standard är 0,091 vilket är en / 5:e av 55 FPS</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>Skaffa en gratis DYN DNS-namn</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Klicka att få en gratis Gloebits konto så att du kan köpa och sälja</value>
+  </data>
+  <data name="Free_DLC" xml:space="preserve">
+    <value>Gratis DLC</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>Denna Grid vänliga namn</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>SL körs 55 FPS. Opensim är 11 FPS. Default = 0,9, eller 1/11</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>Tillgångar som filer</value>
+  </data>
+  <data name="FSassets" xml:space="preserve">
+    <value>File System Assets Database</value>
+  </data>
+  <data name="FSassets_Server" xml:space="preserve">
+    <value>FsAssets Server</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>De globala fågel inställningarna kommer att gälla för denna region</value>
+  </data>
+  <data name="Getting_regions" xml:space="preserve">
+    <value>få regioner</value>
+  </data>
+  <data name="GlobalSettings" xml:space="preserve">
+    <value>Globala inställningar</value>
+  </data>
+  <data name="Global_Tide_Settings" xml:space="preserve">
+    <value>Globala Tide Inställningar</value>
+  </data>
+  <data name="Gloebits_Currency" xml:space="preserve">
+    <value>Gloebits Currency</value>
+  </data>
+  <data name="Good1" xml:space="preserve">
+    <value>Bra (Warp3D)</value>
+  </data>
+  <data name="Grid_address" xml:space="preserve">
+    <value>Grid-adress</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>Du kan ge den här adressen ut till människor och de kan besöka din grid</value>
+  </data>
+  <data name="Grid_Server_With_Robust" xml:space="preserve">
+    <value>Grid Server med robusta</value>
+  </data>
+  <data name="Grid_TCP_is_set" xml:space="preserve">
+    <value>Grid TCP Port är inställda</value>
+  </data>
+  <data name="Grid_UDP_is_set" xml:space="preserve">
+    <value>Grid UDP Port är inställda</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>De globala Tide settungs kommer att gälla för denna region</value>
+  </data>
+  <data name="gTides" xml:space="preserve">
+    <value>De globala Tide inställningarna kommer att gälla för denna region om set</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>Uppdatering finns tillgänglig. Vill du avsluta DreamGrid och installera uppdateringen?</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Hjälp</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>Hjälp på konsol kommandon</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>Wiki Page på konsol kommandon</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>Hjälp Port Forwarding</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>Webbhjälp för Port Forwarding</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>Klicka för Hjälp på Gud Modes</value>
+  </data>
+  <data name="Help_IARS" xml:space="preserve">
+    <value>Hjälp på IAR</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>Wiki Page på IAR: s</value>
+  </data>
+  <data name="Help_LoopBack" xml:space="preserve">
+    <value>Hjälp på loopback</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>Hur fixar Loopback På Windows</value>
+  </data>
+  <data name="Help_Manuals" xml:space="preserve">
+    <value>Hjälp Manuals</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>Hjälp På Åror</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>Wiki Page på OARS</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>Hjälp på Starta för första gången</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>Hjälp med Teknisk information</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>Tekniska Mumbo Jumbo på hur man konfigurerar saker</value>
+  </data>
+  <data name="Help_Troubleshooting" xml:space="preserve">
+    <value>Hjälp Felsökning</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>Hypergrid diagnostik misslyckades. Dessa kan åter köras när som helst. Se Hjälp-&gt; Nätverksdiagnostik, 'Loopback' och 'Port Forwards'</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>Hypergrid borde arbeta.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Dölj</value>
+  </data>
+  <data name="Highest_Used" xml:space="preserve">
+    <value>Högsta används: 8004</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>Hög vattennivå</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>Höga vattentecken i meter</value>
+  </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>Hem</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>Hur nära kanterna av saker kan vi få utan att vara orolig?</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>Hur långt bort från andra fåglar som vi skulle vilja bo?</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>Hur långt i meter varje fågel kan resa per uppdatering?</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>Hur höga är vi får flock?</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>Hur lång tid att hålla säkerhetskopior. Den äldsta få bort efter denna tid i dagar,</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>Hur länge Opensim körs innan en automatisk backup inträffar</value>
+  </data>
+  <data name="Http_Port" xml:space="preserve">
+    <value>http Port</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>Hypergrid DNS-namn</value>
+  </data>
+  <data name="IAR_Load_and_Save" xml:space="preserve">
+    <value>IAR Load och spara</value>
+  </data>
+  <data name="Icecast" xml:space="preserve">
+    <value>Icecast</value>
+  </data>
+  <data name="iceCastServer" xml:space="preserve">
+    <value>Icecast Server</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>Icecast låter dig strömma musik till din sim. Musik URL:</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>Icecast är inaktiverad</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast avslutas. Vill du se felloggfilen?</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast inte starta</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>Klicka för att få hjälp att inrätta Icecast</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>Icecast Port är Set</value>
+  </data>
+  <data name="Icecast_Started" xml:space="preserve">
+    <value>icecast igång</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>Starta Icecast</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>ikoner</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>Opensim sparar OARS efter att ha kört denna långa</value>
+  </data>
+  <data name="Ignore_Parcel" xml:space="preserve">
+    <value>ignorera Parcel</value>
+  </data>
+  <data name="Ignore_Terrain" xml:space="preserve">
+    <value>ignorera Terrain</value>
+  </data>
+  <data name="Image_Cache" xml:space="preserve">
+    <value>bild Cache</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importera</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>Import Region ini-filer</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>Inkommande Hypergrid arbetar</value>
+  </data>
+  <data name="Increasing_time" xml:space="preserve">
+    <value>Ökande tid till</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Installera</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>Installera C ++ Runtimes</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>Installera Desktop-ikonen</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>Internetadress adress~~POS=HEADCOMP</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Intervall</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>Opensim laddar ditt objekt. Du hittar den i</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>Utfärda Console kommandon</value>
+  </data>
+  <data name="is_Off" xml:space="preserve">
+    <value>är av</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>Den Opensimulator Console visas när Opensim körs.</value>
+  </data>
+  <data name="JobEngine" xml:space="preserve">
+    <value>Job Engine</value>
+  </data>
+  <data name="Just_one_region" xml:space="preserve">
+    <value>Bara en region</value>
+  </data>
+  <data name="Keep_for_Days" xml:space="preserve">
+    <value>Håll i dagar</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>Du använder en LAN IP. Detta test är överhoppade.</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>Stor Metro karta</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>Se lista över Avatars</value>
+  </data>
+  <data name="Load Parcel" xml:space="preserve">
+    <value>Fyll Parcel</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>Ladda gratis Avatar Inventory</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>Last IAR från webbplats Outworldz</value>
+  </data>
+  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
+    <value>Ladda gratis Dreamworld Åror</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>Load Inventory IAR</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>Fyll Lokala IAR från mappen IAR</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>Fyll Lokala Åror från OAR mappen</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>Fyll Region OAR</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>Last terräng</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>lokal sökning</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>Log Level</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>Loopback Testet misslyckades. Webbadress svarade inte.</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>Loopback Hjälp</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>Loopback Test Godkänd för Port</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>Låg och hög vattentecken i meter</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>Låg vattennivå</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>LSL skript kan inte nå andra LAN PC. Om du slår detta på, kan de få tillgång till portar på LAN på vilken dator som helst. Detta är farligt!</value>
+  </data>
+  <data name="Make_backup" xml:space="preserve">
+    <value>Gör en backup?</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>Kartor</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>Alla kartrutor har raderats. Ställ kartan inställningen och starta om att göra nya kartor</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>Karta koordinater: X</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>Max 4096</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>Den maximala accelerationen får den aktuella hastigheten av fågeln</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>Hur många Avatars + NPC: s kan vara i en region innan regionen visas som full. Det verkliga värdet ligger i Estate inställningar i betraktaren.</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>Max avstånd för andra fåglar som skall beaktas i samma flock</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>Max Force (default = 0,2)</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>Max Höjd (default = 45,0)</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 meter i Firestorm. 1500 meter med singularitet. Du kan inte göra en vanlig prim större än detta</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>Max antal Prims i ett paket</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>Du kan inte göra en fysisk prim större än detta</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>Detta kommer att begränsa antalet Prims på ett skifte. Det finns ingen gräns förutom minnet när inaktiverad.</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>Aktivera MAXPRIMS gränser</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Max hastighet (default = 1,0)</value>
+  </data>
+  <data name="Merge_OAR" xml:space="preserve">
+    <value>Merge OAR</value>
+  </data>
+  <data name="Merge_Objects" xml:space="preserve">
+    <value>Sammanfoga objekt</value>
+  </data>
+  <data name="Mesh_Cache" xml:space="preserve">
+    <value>mesh Cache</value>
+  </data>
+  <data name="Message_sent" xml:space="preserve">
+    <value>Meddelande skickat</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Hypergrid.org Region Server</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuter</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Läge</value>
+  </data>
+  <data name="Modules" xml:space="preserve">
+    <value>moduler</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>Friare Islands och delar</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>Klicka för mer hjälp på webbplatsen</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>Måste ha ett namn på en inventering objekt</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>Måste vara samma som X</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>Måste vara samma som Y</value>
+  </data>
+  <data name="Must_be_Days" xml:space="preserve">
+    <value>Måste vara ett antal dagar</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>Måste vara en PNG-fil</value>
+  </data>
+  <data name="MySqlPort" xml:space="preserve">
+    <value>MySQL Port</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL lämnat. Vill du se felloggfilen?</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>Databasen startade inte. Vill du se loggfilen?</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>MySQL är Running</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>Default = 3306</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>Från och mysql databas</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL kördes när jag började, så jag lämnar MySQL på.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>namn</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>Systemet namn har ställts in på {newname}. Du kan ändra namnet på DNS-menyn när som helst</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>Granne Avstånd (default = 25,0)</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>Ett nätverk förändring inträffade. En omstart kan vara nödvändigt.</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>nätverks~~POS=TRUNC</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>Kör diagnostikinstallations</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>nätverksportar</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>Nytt innehåll laddar</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>Nytt innehåll just laddade</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>Ny Användare Home X, Y, Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>Nästa namn</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>Ingen person är inte uppkopplad</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>Normalisera Regioner</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>Normalt inställd på OutworldzFiles / Autobackup mapp med 'Autobackup'. Klicka för att ändra mappen.</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>Du kan inte göra en vanlig prim större än så.</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>Meddela Email</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>Inte ett giltigt UUID. Vill du ha en ny, Random UUID?</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>Detta verkar inte vidarebefordras till denna maskin i din router, så Hypergrid är inte tillgänglig. Detta kan möjligen fastställas genom 'Port Forwards' i din router. Se Hjälp-&gt; Port framåt.</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>Normalt inte verkställas av Opensim. Viewer kommer inte att visa mer än 45.000. Ställa detta här och gör det möjligt för detta i inställningarna driva gränsen och kan återvända Prims!</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>Opensim körs inte.</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>Den Opensimulator Console kommer inte att visas. Du kan fortfarande interagera med det med Hjälp-&gt; Opensim Console</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>Kunde inte in standard sim för besökare. Se Regioner Panelen.</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>Ingen Hypergrid besökare kommer att tillåtas i denna region</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>Inte publicera denna region</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>Inga regioner är redo, så kan inte ladda IAR"</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>Fel: Det gick inte att starta NtSuspendProcess64.exe.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>Antalet fåglar flock</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>OAR filer är säkerhetskopior av hela Islands</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>OAR Load och spara</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>Object sökväg och namn</value>
+  </data>
+  <data name="ODE" xml:space="preserve">
+    <value>Open Dynamic Engine</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Av</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Off-line</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>Det finns en avatar</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>En region är fortfarande igång</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>Endast Ägare och Estate chefer kommer att tillåtas i denna region</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>Opensimulator är lastning</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Open Router portar med hjälp av Universal Plug and Play</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>alternativ</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>Eller:</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSGrid Region Server</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>Åsidosätter den globala kartan Inställningar för en region</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>paket</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>Godkänd LAN loopback-test</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>Du kan endast ändra lösenordet när Opensim körs</value>
+  </data>
+  <data name="PDF_Manual" xml:space="preserve">
+    <value>PDF Manual</value>
+  </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>människor är i</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Behörigheter</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>Fysik</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>fysikmotor</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>Ange ett giltigt DNS-namn som 'name.outworldz.net' eller registrera ett på http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>Välj bara en rad</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>Vänligen skriv in Grid Ägarens avatar namn i Robust fönstret. Tryck på &lt;enter&gt; för UUID och modellnamn. Tryck sedan detta OK</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>Port 1</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>Port 2</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>Hamnar</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>Port konflikt har upptäckts. Alla portar har återställts till standardinställningarna</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>Port Forwarding Hjälp</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>Förhandsgranska i webbläsare</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>Prim Gränser</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Prim Namn (default = SeaGull1)</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Skriva ut</value>
+  </data>
+  <data name="Private_Port" xml:space="preserve">
+    <value>Private Port</value>
+  </data>
+  <data name="Production_Mode" xml:space="preserve">
+    <value>produktions~~POS=TRUNC</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>Ge tidvatteninformation på konsolen?</value>
+  </data>
+  <data name="Publicity" xml:space="preserve">
+    <value>Publicitet</value>
+  </data>
+  <data name="Public_IP" xml:space="preserve">
+    <value>Offentliga IP-konfiguration</value>
+  </data>
+  <data name="Public_Photo" xml:space="preserve">
+    <value>Public Foto</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>Publicera Grid till Hyperica.com</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>Publicera Fält markerade för sök</value>
+  </data>
+  <data name="Quit_Now" xml:space="preserve">
+    <value>avsluta nu</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>avslutas oväntat. Omstart.</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>Läsa Region filer</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>Redo att starta!</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>Återvinna</value>
+  </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>Uppfriskande gratis innehåll (IAR)</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>Uppfriskande gratis innehåll (OAR)</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>Om du tar bort alla kartor, måste du att regenerera kartor genom att starta med en karta inställning</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Område</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>regioner</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>regioner fortfarande kör</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>Region redan</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>Region Controls</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>region Database</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>region List</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>Region manager är Gud?</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>Region Manager är Gud - Estate chefer kan bli gudar, men bara för denna egendom</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alfanumeriska plus Spaces</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>Region namn kan inte använda specialtecken</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>Region specifika inställningar åsidostandardinställningar</value>
+  </data>
+  <data name="Region_Owner_Is_God" xml:space="preserve">
+    <value>Region Ägare är Gud</value>
+  </data>
+  <data name="Region_Port" xml:space="preserve">
+    <value>region Port</value>
+  </data>
+  <data name="Region_Ports" xml:space="preserve">
+    <value>Region Ports</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>Region Port Start #</value>
+  </data>
+  <data name="Region_Server" xml:space="preserve">
+    <value>region Server</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>Servern att ansluta till. 'Localhost' är standard.</value>
+  </data>
+  <data name="Region_Specific_Settings" xml:space="preserve">
+    <value>Regionspecifika inställningar</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>region Stats</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Ladda nätet</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>Render max höjd</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>Render Min Längd</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>Begär App Creation</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>Boka ditt DYN DNS-namn. Detta är ett lösenord för ditt namn.</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>löst</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Omstart</value>
+  </data>
+  <data name="Restarting" xml:space="preserve">
+    <value>omstart</value>
+  </data>
+  <data name="Restart_All" xml:space="preserve">
+    <value>Starta om alla</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>Omstarter alla Kontrollerad Regioner</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>Starta om Intervall i minuter</value>
+  </data>
+  <data name="Restart_one_instance" xml:space="preserve">
+    <value>Omstart en instans</value>
+  </data>
+  <data name="Restart_one_region" xml:space="preserve">
+    <value>Omstart en region</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>Om en region kraschar kommer regionen återstartas</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>Omstart på fysik Crash</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>Bulletsim fysik kraschen kommer att tvinga en simulator omstart</value>
+  </data>
+  <data name="Restart_Periodically" xml:space="preserve">
+    <value>omstart period</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>Regionerna kommer all automatisk omstart efter så många minuter som körs</value>
+  </data>
+  <data name="Restart_Queued" xml:space="preserve">
+    <value>Starta om kö för</value>
+  </data>
+  <data name="Restart_Region" xml:space="preserve">
+    <value>Starta om Region</value>
+  </data>
+  <data name="Restart_Robust" xml:space="preserve">
+    <value>omstart Robust</value>
+  </data>
+  <data name="Restart_Settings" xml:space="preserve">
+    <value>Starta Inställningar</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Återställa?</value>
+  </data>
+  <data name="Restore_Database" xml:space="preserve">
+    <value>Återställ databas</value>
+  </data>
+  <data name="Resuming" xml:space="preserve">
+    <value>Återuppta</value>
+  </data>
+  <data name="Revision_History" xml:space="preserve">
+    <value>revisionshistorik</value>
+  </data>
+  <data name="Robust" xml:space="preserve">
+    <value>Robust</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>Robust avslutas. Vill du se felloggfilen?</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>Robust gick inte att starta</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>Robusta körs</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>Klicka på en aktiverad rad för att starta eller stoppa regionen. Klicka en handikappad rad att redigera regionen.</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Löpning</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>Köra Nätverksdiagnostik</value>
+  </data>
+  <data name="Run_All" xml:space="preserve">
+    <value>Kör All</value>
+  </data>
+  <data name="Run_as_a_Service" xml:space="preserve">
+    <value>Kör som en tjänst</value>
+  </data>
+  <data name="Sandbox_Mode" xml:space="preserve">
+    <value>sandlådeläge</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>Spara alla kör Region åror</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>Spara ändringar?</value>
+  </data>
+  <data name="Save_IAR" xml:space="preserve">
+    <value>Spara IAR</value>
+  </data>
+  <data name="Save_Inventory_IAR" xml:space="preserve">
+    <value>Spara Inventory IAR</value>
+  </data>
+  <data name="Save_Region_OAR" xml:space="preserve">
+    <value>Spara Region OAR</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Sparande</value>
+  </data>
+  <data name="Scripts" xml:space="preserve">
+    <value>skript</value>
+  </data>
+  <data name="Scripts_Resume" xml:space="preserve">
+    <value>skript Återuppta</value>
+  </data>
+  <data name="Scripts_Start" xml:space="preserve">
+    <value>skript Start</value>
+  </data>
+  <data name="Scripts_Stop" xml:space="preserve">
+    <value>skript Stopp</value>
+  </data>
+  <data name="Scripts_Suspend" xml:space="preserve">
+    <value>skript Häng</value>
+  </data>
+  <data name="Script_cache" xml:space="preserve">
+    <value>script cache</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>Script Timer Rate (0,9)</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,9)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="Search_All_Grids" xml:space="preserve">
+    <value>Sök alla Galler</value>
+  </data>
+  <data name="Secret" xml:space="preserve">
+    <value>Hemlighet</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>Jag ser du igen när jag vaknar allt färskt och nytt!</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>Vill du se loggfilen?</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>Väljer alla eller ingen av kryssrutorna</value>
+  </data>
+  <data name="Send_Alert_Message" xml:space="preserve">
+    <value>Skicka Alert meddelande</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>Skicka Debug Info till konsolen</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Önskade Separation (default = 5,0)</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>Varje region kommer att starta först när tidigare region har laddats</value>
+  </data>
+  <data name="Server_Type" xml:space="preserve">
+    <value>servertyp</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>inställningar</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>Ställa Loopback Adapter till offentlig IP-adress</value>
+  </data>
+  <data name="Setup_Firewall" xml:space="preserve">
+    <value>Inställning Firewall</value>
+  </data>
+  <data name="Setup_Graphs" xml:space="preserve">
+    <value>Setup Grafer</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>Ställa in nätverk</value>
+  </data>
+  <data name="Setup_Ports" xml:space="preserve">
+    <value>Setup Ports</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Setup sökdatabas</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>Klicka för att ställa in användarvillkor</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>Setup Voice service</value>
+  </data>
+  <data name="Set_Debug_Level" xml:space="preserve">
+    <value>Set Debug nivå</value>
+  </data>
+  <data name="Set_Owner" xml:space="preserve">
+    <value>set Owner</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>Shoutcast är inte aktiverad.</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>Visa Grid Adress</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>Visa statistik på konsolen</value>
+  </data>
+  <data name="Show_Status" xml:space="preserve">
+    <value>Visa Status</value>
+  </data>
+  <data name="Show_User_Details" xml:space="preserve">
+    <value>Visa Användaruppgifter</value>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>Stänga av</value>
+  </data>
+  <data name="Simple_but_Fast" xml:space="preserve">
+    <value>Enkelt men snabbt</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>Detta definierar graden av flera simuleringshändelser. Det kan reduceras för att förbättra simulering av rörliga föremål, med eventuell ökning av cpu och nätverksbelastning.</value>
+  </data>
+  <data name="Sim_Size" xml:space="preserve">
+    <value>Sim Size</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Hoppa</value>
+  </data>
+  <data name="Skip_Autobackup" xml:space="preserve">
+    <value>Skip Autobackup</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>Starta en långsam men omfattande databas Backup</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>Small Metro karta</value>
+  </data>
+  <data name="Smart_Start" xml:space="preserve">
+    <value>Smart Start</value>
+  </data>
+  <data name="Smart_Start_Enabled" xml:space="preserve">
+    <value>Smart Start Aktivera</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>SMTP Send e-postkonto</value>
+  </data>
+  <data name="SMTPHost" xml:space="preserve">
+    <value>SMTP Host</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP Lösenord</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP Port</value>
+  </data>
+  <data name="Someone_is_in" xml:space="preserve">
+    <value>Någon är i</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>Tyvärr är Help ännu inte tillgänglig för detta.</value>
+  </data>
+  <data name="Source_Code" xml:space="preserve">
+    <value>Källkod</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>Viewer Splash Screen URL:</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>Startbild</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>SQL-databas Backup / Restore</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>Starta alla kontrolleras regioner</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Startande</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>Starta första gången</value>
+  </data>
+  <data name="Starting_WebServer" xml:space="preserve">
+    <value>Från och webbserver</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>Det finns ingen anledning att klicka på Start-knappen igen. Startar när den lanserades.</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>Start Regioner Sekventiellt</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>Starta Kontrollpanelen</value>
+  </data>
+  <data name="Start_Regions" xml:space="preserve">
+    <value>Start Regioner</value>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,9)</value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>Steg 1:</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>Steg 2:</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>Steg 3:</value>
+  </data>
+  <data name="StopAll" xml:space="preserve">
+    <value>Stoppa alla</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>stoppad</value>
+  </data>
+  <data name="Stopping" xml:space="preserve">
+    <value>stoppa</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>Stoppa Apache webbserver</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>Stoppar alla kontrolleras Regioner</value>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>Sluta</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>Aktivera Inventory Resväska</value>
+  </data>
+  <data name="Suspending" xml:space="preserve">
+    <value>suspendering</value>
+  </data>
+  <data name="System_Backup" xml:space="preserve">
+    <value>System Backup</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>Det kan ta tid att ladda</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>Teknisk information</value>
+  </data>
+  <data name="Teleport" xml:space="preserve">
+    <value>Teleport</value>
+  </data>
+  <data name="Teleporting" xml:space="preserve">
+    <value>Teleporting</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>Användarvillkor</value>
+  </data>
+  <data name="Terrain" xml:space="preserve">
+    <value>Terräng</value>
+  </data>
+  <data name="Test_DNS" xml:space="preserve">
+    <value>testet DNS</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Tema:</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>Tema set Black</value>
+  </data>
+  <data name="theme_Custom" xml:space="preserve">
+    <value>Tema set till Custom</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>Tema set till White</value>
+  </data>
+  <data name="These_Changes" xml:space="preserve">
+    <value>Dessa förändringar träder i kraft först när Opensim och Robust båda startas</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>Detta flyttar alla regioner så valda regionen är vid 1000,1000 att passa kartan. Fortsätt?</value>
+  </data>
+  <data name="Threadpools" xml:space="preserve">
+    <value>Ämnes pooler</value>
+  </data>
+  <data name="Tides" xml:space="preserve">
+    <value>Tides</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>Aktivera tidvattnet att komma in och ut?</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel" xml:space="preserve">
+    <value>Tide Hi / Lo Channel</value>
+  </data>
+  <data name="Tide_Info_Channel" xml:space="preserve">
+    <value>Tide Info Channel</value>
+  </data>
+  <data name="Timeout_in_hours" xml:space="preserve">
+    <value>Timeout i timmar</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>Tolerans (default = 25,0)</value>
+  </data>
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Felsökning</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>UBIT ODE / Bullet Hybrid</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>Det går inte att spara inställningar:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>Ange det första och sista namnet på den person som kommer att äga några otilldelade föremål</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>Okänd filtyp</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Uppdaterad</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>Update har laddats ner. Installera det nu?</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>Uppdatering finns tillgänglig. Nedladdning uppdatering i bakgrunden. Låt den är klar.</value>
+  </data>
+  <data name="Updating_Ports" xml:space="preserve">
+    <value>Uppdatera Ports</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>UPnP är inaktiverad</value>
+  </data>
+  <data name="UPnP_Enabled" xml:space="preserve">
+    <value>UPnP</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>Aktivera detta är att du har ett litet system och vill routern portarna för att automatiskt ställa in</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>UPnP inställningsprogrammet</value>
+  </data>
+  <data name="UseDefault" xml:space="preserve">
+    <value>Använd standard</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>Ju högre siffra, desto större cache.</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>användar ID</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Användarnamn</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>användare</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>Fel: UUID är ingenting!</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Viewer_Cache" xml:space="preserve">
+    <value>Viewer Cache</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>Standard: Enabled. Användare kan behöva minska viewer bandbredd om vissa Prims eller terräng delar inte rez. Byt till false om du behöver använda gamla tittare som inte stöder denna funktion</value>
+  </data>
+  <data name="Viewer_Greeting" xml:space="preserve">
+    <value>Viewer hälsning</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>Viewer slutar räkna på 45.000</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>Visa som ikoner</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>View Region Detaljer</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>Visa Icecast webbsida</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>Visa loggar</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>Kartor View Region</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>Visa Simulator Stats</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>Visa en webbsida som visar statistik för varje region</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>Se webbgränssnitt</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>Webbgränssnittet kan användas för att lägga till nya användare</value>
+  </data>
+  <data name="Vivox_Voice" xml:space="preserve">
+    <value>Vivox Voice</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>Röst</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>Väntar på alla regioner för att avsluta</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>Varna</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web Control Panel</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>Web Server Panel</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>Web Port (80 eller 8000)</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>Webben UI kan du lägga till eller visa inställningar för alla avatar.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>Vad vill du säga till alla på linje?</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>Vad vill du säga till denna region?</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>Vilken kanal gör fåglar lyssnar för in-world kommandon. Negativa tal kan inte användas av människor</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>Vit</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>Detta är den standard Wifi kartsidan</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>Wifi Interface Admin</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>Kommer inte att spara en åra med Autobackup.</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Något är fel med Internet</value>
+  </data>
+</root>

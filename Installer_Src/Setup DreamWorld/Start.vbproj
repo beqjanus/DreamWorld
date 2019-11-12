@@ -193,7 +193,6 @@
   <ItemGroup>
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
-    <Compile Include="Culture.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
@@ -387,6 +386,11 @@
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
+    <Compile Include="My Project\Resources-nl-NL.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources-nl-NL.resx</DependentUpon>
+    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -396,6 +400,11 @@
     <Compile Include="ProcessExtension.vb" />
     <Compile Include="PublicIP.vb" />
     <Compile Include="RandomNumber.vb" />
+    <Compile Include="Resources-sv-SV.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources-sv-SV.resx</DependentUpon>
+    </Compile>
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />
@@ -571,10 +580,29 @@
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resource.ca-CA.resx" />
+    <EmbeddedResource Include="My Project\Resource.el-EL.resx" />
+    <EmbeddedResource Include="My Project\Resource.fa-FA.resx" />
+    <EmbeddedResource Include="My Project\Resource.he-HE.resx" />
+    <EmbeddedResource Include="My Project\Resources-nl-NL.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources-nl-NL.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.ar-AR.resx" />
+    <EmbeddedResource Include="My Project\Resources.cs-CS.resx" />
+    <EmbeddedResource Include="My Project\Resources.de-DE.resx" />
+    <EmbeddedResource Include="My Project\Resources.eu.resx" />
+    <EmbeddedResource Include="My Project\Resources.ex-MX.resx" />
+    <EmbeddedResource Include="My Project\Resources.fi-FI.resx" />
     <EmbeddedResource Include="My Project\Resources.fr-FR.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.pt-PT.resx" />
+    <EmbeddedResource Include="My Project\Resources.ga-GA.resx" />
+    <EmbeddedResource Include="My Project\Resources.is-IS.resx" />
+    <EmbeddedResource Include="My Project\Resources.pt-PT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -583,6 +611,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVoice.resx">
       <DependentUpon>FormVoice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.ru.RU.resx" />
+    <EmbeddedResource Include="My Project\Resources.zh-cn.resx" />
+    <EmbeddedResource Include="My Project\Resources.zh-tw.resx" />
+    <EmbeddedResource Include="My Project\Resources.no-NO.resx" />
+    <EmbeddedResource Include="My Project\Resources.pl-PL.resx" />
+    <EmbeddedResource Include="My Project\Resources.sv-SV.resx" />
+    <EmbeddedResource Include="Resources-sv-SV.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources-sv-SV.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

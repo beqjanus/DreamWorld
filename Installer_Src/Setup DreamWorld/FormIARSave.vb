@@ -39,7 +39,7 @@ Public Class FormIARSave
         ' This call is required by the designer.
         InitializeComponent()
 
-        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Form1.Invarient) + ".iar"
+        BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) + ".iar"
 
     End Sub
 
@@ -107,11 +107,11 @@ Public Class FormIARSave
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
         If GAvatarName.Length = 0 Or Not GAvatarName.Contains(" ") Then
-            MsgBox("Must have an avatar 'First Last' name.")
+            MsgBox(My.Resources.Enter_1_2)
             Return
         End If
         If GPassword.Length = 0 Then
-            MsgBox("Must have a password for this avatar.")
+            MsgBox(My.Resources.Password)
             Return
         End If
 

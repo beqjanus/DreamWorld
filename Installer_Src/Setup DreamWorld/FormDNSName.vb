@@ -89,7 +89,7 @@ Public Class FormDNSName
 
     Shared Function Random() As String
         Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Form1.Invarient)
+        Random = System.Convert.ToString(value, Globalization.CultureInfo.InvariantCulture)
     End Function
 
 #End Region
@@ -99,7 +99,7 @@ Public Class FormDNSName
     Private Sub Closeme() Handles Me.Closed
 
         If changed Then
-            Dim resp = MsgBox("Changes have been made! Save (Y/N)", vbYesNo)
+            Dim resp = MsgBox(My.Resources.Changes_Made, vbYesNo)
             If resp = vbYes Then SaveAll()
         End If
 
@@ -125,13 +125,13 @@ Public Class FormDNSName
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
 
-        NextNameButton.Text = "Busy..."
+        NextNameButton.Text = My.Resources.Busy
         DNSNameBox.Text = String.Empty
         Application.DoEvents()
         Dim newname = Form1.GetNewDnsName()
-        NextNameButton.Text = "Next Name"
+        NextNameButton.Text = My.Resources.Next1
         If newname.Length = 0 Then
-            MsgBox("Please enter a valid DNS name such as Name.Outworldz.net, or register for one at http://www.noip.com", vbInformation, "Name Needed")
+            MsgBox(My.Resources.Please_enter, vbInformation, My.Resources.Info)
             NextNameButton.Enabled = False
         Else
             NextNameButton.Enabled = True
@@ -144,7 +144,7 @@ Public Class FormDNSName
 
     Private Sub SaveAll()
 
-        NextNameButton.Text = "Saving..."
+        NextNameButton.Text = My.Resources.Saving
 
         If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
             Form1.Settings.DNSName = DNSNameBox.Text
@@ -175,7 +175,7 @@ Public Class FormDNSName
         Form1.Settings.Suitcase() = SuitcaseCheckbox.Checked
 
         If Not SuitcaseCheckbox.Checked Then
-            MsgBox("Disabling the Inventory Suitcase exposes all your inventory to other grids. ")
+            MsgBox(My.Resources.Disabling_Suitcase)
         End If
         changed = True
 
@@ -187,9 +187,9 @@ Public Class FormDNSName
         Dim IP = Form1.DoGetHostAddresses(DNSNameBox.Text)
         Dim address As IPAddress = Nothing
         If IPAddress.TryParse(IP, address) Then
-            MsgBox(DNSNameBox.Text + " was resolved to " + IP, vbInformation, "Test Result")
+            MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
         Else
-            MsgBox("Cannot resolve " + DNSNameBox.Text, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_resolve & " " & DNSNameBox.Text, vbInformation, My.Resources.Err)
         End If
 
     End Sub

@@ -1,0 +1,2205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted" xml:space="preserve">
+    <value>avortat</value>
+  </data>
+  <data name="About1" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>afegir</value>
+  </data>
+  <data name="Add_Region" xml:space="preserve">
+    <value>Afegir Regió</value>
+  </data>
+  <data name="Add_User" xml:space="preserve">
+    <value>afegir usuari</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>contrasenya d'administrador</value>
+  </data>
+  <data name="Admin_Web_Page" xml:space="preserve">
+    <value>Pàgina d'administració web</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>tots</value>
+  </data>
+  <data name="AllNone" xml:space="preserve">
+    <value>Tots / Cap</value>
+  </data>
+  <data name="Allow200" xml:space="preserve">
+    <value>Permetre déus 200+ Nivell</value>
+  </data>
+  <data name="AllowRegionGods" xml:space="preserve">
+    <value>Permetre déus propietari Regió</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>Els núvols originals Second Life</value>
+  </data>
+  <data name="Allow_Gods" xml:space="preserve">
+    <value>Permetre o no permetre déus</value>
+  </data>
+  <data name="Allow_leave" xml:space="preserve">
+    <value>Permeti que els articles surten</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>Deixi LSL posar-se en contacte amb el servidor</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>Els objectes poden ser preses de la seva xarxa a través de Hypergrid</value>
+  </data>
+  <data name="All_Global_Settings" xml:space="preserve">
+    <value>Tots els ajustos globals</value>
+  </data>
+  <data name="All_Users_All_Sims" xml:space="preserve">
+    <value>Tots els usuaris, tots els Sims</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>Alfa-numèric signe menys (sense espais ni caràcters especials)</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>Això permetrà a una altra regió per a ser col·locat en aquest lloc. Continuar?</value>
+  </data>
+  <data name="Apache" xml:space="preserve">
+    <value>apatxe</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>No s'ha pogut instal·lar el servei</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>Servidor web no es va aturar</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>Servidor web + Recerca i Mapa</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>servidor web no està activat</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>Apache va sortir. Vols veure el fitxer de registre d'errors?</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>Servidor web no es va poder iniciar</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache s'ha eliminat com un servei</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>Port web Server s'estableix</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>Web Server s'està executant</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>A partir de Servidors Web</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>Servidor web Apache</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>S'ha produït una excepció d'aplicació. Vols tractar de continuar o avortar / sortida?</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>aplicar</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>Estàs segur? La seva base de dades es rloaded de la còpia de seguretat i tot el contingut existent reemplaçat. Avatars, Sims, inventari, everyting s'escriuran més.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Esteu segur que voleu suprimir aquesta regió?</value>
+  </data>
+  <data name="Asset_Cache" xml:space="preserve">
+    <value>memòria cau d'actius</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>carpeta de còpia de seguretat automàtica no pot ser localitzat, de manera que la carpeta s'ha restablert als valors predeterminats.</value>
+  </data>
+  <data name="AutoRestart" xml:space="preserve">
+    <value>reinici automàtic</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - Apagat. Quants minuts fins que es produeixi el reinici automàtic?</value>
+  </data>
+  <data name="Autorestarting" xml:space="preserve">
+    <value>reinici automàtic</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>L'augment de reinici automàtic hora de deixar còpies de seguretat de meta per 30 minuts després de la represa d'interval</value>
+  </data>
+  <data name="Auto_Backup" xml:space="preserve">
+    <value>Còpia de seguretat automàtica</value>
+  </data>
+  <data name="Auto_Startup" xml:space="preserve">
+    <value>Posada en marxa automàtica</value>
+  </data>
+  <data name="Avatars" xml:space="preserve">
+    <value>avatars</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>Els avatars són en el món! És el que realment vol deixar de fumar?</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>Feu clic per veure els avatars</value>
+  </data>
+  <data name="Avatar_Cache" xml:space="preserve">
+    <value>Avatar Bakes memòria cau</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name" xml:space="preserve">
+    <value>Avatar Nom i cognom</value>
+  </data>
+  <data name="Avatar_Name" xml:space="preserve">
+    <value>Nom de l'Avatar</value>
+  </data>
+  <data name="Avatar_Password" xml:space="preserve">
+    <value>avatar contrasenya</value>
+  </data>
+  <data name="Backing_up_Settings" xml:space="preserve">
+    <value>Còpia de seguretat de configuració</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>reserva</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Còpia de seguretat Pàgines web personalitzat</value>
+  </data>
+  <data name="Backup_Data" xml:space="preserve">
+    <value>Còpia de seguretat d'arxius de dades</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>Bases de dades de còpia de seguretat</value>
+  </data>
+  <data name="Backup_Data_Files" xml:space="preserve">
+    <value>Còpia de seguretat d'arxius de dades</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>carpeta de suport</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>carpeta de còpia de seguretat FSAssets</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>carpeta de còpia de seguretat de dades MySQL</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>Nom de còpia de seguretat</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>Els vostres còpies de seguretat Regió INI</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Feu clic aquí per configurar el seu horari de còpia de seguretat</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Configuració de còpia de seguretat</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Millor (Prims + malla, molt lent)</value>
+  </data>
+  <data name="Better1" xml:space="preserve">
+    <value>Better (Prims, Lent)</value>
+  </data>
+  <data name="BirdModule" xml:space="preserve">
+    <value>Mòdul d'aus</value>
+  </data>
+  <data name="Bird_Flock_Size" xml:space="preserve">
+    <value>esbart Mida</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>Feu clic per obtenir ajuda sobre les aus</value>
+  </data>
+  <data name="Bird_IAR" xml:space="preserve">
+    <value>Carregar Bird IAR</value>
+  </data>
+  <data name="Bird_Settings" xml:space="preserve">
+    <value>Ajustaments d'aus</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Negre</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>Mida de la vora (per defecte = 25,0)</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>la física de punt negre en fil separat</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>Xat Informació de marees per a la regió de manera que les seqüències d'ordres es poden moure amb la marea?</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>Broadcast Tide Informació</value>
+  </data>
+  <data name="Bullet_Physics" xml:space="preserve">
+    <value>la física de bala</value>
+  </data>
+  <data name="Busy" xml:space="preserve">
+    <value>Ocupada</value>
+  </data>
+  <data name="Caches" xml:space="preserve">
+    <value>caixets</value>
+  </data>
+  <data name="Caches_Cleared" xml:space="preserve">
+    <value>Tots els caixets s'esborren</value>
+  </data>
+  <data name="Cache_Control" xml:space="preserve">
+    <value>control de memòria cau</value>
+  </data>
+  <data name="Cache_Directory" xml:space="preserve">
+    <value>Directori de memòria cau</value>
+  </data>
+  <data name="Cache_Enabled" xml:space="preserve">
+    <value>habilitat memòria cau</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>S'esborraran tots els caixets de servidor, excepte Scripts i s'enforna Avatar. Opensim ha de ser detingut a caixets de guió i de pastissos clars.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel · lar</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>Càrrega IAR cancel·lat - ha d'utilitzar el nom d'usuari i la contrasenya completa.</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>cancel·lat</value>
+  </data>
+  <data name="Cannot_find_region" xml:space="preserve">
+    <value>No es pot trobar regió</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>No es pot assignar normalitzar com una regió estarà en una posició inferior a 0</value>
+  </data>
+  <data name="Cannot_resolve" xml:space="preserve">
+    <value>No es pot resoldre</value>
+  </data>
+  <data name="Cannot_save_region" xml:space="preserve">
+    <value>No es pot desar regió:</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>Centre de mapa de coordenades</value>
+  </data>
+  <data name="Center_Map" xml:space="preserve">
+    <value>Mapa Centre Ubicació:</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>S'han fet canvis. Guardar?</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>canviar contrasenya</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>Canviar el UUID perdrà totes les dades en el vell sim i crear una nova SIM buida. Esteu segur que voleu canviar el UUID?</value>
+  </data>
+  <data name="ChatChannel" xml:space="preserve">
+    <value>canal de xat</value>
+  </data>
+  <data name="Checking_Apache_service" xml:space="preserve">
+    <value>Comprovació de servei d'Apache</value>
+  </data>
+  <data name="Checking_for_Updates" xml:space="preserve">
+    <value>Cerca d'actualitzacions</value>
+  </data>
+  <data name="Checking_LAN_Loopback" xml:space="preserve">
+    <value>Comprovació de bucle invertit de LAN</value>
+  </data>
+  <data name="Checking_Loopback" xml:space="preserve">
+    <value>Comprovació de bucle invertit</value>
+  </data>
+  <data name="Checking_Router" xml:space="preserve">
+    <value>Comprovació de l'router</value>
+  </data>
+  <data name="Check_and_Repair_Database" xml:space="preserve">
+    <value>Comprovar i reparar base de dades</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>Comprovació de port de diagnòstic</value>
+  </data>
+  <data name="Check_for_Updates" xml:space="preserve">
+    <value>Buscar actualitzacions</value>
+  </data>
+  <data name="Check_MySql" xml:space="preserve">
+    <value>Comprovació de MySql</value>
+  </data>
+  <data name="ChooseRegion" xml:space="preserve">
+    <value>Trieu Regió</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>Triar la memòria cau per a buidar</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>Seleccioneu la seva regió de benvinguda</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>Triar on posar l'OAR:</value>
+  </data>
+  <data name="ClampPrim" xml:space="preserve">
+    <value>Mida pinça Prim?</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Mida pinça Prim 'és una opció per assegurar que no prim pot excedir la mida del conjunt</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>Neteja de la memòria cau d'actius. Això pot portar molt de temps.</value>
+  </data>
+  <data name="Clearing_Bake" xml:space="preserve">
+    <value>Compensació Enfornar memòria cau</value>
+  </data>
+  <data name="Clearing_Image" xml:space="preserve">
+    <value>Neteja de la memòria cau Imatge</value>
+  </data>
+  <data name="Clearing_Maptiles" xml:space="preserve">
+    <value>Compensació Mapa Rajoles</value>
+  </data>
+  <data name="Clearing_Mesh" xml:space="preserve">
+    <value>Compensació de malla de memòria cau</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>Neteja de la memòria cau de seqüència. Això pot portar molt de temps.</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>Esborrar tots els registres</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>Llista Regió Esborrar</value>
+  </data>
+  <data name="Clear_and_Load" xml:space="preserve">
+    <value>Clara i de càrrega</value>
+  </data>
+  <data name="Clear_Cache" xml:space="preserve">
+    <value>Netejar memòria cau</value>
+  </data>
+  <data name="Clear_Selected_Caches" xml:space="preserve">
+    <value>Memòries cau clara seleccionats</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>Feu clic per iniciar o aturar robusta</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>Les regions poden iniciar o aturar en grups, depenent de com les seves regions carpeta s'organitzen.</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>Feu clic per seleccionar un grup</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>Feu clic per configurar el mòdul d'Aus</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Feu clic per configurar caixets per guions, actius i imatges</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>Feu clic per establir Moneda</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Feu clic per configurar la base de dades</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>Feu clic per assistència</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>Feu clic per activar Hypergrid o canviar el nom DNS</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>Feu clic a Configuració de Shoutcast / Icecast</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>Feu clic per establir mapes</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>Feu clic per configurar per defecte Física</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Feu clic aquí per configurar els vostres ports</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>Feu clic per configurar Publicitat en Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>Feu clic per establir Regions</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Feu clic a Configuració de les Start / Stop</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>Feu clic per seleccionar un tipus de servidor. Per defecte = quadrícula, però es pot connectar com a servidor de la regió, OsGrid o servidors Metro Region</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>No es pot executar el diagnòstic llevat que el sistema està funcionant. Feu clic a 'Inici' i torna a intentar-ho.</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>Feu clic a 'Inici' per començar.</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>Feu clic per establir les marees</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>Feu clic per canviar la carpeta</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>Feu clic per carregar aquest contingut</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>Clic per sol·licitar el servei de veu</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>Feu clic per establir Vivox Veu</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>Feu clic per configurar el tauler de control web</value>
+  </data>
+  <data name="Clouds" xml:space="preserve">
+    <value>Núvols</value>
+  </data>
+  <data name="Common_Settings" xml:space="preserve">
+    <value>ajustos comuns</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>Configura Totes les Regions</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmació necessari per entrar?</value>
+  </data>
+  <data name="Consoles" xml:space="preserve">
+    <value>consoles</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>El Opensim Dos Box pot ser minimitzat de forma automàtica</value>
+  </data>
+  <data name="Contact_Email" xml:space="preserve">
+    <value>Correu electrònic de contacte</value>
+  </data>
+  <data name="Contact_Info" xml:space="preserve">
+    <value>Dades de contacte</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>Nom de contacte</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>contingut</value>
+  </data>
+  <data name="Coordx" xml:space="preserve">
+    <value>La posició est-oest al mapa mundial</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>La posició North_South al mapa mundial</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>Comença la CPU de reserva</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>Crea App i obtenir les claus</value>
+  </data>
+  <data name="CreateSandbox" xml:space="preserve">
+    <value>crear caixa de sorra</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>Crear Compte de Producció</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>Creació d'una nova base de dades, en blanc</value>
+  </data>
+  <data name="Creating_INI_Files" xml:space="preserve">
+    <value>La creació d'arxius INI</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>Mida actual al disc</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>costum</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>Temps de el cicle en qüestió de segons</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>Quant de temps en segons per a un temps de cicle complet. baix&gt; alt&gt; baix</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Base de dades</value>
+  </data>
+  <data name="Database_Help" xml:space="preserve">
+    <value>Base de Dades d'Ajuda</value>
+  </data>
+  <data name="Database_Setup" xml:space="preserve">
+    <value>Configuració de la base de dades</value>
+  </data>
+  <data name="Data_Folder" xml:space="preserve">
+    <value>carpeta de dades</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Nom de base de dades</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>Dinàmica nom DNS ja s'utilitza. Pot ser que estigui utilitzant una clau incorrecta?</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>depurar</value>
+  </data>
+  <data name="DefaultRegion" xml:space="preserve">
+    <value>regió per defecte</value>
+  </data>
+  <data name="Default_8001" xml:space="preserve">
+    <value>Per defecte 8001</value>
+  </data>
+  <data name="Default_8002" xml:space="preserve">
+    <value>Per defecte 8002</value>
+  </data>
+  <data name="Default_8003" xml:space="preserve">
+    <value>Per defecte 8003</value>
+  </data>
+  <data name="Default_8004" xml:space="preserve">
+    <value>Per defecte 8004</value>
+  </data>
+  <data name="Default_Checked" xml:space="preserve">
+    <value>Valor per defecte: seleccionat</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>La regió per defecte 'Benvingut' no està habilitada. Continuar?</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>La regió per defecte 'Benvingut' no es troba en el sistema. Continuar?</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>suprimit</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>Eliminar tots els mapes</value>
+  </data>
+  <data name="Deregister" xml:space="preserve">
+    <value>Regió s'ha eliminat</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>Tots els estats són eliminats de l'registre</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalls</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>Això determina si el mòdul fa res</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>Diagnòstic fracassar. Vols veure el registre?</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>Aquest port no està funcionant. DreamGrid no està funcionant a un nivell de seguretat prou alt, o bloquejat per tallafocs o antivirus, per la qual icones regió estan desactivats.</value>
+  </data>
+  <data name="Diag_Port" xml:space="preserve">
+    <value>port de diagnòstic</value>
+  </data>
+  <data name="did_not_start" xml:space="preserve">
+    <value>no es va iniciar</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>discapacitat</value>
+  </data>
+  <data name="Disable_Foreigners" xml:space="preserve">
+    <value>Desactivar els visitants estrangers</value>
+  </data>
+  <data name="Disable_Gloebits" xml:space="preserve">
+    <value>Gloebits desactivar</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>Els Gloebits globals no són aplicables a aquesta regió si s'ha ajustat.</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>Els residents desactivar</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>Això serà menys segur Si desactiva la maleta, però serà més fàcil d'objectes rez a les xarxes estrangeres</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>La desactivació de l'Inventari Maleta exposa tota la seva inventari a altres xarxes. Però és fàcil donar objectes des de qualsevol lloc.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>Descarta tots els canvis i sortir?</value>
+  </data>
+  <data name="DivaEnabled" xml:space="preserve">
+    <value>Diva Targeta de xarxa sense fils</value>
+  </data>
+  <data name="DivaPanel" xml:space="preserve">
+    <value>Panell de la diva</value>
+  </data>
+  <data name="DnsName" xml:space="preserve">
+    <value>Reixeta direcció és</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>Nom DNS o SomeName.Outworldz.net o IP</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>Nom DNS i Hypergrid</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>No canvieu a menys que ja s'ha creat la base de dades</value>
+  </data>
+  <data name="Do_Not_Interrupt" xml:space="preserve">
+    <value>No interrompi!</value>
+  </data>
+  <data name="Do_you_still_want" xml:space="preserve">
+    <value>Encara vols parar?</value>
+  </data>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>Registre de direcció de DynDNS</value>
+  </data>
+  <data name="DynDNS_password" xml:space="preserve">
+    <value>contrasenya DynDNS</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>editar</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>Edita Regió</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>Estigues Manager és Déu - els administradors d'arrels poden convertir-se en déus, però només per aquesta finca</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>permetre</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>Habilitació del servidor web Apache</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>activat</value>
+  </data>
+  <data name="EnableOneClick" xml:space="preserve">
+    <value>Habilitar un clic a Inici</value>
+  </data>
+  <data name="Enable_Birds" xml:space="preserve">
+    <value>Habilitar el mòdul d'aus</value>
+  </data>
+  <data name="Enable_Events" xml:space="preserve">
+    <value>habilitar Esdeveniments</value>
+  </data>
+  <data name="Enable_Hypergrid" xml:space="preserve">
+    <value>habilitar Hypergrid</value>
+  </data>
+  <data name="Enable_Search" xml:space="preserve">
+    <value>Habilitar la recerca</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Introduïu un nom per a la còpia de seguretat</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>Introduïu el nom i cognom de l'usuari</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Introduïu el nou nom Dues Box</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>Introdueix el nom de l'objecte ( '/' es copia de seguretat de tot, i '/ Objectes / caixa' serà una còpia de seguretat 'caixa' a la carpeta Objectes</value>
+  </data>
+  <data name="Err" xml:space="preserve">
+    <value>error</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>Error: No s'ha pogut iniciar DreamGridInstaller.exe.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>0 - (Error) Només errors</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - (Informació) la taxa d'èxit Estadístiques</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - Activitat (depuració) de memòria cau</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>Error: No s'ha pogut establir la Opensim.ini per a la regió</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Error: No es pot entendre el contingut de l'arxiu de regions:</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>Error: No podria Lance Downloader.exe. Potser es pot posar en marxa de forma manual.</value>
+  </data>
+  <data name="EstateManagerGod" xml:space="preserve">
+    <value>Estigues Manager és déu</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>sortida</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>fitxer de còpia de seguretat d'exportació</value>
+  </data>
+  <data name="Export_Permission" xml:space="preserve">
+    <value>El permís d'exportació</value>
+  </data>
+  <data name="Export_SQL_file" xml:space="preserve">
+    <value>arxiu d'exportació de SQL</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>Servidors NombreHost externa per a la regió</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>El valor per defecte per al host extern Nom és un espai en blanc, el qual es converteix en el seu nom DNS o l'adreça IP. Només ajustar-lo si està executant un servidor de la regió sense NAT.</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>Actius de les restes flotants memòria cau</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>No s'ha pogut connectar a la web.</value>
+  </data>
+  <data name="Fatal" xml:space="preserve">
+    <value>fatal</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="Finished_with_backup" xml:space="preserve">
+    <value>Acabat amb còpia de seguretat:</value>
+  </data>
+  <data name="First_name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Flotsam_Asset_Cache" xml:space="preserve">
+    <value>Actius de les restes flotants memòria cau</value>
+  </data>
+  <data name="Folder_To_Save_To" xml:space="preserve">
+    <value>Carpeta per guardar a</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>Velocitat de quadres (0,9)</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Per defecte 1/11 seg. Per omissió és 0.091 que és 1 / cinquè de 55 FPS</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>Obtenir un lliure DYN Nom DNS</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Feu clic per obtenir una gratuïts Gloebits compte perquè pugui comprar i vendre</value>
+  </data>
+  <data name="Free_DLC" xml:space="preserve">
+    <value>DLC gratuït</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>Nom descriptiu d'aquest quadrícula</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>SL corre 55 FPS. Opensim és d'11 FPS. Per defecte = 0,9, o 1/11</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>Actius com arxius</value>
+  </data>
+  <data name="FSassets" xml:space="preserve">
+    <value>Arxiu de base de dades dels actius de sistema</value>
+  </data>
+  <data name="FSassets_Server" xml:space="preserve">
+    <value>FsAssets servidor</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>Els ajustos globals d'aus s'aplicaran a aquesta regió</value>
+  </data>
+  <data name="Getting_regions" xml:space="preserve">
+    <value>Obtenció de les regions</value>
+  </data>
+  <data name="GlobalSettings" xml:space="preserve">
+    <value>Configuració global</value>
+  </data>
+  <data name="Global_Tide_Settings" xml:space="preserve">
+    <value>Configuració global de marea</value>
+  </data>
+  <data name="Gloebits_Currency" xml:space="preserve">
+    <value>Gloebits de divises</value>
+  </data>
+  <data name="Good1" xml:space="preserve">
+    <value>Bé (Warp3D)</value>
+  </data>
+  <data name="Grid_address" xml:space="preserve">
+    <value>direcció de reixeta</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>Es pot donar aquesta direcció a la gent i que es pot visitar al seu grilla</value>
+  </data>
+  <data name="Grid_Server_With_Robust" xml:space="preserve">
+    <value>Amb reixeta servidor robust</value>
+  </data>
+  <data name="Grid_TCP_is_set" xml:space="preserve">
+    <value>Reixeta de port TCP és conjunt</value>
+  </data>
+  <data name="Grid_UDP_is_set" xml:space="preserve">
+    <value>Reixeta UDP port s'estableix</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>Els settungs globals de marea s'aplicaran a aquesta regió</value>
+  </data>
+  <data name="gTides" xml:space="preserve">
+    <value>La configuració global de marea s'aplicaran a aquesta regió si s'ha ajustat</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>Actualització està disponible. Vols sortir DreamGrid i instal·lar l'actualització?</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>ajuda</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>Ajuda a la consola de comandes</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>Wiki Pàgina d'ordres de consola</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>Ajuda en redireccionament de ports</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>Web Ajuda Per al reenviament de ports</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>Feu clic per assistència en les maneres de Déu</value>
+  </data>
+  <data name="Help_IARS" xml:space="preserve">
+    <value>Ajuda En IARS</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>A la pàgina wiki de IAR</value>
+  </data>
+  <data name="Help_LoopBack" xml:space="preserve">
+    <value>Ajuda En loopback</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>Com corregir bucle invertit en Windows</value>
+  </data>
+  <data name="Help_Manuals" xml:space="preserve">
+    <value>ajuda Manuals</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>Ajuda Sobre OAR</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>Pàgina wiki en OARS</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>Ajuda en la posada en marxa del primer temps</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>Ajuda amb Informació Tècnica</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>Mumbo Jumbo tècnica sobre com configurar les coses</value>
+  </data>
+  <data name="Help_Troubleshooting" xml:space="preserve">
+    <value>Ajuda Solució de problemes</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>HyperGrid diagnòstics fallits. Aquests poden ser re-executar en qualsevol moment. Veure Ajuda-&gt; Diagnòstic de la xarxa, 'bucle invertit', i '' port reenvia</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>Hypergrid hauria d'estar treballant.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Amaga</value>
+  </data>
+  <data name="Highest_Used" xml:space="preserve">
+    <value>Més alta utilitzada: 8004</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>Nivell d'aigua alt</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>una alta qualificació d'aigua en metres</value>
+  </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>casa</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>Com podem aconseguir sense estar preocupat prop de les vores de les coses?</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>A quina distància d'altres aus ens agradaria quedar-se?</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>A quina distància en metres cada au pot viatjar per l'actualització?</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>A quina altura se'ns permet ramat?</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>Per quant de temps mantenir les còpies de seguretat. El aconseguir més antiga serà eliminada després d'aquest temps en dies,</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>Quant de temps Opensim s'executa abans que passi una còpia de seguretat automàtica</value>
+  </data>
+  <data name="Http_Port" xml:space="preserve">
+    <value>port HTTP</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>Hypergrid Nom DNS</value>
+  </data>
+  <data name="IAR_Load_and_Save" xml:space="preserve">
+    <value>IAR Carregar i Desa</value>
+  </data>
+  <data name="Icecast" xml:space="preserve">
+    <value>icecast</value>
+  </data>
+  <data name="iceCastServer" xml:space="preserve">
+    <value>Icecast servidor</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>Icecast li permet transmetre música a la targeta SIM. Música URL:</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>Icecast està desactivat</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast va sortir. Vols veure el fitxer de registre d'errors?</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast no va començar</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>Feu clic per obtenir ajuda sobre la configuració d'Icecast</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>Icecast port s'estableix</value>
+  </data>
+  <data name="Icecast_Started" xml:space="preserve">
+    <value>comença icecast</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>A partir d'Icecast</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>icones</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>Opensim estalviarà OARS després d'executar aquest llarg</value>
+  </data>
+  <data name="Ignore_Parcel" xml:space="preserve">
+    <value>No feu cas de la parcel·la</value>
+  </data>
+  <data name="Ignore_Terrain" xml:space="preserve">
+    <value>No feu cas de Terreny</value>
+  </data>
+  <data name="Image_Cache" xml:space="preserve">
+    <value>memòria cau d'imatge</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>importació</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>Importa arxius INI Regió</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>Hypergrid entrant és de treball</value>
+  </data>
+  <data name="Increasing_time" xml:space="preserve">
+    <value>L'augment de el temps de</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>informació</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>informació</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>instal·lar</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>Instal·lar C ++ runtimes</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>Instal·lació icona de l'escriptori</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>adreça d'Internet</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>Opensim està carregant el seu article. Vostè el trobareu a</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>Emetre ordres de consola</value>
+  </data>
+  <data name="is_Off" xml:space="preserve">
+    <value>està apagat</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>La consola OpenSimulator es mostrarà quan Opensim s'està executant.</value>
+  </data>
+  <data name="JobEngine" xml:space="preserve">
+    <value>motor de tasques</value>
+  </data>
+  <data name="Just_one_region" xml:space="preserve">
+    <value>Només una regió</value>
+  </data>
+  <data name="Keep_for_Days" xml:space="preserve">
+    <value>Mantenir durant dies</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>Esteu utilitzant un IP de la LAN. Aquesta prova és omesa.</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>Mapa gran Metro</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Cognom</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>Veure llista d'avatars</value>
+  </data>
+  <data name="Load Parcel" xml:space="preserve">
+    <value>carregar la parcel·la</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>Carregar gratis Avatar d'inventari</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>IARS de càrrega de la pàgina web Outworldz</value>
+  </data>
+  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
+    <value>Carregar gratuït Dreamworld RTO</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>IAR càrrega d'inventari</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>Carregar associades a la perfusió local de la carpeta IAR</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>RTO carregar locals des de la carpeta OAR</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>Carregar Regió OAR</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>Terreny de càrrega</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>Hi local</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>Nivell de registre</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>Ha fallat la prova de bucle de retorn. adreça web no va respondre.</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>Ajuda de bucle invertit</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>Prova de bucle passat per Port</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>marques de baix i alt d'aigua en metres</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>Nivell d'aigua sota</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>scripts de LSL no poden arribar a una altra LAN PC. Si s'activa aquesta opció, es pot accedir als ports de la LAN en qualsevol PC. Això és perillós!</value>
+  </data>
+  <data name="Make_backup" xml:space="preserve">
+    <value>Fer una còpia de seguretat?</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>mapes</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>Tots els mosaics de mapes han estat esborrats. Establir el valor de MAP i reiniciar el sistema per fer nous mapes</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>Mapa Coordenades: X</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>Màxim de 4096</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>L'acceleració màxima permesa a la velocitat del corrent de l'au</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>Quantes d'Avatars + NPC pot estar en una regió abans que aparegui la regió completa. El valor real es troba a Configuració arrels en el visor.</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>Distància màxima per altres aus per ser considerat en el mateix ramat</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>Max Force (per defecte = 0,2)</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>Alçada màxima (per defecte = 45,0)</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 metres de la tempesta de foc. 1500 metres amb singularitat. No es pot fer una prim regulars més gran que això</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>Màxima de Prims en una parcel·la</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>No es pot fer una prim física més gran que això</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>Això limitarà el nombre de prims en una parcel·la. No hi ha límit a excepció de memòria quan està desactivat.</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>Habilitar límits MAXPRIMS</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Velocitat màxima (per defecte = 1,0)</value>
+  </data>
+  <data name="Merge_OAR" xml:space="preserve">
+    <value>combinar OAR</value>
+  </data>
+  <data name="Merge_Objects" xml:space="preserve">
+    <value>combinar objectes</value>
+  </data>
+  <data name="Mesh_Cache" xml:space="preserve">
+    <value>malla de memòria cau</value>
+  </data>
+  <data name="Message_sent" xml:space="preserve">
+    <value>Missatge enviat</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Hypergrid.org regió de servidor</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>acta</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>manera</value>
+  </data>
+  <data name="Modules" xml:space="preserve">
+    <value>mòduls</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>Més illes lliures i Peces</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>Feu clic per obtenir més ajuda al lloc web</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>Ha de tenir un nom d'un article d'inventari</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>Ha de ser el mateix que X</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>Ha de ser el mateix que I</value>
+  </data>
+  <data name="Must_be_Days" xml:space="preserve">
+    <value>Ha de ser un nombre de dies</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>Ha de ser un arxiu PNG</value>
+  </data>
+  <data name="MySqlPort" xml:space="preserve">
+    <value>port MySQL</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL tanca. Vols veure el fitxer de registre d'errors?</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>La base de dades no s'ha iniciat. Vols veure el fitxer de registre?</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>MySQL s'està executant</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>Per defecte = 3306</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>A partir base de dades MySQL</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL s'executa quan es va iniciar, pel que estic deixant MySQL en.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>El nom de el sistema s'ha establert en newname {}. Podeu canviar el nom al menú DNS en qualsevol moment</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>Veí Distància (per defecte = 25,0)</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>Un canvi a la xarxa va ocórrer. Un reinici pot ser necessari.</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>Diagnòstics de xarxa</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>Executar els diagnòstics d'instal·lació</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>Ports de xarxa</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>El nou contingut està carregant</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>El nou contingut acaba de carregar</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>Nou usuari Inici X, Y, Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>Pròxim</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>següent Nom</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>Cap persona està en línia</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>cap</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>normalitzar Regions</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>Normalment a la carpeta OutworldzFiles / Còpia de seguretat automàtica amb 'Còpia de seguretat automàtica'. Feu clic per canviar la carpeta.</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>No es pot fer una prim regulars més gran que això.</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>notificar per correu electrònic</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>No és un UUID vàlid. Vols una nova, aleatòria UUID?</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>Això no sembla que es remetrà a aquesta màquina en el seu router, per la qual Hypergrid no està disponible. Això possiblement pot ser fixat per 'port reenvia' en el seu router. Veure Ajuda-&gt; port reenvia.</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>Normalment no és forçada per Opensim. Espectador no mostrarà més de 45.000. A l'establir aquesta aquí i que permet això en la configuració farà complir el límit i pot tornar prims!</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>Opensim no s'està executant.</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>No es mostrarà la consola de OpenSimulator. Encara es pot interactuar amb ell amb Ajuda-&gt; Opensim consola</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>No s'ha pogut establir sim per defecte per als visitants. Veure Panell de Regions.</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>Sense HyperGrid visitants seran permesos en aquesta regió</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>No publicar aquesta regió</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>No hi ha regions estan llistes, de manera que no pot carregar el IAR "</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>Error: No podria llançar NtSuspendProcess64.exe.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>El nombre d'aus que van</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>OAR arxius són còpies de seguretat de tot Illes</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>OAR Carregar i Desa</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>Ruta objecte i el nom</value>
+  </data>
+  <data name="ODE" xml:space="preserve">
+    <value>Obrir motor dinàmic</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>apagat</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>desconnectat</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>Hi ha un avatar</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>Una regió és encara en marxa</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>Només els propietaris, administradors i arrels seran permesos en aquesta regió</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>OpenSimulator és la càrrega</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Obrir ports de l'router utilitzant Universal Plug and Play</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>opcions</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>o:</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSGrid regió de servidor</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>Anul·la la configuració de mapa global d'aquesta una regió</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>parcel·les</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>Va passar la prova de bucle invertit LAN</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>contrasenya</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>Només es pot canviar la contrasenya quan s'està executant Opensim</value>
+  </data>
+  <data name="PDF_Manual" xml:space="preserve">
+    <value>manual PDF</value>
+  </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>la gent està en</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>permisos</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>física</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>la física de l'motor</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>Si us plau, introdueixi un nom DNS vàlid, com 'name.outworldz.net', o registrar-se per un en http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>Si us plau seleccioni només una fila</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>Si us plau escriviu el nom de l'propietari avatar de la quadrícula a la finestra robusta. Premeu &lt;Intro&gt; per UUID i nom de el model. A continuació, premeu el botó OK</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>port 1</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>port 2</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>ports</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>Conflicte de ports s'ha detectat. Tots els ports s'han restablert als valors predeterminats</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>Port Forwarding Ajuda</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>Prèvia a l'explorador</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>límits Prim</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Prim Nom (per defecte = SeaGull1)</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="Private_Port" xml:space="preserve">
+    <value>port privat</value>
+  </data>
+  <data name="Production_Mode" xml:space="preserve">
+    <value>Mode de producció</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>Proporcionar informació de marees a la consola?</value>
+  </data>
+  <data name="Publicity" xml:space="preserve">
+    <value>publicitat</value>
+  </data>
+  <data name="Public_IP" xml:space="preserve">
+    <value>configuració IP pública</value>
+  </data>
+  <data name="Public_Photo" xml:space="preserve">
+    <value>foto pública</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>Publicar Grid per Hyperica.com</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>Publicar articles marcats per a la recerca</value>
+  </data>
+  <data name="Quit_Now" xml:space="preserve">
+    <value>Ara deixar de fumar</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>tancar-se de forma inesperada. El reinici.</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>arxius de zona de lectura</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>llest</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>A punt per al llançament!</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>reciclar</value>
+  </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>Actualització</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>Contingut refrescant gratuït (IAR)</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>Contingut refrescant gratuït (OAR)</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>Si elimina tots els mapes, cal mapes regenerats mitjançant el reinici amb un valor de MAP</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>regió</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>regions</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>regions estan encara en marxa</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>Regió ja existeix</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>controls regió</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>Base de dades regió</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>llista de regions</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>gerent regió és déu?</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>Regió Manager és Déu - els administradors d'arrels poden convertir-se en déus, però només per aquesta finca</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alfa-numèric, més espais</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>nom de la regió no pot utilitzar caràcters especials</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>anul·len els paràmetres per defecte específics de la regió ajustos</value>
+  </data>
+  <data name="Region_Owner_Is_God" xml:space="preserve">
+    <value>Regió propietari és Déu</value>
+  </data>
+  <data name="Region_Port" xml:space="preserve">
+    <value>regió del Port</value>
+  </data>
+  <data name="Region_Ports" xml:space="preserve">
+    <value>regions Ports</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>Regió port d'inici #</value>
+  </data>
+  <data name="Region_Server" xml:space="preserve">
+    <value>regió de l'servidor</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>El servidor a què connectar-se. 'Localhost' és el valor per omissió.</value>
+  </data>
+  <data name="Region_Specific_Settings" xml:space="preserve">
+    <value>Configuracions específiques de la regió</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>regió Estadístiques</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Actualitzar la quadrícula</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>Render alçada màxima</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>Render Min Alçada</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>Sol·licitar l'aplicació Creació</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>DYN reservar el seu nom DNS. Es tracta d'una contrasenya per al nom.</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>resolt</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Reinicia</value>
+  </data>
+  <data name="Restarting" xml:space="preserve">
+    <value>reinici</value>
+  </data>
+  <data name="Restart_All" xml:space="preserve">
+    <value>tot reinici</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>Reinicia tots es comproven Regions</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>Reinici interval en minuts</value>
+  </data>
+  <data name="Restart_one_instance" xml:space="preserve">
+    <value>Reiniciar instància 01:00</value>
+  </data>
+  <data name="Restart_one_region" xml:space="preserve">
+    <value>regió en un reinici</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>Si una regió es bloqueja, es reiniciarà la regió</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>Reiniciar en bloqueig Física</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>accident de la física Bulletsim obligarà a reiniciar el simulador</value>
+  </data>
+  <data name="Restart_Periodically" xml:space="preserve">
+    <value>reinici periòdicament</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>Les regions seran tots reinici automàtic després de tants minuts corrent</value>
+  </data>
+  <data name="Restart_Queued" xml:space="preserve">
+    <value>Reinici cua per</value>
+  </data>
+  <data name="Restart_Region" xml:space="preserve">
+    <value>reinici Regió</value>
+  </data>
+  <data name="Restart_Robust" xml:space="preserve">
+    <value>reinici robusta</value>
+  </data>
+  <data name="Restart_Settings" xml:space="preserve">
+    <value>Configuració de la represa</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restaurar?</value>
+  </data>
+  <data name="Restore_Database" xml:space="preserve">
+    <value>restaurar base de dades</value>
+  </data>
+  <data name="Resuming" xml:space="preserve">
+    <value>reprenent</value>
+  </data>
+  <data name="Revision_History" xml:space="preserve">
+    <value>Historial de versions</value>
+  </data>
+  <data name="Robust" xml:space="preserve">
+    <value>robust</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>Robust sortit. Vols veure el fitxer de registre d'errors?</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>Robusta no es va poder iniciar</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>és robust en execució</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>Clic en una línia habilitada per iniciar o aturar la regió. Feu clic en una fila amb discapacitat per editar la regió.</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>córrer</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>Execució dels diagnòstics de xarxa</value>
+  </data>
+  <data name="Run_All" xml:space="preserve">
+    <value>executar tot</value>
+  </data>
+  <data name="Run_as_a_Service" xml:space="preserve">
+    <value>Executar-se com un servei</value>
+  </data>
+  <data name="Sandbox_Mode" xml:space="preserve">
+    <value>La manera recinte</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Desar</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>Guardar tota l'Execució de Regions d'RTO</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>Guardar canvis?</value>
+  </data>
+  <data name="Save_IAR" xml:space="preserve">
+    <value>Desar IAR</value>
+  </data>
+  <data name="Save_Inventory_IAR" xml:space="preserve">
+    <value>Desar Inventari IAR</value>
+  </data>
+  <data name="Save_Region_OAR" xml:space="preserve">
+    <value>Desar regió OAR</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>estalvi</value>
+  </data>
+  <data name="Scripts" xml:space="preserve">
+    <value>scripts</value>
+  </data>
+  <data name="Scripts_Resume" xml:space="preserve">
+    <value>Reprendre les seqüències d'ordres</value>
+  </data>
+  <data name="Scripts_Start" xml:space="preserve">
+    <value>Els scripts d'inici</value>
+  </data>
+  <data name="Scripts_Stop" xml:space="preserve">
+    <value>scripts de parada</value>
+  </data>
+  <data name="Scripts_Suspend" xml:space="preserve">
+    <value>Suspendre els scripts</value>
+  </data>
+  <data name="Script_cache" xml:space="preserve">
+    <value>cau de l'escriptura</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>Guió temporitzador Rate (0,9)</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,9)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Search_All_Grids" xml:space="preserve">
+    <value>Cercar totes les reixetes</value>
+  </data>
+  <data name="Secret" xml:space="preserve">
+    <value>secret</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>Ens veurem de nou quan em desperto tot fresc i nou!</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>Vols veure el fitxer de registre?</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>Selecciona totes o cap de les caselles de verificació</value>
+  </data>
+  <data name="Send_Alert_Message" xml:space="preserve">
+    <value>Enviar missatge d'alerta</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>Enviar informació de depuració a la consola</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Separació desitjada (per defecte = 5,0)</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>Cada regió començarà només després de la regió abans s'ha carregat</value>
+  </data>
+  <data name="Server_Type" xml:space="preserve">
+    <value>Tipus de servidor</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>ajustos</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>Adaptador d'ajust de l'bucle de retorn a l'adreça IP pública</value>
+  </data>
+  <data name="Setup_Firewall" xml:space="preserve">
+    <value>configuració de l'tallafocs</value>
+  </data>
+  <data name="Setup_Graphs" xml:space="preserve">
+    <value>Les gràfiques de configuració</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>La creació de la Xarxa</value>
+  </data>
+  <data name="Setup_Ports" xml:space="preserve">
+    <value>Ports de configuració</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>base de dades de configuració de cerca</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>Feu clic aquí per configurar els vostres Termes de Servei</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>Instal·lació de serveis de veu</value>
+  </data>
+  <data name="Set_Debug_Level" xml:space="preserve">
+    <value>Conjunt nivell de depuració</value>
+  </data>
+  <data name="Set_Owner" xml:space="preserve">
+    <value>Definir propietari</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>Shoutcast no està habilitat.</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Espectacle</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>Mostra la graella Direcció</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>Mostra les estadístiques sobre la consola</value>
+  </data>
+  <data name="Show_Status" xml:space="preserve">
+    <value>mostrar estat</value>
+  </data>
+  <data name="Show_User_Details" xml:space="preserve">
+    <value>Mostra els detalls de l'usuari</value>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>Tancar</value>
+  </data>
+  <data name="Simple_but_Fast" xml:space="preserve">
+    <value>Simple però ràpida</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>Això defineix la velocitat de diversos esdeveniments de simulació. Pot ser reduït per millorar la simulació d'objectes en moviment, amb possible augment de la CPU i la càrrega de la xarxa.</value>
+  </data>
+  <data name="Sim_Size" xml:space="preserve">
+    <value>Sim Mida</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Omet</value>
+  </data>
+  <data name="Skip_Autobackup" xml:space="preserve">
+    <value>Ometre còpia de seguretat automàtica</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>A partir d'un lent però extensa base de dades de còpia de seguretat</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>Mapa petita de metro</value>
+  </data>
+  <data name="Smart_Start" xml:space="preserve">
+    <value>smart Start</value>
+  </data>
+  <data name="Smart_Start_Enabled" xml:space="preserve">
+    <value>Smart Start Enable</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>Compte de correu electrònic SMTP Enviar</value>
+  </data>
+  <data name="SMTPHost" xml:space="preserve">
+    <value>host SMTP</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>contrasenya SMTP</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>port SMTP</value>
+  </data>
+  <data name="Someone_is_in" xml:space="preserve">
+    <value>Algú està en</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>Ho sentim, ajuda encara no està disponible per a això.</value>
+  </data>
+  <data name="Source_Code" xml:space="preserve">
+    <value>Codi font</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>Visor Splash URL de pantalla:</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>Pantalla de benvinguda</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>Base de dades SQL Backup / Restore</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>Iniciar totes les regions controlades</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>començament</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>Posada en marxa de la primera vegada</value>
+  </data>
+  <data name="Starting_WebServer" xml:space="preserve">
+    <value>A partir servidor web</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>No hi ha necessitat de fer clic al botó Inici de nou. Comença quan s'inicia.</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>Inici Regions seqüencialment</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>Des del panell de control</value>
+  </data>
+  <data name="Start_Regions" xml:space="preserve">
+    <value>inici Regions</value>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Començar</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estat</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,9)</value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>Pas 1:</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>Pas 2:</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>Pas 3:</value>
+  </data>
+  <data name="StopAll" xml:space="preserve">
+    <value>aturar tot</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>detingut</value>
+  </data>
+  <data name="Stopping" xml:space="preserve">
+    <value>parada</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>Aturar servidor web Apache</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>Atura totes les regions controlades</value>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>aturar</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>Habilitar Maleta Inventari</value>
+  </data>
+  <data name="Suspending" xml:space="preserve">
+    <value>suspendre</value>
+  </data>
+  <data name="System_Backup" xml:space="preserve">
+    <value>sistema de còpia de seguretat</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>Això pot prendre temps per carregar</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>Informació tècnica</value>
+  </data>
+  <data name="Teleport" xml:space="preserve">
+    <value>Teleport</value>
+  </data>
+  <data name="Teleporting" xml:space="preserve">
+    <value>Teleporting</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>Termes del servei</value>
+  </data>
+  <data name="Terrain" xml:space="preserve">
+    <value>terreny</value>
+  </data>
+  <data name="Test_DNS" xml:space="preserve">
+    <value>prova de DNS</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>tema:</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>Establir tema de Negre</value>
+  </data>
+  <data name="theme_Custom" xml:space="preserve">
+    <value>Establir tema a Personalitzat</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>Establir tema a White</value>
+  </data>
+  <data name="These_Changes" xml:space="preserve">
+    <value>Aquests canvis s'aplicaran només quan Opensim i robusta són alhora reiniciat</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>Això mou totes les regions de manera que la regió escollida està en 1000,1000 per encaixar el mapa. Procedir?</value>
+  </data>
+  <data name="Threadpools" xml:space="preserve">
+    <value>Agrupacions de fils</value>
+  </data>
+  <data name="Tides" xml:space="preserve">
+    <value>marees</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>Habilitar la marea per entrar i sortir?</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel" xml:space="preserve">
+    <value>Canal marea alta / baixa</value>
+  </data>
+  <data name="Tide_Info_Channel" xml:space="preserve">
+    <value>Tide Informació de Canal</value>
+  </data>
+  <data name="Timeout_in_hours" xml:space="preserve">
+    <value>Temps d'espera en hores</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>Tolerància (per defecte = 25,0)</value>
+  </data>
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Solució de problemes</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>Ubit ODE / bala híbrid</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>No es pot desar la configuració:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>Introduïu el nom i cognom de la persona que serà el propietari dels objectes no assignats</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>Tipus de fitxer no reconegut</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>actualitzat</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>Actualització s'ha descarregat. Instal·lar-ara?</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>Actualització està disponible. La descàrrega de l'actualització en segon pla. Si us plau, deixeu que es finalitzi.</value>
+  </data>
+  <data name="Updating_Ports" xml:space="preserve">
+    <value>Ports d'actualització</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>UPnP està desactivat</value>
+  </data>
+  <data name="UPnP_Enabled" xml:space="preserve">
+    <value>UPnP habilitat</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>Habilitar aquest valor si té un petit sistema i desitja que els ports de el router que s'ajusten automàticament</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>Programa de configuració UPnP</value>
+  </data>
+  <data name="UseDefault" xml:space="preserve">
+    <value>Ús per defecte</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>Com més gran sigui el nombre, més gran és la memòria cau.</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>ID d'usuari</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nom d'usuari</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>usuaris</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>Error: UUID és res!</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>versió</value>
+  </data>
+  <data name="Viewer_Cache" xml:space="preserve">
+    <value>visor de memòria cau</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>Per defecte: Actiu. Els usuaris poden necessitar per reduir l'ample de banda espectador si algunes parts de el terreny prims o fallen en rez. Canvi en false si necessita utilitzar espectadors vells que no suporten aquesta característica</value>
+  </data>
+  <data name="Viewer_Greeting" xml:space="preserve">
+    <value>salutació visor</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>Espectador deixa de comptar a 45.000</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>Veure com a icones</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>Veure detalls Regió</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>Veure Icecast pàgina web</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>veure registres</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>Veure mapes Regió</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>Veure simulador Estadístiques</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>Veure una pàgina web que mostra les estadístiques de cada regió</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>interfície Web</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>La Interfície web es pot utilitzar per afegir nous usuaris</value>
+  </data>
+  <data name="Vivox_Voice" xml:space="preserve">
+    <value>Vivox Veu</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>veu</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>A l'espera de totes les regions a la sortida</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>advertir</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Panell de control web</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>Panell de Servidors Web</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>Port web (80 o 8000)</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>La interfície d'usuari web li permet afegir o veure la configuració per a qualsevol avatar.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>Què vol dir a tot el món en línia?</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>Què vol dir que aquesta regió?</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>Què canal no escoltar els ocells per als comandaments en el món. Els nombres negatius no poden ser utilitzats pels éssers humans</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>blanc</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>Aquesta és la pàgina estàndard Wifi Mapa</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>Wifi interfície d'administració</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>no va a salvar un rem amb còpia de seguretat automàtica.</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Alguna cosa està malament en Internet</value>
+  </data>
+</root>

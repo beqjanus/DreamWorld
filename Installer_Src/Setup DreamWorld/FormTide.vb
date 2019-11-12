@@ -79,9 +79,9 @@ Public Class Tides
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         TideEnabledCheckbox.Checked = CType(Form1.Settings.TideEnabled, Boolean)
-        TideHighLevelTextBox.Text = Convert.ToString(Form1.Settings.TideHighLevel(), Form1.Invarient)
-        TideLowLevelTextBox.Text = Convert.ToString(Form1.Settings.TideLowLevel(), Form1.Invarient)
-        CycleTimeTextBox.Text = Form1.Settings.CycleTime.ToString(Form1.Invarient)
+        TideHighLevelTextBox.Text = Convert.ToString(Form1.Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture)
+        TideLowLevelTextBox.Text = Convert.ToString(Form1.Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture)
+        CycleTimeTextBox.Text = Form1.Settings.CycleTime.ToString(Globalization.CultureInfo.InvariantCulture)
         BroadcastTideInfo.Checked = CType(Form1.Settings.BroadcastTideInfo, Boolean)
         TideInfoChannelTextBox.Text = CStr(Form1.Settings.TideInfoChannel)
         TideHiLoChannelTextBox.Text = CStr(Form1.Settings.TideLevelChannel)

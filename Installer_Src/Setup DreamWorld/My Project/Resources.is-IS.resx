@@ -1,0 +1,2205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted" xml:space="preserve">
+    <value>Hætt</value>
+  </data>
+  <data name="About1" xml:space="preserve">
+    <value>um</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Bæta við</value>
+  </data>
+  <data name="Add_Region" xml:space="preserve">
+    <value>bæta við Norðurlönd</value>
+  </data>
+  <data name="Add_User" xml:space="preserve">
+    <value>Bæta notanda</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>admin lykilorð</value>
+  </data>
+  <data name="Admin_Web_Page" xml:space="preserve">
+    <value>Admin Web Page</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Allt</value>
+  </data>
+  <data name="AllNone" xml:space="preserve">
+    <value>All / Ekkert</value>
+  </data>
+  <data name="Allow200" xml:space="preserve">
+    <value>Leyfa 200+ Level guði</value>
+  </data>
+  <data name="AllowRegionGods" xml:space="preserve">
+    <value>Leyfa Svæði eigandi guði</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>Upprunalega Second Life ský</value>
+  </data>
+  <data name="Allow_Gods" xml:space="preserve">
+    <value>Leyfa eða banna Gods</value>
+  </data>
+  <data name="Allow_leave" xml:space="preserve">
+    <value>Leyfa atriði til að fara</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>Leyfa LSL að hafa samband við miðlara</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>Hlutir geta verið tekin úr rist þínu í gegnum Hypergrid</value>
+  </data>
+  <data name="All_Global_Settings" xml:space="preserve">
+    <value>Allar Global stillingar</value>
+  </data>
+  <data name="All_Users_All_Sims" xml:space="preserve">
+    <value>Allir notendur, All Sims</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>Alfa-töluna plús mínus merki (engin bil eða stafir)</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>Þetta mun leyfa annað svæði til að setja á þessum stað. Halda áfram?</value>
+  </data>
+  <data name="Apache" xml:space="preserve">
+    <value>apache</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>Þjónusta tókst að setja upp</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>Web Server ekki hætta</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>Vefþjónninn + Leit og kort</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>Vefþjónninn er ekki virkt</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>Apache lauk. Viltu sjá Villuannáll?</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>Web Server mistókst að byrja</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache hefur verið fjarlægt sem þjónustu</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>Web Server Port er sett</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>Web Server er í gangi</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>Byrjar Web Server</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>apache Vefþjón</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>Umsókn undantekning hafi átt sér stað. Viltu reyna að halda áfram, eða hætta / hætta?</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>gilda</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>Ertu viss? Gagnagrunnurinn mun rloaded frá varabúnaður og allt fyrirliggjandi efni í stað. Avatars, Sims, skrá, everyting verður skrifað yfir.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Ertu viss um að þú viljir eyða þessu svæði?</value>
+  </data>
+  <data name="Asset_Cache" xml:space="preserve">
+    <value>eign Cache</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>Sjálfvirkri afritun möppu er ekki að vera staðsett þannig að mappan hefur verið endurstillt í sjálfgefið.</value>
+  </data>
+  <data name="AutoRestart" xml:space="preserve">
+    <value>Auto Endurræsa</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - Off. Hversu margar mínútur þar til sjálfvirkur endurræsa sér stað?</value>
+  </data>
+  <data name="Autorestarting" xml:space="preserve">
+    <value>Sjálfvirk Restart</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>Auka Auto Endurræsa tími til að láta afrit klára um 30 mínútur eftir að endurræsa Interval</value>
+  </data>
+  <data name="Auto_Backup" xml:space="preserve">
+    <value>Sjálfvirk afritun</value>
+  </data>
+  <data name="Auto_Startup" xml:space="preserve">
+    <value>Sjálfvirk gangsetning</value>
+  </data>
+  <data name="Avatars" xml:space="preserve">
+    <value>Avatars</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>Avatars eru í heiminum! Vilt þú virkilega að hætta?</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>Smelltu til að skoða avatars</value>
+  </data>
+  <data name="Avatar_Cache" xml:space="preserve">
+    <value>Avatar bakes Cache</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name" xml:space="preserve">
+    <value>Avatar Fyrsta og síðasta nafn</value>
+  </data>
+  <data name="Avatar_Name" xml:space="preserve">
+    <value>Avatar Name</value>
+  </data>
+  <data name="Avatar_Password" xml:space="preserve">
+    <value>Avatar Lykilorð</value>
+  </data>
+  <data name="Backing_up_Settings" xml:space="preserve">
+    <value>Afritun Stillingar</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Afritun</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Afritun Custom Web Pages</value>
+  </data>
+  <data name="Backup_Data" xml:space="preserve">
+    <value>Afritun Data Files</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>Backup Gagnagrunnar</value>
+  </data>
+  <data name="Backup_Data_Files" xml:space="preserve">
+    <value>Afritun Data Files</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>Afritun Mappa</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>Backup FSAssets mappa</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>Afritun MySql Data mappa</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>Afritun Name</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>Afritun Region INI skrár</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Smelltu til að setja upp Backup Stundaskrá þinn</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Besta (Prims + Mesh, Very Slow)</value>
+  </data>
+  <data name="Better1" xml:space="preserve">
+    <value>Betri (Prims, Slow)</value>
+  </data>
+  <data name="BirdModule" xml:space="preserve">
+    <value>Bird Module</value>
+  </data>
+  <data name="Bird_Flock_Size" xml:space="preserve">
+    <value>Bird Flock Stærð</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>Smelltu á hjálp á fuglum</value>
+  </data>
+  <data name="Bird_IAR" xml:space="preserve">
+    <value>Hlaða Bird iar</value>
+  </data>
+  <data name="Bird_Settings" xml:space="preserve">
+    <value>bird Stillingar</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>Border Size (sjálfgefið = 25,0)</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>Bullet eðlisfræði í sérstökum þræði</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>Spjallaðu fjöru upplýsingar á svæðinu svo forskriftir geta flutt með fjöru?</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>Broadcast Tide Info</value>
+  </data>
+  <data name="Bullet_Physics" xml:space="preserve">
+    <value>Bullet eðlisfræði</value>
+  </data>
+  <data name="Busy" xml:space="preserve">
+    <value>Upptekinn</value>
+  </data>
+  <data name="Caches" xml:space="preserve">
+    <value>felustaður</value>
+  </data>
+  <data name="Caches_Cleared" xml:space="preserve">
+    <value>Allar Skyndiminni hreinsað</value>
+  </data>
+  <data name="Cache_Control" xml:space="preserve">
+    <value>Cache Control</value>
+  </data>
+  <data name="Cache_Directory" xml:space="preserve">
+    <value>Cache Directory</value>
+  </data>
+  <data name="Cache_Enabled" xml:space="preserve">
+    <value>Cache virkt</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>Allir Server Skyndiminni nema Scripts og Avatar bakar voru hreinsaðar. Opensim verður hætt að skýrum stöfum og bakað felustaður.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hætta við</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>Hlaða IAR niður - verður að nota fullt notandanafn og lykilorð.</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Hætt við</value>
+  </data>
+  <data name="Cannot_find_region" xml:space="preserve">
+    <value>Get ekki fundið svæði</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>Ekki er hægt að staðla landakort sem svæðið verður á stað minna en 0</value>
+  </data>
+  <data name="Cannot_resolve" xml:space="preserve">
+    <value>Ekki er hægt að leysa</value>
+  </data>
+  <data name="Cannot_save_region" xml:space="preserve">
+    <value>Get ekki vistað svæði:</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>Miðju kortinu samræma</value>
+  </data>
+  <data name="Center_Map" xml:space="preserve">
+    <value>Kortamiðstöð Staðsetning:</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>Breytingar hafa verið gerðar. Vista?</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>Breyta lykilorði</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>Breyting á UUID munt tapa öllum gögnum í gamla sim og búa til nýja, tómt sim. Ertu viss um að þú viljir breyta UUID?</value>
+  </data>
+  <data name="ChatChannel" xml:space="preserve">
+    <value>spjall rás</value>
+  </data>
+  <data name="Checking_Apache_service" xml:space="preserve">
+    <value>Athugar Apache þjónustu</value>
+  </data>
+  <data name="Checking_for_Updates" xml:space="preserve">
+    <value>Athugar Uppfærslur</value>
+  </data>
+  <data name="Checking_LAN_Loopback" xml:space="preserve">
+    <value>Athugar LAN sýndardiskur</value>
+  </data>
+  <data name="Checking_Loopback" xml:space="preserve">
+    <value>Athugar sýndardiskur</value>
+  </data>
+  <data name="Checking_Router" xml:space="preserve">
+    <value>Athugar router</value>
+  </data>
+  <data name="Check_and_Repair_Database" xml:space="preserve">
+    <value>Athuga og viðgerðir Database</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>Athugar Diagnostics höfn</value>
+  </data>
+  <data name="Check_for_Updates" xml:space="preserve">
+    <value>Athugaðu með uppfærslur</value>
+  </data>
+  <data name="Check_MySql" xml:space="preserve">
+    <value>Athugar MySql</value>
+  </data>
+  <data name="ChooseRegion" xml:space="preserve">
+    <value>Veldu svæði</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>Veldu hvaða skyndiminni til að tæma</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>Veldu Welcome svæði þitt</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>Veldu hvar á að setja árina:</value>
+  </data>
+  <data name="ClampPrim" xml:space="preserve">
+    <value>Clamp Prim Stærð?</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Clamp Prim Size 'er valkostur til að tryggja engin Prim geta farið yfir sett stærð</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>Hreinsun Asset Cache. Þetta getur tekið langan tíma.</value>
+  </data>
+  <data name="Clearing_Bake" xml:space="preserve">
+    <value>Hreinsun Bakið Cache</value>
+  </data>
+  <data name="Clearing_Image" xml:space="preserve">
+    <value>Hreinsun Image Cache</value>
+  </data>
+  <data name="Clearing_Maptiles" xml:space="preserve">
+    <value>Hreinsun Kort Flísar</value>
+  </data>
+  <data name="Clearing_Mesh" xml:space="preserve">
+    <value>Hreinsun Mesh Cache</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>Hreinsun Script Cache. Þetta getur tekið langan tíma.</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>Hreinsa allt Skráningar</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>Hreinsa Region List</value>
+  </data>
+  <data name="Clear_and_Load" xml:space="preserve">
+    <value>Hreinsa og Load</value>
+  </data>
+  <data name="Clear_Cache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="Clear_Selected_Caches" xml:space="preserve">
+    <value>Hreinsa Valdar Skyndiminni</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>Smelltu til að hefja eða hætta Sterkur</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>Svæði getur byrjað eða hættir í hópum, allt eftir því hversu svæðum möppunni er skipulagt.</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>Smelltu til að velja hóp</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>Smelltu til að setja upp Birds mát</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Smelltu til að setja upp Felustaður fyrir forskriftir, eignir og myndum</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>Smelltu til að setja upp Gjaldmiðill</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Smelltu til að setja upp gagnagrunninn</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>Smelltu til Hjálp</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>Smelltu til að virkja Hypergrid eða breyta DNS nafn</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>Smelltu til að uppsetning Shoutcast / Icecast</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>Smelltu til að setja upp kort</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>Smelltu til að setja upp sjálfgefið Eðlisfræði</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Smelltu til að setja upp port þína</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>Smelltu til að setja upp kynningar á Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>Smelltu til að setja upp Svæði</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Smelltu til að setja upp Start / Stop</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>Smelltu til að velja tegund miðlara. Default = Grid, en hægt er að tengja eins Region miðlara, OsGrid eða Metro svæðum netþjóna</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>Getur ekki keyrt greiningu nema kerfið er í gangi. Smelltu á 'Start' og reyndu aftur.</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>Smelltu á 'Start' til að byrja.</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>Smelltu til að setja upp Tides</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>Smelltu til að breyta möppu</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>Smelltu til að hlaða þetta efni</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>Smelltu til að óska ​​Voice Þjónusta</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>Smelltu til að setja upp Vivox Voice</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>Smelltu til að setja upp vefsíðu stjórnborðinu þínu</value>
+  </data>
+  <data name="Clouds" xml:space="preserve">
+    <value>ský</value>
+  </data>
+  <data name="Common_Settings" xml:space="preserve">
+    <value>Common stillingar</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>Stilla Allar Svæði</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Þarf að staðfesta til að skrá þig inn?</value>
+  </data>
+  <data name="Consoles" xml:space="preserve">
+    <value>leikjatölvur</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>The Opensim Dos Box er hægt að lágmarka sjálfkrafa</value>
+  </data>
+  <data name="Contact_Email" xml:space="preserve">
+    <value>Netfang tengiliðar</value>
+  </data>
+  <data name="Contact_Info" xml:space="preserve">
+    <value>Contact Info</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>Nafn tengiliðar</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>efni</value>
+  </data>
+  <data name="Coordx" xml:space="preserve">
+    <value>The East-West staða á heimskortinu</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>Í North_South staða á heimskortinu</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>CPU Intensive Backup Byrjað</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>Búa til App og fá Keys</value>
+  </data>
+  <data name="CreateSandbox" xml:space="preserve">
+    <value>Búa Sandbox</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>Búa Production reikning</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>Búa til nýja, eyða gagnagrunn</value>
+  </data>
+  <data name="Creating_INI_Files" xml:space="preserve">
+    <value>Búa til INI skrár</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>Núverandi stærð á diski</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>Hringrás Tími í sekúndum</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>Hversu lengi í sekúndum fyrir fullan hringrás tíma. lægra-gildis&gt; hár-&gt; lág</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Gagnagrunnur</value>
+  </data>
+  <data name="Database_Help" xml:space="preserve">
+    <value>Gagnagrunnur Hjálp</value>
+  </data>
+  <data name="Database_Setup" xml:space="preserve">
+    <value>Gagnagrunnur Skipulag</value>
+  </data>
+  <data name="Data_Folder" xml:space="preserve">
+    <value>gögn Folder</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Heiti gagnagrunns</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>Dynamic DNS nafn er þegar í notkun. Kannski þú ert að nota rangt lykilorð?</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>kemba</value>
+  </data>
+  <data name="DefaultRegion" xml:space="preserve">
+    <value>Default svæðinu</value>
+  </data>
+  <data name="Default_8001" xml:space="preserve">
+    <value>Sjálfgefin 8001</value>
+  </data>
+  <data name="Default_8002" xml:space="preserve">
+    <value>Sjálfgefin 8002</value>
+  </data>
+  <data name="Default_8003" xml:space="preserve">
+    <value>Sjálfgefin 8003</value>
+  </data>
+  <data name="Default_8004" xml:space="preserve">
+    <value>Sjálfgefin 8004</value>
+  </data>
+  <data name="Default_Checked" xml:space="preserve">
+    <value>Default: Mætti</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>Sjálfgefna 'Velkomin' svæði er ekki virkt. Halda áfram?</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>Sjálfgefna 'Velkomin' svæðinu er ekki í kerfinu. Halda áfram?</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>eytt</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>Eyða öllum kortum</value>
+  </data>
+  <data name="Deregister" xml:space="preserve">
+    <value>Svæðinu hefur verið fjarlægður</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>Allar Svæði eru afskráð</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Nánar</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>Þetta ákvarðar hvort einingin gerir neitt</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>Diagnostics mistókst. Viltu sjá þig inn?</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>Þessi höfn er ekki að virka. DreamGrid er ekki í gangi á nógu vástig, eða læst með eldvegg eða andstæðingur veira, þannig svæði tákn eru óvirk.</value>
+  </data>
+  <data name="Diag_Port" xml:space="preserve">
+    <value>Diagnostics höfn</value>
+  </data>
+  <data name="did_not_start" xml:space="preserve">
+    <value>ekki að byrja</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>óvirk</value>
+  </data>
+  <data name="Disable_Foreigners" xml:space="preserve">
+    <value>Slökkva á erlendum ferðamönnum</value>
+  </data>
+  <data name="Disable_Gloebits" xml:space="preserve">
+    <value>Slökkva á Gloebits</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>The alheims Gloebits munu ekki eiga á þessu svæði ef sett.</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>Slökkva á Residents</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>Þetta verður að vera minna örugg Ef þú slekkur á ferðatösku, en verður auðveldara að Rez hluti á erlendum grids</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>Slekkur á Inventory Ferðataska sýnir alla birgðum öðrum grids. En það er auðvelt að gefa hlutum frá hvaða stað.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>Hætta við allar breytingar og Hætta?</value>
+  </data>
+  <data name="DivaEnabled" xml:space="preserve">
+    <value>Diva Wifi virkt</value>
+  </data>
+  <data name="DivaPanel" xml:space="preserve">
+    <value>diva Panel</value>
+  </data>
+  <data name="DnsName" xml:space="preserve">
+    <value>Tafla netfang er</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>DNS Nafn eða SomeName.Outworldz.net eða IP</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>DNS nafn og Hypergrid</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>Ekki breyta nema gagnagrunnur hafi þegar verið búin</value>
+  </data>
+  <data name="Do_Not_Interrupt" xml:space="preserve">
+    <value>Ekki trufla!</value>
+  </data>
+  <data name="Do_you_still_want" xml:space="preserve">
+    <value>Viltu samt hætta?</value>
+  </data>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>Sem skrá DynDNS netfang</value>
+  </data>
+  <data name="DynDNS_password" xml:space="preserve">
+    <value>DynDNS lykilorð</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Breyta</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>Breyta Region</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>Bú Manager er Guð - Estate stjórnendur geta orðið guðir, heldur bara fyrir búinu</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>virkja</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>Virkja Apache vefþjóninn</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>virkt</value>
+  </data>
+  <data name="EnableOneClick" xml:space="preserve">
+    <value>Virkja One-Click Start</value>
+  </data>
+  <data name="Enable_Birds" xml:space="preserve">
+    <value>Virkja Bird Module</value>
+  </data>
+  <data name="Enable_Events" xml:space="preserve">
+    <value>virkja Viðburðir</value>
+  </data>
+  <data name="Enable_Hypergrid" xml:space="preserve">
+    <value>virkja Hypergrid</value>
+  </data>
+  <data name="Enable_Search" xml:space="preserve">
+    <value>virkja Leita</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Sláðu inn heiti fyrir varabúnaður þinn</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>Sláðu inn fyrst og síðast nafn notandans</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Sláðu inn nýja Dos Box nafnið</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>Sláðu inn Object nafn ( '/' munu öryggisafrit allt, og '/ Objects / kassi vilja taka upp' kassi 'í möppu Objects</value>
+  </data>
+  <data name="Err" xml:space="preserve">
+    <value>villa</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>Villa: Gat ekki ræst DreamGridInstaller.exe.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>Aðeins (ERROR) villa - 0</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - (Upplýsingar) Hit Rate tölfræði</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - (Debug) Cache Activity</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>Villa: Tókst ekki að setja Opensim.ini fyrir svæðið</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Villa: Ekki er hægt að skilja innihald svæðinu skrá:</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>Villa: Gat ekki ræst Downloader.exe. Kannski þú getur ræst það handvirkt.</value>
+  </data>
+  <data name="EstateManagerGod" xml:space="preserve">
+    <value>Bú Manager er guð</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>Hætta</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>Flytja varabúnaður skrá</value>
+  </data>
+  <data name="Export_Permission" xml:space="preserve">
+    <value>Flytja Leyfi</value>
+  </data>
+  <data name="Export_SQL_file" xml:space="preserve">
+    <value>Útflutningur SQL skrá</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>Ytri heiti fyrir svæðið Servers</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>Sjálfgefna fyrir Ytri vélarheiti er auður, sem verður DNS nafn eða IP. Aðeins setja þetta ef þú ert að keyra svæði framreiðslumaður með engin NAT.</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>Samtíningur Asset Cache</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>Ekki tókst að tengjast vefsíðu.</value>
+  </data>
+  <data name="Fatal" xml:space="preserve">
+    <value>Fatal</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>skrá</value>
+  </data>
+  <data name="Finished_with_backup" xml:space="preserve">
+    <value>Lokið með öryggisafrit:</value>
+  </data>
+  <data name="First_name" xml:space="preserve">
+    <value>Fyrsta nafn</value>
+  </data>
+  <data name="Flotsam_Asset_Cache" xml:space="preserve">
+    <value>Samtíningur Asset Cache</value>
+  </data>
+  <data name="Folder_To_Save_To" xml:space="preserve">
+    <value>Möppu til að vista í</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>Frame Rate (0,9)</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Default 1/11 sek. Sjálfgefið er 0,091 sem er 1/5 af 55 FPS</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>Fá ókeypis Dyn DNS nafn</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Smelltu til að fá ókeypis Gloebits reikningi þannig að þú getur keypt og selt</value>
+  </data>
+  <data name="Free_DLC" xml:space="preserve">
+    <value>Free DLC</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>Þessi flutningskerfisins Friendly Name</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>SL rekur 55 FPS. Opensim er 11 FPS. Default = 0.9, eða 1/11</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>Eignir sem skrá</value>
+  </data>
+  <data name="FSassets" xml:space="preserve">
+    <value>File System Eignir Database</value>
+  </data>
+  <data name="FSassets_Server" xml:space="preserve">
+    <value>FsAssets Server</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>The alheims stillingar Bird eiga á þessu svæði</value>
+  </data>
+  <data name="Getting_regions" xml:space="preserve">
+    <value>fá svæði</value>
+  </data>
+  <data name="GlobalSettings" xml:space="preserve">
+    <value>Global Settings</value>
+  </data>
+  <data name="Global_Tide_Settings" xml:space="preserve">
+    <value>Global Tide stillingar</value>
+  </data>
+  <data name="Gloebits_Currency" xml:space="preserve">
+    <value>Gloebits Gjaldmiðill</value>
+  </data>
+  <data name="Good1" xml:space="preserve">
+    <value>Gott (Warp3D)</value>
+  </data>
+  <data name="Grid_address" xml:space="preserve">
+    <value>Tafla netfang</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>Þú getur gefið þetta heimilisfang út til fólks og þeir geta heimsótt rist þig</value>
+  </data>
+  <data name="Grid_Server_With_Robust" xml:space="preserve">
+    <value>Grid Server Með sterkur</value>
+  </data>
+  <data name="Grid_TCP_is_set" xml:space="preserve">
+    <value>Tafla TCP Port er sett</value>
+  </data>
+  <data name="Grid_UDP_is_set" xml:space="preserve">
+    <value>Tafla UDP Port er sett</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>The alheims Tide settungs eiga á þessu svæði</value>
+  </data>
+  <data name="gTides" xml:space="preserve">
+    <value>The alheims stillingar Tide eiga á þessu svæði ef sett</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>Uppfærsla er í boði. Viltu hætta DreamGrid og setja upp uppfærsluna?</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Hjálp</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>Hjálp Á Console skipanir</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>Wiki Page á vélinni skipanir</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>Hjálp Á Port Áframsending</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>Vefurinn help Port Áframsending</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>Smelltu til hjálp Guði Modes</value>
+  </data>
+  <data name="Help_IARS" xml:space="preserve">
+    <value>Hjálp Á IARS</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>Wiki Page On IAR er</value>
+  </data>
+  <data name="Help_LoopBack" xml:space="preserve">
+    <value>Hjálp Á sýndardiskur</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>Hvernig á að festa sýndardiskur á Windows</value>
+  </data>
+  <data name="Help_Manuals" xml:space="preserve">
+    <value>Hjálp Handbækur</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>Hjálp á árar</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>Wiki Page á árar</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>Hjálp á Byrjun Upp í fyrsta skipti</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>Hjálp með Technical Upplýsingar</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>Technical Mumbo Jumbo um hvernig á að stilla það</value>
+  </data>
+  <data name="Help_Troubleshooting" xml:space="preserve">
+    <value>Hjálp Úrræðaleit</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>Hypergrid Diagnostics mistókst. Þetta getur verið aftur hlaupa hvenær sem er. Sjá Hjálp-&gt; Network Diagnostics, 'sýndardiskur' og 'Port Sóknarmenn "</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>Hypergrid ætti að vinna.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>fela</value>
+  </data>
+  <data name="Highest_Used" xml:space="preserve">
+    <value>Hæsta notuð: 8004</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>High vatn Level</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>High markar vatn í metrum</value>
+  </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>Heim</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>Hversu nálægt brúnum hlutum getum við fengið án þess að vera áhyggjufull?</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>Hversu langt í burtu frá öðrum fuglum sem við viljum gista?</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>Hversu langt í metrum hver fugl getur ferðast á uppfærslu?</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>Hversu hátt erum við leyft að flykkjast?</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>Hversu lengi á að halda afrit. Elsti fá eytt eftir þennan tíma í dögum,</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>Hversu lengi Opensim keyrir fyrir sjálfvirkt öryggisafrit stað</value>
+  </data>
+  <data name="Http_Port" xml:space="preserve">
+    <value>http Port</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>Hypergrid DNS nafn</value>
+  </data>
+  <data name="IAR_Load_and_Save" xml:space="preserve">
+    <value>IAR hlaða og vista</value>
+  </data>
+  <data name="Icecast" xml:space="preserve">
+    <value>Icecast</value>
+  </data>
+  <data name="iceCastServer" xml:space="preserve">
+    <value>IceCast Server</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>Icecast leyfir þér að streyma tónlist í sim þína. Tónlist URL:</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>Icecast er óvirk</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast lauk. Viltu sjá Villuannáll?</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast ekki að byrja</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>Smelltu á hjálp á að setja upp Icecast</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>Icecast Port er sett</value>
+  </data>
+  <data name="Icecast_Started" xml:space="preserve">
+    <value>Icecast Byrjað</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>Byrjar Icecast</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Tákn</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>Opensim mun bjarga árar eftir að keyra þetta lengi</value>
+  </data>
+  <data name="Ignore_Parcel" xml:space="preserve">
+    <value>Hunsa Parcel</value>
+  </data>
+  <data name="Ignore_Terrain" xml:space="preserve">
+    <value>Hunsa Landsvæði</value>
+  </data>
+  <data name="Image_Cache" xml:space="preserve">
+    <value>Image Cache</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Flytja inn</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>Innflutningur Region INI skrár</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>Komandi Hypergrid er vinna</value>
+  </data>
+  <data name="Increasing_time" xml:space="preserve">
+    <value>Aukning Tími til</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>upplýsingar</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>upplýsingar</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>setja upp</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>Setja C ++ runtimes</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>Uppsetning skjáborðstengingu</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>veffang</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>interval</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>Opensim Er að hlaða atriðið. Þú finnur það í</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>Gefa Console skipanir</value>
+  </data>
+  <data name="is_Off" xml:space="preserve">
+    <value>slökkt er</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>The Opensimulator Console verður sýnd þegar Opensim er í gangi.</value>
+  </data>
+  <data name="JobEngine" xml:space="preserve">
+    <value>starf Engine</value>
+  </data>
+  <data name="Just_one_region" xml:space="preserve">
+    <value>Bara eitt svæði</value>
+  </data>
+  <data name="Keep_for_Days" xml:space="preserve">
+    <value>Halda daga</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>Þú ert að nota LAN IP. Þetta próf er sleppt.</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>Stórt kort Metro</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Eftirnafn</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>Skoða lista yfir Avatars</value>
+  </data>
+  <data name="Load Parcel" xml:space="preserve">
+    <value>hlaða Parcel</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>Hlaða Free Avatar Inventory</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>Hlaða IARS frá Outworldz vef</value>
+  </data>
+  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
+    <value>Hlaða Free Dreamworld árar</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>Hlaða Inventory IAR</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>Hlaða Local IARs frá iar möppunni</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>Hlaða Local árar úr árina möppunni</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>Hlaða Region OAR</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>hlaða Landsvæði</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>Local Search</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>Log Level</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>Sýndardisk Test mistókst. Veffang ekki svara.</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>sýndardiskur Hjálp</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>Sýndardiskur Test Samþykkt um höfn</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>Lág og há vatn skytta í metrum</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>Low vatn Level</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>LSL forskriftir geta ekki náð öðru LAN PC. Ef þú kveikir þetta á, að þeir geta fengið aðgang höfnum á LAN á hvaða tölvu. Þetta er hættulegt!</value>
+  </data>
+  <data name="Make_backup" xml:space="preserve">
+    <value>Gerðu afrit?</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>Kortin</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>Allar kortaflísar hefur verið eytt. Stilltu kort stillingu og endurræsa til að gera nýtt kort</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>Kort Coords: X</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>Hámark 4096</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>Hámarks hröðun leyft að núverandi hraða fuglsins</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>Hversu margar Avatars + NPC er hægt að vera í héraði áður en svæðið er sýnt eins fullt. Raunveruleg gildi er stillt á Estate Stillingar í áhorfandann.</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>Max vegalengd fyrir aðra fugla til að hafa í huga við sama hópnum</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>Max Force (sjálfgefið = 0,2)</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>Max Hæð (sjálfgefið = 45,0)</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 metrar í Firestorm. 1500 metra með singularity. Þú getur ekki gert reglulega Prím stærri en þetta</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>Max Fjöldi Prims í pakka</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>Þú getur ekki gert líkamlega Prím stærri en þetta</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>Þetta mun takmarka fjölda prims á pakka. Það eru engin takmörk nema minni þegar óvirk.</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>Virkja MAXPRIMS mörk</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Max Speed ​​(sjálfgefið = 1,0)</value>
+  </data>
+  <data name="Merge_OAR" xml:space="preserve">
+    <value>Sameina OAR</value>
+  </data>
+  <data name="Merge_Objects" xml:space="preserve">
+    <value>sameina hluti</value>
+  </data>
+  <data name="Mesh_Cache" xml:space="preserve">
+    <value>Mesh Cache</value>
+  </data>
+  <data name="Message_sent" xml:space="preserve">
+    <value>Skilaboð send</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Hypergrid.org Region Server</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>mínútur</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Modules" xml:space="preserve">
+    <value>einingar</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>Meira ókeypis Islands og hlutar</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>Smelltu fyrir frekari hjálp á vefsvæðinu</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>Verður að hafa nafn af birgðum hlut</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>Verður að vera það sama og X</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>Verður að vera það sama og Y</value>
+  </data>
+  <data name="Must_be_Days" xml:space="preserve">
+    <value>Verður að vera tala um daga</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>Verður að vera PNG skrá</value>
+  </data>
+  <data name="MySqlPort" xml:space="preserve">
+    <value>MySQL Port</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL lauk. Viltu sjá Villuannáll?</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>Gagnagrunnurinn fann ekki byrja. Viltu sjá annálinn?</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>MySQL er í gangi</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>Sjálfgefin = 3306</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>Byrjar MySQL gagnagrunnur</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL var í gangi þegar ég var að byrja, þannig að ég er að fara MySQL á.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>heiti</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>Kerfið Nafnið þitt hefur verið sett á {newname}. Hægt er að breyta nafni á DNS valmyndinni hvenær</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>Nágranni Vegalengd (sjálfgefið = 25,0)</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>A net breyting átt sér stað. A endurræsa kann að vera nauðsynlegt.</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>netgreiningu</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>Keyra uppsetninguna greiningu</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>net Hafnir</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>Nýtt efni er hleðsla</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>Nýtt efni hlaðinn bara</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>Nýr notandi Home X, Y, Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>Næst</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>næsta Name</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>Engin manneskja er á netinu</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Enginn</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>Normalize Svæði</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>Venjulega stillt á OutworldzFiles / sjálfvirkri afritun mappa með 'sjálfvirkri afritun ". Smelltu til að breyta möppu.</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>Þú getur ekki gert reglulega Prím stærri en þetta.</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>tilkynna tölvupóst</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>Ekki gilt UUID. Viltu nýja, Random UUID?</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>Þetta virðist ekki vera fluttur á vél í beininum, svo Hypergrid er ekki í boði. Þetta getur hugsanlega verið fastur með "Port Framherjar 'á leið. Sjá Hjálp-&gt; Port áfram.</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>Yfirleitt ekki framfylgt með Opensim. Viewer mun ekki sýna meira en 45.000. Setja þetta hér og gera þetta í stillingum símans framfylgja mörkin og komið aftur prims!</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>Opensim er ekki í gangi.</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>The Opensimulator Console verður ekki sýnd. Þú getur samt hafa samskipti við hann með Hjálp-&gt; Opensim Console</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>Gat ekki sett sjálfgefið SIM-kort fyrir gesti. Sjá Svæði Panel.</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>Engin Hypergrid gestir verða leyfðar á þessu svæði</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>Ekki birta þetta svæði</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>Engar svæði eru tilbúin, svo má ekki hlaða iar "</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>Villa: Gat ekki ræst NtSuspendProcess64.exe.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>Fjöldi fugla að flykkjast</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>OAR skrár eru afrit af öllu Islands</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>OAR hlaða og vista</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>Object Path og nafn</value>
+  </data>
+  <data name="ODE" xml:space="preserve">
+    <value>Opna Dynamic Engine</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Af</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>Það er eitt avatar</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>Einn svæði er enn í gangi</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>Aðeins eigendur og Estate Stjórnendur verður leyft á þessu svæði</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>Opensimulator er hleðsla</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Open Leið Hafnir nota Universal Plug and Play</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Valmöguleikar</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>eða:</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSGrid Region Server</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>Hnekkir heimsvísu kortinu fyrir þennan eina svæði</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>bögglar</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>Liðið LAN sýndardiskur Test</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lykilorð</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>Þú getur aðeins breytt lykilorðinu ef Opensim er í gangi</value>
+  </data>
+  <data name="PDF_Manual" xml:space="preserve">
+    <value>PDF Manual</value>
+  </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>fólk er í</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>heimildir</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>Eðlisfræði</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>eðlisfræði Engine</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>Sláðu inn gilt DNS nafn eins og "name.outworldz.net", eða skrá sig fyrir eitt í http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>Vinsamlegast veldu eina línu</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>Vinsamlegast sláðu avatar nafnið rist eigandans í öflugri gluggann. Stutt á &lt;Enter&gt; til UUID og Model nafn. ýttu síðan þetta OK hnappinn</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>Port 1</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>Port 2</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>Hafnir</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>Port Átökin hafa fundist. Allar hafnir hafa verið endurstillt til vanskila</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>Port Áframsending Hjálp</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>Forskoðun í vafra</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>Prim Limits</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Prim Name (sjálfgefið = SeaGull1)</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Private_Port" xml:space="preserve">
+    <value>Private Port</value>
+  </data>
+  <data name="Production_Mode" xml:space="preserve">
+    <value>framleiðsla Mode</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>Veita fjöru upplýsingar á vélinni?</value>
+  </data>
+  <data name="Publicity" xml:space="preserve">
+    <value>Kynning</value>
+  </data>
+  <data name="Public_IP" xml:space="preserve">
+    <value>Public IP skipulag</value>
+  </data>
+  <data name="Public_Photo" xml:space="preserve">
+    <value>opinber mynd</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>Birta rist til Hyperica.com</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>Birta Hlutir merkt leit</value>
+  </data>
+  <data name="Quit_Now" xml:space="preserve">
+    <value>hætta núna</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>hætta óvænt. Endurræsa.</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>Lestur Region skrár</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>tilbúinn</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>Tilbúinn að ráðast!</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>endurvinna</value>
+  </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>Uppfæra</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>Hressandi Free Content (IAR)</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>Hressandi Free Content (OAR)</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>Ef þú eyðir öllum kortum, þú þarft að endurnýja kort með því að endurræsa með kort stillingu</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Svæði</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>svæði eru enn í gangi</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>Svæði er þegar til</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>svæði Stýrir</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>svæði Database</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>svæði List</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>Region framkvæmdastjóri er guð?</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>Svæði Manager er Guð - Estate stjórnendur geta orðið guðir, heldur bara fyrir búinu</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alfa-töluna plús Spaces</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>Region nafn er ekki notað sérstafi</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>Sjálfgefin tiltekið svæði Stillingar Stillingar</value>
+  </data>
+  <data name="Region_Owner_Is_God" xml:space="preserve">
+    <value>Region Eigandi er Guð</value>
+  </data>
+  <data name="Region_Port" xml:space="preserve">
+    <value>svæði Port</value>
+  </data>
+  <data name="Region_Ports" xml:space="preserve">
+    <value>svæði Hafnir</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>Region Port Start #</value>
+  </data>
+  <data name="Region_Server" xml:space="preserve">
+    <value>svæði Server</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>Miðlarinn að tengjast. 'Localhost' er sjálfgefið.</value>
+  </data>
+  <data name="Region_Specific_Settings" xml:space="preserve">
+    <value>Tiltekið svæði Stillingar</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>svæði Stats</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Endurhlaða rist</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>Gjaldið Max Hæð</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>Gjaldið Min Hæð</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>Óska App Creation</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>Panta Dyn DNS nafn þitt. Þetta er lykilorð fyrir þínu nafni.</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>leyst</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Endurræsa</value>
+  </data>
+  <data name="Restarting" xml:space="preserve">
+    <value>endurræsa</value>
+  </data>
+  <data name="Restart_All" xml:space="preserve">
+    <value>endurræsa All</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>Endurræst allur innritaður Svæði</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>Restart Interval í Mínútur</value>
+  </data>
+  <data name="Restart_one_instance" xml:space="preserve">
+    <value>Restart eitt dæmi</value>
+  </data>
+  <data name="Restart_one_region" xml:space="preserve">
+    <value>Endurræsa eitt svæði</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>Ef svæði hrun, á svæðinu verður endurræst</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>Restart á eðlisfræði Crash</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>Bulletsim eðlisfræði hrun þvinga fram hermir endurræsa</value>
+  </data>
+  <data name="Restart_Periodically" xml:space="preserve">
+    <value>endurræsa reglulega</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>Bæir munu allir sjálfvirkt endurræsa eftir svo margar mínútur að keyra</value>
+  </data>
+  <data name="Restart_Queued" xml:space="preserve">
+    <value>Endurræsa biðröð fyrir</value>
+  </data>
+  <data name="Restart_Region" xml:space="preserve">
+    <value>endurræsa Region</value>
+  </data>
+  <data name="Restart_Robust" xml:space="preserve">
+    <value>endurræsa sterkur</value>
+  </data>
+  <data name="Restart_Settings" xml:space="preserve">
+    <value>Restart Stillingar</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Endurheimta?</value>
+  </data>
+  <data name="Restore_Database" xml:space="preserve">
+    <value>endurheimta gagnagrunn</value>
+  </data>
+  <data name="Resuming" xml:space="preserve">
+    <value>Byrja aftur</value>
+  </data>
+  <data name="Revision_History" xml:space="preserve">
+    <value>endurskoðun Saga</value>
+  </data>
+  <data name="Robust" xml:space="preserve">
+    <value>sterkur</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>Sterkur lauk. Viltu sjá Villuannáll?</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>Sterkur mistókst að byrja</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>Sterkur er í gangi</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>Smelltu á virkjað röð til að hefja eða stöðva á svæðinu. Smelltu fatlaður röð til að breyta svæðinu.</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>Running Network Diagnostics</value>
+  </data>
+  <data name="Run_All" xml:space="preserve">
+    <value>Run All</value>
+  </data>
+  <data name="Run_as_a_Service" xml:space="preserve">
+    <value>Run as a Service</value>
+  </data>
+  <data name="Sandbox_Mode" xml:space="preserve">
+    <value>sandkassi Mode</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Vista</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>Vista öll Running Svæði til árar</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>Vista breytingar?</value>
+  </data>
+  <data name="Save_IAR" xml:space="preserve">
+    <value>Vista IAR</value>
+  </data>
+  <data name="Save_Inventory_IAR" xml:space="preserve">
+    <value>Vista Skrá IAR</value>
+  </data>
+  <data name="Save_Region_OAR" xml:space="preserve">
+    <value>Vista Region OAR</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving</value>
+  </data>
+  <data name="Scripts" xml:space="preserve">
+    <value>Scripts</value>
+  </data>
+  <data name="Scripts_Resume" xml:space="preserve">
+    <value>Scripts Halda</value>
+  </data>
+  <data name="Scripts_Start" xml:space="preserve">
+    <value>Scripts Start</value>
+  </data>
+  <data name="Scripts_Stop" xml:space="preserve">
+    <value>Scripts Stöðva</value>
+  </data>
+  <data name="Scripts_Suspend" xml:space="preserve">
+    <value>Scripts fresta</value>
+  </data>
+  <data name="Script_cache" xml:space="preserve">
+    <value>Script skyndiminni</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>Script Timer Rate (0,9)</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>Script myndatöku hraða stilling. 1/11 í öðru lagi er sjálfgefin (0.9)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>leita</value>
+  </data>
+  <data name="Search_All_Grids" xml:space="preserve">
+    <value>Leita All grids</value>
+  </data>
+  <data name="Secret" xml:space="preserve">
+    <value>Secret</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>Ég sé þig aftur þegar ég vakna allt ferskt og nýtt!</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>Viltu sjá annálinn?</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>Velur allar eða enginn gátreitunum</value>
+  </data>
+  <data name="Send_Alert_Message" xml:space="preserve">
+    <value>Senda skilaboðunum</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>Senda kembingar til að hugga</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Óskað Aðskilnaður (sjálfgefið = 5,0)</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>Hvert svæði munu byrja fyrr en áður hefur svæðið hlaðinn</value>
+  </data>
+  <data name="Server_Type" xml:space="preserve">
+    <value>Gerð miðlara</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Stillingar</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>Setja sýndardiskur Adapter Public IP heimilisfang</value>
+  </data>
+  <data name="Setup_Firewall" xml:space="preserve">
+    <value>skipulag Firewall</value>
+  </data>
+  <data name="Setup_Graphs" xml:space="preserve">
+    <value>skipulag Gröf</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>Setja upp Network</value>
+  </data>
+  <data name="Setup_Ports" xml:space="preserve">
+    <value>skipulag Hafnir</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Skipulag leit gagnagrunnur</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>Smelltu til að setja upp Skilmálar þitt þjónustuskilmálana</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>Skipulag Voice Þjónusta</value>
+  </data>
+  <data name="Set_Debug_Level" xml:space="preserve">
+    <value>Setja Kemba Level</value>
+  </data>
+  <data name="Set_Owner" xml:space="preserve">
+    <value>setja Eigandi</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>Shoutcast er ekki virkt.</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Sýna</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>Sýna Grid Address</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>Sýna tölfræði á vélinni</value>
+  </data>
+  <data name="Show_Status" xml:space="preserve">
+    <value>Sýna Staða</value>
+  </data>
+  <data name="Show_User_Details" xml:space="preserve">
+    <value>Sýna User upplýsingar</value>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>lokun</value>
+  </data>
+  <data name="Simple_but_Fast" xml:space="preserve">
+    <value>Einföld en hratt</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>Þetta skilgreinir hlutfall af nokkrum atburðum uppgerð. Það er hægt að minnka til að bæta eftirlíkingu af áhrifamikill mótmæla, með hugsanlegri aukningu á CPU og net hlaða.</value>
+  </data>
+  <data name="Sim_Size" xml:space="preserve">
+    <value>Sim Stærð</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Skip_Autobackup" xml:space="preserve">
+    <value>Skip sjálfvirkri afritun</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>Byrjar hægur en víðtækur gagnagrunnur Backup</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>Kortið lítill Metro</value>
+  </data>
+  <data name="Smart_Start" xml:space="preserve">
+    <value>Smart Start</value>
+  </data>
+  <data name="Smart_Start_Enabled" xml:space="preserve">
+    <value>Smart Start Virkja</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>SMTP Senda netfangs</value>
+  </data>
+  <data name="SMTPHost" xml:space="preserve">
+    <value>SMTP Host</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP lykilorð</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP Port</value>
+  </data>
+  <data name="Someone_is_in" xml:space="preserve">
+    <value>Einhver er í</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>Því miður, Hjálp er ekki enn í boði fyrir þetta.</value>
+  </data>
+  <data name="Source_Code" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>Áhorfandinn Splash Screen URL:</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>Splash Screen</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>SQL Gagnasafn Backup / Restore</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>Byrja alla merktum svæðum</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Byrjar</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>Byrja upp í fyrsta skipti</value>
+  </data>
+  <data name="Starting_WebServer" xml:space="preserve">
+    <value>Byrjar Vefþjónninn</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>Það er engin þörf á að smella á Start hnappinn aftur. Hefst þegar hleypt af stokkunum.</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>Start Svæði Röð</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>Byrjun Control Panel</value>
+  </data>
+  <data name="Start_Regions" xml:space="preserve">
+    <value>Start Svæði</value>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Staða</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>Script myndatöku hraða stilling. 1/11 í öðru lagi er sjálfgefin (0.9)</value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>Step1:</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>Step 2:</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>Skref 3:</value>
+  </data>
+  <data name="StopAll" xml:space="preserve">
+    <value>Stop All</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>hætt</value>
+  </data>
+  <data name="Stopping" xml:space="preserve">
+    <value>stífla</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>Stífla Apache vefþjón</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>Hættir sem hakað Svæði</value>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>stöðva</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>Virkja Inventory Suitcase</value>
+  </data>
+  <data name="Suspending" xml:space="preserve">
+    <value>fresta</value>
+  </data>
+  <data name="System_Backup" xml:space="preserve">
+    <value>System Backup</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>Þetta getur tekið tíma að hlaða</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>Tæknilegar upplýsingar</value>
+  </data>
+  <data name="Teleport" xml:space="preserve">
+    <value>teleport</value>
+  </data>
+  <data name="Teleporting" xml:space="preserve">
+    <value>teleporting</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>Skilmálar þjónustu</value>
+  </data>
+  <data name="Terrain" xml:space="preserve">
+    <value>Landslag</value>
+  </data>
+  <data name="Test_DNS" xml:space="preserve">
+    <value>próf DNS</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Þema:</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>Þema sett í Black</value>
+  </data>
+  <data name="theme_Custom" xml:space="preserve">
+    <value>Þema stillt á valmöguleika</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>Þema stillt á White</value>
+  </data>
+  <data name="These_Changes" xml:space="preserve">
+    <value>Þessar breytingar taka gildi aðeins þegar Opensim og sterkur eru bæði á ný</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>Þetta færir öll svæði þannig að valið svæði er 1000,1000 að passa kortið. Halda áfram?</value>
+  </data>
+  <data name="Threadpools" xml:space="preserve">
+    <value>Thread laugar</value>
+  </data>
+  <data name="Tides" xml:space="preserve">
+    <value>sjávarföll</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>Kleift fjöru til að koma inn og út?</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel" xml:space="preserve">
+    <value>Sjávarföll Hi / Lo Channel</value>
+  </data>
+  <data name="Tide_Info_Channel" xml:space="preserve">
+    <value>Fjöru Info Channel</value>
+  </data>
+  <data name="Timeout_in_hours" xml:space="preserve">
+    <value>Rann út á tíma í klukkustundum</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>Umburðarlyndi (sjálfgefið = 25.0)</value>
+  </data>
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Bilanagreining</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>Ubit Nethönnunarumhverfi / Bullet Hybrid</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>Ekki var hægt að vista stillingar:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>Sláðu inn fyrst og síðast nafn þess aðila sem vilja eiga neina Unassigned hlutum</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>Óþekkt skráargerð</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Uppfært</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>Uppfærslan hefur verið hlaðið niður. Setja hana núna?</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>Uppfærsla er í boði. Sækir uppfærslu í bakgrunni. Vinsamlegast láttu það klára.</value>
+  </data>
+  <data name="Updating_Ports" xml:space="preserve">
+    <value>Uppfærir Hafnir</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>UPnP er óvirk</value>
+  </data>
+  <data name="UPnP_Enabled" xml:space="preserve">
+    <value>UPnP</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>Virkja þetta er að þú ert með lítið kerfi og vilja á leið hafnir að sjálfkrafa stilla</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>UPnP Skipulag Program</value>
+  </data>
+  <data name="UseDefault" xml:space="preserve">
+    <value>Nota Default</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>Stærri talan er stærri skyndiminni.</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>notandanafn</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Notendur</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>VILLA: UUID er ekkert!</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Viewer_Cache" xml:space="preserve">
+    <value>áhorfandi Cache</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>Default: Enabled. Notendur gætu þurft að minnka áhorfanda bandbreidd ef einhver prims eða landsvæði hlutar ekki að Rez. Breyta í False ef þú þarft að nota gamla áhorfendur sem styðja ekki þennan eiginleika</value>
+  </data>
+  <data name="Viewer_Greeting" xml:space="preserve">
+    <value>áhorfandi Kveðja</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>Áhorfandinn hættir að telja á 45.000</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>Skoða sem Icons</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>Útsýni Region upplýsingar</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>Skoða Icecast Web Page</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>útsýni Logs</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>Skoða Region Maps</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>Útsýni Simulator Stats</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>Skoða vefsíðu sem sýnir tölfræði fyrir hvert svæði</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>Útsýni Web Interface</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>The Web Interface er hægt að nota til að bæta við nýjum notendum</value>
+  </data>
+  <data name="Vivox_Voice" xml:space="preserve">
+    <value>Vivox Voice</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>Bíð eftir öllum svæðum til að hætta</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>Warn</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web Control Panel</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>Web Server Panel</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>Vefurinn Port (80, eða 8000)</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>The Web UI gerir þér kleift að bæta við eða skoða stillingar fyrir hvaða avatar.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>Hvað viltu segja við alla á netinu?</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>Hvað viltu segja við þessu svæði?</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>Hvaða rás fuglar hlusta á fyrir í-heimi skipunum. Neikvæðar tölur er ekki hægt að nota menn</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>hvítt</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>Þetta er venjulegt Wifi kort síðu</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>Wifi Interface Admin</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>Mun ekki vista OAR með sjálfvirkri afritun.</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Eitthvað er athugavert við Internetið</value>
+  </data>
+</root>

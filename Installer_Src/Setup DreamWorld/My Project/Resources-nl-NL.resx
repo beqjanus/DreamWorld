@@ -1,0 +1,2205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted" xml:space="preserve">
+    <value>Aborted</value>
+  </data>
+  <data name="About1" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Add_Region" xml:space="preserve">
+    <value>Voeg Region</value>
+  </data>
+  <data name="Add_User" xml:space="preserve">
+    <value>Voeg gebruiker toe</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Administrator wachtwoord</value>
+  </data>
+  <data name="Admin_Web_Page" xml:space="preserve">
+    <value>Admin Webpagina</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Allemaal</value>
+  </data>
+  <data name="AllNone" xml:space="preserve">
+    <value>Alle / Geen</value>
+  </data>
+  <data name="Allow200" xml:space="preserve">
+    <value>Laat 200+ Level goden</value>
+  </data>
+  <data name="AllowRegionGods" xml:space="preserve">
+    <value>Laat Region eigenaar goden</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>De originele Second Life wolken</value>
+  </data>
+  <data name="Allow_Gods" xml:space="preserve">
+    <value>Toestaan ​​of weigeren Goden</value>
+  </data>
+  <data name="Allow_leave" xml:space="preserve">
+    <value>Laat items om te vertrekken</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>Laat LSL contact opnemen met de server</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>Objecten kunnen worden genomen van uw netwerk via HyperGrid</value>
+  </data>
+  <data name="All_Global_Settings" xml:space="preserve">
+    <value>Alle Algemene instellingen</value>
+  </data>
+  <data name="All_Users_All_Sims" xml:space="preserve">
+    <value>Alle gebruikers, All Sims</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>Alfanumeriek plusminus (geen spaties of speciale tekens)</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>Hierdoor kan een ander gebied in deze plek nodig. Doorgaan met?</value>
+  </data>
+  <data name="Apache" xml:space="preserve">
+    <value>Apache</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>Service niet installeren</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>Web Server niet stop</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>Webserver + Search and Map</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>Webserver is niet ingeschakeld</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>Apache verlaten. Wilt u de fout logbestand zien?</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>Web Server kan niet worden gestart</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>Apache is verwijderd als een service</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>Web Server poort is ingesteld</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>Web Server wordt uitgevoerd</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>Vanaf Web Server</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>Apache Webserver</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>Een toepassingsuitzondering opgetreden. Wilt u proberen door te gaan, of afbreken / exit?</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Van toepassing zijn</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>Weet je zeker dat? Uw database rloaded uit de back-up en alle bestaande inhoud vervangen. Avatars, sims, inventaris, everyting zal worden overschreven.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Bent u zeker dat u dit gebied te verwijderen?</value>
+  </data>
+  <data name="Asset_Cache" xml:space="preserve">
+    <value>Asset Cache</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>Autobackup map kan niet worden gevonden, zodat de map teruggezet naar de standaard is geweest.</value>
+  </data>
+  <data name="AutoRestart" xml:space="preserve">
+    <value>Auto Restart</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - Uit. Hoeveel minuten tot automatische herstart plaatsvindt?</value>
+  </data>
+  <data name="Autorestarting" xml:space="preserve">
+    <value>automatisch opnieuw starten</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>Toenemende Auto Restart Tijd om te laten Backups goal van 30 minuten na de herstart Interval</value>
+  </data>
+  <data name="Auto_Backup" xml:space="preserve">
+    <value>Automatische back-up</value>
+  </data>
+  <data name="Auto_Startup" xml:space="preserve">
+    <value>automatisch starten</value>
+  </data>
+  <data name="Avatars" xml:space="preserve">
+    <value>Avatars</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>Avatars zijn in de wereld! Wil je echt wilt stoppen?</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>Klik hier om avatars te bekijken</value>
+  </data>
+  <data name="Avatar_Cache" xml:space="preserve">
+    <value>Avatar Bakes Cache</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name" xml:space="preserve">
+    <value>Avatar Voor- en achternaam</value>
+  </data>
+  <data name="Avatar_Name" xml:space="preserve">
+    <value>avatar Naam</value>
+  </data>
+  <data name="Avatar_Password" xml:space="preserve">
+    <value>avatar Password</value>
+  </data>
+  <data name="Backing_up_Settings" xml:space="preserve">
+    <value>Een back-up-instellingen</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>backup</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>Backup aangepaste webpagina's</value>
+  </data>
+  <data name="Backup_Data" xml:space="preserve">
+    <value>Backup Data Files</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>backup Databases</value>
+  </data>
+  <data name="Backup_Data_Files" xml:space="preserve">
+    <value>Backup Data Files</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>backup Folder</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>folder Backup FSAssets</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>Backup folder Mysql gegevens</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>backup Naam</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>Backup Region INI-bestanden</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>Klik hier om uw backupschema</value>
+  </data>
+  <data name="Backup_Settings" xml:space="preserve">
+    <value>backup-instellingen</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Best (Prims + Mesh, zeer traag)</value>
+  </data>
+  <data name="Better1" xml:space="preserve">
+    <value>Better (Prims, Slow)</value>
+  </data>
+  <data name="BirdModule" xml:space="preserve">
+    <value>Bird Module</value>
+  </data>
+  <data name="Bird_Flock_Size" xml:space="preserve">
+    <value>Vogel Flock Size</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>Klik voor hulp bij Vogels</value>
+  </data>
+  <data name="Bird_IAR" xml:space="preserve">
+    <value>Load Bird IAR</value>
+  </data>
+  <data name="Bird_Settings" xml:space="preserve">
+    <value>Bird Instellingen</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Zwart</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>Border Size (default = 25,0)</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>Bullet fysica in afzonderlijke thread</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>Chat tij info aan de regio, zodat scripts kan bewegen met de stroom?</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>Broadcast Tide Info</value>
+  </data>
+  <data name="Bullet_Physics" xml:space="preserve">
+    <value>bullet physics</value>
+  </data>
+  <data name="Busy" xml:space="preserve">
+    <value>Druk</value>
+  </data>
+  <data name="Caches" xml:space="preserve">
+    <value>caches</value>
+  </data>
+  <data name="Caches_Cleared" xml:space="preserve">
+    <value>Alle Caches ontruimd</value>
+  </data>
+  <data name="Cache_Control" xml:space="preserve">
+    <value>Cache Controle</value>
+  </data>
+  <data name="Cache_Directory" xml:space="preserve">
+    <value>Cache Directory</value>
+  </data>
+  <data name="Cache_Enabled" xml:space="preserve">
+    <value>Cache ingeschakeld</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>Alle Server Caches, behalve Scripts en Avatar bakt waren geruimd. OpenSim moet worden gestopt om duidelijke script en bakken caches.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>annuleren</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>Laad IAR geannuleerd - moet het volledige gebruikersnaam en wachtwoord gebruiken.</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Geannuleerd</value>
+  </data>
+  <data name="Cannot_find_region" xml:space="preserve">
+    <value>Kan de regio niet vinden</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>Kan niet normaliseren kaart te zetten als een regio zal worden op een locatie op minder dan 0</value>
+  </data>
+  <data name="Cannot_resolve" xml:space="preserve">
+    <value>Kan niet op te lossen</value>
+  </data>
+  <data name="Cannot_save_region" xml:space="preserve">
+    <value>Kan regio niet opslaan:</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>Midden van de kaart te coördineren</value>
+  </data>
+  <data name="Center_Map" xml:space="preserve">
+    <value>Kaart van het centrum Locatie:</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>Veranderingen zijn gemaakt. Opslaan?</value>
+  </data>
+  <data name="Change_Password" xml:space="preserve">
+    <value>Wachtwoord wijzigen</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>Het veranderen van de UUID worden alle gegevens in het oude sim verliezen en het creëren van een nieuwe, lege sim. Weet u zeker dat u de UUID veranderen?</value>
+  </data>
+  <data name="ChatChannel" xml:space="preserve">
+    <value>Chat Channel</value>
+  </data>
+  <data name="Checking_Apache_service" xml:space="preserve">
+    <value>Het controleren van Apache dienst</value>
+  </data>
+  <data name="Checking_for_Updates" xml:space="preserve">
+    <value>Controleren op updates</value>
+  </data>
+  <data name="Checking_LAN_Loopback" xml:space="preserve">
+    <value>Het controleren van LAN Loopback</value>
+  </data>
+  <data name="Checking_Loopback" xml:space="preserve">
+    <value>Het controleren van Loopback</value>
+  </data>
+  <data name="Checking_Router" xml:space="preserve">
+    <value>Controle Router</value>
+  </data>
+  <data name="Check_and_Repair_Database" xml:space="preserve">
+    <value>Controleren en repareren van Database</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>Controle Diagnostics port</value>
+  </data>
+  <data name="Check_for_Updates" xml:space="preserve">
+    <value>Controleren op updates</value>
+  </data>
+  <data name="Check_MySql" xml:space="preserve">
+    <value>Controle MySql</value>
+  </data>
+  <data name="ChooseRegion" xml:space="preserve">
+    <value>Kies Region</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>Kies welke cache te legen</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>Kies uw Welcome regio</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>Kies waar u de OAR zetten:</value>
+  </data>
+  <data name="ClampPrim" xml:space="preserve">
+    <value>Clamp Prim Size?</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>Clamp Prim Size' is een optie om geen prim kan de ingestelde grootte overschrijdt zorgen</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>Clearing Asset Cache. Dit kan een lange tijd in beslag nemen.</value>
+  </data>
+  <data name="Clearing_Bake" xml:space="preserve">
+    <value>Clearing Bake Cache</value>
+  </data>
+  <data name="Clearing_Image" xml:space="preserve">
+    <value>Clearing Afbeelding Cache</value>
+  </data>
+  <data name="Clearing_Maptiles" xml:space="preserve">
+    <value>Clearing Kaart Tiles</value>
+  </data>
+  <data name="Clearing_Mesh" xml:space="preserve">
+    <value>Clearing Mesh Cache</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>Clearing Script Cache. Dit kan een lange tijd in beslag nemen.</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>Wissen Registraties</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>Verwijderen Regio List</value>
+  </data>
+  <data name="Clear_and_Load" xml:space="preserve">
+    <value>Duidelijke en Load</value>
+  </data>
+  <data name="Clear_Cache" xml:space="preserve">
+    <value>Cache wissen</value>
+  </data>
+  <data name="Clear_Selected_Caches" xml:space="preserve">
+    <value>Clear Selected Caches</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>Klik om te starten of stoppen Robuust</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>Regio's kan starten of te stoppen in groepen, afhankelijk van hoe uw regio map wordt georganiseerd.</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>Klik hier om een ​​groep te kiezen</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>Klik om het opzetten van de Vogels module</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>Klik op te zetten Caches voor scripts, activa, en afbeeldingen</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>Klik op te zetten Currency</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>Klik om het opzetten van de Database</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>Klik voor Help</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>Klik hier om HyperGrid inschakelen of te wijzigen DNS-naam</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>Klik hier om de installatie te Shoutcast / Icecast</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>Klik op te zetten Maps</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>Klik op te zetten standaard Physics</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>Klik hier om uw Ports</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>Klik op te zetten publiciteit op Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>Klik op te zetten Regio</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>Klik op te zetten Start / Stop</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>Klik om een ​​server te kiezen. Standaard = Grid, maar u kunt aansluiten als Regio server, OSgrid of Metro Region servers</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>Kan niet diagnostiek uitgevoerd, tenzij het systeem actief is. Klik op 'Start' en probeer het opnieuw.</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>Klik op 'Start' om te beginnen.</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>Klik op te zetten Tides</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>Klik op de map te veranderen</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>Klik hier om deze content te laden</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>Klik hier om Voice Service Request</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>Klik op te zetten Vivox Voice</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>Klik hier om de Web Control Panel</value>
+  </data>
+  <data name="Clouds" xml:space="preserve">
+    <value>wolken</value>
+  </data>
+  <data name="Common_Settings" xml:space="preserve">
+    <value>Veelvoorkomende instellingen</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>Configure Alle regio's</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bevestiging vereist om in te loggen?</value>
+  </data>
+  <data name="Consoles" xml:space="preserve">
+    <value>consoles</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>De OpenSim Dos Box kan automatisch worden geminimaliseerd</value>
+  </data>
+  <data name="Contact_Email" xml:space="preserve">
+    <value>contact email</value>
+  </data>
+  <data name="Contact_Info" xml:space="preserve">
+    <value>Contact informatie</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>contactnaam</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Inhoud</value>
+  </data>
+  <data name="Coordx" xml:space="preserve">
+    <value>De oost-west positie op de wereldkaart</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>De North_South positie op de wereldkaart</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>CPU Intensive Backup slag</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>Maak App en Get Keys</value>
+  </data>
+  <data name="CreateSandbox" xml:space="preserve">
+    <value>Maak Sandbox</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>Maak Production Account</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>Het creëren van een nieuwe, lege database</value>
+  </data>
+  <data name="Creating_INI_Files" xml:space="preserve">
+    <value>INI-bestanden</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>Current Size op schijf</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>gewoonte</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>Cycle Tijd in seconden</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>Hoe lang in enkele seconden voor een volledige cyclustijd. laag-&gt; hoog&gt; laag</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="Database_Help" xml:space="preserve">
+    <value>Database Help</value>
+  </data>
+  <data name="Database_Setup" xml:space="preserve">
+    <value>Database Setup</value>
+  </data>
+  <data name="Data_Folder" xml:space="preserve">
+    <value>data Folder</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Database naam</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>Dynamic DNS-naam wordt al gebruikt. Misschien gebruikt u een verkeerd wachtwoord?</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>debug</value>
+  </data>
+  <data name="DefaultRegion" xml:space="preserve">
+    <value>Default regio</value>
+  </data>
+  <data name="Default_8001" xml:space="preserve">
+    <value>standaard 8001</value>
+  </data>
+  <data name="Default_8002" xml:space="preserve">
+    <value>standaard 8002</value>
+  </data>
+  <data name="Default_8003" xml:space="preserve">
+    <value>standaard 8003</value>
+  </data>
+  <data name="Default_8004" xml:space="preserve">
+    <value>standaard 8004</value>
+  </data>
+  <data name="Default_Checked" xml:space="preserve">
+    <value>Standaard: Gecontroleerd</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>De standaard 'Welcome' regio is niet ingeschakeld. Doorgaan met?</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>De regio default 'Welcome' is niet gevonden in het systeem. Doorgaan met?</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Verwijderde</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>Delete All Maps</value>
+  </data>
+  <data name="Deregister" xml:space="preserve">
+    <value>Region is verwijderd</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>Alle regio's worden afgemeld</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>Dit bepaalt of de module iets doet</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>Diagnostics is mislukt. Wilt u het logboek te zien?</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>Deze poort werkt niet. DreamGrid loopt niet op een voldoende hoog beveiligingsniveau, of geblokkeerd door firewall of anti-virus, zodat regio pictogrammen zijn uitgeschakeld.</value>
+  </data>
+  <data name="Diag_Port" xml:space="preserve">
+    <value>Diagnostics port</value>
+  </data>
+  <data name="did_not_start" xml:space="preserve">
+    <value>niet gestart</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Gehandicapt</value>
+  </data>
+  <data name="Disable_Foreigners" xml:space="preserve">
+    <value>Uitschakelen Buitenlandse Bezoekers</value>
+  </data>
+  <data name="Disable_Gloebits" xml:space="preserve">
+    <value>uitschakelen Gloebits</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>De wereldwijde Gloebits geldt niet indien ingesteld deze regio.</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>uitschakelen inwoners</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>Dit zal minder veilige Als u de koffer uit te schakelen, maar zal makkelijker om rez objecten op buitenlandse grids</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>Het uitschakelen van de Inventory Suitcase bloot al je inventaris naar andere netten. Maar het is gemakkelijk om voorwerpen vanaf elke locatie te geven.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>Gooi alle wijzigingen en Exit?</value>
+  </data>
+  <data name="DivaEnabled" xml:space="preserve">
+    <value>Diva Wifi Enabled</value>
+  </data>
+  <data name="DivaPanel" xml:space="preserve">
+    <value>Diva Panel</value>
+  </data>
+  <data name="DnsName" xml:space="preserve">
+    <value>Grid-mailadres is</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>DNS-naam of SomeName.Outworldz.net of IP</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>DNS Name &amp; HyperGrid</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>Niet veranderen, tenzij de database is al gemaakt</value>
+  </data>
+  <data name="Do_Not_Interrupt" xml:space="preserve">
+    <value>Niet storen!</value>
+  </data>
+  <data name="Do_you_still_want" xml:space="preserve">
+    <value>Wil je nog steeds om te stoppen?</value>
+  </data>
+  <data name="DreamGrid" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>Het registreren van DynDNS-adres</value>
+  </data>
+  <data name="DynDNS_password" xml:space="preserve">
+    <value>DynDNS wachtwoord</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerk</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>Gebied bewerken</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>Estate Manager is God - Estate managers kunnen goden te worden, maar alleen voor deze landgoed</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Inschakelen</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>Enable Apache webserver</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
+  <data name="EnableOneClick" xml:space="preserve">
+    <value>Inschakelen One-Click Start</value>
+  </data>
+  <data name="Enable_Birds" xml:space="preserve">
+    <value>Inschakelen Bird Module</value>
+  </data>
+  <data name="Enable_Events" xml:space="preserve">
+    <value>inschakelen Events</value>
+  </data>
+  <data name="Enable_Hypergrid" xml:space="preserve">
+    <value>inschakelen HyperGrid</value>
+  </data>
+  <data name="Enable_Search" xml:space="preserve">
+    <value>Activeer Zoeken</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Voer een naam voor uw back-up</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>Voer de voor- en achternaam van de gebruiker</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Voer de nieuwe Dos Boxnaam</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>Geef de naam Object ( '/' zal back-up alles, en '/ Objecten / box' maakt een back-up 'box' in de map Objects</value>
+  </data>
+  <data name="Err" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>Fout: kan niet starten DreamGridInstaller.exe.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>0 - (fout) Alleen fouten</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - (Informatie) Hit Rate Stats</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - (Debug) Cache Activiteit</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>Fout: kan de Opensim.ini te stellen voor regio</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Fout: Kan niet de inhoud van regio file te begrijpen:</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>Fout: kan niet starten downloader.exe. Misschien kunt u deze handmatig starten.</value>
+  </data>
+  <data name="EstateManagerGod" xml:space="preserve">
+    <value>Estate Manager is god</value>
+  </data>
+  <data name="Exit_text" xml:space="preserve">
+    <value>Uitgang</value>
+  </data>
+  <data name="export" xml:space="preserve">
+    <value>Export back-upbestand</value>
+  </data>
+  <data name="Export_Permission" xml:space="preserve">
+    <value>export Toestemming</value>
+  </data>
+  <data name="Export_SQL_file" xml:space="preserve">
+    <value>Export SQL-bestand</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>Externe hostnaam voor Region Servers</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>De standaard voor externe Host Name is een blanco, die overgaat in uw DNS-naam of IP. Alleen dit in te stellen als u een regio server zonder NAT actief zijn.</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>Flotsam Asset Cache</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>Geen verbinding maken met de website.</value>
+  </data>
+  <data name="Fatal" xml:space="preserve">
+    <value>fataal</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>het dossier</value>
+  </data>
+  <data name="Finished_with_backup" xml:space="preserve">
+    <value>Afgewerkt met back-up:</value>
+  </data>
+  <data name="First_name" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="Flotsam_Asset_Cache" xml:space="preserve">
+    <value>Flotsam Asset Cache</value>
+  </data>
+  <data name="Folder_To_Save_To" xml:space="preserve">
+    <value>Folder op te slaan op</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>Beeldsnelheid (0,9)</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Standaard 1/11 sec. Standaard is 0,091 hetgeen 1 / 5de van 55 FPS</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>Hier krijg je een gratis DYN DNS-naam</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Klik hier om een ​​gratis Gloebits account zodat u kunt kopen en verkopen Get</value>
+  </data>
+  <data name="Free_DLC" xml:space="preserve">
+    <value>gratis DLC</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>Dit Grid Friendly Name</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>SL loopt 55 FPS. OpenSim is 11 FPS. Standaard = 0,9 of 1/11</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>Activa Files</value>
+  </data>
+  <data name="FSassets" xml:space="preserve">
+    <value>File System Assets Database</value>
+  </data>
+  <data name="FSassets_Server" xml:space="preserve">
+    <value>FsAssets Server</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>De globale instellingen Bird zal gelden voor deze regio</value>
+  </data>
+  <data name="Getting_regions" xml:space="preserve">
+    <value>Het krijgen van de regio's</value>
+  </data>
+  <data name="GlobalSettings" xml:space="preserve">
+    <value>Algemene instellingen</value>
+  </data>
+  <data name="Global_Tide_Settings" xml:space="preserve">
+    <value>Global Tide Instellingen</value>
+  </data>
+  <data name="Gloebits_Currency" xml:space="preserve">
+    <value>Gloebits Currency</value>
+  </data>
+  <data name="Good1" xml:space="preserve">
+    <value>Goed (Warp3D)</value>
+  </data>
+  <data name="Grid_address" xml:space="preserve">
+    <value>Grid adres</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>U kunt dit adres te geven aan mensen en ze kunnen je net een bezoek</value>
+  </data>
+  <data name="Grid_Server_With_Robust" xml:space="preserve">
+    <value>Grid Server met robuuste</value>
+  </data>
+  <data name="Grid_TCP_is_set" xml:space="preserve">
+    <value>Grid TCP poort is ingesteld</value>
+  </data>
+  <data name="Grid_UDP_is_set" xml:space="preserve">
+    <value>Grid UDP poort is ingesteld</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>De wereldwijde Tide settungs zal gelden voor deze regio</value>
+  </data>
+  <data name="gTides" xml:space="preserve">
+    <value>De globale Tide instellingen hebben betrekking op deze regio als set</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>Update beschikbaar is. Wilt u DreamGrid af te sluiten en de update te installeren?</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Helpen</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>Help On Console Commands</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>Wiki pagina op Console Commands</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>Hulp van de Port Forwarding</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>Web Hulp voor Port Forwarding</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>Klik voor hulp bij God Modes</value>
+  </data>
+  <data name="Help_IARS" xml:space="preserve">
+    <value>Hulp van de IAR</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>Wiki pagina On IAR's</value>
+  </data>
+  <data name="Help_LoopBack" xml:space="preserve">
+    <value>Help Op Loopback</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>How To Loopback Op Windows op te lossen</value>
+  </data>
+  <data name="Help_Manuals" xml:space="preserve">
+    <value>Help Handleidingen</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>Hulp van de OAR</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>Wiki pagina op ROEISPANEN</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>Hulp bij het opstarten van de eerste keer</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>Hulp bij Technical Info</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>Technische Mumbo Jumbo over hoe om dingen te configureren</value>
+  </data>
+  <data name="Help_Troubleshooting" xml:space="preserve">
+    <value>Help Problemen oplossen</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>HyperGrid Diagnostics is mislukt. Deze kunnen re-run op elk gewenst moment. Zie Help-&gt; Network Diagnostics', 'Loopback' en 'Port Forwards'</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>HyperGrid zou moeten werken.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verbergen</value>
+  </data>
+  <data name="Highest_Used" xml:space="preserve">
+    <value>Hoogste gebruikt: 8004</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>Hoge waterstand</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>Hoog water merken in meters</value>
+  </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>Huis</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>Hoe dicht bij de randen van de dingen die we kunnen krijgen zonder zorgen maken?</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>Hoe ver uit de buurt van andere vogels zouden we willen verblijven?</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>Hoe ver in meters per vogel per update kan reizen?</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>Hoe hoog mogen we massaal?</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>Hoe lang om de back-ups te houden. De oudste krijgen geschrapt na deze tijd in dagen,</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>Hoe lang OpenSim uitgevoerd voordat een automatische back-up optreedt</value>
+  </data>
+  <data name="Http_Port" xml:space="preserve">
+    <value>http Port</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>HyperGrid DNS-naam</value>
+  </data>
+  <data name="IAR_Load_and_Save" xml:space="preserve">
+    <value>IAR Laden en opslaan</value>
+  </data>
+  <data name="Icecast" xml:space="preserve">
+    <value>Icecast</value>
+  </data>
+  <data name="iceCastServer" xml:space="preserve">
+    <value>IceCast Server</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>Icecast kun je muziek streamen naar je sim. Muziek URL:</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>Icecast uitgeschakeld</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast verlaten. Wilt u de fout logbestand zien?</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>Icecast niet gestart</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>Klik voor hulp bij het instellen Icecast</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>Icecast poort is ingesteld</value>
+  </data>
+  <data name="Icecast_Started" xml:space="preserve">
+    <value>Icecast Gestart</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>Vanaf Icecast</value>
+  </data>
+  <data name="Icons" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>OpenSim zal OARS redden na het uitvoeren van deze lange</value>
+  </data>
+  <data name="Ignore_Parcel" xml:space="preserve">
+    <value>Negeer Parcel</value>
+  </data>
+  <data name="Ignore_Terrain" xml:space="preserve">
+    <value>Negeer Terrain</value>
+  </data>
+  <data name="Image_Cache" xml:space="preserve">
+    <value>afbeelding Cache</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importeren</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>Import Region INI-bestanden</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>Inkomende HyperGrid werkt</value>
+  </data>
+  <data name="Increasing_time" xml:space="preserve">
+    <value>Toenemende Tijd om</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>info</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Informatie</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Installeren</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>Installeer C ++ Runtimes</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>Google Desktop installeren icoon</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>internet adres</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>OpenSim laadt uw punt. U vindt het in</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>Issue Console Commands</value>
+  </data>
+  <data name="is_Off" xml:space="preserve">
+    <value>is uit</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>De OpenSimulator console wordt zichtbaar als OpenSim loopt.</value>
+  </data>
+  <data name="JobEngine" xml:space="preserve">
+    <value>Motor van de baan</value>
+  </data>
+  <data name="Just_one_region" xml:space="preserve">
+    <value>Slechts één regio</value>
+  </data>
+  <data name="Keep_for_Days" xml:space="preserve">
+    <value>Bewaren voor dagen</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>U gebruikt een LAN IP. Deze test is overgeslagen.</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>Grote Metro kaart</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>Bekijk de lijst van Avatars</value>
+  </data>
+  <data name="Load Parcel" xml:space="preserve">
+    <value>Laad Parcel</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>Plaats gratis Avatar Inventory</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>Load IAR van de Outworldz website</value>
+  </data>
+  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
+    <value>Plaats gratis Dreamworld OAR</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>Load Inventory IAR</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>Laad Lokale IAR's uit de map IAR</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>Laad Lokale OAR's uit de map OAR</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>Laad Region OAR</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>load Terrain</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>Local Search</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>Log niveau</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>Loopback Test mislukt. Webadres reageerde niet.</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>loopback Help</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>Loopback Test Geslaagd voor Port</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>Lage en hoge water merken in meters</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>Lage waterstand</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>LSL scripts niet kunnen bereiken andere LAN-PC's. Als u dit inschakelt, hebben ze toegang tot poorten op uw netwerk op elke pc. Dit is gevaarlijk!</value>
+  </data>
+  <data name="Make_backup" xml:space="preserve">
+    <value>Maak een back-up?</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>Kaarten</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>Alle kaart tegels zijn gewist. Stel de kaart setting en reboot om nieuwe kaarten te maken</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>Kaart Coords: X</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>Maximaal 4096</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>De maximale versnelling liet de stroomsnelheid van de vogel</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>Hoeveel Avatars + NPC's kan in een gebied voor de regio wordt weergegeven als Full. De werkelijke waarde ligt in Estate Instellingen in de kijker.</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>Maximale afstand voor andere vogels te worden beschouwd in hetzelfde koppel</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>Max Force (default = 0,2)</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>Max Hoogte (default = 45.0)</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 meter in Firestorm. 1500 meter met Singularity. Je kunt niet een gewone prim groter dan dit te maken</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>Max Aantal Prims in een Parcel</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>Je kunt geen fysieke prim groter dan dit te maken</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>Dit zal het aantal prims te beperken op een perceel. Er is geen limiet, behalve geheugen wanneer uitgeschakeld.</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>Inschakelen MAXPRIMS grenzen</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>Max Speed ​​(default = 1.0)</value>
+  </data>
+  <data name="Merge_OAR" xml:space="preserve">
+    <value>Merge OAR</value>
+  </data>
+  <data name="Merge_Objects" xml:space="preserve">
+    <value>Merge Objects</value>
+  </data>
+  <data name="Mesh_Cache" xml:space="preserve">
+    <value>mesh Cache</value>
+  </data>
+  <data name="Message_sent" xml:space="preserve">
+    <value>Bericht verzonden</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Hypergrid.org Region Server</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Notulen</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>mode</value>
+  </data>
+  <data name="Modules" xml:space="preserve">
+    <value>modules</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>Meer gratis Eilanden en Parts</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>Klik voor meer hulp bij de Website</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>Moet een naam van een inventaris post hebben</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>Moet hetzelfde zijn als X zijn</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>Moet hetzelfde zijn als Y</value>
+  </data>
+  <data name="Must_be_Days" xml:space="preserve">
+    <value>Moet een aantal dagen</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>Moet een PNG-bestand te zijn</value>
+  </data>
+  <data name="MySqlPort" xml:space="preserve">
+    <value>MySQL Port</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL verlaten. Wilt u de fout logbestand zien?</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>De database is niet gestart. Wilt u het logbestand zien?</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>MySQL is Running</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>Standaard = 3306</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>Vanaf MySQL database</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL werd uitgevoerd toen ik begon, dus ik ben het verlaten van MySQL op.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>Uw naam systeem is ingesteld op {newname}. U kunt de naam wijzigen in het DNS-menu op elk gewenst moment</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>Neighbor Afstand (default = 25,0)</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>Een netwerk verandering opgetreden. Een herstart kan noodzakelijk zijn.</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>Network Diagnostics</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>Voer de installatie diagnostiek</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>netwerkpoorten</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>Nieuwe inhoud wordt geladen</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>Nieuwe content gewoon geladen</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>Nieuwe gebruiker huis X, Y, Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>volgende</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>Volgende Naam</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>Niemand is online</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>normaliseren Regio</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>Normaal op OutworldzFiles / AutoBackup map met 'back-up''. Klik op de map te wijzigen.</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>Je kunt niet een gewone prim groter dan dit te maken.</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>Houd E-mail</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>Geen geldige UUID. Wilt u een nieuwe, willekeurige UUID?</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>Dit lijkt niet te worden gericht aan deze machine in uw router, dus HyperGrid is niet beschikbaar. Dit kan mogelijk worden opgelost door 'Port Forwards' in je router. Zie Help-&gt; Port Forwards.</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>Normaal gesproken niet afgedwongen door OpenSim. Viewer zal niet meer dan 45.000 tonen. Het instellen van deze hier en het inschakelen van deze in de instellingen zal de limiet af te dwingen en kunnen prims terugkeren!</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>OpenSim is niet actief.</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>De OpenSimulator console niet weergegeven. U kunt nog steeds met het communiceren met Help-&gt; OpenSim Console</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>Kan geen standaardwaarden sim voor bezoekers. Zie Regio's Panel.</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>Geen HyperGrid bezoekers worden toegelaten in deze regio</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>Mis deze regio niet publiceren</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>Geen streek klaar zijn, zodat de IAR" niet laden</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>Fout: kan niet starten NtSuspendProcess64.exe.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>Het aantal vogels massaal</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>OAR bestanden zijn backups van het gehele Islands</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>OAR Laden en opslaan</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>Object pad en de naam</value>
+  </data>
+  <data name="ODE" xml:space="preserve">
+    <value>Open Dynamic Engine</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>Er is een avatar</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>Een regio is nog steeds actief</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>Alleen eigenaren en Estate Managers zullen worden toegestaan ​​in deze regio</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>OpenSimulator wordt geladen</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Open Router poorten met behulp van Universal Plug and Play</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>opties</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>Of:</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSgrid Region Server</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>Overrides de wereldwijde Kaartinstellingen voor deze ene regio</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>Parcels</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>Geslaagd LAN loopbacktest</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>U kunt alleen het wachtwoord wijzigen wanneer OpenSim is running</value>
+  </data>
+  <data name="PDF_Manual" xml:space="preserve">
+    <value>PDF Manual</value>
+  </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>mensen zijn in</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Rechten</value>
+  </data>
+  <data name="Physics" xml:space="preserve">
+    <value>Fysica</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>Physics Engine</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>Voer een geldige DNS-naam, zoals 'name.outworldz.net', of registreren voor een op http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>Selecteer slechts één rij</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>Vul avatar naam van de Grid Owner's in de Robust venster. Druk op &lt;enter&gt; voor UUID en de modelnaam. Druk vervolgens op deze knop OK</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>poort 1</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>poort 2</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>ports</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>Port conflict is gedetecteerd. Alle poorten zijn teruggezet op de standaardwaarden</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>Port Forwarding Help</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>Voorbeeld in browser</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>Prim Grenzen</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>Prim Name (default = SeaGull1)</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Afdrukken</value>
+  </data>
+  <data name="Private_Port" xml:space="preserve">
+    <value>Private Port</value>
+  </data>
+  <data name="Production_Mode" xml:space="preserve">
+    <value>productie Mode</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>Zorg voor getij informatie over de console?</value>
+  </data>
+  <data name="Publicity" xml:space="preserve">
+    <value>Publiciteit</value>
+  </data>
+  <data name="Public_IP" xml:space="preserve">
+    <value>Openbaar IP-setup</value>
+  </data>
+  <data name="Public_Photo" xml:space="preserve">
+    <value>Public Photo</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>Publiceren Raster om Hyperica.com</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>Publiceer Items gemarkeerd voor zoeken</value>
+  </data>
+  <data name="Quit_Now" xml:space="preserve">
+    <value>Stop nu</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>onverwacht afgesloten. Het opnieuw starten.</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>Reading Region bestanden</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Klaar</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>Klaar om te lanceren!</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>Recycle</value>
+  </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>verversen</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>Verfrissende Gratis Content (IAR)</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>Verfrissende Gratis Content (OAR)</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>Als je alle kaarten te verwijderen, moet je wedergeboren kaarten door opnieuw te starten met een kaart instelling</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Regio</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Regio's</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>regio's zijn nog steeds actief</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>Region bestaat al</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>Region Controls</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>Region Database</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>Region List</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>Regio manager is god?</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>Regio Manager is God - Estate managers kunnen goden te worden, maar alleen voor deze landgoed</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alpha-numeriek plus Spaces</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>Region naam mag geen speciale tekens gebruiken</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>Regio specifieke instellingen overschrijven standaardinstellingen</value>
+  </data>
+  <data name="Region_Owner_Is_God" xml:space="preserve">
+    <value>Region Eigenaar is God</value>
+  </data>
+  <data name="Region_Port" xml:space="preserve">
+    <value>Region Port</value>
+  </data>
+  <data name="Region_Ports" xml:space="preserve">
+    <value>Region Ports</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>Region Port Start #</value>
+  </data>
+  <data name="Region_Server" xml:space="preserve">
+    <value>Region Server</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>De server om verbinding te maken. 'Localhost' is de standaard.</value>
+  </data>
+  <data name="Region_Specific_Settings" xml:space="preserve">
+    <value>Regio specifieke instellingen</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>Region Stats</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Herladen het rooster</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>Render Max Hoogte</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>Render Min Hoogte</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>Vraag App Creation</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>Reserveer uw DYN DNS-naam. Dit is een wachtwoord voor uw naam.</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>opgelost</value>
+  </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Herstarten</value>
+  </data>
+  <data name="Restarting" xml:space="preserve">
+    <value>Het opnieuw starten</value>
+  </data>
+  <data name="Restart_All" xml:space="preserve">
+    <value>Restart Alle</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>Restarts alle Gecontroleerd Regio</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>Restart Interval in minuten</value>
+  </data>
+  <data name="Restart_one_instance" xml:space="preserve">
+    <value>Herstart één instantie</value>
+  </data>
+  <data name="Restart_one_region" xml:space="preserve">
+    <value>Restart één regio</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>Als een regio crasht, zal de regio worden hernieuwd</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>Restart op Physics Crash</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>Bulletsim fysica crash zal een simulator herstart te forceren</value>
+  </data>
+  <data name="Restart_Periodically" xml:space="preserve">
+    <value>Restart periodiek</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>De regio's zullen alle automatische herstart na zoveel minuten hardlopen</value>
+  </data>
+  <data name="Restart_Queued" xml:space="preserve">
+    <value>Restart wachtrij voor</value>
+  </data>
+  <data name="Restart_Region" xml:space="preserve">
+    <value>Restart Region</value>
+  </data>
+  <data name="Restart_Robust" xml:space="preserve">
+    <value>Restart Robuuste</value>
+  </data>
+  <data name="Restart_Settings" xml:space="preserve">
+    <value>Restart Instellingen</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Herstellen?</value>
+  </data>
+  <data name="Restore_Database" xml:space="preserve">
+    <value>Database herstellen</value>
+  </data>
+  <data name="Resuming" xml:space="preserve">
+    <value>Hervatten</value>
+  </data>
+  <data name="Revision_History" xml:space="preserve">
+    <value>revisiegeschiedenis</value>
+  </data>
+  <data name="Robust" xml:space="preserve">
+    <value>robuust</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>Robuuste verlaten. Wilt u de fout logbestand zien?</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>Robuuste kan niet worden gestart</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>Robuuste LOOPT</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>Klik op een ingeschakelde rij te starten of te stoppen met de regio. Klik op een rij uitgeschakeld om de regio te bewerken.</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Rennen</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>Running Network Diagnostics</value>
+  </data>
+  <data name="Run_All" xml:space="preserve">
+    <value>Run Alle</value>
+  </data>
+  <data name="Run_as_a_Service" xml:space="preserve">
+    <value>Run As A Service</value>
+  </data>
+  <data name="Sandbox_Mode" xml:space="preserve">
+    <value>sandbox-modus</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>Alles opslaan Running Regio's OAR</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>Wijzigingen opslaan?</value>
+  </data>
+  <data name="Save_IAR" xml:space="preserve">
+    <value>Save IAR</value>
+  </data>
+  <data name="Save_Inventory_IAR" xml:space="preserve">
+    <value>Save Inventory IAR</value>
+  </data>
+  <data name="Save_Region_OAR" xml:space="preserve">
+    <value>Save Region OAR</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Besparing</value>
+  </data>
+  <data name="Scripts" xml:space="preserve">
+    <value>scripts</value>
+  </data>
+  <data name="Scripts_Resume" xml:space="preserve">
+    <value>scripts Resume</value>
+  </data>
+  <data name="Scripts_Start" xml:space="preserve">
+    <value>scripts Start</value>
+  </data>
+  <data name="Scripts_Stop" xml:space="preserve">
+    <value>scripts Stop</value>
+  </data>
+  <data name="Scripts_Suspend" xml:space="preserve">
+    <value>scripts opschorten</value>
+  </data>
+  <data name="Script_cache" xml:space="preserve">
+    <value>script in cachegeheugen</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>Script Timer Rate (0,9)</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>Script timer snelheid. 1/11 seconde is standaard (0,9)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Search_All_Grids" xml:space="preserve">
+    <value>Zoeken Alles Grids</value>
+  </data>
+  <data name="Secret" xml:space="preserve">
+    <value>Geheim</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>Ik zal je weer te zien als ik wakker word allemaal fris en nieuw!</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>Wilt u het logbestand zien?</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>Selecteert alle of geen van de selectievakjes</value>
+  </data>
+  <data name="Send_Alert_Message" xml:space="preserve">
+    <value>Stuur Alert Message</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>Stuur Debug Info To Console</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>Gewenste scheiding (standaard = 5,0)</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>Elke regio begint nadat de voorafgaande regio geladen</value>
+  </data>
+  <data name="Server_Type" xml:space="preserve">
+    <value>server type</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>instellingen</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>Instellen Loopback Adapter om Openbaar IP-adres</value>
+  </data>
+  <data name="Setup_Firewall" xml:space="preserve">
+    <value>Setup Firewall</value>
+  </data>
+  <data name="Setup_Graphs" xml:space="preserve">
+    <value>Setup Grafieken</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>Het opzetten van het netwerk</value>
+  </data>
+  <data name="Setup_Ports" xml:space="preserve">
+    <value>Setup Ports</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Setup zoek database</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>Klik hier om uw Gebruiksvoorwaarden</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>Setup spraakdienst</value>
+  </data>
+  <data name="Set_Debug_Level" xml:space="preserve">
+    <value>Set Debug Level</value>
+  </data>
+  <data name="Set_Owner" xml:space="preserve">
+    <value>set Owner</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>Shoutcast is niet ingeschakeld.</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Laten zien</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>Raster tonen Adres</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>Toon statistieken op console</value>
+  </data>
+  <data name="Show_Status" xml:space="preserve">
+    <value>Show Status</value>
+  </data>
+  <data name="Show_User_Details" xml:space="preserve">
+    <value>Toon User Data</value>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="Simple_but_Fast" xml:space="preserve">
+    <value>Eenvoudig maar snel</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>Dit bepaalt de snelheid van verschillende simulatie gebeurtenissen. Het kan worden gereduceerd tot het simuleren van bewegende objecten, met de mogelijke toename van cpu en netwerkbelasting te verbeteren.</value>
+  </data>
+  <data name="Sim_Size" xml:space="preserve">
+    <value>Sim Grootte</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Overspringen</value>
+  </data>
+  <data name="Skip_Autobackup" xml:space="preserve">
+    <value>Skip Autobackup</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>Het starten van een langzame maar uitgebreide database Backup</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>Kleine Metro kaart</value>
+  </data>
+  <data name="Smart_Start" xml:space="preserve">
+    <value>Smart Start</value>
+  </data>
+  <data name="Smart_Start_Enabled" xml:space="preserve">
+    <value>Smart Start inschakelen</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>SMTP Send e-mail account</value>
+  </data>
+  <data name="SMTPHost" xml:space="preserve">
+    <value>SMTP Host</value>
+  </data>
+  <data name="SMTPPassword" xml:space="preserve">
+    <value>SMTP-wachtwoord</value>
+  </data>
+  <data name="SMTPPort" xml:space="preserve">
+    <value>SMTP Port</value>
+  </data>
+  <data name="Someone_is_in" xml:space="preserve">
+    <value>Iemand is in</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>Sorry, Hulp is nog niet beschikbaar voor dit.</value>
+  </data>
+  <data name="Source_Code" xml:space="preserve">
+    <value>Broncode</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>Viewer Beginschermblokkering URL:</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>Splash Screen</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>SQL Database Backup / Restore</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>Start alle geselecteerde regio's</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Beginnend</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>Het opstarten van de eerste keer</value>
+  </data>
+  <data name="Starting_WebServer" xml:space="preserve">
+    <value>Vanaf webserver</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>Er is geen noodzaak om opnieuw op de knop Start. Begint wanneer gelanceerd.</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>Start Regio Opeenvolgend</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>Vanaf het Control Panel</value>
+  </data>
+  <data name="Start_Regions" xml:space="preserve">
+    <value>Start Regio</value>
+  </data>
+  <data name="Start_text" xml:space="preserve">
+    <value>Begin</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>staat</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>Script timer snelheid. 1/11 seconde is standaard (0,9)</value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>Stap 1:</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>Stap 2:</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>Stap 3:</value>
+  </data>
+  <data name="StopAll" xml:space="preserve">
+    <value>Stop alles</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>gestopt</value>
+  </data>
+  <data name="Stopping" xml:space="preserve">
+    <value>Stoppen</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>Stoppen Apache Webserver</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>Stopt alle geselecteerde regio's</value>
+  </data>
+  <data name="Stop_text" xml:space="preserve">
+    <value>Hou op</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>Inschakelen Inventory Suitcase</value>
+  </data>
+  <data name="Suspending" xml:space="preserve">
+    <value>Het opschorten</value>
+  </data>
+  <data name="System_Backup" xml:space="preserve">
+    <value>System Backup</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>Dit kan enige tijd duren om te laden</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>Technische informatie</value>
+  </data>
+  <data name="Teleport" xml:space="preserve">
+    <value>Teleport</value>
+  </data>
+  <data name="Teleporting" xml:space="preserve">
+    <value>teleporting</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>Servicevoorwaarden</value>
+  </data>
+  <data name="Terrain" xml:space="preserve">
+    <value>Terrein</value>
+  </data>
+  <data name="Test_DNS" xml:space="preserve">
+    <value>Test DNS</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Thema:</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>Thema set to Black</value>
+  </data>
+  <data name="theme_Custom" xml:space="preserve">
+    <value>Thema ingesteld op Custom</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>Thema set naar White</value>
+  </data>
+  <data name="These_Changes" xml:space="preserve">
+    <value>Deze wijzigingen treden in werking wanneer OpenSim en robuust zijn beide hernieuwd</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>Dit brengt alle regio's, zodat de gekozen regio bij 1000,1000 om de kaart te passen. Doorgaan?</value>
+  </data>
+  <data name="Threadpools" xml:space="preserve">
+    <value>draad zwembaden</value>
+  </data>
+  <data name="Tides" xml:space="preserve">
+    <value>getijden</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>Schakel de stroom in en uit te komen?</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel" xml:space="preserve">
+    <value>Tide Hi / Lo Channel</value>
+  </data>
+  <data name="Tide_Info_Channel" xml:space="preserve">
+    <value>Tide Info Channel</value>
+  </data>
+  <data name="Timeout_in_hours" xml:space="preserve">
+    <value>Timeout in uren</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>Tolerantie (standaard = 25,0)</value>
+  </data>
+  <data name="Troubleshooting" xml:space="preserve">
+    <value>Probleemoplossen</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>Ubit ODE / Bullet Hybrid</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>Kan instellingen op te slaan:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>Voer de voor- en achternaam van de persoon die elke niet-toegewezen objecten eigenaar</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>Niet-herkend bestandstype</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>bijgewerkt</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>Update is gedownload. Installeer het nu?</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>Update beschikbaar is. Update downloaden in de achtergrond. Laat het af.</value>
+  </data>
+  <data name="Updating_Ports" xml:space="preserve">
+    <value>Updaten Ports</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>UPnP is uitgeschakeld</value>
+  </data>
+  <data name="UPnP_Enabled" xml:space="preserve">
+    <value>UPnP</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>Schakel dit is heb je een klein systeem en willen dat de router poorten automatisch in te stellen</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>UPnP Setup-programma</value>
+  </data>
+  <data name="UseDefault" xml:space="preserve">
+    <value>Gebruik standaard</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>Hoe hoger het getal, hoe groter de cache.</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>gebruikersnaam</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>gebruikers</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>Fout: UUID is niets!</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="Viewer_Cache" xml:space="preserve">
+    <value>viewer Cache</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>Standaard: ingeschakeld. Gebruikers kan nodig zijn om de bandbreedte kijker te verminderen als sommige prims of terrein onderdelen niet aan rez. Wissel naar false als je nodig hebt om de oude kijkers die deze functie niet ondersteunen gebruiken</value>
+  </data>
+  <data name="Viewer_Greeting" xml:space="preserve">
+    <value>viewer Groet</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>Viewer stopt met tellen bij 45.000</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>Bekijk als Icons</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>Bekijk Region Details</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>Bekijk Icecast Webpagina</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>Logboeken</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>Kaarten View Region</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>Bekijk Simulator Stats</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>Bekijk een webpagina met statistieken voor elke regio</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>Bekijk Web Interface</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>De webinterface kan worden gebruikt om nieuwe gebruikers toe te voegen</value>
+  </data>
+  <data name="Vivox_Voice" xml:space="preserve">
+    <value>Vivox Voice</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>Stem</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>Wachten op alle regio's om af te sluiten</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>Waarschuwen</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>Web Control Panel</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>Web Server Panel</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>Web-poort (80 of 8000)</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>De Web UI kunt u de weergave-instellingen toe te voegen of om een ​​avatar.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>Wat wil je zeggen tegen iedereen op de lijn?</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>Wat wil je zeggen tegen deze regio?</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>Welk kanaal hoeft vogels luisteren naar in-world opdrachten. Negatieve getallen kunnen niet worden gebruikt door de mens</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>Wit</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>Dit is de standaard Wifi kaartpagina</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>Wifi Interface Admin</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>Zal een OAR met Autobackup niet redden.</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>Er is iets mis met het internet</value>
+  </data>
+</root>

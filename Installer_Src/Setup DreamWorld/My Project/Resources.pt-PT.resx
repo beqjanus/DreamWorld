@@ -126,14 +126,11 @@
   <data name="Add" xml:space="preserve">
     <value>Adicionar, acrescentar</value>
   </data>
-  <data name="AddRegion" xml:space="preserve">
+  <data name="Add_Region" xml:space="preserve">
     <value>Adicionar Região</value>
   </data>
-  <data name="AddUser" xml:space="preserve">
+  <data name="Add_User" xml:space="preserve">
     <value>Adicionar usuário</value>
-  </data>
-  <data name="Add_a_Region" xml:space="preserve">
-    <value>Adicionar uma região</value>
   </data>
   <data name="AdminPassword" xml:space="preserve">
     <value>Senha do administrador</value>
@@ -148,19 +145,19 @@
     <value>Todos / Nenhum</value>
   </data>
   <data name="Allow200" xml:space="preserve">
-    <value>Permitir deuses 200+ nível?</value>
+    <value>Permitir deuses 200+ Nível</value>
   </data>
   <data name="AllowRegionGods" xml:space="preserve">
-    <value>Permitir deuses proprietário da região?</value>
+    <value>Permitir deuses proprietário Região</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>As nuvens originais do Second Life</value>
   </data>
   <data name="Allow_Gods" xml:space="preserve">
-    <value>Permitir ou Deuses Não permitir uma na região</value>
+    <value>Permitir ou não Gods</value>
   </data>
   <data name="Allow_leave" xml:space="preserve">
-    <value>Permitir itens para sair através da Hypergrid?</value>
+    <value>Permitir itens para deixar</value>
   </data>
   <data name="Allow_LSL" xml:space="preserve">
     <value>Permitir LSL entrar em contato com o servidor</value>
@@ -177,6 +174,9 @@
   <data name="AlphaNum" xml:space="preserve">
     <value>Alfa-numérico sinal de mais ou menos (sem espaços ou caracteres especiais)</value>
   </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>Isto irá permitir que outra região a ser colocado nesse local. Continuar?</value>
+  </data>
   <data name="Apache" xml:space="preserve">
     <value>Apache</value>
   </data>
@@ -191,6 +191,9 @@
   </data>
   <data name="Apache_Disabled" xml:space="preserve">
     <value>servidor Web não está habilitado</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>Apache saiu. Você quer ver o arquivo de log de erro?</value>
   </data>
   <data name="Apache_Failed" xml:space="preserve">
     <value>Web Server falhou ao iniciar</value>
@@ -217,22 +220,28 @@
     <value>Aplique</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
-    <value>Você tem certeza? Seu banco de dados irá re-carregado a partir do backup e todo o conteúdo existente substituído. Avatares, sims, inventário, tudo isso será escrito mais.</value>
+    <value>Você tem certeza? Seu banco de dados vai rloaded a partir do backup e todo o conteúdo existente substituído. Avatares, sims, inventário, everyting será escrito mais.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir esta região?</value>
   </data>
   <data name="Asset_Cache" xml:space="preserve">
     <value>ativos cache</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>pasta Cópia de Segurança Automática não pode ser localizado, por isso, a pasta foi redefinido para o padrão.</value>
   </data>
   <data name="AutoRestart" xml:space="preserve">
     <value>Restart Auto</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
-    <value>0 = largo. Quantos minutos até o reinício automático ocorre?</value>
+    <value>0 - Off. Quantos minutos até o reinício automático ocorre?</value>
   </data>
   <data name="Autorestarting" xml:space="preserve">
     <value>reinicialização automática</value>
   </data>
   <data name="AutorestartTime" xml:space="preserve">
-    <value>Aumentar Auto Restart Hora de deixar Backups Finish por 30 minutos após Restart Interval</value>
+    <value>Aumentar Auto Restart Hora de deixar acabamento Backups por 30 minutos após o reatamento Interval</value>
   </data>
   <data name="Auto_Backup" xml:space="preserve">
     <value>Backup automático</value>
@@ -260,6 +269,9 @@
   </data>
   <data name="Avatar_Password" xml:space="preserve">
     <value>Avatar senha</value>
+  </data>
+  <data name="Backing_up_Settings" xml:space="preserve">
+    <value>Fazer o backup de Configurações</value>
   </data>
   <data name="Backup" xml:space="preserve">
     <value>Cópia de segurança</value>
@@ -298,13 +310,10 @@
     <value>Configurações de backup</value>
   </data>
   <data name="Best1" xml:space="preserve">
-    <value>Os melhores (Prims + Mesh, Lento)</value>
+    <value>Os melhores (Prims + Mesh, muito lento)</value>
   </data>
   <data name="Better1" xml:space="preserve">
     <value>Melhor (Prims, Lento)</value>
-  </data>
-  <data name="BirdFlockSize" xml:space="preserve">
-    <value>Pássaro Flock Tamanho</value>
   </data>
   <data name="BirdModule" xml:space="preserve">
     <value>Módulo pássaro</value>
@@ -324,9 +333,6 @@
   <data name="Black" xml:space="preserve">
     <value>Preto</value>
   </data>
-  <data name="BorderSize" xml:space="preserve">
-    <value>Border Size (default = 25.0)</value>
-  </data>
   <data name="Border_Size" xml:space="preserve">
     <value>Border Size (default = 25.0)</value>
   </data>
@@ -339,7 +345,7 @@
   <data name="Broadcast_Tide_Info" xml:space="preserve">
     <value>Transmissão Tide Informações</value>
   </data>
-  <data name="bullet" xml:space="preserve">
+  <data name="Bullet_Physics" xml:space="preserve">
     <value>bullet Physics</value>
   </data>
   <data name="Busy" xml:space="preserve">
@@ -375,14 +381,29 @@
   <data name="Cannot_find_region" xml:space="preserve">
     <value>Não é possível localizar a região</value>
   </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>não pode normalizar mapear como uma Região será em um local menor do que 0</value>
+  </data>
+  <data name="Cannot_resolve" xml:space="preserve">
+    <value>Não é possível resolver</value>
+  </data>
+  <data name="Cannot_save_region" xml:space="preserve">
+    <value>Não é possível salvar a região:</value>
+  </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Centro do mapa de coordenadas</value>
   </data>
   <data name="Center_Map" xml:space="preserve">
     <value>Mapa Centro de Localização:</value>
   </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>As alterações foram feitas. Salve ?</value>
+  </data>
   <data name="Change_Password" xml:space="preserve">
     <value>Mudar senha</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>Alterar o UUID vai perder todos os dados no antigo sim e criar um novo sim, vazio. Tem certeza de que deseja alterar o UUID?</value>
   </data>
   <data name="ChatChannel" xml:space="preserve">
     <value>bate-papo Canal</value>
@@ -420,6 +441,9 @@
   <data name="Choose_Cache" xml:space="preserve">
     <value>Escolha qual cache para esvaziar</value>
   </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>Escolha a sua região Bem-vindo</value>
+  </data>
   <data name="Choose_Where" xml:space="preserve">
     <value>Escolha onde colocar o OAR:</value>
   </data>
@@ -430,22 +454,22 @@
     <value>Braçadeira Prim Size' é uma opção para garantir que nenhum prim pode exceder o tamanho do conjunto</value>
   </data>
   <data name="Clearing_Assets" xml:space="preserve">
-    <value>cache de Clearing de Ativos. Isso pode levar um longo tempo.</value>
+    <value>Clearing de Ativos Cache. Isso pode levar um longo tempo.</value>
   </data>
   <data name="Clearing_Bake" xml:space="preserve">
-    <value>cache de cozer Clearing</value>
+    <value>Clearing Asse Cache</value>
   </data>
   <data name="Clearing_Image" xml:space="preserve">
-    <value>Limpar o cache de Imagem</value>
+    <value>Clearing Image Cache</value>
   </data>
   <data name="Clearing_Maptiles" xml:space="preserve">
-    <value>telhas Clearing Mapa</value>
+    <value>Clearing Mapa Tiles</value>
   </data>
   <data name="Clearing_Mesh" xml:space="preserve">
-    <value>cache de compensação de malha</value>
+    <value>Clearing malha Cache</value>
   </data>
   <data name="Clearing_Script" xml:space="preserve">
-    <value>cache de compensação Script. Isso pode levar um longo tempo.</value>
+    <value>Clearing Script Cache. Isso pode levar um longo tempo.</value>
   </data>
   <data name="ClearReg" xml:space="preserve">
     <value>Limpar Todas as inscrições</value>
@@ -468,9 +492,6 @@
   <data name="ClickStartStoptxt" xml:space="preserve">
     <value>Regiões podem iniciar ou parar em grupos, dependendo de como suas regiões pasta está organizado.</value>
   </data>
-  <data name="ClickToLoad" xml:space="preserve">
-    <value>Clique para carregar este conteúdo</value>
-  </data>
   <data name="Click_2_Choose" xml:space="preserve">
     <value>Clique para escolher um grupo</value>
   </data>
@@ -485,9 +506,6 @@
   </data>
   <data name="Click_Database" xml:space="preserve">
     <value>Clique para configurar o banco de dados</value>
-  </data>
-  <data name="Click_Folder" xml:space="preserve">
-    <value>Clique para alterar a pasta</value>
   </data>
   <data name="Click_For_Help" xml:space="preserve">
     <value>Clique para ajuda</value>
@@ -631,7 +649,7 @@
     <value>Depurar</value>
   </data>
   <data name="DefaultRegion" xml:space="preserve">
-    <value>Padrão região para os visitantes. Normalmente, 'Bem-vindo'</value>
+    <value>região padrão</value>
   </data>
   <data name="Default_8001" xml:space="preserve">
     <value>padrão 8001</value>
@@ -665,9 +683,6 @@
   </data>
   <data name="Deregister_All" xml:space="preserve">
     <value>Todas as Regiões são deregistered</value>
-  </data>
-  <data name="DesiredSep" xml:space="preserve">
-    <value>Separação desejado (default = 5.0)</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>detalhes</value>
@@ -705,6 +720,12 @@
   <data name="Disable_Suitcase_txt" xml:space="preserve">
     <value>Isso vai ser menos seguro Se você desativar a mala, mas será mais fácil de objetos rez em grades estrangeiros</value>
   </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>A desativação do Inventory Suitcase expõe todo o seu inventário para outras grades. Mas é fácil de dar objetos a partir de qualquer localização.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>Descartar todas as alterações e sair?</value>
+  </data>
   <data name="DivaEnabled" xml:space="preserve">
     <value>Diva Wifi Habilitado</value>
   </data>
@@ -725,6 +746,9 @@
   </data>
   <data name="Do_Not_Interrupt" xml:space="preserve">
     <value>Não interrompa!</value>
+  </data>
+  <data name="Do_you_still_want" xml:space="preserve">
+    <value>Você ainda quer parar?</value>
   </data>
   <data name="DreamGrid" xml:space="preserve">
     <value>DreamGrid</value>
@@ -757,7 +781,7 @@
     <value>Habilitar One-Clique em Iniciar</value>
   </data>
   <data name="Enable_Birds" xml:space="preserve">
-    <value>Ativar Módulo Bird?</value>
+    <value>Ativar Módulo Pássaro</value>
   </data>
   <data name="Enable_Events" xml:space="preserve">
     <value>Ativar Eventos</value>
@@ -770,6 +794,12 @@
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>Digite um nome para seu backup</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>Digite o primeiro e último nome do usuário</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>Digite o novo nome Dos Box</value>
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Digite o nome do objeto ( '/' irá backup de tudo, e '/ Objetos / caixa de' back-up 'caixa' na pasta Objetos</value>
@@ -792,11 +822,14 @@
   <data name="ErrorRegion" xml:space="preserve">
     <value>Erro: Não foi possível definir o Opensim.ini para a região</value>
   </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>Erro: Não é possível compreender o conteúdo do arquivo de região:</value>
+  </data>
   <data name="ErrUpdate" xml:space="preserve">
     <value>Erro: Não foi possível lançar downloader.exe. Talvez você pode iniciá-lo manualmente.</value>
   </data>
   <data name="EstateManagerGod" xml:space="preserve">
-    <value>Estate Manager é deus?</value>
+    <value>Estate Manager é deus</value>
   </data>
   <data name="Exit_text" xml:space="preserve">
     <value>Saída</value>
@@ -828,11 +861,17 @@
   <data name="File" xml:space="preserve">
     <value>Arquivo</value>
   </data>
+  <data name="Finished_with_backup" xml:space="preserve">
+    <value>Terminou com backup:</value>
+  </data>
   <data name="First_name" xml:space="preserve">
     <value>Primeiro nome</value>
   </data>
   <data name="Flotsam_Asset_Cache" xml:space="preserve">
     <value>Flotsam ativos Cache</value>
+  </data>
+  <data name="Folder_To_Save_To" xml:space="preserve">
+    <value>Pasta para salvar a</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
     <value>Frame Rate (0,9)</value>
@@ -865,7 +904,7 @@
     <value>FsAssets Servidor</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>Os settungs globais de pássaros vão aplicar a esta região se definido</value>
+    <value>As configurações globais de pássaros vão aplicar a esta região</value>
   </data>
   <data name="Getting_regions" xml:space="preserve">
     <value>regiões recebendo</value>
@@ -898,7 +937,7 @@
     <value>Grade UDP porta está definida</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Se definido, os settungs globais Tide será aplicada a esta região</value>
+    <value>Os settungs globais Tide será aplicada a esta região</value>
   </data>
   <data name="gTides" xml:space="preserve">
     <value>As configurações globais de maré serão aplicadas a esta região se definido</value>
@@ -910,7 +949,7 @@
     <value>Socorro</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
-    <value>Ajuda no Console Commands</value>
+    <value>Ajuda nos comandos Console</value>
   </data>
   <data name="Help_Console_text" xml:space="preserve">
     <value>Wiki página no Console Commands</value>
@@ -940,7 +979,7 @@
     <value>Ajuda Manuais</value>
   </data>
   <data name="Help_OARS" xml:space="preserve">
-    <value>Ajuda no remos</value>
+    <value>Ajuda On remos</value>
   </data>
   <data name="Help_OARS_text" xml:space="preserve">
     <value>Wiki página no OARS</value>
@@ -991,7 +1030,7 @@
     <value>Quão alto somos autorizados a se reunir?</value>
   </data>
   <data name="How_Long" xml:space="preserve">
-    <value>Quanto tempo para manter os backups. Após este tempo, em dias, o get mais antigo excluído.</value>
+    <value>Quanto tempo para manter os backups. O get mais antigo eliminado após este tempo em dias,</value>
   </data>
   <data name="How_Long_runs" xml:space="preserve">
     <value>Quanto tempo Opensim é executado antes que ocorra um backup automático</value>
@@ -1005,14 +1044,20 @@
   <data name="IAR_Load_and_Save" xml:space="preserve">
     <value>IAR carregar e salvar</value>
   </data>
+  <data name="Icecast" xml:space="preserve">
+    <value>Icecast</value>
+  </data>
   <data name="iceCastServer" xml:space="preserve">
     <value>IceCast Servidor</value>
   </data>
   <data name="Icecast_Desc" xml:space="preserve">
-    <value>Icecast permite transmitir música em seu sim. música URL</value>
+    <value>Icecast permite transmitir música em seu sim. Música URL:</value>
   </data>
   <data name="IceCast_disabled" xml:space="preserve">
     <value>Icecast é desativado</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>Icecast saiu. Você quer ver o arquivo de log de erro?</value>
   </data>
   <data name="Icecast_failed" xml:space="preserve">
     <value>Icecast não começou</value>
@@ -1022,9 +1067,6 @@
   </data>
   <data name="Icecast_is_Set" xml:space="preserve">
     <value>Icecast porta está definida</value>
-  </data>
-  <data name="Icecast_Shoutcast" xml:space="preserve">
-    <value>Icecast / Shoutcast</value>
   </data>
   <data name="Icecast_Started" xml:space="preserve">
     <value>Icecast Iniciado</value>
@@ -1056,6 +1098,9 @@
   <data name="Incoming_Works" xml:space="preserve">
     <value>Incoming Hypergrid está trabalhando</value>
   </data>
+  <data name="Increasing_time" xml:space="preserve">
+    <value>Aumentando o tempo de</value>
+  </data>
   <data name="Info" xml:space="preserve">
     <value>informações</value>
   </data>
@@ -1066,7 +1111,7 @@
     <value>Instalar</value>
   </data>
   <data name="InstallRuntime" xml:space="preserve">
-    <value>Instale C ++ Runtimes da Microsoft para o Apache e PHP</value>
+    <value>Instalar C ++ tempos de execução</value>
   </data>
   <data name="Install_Icon" xml:space="preserve">
     <value>Instalar o Google Desktop ícone</value>
@@ -1113,14 +1158,11 @@
   <data name="Load Parcel" xml:space="preserve">
     <value>carregar Parcel</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>OpenSimulator é carregamento</value>
-  </data>
   <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
     <value>Carregar grátis Avatar Inventory</value>
   </data>
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
-    <value>IARS carga do ste web Outworldz</value>
+    <value>IARS carga no site da Outworldz</value>
   </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>Carregar grátis Dreamworld remos</value>
@@ -1162,7 +1204,7 @@
     <value>Baixo nível de água</value>
   </data>
   <data name="LSL_Allow" xml:space="preserve">
-    <value>scripts de LSL não pode alcançar outra LAN PC. Se você ativar isso, eles podem acessar portos em sua LAN em qualquer PC. Isso é perigoso!</value>
+    <value>scripts de LSL não pode alcançar outra LAN PC. Se você ativar isso, eles podem acessar portas no seu LAN em qualquer PC. Isso é perigoso!</value>
   </data>
   <data name="Make_backup" xml:space="preserve">
     <value>Faça um backup?</value>
@@ -1204,7 +1246,7 @@
     <value>Você não pode fazer uma prim física maior do que isso</value>
   </data>
   <data name="Max_PrimLimit" xml:space="preserve">
-    <value>Maxprims limita o número de prims em uma parcela. Se desativado, não há limite, exceto memória</value>
+    <value>Isto irá limitar o número de prims em uma parcela. Não há limite, exceto memória quando desativado.</value>
   </data>
   <data name="Max_Prims" xml:space="preserve">
     <value>Ativar limites MAXPRIMS</value>
@@ -1243,7 +1285,7 @@
     <value>Clique para mais ajuda no site</value>
   </data>
   <data name="MustHaveName" xml:space="preserve">
-    <value>Deve ter um nome de um item de inventário para salvar</value>
+    <value>Deve ter um nome de um item de inventário</value>
   </data>
   <data name="MustX" xml:space="preserve">
     <value>Deve ser o mesmo que X</value>
@@ -1251,8 +1293,17 @@
   <data name="MustY" xml:space="preserve">
     <value>Deve ser o mesmo que Y</value>
   </data>
+  <data name="Must_be_Days" xml:space="preserve">
+    <value>Deve ser um número de dias</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>Deve ser um arquivo PNG</value>
+  </data>
   <data name="MySqlPort" xml:space="preserve">
     <value>MySQL Porto</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>MySQL saiu. Você quer ver o arquivo de log de erro?</value>
   </data>
   <data name="Mysql_Failed" xml:space="preserve">
     <value>O banco de dados não foi iniciado. Você quer ver o arquivo de log?</value>
@@ -1294,10 +1345,13 @@
     <value>Novo conteúdo está sendo carregado</value>
   </data>
   <data name="New_is_Done" xml:space="preserve">
-    <value>Novo conteúdo apenas carregado.</value>
+    <value>Novo conteúdo apenas carregado</value>
   </data>
   <data name="New_User_Home" xml:space="preserve">
     <value>New User inicial X, Y, Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>Próximo</value>
   </data>
   <data name="Next_Name" xml:space="preserve">
     <value>Seguinte Nome</value>
@@ -1320,11 +1374,14 @@
   <data name="Notify_Email" xml:space="preserve">
     <value>Notificar-mail</value>
   </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>Não é um UUID válido. Você quer um novo, Random UUID?</value>
+  </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>não parece ser encaminhados para esta máquina no seu roteador, então Hypergrid não está disponível. Isso pode, eventualmente, ser fixado por 'Porta Forwards' no seu roteador. Veja Ajuda-&gt; Porto envia.</value>
+    <value>Este não parece ser encaminhados para esta máquina no seu roteador, então Hypergrid não está disponível. Isso pode, eventualmente, ser fixado por 'Porta Forwards' no seu roteador. Veja Ajuda-&gt; Porto envia.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Não é normalmente aplicada por Opensim. Visualizador não mostrar mais do que 45K. Definir este aqui e permitindo isso em configurações irá impor o limite e pode retornar prims!</value>
+    <value>Não é normalmente aplicada por Opensim. Visualizador não mostrará mais de 45.000. Definir este aqui e permitindo isso em configurações irá impor o limite e pode retornar prims!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim não está em execução.</value>
@@ -1332,11 +1389,17 @@
   <data name="Not_Shown" xml:space="preserve">
     <value>O Console OpenSimulator não será exibido. Você ainda pode interagir com ele com Ajuda-&gt; Opensim Console</value>
   </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>Não foi possível definir sim padrão para os visitantes. Ver Regiões Painel.</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
-    <value>Não hypergrid visitantes será permitido nesta região</value>
+    <value>visitantes não Hypergrid será permitido nesta região</value>
   </data>
   <data name="No_Publish_Items" xml:space="preserve">
     <value>Não publicar esta região</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>Nenhuma região está pronto, por isso não pode carregar o IAR"</value>
   </data>
   <data name="NTSuspend" xml:space="preserve">
     <value>Erro: Não foi possível lançar NtSuspendProcess64.exe.</value>
@@ -1361,6 +1424,9 @@
   </data>
   <data name="Offline" xml:space="preserve">
     <value>desligada</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>Há um avatar</value>
   </data>
   <data name="One_region" xml:space="preserve">
     <value>Uma região é ainda em execução</value>
@@ -1401,6 +1467,9 @@
   <data name="PDF_Manual" xml:space="preserve">
     <value>manual de PDF</value>
   </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>as pessoas estão em</value>
+  </data>
   <data name="Permissions" xml:space="preserve">
     <value>permissões</value>
   </data>
@@ -1409,6 +1478,12 @@
   </data>
   <data name="Physics_Engine" xml:space="preserve">
     <value>Physics Engine</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>Por favor insira um nome de DNS válido, como 'name.outworldz.net', ou registar-se para um no http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>Por favor, selecione apenas uma linha</value>
   </data>
   <data name="Please_type" xml:space="preserve">
     <value>Favor digitar nome do avatar da grade do proprietário na janela robusta. Pressione &lt;enter&gt; para UUID e Modelo nome. Em seguida, pressione este botão OK</value>
@@ -1462,7 +1537,7 @@
     <value>Publicar Grid para Hyperica.com</value>
   </data>
   <data name="Publish_Items" xml:space="preserve">
-    <value>Publicar os itens marcados para pesquisa no Hyperica.com</value>
+    <value>Publicar os itens marcados para pesquisa</value>
   </data>
   <data name="Quit_Now" xml:space="preserve">
     <value>Sair agora</value>
@@ -1497,29 +1572,14 @@
   <data name="Region" xml:space="preserve">
     <value>Região</value>
   </data>
-  <data name="RegionList" xml:space="preserve">
-    <value>Lista região</value>
-  </data>
-  <data name="RegionName" xml:space="preserve">
-    <value>Alfa-numérico mais espaços</value>
-  </data>
-  <data name="RegionOverrides" xml:space="preserve">
-    <value>configurações de substituição padrão região específica configurações</value>
-  </data>
-  <data name="RegionPort" xml:space="preserve">
-    <value>região Porto</value>
-  </data>
   <data name="Regions" xml:space="preserve">
     <value>regiões</value>
   </data>
-  <data name="RegionServer" xml:space="preserve">
-    <value>região Servidor</value>
-  </data>
-  <data name="RegionStats" xml:space="preserve">
-    <value>região Stats</value>
-  </data>
-  <data name="Regions_Are" xml:space="preserve">
+  <data name="Regions_Are_Running" xml:space="preserve">
     <value>regiões ainda estão em execução</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>Região já existe</value>
   </data>
   <data name="Region_Controls" xml:space="preserve">
     <value>Controles região</value>
@@ -1527,17 +1587,29 @@
   <data name="Region_Database" xml:space="preserve">
     <value>região de banco de dados</value>
   </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>Lista região</value>
+  </data>
   <data name="Region_manager_god" xml:space="preserve">
     <value>gerente região é deus?</value>
   </data>
   <data name="Region_Manager_is_God" xml:space="preserve">
     <value>Região Manager é Deus - gestores Estate pode se tornar deuses, mas apenas para esta propriedade</value>
   </data>
-  <data name="Region_Owner_Is_God" xml:space="preserve">
-    <value>proprietário região é deus?</value>
+  <data name="Region_Name" xml:space="preserve">
+    <value>Alfa-numérico mais espaços</value>
   </data>
-  <data name="Region_Owner_Is_God_text" xml:space="preserve">
-    <value>Região proprietário é Deus - Quando você cria uma região, você será solicitado para o nome do proprietário. Se marcada, esta pessoa tem Deus direitos de modo para qualquer regiões que possuem.</value>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>nome da região não pode usar caracteres especiais</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>configurações de substituição padrão região específica configurações</value>
+  </data>
+  <data name="Region_Owner_Is_God" xml:space="preserve">
+    <value>Região proprietário é Deus</value>
+  </data>
+  <data name="Region_Port" xml:space="preserve">
+    <value>região Porto</value>
   </data>
   <data name="Region_Ports" xml:space="preserve">
     <value>Regional Portos</value>
@@ -1554,6 +1626,9 @@
   <data name="Region_Specific_Settings" xml:space="preserve">
     <value>Configurações específicas da região</value>
   </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>região Stats</value>
+  </data>
   <data name="Reload" xml:space="preserve">
     <value>Recarregar a grade</value>
   </data>
@@ -1563,11 +1638,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Tornar Min Altura</value>
   </data>
-  <data name="RequestApp" xml:space="preserve">
+  <data name="Request_App" xml:space="preserve">
     <value>Solicitar App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
     <value>Reserve o seu nome DYN DNS. Esta é uma senha para o seu nome.</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>resolvido</value>
   </data>
   <data name="Restart" xml:space="preserve">
     <value>Reiniciar</value>
@@ -1591,19 +1669,19 @@
     <value>região um reinício</value>
   </data>
   <data name="Restart_On_Crash" xml:space="preserve">
-    <value>Se uma região falhar, ele será reiniciado</value>
+    <value>Se uma região cai, a região será reiniciado</value>
   </data>
   <data name="Restart_on_Physics_Crash" xml:space="preserve">
     <value>Restart em Física Bater</value>
   </data>
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
-    <value>acidente física Bulletsim irá forçar um reinício sim</value>
+    <value>acidente física Bulletsim irá forçar um reinício simulador</value>
   </data>
   <data name="Restart_Periodically" xml:space="preserve">
     <value>Reiniciar periodicamente</value>
   </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
-    <value>Se ativado, as Regiões serão todos reinício automático após tantos minutos em execução</value>
+    <value>As regiões serão todos reinício automático após tantos minutos em execução</value>
   </data>
   <data name="Restart_Queued" xml:space="preserve">
     <value>Restart fila de espera para</value>
@@ -1630,7 +1708,10 @@
     <value>Histórico de Revisão</value>
   </data>
   <data name="Robust" xml:space="preserve">
-    <value>Robusto:</value>
+    <value>Robusto</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>Robusto saiu. Você quer ver o arquivo de log de erro?</value>
   </data>
   <data name="Robust_failed_to_start" xml:space="preserve">
     <value>Robusto falhou ao iniciar</value>
@@ -1639,7 +1720,7 @@
     <value>é robusto que executam</value>
   </data>
   <data name="Row" xml:space="preserve">
-    <value>Clique em uma linha habilitada para iniciar ou parar a região. Clique em uma linha desativada para editar a região</value>
+    <value>Clique em uma linha habilitada para iniciar ou parar a região. Clique em uma linha desativada para editar a região.</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>Corrida</value>
@@ -1661,6 +1742,9 @@
   </data>
   <data name="Save_All_Regions" xml:space="preserve">
     <value>Salvar Tudo que funciona Regiões a remos</value>
+  </data>
+  <data name="Save_changes" xml:space="preserve">
+    <value>Salvar alterações?</value>
   </data>
   <data name="Save_IAR" xml:space="preserve">
     <value>Salvar IAR</value>
@@ -1810,7 +1894,7 @@
     <value>Smart Start</value>
   </data>
   <data name="Smart_Start_Enabled" xml:space="preserve">
-    <value>Smart Start Ativado</value>
+    <value>Smart Start Ativar</value>
   </data>
   <data name="SMTP" xml:space="preserve">
     <value>SMTP conta Enviar E-mail</value>
@@ -1826,6 +1910,9 @@
   </data>
   <data name="Someone_is_in" xml:space="preserve">
     <value>Alguém está em</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>Desculpe, Ajuda ainda não está disponível para isso.</value>
   </data>
   <data name="Source_Code" xml:space="preserve">
     <value>Código fonte</value>
@@ -1941,6 +2028,12 @@
   <data name="Theme_White" xml:space="preserve">
     <value>set tema Branco</value>
   </data>
+  <data name="These_Changes" xml:space="preserve">
+    <value>Estas alterações entram em vigor somente quando Opensim e robusta são ambos reiniciado</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>Isso move todas as regiões para que a região escolhida está em 1000,1000 para se ajustar ao mapa. Continuar?</value>
+  </data>
   <data name="Threadpools" xml:space="preserve">
     <value>Thread pools</value>
   </data>
@@ -1968,11 +2061,20 @@
   <data name="UbitHybrid" xml:space="preserve">
     <value>Ubit ODE / Bala híbrido</value>
   </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>Não foi possível salvar as configurações:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>Digite o primeiro e último nome da pessoa que será o dono quaisquer objetos não atribuídos</value>
+  </data>
   <data name="Unrecognized" xml:space="preserve">
     <value>tipo de arquivo não reconhecido</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Atualizada</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>Atualização foi baixada. Instalá-lo agora?</value>
   </data>
   <data name="Update_is_available" xml:space="preserve">
     <value>Atualização está disponível. Baixando atualização em segundo plano. Por favor, deixá-lo terminar.</value>
@@ -1987,7 +2089,7 @@
     <value>UPnP Ativado</value>
   </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
-    <value>Ative essa é que você tem um sistema pequeno e quer que as portas do roteador para ser ajustado automaticamente</value>
+    <value>Ative essa é que você tem um sistema pequeno e quer as portas do roteador para ser ajustado automaticamente</value>
   </data>
   <data name="UPnP_Setup_Program" xml:space="preserve">
     <value>Configuração do programa UPnP</value>
@@ -2006,6 +2108,9 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Comercial</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>Erro: UUID não é nada!</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versão</value>
@@ -2072,6 +2177,12 @@
   </data>
   <data name="Web_UI" xml:space="preserve">
     <value>A interface do usuário da Web permite que você adicione ou configurações de exibição para qualquer avatar.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>O que você quer dizer a todos na linha?</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>O que você quer dizer a esta região?</value>
   </data>
   <data name="Which_Channel" xml:space="preserve">
     <value>Qual o canal que os pássaros ouvir para comandos no-mundo. Os números negativos não pode ser usado por seres humanos</value>

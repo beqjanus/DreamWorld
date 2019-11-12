@@ -295,7 +295,7 @@ Public Class RegionMaker
             ._MaxPrims = 15000,
             ._MaxAgents = 100,
             ._MapType = "",
-            ._MinTimerInterval = 0.2.ToString(Form1.Invarient),
+            ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -344,7 +344,7 @@ Public Class RegionMaker
             Dim n As Integer = 0
             folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
             For Each FolderName As String In folders
-                'Form1.Log("Info","Region Path:" + FolderName)
+                'Form1.Log(My.Resources.Info,"Region Path:" + FolderName)
                 regionfolders = Directory.GetDirectories(FolderName)
                 For Each FileName As String In regionfolders
 
@@ -454,7 +454,7 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
-                        MsgBox("Error: Cannot understand the contents of region file " + fName + " : " + ex.Message, vbInformation, My.Resources.Err)
+                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Err)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
@@ -556,7 +556,7 @@ Public Class RegionMaker
 
         Dim n As Integer = FindRegionByName(name)
         If n < 0 Then
-            MsgBox("Cannot find region " + name, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_find_region & " " & name, vbInformation, My.Resources.Err)
             Return
         End If
 
@@ -566,11 +566,7 @@ Public Class RegionMaker
             Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
-                Try
-                    Directory.CreateDirectory(pathtoWelcome)
-                Catch ex As Exception
-                    Form1.ErrorLog("WriteRegionObject " & ex.Message)
-                End Try
+                Directory.CreateDirectory(pathtoWelcome)
             End If
         Else
             fname = fname + "\" + name + ".ini"
@@ -583,7 +579,7 @@ Public Class RegionMaker
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
         & "RegionUUID = " & UUID(n) & vbCrLf _
-        & "Location = " & CoordX(n).ToString(Form1.Invarient) & "," & CoordY(n).ToString(Form1.Invarient) & vbCrLf _
+        & "Location = " & CoordX(n).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(n).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(n) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
@@ -1201,7 +1197,7 @@ Public Class RegionMaker
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
             If p1.Length = 0 Then Return True
-            If Machine = p1.ToLower(Form1.Invarient) Then Return True
+            If Machine = p1.ToLower(Globalization.CultureInfo.InvariantCulture) Then Return True
         End If
         Return False
 
@@ -1400,7 +1396,7 @@ Public Class RegionMaker
 
         ElseIf POST.Contains("get_partner") Then
             Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID().ToLower(Form1.Invarient))
+            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID().ToLower(Globalization.CultureInfo.InvariantCulture))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
