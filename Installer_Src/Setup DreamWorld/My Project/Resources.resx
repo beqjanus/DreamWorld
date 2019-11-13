@@ -965,7 +965,7 @@
     <value>Will not save an OAR with Autobackup.</value>
   </data>
   <data name="flag_russia1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_russia1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\flag_russia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UPnP_Enabled" xml:space="preserve">
     <value>UPnP Enabled</value>
@@ -1276,9 +1276,6 @@
   <data name="Busy" xml:space="preserve">
     <value>Busy</value>
   </data>
-  <data name="flag_iran" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_iran.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
     <value>Load Free Avatar Inventory</value>
   </data>
@@ -1581,9 +1578,6 @@
   </data>
   <data name="Checking_Router" xml:space="preserve">
     <value>Checking Router</value>
-  </data>
-  <data name="flag_saudi_arabia" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_saudi_arabia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Contact_Info" xml:space="preserve">
     <value>Contact Info</value>

@@ -589,7 +589,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources-nl-NL.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.ar-AR.resx" />
     <EmbeddedResource Include="My Project\Resources.cs-CS.resx" />
     <EmbeddedResource Include="My Project\Resources.de-DE.resx" />
     <EmbeddedResource Include="My Project\Resources.eu.resx" />
@@ -696,7 +695,6 @@
     <None Include="Resources\250px-Flag_of_the_Basque_Country.svg.png" />
     <None Include="Resources\flag_sweden.png" />
     <None Include="Resources\flag_spain.png" />
-    <None Include="Resources\flag_russia1.png" />
     <None Include="Resources\flag_russia.png" />
     <None Include="Resources\flag_norway.png" />
     <None Include="Resources\flag_ireland.png" />
@@ -705,12 +703,10 @@
     <None Include="Resources\flag_greece.png" />
     <None Include="Resources\flag_germany.png" />
     <None Include="Resources\flag_finland.png" />
-    <None Include="Resources\flag_iran.png" />
     <None Include="Resources\flag_netherlands.png" />
     <None Include="Resources\flag_taiwan.png" />
     <None Include="Resources\flag_china.png" />
     <None Include="Resources\flag_czech_republic.png" />
-    <None Include="Resources\flag_saudi_arabia.png" />
     <None Include="Resources\flag_brazil.png" />
     <None Include="Resources\flag_france.png" />
     <None Include="Resources\flag_usa.png" />

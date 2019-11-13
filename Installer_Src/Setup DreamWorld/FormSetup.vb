@@ -6927,8 +6927,8 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
-    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
-        Settings.Language = "ar-AR"
+    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs)
+        Settings.Language = "ar"
         Language(sender, e)
     End Sub
 
@@ -6962,7 +6962,7 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
-    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
+    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Settings.Language = "fa-FA"
         Language(sender, e)
     End Sub
@@ -7003,12 +7003,12 @@ Public Class Form1
     End Sub
 
     Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
-        Settings.Language = "ar-AR"
+        Settings.Language = "ar"
         Language(sender, e)
     End Sub
 
     Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
-        Settings.Language = "ar-AR"
+        Settings.Language = "ar"
         Language(sender, e)
     End Sub
 
