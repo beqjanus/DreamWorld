@@ -295,7 +295,7 @@ Public Class RegionMaker
             ._MaxPrims = 15000,
             ._MaxAgents = 100,
             ._MapType = "",
-            ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._MinTimerInterval = 0.909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -304,7 +304,7 @@ Public Class RegionMaker
             ._Teleport = "",
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
-            ._FrameTime = "",
+            ._FrameTime = 0.909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._SkipAutobackup = "",
             ._RegionSmartStart = ""
         }
@@ -699,6 +699,7 @@ Public Class RegionMaker
 #End Region
 
 #Region "Standard INI"
+
     Public Property MaxAgents(n As Integer) As String
         Get
             Return RegionList(n)._MaxAgents
@@ -734,6 +735,7 @@ Public Class RegionMaker
             RegionList(n)._PhysicalPrimMax = Value
         End Set
     End Property
+
     Public Property ClampPrimSize(n As Integer) As Boolean
         Get
             Return CBool(RegionList(n)._ClampPrimSize)
@@ -760,8 +762,6 @@ Public Class RegionMaker
             RegionList(n)._CoordY = Value
         End Set
     End Property
-
-  
 
     Public Property SizeX(n As Integer) As Integer
         Get

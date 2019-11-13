@@ -55,7 +55,7 @@ Partial Class FormVoice
         Me.GroupBox1.Size = New System.Drawing.Size(475, 202)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Setup Voice Service"
+        Me.GroupBox1.Text = My.Resources.Setup_Voice_Service
         '
         'RunOnBoot
         '
@@ -85,7 +85,7 @@ Partial Class FormVoice
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 20)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Password"
+        Me.Label2.Text = My.Resources.Password
         '
         'Label1
         '
@@ -95,7 +95,7 @@ Partial Class FormVoice
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 20)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = "User ID"
+        Me.Label1.Text = My.Resources.UserID
         '
         'VivoxEnable
         '

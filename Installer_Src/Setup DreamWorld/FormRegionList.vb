@@ -310,38 +310,38 @@ Public Class RegionList
         AvatarView.Sorting = SortOrder.Ascending
 
         ' Create columns for the items and subitems. Width of -2 indicates auto-size.
-        ListView1.Columns.Add("Enabled", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("DOS Box", 100, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Agents", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Status", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("RAM", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("X", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Y", 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Size", 40, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Estate", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Enable, 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.DOS_Box, 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Agents, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Status, 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.RAM, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.X, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Y, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Size, 40, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Estate, 100, HorizontalAlignment.Center)
 
         ' optional
-        ListView1.Columns.Add("Map", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Physics", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Birds", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Tides", 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Teleport", 65, HorizontalAlignment.Center)
-        ListView1.Columns.Add("SmartStart", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Allow God", 75, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Owner God", 75, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Manager God", 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add("No Autobackup", 90, HorizontalAlignment.Center)
-        ListView1.Columns.Add("Publicity", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Maps, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Physics, 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Birds, 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Tides, 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Teleport, 65, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Smart_Start, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Allow_Gods_text, 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Owner_God, 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Manager_God, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.No_Autobackup, 90, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Publicity, 80, HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler Me.ListView1.ColumnClick, AddressOf ColumnClick
         Me.Name = "Region List"
-        Me.Text = "Region List"
+        Me.Text = My.Resources.Region_List
 
-        AvatarView.Columns.Add("Agent", 150, HorizontalAlignment.Left)
-        AvatarView.Columns.Add("Region", 150, HorizontalAlignment.Center)
-        AvatarView.Columns.Add("Type", 80, HorizontalAlignment.Center)
+        AvatarView.Columns.Add(My.Resources.Agents, 150, HorizontalAlignment.Left)
+        AvatarView.Columns.Add(My.Resources.Region, 150, HorizontalAlignment.Center)
+        AvatarView.Columns.Add(My.Resources.Type, 80, HorizontalAlignment.Center)
 
         ' index to display icons
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
@@ -397,7 +397,7 @@ Public Class RegionList
             bmp = New Bitmap(responseStream)
             responseStream.Dispose()
         Catch ex As Exception
-            Form1.Log("Maps", ex.Message + ":" + S)
+            Form1.Log("Maps", ex.Message + ": " + S)
         End Try
 
         Return bmp
@@ -753,7 +753,7 @@ Public Class RegionList
                     Case ""
                         item1.SubItems.Add("-")
                     Case "0"
-                        item1.SubItems.Add("None")
+                        item1.SubItems.Add(My.Resources.None)
                     Case "1"
                         item1.SubItems.Add("ODE")
                     Case "2"
@@ -771,14 +771,14 @@ Public Class RegionList
                 'birds
 
                 If PropRegionClass1.Birds(X) = "True" Then
-                    item1.SubItems.Add("Yes")
+                    item1.SubItems.Add(My.Resources.Yes)
                 Else
                     item1.SubItems.Add("-")
                 End If
 
                 'Tides
                 If PropRegionClass1.Tides(X) = "True" Then
-                    item1.SubItems.Add("Yes")
+                    item1.SubItems.Add(My.Resources.Yes)
                 Else
                     item1.SubItems.Add("-")
                 End If
@@ -786,16 +786,16 @@ Public Class RegionList
                 'teleport
                 If PropRegionClass1.Teleport(X) = "True" Or
                     PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                    item1.SubItems.Add("Yes")
+                    item1.SubItems.Add(My.Resources.Yes)
                 Else
                     item1.SubItems.Add("-")
                 End If
 
                 If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                    item1.SubItems.Add("Home")
+                    item1.SubItems.Add(My.Resources.HomeText)
                 Else
                     If PropRegionClass1.SmartStart(X) = True Then
-                        item1.SubItems.Add("Yes")
+                        item1.SubItems.Add(My.Resources.Yes)
                     Else
                         item1.SubItems.Add("-")
                     End If

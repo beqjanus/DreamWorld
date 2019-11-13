@@ -71,7 +71,7 @@ Partial Class Tides
         Me.GroupBox1.Size = New System.Drawing.Size(424, 348)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Global Tide Settings"
+        Me.GroupBox1.Text = My.Resources.Global_Tide_Settings
         '
         'RunOnBoot
         '
@@ -115,7 +115,7 @@ Partial Class Tides
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(143, 20)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Tide Hi/Lo Channel"
+        Me.Label5.Text = My.Resources.Tide_Hi_Lo_Channel
         '
         'TideHiLoChannelTextBox
         '
@@ -133,7 +133,7 @@ Partial Class Tides
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(134, 20)
         Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Tide Info Channel"
+        Me.Label4.Text = My.Resources.Tide_Info_Channel
         '
         'TideInfoChannelTextBox
         '
@@ -151,7 +151,7 @@ Partial Class Tides
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(165, 20)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Cycle Time in seconds"
+        Me.Label3.Text = My.Resources.Cycle_Time_in_seconds
         '
         'CycleTimeTextBox
         '
@@ -170,7 +170,7 @@ Partial Class Tides
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(126, 20)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Low Water Level"
+        Me.Label2.Text = My.Resources.Low_Water_Level
         '
         'TideLowLevelTextBox
         '
@@ -189,7 +189,7 @@ Partial Class Tides
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(130, 20)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "High Water Level"
+        Me.Label1.Text = My.Resources.High_Water_Level
         '
         'TideHighLevelTextBox
         '
@@ -253,7 +253,7 @@ Partial Class Tides
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "Tides"
-        Me.Text = "Tides"
+        Me.Text = My.Resources.Tides
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

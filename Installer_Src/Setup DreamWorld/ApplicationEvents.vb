@@ -48,6 +48,7 @@ Namespace My
          ) Handles Me.UnhandledException
 
             Form1.Log("FATAL", e.Exception.Message)
+            Form1.Log("FATAL:", DisplayObjectInfo(sender))
 
             Dim resp As MsgBoxResult = MsgBox(My.Resources.Appexception + e.Exception.Message, vbOKCancel)
             If resp = vbOK Then
@@ -59,7 +60,7 @@ Namespace My
                 Catch ex As InvalidOperationException
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
-
+                e.ExitApplication = False
                 End
             End If
         End Sub

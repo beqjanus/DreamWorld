@@ -88,7 +88,7 @@ Partial Class FormDiva
         Me.Web.Size = New System.Drawing.Size(418, 321)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
-        Me.Web.Text = "Wifi Interface Admin"
+        Me.Web.Text = My.Resources.Wifi_interface
         '
         'WiFi
         '
@@ -119,7 +119,7 @@ Partial Class FormDiva
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(92, 20)
         Me.Label17.TabIndex = 15
-        Me.Label17.Text = "Notify Email"
+        Me.Label17.Text = My.Resources.Notify_Email
         '
         'AdminEmail
         '
@@ -137,7 +137,7 @@ Partial Class FormDiva
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(86, 20)
         Me.Label12.TabIndex = 13
-        Me.Label12.Text = "Last Name"
+        Me.Label12.Text = My.Resources.Last_Name
         '
         'AccountConfirmationRequired
         '
@@ -174,7 +174,7 @@ Partial Class FormDiva
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(86, 20)
         Me.Label11.TabIndex = 10
-        Me.Label11.Text = "First Name"
+        Me.Label11.Text = My.Resources.First_name
         '
         'Label10
         '
@@ -184,7 +184,7 @@ Partial Class FormDiva
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(78, 20)
         Me.Label10.TabIndex = 9
-        Me.Label10.Text = "Password"
+        Me.Label10.Text = My.Resources.Password
         '
         'AdminPassword
         '
@@ -213,7 +213,7 @@ Partial Class FormDiva
         Me.GroupBox6.Size = New System.Drawing.Size(418, 225)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "SMTP Send Email Account"
+        Me.GroupBox6.Text = My.Resources.SMTP
         '
         'SmtpPort
         '
@@ -231,7 +231,7 @@ Partial Class FormDiva
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(85, 20)
         Me.Label24.TabIndex = 1870
-        Me.Label24.Text = "SMTP Port"
+        Me.Label24.Text = My.Resources.SMTPPort
         '
         'SmtpHost
         '
@@ -249,7 +249,7 @@ Partial Class FormDiva
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(90, 20)
         Me.Label23.TabIndex = 1868
-        Me.Label23.Text = "SMTP Host"
+        Me.Label23.Text = My.Resources.SMTPHost
         '
         'GmailPassword
         '
@@ -268,7 +268,7 @@ Partial Class FormDiva
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(125, 20)
         Me.Label18.TabIndex = 1866
-        Me.Label18.Text = "SMTP Password"
+        Me.Label18.Text = My.Resources.SMTPPassword
         '
         'Label14
         '
@@ -278,7 +278,7 @@ Partial Class FormDiva
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(89, 20)
         Me.Label14.TabIndex = 1865
-        Me.Label14.Text = "User Name"
+        Me.Label14.Text = my.Resources.UserName
         '
         'GmailUsername
         '
@@ -296,7 +296,7 @@ Partial Class FormDiva
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(188, 20)
         Me.Label2.TabIndex = 1867
-        Me.Label2.Text = "This Grid's Friendly Name"
+        Me.Label2.Text = My.Resources.Friendly
         '
         'GridName
         '
@@ -314,7 +314,7 @@ Partial Class FormDiva
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(206, 20)
         Me.Label19.TabIndex = 1868
-        Me.Label19.Text = "Viewer Splash Screen URL:"
+        Me.Label19.Text = My.Resources.Splash
         '
         'SplashPage
         '
@@ -343,7 +343,7 @@ Partial Class FormDiva
         Me.GroupBox1.Size = New System.Drawing.Size(418, 285)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Splash Screen"
+        Me.GroupBox1.Text = My.Resources.SplashScreen
         '
         'Label4
         '
@@ -353,7 +353,7 @@ Partial Class FormDiva
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(123, 20)
         Me.Label4.TabIndex = 1876
-        Me.Label4.Text = "Viewer Greeting"
+        Me.Label4.Text = My.Resources.Greeting
         '
         'GreetingTextBox
         '
@@ -383,7 +383,7 @@ Partial Class FormDiva
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 20)
         Me.Label1.TabIndex = 1859
-        Me.Label1.Text = "Theme:"
+        Me.Label1.Text = My.Resources.Theme
         '
         'WhiteRadioButton
         '
@@ -455,7 +455,7 @@ Partial Class FormDiva
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
-        Me.Text = "Web Server Panel"
+        Me.Text = My.Resources.WebServerPanel
         Me.Web.ResumeLayout(False)
         Me.Web.PerformLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).EndInit()

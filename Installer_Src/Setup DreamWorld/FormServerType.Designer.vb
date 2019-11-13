@@ -49,7 +49,7 @@ Partial Class FormServerType
         Me.GroupBox1.Size = New System.Drawing.Size(321, 263)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Server Type"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Server_Type
         '
         'MetroRadioButton2
         '
@@ -143,7 +143,7 @@ Partial Class FormServerType
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormServerType"
-        Me.Text = "Server Type"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Server_Type
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

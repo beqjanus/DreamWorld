@@ -125,6 +125,8 @@ Public Class FormRegion
 
         If Name.Length = 0 Then
             IsNew1 = True
+
+            Gods_Use_Default.Checked = False
             RegionName.Text = Name & "Name of Region"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
@@ -140,7 +142,8 @@ Public Class FormRegion
             ClampPrimSize.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            ScriptTimerTextBox.Text = 0.2.ToString(Globalization.CultureInfo.InvariantCulture)
+            ScriptTimerTextBox.Text = 0.909.ToString(Globalization.CultureInfo.InvariantCulture)
+            FrametimeBox.Text = 0.909.ToString(Globalization.CultureInfo.InvariantCulture)
             DisableGBCheckBox.Checked = False
             N1 = PropRegionClass.CreateRegion("")
         Else
@@ -401,12 +404,7 @@ Public Class FormRegion
         If Len(message) > 0 Then
             Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
             If v = vbYes Then
-
-                'If RegionList.InstanceExists Then
-                'Propregionclass.GetAllRegions()
                 RegionList.LoadMyListView()
-                'End If
-
                 Me.Close()
             End If
         Else
@@ -414,9 +412,7 @@ Public Class FormRegion
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
 
             WriteRegion(N1)
-            'Propregionclass.GetAllRegions()
             Form1.CopyOpensimProto(RegionName.Text)
-
             RegionList.LoadMyListView()
 
             Changed1 = False
@@ -804,6 +800,7 @@ Public Class FormRegion
                             "RegionType = Estate" & vbCrLf & vbCrLf &
                             ";# Extended region properties from Dreamgrid" & vbCrLf &
                             "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
+                            "FrameTimer = " & FrametimeBox.Text & vbCrLf &
                             "RegionSnapShot = " & Snapshot & vbCrLf &
                             "MapType = " & Map & vbCrLf &
                             "Physics = " & Phys & vbCrLf &
@@ -1368,6 +1365,10 @@ Public Class FormRegion
     End Sub
 
     Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub ClampPrimSize_CheckedChanged(sender As Object, e As EventArgs) Handles ClampPrimSize.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 

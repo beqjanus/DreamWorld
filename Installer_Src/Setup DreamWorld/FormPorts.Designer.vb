@@ -69,7 +69,7 @@ Partial Class FormPorts
         Me.GroupBox2.Size = New System.Drawing.Size(405, 350)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Ports"
+        Me.GroupBox2.Text = My.Resources.Ports
         '
         'Label1
         '
@@ -79,7 +79,7 @@ Partial Class FormPorts
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(288, 20)
         Me.Label1.TabIndex = 1864
-        Me.Label1.Text = "External HostName For Region Servers"
+        Me.Label1.Text = My.Resources.External
         Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'ExternalHostName
@@ -99,7 +99,7 @@ Partial Class FormPorts
         Me.MaxP.Name = "MaxP"
         Me.MaxP.Size = New System.Drawing.Size(147, 20)
         Me.MaxP.TabIndex = 1862
-        Me.MaxP.Text = "Highest used: 8004"
+        Me.MaxP.Text = my.Resources.Highest_Used
         '
         'Label26
         '
@@ -109,7 +109,7 @@ Partial Class FormPorts
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(145, 20)
         Me.Label26.TabIndex = 1861
-        Me.Label26.Text = "Region Port Start #"
+        Me.Label26.Text = My.Resources.Region_Port_Start
         '
         'FirstRegionPort
         '
@@ -150,7 +150,7 @@ Partial Class FormPorts
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(90, 20)
         Me.Label7.TabIndex = 38
-        Me.Label7.Text = "Private Port"
+        Me.Label7.Text = My.Resources.Private_Port
         '
         'Label5
         '
@@ -160,7 +160,7 @@ Partial Class FormPorts
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(128, 20)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = "Diagnostics port "
+        Me.Label5.Text = My.Resources.Diag_Port
         '
         'HTTPPort
         '
@@ -197,7 +197,7 @@ Partial Class FormPorts
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(73, 20)
         Me.Label4.TabIndex = 32
-        Me.Label4.Text = "Http Port"
+        Me.Label4.Text = My.Resources.Http_Port
         '
         'MenuStrip2
         '
@@ -235,7 +235,7 @@ Partial Class FormPorts
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormPorts"
-        Me.Text = "Region Ports"
+        Me.Text = My.Resources.Region_Port
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).EndInit()

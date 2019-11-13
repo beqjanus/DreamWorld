@@ -287,7 +287,7 @@ Partial Class FormMaps
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(20, 20)
         Me.Label3.TabIndex = 1870
-        Me.Label3.Text = "Y"
+        Me.Label3.Text = My.Resources.Y
         '
         'Label2
         '
@@ -297,7 +297,7 @@ Partial Class FormMaps
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(20, 20)
         Me.Label2.TabIndex = 1869
-        Me.Label2.Text = "X"
+        Me.Label2.Text = My.Resources.X
         '
         'Label1
         '
@@ -307,7 +307,7 @@ Partial Class FormMaps
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(161, 20)
         Me.Label1.TabIndex = 1868
-        Me.Label1.Text = "Map Center Location:"
+        Me.Label1.Text = My.Resources.Center_Map
         '
         'MenuStrip2
         '

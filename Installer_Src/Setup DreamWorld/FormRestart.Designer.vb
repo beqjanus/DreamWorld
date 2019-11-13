@@ -61,7 +61,7 @@ Partial Class FormRestart
         Me.AutoStart.Size = New System.Drawing.Size(392, 296)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
-        Me.AutoStart.Text = "Auto Restart"
+        Me.AutoStart.Text = My.Resources.Auto_Startup
         '
         'RestartOnPhysicsCrash
         '
@@ -83,7 +83,7 @@ Partial Class FormRestart
         Me.RestartOnCrash.Name = "RestartOnCrash"
         Me.RestartOnCrash.Size = New System.Drawing.Size(156, 24)
         Me.RestartOnCrash.TabIndex = 1865
-        Me.RestartOnCrash.Text = "Restart on Crash"
+        Me.RestartOnCrash.Text = My.Resources.Restart_On_Crash
         Me.ToolTip1.SetToolTip(Me.RestartOnCrash, Global.Outworldz.My.Resources.Resources.Restart_On_Crash)
         Me.RestartOnCrash.UseVisualStyleBackColor = True
         '
@@ -119,7 +119,7 @@ Partial Class FormRestart
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(194, 20)
         Me.Label25.TabIndex = 1862
-        Me.Label25.Text = "Restart Interval in Minutes"
+        Me.Label25.Text = My.Resources.Restart_Interval
         '
         'AutoRestartBox
         '
@@ -198,7 +198,7 @@ Partial Class FormRestart
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormRestart"
-        Me.Text = "Restart"
+        Me.Text = My.Resources.Restart
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

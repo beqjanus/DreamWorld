@@ -120,7 +120,7 @@ Partial Class TosForm
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 8
-        Me.SaveButton.Text = "Ok"
+        Me.SaveButton.Text = My.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ApplyButton

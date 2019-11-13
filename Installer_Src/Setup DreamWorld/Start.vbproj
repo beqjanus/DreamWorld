@@ -193,6 +193,7 @@
   <ItemGroup>
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
+    <Compile Include="Dump.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
@@ -385,7 +386,7 @@
     <Compile Include="ExitHandler.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
-    <Compile Include="IP.vb" />    
+    <Compile Include="IP.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -580,12 +581,24 @@
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.cs.resx" />
-    <EmbeddedResource Include="My Project\Resources.ca.resx" />
-    <EmbeddedResource Include="My Project\Resources.de.resx" />
-    <EmbeddedResource Include="My Project\Resources.eu.resx" />
-    <EmbeddedResource Include="My Project\Resources.el.resx" />
-    <EmbeddedResource Include="My Project\Resources.es-MX.resx" />
+    <EmbeddedResource Include="My Project\Resources.cs.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.ca.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.eu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.el.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.es-MX.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.fi.resx" />
     <EmbeddedResource Include="My Project\Resources.fr.resx">
       <SubType>Designer</SubType>

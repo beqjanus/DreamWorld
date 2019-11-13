@@ -144,6 +144,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Agents.
+        '''</summary>
+        Friend ReadOnly Property Agents() As String
+            Get
+                Return ResourceManager.GetString("Agents", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to All.
         '''</summary>
         Friend ReadOnly Property All() As String
@@ -189,11 +198,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Allow or disallow Gods.
+        '''  Looks up a localized string similar to Allow_Gods.
         '''</summary>
         Friend ReadOnly Property Allow_Gods() As String
             Get
-                Return ResourceManager.GetString("Allow_Gods", resourceCulture)
+                Return ResourceManager.GetString("Allow Gods", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Allow or disallow Gods.
+        '''</summary>
+        Friend ReadOnly Property Allow_Gods_text() As String
+            Get
+                Return ResourceManager.GetString("Allow_Gods_text", resourceCulture)
             End Get
         End Property
         
@@ -756,6 +774,15 @@ Namespace My.Resources
         Friend ReadOnly Property BirdModule() As String
             Get
                 Return ResourceManager.GetString("BirdModule", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Birds.
+        '''</summary>
+        Friend ReadOnly Property Birds() As String
+            Get
+                Return ResourceManager.GetString("Birds", resourceCulture)
             End Get
         End Property
         
@@ -1886,6 +1913,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Delete.
+        '''</summary>
+        Friend ReadOnly Property Delete() As String
+            Get
+                Return ResourceManager.GetString("Delete", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property delete2() As System.Drawing.Bitmap
@@ -2220,6 +2256,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to DOS Box.
+        '''</summary>
+        Friend ReadOnly Property DOS_Box() As String
+            Get
+                Return ResourceManager.GetString("DOS_Box", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property download() As System.Drawing.Bitmap
@@ -2480,6 +2525,15 @@ Namespace My.Resources
         Friend ReadOnly Property ErrUpdate() As String
             Get
                 Return ResourceManager.GetString("ErrUpdate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Estate.
+        '''</summary>
+        Friend ReadOnly Property Estate() As String
+            Get
+                Return ResourceManager.GetString("Estate", resourceCulture)
             End Get
         End Property
         
@@ -3003,6 +3057,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Viewer Greeting.
+        '''</summary>
+        Friend ReadOnly Property Greeting() As String
+            Get
+                Return ResourceManager.GetString("Greeting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Grid address.
         '''</summary>
         Friend ReadOnly Property Grid_address() As String
@@ -3048,20 +3111,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The global Tide settungs will apply to this region.
+        '''  Looks up a localized string similar to The global Tide settings will apply to this region.
         '''</summary>
         Friend ReadOnly Property GTide() As String
             Get
                 Return ResourceManager.GetString("GTide", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to The global Tide settings will apply to this region if set.
-        '''</summary>
-        Friend ReadOnly Property gTides() As String
-            Get
-                Return ResourceManager.GetString("gTides", resourceCulture)
             End Get
         End Property
         
@@ -3887,6 +3941,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Manager_God.
+        '''</summary>
+        Friend ReadOnly Property Manager_God() As String
+            Get
+                Return ResourceManager.GetString("Manager God", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property map_1_9510_10006_objects() As System.Drawing.Bitmap
@@ -4518,6 +4581,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to No Autobackup.
+        '''</summary>
+        Friend ReadOnly Property No_Autobackup() As String
+            Get
+                Return ResourceManager.GetString("No_Autobackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Could not set default sim for visitors. See Regions Panel..
         '''</summary>
         Friend ReadOnly Property no_Default_sim() As String
@@ -4568,6 +4640,15 @@ Namespace My.Resources
         Friend ReadOnly Property None() As String
             Get
                 Return ResourceManager.GetString("None", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Nonphysical Prim Size.
+        '''</summary>
+        Friend ReadOnly Property Nonphysical_Prim() As String
+            Get
+                Return ResourceManager.GetString("Nonphysical_Prim", resourceCulture)
             End Get
         End Property
         
@@ -4735,6 +4816,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Ok.
+        '''</summary>
+        Friend ReadOnly Property Ok() As String
+            Get
+                Return ResourceManager.GetString("Ok", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to One region is still running.
         '''</summary>
         Friend ReadOnly Property One_region() As String
@@ -4812,6 +4902,15 @@ Namespace My.Resources
         Friend ReadOnly Property OverridesMap() As String
             Get
                 Return ResourceManager.GetString("OverridesMap", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Owner_God.
+        '''</summary>
+        Friend ReadOnly Property Owner_God() As String
+            Get
+                Return ResourceManager.GetString("Owner God", resourceCulture)
             End Get
         End Property
         
@@ -4895,6 +4994,15 @@ Namespace My.Resources
         Friend ReadOnly Property Permissions() As String
             Get
                 Return ResourceManager.GetString("Permissions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Physical Prim Max Size.
+        '''</summary>
+        Friend ReadOnly Property Physical_Prim() As String
+            Get
+                Return ResourceManager.GetString("Physical_Prim", resourceCulture)
             End Get
         End Property
         
@@ -5131,6 +5239,15 @@ Namespace My.Resources
         Friend ReadOnly Property Quit_unexpectedly() As String
             Get
                 Return ResourceManager.GetString("Quit_unexpectedly", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to RAM.
+        '''</summary>
+        Friend ReadOnly Property RAM() As String
+            Get
+                Return ResourceManager.GetString("RAM", resourceCulture)
             End Get
         End Property
         
@@ -6194,6 +6311,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Size.
+        '''</summary>
+        Friend ReadOnly Property Size() As String
+            Get
+                Return ResourceManager.GetString("Size", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Skip.
         '''</summary>
         Friend ReadOnly Property Skip() As String
@@ -6572,6 +6698,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Teleporter Enable.
+        '''</summary>
+        Friend ReadOnly Property Teleporter_Enable() As String
+            Get
+                Return ResourceManager.GetString("Teleporter_Enable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Teleporting.
         '''</summary>
         Friend ReadOnly Property Teleporting() As String
@@ -6760,6 +6895,15 @@ Namespace My.Resources
         Friend ReadOnly Property Troubleshooting() As String
             Get
                 Return ResourceManager.GetString("Troubleshooting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type.
+        '''</summary>
+        Friend ReadOnly Property Type() As String
+            Get
+                Return ResourceManager.GetString("Type", resourceCulture)
             End Get
         End Property
         
@@ -7302,6 +7446,33 @@ Namespace My.Resources
         Friend ReadOnly Property Wrong() As String
             Get
                 Return ResourceManager.GetString("Wrong", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to X.
+        '''</summary>
+        Friend ReadOnly Property X() As String
+            Get
+                Return ResourceManager.GetString("X", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Y.
+        '''</summary>
+        Friend ReadOnly Property Y() As String
+            Get
+                Return ResourceManager.GetString("Y", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Yes.
+        '''</summary>
+        Friend ReadOnly Property Yes() As String
+            Get
+                Return ResourceManager.GetString("Yes", resourceCulture)
             End Get
         End Property
     End Module

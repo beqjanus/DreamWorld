@@ -90,7 +90,7 @@ Partial Class BirdForm
         Me.GroupBox1.Size = New System.Drawing.Size(476, 496)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Bird Module"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.BirdModule
         '
         'Label7
         '

@@ -696,6 +696,7 @@ Public Class Form1
             PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
             PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
+            Log("Test :", DisplayObjectInfo(Me))
         End If
 
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
@@ -757,6 +758,7 @@ Public Class Form1
 
         CheckDefaultPorts()
         PropMyUPnpMap = New UPnp()
+
         If SetPublicIP() Then
             OpenPorts()
         End If
@@ -1422,18 +1424,11 @@ Public Class Form1
 
 #Region "INI"
 
-    Public Sub CopyOpensimProto(Optional name As String = "")
+    Public Sub CopyOpensimProto(name As String)
 
         If name Is Nothing Then Return
-        If name.Length > 0 Then
-            Dim X = PropRegionClass.FindRegionByName(name)
-            If (X > -1) Then Opensimproto(X)
-        Else
-            ' COPY OPENSIM.INI prototype to all region folders and set the Sim Name
-            For Each X As Integer In PropRegionClass.RegionNumbers
-                Opensimproto(X)
-            Next
-        End If
+        Dim X = PropRegionClass.FindRegionByName(name)
+        If (X > -1) Then Opensimproto(X)
 
     End Sub
 
@@ -5498,6 +5493,7 @@ Public Class Form1
             ProcessMySql.Start()
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
+        Catch ex As ObjectDisposedException
 
         End Try
 
@@ -6795,7 +6791,7 @@ Public Class Form1
                             For Each part In array
                                 ' Display to console.
                                 Dim a As String() = part.Split("^".ToCharArray())
-                                If a.Count = 2 Then
+                                If a.Length = 2 Then
                                     a(1) = a(1).Replace("'", "\'")
                                     a(1) = a(1).Replace("`", vbLf)
                                     Console.WriteLine("{0}:{1}", a(0), a(1))

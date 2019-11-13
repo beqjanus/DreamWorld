@@ -64,7 +64,7 @@ Partial Class Choice
         Me.OKButton1.Name = "OKButton1"
         Me.OKButton1.Size = New System.Drawing.Size(127, 36)
         Me.OKButton1.TabIndex = 3
-        Me.OKButton1.Text = "OK"
+        Me.OKButton1.Text = My.Resources.Ok
         Me.OKButton1.UseVisualStyleBackColor = True
         '
         'CancelButton1
@@ -87,7 +87,7 @@ Partial Class Choice
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Choice"
-        Me.Text = "Choose Region"
+        Me.Text = My.Resources.ChooseRegion
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

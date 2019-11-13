@@ -988,9 +988,6 @@
   <data name="Icecast_is_Set" xml:space="preserve">
     <value>Icecast Port is Set</value>
   </data>
-  <data name="GTide" xml:space="preserve">
-    <value>The global Tide settungs will apply to this region</value>
-  </data>
   <data name="home_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1117,8 +1114,8 @@
   <data name="Robust" xml:space="preserve">
     <value>Robust</value>
   </data>
-  <data name="gTides" xml:space="preserve">
-    <value>The global Tide settings will apply to this region if set</value>
+  <data name="GTide" xml:space="preserve">
+    <value>The global Tide settings will apply to this region</value>
   </data>
   <data name="Local_Search" xml:space="preserve">
     <value>Local Search</value>
@@ -1165,7 +1162,7 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>Theme set to Black</value>
   </data>
-  <data name="Allow_Gods" xml:space="preserve">
+  <data name="Allow_Gods_text" xml:space="preserve">
     <value>Allow or disallow Gods</value>
   </data>
   <data name="Backup_Schedule" xml:space="preserve">
@@ -2499,5 +2496,65 @@
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>Error: UUID Is nothing!</value>
+  </data>
+  <data name="Agents" xml:space="preserve">
+    <value>Agents</value>
+  </data>
+  <data name="Allow Gods" xml:space="preserve">
+    <value>Allow_Gods</value>
+  </data>
+  <data name="Birds" xml:space="preserve">
+    <value>Birds</value>
+  </data>
+  <data name="DOS_Box" xml:space="preserve">
+    <value>DOS Box</value>
+  </data>
+  <data name="Estate" xml:space="preserve">
+    <value>Estate</value>
+  </data>
+  <data name="Manager God" xml:space="preserve">
+    <value>Manager_God</value>
+  </data>
+  <data name="No_Autobackup" xml:space="preserve">
+    <value>No Autobackup</value>
+  </data>
+  <data name="Owner God" xml:space="preserve">
+    <value>Owner_God</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Greeting" xml:space="preserve">
+    <value>Viewer Greeting</value>
+  </data>
+  <data name="Nonphysical_Prim" xml:space="preserve">
+    <value>Nonphysical Prim Size</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Physical_Prim" xml:space="preserve">
+    <value>Physical Prim Max Size</value>
+  </data>
+  <data name="Teleporter_Enable" xml:space="preserve">
+    <value>Teleporter Enable</value>
   </data>
 </root>
