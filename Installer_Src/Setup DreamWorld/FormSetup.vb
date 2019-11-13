@@ -6902,6 +6902,9 @@ Public Class Form1
         End If
 
     End Sub
+#End Region
+
+#Region "Language"
 
     Private Sub Language(sender, e)
         Settings.SaveSettings()
@@ -6918,17 +6921,12 @@ Public Class Form1
     End Sub
 
     Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
-        Settings.Language = "fr-FR"
+        Settings.Language = "fr"
         Language(sender, e)
     End Sub
 
     Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
-        Settings.Language = "pt-PT"
-        Language(sender, e)
-    End Sub
-
-    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        Settings.Language = "ar"
+        Settings.Language = "pt"
         Language(sender, e)
     End Sub
 
@@ -6938,12 +6936,12 @@ Public Class Form1
     End Sub
 
     Private Sub CatalanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalanToolStripMenuItem.Click
-        Settings.Language = "ca-CA"
+        Settings.Language = "ca"
         Language(sender, e)
     End Sub
 
     Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
-        Settings.Language = "cs-CS"
+        Settings.Language = "cs"
         Language(sender, e)
     End Sub
 
@@ -6958,62 +6956,57 @@ Public Class Form1
     End Sub
 
     Private Sub DutchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DutchToolStripMenuItem.Click
-        Settings.Language = "nl-NL"
-        Language(sender, e)
-    End Sub
-
-    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        Settings.Language = "fa-FA"
+        Settings.Language = "nl"
         Language(sender, e)
     End Sub
 
     Private Sub FinnishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinnishToolStripMenuItem.Click
-        Settings.Language = "fi-FI"
+        Settings.Language = "fi"
         Language(sender, e)
     End Sub
 
     Private Sub GermanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GermanToolStripMenuItem.Click
-        Settings.Language = "de-DE"
+        Settings.Language = "de"
         Language(sender, e)
     End Sub
 
     Private Sub GreekToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GreekToolStripMenuItem.Click
-        Settings.Language = "el-EL"
+        Settings.Language = "el"
         Language(sender, e)
     End Sub
 
     Private Sub HebrewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HebrewToolStripMenuItem.Click
-        Settings.Language = "he-HE"
+        Settings.Language = "he"
         Language(sender, e)
     End Sub
 
     Private Sub IcelandicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IcelandicToolStripMenuItem.Click
-        Settings.Language = "is-IS"
+        Settings.Language = "is"
         Language(sender, e)
     End Sub
 
     Private Sub IrishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IrishToolStripMenuItem.Click
-        Settings.Language = "ga-GA"
+        Settings.Language = "ga"
         Language(sender, e)
     End Sub
 
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
-        Settings.Language = "no-NO"
+        Settings.Language = "no"
         Language(sender, e)
     End Sub
 
     Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
-        Settings.Language = "ar"
+        Settings.Language = "ru"
         Language(sender, e)
     End Sub
 
     Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
-        Settings.Language = "ar"
+        Settings.Language = "es"
         Language(sender, e)
     End Sub
 
     Private Sub SwedishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SwedishToolStripMenuItem.Click
-        Settings.Language = "es-MX"
+        Settings.Language = "sv"
         Language(sender, e)
     End Sub
 

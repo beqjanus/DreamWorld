@@ -386,10 +386,10 @@
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
-    <Compile Include="My Project\Resources-nl-NL.Designer.vb">
+    <Compile Include="My Project\Resources-nl.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources-nl-NL.resx</DependentUpon>
+      <DependentUpon>Resources-nl.resx</DependentUpon>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -403,7 +403,7 @@
     <Compile Include="Resources-sv-SV.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources-sv-SV.resx</DependentUpon>
+      <DependentUpon>Resources-sv.resx</DependentUpon>
     </Compile>
     <Compile Include="Screenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
@@ -580,26 +580,22 @@
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resource.ca-CA.resx" />
-    <EmbeddedResource Include="My Project\Resource.el-EL.resx" />
-    <EmbeddedResource Include="My Project\Resource.fa-FA.resx" />
-    <EmbeddedResource Include="My Project\Resource.he-HE.resx" />
-    <EmbeddedResource Include="My Project\Resources-nl-NL.resx">
+    <EmbeddedResource Include="My Project\Resources-nl.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources-nl-NL.Designer.vb</LastGenOutput>
+      <LastGenOutput>Resources-nl.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.cs-CS.resx" />
-    <EmbeddedResource Include="My Project\Resources.de-DE.resx" />
+    <EmbeddedResource Include="My Project\Resources.cs.resx" />
+    <EmbeddedResource Include="My Project\Resources.de.resx" />
     <EmbeddedResource Include="My Project\Resources.eu.resx" />
-    <EmbeddedResource Include="My Project\Resources.ex-MX.resx" />
-    <EmbeddedResource Include="My Project\Resources.fi-FI.resx" />
-    <EmbeddedResource Include="My Project\Resources.fr-FR.resx">
+    <EmbeddedResource Include="My Project\Resources.ex.resx" />
+    <EmbeddedResource Include="My Project\Resources.fi.resx" />
+    <EmbeddedResource Include="My Project\Resources.fr.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.ga-GA.resx" />
-    <EmbeddedResource Include="My Project\Resources.is-IS.resx" />
-    <EmbeddedResource Include="My Project\Resources.pt-PT.resx">
+    <EmbeddedResource Include="My Project\Resources.ga.resx" />
+    <EmbeddedResource Include="My Project\Resources.is.resx" />
+    <EmbeddedResource Include="My Project\Resources.pt.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -611,16 +607,16 @@
     <EmbeddedResource Include="FormVoice.resx">
       <DependentUpon>FormVoice.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.ru.RU.resx" />
+    <EmbeddedResource Include="My Project\Resources.ru.resx" />
     <EmbeddedResource Include="My Project\Resources.zh-cn.resx" />
     <EmbeddedResource Include="My Project\Resources.zh-tw.resx" />
-    <EmbeddedResource Include="My Project\Resources.no-NO.resx" />
-    <EmbeddedResource Include="My Project\Resources.pl-PL.resx" />
-    <EmbeddedResource Include="My Project\Resources.sv-SV.resx" />
-    <EmbeddedResource Include="Resources-sv-SV.resx">
+    <EmbeddedResource Include="My Project\Resources.no.resx" />
+    <EmbeddedResource Include="My Project\Resources.pl.resx" />
+    <EmbeddedResource Include="My Project\Resources.sv.resx" />
+    <EmbeddedResource Include="Resources-sv.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources-sv-SV.Designer.vb</LastGenOutput>
+      <LastGenOutput>Resources-sv.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
