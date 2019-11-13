@@ -6902,6 +6902,7 @@ Public Class Form1
         End If
 
     End Sub
+
 #End Region
 
 #Region "Language"
@@ -6936,7 +6937,7 @@ Public Class Form1
     End Sub
 
     Private Sub CatalanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalanToolStripMenuItem.Click
-        Settings.Language = "ca"
+        Settings.Language = "ca-ES"
         Language(sender, e)
     End Sub
 
@@ -6956,7 +6957,7 @@ Public Class Form1
     End Sub
 
     Private Sub DutchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DutchToolStripMenuItem.Click
-        Settings.Language = "nl"
+        Settings.Language = "nl-NL"
         Language(sender, e)
     End Sub
 
@@ -7001,7 +7002,7 @@ Public Class Form1
     End Sub
 
     Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
-        Settings.Language = "es"
+        Settings.Language = "es-MX"
         Language(sender, e)
     End Sub
 
