@@ -267,13 +267,6 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
         Me.LanguageToolStripMenuItem.Text = "Language"
         '
-        'ArabicToolStripMenuItem
-        '
-        Me.ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_saudi_arabia
-        Me.ArabicToolStripMenuItem.Name = "ArabicToolStripMenuItem"
-        Me.ArabicToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
-        Me.ArabicToolStripMenuItem.Text = "Arabic"
-        '
         'EnglishToolStripMenuItem
         '
         Me.EnglishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_usa
@@ -329,13 +322,6 @@ Partial Class Form1
         Me.DutchToolStripMenuItem.Name = "DutchToolStripMenuItem"
         Me.DutchToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
         Me.DutchToolStripMenuItem.Text = "Dutch"
-        '
-        'FarsiToolStripMenuItem
-        '
-        Me.FarsiToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iran
-        Me.FarsiToolStripMenuItem.Name = "FarsiToolStripMenuItem"
-        Me.FarsiToolStripMenuItem.Size = New System.Drawing.Size(270, 34)
-        Me.FarsiToolStripMenuItem.Text = "Farsi"
         '
         'FrenchToolStripMenuItem
         '
