@@ -271,7 +271,7 @@ Partial Class Form1
         '
         'PortgueseToolStripMenuItem
         '
-        Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
+        Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
         Me.PortgueseToolStripMenuItem.Name = "PortgueseToolStripMenuItem"
         Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.PortgueseToolStripMenuItem.Text = "Portguese"
