@@ -5,7 +5,7 @@
         ' setup some defaults
         Dim PropMyUPnpMap = New UPnp()
 
-        ' all private  in case of local mode
+        ' all private in case of local mode
         Form1.Settings.PublicIP = PropMyUPnpMap.LocalIP
         Form1.Settings.PrivateURL = Form1.Settings.PublicIP
         Form1.Settings.BaseHostName = Form1.Settings.PublicIP

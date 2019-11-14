@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -138,6 +138,9 @@
   <data name="Admin_Web_Page" xml:space="preserve">
     <value>Administrateur Page Web</value>
   </data>
+  <data name="Agents" xml:space="preserve">
+    <value>Agents</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Tout</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Allow_Gods" xml:space="preserve">
     <value>Autoriser Ou Non Gods</value>
+  </data>
+  <data name="Allow_Gods1" xml:space="preserve">
+    <value>Dieux Autoriser</value>
   </data>
   <data name="Allow_leave" xml:space="preserve">
     <value>Laisser Les Articles De Quitter</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="BirdModule" xml:space="preserve">
     <value>Oiseau Module</value>
+  </data>
+  <data name="Birds" xml:space="preserve">
+    <value>Des oiseaux</value>
   </data>
   <data name="Bird_Flock_Size" xml:space="preserve">
     <value>Oiseau Taille Flock</value>
@@ -672,6 +681,9 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>La Région Par Défaut « Welcome » Ne Se Trouve Pas Dans Le Système. Continuez?</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
   <data name="Deleted" xml:space="preserve">
     <value>Supprimé</value>
   </data>
@@ -740,6 +752,9 @@
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>Nom Dns &amp; Hypergrid</value>
+  </data>
+  <data name="DOS_Box" xml:space="preserve">
+    <value>DOS Box</value>
   </data>
   <data name="Do_NotChange" xml:space="preserve">
     <value>Ne Pas Changer À Moins Que La Base De Données A Déjà Été Créée</value>
@@ -828,6 +843,9 @@
   <data name="ErrUpdate" xml:space="preserve">
     <value>Erreur: Impossible De Lancer Downloader.Exe. Peut-Être Que Vous Pouvez Le Lancer Manuellement.</value>
   </data>
+  <data name="Estate" xml:space="preserve">
+    <value>Biens</value>
+  </data>
   <data name="EstateManagerGod" xml:space="preserve">
     <value>Directeur Immobilier Est Dieu</value>
   </data>
@@ -874,7 +892,7 @@
     <value>Dossier Pour Sauvegarder À</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,9)</value>
+    <value>Frame Rate (0,0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Par Défaut 1/11 Sec. Par Défaut Est 0,091 Qui Est 1/5 De 55 Fps</value>
@@ -892,7 +910,7 @@
     <value>Cette Grille De Nom Convivial</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>Sl Fonctionne 55 Fps. Opensim Est 11 Fps. Par Défaut = 0,9, Ou 11/01</value>
+    <value>Sl Fonctionne 55 Fps. Opensim Est 11 Fps. Par Défaut = 0,0909, Ou 11/01</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Actifs Sous Forme De Fichiers</value>
@@ -921,6 +939,9 @@
   <data name="Good1" xml:space="preserve">
     <value>Bon (Warp3D)</value>
   </data>
+  <data name="Greeting" xml:space="preserve">
+    <value>Salutation Viewer</value>
+  </data>
   <data name="Grid_address" xml:space="preserve">
     <value>Adresse Réseau</value>
   </data>
@@ -938,9 +959,6 @@
   </data>
   <data name="GTide" xml:space="preserve">
     <value>Les Marées Settungs Mondiales S'Appliqueront À Cette Région</value>
-  </data>
-  <data name="gTides" xml:space="preserve">
-    <value>Les Paramètres Globaux Des Marées S'Appliqueront À Cette Région Si Ensemble</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Mise À Jour Est Disponible. Voulez-Vous Quitter Dreamgrid Et Installer La Mise À Jour?</value>
@@ -1143,6 +1161,9 @@
   <data name="Keep_for_Days" xml:space="preserve">
     <value>Gardez Pendant Des Jours</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>La langue</value>
+  </data>
   <data name="LAN_IP" xml:space="preserve">
     <value>Vous Utilisez Un Réseau Local Ip. Ce Test Est Sautée.</value>
   </data>
@@ -1208,6 +1229,9 @@
   </data>
   <data name="Make_backup" xml:space="preserve">
     <value>Faites Une Sauvegarde?</value>
+  </data>
+  <data name="Manager_God" xml:space="preserve">
+    <value>directeur Dieu</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>Plans</value>
@@ -1356,11 +1380,17 @@
   <data name="Next_Name" xml:space="preserve">
     <value>Suivant Nom</value>
   </data>
+  <data name="No Autobackup" xml:space="preserve">
+    <value>No_Autobackup</value>
+  </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Aucune Personne Est En Ligne</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
+  </data>
+  <data name="Nonphysical Prim Max Size" xml:space="preserve">
+    <value>Nonphysical_Prim</value>
   </data>
   <data name="NormalizeRegions" xml:space="preserve">
     <value>Régions Normalize</value>
@@ -1425,6 +1455,9 @@
   <data name="Offline" xml:space="preserve">
     <value>Hors Ligne</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>D'accord</value>
+  </data>
   <data name="OneAvatar" xml:space="preserve">
     <value>Il Y A Un Avatar</value>
   </data>
@@ -1452,6 +1485,9 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>Dérogations Les Paramètres Globaux Carte Pour Cette Une Région</value>
   </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>propriétaire Dieu</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>Les Colis</value>
   </data>
@@ -1472,6 +1508,9 @@
   </data>
   <data name="Permissions" xml:space="preserve">
     <value>Autorisations</value>
+  </data>
+  <data name="Physical Prim Max Size" xml:space="preserve">
+    <value>Physical_Prim</value>
   </data>
   <data name="Physics" xml:space="preserve">
     <value>La Physique</value>
@@ -1544,6 +1583,9 @@
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>Fermer De Façon Inattendue. Redémarrage.</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>RAM</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>Lecture Des Fichiers Région</value>
@@ -1777,10 +1819,10 @@
     <value>Cache Script</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Taux Minuterie (0,9)</value>
+    <value>Script Taux Minuterie (0,0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script Réglage De La Vitesse De La Minuterie. 1/11 Secondes Est Par Défaut (0,9)</value>
+    <value>Script Réglage De La Vitesse De La Minuterie. 1/11 Secondes Est Par Défaut (0,0909)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Chercher</value>
@@ -1878,6 +1920,9 @@
   <data name="Sim_Size" xml:space="preserve">
     <value>Taille Sim</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Taille</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Sauter</value>
   </data>
@@ -1957,7 +2002,7 @@
     <value>Statut</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Script Réglage De La Vitesse De La Minuterie. 1/11 Secondes Est Par Défaut (0,9)</value>
+    <value>Script Réglage De La Vitesse De La Minuterie. 1/11 Secondes Est Par Défaut (0,0909)</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>Étape 1:</value>
@@ -2003,6 +2048,9 @@
   </data>
   <data name="Teleport" xml:space="preserve">
     <value>Téléportation</value>
+  </data>
+  <data name="Teleporter Enable" xml:space="preserve">
+    <value>Teleporter_Enable</value>
   </data>
   <data name="Teleporting" xml:space="preserve">
     <value>Téléportation</value>
@@ -2057,6 +2105,9 @@
   </data>
   <data name="Troubleshooting" xml:space="preserve">
     <value>Dépannage</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
     <value>Ubit Ode / Bullet Hybride</value>
@@ -2120,9 +2171,6 @@
   </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>Par défaut: Activé. Les utilisateurs peuvent avoir besoin de réduire la bande passante du spectateur si certains prims ou parties de terrain ne parviennent pas à rez. Modifier false si vous avez besoin d'utiliser les anciens téléspectateurs qui ne prennent pas en charge cette fonctionnalité</value>
-  </data>
-  <data name="Viewer_Greeting" xml:space="preserve">
-    <value>Salutation Viewer</value>
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Viewer arrête de compter à 45 000</value>
@@ -2201,5 +2249,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Quelque chose ne va pas avec l'Internet</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
   </data>
 </root>

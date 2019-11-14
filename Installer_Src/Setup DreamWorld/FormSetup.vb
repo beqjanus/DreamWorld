@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System.Globalization
 Imports System.IO
 Imports System.Management
 Imports System.Net
@@ -37,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.26"
+    Private _MyVersion As String = "3.27"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -666,202 +665,6 @@ Public Class Form1
 
 #Region "StartStop"
 
-    Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
-
-        Me.Hide()
-
-        ' show box styled nicely.
-        Application.EnableVisualStyles()
-        Buttons(BusyButton)
-        ProgressBar1.Visible = True
-        ToolBar(False)
-
-        ProgressBar1.Minimum = 0
-        ProgressBar1.Maximum = 100
-        ProgressBar1.Value = 0
-        TextBox1.BackColor = Me.BackColor
-        ' initialize the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
-        Me.Show()
-
-        ' setup a debug path
-        PropMyFolder = My.Application.Info.DirectoryPath
-
-        If Debugger.IsAttached Then
-            ' for debugging when compiling
-            PropDebug = True
-            PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
-            PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
-            ' for testing, as the compiler buries itself in ../../../debug
-            Log("Test :", DisplayObjectInfo(Me))
-        End If
-
-        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
-        PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
-
-        SetScreen()     ' move Form to fit screen from SetXY.ini
-
-        If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
-            Print(My.Resources.Install_Icon)
-            Create_ShortCut(PropMyFolder & "\Start.exe")
-            BumpProgress10()
-            Settings.PortsChanged = True
-            PropViewedSettings = True
-        End If
-
-        Settings.Init(PropMyFolder)
-        Settings.Myfolder = PropMyFolder
-        Settings.OpensimBinPath = PropOpensimBinPath
-
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-
-        If Me.Width > 385 Then
-            PictureBox1.Image = My.Resources.Arrow2Left
-        Else
-            PictureBox1.Image = My.Resources.Arrow2Right
-        End If
-
-        ' Save a random machine ID - we don't want any data to be sent that's personal or
-        ' identifiable, but it needs to be unique
-        Randomize()
-        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
-
-        ' WebUI
-        ViewWebUI.Visible = Settings.WifiEnabled
-
-        Me.Text += " V" & PropMyVersion
-
-        PropOpensimIsRunning() = False ' true when opensim is running
-
-        ProgressBar1.Value = 0
-
-        Me.Show()
-
-        Print(My.Resources.Getting_regions)
-
-        PropRegionClass = RegionMaker.Instance()
-        Adv = New AdvancedForm
-
-        PropInitted = True
-
-        ClearLogFiles() ' clear log files
-
-        If Not IO.File.Exists(PropMyFolder & "\BareTail.udm") Then
-            IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
-        End If
-
-        GridNames.SetServerNames()
-
-        CheckDefaultPorts()
-        PropMyUPnpMap = New UPnp()
-
-        If SetPublicIP() Then
-            OpenPorts()
-        End If
-
-        SetQuickEditOff()
-
-        SetLoopback()
-
-        'mnuShow shows the DOS box for Opensimulator
-        mnuShow.Checked = Settings.ConsoleShow
-        mnuHide.Checked = Not Settings.ConsoleShow
-
-        If Not SetIniData() Then Return
-
-        CheckForUpdates()
-
-        'must start after region Class Is instantiated
-        PropWebServer = NetServer.GetWebServer
-
-        Print(My.Resources.Starting_WebServer)
-        PropWebServer.StartServer(PropMyFolder, Settings)
-
-        CheckDiagPort()
-
-        Print(My.Resources.Setup_Ports)
-        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
-
-        mnuSettings.Visible = True
-        SetIAROARContent() ' load IAR and OAR web content
-        LoadLocalIAROAR() ' load IAR and OAR local content
-
-        If Settings.Password = "secret" Then
-            BumpProgress10()
-            Dim Password = New PassGen
-            Settings.Password = Password.GeneratePass()
-        End If
-
-        Print(My.Resources.Setup_Graphs)
-        ' Graph fill
-        Dim i = 0
-        While i < 180
-            MyCPUCollection(i) = 0
-            i += 1
-        End While
-
-        Dim msChart = ChartWrapper1.TheChart
-        msChart.ChartAreas(0).AxisX.Maximum = 180
-        msChart.ChartAreas(0).AxisX.Minimum = 0
-        msChart.ChartAreas(0).AxisY.Maximum = 100
-        msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
-        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
-        ChartWrapper1.AddMarkers = True
-        ChartWrapper1.MarkerFreq = 60
-
-        i = 0
-        While i < 180
-            MyRAMCollection(i) = 0
-            i += 1
-        End While
-
-        msChart = ChartWrapper2.TheChart
-        msChart.ChartAreas(0).AxisX.Maximum = 180
-        msChart.ChartAreas(0).AxisX.Minimum = 0
-        msChart.ChartAreas(0).AxisY.Maximum = 100
-        msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
-        ChartWrapper2.AddMarkers = True
-        ChartWrapper2.MarkerFreq = 60
-
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
-
-        Print(My.Resources.Check_MySql)
-        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
-        If isMySqlRunning Then PropStopMysql() = False
-
-        Buttons(StartButton)
-        ProgressBar1.Value = 100
-
-        If Settings.Autostart Then
-            Print(My.Resources.Auto_Startup)
-            Startup()
-        Else
-            Settings.SaveSettings()
-            Print(My.Resources.Ready_to_Launch & vbCrLf & My.Resources.Click_Start_2_Begin & vbCrLf)
-        End If
-
-        HelpOnce("License") ' license on bottom
-        HelpOnce("Startup")
-
-        ProgressBar1.Value = 100
-
-    End Sub
-
-    Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
-        ProgressBar1.Value = 0
-        Print("Zzzz...")
-        End
-    End Sub
-
     ''' <summary>
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
@@ -1029,8 +832,206 @@ Public Class Form1
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        frmHome_Load(sender, e)
+        Me.Hide()
 
+        ' setup a debug path
+        PropMyFolder = My.Application.Info.DirectoryPath
+
+        If Debugger.IsAttached Then
+            ' for debugging when compiling
+            PropDebug = True
+            PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
+            PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
+            ' for testing, as the compiler buries itself in ../../../debug
+            Log("Test :", DisplayObjectInfo(Me))
+        End If
+
+        PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
+        PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
+
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+
+        If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
+            Print(My.Resources.Install_Icon)
+            Create_ShortCut(PropMyFolder & "\Start.exe")
+            BumpProgress10()
+            Settings.PortsChanged = True
+            PropViewedSettings = True
+        End If
+
+        Settings.Init(PropMyFolder)
+        Settings.Myfolder = PropMyFolder
+        Settings.OpensimBinPath = PropOpensimBinPath
+
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Hide()
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        frmHome_Load(sender, e) 'Load everything in your form load event again
+
+    End Sub
+
+    Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
+
+        ProgressBar1.Minimum = 0
+        ProgressBar1.Maximum = 100
+        ProgressBar1.Value = 0
+        TextBox1.BackColor = Me.BackColor
+        ' initialize the scrolling text box
+        TextBox1.SelectionStart = 0
+        TextBox1.ScrollToCaret()
+        TextBox1.SelectionStart = TextBox1.Text.Length
+        TextBox1.ScrollToCaret()
+
+        ' show box styled nicely.
+        Application.EnableVisualStyles()
+        Buttons(BusyButton)
+        ProgressBar1.Visible = True
+        ToolBar(False)
+
+        If Me.Width > 385 Then
+            PictureBox1.Image = My.Resources.Arrow2Left
+        Else
+            PictureBox1.Image = My.Resources.Arrow2Right
+        End If
+        Me.Show()
+
+        ' Save a random machine ID - we don't want any data to be sent that's personal or
+        ' identifiable, but it needs to be unique
+        Randomize()
+        If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
+
+        ' WebUI
+        ViewWebUI.Visible = Settings.WifiEnabled
+
+        Me.Text += " V" & PropMyVersion
+
+        PropOpensimIsRunning() = False ' true when opensim is running
+
+        ProgressBar1.Value = 0
+
+        Me.Show()
+
+        Print(My.Resources.Getting_regions)
+
+        PropRegionClass = RegionMaker.Instance()
+        Adv = New AdvancedForm
+
+        PropInitted = True
+
+        ClearLogFiles() ' clear log files
+
+        If Not IO.File.Exists(PropMyFolder & "\BareTail.udm") Then
+            IO.File.Copy(PropMyFolder & "\BareTail.udm.bak", PropMyFolder & "\BareTail.udm")
+        End If
+
+        GridNames.SetServerNames()
+
+        CheckDefaultPorts()
+        PropMyUPnpMap = New UPnp()
+
+        If SetPublicIP() Then
+            OpenPorts()
+        End If
+
+        SetQuickEditOff()
+
+        SetLoopback()
+
+        'mnuShow shows the DOS box for Opensimulator
+        mnuShow.Checked = Settings.ConsoleShow
+        mnuHide.Checked = Not Settings.ConsoleShow
+
+        If Not SetIniData() Then Return
+
+        CheckForUpdates()
+
+        'must start after region Class Is instantiated
+        PropWebServer = NetServer.GetWebServer
+
+        Print(My.Resources.Starting_WebServer)
+        PropWebServer.StartServer(PropMyFolder, Settings)
+
+        CheckDiagPort()
+
+        Print(My.Resources.Setup_Ports)
+        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+
+        mnuSettings.Visible = True
+        SetIAROARContent() ' load IAR and OAR web content
+        LoadLocalIAROAR() ' load IAR and OAR local content
+
+        If Settings.Password = "secret" Then
+            BumpProgress10()
+            Dim Password = New PassGen
+            Settings.Password = Password.GeneratePass()
+        End If
+
+        Print(My.Resources.Setup_Graphs)
+        ' Graph fill
+        Dim i = 0
+        While i < 180
+            MyCPUCollection(i) = 0
+            i += 1
+        End While
+
+        Dim msChart = ChartWrapper1.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
+        ChartWrapper1.AddMarkers = True
+        ChartWrapper1.MarkerFreq = 60
+
+        i = 0
+        While i < 180
+            MyRAMCollection(i) = 0
+            i += 1
+        End While
+
+        msChart = ChartWrapper2.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        ChartWrapper2.AddMarkers = True
+        ChartWrapper2.MarkerFreq = 60
+
+        If Settings.RegionListVisible Then
+            ShowRegionform()
+        End If
+
+        Print(My.Resources.Check_MySql)
+        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
+        If isMySqlRunning Then PropStopMysql() = False
+
+        Buttons(StartButton)
+        ProgressBar1.Value = 100
+
+        If Settings.Autostart Then
+            Print(My.Resources.Auto_Startup)
+            Startup()
+        Else
+            Settings.SaveSettings()
+            Print(My.Resources.Ready_to_Launch & vbCrLf & My.Resources.Click_Start_2_Begin & vbCrLf)
+        End If
+
+        HelpOnce("License") ' license on bottom
+        HelpOnce("Startup")
+
+        ProgressBar1.Value = 100
+
+    End Sub
+
+    Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
+        ProgressBar1.Value = 0
+        Print("Zzzz...")
+        End
     End Sub
 
 #End Region
@@ -1538,7 +1539,8 @@ Public Class Form1
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or  nothing
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
+        ' float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
         If PropRegionClass.MinTimerInterval(X).Length > 0 Then
             If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
@@ -1767,14 +1769,26 @@ Public Class Form1
 
         End Select
 
-        ' Support viewers object cache, default true
-        ' users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez.
-        ' change to false if you need to use old viewers that do Not support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
+        ' that do Not support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
+        'ScriptEngine
+        Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine)
+
+        If Settings.ScriptEngine = "XEngine" Then
+            Settings.SetIni("XEngine", "Enable", "True")
+            Settings.SetIni("YEngine", "Enable", "False")
+        Else
+            Settings.SetIni("XEngine", "Enable", "False")
+            Settings.SetIni("YEngine", "Enable", "True")
+        End If
+
         ' set new Min Timer Interval for how fast a script can go.
         Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
+        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
 
         ' all grids requires these setting in Opensim.ini
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
@@ -1843,8 +1857,8 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one
-        ' ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher
+        ' meshing = Meshmerizer meshing = ubODEMeshmerizer
 
         ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
         ' with threads 4 = physics = ubODE
@@ -1929,7 +1943,7 @@ Public Class Form1
     End Sub
 
     Private Sub DoRegion(simName As String)
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
@@ -1969,8 +1983,7 @@ Public Class Form1
         Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni(simName, "MaxPrims", Convert.ToString(PropRegionClass.MaxPrims(RegionNum), Globalization.CultureInfo.InvariantCulture))
 
-        ' Optional
-        ' Extended in v 2.31 optional things
+        ' Optional Extended in v 2.31 optional things
         If PropRegionClass.MapType(RegionNum) = "None" Then
             Settings.SetIni(simName, "GenerateMaptiles", "False")
         ElseIf PropRegionClass.MapType(RegionNum) = "Simple" Then
@@ -2026,7 +2039,6 @@ Public Class Form1
 
         Settings.SaveINI()
 
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Opensim.ini in Region Folder specific to this region
         Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
 
@@ -2143,13 +2155,30 @@ Public Class Form1
 
         ' no main setting for these
         Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
-        Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.DisallowForeigners(RegionNum).Length > 0 Then
+            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
+
+        If PropRegionClass.DisallowResidents(RegionNum).Length > 0 Then
+            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
 
         ' V3.15
-        Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.NonPhysicalPrimMax(RegionNum).Length > 0 Then
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
+
+        If PropRegionClass.PhysicalPrimMax(RegionNum).Length > 0 Then
+            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
+
+        If PropRegionClass.MinTimerInterval(RegionNum).Length > 0 Then
+            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
+
+        If PropRegionClass.FrameTime(RegionNum).Length > 0 Then
+            Settings.SetIni("Startup", "FrameTime", Convert.ToString(PropRegionClass.FrameTime(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        End If
 
         If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2171,7 +2200,6 @@ Public Class Form1
 
     Private Sub DoRobust()
 
-        ''''''''''''''''''''''''''''''''''''''''''
         If Settings.ServerType = "Robust" Then
             ' Robust Process
             Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
@@ -2381,7 +2409,6 @@ Public Class Form1
 
         Next
 
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim reader As StreamReader
         Dim line As String
         Dim Output As String = ""
@@ -2417,15 +2444,15 @@ Public Class Form1
     End Sub
 
     Private Sub SetDefaultSims()
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
         ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
         ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback
-            ' it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as
+            ' fallback it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
@@ -2444,10 +2471,9 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
-                    ' Replace the block with a list of regions with the
-                    ' Region_Name = DefaultRegion, DefaultHGRegion is Welcome
-                    ' Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is enabled
-                    ' Region_Name = FallbackRegion if not a SmartStart
+                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+                    ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart
+                    ' Start region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
 
                     If line.Contains("Region_REPLACE") Then
 
@@ -2701,7 +2727,7 @@ Public Class Form1
 
         If Settings.SearchEnabled Then
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
-            SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">" & vbCrLf
+            SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
             SiteMapContents += "<url>" & vbCrLf
             SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
@@ -3638,7 +3664,8 @@ Public Class Form1
         If PropRestartRobust And PropRobustExited = True Then
             StartRobust()
         End If
-        ' From the cross-threaded exited function.  These can only be set if Settings.RestartOnCrash is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
+        ' is true
         If PropMysqlExited Then
             StartMySQL()
         End If
@@ -3666,8 +3693,7 @@ Public Class Form1
 
             If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(X) >= 0 Then
                 TimerValue = PropRegionClass.Timer(X)
-                ' if it is past time and no one is in the sim...
-                ' Smart shutdown
+                ' if it is past time and no one is in the sim... Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     DoSuspend_Resume(PropRegionClass.RegionName(X))
                 End If
@@ -3756,7 +3782,7 @@ Public Class Form1
             Next
             PropUpdateView = True ' make form refresh
         End If
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
         ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
         ' restart the beast
         If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
@@ -4240,7 +4266,7 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        ' 5 seconds check for a restart RegionRestart requires  MOD 5
+        ' 5 seconds check for a restart RegionRestart requires MOD 5
         If PropDNSSTimer Mod 5 = 0 Then
             PropRegionClass.CheckPost()
             ScanAgents() ' update agent count
@@ -6200,7 +6226,7 @@ Public Class Form1
     End Sub
 
     Private Sub HelpOnOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnOARsToolStripMenuItem.Click
-        Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.9.0%2B"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.0909.0%2B"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -6397,7 +6423,8 @@ Public Class Form1
 
         newScreenPosition = New ScreenPos(Webpage)
         If Not newScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the current form.
+            ' Set the new form's desktop location so it appears below and to the right of the
+            ' current form.
             Dim FormHelp As New FormHelp
             FormHelp.Activate()
             FormHelp.Visible = True
@@ -6903,30 +6930,6 @@ Public Class Form1
 
 #Region "Language"
 
-    Private Sub Language(sender, e)
-        Settings.SaveSettings()
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
-        Me.Controls.Clear() 'removes all the controls on the form
-        InitializeComponent() 'load all the controls again
-        frmHome_Load(sender, e) 'Load everything in your form load event again
-    End Sub
-
-    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
-        Settings.Language = "en-US"
-        Language(sender, e)
-    End Sub
-
-    Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
-        Settings.Language = "fr"
-        Language(sender, e)
-    End Sub
-
-    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
-        Settings.Language = "pt"
-        Language(sender, e)
-    End Sub
-
     Private Sub BasqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasqueToolStripMenuItem.Click
         Settings.Language = "eu"
         Language(sender, e)
@@ -6934,11 +6937,6 @@ Public Class Form1
 
     Private Sub CatalanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalanToolStripMenuItem.Click
         Settings.Language = "ca-ES"
-        Language(sender, e)
-    End Sub
-
-    Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
-        Settings.Language = "cs"
         Language(sender, e)
     End Sub
 
@@ -6952,13 +6950,28 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
+        Settings.Language = "cs"
+        Language(sender, e)
+    End Sub
+
     Private Sub DutchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DutchToolStripMenuItem.Click
         Settings.Language = "nl-NL"
         Language(sender, e)
     End Sub
 
+    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
+        Settings.Language = "en-US"
+        Language(sender, e)
+    End Sub
+
     Private Sub FinnishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinnishToolStripMenuItem.Click
         Settings.Language = "fi"
+        Language(sender, e)
+    End Sub
+
+    Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
+        Settings.Language = "fr"
         Language(sender, e)
     End Sub
 
@@ -6987,8 +7000,22 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub Language(sender, e)
+        Settings.SaveSettings()
+        My.Application.ChangeUICulture(Settings.Language)
+        My.Application.ChangeCulture(Settings.Language)
+        Me.Controls.Clear() 'removes all the controls on the form
+        InitializeComponent() 'load all the controls again
+        frmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
+
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
         Settings.Language = "no"
+        Language(sender, e)
+    End Sub
+
+    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
+        Settings.Language = "pt"
         Language(sender, e)
     End Sub
 

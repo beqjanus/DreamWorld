@@ -152,7 +152,6 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -162,7 +161,6 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
@@ -183,7 +181,6 @@ Public Class FormApache
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
-
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -192,7 +189,6 @@ Public Class FormApache
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x86.exe"
         Try
             InstallProcess.Start()
-
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -202,7 +198,6 @@ Public Class FormApache
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x64.exe"
         Try
             InstallProcess.Start()
-
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -211,7 +206,6 @@ Public Class FormApache
         InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe"
         Try
             InstallProcess.Start()
-
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try

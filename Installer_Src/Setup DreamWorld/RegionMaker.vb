@@ -108,8 +108,6 @@ Public Class RegionMaker
             Form1.Settings.WelcomeRegion = "Welcome"
             Form1.Settings.SaveSettings()
         End If
-        ' RegionDump()
-
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
 
     End Sub
@@ -295,7 +293,7 @@ Public Class RegionMaker
             ._MaxPrims = 15000,
             ._MaxAgents = 100,
             ._MapType = "",
-            ._MinTimerInterval = 0.909.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._MinTimerInterval = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -304,7 +302,7 @@ Public Class RegionMaker
             ._Teleport = "",
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
-            ._FrameTime = 0.909.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._FrameTime = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._SkipAutobackup = "",
             ._RegionSmartStart = ""
         }
@@ -406,6 +404,7 @@ Public Class RegionMaker
 
                             ' options parameters coming from INI file can be blank!
                             MinTimerInterval(n) = Form1.Settings.GetIni(fName, "MinTimerInterval", "", "String")
+                            FrameTime(n) = Form1.Settings.GetIni(fName, "FrameTime", "", "String")
                             RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
                             MapType(n) = Form1.Settings.GetIni(fName, "MapType", "", "String")
                             Physics(n) = Form1.Settings.GetIni(fName, "Physics", "", "String")
@@ -667,25 +666,35 @@ Public Class RegionMaker
 
 #Region "OptionalStorage"
 
-        ''' <summary>
-        ''' <Must be all strings as a blank means use the default
-        ''' </summary>
-        '''
-        Public _RegionSmartStart As String = ""
+        Public _AllowGods As String = ""
+
+        Public _Birds As String = ""
+
+        Public _DisableGloebits As String = ""
+
+        Public _FrameTime As String = ""
+
+        Public _ManagerGod As String = ""
+
+        Public _MapType As String = ""
+
+        Public _MaxAgents As String = ""
+
+        Public _MaxPrims As String = ""
+
+        Public _MinTimerInterval As String = ""
 
         Public _NonPhysicalPrimMax As String = ""
+
         Public _PhysicalPrimMax As String = ""
-        Public _MaxAgents As String = ""
-        Public _MaxPrims As String = ""
-        Public _AllowGods As String = ""
-        Public _Birds As String = ""
-        Public _DisableGloebits As String = ""
-        Public _FrameTime As String = ""
-        Public _ManagerGod As String = ""
-        Public _MapType As String = ""
-        Public _MinTimerInterval As String = ""
+
         Public _Physics As String = "  "
+
         Public _RegionGod As String = ""
+
+        ''' <summary> <Must be all strings as a blank means use the default </summary>
+        Public _RegionSmartStart As String = ""
+
         Public _RegionSnapShot As String = ""
         Public _SkipAutobackup As String = ""
         Public _Snapshot As String = ""
@@ -699,6 +708,33 @@ Public Class RegionMaker
 #End Region
 
 #Region "Standard INI"
+
+    Public Property ClampPrimSize(n As Integer) As Boolean
+        Get
+            Return CBool(RegionList(n)._ClampPrimSize)
+        End Get
+        Set(ByVal Value As Boolean)
+            RegionList(n)._ClampPrimSize = Value
+        End Set
+    End Property
+
+    Public Property CoordX(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordX)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordX = Value
+        End Set
+    End Property
+
+    Public Property CoordY(n As Integer) As Integer
+        Get
+            Return CInt(RegionList(n)._CoordY)
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(n)._CoordY = Value
+        End Set
+    End Property
 
     Public Property MaxAgents(n As Integer) As String
         Get
@@ -733,33 +769,6 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As String)
             RegionList(n)._PhysicalPrimMax = Value
-        End Set
-    End Property
-
-    Public Property ClampPrimSize(n As Integer) As Boolean
-        Get
-            Return CBool(RegionList(n)._ClampPrimSize)
-        End Get
-        Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value
-        End Set
-    End Property
-
-    Public Property CoordX(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordX)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value
-        End Set
-    End Property
-
-    Public Property CoordY(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._CoordY)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value
         End Set
     End Property
 
@@ -1345,7 +1354,7 @@ Public Class RegionMaker
         ElseIf POST.Contains("TOS") Then
             ' currently unused as is only in standalones
             Debug.Print("UUID:" + POST)
-            '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.9" & vbCrLf & vbCrLf &
+            '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
             '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
 
             Return "<html><head></head><body>Error</html>"

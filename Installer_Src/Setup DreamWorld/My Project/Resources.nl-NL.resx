@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -138,6 +138,9 @@
   <data name="Admin_Web_Page" xml:space="preserve">
     <value>Admin Webpagina</value>
   </data>
+  <data name="Agents" xml:space="preserve">
+    <value>agenten</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Allemaal</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Allow_Gods" xml:space="preserve">
     <value>Toestaan ​​of weigeren Goden</value>
+  </data>
+  <data name="Allow_Gods1" xml:space="preserve">
+    <value>laat Goden</value>
   </data>
   <data name="Allow_leave" xml:space="preserve">
     <value>Laat items om te vertrekken</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="BirdModule" xml:space="preserve">
     <value>Bird Module</value>
+  </data>
+  <data name="Birds" xml:space="preserve">
+    <value>vogelstand</value>
   </data>
   <data name="Bird_Flock_Size" xml:space="preserve">
     <value>Vogel Flock Size</value>
@@ -672,6 +681,9 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>De regio default 'Welcome' is niet gevonden in het systeem. Doorgaan met?</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Deleted" xml:space="preserve">
     <value>Verwijderde</value>
   </data>
@@ -740,6 +752,9 @@
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS Name &amp; HyperGrid</value>
+  </data>
+  <data name="DOS_Box" xml:space="preserve">
+    <value>DOS Box</value>
   </data>
   <data name="Do_NotChange" xml:space="preserve">
     <value>Niet veranderen, tenzij de database is al gemaakt</value>
@@ -828,6 +843,9 @@
   <data name="ErrUpdate" xml:space="preserve">
     <value>Fout: kan niet starten downloader.exe. Misschien kunt u deze handmatig starten.</value>
   </data>
+  <data name="Estate" xml:space="preserve">
+    <value>Landgoed</value>
+  </data>
   <data name="EstateManagerGod" xml:space="preserve">
     <value>Estate Manager is god</value>
   </data>
@@ -874,7 +892,7 @@
     <value>Folder op te slaan op</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Beeldsnelheid (0,9)</value>
+    <value>Beeldsnelheid (0,0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Standaard 1/11 sec. Standaard is 0,091 hetgeen 1 / 5de van 55 FPS</value>
@@ -892,7 +910,7 @@
     <value>Dit Grid Friendly Name</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL loopt 55 FPS. OpenSim is 11 FPS. Standaard = 0,9 of 1/11</value>
+    <value>SL loopt 55 FPS. OpenSim is 11 FPS. Standaard = 0,0909 of 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Activa Files</value>
@@ -921,6 +939,9 @@
   <data name="Good1" xml:space="preserve">
     <value>Goed (Warp3D)</value>
   </data>
+  <data name="Greeting" xml:space="preserve">
+    <value>viewer Groet</value>
+  </data>
   <data name="Grid_address" xml:space="preserve">
     <value>Grid adres</value>
   </data>
@@ -938,9 +959,6 @@
   </data>
   <data name="GTide" xml:space="preserve">
     <value>De wereldwijde Tide settungs zal gelden voor deze regio</value>
-  </data>
-  <data name="gTides" xml:space="preserve">
-    <value>De globale Tide instellingen hebben betrekking op deze regio als set</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Update beschikbaar is. Wilt u DreamGrid af te sluiten en de update te installeren?</value>
@@ -1143,6 +1161,9 @@
   <data name="Keep_for_Days" xml:space="preserve">
     <value>Bewaren voor dagen</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
   <data name="LAN_IP" xml:space="preserve">
     <value>U gebruikt een LAN IP. Deze test is overgeslagen.</value>
   </data>
@@ -1208,6 +1229,9 @@
   </data>
   <data name="Make_backup" xml:space="preserve">
     <value>Maak een back-up?</value>
+  </data>
+  <data name="Manager_God" xml:space="preserve">
+    <value>Manager God</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>Kaarten</value>
@@ -1356,11 +1380,17 @@
   <data name="Next_Name" xml:space="preserve">
     <value>Volgende Naam</value>
   </data>
+  <data name="No Autobackup" xml:space="preserve">
+    <value>No_Autobackup</value>
+  </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Niemand is online</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Geen</value>
+  </data>
+  <data name="Nonphysical Prim Max Size" xml:space="preserve">
+    <value>Nonphysical_Prim</value>
   </data>
   <data name="NormalizeRegions" xml:space="preserve">
     <value>normaliseren Regio</value>
@@ -1425,6 +1455,9 @@
   <data name="Offline" xml:space="preserve">
     <value>offline</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="OneAvatar" xml:space="preserve">
     <value>Er is een avatar</value>
   </data>
@@ -1452,6 +1485,9 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>Overrides de wereldwijde Kaartinstellingen voor deze ene regio</value>
   </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>eigenaar God</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>Parcels</value>
   </data>
@@ -1472,6 +1508,9 @@
   </data>
   <data name="Permissions" xml:space="preserve">
     <value>Rechten</value>
+  </data>
+  <data name="Physical Prim Max Size" xml:space="preserve">
+    <value>Physical_Prim</value>
   </data>
   <data name="Physics" xml:space="preserve">
     <value>Fysica</value>
@@ -1544,6 +1583,9 @@
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>onverwacht afgesloten. Het opnieuw starten.</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>RAM</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>Reading Region bestanden</value>
@@ -1777,10 +1819,10 @@
     <value>script in cachegeheugen</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0,9)</value>
+    <value>Script Timer Rate (0,0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script timer snelheid. 1/11 seconde is standaard (0,9)</value>
+    <value>Script timer snelheid. 1/11 seconde is standaard (0,0909)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Zoeken</value>
@@ -1878,6 +1920,9 @@
   <data name="Sim_Size" xml:space="preserve">
     <value>Sim Grootte</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Overspringen</value>
   </data>
@@ -1957,7 +2002,7 @@
     <value>staat</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Script timer snelheid. 1/11 seconde is standaard (0,9)</value>
+    <value>Script timer snelheid. 1/11 seconde is standaard (0,0909)</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>Stap 1:</value>
@@ -2003,6 +2048,9 @@
   </data>
   <data name="Teleport" xml:space="preserve">
     <value>Teleport</value>
+  </data>
+  <data name="Teleporter Enable" xml:space="preserve">
+    <value>Teleporter_Enable</value>
   </data>
   <data name="Teleporting" xml:space="preserve">
     <value>teleporting</value>
@@ -2057,6 +2105,9 @@
   </data>
   <data name="Troubleshooting" xml:space="preserve">
     <value>Probleemoplossen</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
     <value>Ubit ODE / Bullet Hybrid</value>
@@ -2120,9 +2171,6 @@
   </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>Standaard: ingeschakeld. Gebruikers kan nodig zijn om de bandbreedte kijker te verminderen als sommige prims of terrein onderdelen niet aan rez. Wissel naar false als je nodig hebt om de oude kijkers die deze functie niet ondersteunen gebruiken</value>
-  </data>
-  <data name="Viewer_Greeting" xml:space="preserve">
-    <value>viewer Groet</value>
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Viewer stopt met tellen bij 45.000</value>
@@ -2201,5 +2249,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Er is iets mis met het internet</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>

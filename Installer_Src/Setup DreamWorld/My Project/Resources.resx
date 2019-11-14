@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -137,7 +137,7 @@
     <value>Restarts all Checked Regions</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0.9)</value>
+    <value>Script Timer Rate (0.0909)</value>
   </data>
   <data name="Scripts_Start" xml:space="preserve">
     <value>Scripts Start</value>
@@ -242,7 +242,7 @@
     <value>Error</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Script timer speed setting. 1/11 second is default (0.9)</value>
+    <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>Port conflict has been detected. All ports have been reset to the defaults</value>
@@ -602,7 +602,7 @@
     <value>Dynamic DNS Name is already used. Maybe you are using the wrong password?</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.9, or 1/11</value>
+    <value>SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.0909, or 1/11</value>
   </data>
   <data name="Test_DNS" xml:space="preserve">
     <value>Test DNS</value>
@@ -1787,7 +1787,7 @@
     <value>Ports</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script timer speed setting. 1/11 second is default (0.9)</value>
+    <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
   </data>
   <data name="Starting" xml:space="preserve">
     <value>Starting</value>
@@ -1847,7 +1847,7 @@
     <value>Desired Separation (default=5.0)</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0.9)</value>
+    <value>Frame Rate (0.0909)</value>
   </data>
   <data name="users3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\users3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2069,7 +2069,7 @@
     <value>Folder to save to</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
-    <value>Default 1/11 sec. Default is 0.091 which is 1/5th of 55 FPS</value>
+    <value>Default 1/11 sec. Default is 0.0909 which is 1/5th of 55 FPS</value>
   </data>
   <data name="Simple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Simple.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2365,9 +2365,6 @@
   <data name="Disable_Gloebits_text" xml:space="preserve">
     <value>The global Gloebits will not apply to this region if set.</value>
   </data>
-  <data name="flag_brazil" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flag_brazil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Clearing_Maptiles" xml:space="preserve">
     <value>Clearing Map Tiles</value>
   </data>
@@ -2559,5 +2556,8 @@
   </data>
   <data name="flag_portugal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_portugal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
   </data>
 </root>

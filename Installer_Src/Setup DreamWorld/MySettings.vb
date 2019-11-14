@@ -213,8 +213,8 @@ Public Class MySettings
     Public Sub SetIni(section As String, key As String, value As String)
 
         ' sets values into any INI file
+        Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         Try
-            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -224,9 +224,9 @@ Public Class MySettings
 
     Public Sub SetMyIni(section As String, key As String, value As String)
 
+        Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
-            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             MyData(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
@@ -272,7 +272,6 @@ Public Class MySettings
         Catch ex As Exception
             MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
         End Try
-
 
     End Function
 
@@ -326,14 +325,7 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
-    Public Property Language() As String
-        Get
-            Return CType(GetMySetting("Language"), String)
-        End Get
-        Set
-            SetMySetting("Language", Value)
-        End Set
-    End Property
+
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -631,8 +623,8 @@ Public Class MySettings
 
     ''' <summary>
     ''' By default the module will create a flock of plain wooden spheres, however this can be
-    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e. be
-    ''' rezzed in the region.
+    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e.
+    ''' be rezzed in the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -1000,6 +992,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property Language() As String
+        Get
+            Return CType(GetMySetting("Language"), String)
+        End Get
+        Set
+            SetMySetting("Language", Value)
         End Set
     End Property
 
@@ -1429,6 +1430,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SC_PortBase1", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property ScriptEngine() As String
+        Get
+            Return CType(GetMySetting("ScriptEngine", "XEngine"), String)
+        End Get
+        Set
+            SetMySetting("ScriptEngine", Value)
         End Set
     End Property
 

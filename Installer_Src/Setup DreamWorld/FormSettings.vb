@@ -41,6 +41,7 @@ Public Class AdvancedForm
     Dim Gloebits As New Gloebits
     Dim Icecast As New Icecast
     Dim Maps As New FormMaps
+    Dim Scripts As New FormScripts
     Dim Tide As New Tides
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
@@ -274,6 +275,16 @@ Public Class AdvancedForm
         FormRegions = New FormRegions
         FormRegions.Activate()
         FormRegions.Visible = True
+
+    End Sub
+
+    Private Sub ScriptButton_Click(sender As Object, e As EventArgs) Handles ScriptButton.Click
+
+        ' Set the new form's desktop location so it appears below and to the right of the current form.
+        Scripts.Close()
+        Scripts = New FormScripts
+        Scripts.Activate()
+        Scripts.Visible = True
 
     End Sub
 

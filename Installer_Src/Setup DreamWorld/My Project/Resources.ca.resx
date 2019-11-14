@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -138,6 +138,9 @@
   <data name="Admin_Web_Page" xml:space="preserve">
     <value>Pàgina d'administració web</value>
   </data>
+  <data name="Agents" xml:space="preserve">
+    <value>agents</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>tots</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Allow_Gods" xml:space="preserve">
     <value>Permetre o no permetre déus</value>
+  </data>
+  <data name="Allow_Gods1" xml:space="preserve">
+    <value>permetre déus</value>
   </data>
   <data name="Allow_leave" xml:space="preserve">
     <value>Permeti que els articles surten</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="BirdModule" xml:space="preserve">
     <value>Mòdul d'aus</value>
+  </data>
+  <data name="Birds" xml:space="preserve">
+    <value>Ocells</value>
   </data>
   <data name="Bird_Flock_Size" xml:space="preserve">
     <value>esbart Mida</value>
@@ -672,6 +681,9 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>La regió per defecte 'Benvingut' no es troba en el sistema. Continuar?</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>eliminar</value>
+  </data>
   <data name="Deleted" xml:space="preserve">
     <value>suprimit</value>
   </data>
@@ -740,6 +752,9 @@
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>Nom DNS i Hypergrid</value>
+  </data>
+  <data name="DOS_Box" xml:space="preserve">
+    <value>Caixa DOS</value>
   </data>
   <data name="Do_NotChange" xml:space="preserve">
     <value>No canvieu a menys que ja s'ha creat la base de dades</value>
@@ -828,6 +843,9 @@
   <data name="ErrUpdate" xml:space="preserve">
     <value>Error: No podria Lance Downloader.exe. Potser es pot posar en marxa de forma manual.</value>
   </data>
+  <data name="Estate" xml:space="preserve">
+    <value>finca</value>
+  </data>
   <data name="EstateManagerGod" xml:space="preserve">
     <value>Estigues Manager és déu</value>
   </data>
@@ -874,7 +892,7 @@
     <value>Carpeta per guardar a</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Velocitat de quadres (0,9)</value>
+    <value>Velocitat de quadres (0,0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Per defecte 1/11 seg. Per omissió és 0.091 que és 1 / cinquè de 55 FPS</value>
@@ -892,7 +910,7 @@
     <value>Nom descriptiu d'aquest quadrícula</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL corre 55 FPS. Opensim és d'11 FPS. Per defecte = 0,9, o 1/11</value>
+    <value>SL corre 55 FPS. Opensim és d'11 FPS. Per defecte = 0,0909, o 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Actius com arxius</value>
@@ -921,6 +939,9 @@
   <data name="Good1" xml:space="preserve">
     <value>Bé (Warp3D)</value>
   </data>
+  <data name="Greeting" xml:space="preserve">
+    <value>salutació visor</value>
+  </data>
   <data name="Grid_address" xml:space="preserve">
     <value>direcció de reixeta</value>
   </data>
@@ -938,9 +959,6 @@
   </data>
   <data name="GTide" xml:space="preserve">
     <value>Els settungs globals de marea s'aplicaran a aquesta regió</value>
-  </data>
-  <data name="gTides" xml:space="preserve">
-    <value>La configuració global de marea s'aplicaran a aquesta regió si s'ha ajustat</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Actualització està disponible. Vols sortir DreamGrid i instal·lar l'actualització?</value>
@@ -1143,6 +1161,9 @@
   <data name="Keep_for_Days" xml:space="preserve">
     <value>Mantenir durant dies</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Llenguatge</value>
+  </data>
   <data name="LAN_IP" xml:space="preserve">
     <value>Esteu utilitzant un IP de la LAN. Aquesta prova és omesa.</value>
   </data>
@@ -1208,6 +1229,9 @@
   </data>
   <data name="Make_backup" xml:space="preserve">
     <value>Fer una còpia de seguretat?</value>
+  </data>
+  <data name="Manager_God" xml:space="preserve">
+    <value>Déu gerent</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>mapes</value>
@@ -1356,11 +1380,17 @@
   <data name="Next_Name" xml:space="preserve">
     <value>següent Nom</value>
   </data>
+  <data name="No Autobackup" xml:space="preserve">
+    <value>No_Autobackup</value>
+  </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Cap persona està en línia</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>cap</value>
+  </data>
+  <data name="Nonphysical Prim Max Size" xml:space="preserve">
+    <value>Nonphysical_Prim</value>
   </data>
   <data name="NormalizeRegions" xml:space="preserve">
     <value>normalitzar Regions</value>
@@ -1425,6 +1455,9 @@
   <data name="Offline" xml:space="preserve">
     <value>desconnectat</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>D'acord</value>
+  </data>
   <data name="OneAvatar" xml:space="preserve">
     <value>Hi ha un avatar</value>
   </data>
@@ -1452,6 +1485,9 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>Anul·la la configuració de mapa global d'aquesta una regió</value>
   </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>propietari Déu</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>parcel·les</value>
   </data>
@@ -1472,6 +1508,9 @@
   </data>
   <data name="Permissions" xml:space="preserve">
     <value>permisos</value>
+  </data>
+  <data name="Physical Prim Max Size" xml:space="preserve">
+    <value>Physical_Prim</value>
   </data>
   <data name="Physics" xml:space="preserve">
     <value>física</value>
@@ -1544,6 +1583,9 @@
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>tancar-se de forma inesperada. El reinici.</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>RAM</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>arxius de zona de lectura</value>
@@ -1777,10 +1819,10 @@
     <value>cau de l'escriptura</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Guió temporitzador Rate (0,9)</value>
+    <value>Guió temporitzador Rate (0,0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,9)</value>
+    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,0909)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Cerca</value>
@@ -1878,6 +1920,9 @@
   <data name="Sim_Size" xml:space="preserve">
     <value>Sim Mida</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>mida</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Omet</value>
   </data>
@@ -1957,7 +2002,7 @@
     <value>Estat</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,9)</value>
+    <value>ajust de velocitat temporitzador guió. 1/11 segons és predeterminat (0,0909)</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>Pas 1:</value>
@@ -2003,6 +2048,9 @@
   </data>
   <data name="Teleport" xml:space="preserve">
     <value>Teleport</value>
+  </data>
+  <data name="Teleporter Enable" xml:space="preserve">
+    <value>Teleporter_Enable</value>
   </data>
   <data name="Teleporting" xml:space="preserve">
     <value>Teleporting</value>
@@ -2057,6 +2105,9 @@
   </data>
   <data name="Troubleshooting" xml:space="preserve">
     <value>Solució de problemes</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>tipus</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
     <value>Ubit ODE / bala híbrid</value>
@@ -2120,9 +2171,6 @@
   </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>Per defecte: Actiu. Els usuaris poden necessitar per reduir l'ample de banda espectador si algunes parts de el terreny prims o fallen en rez. Canvi en false si necessita utilitzar espectadors vells que no suporten aquesta característica</value>
-  </data>
-  <data name="Viewer_Greeting" xml:space="preserve">
-    <value>salutació visor</value>
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Espectador deixa de comptar a 45.000</value>
@@ -2201,5 +2249,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Alguna cosa està malament en Internet</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>si</value>
   </data>
 </root>

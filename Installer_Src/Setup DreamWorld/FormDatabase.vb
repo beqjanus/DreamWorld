@@ -107,7 +107,7 @@ Public Class FormDatabase
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         'Database
-        ''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
         RegionDbName.Text = Form1.Settings.RegionDBName
         RegionDBUsername.Text = Form1.Settings.RegionDBUsername
         RegionMySqlPassword.Text = Form1.Settings.RegionDbPassword
@@ -270,6 +270,10 @@ Public Class FormDatabase
 
     End Sub
 
+    Private Sub Dbnameindex_Click(sender As Object, e As EventArgs) Handles Dbnameindex.Click
+
+    End Sub
+
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
 
         Dim CriticalForm = New FormBackupCheckboxes
@@ -278,9 +282,7 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
-
-        Form1.Help("Database")
+    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
 
     End Sub
 
@@ -288,11 +290,7 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub Dbnameindex_Click(sender As Object, e As EventArgs) Handles Dbnameindex.Click
-
-    End Sub
-
-    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
+    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
 
     End Sub
 
@@ -300,7 +298,9 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
+    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
+
+        Form1.Help("Database")
 
     End Sub
 

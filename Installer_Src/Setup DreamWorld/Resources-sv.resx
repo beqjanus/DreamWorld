@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -874,7 +874,7 @@
     <value>Mapp att spara till</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Bildhastighet (0,9)</value>
+    <value>Bildhastighet (0,0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Standard 1/11 sek. Standard är 0,091 vilket är en / 5:e av 55 FPS</value>
@@ -892,7 +892,7 @@
     <value>Denna Grid vänliga namn</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL körs 55 FPS. Opensim är 11 FPS. Default = 0,9, eller 1/11</value>
+    <value>SL körs 55 FPS. Opensim är 11 FPS. Default = 0,0909, eller 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Tillgångar som filer</value>
@@ -1777,10 +1777,10 @@
     <value>script cache</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0,9)</value>
+    <value>Script Timer Rate (0,0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,9)</value>
+    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,0909)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Sök</value>
@@ -1957,7 +1957,7 @@
     <value>Status</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,9)</value>
+    <value>Script timer hastighetsinställning. 1/11 sekund är standard (0,0909)</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>Steg 1:</value>

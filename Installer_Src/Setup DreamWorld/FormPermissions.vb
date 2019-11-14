@@ -61,7 +61,7 @@ Public Class FormPermissions
         RegionGod.Checked = Form1.Settings.RegionOwnerIsGod
         ManagerGod.Checked = Form1.Settings.RegionManagerIsGod
         Clouds.Checked = Form1.Settings.Clouds
-        LSLCheckbox.Checked = Form1.Settings.LSLHTTP()
+
         Dim var As Double = Form1.Settings.Density
 
         If var = -1 Then var = 5
@@ -114,7 +114,7 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Form1.Help("Permissions")
     End Sub
 
@@ -149,15 +149,6 @@ Public Class FormPermissions
         If Not initted Then Return
         Form1.Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
         Form1.Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub LSLCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles LSLCheckbox.CheckedChanged
-
-        If initted Then
-            Form1.Settings.LSLHTTP() = LSLCheckbox.Checked
-            Form1.Settings.SaveSettings()
-        End If
 
     End Sub
 

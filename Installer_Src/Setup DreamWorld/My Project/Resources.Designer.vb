@@ -2667,16 +2667,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property flag_brazil() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("flag_brazil", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property flag_china() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_china", resourceCulture)
@@ -2893,7 +2883,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Frame Rate (0.9).
+        '''  Looks up a localized string similar to Frame Rate (0.0909).
         '''</summary>
         Friend ReadOnly Property FrameRate() As String
             Get
@@ -2902,7 +2892,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Default 1/11 sec. Default is 0.091 which is 1/5th of 55 FPS.
+        '''  Looks up a localized string similar to Default 1/11 sec. Default is 0.0909 which is 1/5th of 55 FPS.
         '''</summary>
         Friend ReadOnly Property FrameTime() As String
             Get
@@ -2947,7 +2937,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.9, or 1/11.
+        '''  Looks up a localized string similar to SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.0909, or 1/11.
         '''</summary>
         Friend ReadOnly Property FRText() As String
             Get
@@ -3758,6 +3748,15 @@ Namespace My.Resources
         Friend ReadOnly Property LAN_IP() As String
             Get
                 Return ResourceManager.GetString("LAN_IP", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Language.
+        '''</summary>
+        Friend ReadOnly Property Language() As String
+            Get
+                Return ResourceManager.GetString("Language", resourceCulture)
             End Get
         End Property
         
@@ -5950,7 +5949,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Script Timer Rate (0.9).
+        '''  Looks up a localized string similar to Script Timer Rate (0.0909).
         '''</summary>
         Friend ReadOnly Property Script_Timer_Rate() As String
             Get
@@ -5959,7 +5958,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Script timer speed setting. 1/11 second is default (0.9).
+        '''  Looks up a localized string similar to Script timer speed setting. 1/11 second is default (0.0909).
         '''</summary>
         Friend ReadOnly Property Script_Timer_Text() As String
             Get
@@ -6564,7 +6563,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Script timer speed setting. 1/11 second is default (0.9).
+        '''  Looks up a localized string similar to Script timer speed setting. 1/11 second is default (0.0909).
         '''</summary>
         Friend ReadOnly Property STComment() As String
             Get

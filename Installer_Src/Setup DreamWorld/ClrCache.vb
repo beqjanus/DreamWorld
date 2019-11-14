@@ -131,7 +131,6 @@ Public Class ClrCache
             Next
         End If
 
-
     End Sub
 
     Public Shared Sub WipeScripts()

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -138,6 +138,9 @@
   <data name="Admin_Web_Page" xml:space="preserve">
     <value>管理Web页</value>
   </data>
+  <data name="Agents" xml:space="preserve">
+    <value>代理</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>所有</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Allow_Gods" xml:space="preserve">
     <value>允许或禁止的神</value>
+  </data>
+  <data name="Allow_Gods1" xml:space="preserve">
+    <value>允许神</value>
   </data>
   <data name="Allow_leave" xml:space="preserve">
     <value>允许物品离开</value>
@@ -317,6 +323,9 @@
   </data>
   <data name="BirdModule" xml:space="preserve">
     <value>伯德模块</value>
+  </data>
+  <data name="Birds" xml:space="preserve">
+    <value>鸟类</value>
   </data>
   <data name="Bird_Flock_Size" xml:space="preserve">
     <value>鸟群大小</value>
@@ -672,6 +681,9 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>默认的“欢迎”区域未在系统中找到。继续？</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Deleted" xml:space="preserve">
     <value>已删除</value>
   </data>
@@ -740,6 +752,9 @@
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS名称和Hypergrid</value>
+  </data>
+  <data name="DOS_Box" xml:space="preserve">
+    <value>DOS箱</value>
   </data>
   <data name="Do_NotChange" xml:space="preserve">
     <value>不要更改，除非该数据库已创建</value>
@@ -828,6 +843,9 @@
   <data name="ErrUpdate" xml:space="preserve">
     <value>错误：无法启动Downloader.exe。也许你可以手动启动它。</value>
   </data>
+  <data name="Estate" xml:space="preserve">
+    <value>房地产</value>
+  </data>
   <data name="EstateManagerGod" xml:space="preserve">
     <value>地产经理是上帝</value>
   </data>
@@ -874,7 +892,7 @@
     <value>文件夹保存到</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>帧速率（0.9）</value>
+    <value>帧速率（0.0909）</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>默认1/11秒。默认值是0.091，其是55 FPS的1 /第五</value>
@@ -892,7 +910,7 @@
     <value>该网格的友好名称</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL运行55 FPS。的OpenSim是11 FPS。默认= 0.9，或1/11</value>
+    <value>SL运行55 FPS。的OpenSim是11 FPS。默认= 0.0909，或1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>资产档案</value>
@@ -921,6 +939,9 @@
   <data name="Good1" xml:space="preserve">
     <value>良好（Warp3D）</value>
   </data>
+  <data name="Greeting" xml:space="preserve">
+    <value>观众问候</value>
+  </data>
   <data name="Grid_address" xml:space="preserve">
     <value>网地址</value>
   </data>
@@ -938,9 +959,6 @@
   </data>
   <data name="GTide" xml:space="preserve">
     <value>全球潮settungs将适用于这一地区</value>
-  </data>
-  <data name="gTides" xml:space="preserve">
-    <value>全球潮设置将应用到这个区域，如果集</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>更新是可用的。你想退出DreamGrid并安装更新？</value>
@@ -1143,6 +1161,9 @@
   <data name="Keep_for_Days" xml:space="preserve">
     <value>保留了天</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
   <data name="LAN_IP" xml:space="preserve">
     <value>您使用的是局域网IP。该测试被跳过。</value>
   </data>
@@ -1208,6 +1229,9 @@
   </data>
   <data name="Make_backup" xml:space="preserve">
     <value>做一个备份？</value>
+  </data>
+  <data name="Manager_God" xml:space="preserve">
+    <value>经理上帝</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>地图</value>
@@ -1356,11 +1380,17 @@
   <data name="Next_Name" xml:space="preserve">
     <value>接下来名称</value>
   </data>
+  <data name="No Autobackup" xml:space="preserve">
+    <value>No_Autobackup</value>
+  </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>任何人在线</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>没有</value>
+  </data>
+  <data name="Nonphysical Prim Max Size" xml:space="preserve">
+    <value>Nonphysical_Prim</value>
   </data>
   <data name="NormalizeRegions" xml:space="preserve">
     <value>正常化地区</value>
@@ -1425,6 +1455,9 @@
   <data name="Offline" xml:space="preserve">
     <value>离线</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>好</value>
+  </data>
   <data name="OneAvatar" xml:space="preserve">
     <value>有一个头像</value>
   </data>
@@ -1452,6 +1485,9 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>覆盖全球的地图设置为一个地区的</value>
   </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>业主神</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>包裹</value>
   </data>
@@ -1472,6 +1508,9 @@
   </data>
   <data name="Permissions" xml:space="preserve">
     <value>权限</value>
+  </data>
+  <data name="Physical Prim Max Size" xml:space="preserve">
+    <value>Physical_Prim</value>
   </data>
   <data name="Physics" xml:space="preserve">
     <value>物理</value>
@@ -1544,6 +1583,9 @@
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>意外退出。重新启动。</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>内存</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>读取区域文件</value>
@@ -1777,10 +1819,10 @@
     <value>脚本缓存</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>脚本定时器率（0.9）</value>
+    <value>脚本定时器率（0.0909）</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>脚本计时器速度设定。 1/11秒是默认值（0.9）</value>
+    <value>脚本计时器速度设定。 1/11秒是默认值（0.0909）</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜索</value>
@@ -1878,6 +1920,9 @@
   <data name="Sim_Size" xml:space="preserve">
     <value>辛大小</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>尺寸</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>跳跃</value>
   </data>
@@ -1957,7 +2002,7 @@
     <value>状态</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>脚本计时器速度设定。 1/11秒是默认值（0.9）</value>
+    <value>脚本计时器速度设定。 1/11秒是默认值（0.0909）</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>第1步：</value>
@@ -2003,6 +2048,9 @@
   </data>
   <data name="Teleport" xml:space="preserve">
     <value>瞬移</value>
+  </data>
+  <data name="Teleporter Enable" xml:space="preserve">
+    <value>Teleporter_Enable</value>
   </data>
   <data name="Teleporting" xml:space="preserve">
     <value>隐形传态</value>
@@ -2057,6 +2105,9 @@
   </data>
   <data name="Troubleshooting" xml:space="preserve">
     <value>故障排除</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
     <value>UBIT ODE /混合子弹</value>
@@ -2120,9 +2171,6 @@
   </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>默认值：启用。用户可根据需要，以减少观众的带宽，如果一些prims或地形部分未能苏亚雷斯。更改为false，如果你需要使用不支持此功能的老观众</value>
-  </data>
-  <data name="Viewer_Greeting" xml:space="preserve">
-    <value>观众问候</value>
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>观众45000停止计数</value>
@@ -2201,5 +2249,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>什么是错与互联网</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>ÿ</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>

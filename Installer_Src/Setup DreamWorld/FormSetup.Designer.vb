@@ -260,7 +260,7 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
         Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.LanguageToolStripMenuItem.Text = "Language"
+        Me.LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
         '
         'EnglishToolStripMenuItem
         '
@@ -1079,7 +1079,7 @@ Partial Class Form1
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 34
-        Me.Label3.Text = "Avatars"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Avatars
         '
         'PercentCPU
         '
