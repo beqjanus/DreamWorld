@@ -335,7 +335,7 @@ Partial Class Gloebits
         Me.SandboxButton.Size = New System.Drawing.Size(141, 24)
         Me.SandboxButton.TabIndex = 2
         Me.SandboxButton.TabStop = True
-        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode
+        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
         Me.SandboxButton.UseVisualStyleBackColor = True
         '
         'Label8

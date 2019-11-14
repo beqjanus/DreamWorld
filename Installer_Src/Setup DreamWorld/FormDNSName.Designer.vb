@@ -101,8 +101,8 @@ Partial Class FormDNSName
         Me.TestButton1.Name = "TestButton1"
         Me.TestButton1.Size = New System.Drawing.Size(145, 34)
         Me.TestButton1.TabIndex = 1872
-        Me.TestButton1.Text = Global.Outworldz.My.Resources.Resources.Test_DNS
-        Me.ToolTip1.SetToolTip(Me.TestButton1, Global.Outworldz.My.Resources.Resources.Test_DNS)
+        Me.TestButton1.Text = Global.Outworldz.My.Resources.Resources.Test_DNS_word
+        Me.ToolTip1.SetToolTip(Me.TestButton1, Global.Outworldz.My.Resources.Resources.Test_DNS_word)
         Me.TestButton1.UseVisualStyleBackColor = True
         '
         'NextNameButton
@@ -132,8 +132,8 @@ Partial Class FormDNSName
         Me.SaveButton1.Name = "SaveButton1"
         Me.SaveButton1.Size = New System.Drawing.Size(136, 34)
         Me.SaveButton1.TabIndex = 1879
-        Me.SaveButton1.Text = Global.Outworldz.My.Resources.Resources.Save
-        Me.ToolTip1.SetToolTip(Me.SaveButton1, Global.Outworldz.My.Resources.Resources.Save)
+        Me.SaveButton1.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        Me.ToolTip1.SetToolTip(Me.SaveButton1, Global.Outworldz.My.Resources.Resources.Save_word)
         Me.SaveButton1.UseVisualStyleBackColor = True
         '
         'OsGridButton

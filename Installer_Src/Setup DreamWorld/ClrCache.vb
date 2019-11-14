@@ -24,12 +24,16 @@ Imports System.IO
 
 Public Class ClrCache
 
+
+
 #Region "Public Constructors"
 
     Public Sub New()
     End Sub
 
 #End Region
+
+
 
 #Region "Protected Destructors"
 
@@ -38,6 +42,8 @@ Public Class ClrCache
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
@@ -70,14 +76,14 @@ Public Class ClrCache
 
     Public Shared Sub WipeBakes()
 
-        Form1.Print(My.Resources.Clearing_Bake)
+        Form1.Print(My.Resources.Clearing_Bake_Cache_word)
         FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
 
     Public Shared Sub WipeImage()
 
-        Form1.Print(My.Resources.Clearing_Image)
+        Form1.Print(My.Resources.Clearing_Image_Cache_word)
         Dim folders() = Nothing
         Try
             folders = IO.Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
@@ -102,7 +108,7 @@ Public Class ClrCache
 
     Public Shared Sub WipeMesh()
 
-        Form1.Print(My.Resources.Clearing_Mesh)
+        Form1.Print(My.Resources.Clearing_Mesh_Cache_word)
         Dim fCount As Integer
 
         Dim folders As Array = Nothing
@@ -146,7 +152,7 @@ Public Class ClrCache
                         FileStuff.DeleteFile(script)
                         ctr += 1
                         If ctr Mod 100 = 0 Then
-                            Form1.Print(My.Resources.Updated & " " & CStr(ctr) & " scripts")
+                            Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
                         End If
                         Application.DoEvents()
                     End If

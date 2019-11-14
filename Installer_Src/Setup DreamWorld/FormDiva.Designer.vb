@@ -231,7 +231,7 @@ Partial Class FormDiva
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(85, 20)
         Me.Label24.TabIndex = 1870
-        Me.Label24.Text = My.Resources.SMTPPort
+        Me.Label24.Text = My.Resources.SMTPPort_word
         '
         'SmtpHost
         '
@@ -249,7 +249,7 @@ Partial Class FormDiva
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(90, 20)
         Me.Label23.TabIndex = 1868
-        Me.Label23.Text = My.Resources.SMTPHost
+        Me.Label23.Text = My.Resources.SMTPHost_word
         '
         'GmailPassword
         '
@@ -268,7 +268,7 @@ Partial Class FormDiva
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(125, 20)
         Me.Label18.TabIndex = 1866
-        Me.Label18.Text = My.Resources.SMTPPassword
+        Me.Label18.Text = My.Resources.SMTPPassword_word
         '
         'Label14
         '
@@ -278,7 +278,7 @@ Partial Class FormDiva
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(89, 20)
         Me.Label14.TabIndex = 1865
-        Me.Label14.Text = my.Resources.UserName
+        Me.Label14.Text = my.Resources.User_Name_word
         '
         'GmailUsername
         '
@@ -383,7 +383,7 @@ Partial Class FormDiva
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 20)
         Me.Label1.TabIndex = 1859
-        Me.Label1.Text = My.Resources.Theme
+        Me.Label1.Text = My.Resources.Theme_word
         '
         'WhiteRadioButton
         '
@@ -394,7 +394,7 @@ Partial Class FormDiva
         Me.WhiteRadioButton.Size = New System.Drawing.Size(75, 24)
         Me.WhiteRadioButton.TabIndex = 1873
         Me.WhiteRadioButton.TabStop = True
-        Me.WhiteRadioButton.Text = Global.Outworldz.My.Resources.Resources.White
+        Me.WhiteRadioButton.Text = Global.Outworldz.My.Resources.Resources.White_word
         Me.WhiteRadioButton.UseVisualStyleBackColor = True
         '
         'BlackRadioButton
@@ -406,7 +406,7 @@ Partial Class FormDiva
         Me.BlackRadioButton.Size = New System.Drawing.Size(73, 24)
         Me.BlackRadioButton.TabIndex = 1872
         Me.BlackRadioButton.TabStop = True
-        Me.BlackRadioButton.Text = Global.Outworldz.My.Resources.Resources.Black
+        Me.BlackRadioButton.Text = Global.Outworldz.My.Resources.Resources.Black_word
         Me.BlackRadioButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1

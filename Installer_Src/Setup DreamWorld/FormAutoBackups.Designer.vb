@@ -193,7 +193,7 @@ Partial Class FormAutoBackups
         Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(105, 29)
-        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         '
         'FullSQLBackupToolStripMenuItem
         '

@@ -25,6 +25,8 @@ Imports IniParser
 
 Public Class MySettings
 
+
+
 #Region "Private Fields"
 
     Dim Apachein As New List(Of String)
@@ -201,11 +203,11 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        Form1.Log(My.Resources.Info, "Loading Settings.ini")
+        Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
         Catch ex As Exception
-            Form1.ErrorLog("Failed to load Settings.ini")
+            Form1.ErrorLog(My.Resources.Failed_to_load_Settings)
         End Try
 
     End Sub
@@ -273,6 +275,8 @@ Public Class MySettings
             MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
         End Try
 
+        Return ""
+
     End Function
 
     Public Function GetMyIni(section As String, key As String, Optional D As String = "") As String
@@ -318,6 +322,7 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
+        If value = Nothing Then Return
         SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
@@ -382,7 +387,7 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return Val("0" + GetMySetting("ApachePort", "80"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("ApachePort", "80"))
         End Get
         Set
             SetMySetting("ApachePort", CType(Value, String))
@@ -427,7 +432,7 @@ Public Class MySettings
 
     Public Property AutoRestartInterval() As Integer
         Get
-            Return Val("0" + GetMySetting("AutoRestartInterval", "0"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("AutoRestartInterval", My.Resources.Zero_word_NT))
         End Get
         Set
             SetMySetting("AutoRestartInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -471,9 +476,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how close to the edge of a region can we get?
-    ''' </summary>
+    ''' <summary>how close to the edge of a region can we get?</summary>
     ''' <returns></returns>
     Public Property BirdsBorderSize() As Double
         Get
@@ -490,22 +493,18 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' which channel do we listen on for in world commands
-    ''' </summary>
+    ''' <summary>which channel do we listen on for in world commands</summary>
     ''' <returns></returns>
     Public Property BirdsChatChannel() As Integer
         Get
-            Return Val("0" + GetMySetting("BirdsChatChannel", "118"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("BirdsChatChannel", "118"))
         End Get
         Set
             SetMySetting("BirdsChatChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
-    ''' <summary>
-    ''' how far away from other birds we would like to stay
-    ''' </summary>
+    ''' <summary>how far away from other birds we would like to stay</summary>
     ''' <returns></returns>
     Public Property BirdsDesiredSeparation() As Double
         Get
@@ -533,7 +532,7 @@ Public Class MySettings
 
     Public Property BirdsFlockSize() As Integer
         Get
-            Return Val("0" + GetMySetting("BirdsFlockSize", "25"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("BirdsFlockSize", "25"))
         End Get
         Set
             SetMySetting("BirdsFlockSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -555,9 +554,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how high are we allowed to flock
-    ''' </summary>
+    ''' <summary>how high are we allowed to flock</summary>
     ''' <returns></returns>
     Public Property BirdsMaxHeight() As Double
         Get
@@ -574,9 +571,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' 'how far each bird can travel per update
-    ''' </summary>
+    ''' <summary>'how far each bird can travel per update</summary>
     ''' <returns></returns>
     Public Property BirdsMaxSpeed() As Double
         Get
@@ -602,9 +597,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' max distance for other birds to be considered in the same flock as us
-    ''' </summary>
+    ''' <summary>max distance for other birds to be considered in the same flock as us</summary>
     ''' <returns></returns>
     Public Property BirdsNeighbourDistance() As Double
         Get
@@ -622,9 +615,8 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' By default the module will create a flock of plain wooden spheres, however this can be
-    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e.
-    ''' be rezzed in the region.
+    ''' By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that needs to already exist in the scene - i.e. be rezzed in
+    ''' the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -636,9 +628,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how close to the edges of things can we get without being worried
-    ''' </summary>
+    ''' <summary>how close to the edges of things can we get without being worried</summary>
     ''' <returns></returns>
     Public Property BirdsTolerance() As Double
         Get
@@ -684,7 +674,7 @@ Public Class MySettings
 
     Public Property CacheLogLevel() As String
         Get
-            Return GetMySetting("CacheLogLevel", "0")
+            Return GetMySetting("CacheLogLevel", My.Resources.Zero_word_NT)
         End Get
         Set
             SetMySetting("CacheLogLevel", Value)
@@ -843,7 +833,7 @@ Public Class MySettings
 
     Public Property FirstRegionPort() As Integer
         Get
-            Return Val("0" + GetMySetting("FirstRegionPort", "8004"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -970,7 +960,7 @@ Public Class MySettings
 
     Public Property HttpPort() As Integer
         Get
-            Return Val("0" + GetMySetting("HttpPort", "8002"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("HttpPort", "8002"))
         End Get
         Set
             SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -988,7 +978,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return Val("0" + GetMySetting("KeepForDays", "7"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("KeepForDays", "7"))
         End Get
         Set
             SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1043,7 +1033,7 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Return Val("0" + GetMySetting("MapCenterX", "1000"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterX", "1000"))
         End Get
         Set
             SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1052,7 +1042,7 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            Return Val("0" + GetMySetting("MapCenterY", "1000"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterY", "1000"))
         End Get
         Set
             SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1095,7 +1085,7 @@ Public Class MySettings
 
     Public Property MySqlRegionDBPort() As Integer
         Get
-            Return Val("0" + GetMySetting("MySqlRegionDBPort", "3306"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1104,7 +1094,7 @@ Public Class MySettings
 
     Public Property MySqlRobustDBPort() As Integer
         Get
-            Return Val("0" + GetMySetting("MySqlRobustDBPort", "3306"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1113,7 +1103,7 @@ Public Class MySettings
 
     Public Property MyX() As Integer
         Get
-            Return Val("0" + GetMySetting("MyX", "0"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MyX", My.Resources.Zero_word_NT))
         End Get
         Set
             SetMySetting("MyX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1122,7 +1112,7 @@ Public Class MySettings
 
     Public Property MyY() As Integer
         Get
-            Return Val("0" + GetMySetting("MyY", "0"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MyY", My.Resources.Zero_word_NT))
         End Get
         Set
             SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1167,7 +1157,7 @@ Public Class MySettings
 
     Public Property Physics() As Integer
         Get
-            Return Val("0" + GetMySetting("Physics", "3"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("Physics", "3"))
         End Get
         Set
             SetMySetting("Physics", CType(Value, String))
@@ -1194,7 +1184,7 @@ Public Class MySettings
 
     Public Property PrivatePort() As Integer
         Get
-            Return Val("0" + GetMySetting("PrivatePort", "8003"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("PrivatePort", "8003"))
         End Get
         Set
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1257,7 +1247,7 @@ Public Class MySettings
 
     Public Property RegionListView() As Integer
         Get
-            Return Val("0" + GetMySetting("RegionListView", "2"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("RegionListView", "2"))
         End Get
         Set
             SetMySetting("RegionListView", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1318,7 +1308,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return Val("0" + GetMySetting("RenderMinHeight", "-100"))
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1462,7 +1452,7 @@ Public Class MySettings
 
     Public Property SearchMigration() As Integer
         Get
-            Return CType(GetMySetting("SearchMigration", "0"), Integer)
+            Return CType(GetMySetting("SearchMigration", My.Resources.Zero_word_NT), Integer)
         End Get
         Set
             SetMySetting("SearchMigration", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

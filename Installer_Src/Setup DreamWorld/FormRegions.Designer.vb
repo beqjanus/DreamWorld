@@ -80,7 +80,7 @@ Partial Class FormRegions
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(180, 24)
         Me.SmartStartEnabled.TabIndex = 1867
-        Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_Enabled
+        Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_Enable_word
         Me.SmartStartEnabled.UseVisualStyleBackColor = True
         '
         'Button1
@@ -161,7 +161,7 @@ Partial Class FormRegions
         '
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
-        Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.ChooseRegion})
+        Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
         Me.RegionBox.Location = New System.Drawing.Point(4, 366)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(4)
         Me.RegionBox.MaxDropDownItems = 15
@@ -217,7 +217,7 @@ Partial Class FormRegions
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(278, 34)
         Me.AddRegion.TabIndex = 2
-        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region
+        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
         '
         'MenuStrip2

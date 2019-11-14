@@ -27,6 +27,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class NetServer
 
+
+
 #Region "Private Fields"
 
     Private Shared blnFlag As Boolean
@@ -41,6 +43,8 @@ Public Class NetServer
 
 #End Region
 
+
+
 #Region "Public Properties"
 
     Public Property PropRegionClass1 As RegionMaker
@@ -53,6 +57,8 @@ Public Class NetServer
     End Property
 
 #End Region
+
+
 
 #Region "Public Methods"
 
@@ -114,7 +120,7 @@ Public Class NetServer
 
         If running Then Return
 
-        Log(My.Resources.Info, "Starting Diagnostic Webserver")
+        Log(My.Resources.Info, My.Resources.Starting_DiagPort_Webserver)
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -132,12 +138,10 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log(My.Resources.Info, "Stopping Webserver")
+        Log(My.Resources.Info, My.Resources.Stopping_Webserver)
         listen = False
         Application.DoEvents()
         WebThread.Abort()
-        'WebThread.Join()
-        Log(My.Resources.Info, "Shutdown Complete")
 
     End Sub
 
@@ -158,6 +162,8 @@ Public Class NetServer
     End Function
 
 #End Region
+
+
 
 #Region "Private Methods"
 

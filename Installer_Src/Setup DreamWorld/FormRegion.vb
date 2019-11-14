@@ -426,7 +426,7 @@ Public Class FormRegion
         If Changed1 Then
 
             Form1.PropViewedSettings = True
-            Dim v = MsgBox(My.Resources.Save_changes, vbYesNo, My.Resources.Save_changes)
+            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
@@ -646,7 +646,7 @@ Public Class FormRegion
 
             NewGroup = RegionChosen()
             If NewGroup.Length = 0 Then
-                Form1.Print(My.Resources.Aborted)
+                Form1.Print(My.Resources.Aborted_word)
                 Return
             End If
 
@@ -839,19 +839,19 @@ Public Class FormRegion
                 outputFile.Write(Region)
             End Using
         Catch ex As UnauthorizedAccessException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As ArgumentNullException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As ArgumentException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As DirectoryNotFoundException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As PathTooLongException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As IOException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         Catch ex As Security.SecurityException
-            MsgBox(My.Resources.Cannot_save_region + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
         Form1.PropUpdateView = True

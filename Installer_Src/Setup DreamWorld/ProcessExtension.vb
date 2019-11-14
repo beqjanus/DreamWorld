@@ -44,10 +44,7 @@ Module ProcessExtension
                 Continue For
             End If
 
-            Dim result = SuspendThread(pOpenThread)
-            If result = -1 Then
-                Dim bp = 1
-            End If
+            SuspendThread(pOpenThread)
 
         Next
     End Sub

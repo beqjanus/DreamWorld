@@ -61,7 +61,7 @@ Partial Class FormRestart
         Me.AutoStart.Size = New System.Drawing.Size(392, 296)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
-        Me.AutoStart.Text = My.Resources.Auto_Startup
+        Me.AutoStart.Text = My.Resources.Auto_Startup_word
         '
         'RestartOnPhysicsCrash
         '
@@ -107,7 +107,7 @@ Partial Class FormRestart
         Me.ARTimerBox.Name = "ARTimerBox"
         Me.ARTimerBox.Size = New System.Drawing.Size(169, 24)
         Me.ARTimerBox.TabIndex = 1863
-        Me.ARTimerBox.Text = Global.Outworldz.My.Resources.Resources.Restart_Periodically
+        Me.ARTimerBox.Text = Global.Outworldz.My.Resources.Resources.Restart_Periodically_word
         Me.ToolTip1.SetToolTip(Me.ARTimerBox, Global.Outworldz.My.Resources.Resources.Restart_Periodically_Minutes)
         Me.ARTimerBox.UseVisualStyleBackColor = True
         '
@@ -198,7 +198,7 @@ Partial Class FormRestart
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormRestart"
-        Me.Text = My.Resources.Restart
+        Me.Text = My.Resources.Restart_word
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

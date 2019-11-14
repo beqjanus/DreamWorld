@@ -86,7 +86,7 @@ Partial Class FormApache
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(159, 24)
         Me.ApacheServiceCheckBox.TabIndex = 1868
-        Me.ApacheServiceCheckBox.Text = Global.Outworldz.My.Resources.Resources.Run_as_a_Service
+        Me.ApacheServiceCheckBox.Text = Global.Outworldz.My.Resources.Resources.Run_as_a_Service_word
         Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
         '
         'Label3
@@ -150,7 +150,7 @@ Partial Class FormApache
         Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
         Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(149, 24)
         Me.AllGridSearchCheckBox.TabIndex = 186743
-        Me.AllGridSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Search_All_Grids
+        Me.AllGridSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Search_All_Grids_word
         Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
         '
         'LocalSearchCheckBox
@@ -188,7 +188,7 @@ Partial Class FormApache
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(173, 34)
-        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache
+        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
         'GroupBox1
         '

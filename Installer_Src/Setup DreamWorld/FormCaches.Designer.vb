@@ -66,7 +66,7 @@ Partial Class FormCaches
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(123, 24)
         Me.CheckBox1.TabIndex = 0
-        Me.CheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache
+        Me.CheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache_word
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CheckBox2
@@ -77,7 +77,7 @@ Partial Class FormCaches
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(180, 24)
         Me.CheckBox2.TabIndex = 1
-        Me.CheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Cache
+        Me.CheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Bakes_Cache_word
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox3
@@ -88,7 +88,7 @@ Partial Class FormCaches
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(126, 24)
         Me.CheckBox3.TabIndex = 2
-        Me.CheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache
+        Me.CheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
         Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'CheckBox4
@@ -149,7 +149,7 @@ Partial Class FormCaches
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(195, 34)
         Me.Button1.TabIndex = 5
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Selected_Caches
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Selected_Caches_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -228,7 +228,7 @@ Partial Class FormCaches
         Me.CacheTimeout.Name = "CacheTimeout"
         Me.CacheTimeout.Size = New System.Drawing.Size(65, 26)
         Me.CacheTimeout.TabIndex = 1868
-        Me.ToolTip1.SetToolTip(Me.CacheTimeout, Global.Outworldz.My.Resources.Resources.Timeout_in_hours)
+        Me.ToolTip1.SetToolTip(Me.CacheTimeout, Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word)
         '
         'CacheEnabledBox
         '
@@ -249,7 +249,7 @@ Partial Class FormCaches
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(126, 20)
         Me.Label5.TabIndex = 1865
-        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Timeout_in_hours
+        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word
         '
         'Label4
         '
@@ -259,7 +259,7 @@ Partial Class FormCaches
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(118, 20)
         Me.Label4.TabIndex = 1864
-        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Cache_Enabled
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Cache_Enabled_word
         '
         'Label2
         '
@@ -287,7 +287,7 @@ Partial Class FormCaches
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(122, 20)
         Me.Label1.TabIndex = 1861
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Cache_Directory
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Cache_Directory_word
         '
         'LogLevelBox
         '
@@ -309,7 +309,7 @@ Partial Class FormCaches
         Me.GroupBox3.Size = New System.Drawing.Size(236, 77)
         Me.GroupBox3.TabIndex = 18603
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Viewer_Cache
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Viewer_Cache_word
         '
         'ViewerCacheCheckbox
         '
@@ -336,7 +336,7 @@ Partial Class FormCaches
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Cache_Control
+        Me.Text = Global.Outworldz.My.Resources.Resources.Cache_Control_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()

@@ -130,7 +130,7 @@ Partial Class Icecast
         Me.LoadURL.Name = "LoadURL"
         Me.LoadURL.Size = New System.Drawing.Size(225, 44)
         Me.LoadURL.TabIndex = 6
-        Me.LoadURL.Text = Global.Outworldz.My.Resources.Resources.Admin_Web_Page
+        Me.LoadURL.Text = Global.Outworldz.My.Resources.Resources.Admin_Web_Page_word
         Me.LoadURL.UseVisualStyleBackColor = True
         '
         'Label3

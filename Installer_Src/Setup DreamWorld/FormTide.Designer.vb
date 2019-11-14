@@ -115,7 +115,7 @@ Partial Class Tides
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(143, 20)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = My.Resources.Tide_Hi_Lo_Channel
+        Me.Label5.Text = My.Resources.Tide_Hi_Lo_Channel_word
         '
         'TideHiLoChannelTextBox
         '
@@ -133,7 +133,7 @@ Partial Class Tides
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(134, 20)
         Me.Label4.TabIndex = 8
-        Me.Label4.Text = My.Resources.Tide_Info_Channel
+        Me.Label4.Text = My.Resources.Tide_Info_Channel_word
         '
         'TideInfoChannelTextBox
         '
@@ -253,7 +253,7 @@ Partial Class Tides
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "Tides"
-        Me.Text = My.Resources.Tides
+        Me.Text = My.Resources.Tides_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

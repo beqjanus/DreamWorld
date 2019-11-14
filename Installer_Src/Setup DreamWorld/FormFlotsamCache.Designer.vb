@@ -87,7 +87,7 @@ Partial Class FormFlotsamCache
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(194, 35)
         Me.Button1.TabIndex = 1871
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Cache
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Cache_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CacheSizeLabel

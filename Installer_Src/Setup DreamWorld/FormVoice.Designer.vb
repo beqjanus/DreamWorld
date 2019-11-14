@@ -95,7 +95,7 @@ Partial Class FormVoice
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 20)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = My.Resources.UserID
+        Me.Label1.Text = My.Resources.User_ID_word
         '
         'VivoxEnable
         '

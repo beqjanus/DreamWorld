@@ -76,7 +76,7 @@ Partial Class FormFsAssets
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(151, 35)
         Me.SaveButton.TabIndex = 1893
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ShowStatsCheckBox

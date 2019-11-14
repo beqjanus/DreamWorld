@@ -129,7 +129,7 @@ Partial Class FormMaps
         Me.MapSimple.Size = New System.Drawing.Size(140, 24)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
-        Me.MapSimple.Text = My.Resources.Simple_but_Fast
+        Me.MapSimple.Text = My.Resources.Simple_but_Fast_word
         Me.MapSimple.UseVisualStyleBackColor = True
         '
         'MapBetter
@@ -141,7 +141,7 @@ Partial Class FormMaps
         Me.MapBetter.Size = New System.Drawing.Size(173, 24)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
-        Me.MapBetter.Text = My.Resources.Better1
+        Me.MapBetter.Text = My.Resources.Better_Prims
         Me.MapBetter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.MapBetter.UseVisualStyleBackColor = True
         '
@@ -154,7 +154,7 @@ Partial Class FormMaps
         Me.MapBest.Size = New System.Drawing.Size(214, 24)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
-        Me.MapBest.Text = My.Resources.Best1
+        Me.MapBest.Text = My.Resources.Best_Prims
         Me.MapBest.UseVisualStyleBackColor = True
         '
         'MapGood
@@ -287,7 +287,7 @@ Partial Class FormMaps
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(20, 20)
         Me.Label3.TabIndex = 1870
-        Me.Label3.Text = My.Resources.Y
+        Me.Label3.Text = My.Resources.Y_word
         '
         'Label2
         '
@@ -297,7 +297,7 @@ Partial Class FormMaps
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(20, 20)
         Me.Label2.TabIndex = 1869
-        Me.Label2.Text = My.Resources.X
+        Me.Label2.Text = My.Resources.X_word
         '
         'Label1
         '
@@ -307,7 +307,7 @@ Partial Class FormMaps
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(161, 20)
         Me.Label1.TabIndex = 1868
-        Me.Label1.Text = My.Resources.Center_Map
+        Me.Label1.Text = My.Resources.Map_Center_Location_word
         '
         'MenuStrip2
         '

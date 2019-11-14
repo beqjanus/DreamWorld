@@ -78,7 +78,7 @@ Partial Class FormBackupCheckboxes
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(112, 35)
         Me.Button2.TabIndex = 12
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Skip
+        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Skip_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'SettingsBox
@@ -91,7 +91,7 @@ Partial Class FormBackupCheckboxes
         Me.SettingsBox.Name = "SettingsBox"
         Me.SettingsBox.Size = New System.Drawing.Size(152, 24)
         Me.SettingsBox.TabIndex = 11
-        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings
+        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
         Me.SettingsBox.UseVisualStyleBackColor = True
         '
         'Button1
@@ -101,7 +101,7 @@ Partial Class FormBackupCheckboxes
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(112, 35)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CustomCheckBox

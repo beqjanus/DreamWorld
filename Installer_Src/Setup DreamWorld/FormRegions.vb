@@ -183,7 +183,7 @@ Public Class FormRegions
         If s > -1 Then
             WelcomeBox1.SelectedIndex = s
         Else
-            MsgBox(My.Resources.Choose_Welcome, vbInformation, My.Resources.ChooseRegion)
+            MsgBox(My.Resources.Choose_Welcome, vbInformation, My.Resources.Choose_Region_word)
             Dim chosen = Form1.ChooseRegion(False)
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index

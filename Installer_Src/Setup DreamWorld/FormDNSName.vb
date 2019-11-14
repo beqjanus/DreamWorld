@@ -125,7 +125,7 @@ Public Class FormDNSName
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
 
-        NextNameButton.Text = My.Resources.Busy
+        NextNameButton.Text = My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
         Application.DoEvents()
         Dim newname = Form1.GetNewDnsName()
@@ -144,7 +144,7 @@ Public Class FormDNSName
 
     Private Sub SaveAll()
 
-        NextNameButton.Text = My.Resources.Saving
+        NextNameButton.Text = My.Resources.Saving_word
 
         If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
             Form1.Settings.DNSName = DNSNameBox.Text
@@ -189,7 +189,7 @@ Public Class FormDNSName
         If IPAddress.TryParse(IP, address) Then
             MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
         Else
-            MsgBox(My.Resources.Cannot_resolve & " " & DNSNameBox.Text, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Err)
         End If
 
     End Sub

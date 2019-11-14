@@ -94,8 +94,8 @@ Partial Class RegionList
         Me.Addregion.Name = "Addregion"
         Me.Addregion.Size = New System.Drawing.Size(140, 34)
         Me.Addregion.TabIndex = 18593
-        Me.Addregion.Text = Global.Outworldz.My.Resources.Resources.Add
-        Me.ToolTip1.SetToolTip(Me.Addregion, Global.Outworldz.My.Resources.Resources.Add_Region)
+        Me.Addregion.Text = Global.Outworldz.My.Resources.Resources.Add_word
+        Me.ToolTip1.SetToolTip(Me.Addregion, Global.Outworldz.My.Resources.Resources.Add_Region_word)
         Me.Addregion.UseVisualStyleBackColor = True
         '
         'AllNome
@@ -106,7 +106,7 @@ Partial Class RegionList
         Me.AllNome.Name = "AllNome"
         Me.AllNome.Size = New System.Drawing.Size(94, 24)
         Me.AllNome.TabIndex = 4
-        Me.AllNome.Text = Global.Outworldz.My.Resources.Resources.AllNone
+        Me.AllNome.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
         Me.ToolTip1.SetToolTip(Me.AllNome, Global.Outworldz.My.Resources.Resources.Selectallnone)
         Me.AllNome.UseVisualStyleBackColor = True
         '
@@ -117,7 +117,7 @@ Partial Class RegionList
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Size = New System.Drawing.Size(140, 34)
         Me.RunAllButton.TabIndex = 18594
-        Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All
+        Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
         Me.ToolTip1.SetToolTip(Me.RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
         Me.RunAllButton.UseVisualStyleBackColor = True
         '
@@ -128,7 +128,7 @@ Partial Class RegionList
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Size = New System.Drawing.Size(140, 34)
         Me.StopAllButton.TabIndex = 18595
-        Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.StopAll
+        Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
         Me.ToolTip1.SetToolTip(Me.StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
         Me.StopAllButton.UseVisualStyleBackColor = True
         '
@@ -139,7 +139,7 @@ Partial Class RegionList
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(140, 34)
         Me.RestartButton.TabIndex = 18596
-        Me.RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All
+        Me.RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All_word
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
         Me.RestartButton.UseVisualStyleBackColor = True
         '
@@ -183,7 +183,7 @@ Partial Class RegionList
         Me.ViewAvatars.Name = "ViewAvatars"
         Me.ViewAvatars.Size = New System.Drawing.Size(140, 34)
         Me.ViewAvatars.TabIndex = 18602
-        Me.ViewAvatars.Text = Global.Outworldz.My.Resources.Resources.Avatars
+        Me.ViewAvatars.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         Me.ToolTip1.SetToolTip(Me.ViewAvatars, Global.Outworldz.My.Resources.Resources.ListAvatars)
         Me.ViewAvatars.UseVisualStyleBackColor = True
         '
@@ -205,8 +205,8 @@ Partial Class RegionList
         Me.RestartRobustButton.Name = "RestartRobustButton"
         Me.RestartRobustButton.Size = New System.Drawing.Size(140, 34)
         Me.RestartRobustButton.TabIndex = 18604
-        Me.RestartRobustButton.Text = Global.Outworldz.My.Resources.Resources.Restart_Robust
-        Me.ToolTip1.SetToolTip(Me.RestartRobustButton, Global.Outworldz.My.Resources.Resources.Restart_Robust)
+        Me.RestartRobustButton.Text = Global.Outworldz.My.Resources.Resources.Restart_Robust_word
+        Me.ToolTip1.SetToolTip(Me.RestartRobustButton, Global.Outworldz.My.Resources.Resources.Restart_Robust_word)
         Me.RestartRobustButton.UseVisualStyleBackColor = True
         '
         'Button3

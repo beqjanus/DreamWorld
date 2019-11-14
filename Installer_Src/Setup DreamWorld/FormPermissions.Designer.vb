@@ -99,8 +99,8 @@ Partial Class FormPermissions
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(146, 17)
         Me.RegionGod.TabIndex = 15
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.AllowRegionGods
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God)
+        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'LimitsBox
@@ -142,7 +142,7 @@ Partial Class FormPermissions
         Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
         Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(122, 17)
         Me.OutBoundPermissionsCheckbox.TabIndex = 18
-        Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_leave
+        Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
         Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
         Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
         '

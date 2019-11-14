@@ -66,7 +66,7 @@ Partial Class AdvancedForm
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(145, 23)
         Me.TideButton.TabIndex = 14
-        Me.TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides
+        Me.TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides_word
         Me.ToolTip1.SetToolTip(Me.TideButton, Global.Outworldz.My.Resources.Resources.Click_Tides)
         Me.TideButton.UseVisualStyleBackColor = True
         '
@@ -86,7 +86,7 @@ Partial Class AdvancedForm
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
         Me.VoiceButton1.TabIndex = 16
-        Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice
+        Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
         Me.ToolTip1.SetToolTip(Me.VoiceButton1, Global.Outworldz.My.Resources.Resources.Click_Voice)
         Me.VoiceButton1.UseVisualStyleBackColor = True
         '
@@ -116,7 +116,7 @@ Partial Class AdvancedForm
         Me.Birds.Name = "Birds"
         Me.Birds.Size = New System.Drawing.Size(145, 23)
         Me.Birds.TabIndex = 2
-        Me.Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings
+        Me.Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings_word
         Me.ToolTip1.SetToolTip(Me.Birds, Global.Outworldz.My.Resources.Resources.Click_Birds)
         Me.Birds.UseVisualStyleBackColor = True
         '
@@ -126,7 +126,7 @@ Partial Class AdvancedForm
         Me.BackupButton1.Name = "BackupButton1"
         Me.BackupButton1.Size = New System.Drawing.Size(145, 23)
         Me.BackupButton1.TabIndex = 1
-        Me.BackupButton1.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings
+        Me.BackupButton1.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
         Me.ToolTip1.SetToolTip(Me.BackupButton1, Global.Outworldz.My.Resources.Resources.Backup_Schedule)
         Me.BackupButton1.UseVisualStyleBackColor = True
         '
@@ -136,7 +136,7 @@ Partial Class AdvancedForm
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
-        Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions
+        Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         Me.ToolTip1.SetToolTip(Me.RegionsButton1, Global.Outworldz.My.Resources.Resources.Click_Regions)
         Me.RegionsButton1.UseVisualStyleBackColor = True
         '
@@ -187,7 +187,7 @@ Partial Class AdvancedForm
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(143, 23)
         Me.Button3.TabIndex = 13
-        Me.Button3.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings
+        Me.Button3.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings_word
         Me.ToolTip1.SetToolTip(Me.Button3, Global.Outworldz.My.Resources.Resources.Click_Restart)
         Me.Button3.UseVisualStyleBackColor = True
         '
@@ -227,7 +227,7 @@ Partial Class AdvancedForm
         Me.CacheButton1.Name = "CacheButton1"
         Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
         Me.CacheButton1.TabIndex = 19
-        Me.CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches
+        Me.CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches_word
         Me.ToolTip1.SetToolTip(Me.CacheButton1, Global.Outworldz.My.Resources.Resources.Click_Caches)
         Me.CacheButton1.UseVisualStyleBackColor = True
         '
@@ -237,7 +237,7 @@ Partial Class AdvancedForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(145, 23)
         Me.Button1.TabIndex = 20
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Server_Type
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         Me.ToolTip1.SetToolTip(Me.Button1, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.Button1.UseVisualStyleBackColor = True
         '

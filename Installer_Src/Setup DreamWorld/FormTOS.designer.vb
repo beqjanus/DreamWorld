@@ -129,7 +129,7 @@ Partial Class TosForm
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
         Me.ApplyButton.TabIndex = 9
-        Me.ApplyButton.Text = My.Resources.Apply
+        Me.ApplyButton.Text = My.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2

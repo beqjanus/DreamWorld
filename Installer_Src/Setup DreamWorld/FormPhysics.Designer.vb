@@ -124,7 +124,7 @@ Partial Class FormPhysics
         Me.PhysicsBullet.Size = New System.Drawing.Size(130, 24)
         Me.PhysicsBullet.TabIndex = 12
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics
+        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics_word
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE
@@ -136,7 +136,7 @@ Partial Class FormPhysics
         Me.PhysicsODE.Size = New System.Drawing.Size(192, 24)
         Me.PhysicsODE.TabIndex = 10
         Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.Resources.ODE
+        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.Resources.ODE_text
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
         'MenuStrip2

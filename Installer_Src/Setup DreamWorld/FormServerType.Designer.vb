@@ -49,7 +49,7 @@ Partial Class FormServerType
         Me.GroupBox1.Size = New System.Drawing.Size(321, 263)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Server_Type
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         '
         'MetroRadioButton2
         '
@@ -69,7 +69,7 @@ Partial Class FormServerType
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(93, 35)
         Me.SaveButton.TabIndex = 1883
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'GridRegionButton
@@ -80,7 +80,7 @@ Partial Class FormServerType
         Me.GridRegionButton.Name = "GridRegionButton"
         Me.GridRegionButton.Size = New System.Drawing.Size(135, 24)
         Me.GridRegionButton.TabIndex = 1880
-        Me.GridRegionButton.Text = Global.Outworldz.My.Resources.Resources.Region_Server
+        Me.GridRegionButton.Text = Global.Outworldz.My.Resources.Resources.Region_Server_word
         Me.GridRegionButton.UseVisualStyleBackColor = True
         '
         'osGridRadioButton1
@@ -131,7 +131,7 @@ Partial Class FormServerType
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
         Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(205, 34)
-        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Server_Type
+        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         '
         'FormServerType
         '
@@ -143,7 +143,7 @@ Partial Class FormServerType
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormServerType"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Server_Type
+        Me.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

@@ -51,7 +51,7 @@ Partial Class FormIARSave
         Me.AviName.Name = "AviName"
         Me.AviName.Size = New System.Drawing.Size(266, 26)
         Me.AviName.TabIndex = 14
-        Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name)
+        Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
         '
         'BackupNameTextBox
         '
@@ -101,7 +101,7 @@ Partial Class FormIARSave
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(160, 35)
         Me.Button2.TabIndex = 22
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel
+        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
@@ -111,7 +111,7 @@ Partial Class FormIARSave
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(162, 35)
         Me.Button1.TabIndex = 21
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_IAR
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1

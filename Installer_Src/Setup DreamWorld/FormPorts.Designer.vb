@@ -138,7 +138,7 @@ Partial Class FormPorts
         Me.uPnPEnabled.Name = "uPnPEnabled"
         Me.uPnPEnabled.Size = New System.Drawing.Size(139, 24)
         Me.uPnPEnabled.TabIndex = 21
-        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled
+        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled_word
         Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.Resources.UPnP_Enabled_text)
         Me.uPnPEnabled.UseVisualStyleBackColor = True
         '
@@ -235,7 +235,7 @@ Partial Class FormPorts
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormPorts"
-        Me.Text = My.Resources.Region_Port
+        Me.Text = My.Resources.Region_Port_word
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).EndInit()

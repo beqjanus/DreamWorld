@@ -123,7 +123,7 @@ Partial Class FormHelp
         Me.TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.TroubleshootingToolStripMenuItem.Name = "TroubleshootingToolStripMenuItem"
         Me.TroubleshootingToolStripMenuItem.Size = New System.Drawing.Size(202, 22)
-        Me.TroubleshootingToolStripMenuItem.Text = My.Resources.Troubleshooting
+        Me.TroubleshootingToolStripMenuItem.Text = My.Resources.Troubleshooting_word
         '
         'StepbyStepInstallationToolStripMenuItem
         '
@@ -158,7 +158,7 @@ Partial Class FormHelp
         Me.SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.SourceCodeToolStripMenuItem.Name = "SourceCodeToolStripMenuItem"
         Me.SourceCodeToolStripMenuItem.Size = New System.Drawing.Size(202, 22)
-        Me.SourceCodeToolStripMenuItem.Text = My.Resources.Source_Code
+        Me.SourceCodeToolStripMenuItem.Text = My.Resources.Source_Code_word
         '
         'RichTextBox1
         '

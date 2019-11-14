@@ -127,7 +127,7 @@ Public Class RegionMaker
             Return
         End If
 
-        Form1.Print(My.Resources.Updating_Ports)
+        Form1.Print(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
@@ -143,7 +143,7 @@ Public Class RegionMaker
         Next
 
         If Not Form1.Settings.PortsChanged Then Return
-        Form1.Print(My.Resources.Setup_Firewall)
+        Form1.Print(My.Resources.Setup_Firewall_word)
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
         Form1.Settings.PortsChanged = False
@@ -212,7 +212,7 @@ Public Class RegionMaker
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
-                                    Form1.Print(My.Resources.Teleporting & " " & AgentName & " -> " & Keypair.Value)
+                                    Form1.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
                                     Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
                                     Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
@@ -242,7 +242,7 @@ Public Class RegionMaker
 
                     Return ' does not work as expected
 
-                    Form1.Print(json.region_name & " " & My.Resources.Stopped)
+                    Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
                     Dim n = FindRegionByName(json.region_name)
                     If n < 0 Then
@@ -555,7 +555,7 @@ Public Class RegionMaker
 
         Dim n As Integer = FindRegionByName(name)
         If n < 0 Then
-            MsgBox(My.Resources.Cannot_find_region & " " & name, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, My.Resources.Err)
             Return
         End If
 
@@ -1325,11 +1325,11 @@ Public Class RegionMaker
                 Dim n = FindRegionByUUID(RegionUUID)
                 If n > -1 And RegionEnabled(n) And SmartStart(n) Then
                     If Status(n) = SIMSTATUSENUM.Booted Then
-                        Form1.Print(My.Resources.Someone_is_in & " " & RegionName(n))
+                        Form1.Print(My.Resources.Someone_is_in_word & " " & RegionName(n))
                         Debug.Print("Sending to " & RegionUUID)
                         Return RegionUUID
                     Else
-                        Form1.Print(My.Resources.Smart_Start & " " & RegionName(n))
+                        Form1.Print(My.Resources.Smart_Start_word & " " & RegionName(n))
                         Status(n) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(n))

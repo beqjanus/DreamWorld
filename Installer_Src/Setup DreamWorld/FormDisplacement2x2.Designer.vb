@@ -141,7 +141,7 @@ Partial Class FormDisplacement2x2
         '
         Me.ClearOARToolStripMenuItem.Name = "ClearOARToolStripMenuItem"
         Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ClearOARToolStripMenuItem.Text = My.Resources.Clear_and_Load
+        Me.ClearOARToolStripMenuItem.Text = My.Resources.Clear_and_Load_word
         '
         'TerrainToolStripMenuItem
         '
@@ -149,7 +149,7 @@ Partial Class FormDisplacement2x2
         Me.TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
         Me.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem"
         Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.TerrainToolStripMenuItem.Text = My.Resources.Terrain
+        Me.TerrainToolStripMenuItem.Text = My.Resources.Terrain_word
         '
         'ForceTerrainToolStripMenuItem
         '
@@ -192,7 +192,7 @@ Partial Class FormDisplacement2x2
         Me.SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user3
         Me.SetOwnerToolStripMenuItem.Name = "SetOwnerToolStripMenuItem"
         Me.SetOwnerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SetOwnerToolStripMenuItem.Text = My.Resources.Set_Owner
+        Me.SetOwnerToolStripMenuItem.Text = My.Resources.Set_Owner_word
         '
         'HelpToolStripMenuItem
         '

@@ -122,7 +122,7 @@ Partial Class FormDatabase
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(110, 20)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Region_Server
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Region_Server_word
         '
         'RegionServer
         '
@@ -179,7 +179,7 @@ Partial Class FormDatabase
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(83, 20)
         Me.Label21.TabIndex = 16
-        Me.Label21.Text = Global.Outworldz.My.Resources.Resources.UserName
+        Me.Label21.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
         '
         'RegionMySqlPassword
         '
@@ -300,7 +300,7 @@ Partial Class FormDatabase
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(89, 20)
         Me.Label15.TabIndex = 34
-        Me.Label15.Text = Global.Outworldz.My.Resources.Resources.UserName
+        Me.Label15.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
         '
         'Label8
         '
@@ -373,7 +373,7 @@ Partial Class FormDatabase
         Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(105, 29)
-        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         '
         'FullSQLBackupToolStripMenuItem
         '

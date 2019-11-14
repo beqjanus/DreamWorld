@@ -308,7 +308,7 @@ Partial Class FormRegion
         Me.BirdsCheckBox.Name = "BirdsCheckBox"
         Me.BirdsCheckBox.Size = New System.Drawing.Size(82, 17)
         Me.BirdsCheckBox.TabIndex = 21
-        Me.BirdsCheckBox.Text = Global.Outworldz.My.Resources.Resources.BirdModule
+        Me.BirdsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Bird_Module_word
         Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, Global.Outworldz.My.Resources.Resources.GBoids)
         Me.BirdsCheckBox.UseVisualStyleBackColor = True
         '
@@ -330,7 +330,7 @@ Partial Class FormRegion
         Me.TPCheckBox1.Name = "TPCheckBox1"
         Me.TPCheckBox1.Size = New System.Drawing.Size(110, 17)
         Me.TPCheckBox1.TabIndex = 22
-        Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable
+        Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable_word
         Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.GTide)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
         '
@@ -352,7 +352,7 @@ Partial Class FormRegion
         Me.GodHelp.Size = New System.Drawing.Size(30, 27)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Allow_Gods_text)
+        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word)
         '
         'AllowGods
         '
@@ -361,7 +361,7 @@ Partial Class FormRegion
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(131, 17)
         Me.AllowGods.TabIndex = 1858
-        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Gods_text
+        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
         Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
         Me.AllowGods.UseVisualStyleBackColor = True
         '
@@ -383,8 +383,8 @@ Partial Class FormRegion
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(127, 17)
         Me.RegionGod.TabIndex = 1855
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God)
+        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'SmartStartCheckBox
@@ -394,7 +394,7 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
-        Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start
+        Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
@@ -485,7 +485,7 @@ Partial Class FormRegion
         Me.Physics_Default.Size = New System.Drawing.Size(81, 17)
         Me.Physics_Default.TabIndex = 137
         Me.Physics_Default.TabStop = True
-        Me.Physics_Default.Text = Global.Outworldz.My.Resources.Resources.UseDefault
+        Me.Physics_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.Physics_Default.UseVisualStyleBackColor = True
         '
         'PhysicsSeparate
@@ -529,7 +529,7 @@ Partial Class FormRegion
         Me.PhysicsBullet.Size = New System.Drawing.Size(89, 17)
         Me.PhysicsBullet.TabIndex = 136
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics
+        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics_word
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE
@@ -540,7 +540,7 @@ Partial Class FormRegion
         Me.PhysicsODE.Size = New System.Drawing.Size(131, 17)
         Me.PhysicsODE.TabIndex = 34
         Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.Resources.ODE
+        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.Resources.ODE_text
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
         'FrametimeBox
@@ -558,7 +558,7 @@ Partial Class FormRegion
         Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
         Me.SkipAutoCheckBox.Size = New System.Drawing.Size(108, 17)
         Me.SkipAutoCheckBox.TabIndex = 27
-        Me.SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Resources.Skip_Autobackup
+        Me.SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Resources.Skip_Autobackup_word
         Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.Resources.WillNotSave)
         Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
         '
@@ -715,7 +715,7 @@ Partial Class FormRegion
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(59, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'DeleteButton
@@ -822,7 +822,7 @@ Partial Class FormRegion
         Me.PublishDefault.Size = New System.Drawing.Size(81, 17)
         Me.PublishDefault.TabIndex = 1879
         Me.PublishDefault.TabStop = True
-        Me.PublishDefault.Text = Global.Outworldz.My.Resources.Resources.UseDefault
+        Me.PublishDefault.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.PublishDefault.UseVisualStyleBackColor = True
         '
         'GroupBox4
@@ -846,7 +846,7 @@ Partial Class FormRegion
         Me.Gods_Use_Default.Name = "Gods_Use_Default"
         Me.Gods_Use_Default.Size = New System.Drawing.Size(82, 17)
         Me.Gods_Use_Default.TabIndex = 1859
-        Me.Gods_Use_Default.Text = Global.Outworldz.My.Resources.Resources.UseDefault
+        Me.Gods_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.Gods_Use_Default.UseVisualStyleBackColor = True
         '
         'MapBox
@@ -873,7 +873,7 @@ Partial Class FormRegion
         Me.Maps_Use_Default.Size = New System.Drawing.Size(81, 17)
         Me.Maps_Use_Default.TabIndex = 1858
         Me.Maps_Use_Default.TabStop = True
-        Me.Maps_Use_Default.Text = Global.Outworldz.My.Resources.Resources.UseDefault
+        Me.Maps_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.Maps_Use_Default.UseVisualStyleBackColor = True
         '
         'MapPicture
@@ -905,7 +905,7 @@ Partial Class FormRegion
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
-        Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast
+        Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast_word
         Me.MapSimple.UseVisualStyleBackColor = True
         '
         'MapBetter
@@ -916,7 +916,7 @@ Partial Class FormRegion
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
-        Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better1
+        Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better_Prims
         Me.MapBetter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.MapBetter.UseVisualStyleBackColor = True
         '
@@ -928,7 +928,7 @@ Partial Class FormRegion
         Me.MapBest.Size = New System.Drawing.Size(171, 17)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
-        Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best1
+        Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best_Prims
         Me.MapBest.UseVisualStyleBackColor = True
         '
         'MapGood

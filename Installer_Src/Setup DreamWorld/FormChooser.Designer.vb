@@ -73,7 +73,7 @@ Partial Class Choice
         Me.CancelButton1.Name = "CancelButton1"
         Me.CancelButton1.Size = New System.Drawing.Size(125, 36)
         Me.CancelButton1.TabIndex = 4
-        Me.CancelButton1.Text = Global.Outworldz.My.Resources.Resources.Cancel
+        Me.CancelButton1.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.CancelButton1.UseVisualStyleBackColor = True
         '
         'Choice
@@ -87,7 +87,7 @@ Partial Class Choice
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Choice"
-        Me.Text = My.Resources.ChooseRegion
+        Me.Text = My.Resources.Choose_Region_word
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

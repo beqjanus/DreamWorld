@@ -90,7 +90,7 @@ Partial Class BirdForm
         Me.GroupBox1.Size = New System.Drawing.Size(476, 496)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.BirdModule
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Bird_Module_word
         '
         'Label7
         '
@@ -333,7 +333,7 @@ Partial Class BirdForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(234, 34)
         Me.Button1.TabIndex = 0
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Bird_IAR
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Load_Bird_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip2

@@ -222,6 +222,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Public Enums"
 
     ' icons image list layout
@@ -312,22 +314,22 @@ Public Class RegionList
         ' Create columns for the items and subitems. Width of -2 indicates auto-size.
         ListView1.Columns.Add(My.Resources.Enable, 120, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.DOS_Box, 100, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Agents, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Status, 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Agents_word, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Status_word, 120, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.RAM, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.X, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Y, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Size, 40, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.X_word, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Y_word, 50, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Size_word, 40, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Estate, 100, HorizontalAlignment.Center)
 
         ' optional
         ListView1.Columns.Add(My.Resources.Maps, 80, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Physics, 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Birds, 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Tides, 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Teleport, 65, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Smart_Start, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Allow_Gods_text, 75, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Birds_word, 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Tides_word, 60, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Teleport_word, 65, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Smart_Start_word, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, 75, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Owner_God, 75, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Manager_God, 80, HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.No_Autobackup, 90, HorizontalAlignment.Center)
@@ -339,9 +341,9 @@ Public Class RegionList
         Me.Name = "Region List"
         Me.Text = My.Resources.Region_List
 
-        AvatarView.Columns.Add(My.Resources.Agents, 150, HorizontalAlignment.Left)
+        AvatarView.Columns.Add(My.Resources.Agents_word, 150, HorizontalAlignment.Left)
         AvatarView.Columns.Add(My.Resources.Region, 150, HorizontalAlignment.Center)
-        AvatarView.Columns.Add(My.Resources.Type, 80, HorizontalAlignment.Center)
+        AvatarView.Columns.Add(My.Resources.Type_word, 80, HorizontalAlignment.Center)
 
         ' index to display icons
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
@@ -397,7 +399,6 @@ Public Class RegionList
             bmp = New Bitmap(responseStream)
             responseStream.Dispose()
         Catch ex As Exception
-            Form1.Log("Maps", ex.Message + ": " + S)
         End Try
 
         Return bmp
@@ -442,7 +443,6 @@ Public Class RegionList
                     End Try
                 End If
             Catch ex As Exception
-                ' Form1.Log(My.Resources.Err, ex.Message)
             End Try
         Next
         PropUpdateView() = True
@@ -462,12 +462,15 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
-        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("RegionList")
     End Sub
 
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
@@ -538,22 +541,22 @@ Public Class RegionList
                 For Each Agent In L
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add("Local")
+                    item1.SubItems.Add(My.Resources.Local)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
                 Next
 
                 If L.Count = 0 Then
-                    Dim item1 As New ListViewItem("No Avatars", Index)
-                    item1.SubItems.Add("-")
-                    item1.SubItems.Add("Local Grid")
+                    Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                    item1.SubItems.Add(My.Resources.MinusSign_NT)
+                    item1.SubItems.Add(My.Resources.Local_Grid)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
                 End If
             Catch ex As Exception
-                Dim item1 As New ListViewItem("No Avatars", Index)
-                item1.SubItems.Add("-")
-                item1.SubItems.Add("Local Grid")
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add(My.Resources.MinusSign_NT)
+                item1.SubItems.Add(My.Resources.Local)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
             End Try
@@ -569,22 +572,22 @@ Public Class RegionList
                     If Agent.Value.Length > 0 Then
                         Dim item1 As New ListViewItem(Agent.Key, Index)
                         item1.SubItems.Add(Agent.Value)
-                        item1.SubItems.Add("Hypergrid")
+                        item1.SubItems.Add(My.Resources.HG_word_NT)
                         AvatarView.Items.AddRange(New ListViewItem() {item1})
                         Index += 1
                     End If
                 Next
 
                 If Index = 0 Then
-                    Dim item1 As New ListViewItem("No Avatars", Index)
-                    item1.SubItems.Add("-")
-                    item1.SubItems.Add("Hypergrid")
+                    Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                    item1.SubItems.Add(My.Resources.MinusSign_NT)
+                    item1.SubItems.Add(My.Resources.HG_word_NT)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                 End If
             Catch
-                Dim item1 As New ListViewItem("No Avatars", Index)
-                item1.SubItems.Add("-")
-                item1.SubItems.Add("Hypergrid")
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add(My.Resources.MinusSign_NT)
+                item1.SubItems.Add(My.Resources.HG_word_NT)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
             End Try
 
@@ -599,6 +602,8 @@ Public Class RegionList
         End Try
 
     End Sub
+
+#Region "Private Methods"
 
     Private Sub ShowRegions()
 
@@ -684,7 +689,7 @@ Public Class RegionList
                 If TheView1 = ViewType.Maps Then
 
                     If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace("-", "")
+                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace(My.Resources.MinusSign_NT, "")
 
                         Dim bmp As Image = LoadImage(img)
                         If bmp Is Nothing Then
@@ -716,10 +721,10 @@ Public Class RegionList
                         Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
                         item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                     Else
-                        item1.SubItems.Add("0")
+                        item1.SubItems.Add(My.Resources.Zero_word_NT)
                     End If
                 Catch ex As Exception
-                    item1.SubItems.Add("0")
+                    item1.SubItems.Add(My.Resources.Zero_word_NT)
                 End Try
                 item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                 item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
@@ -739,7 +744,7 @@ Public Class RegionList
                 item1.SubItems.Add(size)
 
                 ' add estate name
-                Dim Estate = "-"
+                Dim Estate = My.Resources.MinusSign_NT
                 If MysqlIsRunning Then
                     Estate = MysqlInterface.EstateName(PropRegionClass1.UUID(X))
                 End If
@@ -751,53 +756,53 @@ Public Class RegionList
                 ' physics
                 Select Case PropRegionClass1.Physics(X)
                     Case ""
-                        item1.SubItems.Add("-")
+                        item1.SubItems.Add(My.Resources.MinusSign_NT)
                     Case "0"
                         item1.SubItems.Add(My.Resources.None)
                     Case "1"
-                        item1.SubItems.Add("ODE")
+                        item1.SubItems.Add(My.Resources.ODE_word_NT)
                     Case "2"
-                        item1.SubItems.Add("Bullet")
+                        item1.SubItems.Add(My.Resources.Bullet_word_NT)
                     Case "3"
-                        item1.SubItems.Add("Bullet/Threaded")
+                        item1.SubItems.Add(My.Resources.Bullet_Threaded_word)
                     Case "4"
-                        item1.SubItems.Add("ubODE")
+                        item1.SubItems.Add(My.Resources.ubODE_word)
                     Case "5"
-                        item1.SubItems.Add("ubODE Hybrid")
+                        item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
                     Case Else
-                        item1.SubItems.Add("-")
+                        item1.SubItems.Add(My.Resources.MinusSign_NT)
                 End Select
 
                 'birds
 
                 If PropRegionClass1.Birds(X) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes)
+                    item1.SubItems.Add(My.Resources.Yes_word)
                 Else
-                    item1.SubItems.Add("-")
+                    item1.SubItems.Add(My.Resources.MinusSign_NT)
                 End If
 
                 'Tides
                 If PropRegionClass1.Tides(X) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes)
+                    item1.SubItems.Add(My.Resources.Yes_word)
                 Else
-                    item1.SubItems.Add("-")
+                    item1.SubItems.Add(My.Resources.MinusSign_NT)
                 End If
 
                 'teleport
                 If PropRegionClass1.Teleport(X) = "True" Or
                     PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                    item1.SubItems.Add(My.Resources.Yes)
+                    item1.SubItems.Add(My.Resources.Yes_word)
                 Else
-                    item1.SubItems.Add("-")
+                    item1.SubItems.Add(My.Resources.MinusSign_NT)
                 End If
 
                 If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
                     item1.SubItems.Add(My.Resources.HomeText)
                 Else
                     If PropRegionClass1.SmartStart(X) = True Then
-                        item1.SubItems.Add(My.Resources.Yes)
+                        item1.SubItems.Add(My.Resources.Yes_word)
                     Else
-                        item1.SubItems.Add("-")
+                        item1.SubItems.Add(My.Resources.MinusSign_NT)
                     End If
                 End If
 
@@ -855,7 +860,7 @@ Public Class RegionList
             If Not Form1.StartMySQL() Then
                 Form1.ProgressBar1.Value = 0
                 Form1.ProgressBar1.Visible = True
-                Form1.Print(My.Resources.Stopped)
+                Form1.Print(My.Resources.Stopped_word)
             End If
             Form1.StartRobust()
             Form1.Log("Starting", PropRegionClass1.RegionName(n))
@@ -888,7 +893,7 @@ Public Class RegionList
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(PropRegionClass1.GroupName(regionNum), "q{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Stopping & " " + PropRegionClass1.GroupName(regionNum))
+                    Form1.Print(My.Resources.Stopping_word & " " + PropRegionClass1.GroupName(regionNum))
                     ' shut down all regions in the DOS box
                     For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
                         PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
@@ -931,7 +936,7 @@ Public Class RegionList
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
-            Dim link = "hop:" & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            Dim link = "hop:   " & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
             Catch ex As InvalidOperationException
@@ -985,7 +990,7 @@ Public Class RegionList
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Restarting & " " & PropRegionClass1.GroupName(X))
+                    Form1.Print(My.Resources.Restarting_word & " " & PropRegionClass1.GroupName(X))
                 End If
 
                 ' shut down all regions in the DOS box
@@ -1112,8 +1117,8 @@ Public Class RegionList
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         Dim ofd As New OpenFileDialog
-        ofd.InitialDirectory = "c:\\"
-        ofd.Filter = "ini files (*.ini)|*.ini|All files (*.*)|*.*"
+        ofd.InitialDirectory = "c\\"
+        ofd.Filter = My.Resources.INI_Filter
         ofd.FilterIndex = 2
         ofd.RestoreDirectory = True
 
@@ -1122,7 +1127,7 @@ Public Class RegionList
 
                 Dim dirpathname = PickGroup()
                 If dirpathname.Length = 0 Then
-                    Form1.Print(My.Resources.Aborted)
+                    Form1.Print(My.Resources.Aborted_word)
                     ofd.Dispose()
                     Return
                 End If
@@ -1180,7 +1185,7 @@ Public Class RegionList
         If regionname.Length = 0 Then Return
         Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
         Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
-        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = "http//" & Form1.Settings.PublicIP & "" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -1205,9 +1210,7 @@ Public Class RegionList
 
     End Function
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("RegionList")
-    End Sub
+#End Region
 
 #End Region
 
@@ -1219,6 +1222,8 @@ End Class
 Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
+
+
 
 #Region "Private Fields"
 
@@ -1239,6 +1244,8 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
