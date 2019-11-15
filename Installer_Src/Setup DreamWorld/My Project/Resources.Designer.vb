@@ -6916,15 +6916,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to These changes go into effect only when Opensim and Robust are both restarted.
-        '''</summary>
-        Friend ReadOnly Property These_Changes() As String
-            Get
-                Return ResourceManager.GetString("These_Changes", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to This moves all regions so the chosen region is at 1000,1000 to fit the map. Proceed?.
         '''</summary>
         Friend ReadOnly Property This_Moves() As String

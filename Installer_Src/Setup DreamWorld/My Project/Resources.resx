@@ -2018,9 +2018,6 @@
   <data name="Request_App" xml:space="preserve">
     <value>Request App Creation</value>
   </data>
-  <data name="These_Changes" xml:space="preserve">
-    <value>These changes go into effect only when Opensim and Robust are both restarted</value>
-  </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>quit unexpectedly.  Restarting.</value>
   </data>
