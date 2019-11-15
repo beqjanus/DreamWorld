@@ -27,6 +27,11 @@ Module FileStuff
             System.IO.Directory.CreateDirectory(destinationPath)
         End If
 
+        If Not System.IO.Directory.Exists(sourcePath) Then
+            MsgBox("Cannot locate folder " & sourcePath, vbInformation)
+            Return
+        End If
+
         Dim fileSystemInfo As System.IO.FileSystemInfo
         For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
             Dim destinationFileName As String =
