@@ -172,7 +172,6 @@ Public Class BirdForm
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
         If changed Then
             Form1.PropViewedSettings = True
-            MsgBox(My.Resources.These_Changes, vbInformation)
         End If
         Form1.Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
         Form1.Settings.SaveSettings()
