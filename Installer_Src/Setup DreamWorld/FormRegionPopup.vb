@@ -78,21 +78,21 @@ Public Class FormRegionPopup
             StartButton3.Enabled = False
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
-            Button1.Enabled = False
+            StatsButton.Enabled = False
         Else
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 StartButton3.Enabled = True
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
-                Button1.Enabled = True
+                StatsButton.Enabled = True
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
-                Button1.Enabled = True
+                StatsButton.Enabled = True
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
@@ -100,7 +100,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
-                Button1.Enabled = False
+                StatsButton.Enabled = False
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
@@ -108,7 +108,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
-                Button1.Enabled = False
+                StatsButton.Enabled = False
             End If
 
             ' stopped
@@ -116,7 +116,7 @@ Public Class FormRegionPopup
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
-                Button1.Enabled = False
+                StatsButton.Enabled = False
             End If
         End If
 
@@ -130,9 +130,21 @@ Public Class FormRegionPopup
 
 #Region "Private Methods"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles StatsButton.Click
         gPick = "Teleport"
         DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles StatsButton1.Click
+
+        Dim RegionNum = Form1.PropRegionClass.FindRegionByName(_RegionName)
+        Dim RegionPort = Form1.PropRegionClass.GroupPort(RegionNum)
+        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
     End Sub
 
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click

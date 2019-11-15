@@ -222,8 +222,6 @@ Public Class RegionList
 
 #End Region
 
-
-
 #Region "Public Enums"
 
     ' icons image list layout
@@ -462,7 +460,8 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
+        ' property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -1185,7 +1184,7 @@ Public Class RegionList
         If regionname.Length = 0 Then Return
         Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
         Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
-        Dim webAddress As String = "http//" & Form1.Settings.PublicIP & "" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -1223,8 +1222,6 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
-
-
 #Region "Private Fields"
 
     Private col As Integer
@@ -1244,8 +1241,6 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
-
-
 
 #Region "Public Methods"
 
