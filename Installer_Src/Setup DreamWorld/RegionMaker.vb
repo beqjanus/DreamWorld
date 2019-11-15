@@ -649,7 +649,7 @@ Public Class RegionMaker
         Public _LineCounter As Integer = 0
 
         Public _ProcessID As Integer = 0
-        Public _RegionEnabled As Boolean = False
+        Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
