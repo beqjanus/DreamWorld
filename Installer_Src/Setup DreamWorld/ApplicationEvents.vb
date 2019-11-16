@@ -61,7 +61,6 @@ Namespace My
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
                 e.ExitApplication = False
-                End
             End If
         End Sub
 
