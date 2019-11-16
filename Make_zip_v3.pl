@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.25";
+my $v = "3.27";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -166,8 +166,30 @@ ProcessDir ("OutworldzFiles\\Mysql");
 ProcessDir ("OutworldzFiles\\OAR");
 ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
-ProcessDir ("OutworldzFiles\\fr-FR");
-ProcessDir ("OutworldzFiles\\en");
+
+#Languages
+
+ProcessDir ("ca");
+ProcessDir ("cs");
+ProcessDir ("de");
+ProcessDir ("el");
+ProcessDir ("en");
+ProcessDir ("es-MX");
+ProcessDir ("eu");
+ProcessDir ("fi");
+ProcessDir ("fr");
+ProcessDir ("ga");
+ProcessDir ("he");
+ProcessDir ("is");
+ProcessDir ("nl-NL");
+ProcessDir ("no");
+ProcessDir ("pl");
+ProcessDir ("pt");
+ProcessDir ("ru");
+ProcessDir ("sv");
+ProcessDir ("zh-cn");
+ProcessDir ("zh-tw");
+
 
 
 
