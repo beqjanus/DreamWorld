@@ -980,6 +980,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cannot_locate_folder.
+        '''</summary>
+        Friend ReadOnly Property Cannot_locate_folder_word() As String
+            Get
+                Return ResourceManager.GetString("Cannot locate folder_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Cannot normalize map as a Region will be at a location less than 0.
         '''</summary>
         Friend ReadOnly Property Cannot_Normalize() As String

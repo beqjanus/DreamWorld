@@ -54,6 +54,8 @@ Public Class FormBackupCheckboxes
 
 #End Region
 
+
+
 #Region "Private Methods"
 
     Private Shared Sub CpyFile(From As String, Dest As String)
@@ -119,12 +121,13 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
 
-                Dim folder As String
+                Dim folder As String = "./fsassets"
                 If Form1.Settings.BaseDirectory = "./fsassets" Then
                     folder = Form1.Settings.OpensimBinPath & "bin\FSAssets"
                 Else
                     folder = Form1.Settings.BaseDirectory
                 End If
+
                 PrintStatus("Backing up FSAssets Folder")
                 FileStuff.CopyFolder(folder, Dest + "\FSAssets")
                 Application.DoEvents()
