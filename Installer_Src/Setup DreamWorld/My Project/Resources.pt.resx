@@ -477,6 +477,9 @@
   <data name="Clearing_Mesh" xml:space="preserve">
     <value>Clearing malha Cache</value>
   </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>Clearing malha Cache</value>
+  </data>
   <data name="Clearing_Script" xml:space="preserve">
     <value>Clearing Script Cache. Isso pode levar um longo tempo.</value>
   </data>
@@ -547,7 +550,7 @@
     <value>Clique para escolher um tipo de servidor. Padrão = Grade, mas você pode conectar como servidor Região, OsGrid ou servidores Metro Região</value>
   </data>
   <data name="Click_Start" xml:space="preserve">
-    <value>Não é possível executar diagnósticos a menos que o sistema está funcionando. Clique em 'Iniciar' e tente novamente.</value>
+    <value>Não é possível executar diagnósticos a menos que o sistema está em execução. Clique em 'Iniciar' e tente novamente.</value>
   </data>
   <data name="Click_Start_2_Begin" xml:space="preserve">
     <value>Clique em 'Start' para começar.</value>
@@ -892,7 +895,7 @@
     <value>Pasta para salvar a</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
+    <value>Frame Rate (0,9)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Padrão 1/11 seg. O padrão é 0,091, que é 1 / 5th de 55 FPS</value>
@@ -910,7 +913,7 @@
     <value>Nome amigável deste Grade</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL funciona 55 FPS. Opensim é de 11 FPS. Padrão = 0,0909, ou 1/11</value>
+    <value>SL funciona 55 FPS. Opensim é de 11 FPS. Padrão = 0,9, ou 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Ativos como arquivos</value>
@@ -1203,6 +1206,12 @@
   <data name="Load_Terrain" xml:space="preserve">
     <value>carga Terrain</value>
   </data>
+  <data name="Local" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>Grade local</value>
+  </data>
   <data name="Local_Search" xml:space="preserve">
     <value>local Search</value>
   </data>
@@ -1382,6 +1391,9 @@
   </data>
   <data name="No Autobackup" xml:space="preserve">
     <value>No_Autobackup</value>
+  </data>
+  <data name="NoAvatars" xml:space="preserve">
+    <value>Sem Avatares</value>
   </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Nenhuma pessoa está online</value>
@@ -1819,10 +1831,10 @@
     <value>Cache de script</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Temporizador Rate (0,0909)</value>
+    <value>Script Temporizador Rate (0,9)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script configuração de velocidade temporizador. 1/11 segundo padrão é (0,0909)</value>
+    <value>Script configuração de velocidade temporizador. 1/11 segundo padrão é (0,9)</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Procurar</value>
@@ -1930,7 +1942,7 @@
     <value>Ignorar Cópia de Segurança Automática</value>
   </data>
   <data name="Slow_Backup" xml:space="preserve">
-    <value>Iniciando um lento, mas extensa Database Backup</value>
+    <value>Iniciando um lento, mas extensiva Database Backup</value>
   </data>
   <data name="Small_Map" xml:space="preserve">
     <value>mapa Metro pequena</value>
@@ -2002,7 +2014,7 @@
     <value>estado</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Script configuração de velocidade temporizador. 1/11 segundo padrão é (0,0909)</value>
+    <value>Script configuração de velocidade temporizador. 1/11 segundo padrão é (0,9)</value>
   </data>
   <data name="Step1" xml:space="preserve">
     <value>Passo 1:</value>

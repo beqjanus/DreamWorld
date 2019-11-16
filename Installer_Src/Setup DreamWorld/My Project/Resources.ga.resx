@@ -477,6 +477,9 @@
   <data name="Clearing_Mesh" xml:space="preserve">
     <value>Cache mogalra Imréitigh</value>
   </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>Cache mogalra Imréitigh</value>
+  </data>
   <data name="Clearing_Script" xml:space="preserve">
     <value>Imréitigh Script Cache. D'fhéadfadh sé seo a ghlacadh le fada.</value>
   </data>
@@ -1203,6 +1206,12 @@
   <data name="Load_Terrain" xml:space="preserve">
     <value>Tír-raon Luchtaigh</value>
   </data>
+  <data name="Local" xml:space="preserve">
+    <value>Áitiúil</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>Greille Áitiúil</value>
+  </data>
   <data name="Local_Search" xml:space="preserve">
     <value>Cuardaigh Áitiúil</value>
   </data>
@@ -1382,6 +1391,9 @@
   </data>
   <data name="No Autobackup" xml:space="preserve">
     <value>No_Autobackup</value>
+  </data>
+  <data name="NoAvatars" xml:space="preserve">
+    <value>Gan Avatars</value>
   </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Níl aon duine ar líne</value>

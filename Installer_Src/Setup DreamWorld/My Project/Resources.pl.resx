@@ -477,6 +477,12 @@
   <data name="Clearing_Mesh" xml:space="preserve">
     <value>Clearing Cache Mesh</value>
   </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>Clearing Cache Mesh</value>
+  </data>
+  <data name="Clearing_Mesh_Cache_word1" xml:space="preserve">
+    <value>Clearing Cache Mesh</value>
+  </data>
   <data name="Clearing_Script" xml:space="preserve">
     <value>Clearing Script Cache. Może to zająć dużo czasu.</value>
   </data>
@@ -1203,6 +1209,18 @@
   <data name="Load_Terrain" xml:space="preserve">
     <value>Teren obciążenie</value>
   </data>
+  <data name="Local" xml:space="preserve">
+    <value>Lokalny</value>
+  </data>
+  <data name="Local1" xml:space="preserve">
+    <value>Lokalny</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>lokalnej sieci</value>
+  </data>
+  <data name="Local_Grid1" xml:space="preserve">
+    <value>lokalnej sieci</value>
+  </data>
   <data name="Local_Search" xml:space="preserve">
     <value>Wyszukiwanie lokalne</value>
   </data>
@@ -1382,6 +1400,12 @@
   </data>
   <data name="No Autobackup" xml:space="preserve">
     <value>No_Autobackup</value>
+  </data>
+  <data name="NoAvatars" xml:space="preserve">
+    <value>Nie Awatary</value>
+  </data>
+  <data name="NoAvatars1" xml:space="preserve">
+    <value>Nie Awatary</value>
   </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>Żadna osoba jest online</value>

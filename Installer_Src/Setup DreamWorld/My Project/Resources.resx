@@ -1284,7 +1284,7 @@
   </data>
   <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
     <value>Clearing Mesh Cache</value>
-    <comment>_cache</comment>
+    <comment>new</comment>
   </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>Add Region</value>

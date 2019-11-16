@@ -477,6 +477,9 @@
   <data name="Clearing_Mesh" xml:space="preserve">
     <value>清除高速缓存网格</value>
   </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>清除高速缓存网格</value>
+  </data>
   <data name="Clearing_Script" xml:space="preserve">
     <value>清除脚本缓存。这可能需要很长的时间。</value>
   </data>
@@ -1203,6 +1206,12 @@
   <data name="Load_Terrain" xml:space="preserve">
     <value>负载地形</value>
   </data>
+  <data name="Local" xml:space="preserve">
+    <value>本地</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>地方电网</value>
+  </data>
   <data name="Local_Search" xml:space="preserve">
     <value>本地搜索</value>
   </data>
@@ -1382,6 +1391,9 @@
   </data>
   <data name="No Autobackup" xml:space="preserve">
     <value>No_Autobackup</value>
+  </data>
+  <data name="NoAvatars" xml:space="preserve">
+    <value>无头像</value>
   </data>
   <data name="Nobody_Online" xml:space="preserve">
     <value>任何人在线</value>

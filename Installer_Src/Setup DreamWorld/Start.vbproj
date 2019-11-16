@@ -393,6 +393,11 @@
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
+    <Compile Include="My Project\Resources.cz.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.cz.resx</DependentUpon>
+    </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -595,6 +600,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.ca.resx">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.cz.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <LastGenOutput>Resources.cz.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.de.resx">
       <SubType>Designer</SubType>
