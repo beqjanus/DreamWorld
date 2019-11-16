@@ -75,6 +75,7 @@ Public Class FormRegionPopup
         GroupBox1.Text = Form1.PropRegionClass.GroupName(X)
 
         If Not Form1.PropRegionClass.RegionEnabled(X) Then
+            StatsButton1.Enabled = False
             StartButton3.Enabled = False
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
@@ -82,6 +83,7 @@ Public Class FormRegionPopup
         Else
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                StatsButton1.Enabled = False
                 StartButton3.Enabled = True
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
@@ -89,6 +91,7 @@ Public Class FormRegionPopup
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+                StatsButton1.Enabled = True
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
@@ -97,6 +100,7 @@ Public Class FormRegionPopup
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
                 Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                StatsButton1.Enabled = False
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
@@ -105,6 +109,7 @@ Public Class FormRegionPopup
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
                 Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+                StatsButton1.Enabled = False
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
@@ -113,6 +118,7 @@ Public Class FormRegionPopup
 
             ' stopped
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped Then
+                StatsButton1.Enabled = False
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
