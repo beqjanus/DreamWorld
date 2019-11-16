@@ -24,16 +24,12 @@ Imports System.IO
 
 Public Class ClrCache
 
-
-
 #Region "Public Constructors"
 
     Public Sub New()
     End Sub
 
 #End Region
-
-
 
 #Region "Protected Destructors"
 
@@ -42,8 +38,6 @@ Public Class ClrCache
     End Sub
 
 #End Region
-
-
 
 #Region "Public Methods"
 

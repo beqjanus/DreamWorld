@@ -27,8 +27,6 @@ Imports MySql.Data.MySqlClient
 
 Public Class NetServer
 
-
-
 #Region "Private Fields"
 
     Private Shared blnFlag As Boolean
@@ -43,8 +41,6 @@ Public Class NetServer
 
 #End Region
 
-
-
 #Region "Public Properties"
 
     Public Property PropRegionClass1 As RegionMaker
@@ -57,8 +53,6 @@ Public Class NetServer
     End Property
 
 #End Region
-
-
 
 #Region "Public Methods"
 
@@ -162,8 +156,6 @@ Public Class NetServer
     End Function
 
 #End Region
-
-
 
 #Region "Private Methods"
 

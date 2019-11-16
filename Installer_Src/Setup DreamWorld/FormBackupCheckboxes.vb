@@ -54,8 +54,6 @@ Public Class FormBackupCheckboxes
 
 #End Region
 
-
-
 #Region "Private Methods"
 
     Private Shared Sub CpyFile(From As String, Dest As String)

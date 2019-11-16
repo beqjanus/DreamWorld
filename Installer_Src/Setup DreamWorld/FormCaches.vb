@@ -24,8 +24,6 @@ Imports System.Text.RegularExpressions
 
 Public Class FormCaches
 
-
-
 #Region "Private Fields"
 
     Private gInitted As Boolean = False
@@ -62,8 +60,6 @@ Public Class FormCaches
     End Sub
 
 #End Region
-
-
 
 #Region "Private Methods"
 
@@ -203,8 +199,9 @@ Public Class FormCaches
 
     Private Sub ViewerCacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ViewerCacheCheckbox.CheckedChanged
 
-        ' Support viewers object cache, default true Users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. Change to false if you need to use old viewers that do not
-        ' support this feature
+        ' Support viewers object cache, default true Users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. Change to false if you need to use old viewers
+        ' that do not support this feature
         Form1.Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub

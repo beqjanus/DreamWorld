@@ -7005,6 +7005,11 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub PolishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PolishToolStripMenuItem.Click
+        Settings.Language = "pl"
+        Language(sender, e)
+    End Sub
+
     Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
         Settings.Language = "pt"
         Language(sender, e)
