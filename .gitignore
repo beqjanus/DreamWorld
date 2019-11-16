@@ -6,6 +6,9 @@ OutworldzFiles/mysql/data/mysql/*.*
 fw.bat
 Outworldzfiles/Photo.png
 UDProxy
+OutworldzFiles/mysql/Data
+/Outworldzfiles/Opensim/WifiPages/*
+/Outworldzfiles/Opensim/bin/WifiPages/*
 /OutworldzFiles/mysql/data/*.err
 /OutworldzFiles/Opensim/bin/addin-db-002/*
 LocalUserStatistics.db
