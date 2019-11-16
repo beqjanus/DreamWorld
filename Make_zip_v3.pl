@@ -16,6 +16,12 @@ say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
+my @languages = qw (en ca cs de el rn es-MX eu fi fr fr-FR ga he is nl-NL no pl pt ru sv zh-cn zh-tw);
+foreach my $lang (@languages)
+{
+	JustDelete ($lang);
+}
+
 
 if ($publish)
 {
@@ -167,28 +173,11 @@ ProcessDir ("OutworldzFiles\\OAR");
 ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
 
-#Languages
 
-ProcessDir ("ca");
-ProcessDir ("cs");
-ProcessDir ("de");
-ProcessDir ("el");
-ProcessDir ("en");
-ProcessDir ("es-MX");
-ProcessDir ("eu");
-ProcessDir ("fi");
-ProcessDir ("fr");
-ProcessDir ("ga");
-ProcessDir ("he");
-ProcessDir ("is");
-ProcessDir ("nl-NL");
-ProcessDir ("no");
-ProcessDir ("pl");
-ProcessDir ("pt");
-ProcessDir ("ru");
-ProcessDir ("sv");
-ProcessDir ("zh-cn");
-ProcessDir ("zh-tw");
+foreach my $lang (@languages)
+{
+	ProcessDir ($lang);
+}
 
 
 
@@ -243,7 +232,11 @@ if ($publish)
 	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 	'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 	if (!copy ('Revisions.txt', 						'y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 	if (!copy ('Revisions.txt', 						'y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+}
 
+foreach my $lang (@languages)
+{
+	JustDelete ($lang);
 }
 
 
