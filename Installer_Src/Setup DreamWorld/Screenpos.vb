@@ -51,9 +51,16 @@ Public Class ScreenPos
             LoadXYIni()
         Else
             Dim contents = "[Data]" + vbCrLf
-            Using outputFile As New StreamWriter(myINI, True)
-                outputFile.WriteLine(contents)
-            End Using
+            Try
+                Using outputFile As New StreamWriter(myINI, True)
+                    outputFile.WriteLine(contents)
+                End Using
+            Catch ex As IOException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentException
+            Catch ex As System.Security.SecurityException
+            End Try
+
             LoadXYIni()
         End If
 

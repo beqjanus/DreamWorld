@@ -199,9 +199,8 @@ Public Class RegionMaker
 
                     If Debugger.IsAttached = True Then
                         Try
-                            'TeleportAvatarDict.Add("Test", "Test User")
-                        Catch ex As Exception
-                            Debug.Print("Already In list to add")
+                            '! debug TeleportAvatarDict.Add("Test", "Test User")
+                        Catch ex As ArgumentException
                         End Try
                     End If
 
@@ -217,8 +216,7 @@ Public Class RegionMaker
                                     Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
-                                    Catch ex As Exception
-                                        Debug.Print("Already In list to remove")
+                                    Catch ex As ArgumentException
                                     End Try
                                 End If
                             End If
@@ -611,9 +609,15 @@ Public Class RegionMaker
 
         FileStuff.DeleteFile(fname)
 
-        Using outputFile As New StreamWriter(fname, True)
-            outputFile.WriteLine(proto)
-        End Using
+        Try
+            Using outputFile As New StreamWriter(fname, True)
+                outputFile.WriteLine(proto)
+            End Using
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
 
     End Sub
 

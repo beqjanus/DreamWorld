@@ -80,66 +80,81 @@ Public Class UploadImage
         Dim reqStream As Stream
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
-        Catch ex As Exception
+        Catch ex As IOException
+            UploadError(ex.Message)
+            Return
+        Catch ex As UnauthorizedAccessException
+            UploadError(ex.Message)
+            Return
+        Catch ex As ArgumentException
+            UploadError(ex.Message)
+            Return
+        Catch ex As InvalidOperationException
             UploadError(ex.Message)
             Return
         End Try
 
-        Dim sw As StreamWriter = New StreamWriter(reqStream)
+        Try
+            Dim sw As StreamWriter = New StreamWriter(reqStream)
 
-        ' blank line
-        sw.WriteLine()
-        Debug.Print("")
+            ' blank line
+            sw.WriteLine()
+            Debug.Print("")
 
-        For Each key As String In r_State.Params.Keys
+            For Each key As String In r_State.Params.Keys
+                sw.WriteLine("--" & boundary)
+                Debug.Print("--" & boundary)
+
+                sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+                Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+                sw.WriteLine()
+                Debug.Print("")
+                sw.WriteLine(WebUtility.UrlEncode(r_State.Params(key)))
+                Debug.Print(WebUtility.UrlEncode(r_State.Params(key)))
+            Next
 
             sw.WriteLine("--" & boundary)
             Debug.Print("--" & boundary)
 
-            sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
-            Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+            sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+            Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+
+            sw.Write(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+            Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+
             sw.WriteLine()
             Debug.Print("")
-            sw.WriteLine(WebUtility.UrlEncode(r_State.Params(key)))
-            Debug.Print(WebUtility.UrlEncode(r_State.Params(key)))
-        Next
+            sw.WriteLine("Content-Type: application/octet-stream")
+            Debug.Print("Content-Type: application/octet-stream")
+            sw.WriteLine()
+            Debug.Print("")
 
-        sw.WriteLine("--" & boundary)
-        Debug.Print("--" & boundary)
+            Dim fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
+            Dim buffer(1024) As Byte, bytesRead As Integer
+            sw.Flush()
 
-        sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
-        Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+            Do
+                bytesRead = fileStream.Read(buffer, 0, buffer.Length)
+                If bytesRead > 0 Then
+                    sw.BaseStream.Write(buffer, 0, bytesRead)
+                End If
+            Loop While (bytesRead > 0)
+            fileStream.Close()
+            fileStream = Nothing
 
-        sw.Write(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
-        Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+            sw.BaseStream.Flush()
+            sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
+            Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
-        sw.WriteLine()
-        Debug.Print("")
-        sw.WriteLine("Content-Type: application/octet-stream")
-        Debug.Print("Content-Type: application/octet-stream")
-        sw.WriteLine()
-        Debug.Print("")
-
-        Dim fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
-        Dim buffer(1024) As Byte, bytesRead As Integer
-        sw.Flush()
-
-        Do
-            bytesRead = fileStream.Read(buffer, 0, buffer.Length)
-            If bytesRead > 0 Then
-                sw.BaseStream.Write(buffer, 0, bytesRead)
-            End If
-        Loop While (bytesRead > 0)
-        fileStream.Close()
-        fileStream = Nothing
-
-        sw.BaseStream.Flush()
-        sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
-        Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
-
-        sw.Flush() : sw.Close()
+            sw.Flush() : sw.Close()
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
 
         r_State.Request.BeginGetResponse(AddressOf ResponseAvailable, r_State)
+
     End Sub
 
     Private Sub ResponseAvailable(ByVal ar As IAsyncResult)

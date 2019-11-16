@@ -482,7 +482,11 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox(My.Resources.Enter_Dos_Name)
             End If
-        Catch ex As Exception
+        Catch ex As ArgumentOutOfRangeException
+            chosen = ""
+        Catch ex As InvalidOperationException
+            chosen = ""
+        Catch ex As ArgumentException
             chosen = ""
         End Try
 
@@ -498,9 +502,16 @@ Public Class FormRegion
             FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(N1), RegionName.Text + ".bak")
-                Form1.PropRegionClass.GetAllRegions()
-            Catch ex As Exception
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As FileNotFoundException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            Catch ex As NotSupportedException
+            Catch ex As Security.SecurityException
+            Catch ex As UnauthorizedAccessException
             End Try
+            Form1.PropRegionClass.GetAllRegions()
         End If
 
         Form1.Settings.PortsChanged = True
@@ -632,11 +643,19 @@ Public Class FormRegion
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
-                Filepath = Folderpath + "\" + RegionName.Text + ".ini"
-                Form1.PropRegionClass.RegionPath(n) = Filepath
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
             Catch ex As FileNotFoundException
-                Debug.Print(ex.Message)
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            Catch ex As NotSupportedException
+            Catch ex As Security.SecurityException
+            Catch ex As UnauthorizedAccessException
             End Try
+
+            Filepath = Folderpath + "\" + RegionName.Text + ".ini"
+            Form1.PropRegionClass.RegionPath(n) = Filepath
+
         End If
 
         ' might be a new region, so give them a choice

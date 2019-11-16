@@ -1169,9 +1169,12 @@ Public Class Form1
         For Each folder As String In AL
             Try
                 System.IO.Directory.Delete(PropMyFolder & folder, True)
-            Catch ex As Exception
-                Diagnostics.Debug.Print(ex.Message)
+            Catch ex As IOException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
             End Try
+
         Next
 
     End Sub
@@ -1336,7 +1339,6 @@ Public Class Form1
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
         Dim MyShortcut As IWshShortcut
-        Log(My.Resources.Info, "creating shortcut on desktop")
         ' The shortcut will be created on the desktop
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         MyShortcut = CType(WshShell.CreateShortcut(DesktopFolder & "\Outworldz.lnk"), IWshShortcut)
@@ -2675,7 +2677,7 @@ Public Class Form1
         Next
         Try
             PropExitList.Clear()
-        Catch
+        Catch ex As NotSupportedException
         End Try
 
     End Sub
@@ -3104,7 +3106,7 @@ Public Class Form1
         Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
         If IceCastRunning Then
             IceCastPicturebox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(IceCastPicturebox, "Icecast is running")
+            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
             Return
         End If
 
@@ -3160,7 +3162,7 @@ Public Class Form1
 
         If IsRobustRunning() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(RobustPictureBox, "Robust is running")
+            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
             For Each p In Process.GetProcesses
                 If p.MainWindowTitle = "Robust" Then
@@ -3246,7 +3248,6 @@ Public Class Form1
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
         RobustPictureBox.Image = My.Resources.nav_plain_green
-        Log(My.Resources.Info, "Robust is running")
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
         PropRobustExited = False
@@ -3415,7 +3416,6 @@ Public Class Form1
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
-            ErrorLog("Tried to start a region but there is no region maker object!")
             Return False
         End If
 
@@ -3865,7 +3865,11 @@ Public Class Form1
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
-        Catch
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
         End Try
     End Sub
 
@@ -4222,8 +4226,11 @@ Public Class Form1
             Using outputFile As New StreamWriter(HTMLFILE, True)
                 outputFile.WriteLine(HTML)
             End Using
-        Catch ex As Exception
-            ErrorLog("Error:Failed to create file:" & ex.Message)
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
         End Try
 
     End Sub
@@ -5490,8 +5497,12 @@ Public Class Form1
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
                                  & "mysqld.exe --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
             End Using
-        Catch ex As Exception
-            ErrorLog("Error:Cannot write:" & ex.Message)
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
+
         End Try
 
         CreateService()
@@ -5616,8 +5627,11 @@ Public Class Form1
                 outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
             "mysqld.exe --install Mysql --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
             End Using
-        Catch ex As Exception
-            ErrorLog("Error:Install As A Service" & ex.Message)
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
         End Try
 
     End Sub
@@ -5632,8 +5646,11 @@ Public Class Form1
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
-        Catch ex As Exception
-            ErrorLog("Error:StopMySQL.bat" & ex.Message)
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        Catch ex As ObjectDisposedException
         End Try
 
     End Sub

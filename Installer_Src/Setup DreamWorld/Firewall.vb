@@ -65,9 +65,15 @@ Public Module Firewall
 
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
-        Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
-        ns.WriteLine(CMD)
-        ns.Close()
+        Try
+            Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
+            ns.WriteLine(CMD)
+            ns.Close()
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",

@@ -57,9 +57,15 @@ Public Class MySettings
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
-            Using outputFile As New StreamWriter(myINI, False)
-                outputFile.WriteLine(contents)
-            End Using
+            Try
+                Using outputFile As New StreamWriter(myINI, False)
+                    outputFile.WriteLine(contents)
+                End Using
+            Catch ex As IOException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentException
+            Catch ex As System.Security.SecurityException
+            End Try
 
             LoadSettingsIni()
 
@@ -289,7 +295,9 @@ Public Class MySettings
         Try
             Dim value = GetMyIni("Data", key, D)
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch
+#Enable Warning CA1031 ' Do not catch general exception types
             Return D
         End Try
 
@@ -300,7 +308,9 @@ Public Class MySettings
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 

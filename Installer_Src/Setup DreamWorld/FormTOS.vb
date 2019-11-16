@@ -59,13 +59,20 @@ Public Class TosForm
 
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
+        Try
+            Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
+                outputFile.WriteLine(Editor1.BodyHtml)
+            End Using
 
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
+            Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+                outputFile.WriteLine(Editor1.BodyHtml)
+            End Using
+        Catch ex As IOexception
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -141,13 +148,19 @@ Public Class TosForm
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
+        Try
+            Using outputFile As New StreamWriter(Form1.PropMyFolder + "\tos.html")
+                outputFile.WriteLine(Editor1.BodyHtml)
+            End Using
 
-        Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
-            outputFile.WriteLine(Editor1.BodyHtml)
-        End Using
+            Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+                outputFile.WriteLine(Editor1.BodyHtml)
+            End Using
+        Catch ex As IOexception
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
 
         Me.Close()
 

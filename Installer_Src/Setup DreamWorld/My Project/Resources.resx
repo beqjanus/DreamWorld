@@ -2623,4 +2623,8 @@
   <data name="flag_poland" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_poland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="picfilter" xml:space="preserve">
+    <value>PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*</value>
+    <comment>Skip Xlate</comment>
+  </data>
 </root>

@@ -5143,6 +5143,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*.
+        '''</summary>
+        Friend ReadOnly Property picfilter() As String
+            Get
+                Return ResourceManager.GetString("picfilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Please enter a valid DNS name such as &apos;name.outworldz.net&apos;, or register for one at http://www.noip.com.
         '''</summary>
         Friend ReadOnly Property Please_enter() As String
