@@ -30,9 +30,10 @@ Public Class RegionList
     Private Shared _FormExists As Boolean = False
     Dim _ImageListLarge As ImageList
     Dim _ImageListSmall As New ImageList
+    Dim colsize = New ScreenPos(MyBase.Name & "ColumnSize")
     Dim ItemsAreChecked As Boolean = False
+    Dim MysqlIsRunning As Boolean = False
     Dim pixels As Integer = 70
-    Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
     Dim TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
     Dim ViewNotBusy As Boolean
@@ -110,15 +111,6 @@ Public Class RegionList
         End Set
     End Property
 
-    Public Property PropRegionClass1 As RegionMaker
-        Get
-            Return PropRegionClass
-        End Get
-        Set(value As RegionMaker)
-            PropRegionClass = value
-        End Set
-    End Property
-
     Public Property ScreenPosition As ScreenPos
         Get
             Return _screenPosition
@@ -167,6 +159,7 @@ Public Class RegionList
 
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
+
     End Sub
 
     Private Sub SetScreen(View As Integer)
@@ -194,6 +187,17 @@ Public Class RegionList
 #End Region
 
 #Region "Layout"
+
+    Private Sub ListView1_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles ListView1.ColumnWidthChanged
+
+        Dim w = ListView1.Columns(e.ColumnIndex).Width
+        Dim name = ListView1.Columns(e.ColumnIndex).Text
+        Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
+            colsize.putSize(name, w)
+            colsize.SaveFormSettings()
+        End Using
+
+    End Sub
 
     Private Sub Panel1_MouseWheel(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseWheel
 
@@ -252,21 +256,34 @@ Public Class RegionList
         RegionList.FormExists1 = False
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
+
         _ImageListSmall.Dispose()
 
     End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Dim MysqlIsRunning = False
+        If Form1.CheckMysql Then
+            MysqlIsRunning = True
+        End If
+
         Pixels1 = 70
         RegionList.FormExists1 = True
+        ListView1.Visible = False
+        ListView1.LabelWrap = True
+        ListView1.AutoArrange = True
 
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
         Form1.PropRegionClass.GetAllRegions()
-
+        Me.Name = "Region List"
+        Me.Text = My.Resources.Region_List
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
+
+        Application.DoEvents()
 
         ' Set the view to show details.
         TheView1 = Form1.Settings.RegionListView()
@@ -287,7 +304,7 @@ Public Class RegionList
         AvatarView.View = View.Details
 
         ' Allow the user to edit item text.
-        ListView1.LabelEdit = False
+        ListView1.LabelEdit = True
         AvatarView.LabelEdit = False
 
         ' Allow the user to rearrange columns.
@@ -299,6 +316,7 @@ Public Class RegionList
 
         ' Select the item and sub items when selection is made.
         ListView1.FullRowSelect = True
+
         AvatarView.FullRowSelect = True
 
         ' Display grid lines.
@@ -309,37 +327,40 @@ Public Class RegionList
         ListView1.Sorting = SortOrder.Ascending
         AvatarView.Sorting = SortOrder.Ascending
 
-        ' Create columns for the items and subitems. Width of -2 indicates auto-size.
-        ListView1.Columns.Add(My.Resources.Enable, 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.DOS_Box, 100, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Agents_word, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Status_word, 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.RAM, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.X_word, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Y_word, 50, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Size_word, 40, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Estate, 100, HorizontalAlignment.Center)
+        ListView1.AllowColumnReorder = True
+
+        ' Create columns for the items and subitems.
+        ListView1.Columns.Add(My.Resources.Enable, colsize.ColumnWidth(My.Resources.Enable, 120), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.DOS_Box, colsize.ColumnWidth(My.Resources.DOS_Box, 120), HorizontalAlignment.Left)
+        ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word, 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word, 120), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.RAM, colsize.ColumnWidth(My.Resources.RAM, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.X_word, colsize.ColumnWidth(My.Resources.X_word, 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Y_word, colsize.ColumnWidth(My.Resources.Y_word, 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word, 40), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Estate, colsize.ColumnWidth(My.Resources.Estate, 100), HorizontalAlignment.Left)
 
         ' optional
-        ListView1.Columns.Add(My.Resources.Maps, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Physics, 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Birds_word, 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Tides_word, 60, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Teleport_word, 65, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Smart_Start_word, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, 75, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Owner_God, 75, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Manager_God, 80, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.No_Autobackup, 90, HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Publicity, 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Maps, colsize.ColumnWidth(My.Resources.Maps, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Physics, colsize.ColumnWidth(My.Resources.Physics, 120), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth(My.Resources.Birds_word, 60), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Tides_word, colsize.ColumnWidth(My.Resources.Tides_word, 60), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Teleport_word, colsize.ColumnWidth(My.Resources.Teleport_word, 65), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Smart_Start_word, colsize.ColumnWidth(My.Resources.Smart_Start_word, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, colsize.ColumnWidth(My.Resources.Allow_Or_Disallow_Gods_word, 75), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Owner_God, colsize.ColumnWidth(My.Resources.Owner_God, 75), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Manager_God, colsize.ColumnWidth(My.Resources.Manager_God, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth(My.Resources.No_Autobackup, 90), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Publicity, colsize.ColumnWidth(My.Resources.Publicity, 80), HorizontalAlignment.Center)
+
+        ListView1.Columns.Add(My.Resources.Script_Rate_word, colsize.ColumnWidth(My.Resources.Script_Rate_word, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth(My.Resources.Frame_Rate_word, 80), HorizontalAlignment.Center)
 
         'Add the items to the ListView.
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler Me.ListView1.ColumnClick, AddressOf ColumnClick
-        Me.Name = "Region List"
-        Me.Text = My.Resources.Region_List
 
-        AvatarView.Columns.Add(My.Resources.Agents_word, 150, HorizontalAlignment.Left)
+        AvatarView.Columns.Add(My.Resources.Agents_word, 150, HorizontalAlignment.Center)
         AvatarView.Columns.Add(My.Resources.Region, 150, HorizontalAlignment.Center)
         AvatarView.Columns.Add(My.Resources.Type_word, 80, HorizontalAlignment.Center)
 
@@ -360,13 +381,18 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
         Form1.PropUpdateView = True ' make form refresh
 
-        LoadMyListView()
         Timer1.Interval = 1000 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
 
         SetScreen(TheView1)
 
         Form1.HelpOnce("RegionList")
+
+    End Sub
+
+    Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
+
+        Debug.Print(e.Label)
 
     End Sub
 
@@ -431,7 +457,7 @@ Public Class RegionList
             Try
                 Dim RegionName = item.SubItems(1).Text
 
-                Dim R = PropRegionClass1.FindRegionByName(RegionName)
+                Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
                 If R >= 0 Then
                     Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                     Try
@@ -449,7 +475,7 @@ Public Class RegionList
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        PropRegionClass1.GetAllRegions()
+        Form1.PropRegionClass.GetAllRegions()
         LoadMyListView()
 
     End Sub
@@ -478,7 +504,7 @@ Public Class RegionList
         Dim item As ListViewItem
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
-            Dim R = PropRegionClass1.FindRegionByName(RegionName)
+            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
             If R >= 0 Then
                 StartStopEdit(R, RegionName)
             End If
@@ -494,22 +520,22 @@ Public Class RegionList
         Catch ex As ArgumentOutOfRangeException
         End Try
 
-        Dim n As Integer = PropRegionClass1.FindRegionByName(Item.Text)
+        Dim n As Integer = Form1.PropRegionClass.FindRegionByName(Item.Text)
         If n = -1 Then Return
-        Dim GroupName = PropRegionClass1.GroupName(n)
-        For Each X In PropRegionClass1.RegionListByGroupNum(GroupName)
+        Dim GroupName = Form1.PropRegionClass.GroupName(n)
+        For Each X In Form1.PropRegionClass.RegionListByGroupNum(GroupName)
             If ViewNotBusy1 Then
                 If (e.CurrentValue = CheckState.Unchecked) Then
-                    PropRegionClass1.RegionEnabled(X) = True
+                    Form1.PropRegionClass.RegionEnabled(X) = True
                     ' and region file on disk
-                    Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "True")
+                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
+                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "True")
                     Form1.Settings.SaveINI()
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
-                    PropRegionClass1.RegionEnabled(X) = False
+                    Form1.PropRegionClass.RegionEnabled(X) = False
                     ' and region file on disk
-                    Form1.Settings.LoadIni(PropRegionClass1.RegionPath(X), ";")
-                    Form1.Settings.SetIni(PropRegionClass1.RegionName(X), "Enabled", "False")
+                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
+                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "False")
                     Form1.Settings.SaveINI()
                 End If
             End If
@@ -535,7 +561,9 @@ Public Class RegionList
 
                 Dim L As New Dictionary(Of String, String)
 
-                L = MysqlInterface.GetAgentList()
+                If MysqlIsRunning Then
+                    L = MysqlInterface.GetAgentList()
+                End If
 
                 For Each Agent In L
                     Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -565,7 +593,9 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                L = MysqlInterface.GetHGAgentList()
+                If MysqlIsRunning Then
+                    L = MysqlInterface.GetHGAgentList()
+                End If
 
                 For Each Agent In L
                     If Agent.Value.Length > 0 Then
@@ -592,6 +622,7 @@ Public Class RegionList
 
             Me.AvatarView.TabIndex = 0
             AvatarView.EndUpdate()
+
             AvatarView.Show()
 
             ViewNotBusy1 = True
@@ -606,14 +637,6 @@ Public Class RegionList
 
     Private Sub ShowRegions()
 
-        Dim MysqlIsRunning = False
-        If Form1.CheckMysql Then
-            MysqlIsRunning = True
-        End If
-
-        ListView1.Show()
-        AvatarView.Hide()
-
         Try
             ViewNotBusy1 = False
             ListView1.BeginUpdate()
@@ -622,227 +645,246 @@ Public Class RegionList
 
             If Pixels1 = 0 Then Pixels1 = 20
             ImageListLarge1.ImageSize = New Size(Pixels1, Pixels1)
+
             ListView1.Items.Clear()
 
             Dim Num As Integer = 0
 
             ' have to get maps by http port + region UUID, not region port + uuid
+            Try
 
-            For Each X In PropRegionClass1.RegionNumbers
+                For Each X In Form1.PropRegionClass.RegionNumbers
 
-                Dim Letter As String = ""
-                If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped _
-                        And PropRegionClass1.SmartStart(X) Then
-                    Letter = "Waiting"
-                    Num = DGICON.SmartStart
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                    Letter = "Suspended"
-                    Num = DGICON.Suspended
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                    Letter = "Recycling Down"
-                    Num = DGICON.recyclingdown
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-                    Letter = "Recycling Up"
-                    Num = DGICON.recyclingup
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending Then
-                    Letter = "Restart Pending"
-                    Num = DGICON.recyclingup
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RetartingNow Then
-                    Letter = "Restarting Now"
-                    Num = DGICON.recyclingup
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Then
-                    Letter = "Booting"
-                    Num = DGICON.bootingup
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                    Letter = "Stopping"
-                    Num = DGICON.shuttingdown
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass1.AvatarCount(X) = 1 Then
-                    Letter = "Running"
-                    Num = DGICON.user1
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass1.AvatarCount(X) > 1 Then
-                    Letter = "Running"
-                    Num = DGICON.user2
-                ElseIf PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                    If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                        Num = DGICON.Home
+                    Dim Letter As String = ""
+                    If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped _
+                        And Form1.PropRegionClass.SmartStart(X) Then
+                        Letter = "Waiting"
+                        Num = DGICON.SmartStart
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                        Letter = "Suspended"
+                        Num = DGICON.Suspended
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                        Letter = "Recycling Down"
+                        Num = DGICON.recyclingdown
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+                        Letter = "Recycling Up"
+                        Num = DGICON.recyclingup
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending Then
+                        Letter = "Restart Pending"
+                        Num = DGICON.recyclingup
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RetartingNow Then
+                        Letter = "Restarting Now"
+                        Num = DGICON.recyclingup
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Then
+                        Letter = "Booting"
+                        Num = DGICON.bootingup
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                        Letter = "Stopping"
+                        Num = DGICON.shuttingdown
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(X) = 1 Then
                         Letter = "Running"
-                    Else
+                        Num = DGICON.user1
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(X) > 1 Then
                         Letter = "Running"
-                        Num = DGICON.up
-                    End If
-                ElseIf Not PropRegionClass1.RegionEnabled(X) Then
-                    Letter = "Disabled"
-                    If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                        Num = DGICON.HomeOffline
-                    Else
-                        Num = DGICON.disabled
-                    End If
-                ElseIf PropRegionClass1.RegionEnabled(X) Then
-                    Letter = "Stopped"
-                    Num = DGICON.stopped
-                Else
-                    Num = DGICON.warning ' warning
-                End If
-
-                ' maps
-                If TheView1 = ViewType.Maps Then
-
-                    If PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                        Dim img As String = "http://127.0.0.1:" + PropRegionClass1.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + PropRegionClass1.UUID(X).Replace(My.Resources.MinusSign_NT, "")
-
-                        Dim bmp As Image = LoadImage(img)
-                        If bmp Is Nothing Then
-                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
+                        Num = DGICON.user2
+                    ElseIf Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+                        If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                            Num = DGICON.Home
+                            Letter = "Running"
                         Else
-                            ImageListLarge1.Images.Add(bmp)
+                            Letter = "Running"
+                            Num = DGICON.up
                         End If
+                    ElseIf Not Form1.PropRegionClass.RegionEnabled(X) Then
+                        Letter = "Disabled"
+                        If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                            Num = DGICON.HomeOffline
+                        Else
+                            Num = DGICON.disabled
+                        End If
+                    ElseIf Form1.PropRegionClass.RegionEnabled(X) Then
+                        Letter = "Stopped"
+                        Num = DGICON.stopped
                     Else
-                        ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
+                        Num = DGICON.warning ' warning
                     End If
-                    Num = X
 
-                End If
+                    If TheView1 = ViewType.Icons Then
+                        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                    Else
+                        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+                    End If
+                    ' maps
+                    If TheView1 = ViewType.Maps Then
 
-                ' Create items and subitems for each item. Place a check mark next to the item.
-                Dim item1 As New ListViewItem(PropRegionClass1.RegionName(X), Num) With {
-                        .Checked = PropRegionClass1.RegionEnabled(X)
+                        If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+                            Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(X).Replace(My.Resources.MinusSign_NT, "")
+
+                            Dim bmp As Image = LoadImage(img)
+                            If bmp Is Nothing Then
+                                ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
+                            Else
+                                ImageListLarge1.Images.Add(bmp)
+                            End If
+                        Else
+                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
+                        End If
+                        Num = X
+
+                    End If
+
+                    ' Create items and subitems for each item. Place a check mark next to the item.
+                    Dim item1 As New ListViewItem(Form1.PropRegionClass.RegionName(X), Num) With {
+                        .Checked = Form1.PropRegionClass.RegionEnabled(X)
                     }
-                item1.SubItems.Add(PropRegionClass1.GroupName(X).ToString(Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(PropRegionClass1.AvatarCount(X).ToString(Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(Letter)
-                Dim fmtXY = "00000" ' 65536
-                Dim fmtRam = "0000." ' 9999 MB
-                ' RAM
-                Try
-                    Dim PID = PropRegionClass1.ProcessID(X)
-                    Dim component1 As Process = Process.GetProcessById(PID)
-                    If Form1.PropRegionHandles.ContainsKey(PID) Then
-                        Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-                    Else
+                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(X).ToString(Globalization.CultureInfo.InvariantCulture))
+
+                    item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(X).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Letter)
+                    Dim fmtXY = "00000" ' 65536
+                    Dim fmtRam = "0000." ' 9999 MB
+                    ' RAM
+                    Try
+                        Dim PID = Form1.PropRegionClass.ProcessID(X)
+                        Dim component1 As Process = Process.GetProcessById(PID)
+                        If Form1.PropRegionHandles.ContainsKey(PID) Then
+                            Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
+                            item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
+                        Else
+                            item1.SubItems.Add(My.Resources.Zero_word_NT)
+                        End If
+                    Catch ex As Exception
                         item1.SubItems.Add(My.Resources.Zero_word_NT)
+                    End Try
+                    item1.SubItems.Add(Form1.PropRegionClass.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Form1.PropRegionClass.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
+
+                    Dim size As String = ""
+                    If Form1.PropRegionClass.SizeX(X) = 256 Then
+                        size = "1X1"
+                    ElseIf Form1.PropRegionClass.SizeX(X) = 512 Then
+                        size = "2X2"
+                    ElseIf Form1.PropRegionClass.SizeX(X) = 768 Then
+                        size = "3X3"
+                    ElseIf Form1.PropRegionClass.SizeX(X) = 1024 Then
+                        size = "4X4"
+                    Else
+                        size = Form1.PropRegionClass.SizeX(X).ToString(Globalization.CultureInfo.InvariantCulture)
                     End If
-                Catch ex As Exception
-                    item1.SubItems.Add(My.Resources.Zero_word_NT)
-                End Try
-                item1.SubItems.Add(PropRegionClass1.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(PropRegionClass1.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(size)
 
-                Dim size As String = ""
-                If PropRegionClass1.SizeX(X) = 256 Then
-                    size = "1X1"
-                ElseIf PropRegionClass1.SizeX(X) = 512 Then
-                    size = "2X2"
-                ElseIf PropRegionClass1.SizeX(X) = 768 Then
-                    size = "3X3"
-                ElseIf PropRegionClass1.SizeX(X) = 1024 Then
-                    size = "4X4"
-                Else
-                    size = PropRegionClass1.SizeX(X).ToString(Globalization.CultureInfo.InvariantCulture)
-                End If
-                item1.SubItems.Add(size)
+                    ' add estate name
+                    Dim Estate = My.Resources.MinusSign_NT
+                    If MysqlIsRunning Then
+                        Estate = MysqlInterface.EstateName(Form1.PropRegionClass.UUID(X))
+                    End If
+                    item1.SubItems.Add(Estate)
 
-                ' add estate name
-                Dim Estate = My.Resources.MinusSign_NT
-                If MysqlIsRunning Then
-                    Estate = MysqlInterface.EstateName(PropRegionClass1.UUID(X))
-                End If
-                item1.SubItems.Add(Estate)
+                    'Map
+                    item1.SubItems.Add(Form1.PropRegionClass.MapType(X))
 
-                'Map
-                item1.SubItems.Add(PropRegionClass1.MapType(X))
+                    ' physics
+                    Select Case Form1.PropRegionClass.Physics(X)
+                        Case ""
+                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                        Case "0"
+                            item1.SubItems.Add(My.Resources.None)
+                        Case "1"
+                            item1.SubItems.Add(My.Resources.ODE_word_NT)
+                        Case "2"
+                            item1.SubItems.Add(My.Resources.Bullet_word_NT)
+                        Case "3"
+                            item1.SubItems.Add(My.Resources.Bullet_Threaded_word)
+                        Case "4"
+                            item1.SubItems.Add(My.Resources.ubODE_word)
+                        Case "5"
+                            item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
+                        Case Else
+                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                    End Select
 
-                ' physics
-                Select Case PropRegionClass1.Physics(X)
-                    Case ""
-                        item1.SubItems.Add(My.Resources.MinusSign_NT)
-                    Case "0"
-                        item1.SubItems.Add(My.Resources.None)
-                    Case "1"
-                        item1.SubItems.Add(My.Resources.ODE_word_NT)
-                    Case "2"
-                        item1.SubItems.Add(My.Resources.Bullet_word_NT)
-                    Case "3"
-                        item1.SubItems.Add(My.Resources.Bullet_Threaded_word)
-                    Case "4"
-                        item1.SubItems.Add(My.Resources.ubODE_word)
-                    Case "5"
-                        item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
-                    Case Else
-                        item1.SubItems.Add(My.Resources.MinusSign_NT)
-                End Select
+                    'birds
 
-                'birds
-
-                If PropRegionClass1.Birds(X) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add(My.Resources.MinusSign_NT)
-                End If
-
-                'Tides
-                If PropRegionClass1.Tides(X) = "True" Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add(My.Resources.MinusSign_NT)
-                End If
-
-                'teleport
-                If PropRegionClass1.Teleport(X) = "True" Or
-                    PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                    item1.SubItems.Add(My.Resources.Yes_word)
-                Else
-                    item1.SubItems.Add(My.Resources.MinusSign_NT)
-                End If
-
-                If PropRegionClass1.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                    item1.SubItems.Add(My.Resources.HomeText)
-                Else
-                    If PropRegionClass1.SmartStart(X) = True Then
+                    If Form1.PropRegionClass.Birds(X) = "True" Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
                         item1.SubItems.Add(My.Resources.MinusSign_NT)
                     End If
-                End If
 
-                item1.SubItems.Add(PropRegionClass1.AllowGods(X))
-                item1.SubItems.Add(PropRegionClass1.RegionGod(X))
-                item1.SubItems.Add(PropRegionClass1.ManagerGod(X))
-                item1.SubItems.Add(PropRegionClass1.SkipAutobackup(X))
-                item1.SubItems.Add(PropRegionClass1.RegionSnapShot(X))
+                    'Tides
+                    If Form1.PropRegionClass.Tides(X) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
+                        item1.SubItems.Add(My.Resources.MinusSign_NT)
+                    End If
 
-                ListView1.Items.AddRange(New ListViewItem() {item1})
+                    'teleport
+                    If Form1.PropRegionClass.Teleport(X) = "True" Or
+                    Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
+                    Else
+                        item1.SubItems.Add(My.Resources.MinusSign_NT)
+                    End If
 
-            Next
+                    If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                        item1.SubItems.Add(My.Resources.HomeText)
+                    Else
+                        If Form1.PropRegionClass.SmartStart(X) = True Then
+                            item1.SubItems.Add(My.Resources.Yes_word)
+                        Else
+                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                        End If
+                    End If
 
-            'Assign the ImageList objects to the ListView.
-            ListView1.LargeImageList = ImageListLarge1
-            ListView1.SmallImageList = ImageListSmall1
+                    item1.SubItems.Add(Form1.PropRegionClass.AllowGods(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.RegionGod(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.ManagerGod(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.SkipAutobackup(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.RegionSnapShot(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.MinTimerInterval(X))
+                    item1.SubItems.Add(Form1.PropRegionClass.FrameTime(X))
 
-            Me.ListView1.TabIndex = 0
+                    ListView1.Items.AddRange(New ListViewItem() {item1})
 
-            For i As Integer = 0 To ListView1.Items.Count - 1
-                If ListView1.Items(i).Checked Then
-                    ListView1.Items(i).ForeColor = SystemColors.ControlText
-                Else
-                    ListView1.Items(i).ForeColor = SystemColors.GrayText
-                End If
-            Next i
+                Next
 
-            ListView1.EndUpdate()
-            ViewNotBusy1 = True
-            PropUpdateView() = False
+                'Assign the ImageList objects to the ListView.
+                ListView1.LargeImageList = ImageListLarge1
+                ListView1.SmallImageList = ImageListSmall1
+
+                Me.ListView1.TabIndex = 0
+
+                For i As Integer = 0 To ListView1.Items.Count - 1
+                    If ListView1.Items(i).Checked Then
+                        ListView1.Items(i).ForeColor = SystemColors.ControlText
+                    Else
+                        ListView1.Items(i).ForeColor = SystemColors.GrayText
+                    End If
+                Next i
+
+                ListView1.EndUpdate()
+                ViewNotBusy1 = True
+                PropUpdateView() = False
+            Catch ex As Exception
+                Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
+                Form1.PropRegionClass.GetAllRegions()
+                PropUpdateView() = False
+            End Try
         Catch ex As Exception
             Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
-            PropRegionClass1.GetAllRegions()
+            Form1.PropRegionClass.GetAllRegions()
+            PropUpdateView() = False
         End Try
+
+        ListView1.Show()
+        AvatarView.Hide()
 
     End Sub
 
     Private Sub StartStopEdit(n As Integer, RegionName As String)
 
         ' show it, stop it, start it, or edit it
-        Dim hwnd = Form1.GetHwnd(PropRegionClass1.GroupName(n))
+        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(n))
         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
 
         Dim Choices As New FormRegionPopup
@@ -862,23 +904,22 @@ Public Class RegionList
                 Form1.Print(My.Resources.Stopped_word)
             End If
             Form1.StartRobust()
-            Form1.Log("Starting", PropRegionClass1.RegionName(n))
-            Form1.Boot(PropRegionClass1, PropRegionClass1.RegionName(n))
+            Form1.Log("Starting", Form1.PropRegionClass.RegionName(n))
+            Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(n))
             Form1.Timer1.Start() 'Timer starts functioning
-            PropUpdateView() = True ' force a refresh
 
         ElseIf chosen = "Stop" Then
 
             ' if any avatars in any region, give them a choice.
             Dim StopIt As Boolean = True
-            For Each num In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
+            For Each num In Form1.PropRegionClass.RegionListByGroupNum(Form1.PropRegionClass.GroupName(n))
                 ' Ask before killing any people
-                If PropRegionClass1.AvatarCount(num) > 0 Then
+                If Form1.PropRegionClass.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
-                    If PropRegionClass1.AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar + PropRegionClass1.RegionName(num) + My.Resources.Do_you_still_want, vbYesNo)
+                    If Form1.PropRegionClass.AvatarCount(num) = 1 Then
+                        response = MsgBox(My.Resources.OneAvatar + Form1.PropRegionClass.RegionName(num) + My.Resources.Do_you_still_want, vbYesNo)
                     Else
-                        response = MsgBox(PropRegionClass1.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + PropRegionClass1.RegionName(num) + ". " & My.Resources.Do_you_still_want, vbYesNo)
+                        response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & My.Resources.Do_you_still_want, vbYesNo)
                     End If
                     If response = vbNo Then
                         StopIt = False
@@ -887,34 +928,32 @@ Public Class RegionList
             Next
 
             If (StopIt) Then
-                Dim regionNum = PropRegionClass1.FindRegionByName(RegionName)
-                Dim h As IntPtr = Form1.GetHwnd(PropRegionClass1.GroupName(n))
+                Dim regionNum = Form1.PropRegionClass.FindRegionByName(RegionName)
+                Dim h As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(n))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(PropRegionClass1.GroupName(regionNum), "q{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Stopping_word & " " + PropRegionClass1.GroupName(regionNum))
+                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(regionNum), "q{ENTER}" + vbCrLf)
+                    Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(regionNum))
                     ' shut down all regions in the DOS box
-                    For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
-                        PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
+                    For Each regionNum In Form1.PropRegionClass.RegionListByGroupNum(Form1.PropRegionClass.GroupName(regionNum))
+                        Form1.PropRegionClass.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
+                        Form1.PropRegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
                     Next
                 Else
                     ' shut down all regions in the DOS box
-                    For Each regionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(regionNum))
-                        PropRegionClass1.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass1.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                    For Each regionNum In Form1.PropRegionClass.RegionListByGroupNum(Form1.PropRegionClass.GroupName(regionNum))
+                        Form1.PropRegionClass.Timer(regionNum) = RegionMaker.REGIONTIMER.Stopped
+                        Form1.PropRegionClass.Status(regionNum) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                 End If
 
                 PropUpdateView = True ' make form refresh
             End If
 
-            PropUpdateView = True ' make form refresh
-
         ElseIf chosen = "Edit" Then
 
             Dim RegionForm As New FormRegion
-            RegionForm.Init(PropRegionClass1.RegionName(n))
+            RegionForm.Init(Form1.PropRegionClass.RegionName(n))
             RegionForm.Activate()
             RegionForm.Visible = True
             RegionForm.Select()
@@ -922,15 +961,15 @@ Public Class RegionList
         ElseIf chosen = "Recycle" Then
 
             Form1.SequentialPause()
-            Form1.ConsoleCommand(PropRegionClass1.GroupName(n), "q{ENTER}" + vbCrLf)
-            Form1.Print(My.Resources.Recycle1 & "  " + PropRegionClass1.GroupName(n))
+            Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(n), "q{ENTER}" + vbCrLf)
+            Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(n))
             Form1.PropRestartNow = True
 
             ' shut down all regions in the DOS box
 
-            For Each RegionNum In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(n))
-                PropRegionClass1.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
-                PropRegionClass1.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+            For Each RegionNum In Form1.PropRegionClass.RegionListByGroupNum(Form1.PropRegionClass.GroupName(n))
+                Form1.PropRegionClass.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
+                Form1.PropRegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
             Next
             PropUpdateView = True ' make form refresh
 
@@ -948,9 +987,9 @@ Public Class RegionList
 
     Private Sub StopRegionNum(num As Integer)
         Form1.SequentialPause()
-        Dim hwnd = Form1.GetHwnd(PropRegionClass1.GroupName(num))
-        Form1.Log("Region", "Stopping Region " + PropRegionClass1.GroupName(num))
-        Form1.ConsoleCommand(PropRegionClass1.GroupName(num), "q{ENTER}" + vbCrLf)
+        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(num))
+        Form1.Log("Region", "Stopping Region " + Form1.PropRegionClass.GroupName(num))
+        Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(num), "q{ENTER}" + vbCrLf)
     End Sub
 
 #End Region
@@ -978,31 +1017,31 @@ Public Class RegionList
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
-        For Each X As Integer In PropRegionClass1.RegionNumbers
+        For Each X As Integer In Form1.PropRegionClass.RegionNumbers
 
             If Form1.PropOpensimIsRunning() _
-                And PropRegionClass1.RegionEnabled(X) _
-                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-                And Not PropRegionClass1.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                And Form1.PropRegionClass.RegionEnabled(X) _
+                And Not Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+                And Not Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
 
-                Dim hwnd = Form1.GetHwnd(PropRegionClass1.GroupName(X))
+                Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(X))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(PropRegionClass1.GroupName(X), "q{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Restarting_word & " " & PropRegionClass1.GroupName(X))
+                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(X))
                 End If
 
                 ' shut down all regions in the DOS box
-                For Each Y In PropRegionClass1.RegionListByGroupNum(PropRegionClass1.GroupName(X))
-                    PropRegionClass1.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                    PropRegionClass1.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                For Each Y In Form1.PropRegionClass.RegionListByGroupNum(Form1.PropRegionClass.GroupName(X))
+                    Form1.PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                    Form1.PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 Next
                 Form1.PropRestartNow = True
 
                 PropUpdateView = True ' make form refresh
             End If
         Next
-        PropUpdateView = True ' make form refresh
+
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
@@ -1145,7 +1184,7 @@ Public Class RegionList
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
-                    Dim i = PropRegionClass1.FindRegionByName(filename)
+                    Dim i = Form1.PropRegionClass.FindRegionByName(filename)
                     If i >= 0 Then
                         MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
                         ofd.Dispose()
@@ -1164,7 +1203,7 @@ Public Class RegionList
                     Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                 End If
 
-                PropRegionClass1.GetAllRegions()
+                Form1.PropRegionClass.GetAllRegions()
                 LoadMyListView()
             End If
         End If
@@ -1182,8 +1221,8 @@ Public Class RegionList
 
         Dim regionname = Form1.ChooseRegion(True)
         If regionname.Length = 0 Then Return
-        Dim RegionNum = PropRegionClass.FindRegionByName(regionname)
-        Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
+        Dim RegionNum = Form1.PropRegionClass.FindRegionByName(regionname)
+        Dim RegionPort = Form1.PropRegionClass.GroupPort(RegionNum)
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)

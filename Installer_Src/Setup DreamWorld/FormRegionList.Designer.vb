@@ -23,8 +23,7 @@ Partial Class RegionList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Robust", 0)
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Robust", 0)
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RegionList))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -46,6 +45,7 @@ Partial Class RegionList
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -60,12 +60,11 @@ Partial Class RegionList
         Me.ListView1.HideSelection = False
         ListViewItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.ClickStartStop
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
-        Me.ListView1.Location = New System.Drawing.Point(18, 99)
-        Me.ListView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ListView1.Location = New System.Drawing.Point(17, 69)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(588, 280)
+        Me.ListView1.Size = New System.Drawing.Size(393, 188)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -73,10 +72,9 @@ Partial Class RegionList
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(175, 54)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Location = New System.Drawing.Point(117, 36)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(140, 34)
+        Me.Button1.Size = New System.Drawing.Size(93, 23)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Refresh1
         Me.ToolTip1.SetToolTip(Me.Button1, Global.Outworldz.My.Resources.Resources.Reload)
@@ -89,10 +87,9 @@ Partial Class RegionList
         '
         'Addregion
         '
-        Me.Addregion.Location = New System.Drawing.Point(328, 56)
-        Me.Addregion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Addregion.Location = New System.Drawing.Point(219, 37)
         Me.Addregion.Name = "Addregion"
-        Me.Addregion.Size = New System.Drawing.Size(140, 34)
+        Me.Addregion.Size = New System.Drawing.Size(93, 23)
         Me.Addregion.TabIndex = 18593
         Me.Addregion.Text = Global.Outworldz.My.Resources.Resources.Add_word
         Me.ToolTip1.SetToolTip(Me.Addregion, Global.Outworldz.My.Resources.Resources.Add_Region_word)
@@ -101,10 +98,9 @@ Partial Class RegionList
         'AllNome
         '
         Me.AllNome.AutoSize = True
-        Me.AllNome.Location = New System.Drawing.Point(18, 62)
-        Me.AllNome.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AllNome.Location = New System.Drawing.Point(12, 41)
         Me.AllNome.Name = "AllNome"
-        Me.AllNome.Size = New System.Drawing.Size(94, 24)
+        Me.AllNome.Size = New System.Drawing.Size(68, 17)
         Me.AllNome.TabIndex = 4
         Me.AllNome.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
         Me.ToolTip1.SetToolTip(Me.AllNome, Global.Outworldz.My.Resources.Resources.Selectallnone)
@@ -112,10 +108,9 @@ Partial Class RegionList
         '
         'RunAllButton
         '
-        Me.RunAllButton.Location = New System.Drawing.Point(475, 56)
-        Me.RunAllButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RunAllButton.Location = New System.Drawing.Point(317, 37)
         Me.RunAllButton.Name = "RunAllButton"
-        Me.RunAllButton.Size = New System.Drawing.Size(140, 34)
+        Me.RunAllButton.Size = New System.Drawing.Size(93, 23)
         Me.RunAllButton.TabIndex = 18594
         Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
         Me.ToolTip1.SetToolTip(Me.RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
@@ -123,10 +118,9 @@ Partial Class RegionList
         '
         'StopAllButton
         '
-        Me.StopAllButton.Location = New System.Drawing.Point(623, 56)
-        Me.StopAllButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopAllButton.Location = New System.Drawing.Point(415, 37)
         Me.StopAllButton.Name = "StopAllButton"
-        Me.StopAllButton.Size = New System.Drawing.Size(140, 34)
+        Me.StopAllButton.Size = New System.Drawing.Size(93, 23)
         Me.StopAllButton.TabIndex = 18595
         Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
         Me.ToolTip1.SetToolTip(Me.StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
@@ -134,10 +128,9 @@ Partial Class RegionList
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(771, 54)
-        Me.RestartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RestartButton.Location = New System.Drawing.Point(514, 36)
         Me.RestartButton.Name = "RestartButton"
-        Me.RestartButton.Size = New System.Drawing.Size(140, 34)
+        Me.RestartButton.Size = New System.Drawing.Size(93, 23)
         Me.RestartButton.TabIndex = 18596
         Me.RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All_word
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
@@ -145,10 +138,9 @@ Partial Class RegionList
         '
         'ViewDetail
         '
-        Me.ViewDetail.Location = New System.Drawing.Point(175, 12)
-        Me.ViewDetail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ViewDetail.Location = New System.Drawing.Point(117, 8)
         Me.ViewDetail.Name = "ViewDetail"
-        Me.ViewDetail.Size = New System.Drawing.Size(140, 34)
+        Me.ViewDetail.Size = New System.Drawing.Size(93, 23)
         Me.ViewDetail.TabIndex = 18599
         Me.ViewDetail.Text = Global.Outworldz.My.Resources.Resources.Details
         Me.ToolTip1.SetToolTip(Me.ViewDetail, Global.Outworldz.My.Resources.Resources.View_Details)
@@ -156,10 +148,9 @@ Partial Class RegionList
         '
         'ViewCompact
         '
-        Me.ViewCompact.Location = New System.Drawing.Point(328, 12)
-        Me.ViewCompact.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ViewCompact.Location = New System.Drawing.Point(219, 8)
         Me.ViewCompact.Name = "ViewCompact"
-        Me.ViewCompact.Size = New System.Drawing.Size(140, 34)
+        Me.ViewCompact.Size = New System.Drawing.Size(93, 23)
         Me.ViewCompact.TabIndex = 18600
         Me.ViewCompact.Text = Global.Outworldz.My.Resources.Resources.Icons
         Me.ToolTip1.SetToolTip(Me.ViewCompact, Global.Outworldz.My.Resources.Resources.View_as_Icons)
@@ -167,10 +158,9 @@ Partial Class RegionList
         '
         'ViewMaps
         '
-        Me.ViewMaps.Location = New System.Drawing.Point(475, 12)
-        Me.ViewMaps.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ViewMaps.Location = New System.Drawing.Point(317, 8)
         Me.ViewMaps.Name = "ViewMaps"
-        Me.ViewMaps.Size = New System.Drawing.Size(140, 34)
+        Me.ViewMaps.Size = New System.Drawing.Size(93, 23)
         Me.ViewMaps.TabIndex = 18601
         Me.ViewMaps.Text = Global.Outworldz.My.Resources.Resources.Maps
         Me.ToolTip1.SetToolTip(Me.ViewMaps, Global.Outworldz.My.Resources.Resources.View_Maps)
@@ -178,10 +168,9 @@ Partial Class RegionList
         '
         'ViewAvatars
         '
-        Me.ViewAvatars.Location = New System.Drawing.Point(623, 12)
-        Me.ViewAvatars.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ViewAvatars.Location = New System.Drawing.Point(415, 8)
         Me.ViewAvatars.Name = "ViewAvatars"
-        Me.ViewAvatars.Size = New System.Drawing.Size(140, 34)
+        Me.ViewAvatars.Size = New System.Drawing.Size(93, 23)
         Me.ViewAvatars.TabIndex = 18602
         Me.ViewAvatars.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         Me.ToolTip1.SetToolTip(Me.ViewAvatars, Global.Outworldz.My.Resources.Resources.ListAvatars)
@@ -189,10 +178,9 @@ Partial Class RegionList
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(771, 12)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Location = New System.Drawing.Point(514, 8)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(140, 34)
+        Me.Button2.Size = New System.Drawing.Size(93, 23)
         Me.Button2.TabIndex = 18603
         Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Import
         Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.Importtext)
@@ -200,10 +188,9 @@ Partial Class RegionList
         '
         'RestartRobustButton
         '
-        Me.RestartRobustButton.Location = New System.Drawing.Point(919, 54)
-        Me.RestartRobustButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RestartRobustButton.Location = New System.Drawing.Point(613, 36)
         Me.RestartRobustButton.Name = "RestartRobustButton"
-        Me.RestartRobustButton.Size = New System.Drawing.Size(140, 34)
+        Me.RestartRobustButton.Size = New System.Drawing.Size(93, 23)
         Me.RestartRobustButton.TabIndex = 18604
         Me.RestartRobustButton.Text = Global.Outworldz.My.Resources.Resources.Restart_Robust_word
         Me.ToolTip1.SetToolTip(Me.RestartRobustButton, Global.Outworldz.My.Resources.Resources.Restart_Robust_word)
@@ -211,10 +198,9 @@ Partial Class RegionList
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(919, 12)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button3.Location = New System.Drawing.Point(613, 8)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(140, 34)
+        Me.Button3.Size = New System.Drawing.Size(93, 23)
         Me.Button3.TabIndex = 18605
         Me.Button3.Text = Global.Outworldz.My.Resources.Resources.Region_Stats
         Me.ToolTip1.SetToolTip(Me.Button3, Global.Outworldz.My.Resources.Resources.View_Stats)
@@ -226,14 +212,11 @@ Partial Class RegionList
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        ListViewItem2.ToolTipText = Global.Outworldz.My.Resources.Resources.Avatarview
-        Me.AvatarView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
-        Me.AvatarView.Location = New System.Drawing.Point(18, 99)
-        Me.AvatarView.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AvatarView.Location = New System.Drawing.Point(12, 69)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(1041, 280)
+        Me.AvatarView.Size = New System.Drawing.Size(695, 188)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -241,12 +224,12 @@ Partial Class RegionList
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1084, 35)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(723, 30)
         Me.MenuStrip1.TabIndex = 18598
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -255,21 +238,31 @@ Partial Class RegionList
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(269, 147)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(131, 25)
+        Me.Label1.TabIndex = 18606
+        Me.Label1.Text = "Please wait ..."
         '
         'RegionList
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1084, 404)
+        Me.ClientSize = New System.Drawing.Size(723, 269)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.RestartRobustButton)
         Me.Controls.Add(Me.Button2)
@@ -286,9 +279,9 @@ Partial Class RegionList
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "RegionList"
         Me.Text = "Region List"
         Me.MenuStrip1.ResumeLayout(False)
@@ -318,4 +311,5 @@ Partial Class RegionList
     Friend WithEvents Button2 As Button
     Friend WithEvents RestartRobustButton As Button
     Friend WithEvents Button3 As Button
+    Friend WithEvents Label1 As Label
 End Class

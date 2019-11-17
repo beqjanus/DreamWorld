@@ -24,7 +24,7 @@ Imports System.IO
 Imports IniParser
 
 Public Class ScreenPos
-#Disable Warning IDE0044 ' Add readonly modifier
+    Implements IDisposable
 
 #Region "Private Fields"
 
@@ -69,6 +69,17 @@ Public Class ScreenPos
 #End Region
 
 #Region "Public Methods"
+
+    Public Function ColumnWidth(name As String, size As Integer) As Integer
+
+        Dim w As Integer = CType(Data("Data")(name & "_width"), Integer)
+        If w = 0 Then
+            Return size
+        End If
+
+        Return w
+
+    End Function
 
     Public Function Exists() As Boolean
         Dim Value = CType(Data("Data")(gName + "_Initted"), Integer)
@@ -128,11 +139,18 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-            Form1.Log(My.Resources.Info, "Loading " + myINI)
+
             Data = parser.ReadFile(myINI, System.Text.Encoding.ASCII)
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)
         End Try
+
+    End Sub
+
+    Public Sub putSize(name As String, size As Integer)
+
+        Debug.Print("Saving " & name & "=" & size.ToString)
+        Data("Data")(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
@@ -181,6 +199,40 @@ Public Class ScreenPos
         End Try
 
     End Sub
+
+#Region "IDisposable Support"
+
+    Private disposedValue As Boolean ' To detect redundant calls
+
+    ' This code added by Visual Basic to correctly implement the disposable pattern.
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+        Dispose(True)
+        ' TODO: uncomment the following line if Finalize() is overridden above.
+        ' GC.SuppressFinalize(Me)
+    End Sub
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+                ' TODO: dispose managed state (managed objects).
+            End If
+
+            ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
+            ' TODO: set large fields to null.
+        End If
+        disposedValue = True
+    End Sub
+
+    ' TODO: override Finalize() only if Dispose(disposing As Boolean) above has code to free unmanaged resources.
+    'Protected Overrides Sub Finalize()
+    '    ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+#End Region
 
 #End Region
 

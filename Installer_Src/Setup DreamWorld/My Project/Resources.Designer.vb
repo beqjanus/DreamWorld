@@ -980,7 +980,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Cannot_locate_folder.
+        '''  Looks up a localized string similar to Cannot locate folder.
         '''</summary>
         Friend ReadOnly Property Cannot_locate_folder_word() As String
             Get
@@ -2898,6 +2898,15 @@ Namespace My.Resources
         Friend ReadOnly Property Folder_To_Save_To() As String
             Get
                 Return ResourceManager.GetString("Folder_To_Save_To", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Frame Rate.
+        '''</summary>
+        Friend ReadOnly Property Frame_Rate_word() As String
+            Get
+                Return ResourceManager.GetString("Frame_Rate_word", resourceCulture)
             End Get
         End Property
         
@@ -6063,6 +6072,15 @@ Namespace My.Resources
         Friend ReadOnly Property Script_cache_word() As String
             Get
                 Return ResourceManager.GetString("Script_cache_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Script Rate.
+        '''</summary>
+        Friend ReadOnly Property Script_Rate_word() As String
+            Get
+                Return ResourceManager.GetString("Script_Rate_word", resourceCulture)
             End Get
         End Property
         

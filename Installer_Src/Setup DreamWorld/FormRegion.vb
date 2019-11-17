@@ -404,7 +404,6 @@ Public Class FormRegion
         If Len(message) > 0 Then
             Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
             If v = vbYes Then
-                RegionList.LoadMyListView()
                 Me.Close()
             End If
         Else
@@ -413,7 +412,9 @@ Public Class FormRegion
 
             WriteRegion(N1)
             Form1.CopyOpensimProto(RegionName.Text)
-            RegionList.LoadMyListView()
+            Form1.PropRegionClass.GetAllRegions()
+            Form1.Settings.PortsChanged = True
+            Form1.PropUpdateView = True ' make form refresh
 
             Changed1 = False
             Me.Close()
@@ -432,18 +433,15 @@ Public Class FormRegion
                 If Len(message) > 0 Then
                     v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
                     If v = vbYes Then
-                        If RegionList.InstanceExists Then
-                            'Form1.PropRegionClass.GetAllRegions()
-                            RegionList.LoadMyListView()
-                        End If
                         Me.Close()
                     End If
                 Else
                     WriteRegion(N1)
 
                     Form1.CopyOpensimProto(RegionName.Text)
-                    Form1.PropUpdateView() = True
                     Form1.PropRegionClass.GetAllRegions()
+                    Form1.Settings.PortsChanged = True
+                    Form1.PropUpdateView() = True
                 End If
             End If
         End If
@@ -511,9 +509,9 @@ Public Class FormRegion
             Catch ex As Security.SecurityException
             Catch ex As UnauthorizedAccessException
             End Try
-            Form1.PropRegionClass.GetAllRegions()
         End If
 
+        Form1.PropRegionClass.GetAllRegions()
         Form1.Settings.PortsChanged = True
         Form1.PropUpdateView = True
 
@@ -873,6 +871,8 @@ Public Class FormRegion
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
+        Form1.PropRegionClass.GetAllRegions()
+        Form1.Settings.PortsChanged = True
         Form1.PropUpdateView = True
 
         Oldname1 = RegionName.Text
