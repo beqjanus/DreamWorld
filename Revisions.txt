@@ -1,7 +1,22 @@
-
-Revisions for Dreamgrid
+Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
+
+V3.28
+Region List sometimes crashed the system when a race condition occured after adding a region.
+Region List now remembers the column widths for Detail view. 
+
+V3.27
+An Overall-Try-Catch in ApplicationEvents shows an error message and where the error occured. Do not quit on an exception.
+A missing or offline Welcome caused an issue - fixed
+Added a Webstats button to region popup. It is enabled when the region is running
+FSassets backup could caush a crash if folder did not exists
+Suppressed several hundred warnings on Exceprtions not being specific.
+rm compiled languages from git repo
+
+V3.26
+Added 20 different language translations for 700+ phrases, resized many forms and prompts and tooltips to fix
+Added YEngine and XEngine Switch
 
 V3.25 
 Disable region Auto Backup added to region Overides
@@ -11,11 +26,8 @@ Added Overrides to Region List Details for carious Gods, Publicity and to skip r
 Teleport hop link updated to hop in region list as secondlife link no longer works in Firestorm 6 series.
 Clear script cache automagically if Opensim version or hash changes
 
-
-
 V3.24
 Updated to Released Opensim  "0.9.1.1 Yeti "Server Release Notes" hash #defa235859889dbd". This is one patch past 0.9.1.0 for server release notes.
-
 
 V3.23
 Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel. 

@@ -1,6 +1,6 @@
 {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Verdana;}{\f2\fnil\fcharset0 Verdana;}}
 {\colortbl ;\red68\green114\blue196;\red0\green0\blue0;\red0\green0\blue255;}
-{\*\generator Riched20 10.0.19013}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+{\*\generator Riched20 10.0.19023}{\*\mmathPr\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\widctlpar\fi720\sl276\slmult1\cf1\expndtw10\caps\f0\fs52 Revisions for Dreamgrid\par
 
 \pard\widctlpar\li720\ri720\sb100\tx810\cf0\expndtw0\caps0\f1\fs21\par
@@ -8,7 +8,21 @@
 \pard\nowidctlpar\li720\ri720\sb100\par
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.\par
 \par
-\cf2\f2 V3.25 \par
+V3.28\par
+Region List sometimes crashed the system when a race condition occured after adding a region.\par
+Region List now remembers the column widths for Detail view. \par
+\par
+V3.27\par
+An Overall-Try-Catch in ApplicationEvents shows an error message and where the error occured. Do not quit on an exception.\par
+A missing or offline Welcome caused an issue - fixed\par
+Added a Webstats button to region popup. It is enabled when the region is running\par
+FSassets backup could caush a crash if folder did not exists\par
+Suppressed several hundred warnings on Exceprtions not being specific.\par
+rm compiled languages from git repo\par
+\par
+V3.26\par
+Added 20 different language translations for 700+ phrases, resized many forms and prompts and tooltips to fix\par
+Added YEngine and XEngine Switch\cf2\f2 V3.25 \par
 Disable region Auto Backup added to region Overides\par
 Drop a useless old images to reduce size of exe\par
 God mode fixes galore, reset defaults in Region INI to blanks\par
