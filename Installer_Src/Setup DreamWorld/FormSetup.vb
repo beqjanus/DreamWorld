@@ -823,7 +823,7 @@ Public Class Form1
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         Me.Hide()
-
+        Application.EnableVisualStyles()
         ' setup a debug path
         PropMyFolder = My.Application.Info.DirectoryPath
 
@@ -997,8 +997,8 @@ Public Class Form1
         End If
 
         Print(My.Resources.Checking_MySql_word)
-        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
-        If isMySqlRunning Then PropStopMysql() = False
+
+        If CheckMysql() Then PropStopMysql() = False
 
         ProgressBar1.Value = 100
 
@@ -1090,6 +1090,7 @@ Public Class Form1
                             CountisRunning += 1
                         Else
                             StopGroup(PropRegionClass.GroupName(X))
+                            PropUpdateView = True ' make form refresh
                         End If
                     End If
 
@@ -1123,6 +1124,7 @@ Public Class Form1
 
         PropRegionHandles.Clear()
         StopAllRegions()
+        PropUpdateView = True ' make form refresh
         StopRobust()
 
         ' cannot load OAR or IAR, either
@@ -3733,7 +3735,6 @@ Public Class Form1
 
             ' if a restart is signaled, boot it up
             If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                PropUpdateView = True
                 Boot(PropRegionClass, PropRegionClass.RegionName(X))
                 PropUpdateView = True
             End If
@@ -3782,13 +3783,13 @@ Public Class Form1
             And TimerValue >= 0 Then
 
             If Settings.RestartOnCrash Then
-                PropUpdateView = True
                 ' shut down all regions in the DOS box
                 Print(GroupName & " " & My.Resources.Quit_unexpectedly)
                 For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
                     PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                     PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RestartPending
                 Next
+                PropUpdateView = True
             Else
                 Print(GroupName & " " & My.Resources.Quit_unexpectedly)
                 Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Err)
@@ -5459,9 +5460,7 @@ Public Class Form1
 
     Public Function StartMySQL() As Boolean
 
-        Dim isMySqlRunning = CheckPort(Settings.RobustServer(), Settings.MySqlRegionDBPort)
-
-        If isMySqlRunning Then
+        If CheckMysql() Then
             MysqlPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Mysql_is_Running)
             PropMysqlExited = False
@@ -5754,9 +5753,7 @@ Public Class Form1
 
     Private Sub StopMysql()
 
-        Dim isMySqlRunning = CheckPort("127.0.0.1", Settings.MySqlRobustDBPort)
-
-        If Not isMySqlRunning Then
+        If Not CheckMysql() Then
             MysqlPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
             Application.DoEvents()
@@ -5965,8 +5962,7 @@ Public Class Form1
 
     Private Function ScanAgents() As Integer
 
-        Dim isMySqlRunning = CheckPort(Settings.RobustServer(), Settings.MySqlRegionDBPort)
-        If Not isMySqlRunning Then Return 0
+        If Not IsRobustRunning() Then Return 0
 
         ' Scan all the regions
         Dim sbttl As Integer = 0
