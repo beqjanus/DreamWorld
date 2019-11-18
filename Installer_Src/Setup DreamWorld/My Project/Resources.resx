@@ -431,7 +431,7 @@
   </data>
   <data name="Frame_Rate_word" xml:space="preserve">
     <value>Frame Rate</value>
-    <comment>New Xlate</comment>
+    <comment>New Translation needed</comment>
   </data>
   <data name="Region_Already_Exists" xml:space="preserve">
     <value>Region already exists</value>
@@ -579,7 +579,7 @@
   </data>
   <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
     <value>Clearing Mesh Cache</value>
-    <comment>new</comment>
+    <comment>New Translation needed</comment>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS Name or SomeName.Outworldz.net or IP</value>
@@ -1193,7 +1193,7 @@
   </data>
   <data name="Script_Rate_word" xml:space="preserve">
     <value>Script Rate</value>
-    <comment>New Xlate</comment>
+    <comment>New Translation needed</comment>
   </data>
   <data name="Checking_MySql_word" xml:space="preserve">
     <value>Checking MySql</value>
@@ -2637,6 +2637,14 @@
   </data>
   <data name="Deregister_word" xml:space="preserve">
     <value>Deregister</value>
+    <comment>New Translation needed</comment>
+  </data>
+  <data name="Click_to_View_this_word" xml:space="preserve">
+    <value>Click to view this</value>
+    <comment>New Translation needed</comment>
+  </data>
+  <data name="Select_word" xml:space="preserve">
+    <value>Select</value>
     <comment>New Translation needed</comment>
   </data>
 </root>

@@ -1504,6 +1504,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click to view this.
+        '''</summary>
+        Friend ReadOnly Property Click_to_View_this_word() As String
+            Get
+                Return ResourceManager.GetString("Click_to_View_this_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to set up Vivox Voice.
         '''</summary>
         Friend ReadOnly Property Click_Voice() As String
@@ -6198,6 +6207,15 @@ Namespace My.Resources
         Friend ReadOnly Property SeeYouSoon() As String
             Get
                 Return ResourceManager.GetString("SeeYouSoon", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Select.
+        '''</summary>
+        Friend ReadOnly Property Select_word() As String
+            Get
+                Return ResourceManager.GetString("Select_word", resourceCulture)
             End Get
         End Property
         

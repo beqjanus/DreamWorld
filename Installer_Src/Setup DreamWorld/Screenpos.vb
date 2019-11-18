@@ -209,7 +209,7 @@ Public Class ScreenPos
         ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         ' TODO: uncomment the following line if Finalize() is overridden above.
-        ' GC.SuppressFinalize(Me)
+        GC.SuppressFinalize(Me)
     End Sub
 
     ' IDisposable

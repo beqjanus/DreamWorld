@@ -66,7 +66,7 @@ Public Class Choice
         DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGridView.MultiSelect = False
 
-        DataGridView.Text = "Select from..."
+        DataGridView.Text = My.Resources.Select_word
         Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
 
         Dim L As New List(Of String)

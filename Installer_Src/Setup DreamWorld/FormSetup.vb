@@ -4402,7 +4402,7 @@ Public Class Form1
     Private Sub AddLog(name As String)
         Dim LogMenu As New ToolStripMenuItem With {
                 .Text = name,
-                .ToolTipText = "Click to view this log",
+                .ToolTipText = My.Resources.Click_to_View_this_word,
                 .Size = New Size(269, 26),
                 .Image = My.Resources.Resources.document_view,
                 .DisplayStyle = ToolStripItemDisplayStyle.Text
@@ -5276,14 +5276,12 @@ Public Class Form1
     Public Function OpenRouterPorts() As Boolean
 
         If Not PropMyUPnpMap.UPnpEnabled And Settings.UPnPEnabled Then
-            Log("UPnP", "UPnP is not working in the router")
             Settings.UPnPEnabled = False
             Settings.SaveSettings()
             Return False
         End If
 
         If Not Settings.UPnPEnabled Then
-            Log("UPnP", "UPnP is not Enabled")
             Return False
         End If
 
@@ -5942,7 +5940,7 @@ Public Class Form1
 
             Dim Menu As New ToolStripMenuItem With {
                 .Text = PropRegionClass.RegionName(RegionNum),
-                .ToolTipText = "Click to view stats on " & PropRegionClass.RegionName(RegionNum),
+                .ToolTipText = My.Resources.Click_to_View_this_word & " " & PropRegionClass.RegionName(RegionNum),
                 .DisplayStyle = ToolStripItemDisplayStyle.Text
             }
             If PropRegionClass.IsBooted(RegionNum) Then
