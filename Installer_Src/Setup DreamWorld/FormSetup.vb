@@ -4269,12 +4269,16 @@ Public Class Form1
         ' 5 seconds check for a restart RegionRestart requires MOD 5
         If PropDNSSTimer Mod 5 = 0 Then
             PropRegionClass.CheckPost()
-            ScanAgents() ' update agent count
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+        End If
+
+        If PropDNSSTimer Mod 60 = 0 Then
+            ScanAgents() ' update agent count
         End If
 
         ' Just once at the Minute Mark
         If PropDNSSTimer = 60 Then
+
             RegionListHTML() ' create HTML for older 2.4 region teleporters
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
@@ -5973,7 +5977,7 @@ Public Class Form1
                     Dim count As Integer = MysqlInterface.IsUserPresent(PropRegionClass.UUID(RegionNum))
                     sbttl += count
                     If count > 0 Then
-                        ToolTip1.SetToolTip(Label3, PropRegionClass.RegionName(RegionNum) & " " & ToolTip1.GetToolTip(Label3))
+                        ToolTip1.SetToolTip(Label3, PropRegionClass.RegionName(RegionNum) & vbCrLf & ToolTip1.GetToolTip(Label3))
                     End If
                     PropRegionClass.AvatarCount(RegionNum) = count
                 Else
@@ -5983,7 +5987,10 @@ Public Class Form1
         Catch
         End Try
 
-        AvatarLabel.Text = CStr(sbttl)
+        Dim total As Integer = MysqlInterface.GetAgentList().Count
+        total += MysqlInterface.GetHGAgentList().Count
+
+        AvatarLabel.Text = CStr(total)
         Return sbttl
 
     End Function
