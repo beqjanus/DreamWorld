@@ -956,7 +956,7 @@ Partial Class FormRegion
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 1880
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Deregister
+        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Deregister_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'MenuStrip2

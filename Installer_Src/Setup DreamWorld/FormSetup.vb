@@ -880,7 +880,7 @@ Public Class Form1
         ProgressBar1.Visible = True
         ToolBar(False)
 
-        If Me.Width > 385 Then
+        If Me.Width > 390 Then
             PictureBox1.Image = My.Resources.Arrow2Left
         Else
             PictureBox1.Image = My.Resources.Arrow2Right

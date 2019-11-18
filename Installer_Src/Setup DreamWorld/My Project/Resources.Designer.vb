@@ -369,7 +369,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Web Server  did not stop.
+        '''  Looks up a localized string similar to Web Server did not stop.
         '''</summary>
         Friend ReadOnly Property ApacheNot_Stopping() As String
             Get
@@ -1964,6 +1964,15 @@ Namespace My.Resources
         Friend ReadOnly Property Deregister_All() As String
             Get
                 Return ResourceManager.GetString("Deregister_All", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Deregister.
+        '''</summary>
+        Friend ReadOnly Property Deregister_word() As String
+            Get
+                Return ResourceManager.GetString("Deregister_word", resourceCulture)
             End Get
         End Property
         
