@@ -78,7 +78,7 @@ Public Class FormPublicity
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = "PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*",
+            .Filter = My.Resources.picfilter,
             .FilterIndex = 1,
             .Multiselect = False
         }
