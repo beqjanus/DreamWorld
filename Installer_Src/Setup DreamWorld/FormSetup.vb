@@ -672,6 +672,8 @@ Public Class Form1
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
 
+        Buttons(BusyButton)
+
         With cpu
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
@@ -1009,8 +1011,6 @@ Public Class Form1
             Settings.SaveSettings()
             Print(My.Resources.Ready_to_Launch & vbCrLf & My.Resources.Click_Start_2_Begin & vbCrLf)
         End If
-
-        Buttons(StartButton)
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
@@ -3416,6 +3416,7 @@ Public Class Form1
     ''' <param name="BootName">Name of region to start</param>
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
+
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
             Return False
@@ -3433,36 +3434,45 @@ Public Class Form1
 
         If Regionclass.IsBooted(RegionNumber) Then
             Log(My.Resources.Info, "Region " & BootName & " already running")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booted Up")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Suspended Then
             Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+            PropUpdateView = True ' make form refresh
             Return True
         End If
 
+        DoRegion(BootName)
+
         Application.DoEvents()
+
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Print(BootName & " is already running") ' !!!
@@ -3471,10 +3481,11 @@ Public Class Form1
             For Each p In listP
                 If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
                     Regionclass.ProcessID(RegionNumber) = p.Id
+                    Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                    PropUpdateView = True ' make form refresh
+                    Exit For
                 End If
             Next
-
-            Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
             Return False
         End If
 
@@ -3530,6 +3541,8 @@ Public Class Form1
             Loop
 
             If Not hasPID Then
+                PropUpdateView = True ' make form refresh
+                Print("Cannot get a Process ID from this region")
                 Return False
             End If
             For Each num In Regionclass.RegionListByGroupNum(Groupname)
