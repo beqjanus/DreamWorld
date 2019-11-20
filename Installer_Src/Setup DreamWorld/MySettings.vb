@@ -184,7 +184,7 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
-    Public Sub LoadIni(arg As String, comment As String)
+    Public Function LoadIni(arg As String, comment As String) As Boolean
 
         Form1.Log(My.Resources.Info, "Loading INI " & arg)
         parser = New FileIniDataParser()
@@ -195,10 +195,11 @@ Public Class MySettings
             Data = parser.ReadFile(arg, System.Text.Encoding.ASCII)
         Catch ex As Exception
             MsgBox(ex.Message)
+            Return True
         End Try
         INI = arg
-
-    End Sub
+        Return False
+    End Function
 
     Public Sub LoadSettingsIni()
 
@@ -216,6 +217,13 @@ Public Class MySettings
 
     End Sub
 
+    ''' <summary>
+    ''' writes to the ini the name value pair.
+    ''' </summary>
+    ''' <param name="section"></param>
+    ''' <param name="key"></param>
+    ''' <param name="value"></param>
+    ''' <returns></returns>
     Public Sub SetIni(section As String, key As String, value As String)
 
         ' sets values into any INI file
@@ -1781,7 +1789,7 @@ Public Class MySettings
 #Region "Apache"
 
     ' reader ApacheStrings
-    Public Sub LoadLiteralIni(ini As String)
+    Public Function LoadLiteralIni(ini As String)
 
         Apachein.Clear()
         Using Reader As New StreamReader(ini, System.Text.Encoding.ASCII)
@@ -1790,7 +1798,9 @@ Public Class MySettings
             End While
         End Using
 
-    End Sub
+        Return False
+
+    End Function
 
     'writer of ApacheStrings
     Public Sub SaveLiteralIni(ini As String, name As String)

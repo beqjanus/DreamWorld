@@ -199,20 +199,26 @@ Public Class Form1
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
 
+    ''' <summary>
+    ''' Fires when the form changes size or position
+    ''' </summary>
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
-
         Dim Y = Me.Height - 130
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
-
     End Sub
 
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
+    ''' <summary>
+    ''' 'The following detects the location of the form in screen coordinates
+    ''' </summary>
 
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
+    ''' <summary>
+    ''' Sets H,W and pos of screen on load
+    ''' </summary>
     Private Sub SetScreen()
         '366, 236
         ScreenPosition = New ScreenPos("Form1")
@@ -736,7 +742,7 @@ Public Class Form1
 
             Print(My.Resources.Reading_Region_files)
             PropRegionClass.GetAllRegions()
-            If Not SetIniData() Then Return   ' set up the INI files
+            If SetIniData() Then Return   ' set up the INI files
         End If
 
         If Not StartMySQL() Then
@@ -864,6 +870,10 @@ Public Class Form1
 
     End Sub
 
+    ''' <summary>
+    ''' The main starup - done this way so languages can reload the entire form
+    ''' </summary>
+
     Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         ProgressBar1.Minimum = 0
@@ -935,7 +945,7 @@ Public Class Form1
         mnuShow.Checked = Settings.ConsoleShow
         mnuHide.Checked = Not Settings.ConsoleShow
 
-        If Not SetIniData() Then Return
+        If SetIniData() Then Return
 
         CheckForUpdates()
 
@@ -1454,7 +1464,7 @@ Public Class Form1
 
     End Sub
 
-    Public Sub DelLibrary()
+    Public Function DelLibrary() As Boolean
 
         Try
             System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Clothing Library (small).iar")
@@ -1465,12 +1475,14 @@ Public Class Form1
         Catch ex As ArgumentException
         End Try
 
-    End Sub
+        Return False
 
-    Public Sub DoGloebits()
+    End Function
+
+    Public Function DoGloebits() As Boolean
 
         'Gloebits.ini
-        Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";")
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else
@@ -1493,8 +1505,9 @@ Public Class Form1
         Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI()
+        Return False
 
-    End Sub
+    End Function
 
     ''' <summary>
     ''' Loads the INI file for the proper grid type for parsing
@@ -1521,12 +1534,14 @@ Public Class Form1
 
     End Function
 
-    Public Sub Opensimproto(X As Integer)
+    Public Function Opensimproto(X As Integer) As Boolean
+
+        '!!!
 
         Dim regionName = PropRegionClass.RegionName(X)
         Dim pathname = PropRegionClass.IniPath(X)
 
-        Settings.LoadIni(GetOpensimProto(), ";")
+        If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
 
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
 
@@ -1566,7 +1581,9 @@ Public Class Form1
         Catch ex As System.Security.SecurityException
         End Try
 
-    End Sub
+        Return False
+
+    End Function
 
     Public Sub SaveIceCast()
 
@@ -1625,7 +1642,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub DoBirds()
+    Private Function DoBirds() As Boolean
 
         Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
         Try
@@ -1643,7 +1660,7 @@ Public Class Form1
 
             Dim simName = PropRegionClass.RegionName(RegionNum)
 
-            Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+            If Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";") Then Return True
 
             If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
 
@@ -1682,20 +1699,23 @@ Public Class Form1
         Next
         IO.File.WriteAllText(BirdFile, BirdData, Encoding.Default) 'The text file will be created if it does not already exist
 
-    End Sub
+        Return False
 
-    Private Sub DoFlotsamINI()
+    End Function
 
-        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";")
+    Private Function DoFlotsamINI() As Boolean
+
+        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";") Then Return True
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", Settings.CacheEnabled)
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
         Settings.SaveINI()
+        Return False
 
-    End Sub
+    End Function
 
-    Private Sub DoGridCommon()
+    Private Function DoGridCommon()
 
         'Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
@@ -1717,25 +1737,28 @@ Public Class Form1
         ' Put that gridcommon.ini file in place
         FileStuff.CopyFile(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
 
-        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";")
+        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SaveINI()
 
-    End Sub
+        Return False
 
-    Private Sub DoMySQL()
+    End Function
+
+    Private Function DoMySQL()
 
         ' load and patch it up for MySQL
-        Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";")
+        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";") Then Return True
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
         Settings.SaveINI()
+        Return False
 
-    End Sub
+    End Function
 
-    Private Sub DoOpensimINI()
+    Private Function DoOpensimINI() As Boolean
 
         ' Opensim.ini
-        Settings.LoadIni(GetOpensimProto(), ";")
+        If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
 
         Select Case Settings.ServerType
             Case "Robust"
@@ -1935,10 +1958,11 @@ Public Class Form1
 
         Settings.SaveINI()
 
-    End Sub
+        Return False
+    End Function
 
-    Private Sub DoRegion(simName As String)
-
+    Private Function DoRegion(simName As String) As Boolean
+        '!!!
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
@@ -1946,7 +1970,7 @@ Public Class Form1
 
         Dim RegionNum = PropRegionClass.FindRegionByName(simName)
 
-        Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";")
+        If Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";") Then Return True
 
         ' Autobackup
         If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "" Then
@@ -2035,7 +2059,9 @@ Public Class Form1
         Settings.SaveINI()
 
         ' Opensim.ini in Region Folder specific to this region
-        Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";")
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";") Then
+            Return True
+        End If
 
         ' Autobackup
         If Settings.AutoBackup Then
@@ -2191,13 +2217,16 @@ Public Class Form1
 
         Settings.SaveINI()
 
-    End Sub
+        Return False
+    End Function
 
-    Private Sub DoRobust()
-
+    Private Function DoRobust() As Boolean
+        '!!!
         If Settings.ServerType = "Robust" Then
             ' Robust Process
-            Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";")
+            If Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";") Then
+                Return True
+            End If
 
             Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
             Settings.SetIni("Const", "GridName", Settings.SimName)
@@ -2247,9 +2276,10 @@ Public Class Form1
 
         End If
 
-    End Sub
+        Return False
+    End Function
 
-    Private Sub DoTides()
+    Private Function DoTides() As Boolean
 
         Dim TideData As String = ""
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
@@ -2305,13 +2335,17 @@ Public Class Form1
         Next
         IO.File.WriteAllText(TideFile, TideData, Encoding.Default) 'The text file will be created if it does not already exist
 
-    End Sub
+        Return False
 
-    Private Sub DoTOS()
+    End Function
+
+    Private Function DoTos() As Boolean
 
         ' TOSModule is disabled in Grids
         If (False) Then
-            Settings.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";")
+            If Settings.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";") Then
+                Return True
+            End If
 
             'Disable it as it is broken for now.
 
@@ -2324,12 +2358,15 @@ Public Class Form1
             Settings.SetIni("TOSModule", "TOS_URL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/wifi/termsofservice.html")
             Settings.SaveINI()
         End If
+        Return False
+    End Function
 
-    End Sub
+    Private Function DoWifi() As Boolean
+        '!!!
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";") Then
+            Return True
+        End If
 
-    Private Sub DoWifi()
-
-        Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";")
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         ' Wifi Section
@@ -2371,10 +2408,11 @@ Public Class Form1
         End If
 
         Settings.SaveINI()
+        Return False
 
-    End Sub
+    End Function
 
-    Private Sub EditForeigners()
+    Private Function EditForeigners() As Boolean
 
         ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
 
@@ -2436,9 +2474,11 @@ Public Class Form1
             outputFile.Write(Output)
         End Using
 
-    End Sub
+        Return False
 
-    Private Sub SetDefaultSims()
+    End Function
+
+    Private Function SetDefaultSims() As Boolean
 
         ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
         ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
@@ -2451,7 +2491,8 @@ Public Class Form1
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
-                Return
+                MsgBox(My.Resources.Cannot_locate, vbInformation)
+                Return True
             End If
 
             Dim DefaultName = Settings.WelcomeRegion
@@ -2501,34 +2542,41 @@ Public Class Form1
             reader.Close()
         Catch ex As Exception
             MsgBox(My.Resources.no_Default_sim, vbInformation, My.Resources.Settings_word)
-        Finally
-
+            Return True
         End Try
 
-    End Sub
+        ' needs to be set up after the above
+        If DoRobust() Then Return True
 
+        Return False
+
+    End Function
+
+    ''' <summary>
+    ''' Set up all INI files
+    ''' </summary>
+    ''' <returns>true if it fails</returns>
     Private Function SetIniData() As Boolean
 
         Print(My.Resources.Creating_INI_Files)
 
-        SetDefaultSims() ' do not swap order of this with  DoRobust. This creates Robust.HG.ini from the .proto
-        DoRobust()
-        DoTOS()
-        DoGridCommon()
-        EditForeigners()
-        DelLibrary()
-        DoMySQL()
-        DoFlotsamINI()
-        DoOpensimINI()
-        DoWifi()
-        DoGloebits()
-        DoTides()
-        DoBirds()
-        MapSetup()
-        DoPHP()
-        DoApache()
+        If SetDefaultSims() Then Return True
+        If DoTos() Then Return True
+        If DoGridCommon() Then Return True
+        If EditForeigners() Then Return True
+        If DelLibrary() Then Return True
+        If DoMySQL() Then Return True
+        If DoFlotsamINI() Then Return True
+        If DoOpensimINI() Then Return True
+        If DoWifi() Then Return True
+        If DoGloebits() Then Return True
+        If DoTides() Then Return True
+        If DoBirds() Then Return True
+        If MapSetup() Then Return True
+        If DoPHP() Then Return True
+        If DoApache() Then Return True
 
-        Return True
+        Return False
 
     End Function
 
@@ -2567,14 +2615,16 @@ Public Class Form1
 
     End Function
 
-    Public Sub SetRegionINI(regionname As String, key As String, value As String)
-
+    Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
+        '!!!
         Dim X = PropRegionClass.FindRegionByName(regionname)
-        Settings.LoadIni(PropRegionClass.RegionPath(X), ";")
+        If Settings.LoadIni(PropRegionClass.RegionPath(X), ";") Then
+            Return True
+        End If
         Settings.SetIni(regionname, key, value)
         Settings.SaveINI()
-
-    End Sub
+        Return False
+    End Function
 
 #End Region
 
@@ -2925,13 +2975,13 @@ Public Class Form1
 
     End Sub
 
-    Private Sub DoApache()
+    Private Function DoApache()
 
-        If Not Settings.ApacheEnable Then Return
+        If Not Settings.ApacheEnable Then Return False
 
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
-        Settings.LoadLiteralIni(ini)
+        If Settings.LoadLiteralIni(ini) Then Return True
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
@@ -2958,16 +3008,17 @@ Public Class Form1
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
-        Settings.LoadLiteralIni(ini)
+        If Settings.LoadLiteralIni(ini) Then Return True
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("SSLSessionCache", "SSLSessionCache shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
+        Return False
 
-    End Sub
+    End Function
 
-    Private Sub DoPHP()
+    Private Function DoPHP()
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
@@ -2975,7 +3026,9 @@ Public Class Form1
         Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
         Settings.SaveLiteralIni(ini, "php.ini")
 
-    End Sub
+        Return False
+
+    End Function
 
     ''' <summary>
     ''' Check is Apache port 80 or 8000 is up
@@ -3036,7 +3089,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MapSetup()
+    Private Function MapSetup() As Boolean
 
         Dim phptext = "<?php " & vbCrLf &
 "/* General Domain */" & vbCrLf &
@@ -3077,7 +3130,9 @@ Public Class Form1
             outputFile.WriteLine(phptext)
         End Using
 
-    End Sub
+        Return False
+
+    End Function
 
     Private Sub StopApache()
 
@@ -5499,7 +5554,7 @@ Public Class Form1
         Print(My.Resources.Mysql_Starting)
 
         ' SAVE INI file
-        Settings.LoadIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#")
+        If Settings.LoadIni(PropMyFolder & "\OutworldzFiles\mysql\my.ini", "#") Then Return True
         Settings.SetIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
         Settings.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))

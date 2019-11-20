@@ -2647,4 +2647,8 @@
     <value>Select</value>
     <comment>New Translation needed</comment>
   </data>
+  <data name="Cannot_locate" xml:space="preserve">
+    <value>Cannot locate Default welcome region</value>
+    <comment>Needs translation</comment>
+  </data>
 </root>

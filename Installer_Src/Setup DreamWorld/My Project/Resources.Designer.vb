@@ -980,6 +980,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cannot locate Default welcome region.
+        '''</summary>
+        Friend ReadOnly Property Cannot_locate() As String
+            Get
+                Return ResourceManager.GetString("Cannot_locate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Cannot locate folder.
         '''</summary>
         Friend ReadOnly Property Cannot_locate_folder_word() As String
