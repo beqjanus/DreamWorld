@@ -1979,9 +1979,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Deregister.
         '''</summary>
-        Friend ReadOnly Property Deregister_word() As String
+        Friend ReadOnly Property Deregister_words() As String
             Get
-                Return ResourceManager.GetString("Deregister_word", resourceCulture)
+                Return ResourceManager.GetString("Deregister_words", resourceCulture)
             End Get
         End Property
         

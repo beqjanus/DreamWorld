@@ -2635,7 +2635,7 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS Name &amp; Hypergrid</value>
   </data>
-  <data name="Deregister_word" xml:space="preserve">
+  <data name="Deregister_words" xml:space="preserve">
     <value>Deregister</value>
     <comment>New Translation needed</comment>
   </data>

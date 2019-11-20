@@ -102,7 +102,7 @@ Partial Class FormRegion
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -950,14 +950,14 @@ Partial Class FormRegion
         Me.GroupBox5.TabIndex = 1885
         Me.GroupBox5.TabStop = False
         '
-        'Button2
+        'DeregisterButton
         '
-        Me.Button2.Location = New System.Drawing.Point(89, 221)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 1880
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Deregister_word
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.DeregisterButton.Location = New System.Drawing.Point(89, 221)
+        Me.DeregisterButton.Name = "DeregisterButton"
+        Me.DeregisterButton.Size = New System.Drawing.Size(75, 23)
+        Me.DeregisterButton.TabIndex = 1880
+        Me.DeregisterButton.Text = Global.Outworldz.My.Resources.Resources.Deregister_words
+        Me.DeregisterButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
@@ -992,7 +992,7 @@ Partial Class FormRegion
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(828, 555)
         Me.Controls.Add(Me.MenuStrip2)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.DeregisterButton)
         Me.Controls.Add(Me.GroupBox6)
         Me.Controls.Add(Me.MapHelp)
         Me.Controls.Add(Me.EnabledCheckBox)
@@ -1098,7 +1098,7 @@ Partial Class FormRegion
     Friend WithEvents BirdsCheckBox As CheckBox
     Friend WithEvents TidesCheckbox As CheckBox
     Friend WithEvents TPCheckBox1 As CheckBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents DeregisterButton As Button
     Friend WithEvents Physicsubhybrid As RadioButton
     Friend WithEvents RegionPort As TextBox
     Friend WithEvents SmartStartCheckBox As CheckBox

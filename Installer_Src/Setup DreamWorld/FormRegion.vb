@@ -1029,7 +1029,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles DeregisterButton.Click
 
         Dim response As MsgBoxResult = MsgBox(My.Resources.Another_Region, vbYesNo)
         If response = vbYes Then

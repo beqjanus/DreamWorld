@@ -149,7 +149,7 @@ Public Class ScreenPos
 
     Public Sub putSize(name As String, size As Integer)
 
-        Debug.Print("Saving " & name & "=" & size.ToString)
+        Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
         Data("Data")(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
@@ -206,7 +206,7 @@ Public Class ScreenPos
 
     ' This code added by Visual Basic to correctly implement the disposable pattern.
     Public Sub Dispose() Implements IDisposable.Dispose
-        ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+        ' Do not change this code. Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
         ' TODO: uncomment the following line if Finalize() is overridden above.
         GC.SuppressFinalize(Me)
