@@ -3523,11 +3523,15 @@ Public Class Form1
                     If p.ProcessName.Length > 0 Then
                         hasPID = True
                     End If
+                Catch ex As System.NullReferenceException
                 Catch ex As ArgumentException
                 Catch ex As InvalidOperationException
                 End Try
             Loop
 
+            If Not hasPID Then
+                Return False
+            End If
             For Each num In Regionclass.RegionListByGroupNum(Groupname)
                 Log("Debug", "Process started for " & Regionclass.RegionName(num) & " PID=" & CStr(myProcess.Id) & " Num:" & CStr(num))
                 Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
@@ -3792,7 +3796,7 @@ Public Class Form1
                 PropUpdateView = True
             Else
                 Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Err)
+                Dim yesno = MsgBox(GroupName & " " & My.Resources.See_Log, vbYesNo, My.Resources.Err)
                 If (yesno = vbYes) Then
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
