@@ -226,6 +226,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Public Enums"
 
     ' icons image list layout
@@ -486,8 +488,7 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
-        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -638,6 +639,11 @@ Public Class RegionList
     Private Sub ShowRegions()
 
         Try
+
+            Dim MysqlIsRunning = False
+            If Form1.CheckMysql Then
+                MysqlIsRunning = True
+            End If
             ViewNotBusy1 = False
             ListView1.BeginUpdate()
 
@@ -1261,6 +1267,8 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
+
+
 #Region "Private Fields"
 
     Private col As Integer
@@ -1280,6 +1288,8 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
