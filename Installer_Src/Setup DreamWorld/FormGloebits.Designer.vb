@@ -195,7 +195,7 @@ Partial Class Gloebits
         Me.ProductionButton.Size = New System.Drawing.Size(154, 24)
         Me.ProductionButton.TabIndex = 8
         Me.ProductionButton.TabStop = True
-        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode
+        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
         Me.ProductionButton.UseVisualStyleBackColor = True
         '
         'Label12

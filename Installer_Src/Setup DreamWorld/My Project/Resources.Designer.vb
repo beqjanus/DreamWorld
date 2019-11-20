@@ -1633,9 +1633,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Contact Info.
         '''</summary>
-        Friend ReadOnly Property Contact_Info() As String
+        Friend ReadOnly Property Contact_Info_Word() As String
             Get
-                Return ResourceManager.GetString("Contact_Info", resourceCulture)
+                Return ResourceManager.GetString("Contact_Info_Word", resourceCulture)
             End Get
         End Property
         
@@ -5060,11 +5060,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Owner_God.
+        '''  Looks up a localized string similar to Owner God.
         '''</summary>
         Friend ReadOnly Property Owner_God() As String
             Get
-                Return ResourceManager.GetString("Owner God", resourceCulture)
+                Return ResourceManager.GetString("Owner_God", resourceCulture)
             End Get
         End Property
         
@@ -5308,18 +5308,18 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Private Port.
         '''</summary>
-        Friend ReadOnly Property Private_Port() As String
+        Friend ReadOnly Property Private_Port_Word() As String
             Get
-                Return ResourceManager.GetString("Private_Port", resourceCulture)
+                Return ResourceManager.GetString("Private_Port_Word", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Production Mode.
         '''</summary>
-        Friend ReadOnly Property Production_Mode() As String
+        Friend ReadOnly Property Production_Mode_Word() As String
             Get
-                Return ResourceManager.GetString("Production_Mode", resourceCulture)
+                Return ResourceManager.GetString("Production_Mode_Word", resourceCulture)
             End Get
         End Property
         
@@ -5335,27 +5335,27 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Public IP setup.
         '''</summary>
-        Friend ReadOnly Property Public_IP() As String
+        Friend ReadOnly Property Public_IP_Setup_Word() As String
             Get
-                Return ResourceManager.GetString("Public_IP", resourceCulture)
+                Return ResourceManager.GetString("Public_IP_Setup_Word", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Public Photo.
         '''</summary>
-        Friend ReadOnly Property Public_Photo() As String
+        Friend ReadOnly Property Public_Photo_Word() As String
             Get
-                Return ResourceManager.GetString("Public_Photo", resourceCulture)
+                Return ResourceManager.GetString("Public_Photo_Word", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Publicity.
         '''</summary>
-        Friend ReadOnly Property Publicity() As String
+        Friend ReadOnly Property Publicity_Word() As String
             Get
-                Return ResourceManager.GetString("Publicity", resourceCulture)
+                Return ResourceManager.GetString("Publicity_Word", resourceCulture)
             End Get
         End Property
         
@@ -5390,9 +5390,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Quit Now.
         '''</summary>
-        Friend ReadOnly Property Quit_Now() As String
+        Friend ReadOnly Property Quit_Now_Word() As String
             Get
-                Return ResourceManager.GetString("Quit_Now", resourceCulture)
+                Return ResourceManager.GetString("Quit_Now_Word", resourceCulture)
             End Get
         End Property
         
@@ -5408,9 +5408,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to RAM.
         '''</summary>
-        Friend ReadOnly Property RAM() As String
+        Friend ReadOnly Property RAM_Word() As String
             Get
-                Return ResourceManager.GetString("RAM", resourceCulture)
+                Return ResourceManager.GetString("RAM_Word", resourceCulture)
             End Get
         End Property
         

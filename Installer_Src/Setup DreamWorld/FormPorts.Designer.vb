@@ -150,7 +150,7 @@ Partial Class FormPorts
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(90, 20)
         Me.Label7.TabIndex = 38
-        Me.Label7.Text = My.Resources.Private_Port
+        Me.Label7.Text = My.Resources.Private_Port_Word
         '
         'Label5
         '

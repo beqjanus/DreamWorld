@@ -46,16 +46,16 @@ Partial Class FormIARSave
         '
         'AviName
         '
-        Me.AviName.Location = New System.Drawing.Point(214, 134)
+        Me.AviName.Location = New System.Drawing.Point(8, 118)
         Me.AviName.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(266, 26)
+        Me.AviName.Size = New System.Drawing.Size(211, 26)
         Me.AviName.TabIndex = 14
         Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
         '
         'BackupNameTextBox
         '
-        Me.BackupNameTextBox.Location = New System.Drawing.Point(214, 94)
+        Me.BackupNameTextBox.Location = New System.Drawing.Point(8, 78)
         Me.BackupNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.BackupNameTextBox.Name = "BackupNameTextBox"
         Me.BackupNameTextBox.Size = New System.Drawing.Size(266, 26)
@@ -64,12 +64,12 @@ Partial Class FormIARSave
         '
         'ObjectNameBox
         '
-        Me.ObjectNameBox.Location = New System.Drawing.Point(214, 54)
+        Me.ObjectNameBox.Location = New System.Drawing.Point(8, 38)
         Me.ObjectNameBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(266, 26)
+        Me.ObjectNameBox.Size = New System.Drawing.Size(228, 26)
         Me.ObjectNameBox.TabIndex = 12
-        Me.ObjectNameBox.Text = "/"
+        Me.ObjectNameBox.Text = "/Objects/"
         Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
         '
         'GroupBox1
@@ -96,7 +96,7 @@ Partial Class FormIARSave
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(342, 231)
+        Me.Button2.Location = New System.Drawing.Point(215, 231)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(160, 35)
@@ -106,7 +106,7 @@ Partial Class FormIARSave
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(128, 231)
+        Me.Button1.Location = New System.Drawing.Point(8, 231)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(162, 35)
@@ -117,7 +117,7 @@ Partial Class FormIARSave
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox1.Location = New System.Drawing.Point(488, 91)
+        Me.PictureBox1.Location = New System.Drawing.Point(252, 39)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(38, 34)
@@ -127,7 +127,7 @@ Partial Class FormIARSave
         'Pwd
         '
         Me.Pwd.AutoSize = True
-        Me.Pwd.Location = New System.Drawing.Point(33, 185)
+        Me.Pwd.Location = New System.Drawing.Point(311, 164)
         Me.Pwd.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Pwd.Name = "Pwd"
         Me.Pwd.Size = New System.Drawing.Size(128, 20)
@@ -137,7 +137,7 @@ Partial Class FormIARSave
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(33, 145)
+        Me.Label3.Location = New System.Drawing.Point(311, 124)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(101, 20)
@@ -147,7 +147,7 @@ Partial Class FormIARSave
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(33, 105)
+        Me.Label2.Location = New System.Drawing.Point(311, 84)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(109, 20)
@@ -157,7 +157,7 @@ Partial Class FormIARSave
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(33, 63)
+        Me.Label1.Location = New System.Drawing.Point(311, 44)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(167, 20)
@@ -166,7 +166,7 @@ Partial Class FormIARSave
         '
         'Password
         '
-        Me.Password.Location = New System.Drawing.Point(214, 174)
+        Me.Password.Location = New System.Drawing.Point(8, 158)
         Me.Password.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Password.Name = "Password"
         Me.Password.Size = New System.Drawing.Size(148, 26)
@@ -180,7 +180,7 @@ Partial Class FormIARSave
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(589, 35)
+        Me.MenuStrip1.Size = New System.Drawing.Size(589, 33)
         Me.MenuStrip1.TabIndex = 18599
         Me.MenuStrip1.Text = "MenuStrip1"
         '

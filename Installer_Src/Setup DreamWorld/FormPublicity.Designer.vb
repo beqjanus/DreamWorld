@@ -46,7 +46,7 @@ Partial Class FormPublicity
         Me.GroupBox11.Size = New System.Drawing.Size(221, 183)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = My.Resources.Public_Photo
+        Me.GroupBox11.Text = My.Resources.Public_Photo_Word
         '
         'PublicPhoto
         '
@@ -111,7 +111,7 @@ Partial Class FormPublicity
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
-        Me.Text = My.Resources.Publicity
+        Me.Text = My.Resources.Publicity_Word
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         CType(Me.PublicPhoto, System.ComponentModel.ISupportInitialize).EndInit()

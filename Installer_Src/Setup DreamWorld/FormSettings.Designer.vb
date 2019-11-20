@@ -217,7 +217,7 @@ Partial Class AdvancedForm
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 23)
         Me.Button4.TabIndex = 11
-        Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Publicity
+        Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
         Me.ToolTip1.SetToolTip(Me.Button4, Global.Outworldz.My.Resources.Resources.Click_Publicity)
         Me.Button4.UseVisualStyleBackColor = True
         '

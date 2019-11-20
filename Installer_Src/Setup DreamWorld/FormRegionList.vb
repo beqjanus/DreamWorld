@@ -226,8 +226,6 @@ Public Class RegionList
 
 #End Region
 
-
-
 #Region "Public Enums"
 
     ' icons image list layout
@@ -336,7 +334,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.DOS_Box, colsize.ColumnWidth(My.Resources.DOS_Box, 120), HorizontalAlignment.Left)
         ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word, 120), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.RAM, colsize.ColumnWidth(My.Resources.RAM, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.X_word, colsize.ColumnWidth(My.Resources.X_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Y_word, colsize.ColumnWidth(My.Resources.Y_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word, 40), HorizontalAlignment.Center)
@@ -353,7 +351,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Owner_God, colsize.ColumnWidth(My.Resources.Owner_God, 75), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Manager_God, colsize.ColumnWidth(My.Resources.Manager_God, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth(My.Resources.No_Autobackup, 90), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Publicity, colsize.ColumnWidth(My.Resources.Publicity, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Publicity_Word, colsize.ColumnWidth(My.Resources.Publicity_Word, 80), HorizontalAlignment.Center)
 
         ListView1.Columns.Add(My.Resources.Script_Rate_word, colsize.ColumnWidth(My.Resources.Script_Rate_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth(My.Resources.Frame_Rate_word, 80), HorizontalAlignment.Center)

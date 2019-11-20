@@ -178,7 +178,7 @@ Partial Class Form1
         Me.JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
         Me.JustQuitToolStripMenuItem.Name = "JustQuitToolStripMenuItem"
         Me.JustQuitToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
-        Me.JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Quit_Now
+        Me.JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Quit_Now_Word
         '
         'mnuExit
         '

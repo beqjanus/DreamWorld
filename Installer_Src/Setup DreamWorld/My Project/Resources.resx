@@ -263,7 +263,7 @@
   <data name="document_connection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_connection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Production_Mode" xml:space="preserve">
+  <data name="Production_Mode_Word" xml:space="preserve">
     <value>Production Mode</value>
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
@@ -699,7 +699,7 @@
   <data name="Black_word" xml:space="preserve">
     <value>Black</value>
   </data>
-  <data name="Public_IP" xml:space="preserve">
+  <data name="Public_IP_Setup_Word" xml:space="preserve">
     <value>Public IP setup</value>
   </data>
   <data name="HG_word_NT" xml:space="preserve">
@@ -808,8 +808,8 @@
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox Voice</value>
   </data>
-  <data name="Owner God" xml:space="preserve">
-    <value>Owner_God</value>
+  <data name="Owner_God" xml:space="preserve">
+    <value>Owner God</value>
   </data>
   <data name="Sorry_No_Help" xml:space="preserve">
     <value>Sorry, Help is not yet available for this.</value>
@@ -1013,7 +1013,7 @@
   <data name="Next1" xml:space="preserve">
     <value>Next</value>
   </data>
-  <data name="Publicity" xml:space="preserve">
+  <data name="Publicity_Word" xml:space="preserve">
     <value>Publicity</value>
   </data>
   <data name="MetroOrg" xml:space="preserve">
@@ -1425,7 +1425,7 @@
   <data name="Permissions" xml:space="preserve">
     <value>Permissions</value>
   </data>
-  <data name="Public_Photo" xml:space="preserve">
+  <data name="Public_Photo_Word" xml:space="preserve">
     <value>Public Photo</value>
   </data>
   <data name="user3" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1594,7 +1594,7 @@
   <data name="DreamGrid" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="Quit_Now" xml:space="preserve">
+  <data name="Quit_Now_Word" xml:space="preserve">
     <value>Quit Now</value>
   </data>
   <data name="user2" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1694,7 +1694,7 @@
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>Updating Ports</value>
   </data>
-  <data name="RAM" xml:space="preserve">
+  <data name="RAM_Word" xml:space="preserve">
     <value>RAM</value>
   </data>
   <data name="Region_Specific_Settings" xml:space="preserve">
@@ -1742,7 +1742,7 @@
   <data name="Is_Shown" xml:space="preserve">
     <value>The Opensimulator Console will be shown when Opensim is running.</value>
   </data>
-  <data name="Contact_Info" xml:space="preserve">
+  <data name="Contact_Info_Word" xml:space="preserve">
     <value>Contact Info</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
@@ -2508,7 +2508,7 @@
   <data name="Apache_Webserver" xml:space="preserve">
     <value>Apache Webserver</value>
   </data>
-  <data name="Private_Port" xml:space="preserve">
+  <data name="Private_Port_Word" xml:space="preserve">
     <value>Private Port</value>
   </data>
   <data name="Allow_objects" xml:space="preserve">
@@ -2649,6 +2649,6 @@
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>Cannot locate Default welcome region</value>
-    <comment>Needs translation</comment>
+    <comment>New Translation needed</comment>
   </data>
 </root>
