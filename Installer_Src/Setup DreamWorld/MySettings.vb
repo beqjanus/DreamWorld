@@ -1064,7 +1064,9 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterX", "1000"))
+            Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = Form1.PropRegionClass.CoordY(regionNumber)
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterX", Center))
         End Get
         Set
             SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1073,7 +1075,9 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterY", "1000"))
+            Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = Form1.PropRegionClass.CoordX(regionNumber)
+            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterY", Center))
         End Get
         Set
             SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
