@@ -140,6 +140,7 @@ Public Class RegionMaker
             Form1.PropMaxPortUsed = Portnumber
             Form1.Settings.SaveINI()
             Portnumber += 1
+            Application.DoEvents()
         Next
 
         If Not Form1.Settings.PortsChanged Then Return

@@ -3753,6 +3753,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to is already running.
+        '''</summary>
+        Friend ReadOnly Property is_already_running_word() As String
+            Get
+                Return ResourceManager.GetString("is_already_running_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to is off.
         '''</summary>
         Friend ReadOnly Property is_Off() As String
