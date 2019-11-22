@@ -126,7 +126,7 @@ Public Class FormRegion
         If Name.Length = 0 Then
             IsNew1 = True
 
-            Gods_Use_Default.Checked = False
+            Gods_Use_Default.Checked = True
             RegionName.Text = Name & "Name of Region"
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
@@ -549,23 +549,23 @@ Public Class FormRegion
         End If
 
         ' global coords
-        If Convert.ToInt16(CoordX.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
+        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region Coordinate X cannot be zero"
             Return Message
-        ElseIf Convert.ToInt16(CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
+        ElseIf Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region Coordinate X Is too large"
             Return Message
         End If
 
-        If Convert.ToInt16(CoordY.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
+        If Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region CoordY cannot be zero"
             Return Message
-        ElseIf Convert.ToInt16(CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
+        ElseIf Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region CoordY Is too large"
             Return Message
         End If
 
-        If Convert.ToInt16(RegionPort.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
+        If Convert.ToInt16("0" & RegionPort.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
             Message = "Region Port cannot be zero Or undefined"
             Return Message
         End If
