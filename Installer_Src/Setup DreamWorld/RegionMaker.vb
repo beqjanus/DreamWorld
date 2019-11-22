@@ -530,7 +530,7 @@ Public Class RegionMaker
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
             Catch ex As Exception
-                Debug.Print(ex.Message)
+                Form1.ErrorLog("LowestPort" & ex.Message)
             End Try
         Next
 
@@ -651,13 +651,11 @@ Public Class RegionMaker
         Public _Group As String = ""  ' the path to the folder that holds the region ini
         Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
         Public _LineCounter As Integer = 0
-
         Public _ProcessID As Integer = 0
         Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer = 0
-
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer = 0
@@ -715,7 +713,12 @@ Public Class RegionMaker
 
     Public Property ClampPrimSize(n As Integer) As Boolean
         Get
-            Return CBool(RegionList(n)._ClampPrimSize)
+            Try
+                Return CBool(RegionList(n)._ClampPrimSize)
+            Catch ex As Exception
+                Form1.ErrorLog("ClampPrimSize:" & ex.Message)
+            End Try
+            Return False
         End Get
         Set(ByVal Value As Boolean)
             RegionList(n)._ClampPrimSize = Value
@@ -724,7 +727,12 @@ Public Class RegionMaker
 
     Public Property CoordX(n As Integer) As Integer
         Get
-            Return CInt(RegionList(n)._CoordX)
+            Try
+                Return CInt(RegionList(n)._CoordX)
+            Catch ex As Exception
+                Form1.ErrorLog("CoordX:" & ex.Message)
+            End Try
+            Return 0
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._CoordX = Value
@@ -733,7 +741,12 @@ Public Class RegionMaker
 
     Public Property CoordY(n As Integer) As Integer
         Get
-            Return CInt(RegionList(n)._CoordY)
+            Try
+                Return CInt(RegionList(n)._CoordY)
+            Catch ex As Exception
+                Form1.ErrorLog("CoordY:" & ex.Message)
+            End Try
+            Return 0
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._CoordY = Value
@@ -742,7 +755,12 @@ Public Class RegionMaker
 
     Public Property MaxAgents(n As Integer) As String
         Get
-            Return RegionList(n)._MaxAgents
+            Try
+                Return RegionList(n)._MaxAgents
+            Catch ex As Exception
+                Form1.ErrorLog("MaxAgents:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MaxAgents = Value
@@ -751,7 +769,12 @@ Public Class RegionMaker
 
     Public Property MaxPrims(n As Integer) As String
         Get
-            Return RegionList(n)._MaxPrims
+            Try
+                Return RegionList(n)._MaxPrims
+            Catch ex As Exception
+                Form1.ErrorLog("MaxPrims:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MaxPrims = Value
@@ -760,7 +783,12 @@ Public Class RegionMaker
 
     Public Property NonPhysicalPrimMax(n As Integer) As String
         Get
-            Return RegionList(n)._NonPhysicalPrimMax
+            Try
+                Return RegionList(n)._NonPhysicalPrimMax
+            Catch ex As Exception
+                Form1.ErrorLog("NonPhysicalPrimMax:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As String)
             RegionList(n)._NonPhysicalPrimMax = Value
@@ -769,7 +797,12 @@ Public Class RegionMaker
 
     Public Property PhysicalPrimMax(n As Integer) As String
         Get
-            Return RegionList(n)._PhysicalPrimMax
+            Try
+                Return RegionList(n)._PhysicalPrimMax
+            Catch ex As Exception
+                Form1.ErrorLog("PhysicalPrimMax:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As String)
             RegionList(n)._PhysicalPrimMax = Value
@@ -778,7 +811,12 @@ Public Class RegionMaker
 
     Public Property SizeX(n As Integer) As Integer
         Get
-            Return RegionList(n)._SizeX
+            Try
+                Return RegionList(n)._SizeX
+            Catch ex As Exception
+                Form1.ErrorLog("SizeX:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._SizeX = Value
@@ -787,7 +825,12 @@ Public Class RegionMaker
 
     Public Property SizeY(n As Integer) As Integer
         Get
-            Return RegionList(n)._SizeY
+            Try
+                Return RegionList(n)._SizeY
+            Catch ex As Exception
+                Form1.ErrorLog("SizeY:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._SizeY = Value
@@ -796,7 +839,12 @@ Public Class RegionMaker
 
     Public Property UUID(n As Integer) As String
         Get
-            Return RegionList(n)._UUID
+            Try
+                Return RegionList(n)._UUID
+            Catch ex As Exception
+                Form1.ErrorLog("UUID:" & ex.Message)
+            End Try
+            Return ""
         End Get
         Set(ByVal Value As String)
             RegionList(n)._UUID = Value
@@ -809,7 +857,12 @@ Public Class RegionMaker
 
     Public Property AvatarCount(n As Integer) As Integer
         Get
-            Return CInt(RegionList(n)._AvatarCount)
+            Try
+                Return CInt(RegionList(n)._AvatarCount)
+            Catch ex As Exception
+                Form1.ErrorLog("Avatarcount:" & ex.Message)
+            End Try
+            Return 0
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._AvatarCount = Value
@@ -827,11 +880,13 @@ Public Class RegionMaker
 
     Public Property ProcessID(n As Integer) As Integer
         Get
+
             Try
                 Return RegionList(n)._ProcessID
-            Catch
-                Return 0
+            Catch ex As Exception
+                Form1.ErrorLog("ProcessID:" & ex.Message)
             End Try
+            Return 0
 
         End Get
         Set(ByVal Value As Integer)
@@ -841,7 +896,12 @@ Public Class RegionMaker
 
     Public Property Status(n As Integer) As Integer
         Get
-            Return RegionList(n)._Status
+            Try
+                Return RegionList(n)._Status
+            Catch ex As Exception
+                Form1.ErrorLog("NonPhysicalPrimMax" & ex.Message)
+            End Try
+            Return 0
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._Status = Value
@@ -852,9 +912,10 @@ Public Class RegionMaker
         Get
             Try
                 Return RegionList(n)._Timer
-            Catch
-                Return 0
+            Catch ex As Exception
+                Form1.ErrorLog("Timer" & ex.Message)
             End Try
+            Return ""
 
         End Get
         Set(ByVal Value As Integer)
