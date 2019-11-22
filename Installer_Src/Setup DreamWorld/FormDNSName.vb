@@ -68,7 +68,7 @@ Public Class FormDNSName
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
-        Me.Text = "DynDNS"
+        Me.Text = "Dynamic DNS"
         DNSNameBoxBackup = Form1.Settings.DNSName
         DNSNameBox.Text = Form1.Settings.DNSName
 
@@ -82,15 +82,6 @@ Public Class FormDNSName
         initted = True
 
     End Sub
-
-#End Region
-
-#Region "Functions"
-
-    Shared Function Random() As String
-        Dim value As Integer = CInt(Int((600000000 * Rnd()) + 1))
-        Random = System.Convert.ToString(value, Globalization.CultureInfo.InvariantCulture)
-    End Function
 
 #End Region
 
