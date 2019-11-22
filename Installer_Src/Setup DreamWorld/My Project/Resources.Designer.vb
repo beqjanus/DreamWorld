@@ -5406,7 +5406,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to quit unexpectedly.  Restarting..
+        '''  Looks up a localized string similar to quit unexpectedly..
         '''</summary>
         Friend ReadOnly Property Quit_unexpectedly() As String
             Get

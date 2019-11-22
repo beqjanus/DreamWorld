@@ -2076,7 +2076,8 @@
     <value>Add Region</value>
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
-    <value>quit unexpectedly.  Restarting.</value>
+    <value>quit unexpectedly.</value>
+    <comment>Update Translation</comment>
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>The number of birds to flock</value>
@@ -2656,6 +2657,6 @@
   </data>
   <data name="is_already_running_word" xml:space="preserve">
     <value>is already running</value>
-    <comment>Needs translation</comment>
+    <comment>New Translation needed</comment>
   </data>
 </root>
