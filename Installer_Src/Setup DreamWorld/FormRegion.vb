@@ -300,7 +300,6 @@ Public Class FormRegion
             Case "True"
                 AllowGods.Checked = True
                 Gods_Use_Default.Checked = False
-
         End Select
 
         Select Case Form1.PropRegionClass.RegionGod(N1)
@@ -327,6 +326,13 @@ Public Class FormRegion
         If Form1.PropRegionClass.AllowGods(N1) = "False" And
              Form1.PropRegionClass.RegionGod(N1) = "False" And
             Form1.PropRegionClass.ManagerGod(N1) = "False" Then
+            Gods_Use_Default.Checked = True
+        End If
+
+        ' if none, turn it off
+        If Form1.PropRegionClass.AllowGods(N1) = "" And
+             Form1.PropRegionClass.RegionGod(N1) = "" And
+            Form1.PropRegionClass.ManagerGod(N1) = "" Then
             Gods_Use_Default.Checked = True
         End If
 
