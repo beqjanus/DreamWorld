@@ -675,7 +675,6 @@ Public Class Form1
         ProgressBar1.Value = 0
         ProgressBar1.Visible = True
         ToolBar(False)
-        Buttons(BusyButton)
 
         GridNames.SetServerNames()
 
@@ -702,7 +701,6 @@ Public Class Form1
         End If
 
         If PropViewedSettings Then
-
             If SetPublicIP() Then
                 OpenPorts()
             End If
@@ -724,6 +722,8 @@ Public Class Form1
         SetupSearch()
 
         StartApache()
+
+        StartIcecast()
 
         ' old files to clean up
 
@@ -749,6 +749,7 @@ Public Class Form1
 
         If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
+            Application.DoEvents()
             MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
 
             If Settings.ConsoleShow = False Then
@@ -761,8 +762,6 @@ Public Class Form1
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
-
-        StartIcecast()
 
         ' Launch the rockets
         Print(My.Resources.Start_Regions_word)
@@ -987,9 +986,9 @@ Public Class Form1
         Else
             Settings.SaveSettings()
             Print(My.Resources.Ready_to_Launch & vbCrLf & My.Resources.Click_Start_2_Begin & vbCrLf)
+            Buttons(StartButton)
         End If
 
-        Buttons(StartButton)
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
@@ -1288,7 +1287,8 @@ Public Class Form1
 #Region "Menus"
 
     Public Sub Buttons(button As System.Object)
-        ' Turns off all 4 stacked buttons, then enables one of them
+
+        ' Turns off all 3 stacked buttons, then enables one of them
         BusyButton.Visible = False
         StopButton.Visible = False
         StartButton.Visible = False
@@ -1503,8 +1503,6 @@ Public Class Form1
     End Function
 
     Public Function Opensimproto(X As Integer) As Boolean
-
-        '!!!
 
         Dim regionName = PropRegionClass.RegionName(X)
         Dim pathname = PropRegionClass.IniPath(X)
@@ -1930,7 +1928,7 @@ Public Class Form1
     End Function
 
     Private Function DoRegion(simName As String) As Boolean
-        '!!!
+
         'Regions - write all region.ini files with public IP and Public port
         ' has to be bound late so regions data is there.
 
@@ -2189,7 +2187,7 @@ Public Class Form1
     End Function
 
     Private Function DoRobust() As Boolean
-        '!!!
+
         If Settings.ServerType = "Robust" Then
             ' Robust Process
             If Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";") Then
@@ -2330,7 +2328,7 @@ Public Class Form1
     End Function
 
     Private Function DoWifi() As Boolean
-        '!!!
+
         If Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";") Then
             Return True
         End If
@@ -2584,7 +2582,7 @@ Public Class Form1
     End Function
 
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
-        '!!!
+
         Dim X = PropRegionClass.FindRegionByName(regionname)
         If Settings.LoadIni(PropRegionClass.RegionPath(X), ";") Then
             Return True
@@ -2833,7 +2831,7 @@ Public Class Form1
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            Sleep(4000)
+            Sleep(3000)
 
             Using ApacheProcess As New Process With {
                     .EnableRaisingEvents = True
@@ -3129,6 +3127,8 @@ Public Class Form1
         End If
 
         Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
+        Application.DoEvents()
+
         If IceCastRunning Then
             IceCastPicturebox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
@@ -3140,7 +3140,6 @@ Public Class Form1
 
         PropIcecastProcID = 0
         Print(My.Resources.Icecast_starting)
-
         IcecastProcess.EnableRaisingEvents = True
         IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
         IcecastProcess.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\icecast\icecast.bat"
@@ -3153,7 +3152,6 @@ Public Class Form1
             IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End If
 
-        'IcecastProcess.StartInfo.Arguments = "-c .\icecast_run.xml"
         Try
             IcecastProcess.Start()
         Catch ex As InvalidOperationException
@@ -3167,7 +3165,7 @@ Public Class Form1
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
             Return
         End Try
-
+        Application.DoEvents()
         PropIcecastProcID = IcecastProcess.Id
         SetWindowTextCall(IcecastProcess, "Icecast")
         ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
@@ -3440,6 +3438,7 @@ Public Class Form1
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
 
+        Application.DoEvents()
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then
             Return False
@@ -3498,7 +3497,7 @@ Public Class Form1
 
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
-            Print(BootName & " is already running") ' !!!
+            Print(BootName & " " & My.Resources.is_already_running_word)
             Dim listP = Process.GetProcesses
 
             For Each p In listP
@@ -5336,7 +5335,7 @@ Public Class Form1
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
-
+                Application.DoEvents()
                 BumpProgress10()
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
@@ -5550,7 +5549,7 @@ Public Class Form1
         CreateStopMySql()
 
         BumpProgress(5)
-
+        Application.DoEvents()
         ' Mysql was not running, so lets start it up.
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
@@ -6936,6 +6935,7 @@ Public Class Form1
         If Settings.ServerType = "Metro" _
             Or Settings.ServerType = "OsGrid" Then Return
 
+        ' modify this to migrate saearch datbase upwards a rev
         If Not Settings.SearchMigration = 2 Then
 
             MysqlInterface.DeleteSearchDatabase()
@@ -7076,6 +7076,23 @@ Public Class Form1
     Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
         Settings.Language = "ru"
         Language(sender, e)
+    End Sub
+
+    Private Sub SeePortsInUseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SeePortsInUseToolStripMenuItem.Click
+
+        Using CPortsProcess As New Process
+            CPortsProcess.StartInfo.UseShellExecute = True
+            CPortsProcess.StartInfo.FileName = PropMyFolder & "\Cports.exe"
+            CPortsProcess.StartInfo.CreateNoWindow = False
+            CPortsProcess.StartInfo.Arguments = ""
+            CPortsProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Try
+                CPortsProcess.Start()
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
+        End Using
+
     End Sub
 
     Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
