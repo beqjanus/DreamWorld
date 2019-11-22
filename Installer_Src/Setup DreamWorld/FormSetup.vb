@@ -199,20 +199,26 @@ Public Class Form1
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
 
-    ''' <summary>Fires when the form changes size or position</summary>
+    ''' <summary>
+    ''' Fires when the form changes size or position
+    ''' </summary>
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
         Dim Y = Me.Height - 130
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
-    ''' <summary>'The following detects the location of the form in screen coordinates</summary>
+    ''' <summary>
+    ''' 'The following detects the location of the form in screen coordinates
+    ''' </summary>
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
-    ''' <summary>Sets H,W and pos of screen on load</summary>
+    ''' <summary>
+    ''' Sets H,W and pos of screen on load
+    ''' </summary>
     Private Sub SetScreen()
         '366, 236
         ScreenPosition = New ScreenPos("Form1")
@@ -665,7 +671,9 @@ Public Class Form1
 
 #Region "StartStop"
 
-    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
+    ''' <summary>
+    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
+    ''' </summary>
     Public Sub Startup()
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
@@ -815,7 +823,9 @@ Public Class Form1
         ReallyQuit()
     End Sub
 
-    ''' <summary>Form Load is main() for all DreamGrid</summary>
+    ''' <summary>
+    ''' Form Load is main() for all DreamGrid
+    ''' </summary>
     ''' <param name="sender">Unused</param>
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -860,7 +870,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>The main starup - done this way so languages can reload the entire form</summary>
+    ''' <summary>
+    ''' The main starup - done this way so languages can reload the entire form
+    ''' </summary>
 
     Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -887,7 +899,8 @@ Public Class Form1
         End If
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or
+        ' identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -1271,7 +1284,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Start Button on main form</summary>
+    ''' <summary>
+    ''' Start Button on main form
+    ''' </summary>
     Private Sub StartButton_Click(sender As System.Object, e As EventArgs) Handles StartButton.Click
         Startup()
     End Sub
@@ -1282,7 +1297,9 @@ Public Class Form1
         TextBox1.ScrollToCaret()
     End Sub
 
-    ''' <summary>Kill processes by name</summary>
+    ''' <summary>
+    ''' Kill processes by name
+    ''' </summary>
     ''' <param name="processName"></param>
     ''' <returns></returns>
     Private Sub Zap(processName As String)
@@ -1493,7 +1510,9 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>Loads the INI file for the proper grid type for parsing</summary>
+    ''' <summary>
+    ''' Loads the INI file for the proper grid type for parsing
+    ''' </summary>
     ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
     Public Function GetOpensimProto() As String
 
@@ -1531,7 +1550,8 @@ Public Class Form1
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
+        ' float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
         If PropRegionClass.MinTimerInterval(X).Length > 0 Then
             If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
@@ -1768,8 +1788,9 @@ Public Class Form1
 
         End Select
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
+        ' that do Not support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1855,9 +1876,11 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher
+        ' meshing = Meshmerizer meshing = ubODEMeshmerizer
 
-        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim with threads 4 = physics = ubODE
+        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
+        ' with threads 4 = physics = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2458,12 +2481,14 @@ Public Class Form1
 
     Private Function SetDefaultSims() As Boolean
 
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
+        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as
+            ' fallback it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
@@ -2483,8 +2508,9 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
-                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS
-                    ' is enabled Region_Name = FallbackRegion if not a SmartStart
+                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+                    ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart
+                    ' Start region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
 
                     If line.Contains("Region_REPLACE") Then
 
@@ -2527,7 +2553,9 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>Set up all INI files</summary>
+    ''' <summary>
+    ''' Set up all INI files
+    ''' </summary>
     ''' <returns>true if it fails</returns>
     Private Function SetIniData() As Boolean
 
@@ -2571,7 +2599,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
+    ''' <summary>
+    ''' Gets the External Host name which can be either the Public IP or a Host name.
+    ''' </summary>
     ''' <returns>Host for regions</returns>
     Public Function ExternLocalServerName() As String
 
@@ -3001,7 +3031,9 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>Check is Apache port 80 or 8000 is up</summary>
+    ''' <summary>
+    ''' Check is Apache port 80 or 8000 is up
+    ''' </summary>
     ''' <returns>boolean</returns>
     Private Function IsApacheRunning() As Boolean
 
@@ -3434,7 +3466,9 @@ Public Class Form1
 
 #Region "Boot"
 
-    ''' <summary>Starts Opensim for a given name</summary>
+    ''' <summary>
+    ''' Starts Opensim for a given name
+    ''' </summary>
     ''' <param name="BootName">Name of region to start</param>
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
@@ -3533,6 +3567,8 @@ Public Class Form1
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
 
+        SequentialPause()   ' wait for previous region to give us some CPU
+
         Dim ok As Boolean = False
         Try
             ok = myProcess.Start
@@ -3581,8 +3617,6 @@ Public Class Form1
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & Groupname)
             PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
 
-            SequentialPause()
-
         End If
         Return True
 
@@ -3605,7 +3639,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Creates and exit handler for each region</summary>
+    ''' <summary>
+    ''' Creates and exit handler for each region
+    ''' </summary>
     ''' <returns>a process handle</returns>
     Public Function GetNewProcess() As Process
 
@@ -3694,7 +3730,8 @@ Public Class Form1
         If PropRestartRobust And PropRobustExited = True Then
             StartRobust()
         End If
-        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
+        ' is true
         If PropMysqlExited Then
             StartMySQL()
         End If
@@ -3787,7 +3824,8 @@ Public Class Form1
 
         Print(RegionName & " " & My.Resources.Shutdown_word)
         Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-        ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+        ' Need a region number and a Name. Name is either a region or a Group. For groups we need to
+        ' get a region name from the group
         GroupName = RegionName ' assume a group
         RegionNumber = PropRegionClass.FindRegionByName(RegionName)
 
@@ -3810,7 +3848,8 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
 
-        ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
+        ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
+        ' restart the beast
         If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
             Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
             Or PropRegionClass.IsBooted(RegionNumber) _
@@ -3849,7 +3888,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Check is Robust port 8002 is up</summary>
+    ''' <summary>
+    ''' Check is Robust port 8002 is up
+    ''' </summary>
     ''' <returns>boolean</returns>
     Private Function IsRobustRunning() As Boolean
 
@@ -3884,7 +3925,9 @@ Public Class Form1
         Logger(My.Resources.Err, message, My.Resources.Err)
     End Sub
 
-    ''' <summary>Log(string) to Outworldz.log</summary>
+    ''' <summary>
+    ''' Log(string) to Outworldz.log
+    ''' </summary>
     ''' <param name="message"></param>
     Public Sub Log(category As String, message As String)
         Logger(category, message, "Outworldz")
@@ -3904,7 +3947,9 @@ Public Class Form1
         End Try
     End Sub
 
-    ''' <summary>Deletes old log files</summary>
+    ''' <summary>
+    ''' Deletes old log files
+    ''' </summary>
     Private Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
@@ -3926,7 +3971,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Shows the log buttons if diags fail</summary>
+    ''' <summary>
+    ''' Shows the log buttons if diags fail
+    ''' </summary>
     Private Sub ShowLog()
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropMyFolder & "\OutworldzFiles\Outworldz.log" & """")
@@ -3940,7 +3987,9 @@ Public Class Form1
 
 #Region "Subs"
 
-    ''' <summary>Sleep(ms)</summary>
+    ''' <summary>
+    ''' Sleep(ms)
+    ''' </summary>
     ''' <param name="value">millseconds</param>
     Public Shared Sub Sleep(value As Integer)
 
@@ -3955,7 +4004,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
+    ''' <summary>
+    ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
+    ''' </summary>
     ''' <param name="ProcessID">PID of the DOS box</param>
     ''' <param name="command">String</param>
     ''' <returns></returns>
@@ -4048,8 +4099,9 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
-    ''' timer to make sure we do not get stuck
+    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is
+    ''' no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It
+    ''' has a timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
     ''' <param name="windowName">the name of the Window</param>
@@ -4105,7 +4157,9 @@ Public Class Form1
 
     'End Sub
 
-    ''' <summary>query MySQL to find any avatars in the DOS box so we can stop it, or not</summary>
+    ''' <summary>
+    ''' query MySQL to find any avatars in the DOS box so we can stop it, or not
+    ''' </summary>
     ''' <param name="groupname"></param>
     ''' <returns></returns>
     Private Function AvatarsIsInGroup(groupname As String) As Boolean
@@ -4268,7 +4322,8 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4873,7 +4928,10 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
+    ''' <summary>
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
+    ''' </summary>
     Private Sub UploadPhoto()
 
         If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -5192,8 +5250,9 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
-            ' results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
+            ' anonymous random ID, both of the versions of Opensim and this program, and the
+            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
@@ -6258,7 +6317,9 @@ Public Class Form1
     End Sub
 
     Private Sub LoadLocalIAROAR()
-        ''' <summary>Loads OAR and IAR from the menu</summary>
+        ''' <summary>
+        ''' Loads OAR and IAR from the menu
+        ''' </summary>
         ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
 
         Dim MaxFileNum As Integer = 10
@@ -6444,7 +6505,8 @@ Public Class Form1
 
         newScreenPosition = New ScreenPos(Webpage)
         If Not newScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the current form.
+            ' Set the new form's desktop location so it appears below and to the right of the
+            ' current form.
             Dim FormHelp As New FormHelp
             FormHelp.Activate()
             FormHelp.Visible = True
@@ -6693,7 +6755,10 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
+    ''' <summary>
+    ''' This method starts at the specified directory. It traverses all subdirectories. It returns a
+    ''' List of those directories.
+    ''' </summary>
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ' This list stores the results.
         Dim result As New List(Of String)
@@ -7055,246 +7120,6 @@ Public Class Form1
         Settings.Language = "sv"
         Language(sender, e)
     End Sub
-
-#End Region
-
-#Region "Public Fields"
-
-#End Region
-
-#Region "Internal Fields"
-
-#End Region
-
-#Region "Protected Internal Fields"
-
-#End Region
-
-#Region "Protected Fields"
-
-#End Region
-
-#Region "Private Fields"
-
-#End Region
-
-#Region "Public Constructors"
-
-#End Region
-
-#Region "Internal Constructors"
-
-#End Region
-
-#Region "Protected Internal Constructors"
-
-#End Region
-
-#Region "Protected Constructors"
-
-#End Region
-
-#Region "Private Constructors"
-
-#End Region
-
-#Region "Public Destructors"
-
-#End Region
-
-#Region "Internal Destructors"
-
-#End Region
-
-#Region "Protected Internal Destructors"
-
-#End Region
-
-#Region "Protected Destructors"
-
-#End Region
-
-#Region "Private Destructors"
-
-#End Region
-
-#Region "Public Delegates"
-
-#End Region
-
-#Region "Internal Delegates"
-
-#End Region
-
-#Region "Protected Internal Delegates"
-
-#End Region
-
-#Region "Protected Delegates"
-
-#End Region
-
-#Region "Private Delegates"
-
-#End Region
-
-#Region "Public Events"
-
-#End Region
-
-#Region "Internal Events"
-
-#End Region
-
-#Region "Protected Internal Events"
-
-#End Region
-
-#Region "Protected Events"
-
-#End Region
-
-#Region "Private Events"
-
-#End Region
-
-#Region "Public Enums"
-
-#End Region
-
-#Region "Internal Enums"
-
-#End Region
-
-#Region "Protected Internal Enums"
-
-#End Region
-
-#Region "Protected Enums"
-
-#End Region
-
-#Region "Private Enums"
-
-#End Region
-
-#Region "Public Interfaces"
-
-#End Region
-
-#Region "Internal Interfaces"
-
-#End Region
-
-#Region "Protected Internal Interfaces"
-
-#End Region
-
-#Region "Protected Interfaces"
-
-#End Region
-
-#Region "Private Interfaces"
-
-#End Region
-
-#Region "Public Properties"
-
-#End Region
-
-#Region "Internal Properties"
-
-#End Region
-
-#Region "Protected Internal Properties"
-
-#End Region
-
-#Region "Protected Properties"
-
-#End Region
-
-#Region "Private Properties"
-
-#End Region
-
-#Region "Public Indexers"
-
-#End Region
-
-#Region "Internal Indexers"
-
-#End Region
-
-#Region "Protected Internal Indexers"
-
-#End Region
-
-#Region "Protected Indexers"
-
-#End Region
-
-#Region "Private Indexers"
-
-#End Region
-
-#Region "Public Methods"
-
-#End Region
-
-#Region "Internal Methods"
-
-#End Region
-
-#Region "Protected Internal Methods"
-
-#End Region
-
-#Region "Protected Methods"
-
-#End Region
-
-#Region "Private Methods"
-
-#End Region
-
-#Region "Public Structs"
-
-#End Region
-
-#Region "Internal Structs"
-
-#End Region
-
-#Region "Protected Internal Structs"
-
-#End Region
-
-#Region "Protected Structs"
-
-#End Region
-
-#Region "Private Structs"
-
-#End Region
-
-#Region "Public Classes"
-
-#End Region
-
-#Region "Internal Classes"
-
-#End Region
-
-#Region "Protected Internal Classes"
-
-#End Region
-
-#Region "Protected Classes"
-
-#End Region
-
-#Region "Private Classes"
 
 #End Region
 
