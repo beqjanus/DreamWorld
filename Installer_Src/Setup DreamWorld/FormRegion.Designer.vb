@@ -105,7 +105,6 @@ Partial Class FormRegion
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -972,18 +971,10 @@ Partial Class FormRegion
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
-        '
-        'DatabaseSetupToolStripMenuItem
-        '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'FormRegion
         '
@@ -1104,7 +1095,6 @@ Partial Class FormRegion
     Friend WithEvents SmartStartCheckBox As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label14 As Label
     Friend WithEvents ScriptTimerTextBox As TextBox
     Friend WithEvents DisableGBCheckBox As CheckBox

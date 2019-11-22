@@ -555,16 +555,16 @@ Public Class FormRegion
         End If
 
         ' global coords
-        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
-            Message = "Region Coordinate X cannot be zero"
+        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
+            Message = "Region Coordinate X cannot be less than 32"
             Return Message
         ElseIf Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region Coordinate X Is too large"
             Return Message
         End If
 
-        If Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
-            Message = "Region CoordY cannot be zero"
+        If Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
+            Message = "Region CoordY cannot be less than 32"
             Return Message
         ElseIf Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = "Region CoordY Is too large"
@@ -634,6 +634,10 @@ Public Class FormRegion
         End Try
         Return ""
     End Function
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        Form1.Help("Region")
+    End Sub
 
     Private Sub WriteRegion(n As Integer)
 
@@ -1077,7 +1081,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Form1.Help("Region")
     End Sub
 
@@ -1103,10 +1107,6 @@ Public Class FormRegion
         End If
 
         If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -1158,7 +1158,9 @@ Public Class FormRegion
     End Sub
 
     Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
+
         Form1.Help("Region")
+
     End Sub
 
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
@@ -1322,10 +1324,12 @@ Public Class FormRegion
     End Sub
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles Physicsubhybrid.CheckedChanged
+
         If Physicsubhybrid.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's Hybrid ")
         End If
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
@@ -1347,9 +1351,11 @@ Public Class FormRegion
     End Sub
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub SizeX_TextChanged(sender As Object, e As EventArgs) Handles SizeX.TextChanged
@@ -1369,14 +1375,15 @@ Public Class FormRegion
     End Sub
 
     Private Sub SkipAutoCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SkipAutoCheckBox.CheckedChanged
+
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
         If SmartStartCheckBox.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " has Smart Start enabled")
-
         End If
         If Initted1 Then Changed1 = True
 
@@ -1385,10 +1392,13 @@ Public Class FormRegion
     Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged
 
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
+
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
@@ -1410,7 +1420,9 @@ Public Class FormRegion
     End Sub
 
     Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
+
         If Initted1 Then Changed1 = True
+
     End Sub
 
 #End Region
