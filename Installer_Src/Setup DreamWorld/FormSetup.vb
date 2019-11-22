@@ -53,92 +53,50 @@ Public Class Form1
 
     Private WithEvents UpdateProcess As New Process()
 
-    Private _Aborting As Boolean = False
-
     Private _ApacheCrashCounter As Integer = 0
-
     Private _ApacheExited As Integer = 0
-
     Private _ApacheProcessID As Integer = 0
-
     Private _ApacheUninstalling As Boolean = False
-
     Private _ContentAvailable As Boolean = False
-
     Private _CPUMAX As Single = 75
-
     Private _CurSlashDir As String
-
     Private _debugOn As Boolean = False
-
     Private _DNSSTimer As Integer = 0
-
     Private _Domain As String = "http://www.outworldz.com"
-
     Private _ExitHandlerIsBusy As Boolean = False
-
     Private _exitList As New ArrayList()
-
     Private _ForceMerge As Boolean = False
-
     Private _ForceParcel As Boolean = False
-
     Private _ForceTerrain As Boolean = False
-
     Private _gUseIcons As Boolean = False
-
     Private _IcecastCrashCounter As Integer = 0
-
     Private _IceCastExited As Integer = 0
-
     Private _IcecastProcID As Integer
-
     Private _Initted As Boolean = False
-
     Private _IPv4Address As String
-
     Private _IsRunning As Boolean = False
-
     Private _KillSource As Boolean = False
-
     Private _MaxPortUsed As Integer = 0
-
     Private _myFolder As String
-
     Private _mySetting As New MySettings
-
     Private _MysqlCrashCounter As Integer = 0
-
     Private _MysqlExited As Integer = 0
-
     Private _myUPnpMap As UPnp
-
     Private _OpensimBinPath As String
-
+    Private _PropAborting As Boolean = False
     Private _regionClass As RegionMaker
-
     Private _regionForm As RegionList
-
     Private _regionHandles As New Dictionary(Of Integer, String)
-
     Private _RestartApache As Integer = 0
-
     Private _RestartMysql As Integer = 0
-
     Private _RestartNow As Boolean = False
-
     Private _RestartRobust As Boolean
-
     Private _RobustCrashCounter As Integer = 0
-
     Private _RobustExited As Boolean = False
-
     Private _RobustProcID As Integer
-
     Private _SecureDomain As String = "https://outworldz.com"
-
     Private _SelectedBox As String = ""
-
+    Private _speed As Double = 50   ' 1/2 to start the average off
     Private _StopMysql As Boolean = True
 
     Private _UpdateView As Boolean = True
@@ -249,12 +207,21 @@ Public Class Form1
 
 #Region "Properties"
 
-    Public Property PropAborting As Boolean
+    Public Property CPUAverageSpeed As Double
         Get
-            Return _Aborting
+            Return _speed
         End Get
-        Set(value As Boolean)
-            _Aborting = value
+        Set(value As Double)
+            _speed = value
+        End Set
+    End Property
+
+    Public Property PropAborting() As Boolean
+        Get
+            Return _PropAborting
+        End Get
+        Set(ByVal Value As Boolean)
+            _PropAborting = Value
         End Set
     End Property
 
@@ -4205,7 +4172,7 @@ Public Class Form1
             speed1 = speed
             speed = cpu.NextValue()
 
-            Dim newspeed As Double = (speed + speed1 + speed2 + speed3) / 4
+            CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
 
             Dim i = 180
             While i >= 0
@@ -4213,8 +4180,8 @@ Public Class Form1
                 i -= 1
             End While
 
-            MyCPUCollection(0) = newspeed
-            PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", newspeed)
+            MyCPUCollection(0) = speed
+            PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -6685,11 +6652,11 @@ Public Class Form1
                     While WaitForIt
                         Sleep(100)
                         If PropRegionClass.RegionEnabled(X) _
-                    And Not PropAborting _
-                    And (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
-                        PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
-                        PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                        PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting) Then
+                            And Not PropAborting _
+                            And (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
+                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
+                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
+                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting) Then
                             WaitForIt = True
                         Else
                             WaitForIt = False
@@ -6704,7 +6671,7 @@ Public Class Form1
             Dim WaitForIt = True
             While WaitForIt
                 Sleep(100)
-                If cpu.NextValue() < PropCPUMAX Then
+                If CPUAverageSpeed < PropCPUMAX Then
                     WaitForIt = False
                     ctr -= 1
                     If ctr <= 0 Then WaitForIt = False
