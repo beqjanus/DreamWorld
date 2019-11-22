@@ -157,7 +157,7 @@ Partial Class FormRestart
         Me.AutoStartCheckbox.Name = "AutoStartCheckbox"
         Me.AutoStartCheckbox.Size = New System.Drawing.Size(196, 24)
         Me.AutoStartCheckbox.TabIndex = 45
-        Me.AutoStartCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableOneClick
+        Me.AutoStartCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableOneClickStart_word
         Me.ToolTip1.SetToolTip(Me.AutoStartCheckbox, Global.Outworldz.My.Resources.Resources.StartLaunch)
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '

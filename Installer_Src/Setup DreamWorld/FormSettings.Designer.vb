@@ -76,7 +76,7 @@ Partial Class AdvancedForm
         Me.GloebitsButton.Name = "GloebitsButton"
         Me.GloebitsButton.Size = New System.Drawing.Size(143, 23)
         Me.GloebitsButton.TabIndex = 4
-        Me.GloebitsButton.Text = Global.Outworldz.My.Resources.Resources.Gloebits_Currency
+        Me.GloebitsButton.Text = Global.Outworldz.My.Resources.Resources.Gloebits_Currency_word
         Me.ToolTip1.SetToolTip(Me.GloebitsButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
         Me.GloebitsButton.UseVisualStyleBackColor = True
         '
@@ -167,7 +167,7 @@ Partial Class AdvancedForm
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
-        Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics
+        Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
         Me.ToolTip1.SetToolTip(Me.PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
         Me.PhysicsButton1.UseVisualStyleBackColor = True
         '
@@ -177,7 +177,7 @@ Partial Class AdvancedForm
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(145, 23)
         Me.DatabaseButton2.TabIndex = 3
-        Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup
+        Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
         Me.ToolTip1.SetToolTip(Me.DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
         Me.DatabaseButton2.UseVisualStyleBackColor = True
         '

@@ -32,7 +32,7 @@ Public Class UploadImage
     Shared Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
         If Data <> "1" Then
-            Form1.Log(My.Resources.Err, "Upload Failed. " & Data)
+            Form1.Log(My.Resources.Error_word, "Upload Failed. " & Data)
         End If
 
     End Sub
@@ -62,7 +62,7 @@ Public Class UploadImage
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
         Catch ex As Exception
-            Form1.Log(My.Resources.Err, ex.Message)
+            Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
 
     End Sub

@@ -108,7 +108,7 @@ Partial Class FormDiva
         Me.WifiEnabled.Name = "WifiEnabled"
         Me.WifiEnabled.Size = New System.Drawing.Size(159, 24)
         Me.WifiEnabled.TabIndex = 26
-        Me.WifiEnabled.Text = Global.Outworldz.My.Resources.Resources.DivaEnabled
+        Me.WifiEnabled.Text = Global.Outworldz.My.Resources.Resources.Diva_Wifi_Enabled_word
         Me.WifiEnabled.UseVisualStyleBackColor = True
         '
         'Label17
@@ -174,7 +174,7 @@ Partial Class FormDiva
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(86, 20)
         Me.Label11.TabIndex = 10
-        Me.Label11.Text = My.Resources.First_name
+        Me.Label11.Text = My.Resources.First_name_word
         '
         'Label10
         '
@@ -353,7 +353,7 @@ Partial Class FormDiva
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(123, 20)
         Me.Label4.TabIndex = 1876
-        Me.Label4.Text = My.Resources.Greeting
+        Me.Label4.Text = My.Resources.Viewer_Greeting_word
         '
         'GreetingTextBox
         '
@@ -372,7 +372,7 @@ Partial Class FormDiva
         Me.CustomButton1.Size = New System.Drawing.Size(89, 24)
         Me.CustomButton1.TabIndex = 1874
         Me.CustomButton1.TabStop = True
-        Me.CustomButton1.Text = Global.Outworldz.My.Resources.Resources.Custom
+        Me.CustomButton1.Text = Global.Outworldz.My.Resources.Resources.Custom_word
         Me.CustomButton1.UseVisualStyleBackColor = True
         '
         'Label1
@@ -433,7 +433,7 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(195, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.DivaPanel
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Diva_Panel_word
         '
         'ApacheToolStripMenuItem
         '

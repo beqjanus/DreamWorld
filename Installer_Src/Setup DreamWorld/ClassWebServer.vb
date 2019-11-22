@@ -119,11 +119,11 @@ Public Class NetServer
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As ArgumentException
-            Log(My.Resources.Err, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
         Catch ex As ThreadStartException
-            Log(My.Resources.Err, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
         Catch ex As InvalidOperationException
-            Log(My.Resources.Err, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
         running = True
@@ -234,10 +234,10 @@ Public Class NetServer
             Try
                 listener.Start() ' Throws Exception
             Catch ex As HttpListenerException
-                Log(My.Resources.Err, ex.Message)
+                Log(My.Resources.Error_word, ex.Message)
                 Return
             Catch ex As ObjectDisposedException
-                Log(My.Resources.Err, ex.Message)
+                Log(My.Resources.Error_word, ex.Message)
                 Return
             End Try
 

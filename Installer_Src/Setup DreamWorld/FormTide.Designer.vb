@@ -71,7 +71,7 @@ Partial Class Tides
         Me.GroupBox1.Size = New System.Drawing.Size(424, 348)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Global_Tide_Settings
+        Me.GroupBox1.Text = My.Resources.Global_Tide_Settings_word
         '
         'RunOnBoot
         '
@@ -208,7 +208,7 @@ Partial Class Tides
         Me.TideEnabledCheckbox.Name = "TideEnabledCheckbox"
         Me.TideEnabledCheckbox.Size = New System.Drawing.Size(85, 24)
         Me.TideEnabledCheckbox.TabIndex = 0
-        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.TideEnabledCheckbox.UseVisualStyleBackColor = True
         '
         'ToolTip1

@@ -212,7 +212,7 @@ Public Class MySettings
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
         Catch ex As Exception
-            Form1.ErrorLog(My.Resources.Failed_to_load_Settings)
+            Form1.ErrorLog(My.Resources.Failed_to_load_Settings_INI_word)
         End Try
 
     End Sub

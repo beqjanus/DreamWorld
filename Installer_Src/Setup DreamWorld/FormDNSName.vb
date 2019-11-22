@@ -180,7 +180,7 @@ Public Class FormDNSName
         If IPAddress.TryParse(IP, address) Then
             MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
         Else
-            MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
         End If
 
     End Sub

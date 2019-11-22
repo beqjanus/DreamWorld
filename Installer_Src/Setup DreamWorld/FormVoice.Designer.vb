@@ -105,7 +105,7 @@ Partial Class FormVoice
         Me.VivoxEnable.Name = "VivoxEnable"
         Me.VivoxEnable.Size = New System.Drawing.Size(85, 24)
         Me.VivoxEnable.TabIndex = 1
-        Me.VivoxEnable.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.VivoxEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.VivoxEnable.UseVisualStyleBackColor = True
         '
         'VivoxPassword

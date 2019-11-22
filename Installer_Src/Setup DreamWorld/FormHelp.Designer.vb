@@ -61,14 +61,14 @@ Partial Class FormHelp
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = My.Resources.File
+        Me.FileToolStripMenuItem.Text = My.Resources.File_word
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.exit_icon
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
-        Me.ExitToolStripMenuItem.Text = My.Resources.Exit_text
+        Me.ExitToolStripMenuItem.Text = My.Resources.Exit__word
         '
         'PrintToolStripMenuItem
         '
@@ -137,7 +137,7 @@ Partial Class FormHelp
         Me.DatabaseHelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
         Me.DatabaseHelpToolStripMenuItem.Name = "DatabaseHelpToolStripMenuItem"
         Me.DatabaseHelpToolStripMenuItem.Size = New System.Drawing.Size(202, 22)
-        Me.DatabaseHelpToolStripMenuItem.Text = My.Resources.Database_Help
+        Me.DatabaseHelpToolStripMenuItem.Text = My.Resources.Database_Help_word
         '
         'PortsToolStripMenuItem
         '

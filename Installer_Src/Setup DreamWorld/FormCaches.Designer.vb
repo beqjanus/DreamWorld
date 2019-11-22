@@ -259,7 +259,7 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
         Me.CacheEnabledBox.TabIndex = 1867
-        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked)
+        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked_word)
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
         '
         'CacheFolder
@@ -295,7 +295,7 @@ Partial Class FormCaches
         Me.ViewerCacheCheckbox.Name = "ViewerCacheCheckbox"
         Me.ViewerCacheCheckbox.Size = New System.Drawing.Size(65, 17)
         Me.ViewerCacheCheckbox.TabIndex = 1
-        Me.ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enabled
+        Me.ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
         Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, Global.Outworldz.My.Resources.Resources.Viewer_Cache_text)
         Me.ViewerCacheCheckbox.UseVisualStyleBackColor = True
         '

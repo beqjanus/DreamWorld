@@ -70,8 +70,8 @@ Partial Class FormDNSName
         Me.EnableHypergrid.Name = "EnableHypergrid"
         Me.EnableHypergrid.Size = New System.Drawing.Size(157, 24)
         Me.EnableHypergrid.TabIndex = 1873
-        Me.EnableHypergrid.Text = Global.Outworldz.My.Resources.Resources.Enable_Hypergrid
-        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, Global.Outworldz.My.Resources.Resources.Enable_Hypergrid)
+        Me.EnableHypergrid.Text = Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word
+        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word)
         Me.EnableHypergrid.UseVisualStyleBackColor = True
         '
         'DynDNSHelp

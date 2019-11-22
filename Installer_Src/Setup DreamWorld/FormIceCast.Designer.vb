@@ -53,7 +53,7 @@ Partial Class Icecast
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
         Me.ShoutcastEnable.Size = New System.Drawing.Size(85, 24)
         Me.ShoutcastEnable.TabIndex = 0
-        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.ShoutcastEnable.UseVisualStyleBackColor = True
         '
         'ShoutcastPassword

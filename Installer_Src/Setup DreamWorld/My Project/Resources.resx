@@ -141,7 +141,7 @@
   <data name="Click_Icecast" xml:space="preserve">
     <value>Click to Setup Shoutcast/Icecast</value>
   </data>
-  <data name="FSassets_Server" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets Server</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -226,7 +226,7 @@
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>Clear Cache</value>
   </data>
-  <data name="Do_you_still_want" xml:space="preserve">
+  <data name="Do_you_still_want_to_Stop_word" xml:space="preserve">
     <value>Do you still want to stop?</value>
   </data>
   <data name="STComment" xml:space="preserve">
@@ -238,7 +238,7 @@
   <data name="Interval" xml:space="preserve">
     <value>Interval</value>
   </data>
-  <data name="Getting_regions" xml:space="preserve">
+  <data name="Getting_regions_word" xml:space="preserve">
     <value>Getting regions</value>
   </data>
   <data name="Help_Forward_text" xml:space="preserve">
@@ -305,7 +305,7 @@
   <data name="Show_User_Details_word" xml:space="preserve">
     <value>Show User Details</value>
   </data>
-  <data name="DynDNS_password" xml:space="preserve">
+  <data name="DynDNS_password_word" xml:space="preserve">
     <value>DynDNS password</value>
   </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
@@ -362,7 +362,7 @@
   <data name="Click_HG" xml:space="preserve">
     <value>Click to Enable Hypergrid or change DNS Name</value>
   </data>
-  <data name="Deleted" xml:space="preserve">
+  <data name="Deleted_word" xml:space="preserve">
     <value>Deleted</value>
   </data>
   <data name="Install_Icon" xml:space="preserve">
@@ -405,7 +405,7 @@
     <value>PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*</value>
     <comment>Skip Xlate</comment>
   </data>
-  <data name="did_not_start" xml:space="preserve">
+  <data name="did_not_start_word" xml:space="preserve">
     <value>did not start</value>
   </data>
   <data name="Yes_word" xml:space="preserve">
@@ -426,7 +426,7 @@
   <data name="no_Default_sim" xml:space="preserve">
     <value>Could not set default sim for visitors. See Regions Panel.</value>
   </data>
-  <data name="Physics" xml:space="preserve">
+  <data name="Physics_word" xml:space="preserve">
     <value>Physics</value>
   </data>
   <data name="Wifi_interface" xml:space="preserve">
@@ -501,7 +501,7 @@
   <data name="View_Logs" xml:space="preserve">
     <value>View Logs</value>
   </data>
-  <data name="DBName" xml:space="preserve">
+  <data name="DBName_word" xml:space="preserve">
     <value>Database Name</value>
   </data>
   <data name="Backup_word" xml:space="preserve">
@@ -513,7 +513,7 @@
   <data name="Internet_address" xml:space="preserve">
     <value>Internet address</value>
   </data>
-  <data name="Free_DLC" xml:space="preserve">
+  <data name="Free_DLC_word" xml:space="preserve">
     <value>Free DLC</value>
   </data>
   <data name="No_Autobackup" xml:space="preserve">
@@ -577,7 +577,7 @@
   <data name="Notify_Email" xml:space="preserve">
     <value>Notify Email</value>
   </data>
-  <data name="Edit" xml:space="preserve">
+  <data name="Edit_word" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Theme_word" xml:space="preserve">
@@ -595,7 +595,7 @@
   <data name="Add_User_word" xml:space="preserve">
     <value>Add User</value>
   </data>
-  <data name="Debug" xml:space="preserve">
+  <data name="Debug_word" xml:space="preserve">
     <value>Debug</value>
   </data>
   <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
@@ -626,7 +626,7 @@
   <data name="FRText" xml:space="preserve">
     <value>SL runs 55 FPS.  Opensim is 11 FPS.   Default =0.0909, or 1/11</value>
   </data>
-  <data name="Disable_Gloebits" xml:space="preserve">
+  <data name="Disable_Gloebits_word" xml:space="preserve">
     <value>Disable Gloebits</value>
   </data>
   <data name="ClickStartStop" xml:space="preserve">
@@ -650,7 +650,7 @@
   <data name="This_Moves" xml:space="preserve">
     <value>This moves all regions so the chosen region is at 1000,1000 to fit the map. Proceed?</value>
   </data>
-  <data name="Enable_Birds" xml:space="preserve">
+  <data name="Enable_Birds_word" xml:space="preserve">
     <value>Enable Bird Module</value>
   </data>
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
@@ -680,7 +680,7 @@
   <data name="Highest_Used" xml:space="preserve">
     <value>Highest used: 8004</value>
   </data>
-  <data name="Details" xml:space="preserve">
+  <data name="Details_word" xml:space="preserve">
     <value>Details</value>
   </data>
   <data name="iceCastServer" xml:space="preserve">
@@ -751,7 +751,7 @@
   <data name="Better_Prims" xml:space="preserve">
     <value>Better (Prims, Slow)</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+  <data name="Delete_word" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="Y_word" xml:space="preserve">
@@ -763,7 +763,7 @@
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
-  <data name="Default_8002" xml:space="preserve">
+  <data name="Default_8002_word" xml:space="preserve">
     <value>Default 8002</value>
   </data>
   <data name="Http_Port" xml:space="preserve">
@@ -802,7 +802,7 @@
   <data name="Start_Regions_word" xml:space="preserve">
     <value>Start Regions</value>
   </data>
-  <data name="Contact_Name" xml:space="preserve">
+  <data name="Contact_Name_word" xml:space="preserve">
     <value>Contact Name</value>
   </data>
   <data name="Saving_word" xml:space="preserve">
@@ -823,7 +823,7 @@
   <data name="Good" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Good.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Finished_with_backup" xml:space="preserve">
+  <data name="Finished_with_backup_word" xml:space="preserve">
     <value>Finished with backup:</value>
   </data>
   <data name="Starting_word" xml:space="preserve">
@@ -832,7 +832,7 @@
   <data name="Max_NumPrims" xml:space="preserve">
     <value>Max Number of Prims in a Parcel</value>
   </data>
-  <data name="Good1" xml:space="preserve">
+  <data name="Good_Warp3D_word" xml:space="preserve">
     <value>Good (Warp3D)</value>
   </data>
   <data name="Help_OARS_text" xml:space="preserve">
@@ -844,13 +844,13 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="DivaEnabled" xml:space="preserve">
+  <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>Diva Wifi Enabled</value>
   </data>
   <data name="Request_App" xml:space="preserve">
     <value>Request App Creation</value>
   </data>
-  <data name="GlobalSettings" xml:space="preserve">
+  <data name="GlobalSettings_word" xml:space="preserve">
     <value>Global Settings</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
@@ -910,7 +910,7 @@
   <data name="Apache_running" xml:space="preserve">
     <value>Web Server is running</value>
   </data>
-  <data name="Contact_Info_Word" xml:space="preserve">
+  <data name="Contact_Info_word" xml:space="preserve">
     <value>Contact Info</value>
   </data>
   <data name="Clear_and_Load_word" xml:space="preserve">
@@ -928,7 +928,7 @@
   <data name="Voice" xml:space="preserve">
     <value>Voice</value>
   </data>
-  <data name="Flotsam_Asset_Cache" xml:space="preserve">
+  <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
     <value>Flotsam Asset Cache</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
@@ -955,10 +955,10 @@
   <data name="port2" xml:space="preserve">
     <value>Port 2</value>
   </data>
-  <data name="Global_Tide_Settings" xml:space="preserve">
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Global Tide Settings</value>
   </data>
-  <data name="Database" xml:space="preserve">
+  <data name="Database_word" xml:space="preserve">
     <value>Database</value>
   </data>
   <data name="Load_Bird_IAR_word" xml:space="preserve">
@@ -1013,7 +1013,7 @@
   <data name="Please_select_only_one_row" xml:space="preserve">
     <value>Please select only one row</value>
   </data>
-  <data name="Diag_Port" xml:space="preserve">
+  <data name="Diag_Port_word" xml:space="preserve">
     <value>Diagnostics port </value>
   </data>
   <data name="Refresh1" xml:space="preserve">
@@ -1070,7 +1070,7 @@
   <data name="BuiltbyFred" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BuiltbyFred.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Enable_Search" xml:space="preserve">
+  <data name="Enable_Search_word" xml:space="preserve">
     <value>Enable Search</value>
   </data>
   <data name="Icecast_is_Set" xml:space="preserve">
@@ -1082,7 +1082,7 @@
   <data name="Hypergrid" xml:space="preserve">
     <value>Hypergrid DNS Name</value>
   </data>
-  <data name="Greeting" xml:space="preserve">
+  <data name="Viewer_Greeting_word" xml:space="preserve">
     <value>Viewer Greeting</value>
   </data>
   <data name="Quit_Now_Word" xml:space="preserve">
@@ -1091,7 +1091,7 @@
   <data name="Small_Map" xml:space="preserve">
     <value>Small Metro map</value>
   </data>
-  <data name="File" xml:space="preserve">
+  <data name="File_word" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="nav_plain_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1109,7 +1109,7 @@
   <data name="Help_Technical_text" xml:space="preserve">
     <value>Technical Mumbo Jumbo on how to configure things</value>
   </data>
-  <data name="EnableOneClick" xml:space="preserve">
+  <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>Enable One-Click Start</value>
   </data>
   <data name="Click_Web" xml:space="preserve">
@@ -1127,7 +1127,7 @@
   <data name="EnterName" xml:space="preserve">
     <value>Enter a name for your backup</value>
   </data>
-  <data name="Exit_text" xml:space="preserve">
+  <data name="Exit__word" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
@@ -1152,7 +1152,7 @@
   <data name="New_User_Home" xml:space="preserve">
     <value>New User Home X,Y,Z</value>
   </data>
-  <data name="Disabled" xml:space="preserve">
+  <data name="Disabled_word" xml:space="preserve">
     <value>Disabled</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
@@ -1176,7 +1176,7 @@
   <data name="Grid_Address_text" xml:space="preserve">
     <value>You can give this address out to people and they can visit your grid</value>
   </data>
-  <data name="Enable_Hypergrid" xml:space="preserve">
+  <data name="Enable_Hypergrid_word" xml:space="preserve">
     <value>Enable Hypergrid</value>
   </data>
   <data name="Log_Level" xml:space="preserve">
@@ -1234,7 +1234,7 @@
   <data name="Bird_help" xml:space="preserve">
     <value>Click for Help on Birds</value>
   </data>
-  <data name="Common_Settings" xml:space="preserve">
+  <data name="Common_Settings_word" xml:space="preserve">
     <value>Common Settings</value>
   </data>
   <data name="Icecast_Exited" xml:space="preserve">
@@ -1246,7 +1246,7 @@
   <data name="Local_Search" xml:space="preserve">
     <value>Local Search</value>
   </data>
-  <data name="EstateManagerGod" xml:space="preserve">
+  <data name="EstateManagerIsGod_word" xml:space="preserve">
     <value>Estate Manager is god</value>
   </data>
   <data name="Restart_on_Physics_Crash" xml:space="preserve">
@@ -1303,7 +1303,7 @@
   <data name="All_Global_Settings_word" xml:space="preserve">
     <value>All Global settings</value>
   </data>
-  <data name="Estate" xml:space="preserve">
+  <data name="Estate_word" xml:space="preserve">
     <value>Estate</value>
   </data>
   <data name="Install" xml:space="preserve">
@@ -1315,7 +1315,7 @@
   <data name="Backup_Folder" xml:space="preserve">
     <value>Backup Folder</value>
   </data>
-  <data name="Deregister_words" xml:space="preserve">
+  <data name="Deregister_word" xml:space="preserve">
     <value>Deregister</value>
     <comment>New Translation needed</comment>
   </data>
@@ -1346,7 +1346,7 @@
   <data name="Tides_word" xml:space="preserve">
     <value>Tides</value>
   </data>
-  <data name="Clouds" xml:space="preserve">
+  <data name="Clouds_word" xml:space="preserve">
     <value>Clouds</value>
   </data>
   <data name="Setup_Network" xml:space="preserve">
@@ -1377,10 +1377,10 @@
   <data name="text_align_justified" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_align_justified.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Err" xml:space="preserve">
+  <data name="Error_word" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="export" xml:space="preserve">
+  <data name="Export_Backup_file_word" xml:space="preserve">
     <value>Export backup file</value>
   </data>
   <data name="exit_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1408,7 +1408,7 @@
   <data name="View_as_Icons" xml:space="preserve">
     <value>View as Icons</value>
   </data>
-  <data name="Default_8003" xml:space="preserve">
+  <data name="Default_8003_word" xml:space="preserve">
     <value>Default 8003</value>
   </data>
   <data name="BP" xml:space="preserve">
@@ -1456,7 +1456,7 @@
   <data name="Production_Mode_Word" xml:space="preserve">
     <value>Production Mode</value>
   </data>
-  <data name="Permissions" xml:space="preserve">
+  <data name="Permissions_word" xml:space="preserve">
     <value>Permissions</value>
   </data>
   <data name="Provide_Info" xml:space="preserve">
@@ -1560,10 +1560,10 @@
   <data name="Size_word" xml:space="preserve">
     <value>Size</value>
   </data>
-  <data name="Content" xml:space="preserve">
+  <data name="Content_word" xml:space="preserve">
     <value>Content</value>
   </data>
-  <data name="CreateSandbox" xml:space="preserve">
+  <data name="Create_Sandbox_word" xml:space="preserve">
     <value>Create Sandbox</value>
   </data>
   <data name="disk_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1626,7 +1626,7 @@
   <data name="Next_Name" xml:space="preserve">
     <value>Next Name</value>
   </data>
-  <data name="DreamGrid" xml:space="preserve">
+  <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
   <data name="user2" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1647,7 +1647,7 @@
   <data name="UUID0" xml:space="preserve">
     <value>Error: UUID Is nothing!</value>
   </data>
-  <data name="Data_Folder" xml:space="preserve">
+  <data name="Data_Folder_word" xml:space="preserve">
     <value>Data Folder</value>
   </data>
   <data name="User_Name_word" xml:space="preserve">
@@ -1677,10 +1677,10 @@
   <data name="Chat_Channel_word" xml:space="preserve">
     <value>Chat Channel</value>
   </data>
-  <data name="DefaultRegion" xml:space="preserve">
+  <data name="Default_Region_word" xml:space="preserve">
     <value>Default region</value>
   </data>
-  <data name="DivaPanel" xml:space="preserve">
+  <data name="Diva_Panel_word" xml:space="preserve">
     <value>Diva Panel</value>
   </data>
   <data name="ErrUpdate" xml:space="preserve">
@@ -1690,7 +1690,7 @@
     <value>ODE</value>
     <comment>Skip Xlate</comment>
   </data>
-  <data name="Export_SQL_file" xml:space="preserve">
+  <data name="Export_SQL_file_word" xml:space="preserve">
     <value>Export SQL file</value>
   </data>
   <data name="Minutes" xml:space="preserve">
@@ -1735,10 +1735,10 @@
   <data name="Setup_TOS" xml:space="preserve">
     <value>Click to set up your Terms of Service</value>
   </data>
-  <data name="Enable" xml:space="preserve">
+  <data name="Enable_word" xml:space="preserve">
     <value>Enable</value>
   </data>
-  <data name="PDF_Manual" xml:space="preserve">
+  <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF Manual</value>
   </data>
   <data name="What_2_say_To_all" xml:space="preserve">
@@ -1750,7 +1750,7 @@
   <data name="Step3_word" xml:space="preserve">
     <value>Step 3:</value>
   </data>
-  <data name="Enabled" xml:space="preserve">
+  <data name="Enabled_word" xml:space="preserve">
     <value>Enabled</value>
   </data>
   <data name="How_High" xml:space="preserve">
@@ -1798,7 +1798,7 @@
   <data name="flag_russia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_russia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Creating_INI_Files" xml:space="preserve">
+  <data name="Creating_INI_Files_word" xml:space="preserve">
     <value>Creating INI Files</value>
   </data>
   <data name="AutorestartTime" xml:space="preserve">
@@ -1806,9 +1806,6 @@
   </data>
   <data name="window_environment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\window_environment.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Viewer_Greeting_word" xml:space="preserve">
-    <value>Viewer Greeting</value>
   </data>
   <data name="AlphaNum" xml:space="preserve">
     <value>Alpha-Numeric plus minus sign (no spaces or special chars)</value>
@@ -1844,7 +1841,7 @@
   <data name="Mysql_Failed" xml:space="preserve">
     <value>The database did not start. Do you want to see the log file?</value>
   </data>
-  <data name="Database_Setup" xml:space="preserve">
+  <data name="Database_Setup_word" xml:space="preserve">
     <value>Database Setup</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
@@ -1910,7 +1907,7 @@
   <data name="flag_finland" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_finland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Do_Not_Interrupt" xml:space="preserve">
+  <data name="Do_Not_Interrupt_word" xml:space="preserve">
     <value>Do not interrupt!</value>
   </data>
   <data name="Canceled_IAR" xml:space="preserve">
@@ -1934,7 +1931,7 @@
   <data name="users3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\users3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Contact_Email" xml:space="preserve">
+  <data name="Contact_Email_word" xml:space="preserve">
     <value>Contact Email</value>
   </data>
   <data name="MustHaveName" xml:space="preserve">
@@ -2027,7 +2024,7 @@
   <data name="Help_Forward" xml:space="preserve">
     <value>Help On Port Forwarding</value>
   </data>
-  <data name="Fatal" xml:space="preserve">
+  <data name="Fatal_word" xml:space="preserve">
     <value>Fatal</value>
   </data>
   <data name="View_Web_Interface" xml:space="preserve">
@@ -2060,7 +2057,7 @@
   <data name="Click_Database" xml:space="preserve">
     <value>Click to set up the Database</value>
   </data>
-  <data name="First_name" xml:space="preserve">
+  <data name="First_name_word" xml:space="preserve">
     <value>First Name</value>
   </data>
   <data name="Just_one_region" xml:space="preserve">
@@ -2094,7 +2091,7 @@
   <data name="View_Details" xml:space="preserve">
     <value>View Region Details</value>
   </data>
-  <data name="Export_Permission" xml:space="preserve">
+  <data name="Export_Permission_word" xml:space="preserve">
     <value>Export Permission</value>
   </data>
   <data name="Change_UUID" xml:space="preserve">
@@ -2121,13 +2118,13 @@
   <data name="Robust_word" xml:space="preserve">
     <value>Robust</value>
   </data>
-  <data name="Default_Checked" xml:space="preserve">
+  <data name="Default_Checked_word" xml:space="preserve">
     <value>Default: Checked</value>
   </data>
-  <data name="Folder_To_Save_To" xml:space="preserve">
+  <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Folder to save to</value>
   </data>
-  <data name="Failed_to_load_Settings" xml:space="preserve">
+  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
     <value>Failed to load Settings INI </value>
     <comment>Skip Xlate</comment>
   </data>
@@ -2233,7 +2230,7 @@
   <data name="flag_israel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_israel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Database_Help" xml:space="preserve">
+  <data name="Database_Help_word" xml:space="preserve">
     <value>Database Help</value>
   </data>
   <data name="Auto_Startup_word" xml:space="preserve">
@@ -2242,7 +2239,7 @@
   <data name="Selectallnone" xml:space="preserve">
     <value>Selects all or none of the checkboxes</value>
   </data>
-  <data name="Enable_Events" xml:space="preserve">
+  <data name="Enable_Events_word" xml:space="preserve">
     <value>Enable Events</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
@@ -2386,7 +2383,7 @@
   <data name="Skip_word" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="Gloebits_Currency" xml:space="preserve">
+  <data name="Gloebits_Currency_word" xml:space="preserve">
     <value>Gloebits Currency</value>
   </data>
   <data name="Cancelled_word" xml:space="preserve">
@@ -2404,7 +2401,7 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
-  <data name="DOS_Box" xml:space="preserve">
+  <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS Box</value>
   </data>
   <data name="Web_UI" xml:space="preserve">
@@ -2416,7 +2413,7 @@
   <data name="Scripts_Start_word" xml:space="preserve">
     <value>Scripts Start</value>
   </data>
-  <data name="Deregister" xml:space="preserve">
+  <data name="Reion_Removed" xml:space="preserve">
     <value>Region has been removed</value>
   </data>
   <data name="Running" xml:space="preserve">
@@ -2488,7 +2485,7 @@
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>Cannot find region</value>
   </data>
-  <data name="Custom" xml:space="preserve">
+  <data name="Custom_word" xml:space="preserve">
     <value>Custom</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2533,7 +2530,7 @@
   <data name="Physical_Prim" xml:space="preserve">
     <value>Physical Prim Max Size</value>
   </data>
-  <data name="Disable_Foreigners" xml:space="preserve">
+  <data name="Disable_Foreigners_word" xml:space="preserve">
     <value>Disable Foreign Visitors</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
@@ -2586,13 +2583,13 @@
   <data name="MySQL_Port_Default" xml:space="preserve">
     <value>Default = 3306</value>
   </data>
-  <data name="Default_8004" xml:space="preserve">
+  <data name="Default_8004_word" xml:space="preserve">
     <value>Default 8004</value>
   </data>
   <data name="Avatar_Bakes_Cache_word" xml:space="preserve">
     <value>Avatar Bakes Cache</value>
   </data>
-  <data name="DnsName" xml:space="preserve">
+  <data name="Grid_Address_is_word" xml:space="preserve">
     <value>Grid address is</value>
   </data>
   <data name="Region_ServerName" xml:space="preserve">
@@ -2628,7 +2625,7 @@
   <data name="Help_OARS" xml:space="preserve">
     <value>Help On OARs</value>
   </data>
-  <data name="Consoles" xml:space="preserve">
+  <data name="Consoles_word" xml:space="preserve">
     <value>Consoles</value>
   </data>
   <data name="Network_Change" xml:space="preserve">
@@ -2646,7 +2643,7 @@
   <data name="ApacheNot_Stopping" xml:space="preserve">
     <value>Web Server did not stop</value>
   </data>
-  <data name="Default_8001" xml:space="preserve">
+  <data name="Default_8001_word" xml:space="preserve">
     <value>Default 8001</value>
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
@@ -2658,5 +2655,9 @@
   <data name="is_already_running_word" xml:space="preserve">
     <value>is already running</value>
     <comment>New Translation needed</comment>
+  </data>
+  <data name="How_Many_Avatars" xml:space="preserve">
+    <value>How many Avatars + NPC's can be in a region before the region is shown as Full. The actual value is set in Estate Settings in the viewer.</value>
+    <comment>Need xlate</comment>
   </data>
 </root>

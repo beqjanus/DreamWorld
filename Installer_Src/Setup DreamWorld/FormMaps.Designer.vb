@@ -156,7 +156,7 @@ Partial Class FormMaps
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
-        Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good1
+        Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
         'Button2

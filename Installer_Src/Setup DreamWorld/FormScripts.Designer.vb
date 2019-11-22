@@ -85,7 +85,7 @@ Partial Class FormScripts
         Me.LSLCheckbox.Name = "LSLCheckbox"
         Me.LSLCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.LSLCheckbox.TabIndex = 210
-        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.LSLCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2

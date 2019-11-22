@@ -88,9 +88,9 @@ Public Module Firewall
             Try
                 ProcessFirewall.Start()
             Catch ex As InvalidOperationException
-                Form1.Log(My.Resources.Err, "Could not set firewall:" & ex.Message)
+                Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             Catch ex As System.ComponentModel.Win32Exception
-                Form1.Log(My.Resources.Err, "Could not set firewall:" & ex.Message)
+                Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
 
         End Using

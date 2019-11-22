@@ -118,7 +118,7 @@ Partial Class FormPorts
         Me.FirstRegionPort.Name = "FirstRegionPort"
         Me.FirstRegionPort.Size = New System.Drawing.Size(68, 26)
         Me.FirstRegionPort.TabIndex = 25
-        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004)
+        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
         '
         'Upnp
         '
@@ -160,7 +160,7 @@ Partial Class FormPorts
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(128, 20)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = My.Resources.Diag_Port
+        Me.Label5.Text = My.Resources.Diag_Port_word
         '
         'HTTPPort
         '
@@ -169,7 +169,7 @@ Partial Class FormPorts
         Me.HTTPPort.Name = "HTTPPort"
         Me.HTTPPort.Size = New System.Drawing.Size(68, 26)
         Me.HTTPPort.TabIndex = 23
-        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002)
+        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002_word)
         '
         'PrivatePort
         '
@@ -178,7 +178,7 @@ Partial Class FormPorts
         Me.PrivatePort.Name = "PrivatePort"
         Me.PrivatePort.Size = New System.Drawing.Size(68, 26)
         Me.PrivatePort.TabIndex = 24
-        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003)
+        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003_word)
         '
         'DiagnosticPort
         '
@@ -187,7 +187,7 @@ Partial Class FormPorts
         Me.DiagnosticPort.Name = "DiagnosticPort"
         Me.DiagnosticPort.Size = New System.Drawing.Size(68, 26)
         Me.DiagnosticPort.TabIndex = 22
-        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001)
+        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001_word)
         '
         'Label4
         '

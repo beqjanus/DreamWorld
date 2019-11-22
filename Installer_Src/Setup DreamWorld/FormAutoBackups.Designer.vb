@@ -157,7 +157,7 @@ Partial Class FormAutoBackups
         Me.AutoBackup.Name = "AutoBackup"
         Me.AutoBackup.Size = New System.Drawing.Size(94, 24)
         Me.AutoBackup.TabIndex = 1
-        Me.AutoBackup.Text = Global.Outworldz.My.Resources.Resources.Enabled
+        Me.AutoBackup.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
         Me.ToolTip1.SetToolTip(Me.AutoBackup, Global.Outworldz.My.Resources.Resources.If_Enabled_Save_Oars)
         Me.AutoBackup.UseVisualStyleBackColor = True
         '
@@ -207,7 +207,7 @@ Partial Class FormAutoBackups
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(252, 34)
-        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_SQL_file
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_SQL_file_word
         '
         'FormAutoBackups
         '

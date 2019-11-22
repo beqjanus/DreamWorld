@@ -48,7 +48,7 @@ Partial Class FormFsAssets
         Me.EnableFsAssetsCheckbox.Name = "EnableFsAssetsCheckbox"
         Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(85, 24)
         Me.EnableFsAssetsCheckbox.TabIndex = 43
-        Me.EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.EnableFsAssetsCheckbox.UseVisualStyleBackColor = True
         '
         'b

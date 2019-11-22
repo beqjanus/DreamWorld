@@ -447,7 +447,7 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
-                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Err)
+                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
@@ -553,7 +553,7 @@ Public Class RegionMaker
 
         Dim n As Integer = FindRegionByName(name)
         If n < 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, My.Resources.Error_word)
             Return
         End If
 

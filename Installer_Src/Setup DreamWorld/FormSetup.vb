@@ -881,7 +881,7 @@ Public Class Form1
 
         Me.Show()
 
-        Print(My.Resources.Getting_regions)
+        Print(My.Resources.Getting_regions_word)
 
         PropRegionClass = RegionMaker.Instance()
         Adv = New AdvancedForm
@@ -2524,7 +2524,7 @@ Public Class Form1
     ''' <returns>true if it fails</returns>
     Private Function SetIniData() As Boolean
 
-        Print(My.Resources.Creating_INI_Files)
+        Print(My.Resources.Creating_INI_Files_word)
 
         If SetDefaultSims() Then Return True
         If DoTos() Then Return True
@@ -2559,7 +2559,7 @@ Public Class Form1
             Settings.HttpPort = 8002
             Settings.PrivatePort = 8003
 
-            MsgBox(My.Resources.Port_Error, vbInformation, My.Resources.Err)
+            MsgBox(My.Resources.Port_Error, vbInformation, My.Resources.Error_word)
         End If
 
     End Sub
@@ -2753,7 +2753,7 @@ Public Class Form1
 
         If Not Settings.ApacheEnable Then
             ApachePictureBox.Image = My.Resources.nav_plain_blue
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Disabled)
+            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Disabled_word)
             Print(My.Resources.Apache_Disabled)
             Return
         End If
@@ -3220,18 +3220,18 @@ Public Class Form1
         Try
             RobustProcess.Start()
         Catch ex As InvalidOperationException
-            Print("Robust " & My.Resources.did_not_start & ex.Message)
+            Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start & ex.Message)
+            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
             Return False
         Catch ex As System.ComponentModel.Win32Exception
-            Print("Robust " & My.Resources.did_not_start & ex.Message)
+            Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start & ex.Message)
+            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
             Return False
         End Try
 
@@ -3248,7 +3248,7 @@ Public Class Form1
             If counter > 100 Then
                 Print(My.Resources.Robust_failed_to_start)
                 Buttons(StartButton)
-                Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Err)
+                Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
                 If (yesno = vbYes) Then
                     Dim Log As String = """" & PropOpensimBinPath & "bin\Robust.log" & """"
                     Try
@@ -3327,7 +3327,7 @@ Public Class Form1
         _ApacheCrashCounter = 0
         PropgApacheProcessID = Nothing
 
-        Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, My.Resources.Err)
+        Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, My.Resources.Error_word)
         If (yesno = vbYes) Then
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             Try
@@ -3350,7 +3350,7 @@ Public Class Form1
         End If
         _IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, My.Resources.Err)
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, My.Resources.Error_word)
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
@@ -3374,7 +3374,7 @@ Public Class Form1
         End If
         _MysqlCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Err)
+        Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Error_word)
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             Dim files As Array = Nothing
@@ -3415,7 +3415,7 @@ Public Class Form1
         End If
         _RobustCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, My.Resources.Err)
+        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, My.Resources.Error_word)
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             Try
@@ -3831,7 +3831,7 @@ Public Class Form1
                 PropUpdateView = True
             Else
                 Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Err)
+                Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
                 If (yesno = vbYes) Then
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
@@ -3888,7 +3888,7 @@ Public Class Form1
 #Region "Logging"
 
     Public Sub ErrorLog(message As String)
-        Logger(My.Resources.Err, message, My.Resources.Err)
+        Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
 
     ''' <summary>
@@ -4211,7 +4211,7 @@ Public Class Form1
                 PercentRAM.Text = CStr(value) & "% RAM"
             Next
         Catch ex As Exception
-            Log(My.Resources.Err, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
         End Try
 
         ChartWrapper2.ClearChart()
@@ -4277,7 +4277,7 @@ Public Class Form1
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
-        Print(My.Resources.DnsName & vbCrLf & "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        Print(My.Resources.Grid_Address_is_word & vbCrLf & "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
 
     End Sub
 
@@ -4389,7 +4389,7 @@ Public Class Form1
             Return False
         End If
 
-        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To & " (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
         Dim user = InputBox(My.Resources.Enter_1_2)
         Dim password = InputBox(My.Resources.Password)
@@ -4595,7 +4595,7 @@ Public Class Form1
                     once = True
                 End If
             Catch ex As Exception
-                ErrorLog(My.Resources.Err & ":" & ex.Message)
+                ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
         Next
 
@@ -5130,7 +5130,7 @@ Public Class Form1
         Print(My.Resources.Check_Diag)
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox(My.Resources.Diag_Port & " " & Settings.DiagnosticPort & ". " & My.Resources.Diag_Broken)
+            MsgBox(My.Resources.Diag_Port_word & " " & Settings.DiagnosticPort & ". " & My.Resources.Diag_Broken)
             PropUseIcons = False
         End If
 
@@ -5575,7 +5575,7 @@ Public Class Form1
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             If ProgressBar1.Value = 100 Then ' about 30 seconds when it fails
 
-                Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, My.Resources.Err)
+                Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, My.Resources.Error_word)
                 If (yesno = vbYes) Then
                     Dim files As Array = Nothing
                     Try
@@ -5759,7 +5759,7 @@ Public Class Form1
                         Return
                     End Try
 
-                    Print(My.Resources.Do_Not_Interrupt)
+                    Print(My.Resources.Do_Not_Interrupt_word)
                     Dim pMySqlRestore As Process = New Process()
                     ' pi.Arguments = thing
                     Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5776,7 +5776,7 @@ Public Class Form1
 
                     End Try
 
-                    Print(My.Resources.Do_Not_Interrupt)
+                    Print(My.Resources.Do_Not_Interrupt_word)
                 End If
             Else
                 Print(My.Resources.Cancelled_word)
@@ -6843,10 +6843,10 @@ Public Class Form1
                 Try
                     osconnection.Open()
                 Catch ex As InvalidOperationException
-                    Log(My.Resources.Err, "Failed to Connect to Search Database")
+                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
                     Return
                 Catch ex As MySqlException
-                    Log(My.Resources.Err, "Failed to Connect to Search Database")
+                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
                     Return
                 End Try
                 DeleteEvents(osconnection)

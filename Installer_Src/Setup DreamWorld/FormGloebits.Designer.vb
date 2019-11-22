@@ -150,7 +150,7 @@ Partial Class Gloebits
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(85, 24)
         Me.GloebitsEnabled.TabIndex = 16
-        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.Enable
+        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.GloebitsEnabled.UseVisualStyleBackColor = True
         '
         'Label5
@@ -441,7 +441,7 @@ Partial Class Gloebits
         Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
         Me.SandBoxSignUpButton.Size = New System.Drawing.Size(226, 40)
         Me.SandBoxSignUpButton.TabIndex = 3
-        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.CreateSandbox
+        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
         Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1

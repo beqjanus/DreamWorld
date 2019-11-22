@@ -128,7 +128,7 @@ Partial Class FormApache
         Me.EventsCheckBox.Name = "EventsCheckBox"
         Me.EventsCheckBox.Size = New System.Drawing.Size(138, 24)
         Me.EventsCheckBox.TabIndex = 186745
-        Me.EventsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Events
+        Me.EventsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Events_word
         Me.EventsCheckBox.UseVisualStyleBackColor = True
         '
         'EnableSearchCheckBox
@@ -139,7 +139,7 @@ Partial Class FormApache
         Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
         Me.EnableSearchCheckBox.Size = New System.Drawing.Size(140, 24)
         Me.EnableSearchCheckBox.TabIndex = 186744
-        Me.EnableSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Search
+        Me.EnableSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Search_word
         Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
         '
         'AllGridSearchCheckBox

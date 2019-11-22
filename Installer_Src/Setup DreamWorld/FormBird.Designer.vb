@@ -311,7 +311,7 @@ Partial Class BirdForm
         Me.BirdsModuleStartupbox.Name = "BirdsModuleStartupbox"
         Me.BirdsModuleStartupbox.Size = New System.Drawing.Size(182, 24)
         Me.BirdsModuleStartupbox.TabIndex = 1
-        Me.BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Resources.Enable_Birds
+        Me.BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Resources.Enable_Birds_word
         Me.ToolTip1.SetToolTip(Me.BirdsModuleStartupbox, Global.Outworldz.My.Resources.Resources.Determines)
         Me.BirdsModuleStartupbox.UseVisualStyleBackColor = True
         '

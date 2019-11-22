@@ -61,7 +61,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted & " " & CStr(ctr))
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
                 Application.DoEvents()
             Next
         End If
@@ -93,7 +93,7 @@ Public Class ClrCache
             For Each folder As String In folders
                 FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted & " " & CStr(ctr))
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
                 Application.DoEvents()
             Next
         End If

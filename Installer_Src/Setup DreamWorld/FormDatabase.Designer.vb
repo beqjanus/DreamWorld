@@ -232,7 +232,7 @@ Partial Class FormDatabase
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(160, 34)
         Me.Button1.TabIndex = 1884
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
@@ -365,7 +365,7 @@ Partial Class FormDatabase
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(239, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Database_Setup
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
         '
         'BackupToolStripMenuItem
         '
@@ -387,7 +387,7 @@ Partial Class FormDatabase
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(256, 34)
-        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.export
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_Backup_file_word
         '
         'FormDatabase
         '
@@ -401,7 +401,7 @@ Partial Class FormDatabase
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Database
+        Me.Text = Global.Outworldz.My.Resources.Resources.Database_word
         Me.StandaloneGroup.ResumeLayout(False)
         Me.StandaloneGroup.PerformLayout()
         Me.GridGroup.ResumeLayout(False)
