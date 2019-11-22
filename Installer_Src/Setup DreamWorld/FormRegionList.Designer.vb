@@ -142,7 +142,7 @@ Partial Class RegionList
         Me.ViewDetail.Name = "ViewDetail"
         Me.ViewDetail.Size = New System.Drawing.Size(93, 23)
         Me.ViewDetail.TabIndex = 18599
-        Me.ViewDetail.Text = Global.Outworldz.My.Resources.Resources.Details
+        Me.ViewDetail.Text = Global.Outworldz.My.Resources.Resources.Details_word
         Me.ToolTip1.SetToolTip(Me.ViewDetail, Global.Outworldz.My.Resources.Resources.View_Details)
         Me.ViewDetail.UseVisualStyleBackColor = True
         '

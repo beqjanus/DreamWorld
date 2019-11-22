@@ -330,19 +330,19 @@ Public Class RegionList
         ListView1.AllowColumnReorder = True
 
         ' Create columns for the items and subitems.
-        ListView1.Columns.Add(My.Resources.Enable, colsize.ColumnWidth(My.Resources.Enable, 120), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.DOS_Box, colsize.ColumnWidth(My.Resources.DOS_Box, 120), HorizontalAlignment.Left)
+        ListView1.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth(My.Resources.Enable_word, 120), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.DOS_Box_word, colsize.ColumnWidth(My.Resources.DOS_Box_word, 120), HorizontalAlignment.Left)
         ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.X_word, colsize.ColumnWidth(My.Resources.X_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Y_word, colsize.ColumnWidth(My.Resources.Y_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word, 40), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Estate, colsize.ColumnWidth(My.Resources.Estate, 100), HorizontalAlignment.Left)
+        ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth(My.Resources.Estate_word, 100), HorizontalAlignment.Left)
 
         ' optional
         ListView1.Columns.Add(My.Resources.Maps, colsize.ColumnWidth(My.Resources.Maps, 80), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Physics, colsize.ColumnWidth(My.Resources.Physics, 120), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Physics_word, colsize.ColumnWidth(My.Resources.Physics_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth(My.Resources.Birds_word, 60), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Tides_word, colsize.ColumnWidth(My.Resources.Tides_word, 60), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Teleport_word, colsize.ColumnWidth(My.Resources.Teleport_word, 65), HorizontalAlignment.Center)
@@ -486,7 +486,8 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
+        ' property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -627,7 +628,7 @@ Public Class RegionList
             ViewNotBusy1 = True
             PropUpdateView() = False
         Catch ex As Exception
-            Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
+            Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
     End Sub
@@ -870,12 +871,12 @@ Public Class RegionList
                 ViewNotBusy1 = True
                 PropUpdateView() = False
             Catch ex As Exception
-                Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
+                Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
                 Form1.PropRegionClass.GetAllRegions()
                 PropUpdateView() = False
             End Try
         Catch ex As Exception
-            Form1.Log(My.Resources.Err, " RegionList " & ex.Message)
+            Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             Form1.PropRegionClass.GetAllRegions()
             PropUpdateView() = False
         End Try
@@ -921,9 +922,9 @@ Public Class RegionList
                 If Form1.PropRegionClass.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
                     If Form1.PropRegionClass.AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar + Form1.PropRegionClass.RegionName(num) + My.Resources.Do_you_still_want, vbYesNo)
+                        response = MsgBox(My.Resources.OneAvatar + Form1.PropRegionClass.RegionName(num) + My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     Else
-                        response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & My.Resources.Do_you_still_want, vbYesNo)
+                        response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     End If
                     If response = vbNo Then
                         StopIt = False
@@ -1021,6 +1022,8 @@ Public Class RegionList
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
+        Form1.PropRestartNow = True
+
         For Each X As Integer In Form1.PropRegionClass.RegionNumbers
 
             If Form1.PropOpensimIsRunning() _
@@ -1040,7 +1043,6 @@ Public Class RegionList
                     Form1.PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                     Form1.PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 Next
-                Form1.PropRestartNow = True
 
                 PropUpdateView = True ' make form refresh
             End If
@@ -1218,6 +1220,7 @@ Public Class RegionList
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
 
         Form1.PropRestartRobust = True
+        Form1.StopRobust()
 
     End Sub
 
@@ -1265,8 +1268,6 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
-
-
 #Region "Private Fields"
 
     Private col As Integer
@@ -1286,8 +1287,6 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
-
-
 
 #Region "Public Methods"
 
