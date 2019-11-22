@@ -192,7 +192,7 @@ Public Class ScreenPos
 
         ' sets values into any INI file
         Try
-            Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
+            ' Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             Form1.ErrorLog(ex.Message)

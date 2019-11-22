@@ -226,8 +226,8 @@ Public Class MySettings
     ''' <returns></returns>
     Public Sub SetIni(section As String, key As String, value As String)
 
-        ' sets values into any INI file
-        Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
+        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
+        ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
         Catch ex As Exception
@@ -238,7 +238,7 @@ Public Class MySettings
 
     Public Sub SetMyIni(section As String, key As String, value As String)
 
-        Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
+        'Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
             MyData(section)(key) = value ' replace it
