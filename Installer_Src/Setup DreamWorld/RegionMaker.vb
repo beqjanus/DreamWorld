@@ -116,8 +116,6 @@ Public Class RegionMaker
 
 #Region "Classes"
 
-#Disable Warning CA1051 ' Do not declare visible instance fields
-
     ''' <summary>
     ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
     ''' </summary>
@@ -268,10 +266,7 @@ Public Class RegionMaker
 
     Public Function CreateRegion(name As String) As Integer
 
-        'If RegionList.Contains(name) Then
-        ' Return RegionList.Count - 1
-        'End If
-        ' Debug.Print("Create Region " + name)
+        Debug.Print("Create Region " + name)
         Dim r As New Region_data With {
             ._RegionName = name,
             ._RegionEnabled = True,
@@ -395,7 +390,7 @@ Public Class RegionMaker
                             MaxAgents(n) = Form1.Settings.GetIni(fName, "MaxAgents", "100", "Integer")
 
                             ' Location is int,int format.
-                            Dim C = Form1.Settings.GetIni(fName, "Location", "1000,1000")
+                            Dim C = Form1.Settings.GetIni(fName, "Location", RandomNumber.Between(2000, 1000) & "," & RandomNumber.Between(2000, 1000))
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                             CoordX(n) = CInt(parts(0))
@@ -504,7 +499,9 @@ Public Class RegionMaker
         For Each obj As Region_data In RegionList
             If obj._CoordX > Max Then Max = obj._CoordX
         Next
-        If Max = 0 Then Max = 996 ' (1000 - 4 so 1st region ends up at 1000)
+        If Max = 0 Then
+            Max = RandomNumber.Between(2000, 996)
+        End If
         Return Max
 
     End Function
@@ -517,7 +514,9 @@ Public Class RegionMaker
             Dim val = obj._CoordY
             If val > Max Then Max = val
         Next
-        If Max = 0 Then Max = 1000
+        If Max = 0 Then
+            Max = RandomNumber.Between(2000, 1000)
+        End If
         Return Max
 
     End Function
@@ -875,7 +874,12 @@ Public Class RegionMaker
 
     Public Property FolderPath(n As Integer) As String
         Get
-            Return CStr(RegionList(n)._FolderPath)
+            Try
+                Return CStr(RegionList(n)._FolderPath)
+            Catch ex As Exception
+                Form1.ErrorLog("Folderpath:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._FolderPath = Value
@@ -884,7 +888,12 @@ Public Class RegionMaker
 
     Public Property GroupName(n As Integer) As String
         Get
-            Return RegionList(n)._Group
+            Try
+                Return RegionList(n)._Group
+            Catch ex As Exception
+                Form1.ErrorLog("GroupName:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Group = Value
@@ -893,7 +902,12 @@ Public Class RegionMaker
 
     Public Property IniPath(n As Integer) As String
         Get
-            Return CStr(RegionList(n)._IniPath)
+            Try
+                Return CStr(RegionList(n)._IniPath)
+            Catch ex As Exception
+                Form1.ErrorLog("IniPath:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._IniPath = Value
@@ -902,7 +916,12 @@ Public Class RegionMaker
 
     Public Property RegionName(n As Integer) As String
         Get
-            Return RegionList(n)._RegionName
+            Try
+                Return RegionList(n)._RegionName
+            Catch ex As Exception
+                Form1.ErrorLog("RegionName:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionName = Value
@@ -911,7 +930,12 @@ Public Class RegionMaker
 
     Public Property RegionPath(n As Integer) As String
         Get
-            Return RegionList(n)._RegionPath
+            Try
+                Return RegionList(n)._RegionPath
+            Catch ex As Exception
+                Form1.ErrorLog("RegionPath:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionPath = Value
@@ -922,10 +946,10 @@ Public Class RegionMaker
         Get
             Try
                 Return RegionList(n)._RegionPort
-            Catch
-                Form1.ErrorLog("Bad region port: " + CStr(RegionList(n)._RegionPort))
+            Catch ex As Exception
+                Form1.ErrorLog("Bad region port: " + CStr(RegionList(n)._RegionPort) & " " ^ ex.Message)
+                Return 0
             End Try
-            Return 0
         End Get
         Set(ByVal Value As Integer)
             RegionList(n)._RegionPort = Value
@@ -938,7 +962,12 @@ Public Class RegionMaker
 
     Public Property AllowGods(n As Integer) As String
         Get
-            Return RegionList(n)._AllowGods
+            Try
+                Return RegionList(n)._AllowGods
+            Catch ex As Exception
+                Form1.ErrorLog("AllowGods:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._AllowGods = Value
@@ -947,7 +976,12 @@ Public Class RegionMaker
 
     Public Property Birds(n As Integer) As String
         Get
-            Return RegionList(n)._Birds
+            Try
+                Return RegionList(n)._Birds
+            Catch ex As Exception
+                Form1.ErrorLog("Birds:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Birds = Value
@@ -956,7 +990,12 @@ Public Class RegionMaker
 
     Public Property DisableGloebits(n As Integer) As String
         Get
-            Return RegionList(n)._DisableGloebits
+            Try
+                Return RegionList(n)._DisableGloebits
+            Catch ex As Exception
+                Form1.ErrorLog("DisableGloebits:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._DisableGloebits = Value
@@ -965,7 +1004,12 @@ Public Class RegionMaker
 
     Public Property DisallowForeigners(n As Integer) As String
         Get
-            Return RegionList(n)._DisallowForeigners
+            Try
+                Return RegionList(n)._DisallowForeigners
+            Catch ex As Exception
+                Form1.ErrorLog("DisallowForeigners:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._DisallowForeigners = Value
@@ -974,7 +1018,12 @@ Public Class RegionMaker
 
     Public Property DisallowResidents(n As Integer) As String
         Get
-            Return RegionList(n)._DisallowResidents
+            Try
+                Return RegionList(n)._DisallowResidents
+            Catch ex As Exception
+                Form1.ErrorLog("DisallowResidents:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._DisallowResidents = Value
@@ -983,7 +1032,12 @@ Public Class RegionMaker
 
     Public Property FrameTime(n As Integer) As String
         Get
-            Return RegionList(n)._FrameTime
+            Try
+                Return RegionList(n)._FrameTime
+            Catch ex As Exception
+                Form1.ErrorLog("FrameTime:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._FrameTime = Value
@@ -992,7 +1046,12 @@ Public Class RegionMaker
 
     Public Property ManagerGod(n As Integer) As String
         Get
-            Return RegionList(n)._ManagerGod
+            Try
+                Return RegionList(n)._ManagerGod
+            Catch ex As Exception
+                Form1.ErrorLog("ManagerGod:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._ManagerGod = Value
@@ -1001,7 +1060,12 @@ Public Class RegionMaker
 
     Public Property MapType(n As Integer) As String
         Get
-            Return RegionList(n)._MapType
+            Try
+                Return RegionList(n)._MapType
+            Catch ex As Exception
+                Form1.ErrorLog("MapType:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MapType = Value
@@ -1010,7 +1074,12 @@ Public Class RegionMaker
 
     Public Property MinTimerInterval(n As Integer) As String
         Get
-            Return RegionList(n)._MinTimerInterval
+            Try
+                Return RegionList(n)._MinTimerInterval
+            Catch ex As Exception
+                Form1.ErrorLog("MinTimerInterval:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._MinTimerInterval = Value
@@ -1019,7 +1088,12 @@ Public Class RegionMaker
 
     Public Property Physics(n As Integer) As String
         Get
-            Return RegionList(n)._Physics
+            Try
+                Return RegionList(n)._Physics
+            Catch ex As Exception
+                Form1.ErrorLog("Physics:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Physics = Value
@@ -1028,7 +1102,12 @@ Public Class RegionMaker
 
     Public Property RegionEnabled(n As Integer) As Boolean
         Get
-            Return RegionList(n)._RegionEnabled
+            Try
+                Return RegionList(n)._RegionEnabled
+            Catch ex As Exception
+                Form1.ErrorLog("RegionEnabled:" & ex.Message)
+                Return False
+            End Try
         End Get
         Set(ByVal Value As Boolean)
             RegionList(n)._RegionEnabled = Value
@@ -1037,7 +1116,12 @@ Public Class RegionMaker
 
     Public Property RegionGod(n As Integer) As String
         Get
-            Return RegionList(n)._RegionGod
+            Try
+                Return RegionList(n)._RegionGod
+            Catch ex As Exception
+                Form1.ErrorLog("RegionGod:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionGod = Value
@@ -1046,7 +1130,12 @@ Public Class RegionMaker
 
     Public Property RegionSnapShot(n As Integer) As String
         Get
-            Return RegionList(n)._RegionSnapShot
+            Try
+                Return RegionList(n)._RegionSnapShot
+            Catch ex As Exception
+                Form1.ErrorLog("RegionSnapShot:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionSnapShot = Value
@@ -1055,7 +1144,12 @@ Public Class RegionMaker
 
     Public Property SkipAutobackup(n As Integer) As String
         Get
-            Return RegionList(n)._SkipAutobackup
+            Try
+                Return RegionList(n)._SkipAutobackup
+            Catch ex As Exception
+                Form1.ErrorLog("SkipAutobackup:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._SkipAutobackup = Value
@@ -1065,7 +1159,12 @@ Public Class RegionMaker
     Public Property SmartStart(n As Integer) As String
 
         Get
-            Return RegionList(n)._RegionSmartStart
+            Try
+                Return RegionList(n)._RegionSmartStart
+            Catch ex As Exception
+                Form1.ErrorLog("SmartStart:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._RegionSmartStart = Value
@@ -1075,7 +1174,12 @@ Public Class RegionMaker
 
     Public Property Snapshot(n As Integer) As String
         Get
-            Return RegionList(n)._Snapshot
+            Try
+                Return RegionList(n)._Snapshot
+            Catch ex As Exception
+                Form1.ErrorLog("RegionList:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Snapshot = Value
@@ -1084,7 +1188,12 @@ Public Class RegionMaker
 
     Public Property Teleport(n As Integer) As String
         Get
-            Return RegionList(n)._Teleport
+            Try
+                Return RegionList(n)._Teleport
+            Catch ex As Exception
+                Form1.ErrorLog("Teleport:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Teleport = Value
@@ -1093,7 +1202,12 @@ Public Class RegionMaker
 
     Public Property Tides(n As Integer) As String
         Get
-            Return RegionList(n)._Tides
+            Try
+                Return RegionList(n)._Tides
+            Catch ex As Exception
+                Form1.ErrorLog("Tides:" & ex.Message)
+                Return ""
+            End Try
         End Get
         Set(ByVal Value As String)
             RegionList(n)._Tides = Value
