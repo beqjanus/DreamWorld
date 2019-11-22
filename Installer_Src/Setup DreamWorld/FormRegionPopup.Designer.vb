@@ -67,7 +67,7 @@ Partial Class FormRegionPopup
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(121, 23)
         Me.EditButton1.TabIndex = 8
-        Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit
+        Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
         Me.EditButton1.UseVisualStyleBackColor = True
         '
         'StartButton3

@@ -88,6 +88,7 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
                 StatsButton.Enabled = True
+                EditButton1.Enabled = False
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -96,6 +97,7 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
                 StatsButton.Enabled = True
+                EditButton1.Enabled = False
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
@@ -105,6 +107,7 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
                 StatsButton.Enabled = False
+                EditButton1.Enabled = True
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
@@ -114,6 +117,7 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = False
                 StatsButton.Enabled = False
+                EditButton1.Enabled = False
             End If
 
             ' stopped
@@ -123,11 +127,8 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = False
                 RecycleButton2.Enabled = False
                 StatsButton.Enabled = False
+                EditButton1.Enabled = True
             End If
-        End If
-
-        If Not Form1.PropOpensimIsRunning() Then
-            StartButton3.Enabled = False
         End If
 
     End Sub
