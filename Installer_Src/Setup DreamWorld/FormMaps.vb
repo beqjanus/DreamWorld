@@ -195,22 +195,27 @@ Public Class FormMaps
     End Sub
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
-        Form1.Settings.MapCenterX = CInt(MapXStart.Text)
+        Form1.Settings.MapCenterX = CInt("0" & MapXStart.Text)
+
     End Sub
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
-        Form1.Settings.MapCenterY = CInt(MapYStart.Text)
+        Form1.Settings.MapCenterY = CInt("0" & MapYStart.Text)
+
     End Sub
 
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
-        If CInt(RenderMaxH.Text) <= 4096 And CInt(RenderMaxH.Text) > 100 Then
-            Form1.Settings.RenderMaxHeight = CInt(RenderMaxH.Text)
+        If CInt("0" & RenderMaxH.Text) <= 4096 And CInt("0" & RenderMaxH.Text) > 100 Then
+            Form1.Settings.RenderMaxHeight = CInt("0" & RenderMaxH.Text)
 
         End If
 
@@ -219,8 +224,8 @@ Public Class FormMaps
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
-        If CInt(RenderMaxH.Text) >= -100 Then
-            Form1.Settings.RenderMinHeight = CInt(RenderMinH.Text)
+        If CInt("0" & RenderMaxH.Text) >= -100 Then
+            Form1.Settings.RenderMinHeight = CInt("0" & RenderMinH.Text)
         End If
 
     End Sub
