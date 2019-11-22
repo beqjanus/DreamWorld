@@ -3831,7 +3831,7 @@ Public Class Form1
                 PropUpdateView = True
             Else
                 Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                Dim yesno = MsgBox(GroupName & " " & My.Resources.See_Log, vbYesNo, My.Resources.Err)
+                Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Err)
                 If (yesno = vbYes) Then
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
