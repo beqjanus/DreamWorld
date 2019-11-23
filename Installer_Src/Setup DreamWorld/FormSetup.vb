@@ -1294,7 +1294,6 @@ Public Class Form1
         StartButton.Visible = False
 
         button.Visible = True
-        Application.DoEvents()
 
     End Sub
 
@@ -3727,11 +3726,11 @@ Public Class Form1
                 ' if it is past time and no one is in the sim... Smart shutdown
                 If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     DoSuspend_Resume(PropRegionClass.RegionName(X))
-                    Continue For
+
                 End If
 
                 ' auto restart timer
-                If (TimerValue / 12) >= (Settings.AutoRestartInterval()) _
+                If (TimerValue / 30) >= (Settings.AutoRestartInterval()) _
                     And Settings.AutoRestartInterval() > 0 _
                     And Not AvatarsIsInGroup(GroupName) _
                     And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -3763,25 +3762,7 @@ Public Class Form1
                         Next
                     End Try
                 End If
-                Continue For
 
-            End If
-
-
-
-            ' if a resume is signaled, unsuspend it
-            If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                DoSuspend_Resume(PropRegionClass.RegionName(X), True)
-                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted
-                PropUpdateView = True
-                Continue For
-            End If
-
-            ' if a RestartPending is signaled, boot it up
-            If PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(X))
-                PropUpdateView = True
-                Continue For
             End If
 
         Next
@@ -3853,6 +3834,20 @@ Public Class Form1
                     PropUpdateView = True
                 End If
 
+            End If
+
+            ' if a resume is signaled, unsuspend it
+            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                DoSuspend_Resume(PropRegionClass.RegionName(RegionNumber), True)
+                PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted
+                PropUpdateView = True
+
+            End If
+
+            ' if a RestartPending is signaled, boot it up
+            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(RegionNumber))
+                PropUpdateView = True
             End If
 
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
@@ -4317,8 +4312,8 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        ' 5 seconds check for a restart RegionRestart requires MOD 5
-        If PropDNSSTimer Mod 5 = 0 Then
+        ' 5 seconds check for a restart RegionRestart requires MOD 2
+        If PropDNSSTimer Mod 2 = 0 Then
             PropRegionClass.CheckPost()
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         End If
