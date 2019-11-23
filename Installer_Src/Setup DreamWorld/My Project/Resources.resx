@@ -542,7 +542,6 @@
   </data>
   <data name="Click_to_View_this_word" xml:space="preserve">
     <value>Click to view this</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>Setup Voice Service</value>
@@ -600,7 +599,6 @@
   </data>
   <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
     <value>Clearing Mesh Cache</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS Name or SomeName.Outworldz.net or IP</value>
@@ -1226,7 +1224,6 @@
   </data>
   <data name="Script_Rate_word" xml:space="preserve">
     <value>Script Rate</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="users1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\users1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1317,7 +1314,6 @@
   </data>
   <data name="Deregister_word" xml:space="preserve">
     <value>Deregister</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="Check_Diag" xml:space="preserve">
     <value>Checking Diagnostics port</value>
@@ -1391,7 +1387,6 @@
   </data>
   <data name="Cannot locate folder_word" xml:space="preserve">
     <value>Cannot locate folder</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Do you want to see the log file?</value>
@@ -1531,7 +1526,6 @@
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>Cannot locate Default welcome region</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="Best" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Best.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2074,7 +2068,6 @@
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>quit unexpectedly.</value>
-    <comment>Update Translation</comment>
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>The number of birds to flock</value>
@@ -2275,7 +2268,6 @@
   </data>
   <data name="Select_word" xml:space="preserve">
     <value>Select</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="Port1" xml:space="preserve">
     <value>Port 1</value>
@@ -2556,7 +2548,6 @@
   </data>
   <data name="Frame_Rate_word" xml:space="preserve">
     <value>Frame Rate</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="JobEngine" xml:space="preserve">
     <value>Job Engine</value>
@@ -2654,10 +2645,8 @@
   </data>
   <data name="is_already_running_word" xml:space="preserve">
     <value>is already running</value>
-    <comment>New Translation needed</comment>
   </data>
   <data name="How_Many_Avatars" xml:space="preserve">
     <value>How many Avatars + NPC's can be in a region before the region is shown as Full. The actual value is set in Estate Settings in the viewer.</value>
-    <comment>Need xlate</comment>
   </data>
 </root>
