@@ -753,8 +753,8 @@ Public Class RegionList
                         Dim PID = Form1.PropRegionClass.ProcessID(X)
                         Dim component1 As Process = Process.GetProcessById(PID)
                         If Form1.PropRegionHandles.ContainsKey(PID) Then
-                            Dim NotepadMemory As Double = (component1.WorkingSet64 / 1024) / 1024
-                            item1.SubItems.Add(FormatNumber(NotepadMemory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
+                            Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
+                            item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                         Else
                             item1.SubItems.Add(My.Resources.Zero_word_NT)
                         End If

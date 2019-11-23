@@ -3833,7 +3833,6 @@ Public Class Form1
                     StopGroup(GroupName)
                     PropUpdateView = True
                 End If
-
             End If
 
             ' if a resume is signaled, unsuspend it
@@ -3841,7 +3840,6 @@ Public Class Form1
                 DoSuspend_Resume(PropRegionClass.RegionName(RegionNumber), True)
                 PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted
                 PropUpdateView = True
-
             End If
 
             ' if a RestartPending is signaled, boot it up
