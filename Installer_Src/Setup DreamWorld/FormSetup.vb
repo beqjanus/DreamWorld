@@ -7111,6 +7111,30 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
+
+        StartMySQL()
+
+    End Sub
+
+    Private Sub RobustPictureBox_Click(sender As Object, e As EventArgs) Handles RobustPictureBox.Click
+
+        StartRobust()
+
+    End Sub
+
+    Private Sub IceCastPicturebox_Click(sender As Object, e As EventArgs) Handles IceCastPicturebox.Click
+
+        StartIcecast()
+
+    End Sub
+
+    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
+
+        StartApache()
+
+    End Sub
+
 #End Region
 
 End Class
