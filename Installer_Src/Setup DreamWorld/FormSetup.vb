@@ -785,6 +785,101 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
+
+        If Not CheckApache() Then
+            StartApache()
+        Else
+            StopApache()
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Check is Apache port 80 or 8000 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckApache() As Boolean
+
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As WebException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As NotSupportedException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            End Try
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+
+        End Using
+
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Check is Icecast port 8081 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckIcecast() As Boolean
+
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                Return False
+            Catch ex As WebException
+                Return False
+            Catch ex As NotSupportedException
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+        End Using
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Check is Robust port 8002 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckRobust() As Boolean
+
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            Catch ex As WebException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            Catch ex As NotSupportedException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+        End Using
+        Return True
+
+    End Function
+
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
         ReallyQuit()
     End Sub
@@ -835,10 +930,6 @@ Public Class Form1
         frmHome_Load(sender, e) 'Load everything in your form load event again
 
     End Sub
-
-    ''' <summary>
-    ''' The main starup - done this way so languages can reload the entire form
-    ''' </summary>
 
     Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -996,10 +1087,76 @@ Public Class Form1
 
     End Sub
 
+    Private Sub IceCastPicturebox_Click(sender As Object, e As EventArgs) Handles IceCastPicturebox.Click
+
+        If Not CheckIcecast() Then
+            StartIcecast()
+        Else
+            StopIcecast()
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' The main starup - done this way so languages can reload the entire form
+    ''' </summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
         ProgressBar1.Value = 0
         Print("Zzzz...")
         End
+    End Sub
+
+    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
+
+        If CheckMysql() Then
+            PropStopMysql = True
+            StopMysql()
+        Else
+            StartMySQL()
+        End If
+
+    End Sub
+
+    Private Sub RobustPictureBox_Click(sender As Object, e As EventArgs) Handles RobustPictureBox.Click
+
+        If Not CheckRobust() Then
+            StartRobust()
+        Else
+            StopRobust()
+        End If
+
+    End Sub
+
+    Private Sub StopApache()
+
+        If Not Settings.ApacheEnable Then Return
+        'If Settings.ApacheService Then Return
+
+        If Settings.ApacheService Then
+            Using ApacheProcess As New Process()
+                Print(My.Resources.Stopping_Apache)
+
+                ApacheProcess.StartInfo.FileName = "net.exe"
+                ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
+                ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                Try
+                    ApacheProcess.Start()
+                Catch ex As InvalidOperationException
+                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
+                Catch ex As System.ComponentModel.Win32Exception
+                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
+                End Try
+
+            End Using
+        Else
+            Zap("httpd")
+            Zap("rotatelogs")
+        End If
+
+        ApachePictureBox.Image = My.Resources.nav_plain_red
+        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Stopped_word)
+
     End Sub
 
 #End Region
@@ -1122,14 +1279,14 @@ Public Class Form1
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
-        While IsRobustRunning() And ctr < 60
+        While CheckRobust() And ctr < 60
             Sleep(1000)
             ctr += 1
             Application.DoEvents()
         End While
         ' trust, but verify
-        If Not IsRobustRunning() Then
-            RobustPictureBox.Image = My.Resources.nav_plain_blue
+        If Not CheckRobust() Then
+            RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Stopped_word)
         End If
 
@@ -2757,7 +2914,7 @@ Public Class Form1
             Return
         End If
 
-        ApachePictureBox.Image = My.Resources.nav_plain_red
+        ApachePictureBox.Image = My.Resources.navigate_open
         ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Offline)
         Application.DoEvents()
 
@@ -2995,65 +3152,6 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Check is Apache port 80 or 8000 is up
-    ''' </summary>
-    ''' <returns>boolean</returns>
-    Private Function IsApacheRunning() As Boolean
-
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As NotSupportedException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            End Try
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-
-        End Using
-
-        Return True
-
-    End Function
-
-    Private Sub KillApache()
-
-        If Not Settings.ApacheEnable Then Return
-        If Settings.ApacheService Then Return
-
-        If Settings.ApacheService Then
-            Using ApacheProcess As New Process()
-                Print(My.Resources.Stopping_Apache)
-
-                ApacheProcess.StartInfo.FileName = "net.exe"
-                ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                Try
-                    ApacheProcess.Start()
-                Catch ex As InvalidOperationException
-                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
-                Catch ex As System.ComponentModel.Win32Exception
-                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
-                End Try
-
-            End Using
-        Else
-            Zap("httpd")
-            Zap("rotatelogs")
-        End If
-
-    End Sub
-
     Private Function MapSetup() As Boolean
 
         Dim phptext = "<?php " & vbCrLf &
@@ -3099,20 +3197,6 @@ Public Class Form1
 
     End Function
 
-    Private Sub StopApache()
-
-        If Not Settings.ApacheEnable Then Return
-
-        If Not Settings.ApacheService Then
-            Print(My.Resources.Stopping_Apache)
-            Zap("httpd")
-            Zap("rotatelogs")
-            ApachePictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Stopped_word)
-        End If
-
-    End Sub
-
 #End Region
 
 #Region "Icecast"
@@ -3133,6 +3217,8 @@ Public Class Form1
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
             Return
         End If
+
+        IceCastPicturebox.Image = My.Resources.navigate_open
 
         FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\access.log")
         FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\error.log")
@@ -3182,7 +3268,8 @@ Public Class Form1
 
     Public Function StartRobust() As Boolean
 
-        If IsRobustRunning() Then
+        StartMySQL() ' prerequsite
+        If CheckRobust() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
@@ -3193,8 +3280,8 @@ Public Class Form1
                 End If
             Next
         End If
+        RobustPictureBox.Image = My.Resources.navigate_open
 
-        RobustPictureBox.Image = My.Resources.nav_plain_blue
         ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.is_Off)
         If Settings.ServerType <> "Robust" Then Return True
 
@@ -3239,7 +3326,7 @@ Public Class Form1
 
         ' Wait for Robust to start listening
         Dim counter = 0
-        While Not IsRobustRunning() And PropOpensimIsRunning
+        While Not CheckRobust() And PropOpensimIsRunning
             Application.DoEvents()
             BumpProgress(1)
             counter += 1
@@ -3269,6 +3356,7 @@ Public Class Form1
         If Settings.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
+
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
@@ -3859,35 +3947,6 @@ Public Class Form1
         PropExitHandlerIsBusy = False
 
     End Sub
-
-    ''' <summary>
-    ''' Check is Robust port 8002 is up
-    ''' </summary>
-    ''' <returns>boolean</returns>
-    Private Function IsRobustRunning() As Boolean
-
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As NotSupportedException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-        End Using
-        Return True
-
-    End Function
 
 #End Region
 
@@ -4987,7 +5046,7 @@ Public Class Form1
 
     Private Sub UpdaterGo(Filename As String)
 
-        KillApache()
+        StopApache()
         StopMysql()
 
         Dim pUpdate As Process = New Process()
@@ -5517,7 +5576,7 @@ Public Class Form1
         ' Build data folder if it does not exist
         MakeMysql()
 
-        MysqlPictureBox.Image = My.Resources.nav_plain_red
+        MysqlPictureBox.Image = My.Resources.navigate_open
         ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
         Application.DoEvents()
         ' Start MySql in background.
@@ -5571,9 +5630,11 @@ Public Class Form1
         Catch ex As System.ComponentModel.Win32Exception
         End Try
 
+        PropOpensimIsRunning = False
+        ProgressBar1.Value = 0
         ' wait for MySql to come up
         Dim MysqlOk As Boolean
-        While Not MysqlOk And PropOpensimIsRunning And Not PropAborting
+        While Not MysqlOk And Not PropAborting
 
             BumpProgress(1)
             Application.DoEvents()
@@ -5606,11 +5667,11 @@ Public Class Form1
             End If
 
             ' check again
-            Sleep(2000)
+            Sleep(1000)
             MysqlOk = CheckMysql()
         End While
 
-        If Not PropOpensimIsRunning Then Return False
+        If Not MysqlOk Then Return False
 
         PropMysqlExited = False
 
@@ -6009,30 +6070,35 @@ Public Class Form1
 
     Private Function ScanAgents() As Integer
 
-        If Not IsRobustRunning() Then Return 0
+        If Not CheckRobust() Then Return 0
 
         ' Scan all the regions
         Dim sbttl As Integer = 0
-        Try
-            ToolTip1.SetToolTip(Label3, "")
-            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                If PropRegionClass.IsBooted(RegionNum) Then
-                    Dim count As Integer = MysqlInterface.IsUserPresent(PropRegionClass.UUID(RegionNum))
-                    sbttl += count
-                    If count > 0 Then
-                        ToolTip1.SetToolTip(Label3, PropRegionClass.RegionName(RegionNum) & vbCrLf & ToolTip1.GetToolTip(Label3))
-                    End If
-                    PropRegionClass.AvatarCount(RegionNum) = count
-                Else
-                    PropRegionClass.AvatarCount(RegionNum) = 0
-                End If
-            Next
-        Catch
-        End Try
+        Dim A = GetAgentList()
+        Dim B = GetHGAgentList()
 
-        Dim total As Integer = MysqlInterface.GetAgentList().Count
-        total += MysqlInterface.GetHGAgentList().Count
+        ' combine the two dictioaries to get an avatar count per region
+        Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
+        '; start with zero avatars
+        For Each RegionNum In PropRegionClass.RegionNumbers
+            PropRegionClass.AvatarCount(RegionNum) = 0
+        Next
+
+        ToolTip1.SetToolTip(Label3, "")
+
+        For Each NameValue In C
+            Dim Avatar = NameValue.Key
+            Dim RegionName = NameValue.Value
+
+            Dim regionNumber = PropRegionClass.FindRegionByName(RegionName)
+            If regionNumber >= 0 Then
+                ToolTip1.SetToolTip(Label3, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(Label3))
+                PropRegionClass.AvatarCount(regionNumber) += 1
+            End If
+        Next
+
+        Dim total As Integer = C.Count
         AvatarLabel.Text = CStr(total)
         Return sbttl
 
@@ -7109,30 +7175,6 @@ Public Class Form1
     Private Sub SwedishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SwedishToolStripMenuItem.Click
         Settings.Language = "sv"
         Language(sender, e)
-    End Sub
-
-    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
-
-        StartMySQL()
-
-    End Sub
-
-    Private Sub RobustPictureBox_Click(sender As Object, e As EventArgs) Handles RobustPictureBox.Click
-
-        StartRobust()
-
-    End Sub
-
-    Private Sub IceCastPicturebox_Click(sender As Object, e As EventArgs) Handles IceCastPicturebox.Click
-
-        StartIcecast()
-
-    End Sub
-
-    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
-
-        StartApache()
-
     End Sub
 
 #End Region

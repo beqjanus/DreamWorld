@@ -258,7 +258,7 @@ Partial Class Form1
         '
         'CatalanToolStripMenuItem
         '
-        Me.CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.catalan
+        Me.CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_catalan
         Me.CatalanToolStripMenuItem.Name = "CatalanToolStripMenuItem"
         Me.CatalanToolStripMenuItem.Size = New System.Drawing.Size(175, 22)
         Me.CatalanToolStripMenuItem.Text = "Catalan"

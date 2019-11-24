@@ -1025,16 +1025,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property catalan() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("catalan", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Center of the map coordinate.
         '''</summary>
         Friend ReadOnly Property CenterMap() As String
@@ -2679,6 +2669,16 @@ Namespace My.Resources
         Friend ReadOnly Property First_name_word() As String
             Get
                 Return ResourceManager.GetString("First_name_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_catalan() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_catalan", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -4592,6 +4592,16 @@ Namespace My.Resources
         Friend ReadOnly Property navigate_minus() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("navigate_minus", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property navigate_open() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("navigate_open", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

@@ -28,15 +28,15 @@ Public Class RegionList
 #Region "Declarations"
 
     Private Shared _FormExists As Boolean = False
-    Dim _ImageListLarge As ImageList
-    Dim _ImageListSmall As New ImageList
-    Dim colsize = New ScreenPos(MyBase.Name & "ColumnSize")
-    Dim ItemsAreChecked As Boolean = False
-    Dim MysqlIsRunning As Boolean = False
-    Dim pixels As Integer = 70
-    Dim TheView As Integer = ViewType.Details
+    Private _ImageListLarge As ImageList
+    Private _ImageListSmall As New ImageList
+    Private colsize = New ScreenPos(MyBase.Name & "ColumnSize")
+    Private ItemsAreChecked As Boolean = False
+    Private MysqlIsRunning As Boolean = False
+    Private pixels As Integer = 70
+    Private TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
-    Dim ViewNotBusy As Boolean
+    Private ViewNotBusy As Boolean
 
     Private Enum ViewType As Integer
         Maps = 0
@@ -99,6 +99,15 @@ Public Class RegionList
         End Get
         Set(value As Boolean)
             ItemsAreChecked = value
+        End Set
+    End Property
+
+    Public Property MysqlIsRunning1 As Boolean
+        Get
+            Return MysqlIsRunning
+        End Get
+        Set(value As Boolean)
+            MysqlIsRunning = value
         End Set
     End Property
 
@@ -253,7 +262,6 @@ Public Class RegionList
 
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
-        RegionList.FormExists1 = False
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
 
@@ -263,13 +271,10 @@ Public Class RegionList
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Dim MysqlIsRunning = False
-        If Form1.CheckMysql Then
-            MysqlIsRunning = True
-        End If
+
 
         Pixels1 = 70
-        RegionList.FormExists1 = True
+
         ListView1.Visible = False
         ListView1.LabelWrap = True
         ListView1.AutoArrange = True
@@ -431,6 +436,10 @@ Public Class RegionList
 
     Public Sub LoadMyListView()
 
+        MysqlIsRunning = False
+        If Form1.CheckMysql Then
+            MysqlIsRunning = True
+        End If
         If TheView1 = ViewType.Avatars Then
             ShowAvatars()
         Else
@@ -561,7 +570,7 @@ Public Class RegionList
 
                 Dim L As New Dictionary(Of String, String)
 
-                If MysqlIsRunning Then
+                If MysqlIsRunning1 Then
                     L = MysqlInterface.GetAgentList()
                 End If
 
@@ -593,8 +602,8 @@ Public Class RegionList
             Try
                 ' Create items and subitems for each item.
                 Dim L As New Dictionary(Of String, String)
-                If MysqlIsRunning Then
-                    L = MysqlInterface.GetHGAgentList()
+                If MysqlIsRunning1 Then
+                    L = GetHGAgentList()
                 End If
 
                 For Each Agent In L

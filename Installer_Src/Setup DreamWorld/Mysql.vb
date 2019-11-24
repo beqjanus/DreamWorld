@@ -191,6 +191,10 @@ Public Module MysqlInterface
             End Try
         End Using
 
+        If Debugger.IsAttached Then
+            Dict.Add("Test User", "Welcome")
+        End If
+
         Return Dict
 
     End Function
@@ -228,6 +232,11 @@ Public Module MysqlInterface
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
+
+        If Debugger.IsAttached Then
+            Dict.Add("Test User2", "Welcome")
+        End If
+
         Return Dict
 
     End Function
@@ -241,15 +250,6 @@ Public Module MysqlInterface
             Return version
         End If
         Return Nothing
-
-    End Function
-
-    Public Function IsUserPresent(regionUUID As String) As Integer
-
-        Dim UserCount = QueryString("SELECT count(RegionID) from presence where RegionID = '" + regionUUID + "' And RegionID <> '00000000-0000-0000-0000-000000000000'")
-        If UserCount = Nothing Then Return 0
-        'Debug.Print("User Count: {0}", UserCount)
-        Return Convert.ToInt16(UserCount, Globalization.CultureInfo.InvariantCulture)
 
     End Function
 
