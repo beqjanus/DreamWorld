@@ -6,8 +6,8 @@
 {\f600\fswiss\fcharset161\fprq2 Verdana Greek;}{\f601\fswiss\fcharset162\fprq2 Verdana Tur;}{\f604\fswiss\fcharset186\fprq2 Verdana Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;
 \red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;
 \red192\green192\blue192;\red68\green114\blue196;}{\stylesheet{\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0 \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 \snext0 Normal;}{\*\cs10 \additive Default Paragraph Font;}}
-{\info{\author Fred}{\operator Fred}{\creatim\yr2019\mo11\dy22\hr21\min2}{\revtim\yr2019\mo11\dy22\hr21\min19}{\version3}{\edmins15}{\nofpages25}{\nofwords5221}{\nofchars29761}{\*\company Microsoft}{\nofcharsws0}{\vern8247}}
-\widowctrl\ftnbj\aenddoc\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\horzdoc\dghspace120\dgvspace120\dghorigin1701\dgvorigin1984\dghshow0\dgvshow3\jcompress\viewkind4\viewscale100\nolnhtadjtbl \fet0\sectd \linex0\sectdefaultcl 
+{\info{\author Fred}{\operator Fred}{\creatim\yr2019\mo11\dy22\hr21\min2}{\revtim\yr2019\mo11\dy23\hr22\min21}{\version7}{\edmins70}{\nofpages25}{\nofwords5221}{\nofchars29761}{\*\company Microsoft}{\nofcharsws0}{\vern8247}}
+\widowctrl\ftnbj\aenddoc\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\horzdoc\dghspace120\dgvspace120\dghorigin1701\dgvorigin1984\dghshow0\dgvshow3\jcompress\viewkind4\viewscale130\nolnhtadjtbl \fet0\sectd \linex0\sectdefaultcl 
 {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}{\*\pnseclvl5
 \pndec\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang
 {\pntxtb (}{\pntxta )}}{\*\pnseclvl9\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}\pard\plain \ql \fi720\li0\ri0\sl276\slmult1\widctlpar\faauto\rin0\lin0\itap0 \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 {
@@ -17,44 +17,50 @@
 \par This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 \par 
 \par 
-\par }{\f29\fs21 V3.29
-\par Avatar count was different in different displays
-\par Half-dozen Missing Translations
-\par Was possible to have a System.NullReferenceException in Bootup in unusual conditions where PID was zero
-\par Busy/Start/Abort button fixes
-\par Catch all possible errors in reading region INI files
-\par Fix check if Mysql is running in region form so Estates and avatars will appear in region list
-\par Sequential/Timer Boot  before running a next region, not after
-\par Precise CPU graph with a 4-second running average for Sequential/Timer bootup
-\par Added freeware cports.exe to examine ports that are in use to help troubleshoot anti-virus and  port glomming apps.
-\par Open firewall in parallel to bootup.
-\par New systems use a random X,Y location to base the system on from 1000 to 2000 to allow Hypergrid to  Dreamgrids with fixed 1000,1000 area locations.
-\par Catch user null entries in Regions and Maps
-\par Allow Level God was unchecked in Region Form, is based on null string, not "False"
-\par Removed some logging that slowed down the system
-\par Warn if region location < 32, not possible to be that low in HG
-\par Allow Edit only if region is stopped
-\par Abort Handler fixed to prevent occasional extra warnings on crashed regions
-\par Codemaid settings save in Git for multi-system development
-\par A Warm start is when you start DreamGrid on an already running region/Robust.  It hooks into the Robust and regions as if
- it had already started them.  Warm Starts after a Just Quit did not populate regionhandles list so RAM will now show up. Should also allow us to catch a crash after a Warm start.}{\f29\fs21 
+\par V3.29
+\par 
+\par You can click the round MySQL, Robust, Apache and Icecast status buttons to stop/start them.  
+\par Avatar count was different in different displays.
+\par Half-dozen new language Translations.
+\par Was possible to have a Null Reference Exception when Booting a region if Stop button was clicked at the right time.
+\par Busy/Start/Abort button fixes. Clicking Busy will force an Abort when shutting down.
+\par Catch as many individual errors as it can when reading region INI files. It complains with details of what to fix, and aborts the launch.
+\par Fix check if MySQL is running so Estates and Avatars will appear in region list.
+\par Sequential/Timer Boot before running a next region, not after.
+\par Precise CPU graph with a 4-second running average for Sequential/Timer - makes it bobble around 75% CPU when booting.
+\par Added freeware program to Help 'cports.exe'  Which can show all  ports that are in use to help troubleshoot anti-virus and port glomming applications.
+\par Open firewall as a separate thread for speed.  Firewall has to run only if you change a region port setting, by adding or deleting, or on first start.
+\par You cannot HG between two identical region locations.  New systems change the "Welcome" region location from 1000,1000 to a random number from 1000 to 2000 to allow Hypergrid 
+to other grids that have 1000,1000 set.  Also sets the map center to the Welcome region location, whatever it is.  Additional regions are added 4 to the right of the highest region as it did before.
+\par Catch user 'blank' entries in Regions and Maps Settings.
+\par "Allow Level Gods"  was unchecked in Region Form, as it is based on the other settings being a null string, not "False".
+\par Removed some unneeded logging that slowed down the system.
+\par Warn if region location X,Y < 32, not possible to be that low in HG sims.
+\par Enable Edit Button in Region Popup only if region is stopped.
+\par Abort Handler reworked  to end a race condition that should prevent occasional extra warnings on crashed regions. Also much faster to restart and recycle.
+\par Codemaid extension in Visual Studio settings are saved in Git for multi-system development.  Codemaid is a great tool for making the source consistent, but you need the same settings on each machine.
+\par A Warm start is when you start DreamGrid on an already running Robust and set of regions.  DG loc
+ated into the Robust and regions as if it had already started them.  Warm Starts after a "Just Quit" did not populate region handles list. This is fixed so RAM will now show up. Should also allow us to catch a crash after a Warm start.
+\par I spell checked this document, finally. :-)
 \par 
 \par V3.28
 \par Region List sometimes crashed the system when a race condition occurred after adding a region.
 \par Region List now remembers the column widths for Detail view. 
 \par 
 \par V3.27
-\par An Overall-Try-Catch in ApplicationEvents shows an error message and where the error occured. Do not quit on an exception.
+\par An Overall-Try-Catch in Application Events shows an error message and where the error occurred. Do not quit on an exception.
 \par A missing or offline Welcome caused an issue - fixed
 \par Added a Webstats button to region popup. It is enabled when the region is running
-\par FSassets backup could caush a crash if folder did not exists
-\par Suppressed several hundred warnings on Exceprtions not being specific.
-\par rm compiled languages from git repo
+\par FSassets backup could cause a crash if folder did not exists
+\par Suppressed several hundred warnings on Exceptions not being specific.
+\par Remove compiled languages from git repo.
 \par 
 \par V3.26
 \par Added 20 different language translations for 700+ phrases, resized many forms and prompts and tooltips to fix
-\par Added YEngine and XEngine Switch}{\f29\fs21\cf1 V3.25 
-\par Disable region Auto Backup added to region Overides
+\par Added YEngine and XEngine Switch
+\par 
+\par }{\f29\fs21\cf1 V3.25
+\par Disable region Auto Backup added to region Overrides
 \par Drop a useless old images to reduce size of exe
 \par God mode fixes galore, reset defaults in Region INI to blanks
 \par Added Overrides to Region List Details for carious Gods, Publicity and to skip region Auto Backup
@@ -66,7 +72,7 @@
 \par 
 \par V3.23
 \par Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel. 
-\par Robust, Apache, Icecast and Mysql can be set to auto restart if they crash.
+\par Robust, Apache, Icecast and MySQL can be set to auto restart if they crash.
 \par Update Mysq.Data.dll
 \par Update Visual Studio 2017 to latest FXcops and reduce footprint on unused extension in Github
 \par Removed embedded zip compressors for smaller footprint.
@@ -74,7 +80,7 @@
 \par 
 \par V3.22
 \par Shorten boot time by being smart about Firewall updates. On a very fast machine, it takes 9 seconds to get to robust start. Firewall took up 31 seconds more.  Now it takes 0 unless you add a region.
-\par Restart Robust, Apache,Mysql and Apache if Auto restart is Enabled
+\par Restart Robust, Apache, MySQL and Apache if Auto restart is Enabled
 \par 
 \par V3.21 
 \par Saving a region and them immediately re-opening it did not show changes. The changes were saved to disk but not reloaded into RAM.
@@ -92,56 +98,56 @@
 \par 
 \par 
 \par V3.197
-\par LocalSearch in Settings did not 'stick;
+\par Local Search in Settings did not 'stick;
 \par Add Visual C++ 2015 installers for PHP7
 \par Local search was broken by PHP7 - missing explicit ossearch directive
-\par Fix up Localsearch PHP to use "Metromap/includes/config.php" database include
+\par Fix up local search PHP to use "Metromap/includes/config.php" database include
 \par 
 \par V3.196
-\par Added Garry Beaumonts wrecked home Icon that shows when the Welcome region is disabled.
+\par Added Garry Beaumont's wrecked home Icon that shows when the Welcome region is disabled.
 \par Missing PHP7 extension prevented PHP from making maps, links or search.
-\par Clearing asest cache when running did not work. It went to robust instead of the online regions. It worked if you were offline.
+\par Clearing asset cache when running did not work. It went to robust instead of the online regions. It worked if you were offline.
 \par Added a Module for File/folder copy and delete to clean up warnings and catch all possible errors.
 \par Apache Settings allowed both Local and Global search to be set. Now a toggle for one or the other.
 \par 
 \par V3.195
-\par New updater process loads files in background to a specific zip file. You can choose to ignore this version. It will reprompt the next release.  
+\par New updater process loads files in background to a specific zip file. You can choose to ignore this version. It will re-prompt the next release.  
 \par Dot Net zip set back to be 1.11.0 to be compatible with older updater. This causes a crash in the DLL.
 \par 
 \par V3.194
 \par Big speed up on registering DYN DNS
 \par Speed up Saving regions
 \par Move Apache to its own setting.
-\par Add co_root to Apache to only run programs in htdocs
+\par 
 \par Metro Maps was missing an include
 \par V3.194
 \par Speed up Saving regions
 \par Move Apache to its own setting.
-\par Add co_root to Apache to only run programs in htdocs
+\par Set Apache to only run programs in htdocs
 \par Metro Maps was missing an include
 \par 
 \par V3.193 
 \par Unchecking Apache as a Service removes the service
-\par Bug in Email prevented it from emailintg confimation of a new user
+\par Bug in Email prevented it from emailing confirmation of a new user
 \par Bug in Settings caused Clear Cache button to crash
 \par Cache setting added to enable viewer caches.
-\par Iconic Zip DLL embeded in exe for updates.
+\par Iconic Zip DLL embedded in exe for updates.
 \par 
 \par V3.192
 \par Update PHP to PHP7
 \par Add Home Icon for the Welcome region when it is booted
-\par Detect running Opensims and add them to PID so we can stop them
+\par Detect running Opensim and add them to PID so we can stop them
 \par Test with Joomla/JOpensim\line Refactors for Region Type, Usings, RobustDBConnection
 \par 
 \par V3.191
-\par Stupid Oops in Regions,copuld not add a new region
+\par Stupid Oops in Regions. Could not add a new region
 \par 
 \par V3.19 
 \par Updated manual for upcoming 3.2 release
 \par Fixed glitch in V3.18 in Cloud Density
 \par Disallow Foreigners switch added per-region. This lets you keep assets in your grid by disallowing assets to leave, yet allowing HG visitors to come and go.
 \par Disallow Resident switch added per-region. This allows only Region Owners and Estate Managers in any given region.
-\par Checked all  IM vars against  opensim src and made minor changes thay may help with the offline IMs getting stuck.  Port 8003 should not need to be opened to allow IMs.
+\par Checked all  IM vars against  Opensim source and made minor changes they may help with the offline IM's getting stuck.  Port 8003 should not need to be opened to allow IM's.
 \par 
 \par V3.18
 \par Export Checkbox in Settings->permissions to disallow export of prims from viewers. Default -> Allow
@@ -150,8 +156,8 @@
 \par 
 \par V3.17 is a release candidate for V3.2, the official release that everybody gets a notice to update to.
 \par There is no longer an "updater versus installer".  For backwards compatibility, there are still two files on the web server, but they are identical.  
-\par If you want to start over with a blank database, you can just delete mysql\\data and it will be rebuilt as a blank system
-\par New backgound updater process.
+\par If you want to start over with a blank database, you can just delete MySQL\\data and it will be rebuilt as a blank system
+\par New background updater process.
 \par "Welcome to " & SimName() & " , <USERNAME>") set for welcome message.
 \par Build process is much faster by using a temp folder instead of adding and deleting from a  zip. Also easier to audit.
 \par Put back support for older TLS 1.0 protocols so older systems can update.
@@ -159,7 +165,7 @@
 \par Load OAR in some earlier versions was borked.
 \par GDI+ error when changing Publicity Photo is fixed
 \par Snapshot, MinTimerInterval, Disable Gloebits fixed in region Overrides
-\par MYSQL speedup with a small cache: uery_cache_size=8M
+\par MYSQL speedup with a small cache: query_cache_size=8M
 \par Compile instructions updated.
 \par Add help for ServerType, thanks to Garry Beaumont
 \par Access of shared member through an instance; qualifying expression will not be evaluated refactored
@@ -170,21 +176,22 @@
 \par V3.15 Beta 
 \par Opensim Snail dev master #38dbc0328881 2019-08-31 14:36
 \par Ctrl-R Region Form also shows the Estate name for each region
-\par Search: Lots of new things! Search is integrated into Hyperica.com.  You can look for Objects Marked for search in any Outworldz gird, or just your own. Also, locate Parcels, Grids and regions in grids. These are only sahown if the region owner chooses to
- enable search and the Prim Owner, region owner, or parcel owner has cheked the "Show in Search button".
+\par Search: Lots of new things! Search is integrated into Hyperica.com.  You c
+an look for Objects Marked for search in any Outworldz gird, or just your own. Also, locate Parcels, Grids and regions in grids. These are only shown if the region owner chooses to enable search and the Prim Owner, region owner, or parcel owner has cheeke
+d the "Show in Search button".
 \par Added a new variable to Opensim Datasnapshot module to allow all grids to be searched.
-\par Disable Search button added to Viewer Search. If on, you can set it so your residents see local only, or globally Search all Dreamgrids.
+\par Disable Search button added to Viewer Search. If on, you can set it so your residents see local only, or globally Search all Dream grids.
 \par Datasnapshot collector starts 5 minutes after a boot to speed up collecting assets for search. Runs every hour after that locally.
 \par Some Settings would not be placed into the Region or Opensim.ini files when changed unless you did a restart.  Most changes to settings now re-write the region so it will boot correctly.
-\par Import DDreamworld and "regular" Opensim INI files button in the Region Panel would not work if the file name did not match the [name] of the region. Fixed.
+\par Import Dreamworld and "regular" Opensim INI files button in the Region Panel would not work if the file name did not match the [name] of the region. Fixed.
 \par Changed Voice Help URL to match new Vivox web page for signup.
-\par Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to mak
-e sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type 'q' in certain windows.
+\par Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain wh
+ey sometimes it does not type 'q' in certain windows.
 \par Slow down the tests on quitting to prevent spamming the console.
 \par Add more UPNP exception catchers to cover more brain-dead routers.
 \par Major refactor of defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim INI files.  duh
 \par Setting a new Publicity Photo could kill a system if the Hyperica server is offline or unreachable. Improve error handling here. There should be no dependency on any of my servers, except for optional services such as DYN DNS or search.
-\par Updated Apache to latest security SSL/TLS 1.2 and made it refuse all obsolete ciphers like TLS 1.0 and 1.1.   Tested as not being viulnerable to any common attacks such as Heartbleed.
+\par Updated Apache to latest security SSL/TLS 1.2 and made it refuse all obsolete ciphers like TLS 1.0 and 1.1.   Tested as not being vulnerable to any common attacks such as Heart bleed.
 \par 
 \par V3.13 Beta
 \par Repaired OsGrid and other region types that broke in prior beta version
@@ -210,14 +217,14 @@ e sure we have a valid PID so we can minimize windows. This may explain whey som
 \par Backup FSAssets, too.
 \par Xbakes enabled
 \par IM Offline works without having to open port 8003.
-\par Firewall code typo put an extra Apache Httpp Port 80 in the firewall every start.
+\par Firewall code typo put an extra Apache Http Port 80 in the firewall every start.
 \par 
 \par 
 \par V3.06
 \par PHP Maps and Search working for any MYSQL port. Older systems used port 3309 as 3306 was use by some for Sim-On-A-Stick or OsGrid/Metro.
-\par Use port 8003 for Offline IM to fix a problem where IMs would loop endlessly in the Console
+\par Use port 8003 for Offline IM to fix a problem where IM's would loop endlessly in the Console
 \par Save IAR was non functional when all the Handles got dropped.
-\par Save IAR needs to fiund a running region.  If the first region was found, the region was not popped up on screen. Old bug.
+\par Save IAR needs to find a running region.  If the first region was found, the region was not popped up on screen. Old bug.
 \par osGetGridGatekeeperURI enabled for teleport HUD by anybody.\line 
 \par V3.05 
 \par Fixed doubled Auto teleports for Prim V2.5\line 
@@ -231,20 +238,20 @@ e sure we have a valid PID so we can minimize windows. This may explain whey som
 \par Added more visible help button to all forms.
 \par Flotsam Cache variables can be changed to reduce disk space usage. See Settings->Caches.
 \par System Backup has options for each type of backup to make and includes FSAssets data.
-\par Added MinTimerInterval to each region INI file. Smallest value you should use is 1/11 of a second, as that is Opensims internal Frame rate. 
+\par Added MinTimerInterval to each region INI file. Smallest value you should use is 1/11 of a second, as that is Opensim's internal Frame rate. 
 \par 
 \par V3.02
 \par Added Windows 1903 patches for Dot net 4.8 that caused many issues with MOAP, and changing land settings.
-\par Checkbox to enable FsAssets - a disk based De-duplicating Asset Filesystem. I reommend you start your regions one at a time so they will be properly de-duplicated one time.
-\par Reworked Region/Osgrid server to allow regions to have their own IP address.  Usually you do not need to do anything to run a region server except to
+\par Checkbox to enable FsAssets - a disk based De-duplicating Asset File system. I recommend you start your regions one at a time so they will be properly de-duplicated one time.
+\par Reworked Region/OsGrid server to allow regions to have their own IP address.  Usually you do not need to do anything to run a region server except to
 \par add the DNS name and change the setting. But this fails if the region server is on a different network.  See Ports section Help for details.
-\par Auto Teleports now support multiple region servers.  Avatar counts will not work on Region servers - no access to the data unless you edit robust settings and grant access to the robust server with special Mysql commands.
+\par Auto Teleports now support multiple region servers.  Avatar counts will not work on Region servers - no access to the data unless you edit robust settings and grant access to the robust server with special MySQL commands.
 \par Added a catch-all Error message handler for any missed exceptions to catch unexpected crashes.
 \par Flotsam cache can be adjusted in size with a new panel.
-\par Allow the Partners to work on region server.  Also updated the Steampunk TP and set the partners prinm to full mod/copy.
-\par SupportViewerObjectsCache -= true explicitly to help with missing prims, theoretically this does nothiog as true is the default. See }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://opensimulator.org/mantis/view.php?id=8516 }{\f29\fs21 {\*\datafield 
+\par Allow the Partners to work on region server.  Also updated the Steam punk TP and set the partners prim to full mod/copy.
+\par SupportViewerObjectsCache -= true explicitly to help with missing prims, theoretically this does nothing as true is the default. See }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://opensimulator.org/mantis/view.php?id=8516 }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b7a00000068007400740070003a002f002f006f00700065006e00730069006d0075006c00610074006f0072002e006f00720067002f006d0061006e007400690073002f0076006900650077002e007000680070003f00
-690064003d0038003500310036000000795881f43b1d7f48af2c825dc485276300000000a5ab000300}}}{\fldrslt {\f29\fs21 http://opensimulator.org/mantis/view.php?id=8516}}}{\f29\fs21 
+690064003d0038003500310036000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 http://opensimulator.org/mantis/view.php?id=8516}}}{\f29\fs21 
 \par 
 \par V3.01 
 \par ExternalHostName added to the Port section for use on non-NATed Region servers.
@@ -265,7 +272,7 @@ e sure we have a valid PID so we can minimize windows. This may explain whey som
 \par 
 \par V2.95
 \par Compiled with Opensim Master 6-8-2019 #38e937f91b08a2e52  
-\par Helps fix fix prims not being seen \endash  if still losing them, lower your viewer bandwidth
+\par Helps fix prims not being seen \endash  if still losing them, lower your viewer bandwidth
 \par Create inventory entries for textures uploaded with a model
 \par MySQL could use up too many handles
 \par Fixed %CPU to 2 digits on main screen
@@ -282,28 +289,28 @@ e sure we have a valid PID so we can minimize windows. This may explain whey som
 \par This set loopback adapters with the correct IP automatically.
 \par V2.92
 \par Correct the count of HG Avatars in Region List \endash  was showing only the 1}{\f29\fs21\super st}{\f29\fs21  one
-\par Added a longer timeout to Mysql connections.
+\par Added a longer timeout to MySQL connections.
 \par Drop Xbakes 
 \par \'93real' check if sim is still shutting down by poking port.
 \par 
 \par V2.91 
 \par Fixed nasty bug on Regions that caused crashes when region was renamed
 \par Icons change in region list for 1 or more avatars
-\par Allow oSSetDynamic texture and other settings so Aine Caoime\rquote s  (Anya Kee-vah) dance machine works for anyon.
+\par Allow oSSetDynamic texture and other settings so Aine Caoime\rquote s  (Anya Kee-vah) dance machine works for anyone.
 \par Programmable Welcome Message on viewer screen
 \par OsGrid and Metro support.  
 \par Comes with MSFT signed installers for Apaches' necessary DLL's.
 \par Bug in 3X3 load oar fixed where two of the tiles has wrong coordinates.
 \par Deletes all old DLLs that are not in the list 'dll.txt'.
 \par Installs for Microsoft C++ 1012 32/64 bit which are needed for Apache.
-\par A UUID could be zero'd out, leading to a crash.
+\par A UUID could be zeroed out, leading to a crash.
 \par 
 \par V2.90
 \par Release of V2.89 with another DLL deleted.
 \par 
 \par V2.89
-\par Try-catch a possible crash on events load if Outworldz web site is offline. There should never be any dependencies on having an external PC running except for ns1.outworldz.net for dynamic DNS and that only applies to outworl
-dz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Outworldz.com web site periodically, and these are dependent on Outworldz.com being online.
+\par Try-catch a possible crash on events load if Outworldz web site is offline. There should never be any dependencies on having an external PC running except for ns1.outworldz.net for dynamic DNS and that only appl
+ies to outworldz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Outworldz.com web site periodically, and these are dependent on Outworldz.com being online.
 \par Removed bin\\addins as it is old, unused, and may have old DLLS in it leading to mysterious crashes about log4net because log4net is now Dot net 4.6.
 \par 
 \par V.28
@@ -316,13 +323,13 @@ dz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Ou
 \par RegionReady set to localhost as Server2016 will run without Administrator mode.
 \par 
 \par V2.86 
-\par Patched to fix Sequential Start. If 
-on, nothing happened to delay the next sim from starting immediately but it should have waited for the previous sim to boot first, then start the next region.  If off, CPU less than 75% is needed before the next sim will start or stop.
+\par Patched to fix Sequential Start. If on, nothing happened to delay the ne
+xt sim from starting immediately but it should have waited for the previous sim to boot first, then start the next region.  If off, CPU less than 75% is needed before the next sim will start or stop.
 \par 
 \par V2.85 
 \par Link to web page takes you to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://yourgrid:80where }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4800000068007400740070003a002f002f0079006f007500720067007200690064003a0038003000770068006500720065000000795881f43b1d7f48af2c825dc485276300000000a5ab000300}}}{\fldrslt {
-\f29\fs21 http://yourgrid:80where}}}{\f29\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache webserver enabled. 
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4800000068007400740070003a002f002f0079006f007500720067007200690064003a0038003000770068006500720065000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {
+\f29\fs21 http://yourgrid:80where}}}{\f29\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache web server enabled. 
 \par Apache port is movable. If your ISP blocks :80, try :8000
 \par Diagnostics loopback test reworked for Server 2016.  
 \par Icons fixed on Server 2016 by moving port 8001 to listen to localhost only.
@@ -377,11 +384,11 @@ on, nothing happened to delay the next sim from starting immediately but it shou
 \par Turns off the DOS box Quickedit mode. If you clicked a DOS box, it paused which eventually crashes the sim. Works on Private or Public Networks, not Domain.
 \par Regions panel added an Avatar view that shows a list of avatar names and the regions they are in. Double-clicking a name will start a teleport sequence to that avatar in your viewer.
 \par Region Panel remembers the last view set, and will reappear after a restart if it was open. 
-\par Many changes to Recycling and Auto restart. More icons for recycling regions. Recycle up and recycle down are single blue arrows, Bootup and Shytdown are double Blue arrows.
+\par Many changes to Recycling and Auto restart. More icons for recycling regions. Recycle up and recycle down are single blue arrows, Bootup and Shutdown are double Blue arrows.
 \par 
 \par 2.78
 \par The Log viewer 'baretail' is included. It lets you colorize text, is zippy fast, and auto-scrolls to the latest entry, like Unix tail does.
-\par Capslock no longer interferes with console typing. I hate the CapLock Key.  
+\par Caps lock no longer interferes with console typing. I hate the Cap Lock Key.  
 \par Load OAR options: 2x2, 3X3 and 4X4 clickable forms, with options for UserName & ForceMerge & ForceTerrain & ForceParcel & Displacement
 \par Will abort Normalize regions if region locations will go negative or zero in X or Y.
 \par Repositioned Web Maps for better fit to normalized region
@@ -397,7 +404,7 @@ on, nothing happened to delay the next sim from starting immediately but it shou
 \par Restart Region patch
 \par 
 \par 2.75
-\par Region Panel added some of the the overrides and global region settings. These can be sorted as well.
+\par Region Panel added some of the overrides and global region settings. These can be sorted as well.
 \par Also, the Height and Width you last used are saved and restored.
 \par Start/Stop/Restart All Buttons added to Region Panel
 \par Region Chooser fixed to have New Name at top.
@@ -407,19 +414,19 @@ on, nothing happened to delay the next sim from starting immediately but it shou
 \par Allow LSL when checked, scripts lets you manually edit the Allowed IP Addresses in Opensim.proto
 \par Start Regions Sequentially:  Unchecked, the system starts a new region every few seconds. This can overwhelm the memory and CPU on slower systems.
 \par UnChecked normally starts a new region if CPU is 75% or less. 
-\par Checking this box will start them one at a time and wait for it to boot completely.  It will wait up up to 3 minutes per region, then move on.
+\par Checking this box will start them one at a time and wait for it to boot completely.  It will wait up to 3 minutes per region, then move on.
 \par Changes to Icecast ports or settings did not 'stick' would not overwrite file.
 \par More Help on Loopback, Regions, Start/Stop
 \par 
 \par 2.73
-\par OAR filesave would dump one region into all OARS. not just one
+\par OAR file save would dump one region into all OARS. not just one
 \par Sort Chooser screen
 \par BaseURL was incorrect in some 2.72
 \par 
 \par 2.72
 \par Simple Google HTML Map added to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://localhost:8002/wifi/map.html }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b6000000068007400740070003a002f002f006c006f00630061006c0068006f00730074003a0038003000300032002f0077006900660069002f006d00610070002e00680074006d006c000000795881f43b1d7f48af2c
-825dc485276300000000a5ab000300}}}{\fldrslt {\f29\fs21 http://localhost:8002/wifi/map.html}}}{\f29\fs21 
+825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 http://localhost:8002/wifi/map.html}}}{\f29\fs21 
 \par Allow only letters, numbers '.' and '-' in DNS names/IP Addresses
 \par New User Home X,Y,Z:  Users that create accounts on the web page will land at this spot on your Welcome region with their home set here so they can hypergrid back home.
 \par Simplified INI constants updated from Jeff Kelly, thanks!
@@ -652,12 +659,12 @@ on, nothing happened to delay the next sim from starting immediately but it shou
 \par V2.30
 \par Made from OpenSimulator 0.9.1.dev.24df1086fa 05-24-2018 (same as OsGrid)
 \par 
-\par Suitcase or No Suitcase? A suitcase protects your inventory from rogue grids. When you are on another grid, you can only access what is in your suitcase. You can now disable the suitcase and rez objects from anywhere in your inventory wh
-ile on foreign grids.
+\par Suitcase or No Suitcase? A suitcase protects your inventory from rogue grids. When you are on another grid, you can only access what is in your suitcase. You can now disable the suitcase and rez object
+s from anywhere in your inventory while on foreign grids.
 \par Prim limits: Opensimulator can enforce a prim limit. Landlords can enable it to enforce MAXPRIMS on each parcel. MAXPRIMS can be set in each Region panel under 'More'
 \par Data Snapshot for any prims marked as "show in Search". This replaces the broken Diva search. It works across all DreamGrids.
 \par  - Prim Info (location, for sale, etc.) is sent to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://hyperica.com/ }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4200000068007400740070003a002f002f00680079007000650072006900630061002e0063006f006d002f000000795881f43b1d7f48af2c825dc485276300000000a5ab000300}}}{\fldrslt {\f29\fs21 
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4200000068007400740070003a002f002f00680079007000650072006900630061002e0063006f006d002f000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 
 http://hyperica.com/}}}{\f29\fs21 . The actual search engine is under development. Enable this in Settings-Expert at bottom left corner.
 \par  - Classified ad will soon be possible across the Outworldz.
 \par Mail Exposed more SMTP email server settings than just Gmail.
@@ -678,20 +685,22 @@ http://hyperica.com/}}}{\f29\fs21 . The actual search engine is under developmen
 \par Modules:
 \par  - Web stats module for grid ops
 \par  - Server Release Notes Module by Fly Man adds these notes to Help About
-\par  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically with a timer. If no avatars are in the r
-egion, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the default.
+\par  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically wit
+h a timer. If no avatars are in the region, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the default.
 \par  - Birds Module by jonc and Jak Daniels: 
 \par 
-\par There is an IAR called !OpensimBirds.iar\rquote  in the top of the Free Avatar 
-Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
+\par There is an IAR called !OpensimBirds.iar\rquote 
+ in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
+
 \par 
 \par birds-prim SeaGull1 <enter> (or use SeaGull2, whichever bird you have put out)
 \par birds-start<enter>
 \par 
 \par  You should see a flock of birds fly around you and gather into a flock. 
 \par 
-\par  To make the birds auto fly, edit Outworldzfiles\\Opensim\\bin\\startup_commands.txt.example and add the same commands.
- Save the file as "startup_commands.txt" and restart the system. Your birds will start to fly immediately.  This is System-Wide feature.  To make it per-region, move the Birds.ini file into Opensim\\bin\\Regions\\<Groupname>\\<SomeRegionName>.
+\par  To make the birds auto fly, edit Outworldzfiles\\Opensim\\bin\\startup_commands.t
+xt.example and add the same commands. Save the file as "startup_commands.txt" and restart the system. Your birds will start to fly immediately.  This is System-Wide feature.  To make it per-region, move the Birds.ini file into Opensim\\bin\\Regions\\
+<Groupname>\\<SomeRegionName>.
 \par 
 \par Console commands:
 \par 
@@ -709,9 +718,9 @@ Parts menu. Click it to load into your master avatar, just like any other IAR. T
 \par birds-framerate <num> - [debugging] only update birds every <num> frames to region Welcome
 \par 
 \par Bird Module Author: }{\field{\*\fldinst {\f29\fs21 HYPERLINK https://github.com/jonc }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b48000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f006a006f006e0063000000795881f43b1d7f48af2c825dc485276300000000a5ab000300}}}{\fldrslt {
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b48000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f006a006f006e0063000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {
 \f29\fs21 https://github.com/jonc}}}{\f29\fs21 
 \par For more information, see }{\field{\*\fldinst {\f29\fs21 HYPERLINK https://github.com/JakDaniels/OpenSimBirds }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b6e000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f004a0061006b00440061006e00690065006c0073002f004f00700065006e00530069006d004200690072006400
-73000000795881f43b1d7f48af2c825dc485276300000000a5ab000300}}}{\fldrslt {\f29\fs21 https://github.com/JakDaniels/OpenSimBirds}}}{\f29\fs21 
+73000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 https://github.com/JakDaniels/OpenSimBirds}}}{\f29\fs21 
 \par }}

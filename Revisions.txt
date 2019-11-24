@@ -2,26 +2,42 @@ Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
-V3.29
-Avatar count was different in different displays
-Half-dozen Missing Translations
-Was possible to have a System.NullReferenceException in Bootup in unusual conditions where PID was zero
-Busy/Start/Abort button fixes
-Catch all possible errors in reading region INI files
-Fix check if Mysql is running in region form so Estates and avatars will appear in region list
-Sequential/Timer Boot  before running a next region, not after
-Precise CPU graph with a 4-second running average for Sequential/Timer bootup
-Added freeware cports.exe to examine ports that are in use to help troubleshoot anti-virus and  port glomming apps.
-Open firewall in parallel to bootup.
-New systems use a random X,Y location to base the system on from 1000 to 2000 to allow Hypergrid to  Dreamgrids with fixed 1000,1000 area locations.
-Catch user null entries in Regions and Maps
-Allow Level God was unchecked in Region Form, is based on null string, not "False"
-Removed some logging that slowed down the system
-Warn if region location < 32, not possible to be that low in HG
-Allow Edit only if region is stopped
-Abort Handler fixed to prevent occasional extra warnings on crashed regions
-Codemaid settings save in Git for multi-system development
-A Warm start is when you start DreamGrid on an already running region/Robust.  It hooks into the Robust and regions as if it had already started them.  Warm Starts after a Just Quit did not populate regionhandles list so RAM will now show up. Should also allow us to catch a crash after a Warm start.
+You can click the round MySQL, Robust, Apache and Icecast status buttons to stop/start them.  
+
+Avatar count was different in different displays.
+
+Half-dozen new language Translations.
+
+Was possible to have a Null Reference Exception when Booting a region if Stop button was clicked at the right time.
+
+Busy/Start/Abort button fixes. Clicking Busy will force an Abort when shutting down.
+
+Catch as many individual errors as it can when reading region INI files. It complains with details of what to fix, and aborts the launch.
+
+Fix check if MySQL is running so Estates and Avatars will appear in region list.
+
+Sequential/Timer Boot before running a next region, not after.
+Precise CPU graph with a 4-second running average for Sequential/Timer - makes it bobble around 75% CPU when booting.
+
+Added freeware program to Help 'cports.exe'  Which can show all  ports that are in use to help troubleshoot anti-virus and port glomming applications.
+
+Open firewall as a separate thread for speed.  Firewall has to run only if you change a region port setting, by adding or deleting, or on first start.
+
+You cannot HG between two identical region locations.  New systems change the "Welcome" region location from 1000,1000 to a random number from 1000 to 2000 to allow Hypergrid to other grids that have 1000,1000 set.  Also sets the map center to the Welcome region location, whatever it is.  Additional regions are added 4 to the right of the highest region as it did before.
+
+Catch user 'blank' entries in Regions and Maps Settings.
+"Allow Level Gods"  was unchecked in Region Form, as it is based on the other settings being a null string, not "False".
+Removed some unneeded logging that slowed down the system.
+Warn if region location X,Y < 32, not possible to be that low in HG sims.
+
+Enable Edit Button in Region Popup only if region is stopped.
+Abort Handler reworked  to end a race condition that should prevent occasional extra warnings on crashed regions. Also much faster to restart and recycle.
+Codemaid extension in Visual Studio settings are saved in Git for multi-system development.  Codemaid is a great tool for making the source consistent, but you need the same settings on each machine.
+
+A Warm start is when you start DreamGrid on an already running Robust and set of regions.  DG located into the Robust and regions as if it had already started them.  Warm Starts after a "Just Quit" did not populate region handles list. This is fixed so RAM will now show up. Should also allow us to catch a crash after a Warm start.
+
+I spell checked this document, finally. :-)
+
 
 
 V3.28
