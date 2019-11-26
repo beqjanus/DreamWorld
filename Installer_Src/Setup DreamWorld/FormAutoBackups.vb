@@ -88,7 +88,7 @@ Public Class FormAutoBackups
             AutoBackupInterval.SelectedIndex = 6
         ElseIf CType(Form1.Settings.AutobackupInterval, Double) = 6 * 24 * 60 Then
             AutoBackupInterval.SelectedIndex = 7
-        ElseIf CType(Form1.Settings.AutobackupInterval, Double) = 7 * 60 Then
+        ElseIf CType(Form1.Settings.AutobackupInterval, Double) = 7 * 60 * 24 Then
             AutoBackupInterval.SelectedIndex = 8
         Else
             AutoBackupInterval.SelectedIndex = 1
@@ -127,15 +127,26 @@ Public Class FormAutoBackups
         ' default= 1
 
         Dim Interval As Integer = 60 * 12
-        If text = "Hourly" Then Interval = 60
-        If text = "12 Hour" Then Interval = 60 * 12
-        If text = "Daily" Then Interval = 60 * 24
-        If text = "2 days" Then Interval = 2 * 60 * 24
-        If text = "3 days" Then Interval = 3 * 60 * 24
-        If text = "4 days" Then Interval = 4 * 60 * 24
-        If text = "5 days" Then Interval = 5 * 60 * 24
-        If text = "6 days" Then Interval = 6 * 60 * 24
-        If text = "Weekly" Then Interval = 7 * 60 * 24
+        If text = "Hourly" Then
+            Interval = 60
+        ElseIf text = "12 Hour" Then
+            Interval = 60 * 12
+        ElseIf text = "Daily" Then
+            Interval = 60 * 24
+        ElseIf text = "2 days" Then
+            Interval = 2 * 60 * 24
+        ElseIf text = "3 days" Then
+            Interval = 3 * 60 * 24
+        ElseIf text = "4 days" Then
+            Interval = 4 * 60 * 24
+        ElseIf text = "5 days" Then
+            Interval = 5 * 60 * 24
+        ElseIf text = "6 days" Then
+            Interval = 6 * 60 * 24
+        ElseIf text = "Weekly" Then
+            Interval = 7 * 60 * 24
+        End If
+
         Form1.Settings.AutobackupInterval = CStr(Interval)
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
