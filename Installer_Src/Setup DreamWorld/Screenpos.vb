@@ -31,7 +31,7 @@ Public Class ScreenPos
     Dim Data As IniParser.Model.IniData
     Dim gName As String
     Dim myINI As String
-#Enable Warning IDE0044 ' Add readonly modifier
+
     Dim parser As FileIniDataParser
 
 #End Region
