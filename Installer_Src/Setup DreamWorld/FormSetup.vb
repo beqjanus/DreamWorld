@@ -902,21 +902,19 @@ Public Class Form1
             PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Debug", "")
             PropMyFolder = PropMyFolder.Replace("\Installer_Src\Setup DreamWorld\bin\Release", "")
             ' for testing, as the compiler buries itself in ../../../debug
-            Log("Test :", DisplayObjectInfo(Me))
+            Log("Startup:", DisplayObjectInfo(Me))
         End If
 
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
-        SetScreen()     ' move Form to fit screen from SetXY.ini
-
         If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
             Print(My.Resources.Install_Icon)
             Create_ShortCut(PropMyFolder & "\Start.exe")
-            BumpProgress10()
             Settings.PortsChanged = True
             PropViewedSettings = True
         End If
+
 
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
@@ -924,7 +922,7 @@ Public Class Form1
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
-        Me.Hide()
+
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         frmHome_Load(sender, e) 'Load everything in your form load event again
@@ -933,6 +931,7 @@ Public Class Form1
 
     Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
+        SetScreen()     ' move Form to fit screen from SetXY.ini
         ProgressBar1.Minimum = 0
         ProgressBar1.Maximum = 100
         ProgressBar1.Value = 0
@@ -6959,6 +6958,7 @@ Public Class Form1
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         '645, 435
+
         If PictureBox1.AccessibleName = "Arrow2Left" Then
             Me.Width = 645
             Me.Height = 435
