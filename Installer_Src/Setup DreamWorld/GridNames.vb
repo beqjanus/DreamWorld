@@ -3,7 +3,9 @@
     Public Sub SetServerNames()
         'GridNames.SetServerNames
         ' setup some defaults
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim PropMyUPnpMap = New UPnp()
+#Enable Warning CA2000 ' Dispose objects before losing scope
 
         ' all private in case of local mode
         Form1.Settings.PublicIP = PropMyUPnpMap.LocalIP

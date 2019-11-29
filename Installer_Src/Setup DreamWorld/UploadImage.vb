@@ -61,7 +61,9 @@ Public Class UploadImage
 
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
 
@@ -181,7 +183,6 @@ Public Class UploadImage
                 Call UploadError(sData)
             End If
             webResp.Close()
-            webResp = Nothing
         Else
             Call UploadError(sData)
         End If

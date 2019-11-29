@@ -28,7 +28,6 @@ Public Class FormDNSName
 #Region "Private Fields"
 
     Dim changed As Boolean = False
-    Dim DNSNameBoxBackup As String = ""
     Dim initted As Boolean = False
 
 #End Region
@@ -68,10 +67,8 @@ Public Class FormDNSName
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
-        Me.Text = "Dynamic DNS"
-        DNSNameBoxBackup = Form1.Settings.DNSName
+        Me.Text = My.Resources.Dynamic_DNS_word
         DNSNameBox.Text = Form1.Settings.DNSName
-
         UniqueId.Text = Form1.Settings.MachineID()
         EnableHypergrid.Checked = Form1.Settings.EnableHypergrid
         SuitcaseCheckbox.Checked = Form1.Settings.Suitcase

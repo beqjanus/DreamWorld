@@ -207,13 +207,13 @@ Partial Class FormDisplacement3x3
         Me.ObjectMergeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.ObjectMergeToolStripMenuItem.Name = "ObjectMergeToolStripMenuItem"
         Me.ObjectMergeToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ObjectMergeToolStripMenuItem.Text = My.Resources.Merge_Objects
+        Me.ObjectMergeToolStripMenuItem.Text = My.Resources.Merge_Objects_word
         '
         'MergeOARToolStripMenuItem
         '
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
         Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.MergeOARToolStripMenuItem.Text = My.Resources.Merge_OAR
+        Me.MergeOARToolStripMenuItem.Text = My.Resources.Merge_OAR_word
         '
         'ClearOARToolStripMenuItem
         '

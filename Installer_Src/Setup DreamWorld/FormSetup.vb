@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.29"
+    Private _MyVersion As String = "3.291"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -662,6 +662,7 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Dim FormRegions = New FormRegions
             FormRegions.Activate()
+            FormRegions.Select()
             FormRegions.Visible = True
             Return
         End If
@@ -927,11 +928,11 @@ Public Class Form1
         Me.Hide()
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
-        frmHome_Load(sender, e) 'Load everything in your form load event again
+        FrmHome_Load(sender, e) 'Load everything in your form load event again
 
     End Sub
 
-    Private Sub frmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         ProgressBar1.Minimum = 0
         ProgressBar1.Maximum = 100
@@ -1432,7 +1433,9 @@ Public Class Form1
             Log(My.Resources.Info, "Stopping process " & processName)
             Try
                 P.Kill()
-            Catch
+            Catch ex As NotSupportedException
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
             End Try
 
         Next
@@ -1459,6 +1462,7 @@ Public Class Form1
         Log(My.Resources.Info, Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
+        Application.DoEvents()
 
     End Sub
 
@@ -2662,7 +2666,9 @@ Public Class Form1
             End Using
             'close your reader
             reader.Close()
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             MsgBox(My.Resources.no_Default_sim, vbInformation, My.Resources.Settings_word)
             Return True
         End Try
@@ -2800,6 +2806,7 @@ Public Class Form1
         If PropInitted Then
             Adv.Activate()
             Adv.Visible = True
+            Adv.Select()
         End If
 
     End Sub
@@ -2947,7 +2954,6 @@ Public Class Form1
         Application.DoEvents()
 
         If Settings.ApacheService Then
-            Print(My.Resources.Checking_Apache_service_word)
             PropApacheUninstalling = True
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
@@ -3824,32 +3830,25 @@ Public Class Form1
                     And Not AvatarsIsInGroup(GroupName) _
                     And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
-                    Try
-                        If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
-                            SequentialPause()
-                            ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
-                            Print(My.Resources.Automatic_restart_word & GroupName)
-                            ' shut down all regions in the DOS box
-                            For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                                PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                                PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                            Next
-                        Else
-                            ' shut down all regions in the DOS box
-                            For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                                PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                                PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Stopped
-                            Next
-                        End If
-                        PropUpdateView = True ' make form refresh
-                    Catch ex As Exception
-                        ErrorLog(ex.Message)
+
+                    If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
+                        SequentialPause()
+                        ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
+                        Print(My.Resources.Automatic_restart_word & GroupName)
                         ' shut down all regions in the DOS box
                         For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
                             PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
                             PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                         Next
-                    End Try
+                    Else
+                        ' shut down all regions in the DOS box
+                        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+                            PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Stopped
+                        Next
+                    End If
+                    PropUpdateView = True ' make form refresh
+
                 End If
 
             End If
@@ -4054,14 +4053,18 @@ Public Class Form1
                 PID = PropRegionClass.ProcessID(X(0))
                 Try
                     If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+#Disable Warning CA1031 ' Do not catch general exception types
                 Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                     Return False
                 End Try
             Else
                 PID = PropRobustProcID
                 Try
                     ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+#Disable Warning CA1031 ' Do not catch general exception types
                 Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                     Return False
                 End Try
             End If
@@ -4077,7 +4080,9 @@ Public Class Form1
                 AppActivate(PID)
                 SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
                 SendKeys.SendWait(SendableKeys(command))
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 ' ErrorLog("Error:" & ex.Message)
                 Diagnostics.Debug.Print("Cannot find window " & name)
                 'PropRegionClass.RegionDump()
@@ -4099,7 +4104,9 @@ Public Class Form1
             Dim h As IntPtr
             Try
                 h = RobustProcess.MainWindowHandle
-            Catch ex As Exception
+            Catch ex As InvalidOperationException
+                h = IntPtr.Zero
+            Catch ex As NotSupportedException
                 h = IntPtr.Zero
             End Try
             Return h
@@ -4147,7 +4154,7 @@ Public Class Form1
             While myProcess.MainWindowHandle = CType(0, IntPtr)
                 Sleep(100)
                 WindowCounter += 1
-                If WindowCounter > 200 Then '  20 seconds for process to start
+                If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
                     Return False
                 End If
@@ -4163,9 +4170,6 @@ Public Class Form1
         WindowCounter = 0
 
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
-        If CType(hwnd, Integer) = 0 Then
-            ErrorLog("hwnd = 0")
-        End If
         Dim status = False
         While status = False
             Sleep(100)
@@ -4246,7 +4250,9 @@ Public Class Form1
 
             MyCPUCollection(0) = speed
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             ErrorLog(ex.Message)
         End Try
 
@@ -4275,7 +4281,9 @@ Public Class Form1
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
             Next
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Log(My.Resources.Error_word, ex.Message)
         End Try
 
@@ -4312,9 +4320,10 @@ Public Class Form1
                 End While
 
                 cmd.Dispose()
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Console.WriteLine("Error: " & ex.Message)
-
             End Try
         End Using
 
@@ -4426,7 +4435,9 @@ Public Class Form1
             Try
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
         End Using
@@ -4535,6 +4546,9 @@ Public Class Form1
                         ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "change region " & """" & PropRegionClass.RegionName(Y) & """" & "{ENTER}" & vbCrLf)
                         ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                         L.Add(PropRegionClass.RegionName(Y))
+                        ' show it, stop it, start it, or edit it
+                        Dim hwnd = GetHwnd(PropRegionClass.GroupName(Y))
+                        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
                 Next
             End If
@@ -4547,7 +4561,7 @@ Public Class Form1
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToLower(Globalization.CultureInfo.InvariantCulture) = "autobackup" Then
+        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
             BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -4588,7 +4602,7 @@ Public Class Form1
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
                 .InitialDirectory = """" & PropMyFolder & "/" & """",
-                .Filter = "Inventory IAR (*.iar)|*.iar|All Files (*.*)|*.*",
+                .Filter = My.Resources.IAR_Load_and_Save & " (*.iar)|*.iar|All Files (*.*)|*.*",
                 .FilterIndex = 1,
                 .Multiselect = False
             }
@@ -4625,7 +4639,7 @@ Public Class Form1
 
         Dim offset = VarChooser(region)
 
-        Dim backMeUp = MsgBox(My.Resources.Make_backup, vbYesNo, My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
         Dim num = PropRegionClass.FindRegionByName(region)
         If num < 0 Then
             MsgBox(My.Resources.Cannot_find_region_word)
@@ -4659,7 +4673,9 @@ Public Class Form1
                     ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
                     once = True
                 End If
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
         Next
@@ -4679,7 +4695,7 @@ Public Class Form1
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
                 .InitialDirectory = BackupPath(),
-                .Filter = "Opensim OAR(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
+                .Filter = My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
                 .FilterIndex = 1,
                 .Multiselect = False
                 }
@@ -4693,7 +4709,7 @@ Public Class Form1
                     Dim offset = VarChooser(chosen)
                     If offset.Length = 0 Then Return
 
-                    Dim backMeUp = MsgBox(My.Resources.Make_backup, vbYesNo, My.Resources.Backup_word)
+                    Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
                     Dim thing = openFileDialog1.FileName
                     If thing.Length > 0 Then
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
@@ -5135,7 +5151,9 @@ Public Class Form1
             Print(My.Resources.Public_IP_Setup_Word)
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
+#Disable Warning CA1308 ' Normalize strings to uppercase
             Dim x = Settings.PublicIP.ToLower(Globalization.CultureInfo.InvariantCulture)
+#Enable Warning CA1308 ' Normalize strings to uppercase
             If x.Contains("outworldz.net") Then
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
@@ -5360,12 +5378,11 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Log(My.Resources.Info, "Private IP, Loopback test skipped")
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-            Log(My.Resources.Info, "Server type is Region, Loopback on HTTP Port skipped")
+
             Return
         End If
         Print(My.Resources.Checking_Loopback_word)
@@ -5455,7 +5472,9 @@ Public Class Form1
             Next
 
             BumpProgress10()
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch e As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Log("UPnP", "UPnP Exception caught:  " & e.Message)
             Return False
         End Try
@@ -5517,6 +5536,15 @@ Public Class Form1
 
 #Region "MySQL"
 
+    Public Shared Function CheckMysql() As Boolean
+
+        If MysqlInterface.IsMySqlRunning() Is Nothing Then
+            Return False
+        End If
+        Return True
+
+    End Function
+
     Public Sub BackupDB()
 
         If Not StartMySQL() Then
@@ -5547,22 +5575,6 @@ Public Class Form1
         End Using
 
     End Sub
-
-    Public Function CheckMysql() As Boolean
-
-        Dim version As String = Nothing
-        Try
-            version = MysqlInterface.IsMySqlRunning()
-        Catch
-            Log(My.Resources.Info, "MySQL was not running")
-        End Try
-
-        If version Is Nothing Then
-            Return False
-        End If
-        Return True
-
-    End Function
 
     Public Function StartMySQL() As Boolean
 
@@ -5796,7 +5808,7 @@ Public Class Form1
         ' Create an instance of the open file dialog box. Set filter options and filter index.
         Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
             .InitialDirectory = BackupPath(),
-            .Filter = "BackupFile (*.sql)|*.sql|All Files (*.*)|*.*",
+            .Filter = My.Resources.Backup_Folder & "(*.sql)|*.sql|All Files (*.*)|*.*",
             .FilterIndex = 1,
             .Multiselect = False
         }
@@ -5821,7 +5833,9 @@ Public Class Form1
                                 & "mysql -u root opensim <  " & """" & thing & """" _
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
+#Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                         ErrorLog("Failed to create restore file:" & ex.Message)
                         Return
                     End Try
@@ -5917,7 +5931,9 @@ Public Class Form1
                 End If
             Next
             Return String.Empty
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             ErrorLog("Warn:Unable to resolve name:" & ex.Message)
         End Try
         Return String.Empty
@@ -6110,9 +6126,11 @@ Public Class Form1
             PropRegionForm = New RegionList
             PropRegionForm.Show()
             PropRegionForm.Activate()
+            PropRegionForm.Select()
         Else
             PropRegionForm.Show()
             PropRegionForm.Activate()
+            PropRegionForm.Select()
         End If
 
     End Sub
@@ -6312,9 +6330,12 @@ Public Class Form1
 
     Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim CriticalForm As New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
         CriticalForm.Activate()
         CriticalForm.Visible = True
+        CriticalForm.Select()
 
     End Sub
 
@@ -6517,12 +6538,9 @@ Public Class Form1
     End Sub
 
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
+
+        Help("TroubleShooting")
+
     End Sub
 
 #End Region
@@ -6531,11 +6549,10 @@ Public Class Form1
 
     Public Shared Sub Help(page As String)
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
-
         FormHelp.Activate()
         FormHelp.Visible = True
         FormHelp.Init(page)
+        FormHelp.Select()
 
     End Sub
 
@@ -6545,10 +6562,13 @@ Public Class Form1
         If Not newScreenPosition.Exists() Then
             ' Set the new form's desktop location so it appears below and to the right of the
             ' current form.
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp
+#Enable Warning CA2000 ' Dispose objects before losing scope
             FormHelp.Activate()
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
+            FormHelp.Select()
 
         End If
 
@@ -6760,7 +6780,7 @@ Public Class Form1
     Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         If dll Is Nothing Then Return False
         For Each filename In dll
-            If tofind.ToLower(Globalization.CultureInfo.InvariantCulture) = filename.ToLower(Globalization.CultureInfo.InvariantCulture) Then Return True
+            If tofind.ToUpper(Globalization.CultureInfo.InvariantCulture) = filename.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
         Next
         Return False
     End Function
@@ -6823,7 +6843,7 @@ Public Class Form1
             End Try
 
             ' Loop through all subdirectories and add them to the stack.
-            Dim directoryName As String = ""
+            Dim directoryName As String
 
             'Save, but skip scriptengines
             For Each directoryName In Directory.GetDirectories(dir)
@@ -6851,7 +6871,9 @@ Public Class Form1
                 Try
                     x = NativeMethods.ShowWindow(handle, command)
                     If x Then Return True
+#Disable Warning CA1031 ' Do not catch general exception types
                 Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 End Try
                 ctr -= 1
             End While
@@ -6915,10 +6937,14 @@ Public Class Form1
                 Try
                     osconnection.Open()
                 Catch ex As InvalidOperationException
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
                     Log(My.Resources.Error_word, "Failed to Connect to Search Database")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
                     Return
                 Catch ex As MySqlException
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
                     Log(My.Resources.Error_word, "Failed to Connect to Search Database")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
                     Return
                 End Try
                 DeleteEvents(osconnection)
@@ -6941,7 +6967,7 @@ Public Class Form1
                                 If a.Length = 2 Then
                                     a(1) = a(1).Replace("'", "\'")
                                     a(1) = a(1).Replace("`", vbLf)
-                                    Console.WriteLine("{0}:{1}", a(0), a(1))
+                                    'Console.WriteLine("{0}:{1}", a(0), a(1))
                                     Simevents.Add(a(0), a(1))
                                 End If
                             Next
@@ -6951,7 +6977,9 @@ Public Class Form1
 
                 End Using ' client
             End Using ' osconnection
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             ErrorLog(ex.Message)
         End Try
 
@@ -6963,10 +6991,14 @@ Public Class Form1
             Me.Width = 645
             Me.Height = 435
             PictureBox1.Image = My.Resources.Arrow2Left
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             PictureBox1.AccessibleName = "Arrow2Right"
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
         Else
             PictureBox1.Image = My.Resources.Arrow2Right
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             PictureBox1.AccessibleName = "Arrow2Left"
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Me.Width = 385
             Me.Height = 240
         End If
@@ -7127,7 +7159,7 @@ Public Class Form1
         My.Application.ChangeCulture(Settings.Language)
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
-        frmHome_Load(sender, e) 'Load everything in your form load event again
+        FrmHome_Load(sender, e) 'Load everything in your form load event again
     End Sub
 
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click

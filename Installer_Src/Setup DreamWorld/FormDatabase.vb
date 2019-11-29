@@ -255,8 +255,11 @@ Public Class FormDatabase
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim FsAssets As New FormFsAssets
+#Enable Warning CA2000 ' Dispose objects before losing scope
         FsAssets.Show()
+        FsAssets.Select()
 
     End Sub
 
@@ -276,9 +279,12 @@ Public Class FormDatabase
 
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim CriticalForm = New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
         CriticalForm.Activate()
         CriticalForm.Visible = True
+        CriticalForm.Select()
 
     End Sub
 

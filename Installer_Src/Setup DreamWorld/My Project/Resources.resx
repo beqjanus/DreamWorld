@@ -172,9 +172,6 @@
   <data name="Setting_Loopback" xml:space="preserve">
     <value>Setting Loopback Adapter to Public IP address</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
-    <value>Backup Data Files</value>
-  </data>
   <data name="Deregister_All" xml:space="preserve">
     <value>All Regions are deregistered</value>
   </data>
@@ -293,8 +290,8 @@
   <data name="Viewer_Cache_word" xml:space="preserve">
     <value>Viewer Cache</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Must be a number of days</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Must be a number</value>
   </data>
   <data name="Load Parcel" xml:space="preserve">
     <value>Load Parcel</value>
@@ -752,9 +749,6 @@
   <data name="Delete_word" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Y_word" xml:space="preserve">
-    <value>Y</value>
-  </data>
   <data name="Server_Client" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\server_CLient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -806,7 +800,7 @@
   <data name="Saving_word" xml:space="preserve">
     <value>Saving</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
   </data>
   <data name="User_ID_word" xml:space="preserve">
@@ -854,7 +848,7 @@
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Click to request Voice Service</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="replace2" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -884,7 +878,7 @@
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>Load Local OARs from the OAR folder</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
   </data>
   <data name="flag_china" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -985,10 +979,6 @@
   </data>
   <data name="Send_Debug_Info" xml:space="preserve">
     <value>Send Debug Info To Console</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
-    <comment>Skip xlate</comment>
   </data>
   <data name="Backup_FSAssets" xml:space="preserve">
     <value>Backup FSAssets folder</value>
@@ -1348,9 +1338,6 @@
   <data name="Setup_Network" xml:space="preserve">
     <value>Setting up Network</value>
   </data>
-  <data name="X_word" xml:space="preserve">
-    <value>X</value>
-  </data>
   <data name="Search_word" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -1572,7 +1559,7 @@
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Update is available.  Do you want to exit DreamGrid and install the update?</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Make a backup?</value>
   </data>
   <data name="More_Help" xml:space="preserve">
@@ -1605,7 +1592,7 @@
   <data name="No_Avatars" xml:space="preserve">
     <value>No Avatars</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup Data Files</value>
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
@@ -1762,7 +1749,7 @@
   <data name="Is_Shown" xml:space="preserve">
     <value>The Opensimulator Console will be shown when Opensim is running.</value>
   </data>
-  <data name="Maps" xml:space="preserve">
+  <data name="Maps_word" xml:space="preserve">
     <value>Maps</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
@@ -2202,7 +2189,7 @@
   <data name="Choose_Cache" xml:space="preserve">
     <value>Choose which cache to empty</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Merge Objects</value>
   </data>
   <data name="How_Long" xml:space="preserve">
@@ -2355,10 +2342,6 @@
   </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>Chat tide info to the region so scripts can move with the tide?</value>
-  </data>
-  <data name="Zero_word_NT" xml:space="preserve">
-    <value>0</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Bird_Module_word" xml:space="preserve">
     <value>Bird Module</value>
@@ -2651,5 +2634,51 @@
   </data>
   <data name="navigate_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigate_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Choose a folder</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>Choose a  folder to store backups</value>
+  </data>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamic DNS</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Not a valid Maximujm number of Agents Value. Must be greater than 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Not a valid Maximum Prim Value. Must be greater than 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Not a valid Non-Physical Prim Max Value. Must be greater than 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Not a valid Physical Prim Max Value. Must be greater than 0.</value>
+  </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region Coordinate X cannot be less than 0</value>
+    <comment>New</comment>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region Coordinate X Is too large</value>
+    <comment>New</comment>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region Coordinate  Y cannot be less than 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region Coordinate Y Is too large</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region name must not be blank</value>
+    <comment>New</comment>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID Is invalid</value>
+    <comment>New</comment>
+  </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Voice Settings</value>
   </data>
 </root>

@@ -63,7 +63,7 @@ Partial Class FormDisplacement1X1
         Me.MergingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.MergingToolStripMenuItem.Name = "MergingToolStripMenuItem"
         Me.MergingToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.MergingToolStripMenuItem.Text = My.Resources.Merge_Objects
+        Me.MergingToolStripMenuItem.Text = My.Resources.Merge_Objects_word
         '
         'MergeOARToolStripMenuItem
         '
@@ -71,7 +71,7 @@ Partial Class FormDisplacement1X1
         Me.MergeOARToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
         Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
-        Me.MergeOARToolStripMenuItem.Text = My.Resources.Merge_OAR
+        Me.MergeOARToolStripMenuItem.Text = My.Resources.Merge_OAR_word
         '
         'ClearOARToolStripMenuItem
         '

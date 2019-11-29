@@ -27,7 +27,7 @@ Public Class BirdForm
 #Region "Private Fields"
 
     Dim changed As Boolean = False
-
+    Dim initted As Boolean = False
 #End Region
 
 #Region "ScreenSize"
@@ -71,32 +71,34 @@ Public Class BirdForm
 
     Private Sub BirdsBorderSizeTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsBorderSizeTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsBorderSize = Convert.ToDouble(BirdsBorderSizeTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Not Double.TryParse(BirdsBorderSizeTextBox.Text, Form1.Settings.BirdsBorderSize) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+
+        changed = True
 
     End Sub
 
     Private Sub BirdsMaxHeightTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsMaxHeightTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsMaxHeight = Convert.ToDouble(BirdsMaxHeightTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
 
+        If Not Double.TryParse(BirdsMaxHeightTextBox.Text, Form1.Settings.BirdsMaxHeight) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+
+        changed = True
     End Sub
 
     Private Sub BirdsModuleStartupbox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsModuleStartupbox.CheckedChanged
 
+        If Not initted Then Return
         If BirdsModuleStartupbox.Checked Then
             Form1.Settings.BirdsModuleStartup = True
         Else
@@ -108,28 +110,26 @@ Public Class BirdForm
 
     Private Sub BirdsNeighbourDistanceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsNeighbourDistanceTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsNeighbourDistance = Convert.ToDouble(BirdsNeighbourDistanceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Form1.Settings.BirdsNeighbourDistance) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+        changed = True
 
     End Sub
 
     Private Sub BirdsToleranceTextBox_TextChanged(sender As Object, e As EventArgs) Handles BirdsToleranceTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsTolerance = Convert.ToDouble(BirdsToleranceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
-
+        If Not Double.TryParse(BirdsToleranceTextBox.Text, Form1.Settings.BirdsTolerance) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+        changed = True
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -141,35 +141,39 @@ Public Class BirdForm
 
     Private Sub ChatChanelTextBox_TextChanged(sender As Object, e As EventArgs) Handles ChatChanelTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ChatChanelTextBox.Text = digitsOnly.Replace(ChatChanelTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsChatChannel = CInt(ChatChanelTextBox.Text)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Not Integer.TryParse(ChatChanelTextBox.Text, Form1.Settings.BirdsChatChannel) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+        changed = True
 
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
         Form1.Help("Birds")
+
     End Sub
 
     Private Sub DesiredSeparationTextBox_TextChanged(sender As Object, e As EventArgs) Handles DesiredSeparationTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsDesiredSeparation = Convert.ToDouble(DesiredSeparationTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Double.TryParse(DesiredSeparationTextBox.Text, Form1.Settings.BirdsDesiredSeparation) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+        changed = True
 
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
+
+        If Not initted Then Return
         If changed Then
             Form1.PropViewedSettings = True
         End If
@@ -206,37 +210,38 @@ Public Class BirdForm
         PrimNameTextBox.Text = Form1.Settings.BirdsPrim
 
         Form1.HelpOnce("Birds")
-
+        initted = True
     End Sub
 
     Private Sub MaxForceTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxForceTextBox.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsMaxForce = Convert.ToDouble(MaxForceTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Not Double.TryParse(MaxForceTextBox.Text, Form1.Settings.BirdsMaxForce) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+        changed = True
 
     End Sub
 
     Private Sub MaxSpeedTextBox_TextChanged(sender As Object, e As EventArgs) Handles MaxSpeedTextBox.TextChanged
 
+        If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
-        Try
-            Form1.Settings.BirdsMaxSpeed = Convert.ToDouble(MaxSpeedTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            changed = True
-        Catch ex As Exception
-            MsgBox(ex.Message, vbInformation)
-        End Try
+
+        If Not Double.TryParse(MaxSpeedTextBox.Text, Form1.Settings.BirdsMaxSpeed) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+
+        changed = True
 
     End Sub
 
     Private Sub PrimNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles PrimNameTextBox.TextChanged
 
+        If Not initted Then Return
         Form1.Settings.BirdsPrim = PrimNameTextBox.Text
         changed = True
 

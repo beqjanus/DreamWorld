@@ -141,7 +141,9 @@ Public Class ScreenPos
         Try
 
             Data = parser.ReadFile(myINI, System.Text.Encoding.ASCII)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -149,7 +151,7 @@ Public Class ScreenPos
 
     Public Sub putSize(name As String, size As Integer)
 
-        Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
+        ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
         Data("Data")(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
@@ -158,7 +160,9 @@ Public Class ScreenPos
 
         Try
             parser.WriteFile(myINI, Data, System.Text.Encoding.ASCII)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -192,9 +196,10 @@ Public Class ScreenPos
 
         ' sets values into any INI file
         Try
-            ' Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
             Data(section)(key) = value ' replace it
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog(ex.Message)
         End Try
 

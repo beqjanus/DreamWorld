@@ -264,14 +264,12 @@ Public Class RegionList
 
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
-
+        _ImageListLarge.Dispose()
         _ImageListSmall.Dispose()
 
     End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-
 
         Pixels1 = 70
 
@@ -340,13 +338,13 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word, 80), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.X_word, colsize.ColumnWidth(My.Resources.X_word, 50), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Y_word, colsize.ColumnWidth(My.Resources.Y_word, 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("X".ToUpperInvariant, 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Y".ToUpperInvariant, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word, 40), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth(My.Resources.Estate_word, 100), HorizontalAlignment.Left)
 
         ' optional
-        ListView1.Columns.Add(My.Resources.Maps, colsize.ColumnWidth(My.Resources.Maps, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Maps_word, colsize.ColumnWidth(My.Resources.Maps_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Physics_word, colsize.ColumnWidth(My.Resources.Physics_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth(My.Resources.Birds_word, 60), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Tides_word, colsize.ColumnWidth(My.Resources.Tides_word, 60), HorizontalAlignment.Center)
@@ -354,7 +352,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Smart_Start_word, colsize.ColumnWidth(My.Resources.Smart_Start_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Allow_Or_Disallow_Gods_word, colsize.ColumnWidth(My.Resources.Allow_Or_Disallow_Gods_word, 75), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Owner_God, colsize.ColumnWidth(My.Resources.Owner_God, 75), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.Manager_God, colsize.ColumnWidth(My.Resources.Manager_God, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Manager_God_word, colsize.ColumnWidth(My.Resources.Manager_God_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth(My.Resources.No_Autobackup, 90), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Publicity_Word, colsize.ColumnWidth(My.Resources.Publicity_Word, 80), HorizontalAlignment.Center)
 
@@ -416,19 +414,28 @@ Public Class RegionList
 
 #End Region
 
-#Region "Load List View"
+#Region "Public Methods"
 
     Shared Function LoadImage(S As String) As Image
         Dim bmp As Bitmap = Nothing
         Dim u As New Uri(S)
         Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
+        Dim response As System.Net.WebResponse = Nothing
         Try
-            Dim response As System.Net.WebResponse = request.GetResponse()
-            Dim responseStream As System.IO.Stream = response.GetResponseStream()
+            response = request.GetResponse()
+        Catch ex As NotImplementedException
+        End Try
+
+        Dim responseStream As System.IO.Stream = Nothing
+        Try
+            responseStream = response.GetResponseStream()
+        Catch ex As NotSupportedException
+        End Try
+
+        If responseStream IsNot Nothing Then
             bmp = New Bitmap(responseStream)
             responseStream.Dispose()
-        Catch ex As Exception
-        End Try
+        End If
 
         Return bmp
 
@@ -448,12 +455,19 @@ Public Class RegionList
 
     End Sub
 
+#End Region
+
+#Region "Private Methods"
+
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
         RegionForm.Init("")
         RegionForm.Activate()
         RegionForm.Visible = True
+        RegionForm.Select()
 
     End Sub
 
@@ -463,20 +477,17 @@ Public Class RegionList
         Dim item As ListViewItem
 
         For Each item In regions
-            Try
-                Dim RegionName = item.SubItems(1).Text
-
-                Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-                If R >= 0 Then
-                    Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
-                    Try
-                        Dim result = Process.Start(webAddress)
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
-                    End Try
-                End If
-            Catch ex As Exception
-            End Try
+            Dim RegionName = item.SubItems(1).Text
+            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If R >= 0 Then
+                Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
+                Try
+                    Dim result = Process.Start(webAddress)
+                Catch ex As ObjectDisposedException
+                Catch ex As FileNotFoundException
+                Catch ex As System.ComponentModel.Win32Exception
+                End Try
+            End If
         Next
         PropUpdateView() = True
 
@@ -565,69 +576,56 @@ Public Class RegionList
             AvatarView.Items.Clear()
 
             Dim Index = 0
-            Try
-                ' Create items and subitems for each item.
 
-                Dim L As New Dictionary(Of String, String)
+            ' Create items and subitems for each item.
+            Dim L As New Dictionary(Of String, String)
 
-                If MysqlIsRunning1 Then
-                    L = MysqlInterface.GetAgentList()
-                End If
+            If MysqlIsRunning1 Then
+                L = MysqlInterface.GetAgentList()
+            End If
 
-                For Each Agent In L
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add(My.Resources.Local)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                Next
-
-                If L.Count = 0 Then
-                    Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                    item1.SubItems.Add(My.Resources.MinusSign_NT)
-                    item1.SubItems.Add(My.Resources.Local_Grid)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
-            Catch ex As Exception
-                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add(My.Resources.MinusSign_NT)
+            For Each Agent In L
+                Dim item1 As New ListViewItem(Agent.Key, Index)
+                item1.SubItems.Add(Agent.Value)
                 item1.SubItems.Add(My.Resources.Local)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
                 Index += 1
-            End Try
+            Next
+
+            If L.Count = 0 Then
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add("-".ToUpperInvariant)
+                item1.SubItems.Add(My.Resources.Local_Grid)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+                Index += 1
+            End If
 
             Index = 0
+
             ' Hypergrid
-            Try
-                ' Create items and subitems for each item.
-                Dim L As New Dictionary(Of String, String)
-                If MysqlIsRunning1 Then
-                    L = GetHGAgentList()
-                End If
+            '
+            ' Create items and subitems for each item.
+            Dim M As New Dictionary(Of String, String)
+            If MysqlIsRunning1 Then
+                M = GetHGAgentList()
+            End If
 
-                For Each Agent In L
-                    If Agent.Value.Length > 0 Then
-                        Dim item1 As New ListViewItem(Agent.Key, Index)
-                        item1.SubItems.Add(Agent.Value)
-                        item1.SubItems.Add(My.Resources.HG_word_NT)
-                        AvatarView.Items.AddRange(New ListViewItem() {item1})
-                        Index += 1
-                    End If
-                Next
-
-                If Index = 0 Then
-                    Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                    item1.SubItems.Add(My.Resources.MinusSign_NT)
+            For Each Agent In M
+                If Agent.Value.Length > 0 Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Agent.Value)
                     item1.SubItems.Add(My.Resources.HG_word_NT)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
                 End If
-            Catch
+            Next
+
+            If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add(My.Resources.MinusSign_NT)
+                item1.SubItems.Add("-".ToUpperInvariant)
                 item1.SubItems.Add(My.Resources.HG_word_NT)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
-            End Try
+            End If
 
             Me.AvatarView.TabIndex = 0
             AvatarView.EndUpdate()
@@ -636,11 +634,15 @@ Public Class RegionList
 
             ViewNotBusy1 = True
             PropUpdateView() = False
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
     End Sub
+
+#End Region
 
 #Region "Private Methods"
 
@@ -732,7 +734,7 @@ Public Class RegionList
                     If TheView1 = ViewType.Maps Then
 
                         If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
-                            Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(X).Replace(My.Resources.MinusSign_NT, "")
+                            Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(X).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(X).Replace("-".ToUpperInvariant, "")
 
                             Dim bmp As Image = LoadImage(img)
                             If bmp Is Nothing Then
@@ -765,10 +767,12 @@ Public Class RegionList
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                         Else
-                            item1.SubItems.Add(My.Resources.Zero_word_NT)
+                            item1.SubItems.Add("0".ToUpperInvariant)
                         End If
+#Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
-                        item1.SubItems.Add(My.Resources.Zero_word_NT)
+#Enable Warning CA1031 ' Do not catch general exception types
+                        item1.SubItems.Add("0".ToUpperInvariant)
                     End Try
                     item1.SubItems.Add(Form1.PropRegionClass.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
@@ -788,19 +792,23 @@ Public Class RegionList
                     item1.SubItems.Add(size)
 
                     ' add estate name
-                    Dim Estate = My.Resources.MinusSign_NT
+                    Dim Estate = "-".ToUpperInvariant
                     If MysqlIsRunning Then
                         Estate = MysqlInterface.EstateName(Form1.PropRegionClass.UUID(X))
                     End If
                     item1.SubItems.Add(Estate)
 
                     'Map
-                    item1.SubItems.Add(Form1.PropRegionClass.MapType(X))
+                    If Form1.PropRegionClass.MapType(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.MapType(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
 
                     ' physics
                     Select Case Form1.PropRegionClass.Physics(X)
                         Case ""
-                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                            item1.SubItems.Add("-".ToUpperInvariant)
                         Case "0"
                             item1.SubItems.Add(My.Resources.None)
                         Case "1"
@@ -814,7 +822,7 @@ Public Class RegionList
                         Case "5"
                             item1.SubItems.Add(My.Resources.ubODE_Hybrid_word)
                         Case Else
-                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                            item1.SubItems.Add("-".ToUpperInvariant)
                     End Select
 
                     'birds
@@ -822,14 +830,14 @@ Public Class RegionList
                     If Form1.PropRegionClass.Birds(X) = "True" Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
-                        item1.SubItems.Add(My.Resources.MinusSign_NT)
+                        item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
                     'Tides
                     If Form1.PropRegionClass.Tides(X) = "True" Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
-                        item1.SubItems.Add(My.Resources.MinusSign_NT)
+                        item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
                     'teleport
@@ -837,7 +845,7 @@ Public Class RegionList
                     Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
-                        item1.SubItems.Add(My.Resources.MinusSign_NT)
+                        item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
                     If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
@@ -846,12 +854,52 @@ Public Class RegionList
                         If Form1.PropRegionClass.SmartStart(X) = True Then
                             item1.SubItems.Add(My.Resources.Yes_word)
                         Else
-                            item1.SubItems.Add(My.Resources.MinusSign_NT)
+                            item1.SubItems.Add("-".ToUpperInvariant)
                         End If
                     End If
 
-                    item1.SubItems.Add(Form1.PropRegionClass.AllowGods(X))
-                    item1.SubItems.Add(Form1.PropRegionClass.RegionGod(X))
+                    If Form1.PropRegionClass.AllowGods(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.AllowGods(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.RegionGod(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.RegionGod(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.ManagerGod(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.ManagerGod(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.SkipAutobackup(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.SkipAutobackup(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.RegionSnapShot(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.RegionSnapShot(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.MinTimerInterval(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.MinTimerInterval(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
+                    If Form1.PropRegionClass.FrameTime(X).Length > 0 Then
+                        item1.SubItems.Add(Form1.PropRegionClass.FrameTime(X))
+                    Else
+                        item1.SubItems.Add("-".ToUpperInvariant)
+                    End If
+
                     item1.SubItems.Add(Form1.PropRegionClass.ManagerGod(X))
                     item1.SubItems.Add(Form1.PropRegionClass.SkipAutobackup(X))
                     item1.SubItems.Add(Form1.PropRegionClass.RegionSnapShot(X))
@@ -879,12 +927,16 @@ Public Class RegionList
                 ListView1.EndUpdate()
                 ViewNotBusy1 = True
                 PropUpdateView() = False
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
                 Form1.PropRegionClass.GetAllRegions()
                 PropUpdateView() = False
             End Try
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             Form1.PropRegionClass.GetAllRegions()
             PropUpdateView() = False
@@ -1088,7 +1140,9 @@ Public Class RegionList
         Try
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-        Catch ex As Exception
+        Catch ex As InvalidOperationException
+            chosen = ""
+        Catch ex As ArgumentOutOfRangeException
             chosen = ""
         End Try
 
@@ -1195,7 +1249,7 @@ Public Class RegionList
 
                 Dim extension As String = Path.GetExtension(ofd.FileName)
                 extension = Mid(extension, 2, 5)
-                If extension.ToLower(Globalization.CultureInfo.InvariantCulture) = "ini" Then
+                If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
@@ -1210,7 +1264,14 @@ Public Class RegionList
 
                     Dim NewFilepath = Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
                     If Not Directory.Exists(NewFilepath) Then
-                        Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
+                        Try
+                            Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
+                        Catch ex As ArgumentException
+                        Catch ex As IO.PathTooLongException
+                        Catch ex As NotSupportedException
+                        Catch ex As UnauthorizedAccessException
+                        Catch ex As IO.IOException
+                        End Try
                     End If
 
                     File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
@@ -1263,8 +1324,6 @@ Public Class RegionList
         Return p1
 
     End Function
-
-#End Region
 
 #End Region
 

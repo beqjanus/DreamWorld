@@ -162,7 +162,7 @@ Partial Class RegionList
         Me.ViewMaps.Name = "ViewMaps"
         Me.ViewMaps.Size = New System.Drawing.Size(93, 23)
         Me.ViewMaps.TabIndex = 18601
-        Me.ViewMaps.Text = Global.Outworldz.My.Resources.Resources.Maps
+        Me.ViewMaps.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         Me.ToolTip1.SetToolTip(Me.ViewMaps, Global.Outworldz.My.Resources.Resources.View_Maps)
         Me.ViewMaps.UseVisualStyleBackColor = True
         '

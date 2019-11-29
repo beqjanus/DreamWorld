@@ -24,7 +24,14 @@ Module FileStuff
 
         ' If the destination folder don't exist then create it
         If Not System.IO.Directory.Exists(destinationPath) Then
-            System.IO.Directory.CreateDirectory(destinationPath)
+            Try
+                System.IO.Directory.CreateDirectory(destinationPath)
+            Catch ex As ArgumentException
+            Catch ex As IO.PathTooLongException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As IO.IOException
+            End Try
         End If
 
         If Not System.IO.Directory.Exists(sourcePath) Then
@@ -56,7 +63,14 @@ Module FileStuff
             Else
                 ' Recursively call the method to copy all the nested folders
                 If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
-                    System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
+                    Try
+                        System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
+                    Catch ex As ArgumentException
+                    Catch ex As IO.PathTooLongException
+                    Catch ex As NotSupportedException
+                    Catch ex As UnauthorizedAccessException
+                    Catch ex As IO.IOException
+                    End Try
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
                 Application.DoEvents()

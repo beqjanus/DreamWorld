@@ -63,13 +63,17 @@ Public Class FormDisplacement1X1
         Dim Xcoord = Form1.PropRegionClass.CoordX(RegionNumber)
         Dim Ycoord = Form1.PropRegionClass.CoordY(RegionNumber)
 
-        Dim place As String = "map-1-" & Xcoord & My.Resources.MinusSign_NT & Ycoord & "-objects.jpg"
+        Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
         Try
             Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
             PictureBox3.Image = Pic
             Pic = Nothing
-        Catch ex As Exception
+        Catch ex As OutOfMemoryException
+            PictureBox3.Image = My.Resources.water
+        Catch ex As IO.FileNotFoundException
+            PictureBox3.Image = My.Resources.water
+        Catch ex As ArgumentException
             PictureBox3.Image = My.Resources.water
         End Try
 

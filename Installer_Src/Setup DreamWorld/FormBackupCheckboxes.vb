@@ -98,51 +98,77 @@ Public Class FormBackupCheckboxes
         Else
             Dest = Form1.Settings.BackupFolder + "\" + Foldername
         End If
-        Try
-            If RegionCheckBox.Checked Then
+
+        If RegionCheckBox.Checked Then
+            Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-                PrintStatus("Backing up Regions Folder")
-                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
-                Application.DoEvents()
-            End If
+            Catch ex As ArgumentException
+            Catch ex As IO.PathTooLongException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As IO.IOException
+            End Try
 
-            If MySqlCheckBox.Checked Then
+            PrintStatus("Backing up Regions Folder")
+            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+            Application.DoEvents()
+        End If
+
+        If MySqlCheckBox.Checked Then
+            Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-                PrintStatus("Backing up MySql\Data Folder")
-                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
-                Application.DoEvents()
-            End If
+            Catch ex As ArgumentException
+            Catch ex As IO.PathTooLongException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As IO.IOException
+            End Try
+            PrintStatus("Backing up MySql\Data Folder")
+            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+            Application.DoEvents()
+        End If
 
-            If FSAssetsCheckBox.Checked Then
+        If FSAssetsCheckBox.Checked Then
+            Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
+            Catch ex As ArgumentException
+            Catch ex As IO.PathTooLongException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As IO.IOException
+            End Try
 
-                Dim folder As String = "./fsassets"
-                If Form1.Settings.BaseDirectory = "./fsassets" Then
-                    folder = Form1.Settings.OpensimBinPath & "bin\FSAssets"
-                Else
-                    folder = Form1.Settings.BaseDirectory
-                End If
-
-                PrintStatus("Backing up FSAssets Folder")
-                FileStuff.CopyFolder(folder, Dest + "\FSAssets")
-                Application.DoEvents()
+            Dim folder As String = "./fsassets"
+            If Form1.Settings.BaseDirectory = "./fsassets" Then
+                folder = Form1.Settings.OpensimBinPath & "bin\FSAssets"
+            Else
+                folder = Form1.Settings.BaseDirectory
             End If
 
-            If CustomCheckBox.Checked Then
+            PrintStatus("Backing up FSAssets Folder")
+            FileStuff.CopyFolder(folder, Dest + "\FSAssets")
+            Application.DoEvents()
+        End If
+
+        If CustomCheckBox.Checked Then
+            Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-                PrintStatus("Backing up Wifi Folders")
-                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-                FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
-                Application.DoEvents()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+            Catch ex As ArgumentException
+            Catch ex As IO.PathTooLongException
+            Catch ex As NotSupportedException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As IO.IOException
+            End Try
+            PrintStatus("Backing up Wifi Folders")
+            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+            Application.DoEvents()
+        End If
 
         If SettingsBox.Checked Then
             PrintStatus(My.Resources.Backing_up_Settings_word)

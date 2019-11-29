@@ -380,7 +380,7 @@ Partial Class FormDatabase
         Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(256, 34)
-        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data
+        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data_Files_word
         '
         'DataOnlyToolStripMenuItem
         '

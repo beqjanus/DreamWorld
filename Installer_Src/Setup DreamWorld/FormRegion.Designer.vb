@@ -635,7 +635,7 @@ Partial Class FormRegion
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(77, 13)
         Me.Label4.TabIndex = 16
-        Me.Label4.Text = "Map Coords: X"
+        Me.Label4.Text = My.Resources.Maps_word & ": X"
         '
         'Label1
         '
@@ -644,7 +644,7 @@ Partial Class FormRegion
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(14, 13)
         Me.Label1.TabIndex = 17
-        Me.Label1.Text = My.Resources.Y_word
+        Me.Label1.Text = "Y".ToUpperInvariant
         '
         'UUID
         '
@@ -696,7 +696,7 @@ Partial Class FormRegion
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 3
-        Me.Label3.Text = My.Resources.Y_word
+        Me.Label3.Text = "Y".ToUpperInvariant
         '
         'Label2
         '
@@ -705,7 +705,7 @@ Partial Class FormRegion
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 2
-        Me.Label2.Text = My.Resources.X_word
+        Me.Label2.Text = "X".ToUpperInvariant
         '
         'Button1
         '
@@ -861,7 +861,7 @@ Partial Class FormRegion
         Me.MapBox.Size = New System.Drawing.Size(222, 247)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = My.Resources.Maps
+        Me.MapBox.Text = My.Resources.Maps_word
         '
         'Maps_Use_Default
         '

@@ -175,7 +175,7 @@ Public Class FormCaches
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = "Pick folder for cache"
+            .Description = My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 

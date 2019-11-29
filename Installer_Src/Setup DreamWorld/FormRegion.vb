@@ -538,98 +538,95 @@ Public Class FormRegion
 
     End Function
 
+#Region "Private Methods"
+
     Private Function RegionValidate() As String
 
         Dim Message As String
 
         If Len(RegionName.Text) = 0 Then
-            Message = "Region name must not be blank"
+            Message = My.Resources.Region_name_must_not_be_blank_word
             Return Message
         End If
 
         ' UUID
         Dim result As Guid
         If Not Guid.TryParse(UUID.Text, result) Then
-            Message = "Region UUID Is invalid " + UUID.Text
+            Message = My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
             Return Message
         End If
 
         ' global coords
-        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
-            Message = "Region Coordinate X cannot be less than 32"
+        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
+            Message = My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message
         ElseIf Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = "Region Coordinate X Is too large"
+            Message = My.Resources.Region_Coordinate_X_is_too_large
             Return Message
         End If
 
         If Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
-            Message = "Region CoordY cannot be less than 32"
+            Message = My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
         ElseIf Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = "Region CoordY Is too large"
-            Return Message
-        End If
-
-        If Convert.ToInt16("0" & RegionPort.Text, Globalization.CultureInfo.InvariantCulture) = 0 Then
-            Message = "Region Port cannot be zero Or undefined"
+            Message = My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If
 
         Dim aresult As Guid
         If Not Guid.TryParse(UUID.Text, aresult) Then
-            Message = "Not a valid UUID"
+            Message = My.Resources.UUID0
             Return Message
         End If
 
         Try
             If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
-                Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
+                Message = My.Resources.NVNonPhysPrim
                 Return Message
             End If
         Catch ex As InvalidCastException
-            Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
+            Message = My.Resources.NVNonPhysPrim
             Return Message
         Catch ex As OverflowException
-            Message = "Not a valid Non-Physical Prim Max Value. Must be greater than 0."
+            Message = My.Resources.NVNonPhysPrim
             Return Message
         End Try
 
         Try
             If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
-                Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
+                Message = My.Resources.NVPhysPrim
                 Return Message
             End If
         Catch ex As InvalidCastException
-            Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
+            Message = My.Resources.NVPhysPrim
             Return Message
         Catch ex As OverflowException
-            Message = "Not a valid Physical Prim Max Value. Must be greater than 0."
+            Message = My.Resources.NVPhysPrim
             Return Message
         End Try
 
         Try
             If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
-                Message = "Not a valid MaxPrims Value. Must be greater than 0."
+                Message = My.Resources.NVMaxPrim
                 Return Message
             End If
         Catch ex As InvalidCastException
-            Message = "Not a valid MaxPrims Value. Must be greater than 0."
+            Message = My.Resources.NVMaxPrim
             Return Message
         Catch ex As OverflowException
-            Message = "Not a valid MaxPrims Value. Must be greater than 0."
+            Message = My.Resources.NVMaxPrim
             Return Message
         End Try
         Try
             If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
-                Message = "Not a valid MaxAgents Value. Must be greater than 0."
+                Message = My.Resources.NVMaxAgaents
                 Return Message
             End If
         Catch ex As InvalidCastException
-            Message = "Not a valid MaxAgents Value. Must be greater than 0."
+            Message = My.Resources.NVMaxAgaents
             Return Message
         Catch ex As OverflowException
-            Message = "Not a valid MaxAgents Value. Must be greater than 0."
+            Message = My.Resources.NVMaxAgaents
             Return Message
         End Try
         Return ""
@@ -678,7 +675,14 @@ Public Class FormRegion
             End If
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
-                Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
+                Try
+                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
+                Catch ex As ArgumentException
+                Catch ex As IO.PathTooLongException
+                Catch ex As NotSupportedException
+                Catch ex As UnauthorizedAccessException
+                Catch ex As IO.IOException
+                End Try
             End If
 
             Form1.PropRegionClass.RegionPath(n) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
@@ -1016,14 +1020,14 @@ Public Class FormRegion
 
         If AllowGods.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Gods")
         Else
             If AllowGods.Checked = False And
                 RegionGod.Checked = False And
                 ManagerGod.Checked = False Then
                 Gods_Use_Default.Checked = True
             End If
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1103,7 +1107,7 @@ Public Class FormRegion
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " is set to default for Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is set to default for Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1114,14 +1118,14 @@ Public Class FormRegion
 
         If ManagerGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Manager Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Manager Gods")
         Else
             If AllowGods.Checked = False And
                 RegionGod.Checked = False And
                 ManagerGod.Checked = False Then
                 Gods_Use_Default.Checked = True
             End If
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Manager Gods")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Manager Gods")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1130,7 +1134,7 @@ Public Class FormRegion
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         If MapBest.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Best")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Best")
             MapPicture.Image = My.Resources.Best
         End If
         If Initted1 Then Changed1 = True
@@ -1140,7 +1144,7 @@ Public Class FormRegion
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         If MapBetter.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Better")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Better")
             MapPicture.Image = My.Resources.Better
         End If
         If Initted1 Then Changed1 = True
@@ -1150,7 +1154,7 @@ Public Class FormRegion
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         If MapGood.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Good")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Good")
             MapPicture.Image = My.Resources.Good
         End If
         If Initted1 Then Changed1 = True
@@ -1166,7 +1170,7 @@ Public Class FormRegion
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to None")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to None")
             MapPicture.Image = My.Resources.blankbox
         End If
         If Initted1 Then Changed1 = True
@@ -1176,7 +1180,7 @@ Public Class FormRegion
     Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
 
         If Maps_Use_Default.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Default")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Default")
             MapNone.Checked = False
             MapSimple.Checked = False
             MapGood.Checked = False
@@ -1203,7 +1207,7 @@ Public Class FormRegion
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         If MapSimple.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map is set to Simple")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Simple")
             MapPicture.Image = My.Resources.Simple
         End If
         If Initted1 Then Changed1 = True
@@ -1229,7 +1233,7 @@ Public Class FormRegion
     Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
 
         If NoPublish.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not set to publish snapshots")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not set to publish snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -1246,7 +1250,7 @@ Public Class FormRegion
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics is set to default")
+            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to default")
             PhysicsNone.Checked = False
             PhysicsODE.Checked = False
             PhysicsubODE.Checked = False
@@ -1302,6 +1306,8 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
+
+#End Region
 
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 

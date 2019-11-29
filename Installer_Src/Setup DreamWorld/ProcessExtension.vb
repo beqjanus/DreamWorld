@@ -67,6 +67,9 @@ Module ProcessExtension
     End Function
 
     Private Function SuspendThread(ByVal hThread As IntPtr) As UInteger
+#Disable Warning BC42353 ' Function doesn't return a value on all code paths
     End Function
+
+#Enable Warning BC42353 ' Function doesn't return a value on all code paths
 
 End Module

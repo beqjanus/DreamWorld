@@ -130,7 +130,11 @@ Public Class FormPublicity
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch ex As Exception
+        Catch ex As OutOfMemoryException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As IO.FileNotFoundException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As ArgumentException
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
 

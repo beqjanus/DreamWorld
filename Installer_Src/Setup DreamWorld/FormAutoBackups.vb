@@ -146,16 +146,10 @@ Public Class FormAutoBackups
         Dim digitsOnly As Regex = New Regex("[^\d]")
         AutoBackupKeepFilesForDays.Text = digitsOnly.Replace(AutoBackupKeepFilesForDays.Text, "")
 
-        Try
-            If CInt(AutoBackupKeepFilesForDays.Text) > 0 Then
-                Form1.Settings.KeepForDays = CInt(AutoBackupKeepFilesForDays.Text)
-                Form1.Settings.SaveSettings()
-            End If
-        Catch ex As Exception
-            MsgBox(My.Resources.Must_be_Days, vbInformation)
-            Form1.Settings.KeepForDays = 30
+        If Not Integer.TryParse(AutoBackupKeepFilesForDays.Text, Form1.Settings.KeepForDays) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
             Form1.Settings.SaveSettings()
-        End Try
+        End If
         Form1.PropViewedSettings = True
     End Sub
 
@@ -180,7 +174,7 @@ Public Class FormAutoBackups
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = "Pick folder for backups"
+            .Description = My.Resources.Choose_folder_for_backups
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()
@@ -205,9 +199,12 @@ Public Class FormAutoBackups
 
     Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim CriticalForm = New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
         CriticalForm.Activate()
         CriticalForm.Visible = True
+        CriticalForm.Select()
 
     End Sub
 
