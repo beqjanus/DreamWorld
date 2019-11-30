@@ -19,6 +19,9 @@
         Catch ex As ArgumentOutOfRangeException
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
+        Catch ex As FormatException
+        Catch ex As Overflowexception
+        Catch ex As InvalidCastException
         End Try
 
         Select Case Quad1
