@@ -7028,7 +7028,7 @@ Public Class Form1
         Diagnostics.Debug.Print("Scanning Data snapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
-        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\PHP7\"
+        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\Apache\htdocs"
         pi.FileName = "Run_parser.bat"
         pi.UseShellExecute = False  ' needed to make window hidden
         pi.WindowStyle = ProcessWindowStyle.Hidden
