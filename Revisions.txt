@@ -2,6 +2,26 @@ Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
+V3.291
+
+
+German Language translations by Dieter, thank you!
+
+Search module Search and Sort for Grids was missing
+
+A dozen more translations and some fixes for Globalization in forms for resizing.
+
+Reordered the Search Menus to make better sense - thanks, Ai Austin!
+
+Cleaned up warnings about programming style that appeared in Studio 2019,  so I can spot anything that might be important in the future.
+
+Region List shows dashes (-) when the setting comes from the default instead of a region over ride. This was only partly implemented before.
+
+Implemented much more checking of human-entered values in places like the Birds form.
+
+Added a Trouble shooting Guide to Help
+
+
 V3.29
 
 You can click the round MySQL, Robust, Apache and Icecast status buttons to stop/start them.  
