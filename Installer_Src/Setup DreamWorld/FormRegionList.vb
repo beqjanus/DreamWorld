@@ -848,14 +848,10 @@ Public Class RegionList
                         item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
-                    If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
-                        item1.SubItems.Add(My.Resources.HomeText)
+                    If Form1.PropRegionClass.SmartStart(X) = "True" Then
+                        item1.SubItems.Add(My.Resources.Yes_word)
                     Else
-                        If Form1.PropRegionClass.SmartStart(X) = "True" Then
-                            item1.SubItems.Add(My.Resources.Yes_word)
-                        Else
-                            item1.SubItems.Add("-".ToUpperInvariant)
-                        End If
+                        item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
                     If Form1.PropRegionClass.AllowGods(X).Length > 0 Then
