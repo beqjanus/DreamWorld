@@ -1560,7 +1560,7 @@ Public Class Form1
 
         Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
 
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -1620,7 +1620,7 @@ Public Class Form1
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
         Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Try
             My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
@@ -1764,7 +1764,7 @@ Public Class Form1
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", Settings.CacheEnabled)
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.ASCII)
         Return False
 
     End Function
@@ -1793,7 +1793,7 @@ Public Class Form1
 
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
 
@@ -1804,7 +1804,7 @@ Public Class Form1
         ' load and patch it up for MySQL
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";") Then Return True
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -2010,7 +2010,7 @@ Public Class Form1
         Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
         Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
 
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
     End Function
@@ -2110,7 +2110,7 @@ Public Class Form1
         Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
         Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionNum))
 
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         ' Opensim.ini in Region Folder specific to this region
         If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";") Then
@@ -2269,7 +2269,7 @@ Public Class Form1
                 Settings.SetIni("DataSnapshot", "index_sims", "False")
         End Select
 
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
     End Function
@@ -2326,7 +2326,7 @@ Public Class Form1
 
             Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
-            Settings.SaveINI()
+            Settings.SaveINI(System.Text.Encoding.UTF8)
 
         End If
 
@@ -2410,7 +2410,7 @@ Public Class Form1
             Settings.SetIni("TOSModule", "ShowToLocalUsers", CStr(Settings.ShowToLocalUsers))
             Settings.SetIni("TOSModule", "ShowToForeignUsers", CStr(Settings.ShowToForeignUsers))
             Settings.SetIni("TOSModule", "TOS_URL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/wifi/termsofservice.html")
-            Settings.SaveINI()
+            Settings.SaveINI(System.Text.Encoding.UTF8)
         End If
         Return False
     End Function
@@ -2461,7 +2461,7 @@ Public Class Form1
             Settings.SetIni("WifiService", "AccountConfirmationRequired", "False")
         End If
 
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -2678,7 +2678,7 @@ Public Class Form1
             Return True
         End If
         Settings.SetIni(regionname, key, value)
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -3462,28 +3462,34 @@ Public Class Form1
             Return
         End If
         _MysqlCrashCounter = 0
+        Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
+        Dim files As Array = Nothing
+        Try
+            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+        Catch ex As ArgumentException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
 
-        Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Error_word)
-        If (yesno = vbYes) Then
-            Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
-            Dim files As Array = Nothing
-            Try
-                files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-            Catch ex As ArgumentException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As DirectoryNotFoundException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
-            End Try
+        If files.Length > 0 Then
+            Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Error_word)
+            If (yesno = vbYes) Then
 
-            For Each FileName As String In files
-                Try
-                    System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                Catch ex As InvalidOperationException
-                Catch ex As System.ComponentModel.Win32Exception
-                End Try
-            Next
+                For Each FileName As String In files
+                    Try
+                        System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
+                    Catch ex As InvalidOperationException
+                    Catch ex As System.ComponentModel.Win32Exception
+                    End Try
+                Next
+            End If
+        Else
+            PropAborting = True
+            MsgBox(My.Resources.Error_word, vbInformation, My.Resources.Error_word)
         End If
+
     End Sub
 
     ' Handle Exited event and display process information.
@@ -5611,7 +5617,7 @@ Public Class Form1
         Settings.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
-        Settings.SaveINI()
+        Settings.SaveINI(System.Text.Encoding.ASCII)
 
         ' create test program slants the other way:
         Dim testProgram As String = PropMyFolder & "\OutworldzFiles\Mysql\bin\StartManually.bat"

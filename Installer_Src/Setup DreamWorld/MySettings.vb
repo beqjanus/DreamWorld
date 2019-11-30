@@ -323,11 +323,11 @@ Public Class MySettings
 
     End Function
 
-    Public Sub SaveINI()
+    Public Sub SaveINI(encoding As Object)
 
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
-            parser.WriteFile(INI, Data, System.Text.Encoding.UTF8)
+            parser.WriteFile(INI, Data, encoding)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types

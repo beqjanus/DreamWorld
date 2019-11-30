@@ -551,13 +551,13 @@ Public Class RegionList
                     ' and region file on disk
                     Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
                     Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "True")
-                    Form1.Settings.SaveINI()
+                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
                 ElseIf (e.CurrentValue = CheckState.Checked) Then
                     Form1.PropRegionClass.RegionEnabled(X) = False
                     ' and region file on disk
                     Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
                     Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "False")
-                    Form1.Settings.SaveINI()
+                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
                 End If
             End If
         Next

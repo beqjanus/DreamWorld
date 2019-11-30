@@ -136,7 +136,7 @@ Public Class RegionMaker
             Form1.PropRegionClass.RegionPort(RegionNum) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
-            Form1.Settings.SaveINI()
+            Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
             Application.DoEvents()
         Next
