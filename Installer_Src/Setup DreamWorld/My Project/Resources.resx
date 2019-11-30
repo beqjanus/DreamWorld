@@ -2681,4 +2681,7 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>Voice Settings</value>
   </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server Type is</value>
+  </data>
 </root>

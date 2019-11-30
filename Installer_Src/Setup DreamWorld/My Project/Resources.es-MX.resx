@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Copia de seguridad Páginas Web personalizado</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Copia de seguridad de archivos de datos</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Bases de datos de copia de seguridad</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Copia de seguridad de archivos de datos</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Buscar actualizaciones</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Elija una carpeta</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Elegir el caché para vaciar</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Registro de dirección de DynDNS</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>dirección dinámica DNSRegistering DynDNS</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>contraseña DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1162,7 +1162,7 @@
     <value>Opensim está cargando su artículo. Usted lo encontrará en</value>
   </data>
   <data name="Issue_Commands" xml:space="preserve">
-    <value>Emitir Consola de Comandos</value>
+    <value>Emitir comandos de consola</value>
   </data>
   <data name="is_already_running_word" xml:space="preserve">
     <value>está en ejecución</value>
@@ -1258,19 +1258,19 @@
     <value>Nivel de agua bajo</value>
   </data>
   <data name="LSL_Allow" xml:space="preserve">
-    <value>scripts de LSL no pueden llegar a otra LAN PC. Si se activa esta, pueden acceder a los puertos de la LAN en cualquier PC. ¡Esto es peligroso!</value>
+    <value>scripts de LSL no pueden llegar a otra LAN PC. Si se activa esta opción, se puede acceder a los puertos de la LAN en cualquier PC. ¡Esto es peligroso!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>¿Hacer una copia de seguridad?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>mapas</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Todos los mosaicos de mapas han sido borrados. Establecer el valor de MAP y reiniciar el sistema para hacer nuevos mapas</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>mapas</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Mapa Coordenadas: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Velocidad máxima (por defecto = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Combinar OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Combinar objetos</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>malla de caché</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org región del servidor</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutos</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Debe ser el mismo que Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Debe ser un número de días</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Tiene que ser un número</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Debe ser un archivo PNG</value>
@@ -1462,7 +1459,7 @@
     <value>sin Avatares</value>
   </data>
   <data name="no_Default_sim" xml:space="preserve">
-    <value>No se pudo establecer SIM por defecto para los visitantes. Ver Panel de Regiones.</value>
+    <value>No se pudo establecer sim por defecto para los visitantes. Ver Panel de Regiones.</value>
   </data>
   <data name="No_HG" xml:space="preserve">
     <value>Sin HyperGrid visitantes serán permitidos en esta región</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>El número de aves que acuden</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>No es un número válido de Maximujm Agentes Valor. Debe ser mayor que 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>No es un válido Máximo Valor Prim. Debe ser mayor que 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>No es un válida para no física Prim Valor máx. Debe ser mayor que 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>No es un válido Prim física Valor máx. Debe ser mayor que 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR archivos son copias de seguridad de todo Islas</value>
@@ -1648,7 +1657,7 @@
     <value>Reciclar</value>
   </data>
   <data name="Refresh1" xml:space="preserve">
-    <value>Actualizar</value>
+    <value>Refrescar</value>
   </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Contenido refrescante gratuito (IAR)</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Controles región</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Región de coordenadas X no puede ser inferior a 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Región de coordenadas X es demasiado grande</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Región de coordenadas Y no puede ser inferior a 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Región de coordenadas Y es demasiado grande</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Base de datos región</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>nombre de la región no puede utilizar caracteres especiales</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>nombre de la región no debe estar en blanco</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>anulan los valores predeterminados específicos de la región ajustes</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>región Estadísticas</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Región UUID no es válido</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Región se ha eliminado</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Cada región comenzará sólo después de la región antes se ha cargado</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Tipo de servidor es</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Tipo de servidor</value>
@@ -2179,7 +2209,7 @@
     <value>ubODE</value>
   </data>
   <data name="Unable_2_Save" xml:space="preserve">
-    <value>No se puede guardar la configuración:</value>
+    <value>No es posible guardar los ajustes:</value>
   </data>
   <data name="UnassignedPerson" xml:space="preserve">
     <value>Introduzca el nombre y apellido de la persona que será el propietario de los objetos no asignados</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Voz</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Configuración de voz</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>A la espera de todas las regiones a la salida</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Algo está mal en Internet</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Sí</value>
   </data>
 </root>

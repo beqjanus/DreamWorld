@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Резервное копирование пользовательских веб-страниц</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Резервное копирование файлов данных</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Резервное копирование базы данных</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Резервное копирование файлов данных</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Проверить наличие обновлений</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Выберите папку</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Выберите, какой кэш опорожнить</value>
@@ -703,7 +703,7 @@
     <value>Отменить регистрацию</value>
   </data>
   <data name="Details_word" xml:space="preserve">
-    <value>подробности</value>
+    <value>Детали</value>
   </data>
   <data name="Determines" xml:space="preserve">
     <value>Это определяет, имеет ли модуль ничего</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Регистрирующий DynDNS адрес</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Динамический DNSRegistering DynDNS адрес</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS пароль</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1081,7 +1081,7 @@
     <value>Icecast</value>
   </data>
   <data name="iceCastServer" xml:space="preserve">
-    <value>IceCast сервер</value>
+    <value>IceCast сервера</value>
   </data>
   <data name="Icecast_Desc" xml:space="preserve">
     <value>Icecast позволяет передавать музыку в свой сим. Музыка URL:</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL скрипты не могут достичь другого LAN ПК. Если вы включите это, они могут получить доступ к портам локальной сети на любом компьютере. Это опасно!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Сделайте резервную копию?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Карты</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Все фрагменты карты были стерты. Установите настройки карты и перезагрузки компьютера, чтобы сделать новые карты</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Карты</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Карта Coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Максимальная скорость (по умолчанию = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Объединить ОАР</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Объединить объекты</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org область сервера</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>минут</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Должен быть такой же, как Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Должно быть несколько дней</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Должно быть числом</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Должен быть файл PNG</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Количество птиц стекаться</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Не действительный Maximujm количество агентов Value. Должно быть больше 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Не действует Максимальная Прима Значение. Должно быть больше 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Не действительный нефизических Prim Max Value. Должно быть больше, чем 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Не действительный физический Prim Max Value. Должно быть больше 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR файлы резервных копий целых островов</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Органы управления региона</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Регион координат X не может быть меньше, чем 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Регион координат X Слишком большой</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Область координат Y не может быть меньше, чем 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Регион координат Y Слишком большой</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>База данных Регион</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Название Регион не может использовать специальные символы</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Название Регион не должно быть пустым</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Регион конкретные параметры настройки переопределения по умолчанию</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Регион: Статистика</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Регион UUID недействителен</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Регион был удален</value>
@@ -1786,7 +1813,7 @@
     <value>Параметры перезагрузки</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Запустить снова</value>
+    <value>Перезапуск</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Восстановление базы данных</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Каждая область будет начинаться только после загрузки до области</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Тип сервера является</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Тип сервера</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>голос</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Настройки тембра</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Жду все регионы к выходу</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Что-то не так с Интернетом</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>да</value>
   </data>
 </root>

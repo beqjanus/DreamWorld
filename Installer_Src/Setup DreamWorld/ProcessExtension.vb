@@ -54,22 +54,9 @@ Module ProcessExtension
 
     End Sub
 
-    <DllImport("ntdll.dll", SetLastError:=False)>
-    Private Function NtSuspendProcess(ByVal ProcessHandle As IntPtr) As IntPtr
-    End Function
-
-    <DllImport("kernel32.dll")>
-    Private Function OpenThread(ByVal dwDesiredAccess As ThreadAccess, ByVal bInheritHandle As Boolean, ByVal dwThreadId As UInteger) As IntPtr
-    End Function
-
-    <DllImport("kernel32.dll")>
-    Private Function ResumeThread(ByVal hThread As IntPtr) As Integer
-    End Function
-
     Private Function SuspendThread(ByVal hThread As IntPtr) As UInteger
-#Disable Warning BC42353 ' Function doesn't return a value on all code paths
+        hThread = hThread
+        SuspendThread = SuspendThread
     End Function
-
-#Enable Warning BC42353 ' Function doesn't return a value on all code paths
 
 End Module

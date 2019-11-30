@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup Custom Web Pages</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Pliki kopii zapasowej danych</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Bazy danych zapasowych</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Pliki kopii zapasowej danych</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Sprawdź aktualizacje</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Wybierz folder</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Wybierz który cache, aby opróżnić</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Rejestrowanie adres DynDNS</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>adres dynamiczny DNSRegistering DynDNS</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>hasło DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -877,7 +877,7 @@
     <value>Nie udało się podłączyć do witryny internetowej.</value>
   </data>
   <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
-    <value>Nie udało się załadować ustawień INI</value>
+    <value>Nie udało się załadować ustawienia INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Fatalny</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>skrypty LSL nie może dotrzeć do innych sieci LAN PC. Jeśli to włączyć, mogą uzyskać dostęp do portów w sieci LAN na dowolnym komputerze. To jest niebezpieczne!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Zrób kopię zapasową?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Mapy</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Wszystkie płytki map zostały skasowane. Ustaw ustawienia mapy i ponowny rozruch, aby nowe mapy</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Mapy</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Mapa Coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Prędkość maksymalna (default = 1.0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>scalić obiekty</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minuty</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Musi być taka sama jak Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Musi być liczbą dni</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Musi być liczbą</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Musi być plik PNG</value>
@@ -1479,6 +1476,18 @@
   <data name="Num_Birds" xml:space="preserve">
     <value>Liczba ptaków stada</value>
   </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Nieprawidłowy numer Maximujm Środków Value. Musi być większa niż 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Nieprawidłowy Maksymalna wartość Prim. Musi być większa niż 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Nieprawidłowy niefizyczne Prim Maksymalna wartość. Musi być większa niż 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Nieprawidłowy fizyczny Prim Maksymalna wartość. Musi być większa niż 0.</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>Pliki wiosło są kopie zapasowe całych Wyspach</value>
   </data>
@@ -1531,7 +1540,7 @@
     <value>Zastępuje mapie globalnej ustawień dla tego jednego regionu</value>
   </data>
   <data name="Owner_God" xml:space="preserve">
-    <value>Właściciel Bóg</value>
+    <value>właściciel Bóg</value>
   </data>
   <data name="Parcels" xml:space="preserve">
     <value>paczki</value>
@@ -1603,7 +1612,7 @@
     <value>Wydrukować</value>
   </data>
   <data name="Private_Port_Word" xml:space="preserve">
-    <value>Prywatna Port</value>
+    <value>Private Port</value>
   </data>
   <data name="Production_Mode_Word" xml:space="preserve">
     <value>Tryb produkcja</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Kontrole Region</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region współrzędnych X nie może być mniejsza niż 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region współrzędnych X jest zbyt duży</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region współrzędnych Y nie może być mniejsza niż 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region współrzędna Y jest zbyt duży</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Baza Region</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Nazwa regionu nie można używać znaków specjalnych</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Nazwa regionu nie może być puste</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Ustawienia domyślne uruchamianie konkretnego regionu Ustawienia</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Region Stats</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID jest nieprawidłowy</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Region został usunięty</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Każdy region rozpocznie się dopiero po uprzednim załadowaniu regionu</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server Type jest</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Rodzaj serwera</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Głos</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Ustawienia głosowe</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Oczekiwanie na wszystkich regionach, aby wyjść</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Coś jest nie tak z Internetem</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>tak</value>
   </data>
 </root>

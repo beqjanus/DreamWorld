@@ -6412,6 +6412,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Server Type is.
+        '''</summary>
+        Friend ReadOnly Property Server_Type_is() As String
+            Get
+                Return ResourceManager.GetString("Server_Type_is", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Server Type.
         '''</summary>
         Friend ReadOnly Property Server_Type_word() As String

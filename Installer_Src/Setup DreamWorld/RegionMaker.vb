@@ -1017,6 +1017,8 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._FrameTime
         End Get
         Set(ByVal Value As String)
+            If Value Is Nothing Then Return
+            Value = Value.Replace(",", ".")
             RegionList(RegionNumber)._FrameTime = Value
         End Set
     End Property
@@ -1047,6 +1049,8 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._MinTimerInterval
         End Get
         Set(ByVal Value As String)
+            If Value Is Nothing Then Return
+            Value = Value.Replace(",", ".")
             RegionList(RegionNumber)._MinTimerInterval = Value
         End Set
     End Property

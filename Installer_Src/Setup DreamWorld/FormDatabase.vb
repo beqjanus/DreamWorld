@@ -285,6 +285,7 @@ Public Class FormDatabase
         CriticalForm.Activate()
         CriticalForm.Visible = True
         CriticalForm.Select()
+        CriticalForm.BringToFront()
 
     End Sub
 

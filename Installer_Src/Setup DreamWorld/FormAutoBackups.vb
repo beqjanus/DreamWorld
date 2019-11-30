@@ -205,7 +205,7 @@ Public Class FormAutoBackups
         CriticalForm.Activate()
         CriticalForm.Visible = True
         CriticalForm.Select()
-
+        CriticalForm.BringToFront()
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click

@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup anpassad webbsidor</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Backup datafiler</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Backup databaser</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup datafiler</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Sök efter uppdateringar</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Välj en mapp</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Välj vilken cache för att tömma</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Registrera DynDNS adress</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamisk DNSRegistering DynDNS adress</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS lösenord</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1099,7 +1099,7 @@
     <value>Klicka för att få hjälp att inrätta Icecast</value>
   </data>
   <data name="Icecast_is_Set" xml:space="preserve">
-    <value>Icecast Port är Set</value>
+    <value>Icecast porten är inställd</value>
   </data>
   <data name="Icecast_Started" xml:space="preserve">
     <value>icecast igång</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL skript kan inte nå andra LAN PC. Om du slår detta på, kan de få tillgång till portar på LAN på vilken dator som helst. Detta är farligt!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Gör en backup?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Kartor</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Alla kartrutor har raderats. Ställ kartan inställningen och starta om att göra nya kartor</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Kartor</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Karta koordinater: X</value>
@@ -1291,7 +1291,7 @@
     <value>Max avstånd för andra fåglar som skall beaktas i samma flock</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (default = 0,2)</value>
+    <value>Max Force (standard = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Höjd (default = 45,0)</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max hastighet (default = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Sammanfoga objekt</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minuter</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Måste vara samma som Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Måste vara ett antal dagar</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Måste vara en siffra</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Måste vara en PNG-fil</value>
@@ -1441,7 +1438,7 @@
     <value>Meddela Email</value>
   </data>
   <data name="NotValidUUID" xml:space="preserve">
-    <value>Inte ett giltigt UUID. Vill du ha en ny, Random UUID?</value>
+    <value>Inte en giltig UUID. Vill du ha en ny, Random UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
     <value>Detta verkar inte vidarebefordras till denna maskin i din router, så Hypergrid är inte tillgänglig. Detta kan möjligen fastställas genom 'Port Forwards' i din router. Se Hjälp-&gt; Port framåt.</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Antalet fåglar flock</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Inte ett giltigt Maximujm antal agenter värde. Måste vara större än 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Inte ett giltigt Maximum Prim värde. Måste vara större än 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Inte ett giltigt Non-Physical Prim Max värde. Måste vara större än 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Inte ett giltigt Physical Prim Max värde. Måste vara större än 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR filer är säkerhetskopior av hela Islands</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Region Controls</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region Koordinat X kan inte vara mindre än 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region Samordna X är för stor</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region Koordinat Y kan inte vara mindre än 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region Samordna Y är för stor</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>region Database</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Region namn kan inte använda specialtecken</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region namn får inte vara tomt</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Region specifika inställningar åsidostandardinställningar</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>region Stats</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID är ogiltig</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Region har tagits bort</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Varje region kommer att starta först när tidigare region har laddats</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server Type är</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>servertyp</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Röst</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>röst~~POS=TRUNC</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Väntar på alla regioner för att avsluta</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Något är fel med Internet</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Ja</value>
   </data>
 </root>

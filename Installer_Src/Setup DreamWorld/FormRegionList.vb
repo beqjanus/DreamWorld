@@ -468,6 +468,7 @@ Public Class RegionList
         RegionForm.Activate()
         RegionForm.Visible = True
         RegionForm.Select()
+        RegionForm.BringToFront()
 
     End Sub
 
@@ -841,8 +842,7 @@ Public Class RegionList
                     End If
 
                     'teleport
-                    If Form1.PropRegionClass.Teleport(X) = "True" Or
-                    Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
+                    If Form1.PropRegionClass.Teleport(X) = "True" Then
                         item1.SubItems.Add(My.Resources.Yes_word)
                     Else
                         item1.SubItems.Add("-".ToUpperInvariant)
@@ -851,7 +851,7 @@ Public Class RegionList
                     If Form1.PropRegionClass.RegionName(X) = Form1.Settings.WelcomeRegion Then
                         item1.SubItems.Add(My.Resources.HomeText)
                     Else
-                        If Form1.PropRegionClass.SmartStart(X) = True Then
+                        If Form1.PropRegionClass.SmartStart(X) = "True" Then
                             item1.SubItems.Add(My.Resources.Yes_word)
                         Else
                             item1.SubItems.Add("-".ToUpperInvariant)
@@ -900,12 +900,6 @@ Public Class RegionList
                         item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
-                    item1.SubItems.Add(Form1.PropRegionClass.ManagerGod(X))
-                    item1.SubItems.Add(Form1.PropRegionClass.SkipAutobackup(X))
-                    item1.SubItems.Add(Form1.PropRegionClass.RegionSnapShot(X))
-                    item1.SubItems.Add(Form1.PropRegionClass.MinTimerInterval(X))
-                    item1.SubItems.Add(Form1.PropRegionClass.FrameTime(X))
-
                     ListView1.Items.AddRange(New ListViewItem() {item1})
 
                 Next
@@ -952,11 +946,14 @@ Public Class RegionList
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(n))
         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
-
+        Form1.Sleep(1000)
         Dim Choices As New FormRegionPopup
         Dim chosen As String = ""
         Choices.Init(RegionName)
         Choices.ShowDialog()
+        Choices.Activate()
+        Choices.BringToFront()
+
         ' Read the chosen sim name
         chosen = Choices.Choice()
         Choices.Dispose()
@@ -1023,6 +1020,7 @@ Public Class RegionList
             RegionForm.Activate()
             RegionForm.Visible = True
             RegionForm.Select()
+            RegionForm.BringToFront()
 
         ElseIf chosen = "Recycle" Then
 

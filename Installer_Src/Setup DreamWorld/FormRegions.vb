@@ -69,6 +69,7 @@ Public Class FormRegions
         RegionForm.Activate()
         RegionForm.Visible = True
         RegionForm.Select()
+        RegionForm.BringToFront()
 
     End Sub
 
@@ -204,6 +205,7 @@ Public Class FormRegions
         RegionForm.Activate()
         RegionForm.Visible = True
         RegionForm.Select()
+        RegionForm.BringToFront()
 
     End Sub
 
@@ -223,6 +225,7 @@ Public Class FormRegions
             RegionForm.Activate()
             RegionForm.Visible = True
             RegionForm.Select()
+            RegionForm.BringToFront()
 
             Application.DoEvents()
             counter += 1

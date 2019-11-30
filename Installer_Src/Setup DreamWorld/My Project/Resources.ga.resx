@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Cúltaca Gréasáin an Chustaim Leathanaigh</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Backup Sonraína</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Bunachair Cúltaca</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup Sonraína</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -376,7 +373,7 @@
     <value>Cache Cumasaithe</value>
   </data>
   <data name="Cache_Most_Cleared" xml:space="preserve">
-    <value>Gach Caches Freastalaí seachas Scripteanna agus bakes Avatar glanadh. Ní mór Opensim a stopadh do script agus bake caches soiléire.</value>
+    <value>Gach Caches Freastalaí seachas Scripteanna agus bakes Avatar glanadh. Caithfear Opensim a stopadh do script agus bake caches soiléire.</value>
   </data>
   <data name="Canceled_IAR" xml:space="preserve">
     <value>Luchtaigh IAR ar ceal - ní mór a bhaint as an t-ainm úsáideora agus do phasfhocal iomlán.</value>
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Seiceáil do nuashrónaithe</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Roghnaigh fillteán</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Roghnaigh cén taisce a fholmhú</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>DynDNS chlárú seoladh</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Seoladh Dinimiciúla DNSRegistering DynDNS</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS phasfhocal</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1243,7 +1243,7 @@
     <value>Logáil Level</value>
   </data>
   <data name="Loopback_Failed" xml:space="preserve">
-    <value>Loopback Tástáil Theip. Ní raibh freagra a seoladh gréasáin.</value>
+    <value>Loopback Tástáil Theip. Ní raibh Seoladh gréasáin freagra a thabhairt.</value>
   </data>
   <data name="Loopback_Help" xml:space="preserve">
     <value>loopback Cabhair</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>Ní féidir le scripteanna LSL bhaint LAN eile PCanna. Má tá tú é seo a lasadh, is féidir leo teacht calafoirt ar do LAN ar aon ríomhaire. Tá sé seo Contúirteacha!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Déan cúltaca?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Léarscáileanna</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Gach tíleanna léarscáil curtha scriosadh. Socraigh an suíomh léarscáil agus Atosaigh a dhéanamh léarscáileanna nua</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Léarscáileanna</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Léarscáil coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max Gaoithe (réamhshocrú = 1.0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>OAR Cumaisc</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Réada merge</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mogalra Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Réigiún Freastalaí</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Miontuairiscí</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Caithfidh sé a bheith mar an gcéanna Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Caithfidh sé a bheith roinnt laethanta</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Caithfidh sé a bheith ina uimhir</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Ní mór a bheith ina comhad PNG</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Líon na n-éan a flock</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Gan uimhir Maximujm bailí Gníomhairí Luach. Caithfidh sé a bheith níos mó ná 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Ní Uasta Prim Luach bailí. Caithfidh sé a bheith níos mó ná 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Ní bailí Neamh-Physical Prim Max Luach. Caithfidh sé a bheith níos mó ná 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Ní bailí Prim Fhisiciúil Max Luach. Caithfidh sé a bheith níos mó ná 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>Tá comhaid OAR backups de Islands fad</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Rialuithe Réigiún</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Ní féidir le Réigiún a chomhordú X a bheith níos lú ná 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Réigiún Chomhordanáideach X An bhfuil ró-mhór</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Ní féidir le Réigiún a chomhordú Y a bheith níos lú ná 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Réigiún Chomhordanáideach Y An bhfuil ró-mhór</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Bunachar Sonraí Réigiún</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Ní féidir ainm na Réigiún litreacha speisialta</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Ní mór ainm réigiún a bheith bán</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>réamhshocruithe sáraíocht réigiún ar leith i suímh</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Réigiún Stats</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Réigiún UUID Is neamhbhailí</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Tá Réigiún bainte</value>
@@ -1813,7 +1840,7 @@
     <value>láidir</value>
   </data>
   <data name="Row" xml:space="preserve">
-    <value>Cliceáil ar a chéile ar chumas a thosú nó a stopadh leis an réigiún. Cliceáil a chéile faoi mhíchumas a chur in eagar ar an réigiún.</value>
+    <value>Cliceáil ar a chéile ar chumas a thosú nó a stopadh leis an réigiún. Cliceáil a chéile faoi mhíchumas a in eagar ar an réigiún.</value>
   </data>
   <data name="Running" xml:space="preserve">
     <value>Rith</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Beidh gach réigiún tosú ach amháin tar éis an réigiún roimh ré luchtaithe</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Is freastalaí Cineál</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Cineál Freastalaí</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>guth</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Socruithe Voice</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Ag feitheamh le gach réigiún a scoir</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Tá rud éigin cearr leis an Idirlíon</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Is ea</value>
   </data>
 </root>

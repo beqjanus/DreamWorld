@@ -1,7 +1,8 @@
 ﻿Module GridNames
 
     Public Sub SetServerNames()
-        'GridNames.SetServerNames
+
+        Form1.Print(My.Resources.Setup_Network)
         ' setup some defaults
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim PropMyUPnpMap = New UPnp()
@@ -21,21 +22,21 @@
 
         If Form1.Settings.ServerType = "Robust" Then
             Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
-            Form1.Print("Robust")
+            Form1.Print(My.Resources.Server_Type_is & " Robust")
         ElseIf Form1.Settings.ServerType = "OsGrid" Then
             Form1.Settings.PublicIP = "hg.osgrid.org"
             Form1.Settings.ExternalHostName = PublicIP.IP()
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-            Form1.Print("OSGrid")
+            Form1.Print(My.Resources.Server_Type_is & " OSGrid")
         ElseIf Form1.Settings.ServerType = "Region" Then
-            Form1.Print("Region")
+            Form1.Print(My.Resources.Server_Type_is & " Region")
             Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
         ElseIf Form1.Settings.ServerType = "Metro" Then
             Form1.Settings.PublicIP = "hg.osgrid.org"
             Form1.Settings.ExternalHostName = PublicIP.IP()
             Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-            Form1.Print("Metro")
+            Form1.Print(My.Resources.Server_Type_is & " Metro")
         End If
 
         If Form1.Settings.OverrideName.Length > 0 Then

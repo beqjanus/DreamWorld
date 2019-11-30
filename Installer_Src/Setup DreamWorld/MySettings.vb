@@ -192,7 +192,7 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
-            Data = parser.ReadFile(arg, System.Text.Encoding.ASCII)
+            Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -212,7 +212,7 @@ Public Class MySettings
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
         Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
         Try
-            MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
+            MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -327,7 +327,7 @@ Public Class MySettings
 
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
-            parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
+            parser.WriteFile(INI, Data, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -340,7 +340,7 @@ Public Class MySettings
 
         Form1.Log(My.Resources.Info, "Save Settings " & myINI)
         Try
-            Myparser.WriteFile(myINI, MyData, System.Text.Encoding.ASCII)
+            Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -1813,7 +1813,7 @@ Public Class MySettings
     Public Function LoadLiteralIni(ini As String)
 
         Apachein.Clear()
-        Using Reader As New StreamReader(ini, System.Text.Encoding.ASCII)
+        Using Reader As New StreamReader(ini, System.Text.Encoding.UTF8)
             While Reader.EndOfStream = False
                 Apachein.Add(Reader.ReadLine())
             End While

@@ -137,6 +137,7 @@ Public Class AdvancedForm
         FormApache.Activate()
         FormApache.Visible = True
         FormApache.Select()
+        FormApache.BringToFront()
 
     End Sub
 
@@ -149,6 +150,7 @@ Public Class AdvancedForm
         Backups.Activate()
         Backups.Visible = True
         Backups.Select()
+        Backups.BringToFront()
 
     End Sub
 
@@ -161,6 +163,7 @@ Public Class AdvancedForm
         Bird.Activate()
         Bird.Visible = True
         Bird.Select()
+        Bird.BringToFront()
 
     End Sub
 
@@ -173,6 +176,7 @@ Public Class AdvancedForm
         Gloebits.Activate()
         Gloebits.Visible = True
         Gloebits.Select()
+        Gloebits.BringToFront()
 
     End Sub
 
@@ -185,6 +189,7 @@ Public Class AdvancedForm
         FormPorts.Activate()
         FormPorts.Visible = True
         FormPorts.Select()
+        FormPorts.BringToFront()
 
     End Sub
 
@@ -196,6 +201,7 @@ Public Class AdvancedForm
         FormCaches.Activate()
         FormServerType.Visible = True
         FormServerType.Select()
+        FormServerType.BringToFront()
 
     End Sub
 
@@ -208,6 +214,7 @@ Public Class AdvancedForm
         FormPermissions.Activate()
         FormPermissions.Visible = True
         FormPermissions.Select()
+        FormPermissions.BringToFront()
 
     End Sub
 
@@ -220,6 +227,7 @@ Public Class AdvancedForm
         FormRestart.Activate()
         FormRestart.Visible = True
         FormRestart.Select()
+        FormRestart.BringToFront()
 
     End Sub
 
@@ -232,6 +240,7 @@ Public Class AdvancedForm
         FormPublicity.Activate()
         FormPublicity.Visible = True
         FormPublicity.Select()
+        FormPublicity.BringToFront()
 
     End Sub
 
@@ -243,6 +252,7 @@ Public Class AdvancedForm
         FormCache.Activate()
         FormCache.Visible = True
         FormCache.Select()
+        FormCache.BringToFront()
 
     End Sub
 
@@ -255,6 +265,7 @@ Public Class AdvancedForm
         FormDatabase.Activate()
         FormDatabase.Visible = True
         FormDatabase.Select()
+        FormDatabase.BringToFront()
 
     End Sub
 
@@ -267,6 +278,7 @@ Public Class AdvancedForm
         FormDiva.Activate()
         FormDiva.Visible = True
         FormDiva.Select()
+        FormDiva.BringToFront()
 
     End Sub
 
@@ -279,6 +291,7 @@ Public Class AdvancedForm
         FormDNSName.Activate()
         FormDNSName.Visible = True
         FormDNSName.Select()
+        FormDNSName.BringToFront()
 
     End Sub
 
@@ -291,6 +304,7 @@ Public Class AdvancedForm
         Maps.Activate()
         Maps.Select()
         Maps.Visible = True
+        Maps.BringToFront()
 
     End Sub
 
@@ -303,6 +317,7 @@ Public Class AdvancedForm
         FormPhysics.Activate()
         FormPhysics.Visible = True
         FormPhysics.Select()
+        FormPhysics.BringToFront()
 
     End Sub
 
@@ -314,6 +329,8 @@ Public Class AdvancedForm
         FormRegions.Activate()
         FormRegions.Visible = True
         FormRegions.Select()
+        FormRegions.BringToFront()
+
     End Sub
 
     Private Sub ScriptButton_Click(sender As Object, e As EventArgs) Handles ScriptButton.Click
@@ -325,6 +342,7 @@ Public Class AdvancedForm
         Scripts.Activate()
         Scripts.Visible = True
         Scripts.Select()
+        Scripts.BringToFront()
 
     End Sub
 
@@ -338,6 +356,7 @@ Public Class AdvancedForm
         }
         Icecast.Activate()
         Icecast.Select()
+        Icecast.BringToFront()
 
     End Sub
 
@@ -350,6 +369,7 @@ Public Class AdvancedForm
         Tide.Activate()
         Tide.Visible = True
         Tide.Select()
+        Tide.BringToFront()
 
     End Sub
 
@@ -362,6 +382,7 @@ Public Class AdvancedForm
         Tos.Activate()
         Tos.Visible = True
         Tos.Select()
+        Tos.BringToFront()
 
     End Sub
 
@@ -374,6 +395,7 @@ Public Class AdvancedForm
         Voice.Activate()
         Voice.Visible = True
         Voice.Select()
+        Voice.BringToFront()
 
     End Sub
 

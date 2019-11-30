@@ -72,7 +72,7 @@ Public Class ScreenPos
 
     Public Function ColumnWidth(name As String, size As Integer) As Integer
 
-        Dim w As Integer = CType(Data("Data")(name & "_width"), Integer)
+        Dim w As Integer = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(name & "_width"), Integer)
         If w = 0 Then
             Return size
         End If
@@ -82,8 +82,8 @@ Public Class ScreenPos
     End Function
 
     Public Function Exists() As Boolean
-        Dim Value = CType(Data("Data")(gName + "_Initted"), Integer)
-        SetXYIni("Data", gName + "_Initted", "1")
+        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_Initted"), Integer)
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Initted", "1")
         SaveFormSettings()
         If Value = 0 Then Return False
         Return True
@@ -91,8 +91,8 @@ Public Class ScreenPos
 
     Public Function GetHW() As List(Of Integer)
 
-        Dim ValueHOld = CType(Data("Data")(gName + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data")(gName + "_W"), Integer)
+        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_H"), Integer)
+        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_W"), Integer)
 
         Dim r As New List(Of Integer) From {
             ValueHOld,
@@ -109,8 +109,8 @@ Public Class ScreenPos
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
 
-        Dim ValueXOld = CType(Data("Data")(gName + "_X"), Integer)
-        Dim ValueYOld = CType(Data("Data")(gName + "_Y"), Integer)
+        Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_X"), Integer)
+        Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_Y"), Integer)
         If ValueXOld <= 0 Then
             ValueXOld = 100
         End If
@@ -139,27 +139,26 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-
-            Data = parser.ReadFile(myINI, System.Text.Encoding.ASCII)
+            Data = parser.ReadFile(myINI, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
-            Form1.ErrorLog(ex.Message)
+            Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
 
     End Sub
 
     Public Sub putSize(name As String, size As Integer)
-
+        If name Is Nothing Then Return
         ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
-        Data("Data")(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
+        Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
     Public Sub SaveFormSettings()
 
         Try
-            parser.WriteFile(myINI, Data, System.Text.Encoding.ASCII)
+            parser.WriteFile(myINI, Data, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -170,8 +169,8 @@ Public Class ScreenPos
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data", gName + "_H", ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
-        SetXYIni("Data", gName + "_W", ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_H", ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_W", ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
         SaveFormSettings()
         Debug.Print("H>" + ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
         Debug.Print("W>" + ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -180,8 +179,8 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data", gName + "_X", ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
-        SetXYIni("Data", gName + "_Y", ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_X", ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Y", ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
         SaveFormSettings()
         Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
         Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -194,6 +193,8 @@ Public Class ScreenPos
 
     Private Sub SetXYIni(section As String, key As String, value As String)
 
+        section = section.ToString(Globalization.CultureInfo.InvariantCulture)
+        key = key.ToString(Globalization.CultureInfo.InvariantCulture)
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it

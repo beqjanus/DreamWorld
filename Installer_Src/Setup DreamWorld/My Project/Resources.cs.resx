@@ -898,10 +898,10 @@
     <value>Složky pro ukládání souborů</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
+    <value>Frame Rate (0.0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
-    <value>Výchozí 1/11 sec. Výchozí hodnota je 0,0909, což je 1 / 5th 55 FPS</value>
+    <value>Výchozí 1/11 sec. Výchozí hodnota je 0.0909, což je 1 / 5th 55 FPS</value>
   </data>
   <data name="Frame_Rate_word" xml:space="preserve">
     <value>Snímková frekvence</value>
@@ -919,7 +919,7 @@
     <value>Tento rošt je Friendly Name</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0,0909, nebo 1/11</value>
+    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0.0909, nebo 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Aktiva ve formě souborů</value>
@@ -1873,10 +1873,10 @@
     <value>Script Rate</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0,0909)</value>
+    <value>Script Timer Rate (0.0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0,0909)</value>
+    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0.0909)</value>
   </data>
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Hledat všude pletivem</value>
@@ -2062,7 +2062,7 @@
     <value>Postavení</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0,0909)</value>
+    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0.0909)</value>
   </data>
   <data name="Step1_word" xml:space="preserve">
     <value>Krok 1:</value>

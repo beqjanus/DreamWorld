@@ -197,6 +197,15 @@ Public Class Form1
             Me.Width = 385
         Else
             Me.Width = hw.Item(1)
+
+            If Me.Width > 390 Then
+                PictureBox1.Image = My.Resources.Arrow2Left
+                PictureBox1.AccessibleName = "Close".ToUpperInvariant
+            Else
+                PictureBox1.Image = My.Resources.Arrow2Right
+                PictureBox1.AccessibleName = "Open".ToUpperInvariant
+            End If
+
         End If
 
         ScreenPosition.SaveHW(Me.Height, Me.Width)
@@ -664,7 +673,9 @@ Public Class Form1
             FormRegions.Activate()
             FormRegions.Select()
             FormRegions.Visible = True
+            FormRegions.BringToFront()
             Return
+
         End If
 
         PropRegionClass.RegionEnabled(N) = True
@@ -909,8 +920,6 @@ Public Class Form1
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
-        SetScreen()     ' move Form to fit screen from SetXY.ini
-
         If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
             Print(My.Resources.Install_Icon)
             Create_ShortCut(PropMyFolder & "\Start.exe")
@@ -944,17 +953,14 @@ Public Class Form1
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
+        SetScreen()     ' move Form to fit screen from SetXY.ini
+
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
         ProgressBar1.Visible = True
         ToolBar(False)
 
-        If Me.Width > 390 Then
-            PictureBox1.Image = My.Resources.Arrow2Left
-        Else
-            PictureBox1.Image = My.Resources.Arrow2Right
-        End If
         Me.Show()
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or
@@ -2752,6 +2758,7 @@ Public Class Form1
         Settings.SetIni(regionname, key, value)
         Settings.SaveINI()
         Return False
+
     End Function
 
 #End Region
@@ -2807,6 +2814,7 @@ Public Class Form1
             Adv.Activate()
             Adv.Visible = True
             Adv.Select()
+            Adv.BringToFront()
         End If
 
     End Sub
@@ -4314,9 +4322,12 @@ Public Class Form1
                     Diagnostics.Debug.Print("regionname {0}>", LongName)
 
                     Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                    If RegionNumber >= 0 And PropRegionClass.Teleport(RegionNumber) = "True" Then
-                        ToSort.Add(LongName)
+                    If RegionNumber >= 0 Then
+                        If PropRegionClass.Teleport(RegionNumber) = "True" Then
+                            ToSort.Add(LongName)
+                        End If
                     End If
+
                 End While
 
                 cmd.Dispose()
@@ -5128,7 +5139,7 @@ Public Class Form1
 
         ' LAN USE
         If Settings.EnableHypergrid Then
-            Print(My.Resources.Setup_Network)
+
             BumpProgress10()
             If Settings.DNSName.Length > 0 Then
                 Settings.PublicIP = Settings.DNSName()
@@ -5137,6 +5148,7 @@ Public Class Form1
                 Return ret
             Else
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
+                Print(My.Resources.Setup_Network)
                 Dim ret = RegisterDNS()
                 Settings.SaveSettings()
                 Return ret
@@ -6127,10 +6139,12 @@ Public Class Form1
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
+            PropRegionForm.BringToFront()
         Else
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
+            PropRegionForm.BringToFront()
         End If
 
     End Sub
@@ -6336,6 +6350,7 @@ Public Class Form1
         CriticalForm.Activate()
         CriticalForm.Visible = True
         CriticalForm.Select()
+        CriticalForm.BringToFront()
 
     End Sub
 
@@ -6553,6 +6568,7 @@ Public Class Form1
         FormHelp.Visible = True
         FormHelp.Init(page)
         FormHelp.Select()
+        FormHelp.BringToFront()
 
     End Sub
 
@@ -6569,6 +6585,7 @@ Public Class Form1
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
             FormHelp.Select()
+            FormHelp.BringToFront()
 
         End If
 
@@ -6987,21 +7004,19 @@ Public Class Form1
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         '645, 435
-        If PictureBox1.AccessibleName = "Arrow2Left" Then
+        If PictureBox1.AccessibleName = "Open".ToUpperInvariant Then
             Me.Width = 645
             Me.Height = 435
             PictureBox1.Image = My.Resources.Arrow2Left
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-            PictureBox1.AccessibleName = "Arrow2Right"
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
+            PictureBox1.AccessibleName = "Close".ToUpperInvariant
         Else
             PictureBox1.Image = My.Resources.Arrow2Right
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-            PictureBox1.AccessibleName = "Arrow2Left"
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Me.Width = 385
             Me.Height = 240
+            PictureBox1.AccessibleName = "Open".ToUpperInvariant
         End If
+        Application.DoEvents()
+        Resize_page(sender, e)
 
     End Sub
 

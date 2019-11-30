@@ -398,7 +398,7 @@ Public Class FormRegion
 
         Me.Show() ' time to show the results
         Me.Activate()
-
+        Me.BringToFront()
         Initted1 = True
         Form1.HelpOnce("Region")
 

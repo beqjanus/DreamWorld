@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Δημιουργία αντιγράφων ασφαλείας Custom Web Pages</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Δημιουργία αντιγράφων ασφαλείας αρχείων δεδομένων</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Δημιουργία αντιγράφων ασφαλείας βάσεων δεδομένων</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Δημιουργία αντιγράφων ασφαλείας αρχείων δεδομένων</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Ελεγχος για ενημερώσεις</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Επιλέξτε ένα φάκελο</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Επιλέξτε ποια μνήμη cache για να αδειάσει</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>διεύθυνση Εγγραφή DynDNS</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Δυναμική διεύθυνση DNSRegistering DynDNS</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>κωδικό DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>σενάρια LSL δεν μπορούν να φθάσουν σε άλλα LAN υπολογιστές. Αν το ενεργοποιήσετε, μπορούν να έχουν πρόσβαση σε θύρες στο τοπικό σας δίκτυο σε οποιοδήποτε PC. Αυτό είναι επικίνδυνο!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Δημιουργήστε ένα αντίγραφο ασφαλείας;</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
-  <data name="Maps" xml:space="preserve">
-    <value>χάρτες</value>
-  </data>
   <data name="Maps_Erased" xml:space="preserve">
-    <value>Όλες οι κεραμίδια χάρτη έχουν διαγραφεί. Ορίστε τη ρύθμιση χάρτη και επανεκκίνηση για να κάνουν νέους χάρτες</value>
+    <value>Όλα τα κεραμίδια χάρτη έχουν διαγραφεί. Ορίστε τη ρύθμιση χάρτη και επανεκκίνηση για να κάνουν νέους χάρτες</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>χάρτες</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Χάρτης coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Μέγιστη Ταχύτητα (προεπιλογή = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>συγχώνευση OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>συγχώνευση Αντικείμενα</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Πλέγμα Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Περιφέρεια διακομιστή</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Λεπτά</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Πρέπει να είναι το ίδιο με το Υ</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Πρέπει να είναι αριθμός ημερών</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Πρέπει να είναι ένας αριθμός</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Πρέπει να είναι ένα αρχείο PNG</value>
@@ -1447,7 +1444,7 @@
     <value>Αυτό δεν φαίνεται να διαβιβαστεί σε αυτό το μηχάνημα στο δρομολογητή σας, έτσι ώστε Hypergrid δεν είναι διαθέσιμη. Αυτό μπορεί ενδεχομένως να καθοριστεί από το «Λιμάνι Εμπρός» στο router σας. Δείτε Βοήθεια-&gt; Port Εμπρός.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Δεν επιβάλλονται κανονικά από Opensim. Θεατής δεν θα δείξει πάνω από 45.000. Ρύθμιση αυτό εδώ και επιτρέποντας στις ρυθμίσεις θα εφαρμόσει το όριο και μπορεί να επιστρέψει prims!</value>
+    <value>Δεν επιβάλλονται κανονικά από Opensim. Θεατής δεν θα δείξει πάνω από 45.000. Ρύθμιση αυτή εδώ και επιτρέποντας στις ρυθμίσεις θα εφαρμόσει το όριο και μπορεί να επιστρέψει prims!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim δεν εκτελείται.</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Ο αριθμός των πουλιών να συρρέουν</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Δεν είναι ένα έγκυρο αριθμό Maximujm των Πράκτορες Αξίας. Πρέπει να είναι μεγαλύτερη από 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Δεν είναι μια έγκυρη μέγιστη Prim αξία. Πρέπει να είναι μεγαλύτερη από 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Δεν είναι ένα έγκυρο Μη Φυσική Prim Μέγιστη τιμή. Πρέπει να είναι μεγαλύτερη από 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Δεν είναι ένα έγκυρο Φυσική Prim Μέγιστη τιμή. Πρέπει να είναι μεγαλύτερη από 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>αρχεία OAR είναι αντίγραφα ασφαλείας ολόκληρου Νησιά</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Έλεγχοι Περιφέρειας</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Περιοχή συντεταγμένων Χ δεν μπορεί να είναι μικρότερη από 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Περιοχή συντεταγμένων Χ είναι πάρα πολύ μεγάλο</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Περιοχή Συντονισμό Υ δεν μπορεί να είναι μικρότερη από 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Περιοχή συντεταγμένων Υ είναι πολύ μεγάλο</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Περιοχή Βάση Δεδομένων</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>όνομα της περιοχής δεν μπορούν να χρησιμοποιήσουν ειδικούς χαρακτήρες</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>όνομα της περιοχής δεν πρέπει να είναι κενή</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Περιοχή συγκεκριμένες προεπιλεγμένες ρυθμίσεις αντικαθιστούν τις ρυθμίσεις του</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Περιοχή Στατιστικά</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Περιοχή UUID είναι άκυρο</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Περιφέρεια έχει αφαιρεθεί</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Κάθε περιοχή θα ξεκινήσει μόνο αφού φορτωθεί η προηγούμενη περιοχή</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Διακομιστή Ο τύπος είναι</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Τύπος διακομιστή</value>
@@ -2203,7 +2233,7 @@
     <value>άτομα με ειδικές ανάγκες UPnP</value>
   </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
-    <value>Ενεργοποιήστε αυτό είναι έχετε ένα μικρό σύστημα και θέλουν τα λιμάνια router που θα οριστεί αυτόματα</value>
+    <value>Ενεργοποιήστε αυτό είναι έχετε ένα μικρό σύστημα και θέλετε οι θύρες του δρομολογητή για να ρυθμιστεί αυτόματα</value>
   </data>
   <data name="UPnP_Enabled_word" xml:space="preserve">
     <value>UPnP Ενεργοποιημένο</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Φωνή</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Ρυθμίσεις Voice</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Αναμονή για όλες τις περιοχές για έξοδο</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Κάτι δεν πάει καλά με το Διαδίκτυο</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Ναί</value>
   </data>
 </root>
