@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>备份自定义网页</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>备份数据文件</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>备份数据库</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>备份数据文件</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>检查更新</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>选择一个文件夹</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>选择清空缓存哪些</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>注册DynDNS的地址</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>动态DNSRegistering DynDNS的地址</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS的密码</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1060,7 +1060,7 @@
     <value>有多高，我们允许趋之若鹜？</value>
   </data>
   <data name="How_Long" xml:space="preserve">
-    <value>如何长期保持备份。在这几天时间后，最古老的被删除，</value>
+    <value>如何长期保持备份。在天在此时间之后最古老的被删除，</value>
   </data>
   <data name="How_Long_runs" xml:space="preserve">
     <value>多久的OpenSim运行的自动备份之前</value>
@@ -1087,7 +1087,7 @@
     <value>的Icecast可以让你将音乐串流到你的SIM卡。音乐网址：</value>
   </data>
   <data name="IceCast_disabled" xml:space="preserve">
-    <value>的Icecast是禁用</value>
+    <value>的Icecast被禁用</value>
   </data>
   <data name="Icecast_Exited" xml:space="preserve">
     <value>退出的Icecast。你想看到错误日志文件？</value>
@@ -1129,7 +1129,7 @@
     <value>进口地区INI文件</value>
   </data>
   <data name="Incoming_Works" xml:space="preserve">
-    <value>呼入Hypergrid是工作</value>
+    <value>传入Hypergrid是工作</value>
   </data>
   <data name="Increasing_time" xml:space="preserve">
     <value>增加时间</value>
@@ -1243,7 +1243,7 @@
     <value>日志级别</value>
   </data>
   <data name="Loopback_Failed" xml:space="preserve">
-    <value>环回测试失败。网址并未作出回应。</value>
+    <value>环回测试失败。网址没有回应。</value>
   </data>
   <data name="Loopback_Help" xml:space="preserve">
     <value>回环帮助</value>
@@ -1258,19 +1258,19 @@
     <value>低水位</value>
   </data>
   <data name="LSL_Allow" xml:space="preserve">
-    <value>LSL脚本无法到达其他局域网的PC。如果你把这个，他们可以在任何PC上访问在局域网上的端口。这是很危险的！</value>
+    <value>LSL脚本无法到达其他局域网PC的。如果你把这个，他们可以在任何PC上访问在局域网上的端口。这是很危险的！</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>做一个备份？</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>地图</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>所有地图图块已被删除。设置地图设置并重新启动，使新地图</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>地图</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>地图坐标：X</value>
@@ -1288,7 +1288,7 @@
     <value>有多少化身+ NPC的可以在一个区域之前显示为完整的区域。实际值在浏览器中设定的设置村。</value>
   </data>
   <data name="Max_Dist" xml:space="preserve">
-    <value>对于其他鸟类的最大距离在同一羊群被视为</value>
+    <value>对于其他鸟类的最大距离在同一个群被认为是</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
     <value>最高组（默认值= 0.2）</value>
@@ -1306,7 +1306,7 @@
     <value>你不能让一个物理一本正经比这更大</value>
   </data>
   <data name="Max_PrimLimit" xml:space="preserve">
-    <value>这将限制在一个包裹prims的数量。禁用时，有不同的内存没有限制。</value>
+    <value>这将限制在一个包裹prims的数量。在禁用时没有除内存没有限制。</value>
   </data>
   <data name="Max_Prims" xml:space="preserve">
     <value>启用MAXPRIMS限制</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>最大速度（缺省值= 1.0）</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>合并OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>合并对象</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>网格缓存</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org地区服务器</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>分钟</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>必须是相同的Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>必须是天数</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>必须是数字</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>必须是一个PNG文件</value>
@@ -1403,6 +1400,9 @@
   </data>
   <data name="Network_Ports" xml:space="preserve">
     <value>网络端口</value>
+  </data>
+  <data name="New Resource Name" xml:space="preserve">
+    <value>zh-cn</value>
   </data>
   <data name="New_Content" xml:space="preserve">
     <value>新内容加载</value>
@@ -1478,6 +1478,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>鸟类的数量涌向</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>没有代理值的有效Maximujm数。必须大于0。</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>不是有效的最大的Prim价值。必须大于0。</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>不是有效的非物理的Prim最大值。必须大于0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>不是有效的物理的Prim最大值。必须大于0。</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR文件是整个群岛的备份</value>
@@ -1674,6 +1686,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>控制区</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>区域坐标X不能小于0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>区域坐标x过大</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>区域协调Y不能低于32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>区域坐标y过大</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>区数据库</value>
   </data>
@@ -1692,8 +1716,11 @@
   <data name="Region_Names_Special" xml:space="preserve">
     <value>区域名称不能使用特殊字符</value>
   </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>区域名称不能为空</value>
+  </data>
   <data name="Region_Overrides" xml:space="preserve">
-    <value>地区特定的设置覆盖默认设置</value>
+    <value>特定地区设置覆盖默认设置</value>
   </data>
   <data name="Region_Owner_Is_God_word" xml:space="preserve">
     <value>区业主是上帝</value>
@@ -1718,6 +1745,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>地区统计</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>地区UUID无效</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>区已被删除</value>
@@ -1910,6 +1940,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>每个地区将开始在前面的区域已加载之后才</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>服务器类型为</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>服务器类型</value>
@@ -2277,6 +2310,9 @@
   <data name="Voice" xml:space="preserve">
     <value>语音</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>语音设置</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>等待所有地区的出口</value>
   </data>
@@ -2318,8 +2354,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>什么是错与互联网</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>是</value>
   </data>
 </root>

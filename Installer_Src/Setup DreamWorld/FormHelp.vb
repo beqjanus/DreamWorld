@@ -53,7 +53,11 @@ Public Class FormHelp
         Try
             Dim Page As String = Form1.PropMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
             RichTextBox1.LoadFile(Page)
-        Catch ex As Exception
+        Catch ex As IO.IOException
+            MsgBox(My.Resources.Sorry_No_Help, vbInformation)
+            Form1.ErrorLog("Error:" + ex.Message)
+            Me.Close()
+        Catch ex As ArgumentException
             MsgBox(My.Resources.Sorry_No_Help, vbInformation)
             Form1.ErrorLog("Error:" + ex.Message)
             Me.Close()

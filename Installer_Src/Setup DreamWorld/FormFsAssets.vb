@@ -105,7 +105,7 @@ Public Class FormFsAssets
         EnableFsAssetsCheckbox.Checked = Form1.Settings.FsAssetsEnabled
         DataFolder.Text = Form1.Settings.BaseDirectory
         ShowStatsCheckBox.Checked = CType(Form1.Settings.ShowConsoleStats, Boolean)
-
+        SetScreen()
         Initted1 = True
 
     End Sub
@@ -141,7 +141,7 @@ Public Class FormFsAssets
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = "Pick folder for FSassets Database (default is ./fsassets in Opensim/bin)"
+            .Description = My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 

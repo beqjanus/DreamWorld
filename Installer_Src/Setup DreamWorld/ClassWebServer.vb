@@ -101,7 +101,9 @@ Public Class NetServer
                 End Using
 
             End Using
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
     End Sub
 
@@ -250,7 +252,6 @@ Public Class NetServer
         End Using
 
         running = False
-        Log(My.Resources.Info, "Webserver thread shutdown")
 
     End Sub
 

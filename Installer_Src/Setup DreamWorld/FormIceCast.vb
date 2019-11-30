@@ -55,21 +55,6 @@ Public Class Icecast
 
 #End Region
 
-#Region "Public Methods"
-
-    Public Sub ShoutcastPortTextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
-        Try
-            Form1.Settings.SCPortBase = CType(ShoutcastPort.Text, Integer)
-        Catch
-        End Try
-
-    End Sub
-
-#End Region
-
 #Region "Private Methods"
 
     Private Sub AdminPassword_Click(sender As Object, e As EventArgs) Handles AdminPassword.Click
@@ -155,15 +140,25 @@ Public Class Icecast
 
     End Sub
 
+    Private Sub ShoutcastPortTextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort.TextChanged
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
+
+        If Not Integer.TryParse(ShoutcastPort.Text, Form1.Settings.SCPortBase) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPort1.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
-        Try
-            Form1.Settings.SCPortBase1 = CType(ShoutcastPort1.Text, Integer)
-        Catch ex As OverflowException
-        Catch ex As InvalidCastException
-        End Try
+
+        If Not Integer.TryParse(ShoutcastPort1.Text, Form1.Settings.SCPortBase1) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
 
     End Sub
 

@@ -192,8 +192,10 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
-            Data = parser.ReadFile(arg, System.Text.Encoding.ASCII)
+            Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             MsgBox(ex.Message)
             Return True
         End Try
@@ -210,8 +212,10 @@ Public Class MySettings
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
         Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
         Try
-            MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.ASCII)
+            MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog(My.Resources.Failed_to_load_Settings_INI_word)
         End Try
 
@@ -230,7 +234,9 @@ Public Class MySettings
         ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -242,7 +248,9 @@ Public Class MySettings
         ' sets values into any INI file
         Try
             MyData(section)(key) = value ' replace it
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -264,30 +272,31 @@ Public Class MySettings
         If R = Nothing Then R = D
         If V Is Nothing Then Return R
 
-        Debug.Print(V)
-        Try
-            If V = "Boolean" Then
-                Return CBool(R)
-            ElseIf V = "String" Then
-                Return R
-            ElseIf V = "Double" Then
-                Return Convert.ToDouble(R, Globalization.CultureInfo.InvariantCulture)
-            ElseIf V = "Single" Then
-                Return Convert.ToSingle(R, Globalization.CultureInfo.InvariantCulture)
-            ElseIf V = "Integer" Then
-                Return Convert.ToInt32(R, Globalization.CultureInfo.InvariantCulture)
-            Else
-                Return R
+        If V = "Boolean" Then
+            If Not Boolean.TryParse(R, R) Then
+                Return D
             End If
-        Catch ex As FormatException
-            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
-        Catch ex As OverflowException
-            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
-        Catch ex As Exception
-            MsgBox("Unable to convert " & section & " " & key & " " & CStr(R) & " to " & V)
-        End Try
+            Return R
+        ElseIf V = "String" Then
+            Return R
+        ElseIf V = "Double" Then
+            If Not Double.TryParse(R, R) Then
+                Return D
+            End If
+            Return R
+        ElseIf V = "Single" Then
+            If Not Single.TryParse(R, R) Then
+                Return D
+            End If
+            Return R
+        ElseIf V = "Integer" Then
+            If Not Integer.TryParse(R, R) Then
+                Return D
+            End If
+            Return R
+        End If
 
-        Return ""
+        Return D
 
     End Function
 
@@ -300,9 +309,12 @@ Public Class MySettings
     End Function
 
     Public Function GetMySetting(key As String, Optional D As String = "") As String
+
         Try
             Dim value = GetMyIni("Data", key, D)
+#Disable Warning CA1062 ' Validate arguments of public methods
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
+#Enable Warning CA1062 ' Validate arguments of public methods
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -315,7 +327,7 @@ Public Class MySettings
 
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
-            parser.WriteFile(INI, Data, System.Text.Encoding.ASCII)
+            parser.WriteFile(INI, Data, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -328,8 +340,10 @@ Public Class MySettings
 
         Form1.Log(My.Resources.Info, "Save Settings " & myINI)
         Try
-            Myparser.WriteFile(myINI, MyData, System.Text.Encoding.ASCII)
+            Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
@@ -403,7 +417,7 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("ApachePort", "80"))
+            Return Val("0".ToUpperInvariant & GetMySetting("ApachePort", "80"))
         End Get
         Set
             SetMySetting("ApachePort", CType(Value, String))
@@ -448,7 +462,7 @@ Public Class MySettings
 
     Public Property AutoRestartInterval() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("AutoRestartInterval", My.Resources.Zero_word_NT))
+            Return Val("0".ToUpperInvariant & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("AutoRestartInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -517,7 +531,7 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsChatChannel() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("BirdsChatChannel", "118"))
+            Return Val("0".ToUpperInvariant & GetMySetting("BirdsChatChannel", "118"))
         End Get
         Set
             SetMySetting("BirdsChatChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -554,7 +568,7 @@ Public Class MySettings
 
     Public Property BirdsFlockSize() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("BirdsFlockSize", "25"))
+            Return Val("0".ToUpperInvariant & GetMySetting("BirdsFlockSize", "25"))
         End Get
         Set
             SetMySetting("BirdsFlockSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -705,7 +719,7 @@ Public Class MySettings
 
     Public Property CacheLogLevel() As String
         Get
-            Return GetMySetting("CacheLogLevel", My.Resources.Zero_word_NT)
+            Return GetMySetting("CacheLogLevel", "0".ToUpperInvariant)
         End Get
         Set
             SetMySetting("CacheLogLevel", Value)
@@ -864,7 +878,7 @@ Public Class MySettings
 
     Public Property FirstRegionPort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("FirstRegionPort", "8004"))
+            Return Val("0".ToUpperInvariant & GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -991,7 +1005,7 @@ Public Class MySettings
 
     Public Property HttpPort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("HttpPort", "8002"))
+            Return Val("0".ToUpperInvariant & GetMySetting("HttpPort", "8002"))
         End Get
         Set
             SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1009,7 +1023,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("KeepForDays", "7"))
+            Return Val("0".ToUpperInvariant & GetMySetting("KeepForDays", "7"))
         End Get
         Set
             SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1066,7 +1080,7 @@ Public Class MySettings
         Get
             Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
             Dim Center As String = Form1.PropRegionClass.CoordY(regionNumber)
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterX", Center))
+            Return Val("0".ToUpperInvariant & GetMySetting("MapCenterX", Center))
         End Get
         Set
             SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1077,7 +1091,7 @@ Public Class MySettings
         Get
             Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
             Dim Center As String = Form1.PropRegionClass.CoordX(regionNumber)
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MapCenterY", Center))
+            Return Val("0".ToUpperInvariant & GetMySetting("MapCenterY", Center))
         End Get
         Set
             SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1120,7 +1134,7 @@ Public Class MySettings
 
     Public Property MySqlRegionDBPort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MySqlRegionDBPort", "3306"))
+            Return Val("0".ToUpperInvariant & GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1129,7 +1143,7 @@ Public Class MySettings
 
     Public Property MySqlRobustDBPort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MySqlRobustDBPort", "3306"))
+            Return Val("0".ToUpperInvariant & GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1138,7 +1152,7 @@ Public Class MySettings
 
     Public Property MyX() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MyX", My.Resources.Zero_word_NT))
+            Return Val("0".ToUpperInvariant & GetMySetting("MyX", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("MyX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1147,7 +1161,7 @@ Public Class MySettings
 
     Public Property MyY() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("MyY", My.Resources.Zero_word_NT))
+            Return Val("0".ToUpperInvariant & GetMySetting("MyY", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1192,7 +1206,7 @@ Public Class MySettings
 
     Public Property Physics() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("Physics", "3"))
+            Return Val("0".ToUpperInvariant & GetMySetting("Physics", "3"))
         End Get
         Set
             SetMySetting("Physics", CType(Value, String))
@@ -1219,14 +1233,17 @@ Public Class MySettings
 
     Public Property PrivatePort() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("PrivatePort", "8003"))
+            Return Val("0".ToUpperInvariant & GetMySetting("PrivatePort", "8003"))
         End Get
         Set
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
+#Disable Warning CA1056 ' Uri properties should not be strings
+
     Public Property PrivateURL() As String
+#Enable Warning CA1056 ' Uri properties should not be strings
         Get
             Return GetMySetting("PrivateURL")   ' no default
         End Get
@@ -1282,7 +1299,7 @@ Public Class MySettings
 
     Public Property RegionListView() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("RegionListView", "2"))
+            Return Val("0".ToUpperInvariant & GetMySetting("RegionListView", "2"))
         End Get
         Set
             SetMySetting("RegionListView", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1343,7 +1360,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return Val(My.Resources.Zero_word_NT + GetMySetting("RenderMinHeight", "-100"))
+            Return Val("0".ToUpperInvariant & GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1487,7 +1504,7 @@ Public Class MySettings
 
     Public Property SearchMigration() As Integer
         Get
-            Return CType(GetMySetting("SearchMigration", My.Resources.Zero_word_NT), Integer)
+            Return CType(GetMySetting("SearchMigration", "0".ToUpperInvariant), Integer)
         End Get
         Set
             SetMySetting("SearchMigration", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1796,7 +1813,7 @@ Public Class MySettings
     Public Function LoadLiteralIni(ini As String)
 
         Apachein.Clear()
-        Using Reader As New StreamReader(ini, System.Text.Encoding.ASCII)
+        Using Reader As New StreamReader(ini, System.Text.Encoding.UTF8)
             While Reader.EndOfStream = False
                 Apachein.Add(Reader.ReadLine())
             End While

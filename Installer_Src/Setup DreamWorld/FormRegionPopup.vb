@@ -75,11 +75,13 @@ Public Class FormRegionPopup
         GroupBox1.Text = Form1.PropRegionClass.GroupName(X)
 
         If Not Form1.PropRegionClass.RegionEnabled(X) Then
+
             StatsButton1.Enabled = False
             StartButton3.Enabled = False
             StopButton1.Enabled = False
             RecycleButton2.Enabled = False
             StatsButton.Enabled = False
+            EditButton1.Enabled = True
         Else
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
@@ -97,7 +99,7 @@ Public Class FormRegionPopup
                 StopButton1.Enabled = True
                 RecycleButton2.Enabled = True
                 StatsButton.Enabled = True
-                EditButton1.Enabled = False
+                EditButton1.Enabled = True
             End If
 
             If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or

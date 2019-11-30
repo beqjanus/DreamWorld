@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Còpia de seguretat Pàgines web personalitzat</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Còpia de seguretat d'arxius de dades</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Bases de dades de còpia de seguretat</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Còpia de seguretat d'arxius de dades</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -436,7 +433,7 @@
     <value>Comprovació de MySql</value>
   </data>
   <data name="Checking_Router_word" xml:space="preserve">
-    <value>comprovació Router</value>
+    <value>Comprovació de l'router</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>Comprovar i reparar base de dades</value>
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Buscar actualitzacions</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Trieu una carpeta</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Triar la memòria cau per a buidar</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Registre de direcció de DynDNS</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>direcció dinàmica DNSRegistering DynDNS</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>contrasenya DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1060,7 +1060,7 @@
     <value>A quina altura se'ns permet ramat?</value>
   </data>
   <data name="How_Long" xml:space="preserve">
-    <value>Per quant de temps mantenir les còpies de seguretat. El aconseguir més vell esborra després d'aquest temps en dies,</value>
+    <value>Per quant de temps mantenir les còpies de seguretat. El aconseguir més antiga serà eliminada després d'aquest temps en dies,</value>
   </data>
   <data name="How_Long_runs" xml:space="preserve">
     <value>Quant de temps Opensim s'executa abans que passi una còpia de seguretat automàtica</value>
@@ -1093,7 +1093,7 @@
     <value>Icecast va sortir. Vols veure el fitxer de registre d'errors?</value>
   </data>
   <data name="Icecast_failed" xml:space="preserve">
-    <value>No va començar icecast</value>
+    <value>Icecast no va començar</value>
   </data>
   <data name="icecast_help" xml:space="preserve">
     <value>Feu clic per obtenir ajuda sobre la configuració d'Icecast</value>
@@ -1126,7 +1126,7 @@
     <value>importació</value>
   </data>
   <data name="Importtext" xml:space="preserve">
-    <value>Importa arxius Regió INI</value>
+    <value>Importa arxius INI Regió</value>
   </data>
   <data name="Incoming_Works" xml:space="preserve">
     <value>Hypergrid entrant és de treball</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>scripts de LSL no poden arribar a una altra LAN PC. Si s'activa aquesta opció, es pot accedir als ports de la LAN en qualsevol PC. Això és perillós!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Fer una còpia de seguretat?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>mapes</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Tots els mosaics de mapes han estat esborrats. Establir el valor de MAP i reiniciar el sistema per fer nous mapes</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>mapes</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Mapa Coordenades: X</value>
@@ -1282,7 +1282,7 @@
     <value>Màxim de 4096</value>
   </data>
   <data name="Max_Accel" xml:space="preserve">
-    <value>L'acceleració màxima permesa per a la velocitat actual de l'ocell</value>
+    <value>L'acceleració màxima permesa a la velocitat del corrent de l'au</value>
   </data>
   <data name="Max_Agents" xml:space="preserve">
     <value>Quantes d'Avatars + NPC pot estar en una regió abans que aparegui la regió completa. El valor real es troba a Configuració arrels en el visor.</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Velocitat màxima (per defecte = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>combinar OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>combinar objectes</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>malla de memòria cau</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org regió de servidor</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>acta</value>
@@ -1348,7 +1345,7 @@
     <value>Feu clic per obtenir més ajuda al lloc web</value>
   </data>
   <data name="MustHaveName" xml:space="preserve">
-    <value>Ha de tenir un nom d'un objecte de l'inventari</value>
+    <value>Ha de tenir un nom d'un article d'inventari</value>
   </data>
   <data name="MustX" xml:space="preserve">
     <value>Ha de ser el mateix que X</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Ha de ser el mateix que I</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Ha de ser un nombre de dies</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Ha de ser un nombre</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Ha de ser un arxiu PNG</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>El nombre d'aus que van</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>No és un nombre vàlid de Maximujm Agents Valor. Ha de ser més gran que 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>No és un vàlid Màxim Valor Prim. Ha de ser més gran que 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>No és un vàlida per no física Prim Valor màx. Ha de ser més gran que 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>No és un vàlid Prim física Valor màx. Ha de ser més gran que 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR arxius són còpies de seguretat de tot Illes</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>controls regió</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Regió de coordenades X no pot ser inferior a 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Regió de coordenades X és massa gran</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Regió de coordenades I no pot ser inferior a 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Regió de coordenades I és massa gran</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Base de dades regió</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>nom de la regió no pot utilitzar caràcters especials</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>nom de la regió no ha d'estar en blanc</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>anul·len els paràmetres per defecte específics de la regió ajustos</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>regió Estadístiques</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Regió UUID no és vàlid</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Regió s'ha eliminat</value>
@@ -1804,7 +1831,7 @@
     <value>Robust sortit. Vols veure el fitxer de registre d'errors?</value>
   </data>
   <data name="Robust_failed_to_start" xml:space="preserve">
-    <value>Robusta no es va poder iniciar</value>
+    <value>Robusta no va poder iniciar</value>
   </data>
   <data name="Robust_running" xml:space="preserve">
     <value>és robust en execució</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Cada regió començarà només després de la regió abans s'ha carregat</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Tipus de servidor és</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Tipus de servidor</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>veu</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Configuració de veu</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>A l'espera de totes les regions a la sortida</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Alguna cosa està malament en Internet</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>si</value>
   </data>
 </root>

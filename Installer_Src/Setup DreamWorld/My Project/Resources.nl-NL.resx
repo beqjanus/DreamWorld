@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup aangepaste webpagina's</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Backup Data Files</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>backup Databases</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup Data Files</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Controleren op updates</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Kies een map</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Kies welke cache te legen</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Het registreren van DynDNS-adres</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamische DNSRegistering DynDNS-adres</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS wachtwoord</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1048,7 +1048,7 @@
     <value>Huis</value>
   </data>
   <data name="How_Close" xml:space="preserve">
-    <value>Hoe dicht bij de randen van de dingen die we kunnen krijgen zonder zorgen maken?</value>
+    <value>Hoe dicht de randen van dingen die we kunnen krijgen zonder zorgen maken?</value>
   </data>
   <data name="How_Far" xml:space="preserve">
     <value>Hoe ver uit de buurt van andere vogels zouden we willen verblijven?</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL scripts niet kunnen bereiken andere LAN-PC's. Als u dit inschakelt, hebben ze toegang tot poorten op uw netwerk op elke pc. Dit is gevaarlijk!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Maak een back-up?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Kaarten</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Alle kaart tegels zijn gewist. Stel de kaart setting en reboot om nieuwe kaarten te maken</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Kaarten</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Kaart Coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max Speed ​​(default = 1.0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Merge Objects</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Notulen</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Moet hetzelfde zijn als Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Moet een aantal dagen</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Moet een nummer zijn</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Moet een PNG-bestand te zijn</value>
@@ -1441,7 +1438,7 @@
     <value>Houd E-mail</value>
   </data>
   <data name="NotValidUUID" xml:space="preserve">
-    <value>Geen geldige UUID. Wilt u een nieuwe, willekeurige UUID?</value>
+    <value>Geen geldige UUID. Heeft u een nieuwe, willekeurige UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
     <value>Dit lijkt niet te worden gericht aan deze machine in uw router, dus HyperGrid is niet beschikbaar. Dit kan mogelijk worden opgelost door 'Port Forwards' in je router. Zie Help-&gt; Port Forwards.</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Het aantal vogels massaal</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Geen geldig Maximujm aantal agenten waarde. Moet groter zijn dan 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Geen geldige Maximum Prim waarde. Moet groter zijn dan 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Geen geldige niet-fysieke Prim Max waarde. Moet groter zijn dan 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Geen geldige Physical Prim Max waarde. Moet groter zijn dan 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR bestanden zijn backups van het gehele Islands</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Region Controls</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Zeegebied te coördineren X kan niet lager zijn dan 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Regio Coördinaat X is te groot</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Gebied coördinaat Y niet minder dan 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Regio Coördinaat Y is te groot</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Region Database</value>
   </data>
@@ -1692,6 +1713,9 @@
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Region naam mag geen speciale tekens gebruiken</value>
   </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region naam mag niet leeg zijn</value>
+  </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Regio specifieke instellingen overschrijven standaardinstellingen</value>
   </data>
@@ -1702,7 +1726,7 @@
     <value>Region Ports</value>
   </data>
   <data name="Region_Port_Start" xml:space="preserve">
-    <value>Region Port Start #</value>
+    <value>Regio Port Start #</value>
   </data>
   <data name="Region_Port_word" xml:space="preserve">
     <value>Region Port</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Region Stats</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Regio UUID is ongeldig</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Region is verwijderd</value>
@@ -1888,7 +1915,7 @@
     <value>Geheim</value>
   </data>
   <data name="SeeYouSoon" xml:space="preserve">
-    <value>Ik zal je weer te zien als ik wakker word allemaal fris en nieuw!</value>
+    <value>Ik zie je weer als ik wakker word allemaal fris en nieuw!</value>
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Wilt u het logbestand zien?</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Elke regio begint nadat de voorafgaande regio geladen</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server type is</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>server type</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Stem</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Voice-instellingen</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Wachten op alle regio's om af te sluiten</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Er is iets mis met het internet</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Ja</value>
   </data>
 </root>

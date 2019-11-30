@@ -142,7 +142,7 @@ Public Class ClrCache
                 Dim ctr As Integer = 0
                 For Each script As String In folders
                     Dim ext = Path.GetExtension(script)
-                    If ext.ToLower(Globalization.CultureInfo.InvariantCulture) <> ".state" And ext.ToLower(Globalization.CultureInfo.InvariantCulture) <> ".keep" Then
+                    If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
                         FileStuff.DeleteFile(script)
                         ctr += 1
                         If ctr Mod 100 = 0 Then

@@ -105,7 +105,7 @@ Public Class FormRestart
         Else
             Form1.Settings.AutoRestartEnabled = False
             Form1.Settings.AutoRestartInterval = 0
-            AutoRestartBox.Text = "0"
+            AutoRestartBox.Text = "0".ToUpperInvariant
         End If
         Form1.Settings.SaveSettings()
 

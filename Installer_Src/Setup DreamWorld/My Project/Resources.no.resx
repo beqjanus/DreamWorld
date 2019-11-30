@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup Custom websider</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Backup datafiler</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>backup Databaser</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup datafiler</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -409,7 +406,7 @@
     <value>Midt på kartet koordinere</value>
   </data>
   <data name="Changes_Made" xml:space="preserve">
-    <value>Endringer er blitt gjort. Lagre?</value>
+    <value>Endringer er gjort. Lagre?</value>
   </data>
   <data name="Change_Password_word" xml:space="preserve">
     <value>Bytt passord</value>
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Se etter oppdateringer</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Velg en mappe</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Velg hvilken cache for å tømme</value>
@@ -514,7 +514,7 @@
     <value>Klikk for å sette opp Caches for skript, eiendeler og bilder</value>
   </data>
   <data name="Click_Currency" xml:space="preserve">
-    <value>Trykk for sette opp Valuta</value>
+    <value>Klikk for å sette opp Valuta</value>
   </data>
   <data name="Click_Database" xml:space="preserve">
     <value>Klikk for å sette opp Database</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Registrere DynDNS adresse</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamisk DNSRegistering DynDNS adresse</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS passord</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -910,7 +910,7 @@
     <value>Få en gratis DYN DNS Name</value>
   </data>
   <data name="Free_Account" xml:space="preserve">
-    <value>Klikk for å få en gratis Gloebits konto Så du kan kjøpe og selge</value>
+    <value>Klikk for å få en gratis Gloebits konto slik at du kan kjøpe og selge</value>
   </data>
   <data name="Free_DLC_word" xml:space="preserve">
     <value>Gratis DLC</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL skript kan ikke nå andre LAN PC-er. Hvis du slår denne på, kan de få tilgang porter på LAN på hvilken som helst PC. Dette er farlig!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Lag en backup?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Maps</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Alle kart fliser har blitt slettet. Sett kartet innstillingen og omstart for å lage nye kart</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Maps</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Kart coords: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max Speed ​​(standard = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Flett OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Slå sammen objekter</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutter</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Må være den samme som Y-</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Må være et antall dager</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Må være et tall</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Må være en PNG-fil</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Antallet fugler til flokk</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Ikke en gyldig Maximujm antall agenter verdi. Må være større enn 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Ikke en gyldig Maksimal Prim verdi. Må være større enn 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Ikke en gyldig ikke-fysisk Prim Max verdi. Må være større enn 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Ikke en gyldig Fysisk Prim Max verdi. Må være større enn 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>Åre filene er sikkerhetskopier av hele Islands</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Region Controls</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region Koordinere X kan ikke være mindre enn 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region Koordinere X er for stor</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region Koordinering Y kan ikke være mindre enn 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region Koordinere Y er for stor</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Region Database</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Region navn kan ikke bruke spesialtegn</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region Navnet må ikke være tomt</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Region spesifikke innstillinger overstyrer standardinnstillingene</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Region Statistikk</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID er ugyldig</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Regionen har blitt fjernet</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Hver region først starter når den tidligere region er lastet</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Servertype er</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Servertype</value>
@@ -2194,7 +2224,7 @@
     <value>Oppdateringen er lastet ned. Installere det nå?</value>
   </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>Oppdatering er tilgjengelig. Laster ned oppdatering i bakgrunnen. Vennligst la den ferdig.</value>
+    <value>Oppdatering er tilgjengelig. Nedlasting oppdatering i bakgrunnen. Vennligst la den ferdig.</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>oppdatering Ports</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Stemme</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>stemme~~POS=TRUNC innstillinger~~POS=HEADCOMP</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Venter på at alle regioner til exit</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Noe er galt med Internett</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Ja</value>
   </data>
 </root>

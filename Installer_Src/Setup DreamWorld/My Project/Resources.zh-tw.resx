@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>備份自定義網頁</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>備份數據文件</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>備份數據庫</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>備份數據文件</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -319,7 +316,7 @@
     <value>最佳（Prims +網，很慢）</value>
   </data>
   <data name="Better_Prims" xml:space="preserve">
-    <value>更好（Prims，慢動作）</value>
+    <value>更好（Prims，慢）</value>
   </data>
   <data name="Birds_word" xml:space="preserve">
     <value>鳥類</value>
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>檢查更新</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>選擇一個文件夾</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>選擇清空緩存哪些</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>註冊DynDNS的地址</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>動態DNSRegistering DynDNS的地址</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS的密碼</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1105,7 +1105,7 @@
     <value>開始的Icecast</value>
   </data>
   <data name="Icecast_starting" xml:space="preserve">
-    <value>出發的Icecast</value>
+    <value>開始的Icecast</value>
   </data>
   <data name="Icons" xml:space="preserve">
     <value>圖標</value>
@@ -1228,7 +1228,7 @@
     <value>加載區OAR</value>
   </data>
   <data name="Load_Terrain" xml:space="preserve">
-    <value>加載地形</value>
+    <value>負載地形</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>本地</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL腳本無法到達其他局域網PC的。如果你把這個，他們可以在任何PC上訪問在局域網上的端口。這是很危險的！</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>做一個備份？</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>地圖</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>所有地圖圖塊已被刪除。設置地圖設置並重新啟動，使新地圖</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>地圖</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>地圖坐標：X</value>
@@ -1297,7 +1297,7 @@
     <value>最大高度（缺省值= 45.0）</value>
   </data>
   <data name="Max_NonPhys" xml:space="preserve">
-    <value>256米在烈焰風暴。 1500米奇異。可以不進行常規一本正經比這更大</value>
+    <value>256米在烈焰風暴。 1500米奇異。你不能讓一個普通一本正經比這更大</value>
   </data>
   <data name="Max_NumPrims" xml:space="preserve">
     <value>在地塊Prims的最大數量</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>最大速度（缺省值= 1.0）</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>合併OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>合併對象</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>網格緩存</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org地區服務器</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>分鐘</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>必須是相同的Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>必須是天數</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>必須是數字</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>必須是一個PNG文件</value>
@@ -1403,6 +1400,9 @@
   </data>
   <data name="Network_Ports" xml:space="preserve">
     <value>網絡端口</value>
+  </data>
+  <data name="New Resource Name" xml:space="preserve">
+    <value>zh-tw</value>
   </data>
   <data name="New_Content" xml:space="preserve">
     <value>新內容加載</value>
@@ -1478,6 +1478,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>鳥類的數量湧向</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>沒有代理值的有效Maximujm數。必須大於0。</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>不是有效的最大的Prim價值。必須大於0。</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>不是有效的非物理的Prim最大值。必須大於0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>不是有效的物理的Prim最大值。必須大於0。</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR文件是整個群島的備份</value>
@@ -1672,7 +1684,19 @@
     <value>地區已經存在</value>
   </data>
   <data name="Region_Controls" xml:space="preserve">
-    <value>區域控制</value>
+    <value>控制區</value>
+  </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>區域坐標X不能小於0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>區域坐標x過大</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>區域協調Y不能低於32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>區域坐標y過大</value>
   </data>
   <data name="Region_Database" xml:space="preserve">
     <value>區數據庫</value>
@@ -1691,6 +1715,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>區域名稱不能使用特殊字符</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>區域名稱不能為空</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>特定地區設置覆蓋默認設置</value>
@@ -1718,6 +1745,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>地區統計</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>地區UUID無效</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>區已被刪除</value>
@@ -1910,6 +1940,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>每個地區將開始在前面的區域已加載之後才</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>服務器類型為</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>服務器類型</value>
@@ -2143,7 +2176,7 @@
     <value>這使所有的區域，從而所選擇的區域是在1000,1000，以適應地圖。繼續？</value>
   </data>
   <data name="Thread_pools_word" xml:space="preserve">
-    <value>線程池的</value>
+    <value>線程池</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
     <value>潮汐</value>
@@ -2170,7 +2203,7 @@
     <value>類型</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
-    <value>UBIT ODE /子彈混合</value>
+    <value>UBIT ODE /混合子彈</value>
   </data>
   <data name="ubODE_Hybrid_word" xml:space="preserve">
     <value>ubODE混合</value>
@@ -2277,6 +2310,9 @@
   <data name="Voice" xml:space="preserve">
     <value>語音</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>語音設置</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>等待所有地區的出口</value>
   </data>
@@ -2318,8 +2354,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>什麼是錯與互聯網</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>是</value>
   </data>
 </root>

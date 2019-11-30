@@ -48,8 +48,9 @@ Public Class UPnp
         'Create the new NAT Class
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
-
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
 
         'generate the static mappings
@@ -130,7 +131,9 @@ Public Class UPnp
         Try
             ' Okay, continue on
             staticMapping.Add(port, CStr(prot), port, localIP, True, desc + ":" + CStr(port))
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
 
     End Sub
@@ -161,7 +164,9 @@ Public Class UPnp
                 End If
 
             Next
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
 
         'Nothing!
@@ -185,7 +190,9 @@ Public Class UPnp
                         Dim EndPoint As IPEndPoint = TryCast(sock.LocalEndPoint, IPEndPoint)
                         LIP = EndPoint.Address.ToString()
                     End Using
+#Disable Warning CA1031 ' Do not catch general exception types
                 Catch
+#Enable Warning CA1031 ' Do not catch general exception types
                     LIP = LocalIPForced()
 
                     If LIP.Length = 0 Then
@@ -196,7 +203,9 @@ Public Class UPnp
             Else
                 LIP = CacheIP
             End If
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
         Return LIP
 
@@ -207,7 +216,9 @@ Public Class UPnp
 
         Try
             staticMapping.Remove(port, prot.ToString)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
         End Try
     End Sub
 
@@ -249,7 +260,9 @@ Public Class UPnp
             If dynamicMapping Is Nothing Then
                 dynamicEnabled = False
             End If
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             dynamicEnabled = False
         End Try
     End Sub
@@ -266,7 +279,9 @@ Public Class UPnp
                 staticEnabled = False
                 Return
             End If
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             staticEnabled = False
         End Try
     End Sub

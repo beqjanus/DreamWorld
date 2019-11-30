@@ -68,7 +68,7 @@ Public Class FormVoice
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Text = "Vivox Voice Settings"
+        Me.Text = My.Resources.Voice_Settings_Word
         VivoxEnable.Checked = Form1.Settings.VivoxEnabled
         VivoxPassword.Text = Form1.Settings.VivoxPassword
         VivoxUserName.Text = Form1.Settings.VivoxUserName

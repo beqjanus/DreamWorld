@@ -21,11 +21,12 @@
 #End Region
 
 Public Class AdvancedForm
+    Implements IDisposable
 
 #Region "Declarations"
 
-    Dim Backups As New FormAutoBackups
-    Dim Bird As New BirdForm
+    Private Backups As New FormAutoBackups
+    Private Bird As New BirdForm
     Dim FormApache As New FormApache
     Dim FormCache As New FormCaches
     Dim FormDatabase As New FormDatabase
@@ -110,13 +111,19 @@ Public Class AdvancedForm
 
 #End Region
 
+#Region "Public Methods"
+
+    ''' <summary>
+    ''' Dispose!
+    ''' </summary>
+    ''' <remarks></remarks>
+
+#End Region
+
     Private Sub Form1_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         e.Cancel = True
-        Try
-            Me.Visible = False
-        Catch
-        End Try
+        Me.Visible = False
 
     End Sub
 
@@ -125,9 +132,12 @@ Public Class AdvancedForm
     Private Sub ApacheButton_Click(sender As Object, e As EventArgs) Handles ApacheButton.Click
 
         FormApache.Close()
+        FormApache.Dispose()
         FormApache = New FormApache
         FormApache.Activate()
         FormApache.Visible = True
+        FormApache.Select()
+        FormApache.BringToFront()
 
     End Sub
 
@@ -135,9 +145,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Backups.Close()
+        Backups.Dispose()
         Backups = New FormAutoBackups
         Backups.Activate()
         Backups.Visible = True
+        Backups.Select()
+        Backups.BringToFront()
 
     End Sub
 
@@ -145,9 +158,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Bird.Close()
+        Bird.Dispose()
         Bird = New BirdForm
         Bird.Activate()
         Bird.Visible = True
+        Bird.Select()
+        Bird.BringToFront()
 
     End Sub
 
@@ -155,9 +171,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Gloebits.Close()
+        Gloebits.Dispose()
         Gloebits = New Gloebits
         Gloebits.Activate()
         Gloebits.Visible = True
+        Gloebits.Select()
+        Gloebits.BringToFront()
 
     End Sub
 
@@ -165,18 +184,24 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPorts.Close()
+        FormPorts.Dispose()
         FormPorts = New FormPorts
         FormPorts.Activate()
         FormPorts.Visible = True
+        FormPorts.Select()
+        FormPorts.BringToFront()
 
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
 
         FormServerType.Close()
+        FormServerType.Dispose()
         FormServerType = New FormServerType
         FormCaches.Activate()
         FormServerType.Visible = True
+        FormServerType.Select()
+        FormServerType.BringToFront()
 
     End Sub
 
@@ -184,9 +209,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPermissions.Close()
+        FormPermissions.Dispose()
         FormPermissions = New FormPermissions
         FormPermissions.Activate()
         FormPermissions.Visible = True
+        FormPermissions.Select()
+        FormPermissions.BringToFront()
 
     End Sub
 
@@ -194,9 +222,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormRestart.Close()
+        FormRestart.Dispose()
         FormRestart = New FormRestart
         FormRestart.Activate()
         FormRestart.Visible = True
+        FormRestart.Select()
+        FormRestart.BringToFront()
 
     End Sub
 
@@ -204,18 +235,24 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPublicity.Close()
+        FormPublicity.Dispose()
         FormPublicity = New FormPublicity
         FormPublicity.Activate()
         FormPublicity.Visible = True
+        FormPublicity.Select()
+        FormPublicity.BringToFront()
 
     End Sub
 
     Private Sub CacheButton1_Click(sender As Object, e As EventArgs) Handles CacheButton1.Click
 
         FormCache.Close()
+        FormCache.Dispose()
         FormCache = New FormCaches
         FormCache.Activate()
         FormCache.Visible = True
+        FormCache.Select()
+        FormCache.BringToFront()
 
     End Sub
 
@@ -223,9 +260,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDatabase.Close()
+        FormDatabase.Dispose()
         FormDatabase = New FormDatabase
         FormDatabase.Activate()
         FormDatabase.Visible = True
+        FormDatabase.Select()
+        FormDatabase.BringToFront()
 
     End Sub
 
@@ -233,9 +273,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDiva.Close()
+        FormDiva.Dispose()
         FormDiva = New FormDiva
         FormDiva.Activate()
         FormDiva.Visible = True
+        FormDiva.Select()
+        FormDiva.BringToFront()
 
     End Sub
 
@@ -243,9 +286,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDNSName.Close()
+        FormDNSName.Dispose()
         FormDNSName = New FormDNSName
         FormDNSName.Activate()
         FormDNSName.Visible = True
+        FormDNSName.Select()
+        FormDNSName.BringToFront()
 
     End Sub
 
@@ -253,9 +299,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Maps.Close()
+        Maps.Dispose()
         Maps = New FormMaps
         Maps.Activate()
+        Maps.Select()
         Maps.Visible = True
+        Maps.BringToFront()
 
     End Sub
 
@@ -263,18 +312,24 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPhysics.Close()
+        FormPhysics.Dispose()
         FormPhysics = New FormPhysics
         FormPhysics.Activate()
         FormPhysics.Visible = True
+        FormPhysics.Select()
+        FormPhysics.BringToFront()
 
     End Sub
 
     Private Sub RegionsButton1_Click(sender As Object, e As EventArgs) Handles RegionsButton1.Click
 
         FormRegions.Close()
+        FormRegions.Dispose()
         FormRegions = New FormRegions
         FormRegions.Activate()
         FormRegions.Visible = True
+        FormRegions.Select()
+        FormRegions.BringToFront()
 
     End Sub
 
@@ -282,9 +337,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Scripts.Close()
+        Scripts.Dispose()
         Scripts = New FormScripts
         Scripts.Activate()
         Scripts.Visible = True
+        Scripts.Select()
+        Scripts.BringToFront()
 
     End Sub
 
@@ -292,10 +350,13 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Icecast.Close()
+        Icecast.Dispose()
         Icecast = New Icecast With {
             .Visible = True
         }
         Icecast.Activate()
+        Icecast.Select()
+        Icecast.BringToFront()
 
     End Sub
 
@@ -303,9 +364,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Tide.Close()
+        Tide.Dispose()
         Tide = New Tides
         Tide.Activate()
         Tide.Visible = True
+        Tide.Select()
+        Tide.BringToFront()
 
     End Sub
 
@@ -313,9 +377,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Tos.Close()
+        Tos.Dispose()
         Tos = New TosForm
         Tos.Activate()
         Tos.Visible = True
+        Tos.Select()
+        Tos.BringToFront()
 
     End Sub
 
@@ -323,9 +390,12 @@ Public Class AdvancedForm
 
         ' Set the new form's desktop location so it appears below and to the right of the current form.
         Voice.Close()
+        Voice.Dispose()
         Voice = New FormVoice
         Voice.Activate()
         Voice.Visible = True
+        Voice.Select()
+        Voice.BringToFront()
 
     End Sub
 

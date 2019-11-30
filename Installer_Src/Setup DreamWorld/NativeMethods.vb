@@ -6,10 +6,21 @@ Friend Module NativeMethods
 
 #Disable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
 
+    <DllImport("ntdll.dll", SetLastError:=False)>
+    Public Function NtSuspendProcess(ByVal ProcessHandle As IntPtr) As IntPtr
+    End Function
+
+    <DllImport("kernel32.dll")>
+    Public Function OpenThread(ByVal dwDesiredAccess As ThreadAccess, ByVal bInheritHandle As Boolean, ByVal dwThreadId As UInteger) As IntPtr
+    End Function
+
+    <DllImport("kernel32.dll")>
+    Public Function ResumeThread(ByVal hThread As IntPtr) As Integer
+    End Function
+
     <DllImport("user32.dll", CharSet:=CharSet.Auto)>
     Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
 #Enable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
-
 End Module

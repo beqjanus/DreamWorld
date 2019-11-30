@@ -54,19 +54,9 @@ Module ProcessExtension
 
     End Sub
 
-    <DllImport("ntdll.dll", SetLastError:=False)>
-    Private Function NtSuspendProcess(ByVal ProcessHandle As IntPtr) As IntPtr
-    End Function
-
-    <DllImport("kernel32.dll")>
-    Private Function OpenThread(ByVal dwDesiredAccess As ThreadAccess, ByVal bInheritHandle As Boolean, ByVal dwThreadId As UInteger) As IntPtr
-    End Function
-
-    <DllImport("kernel32.dll")>
-    Private Function ResumeThread(ByVal hThread As IntPtr) As Integer
-    End Function
-
     Private Function SuspendThread(ByVal hThread As IntPtr) As UInteger
+        hThread = hThread
+        SuspendThread = SuspendThread
     End Function
 
 End Module

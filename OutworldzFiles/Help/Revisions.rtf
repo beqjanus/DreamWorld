@@ -6,7 +6,7 @@
 {\f600\fswiss\fcharset161\fprq2 Verdana Greek;}{\f601\fswiss\fcharset162\fprq2 Verdana Tur;}{\f604\fswiss\fcharset186\fprq2 Verdana Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;
 \red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;
 \red192\green192\blue192;\red68\green114\blue196;}{\stylesheet{\ql \li0\ri0\widctlpar\aspalpha\aspnum\faauto\adjustright\rin0\lin0\itap0 \fs24\lang1033\langfe1033\cgrid\langnp1033\langfenp1033 \snext0 Normal;}{\*\cs10 \additive Default Paragraph Font;}}
-{\info{\author Fred}{\operator Fred}{\creatim\yr2019\mo11\dy22\hr21\min2}{\revtim\yr2019\mo11\dy23\hr22\min21}{\version7}{\edmins70}{\nofpages25}{\nofwords5221}{\nofchars29761}{\*\company Microsoft}{\nofcharsws0}{\vern8247}}
+{\info{\author Fred}{\operator Fred}{\creatim\yr2019\mo11\dy22\hr21\min2}{\revtim\yr2019\mo11\dy29\hr20\min55}{\version10}{\edmins82}{\nofpages25}{\nofwords5462}{\nofchars31136}{\*\company Microsoft}{\nofcharsws38237}{\vern8247}}
 \widowctrl\ftnbj\aenddoc\noxlattoyen\expshrtn\noultrlspc\dntblnsbdb\nospaceforul\hyphcaps0\horzdoc\dghspace120\dgvspace120\dghorigin1701\dgvorigin1984\dghshow0\dgvshow3\jcompress\viewkind4\viewscale130\nolnhtadjtbl \fet0\sectd \linex0\sectdefaultcl 
 {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}{\*\pnseclvl5
 \pndec\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang
@@ -16,6 +16,15 @@
 \par }\pard \ql \li720\ri720\sb100\nowidctlpar\faauto\rin720\lin720\itap0 {\f29\fs21 
 \par This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 \par 
+\par V3.291}{\f29\fs21 
+\par German Lan}{\f29\fs21 g}{\f29\fs21 uage tr}{\f29\fs21 anslations by Dieter, thank you!}{\f29\fs21 
+\par S}{\f29\fs21 earch module Search and Sort }{\f29\fs21 for Grids was missing}{\f29\fs21 .}{\f29\fs21 
+\par A dozen more translations and some fixes for Globa}{\f29\fs21 lization in forms for resizing.}{\f29\fs21 
+\par Reordered the Search Menus to make be}{\f29\fs21 tter sense - thanks, Ai Austin!}{\f29\fs21 
+\par Cleaned up warnings about programming style that appeared in Studio 2019,  so I can spot anything that mi}{\f29\fs21 ght be important in the future.}{\f29\fs21 
+\par Region List shows dashes (-) when the setting comes from the default instead of a region over ride. This was }{\f29\fs21 only partly implemented before.}{\f29\fs21 
+\par Implemented much more checking of human-entered values}{\f29\fs21  in places like the Birds form.}{\f29\fs21 
+\par Added a Trouble shooting Guide to Help}{\f29\fs21 .
 \par 
 \par V3.29
 \par 
@@ -30,8 +39,9 @@
 \par Precise CPU graph with a 4-second running average for Sequential/Timer - makes it bobble around 75% CPU when booting.
 \par Added freeware program to Help 'cports.exe'  Which can show all  ports that are in use to help troubleshoot anti-virus and port glomming applications.
 \par Open firewall as a separate thread for speed.  Firewall has to run only if you change a region port setting, by adding or deleting, or on first start.
-\par You cannot HG between two identical region locations.  New systems change the "Welcome" region location from 1000,1000 to a random number from 1000 to 2000 to allow Hypergrid 
-to other grids that have 1000,1000 set.  Also sets the map center to the Welcome region location, whatever it is.  Additional regions are added 4 to the right of the highest region as it did before.
+\par You cannot HG between two identical region locations.  New systems change the "Welcome" region location from 1000,1000 to
+ a random number from 1000 to 2000 to allow Hypergrid to other grids that have 1000,1000 set.  Also sets the map center to the Welcome region location, whatever it is.  Additional regions are added 4 to the right of the highest region as it did before.
+
 \par Catch user 'blank' entries in Regions and Maps Settings.
 \par "Allow Level Gods"  was unchecked in Region Form, as it is based on the other settings being a null string, not "False".
 \par Removed some unneeded logging that slowed down the system.
@@ -39,8 +49,9 @@ to other grids that have 1000,1000 set.  Also sets the map center to the Welcome
 \par Enable Edit Button in Region Popup only if region is stopped.
 \par Abort Handler reworked  to end a race condition that should prevent occasional extra warnings on crashed regions. Also much faster to restart and recycle.
 \par Codemaid extension in Visual Studio settings are saved in Git for multi-system development.  Codemaid is a great tool for making the source consistent, but you need the same settings on each machine.
-\par A Warm start is when you start DreamGrid on an already running Robust and set of regions.  DG loc
-ated into the Robust and regions as if it had already started them.  Warm Starts after a "Just Quit" did not populate region handles list. This is fixed so RAM will now show up. Should also allow us to catch a crash after a Warm start.
+\par A Warm start is when you start DreamGrid on
+ an already running Robust and set of regions.  DG located into the Robust and regions as if it had already started them.  Warm Starts after a "Just Quit" did not populate region handles list. This is fixed so RAM will now show up. Should also allow us to
+ catch a crash after a Warm start.
 \par I spell checked this document, finally. :-)
 \par 
 \par V3.28
@@ -176,17 +187,17 @@ ated into the Robust and regions as if it had already started them.  Warm Starts
 \par V3.15 Beta 
 \par Opensim Snail dev master #38dbc0328881 2019-08-31 14:36
 \par Ctrl-R Region Form also shows the Estate name for each region
-\par Search: Lots of new things! Search is integrated into Hyperica.com.  You c
-an look for Objects Marked for search in any Outworldz gird, or just your own. Also, locate Parcels, Grids and regions in grids. These are only shown if the region owner chooses to enable search and the Prim Owner, region owner, or parcel owner has cheeke
-d the "Show in Search button".
+\par Search: Lots of new things! Search is integrated into Hyperica.com.  You can look for Objects Marked for search in 
+any Outworldz gird, or just your own. Also, locate Parcels, Grids and regions in grids. These are only shown if the region owner chooses to enable search and the Prim Owner, region owner, or parcel owner has cheeked the "Show in Search button".
 \par Added a new variable to Opensim Datasnapshot module to allow all grids to be searched.
 \par Disable Search button added to Viewer Search. If on, you can set it so your residents see local only, or globally Search all Dream grids.
 \par Datasnapshot collector starts 5 minutes after a boot to speed up collecting assets for search. Runs every hour after that locally.
 \par Some Settings would not be placed into the Region or Opensim.ini files when changed unless you did a restart.  Most changes to settings now re-write the region so it will boot correctly.
 \par Import Dreamworld and "regular" Opensim INI files button in the Region Panel would not work if the file name did not match the [name] of the region. Fixed.
 \par Changed Voice Help URL to match new Vivox web page for signup.
-\par Windows can return a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain wh
-ey sometimes it does not type 'q' in certain windows.
+\par Windows can retur
+n a null PID from Process(). It should wait until there is a PID before returning. But nooooo it does not, so I added a fix to Boot () to make sure we have a valid PID so we can minimize windows. This may explain whey sometimes it does not type 'q' in cer
+tain windows.
 \par Slow down the tests on quitting to prevent spamming the console.
 \par Add more UPNP exception catchers to cover more brain-dead routers.
 \par Major refactor of defaults for all region params to stop weird crashes on imported or brain-dead INI files.  For example, a sim size of 0 was allowed by Opensim INI files.  duh
@@ -251,7 +262,7 @@ ey sometimes it does not type 'q' in certain windows.
 \par Allow the Partners to work on region server.  Also updated the Steam punk TP and set the partners prim to full mod/copy.
 \par SupportViewerObjectsCache -= true explicitly to help with missing prims, theoretically this does nothing as true is the default. See }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://opensimulator.org/mantis/view.php?id=8516 }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b7a00000068007400740070003a002f002f006f00700065006e00730069006d0075006c00610074006f0072002e006f00720067002f006d0061006e007400690073002f0076006900650077002e007000680070003f00
-690064003d0038003500310036000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 http://opensimulator.org/mantis/view.php?id=8516}}}{\f29\fs21 
+690064003d0038003500310036000000795881f43b1d7f48af2c825dc485276300000000a5ab000300000000}}}{\fldrslt {\f29\fs21 http://opensimulator.org/mantis/view.php?id=8516}}}{\f29\fs21 
 \par 
 \par V3.01 
 \par ExternalHostName added to the Port section for use on non-NATed Region servers.
@@ -309,8 +320,9 @@ ey sometimes it does not type 'q' in certain windows.
 \par Release of V2.89 with another DLL deleted.
 \par 
 \par V2.89
-\par Try-catch a possible crash on events load if Outworldz web site is offline. There should never be any dependencies on having an external PC running except for ns1.outworldz.net for dynamic DNS and that only appl
-ies to outworldz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Outworldz.com web site periodically, and these are dependent on Outworldz.com being online.
+\par Try-catch a possible crash on events load if Outworldz web site is of
+fline. There should never be any dependencies on having an external PC running except for ns1.outworldz.net for dynamic DNS and that only applies to outworldz.net users. Dreamgrid pulls a list of available OARS, IARs, and events from Outworldz.com web sit
+e periodically, and these are dependent on Outworldz.com being online.
 \par Removed bin\\addins as it is old, unused, and may have old DLLS in it leading to mysterious crashes about log4net because log4net is now Dot net 4.6.
 \par 
 \par V.28
@@ -323,13 +335,13 @@ ies to outworldz.net users. Dreamgrid pulls a list of available OARS, IARs, and 
 \par RegionReady set to localhost as Server2016 will run without Administrator mode.
 \par 
 \par V2.86 
-\par Patched to fix Sequential Start. If on, nothing happened to delay the ne
-xt sim from starting immediately but it should have waited for the previous sim to boot first, then start the next region.  If off, CPU less than 75% is needed before the next sim will start or stop.
+\par Patched to fix Sequential Start. If on, nothing happened to delay the next sim from starting immediately but it should have waited for the previous sim to boot first, then start the next
+ region.  If off, CPU less than 75% is needed before the next sim will start or stop.
 \par 
 \par V2.85 
 \par Link to web page takes you to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://yourgrid:80where }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4800000068007400740070003a002f002f0079006f007500720067007200690064003a0038003000770068006500720065000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {
-\f29\fs21 http://yourgrid:80where}}}{\f29\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache web server enabled. 
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4800000068007400740070003a002f002f0079006f007500720067007200690064003a0038003000770068006500720065000000795881f43b1d7f48af2c825dc485276300000000a5ab000300000000}}}{\fldrslt 
+{\f29\fs21 http://yourgrid:80where}}}{\f29\fs21  the large map is,  or 8002, depending upon whether Opensim is running, and if you have Apache web server enabled. 
 \par Apache port is movable. If your ISP blocks :80, try :8000
 \par Diagnostics loopback test reworked for Server 2016.  
 \par Icons fixed on Server 2016 by moving port 8001 to listen to localhost only.
@@ -426,7 +438,7 @@ xt sim from starting immediately but it should have waited for the previous sim 
 \par 2.72
 \par Simple Google HTML Map added to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://localhost:8002/wifi/map.html }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b6000000068007400740070003a002f002f006c006f00630061006c0068006f00730074003a0038003000300032002f0077006900660069002f006d00610070002e00680074006d006c000000795881f43b1d7f48af2c
-825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 http://localhost:8002/wifi/map.html}}}{\f29\fs21 
+825dc485276300000000a5ab000300000000}}}{\fldrslt {\f29\fs21 http://localhost:8002/wifi/map.html}}}{\f29\fs21 
 \par Allow only letters, numbers '.' and '-' in DNS names/IP Addresses
 \par New User Home X,Y,Z:  Users that create accounts on the web page will land at this spot on your Welcome region with their home set here so they can hypergrid back home.
 \par Simplified INI constants updated from Jeff Kelly, thanks!
@@ -659,12 +671,13 @@ xt sim from starting immediately but it should have waited for the previous sim 
 \par V2.30
 \par Made from OpenSimulator 0.9.1.dev.24df1086fa 05-24-2018 (same as OsGrid)
 \par 
-\par Suitcase or No Suitcase? A suitcase protects your inventory from rogue grids. When you are on another grid, you can only access what is in your suitcase. You can now disable the suitcase and rez object
-s from anywhere in your inventory while on foreign grids.
+\par Sui
+tcase or No Suitcase? A suitcase protects your inventory from rogue grids. When you are on another grid, you can only access what is in your suitcase. You can now disable the suitcase and rez objects from anywhere in your inventory while on foreign grids.
+
 \par Prim limits: Opensimulator can enforce a prim limit. Landlords can enable it to enforce MAXPRIMS on each parcel. MAXPRIMS can be set in each Region panel under 'More'
 \par Data Snapshot for any prims marked as "show in Search". This replaces the broken Diva search. It works across all DreamGrids.
 \par  - Prim Info (location, for sale, etc.) is sent to }{\field{\*\fldinst {\f29\fs21 HYPERLINK http://hyperica.com/ }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4200000068007400740070003a002f002f00680079007000650072006900630061002e0063006f006d002f000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b4200000068007400740070003a002f002f00680079007000650072006900630061002e0063006f006d002f000000795881f43b1d7f48af2c825dc485276300000000a5ab000300000000}}}{\fldrslt {\f29\fs21 
 http://hyperica.com/}}}{\f29\fs21 . The actual search engine is under development. Enable this in Settings-Expert at bottom left corner.
 \par  - Classified ad will soon be possible across the Outworldz.
 \par Mail Exposed more SMTP email server settings than just Gmail.
@@ -685,22 +698,21 @@ http://hyperica.com/}}}{\f29\fs21 . The actual search engine is under developmen
 \par Modules:
 \par  - Web stats module for grid ops
 \par  - Server Release Notes Module by Fly Man adds these notes to Help About
-\par  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically wit
-h a timer. If no avatars are in the region, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the default.
+\par  - Auto Restart Module by Fly Man. You can Auto Restart regions automagically with a timer. If no avatars are in the region, it will auto-reset periodically. This clears RAM used by visitors and helps maintain stability. 240 minutes (4 hours) is the defau
+lt.
 \par  - Birds Module by jonc and Jak Daniels: 
 \par 
-\par There is an IAR called !OpensimBirds.iar\rquote 
- in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBirds. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
-
+\par There is an IAR called !OpensimBirds.iar\rquote  in the top of the Free Avatar Parts menu. Click it to load into your master avatar, just like any other IAR. To use this, log in and rez a bird from Objects/OpensimBird
+s. There are two types, SeaGull1 and SeaGull2.  Type this onto the region console:
 \par 
 \par birds-prim SeaGull1 <enter> (or use SeaGull2, whichever bird you have put out)
 \par birds-start<enter>
 \par 
 \par  You should see a flock of birds fly around you and gather into a flock. 
 \par 
-\par  To make the birds auto fly, edit Outworldzfiles\\Opensim\\bin\\startup_commands.t
-xt.example and add the same commands. Save the file as "startup_commands.txt" and restart the system. Your birds will start to fly immediately.  This is System-Wide feature.  To make it per-region, move the Birds.ini file into Opensim\\bin\\Regions\\
-<Groupname>\\<SomeRegionName>.
+\par  To make the birds auto fly, edit Outworldzfiles\\Opensim\\bin\\
+startup_commands.txt.example and add the same commands. Save the file as "startup_commands.txt" and restart the system. Your birds will start to fly immediately.  This is System-Wide feature.  To make it per-region, move the Birds.ini file into Opensim\\
+bin\\Regions\\<Groupname>\\<SomeRegionName>.
 \par 
 \par Console commands:
 \par 
@@ -718,9 +730,9 @@ xt.example and add the same commands. Save the file as "startup_commands.txt" an
 \par birds-framerate <num> - [debugging] only update birds every <num> frames to region Welcome
 \par 
 \par Bird Module Author: }{\field{\*\fldinst {\f29\fs21 HYPERLINK https://github.com/jonc }{\f29\fs21 {\*\datafield 
-00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b48000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f006a006f006e0063000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {
-\f29\fs21 https://github.com/jonc}}}{\f29\fs21 
+00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b48000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f006a006f006e0063000000795881f43b1d7f48af2c825dc485276300000000a5ab000300000000}}}{\fldrslt 
+{\f29\fs21 https://github.com/jonc}}}{\f29\fs21 
 \par For more information, see }{\field{\*\fldinst {\f29\fs21 HYPERLINK https://github.com/JakDaniels/OpenSimBirds }{\f29\fs21 {\*\datafield 
 00d0c9ea79f9bace118c8200aa004ba90b0200000003000000e0c9ea79f9bace118c8200aa004ba90b6e000000680074007400700073003a002f002f006700690074006800750062002e0063006f006d002f004a0061006b00440061006e00690065006c0073002f004f00700065006e00530069006d004200690072006400
-73000000795881f43b1d7f48af2c825dc485276300000000a5ab00030000}}}{\fldrslt {\f29\fs21 https://github.com/JakDaniels/OpenSimBirds}}}{\f29\fs21 
+73000000795881f43b1d7f48af2c825dc485276300000000a5ab000300000000}}}{\fldrslt {\f29\fs21 https://github.com/JakDaniels/OpenSimBirds}}}{\f29\fs21 
 \par }}

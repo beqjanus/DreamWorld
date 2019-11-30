@@ -131,7 +131,7 @@ Public Module MysqlInterface
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            Debug.Print("ID = {0}", reader.GetString(0))
+                            'Debug.Print("ID = {0}", reader.GetString(0))
                             Val = reader.GetString(0)
                         End If
                     End Using
@@ -151,7 +151,7 @@ Public Module MysqlInterface
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
                     Using reader2 As MySqlDataReader = cmd2.ExecuteReader()
                         If reader2.Read() Then
-                            Debug.Print("Name = {0}", reader2.GetString(0))
+                            'Debug.Print("Name = {0}", reader2.GetString(0))
                             name = reader2.GetString(0)
                         End If
                     End Using
@@ -207,8 +207,8 @@ Public Module MysqlInterface
 
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"
         Dim pattern As String = "(.*?);.*;(.*)$"
-        Dim Avatar As String = ""
-        Dim UUID As String = ""
+        Dim Avatar As String
+        Dim UUID As String
         Using NewSQLConn As New MySqlConnection(Form1.Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
@@ -228,7 +228,9 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -264,7 +266,9 @@ Public Module MysqlInterface
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
                 Return v
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Debug.Print(ex.Message)
             End Try
         End Using

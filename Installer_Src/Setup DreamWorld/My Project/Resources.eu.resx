@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup pertsonalizatua Web Orriak</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Datu fitxategiak Backup</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Backup Datu baseak</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Datu fitxategiak Backup</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -447,8 +444,11 @@
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Bilatu eguneratzeak</value>
   </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Aukeratu karpeta bat</value>
+  </data>
   <data name="Choose_Cache" xml:space="preserve">
-    <value>Hautatu zein cache hustu</value>
+    <value>Aukeratu zein cache hustu</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>Aukeratu eskualdea</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Erregistratzen DynDNS helbidea</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamic DNSRegistering DynDNS helbidea</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS pasahitza</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -820,7 +820,7 @@
     <value>Sartu new Dos Box-izena</value>
   </data>
   <data name="Enter_Name" xml:space="preserve">
-    <value>Idatzi Objektu izenarekin ( '/' izango backup guztia, eta '/ objektuak / kutxa' babeskopia egingo 'box' karpeta Objektuak in</value>
+    <value>Idatzi Objektu izenarekin ( '/' izango backup guztia, eta '/ Objects / box' babeskopia egingo 'box' karpeta objektuak aukeran</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Ezin da abiaraziko DreamGridInstaller.exe.</value>
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL gidoiak ezin beste LAN PC iristeko. hau aktibatuz gero, portu sartu ahal izango dute zure LAN edozein PC. Hau da Dangerous!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Egin segurtasun kopia bat?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Maps</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Mapan fitxak guztiak ezabatuko dira. Ezarri mapa ezarpena eta berrabiatu mapa berriak egiteko</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Maps</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Map koordenatuak: X</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max Abiadura (lehenetsia = 1.0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>merge OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Batu objektuak</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Malla Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org eskualdea zerbitzaria</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minutu</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Y berdina izan behar du</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>egun kopuru bat izan behar du</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>zenbakia izan behar</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>PNG fitxategia izan behar</value>
@@ -1396,7 +1393,7 @@
     <value>sare aldaketa gertatu da. berrabiaraztea beharrezkoa izan daiteke.</value>
   </data>
   <data name="Network_Diagnostics" xml:space="preserve">
-    <value>Sareko diagnostikoak</value>
+    <value>Sare-diagnostikoak</value>
   </data>
   <data name="Network_Diagnostics_text" xml:space="preserve">
     <value>Korrika instalazioan diagnostiko</value>
@@ -1414,7 +1411,7 @@
     <value>Erabiltzaile New Home X, Y, Z</value>
   </data>
   <data name="Next1" xml:space="preserve">
-    <value>hurrengo</value>
+    <value>Hurrengoa</value>
   </data>
   <data name="Next_Name" xml:space="preserve">
     <value>hurrengo izena</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>hegaztien kopuruak artaldea</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Ez da baliozko Maximujm Agenteak Balio kopurua. 0 baino handiagoa izan behar du.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Ez da baliozko Gehienezko Prim balio bat. 0 baino handiagoa izan behar du.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Ez da baliozko Ez-fisikoa Prim Max balio bat. 0 baino handiagoa izan behar du</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Ez da baliozko Prim fisikoa Max balio bat. 0 baino handiagoa izan behar du.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR fitxategiak Uharteak osoa babeskopiak dira</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Eskualde Kontrolak</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Eskualde koordinatzea X ezin 0 baino txikiagoa izan</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Eskualde koordinatzea X handiegia da</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Eskualde koordinatzea Y ezin 32 baino gutxiago izan</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Eskualde koordinatzea Y handiegia da</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Eskualde Database</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Region izena ezin karaktere bereziak erabili</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region izena ez du hutsik egon</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Eskualde zehatz ezarpenak override lehenetsia</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>Eskualde estatistikak</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Eskualde UUID baliogabea da</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Eskualde kendu egin da</value>
@@ -1807,7 +1834,7 @@
     <value>Sendoa huts egiten hasteko</value>
   </data>
   <data name="Robust_running" xml:space="preserve">
-    <value>Sendoa da exekutatzen</value>
+    <value>Sendoa da martxan</value>
   </data>
   <data name="Robust_word" xml:space="preserve">
     <value>sendoa</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Eskualde bakoitzak aurretik eskualdean ondoren bakarrik kargatu hasiko da</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Zerbitzari mota da</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Zerbitzari mota</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Ahots</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Ahotsaren ezarpenak</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>irteera eskualde guztietan zain</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Zerbait Interneten gaizki</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Bai</value>
   </data>
 </root>

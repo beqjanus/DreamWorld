@@ -106,7 +106,7 @@ Partial Class AdvancedForm
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
-        Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps
+        Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
         Me.MapsButton.UseVisualStyleBackColor = True
         '

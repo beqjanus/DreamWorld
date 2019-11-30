@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Varmuuskopiointi Custom Web-sivut</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Backup Datatiedostot</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>backup Tietokannat</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Backup Datatiedostot</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Tarkista päivitykset</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Valitse kansio</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Valita, mitä välimuistin tyhjentää</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Rekisteröityminen DynDNS osoite</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynaaminen DNSRegistering DynDNS osoite</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS salasana</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -823,7 +823,7 @@
     <value>Anna objektin nimi ( '/' varmuuskopioi kaiken, ja '/ Objects / laatikko' varmuuskopioi laatikkomaisen kansiossa Esineet</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
-    <value>Virhe: ei voitu käynnistää DreamGridInstaller.exe.</value>
+    <value>Error: ei voitu käynnistää DreamGridInstaller.exe.</value>
   </data>
   <data name="ErrorLevel0" xml:space="preserve">
     <value>0 - (Virhe) Vain virheet</value>
@@ -1066,7 +1066,7 @@
     <value>Kuinka kauan Opensim suoritetaan ennen automaattisen varmuuskopioinnin tapahtuu</value>
   </data>
   <data name="How_Many_Avatars" xml:space="preserve">
-    <value>Kuinka monta hahmot + NPC voi olla tietyllä alueella, ennen kuin alue on esitetty koko. Todellinen arvo asetetaan Estate asetukset katsojalle.</value>
+    <value>Kuinka monta hahmot + NPC voi olla alueella ennen alue näkyy koko. Todellinen arvo asetetaan Estate asetukset katsojalle.</value>
   </data>
   <data name="Http_Port" xml:space="preserve">
     <value>http Port</value>
@@ -1084,7 +1084,7 @@
     <value>IceCast Server</value>
   </data>
   <data name="Icecast_Desc" xml:space="preserve">
-    <value>Icecast voit suoratoistaa musiikkia oman sim. Music URL:</value>
+    <value>Icecast avulla voit suoratoistaa musiikkia omaan sim. Music URL:</value>
   </data>
   <data name="IceCast_disabled" xml:space="preserve">
     <value>Icecast on poistettu käytöstä</value>
@@ -1108,7 +1108,7 @@
     <value>Starting Icecast</value>
   </data>
   <data name="Icons" xml:space="preserve">
-    <value>Icons</value>
+    <value>kuvakkeet</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>Opensim säästää airot suorittamisen jälkeen pitkään</value>
@@ -1228,7 +1228,7 @@
     <value>Load Region OAR</value>
   </data>
   <data name="Load_Terrain" xml:space="preserve">
-    <value>kuormitus Terrain</value>
+    <value>kuorma Terrain</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>paikallinen</value>
@@ -1243,7 +1243,7 @@
     <value>lokitaso</value>
   </data>
   <data name="Loopback_Failed" xml:space="preserve">
-    <value>Loopback testi epäonnistui. Verkko-osoite ei vastannut.</value>
+    <value>Silmukkatesti epäonnistui. Verkko-osoite ei vastannut.</value>
   </data>
   <data name="Loopback_Help" xml:space="preserve">
     <value>loopback Ohje</value>
@@ -1260,20 +1260,20 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL skriptejä voi päästä muihin lähiverkon PC: n. Jos otat tämän päälle, he voivat käyttää portteja lähiverkon millä tahansa tietokoneella. Tämä on vaarallista!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Tehdä varmuuskopio?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Kartat</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Kaikki karttaruudut on pyyhitty. Asettaa kartan asetukset ja uudelleenkäynnistyksen tehdä uusia karttoja</value>
   </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Kartat</value>
+  </data>
   <data name="Mapx" xml:space="preserve">
-    <value>Map &amp; koordinaatit: X</value>
+    <value>Kartta &amp; koordinaatit: X</value>
   </data>
   <data name="Map_Center_Location_word" xml:space="preserve">
     <value>Kartta Centre Sijainti:</value>
@@ -1285,7 +1285,7 @@
     <value>Suurin kiihtyvyys saa nykyisen nopeuden lintu</value>
   </data>
   <data name="Max_Agents" xml:space="preserve">
-    <value>Kuinka monta hahmot + NPC voi olla tietyllä alueella, ennen kuin alue on esitetty koko. Todellinen arvo asetetaan Estate asetukset katsojalle.</value>
+    <value>Kuinka monta hahmot + NPC voi olla alueella ennen alue näkyy koko. Todellinen arvo asetetaan Estate asetukset katsojalle.</value>
   </data>
   <data name="Max_Dist" xml:space="preserve">
     <value>Suurin etäisyys Muiden lintujen katsotaan samassa parvessa</value>
@@ -1294,7 +1294,7 @@
     <value>Max Force (oletus = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
-    <value>Max Korkeus (oletus = 45,0)</value>
+    <value>Suurin korkeus (oletus = 45,0)</value>
   </data>
   <data name="Max_NonPhys" xml:space="preserve">
     <value>256 metriä Firestorm. 1500 metriä Singularity. Et voi soittaa tavallisen Prim tätä suurempi</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Maksiminopeus (oletus = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>yhdistämisen OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>yhdistämisen esineet</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minuutit</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>On oltava sama kuin Y-</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Täytyy olla useita päiviä</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Numeron on oltava</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Täytyy olla PNG</value>
@@ -1478,6 +1475,18 @@
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>Lintujen määrä parven</value>
+  </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Ei kelvollinen Maximujm useita Agents arvo. On oltava suurempi kuin 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Ei kelvollinen korkein Prim arvo. On oltava suurempi kuin 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Ei kelvollinen aineettomia Prim maksimiarvo. On oltava suurempi kuin 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Ei kelvollinen Fyysinen Primin maksimiarvo. On oltava suurempi kuin 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR tiedostot ovat varmuuskopioita koko Islands</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>alue Controls</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Alue Koordinaattien X ei voi olla alle 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Alue Koordinaattien X on liian suuri</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Alue koordinaatti Y ei voi olla pienempi kuin 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Alue Koordinoi Y on liian suuri</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>alue Database</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Alueen nimi voi käyttää erikoismerkkejä</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region nimi ei saa olla tyhjä</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Aluekohtainen asetukset ohittavat oletusasetukset</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>alue tilastot</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Alue UUID Is kelpaa</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Alue on poistettu</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Jokainen alue alkaa vasta sen jälkeen, kun ennen alue on ladattu</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Palvelimen tyyppi on</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>palvelimen tyyppi</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Ääni</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Puheasetukset</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Odotetaan kaikille alueille mahdollisuus poistua</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Jotain on vialla Internetissä</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Joo</value>
   </data>
 </root>

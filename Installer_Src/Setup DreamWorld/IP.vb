@@ -16,7 +16,9 @@
         Try
             Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
             Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
-        Catch ex As Exception
+        Catch ex As ArgumentOutOfRangeException
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
         End Try
 
         Select Case Quad1

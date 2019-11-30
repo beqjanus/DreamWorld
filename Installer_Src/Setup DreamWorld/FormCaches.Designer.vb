@@ -105,7 +105,7 @@ Partial Class FormCaches
         Me.CheckBox5.Name = "CheckBox5"
         Me.CheckBox5.Size = New System.Drawing.Size(86, 17)
         Me.CheckBox5.TabIndex = 4
-        Me.CheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache
+        Me.CheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
         Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'GroupBox1

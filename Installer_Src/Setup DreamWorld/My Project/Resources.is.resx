@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Afritun Custom Web Pages</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Afritun Data Files</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Backup Gagnagrunnar</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Afritun Data Files</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -446,6 +443,9 @@
   </data>
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Athugaðu með uppfærslur</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Veldu möppu</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Veldu hvaða skyndiminni til að tæma</value>
@@ -771,10 +771,10 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
-  <data name="DynDNS" xml:space="preserve">
-    <value>Sem skrá DynDNS netfang</value>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamic DNSRegistering DynDNS netfang</value>
   </data>
-  <data name="DynDNS_password_word" xml:space="preserve">
+  <data name="DynDNS" xml:space="preserve">
     <value>DynDNS lykilorð</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1260,17 +1260,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL forskriftir geta ekki náð öðru LAN PC. Ef þú kveikir þetta á, að þeir geta fengið aðgang höfnum á LAN á hvaða tölvu. Þetta er hættulegt!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Gerðu afrit?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Kortin</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Allar kortaflísar hefur verið eytt. Stilltu kort stillingu og endurræsa til að gera nýtt kort</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Kortin</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Kort Coords: X</value>
@@ -1300,7 +1300,7 @@
     <value>256 metrar í Firestorm. 1500 metra með singularity. Þú getur ekki gert reglulega Prím stærri en þetta</value>
   </data>
   <data name="Max_NumPrims" xml:space="preserve">
-    <value>Max Fjöldi Prims á landspildu</value>
+    <value>Max Fjöldi Prims í pakka</value>
   </data>
   <data name="Max_Phys" xml:space="preserve">
     <value>Þú getur ekki gert líkamlega Prím stærri en þetta</value>
@@ -1314,13 +1314,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Max Speed ​​(sjálfgefið = 1,0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>Sameina OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>sameina hluti</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1328,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>mínútur</value>
@@ -1356,8 +1353,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Verður að vera það sama og Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Verður að vera tala um daga</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Verður að vera tala</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Verður að vera PNG skrá</value>
@@ -1479,6 +1476,18 @@
   <data name="Num_Birds" xml:space="preserve">
     <value>Fjöldi fugla að flykkjast</value>
   </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Ekki gild Maximujm fjöldi umboðsmanna Gildi. Verður að vera hærri en 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Ekki gilt Hámark Prim Gildi. Verður að vera hærri en 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Ekki gilt Non-Líkamleg Prim Max Value. Verður að vera hærri en 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Ekki gilt Líkamleg Prim Max Value. Verður að vera hærri en 0.</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR skrár eru afrit af öllu Islands</value>
   </data>
@@ -1585,7 +1594,7 @@
     <value>Hafnir</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
-    <value>Port Átökin hafa fundist. Allar hafnir hafi verið endurstillt til vanskila</value>
+    <value>Port Átökin hafa fundist. Allar hafnir hafa verið endurstillt til vanskila</value>
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
     <value>Port Áframsending Hjálp</value>
@@ -1674,6 +1683,18 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>svæði Stýrir</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region Samræma X má ekki vera minna en 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region Samræma X er of stór</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region Samræma Y má ekki vera minna en 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region Samræma Y er of stór</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>svæði Database</value>
   </data>
@@ -1691,6 +1712,9 @@
   </data>
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Region nafn er ekki notað sérstafi</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Region nafn má ekki vera auður</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Sjálfgefin tiltekið svæði Stillingar Stillingar</value>
@@ -1718,6 +1742,9 @@
   </data>
   <data name="Region_Stats" xml:space="preserve">
     <value>svæði Stats</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID er ógilt</value>
   </data>
   <data name="Reion_Removed" xml:space="preserve">
     <value>Svæðinu hefur verið fjarlægður</value>
@@ -1910,6 +1937,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Hvert svæði munu byrja fyrr en áður hefur svæðið hlaðinn</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server Type er</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Gerð miðlara</value>
@@ -2277,6 +2307,9 @@
   <data name="Voice" xml:space="preserve">
     <value>Voice</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>rödd Stillingar</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Bíð eftir öllum svæðum til að hætta</value>
   </data>
@@ -2318,8 +2351,5 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Eitthvað er athugavert við Internetið</value>
-  </data>
-  <data name="Yes_word" xml:space="preserve">
-    <value>Já</value>
   </data>
 </root>

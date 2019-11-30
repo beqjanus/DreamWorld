@@ -62,10 +62,14 @@ Public Class FormRegions
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
         Form1.PropRegionClass.CreateRegion("")
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
         RegionForm.Init("")
         RegionForm.Activate()
         RegionForm.Visible = True
+        RegionForm.Select()
+        RegionForm.BringToFront()
 
     End Sub
 
@@ -194,11 +198,14 @@ Public Class FormRegions
     Private Sub RegionBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles RegionBox.SelectedIndexChanged
 
         Dim value As String = TryCast(RegionBox.SelectedItem, String)
+#Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
         RegionForm.Init(value)
         RegionForm.Activate()
         RegionForm.Visible = True
         RegionForm.Select()
+        RegionForm.BringToFront()
 
     End Sub
 
@@ -211,10 +218,14 @@ Public Class FormRegions
         For Each Z As Integer In Form1.PropRegionClass.RegionNumbers
 
             Dim RegionName = Form1.PropRegionClass.RegionName(Z)
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
             RegionForm.Init(RegionName)
             RegionForm.Activate()
             RegionForm.Visible = True
+            RegionForm.Select()
+            RegionForm.BringToFront()
 
             Application.DoEvents()
             counter += 1

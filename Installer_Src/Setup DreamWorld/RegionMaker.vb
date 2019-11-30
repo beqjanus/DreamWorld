@@ -171,7 +171,9 @@ Public Class RegionMaker
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
+#Disable Warning CA1031 ' Do not catch general exception types
                 Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                     Debug.Print(ex.Message)
                     Continue For
                     Return
@@ -187,13 +189,13 @@ Public Class RegionMaker
                 If json.login = "enabled" Then
                     Form1.Print(json.region_name & " " & My.Resources.Ready)
 
-                    Dim n = FindRegionByName(json.region_name)
-                    If n < 0 Then
+                    Dim RegionNumber = FindRegionByName(json.region_name)
+                    If RegionNumber < 0 Then
                         Return
                     End If
 
-                    RegionEnabled(n) = True
-                    Status(n) = SIMSTATUSENUM.Booted
+                    RegionEnabled(RegionNumber) = True
+                    Status(RegionNumber) = SIMSTATUSENUM.Booted
                     Form1.PropUpdateView() = True
 
                     If Debugger.IsAttached = True Then
@@ -226,12 +228,12 @@ Public Class RegionMaker
                     For Each Name In Removelist
                         Try
                             TeleportAvatarDict.Remove(Name)
-                        Catch ex As Exception
+                        Catch ex As ArgumentNullException
                         End Try
                     Next
 
                     If Form1.Settings.ConsoleShow = False Then
-                        Dim hwnd = Form1.GetHwnd(GroupName(n))
+                        Dim hwnd = Form1.GetHwnd(GroupName(RegionNumber))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
@@ -241,23 +243,25 @@ Public Class RegionMaker
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
-                    Dim n = FindRegionByName(json.region_name)
-                    If n < 0 Then
+                    Dim RegionNumber = FindRegionByName(json.region_name)
+                    If RegionNumber < 0 Then
                         Return
                     End If
-                    Timer(n) = REGIONTIMER.Stopped
-                    If Status(n) = SIMSTATUSENUM.RecyclingDown Then
-                        Status(n) = SIMSTATUSENUM.RestartPending
+                    Timer(RegionNumber) = REGIONTIMER.Stopped
+                    If Status(RegionNumber) = SIMSTATUSENUM.RecyclingDown Then
+                        Status(RegionNumber) = SIMSTATUSENUM.RestartPending
                         Form1.PropUpdateView = True ' make form refresh
                     Else
-                        Status(n) = SIMSTATUSENUM.Stopped
+                        Status(RegionNumber) = SIMSTATUSENUM.Stopped
                     End If
 
                     Form1.PropUpdateView() = True
                     Form1.PropExitList.Add(json.region_name)
 
                 End If
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Debug.Print(ex.Message)
             End Try
         Next
@@ -333,7 +337,7 @@ Public Class RegionMaker
 
             Dim folders() As String
             Dim regionfolders() As String
-            Dim n As Integer = 0
+            Dim RegionNumber As Integer = 0
             folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
             For Each FolderName As String In folders
                 'Form1.Log(My.Resources.Info,"Region Path:" + FolderName)
@@ -362,91 +366,86 @@ Public Class RegionMaker
                             Form1.Settings.LoadIni(ini, ";")
                             ' we do not save the above as we are making a new one.
 
-                            RegionEnabled(n) = Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
+                            RegionEnabled(RegionNumber) = Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
 
-                            RegionPath(n) = ini ' save the path
-                            FolderPath(n) = System.IO.Path.GetDirectoryName(ini)
+                            RegionPath(RegionNumber) = ini ' save the path
+                            FolderPath(RegionNumber) = System.IO.Path.GetDirectoryName(ini)
 
-                            Dim theEnd As Integer = FolderPath(n).LastIndexOf("\", StringComparison.InvariantCulture)
-                            IniPath(n) = FolderPath(n).Substring(0, theEnd + 1)
+                            Dim theEnd As Integer = FolderPath(RegionNumber).LastIndexOf("\", StringComparison.InvariantCulture)
+                            IniPath(RegionNumber) = FolderPath(RegionNumber).Substring(0, theEnd + 1)
 
                             ' need folder name in case there are more than 1 ini
-                            Dim theStart = FolderPath(n).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
-                            theEnd = FolderPath(n).LastIndexOf("\", StringComparison.InvariantCulture)
-                            Dim gname = FolderPath(n).Substring(theStart, theEnd - theStart)
+                            Dim theStart = FolderPath(RegionNumber).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
+                            theEnd = FolderPath(RegionNumber).LastIndexOf("\", StringComparison.InvariantCulture)
+                            Dim gname = FolderPath(RegionNumber).Substring(theStart, theEnd - theStart)
 
-                            GroupName(n) = gname
+                            GroupName(RegionNumber) = gname
 
-                            UUID(n) = Form1.Settings.GetIni(fName, "RegionUUID", "", "String")
-                            SizeX(n) = Form1.Settings.GetIni(fName, "SizeX", "256", "Integer")
-                            SizeY(n) = Form1.Settings.GetIni(fName, "SizeY", "256", "Integer")
-                            RegionPort(n) = Form1.Settings.GetIni(fName, "InternalPort", "0", "Integer")
+                            UUID(RegionNumber) = Form1.Settings.GetIni(fName, "RegionUUID", "", "String")
+                            SizeX(RegionNumber) = Form1.Settings.GetIni(fName, "SizeX", "256", "Integer")
+                            SizeY(RegionNumber) = Form1.Settings.GetIni(fName, "SizeY", "256", "Integer")
+                            RegionPort(RegionNumber) = Form1.Settings.GetIni(fName, "InternalPort", "0", "Integer")
 
                             ' extended props V2.1
-                            NonPhysicalPrimMax(n) = Form1.Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer")
-                            PhysicalPrimMax(n) = Form1.Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer")
-                            ClampPrimSize(n) = Form1.Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean")
-                            MaxPrims(n) = Form1.Settings.GetIni(fName, "MaxPrims", "15000", "Integer")
-                            MaxAgents(n) = Form1.Settings.GetIni(fName, "MaxAgents", "100", "Integer")
+                            NonPhysicalPrimMax(RegionNumber) = Form1.Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer")
+                            PhysicalPrimMax(RegionNumber) = Form1.Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer")
+                            ClampPrimSize(RegionNumber) = Form1.Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean")
+                            MaxPrims(RegionNumber) = Form1.Settings.GetIni(fName, "MaxPrims", "15000", "Integer")
+                            MaxAgents(RegionNumber) = Form1.Settings.GetIni(fName, "MaxAgents", "100", "Integer")
 
                             ' Location is int,int format.
                             Dim C = Form1.Settings.GetIni(fName, "Location", RandomNumber.Between(2000, 1000) & "," & RandomNumber.Between(2000, 1000))
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                            CoordX(n) = CInt(parts(0))
-                            CoordY(n) = CInt(parts(1))
+                            CoordX(RegionNumber) = CInt(parts(0))
+                            CoordY(RegionNumber) = CInt(parts(1))
 
                             ' options parameters coming from INI file can be blank!
-                            MinTimerInterval(n) = Form1.Settings.GetIni(fName, "MinTimerInterval", "", "String")
-                            FrameTime(n) = Form1.Settings.GetIni(fName, "FrameTime", "", "String")
-                            RegionSnapShot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
-                            MapType(n) = Form1.Settings.GetIni(fName, "MapType", "", "String")
-                            Physics(n) = Form1.Settings.GetIni(fName, "Physics", "", "String")
-                            MaxPrims(n) = Form1.Settings.GetIni(fName, "MaxPrims", "", "String")
-                            AllowGods(n) = Form1.Settings.GetIni(fName, "AllowGods", "", "String")
-                            RegionGod(n) = Form1.Settings.GetIni(fName, "RegionGod", "", "String")
-                            ManagerGod(n) = Form1.Settings.GetIni(fName, "ManagerGod", "", "String")
-                            Birds(n) = Form1.Settings.GetIni(fName, "Birds", "", "String")
-                            Tides(n) = Form1.Settings.GetIni(fName, "Tides", "", "String")
-                            Teleport(n) = Form1.Settings.GetIni(fName, "Teleport", "", "String")
-                            DisableGloebits(n) = Form1.Settings.GetIni(fName, "DisableGloebits", "", "String")
-                            DisallowForeigners(n) = Form1.Settings.GetIni(fName, "DisallowForeigners", "", "String")
-                            DisallowResidents(n) = Form1.Settings.GetIni(fName, "DisallowResidents", "", "String")
-                            SkipAutobackup(n) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "", "String")
-                            Snapshot(n) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
+                            MinTimerInterval(RegionNumber) = Form1.Settings.GetIni(fName, "MinTimerInterval", "", "String")
+                            FrameTime(RegionNumber) = Form1.Settings.GetIni(fName, "FrameTime", "", "String")
+                            RegionSnapShot(RegionNumber) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
+                            MapType(RegionNumber) = Form1.Settings.GetIni(fName, "MapType", "", "String")
+                            Physics(RegionNumber) = Form1.Settings.GetIni(fName, "Physics", "", "String")
+                            MaxPrims(RegionNumber) = Form1.Settings.GetIni(fName, "MaxPrims", "", "String")
+                            AllowGods(RegionNumber) = Form1.Settings.GetIni(fName, "AllowGods", "", "String")
+                            RegionGod(RegionNumber) = Form1.Settings.GetIni(fName, "RegionGod", "", "String")
+                            ManagerGod(RegionNumber) = Form1.Settings.GetIni(fName, "ManagerGod", "", "String")
+                            Birds(RegionNumber) = Form1.Settings.GetIni(fName, "Birds", "", "String")
+                            Tides(RegionNumber) = Form1.Settings.GetIni(fName, "Tides", "", "String")
+                            Teleport(RegionNumber) = Form1.Settings.GetIni(fName, "Teleport", "", "String")
+                            DisableGloebits(RegionNumber) = Form1.Settings.GetIni(fName, "DisableGloebits", "", "String")
+                            DisallowForeigners(RegionNumber) = Form1.Settings.GetIni(fName, "DisallowForeigners", "", "String")
+                            DisallowResidents(RegionNumber) = Form1.Settings.GetIni(fName, "DisallowResidents", "", "String")
+                            SkipAutobackup(RegionNumber) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "", "String")
+                            Snapshot(RegionNumber) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
 
                             Select Case Form1.Settings.GetIni(fName, "SmartStart", "False", "String")
                                 Case "True"
-                                    SmartStart(n) = True
+                                    SmartStart(RegionNumber) = True
                                 Case "False"
-                                    SmartStart(n) = False
+                                    SmartStart(RegionNumber) = False
                                 Case Else
-                                    SmartStart(n) = False
+                                    SmartStart(RegionNumber) = False
                             End Select
 
                             If initted Then
-
                                 ' restore backups of transient data
-                                Try ' 6 temp vars from backup
-                                    Dim o = FindBackupByName(fName)
-
-                                    If o >= 0 Then
-                                        AvatarCount(n) = CInt(Backup(o)._AvatarCount)
-                                        ProcessID(n) = CInt(Backup(o)._ProcessID)
-                                        Status(n) = CInt(Backup(o)._Status)
-                                        LineCounter(n) = CInt(Backup(o)._LineCounter)
-                                        Timer(n) = CInt(Backup(o)._Timer)
-                                    End If
-                                Catch ex As Exception
-                                    Debug.Print(ex.Message)
-                                End Try
-
+                                Dim o = FindBackupByName(fName)
+                                If o >= 0 Then
+                                    AvatarCount(RegionNumber) = Backup(o)._AvatarCount
+                                    ProcessID(RegionNumber) = Backup(o)._ProcessID
+                                    Status(RegionNumber) = Backup(o)._Status
+                                    LineCounter(RegionNumber) = Backup(o)._LineCounter
+                                    Timer(RegionNumber) = Backup(o)._Timer
+                                End If
                             End If
 
-                            n += 1
+                            RegionNumber += 1
                             Application.DoEvents()
                         Next
+#Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
@@ -454,7 +453,9 @@ Public Class RegionMaker
             Next
 
             initted = True
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Debug.Print(ex.Message)
         End Try
 
@@ -469,7 +470,9 @@ Public Class RegionMaker
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
-            Catch ex As Exception
+            Catch ex As ArgumentNullException
+                Debug.Print(ex.Message)
+            Catch ex As ArgumentException
                 Debug.Print(ex.Message)
             End Try
         Next
@@ -529,7 +532,9 @@ Public Class RegionMaker
         For Each obj As Region_data In RegionList
             Try
                 Portlist.Add(obj._RegionPort, obj._RegionName)
-            Catch ex As Exception
+            Catch ex As ArgumentNullException
+                Form1.ErrorLog("LowestPort" & ex.Message)
+            Catch ex As ArgumentException
                 Form1.ErrorLog("LowestPort" & ex.Message)
             End Try
         Next
@@ -551,19 +556,26 @@ Public Class RegionMaker
 
     Public Sub WriteRegionObject(name As String)
 
-        Dim n As Integer = FindRegionByName(name)
-        If n < 0 Then
+        Dim RegionNumber As Integer = FindRegionByName(name)
+        If RegionNumber < 0 Then
             MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, My.Resources.Error_word)
             Return
         End If
 
-        Dim fname As String = RegionList(n)._FolderPath
+        Dim fname As String = RegionList(RegionNumber)._FolderPath
 
         If (fname.Length = 0) Then
             Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "bin\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
-                Directory.CreateDirectory(pathtoWelcome)
+                Try
+                    Directory.CreateDirectory(pathtoWelcome)
+                Catch ex As ArgumentException
+                Catch ex As IO.PathTooLongException
+                Catch ex As NotSupportedException
+                Catch ex As UnauthorizedAccessException
+                Catch ex As IO.IOException
+                End Try
             End If
         Else
             fname = fname + "\" + name + ".ini"
@@ -575,37 +587,37 @@ Public Class RegionMaker
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
-        & "RegionUUID = " & UUID(n) & vbCrLf _
-        & "Location = " & CoordX(n).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(n).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
+        & "RegionUUID = " & UUID(RegionNumber) & vbCrLf _
+        & "Location = " & CoordX(RegionNumber).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(RegionNumber).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
-        & "InternalPort = " & RegionPort(n) & vbCrLf _
+        & "InternalPort = " & RegionPort(RegionNumber) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
         & "ExternalHostName = " & Form1.ExternLocalServerName() & vbCrLf _
-        & "SizeX = " & CStr(SizeX(n)) & vbCrLf _
-        & "SizeY = " & CStr(SizeY(n)) & vbCrLf _
-        & "Enabled = " & CStr(RegionEnabled(n)) & vbCrLf _
-        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(n)) & vbCrLf _
-        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(n)) & vbCrLf _
-        & "ClampPrimSize = " & CStr(ClampPrimSize(n)) & vbCrLf _
-        & "MaxPrims = " & MaxPrims(n) & vbCrLf _
+        & "SizeX = " & CStr(SizeX(RegionNumber)) & vbCrLf _
+        & "SizeY = " & CStr(SizeY(RegionNumber)) & vbCrLf _
+        & "Enabled = " & CStr(RegionEnabled(RegionNumber)) & vbCrLf _
+        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(RegionNumber)) & vbCrLf _
+        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(RegionNumber)) & vbCrLf _
+        & "ClampPrimSize = " & CStr(ClampPrimSize(RegionNumber)) & vbCrLf _
+        & "MaxPrims = " & MaxPrims(RegionNumber) & vbCrLf _
         & "RegionType = Estate" & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
-        & "RegionSnapShot = " & RegionSnapShot(n) & vbCrLf _
-        & "MapType = " & MapType(n) & vbCrLf _
-        & "Physics = " & Physics(n) & vbCrLf _
-        & "AllowGods = " & AllowGods(n) & vbCrLf _
-        & "RegionGod = " & RegionGod(n) & vbCrLf _
-        & "ManagerGod = " & ManagerGod(n) & vbCrLf _
-        & "Birds = " & Birds(n) & vbCrLf _
-        & "Tides = " & Tides(n) & vbCrLf _
-        & "Teleport = " & Teleport(n) & vbCrLf _
-        & "DisableGloebits = " & DisableGloebits(n) & vbCrLf _
-        & "DisallowForeigners = " & DisallowForeigners(n) & vbCrLf _
-        & "DisallowResidents = " & DisallowResidents(n) & vbCrLf _
+        & "RegionSnapShot = " & RegionSnapShot(RegionNumber) & vbCrLf _
+        & "MapType = " & MapType(RegionNumber) & vbCrLf _
+        & "Physics = " & Physics(RegionNumber) & vbCrLf _
+        & "AllowGods = " & AllowGods(RegionNumber) & vbCrLf _
+        & "RegionGod = " & RegionGod(RegionNumber) & vbCrLf _
+        & "ManagerGod = " & ManagerGod(RegionNumber) & vbCrLf _
+        & "Birds = " & Birds(RegionNumber) & vbCrLf _
+        & "Tides = " & Tides(RegionNumber) & vbCrLf _
+        & "Teleport = " & Teleport(RegionNumber) & vbCrLf _
+        & "DisableGloebits = " & DisableGloebits(RegionNumber) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(RegionNumber) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(RegionNumber) & vbCrLf _
         & "MinTimerInterval =" & vbCrLf _
         & "Frametime =" & vbCrLf _
-        & "SmartStart =" & SmartStart(n) & vbCrLf
+        & "SmartStart =" & SmartStart(RegionNumber) & vbCrLf
 
         FileStuff.DeleteFile(fname)
 
@@ -711,217 +723,169 @@ Public Class RegionMaker
 
 #Region "Standard INI"
 
-    Public Property ClampPrimSize(n As Integer) As Boolean
+    Public Property AvatarCount(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return CBool(RegionList(n)._ClampPrimSize)
-            Catch ex As Exception
-                Form1.ErrorLog("ClampPrimSize:" & ex.Message)
-            End Try
-            Return False
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._AvatarCount
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(RegionNumber)._AvatarCount = Value
+        End Set
+    End Property
+
+    Public Property ClampPrimSize(RegionNumber As Integer) As Boolean
+        Get
+            If Bad(RegionNumber) Then Return False
+            Return RegionList(RegionNumber)._ClampPrimSize
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._ClampPrimSize = Value
+            RegionList(RegionNumber)._ClampPrimSize = Value
         End Set
     End Property
 
-    Public Property CoordX(n As Integer) As Integer
+    Public Property CoordX(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return CInt(RegionList(n)._CoordX)
-            Catch ex As Exception
-                Form1.ErrorLog("CoordX:" & ex.Message)
-            End Try
-            Return 0
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._CoordX
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordX = Value
+            RegionList(RegionNumber)._CoordX = Value
         End Set
     End Property
 
-    Public Property CoordY(n As Integer) As Integer
+    Public Property CoordY(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return CInt(RegionList(n)._CoordY)
-            Catch ex As Exception
-                Form1.ErrorLog("CoordY:" & ex.Message)
-            End Try
-            Return 0
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._CoordY
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._CoordY = Value
+            RegionList(RegionNumber)._CoordY = Value
         End Set
     End Property
 
-    Public Property MaxAgents(n As Integer) As String
+    Public Property LineCounter(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return RegionList(n)._MaxAgents
-            Catch ex As Exception
-                Form1.ErrorLog("MaxAgents:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._LineCounter
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(RegionNumber)._LineCounter = Value
+        End Set
+    End Property
+
+    Public Property MaxAgents(RegionNumber As Integer) As String
+        Get
+            If Bad(RegionNumber) Then Return "100"
+            Return RegionList(RegionNumber)._MaxAgents
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._MaxAgents = Value
+            RegionList(RegionNumber)._MaxAgents = Value
         End Set
     End Property
 
-    Public Property MaxPrims(n As Integer) As String
+    Public Property MaxPrims(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._MaxPrims
-            Catch ex As Exception
-                Form1.ErrorLog("MaxPrims:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return "45000"
+            Return RegionList(RegionNumber)._MaxPrims
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._MaxPrims = Value
+            RegionList(RegionNumber)._MaxPrims = Value
         End Set
     End Property
 
-    Public Property NonPhysicalPrimMax(n As Integer) As String
+    Public Property NonPhysicalPrimMax(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._NonPhysicalPrimMax
-            Catch ex As Exception
-                Form1.ErrorLog("NonPhysicalPrimMax:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return "1024"
+            Return RegionList(RegionNumber)._NonPhysicalPrimMax
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._NonPhysicalPrimMax = Value
+            RegionList(RegionNumber)._NonPhysicalPrimMax = Value
         End Set
     End Property
 
-    Public Property PhysicalPrimMax(n As Integer) As String
+    Public Property PhysicalPrimMax(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._PhysicalPrimMax
-            Catch ex As Exception
-                Form1.ErrorLog("PhysicalPrimMax:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return "1024"
+            Return RegionList(RegionNumber)._PhysicalPrimMax
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._PhysicalPrimMax = Value
+            RegionList(RegionNumber)._PhysicalPrimMax = Value
         End Set
     End Property
 
-    Public Property SizeX(n As Integer) As Integer
+    Public Property ProcessID(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return RegionList(n)._SizeX
-            Catch ex As Exception
-                Form1.ErrorLog("SizeX:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._ProcessID
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeX = Value
+            RegionList(RegionNumber)._ProcessID = Value
         End Set
     End Property
 
-    Public Property SizeY(n As Integer) As Integer
+    Public Property SizeX(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return RegionList(n)._SizeY
-            Catch ex As Exception
-                Form1.ErrorLog("SizeY:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return 256
+            Return RegionList(RegionNumber)._SizeX
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._SizeY = Value
+            RegionList(RegionNumber)._SizeX = Value
         End Set
     End Property
 
-    Public Property UUID(n As Integer) As String
+    Public Property SizeY(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return RegionList(n)._UUID
-            Catch ex As Exception
-                Form1.ErrorLog("UUID:" & ex.Message)
-            End Try
-            Return ""
+            If Bad(RegionNumber) Then Return 256
+            Return RegionList(RegionNumber)._SizeY
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(RegionNumber)._SizeY = Value
+        End Set
+    End Property
+
+    Public Property Status(RegionNumber As Integer) As Integer
+        Get
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._Status
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(RegionNumber)._Status = Value
+        End Set
+    End Property
+
+    Public Property Timer(RegionNumber As Integer) As Integer
+        Get
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._Timer
+        End Get
+        Set(ByVal Value As Integer)
+            RegionList(RegionNumber)._Timer = Value
+        End Set
+    End Property
+
+    Public Property UUID(RegionNumber As Integer) As String
+        Get
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._UUID
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._UUID = Value
+            RegionList(RegionNumber)._UUID = Value
         End Set
     End Property
 
-#End Region
+    Private Function Bad(RegionNumber As Integer) As Boolean
 
-#Region "NeedBackup"
+        If RegionNumber < 0 Then
+            Form1.ErrorLog("Region Number  < 0".ToString(Globalization.CultureInfo.InvariantCulture))
+            Return True
+        End If
+        If RegionNumber + 1 > RegionList.Count Then
+            Form1.ErrorLog("Region n is too large:" & RegionNumber.ToString(Globalization.CultureInfo.InvariantCulture))
+            Return True
+        End If
+        Return False
 
-    Public Property AvatarCount(n As Integer) As Integer
-        Get
-            Try
-                Return CInt(RegionList(n)._AvatarCount)
-            Catch ex As Exception
-                Form1.ErrorLog("Avatarcount:" & ex.Message)
-            End Try
-            Return 0
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._AvatarCount = Value
-        End Set
-    End Property
-
-    Public Property LineCounter(n As Integer) As Integer
-        Get
-            Return CInt(RegionList(n)._LineCounter)
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._LineCounter = Value
-        End Set
-    End Property
-
-    Public Property ProcessID(n As Integer) As Integer
-        Get
-
-            Try
-                Return RegionList(n)._ProcessID
-            Catch ex As Exception
-                Form1.ErrorLog("ProcessID:" & ex.Message)
-            End Try
-            Return 0
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._ProcessID = Value
-        End Set
-    End Property
-
-    Public Property Status(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._Status
-            Catch ex As Exception
-                Form1.ErrorLog("NonPhysicalPrimMax" & ex.Message)
-            End Try
-            Return 0
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Status = Value
-        End Set
-    End Property
-
-    Public Property Timer(n As Integer) As Integer
-        Get
-            Try
-                Return RegionList(n)._Timer
-            Catch ex As Exception
-                Form1.ErrorLog("Timer" & ex.Message)
-            End Try
-            Return ""
-
-        End Get
-        Set(ByVal Value As Integer)
-            RegionList(n)._Timer = Value
-        End Set
-    End Property
+    End Function
 
 #End Region
 
@@ -933,87 +897,63 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property FolderPath(n As Integer) As String
+    Public Property FolderPath(RegionNumber As Integer) As String
         Get
-            Try
-                Return CStr(RegionList(n)._FolderPath)
-            Catch ex As Exception
-                Form1.ErrorLog("Folderpath:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._FolderPath
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._FolderPath = Value
+            RegionList(RegionNumber)._FolderPath = Value
         End Set
     End Property
 
-    Public Property GroupName(n As Integer) As String
+    Public Property GroupName(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Group
-            Catch ex As Exception
-                Form1.ErrorLog("GroupName:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Group
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Group = Value
+            RegionList(RegionNumber)._Group = Value
         End Set
     End Property
 
-    Public Property IniPath(n As Integer) As String
+    Public Property IniPath(RegionNumber As Integer) As String
         Get
-            Try
-                Return CStr(RegionList(n)._IniPath)
-            Catch ex As Exception
-                Form1.ErrorLog("IniPath:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._IniPath
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._IniPath = Value
+            RegionList(RegionNumber)._IniPath = Value
         End Set
     End Property
 
-    Public Property RegionName(n As Integer) As String
+    Public Property RegionName(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._RegionName
-            Catch ex As Exception
-                Form1.ErrorLog("RegionName:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._RegionName
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionName = Value
+            RegionList(RegionNumber)._RegionName = Value
         End Set
     End Property
 
-    Public Property RegionPath(n As Integer) As String
+    Public Property RegionPath(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._RegionPath
-            Catch ex As Exception
-                Form1.ErrorLog("RegionPath:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._RegionPath
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionPath = Value
+            RegionList(RegionNumber)._RegionPath = Value
         End Set
     End Property
 
-    Public Property RegionPort(n As Integer) As Integer
+    Public Property RegionPort(RegionNumber As Integer) As Integer
         Get
-            Try
-                Return RegionList(n)._RegionPort
-            Catch ex As Exception
-                Form1.ErrorLog("Bad region port: " + CStr(RegionList(n)._RegionPort) & " " ^ ex.Message)
-                Return 0
-            End Try
+            If Bad(RegionNumber) Then Return 0
+            Return RegionList(RegionNumber)._RegionPort
         End Get
         Set(ByVal Value As Integer)
-            RegionList(n)._RegionPort = Value
+            RegionList(RegionNumber)._RegionPort = Value
         End Set
     End Property
 
@@ -1021,257 +961,189 @@ Public Class RegionMaker
 
 #Region "Options"
 
-    Public Property AllowGods(n As Integer) As String
+    Public Property AllowGods(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._AllowGods
-            Catch ex As Exception
-                Form1.ErrorLog("AllowGods:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._AllowGods
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._AllowGods = Value
+            RegionList(RegionNumber)._AllowGods = Value
         End Set
     End Property
 
-    Public Property Birds(n As Integer) As String
+    Public Property Birds(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Birds
-            Catch ex As Exception
-                Form1.ErrorLog("Birds:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Birds
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Birds = Value
+            RegionList(RegionNumber)._Birds = Value
         End Set
     End Property
 
-    Public Property DisableGloebits(n As Integer) As String
+    Public Property DisableGloebits(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._DisableGloebits
-            Catch ex As Exception
-                Form1.ErrorLog("DisableGloebits:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._DisableGloebits
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._DisableGloebits = Value
+            RegionList(RegionNumber)._DisableGloebits = Value
         End Set
     End Property
 
-    Public Property DisallowForeigners(n As Integer) As String
+    Public Property DisallowForeigners(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._DisallowForeigners
-            Catch ex As Exception
-                Form1.ErrorLog("DisallowForeigners:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._DisallowForeigners
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._DisallowForeigners = Value
+            RegionList(RegionNumber)._DisallowForeigners = Value
         End Set
     End Property
 
-    Public Property DisallowResidents(n As Integer) As String
+    Public Property DisallowResidents(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._DisallowResidents
-            Catch ex As Exception
-                Form1.ErrorLog("DisallowResidents:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._DisallowResidents
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._DisallowResidents = Value
+            RegionList(RegionNumber)._DisallowResidents = Value
         End Set
     End Property
 
-    Public Property FrameTime(n As Integer) As String
+    Public Property FrameTime(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._FrameTime
-            Catch ex As Exception
-                Form1.ErrorLog("FrameTime:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._FrameTime
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._FrameTime = Value
+            If Value Is Nothing Then Return
+            Value = Value.Replace(",", ".")
+            RegionList(RegionNumber)._FrameTime = Value
         End Set
     End Property
 
-    Public Property ManagerGod(n As Integer) As String
+    Public Property ManagerGod(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._ManagerGod
-            Catch ex As Exception
-                Form1.ErrorLog("ManagerGod:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._ManagerGod
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._ManagerGod = Value
+            RegionList(RegionNumber)._ManagerGod = Value
         End Set
     End Property
 
-    Public Property MapType(n As Integer) As String
+    Public Property MapType(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._MapType
-            Catch ex As Exception
-                Form1.ErrorLog("MapType:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._MapType
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._MapType = Value
+            RegionList(RegionNumber)._MapType = Value
         End Set
     End Property
 
-    Public Property MinTimerInterval(n As Integer) As String
+    Public Property MinTimerInterval(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._MinTimerInterval
-            Catch ex As Exception
-                Form1.ErrorLog("MinTimerInterval:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._MinTimerInterval
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._MinTimerInterval = Value
+            If Value Is Nothing Then Return
+            Value = Value.Replace(",", ".")
+            RegionList(RegionNumber)._MinTimerInterval = Value
         End Set
     End Property
 
-    Public Property Physics(n As Integer) As String
+    Public Property Physics(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Physics
-            Catch ex As Exception
-                Form1.ErrorLog("Physics:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Physics
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Physics = Value
+            RegionList(RegionNumber)._Physics = Value
         End Set
     End Property
 
-    Public Property RegionEnabled(n As Integer) As Boolean
+    Public Property RegionEnabled(RegionNumber As Integer) As Boolean
         Get
-            Try
-                Return RegionList(n)._RegionEnabled
-            Catch ex As Exception
-                Form1.ErrorLog("RegionEnabled:" & ex.Message)
-                Return False
-            End Try
+            If Bad(RegionNumber) Then Return False
+            Return RegionList(RegionNumber)._RegionEnabled
         End Get
         Set(ByVal Value As Boolean)
-            RegionList(n)._RegionEnabled = Value
+            RegionList(RegionNumber)._RegionEnabled = Value
         End Set
     End Property
 
-    Public Property RegionGod(n As Integer) As String
+    Public Property RegionGod(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._RegionGod
-            Catch ex As Exception
-                Form1.ErrorLog("RegionGod:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._RegionGod
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionGod = Value
+            RegionList(RegionNumber)._RegionGod = Value
         End Set
     End Property
 
-    Public Property RegionSnapShot(n As Integer) As String
+    Public Property RegionSnapShot(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._RegionSnapShot
-            Catch ex As Exception
-                Form1.ErrorLog("RegionSnapShot:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._RegionSnapShot
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionSnapShot = Value
+            RegionList(RegionNumber)._RegionSnapShot = Value
         End Set
     End Property
 
-    Public Property SkipAutobackup(n As Integer) As String
+    Public Property SkipAutobackup(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._SkipAutobackup
-            Catch ex As Exception
-                Form1.ErrorLog("SkipAutobackup:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._SkipAutobackup
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._SkipAutobackup = Value
+            RegionList(RegionNumber)._SkipAutobackup = Value
         End Set
     End Property
 
-    Public Property SmartStart(n As Integer) As String
+    Public Property SmartStart(RegionNumber As Integer) As String
 
         Get
-            Try
-                Return RegionList(n)._RegionSmartStart
-            Catch ex As Exception
-                Form1.ErrorLog("SmartStart:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._RegionSmartStart
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._RegionSmartStart = Value
+            RegionList(RegionNumber)._RegionSmartStart = Value
         End Set
 
     End Property
 
-    Public Property Snapshot(n As Integer) As String
+    Public Property Snapshot(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Snapshot
-            Catch ex As Exception
-                Form1.ErrorLog("RegionList:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Snapshot
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Snapshot = Value
+            RegionList(RegionNumber)._Snapshot = Value
         End Set
     End Property
 
-    Public Property Teleport(n As Integer) As String
+    Public Property Teleport(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Teleport
-            Catch ex As Exception
-                Form1.ErrorLog("Teleport:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Teleport
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Teleport = Value
+            RegionList(RegionNumber)._Teleport = Value
         End Set
     End Property
 
-    Public Property Tides(n As Integer) As String
+    Public Property Tides(RegionNumber As Integer) As String
         Get
-            Try
-                Return RegionList(n)._Tides
-            Catch ex As Exception
-                Form1.ErrorLog("Tides:" & ex.Message)
-                Return ""
-            End Try
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._Tides
         End Get
         Set(ByVal Value As String)
-            RegionList(n)._Tides = Value
+            RegionList(RegionNumber)._Tides = Value
         End Set
     End Property
 
@@ -1285,16 +1157,16 @@ Public Class RegionMaker
         Next
     End Sub
 
-    Public Sub DebugRegions(n As Integer)
+    Public Sub DebugRegions(RegionNumber As Integer)
 
-        Form1.Log("RegionNumber", CStr(n) & vbCrLf &
-            " PID:" & RegionList(n)._ProcessID & vbCrLf &
-            " Group:" & RegionList(n)._Group & vbCrLf &
-            " Region:" & RegionList(n)._RegionName & vbCrLf &
-            " Status=" & CStr(RegionList(n)._Status) & vbCrLf &
-            " LineCtr=" & CStr(RegionList(n)._LineCounter) & vbCrLf &
-           " RegionEnabled=" & RegionList(n)._RegionEnabled & vbCrLf &
-           " Timer=" & CStr(RegionList(n)._Timer))
+        Form1.Log("RegionNumber", CStr(RegionNumber) & vbCrLf &
+            " PID:" & RegionList(RegionNumber)._ProcessID & vbCrLf &
+            " Group:" & RegionList(RegionNumber)._Group & vbCrLf &
+            " Region:" & RegionList(RegionNumber)._RegionName & vbCrLf &
+            " Status=" & CStr(RegionList(RegionNumber)._Status) & vbCrLf &
+            " LineCtr=" & CStr(RegionList(RegionNumber)._LineCounter) & vbCrLf &
+           " RegionEnabled=" & RegionList(RegionNumber)._RegionEnabled & vbCrLf &
+           " Timer=" & CStr(RegionList(RegionNumber)._Timer))
 
     End Sub
 
@@ -1315,6 +1187,7 @@ Public Class RegionMaker
     End Function
 
     Public Function IsBooted(RegionNumber As Integer) As Boolean
+        If Bad(RegionNumber) Then Return False
         If Status(RegionNumber) = SIMSTATUSENUM.Booted Then
             Return True
         End If
@@ -1365,7 +1238,7 @@ Public Class RegionMaker
         Dim i As Integer = 0
         For Each obj As Region_data In RegionList
             If Name = obj._UUID Then
-                Debug.Print("Current Region is " + obj._RegionName)
+                'Debug.Print("Current Region is " + obj._RegionName)
                 Return i
             End If
             i += 1
@@ -1380,13 +1253,15 @@ Public Class RegionMaker
 
     Shared Function CheckPassword(POST As String, Machine As String) As Boolean
 
+        If Machine Is Nothing Then Return False
+
         ' Returns true is password is blank or matching
         Dim pattern1 As Regex = New Regex("PW=(.*?)&")
         Dim match1 As Match = pattern1.Match(POST)
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
             If p1.Length = 0 Then Return True
-            If Machine = p1.ToLower(Globalization.CultureInfo.InvariantCulture) Then Return True
+            If Machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
         End If
         Return False
 
@@ -1502,21 +1377,21 @@ Public Class RegionMaker
             If match.Success Then
                 RegionUUID = match.Groups(1).Value
                 Dim AgentUUID = match.Groups(2).Value
-                Dim n = FindRegionByUUID(RegionUUID)
-                If n > -1 And RegionEnabled(n) And SmartStart(n) Then
-                    If Status(n) = SIMSTATUSENUM.Booted Then
-                        Form1.Print(My.Resources.Someone_is_in_word & " " & RegionName(n))
+                Dim RegionNumber = FindRegionByUUID(RegionUUID)
+                If RegionNumber > -1 And RegionEnabled(RegionNumber) And SmartStart(RegionNumber) Then
+                    If Status(RegionNumber) = SIMSTATUSENUM.Booted Then
+                        Form1.Print(My.Resources.Someone_is_in_word & " " & RegionName(RegionNumber))
                         Debug.Print("Sending to " & RegionUUID)
                         Return RegionUUID
                     Else
-                        Form1.Print(My.Resources.Smart_Start_word & " " & RegionName(n))
-                        Status(n) = SIMSTATUSENUM.Resume
+                        Form1.Print(My.Resources.Smart_Start_word & " " & RegionName(RegionNumber))
+                        Status(RegionNumber) = SIMSTATUSENUM.Resume
                         Try
-                            TeleportAvatarDict.Remove(RegionName(n))
-                        Catch ex As Exception
+                            TeleportAvatarDict.Remove(RegionName(RegionNumber))
+                        Catch ex As ArgumentNullException
                         End Try
 
-                        TeleportAvatarDict.Add(AgentUUID, RegionName(n))
+                        TeleportAvatarDict.Add(AgentUUID, RegionName(RegionNumber))
 
                         ' redirect to welcome
                         Dim wname = Settings.WelcomeRegion
@@ -1579,13 +1454,15 @@ Public Class RegionMaker
                 Else
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
+#Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                 Return "<html><head></head><body>Error</html>"
             End Try
 
         ElseIf POST.Contains("get_partner") Then
             Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID().ToLower(Globalization.CultureInfo.InvariantCulture))
+            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID())
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*)")
@@ -1638,7 +1515,9 @@ Public Class RegionMaker
                             myCommand1.ExecuteScalar()
                             myConnection.Close()
                         End Using
+#Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
                         Debug.Print(ex.Message)
                     End Try
 
