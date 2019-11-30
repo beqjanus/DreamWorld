@@ -8,23 +8,23 @@ include("../Metromap/includes/config.php");
 //error_reporting(0);
 
 $now = time();
-
    
-  $dsn = "mysql:host=$CONF_db_server;port=$CONF_db_port;dbname=$CONF_db_database";
+$dsn = "mysql:host=$CONF_db_server;port=$CONF_db_port;dbname=$CONF_db_database";
+
+$options = [
+  PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
+  PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
+  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
+];
+try {
   
-  $options = [
-    PDO::ATTR_EMULATE_PREPARES   => false, // turn off emulation mode for "real" prepared statements
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, //make the default fetch be an associative array
-  ];
-  try {
-    
-    $db = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
-    
-  } catch (Exception $e) {
-    error_log($e->getMessage());
-    exit('Something weird happened'); //something a user can understand
-  }
+  $db = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
+  
+  
+} catch (Exception $e) {
+  error_log($e->getMessage());
+  exit('Something weird happened'); //something a user can understand
+}
 
 function GetURL($host, $port, $url)
 {
@@ -46,25 +46,27 @@ function GetURL($host, $port, $url)
     curl_close($ch);
     return "";
 }
-function Delete ($gateway)  {
+
+function Delete ($db, $gateway)  {
     
-    $query = $GLOBALS['db1']->prepare("DELETE FROM hostsregister  WHERE gateway = ?");
+    echo "Gateway: $gateway\n";
+    $query = $db->prepare("DELETE FROM ossearch.hostsregister  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.objects  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.objects  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.allparcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.allparcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.parcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.parcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.parcelsales  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.parcelsales  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.popularplaces  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.popularplaces  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.regions  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.regions  WHERE gateway = ?");
     $query->execute( array($gateway) );
 }
 
-function CheckHost($gateway, $hostname, $port)
+function CheckHost($db, $gateway, $hostname, $port)
 {
     global $db, $now;
     
@@ -72,7 +74,7 @@ function CheckHost($gateway, $hostname, $port)
     if ($xml == "") {//No data was retrieved? (CURL may have timed out)
         echo " - failed\n";
         $failcounter = 'failcounter + 1';
-        Delete($gateway);
+        Delete($db, $gateway);
     } else {
         echo " - success\n";
         $failcounter = "0";
@@ -90,11 +92,11 @@ function CheckHost($gateway, $hostname, $port)
 
     if ($xml != "") {
         
-        parse($gateway, $hostname, $port, $xml);
+        parse($db,$gateway, $hostname, $port, $xml);
     }
 }
 
-function parse($gateway,$hostname, $port, $xml)
+function parse($db, $gateway,$hostname, $port, $xml)
 {
     global $db, $now;
 
@@ -112,7 +114,7 @@ function parse($gateway,$hostname, $port, $xml)
     //Don't try and parse if XML is invalid or we got an HTML 404 error.
     if ($objDOM->loadXML($xml) == False) {
         echo "No XML\n";
-        Delete($gateway);
+        Delete($db,$gateway);
         return;
     }
 
@@ -301,7 +303,7 @@ function parse($gateway,$hostname, $port, $xml)
             
             //Prepare for the insert of data in to the popularplaces table. This gets
             //rid of any obsolete data for parcels no longer set to show in search.
-            $query = $db->prepare("DELETE FROM popularplaces WHERE parcelUUID = ?");
+            $query = $db->prepare("DELETE FROM ossearch.popularplaces WHERE parcelUUID = ?");
             $query->execute( array($parceluuid) );
 
             if ($parceldirectory == "true")
@@ -430,7 +432,7 @@ $sql = "SELECT gateway, host, port FROM ossearch.hostsregister
             LIMIT 0,20";
 
 // Skip after 10 tries, they need to re-register
-
+//
 $jobsearch = $db->query($sql);
 
 //
@@ -453,7 +455,7 @@ while ($jobs = $jobsearch->fetch(PDO::FETCH_NUM))
 {    
     echo "Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] ;
     $jobs[0] = str_replace('http://','',$jobs[0]);
-    CheckHost($jobs[0], $jobs[1],$jobs[2]);
+    CheckHost($db, $jobs[0], $jobs[1],$jobs[2]);
 }
 
 $db = NULL;
