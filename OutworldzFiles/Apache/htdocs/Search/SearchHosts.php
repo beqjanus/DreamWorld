@@ -14,14 +14,14 @@ include("../Metromap/includes/config.php");
   try {
 
     $db = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
-
+    $db1 = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
   } catch (Exception $e) {
     error_log($e->getMessage());
     exit('Something weird happened'); //something a user can understand
   }
 
     $text = $_GET['query'];
-	$text = "%$text%";
+	
     $sqldata['text1'] = $text;
 
     $rc = intval($_GET['rp'] )  ;
@@ -31,7 +31,7 @@ include("../Metromap/includes/config.php");
     }
 
     $sort = $_GET['sortname'] ;
-    $sort = 'Grid';
+    $sort = 'host';
 
     $ord = $_GET['sortorder']   ;
     if ($ord == 'asc') {
@@ -82,7 +82,7 @@ include("../Metromap/includes/config.php");
             and gateway not like '10.%'
 			and " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
-            ";
+            
 
     $query = $db->prepare($sql);
     $result = $query->execute($sqldata);

@@ -168,7 +168,7 @@
             $y = '<input type="checkbox" checked="true">';
         } 
         
-        $description = $row["description"];
+        $description = $row["gateway"] . "<br>" . $row["description"];
         $parcelname = $row["parcelname"];
         $row["mature"] = str_replace('Mature','M',$row["mature"]);
         $row = array("hop"=>$link,

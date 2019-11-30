@@ -19,14 +19,15 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchHosts.php',
+		url: '/Search/SearchRegions.php',
 		dataType: 'json',
         method: 'GET',
 		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Grid', name : 'Grid', width : 440, sortable : true, align: 'left'},
-			{display: 'Online Hours', name : 'Hours', width : 150, sortable : true, align: 'left'}			
+			{display: 'Grid', name : 'Grid', width : 250, sortable : true, align: 'left'},
+			{display: 'Region', name : 'RegionName', width : 200, sortable : true, align: 'left'},
+			{display: 'Owner', name : 'Owner', width : 150, sortable : true, align: 'left'}			
 			],
 		searchitems : [
 		 {display: 'Grid', name :'Grid', isdefault: true},	 

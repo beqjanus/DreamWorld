@@ -48,6 +48,8 @@ function GetURL($host, $port, $url)
 }
 function Delete ($gateway)  {
     
+    $query = $GLOBALS['db1']->prepare("DELETE FROM hostsregister  WHERE gateway = ?");
+    $query->execute( array($gateway) );
     $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.objects  WHERE gateway = ?");
     $query->execute( array($gateway) );
     $query = $GLOBALS['db1']->prepare("DELETE FROM ossearch.allparcels  WHERE gateway = ?");

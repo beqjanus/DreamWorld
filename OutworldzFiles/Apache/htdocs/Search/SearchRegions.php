@@ -104,7 +104,7 @@
             and regions.gateway not like '10.%'
             order by  $sort  $ord";
     
-   // $sqldata = array();
+   
     flog ($query);
     
     $query = $db->prepare($query);
@@ -114,7 +114,7 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $v3    = "hop:// . $row["gateway"] . '/'. $row["regionname"];     
+        $v3    = "hop://" . $row["gateway"] . '/'. $row["regionname"];     
       
         
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
