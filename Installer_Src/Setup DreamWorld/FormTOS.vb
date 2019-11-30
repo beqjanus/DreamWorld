@@ -67,7 +67,7 @@ Public Class TosForm
             Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-        Catch ex As IOexception
+        Catch ex As IOException
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentException
         Catch ex As System.Security.SecurityException
@@ -156,7 +156,7 @@ Public Class TosForm
             Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-        Catch ex As IOexception
+        Catch ex As IOException
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentException
         Catch ex As System.Security.SecurityException

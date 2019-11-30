@@ -20,7 +20,7 @@
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
         Catch ex As FormatException
-        Catch ex As Overflowexception
+        Catch ex As OverflowException
         Catch ex As InvalidCastException
         End Try
 

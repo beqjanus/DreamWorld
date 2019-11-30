@@ -28,6 +28,7 @@ Public Class BirdForm
 
     Dim changed As Boolean = False
     Dim initted As Boolean = False
+
 #End Region
 
 #Region "ScreenSize"

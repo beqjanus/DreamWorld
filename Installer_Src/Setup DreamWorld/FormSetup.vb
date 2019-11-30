@@ -927,7 +927,6 @@ Public Class Form1
             PropViewedSettings = True
         End If
 
-
         Settings.Init(PropMyFolder)
         Settings.Myfolder = PropMyFolder
         Settings.OpensimBinPath = PropOpensimBinPath
@@ -7004,7 +7003,7 @@ Public Class Form1
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        
+
         If PictureBox1.AccessibleName = "Open".ToUpperInvariant Then
             Me.Width = 645
             Me.Height = 435
