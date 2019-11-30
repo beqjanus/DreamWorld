@@ -16,7 +16,7 @@ say ('Server Publish? <enter for no>');
 my $publish = <stdin>;
 chomp $publish;
 
-my @languages = qw (en ca cs de el rn es-MX eu fi fr ga he is nl-NL no pl pt ru sv zh-cn zh-tw);
+my @languages = qw (en ca cs de el  es-MX eu fi fr ga he is nl-NL no pl pt ru sv zh-cn zh-tw);
 foreach my $lang (@languages)
 {
 	JustDelete ($lang);

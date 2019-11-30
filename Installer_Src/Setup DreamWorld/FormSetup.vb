@@ -647,6 +647,23 @@ Public Class Form1
 
 #Region "StartStop"
 
+    Public Sub ForceStopGroup(Groupname As String)
+
+        For Each RegionNumber In PropRegionClass.RegionListByGroupNum(Groupname)
+
+            ' Called by a sim restart, do not change status
+            'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+            PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
+            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
+            ' End If
+
+            PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
+        Next
+        Log(My.Resources.Info, Groupname & " Group is now stopped")
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
     ''' <summary>
     ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
     ''' </summary>
@@ -796,101 +813,6 @@ Public Class Form1
         ToolBar(True)
 
     End Sub
-
-    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
-
-        If Not CheckApache() Then
-            StartApache()
-        Else
-            StopApache()
-        End If
-
-    End Sub
-
-    ''' <summary>
-    ''' Check is Apache port 80 or 8000 is up
-    ''' </summary>
-    ''' <returns>boolean</returns>
-    Private Function CheckApache() As Boolean
-
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As NotSupportedException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            End Try
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-
-        End Using
-
-        Return True
-
-    End Function
-
-    ''' <summary>
-    ''' Check is Icecast port 8081 is up
-    ''' </summary>
-    ''' <returns>boolean</returns>
-    Private Function CheckIcecast() As Boolean
-
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                Return False
-            Catch ex As WebException
-                Return False
-            Catch ex As NotSupportedException
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-        End Using
-        Return True
-
-    End Function
-
-    ''' <summary>
-    ''' Check is Robust port 8002 is up
-    ''' </summary>
-    ''' <returns>boolean</returns>
-    Private Function CheckRobust() As Boolean
-
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As NotSupportedException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-        End Using
-        Return True
-
-    End Function
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
         ReallyQuit()
@@ -3111,6 +3033,46 @@ Public Class Form1
 
     End Sub
 
+    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
+
+        If Not CheckApache() Then
+            StartApache()
+        Else
+            StopApache()
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Check is Apache port 80 or 8000 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckApache() As Boolean
+
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As WebException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            Catch ex As NotSupportedException
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
+            End Try
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+
+        End Using
+
+        Return True
+
+    End Function
+
     Private Function DoApache()
 
         If Not Settings.ApacheEnable Then Return False
@@ -3276,6 +3238,32 @@ Public Class Form1
 
     End Sub
 
+    ''' <summary>
+    ''' Check is Icecast port 8081 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckIcecast() As Boolean
+
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                Return False
+            Catch ex As WebException
+                Return False
+            Catch ex As NotSupportedException
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+        End Using
+        Return True
+
+    End Function
+
 #End Region
 
 #Region "Robust"
@@ -3381,31 +3369,31 @@ Public Class Form1
 
     End Function
 
-#End Region
+    ''' <summary>
+    ''' Check is Robust port 8002 is up
+    ''' </summary>
+    ''' <returns>boolean</returns>
+    Private Function CheckRobust() As Boolean
 
-#Region "Opensimulator"
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As ArgumentNullException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            Catch ex As WebException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            Catch ex As NotSupportedException
+                If ex.Message.Contains("404") Then Return True
+                Return False
+            End Try
 
-    Public Function StartOpensimulator() As Boolean
-
-        PropExitHandlerIsBusy = False
-        PropAborting = False
-        Timer1.Start() 'Timer starts functioning
-
-        StartRobust()
-
-        Dim Len = PropRegionClass.RegionCount()
-        Dim counter = 1
-        ProgressBar1.Value = CType(counter / Len, Integer)
-
-        ' Boot them up
-        For Each X As Integer In PropRegionClass.RegionNumbers()
-            If PropRegionClass.RegionEnabled(X) Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(X))
-                ProgressBar1.Value = CType(counter / Len * 100, Integer)
-                counter += 1
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
             End If
-        Next
-
+        End Using
         Return True
 
     End Function
@@ -3690,23 +3678,6 @@ Public Class Form1
 
     End Function
 
-    Public Sub ForceStopGroup(Groupname As String)
-
-        For Each RegionNumber In PropRegionClass.RegionListByGroupNum(Groupname)
-
-            ' Called by a sim restart, do not change status
-            'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
-            ' End If
-
-            PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
-        Next
-        Log(My.Resources.Info, Groupname & " Group is now stopped")
-        PropUpdateView = True ' make form refresh
-
-    End Sub
-
     ''' <summary>
     ''' Creates and exit handler for each region
     ''' </summary>
@@ -3715,6 +3686,31 @@ Public Class Form1
 
         Dim handle = New Handler
         Return handle.Init(PropRegionHandles, PropExitList)
+
+    End Function
+
+    Public Function StartOpensimulator() As Boolean
+
+        PropExitHandlerIsBusy = False
+        PropAborting = False
+        Timer1.Start() 'Timer starts functioning
+
+        StartRobust()
+
+        Dim Len = PropRegionClass.RegionCount()
+        Dim counter = 1
+        ProgressBar1.Value = CType(counter / Len, Integer)
+
+        ' Boot them up
+        For Each X As Integer In PropRegionClass.RegionNumbers()
+            If PropRegionClass.RegionEnabled(X) Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(X))
+                ProgressBar1.Value = CType(counter / Len * 100, Integer)
+                counter += 1
+            End If
+        Next
+
+        Return True
 
     End Function
 
@@ -4476,7 +4472,7 @@ Public Class Form1
             Return False
         End If
 
-        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"", ""/Objects"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"", ""/"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
         Dim user = InputBox(My.Resources.Enter_1_2)
         Dim password = InputBox(My.Resources.Password)

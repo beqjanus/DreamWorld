@@ -1004,6 +1004,7 @@ Partial Class Form1
         Me.ChartWrapper1.AddMarkers = True
         Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
         Me.ChartWrapper1.AxisYTitle = "CPU %"
+        Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False
         Me.ChartWrapper1.Location = New System.Drawing.Point(380, 49)
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -1137,8 +1138,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ClientSize = New System.Drawing.Size(373, 206)
+        Me.ClientSize = New System.Drawing.Size(373, 123)
         Me.Controls.Add(Me.BusyButton)
         Me.Controls.Add(Me.StopButton)
         Me.Controls.Add(Me.StartButton)
@@ -1165,7 +1165,6 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.MinimumSize = New System.Drawing.Size(389, 162)
         Me.Name = "Form1"
-        Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DreamGrid"
         Me.MenuStrip1.ResumeLayout(False)
