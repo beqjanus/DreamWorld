@@ -2,7 +2,8 @@
 <!-- AGPL 3.0 by Fred Beckhusen -->
 <head>
 <meta charset="utf-8">
-<title>Opensimulator search Objects by Outworldz.com</title>
+<meta license="AGPL 3.0 by Outworldz, LLC">	
+<title>Opensimulator search Regions by Outworldz.com</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript"  src="/flexgrid/js/flexigrid.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,24 +18,24 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchObjects.php',
+		url: '/Search/SearchRegions.php',
 		dataType: 'json',
         method: 'GET',
-        nowrap: false,
+		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Name', name : 'Name', width : 200, sortable : true, align: 'left'},			
-			{display: 'Description', name : 'Description', width : 160, sortable : true, align: 'left'},			
-			{display: 'Region name', name : 'Regionname', width :225, sortable : true, align: 'left'},
-			
+			{display: 'Grid', name : 'Grid', width : 260, sortable : true, align: 'left'}	,		
+			{display: 'Region Name', name : 'RegionName', width : 200, sortable : true, align: 'left'},
+			{display: 'Owner', name : 'Owner', width :150, sortable : true, align: 'left'}
 			],
 		
 		searchitems : [
-		 {display: 'Name', name :'Name', isdefault: true},
-		 {display: 'Description', name :'Description', isdefault: false}
+		 {display: 'Grid', name :'Grid', isdefault: false},
+		 {display: 'Region Name', name :'RegionName', isdefault: false},
+		 {display: 'Owner', name :'Owner', isdefault: false}
 		 
 		],
-		sortname: 'Name',
+		sortname: 'Grid',
 		sortorder: 'asc',
 		usepager: true,
 		title: 'Click header to sort. Search button is at the bottom left.',
@@ -58,7 +59,6 @@ $(document).ready(function(){
 </script>
 
 <link rel="stylesheet" type="text/css" media="all" href="/flexgrid/css/flexigrid.css" />
-
 <link rel="shortcut icon" href="/favicon.ico">
 
 </head>

@@ -1,11 +1,12 @@
 <html lang="en-us">
 <!-- AGPL 3.0 by Fred Beckhusen -->
 <head>
-<meta charset="utf-8">
 <meta license="AGPL 3.0 by Outworldz, LLC">	
-<title>Opensimulator search Regions by Outworldz.com</title>
+<meta charset="utf-8">
+<title>Opensimulator search hosts by Outworldz.com</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript"  src="/flexgrid/js/flexigrid.js"></script>
+
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <script type="text/javascript">
@@ -18,22 +19,17 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchRegions.php',
+		url: '/Search/SearchHosts.php',
 		dataType: 'json',
         method: 'GET',
 		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Grid', name : 'Grid', width : 260, sortable : true, align: 'left'}	,		
-			{display: 'Region Name', name : 'RegionName', width : 200, sortable : true, align: 'left'},
-			{display: 'Owner', name : 'Owner', width :150, sortable : true, align: 'left'}
+			{display: 'Grid', name : 'Grid', width : 440, sortable : true, align: 'left'},
+			{display: 'Online Hours', name : 'Hours', width : 150, sortable : true, align: 'left'}			
 			],
-		
 		searchitems : [
-		 {display: 'Grid', name :'Grid', isdefault: false},
-		 {display: 'Region Name', name :'RegionName', isdefault: false},
-		 {display: 'Owner', name :'Owner', isdefault: false}
-		 
+		 {display: 'Grid', name :'Grid', isdefault: true},	 
 		],
 		sortname: 'Grid',
 		sortorder: 'asc',
@@ -65,12 +61,13 @@ $(document).ready(function(){
 
 <body>
 <div id="Links">
-<a href="index.php" target="_self"><button>Objects</button></a>
+<a href="index.htm" target="_self"><button>Grids</button></a>
+<a href="SearchRegions.htm" target="_self"><button>Regions</button></a> 
+<a href="SearchParcel.htm" target="_self"><button>Parcels</button></a>
+<a href="SearchObjects.htm" target="_self"><button>Objects</button></a>
 <a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
 <!--<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>-->
-<a href="SearchParcel.htm" target="_self"><button>Parcels</button></a>
-<a href="SearchHosts.htm" target="_self"><button>Grids</button></a>
-<a href="SearchRegions.htm" target="_self"><button>Regions</button></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
 <button onclick="location.reload();">Refresh Page</button>
 </div>
 <div id="greet">
