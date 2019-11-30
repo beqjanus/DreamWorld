@@ -20,8 +20,7 @@ $options = [
 try {
   
   $db = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
-  $db1 = new PDO($dsn,  $CONF_db_user, $CONF_db_pass, $options);
-  
+    
 } catch (Exception $e) {
   error_log($e->getMessage());
   exit('Something weird happened'); //something a user can understand

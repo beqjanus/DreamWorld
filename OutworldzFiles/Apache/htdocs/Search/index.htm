@@ -18,22 +18,20 @@ $(document).ready(function(){
 	})
 	
 	$("#flex1").flexigrid({
-		url: '/Search/SearchRegions.php',
+		url: '/Search/SearchHosts.php',
 		dataType: 'json',
         method: 'GET',
 		nowrap: false,
 		colModel : [
 			{display: 'Hop', name : 'hop', width : 35, sortable : false, align: 'left'},		
-			{display: 'Grid', name : 'Grid', width : 260, sortable : true, align: 'left'}	,		
-			{display: 'Region Name', name : 'RegionName', width : 200, sortable : true, align: 'left'},
-			{display: 'Owner', name : 'Owner', width :150, sortable : true, align: 'left'}
+			{display: 'Grid', name : 'Grid', width : 400, sortable : true, align: 'left'}	,		
+			{display: 'Hours', name : 'Hours', width : 200, sortable : true, align: 'left'}
+			
 			],
 		
 		searchitems : [
 		 {display: 'Grid', name :'Grid', isdefault: false},
-		 {display: 'Region Name', name :'RegionName', isdefault: false},
-		 {display: 'Owner', name :'Owner', isdefault: false}
-		 
+		 {display: 'Hours', name :'Hours', isdefault: false}		 		 
 		],
 		sortname: 'Grid',
 		sortorder: 'asc',
@@ -72,7 +70,7 @@ $(document).ready(function(){
 <a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
 <!--<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>-->
 &nbsp;&nbsp;&nbsp;&nbsp;
-<button onclick="location.reload();">Refresh Page</button>
+<button onclick="location.reload(true);">Refresh Page</button>
 </div>
 <div id="greet">
     <div id="playing"></div>

@@ -72,7 +72,7 @@ $(document).ready(function(){
 <a href="SearchEvents.htm" target="_self"><button>HG Events</button></a>
 <!--<a href="SearchClassifieds.htm" target="_self"><button>Classifieds</button></a>-->
 &nbsp;&nbsp;&nbsp;&nbsp;
-<button onclick="location.reload();">Refresh Page</button>
+<button onclick="location.reload(true);">Refresh Page</button>
 </div>
 <div id="greet">
     <div id="playing"></div>
