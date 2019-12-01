@@ -958,8 +958,7 @@ Public Class RegionList
 
             ' it was stopped, and off, so we start up
             If Not Form1.StartMySQL() Then
-                Form1.ProgressBar1.Value = 0
-                Form1.ProgressBar1.Visible = True
+
                 Form1.Print(My.Resources.Stopped_word)
             End If
             Form1.StartRobust()

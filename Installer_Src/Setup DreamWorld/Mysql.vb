@@ -235,9 +235,9 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        If Debugger.IsAttached Then
-            Dict.Add("Test User2", "Welcome")
-        End If
+        'If Debugger.IsAttached Then
+        'Dict.Add("Test User2", "Welcome")
+        'End If
 
         Return Dict
 

@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.291"
+    Private _MyVersion As String = "3.292"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -701,8 +701,7 @@ Public Class Form1
 
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = True
+
         ToolBar(False)
 
         GridNames.SetServerNames()
@@ -740,8 +739,7 @@ Public Class Form1
         End If
 
         If Not StartMySQL() Then
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = True
+
             ToolBar(False)
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -805,11 +803,10 @@ Public Class Form1
         End If
 
         Buttons(StopButton)
-        ProgressBar1.Value = 100
         Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with boot up
-        ProgressBar1.Visible = False
+
         ToolBar(True)
 
     End Sub
@@ -865,9 +862,7 @@ Public Class Form1
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
-        ProgressBar1.Minimum = 0
-        ProgressBar1.Maximum = 100
-        ProgressBar1.Value = 0
+
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
         TextBox1.SelectionStart = 0
@@ -880,7 +875,7 @@ Public Class Form1
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
-        ProgressBar1.Visible = True
+
         ToolBar(False)
 
         Me.Show()
@@ -896,8 +891,6 @@ Public Class Form1
         Me.Text += " V" & PropMyVersion
 
         PropOpensimIsRunning() = False ' true when opensim is running
-
-        ProgressBar1.Value = 0
 
         Me.Show()
 
@@ -951,7 +944,7 @@ Public Class Form1
         LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Then
-            BumpProgress10()
+
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
@@ -998,8 +991,6 @@ Public Class Form1
 
         If CheckMysql() Then PropStopMysql() = False
 
-        ProgressBar1.Value = 100
-
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
             Startup()
@@ -1011,8 +1002,6 @@ Public Class Form1
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-
-        ProgressBar1.Value = 100
 
     End Sub
 
@@ -1030,7 +1019,7 @@ Public Class Form1
     ''' The main starup - done this way so languages can reload the entire form
     ''' </summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
-        ProgressBar1.Value = 0
+
         Print("Zzzz...")
         End
     End Sub
@@ -1101,8 +1090,6 @@ Public Class Form1
 
         AvatarLabel.Text = ""
         PropAborting = True
-        ProgressBar1.Value = 100
-        ProgressBar1.Visible = True
         ToolBar(False)
         ' close everything as gracefully as possible.
 
@@ -1143,7 +1130,7 @@ Public Class Form1
 
             While (counter > 0 And PropOpensimIsRunning())
                 Sleep(1000)
-                ' decrement progress bar according to the ratio of what we had / what we have now
+
                 counter -= 1
                 Dim CountisRunning As Integer = 0
 
@@ -1174,13 +1161,8 @@ Public Class Form1
 
                 If CountisRunning = 0 Then
                     counter = 0
-                    ProgressBar1.Value = 0
                 End If
 
-                Dim v As Double = CountisRunning / TotalRunningRegions * 100
-                If v >= 0 And v <= 100 Then
-                    ProgressBar1.Value = CType(v, Integer)
-                End If
             End While
             PropUpdateView = True ' make form refresh
         End If
@@ -1196,8 +1178,6 @@ Public Class Form1
         Timer1.Stop()
         PropOpensimIsRunning() = False
 
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = False
         ToolBar(False)
         Return True
 
@@ -1302,7 +1282,7 @@ Public Class Form1
         PropWebServer.StopWebServer()
         PropAborting = True
         StopMysql()
-        ProgressBar1.Value = 0
+
         Print("Zzzz...")
         Sleep(2000)
         End
@@ -1457,7 +1437,7 @@ Public Class Form1
         If Not KillAll() Then Return
         Buttons(StartButton)
         Print(My.Resources.Stopped_word)
-        ProgressBar1.Visible = False
+
         ToolBar(False)
 
     End Sub
@@ -2752,8 +2732,6 @@ Public Class Form1
         Timer1.Stop()
         PropOpensimIsRunning() = False
 
-        ProgressBar1.Value = 0
-        ProgressBar1.Visible = False
         ToolBar(False)
 
         Print(My.Resources.Stopped_word)
@@ -3008,7 +2986,6 @@ Public Class Form1
             Dim counter = 0
             While PropgApacheProcessID = 0 And PropOpensimIsRunning
 
-                BumpProgress(1)
                 counter += 1
                 ' wait 10 seconds for it to start
                 If counter > 100 Then
@@ -3330,7 +3307,7 @@ Public Class Form1
         Dim counter = 0
         While Not CheckRobust() And PropOpensimIsRunning
             Application.DoEvents()
-            BumpProgress(1)
+
             counter += 1
             ' wait a minute for it to start
             If counter > 100 Then
@@ -3703,16 +3680,10 @@ Public Class Form1
 
         StartRobust()
 
-        Dim Len = PropRegionClass.RegionCount()
-        Dim counter = 1
-        ProgressBar1.Value = CType(counter / Len, Integer)
-
         ' Boot them up
         For Each X As Integer In PropRegionClass.RegionNumbers()
             If PropRegionClass.RegionEnabled(X) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(X))
-                ProgressBar1.Value = CType(counter / Len * 100, Integer)
-                counter += 1
             End If
         Next
 
@@ -4217,29 +4188,6 @@ Public Class Form1
         Return CType(present, Boolean)
 
     End Function
-
-    Private Sub BumpProgress(bump As Integer)
-
-        Dim nextval As Integer = ProgressBar1.Value + bump
-        If nextval > 100 Then
-            nextval = 100
-        End If
-        ProgressBar1.Value = nextval
-
-        Application.DoEvents()
-
-    End Sub
-
-    Private Sub BumpProgress10()
-
-        Dim nextval As Integer = ProgressBar1.Value + 10
-        If nextval > 100 Then
-            nextval = 100
-        End If
-        ProgressBar1.Value = nextval
-        Application.DoEvents()
-
-    End Sub
 
     Private Sub Chart()
         ' Graph https://github.com/sinairv/MSChartWrapper
@@ -4904,8 +4852,6 @@ Public Class Form1
             End While
         End Using
 
-        BumpProgress10()
-
         ' read help files for menu
 
         Dim folders As Array = Nothing
@@ -4971,7 +4917,6 @@ Public Class Form1
             End Using
         End Using
 
-        BumpProgress10()
         AddLog("All Logs")
         AddLog("Robust")
         AddLog("Outworldz")
@@ -4983,8 +4928,6 @@ Public Class Form1
             Dim Name = PropRegionClass.RegionName(X)
             AddLog("Region " & Name)
         Next
-
-        BumpProgress10()
 
     End Sub
 
@@ -5063,8 +5006,6 @@ Public Class Form1
             End Try
         End If
 
-        BumpProgress10()
-
     End Sub
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
@@ -5142,7 +5083,6 @@ Public Class Form1
         ' LAN USE
         If Settings.EnableHypergrid Then
 
-            BumpProgress10()
             If Settings.DNSName.Length > 0 Then
                 Settings.PublicIP = Settings.DNSName()
                 Settings.SaveSettings()
@@ -5161,7 +5101,6 @@ Public Class Form1
         ' HG USE
 
         If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
-            BumpProgress10()
             Print(My.Resources.Public_IP_Setup_Word)
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
@@ -5204,15 +5143,12 @@ Public Class Form1
             End Using
 
             Settings.SaveSettings()
-            BumpProgress10()
-
             Return True
         End If
 
         Settings.PublicIP = PropMyUPnpMap.LocalIP
         Settings.SaveSettings()
 
-        BumpProgress10()
         Return False
 
     End Function
@@ -5239,14 +5175,13 @@ Public Class Form1
             Print(My.Resources.Click_Start)
             Return
         End If
-        ProgressBar1.Value = 0
+
         DoDiag()
         If Settings.DiagFailed = True Then
             Print(My.Resources.HG_Failed)
         Else
             Print(My.Resources.HG_Works)
         End If
-        ProgressBar1.Value = 100
 
     End Sub
 
@@ -5344,8 +5279,6 @@ Public Class Form1
 
         Dim result As String = ""
         Dim Len = PropRegionClass.RegionCount()
-        Dim counter = 1
-        ProgressBar1.Value = CType(counter / Len, Integer)
 
         Dim Used As New List(Of String)
         ' Boot them up
@@ -5358,7 +5291,6 @@ Public Class Form1
 
                 Dim Port = PropRegionClass.GroupPort(X)
                 Print(My.Resources.Checking_Loopback_word & " " & RegionName)
-                ProgressBar1.Value = CType(counter / Len * 100, Integer)
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
             End If
         Next
@@ -5432,7 +5364,6 @@ Public Class Form1
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
                 Application.DoEvents()
-                BumpProgress10()
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
                 End If
@@ -5454,14 +5385,12 @@ Public Class Form1
             End If
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
             Print(My.Resources.Grid_TCP_is_set * ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
-            BumpProgress10()
 
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP) Then
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP)
             End If
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
             Print(My.Resources.Grid_UDP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
-            BumpProgress10()
 
             For Each X As Integer In PropRegionClass.RegionNumbers
                 Dim R As Integer = PropRegionClass.RegionPort(X)
@@ -5474,7 +5403,6 @@ Public Class Form1
 
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(X) & " ")
                 Print(PropRegionClass.RegionName(X) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
-                BumpProgress(2)
                 Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.TCP)
@@ -5482,10 +5410,9 @@ Public Class Form1
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(X) & " ")
                 Print(PropRegionClass.RegionName(X) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
-                BumpProgress(1)
+
             Next
 
-            BumpProgress10()
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch e As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -5534,13 +5461,13 @@ Public Class Form1
         If OpenRouterPorts() Then ' open UPnp port
             Settings.UPnpDiag = True
             Settings.SaveSettings()
-            BumpProgress10()
+
             Return True
         Else
             Print(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()
-            BumpProgress10()
+
             Return False
         End If
 
@@ -5562,8 +5489,6 @@ Public Class Form1
     Public Sub BackupDB()
 
         If Not StartMySQL() Then
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = True
             ToolBar(False)
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -5607,8 +5532,6 @@ Public Class Form1
         Application.DoEvents()
         ' Start MySql in background.
 
-        BumpProgress10()
-        Dim StartValue = ProgressBar1.Value
         Print(My.Resources.Mysql_Starting)
 
         ' SAVE INI file
@@ -5639,7 +5562,6 @@ Public Class Form1
         CreateService()
         CreateStopMySql()
 
-        BumpProgress(5)
         Application.DoEvents()
         ' Mysql was not running, so lets start it up.
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5657,16 +5579,16 @@ Public Class Form1
         End Try
 
         PropOpensimIsRunning = False
-        ProgressBar1.Value = 0
+
         ' wait for MySql to come up
         Dim MysqlOk As Boolean
+        Dim ctr As Integer = 0
         While Not MysqlOk And Not PropAborting
 
-            BumpProgress(1)
             Application.DoEvents()
 
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
-            If ProgressBar1.Value = 100 Then ' about 30 seconds when it fails
+            If ctr = 60 Then ' about 30 seconds when it fails
 
                 Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, My.Resources.Error_word)
                 If (yesno = vbYes) Then
@@ -5691,7 +5613,7 @@ Public Class Form1
                 Buttons(StartButton)
                 Return False
             End If
-
+            ctr += 1
             ' check again
             Sleep(1000)
             MysqlOk = CheckMysql()
@@ -5718,8 +5640,6 @@ Public Class Form1
     Private Sub CheckAndRepairDatbaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
 
         If Not StartMySQL() Then
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = True
             ToolBar(False)
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -5811,8 +5731,7 @@ Public Class Form1
         End If
 
         If Not StartMySQL() Then
-            ProgressBar1.Value = 0
-            ProgressBar1.Visible = True
+
             ToolBar(False)
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -6049,14 +5968,14 @@ Public Class Form1
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
                 If RegisterName(newname).Length >= 0 Then
-                    BumpProgress10()
+
                     Settings.DNSName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()
                     MsgBox(My.Resources.NameAlreadySet, vbInformation, My.Resources.Information)
                 End If
             End If
-            BumpProgress10()
+
         End If
 
     End Sub
@@ -7056,8 +6975,8 @@ Public Class Form1
         If Settings.ServerType = "Metro" _
             Or Settings.ServerType = "OsGrid" Then Return
 
-        ' modify this to migrate saearch datbase upwards a rev
-        If Not Settings.SearchMigration = 2 Then
+        ' modify this to migrate search datbase upwards a rev
+        If Not Settings.SearchMigration = 3 Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -7089,7 +7008,7 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            Settings.SearchMigration = 2
+            Settings.SearchMigration = 3
             Settings.SaveSettings()
 
         End If

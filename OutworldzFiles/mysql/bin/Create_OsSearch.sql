@@ -202,3 +202,4 @@ CREATE TABLE IF NOT EXISTS `regions` (
 
 
 grant all on ossearch.* to 'robustuser'@'localhost';
+flush privileges;

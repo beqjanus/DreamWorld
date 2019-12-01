@@ -72,7 +72,7 @@ if ($service == "online")
     // If a database row was returned check the nextcheck date
     if ($query->rowCount() > 0)
     {
-        $query = $db->prepare("UPDATE osearch.hostsregister SET " .
+        $query = $db->prepare("UPDATE ossearch.hostsregister SET " .
                      "register = ?, " .
                      "nextcheck = 0, failcounter = 0, gateway = ? " .
                      "WHERE host = ? AND port = ?");
@@ -89,19 +89,19 @@ if ($service == "online")
 if ($service == "offline")
 {
     flog("offline:" .  $hostname . ":" . $port);
-    $query = $db->prepare("DELETE FROM osearch.hostsregister WHERE host = ? AND port = ?");
+    $query = $db->prepare("DELETE FROM ossearch.hostsregister WHERE host = ? AND port = ?");
     $query->execute( array($hostname, $port) );
-    $query = $db->prepare("DELETE FROM osearch.objects  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.objects  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM osearch.allparcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.allparcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM osearch.parcels  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.parcels  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM osearch.parcelsales  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.parcelsales  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM osearch.popularplaces  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.popularplaces  WHERE gateway = ?");
     $query->execute( array($gateway) );
-    $query = $db->prepare("DELETE FROM osearch.regions  WHERE gateway = ?");
+    $query = $db->prepare("DELETE FROM ossearch.regions  WHERE gateway = ?");
     $query->execute( array($gateway) );
 
     

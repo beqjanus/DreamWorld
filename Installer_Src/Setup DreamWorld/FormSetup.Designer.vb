@@ -133,7 +133,6 @@ Partial Class Form1
         Me.RestoreDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupCriticalFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
@@ -917,13 +916,6 @@ Partial Class Form1
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
         Me.ToolStripSeparator6.Size = New System.Drawing.Size(270, 6)
         '
-        'ProgressBar1
-        '
-        Me.ProgressBar1.Location = New System.Drawing.Point(16, 30)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(220, 14)
-        Me.ProgressBar1.TabIndex = 24
-        '
         'Timer1
         '
         '
@@ -1157,7 +1149,6 @@ Partial Class Form1
         Me.Controls.Add(Me.ChartWrapper2)
         Me.Controls.Add(Me.AvatarLabel)
         Me.Controls.Add(Me.ChartWrapper1)
-        Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.TextBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1196,7 +1187,6 @@ Partial Class Form1
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuAbout As ToolStripMenuItem
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents ViewWebUI As ToolStripMenuItem
     Friend WithEvents MnuContent As ToolStripMenuItem
     Friend WithEvents IslandToolStripMenuItem As ToolStripMenuItem
