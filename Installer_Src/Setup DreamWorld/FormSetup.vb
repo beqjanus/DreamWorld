@@ -4352,14 +4352,8 @@ Public Class Form1
 
         ' Just once at the Minute Mark
         If PropDNSSTimer = 60 Then
-
             RegionListHTML() ' create HTML for older 2.4 region teleporters
             GetEvents() ' get the events from the Outworldz main server for all grids
-        End If
-
-        ' Just once at the 5 minute mark, after regions have booted.
-        If PropDNSSTimer = 300 Then
-            RunDataSnapshot() ' Fetch assets marked for search at boot
         End If
 
         ' every 5 minutes
