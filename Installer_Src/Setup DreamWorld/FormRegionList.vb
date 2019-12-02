@@ -264,13 +264,13 @@ Public Class RegionList
 
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
-        _ImageListLarge.Dispose()
-        _ImageListSmall.Dispose()
+        FormExists1 = False
 
     End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        FormExists1 = True
         Pixels1 = 70
 
         ListView1.Visible = False
