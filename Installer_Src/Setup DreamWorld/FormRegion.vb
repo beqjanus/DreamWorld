@@ -649,13 +649,29 @@ Public Class FormRegion
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
             Catch ex As ArgumentNullException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As ArgumentException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As FileNotFoundException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As PathTooLongException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As IOException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As NotSupportedException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As Security.SecurityException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             Catch ex As UnauthorizedAccessException
+                Form1.Print(My.Resources.Aborted_word)
+                Return
             End Try
 
             Filepath = Folderpath + "\" + RegionName.Text + ".ini"
@@ -678,10 +694,20 @@ Public Class FormRegion
                 Try
                     Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
                 Catch ex As ArgumentException
+                    Form1.Print(My.Resources.Aborted_word)
+                    Return
                 Catch ex As IO.PathTooLongException
+                    Form1.Print(My.Resources.Aborted_word)
+                    Return
                 Catch ex As NotSupportedException
+                    Form1.Print(My.Resources.Aborted_word)
+                    Return
                 Catch ex As UnauthorizedAccessException
+                    Form1.Print(My.Resources.Aborted_word)
+                    Return
                 Catch ex As IO.IOException
+                    Form1.Print(My.Resources.Aborted_word)
+                    Return
                 End Try
             End If
 
