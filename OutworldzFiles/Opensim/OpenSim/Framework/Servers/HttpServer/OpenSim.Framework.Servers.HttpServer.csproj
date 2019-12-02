@@ -131,6 +131,9 @@
 	  <Compile Include="BaseHTTPHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="BaseHttpServer.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="BaseOutputStreamHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -170,37 +173,10 @@
 	  <Compile Include="OSHttpRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OSHttpStatusCodes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RestHTTPHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RestMethod.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RestObjectPoster.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RestObjectPosterResponse.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="RestStreamHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="WebsocketServerHandler.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="XmlRpcBasicDOSProtector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="XmlRpcMethod.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="BaseHttpServer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="OSHttpResponse.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpStatusCodes.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="PollServiceEventArgs.cs">
@@ -215,7 +191,31 @@
 	  <Compile Include="RestDeserialiseHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="RestHTTPHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RestMethod.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RestObjectPoster.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RestObjectPosterResponse.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="RestSessionService.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="RestStreamHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="WebsocketServerHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="XmlRpcBasicDOSProtector.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="XmlRpcMethod.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IHttpAgentHandler.cs">
@@ -227,10 +227,10 @@
 	  <Compile Include="Interfaces\IOSHttpRequest.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\IStreamHandler.cs">
+	  <Compile Include="Interfaces\IOSHttpResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Interfaces\IOSHttpResponse.cs">
+	  <Compile Include="Interfaces\IStreamHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

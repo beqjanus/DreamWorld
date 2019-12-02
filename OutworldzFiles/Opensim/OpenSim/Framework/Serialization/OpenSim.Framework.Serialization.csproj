@@ -117,22 +117,22 @@
 	  <Compile Include="TarArchiveWriter.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="External\OspResolver.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="External\UserProfileSerializer.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="External\ExternalRepresentationUtils.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="External\LandDataSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="External\OspResolver.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="External\RegionSettingsSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="External\UserInventoryItemSerializer.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="External\UserProfileSerializer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

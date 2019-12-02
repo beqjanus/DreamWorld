@@ -154,6 +154,9 @@
 	  <Compile Include="SQLiteAvatarData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="SQLiteEstateData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="SQLiteFramework.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -169,25 +172,22 @@
 	  <Compile Include="SQLiteHGTravelData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="SQLiteMuteListData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SQLiteSimulationData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="SQLiteUserAccountData.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SQLiteUserProfilesData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SQLiteUtils.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="SQLiteXInventoryData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SQLiteSimulationData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SQLiteUserProfilesData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SQLiteMuteListData.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SQLiteEstateData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">
@@ -203,9 +203,13 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\Avatar.migrations">
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\EstateStore.migrations">
+	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\FriendsStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\HGTravelStore.migrations">
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\MuteListStore.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\RegionStore.migrations">
 	  </EmbeddedResource>
@@ -214,10 +218,6 @@
 	  <EmbeddedResource Include="Resources\UserProfiles.migrations">
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\XInventoryStore.migrations">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\MuteListStore.migrations">
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\EstateStore.migrations">
 	  </EmbeddedResource>
   </ItemGroup>
 	<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

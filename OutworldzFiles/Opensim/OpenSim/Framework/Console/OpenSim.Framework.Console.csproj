@@ -115,6 +115,12 @@
 	  <Compile Include="AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="CommandConsole.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ConsoleBase.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="ConsoleDisplayList.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -127,15 +133,6 @@
 	  <Compile Include="ConsolePluginCommand.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OpenSimAppender.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="CommandConsole.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="ConsoleBase.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="ConsoleUtil.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -143,6 +140,9 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="MockConsole.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OpenSimAppender.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="RemoteConsole.cs">
