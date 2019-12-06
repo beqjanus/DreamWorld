@@ -1016,6 +1016,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Category.
+        '''</summary>
+        Friend ReadOnly Property Category_word() As String
+            Get
+                Return ResourceManager.GetString("Category_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Center of the map coordinate.
         '''</summary>
         Friend ReadOnly Property CenterMap() As String
@@ -1981,6 +1990,15 @@ Namespace My.Resources
         Friend ReadOnly Property Deregister_word() As String
             Get
                 Return ResourceManager.GetString("Deregister_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Description.
+        '''</summary>
+        Friend ReadOnly Property Description_word() As String
+            Get
+                Return ResourceManager.GetString("Description_word", resourceCulture)
             End Get
         End Property
         
@@ -5203,6 +5221,15 @@ Namespace My.Resources
         Friend ReadOnly Property Permissions_word() As String
             Get
                 Return ResourceManager.GetString("Permissions_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Photo.
+        '''</summary>
+        Friend ReadOnly Property Photo_Word() As String
+            Get
+                Return ResourceManager.GetString("Photo_Word", resourceCulture)
             End Get
         End Property
         
