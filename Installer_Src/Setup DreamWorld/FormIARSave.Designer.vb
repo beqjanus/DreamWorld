@@ -46,28 +46,25 @@ Partial Class FormIARSave
         '
         'AviName
         '
-        Me.AviName.Location = New System.Drawing.Point(8, 118)
-        Me.AviName.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.AviName.Location = New System.Drawing.Point(5, 77)
         Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(211, 26)
+        Me.AviName.Size = New System.Drawing.Size(142, 20)
         Me.AviName.TabIndex = 14
         Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
         '
         'BackupNameTextBox
         '
-        Me.BackupNameTextBox.Location = New System.Drawing.Point(8, 78)
-        Me.BackupNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.BackupNameTextBox.Location = New System.Drawing.Point(5, 51)
         Me.BackupNameTextBox.Name = "BackupNameTextBox"
-        Me.BackupNameTextBox.Size = New System.Drawing.Size(266, 26)
+        Me.BackupNameTextBox.Size = New System.Drawing.Size(179, 20)
         Me.BackupNameTextBox.TabIndex = 13
         Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
         '
         'ObjectNameBox
         '
-        Me.ObjectNameBox.Location = New System.Drawing.Point(8, 38)
-        Me.ObjectNameBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ObjectNameBox.Location = New System.Drawing.Point(5, 25)
         Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(228, 26)
+        Me.ObjectNameBox.Size = New System.Drawing.Size(153, 20)
         Me.ObjectNameBox.TabIndex = 12
         Me.ObjectNameBox.Text = "/Objects/"
         Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
@@ -85,31 +82,27 @@ Partial Class FormIARSave
         Me.GroupBox1.Controls.Add(Me.AviName)
         Me.GroupBox1.Controls.Add(Me.BackupNameTextBox)
         Me.GroupBox1.Controls.Add(Me.ObjectNameBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 57)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 305)
+        Me.GroupBox1.Size = New System.Drawing.Size(369, 198)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "IAR"
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(215, 231)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button2.Location = New System.Drawing.Point(143, 150)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(160, 35)
+        Me.Button2.Size = New System.Drawing.Size(107, 23)
         Me.Button2.TabIndex = 22
         Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(8, 231)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button1.Location = New System.Drawing.Point(5, 150)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(162, 35)
+        Me.Button1.Size = New System.Drawing.Size(108, 23)
         Me.Button1.TabIndex = 21
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
@@ -117,70 +110,65 @@ Partial Class FormIARSave
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox1.Location = New System.Drawing.Point(252, 39)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.PictureBox1.Location = New System.Drawing.Point(168, 25)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(38, 34)
+        Me.PictureBox1.Size = New System.Drawing.Size(25, 22)
         Me.PictureBox1.TabIndex = 20
         Me.PictureBox1.TabStop = False
         '
         'Pwd
         '
         Me.Pwd.AutoSize = True
-        Me.Pwd.Location = New System.Drawing.Point(311, 164)
-        Me.Pwd.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Pwd.Location = New System.Drawing.Point(207, 107)
         Me.Pwd.Name = "Pwd"
-        Me.Pwd.Size = New System.Drawing.Size(128, 20)
+        Me.Pwd.Size = New System.Drawing.Size(87, 13)
         Me.Pwd.TabIndex = 19
         Me.Pwd.Text = "Avatar Password"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(311, 124)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(207, 81)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(101, 20)
+        Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 18
         Me.Label3.Text = "Avatar Name"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(311, 84)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(207, 55)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(109, 20)
+        Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 17
         Me.Label2.Text = "Backup Name"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(311, 44)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(207, 29)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(167, 20)
+        Me.Label1.Size = New System.Drawing.Size(113, 13)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Object Path and name"
         '
         'Password
         '
-        Me.Password.Location = New System.Drawing.Point(8, 158)
-        Me.Password.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Password.Location = New System.Drawing.Point(5, 103)
         Me.Password.Name = "Password"
-        Me.Password.Size = New System.Drawing.Size(148, 26)
+        Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.Password.Size = New System.Drawing.Size(142, 20)
         Me.Password.TabIndex = 15
         Me.Password.UseSystemPasswordChar = True
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(589, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(393, 30)
         Me.MenuStrip1.TabIndex = 18599
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -189,24 +177,23 @@ Partial Class FormIARSave
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'FormIARSave
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(589, 380)
+        Me.ClientSize = New System.Drawing.Size(393, 247)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormIARSave"
         Me.Text = "Save IAR"
         Me.GroupBox1.ResumeLayout(False)
