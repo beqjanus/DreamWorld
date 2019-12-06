@@ -945,6 +945,8 @@ Enabled=False
 ScriptStackSize=256
 ScriptHeapSize=256
 UseSourceHashCode=true
+; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
+;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
 MinTimerInterval=0.2
 
 ;ScriptBasePath="ScriptEngines"
@@ -1044,6 +1046,7 @@ KillTimedOutScripts=true
 ;; Path to script engine assemblies
 ;; Default is ./bin/ScriptEngines
 ; ScriptEnginesPath = "ScriptEngines"
+
 [OSSL]
 
 ;# {Include-osslEnable} {} {Include file for enabling and permissions for OSSL functions} {}
