@@ -26,7 +26,7 @@ Public Class FormPublicity
 
 #Region "Private Fields"
 
-    Dim initted As Boolean = False
+    Private initted As Boolean = False
 
 #End Region
 
@@ -63,10 +63,6 @@ Public Class FormPublicity
 
 #Region "Private Methods"
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Publicity")
-    End Sub
-
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
         If initted Then
@@ -74,6 +70,66 @@ Public Class FormPublicity
             Form1.Settings.SaveSettings()
         End If
 
+    End Sub
+
+#End Region
+
+#Region "Start/Stop"
+
+    Private Sub Publicity_Close(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Dim category As String = Nothing
+        For Each i In CategoryCheckbox.CheckedItems
+            If i.length > 0 Then category += i & ","
+        Next
+
+        Dim mydata = "https://www.outworldz.com/cgi/postcategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
+
+        Form1.Settings.Categories = category
+        Form1.Settings.Description = DescriptionBox.Text
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        SetScreen()
+
+        GDPRCheckBox.Checked = Form1.Settings.GDPR()
+
+        Try
+            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+        Catch ex As OutOfMemoryException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As IO.FileNotFoundException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As ArgumentException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        End Try
+
+        DescriptionBox.Text = Form1.Settings.Description
+
+        Dim cats = Form1.Settings.Categories.Split(",")
+
+        For Each itemname In cats
+            Dim Index = CategoryCheckbox.FindStringExact(itemname)
+            If Index > -1 Then
+                CategoryCheckbox.SetSelected(Index, True)
+                CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
+            End If
+        Next
+
+        Form1.HelpOnce("Publicity")
+        initted = True
+
+    End Sub
+
+#End Region
+
+#Region "Clicks"
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Publicity")
     End Sub
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
@@ -122,29 +178,16 @@ Public Class FormPublicity
 
     End Sub
 
-    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        SetScreen()
-
-        GDPRCheckBox.Checked = Form1.Settings.GDPR()
-
-        Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch ex As OutOfMemoryException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As IO.FileNotFoundException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As ArgumentException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        End Try
-
-        Form1.HelpOnce("Publicity")
-        initted = True
-
-    End Sub
-
     Private Sub PublicPhoto_Click(sender As Object, e As EventArgs) Handles PublicPhoto.Click
         Form1.Help("Publicity")
+    End Sub
+
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles DescriptionBox.TextChanged
+
+        If (DescriptionBox.Text.Length > 1024) Then
+            DescriptionBox.Text = Mid(DescriptionBox.Text, 1024)
+        End If
+
     End Sub
 
 #End Region
