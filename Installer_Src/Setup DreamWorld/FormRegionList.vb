@@ -416,7 +416,21 @@ Public Class RegionList
 
 #Region "Public Methods"
 
-    Shared Function LoadImage(S As String) As Image
+    Public Sub LoadMyListView()
+
+        MysqlIsRunning = False
+        If Form1.CheckMysql Then
+            MysqlIsRunning = True
+        End If
+        If TheView1 = ViewType.Avatars Then
+            ShowAvatars()
+        Else
+            ShowRegions()
+        End If
+
+    End Sub
+
+    Private Function LoadImage(S As String) As Image
         Dim bmp As Bitmap = Nothing
         Dim u As New Uri(S)
         Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
@@ -441,25 +455,11 @@ Public Class RegionList
 
     End Function
 
-    Public Sub LoadMyListView()
-
-        MysqlIsRunning = False
-        If Form1.CheckMysql Then
-            MysqlIsRunning = True
-        End If
-        If TheView1 = ViewType.Avatars Then
-            ShowAvatars()
-        Else
-            ShowRegions()
-        End If
-
-    End Sub
-
 #End Region
 
 #Region "Private Methods"
 
-    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles Addregion.Click
+    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
@@ -494,7 +494,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
         Form1.PropRegionClass.GetAllRegions()
         LoadMyListView()
@@ -941,6 +941,12 @@ Public Class RegionList
 
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(n))
+        If hwnd > IntPtr.Zero Then
+            Form1.PropRegionClass.Timer(n) = RegionMaker.REGIONTIMER.StartCounting
+            Form1.PropRegionClass.Status(n) = RegionMaker.SIMSTATUSENUM.Booted
+            ' already shutting down
+        End If
+
         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
         Form1.Sleep(1000)
         Dim Choices As New FormRegionPopup
@@ -1155,7 +1161,7 @@ Public Class RegionList
         Form1.KillAll()
     End Sub
 
-    Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles ViewAvatars.Click
+    Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles AvatarsButton.Click
 
         Form1.Settings.RegionListView() = ViewType.Avatars
         Form1.Settings.SaveSettings()
@@ -1168,7 +1174,7 @@ Public Class RegionList
         Timer1.Start()
     End Sub
 
-    Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles ViewCompact.Click
+    Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles IconsButton.Click
 
         Form1.Settings.RegionListView() = ViewType.Icons
         Form1.Settings.SaveSettings()
@@ -1182,7 +1188,7 @@ Public Class RegionList
         LoadMyListView()
     End Sub
 
-    Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles ViewDetail.Click
+    Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles DetailsButton.Click
 
         Form1.Settings.RegionListView() = ViewType.Details
         Form1.Settings.SaveSettings()
@@ -1196,7 +1202,7 @@ Public Class RegionList
         LoadMyListView()
     End Sub
 
-    Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles ViewMaps.Click
+    Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
 
         Form1.Settings.RegionListView() = ViewType.Maps
         Form1.Settings.SaveSettings()
@@ -1214,7 +1220,7 @@ Public Class RegionList
 
 #Region "Mysql"
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
         Dim ofd As New OpenFileDialog
         ofd.InitialDirectory = "c\\"
@@ -1287,7 +1293,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles StatsButton.Click
 
         Dim regionname = Form1.ChooseRegion(True)
         If regionname.Length = 0 Then Return
