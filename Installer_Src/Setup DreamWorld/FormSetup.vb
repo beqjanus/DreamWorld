@@ -1045,10 +1045,10 @@ Public Class Form1
 
     End Sub
 
-    Private Sub StopApache()
+    Private Sub StopApache(force As Boolean)
 
         If Not Settings.ApacheEnable Then Return
-        'If Settings.ApacheService Then Return
+        If Settings.ApacheService And Not force Then Return
 
         If Settings.ApacheService Then
             Using ApacheProcess As New Process()
@@ -1094,7 +1094,7 @@ Public Class Form1
         ' close everything as gracefully as possible.
 
         StopIcecast()
-        StopApache()
+        StopApache(False) ' do not stop if a service
 
         Dim n As Integer = PropRegionClass.RegionCount()
 
@@ -1592,6 +1592,7 @@ Public Class Form1
             End If
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
         Dim name = PropRegionClass.RegionName(X)
 
@@ -3015,7 +3016,7 @@ Public Class Form1
         If Not CheckApache() Then
             StartApache()
         Else
-            StopApache()
+            StopApache(True) 'Do Stop, even If a service
         End If
 
     End Sub
@@ -5010,7 +5011,7 @@ Public Class Form1
 
     Private Sub UpdaterGo(Filename As String)
 
-        StopApache()
+        StopApache(True) 'reaylly stop it, even if a service
         StopMysql()
 
         Dim pUpdate As Process = New Process()

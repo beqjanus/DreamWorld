@@ -430,7 +430,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Function LoadImage(S As String) As Image
+    Private Shared Function LoadImage(S As String) As Image
         Dim bmp As Bitmap = Nothing
         Dim u As New Uri(S)
         Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
@@ -941,7 +941,7 @@ Public Class RegionList
 
         ' show it, stop it, start it, or edit it
         Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(n))
-        If hwnd > IntPtr.Zero Then
+        If hwnd <> IntPtr.Zero Then
             Form1.PropRegionClass.Timer(n) = RegionMaker.REGIONTIMER.StartCounting
             Form1.PropRegionClass.Status(n) = RegionMaker.SIMSTATUSENUM.Booted
             ' already shutting down
