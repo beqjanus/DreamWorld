@@ -4065,8 +4065,8 @@ Public Class Form1
             End Try
 
             AppActivate(PID)
-            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys(command))
             Me.Focus()
         End If
 
@@ -6582,7 +6582,7 @@ Public Class Form1
 
 #Region "Capslock"
 
-    Public Shared Function SendableKeys(Str As String) As String
+    Public Shared Function ToLowercaseKeys(Str As String) As String
 
         If My.Computer.Keyboard.CapsLock Then
             For Pos = 1 To Len(Str)
