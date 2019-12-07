@@ -4058,22 +4058,14 @@ Public Class Form1
                 command = command.Replace("%", "{%}")
                 command = command.Replace("(", "{(}")
                 command = command.Replace(")", "{)}")
-
-                AppActivate(PID)
-                SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
-                SendKeys.SendWait(SendableKeys(command))
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-                ' ErrorLog("Error:" & ex.Message)
-                Diagnostics.Debug.Print("Cannot find window " & name)
-                'PropRegionClass.RegionDump()
-                Me.Focus()
-                Return False
-
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
             End Try
+
+            AppActivate(PID)
+            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
             Me.Focus()
-            'Application.DoEvents()
         End If
 
         Return True
@@ -6677,40 +6669,6 @@ Public Class Form1
 
 #Region "Search"
 
-
-    Public Function GetPostData() As String
-
-        Dim UPnp As String = "Fail"
-        If Settings.UPnpDiag Then
-            UPnp = "Pass"
-        End If
-        Dim Loopb As String = "Fail"
-        If Settings.LoopBackDiag Then
-            Loopb = "Pass"
-        End If
-
-        Dim Grid As String = "Grid"
-
-        ' no DNS password used if DNS name is null
-        Dim m = Settings.MachineID()
-        If Settings.DNSName.Length = 0 Then
-            m = ""
-        End If
-
-        Dim data As String = "&MachineID=" & m _
-        & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
-        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
-        & "&uPnp=" & CStr(UPnp) _
-        & "&Loop=" & CStr(Loopb) _
-        & "&Type=" & CStr(Grid) _
-        & "&Ver=" & CStr(PropUseIcons) _
-        & "&isPublic=" & CStr(Settings.GDPR()) _
-        & "&r=" & RandomNumber.Random()
-        Return data
-
-    End Function
-
     Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         If dll Is Nothing Then Return False
         For Each filename In dll
@@ -6844,6 +6802,39 @@ Public Class Form1
         End Using
 
     End Sub
+
+    Public Function GetPostData() As String
+
+        Dim UPnp As String = "Fail"
+        If Settings.UPnpDiag Then
+            UPnp = "Pass"
+        End If
+        Dim Loopb As String = "Fail"
+        If Settings.LoopBackDiag Then
+            Loopb = "Pass"
+        End If
+
+        Dim Grid As String = "Grid"
+
+        ' no DNS password used if DNS name is null
+        Dim m = Settings.MachineID()
+        If Settings.DNSName.Length = 0 Then
+            m = ""
+        End If
+
+        Dim data As String = "&MachineID=" & m _
+        & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
+        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
+        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
+        & "&uPnp=" & CStr(UPnp) _
+        & "&Loop=" & CStr(Loopb) _
+        & "&Type=" & CStr(Grid) _
+        & "&Ver=" & CStr(PropUseIcons) _
+        & "&isPublic=" & CStr(Settings.GDPR()) _
+        & "&r=" & RandomNumber.Random()
+        Return data
+
+    End Function
 
     Private Sub CleanDLLs()
 
