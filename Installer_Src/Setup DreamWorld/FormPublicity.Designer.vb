@@ -31,10 +31,10 @@ Partial Class FormPublicity
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CategoryCheckbox = New System.Windows.Forms.CheckedListBox()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DescriptionBox = New System.Windows.Forms.TextBox()
-        Me.CategoryCheckbox = New System.Windows.Forms.CheckedListBox()
         Me.GroupBox11.SuspendLayout()
         CType(Me.PublicPhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +119,15 @@ Partial Class FormPublicity
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Category"
         '
+        'CategoryCheckbox
+        '
+        Me.CategoryCheckbox.FormattingEnabled = True
+        Me.CategoryCheckbox.Items.AddRange(New Object() {"Adult", "Art", "Education", "Education, College", "Fantasy", "Freebies", "Free Land", "Furry", "Hideout", "Hyperport", "Gaming", "Grid, Charity", "Grid, Personal", "Grid, for Profit ", "Newcomer Friendly", "Parks & Nature", "Rental", "Residential", "Role play", "Sandboxs", "Sci-Fi", "Science", "Scripting", "Shopping"})
+        Me.CategoryCheckbox.Location = New System.Drawing.Point(11, 19)
+        Me.CategoryCheckbox.Name = "CategoryCheckbox"
+        Me.CategoryCheckbox.Size = New System.Drawing.Size(204, 154)
+        Me.CategoryCheckbox.TabIndex = 1897
+        '
         'FileSystemWatcher1
         '
         Me.FileSystemWatcher1.EnableRaisingEvents = True
@@ -142,15 +151,6 @@ Partial Class FormPublicity
         Me.DescriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DescriptionBox.Size = New System.Drawing.Size(215, 155)
         Me.DescriptionBox.TabIndex = 1893
-        '
-        'CategoryCheckbox
-        '
-        Me.CategoryCheckbox.FormattingEnabled = True
-        Me.CategoryCheckbox.Items.AddRange(New Object() {"Adult", "Art", "Education", "Education, College", "Fantasy", "Freebies", "Free Land", "Furry", "Hideout", "Hyperport", "Gaming", "Grid, Charity", "Grid, Personal", "Grid, for Profit ", "Newcomer Friendly", "Parks & Nature", "Rental", "Residential", "Role play", "Sandboxs", "Sci-Fi", "Science", "Scripting", "Shopping"})
-        Me.CategoryCheckbox.Location = New System.Drawing.Point(11, 19)
-        Me.CategoryCheckbox.Name = "CategoryCheckbox"
-        Me.CategoryCheckbox.Size = New System.Drawing.Size(204, 154)
-        Me.CategoryCheckbox.TabIndex = 1897
         '
         'FormPublicity
         '

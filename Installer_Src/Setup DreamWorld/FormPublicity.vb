@@ -83,7 +83,10 @@ Public Class FormPublicity
             If i.length > 0 Then category += i & ","
         Next
 
-        Dim mydata = "https://www.outworldz.com/cgi/postcategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
+        Dim mydata = "https://www.outworldz.com/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
+        If mydata <> "OK" Then
+            Form1.ErrorLog("UpdateCategory:" & mydata)
+        End If
 
         Form1.Settings.Categories = category
         Form1.Settings.Description = DescriptionBox.Text
@@ -115,7 +118,7 @@ Public Class FormPublicity
             Dim Index = CategoryCheckbox.FindStringExact(itemname)
             If Index > -1 Then
                 CategoryCheckbox.SetSelected(Index, True)
-                CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
+                'CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
             End If
         Next
 
@@ -127,6 +130,18 @@ Public Class FormPublicity
 #End Region
 
 #Region "Clicks"
+
+    Private Sub CategoryCheckbox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CategoryCheckbox.SelectedIndexChanged
+
+        Dim Index = CategoryCheckbox.SelectedIndex
+
+        If CategoryCheckbox.GetItemChecked(Index) Then
+            CategoryCheckbox.SetItemCheckState(Index, CheckState.Unchecked)
+        Else
+            CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
+        End If
+
+    End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         Form1.Help("Publicity")
