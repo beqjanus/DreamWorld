@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.293"
+    Private _MyVersion As String = "3.294"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -728,15 +728,13 @@ Public Class Form1
             End If
         End If
 
-        If PropViewedSettings Then
-            If SetPublicIP() Then
-                OpenPorts()
-            End If
-
-            Print(My.Resources.Reading_Region_files)
-            PropRegionClass.GetAllRegions()
-            If SetIniData() Then Return   ' set up the INI files
+        If SetPublicIP() Then
+            OpenPorts()
         End If
+
+        Print(My.Resources.Reading_Region_files)
+        PropRegionClass.GetAllRegions()
+        If SetIniData() Then Return   ' set up the INI files
 
         If Not StartMySQL() Then
 
@@ -4431,6 +4429,28 @@ Public Class Form1
 
     End Function
 
+    Public Sub UploadCategory()
+
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        Using client As New WebClient ' download client for web pages
+            Try
+                Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
+                result = client.DownloadString(str)
+            Catch ex As ArgumentNullException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As WebException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As NotSupportedException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            End Try
+        End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & result)
+        End If
+    End Sub
+
     ''' <summary>
     ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
     ''' known to be on line.
@@ -4438,8 +4458,12 @@ Public Class Form1
     Public Sub UploadPhoto()
 
         If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
+
+            UploadCategory()
+
             Dim Myupload As New UploadImage
             Myupload.PostContentUploadFile()
+
         End If
 
     End Sub
