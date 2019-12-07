@@ -86,7 +86,8 @@ Public Class FormPublicity
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                result = client.DownloadString(Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData())
+                Dim str = Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
+                result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 Form1.ErrorLog(My.Resources.Wrong & ex.Message)
             Catch ex As WebException
@@ -197,8 +198,7 @@ Public Class FormPublicity
                     End Try
                 End Using
 
-                Dim Myupload As New UploadImage
-                Myupload.PostContentUploadFile()
+                Form1.UploadPhoto()
 
             End If
         End If

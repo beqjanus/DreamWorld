@@ -752,6 +752,8 @@ Public Class Form1
 
         StartIcecast()
 
+        UploadPhoto()
+
         ' old files to clean up
 
         If Settings.BirdsModuleStartup Then
@@ -4429,6 +4431,19 @@ Public Class Form1
 
     End Function
 
+    ''' <summary>
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
+    ''' </summary>
+    Public Sub UploadPhoto()
+
+        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
+            Dim Myupload As New UploadImage
+            Myupload.PostContentUploadFile()
+        End If
+
+    End Sub
+
     Public Function VarChooser(RegionName As String) As String
 
         Dim RegionNumber = PropRegionClass.FindRegionByName(RegionName)
@@ -4915,19 +4930,6 @@ Public Class Form1
             Dim Name = PropRegionClass.RegionName(X)
             AddLog("Region " & Name)
         Next
-
-    End Sub
-
-    ''' <summary>
-    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
-    ''' known to be on line.
-    ''' </summary>
-    Private Sub UploadPhoto()
-
-        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
-            Dim Myupload As New UploadImage
-            Myupload.PostContentUploadFile()
-        End If
 
     End Sub
 
@@ -6816,13 +6818,7 @@ Public Class Form1
 
         Dim Grid As String = "Grid"
 
-        ' no DNS password used if DNS name is null
-        Dim m = Settings.MachineID()
-        If Settings.DNSName.Length = 0 Then
-            m = ""
-        End If
-
-        Dim data As String = "&MachineID=" & m _
+        Dim data As String = "&MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
         & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _

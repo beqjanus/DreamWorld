@@ -191,18 +191,18 @@ Public Class UploadImage
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                result = client.DownloadString(Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData())
+                result = client.DownloadString(Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Form1.Settings.Categories & "&Description=" & Form1.Settings.Description & Form1.GetPostData())
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
             End Try
         End Using
 
         If result <> "OK" Then
-            ErrorLog(My.Resources.Wrong & result)
+            Form1.ErrorLog(My.Resources.Wrong & result)
         End If
 
     End Sub
