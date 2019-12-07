@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Net
 Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
@@ -82,10 +83,21 @@ Public Class FormPublicity
         For Each i In CategoryCheckbox.CheckedItems
             If i.length > 0 Then category += i & ","
         Next
+        Dim result As String = Nothing
+        Using client As New WebClient ' download client for web pages
+            Try
+                result = client.DownloadString(Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData())
+            Catch ex As ArgumentNullException
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As WebException
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As NotSupportedException
+                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
+            End Try
+        End Using
 
-        Dim mydata = "https://www.outworldz.com/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
-        If mydata <> "OK" Then
-            Form1.ErrorLog("UpdateCategory:" & mydata)
+        If result <> "OK" Then
+            Form1.ErrorLog(My.Resources.Wrong & result)
         End If
 
         Form1.Settings.Categories = category

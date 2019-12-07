@@ -187,6 +187,24 @@ Public Class UploadImage
             Call UploadError(sData)
         End If
 
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        Using client As New WebClient ' download client for web pages
+            Try
+                result = client.DownloadString(Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData())
+            Catch ex As ArgumentNullException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As WebException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As NotSupportedException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            End Try
+        End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & result)
+        End If
+
     End Sub
 
 #End Region
