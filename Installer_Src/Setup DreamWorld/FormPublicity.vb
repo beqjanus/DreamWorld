@@ -25,7 +25,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
 
-#Region "Private Fields"
+#Region "GLobals"
 
     Private initted As Boolean = False
 
@@ -62,7 +62,7 @@ Public Class FormPublicity
 
 #End Region
 
-#Region "Private Methods"
+#Region "Pubicity Checkbox"
 
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
@@ -83,26 +83,13 @@ Public Class FormPublicity
         For Each i In CategoryCheckbox.CheckedItems
             If i.length > 0 Then category += i & ","
         Next
-        Dim result As String = Nothing
-        Using client As New WebClient ' download client for web pages
-            Try
-                Dim str = Form1.SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & category & "&Description=" & DescriptionBox.Text & Form1.GetPostData()
-                result = client.DownloadString(str)
-            Catch ex As ArgumentNullException
-                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
-            Catch ex As WebException
-                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
-            Catch ex As NotSupportedException
-                Form1.ErrorLog(My.Resources.Wrong & ex.Message)
-            End Try
-        End Using
-
-        If result <> "OK" Then
-            Form1.ErrorLog(My.Resources.Wrong & result)
-        End If
 
         Form1.Settings.Categories = category
-        Form1.Settings.Description = DescriptionBox.Text
+
+        Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
+        Form1.Settings.Description = tmp
+
+        Form1.UploadCategory()
         Form1.Settings.SaveSettings()
 
     End Sub
@@ -122,8 +109,9 @@ Public Class FormPublicity
         Catch ex As ArgumentException
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
-
-        DescriptionBox.Text = Form1.Settings.Description
+        Dim tmp = Form1.Settings.Description
+        tmp = tmp.Replace("<br>", vbCrLf)
+        DescriptionBox.Text = tmp
 
         Dim cats = Form1.Settings.Categories.Split(",")
 
@@ -131,7 +119,6 @@ Public Class FormPublicity
             Dim Index = CategoryCheckbox.FindStringExact(itemname)
             If Index > -1 Then
                 CategoryCheckbox.SetSelected(Index, True)
-                'CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
             End If
         Next
 

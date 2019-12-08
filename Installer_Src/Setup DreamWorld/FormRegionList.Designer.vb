@@ -64,7 +64,7 @@ Partial Class RegionList
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(393, 188)
+        Me.ListView1.Size = New System.Drawing.Size(694, 188)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -212,7 +212,7 @@ Partial Class RegionList
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(12, 69)
+        Me.AvatarView.Location = New System.Drawing.Point(16, 69)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
@@ -252,7 +252,8 @@ Partial Class RegionList
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(269, 147)
+        Me.Label1.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.Label1.Location = New System.Drawing.Point(279, 105)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(131, 25)
         Me.Label1.TabIndex = 18606

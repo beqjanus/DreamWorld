@@ -66,7 +66,7 @@ Partial Class FormIARSave
         Me.ObjectNameBox.Name = "ObjectNameBox"
         Me.ObjectNameBox.Size = New System.Drawing.Size(153, 20)
         Me.ObjectNameBox.TabIndex = 12
-        Me.ObjectNameBox.Text = "/Objects/"
+        Me.ObjectNameBox.Text = "/"
         Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
         '
         'GroupBox1
