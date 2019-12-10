@@ -243,7 +243,6 @@
   </data>
   <data name="Stopping_Webserver" xml:space="preserve">
     <value>Stopping Webserver</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Load and Save</value>
@@ -400,7 +399,6 @@
   </data>
   <data name="picfilter" xml:space="preserve">
     <value>PNG  (*.PNG,*.png)|*.png;|All Files (*.*)|*.*</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>did not start</value>
@@ -683,7 +681,6 @@
   </data>
   <data name="ubODE_Hybrid_word" xml:space="preserve">
     <value>ubODE Hybrid</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
@@ -714,7 +711,6 @@
   </data>
   <data name="HG_word_NT" xml:space="preserve">
     <value>Hypergrid</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Take_time" xml:space="preserve">
     <value>This may take time to load</value>
@@ -1120,7 +1116,6 @@
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>Starting Diagnostic Port Webserver</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Search All Grids</value>
@@ -1355,7 +1350,6 @@
   </data>
   <data name="Bullet_Threaded_word" xml:space="preserve">
     <value>Bullet Threaded</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="text_align_justified" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_align_justified.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1449,7 +1443,6 @@
   </data>
   <data name="ubODE_word" xml:space="preserve">
     <value>ubODE</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="blankbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blankbox.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1669,7 +1662,6 @@
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
     <value>ODE</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Export_SQL_file_word" xml:space="preserve">
     <value>Export SQL file</value>
@@ -1814,7 +1806,6 @@
   </data>
   <data name="INI_Filter" xml:space="preserve">
     <value>ini files (*.ini)|*.ini|All files (*.*)|*.*</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="flag_poland" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_poland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2106,7 +2097,6 @@
   </data>
   <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
     <value>Failed to load Settings INI </value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="FrameTime" xml:space="preserve">
     <value>Default 1/11 sec. Default is 0.0909 which is 1/5th of 55 FPS</value>
@@ -2227,7 +2217,6 @@
   </data>
   <data name="Bullet_word_NT" xml:space="preserve">
     <value>Bullet</value>
-    <comment>Slip Xlate</comment>
   </data>
   <data name="Backup_Custom" xml:space="preserve">
     <value>Backup Custom Web Pages</value>
@@ -2546,7 +2535,6 @@
   </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>Loading Settings.ini</value>
-    <comment>Skip Xlate</comment>
   </data>
   <data name="Stop_word" xml:space="preserve">
     <value>Stop</value>
@@ -2658,11 +2646,9 @@
   </data>
   <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
     <value>Region Coordinate X cannot be less than 0</value>
-    <comment>New</comment>
   </data>
   <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
     <value>Region Coordinate X Is too large</value>
-    <comment>New</comment>
   </data>
   <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
     <value>Region Coordinate  Y cannot be less than 32</value>
@@ -2672,16 +2658,23 @@
   </data>
   <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
     <value>Region name must not be blank</value>
-    <comment>New</comment>
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Region UUID Is invalid</value>
-    <comment>New</comment>
   </data>
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>Voice Settings</value>
   </data>
   <data name="Server_Type_is" xml:space="preserve">
     <value>Server Type is</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>Photo</value>
   </data>
 </root>

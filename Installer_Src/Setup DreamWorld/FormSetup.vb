@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.293"
+    Private _MyVersion As String = "3.294"
     Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
 
 #End Region
@@ -728,15 +728,13 @@ Public Class Form1
             End If
         End If
 
-        If PropViewedSettings Then
-            If SetPublicIP() Then
-                OpenPorts()
-            End If
-
-            Print(My.Resources.Reading_Region_files)
-            PropRegionClass.GetAllRegions()
-            If SetIniData() Then Return   ' set up the INI files
+        If SetPublicIP() Then
+            OpenPorts()
         End If
+
+        Print(My.Resources.Reading_Region_files)
+        PropRegionClass.GetAllRegions()
+        If SetIniData() Then Return   ' set up the INI files
 
         If Not StartMySQL() Then
 
@@ -751,6 +749,8 @@ Public Class Form1
         StartApache()
 
         StartIcecast()
+
+        UploadPhoto()
 
         ' old files to clean up
 
@@ -1045,10 +1045,10 @@ Public Class Form1
 
     End Sub
 
-    Private Sub StopApache()
+    Private Sub StopApache(force As Boolean)
 
         If Not Settings.ApacheEnable Then Return
-        'If Settings.ApacheService Then Return
+        If Settings.ApacheService And Not force Then Return
 
         If Settings.ApacheService Then
             Using ApacheProcess As New Process()
@@ -1094,7 +1094,7 @@ Public Class Form1
         ' close everything as gracefully as possible.
 
         StopIcecast()
-        StopApache()
+        StopApache(False) ' do not stop if a service
 
         Dim n As Integer = PropRegionClass.RegionCount()
 
@@ -1592,6 +1592,7 @@ Public Class Form1
             End If
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
         Dim name = PropRegionClass.RegionName(X)
 
@@ -3015,7 +3016,7 @@ Public Class Form1
         If Not CheckApache() Then
             StartApache()
         Else
-            StopApache()
+            StopApache(True) 'Do Stop, even If a service
         End If
 
     End Sub
@@ -4057,22 +4058,18 @@ Public Class Form1
                 command = command.Replace("%", "{%}")
                 command = command.Replace("(", "{(}")
                 command = command.Replace(")", "{)}")
-
-                AppActivate(PID)
-                SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
-                SendKeys.SendWait(SendableKeys(command))
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-                ' ErrorLog("Error:" & ex.Message)
-                Diagnostics.Debug.Print("Cannot find window " & name)
-                'PropRegionClass.RegionDump()
-                Me.Focus()
-                Return False
-
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
             End Try
+            Try
+                AppActivate(PID)
+#Disable Warning CA1031 ' Do not catch general exception types
+            Catch
+#Enable Warning CA1031 ' Do not catch general exception types
+            End Try
+            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
             Me.Focus()
-            'Application.DoEvents()
         End If
 
         Return True
@@ -4435,6 +4432,45 @@ Public Class Form1
         Return True
 
     End Function
+
+    Public Sub UploadCategory()
+
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        Using client As New WebClient ' download client for web pages
+            Try
+                Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
+                result = client.DownloadString(str)
+            Catch ex As ArgumentNullException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As WebException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            Catch ex As NotSupportedException
+                ErrorLog(My.Resources.Wrong & ex.Message)
+            End Try
+        End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & result)
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
+    ''' </summary>
+    Public Sub UploadPhoto()
+
+        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
+
+            UploadCategory()
+
+            Dim Myupload As New UploadImage
+            Myupload.PostContentUploadFile()
+
+        End If
+
+    End Sub
 
     Public Function VarChooser(RegionName As String) As String
 
@@ -4925,19 +4961,6 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
-    ''' known to be on line.
-    ''' </summary>
-    Private Sub UploadPhoto()
-
-        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
-            Dim Myupload As New UploadImage
-            Myupload.PostContentUploadFile()
-        End If
-
-    End Sub
-
 #End Region
 
 #Region "Updates"
@@ -5010,7 +5033,7 @@ Public Class Form1
 
     Private Sub UpdaterGo(Filename As String)
 
-        StopApache()
+        StopApache(True) 'reaylly stop it, even if a service
         StopMysql()
 
         Dim pUpdate As Process = New Process()
@@ -5414,39 +5437,6 @@ Public Class Form1
             Return False
         End Try
         Return True 'successfully added
-
-    End Function
-
-    Private Function GetPostData() As String
-
-        Dim UPnp As String = "Fail"
-        If Settings.UPnpDiag Then
-            UPnp = "Pass"
-        End If
-        Dim Loopb As String = "Fail"
-        If Settings.LoopBackDiag Then
-            Loopb = "Pass"
-        End If
-
-        Dim Grid As String = "Grid"
-
-        ' no DNS password used if DNS name is null
-        Dim m = Settings.MachineID()
-        If Settings.DNSName.Length = 0 Then
-            m = ""
-        End If
-
-        Dim data As String = "&MachineID=" & m _
-        & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
-        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
-        & "&uPnp=" & CStr(UPnp) _
-        & "&Loop=" & CStr(Loopb) _
-        & "&Type=" & CStr(Grid) _
-        & "&Ver=" & CStr(PropUseIcons) _
-        & "&isPublic=" & CStr(Settings.GDPR()) _
-        & "&r=" & RandomNumber.Random()
-        Return data
 
     End Function
 
@@ -6620,7 +6610,7 @@ Public Class Form1
 
 #Region "Capslock"
 
-    Public Shared Function SendableKeys(Str As String) As String
+    Public Shared Function ToLowercaseKeys(Str As String) As String
 
         If My.Computer.Keyboard.CapsLock Then
             For Pos = 1 To Len(Str)
@@ -6842,6 +6832,33 @@ Public Class Form1
         End Using
 
     End Sub
+
+    Public Function GetPostData() As String
+
+        Dim UPnp As String = "Fail"
+        If Settings.UPnpDiag Then
+            UPnp = "Pass"
+        End If
+        Dim Loopb As String = "Fail"
+        If Settings.LoopBackDiag Then
+            Loopb = "Pass"
+        End If
+
+        Dim Grid As String = "Grid"
+
+        Dim data As String = "&MachineID=" & Settings.MachineID() _
+        & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
+        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
+        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
+        & "&uPnp=" & CStr(UPnp) _
+        & "&Loop=" & CStr(Loopb) _
+        & "&Type=" & CStr(Grid) _
+        & "&Ver=" & CStr(PropUseIcons) _
+        & "&isPublic=" & CStr(Settings.GDPR()) _
+        & "&r=" & RandomNumber.Random()
+        Return data
+
+    End Function
 
     Private Sub CleanDLLs()
 

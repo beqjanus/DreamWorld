@@ -735,6 +735,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Categories() As String
+        Get
+            Return CType(GetMySetting("Categories"), String)
+        End Get
+        Set
+            SetMySetting("Categories", Value)
+        End Set
+    End Property
+
     Public Property Clouds() As Boolean
         Get
             Return CType(GetMySetting("Clouds", "False"), Boolean)
@@ -819,6 +828,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Density", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property Description() As String
+        Get
+            Return CType(GetMySetting("Description"), String)
+        End Get
+        Set
+            SetMySetting("Description", Value)
         End Set
     End Property
 

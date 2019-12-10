@@ -20,13 +20,14 @@
 
 #End Region
 
+Imports System.Net
 Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
 
-#Region "Private Fields"
+#Region "GLobals"
 
-    Dim initted As Boolean = False
+    Private initted As Boolean = False
 
 #End Region
 
@@ -61,11 +62,7 @@ Public Class FormPublicity
 
 #End Region
 
-#Region "Private Methods"
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Publicity")
-    End Sub
+#Region "Pubicity Checkbox"
 
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
@@ -74,6 +71,80 @@ Public Class FormPublicity
             Form1.Settings.SaveSettings()
         End If
 
+    End Sub
+
+#End Region
+
+#Region "Start/Stop"
+
+    Private Sub Publicity_Close(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+        Dim category As String = Nothing
+        For Each i In CategoryCheckbox.CheckedItems
+            If i.length > 0 Then category += i & ","
+        Next
+
+        Form1.Settings.Categories = category
+
+        Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
+        Form1.Settings.Description = tmp
+
+        Form1.UploadCategory()
+        Form1.Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        SetScreen()
+
+        GDPRCheckBox.Checked = Form1.Settings.GDPR()
+
+        Try
+            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+        Catch ex As OutOfMemoryException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As IO.FileNotFoundException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As ArgumentException
+            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        End Try
+        Dim tmp = Form1.Settings.Description
+        tmp = tmp.Replace("<br>", vbCrLf)
+        DescriptionBox.Text = tmp
+
+        Dim cats = Form1.Settings.Categories.Split(",")
+
+        For Each itemname In cats
+            Dim Index = CategoryCheckbox.FindStringExact(itemname)
+            If Index > -1 Then
+                CategoryCheckbox.SetSelected(Index, True)
+            End If
+        Next
+
+        Form1.HelpOnce("Publicity")
+        initted = True
+
+    End Sub
+
+#End Region
+
+#Region "Clicks"
+
+    Private Sub CategoryCheckbox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CategoryCheckbox.SelectedIndexChanged
+
+        Dim Index = CategoryCheckbox.SelectedIndex
+
+        If CategoryCheckbox.GetItemChecked(Index) Then
+            CategoryCheckbox.SetItemCheckState(Index, CheckState.Unchecked)
+        Else
+            CategoryCheckbox.SetItemCheckState(Index, CheckState.Checked)
+        End If
+
+    End Sub
+
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+        Form1.Help("Publicity")
     End Sub
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
@@ -114,37 +185,23 @@ Public Class FormPublicity
                     End Try
                 End Using
 
-                Dim Myupload As New UploadImage
-                Myupload.PostContentUploadFile()
+                Form1.UploadPhoto()
 
             End If
         End If
 
     End Sub
 
-    Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        SetScreen()
-
-        GDPRCheckBox.Checked = Form1.Settings.GDPR()
-
-        Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch ex As OutOfMemoryException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As IO.FileNotFoundException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As ArgumentException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        End Try
-
-        Form1.HelpOnce("Publicity")
-        initted = True
-
-    End Sub
-
     Private Sub PublicPhoto_Click(sender As Object, e As EventArgs) Handles PublicPhoto.Click
         Form1.Help("Publicity")
+    End Sub
+
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles DescriptionBox.TextChanged
+
+        If (DescriptionBox.Text.Length > 1024) Then
+            DescriptionBox.Text = Mid(DescriptionBox.Text, 1024)
+        End If
+
     End Sub
 
 #End Region
