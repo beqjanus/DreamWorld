@@ -1167,7 +1167,6 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
 
-        PropRegionHandles.Clear()
         StopAllRegions()
         PropUpdateView = True ' make form refresh
         StopRobust()
@@ -2767,6 +2766,7 @@ Public Class Form1
         Next
         Try
             PropExitList.Clear()
+            PropRegionHandles.Clear()
         Catch ex As NotSupportedException
         End Try
 
