@@ -4061,10 +4061,14 @@ Public Class Form1
             Catch ex As ArgumentNullException
             Catch ex As ArgumentException
             End Try
-
-            AppActivate(PID)
-            SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(ToLowercaseKeys(command))
+            Try
+                AppActivate(PID)
+#Disable Warning CA1031 ' Do not catch general exception types
+            Catch
+#Enable Warning CA1031 ' Do not catch general exception types
+            End Try
+            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
             Me.Focus()
         End If
 
