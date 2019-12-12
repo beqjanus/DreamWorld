@@ -4067,8 +4067,8 @@ Public Class Form1
             Catch
 #Enable Warning CA1031 ' Do not catch general exception types
             End Try
-            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys(command & "{ENTER}" & vbCrLf))
             Me.Focus()
         End If
 
@@ -5170,9 +5170,7 @@ Public Class Form1
 
     End Function
 
-#End Region
 
-#Region "Diagnostics"
 
     Private Sub CheckDiagPort()
 
