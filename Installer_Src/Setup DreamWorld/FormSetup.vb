@@ -36,8 +36,8 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.294"
-    Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
+    Private _MyVersion As String = "3.295"
+    Private _SimVersion As String = "0.9.1.1 2019-12-03 14:27  #5c5e4bd8304dbb607a"
 
 #End Region
 
@@ -4068,7 +4068,7 @@ Public Class Form1
 #Enable Warning CA1031 ' Do not catch general exception types
             End Try
             SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(ToLowercaseKeys(command & "{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys(command))
             Me.Focus()
         End If
 
@@ -5169,8 +5169,6 @@ Public Class Form1
         Return False
 
     End Function
-
-
 
     Private Sub CheckDiagPort()
 
