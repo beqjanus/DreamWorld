@@ -3155,12 +3155,12 @@ Public Class Form1
 
 #Region "Icecast"
 
-    Public Sub StartIcecast()
+    Public Function StartIcecast() As Boolean
 
         If Not Settings.SCEnable Then
             IceCastPicturebox.Image = My.Resources.nav_plain_blue
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.IceCast_disabled)
-            Return
+            Return True
         End If
 
         Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
@@ -3169,7 +3169,7 @@ Public Class Form1
         If IceCastRunning Then
             IceCastPicturebox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
-            Return
+            Return True
         End If
 
         IceCastPicturebox.Image = My.Resources.navigate_open
@@ -3197,15 +3197,20 @@ Public Class Form1
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastPicturebox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
-            Return
+            Return False
         Catch ex As System.ComponentModel.Win32Exception
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastPicturebox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
-            Return
+            Return False
         End Try
         Application.DoEvents()
-        PropIcecastProcID = IcecastProcess.Id
+
+        PropIcecastProcID = WaitForPID(IcecastProcess)
+        If PropIcecastProcID = 0 Then
+            Return False
+        End If
+
         SetWindowTextCall(IcecastProcess, "Icecast")
         ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
 
@@ -3213,8 +3218,9 @@ Public Class Form1
         ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
 
         PropIceCastExited = False
+        Return True
 
-    End Sub
+    End Function
 
     ''' <summary>
     ''' Check is Icecast port 8081 is up
@@ -3272,7 +3278,7 @@ Public Class Form1
             Return True
         End If
 
-        PropRobustProcID = Nothing
+        PropRobustProcID = 0
         Print(My.Resources.Starting_word & " Robust")
 
         RobustProcess.EnableRaisingEvents = True
@@ -3301,7 +3307,11 @@ Public Class Form1
             Return False
         End Try
 
-        PropRobustProcID = RobustProcess.Id
+        PropRobustProcID = WaitForPID(RobustProcess)
+        If PropRobustProcID = 0 Then
+            Return False
+        End If
+
         SetWindowTextCall(RobustProcess, "Robust")
 
         ' Wait for Robust to start listening
@@ -3575,8 +3585,14 @@ Public Class Form1
 
             For Each p In listP
                 If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
-                    PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
-                    Regionclass.ProcessID(RegionNumber) = p.Id
+                    Try
+                        PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
+                        Regionclass.ProcessID(RegionNumber) = p.Id
+                    Catch ex As ArgumentException
+                        ErrorLog(ex.Message)
+                    Catch ex As ArgumentNullException
+                        ErrorLog(ex.Message)
+                    End Try
                     Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     PropUpdateView = True ' make form refresh
                     Exit For
@@ -3616,33 +3632,15 @@ Public Class Form1
         Catch ex As System.ComponentModel.Win32Exception
         End Try
         If ok Then
-            Dim hasPID As Boolean = False
-            Dim TooMany As Integer = 0
-            Do While Not hasPID And TooMany < 100
-                Dim p As Process = Nothing
-                Try
-                    Sleep(100)
-                    TooMany += 1
-                    Try
-                        p = Process.GetProcessById(myProcess.Id)
-                    Catch ex As ArgumentException
-                    Catch ex As InvalidOperationException
-                    End Try
 
-                    If p.ProcessName.Length > 0 Then
-                        hasPID = True
-                    End If
-                Catch ex As System.NullReferenceException
-                Catch ex As ArgumentException
-                Catch ex As InvalidOperationException
-                End Try
-            Loop
-
-            If Not hasPID Then
-                PropUpdateView = True ' make form refresh
-                Print("Cannot get a Process ID from this region")
+            Dim PID = WaitForPID(myProcess)
+            ' check if it gave us a PID, if not, it failed.
+            If PID = 0 Then
+                Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Error
+                PropUpdateView = True ' make form refresh                
                 Return False
             End If
+
             For Each num In Regionclass.RegionListByGroupNum(Groupname)
                 Log("Debug", "Process started for " & Regionclass.RegionName(num) & " PID=" & CStr(myProcess.Id) & " Num:" & CStr(num))
                 Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
@@ -3662,6 +3660,40 @@ Public Class Form1
 
     End Function
 
+    Public Function WaitForPID(myProcess As Process) As Integer
+
+        If myProcess Is Nothing Then Return False
+
+        Dim PID As Integer = 0
+        Dim TooMany As Integer = 0
+        Dim p As Process = Nothing
+
+        Do While TooMany < 200
+
+            Try
+                p = Process.GetProcessById(myProcess.Id)
+            Catch ex As ArgumentException
+            Catch ex As InvalidOperationException
+            End Try
+
+            If p Is Nothing Then Return 0
+
+            If p.ProcessName.Length > 0 Then
+                PID = p.Id
+                Exit Do
+            End If
+
+            Sleep(100)
+            TooMany += 1
+        Loop
+
+        If PID = 0 Then
+            Print("Cannot get a Process ID from " & myProcess.ProcessName)
+        End If
+
+        Return PID
+
+    End Function
     ''' <summary>
     ''' Creates and exit handler for each region
     ''' </summary>
@@ -3767,7 +3799,7 @@ Public Class Form1
         If PropAborting Then Return ' not if we are aborting
 
         If PropRestartRobust And PropRobustExited = True Then
-            StartRobust()
+            If Not CheckRobust() Then StartRobust()
         End If
         ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
         ' is true
@@ -4067,9 +4099,9 @@ Public Class Form1
             Catch
 #Enable Warning CA1031 ' Do not catch general exception types
             End Try
-            SendKeys.SendWait(SendableKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(SendableKeys(command & "{ENTER}" & vbCrLf))
-            Me.Focus()
+            SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+            SendKeys.SendWait(ToLowercaseKeys(command))
+
         End If
 
         Return True
@@ -5828,6 +5860,13 @@ Public Class Form1
         p.Close()
         MysqlPictureBox.Image = My.Resources.nav_plain_red
         ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
+
+        If CheckMysql() Then
+            MysqlPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Running)
+            Application.DoEvents()
+        End If
+
         Application.DoEvents()
 
     End Sub

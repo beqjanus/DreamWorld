@@ -55,6 +55,7 @@ Public Class RegionMaker
         RetartingNow = 7
         [Resume] = 8
         Suspended = 9
+        [Error] = 10
 
     End Enum
 
