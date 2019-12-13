@@ -36,8 +36,8 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.294"
-    Private _SimVersion As String = "0.9.1.0 Server Release Notes #defa235859889dbd"
+    Private _MyVersion As String = "3.295"
+    Private _SimVersion As String = "0.9.1.1 2019-12-03 14:27  #5c5e4bd8304dbb607a"
 
 #End Region
 
@@ -1167,7 +1167,6 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
 
-        PropRegionHandles.Clear()
         StopAllRegions()
         PropUpdateView = True ' make form refresh
         StopRobust()
@@ -2767,6 +2766,7 @@ Public Class Form1
         Next
         Try
             PropExitList.Clear()
+            PropRegionHandles.Clear()
         Catch ex As NotSupportedException
         End Try
 
@@ -4101,7 +4101,6 @@ Public Class Form1
             End Try
             SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
             SendKeys.SendWait(ToLowercaseKeys(command))
-
         End If
 
         Return True
@@ -5201,10 +5200,6 @@ Public Class Form1
         Return False
 
     End Function
-
-#End Region
-
-#Region "Diagnostics"
 
     Private Sub CheckDiagPort()
 

@@ -118,7 +118,7 @@ include("../Metromap/includes/config.php");
         
         $row = array("hop"=>$link ,
                      "Name"=>$name,
-                     "Description"=>$description,
+                     "Description"=>$row["Description"],
                      "Regionname"=>$row["Regioname"]. "<br>Link: <br><a href=\"$v3\">" . $row["AGateway"] . '/' . $location . '</a>',
                      "Location"=>$location);
         
