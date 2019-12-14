@@ -68,7 +68,6 @@ Public Class Form1
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
     Private _ForceTerrain As Boolean = False
-    Private _gUseIcons As Boolean = False
     Private _IcecastCrashCounter As Integer = 0
     Private _IceCastExited As Integer = 0
     Private _IcecastProcID As Integer
@@ -579,14 +578,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropUseIcons As Boolean
-        Get
-            Return _gUseIcons
-        End Get
-        Set(value As Boolean)
-            _gUseIcons = value
-        End Set
-    End Property
+    Public Property PropUseIcons As Boolean = False
 
     Public Property PropUserName As String
         Get
@@ -1170,7 +1162,7 @@ Public Class Form1
         StopAllRegions()
         PropUpdateView = True ' make form refresh
         StopRobust()
-
+        StopMysql()
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
@@ -1192,8 +1184,12 @@ Public Class Form1
             ctr += 1
             Application.DoEvents()
         End While
+
+        RobustPictureBox.Image = My.Resources.nav_plain_red
+        ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Stopped_word)
+
         ' trust, but verify
-        If Not CheckRobust() Then
+        If ctr >= 60 Then
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Stopped_word)
         End If
@@ -2806,7 +2802,7 @@ Public Class Form1
 
 #Region "Apache"
 
-    Public Sub StartApache()
+    Public Function StartApache() As Boolean
 
         If Settings.SearchEnabled Then
             Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
@@ -2827,11 +2823,11 @@ Public Class Form1
             ApachePictureBox.Image = My.Resources.nav_plain_blue
             ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Disabled_word)
             Print(My.Resources.Apache_Disabled)
-            Return
+            Return True
         End If
 
         ApachePictureBox.Image = My.Resources.navigate_open
-        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Offline)
+        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Starting_word)
         Application.DoEvents()
 
         If Settings.ApachePort = 80 Then
@@ -2858,7 +2854,7 @@ Public Class Form1
             ApachePictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
             PropApacheExited = False
-            Return
+            Return True
         End If
         Application.DoEvents()
 
@@ -2905,7 +2901,7 @@ Public Class Form1
             Sleep(3000)
 
             Using ApacheProcess As New Process With {
-                    .EnableRaisingEvents = True
+                    .EnableRaisingEvents = False
                 }
                 ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                 ApacheProcess.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\Apache\bin\httpd.exe"
@@ -2952,64 +2948,72 @@ Public Class Form1
                 End If
             End Using
         Else
-
             ' Start Apache manually
-
-            Dim ApacheProcess2 As New Process With {
+            Using ApacheProcess As New Process With {
                     .EnableRaisingEvents = True
                 }
-            ApacheProcess2.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess2.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\Apache\bin\httpd.exe"
-            ApacheProcess2.StartInfo.CreateNoWindow = True
-            ApacheProcess2.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\Apache\bin\"
-            ApacheProcess2.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            ApacheProcess2.StartInfo.Arguments = ""
-            Try
-                ApacheProcess2.Start()
-                PropgApacheProcessID = ApacheProcess2.Id
-            Catch ex As InvalidOperationException
-                Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                ApachePictureBox.Image = My.Resources.nav_plain_red
-                ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
+                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess.StartInfo.FileName = PropMyFolder & "\Outworldzfiles\Apache\bin\httpd.exe"
+                ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\Apache\bin\"
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                ApacheProcess.StartInfo.Arguments = ""
+                Try
+                    ApacheProcess.Start()
+                Catch ex As InvalidOperationException
+                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
+                    ApachePictureBox.Image = My.Resources.nav_plain_red
+                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
+                    Application.DoEvents()
+                    Return False
+                Catch ex As System.ComponentModel.Win32Exception
+                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
+                    ApachePictureBox.Image = My.Resources.nav_plain_red
+                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
+                    Application.DoEvents()
+                    Return False
+                End Try
+
                 Application.DoEvents()
-                Return
-            Catch ex As System.ComponentModel.Win32Exception
-                Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                ApachePictureBox.Image = My.Resources.nav_plain_red
-                ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
-                Application.DoEvents()
-                Return
-            End Try
 
-            Application.DoEvents()
-            ' Wait for Apache to start listening
-
-            Dim counter = 0
-            While PropgApacheProcessID = 0 And PropOpensimIsRunning
-
-                counter += 1
-                ' wait 10 seconds for it to start
-                If counter > 100 Then
-                    Print(My.Resources.Apache_Failed)
-                    Return
-                End If
-                Application.DoEvents()
-                Sleep(100)
-
-                Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
-                If isRunning Then
-                    Print(My.Resources.Apache_running)
-                    ApachePictureBox.Image = My.Resources.nav_plain_green
-                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
-                    PropApacheExited = False
-                    Return
+                ' wait for PID
+                Dim ApachePID = WaitForPID(ApacheProcess)
+                If ApachePID = 0 Then
+                    ApachePictureBox.Image = My.Resources.error_icon
+                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
+                    Return False
                 End If
 
-            End While
+                ' Wait for Apache to start listening
+                PropgApacheProcessID = ApachePID
+                Dim counter = 0
 
+                While PropOpensimIsRunning And Not PropAborting
+                    counter += 1
+                    ' wait 60 seconds for it to start
+                    If counter > 600 Then
+                        Print(My.Resources.Apache_Failed)
+                        Return False
+                    End If
+                    Application.DoEvents()
+
+                    Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
+                    If isRunning Then
+                        Print(My.Resources.Apache_running)
+                        ApachePictureBox.Image = My.Resources.nav_plain_green
+                        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
+                        PropApacheExited = False
+                        Application.DoEvents()
+                        Return True
+                    End If
+                    Sleep(100)
+                End While
+            End Using
         End If
 
-    End Sub
+        Return False
+
+    End Function
 
     Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
 
@@ -3812,21 +3816,27 @@ Public Class Form1
         If PropAborting Then Return ' not if we are aborting
 
         If PropRestartRobust And PropRobustExited = True Then
-            If Not CheckRobust() Then StartRobust()
+            PropRobustExited = False
+            If Not CheckRobust() Then
+                StartRobust()
+                Return
+            End If
         End If
         ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
         ' is true
         If PropMysqlExited Then
             StartMySQL()
+            Return
         End If
-        If PropRobustExited Then
-            StartRobust()
-        End If
+
         If PropApacheExited Then
             StartApache()
+            Return
         End If
+
         If PropIceCastExited Then
             StartIcecast()
+            Return
         End If
 
         Dim GroupName As String
@@ -4998,6 +5008,7 @@ Public Class Form1
 
         AddLog("All Logs")
         AddLog("Robust")
+        AddLog("Error")
         AddLog("Outworldz")
         AddLog("Icecast")
         AddLog("MySQL")
@@ -6561,6 +6572,7 @@ Public Class Form1
             If name = "All Logs" Then AllLogs = True
             If name = "Robust" Or AllLogs Then path.Add("""" & PropOpensimBinPath & "bin\Robust.log" & """")
             If name = "Outworldz" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Outworldz.log" & """")
+            If name = "Error" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Error.log" & """")
             If name = "UPnP" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Upnp.log" & """")
             If name = "Icecast" Or AllLogs Then path.Add(" " & """" & PropMyFolder & "\Outworldzfiles\Icecast\log\error.log" & """")
             If name = "All Settings" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Settings.ini" & """")
@@ -7010,7 +7022,7 @@ Public Class Form1
         Diagnostics.Debug.Print("Scanning Data snapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
-        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\Apache\htdocs"
+        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\Apache\htdocs\Search"
         pi.FileName = "Run_parser.bat"
         pi.UseShellExecute = False  ' needed to make window hidden
         pi.WindowStyle = ProcessWindowStyle.Hidden
