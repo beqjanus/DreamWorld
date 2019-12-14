@@ -3208,6 +3208,8 @@ Public Class Form1
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
+            IceCastPicturebox.Image = My.Resources.error_icon
+            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
             Return False
         End If
 
@@ -3304,11 +3306,14 @@ Public Class Form1
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
+            Buttons(StartButton)
             Return False
         End Try
 
         PropRobustProcID = WaitForPID(RobustProcess)
         If PropRobustProcID = 0 Then
+            RobustPictureBox.Image = My.Resources.error_icon
+            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
             Return False
         End If
 
@@ -3318,10 +3323,9 @@ Public Class Form1
         Dim counter = 0
         While Not CheckRobust() And PropOpensimIsRunning
             Application.DoEvents()
-
             counter += 1
             ' wait a minute for it to start
-            If counter > 100 Then
+            If counter > 600 Then
                 Print(My.Resources.Robust_failed_to_start)
                 Buttons(StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
@@ -3351,8 +3355,8 @@ Public Class Form1
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
         PropRobustExited = False
-
         Application.DoEvents()
+
         Return True
 
     End Function
@@ -3521,19 +3525,21 @@ Public Class Form1
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
 
-        Application.DoEvents()
-        If Regionclass Is Nothing Then Return False
-        If RegionMaker.Instance Is Nothing Then
+        If Regionclass Is Nothing Then
+            ErrorLog("No Region Class!")
             Return False
         End If
-
+        If RegionMaker.Instance Is Nothing Then
+            ErrorLog("No Region maker!")
+            Return False
+        End If
         If PropAborting Then Return True
 
-        PropOpensimIsRunning() = True
-
-        Buttons(StopButton)
-
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
+        If RegionNumber < 0 Then
+            ErrorLog("Cannot find " & BootName & " to boot!")
+            Return False
+        End If
 
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
 
@@ -3583,22 +3589,23 @@ Public Class Form1
             Print(BootName & " " & My.Resources.is_already_running_word)
             Dim listP = Process.GetProcesses
 
-            For Each p In listP
-                If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
-                    Try
-                        PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
-                        Regionclass.ProcessID(RegionNumber) = p.Id
-                    Catch ex As ArgumentException
-                        ErrorLog(ex.Message)
-                    Catch ex As ArgumentNullException
-                        ErrorLog(ex.Message)
-                    End Try
-                    Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
-                    PropUpdateView = True ' make form refresh
-                    Exit For
-                End If
-            Next
-            Return False
+            If Regionclass.ProcessID(RegionNumber) = 0 Then
+                For Each p In listP
+                    If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
+                        Try
+                            PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
+                            Regionclass.ProcessID(RegionNumber) = p.Id
+                        Catch ex As ArgumentException
+                            ErrorLog(ex.Message)
+                        End Try
+                        Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                        PropUpdateView = True ' make form refresh
+                        Exit For
+                    End If
+                Next
+                Return False
+            End If
+
         End If
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
@@ -3629,15 +3636,17 @@ Public Class Form1
         Try
             ok = myProcess.Start
         Catch ex As InvalidOperationException
+            ErrorLog(ex.Message)
         Catch ex As System.ComponentModel.Win32Exception
+            ErrorLog(ex.Message)
         End Try
-        If ok Then
 
+        If ok Then
             Dim PID = WaitForPID(myProcess)
             ' check if it gave us a PID, if not, it failed.
             If PID = 0 Then
                 Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Error
-                PropUpdateView = True ' make form refresh                
+                PropUpdateView = True ' make form refresh
                 Return False
             End If
 
@@ -3654,46 +3663,15 @@ Public Class Form1
 
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & Groupname)
             PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-
         End If
+
+        PropOpensimIsRunning() = True
+        Buttons(StopButton)
+
         Return True
 
     End Function
 
-    Public Function WaitForPID(myProcess As Process) As Integer
-
-        If myProcess Is Nothing Then Return False
-
-        Dim PID As Integer = 0
-        Dim TooMany As Integer = 0
-        Dim p As Process = Nothing
-
-        Do While TooMany < 200
-
-            Try
-                p = Process.GetProcessById(myProcess.Id)
-            Catch ex As ArgumentException
-            Catch ex As InvalidOperationException
-            End Try
-
-            If p Is Nothing Then Return 0
-
-            If p.ProcessName.Length > 0 Then
-                PID = p.Id
-                Exit Do
-            End If
-
-            Sleep(100)
-            TooMany += 1
-        Loop
-
-        If PID = 0 Then
-            Print("Cannot get a Process ID from " & myProcess.ProcessName)
-        End If
-
-        Return PID
-
-    End Function
     ''' <summary>
     ''' Creates and exit handler for each region
     ''' </summary>
@@ -3738,6 +3716,41 @@ Public Class Form1
         PropUpdateView = True ' make form refresh
 
     End Sub
+
+    Public Function WaitForPID(myProcess As Process) As Integer
+
+        If myProcess Is Nothing Then Return False
+
+        Dim PID As Integer = 0
+        Dim TooMany As Integer = 0
+        Dim p As Process = Nothing
+
+        Do While TooMany < 200
+
+            Try
+                p = Process.GetProcessById(myProcess.Id)
+            Catch ex As ArgumentException
+            Catch ex As InvalidOperationException
+            End Try
+
+            If p Is Nothing Then Return 0
+
+            If p.ProcessName.Length > 0 Then
+                PID = p.Id
+                Exit Do
+            End If
+
+            Sleep(100)
+            TooMany += 1
+        Loop
+
+        If PID = 0 Then
+            Print("Cannot get a Process ID from " & myProcess.ProcessName)
+        End If
+
+        Return PID
+
+    End Function
 
 #End Region
 
@@ -3966,6 +3979,9 @@ Public Class Form1
 #Region "Logging"
 
     Public Sub ErrorLog(message As String)
+        If Debugger.IsAttached Then
+            MsgBox(message, vbInformation)
+        End If
         Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
 
@@ -4095,12 +4111,14 @@ Public Class Form1
             End Try
             Try
                 AppActivate(PID)
+                SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+                SendKeys.SendWait(ToLowercaseKeys(command))
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch
+                Return False
 #Enable Warning CA1031 ' Do not catch general exception types
             End Try
-            SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
-            SendKeys.SendWait(ToLowercaseKeys(command))
+
         End If
 
         Return True
