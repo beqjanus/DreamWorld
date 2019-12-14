@@ -1163,7 +1163,7 @@ Public Class Form1
         PropUpdateView = True ' make form refresh
         StopRobust()
         PropStopMysql = True
-        StopMysql()
+        If Not Settings.ApacheService Then StopMysql()
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
