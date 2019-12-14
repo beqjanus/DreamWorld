@@ -3586,13 +3586,11 @@ Public Class Form1
             For Each p In listP
                 If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
                     Try
-                        PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
-                        Regionclass.ProcessID(RegionNumber) = p.Id
+                        PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exit                        
                     Catch ex As ArgumentException
-                        ErrorLog(ex.Message)
                     Catch ex As ArgumentNullException
-                        ErrorLog(ex.Message)
                     End Try
+                    Regionclass.ProcessID(RegionNumber) = p.Id
                     Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     PropUpdateView = True ' make form refresh
                     Exit For
