@@ -3592,9 +3592,9 @@ Public Class Form1
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
-            Dim listP = Process.GetProcesses
 
             If Regionclass.ProcessID(RegionNumber) = 0 Then
+                Dim listP = Process.GetProcesses
                 For Each p In listP
                     If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
                         Try
