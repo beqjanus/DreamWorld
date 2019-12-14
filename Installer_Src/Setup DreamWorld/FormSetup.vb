@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.295"
+    Private _MyVersion As String = "3.296"
     Private _SimVersion As String = "0.9.1.1 2019-12-03 14:27  #5c5e4bd8304dbb607a"
 
 #End Region
@@ -1162,6 +1162,7 @@ Public Class Form1
         StopAllRegions()
         PropUpdateView = True ' make form refresh
         StopRobust()
+        PropStopMysql = True
         StopMysql()
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
