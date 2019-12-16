@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.296"
+    Private _MyVersion As String = "3.297"
     Private _SimVersion As String = "0.9.1.1 2019-12-03 14:27  #5c5e4bd8304dbb607a"
 
 #End Region
@@ -932,8 +932,11 @@ Public Class Form1
         RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
 
         mnuSettings.Visible = True
-        SetIAROARContent() ' load IAR and OAR web content
-        LoadLocalIAROAR() ' load IAR and OAR local content
+
+        LoadHelp()        ' Help loads once
+
+        Print(My.Resources.RefreshingOAR)
+        SetIAROARContent() ' load IAR and OAR web content            
 
         If Settings.Password = "secret" Then
 
@@ -1366,7 +1369,7 @@ Public Class Form1
         Log(My.Resources.Info, Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
-        Application.DoEvents()
+
 
     End Sub
 
@@ -4330,7 +4333,9 @@ Public Class Form1
 
                     Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
                     If RegionNumber >= 0 Then
-                        If PropRegionClass.Teleport(RegionNumber) = "True" Then
+                        If PropRegionClass.Teleport(RegionNumber) = "True" And
+                                PropRegionClass.RegionEnabled(RegionNumber) = True And
+                                PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted Then
                             ToSort.Add(LongName)
                         End If
                     End If
@@ -4393,42 +4398,40 @@ Public Class Form1
             Timer1.Stop()
             Return
         End If
-        PropDNSSTimer += 1
 
         If PropAborting Then Return
 
-        ' 5 seconds check for a restart RegionRestart requires MOD 2
+
+        ' Check for a restart RegionRestart requires MOD 2 seconds to slow it down a bit
         If PropDNSSTimer Mod 2 = 0 Then
             PropRegionClass.CheckPost()
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         End If
 
-        If PropDNSSTimer Mod 60 = 0 Then
-            ScanAgents() ' update agent count
-        End If
-
-        ' Just once at the Minute Mark
-        If PropDNSSTimer = 60 Then
+        If PropDNSSTimer Mod 15 = 0 Then
+            ScanAgents() ' update agent count each 15 seconds
             RegionListHTML() ' create HTML for older 2.4 region teleporters
-            GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
         ' every 5 minutes
         If PropDNSSTimer Mod 300 = 0 Then
-            RegionListHTML() ' create HTML for older 2.4 region teleporters
             CrashDetector.Find()
             RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
         End If
 
-        'hour
+        'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS()
-            GetEvents() ' get the events from the Outworldz main server for all grids
+            LoadLocalIAROAR() ' refresh the pulldowns.
+            SetIAROARContent() ' load IAR and OAR web content            
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
+
+        PropDNSSTimer += 1
+
 
     End Sub
 
@@ -4638,7 +4641,18 @@ Public Class Form1
 
     Private Sub IarClick(sender As Object, e As EventArgs)
 
-        Dim file As String = Mid(CStr(sender.text), 1, InStr(CStr(sender.text), "|") - 2)
+
+        If sender.text.ToString() = "Web Download Link" Then
+            Dim webAddress As String = "https://www.outworldz.com/outworldz_installer/IAR"
+            Try
+                Process.Start(webAddress)
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
+            Return
+        End If
+
+        Dim file As String = Mid(CStr(sender.text.ToString()), 1, InStr(CStr(sender.text.ToString()), "|") - 2)
         file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
         If LoadIARContent(file) Then
             Print(My.Resources.isLoading & " " & file)
@@ -4800,7 +4814,18 @@ Public Class Form1
 
     Private Sub OarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Mid(CStr(sender.text), 1, InStr(CStr(sender.text), "|") - 2)
+        If sender.text.ToString() = "Web Download Link" Then
+            Dim webAddress As String = "https://www.outworldz.com/outworldz_installer/OAR"
+            Try
+                Process.Start(webAddress)
+            Catch ex As InvalidOperationException
+            Catch ex As System.ComponentModel.Win32Exception
+            End Try
+            Return
+        End If
+
+
+        Dim File As String = Mid(CStr(sender.text.ToString()), 1, InStr(CStr(sender.text.ToString().ToString), "|") - 2)
         File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
         sender.checked = True
@@ -4900,11 +4925,25 @@ Public Class Form1
 
     Private Sub SetIAROARContent()
 
+        IslandToolStripMenuItem.DropDownItems.Clear()
+        IslandToolStripMenuItem.Visible = False
+        ClothingInventoryToolStripMenuItem.DropDownItems.Clear()
+        ClothingInventoryToolStripMenuItem.Visible = False
+
+        Dim LinkMenu As New ToolStripMenuItem With {
+                        .Text = "Web Download Link",
+                        .ToolTipText = My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
+        AddHandler LinkMenu.Click, New EventHandler(AddressOf OarClick)
+        IslandToolStripMenuItem.Visible = True
+        IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LinkMenu})
+
+
+
         Dim oars As String = ""
         Using client As New WebClient ' download client for web pages
-            IslandToolStripMenuItem.Visible = False
-            ClothingInventoryToolStripMenuItem.Visible = False
-            Print(My.Resources.RefreshingOAR)
+
             Try
                 oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
@@ -4920,7 +4959,7 @@ Public Class Form1
         End Using
 
         Dim line As String = ""
-        Application.DoEvents()
+
         Using oarreader = New StringReader(oars)
             Dim ContentSeen As Boolean = False
             While Not ContentSeen
@@ -4942,33 +4981,20 @@ Public Class Form1
             End While
         End Using
 
-        ' read help files for menu
-
-        Dim folders As Array = Nothing
-        Try
-            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
-
-        For Each aline As String In folders
-            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
-                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-                Dim HelpMenu As New ToolStripMenuItem With {
-                    .Text = aline,
-                    .ToolTipText = My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.question_and_answer
-                }
-                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
-                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
-            End If
-        Next
 
         Print(My.Resources.RefreshingIAR)
+
+        Dim ClothesMenu As New ToolStripMenuItem With {
+                        .Text = "Web Download Link",
+                        .ToolTipText = My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
+        AddHandler ClothesMenu.Click, New EventHandler(AddressOf IarClick)
+        ClothingInventoryToolStripMenuItem.Visible = True
+        ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {ClothesMenu})
+
+
+
         Dim iars As String = ""
 
         Using client As New WebClient ' download client for web pages
@@ -5007,6 +5033,36 @@ Public Class Form1
             End Using
         End Using
 
+    End Sub
+
+    Private Sub LoadHelp()
+
+        ' read help files for menu
+
+        Dim folders As Array = Nothing
+        Try
+            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
+        Catch ex As ArgumentException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
+
+        For Each aline As String In folders
+            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
+                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
+                Dim HelpMenu As New ToolStripMenuItem With {
+                    .Text = aline,
+                    .ToolTipText = My.Resources.Click_to_load,
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.question_and_answer
+                }
+                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
+                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+            End If
+        Next
+
         AddLog("All Logs")
         AddLog("Robust")
         AddLog("Error")
@@ -5020,7 +5076,10 @@ Public Class Form1
             AddLog("Region " & Name)
         Next
 
+
+
     End Sub
+
 
 #End Region
 
@@ -5959,7 +6018,6 @@ Public Class Form1
         Dim Checkname As String
 
         Try
-            Application.DoEvents()
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
         Catch ex As ArgumentNullException
             ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
@@ -6120,7 +6178,7 @@ Public Class Form1
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim regionnum = PropRegionClass.FindRegionByName(CStr(sender.text))
+            Dim regionnum = PropRegionClass.FindRegionByName(CStr(sender.text.ToString().ToString()))
             Dim port As String = CStr(PropRegionClass.RegionPort(regionnum))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
@@ -6325,18 +6383,18 @@ Public Class Form1
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString() 'make a real URL
+        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString().ToString() 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString() & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString().ToString() & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString() 'make a real URL
+        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString().ToString() 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString() & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString().ToString() & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
@@ -6365,6 +6423,7 @@ Public Class Form1
         ''' </summary>
         ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
 
+        LoadLocalOARSToolStripMenuItem.DropDownItems.Clear()
         Dim MaxFileNum As Integer = 10
         Dim counter = MaxFileNum
         Dim Filename = PropMyFolder & "\OutworldzFiles\OAR\"
@@ -6440,6 +6499,8 @@ Public Class Form1
         Catch ex As PathTooLongException
         Catch ex As IOException
         End Try
+
+        LoadLocalIARsToolStripMenuItem.DropDownItems.Clear()
 
         counter = MaxFileNum
         For Each IAR As String In IARs
