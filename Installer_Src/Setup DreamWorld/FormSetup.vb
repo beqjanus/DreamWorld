@@ -4982,8 +4982,6 @@ Public Class Form1
         End Using
 
 
-        Print(My.Resources.RefreshingIAR)
-
         Dim ClothesMenu As New ToolStripMenuItem With {
                         .Text = "Web Download Link",
                         .ToolTipText = My.Resources.Click_to_load,
