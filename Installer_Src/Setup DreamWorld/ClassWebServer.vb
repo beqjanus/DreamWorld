@@ -27,6 +27,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class NetServer
 
+
+
 #Region "Private Fields"
 
     Private Shared blnFlag As Boolean
@@ -41,6 +43,8 @@ Public Class NetServer
 
 #End Region
 
+
+
 #Region "Public Properties"
 
     Public Property PropRegionClass1 As RegionMaker
@@ -54,9 +58,43 @@ Public Class NetServer
 
 #End Region
 
-#Region "Public Methods"
+#Region "Callback"
 
-    Public Sub ListenerCallback(ByVal result As IAsyncResult)
+    Public Sub StartServer(pathinfo As String, Settings As MySettings)
+
+        ' stash some globs
+        Setting = Settings
+        MyPort = CStr(Form1.Settings.DiagnosticPort)
+        PropMyFolder = pathinfo
+
+        If running Then Return
+
+        Log(My.Resources.Info, My.Resources.Starting_DiagPort_Webserver)
+        WebThread = New Thread(AddressOf Looper)
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As ArgumentException
+            Log(My.Resources.Error_word, ex.Message)
+        Catch ex As ThreadStartException
+            Log(My.Resources.Error_word, ex.Message)
+        Catch ex As InvalidOperationException
+            Log(My.Resources.Error_word, ex.Message)
+        End Try
+        WebThread.Start()
+        running = True
+
+    End Sub
+
+    Public Sub StopWebServer()
+
+        Log(My.Resources.Info, My.Resources.Stopping_Webserver)
+        listen = False
+        Application.DoEvents()
+        WebThread.Abort()
+
+    End Sub
+
+    Private Sub ListenerCallback(ByVal result As IAsyncResult)
         If result Is Nothing Then Return
         Try
             Dim listener As HttpListener = CType(result.AsyncState, HttpListener)
@@ -107,41 +145,9 @@ Public Class NetServer
         End Try
     End Sub
 
-    Public Sub StartServer(pathinfo As String, Settings As MySettings)
-
-        ' stash some globs
-        Setting = Settings
-        MyPort = CStr(Form1.Settings.DiagnosticPort)
-        PropMyFolder = pathinfo
-
-        If running Then Return
-
-        Log(My.Resources.Info, My.Resources.Starting_DiagPort_Webserver)
-        WebThread = New Thread(AddressOf Looper)
-        Try
-            WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As ArgumentException
-            Log(My.Resources.Error_word, ex.Message)
-        Catch ex As ThreadStartException
-            Log(My.Resources.Error_word, ex.Message)
-        Catch ex As InvalidOperationException
-            Log(My.Resources.Error_word, ex.Message)
-        End Try
-        WebThread.Start()
-        running = True
-
-    End Sub
-
-    Public Sub StopWebServer()
-
-        Log(My.Resources.Info, My.Resources.Stopping_Webserver)
-        listen = False
-        Application.DoEvents()
-        WebThread.Abort()
-
-    End Sub
-
 #End Region
+
+
 
 #Region "Internal Methods"
 
@@ -158,6 +164,8 @@ Public Class NetServer
     End Function
 
 #End Region
+
+
 
 #Region "Private Methods"
 
