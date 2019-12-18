@@ -25,6 +25,8 @@ Imports IniParser
 
 Public Class MySettings
 
+
+
 #Region "Private Fields"
 
     Dim Apachein As New List(Of String)
@@ -221,17 +223,14 @@ Public Class MySettings
 
     End Sub
 
-    ''' <summary>
-    ''' writes to the ini the name value pair.
-    ''' </summary>
+    ''' <summary>writes to the ini the name value pair.</summary>
     ''' <param name="section"></param>
     ''' <param name="key"></param>
     ''' <param name="value"></param>
     ''' <returns></returns>
     Public Sub SetIni(section As String, key As String, value As String)
 
-        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
-        ' "] " + key + "=" + value)
+        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -506,9 +505,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how close to the edge of a region can we get?
-    ''' </summary>
+    ''' <summary>how close to the edge of a region can we get?</summary>
     ''' <returns></returns>
     Public Property BirdsBorderSize() As Double
         Get
@@ -525,9 +522,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' which channel do we listen on for in world commands
-    ''' </summary>
+    ''' <summary>which channel do we listen on for in world commands</summary>
     ''' <returns></returns>
     Public Property BirdsChatChannel() As Integer
         Get
@@ -538,9 +533,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how far away from other birds we would like to stay
-    ''' </summary>
+    ''' <summary>how far away from other birds we would like to stay</summary>
     ''' <returns></returns>
     Public Property BirdsDesiredSeparation() As Double
         Get
@@ -590,9 +583,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how high are we allowed to flock
-    ''' </summary>
+    ''' <summary>how high are we allowed to flock</summary>
     ''' <returns></returns>
     Public Property BirdsMaxHeight() As Double
         Get
@@ -609,9 +600,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' 'how far each bird can travel per update
-    ''' </summary>
+    ''' <summary>'how far each bird can travel per update</summary>
     ''' <returns></returns>
     Public Property BirdsMaxSpeed() As Double
         Get
@@ -637,9 +626,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' max distance for other birds to be considered in the same flock as us
-    ''' </summary>
+    ''' <summary>max distance for other birds to be considered in the same flock as us</summary>
     ''' <returns></returns>
     Public Property BirdsNeighbourDistance() As Double
         Get
@@ -657,9 +644,8 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' By default the module will create a flock of plain wooden spheres, however this can be
-    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e.
-    ''' be rezzed in the region.
+    ''' By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that needs to already exist in the scene - i.e. be rezzed in
+    ''' the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -671,9 +657,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' how close to the edges of things can we get without being worried
-    ''' </summary>
+    ''' <summary>how close to the edges of things can we get without being worried</summary>
     ''' <returns></returns>
     Public Property BirdsTolerance() As Double
         Get

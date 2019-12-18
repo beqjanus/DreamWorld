@@ -24,6 +24,8 @@ Imports System.Text.RegularExpressions
 
 Public Class BirdForm
 
+
+
 #Region "Private Fields"
 
     Dim changed As Boolean = False
@@ -61,6 +63,8 @@ Public Class BirdForm
     End Sub
 
 #End Region
+
+
 
 #Region "Private Methods"
 

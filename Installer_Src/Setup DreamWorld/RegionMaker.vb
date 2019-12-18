@@ -117,9 +117,7 @@ Public Class RegionMaker
 
 #Region "Classes"
 
-    ''' <summary>
-    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
-    ''' </summary>
+    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Shared Sub UpdateAllRegionPorts()
 
         If Form1.PropOpensimIsRunning Then
@@ -162,8 +160,7 @@ Public Class RegionMaker
             Try
                 Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
 
-                ' This search returns the substring between two strings, so the first index Is moved
-                ' to the character just after the first string.
+                ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
@@ -180,11 +177,8 @@ Public Class RegionMaker
                     Return
                 End Try
 
-                ' rawJSON
-                ' "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
+                ' rawJSON "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
+                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
                 ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
@@ -1323,8 +1317,7 @@ Public Class RegionMaker
 
         If Settings Is Nothing Then Return "<html><head></head><body>Error</html>"
         If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
-        ' set Region.Booted to true if the POST from the region indicates it is online requires a
-        ' section in Opensim.ini where [RegionReady] has this:
+        ' set Region.Booted to true if the POST from the region indicates it is online requires a section in Opensim.ini where [RegionReady] has this:
 
         '[RegionReady]
 
@@ -1356,8 +1349,7 @@ Public Class RegionMaker
         '
         '{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
 
-        ' we want region name, UUID and server_startup could also be a probe from the outworldz to
-        ' check if ports are open.
+        ' we want region name, UUID and server_startup could also be a probe from the outworldz to check if ports are open.
 
         ' WarmingUp(0) = True ShuttingDown(1) = True
 
@@ -1436,8 +1428,7 @@ Public Class RegionMaker
 
                 If match.Success And match2.Success Then
 
-                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the
-                    ' Diva DLL Diva is stubbed off.
+                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
                     Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
@@ -1461,12 +1452,12 @@ Public Class RegionMaker
                 Return "<html><head></head><body>Error</html>"
             End Try
 
-        ElseIf POST.Contains("get_partner") Then
+        ElseIf POST.ToLower(Globalization.CultureInfo.InvariantCulture).Contains("get_partner") Then
             Debug.Print("get Partner")
             Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID())
             If Not PWok Then Return ""
 
-            Dim pattern1 As Regex = New Regex("User=(.*)")
+            Dim pattern1 As Regex = New Regex("User=(.*)", RegexOptions.IgnoreCase)
             Dim match1 As Match = pattern1.Match(POST)
             Dim p1 As String
             If match1.Success Then
@@ -1480,18 +1471,18 @@ Public Class RegionMaker
             End If
 
             ' Partner prim
-        ElseIf POST.Contains("set_partner") Then
+        ElseIf POST.ToLower(Globalization.CultureInfo.InvariantCulture).Contains("set_partner") Then
             Debug.Print("set Partner")
             Dim PWok As Boolean = CheckPassword(POST, CStr(Settings.MachineID()))
             If Not PWok Then Return ""
 
-            Dim pattern1 As Regex = New Regex("User=(.*?)&")
+            Dim pattern1 As Regex = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
             Dim match1 As Match = pattern1.Match(POST)
             If match1.Success Then
 
                 Dim p2 As String = ""
                 Dim p1 = match1.Groups(1).Value
-                Dim pattern2 As Regex = New Regex("Partner=(.*)")
+                Dim pattern2 As Regex = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
                 Dim match2 As Match = pattern2.Match(POST)
                 If match2.Success Then
                     p2 = match2.Groups(1).Value
