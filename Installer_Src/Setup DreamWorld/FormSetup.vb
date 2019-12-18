@@ -156,26 +156,20 @@ Public Class Form1
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
 
-    ''' <summary>
-    ''' Fires when the form changes size or position
-    ''' </summary>
+    ''' <summary>Fires when the form changes size or position</summary>
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
         Dim Y = Me.Height - 130
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
-    ''' <summary>
-    ''' 'The following detects the location of the form in screen coordinates
-    ''' </summary>
+    ''' <summary>'The following detects the location of the form in screen coordinates</summary>
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
-    ''' <summary>
-    ''' Sets H,W and pos of screen on load
-    ''' </summary>
+    ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
         '366, 236
         ScreenPosition = New ScreenPos("Form1")
@@ -656,9 +650,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
-    ''' </summary>
+    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
@@ -807,9 +799,7 @@ Public Class Form1
         ReallyQuit()
     End Sub
 
-    ''' <summary>
-    ''' Form Load is main() for all DreamGrid
-    ''' </summary>
+    ''' <summary>Form Load is main() for all DreamGrid</summary>
     ''' <param name="sender">Unused</param>
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -872,8 +862,7 @@ Public Class Form1
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or
-        ' identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -936,7 +925,7 @@ Public Class Form1
         LoadHelp()        ' Help loads once
 
         Print(My.Resources.RefreshingOAR)
-        SetIAROARContent() ' load IAR and OAR web content            
+        SetIAROARContent() ' load IAR and OAR web content
 
         If Settings.Password = "secret" Then
 
@@ -1010,9 +999,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' The main starup - done this way so languages can reload the entire form
-    ''' </summary>
+    ''' <summary>The main starup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
         Print("Zzzz...")
@@ -1315,9 +1302,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Start Button on main form
-    ''' </summary>
+    ''' <summary>Start Button on main form</summary>
     Private Sub StartButton_Click(sender As System.Object, e As EventArgs) Handles StartButton.Click
         Startup()
     End Sub
@@ -1328,9 +1313,7 @@ Public Class Form1
         TextBox1.ScrollToCaret()
     End Sub
 
-    ''' <summary>
-    ''' Kill processes by name
-    ''' </summary>
+    ''' <summary>Kill processes by name</summary>
     ''' <param name="processName"></param>
     ''' <returns></returns>
     Private Sub Zap(processName As String)
@@ -1369,7 +1352,6 @@ Public Class Form1
         Log(My.Resources.Info, Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
-
 
     End Sub
 
@@ -1544,9 +1526,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Loads the INI file for the proper grid type for parsing
-    ''' </summary>
+    ''' <summary>Loads the INI file for the proper grid type for parsing</summary>
     ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
     Public Function GetOpensimProto() As String
 
@@ -1582,8 +1562,7 @@ Public Class Form1
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
-        ' float, or nothing
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
         If PropRegionClass.MinTimerInterval(X).Length > 0 Then
             If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
@@ -1821,9 +1800,8 @@ Public Class Form1
 
         End Select
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
-        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
-        ' that do Not support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
+        ' support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1831,9 +1809,11 @@ Public Class Form1
         Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine)
 
         If Settings.ScriptEngine = "XEngine" Then
+            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
             Settings.SetIni("XEngine", "Enabled", "True")
             Settings.SetIni("YEngine", "Enabled", "False")
         Else
+            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
             Settings.SetIni("XEngine", "Enabled", "False")
             Settings.SetIni("YEngine", "Enabled", "True")
         End If
@@ -1909,11 +1889,9 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher
-        ' meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
 
-        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
-        ' with threads 4 = physics = ubODE
+        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim with threads 4 = physics = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2514,14 +2492,12 @@ Public Class Form1
 
     Private Function SetDefaultSims() As Boolean
 
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
-        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as
-            ' fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
@@ -2541,9 +2517,8 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
 
-                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
-                    ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart
-                    ' Start region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
+                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS
+                    ' is enabled Region_Name = FallbackRegion if not a SmartStart
 
                     If line.Contains("Region_REPLACE") Then
 
@@ -2588,9 +2563,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Set up all INI files
-    ''' </summary>
+    ''' <summary>Set up all INI files</summary>
     ''' <returns>true if it fails</returns>
     Private Function SetIniData() As Boolean
 
@@ -2634,9 +2607,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Gets the External Host name which can be either the Public IP or a Host name.
-    ''' </summary>
+    ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
     ''' <returns>Host for regions</returns>
     Public Function ExternLocalServerName() As String
 
@@ -3029,9 +3000,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Check is Apache port 80 or 8000 is up
-    ''' </summary>
+    ''' <summary>Check is Apache port 80 or 8000 is up</summary>
     ''' <returns>boolean</returns>
     Private Function CheckApache() As Boolean
 
@@ -3232,9 +3201,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Check is Icecast port 8081 is up
-    ''' </summary>
+    ''' <summary>Check is Icecast port 8081 is up</summary>
     ''' <returns>boolean</returns>
     Private Function CheckIcecast() As Boolean
 
@@ -3369,9 +3336,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Check is Robust port 8002 is up
-    ''' </summary>
+    ''' <summary>Check is Robust port 8002 is up</summary>
     ''' <returns>boolean</returns>
     Private Function CheckRobust() As Boolean
 
@@ -3526,9 +3491,7 @@ Public Class Form1
 
 #Region "Boot"
 
-    ''' <summary>
-    ''' Starts Opensim for a given name
-    ''' </summary>
+    ''' <summary>Starts Opensim for a given name</summary>
     ''' <param name="BootName">Name of region to start</param>
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
@@ -3596,6 +3559,7 @@ Public Class Form1
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
 
+            ' if running, grab it and return
             If Regionclass.ProcessID(RegionNumber) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
@@ -3608,7 +3572,7 @@ Public Class Form1
                         End Try
                         Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                         PropUpdateView = True ' make form refresh
-                        Exit For
+                        Return True
                     End If
                 Next
                 Return False
@@ -3680,9 +3644,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Creates and exit handler for each region
-    ''' </summary>
+    ''' <summary>Creates and exit handler for each region</summary>
     ''' <returns>a process handle</returns>
     Public Function GetNewProcess() As Process
 
@@ -3826,8 +3788,7 @@ Public Class Form1
                 Return
             End If
         End If
-        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
-        ' is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash is true
         If PropMysqlExited Then
             StartMySQL()
             Return
@@ -3909,8 +3870,7 @@ Public Class Form1
 
             Print(RegionName & " " & My.Resources.Shutdown_word)
             Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we
-            ' need to get a region name from the group
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             GroupName = RegionName ' assume a group
             RegionNumber = PropRegionClass.FindRegionByName(RegionName)
 
@@ -3933,8 +3893,7 @@ Public Class Form1
                 PropUpdateView = True ' make form refresh
             End If
 
-            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
-            ' restart the beast
+            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
                 Or PropRegionClass.IsBooted(RegionNumber) _
@@ -3999,9 +3958,7 @@ Public Class Form1
         Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
 
-    ''' <summary>
-    ''' Log(string) to Outworldz.log
-    ''' </summary>
+    ''' <summary>Log(string) to Outworldz.log</summary>
     ''' <param name="message"></param>
     Public Sub Log(category As String, message As String)
         Logger(category, message, "Outworldz")
@@ -4021,9 +3978,7 @@ Public Class Form1
         End Try
     End Sub
 
-    ''' <summary>
-    ''' Deletes old log files
-    ''' </summary>
+    ''' <summary>Deletes old log files</summary>
     Private Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
@@ -4045,9 +4000,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Shows the log buttons if diags fail
-    ''' </summary>
+    ''' <summary>Shows the log buttons if diags fail</summary>
     Private Sub ShowLog()
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropMyFolder & "\OutworldzFiles\Outworldz.log" & """")
@@ -4061,9 +4014,7 @@ Public Class Form1
 
 #Region "Subs"
 
-    ''' <summary>
-    ''' Sleep(ms)
-    ''' </summary>
+    ''' <summary>Sleep(ms)</summary>
     ''' <param name="value">millseconds</param>
     Public Shared Sub Sleep(value As Integer)
 
@@ -4078,9 +4029,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
-    ''' </summary>
+    ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
     ''' <param name="ProcessID">PID of the DOS box</param>
     ''' <param name="command">String</param>
     ''' <returns></returns>
@@ -4178,9 +4127,8 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is
-    ''' no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It
-    ''' has a timer to make sure we do not get stuck
+    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
+    ''' timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
     ''' <param name="windowName">the name of the Window</param>
@@ -4233,9 +4181,7 @@ Public Class Form1
 
     'End Sub
 
-    ''' <summary>
-    ''' query MySQL to find any avatars in the DOS box so we can stop it, or not
-    ''' </summary>
+    ''' <summary>query MySQL to find any avatars in the DOS box so we can stop it, or not</summary>
     ''' <param name="groupname"></param>
     ''' <returns></returns>
     Private Function AvatarsIsInGroup(groupname As String) As Boolean
@@ -4385,8 +4331,7 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
-    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4400,7 +4345,6 @@ Public Class Form1
         End If
 
         If PropAborting Then Return
-
 
         ' Check for a restart RegionRestart requires MOD 2 seconds to slow it down a bit
         If PropDNSSTimer Mod 2 = 0 Then
@@ -4423,7 +4367,7 @@ Public Class Form1
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS()
             LoadLocalIAROAR() ' refresh the pulldowns.
-            SetIAROARContent() ' load IAR and OAR web content            
+            SetIAROARContent() ' load IAR and OAR web content
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
@@ -4431,7 +4375,6 @@ Public Class Form1
         End If
 
         PropDNSSTimer += 1
-
 
     End Sub
 
@@ -4480,7 +4423,7 @@ Public Class Form1
             Return False
         End If
 
-        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"", ""/"", ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
         Dim user = InputBox(My.Resources.Enter_1_2)
         Dim password = InputBox(My.Resources.Password)
@@ -4500,28 +4443,27 @@ Public Class Form1
 
         'PHASE 2, upload Description and Categories
         Dim result As String = Nothing
+        If Settings.Categories.Length = 0 Then Return
+
         Using client As New WebClient ' download client for web pages
             Try
                 Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong & ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
 
         If result <> "OK" Then
-            ErrorLog(My.Resources.Wrong & result)
+            ErrorLog(My.Resources.Wrong & " " & result)
         End If
     End Sub
 
-    ''' <summary>
-    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
-    ''' known to be on line.
-    ''' </summary>
+    ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
     Public Sub UploadPhoto()
 
         If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -4641,7 +4583,6 @@ Public Class Form1
 
     Private Sub IarClick(sender As Object, e As EventArgs)
 
-
         If sender.text.ToString() = "Web Download Link" Then
             Dim webAddress As String = "https://www.outworldz.com/outworldz_installer/IAR"
             Try
@@ -4658,6 +4599,49 @@ Public Class Form1
             Print(My.Resources.isLoading & " " & file)
         End If
         sender.checked = True
+
+    End Sub
+
+    Private Sub LoadHelp()
+
+        ' read help files for menu
+
+        Dim folders As Array = Nothing
+        Try
+            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
+        Catch ex As ArgumentException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
+
+        For Each aline As String In folders
+            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
+                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
+                Dim HelpMenu As New ToolStripMenuItem With {
+                    .Text = aline,
+                    .ToolTipText = My.Resources.Click_to_load,
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.question_and_answer
+                }
+                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
+                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+            End If
+        Next
+
+        AddLog("All Logs")
+        AddLog("Robust")
+        AddLog("Error")
+        AddLog("Outworldz")
+        AddLog("Icecast")
+        AddLog("MySQL")
+        AddLog("All Settings")
+        AddLog("--- Regions ---")
+        For Each X As Integer In PropRegionClass.RegionNumbers
+            Dim Name = PropRegionClass.RegionName(X)
+            AddLog("Region " & Name)
+        Next
 
     End Sub
 
@@ -4824,7 +4808,6 @@ Public Class Form1
             Return
         End If
 
-
         Dim File As String = Mid(CStr(sender.text.ToString()), 1, InStr(CStr(sender.text.ToString().ToString), "|") - 2)
         File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
@@ -4939,21 +4922,19 @@ Public Class Form1
         IslandToolStripMenuItem.Visible = True
         IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LinkMenu})
 
-
-
         Dim oars As String = ""
         Using client As New WebClient ' download client for web pages
 
             Try
                 oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             End Try
         End Using
@@ -4981,7 +4962,6 @@ Public Class Form1
             End While
         End Using
 
-
         Dim ClothesMenu As New ToolStripMenuItem With {
                         .Text = "Web Download Link",
                         .ToolTipText = My.Resources.Click_to_load,
@@ -4991,21 +4971,19 @@ Public Class Form1
         ClothingInventoryToolStripMenuItem.Visible = True
         ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {ClothesMenu})
 
-
-
         Dim iars As String = ""
 
         Using client As New WebClient ' download client for web pages
             Try
                 iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             End Try
 
@@ -5033,52 +5011,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub LoadHelp()
-
-        ' read help files for menu
-
-        Dim folders As Array = Nothing
-        Try
-            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
-
-        For Each aline As String In folders
-            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
-                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-                Dim HelpMenu As New ToolStripMenuItem With {
-                    .Text = aline,
-                    .ToolTipText = My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.question_and_answer
-                }
-                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
-                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
-            End If
-        Next
-
-        AddLog("All Logs")
-        AddLog("Robust")
-        AddLog("Error")
-        AddLog("Outworldz")
-        AddLog("Icecast")
-        AddLog("MySQL")
-        AddLog("All Settings")
-        AddLog("--- Regions ---")
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            Dim Name = PropRegionClass.RegionName(X)
-            AddLog("Region " & Name)
-        Next
-
-
-
-    End Sub
-
-
 #End Region
 
 #Region "Updates"
@@ -5090,13 +5022,13 @@ Public Class Form1
             Try
                 Update_version = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             End Try
         End Using
@@ -5379,20 +5311,19 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
-            ' anonymous random ID, both of the versions of Opensim and this program, and the
-            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
+            ' results See my privacy policy at https://www.outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
             Try
                 isPortOpen = client.DownloadString(Url)
             Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As WebException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
 
@@ -6416,9 +6347,7 @@ Public Class Form1
     End Sub
 
     Private Sub LoadLocalIAROAR()
-        ''' <summary>
-        ''' Loads OAR and IAR from the menu
-        ''' </summary>
+        ''' <summary>Loads OAR and IAR from the menu</summary>
         ''' <remarks>Handles both the IAR/OAR and Autobackup folders</remarks>
 
         LoadLocalOARSToolStripMenuItem.DropDownItems.Clear()
@@ -6604,8 +6533,7 @@ Public Class Form1
 
         newScreenPosition = New ScreenPos(Webpage)
         If Not newScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the
-            ' current form.
+            ' Set the new form's desktop location so it appears below and to the right of the current form.
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -6859,10 +6787,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' This method starts at the specified directory. It traverses all subdirectories. It returns a
-    ''' List of those directories.
-    ''' </summary>
+    ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ' This list stores the results.
         Dim result As New List(Of String)
