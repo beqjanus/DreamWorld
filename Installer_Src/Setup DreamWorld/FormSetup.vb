@@ -926,6 +926,7 @@ Public Class Form1
 
         Print(My.Resources.RefreshingOAR)
         SetIAROARContent() ' load IAR and OAR web content
+        LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Then
 
@@ -2464,11 +2465,11 @@ Public Class Form1
         While reader.Peek <> -1
             line = reader.ReadLine()
 
-            If line.Contains("; START") Then
+            If line.StartsWith("; START") Then
                 Output += line & vbCrLf
                 Output += Authorizationlist
                 skip = True
-            ElseIf line.Contains("; END") Then
+            ElseIf line.StartsWith("; END") Then
                 Output += line & vbCrLf
                 skip = False
             Else
@@ -2511,39 +2512,53 @@ Public Class Form1
 
             FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
+
+
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart
+            ' Start region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
+
+
+            Dim RegionSetting As String = Nothing
+
+            ' make a long list of the various regions with region_ at the start
+            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+                Dim RegionName = PropRegionClass.RegionName(RegionNum)
+                If RegionName <> Settings.WelcomeRegion Then
+                    If Settings.SmartStart And PropRegionClass.SmartStart(RegionNum) = "True" Then
+                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                        RegionSetting += "Region_" & RegionName & " = " & "FallbackRegion, Persistent" & vbCrLf
+                    Else
+                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                        RegionSetting += "Region_" & RegionName & " = " & "FallbackRegion" & vbCrLf
+                    End If
+                Else
+                    RegionName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                    RegionSetting += "Region_" & Settings.WelcomeRegion & " = " & """" & "DefaultRegion, DefaultHGRegion" & """" & vbCrLf
+                End If
+            Next
+
+            Dim skip As Boolean = False
             Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\Robust.HG.ini")
                 reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\Robust.HG.ini.proto")
                 'now loop through each line
                 While reader.Peek <> -1
                     line = reader.ReadLine()
-
-                    ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS
-                    ' is enabled Region_Name = FallbackRegion if not a SmartStart
-
-                    If line.Contains("Region_REPLACE") Then
-
-                        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                            Dim RegionName = PropRegionClass.RegionName(RegionNum)
-                            If RegionName <> Settings.WelcomeRegion Then
-                                If Settings.SmartStart And PropRegionClass.SmartStart(RegionNum) = "True" Then
-                                    RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                    line = "Region_" & RegionName & " = " & "FallbackRegion, Persistent"
-                                Else
-                                    RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                                    line = "Region_" & RegionName & " = " & "FallbackRegion"
-                                End If
-                                Diagnostics.Debug.Print(line)
-                                outputFile.WriteLine(line)
-                            Else
-                                line = "Region_" & DefaultName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """"
-                                Diagnostics.Debug.Print(line)
-                                outputFile.WriteLine(line)
-                            End If
-
-                        Next
+                    Dim Output As String = Nothing
+                    Diagnostics.Debug.Print(line)
+                    If line.StartsWith("; START") Then
+                        Output += line & vbCrLf ' add back on the ; START
+                        Output += RegionSetting
+                        skip = True
+                    ElseIf line.StartsWith("; END") Then ' add back on the ; END
+                        Output += line & vbCrLf
+                        skip = False
                     Else
-                        outputFile.WriteLine(line)
+                        If Not skip Then Output += line & vbCrLf
                     End If
+
+                    Diagnostics.Debug.Print(Output)
+                    outputFile.WriteLine(Output)
 
                 End While
             End Using
@@ -3231,7 +3246,7 @@ Public Class Form1
 
     Public Function StartRobust() As Boolean
 
-        StartMySQL() ' prerequsite
+        If Not StartMySQL() Then Return False ' prerequsite
         If CheckRobust() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
@@ -3659,7 +3674,7 @@ Public Class Form1
         PropAborting = False
         Timer1.Start() 'Timer starts functioning
 
-        StartRobust()
+        If Not StartRobust() Then Return False
 
         ' Boot them up
         For Each X As Integer In PropRegionClass.RegionNumbers()

@@ -349,7 +349,9 @@ AssetService="OpenSim.Services.AssetService.dll:AssetService"
 ;;
 ;; Set by Dreamgrid
 ;;
-Region_REPLACE
+; START  <= Leave this line
+; END  <= Leave this line
+
 
 ;; Allow Hyperlinks to be created at the console
 HypergridLinker=true

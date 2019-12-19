@@ -44,14 +44,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=9052
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Test
+RegionFolderName=Wedding Woods
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=10.6.1.14
+BaseHostname=www.outworldz.com
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,24 +59,24 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://10.6.1.14
+PrivURL=http://192.168.2.140
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=8002
+PublicPort=9000
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
-PrivatePort=8003
+PrivatePort=9001
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=DreamGrid
+GridName=Outworldz Grid
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
-DiagnosticsPort=8001
+DiagnosticsPort=8999
 ApachePort=80
 
 [Startup]
@@ -269,7 +269,7 @@ UseSeparatePhysicsThread=True
 
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
 ;; Default script engine to use. Currently, we have XEngine and YEngine
-DefaultScriptEngine=YEngine
+DefaultScriptEngine=XEngine
 
 ;# {HttpProxy} {} {Proxy URL for llHTTPRequest and dynamic texture loading} {} http://proxy.com:8080
 ;; Http proxy setting for llHTTPRequest and dynamic texture loading, if
@@ -378,7 +378,7 @@ alert_uri=http://localhost:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=True
+GenerateMaptiles=False
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -414,7 +414,7 @@ TexturePrims=False
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
 RenderMeshes=False
-RenderMaxHeight=4096
+RenderMaxHeight=4000
 RenderMinHeight=0
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
@@ -507,7 +507,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=10.6.1.14
+host_domain_header_from=www.outworldz.com
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -520,10 +520,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=
+SMTP_SERVER_LOGIN=fred.beckhusen@gmail.com
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=Gmail password
+SMTP_SERVER_PASSWORD=Root1root
 
 [Network]
 'must be started with parameter "-console=rest". Furthermore, the configuration options
@@ -575,7 +575,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=10.6.1.14/32
+OutboundDisallowForUserScriptsExcept=192.168.2.140/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -592,7 +592,7 @@ OutboundDisallowForUserScriptsExcept=10.6.1.14/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=10.6.1.14
+ExternalHostNameForLSL=www.outworldz.com
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -939,18 +939,18 @@ MeshModelAllowTextureToInventory=true
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=True
+Enabled=False
 
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.9
+MinTimerInterval=0.2
 
 [XEngine]
 
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=False
+Enabled=True
 
 ;; How many threads to keep alive even if nothing is happening
 ; MinThreads = 2
@@ -960,7 +960,7 @@ Enabled=False
 ; IdleTimeout = 60
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.9
+MinTimerInterval=0.2
 
 ;# {Priority} {Enabled:true} {Priority for script engine threads?} {Lowest BelowNormal Normal AboveNormal Highest} BelowNormal
 ;; Thread priority ("Lowest", "BelowNormal", "Normal", "AboveNormal",
@@ -1079,10 +1079,10 @@ vivox_server=www.osp.vivox.com
 vivox_sip_uri=osp.vivox.com
 
 ; vivox admin user name
-vivox_admin_user=someusername
+vivox_admin_user=fredusen0744-admin
 
 ; vivox admin password
-vivox_admin_password=somepassword
+vivox_admin_password=aBev5Fzq
 
 ; channel type: "channel" or "positional"
 ; - positional: spatial sound (default)
@@ -1373,10 +1373,10 @@ enabled=False
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=False
+enabled=True
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
-density=0.5
+density=0.3
 
 ; update interval for the cloud cover data returned by llCloud().
 ; default is 1000
