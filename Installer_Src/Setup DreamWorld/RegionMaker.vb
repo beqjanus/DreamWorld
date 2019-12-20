@@ -414,6 +414,7 @@ Public Class RegionMaker
                             DisallowResidents(RegionNumber) = Form1.Settings.GetIni(fName, "DisallowResidents", "", "String")
                             SkipAutobackup(RegionNumber) = Form1.Settings.GetIni(fName, "SkipAutoBackup", "", "String")
                             Snapshot(RegionNumber) = Form1.Settings.GetIni(fName, "RegionSnapShot", "", "String")
+                            ScriptEngine(RegionNumber) = Form1.Settings.GetIni(fName, "ScriptEngine", "", "String")
 
                             Select Case Form1.Settings.GetIni(fName, "SmartStart", "False", "String")
                                 Case "True"
@@ -613,6 +614,7 @@ Public Class RegionMaker
         & "DisallowResidents = " & DisallowResidents(RegionNumber) & vbCrLf _
         & "MinTimerInterval =" & vbCrLf _
         & "Frametime =" & vbCrLf _
+        & "ScriptEngine =" & ScriptEngine(RegionNumber) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionNumber) & vbCrLf
 
         FileStuff.DeleteFile(fname)

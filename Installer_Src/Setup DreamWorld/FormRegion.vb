@@ -855,9 +855,11 @@ Public Class FormRegion
         Dim ScriptEngine As String = ""
         If XEngineButton.Checked = True Then
             ScriptEngine = "XEngine"
+            Form1.PropRegionClass.ScriptEngine(n) = "XEngine"
         End If
         If YEngineButton.Checked = True Then
             ScriptEngine = "YEngine"
+            Form1.PropRegionClass.ScriptEngine(n) = "YEngine"
         End If
 
         Dim Region = "; * Regions configuration file" &
@@ -895,7 +897,7 @@ Public Class FormRegion
                             "DisallowForeigners = " & Form1.PropRegionClass.DisallowForeigners(n) & vbCrLf &
                             "DisallowResidents = " & Form1.PropRegionClass.DisallowResidents(n) & vbCrLf &
                             "SkipAutoBackup = " & Form1.PropRegionClass.SkipAutobackup(n) & vbCrLf &
-                            "ScriptEngine = " & ScriptEngine & vbCrLf &
+                            "ScriptEngine = " & Form1.PropRegionClass.ScriptEngine(n) & vbCrLf &
                             "SmartStart = " & Form1.PropRegionClass.SmartStart(n) & vbCrLf
 
         Debug.Print(Region)
@@ -1442,6 +1444,7 @@ Public Class FormRegion
             ScriptDefaultButton.Checked = False
             YEngineButton.Checked = False
         End If
+        If Initted1 Then Changed1 = True
 
     End Sub
 
@@ -1451,6 +1454,7 @@ Public Class FormRegion
             ScriptDefaultButton.Checked = False
             XEngineButton.Checked = False
         End If
+        If Initted1 Then Changed1 = True
 
     End Sub
 
