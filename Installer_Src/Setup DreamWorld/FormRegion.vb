@@ -1286,40 +1286,10 @@ Public Class FormRegion
 
         If Physics_Default.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to default")
-            PhysicsNone.Checked = False
-            PhysicsODE.Checked = False
             PhysicsubODE.Checked = False
-            PhysicsBullet.Checked = False
             PhysicsSeparate.Checked = False
         End If
 
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs)
-
-        If PhysicsBullet.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Bullet")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs)
-
-        If PhysicsNone.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to None")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs)
-
-        If PhysicsODE.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to ODE")
-        End If
         If Initted1 Then Changed1 = True
 
     End Sub
@@ -1359,15 +1329,6 @@ Public Class FormRegion
 
         If PublishDefault.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " is set to default for snapshots")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs)
-
-        If Physicsubhybrid.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's Hybrid ")
         End If
         If Initted1 Then Changed1 = True
 

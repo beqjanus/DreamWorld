@@ -1764,7 +1764,7 @@ Public Class Form1
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";") Then Return True
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
         Settings.SaveINI(System.Text.Encoding.UTF8)
-        Return FalseDoOpensimINI
+        Return False
 
     End Function
 

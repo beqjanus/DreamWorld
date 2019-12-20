@@ -235,6 +235,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Public Enums"
 
     ' icons image list layout
@@ -338,6 +340,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth(My.Resources.Region_Ports_word, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("X".ToUpperInvariant, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Y".ToUpperInvariant, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word, 40), HorizontalAlignment.Center)
@@ -415,6 +418,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Public Methods"
 
     Public Sub LoadMyListView()
@@ -457,6 +462,8 @@ Public Class RegionList
     End Function
 
 #End Region
+
+
 
 #Region "Private Methods"
 
@@ -508,8 +515,7 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
-        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -646,6 +652,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Private Methods"
 
     Private Sub ShowRegions()
@@ -756,8 +764,8 @@ Public Class RegionList
                         .Checked = Form1.PropRegionClass.RegionEnabled(X)
                     }
                     item1.SubItems.Add(Form1.PropRegionClass.GroupName(X).ToString(Globalization.CultureInfo.InvariantCulture))
-
                     item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(X).ToString(Globalization.CultureInfo.InvariantCulture))
+
                     item1.SubItems.Add(Letter)
                     Dim fmtXY = "00000" ' 65536
                     Dim fmtRam = "0000." ' 9999 MB
@@ -776,6 +784,8 @@ Public Class RegionList
 #Enable Warning CA1031 ' Do not catch general exception types
                         item1.SubItems.Add("0".ToUpperInvariant)
                     End Try
+
+                    item1.SubItems.Add(Form1.PropRegionClass.RegionPort(X).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.CoordX(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
@@ -1336,6 +1346,8 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
+
+
 #Region "Private Fields"
 
     Private col As Integer
@@ -1355,6 +1367,8 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
