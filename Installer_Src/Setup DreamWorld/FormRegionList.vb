@@ -347,6 +347,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth(My.Resources.Estate_word, 100), HorizontalAlignment.Left)
 
         ' optional
+        ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth(My.Resources.Scripts_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Maps_word, colsize.ColumnWidth(My.Resources.Maps_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Physics_word, colsize.ColumnWidth(My.Resources.Physics_word, 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Birds_word, colsize.ColumnWidth(My.Resources.Birds_word, 60), HorizontalAlignment.Center)
@@ -358,7 +359,6 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Manager_God_word, colsize.ColumnWidth(My.Resources.Manager_God_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.No_Autobackup, colsize.ColumnWidth(My.Resources.No_Autobackup, 90), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Publicity_Word, colsize.ColumnWidth(My.Resources.Publicity_Word, 80), HorizontalAlignment.Center)
-
         ListView1.Columns.Add(My.Resources.Script_Rate_word, colsize.ColumnWidth(My.Resources.Script_Rate_word, 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth(My.Resources.Frame_Rate_word, 80), HorizontalAlignment.Center)
 
@@ -809,6 +809,16 @@ Public Class RegionList
                         Estate = MysqlInterface.EstateName(Form1.PropRegionClass.UUID(X))
                     End If
                     item1.SubItems.Add(Estate)
+
+                    'Scripts XEngine or YEngine
+                    Select Case Form1.PropRegionClass.ScriptEngine(X)
+                        Case "YEngine"
+                            item1.SubItems.Add("YEngine")
+                        Case "XEngine"
+                            item1.SubItems.Add("XEngine")
+                        Case Else
+                            item1.SubItems.Add("-".ToUpperInvariant)
+                    End Select
 
                     'Map
                     If Form1.PropRegionClass.MapType(X).Length > 0 Then
