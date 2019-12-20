@@ -1288,15 +1288,14 @@ Public Class Form1
                     LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                     LoopbackProcess.StartInfo.FileName = PropMyFolder & "\NAT_Loopback_Tool.bat"
                     LoopbackProcess.StartInfo.CreateNoWindow = False
-                    LoopbackProcess.StartInfo.Arguments = """" & adapter.Name & """"
+                    LoopbackProcess.StartInfo.Arguments = "Loopback"
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                     Try
                         LoopbackProcess.Start()
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
-
-                    LoopbackProcess.WaitForExit()
+                    Exit For
                 End Using
             End If
         Next
@@ -2512,12 +2511,8 @@ Public Class Form1
 
             FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
-
-
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
-            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart
-            ' Start region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
-
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is
+            ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -6353,7 +6348,7 @@ Public Class Form1
     End Sub
 
     Private Sub HelpOnOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnOARsToolStripMenuItem.Click
-        Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.0909.0%2B"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.9.0%2B"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
