@@ -297,6 +297,7 @@ Public Class RegionMaker
             ._DisableGloebits = "",
             ._FrameTime = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._SkipAutobackup = "",
+            ._ScriptEngine = "",
             ._RegionSmartStart = ""
         }
 
@@ -676,35 +677,21 @@ Public Class RegionMaker
 #Region "OptionalStorage"
 
         Public _AllowGods As String = ""
-
         Public _Birds As String = ""
-
         Public _DisableGloebits As String = ""
-
         Public _FrameTime As String = ""
-
         Public _ManagerGod As String = ""
-
         Public _MapType As String = ""
-
         Public _MaxAgents As String = ""
-
         Public _MaxPrims As String = ""
-
         Public _MinTimerInterval As String = ""
-
         Public _NonPhysicalPrimMax As String = ""
-
         Public _PhysicalPrimMax As String = ""
-
         Public _Physics As String = "  "
-
         Public _RegionGod As String = ""
-
-        ''' <summary> <Must be all strings as a blank means use the default </summary>
         Public _RegionSmartStart As String = ""
-
         Public _RegionSnapShot As String = ""
+        Public _ScriptEngine As String = ""
         Public _SkipAutobackup As String = ""
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
@@ -1087,6 +1074,16 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As String)
             RegionList(RegionNumber)._RegionSnapShot = Value
+        End Set
+    End Property
+
+    Public Property ScriptEngine(RegionNumber As Integer) As String
+        Get
+            If Bad(RegionNumber) Then Return ""
+            Return RegionList(RegionNumber)._ScriptEngine
+        End Get
+        Set(ByVal Value As String)
+            RegionList(RegionNumber)._ScriptEngine = Value
         End Set
     End Property
 

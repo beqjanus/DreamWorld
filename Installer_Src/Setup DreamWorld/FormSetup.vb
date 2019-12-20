@@ -1764,7 +1764,7 @@ Public Class Form1
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";") Then Return True
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
         Settings.SaveINI(System.Text.Encoding.UTF8)
-        Return False
+        Return FalseDoOpensimINI
 
     End Function
 
@@ -2226,6 +2226,19 @@ Public Class Form1
             Case "False"
                 Settings.SetIni("DataSnapshot", "index_sims", "False")
         End Select
+
+        'ScriptEngine Overrides
+        If PropRegionClass.ScriptEngine(RegionNum) = "XEngine" Then
+            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
+            Settings.SetIni("XEngine", "Enabled", "True")
+            Settings.SetIni("YEngine", "Enabled", "False")
+        End If
+
+        If PropRegionClass.ScriptEngine(RegionNum) = "YEngine" Then
+            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
+            Settings.SetIni("XEngine", "Enabled", "False")
+            Settings.SetIni("YEngine", "Enabled", "True")
+        End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
@@ -3561,8 +3574,6 @@ Public Class Form1
             Return True
         End If
 
-        DoRegion(BootName)
-
         Application.DoEvents()
 
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
@@ -3590,13 +3601,13 @@ Public Class Form1
 
         End If
 
+        DoRegion(BootName)
+
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
 
         Dim myProcess As Process = GetNewProcess()
         Dim Groupname = Regionclass.GroupName(RegionNumber)
         Print(My.Resources.Starting_word & " " & Groupname)
-
-        DoRegion(BootName)
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams

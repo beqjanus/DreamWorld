@@ -31,8 +31,7 @@ Public Class FormRegion
     Dim changed As Boolean
     Dim initted As Boolean = False
 
-    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save
-    ' a form
+    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
     Dim isNew As Boolean = False
 
     Dim n As Integer = 0
@@ -281,12 +280,12 @@ Public Class FormRegion
         Select Case Form1.PropRegionClass.Physics(N1)
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
-            Case "0" : PhysicsNone.Checked = True
-            Case "1" : PhysicsODE.Checked = True
-            Case "2" : PhysicsBullet.Checked = True
+            Case "0" : Physics_Default.Checked = True
+            Case "1" : Physics_Default.Checked = True
+            Case "2" : Physics_Default.Checked = True
             Case "3" : PhysicsSeparate.Checked = True
             Case "4" : PhysicsubODE.Checked = True
-            Case "5" : Physicsubhybrid.Checked = True
+            Case "5" : Physics_Default.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 
@@ -394,6 +393,15 @@ Public Class FormRegion
                 DisallowResidents.Checked = False
             Case "True"
                 DisallowResidents.Checked = True
+        End Select
+
+        Select Case Form1.PropRegionClass.ScriptEngine(N1)
+            Case ""
+                ScriptDefaultButton.Checked = True
+            Case "XEngine"
+                XEngineButton.Checked = False
+            Case "YEngine"
+                YEngineButton.Checked = True
         End Select
 
         Me.Show() ' time to show the results
@@ -763,18 +771,10 @@ Public Class FormRegion
         Dim Phys As Integer = 2
         If Physics_Default.Checked Then
             Phys = -1
-        ElseIf PhysicsNone.Checked Then
-            Phys = 0
-        ElseIf PhysicsODE.Checked Then
-            Phys = 1
-        ElseIf PhysicsBullet.Checked Then
-            Phys = 2
         ElseIf PhysicsSeparate.Checked Then
             Phys = 3
         ElseIf PhysicsubODE.Checked Then
             Phys = 4
-        ElseIf Physicsubhybrid.Checked Then
-            Phys = 5
         End If
 
         If Physics_Default.Checked Then
@@ -852,6 +852,14 @@ Public Class FormRegion
             Form1.PropRegionClass.SmartStart(n) = ""
         End If
 
+        Dim ScriptEngine As String = ""
+        If XEngineButton.Checked = True Then
+            ScriptEngine = "XEngine"
+        End If
+        If YEngineButton.Checked = True Then
+            ScriptEngine = "YEngine"
+        End If
+
         Dim Region = "; * Regions configuration file" &
                             "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
                             "; Automatically changed by Dreamworld" & vbCrLf &
@@ -887,6 +895,7 @@ Public Class FormRegion
                             "DisallowForeigners = " & Form1.PropRegionClass.DisallowForeigners(n) & vbCrLf &
                             "DisallowResidents = " & Form1.PropRegionClass.DisallowResidents(n) & vbCrLf &
                             "SkipAutoBackup = " & Form1.PropRegionClass.SkipAutobackup(n) & vbCrLf &
+                            "ScriptEngine = " & ScriptEngine & vbCrLf &
                             "SmartStart = " & Form1.PropRegionClass.SmartStart(n) & vbCrLf
 
         Debug.Print(Region)
@@ -1288,7 +1297,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
+    Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs)
 
         If PhysicsBullet.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Bullet")
@@ -1297,7 +1306,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
+    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs)
 
         If PhysicsNone.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to None")
@@ -1306,7 +1315,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
+    Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs)
 
         If PhysicsODE.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to ODE")
@@ -1355,12 +1364,21 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles Physicsubhybrid.CheckedChanged
+    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs)
 
         If Physicsubhybrid.Checked Then
             Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's Hybrid ")
         End If
         If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub RadioButton5_CheckedChanged_1(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
+
+        If ScriptDefaultButton.Checked Then
+            XEngineButton.Checked = False
+            YEngineButton.Checked = False
+        End If
 
     End Sub
 
@@ -1454,6 +1472,24 @@ Public Class FormRegion
     Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
 
         If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub XENgineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
+
+        If XEngineButton.Checked Then
+            ScriptDefaultButton.Checked = False
+            YEngineButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub YEngineButton_CheckedChanged(sender As Object, e As EventArgs) Handles YEngineButton.CheckedChanged
+
+        If YEngineButton.Checked Then
+            ScriptDefaultButton.Checked = False
+            XEngineButton.Checked = False
+        End If
 
     End Sub
 
