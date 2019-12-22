@@ -118,7 +118,7 @@ Public Module MysqlInterface
 
         If Form1.Settings.RegionMySqlConnection.Length = 0 Then Return ""
 
-        Debug.Print(Form1.Settings.RegionMySqlConnection)
+        'Debug.Print(Form1.Settings.RegionMySqlConnection)
         Dim name As String = ""
         Dim Val As String = ""
 

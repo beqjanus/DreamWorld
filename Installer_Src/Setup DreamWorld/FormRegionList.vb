@@ -1040,7 +1040,9 @@ Public Class RegionList
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
-            Dim link = "hop:   " & Form1.Settings.PublicIP & ":" & Form1.Settings.HttpPort & "/" & RegionName
+            'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
+
+            Dim link = "secondlife://http|!!" & Form1.Settings.PublicIP & "|" & Form1.Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
             Catch ex As InvalidOperationException
