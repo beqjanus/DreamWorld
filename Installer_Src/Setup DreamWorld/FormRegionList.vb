@@ -235,8 +235,6 @@ Public Class RegionList
 
 #End Region
 
-
-
 #Region "Public Enums"
 
     ' icons image list layout
@@ -418,11 +416,9 @@ Public Class RegionList
 
 #End Region
 
+#Region "LoadListView"
 
-
-#Region "Public Methods"
-
-    Public Sub LoadMyListView()
+    Private Sub LoadMyListView()
 
         MysqlIsRunning = False
         If Form1.CheckMysql Then
@@ -435,226 +431,6 @@ Public Class RegionList
         End If
 
     End Sub
-
-    Private Shared Function LoadImage(S As String) As Image
-        Dim bmp As Bitmap = Nothing
-        Dim u As New Uri(S)
-        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
-        Dim response As System.Net.WebResponse = Nothing
-        Try
-            response = request.GetResponse()
-        Catch ex As NotImplementedException
-        End Try
-
-        Dim responseStream As System.IO.Stream = Nothing
-        Try
-            responseStream = response.GetResponseStream()
-        Catch ex As NotSupportedException
-        End Try
-
-        If responseStream IsNot Nothing Then
-            bmp = New Bitmap(responseStream)
-            responseStream.Dispose()
-        End If
-
-        Return bmp
-
-    End Function
-
-#End Region
-
-
-
-#Region "Private Methods"
-
-    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim RegionForm As New FormRegion
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        RegionForm.Init("")
-        RegionForm.Activate()
-        RegionForm.Visible = True
-        RegionForm.Select()
-        RegionForm.BringToFront()
-
-    End Sub
-
-    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
-        Dim item As ListViewItem
-
-        For Each item In regions
-            Dim RegionName = item.SubItems(1).Text
-            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
-                Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
-                Try
-                    Dim result = Process.Start(webAddress)
-                Catch ex As ObjectDisposedException
-                Catch ex As FileNotFoundException
-                Catch ex As System.ComponentModel.Win32Exception
-                End Try
-            End If
-        Next
-        PropUpdateView() = True
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
-
-        Form1.PropRegionClass.GetAllRegions()
-        LoadMyListView()
-
-    End Sub
-
-    ' ColumnClick event handler.
-    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
-
-        ListView1.SuspendLayout()
-        Me.ListView1.Sorting = SortOrder.None
-
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
-        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
-
-        ListView1.ResumeLayout()
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("RegionList")
-    End Sub
-
-    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
-
-        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
-        Dim item As ListViewItem
-        For Each item In regions
-            Dim RegionName = item.SubItems(0).Text
-            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
-                StartStopEdit(R, RegionName)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
-
-        Dim Item As ListViewItem = Nothing
-        Try
-            Item = ListView1.Items.Item(e.Index)
-        Catch ex As ArgumentOutOfRangeException
-        End Try
-
-        Dim n As Integer = Form1.PropRegionClass.FindRegionByName(Item.Text)
-        If n = -1 Then Return
-        Dim GroupName = Form1.PropRegionClass.GroupName(n)
-        For Each X In Form1.PropRegionClass.RegionListByGroupNum(GroupName)
-            If ViewNotBusy1 Then
-                If (e.CurrentValue = CheckState.Unchecked) Then
-                    Form1.PropRegionClass.RegionEnabled(X) = True
-                    ' and region file on disk
-                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
-                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "True")
-                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-                ElseIf (e.CurrentValue = CheckState.Checked) Then
-                    Form1.PropRegionClass.RegionEnabled(X) = False
-                    ' and region file on disk
-                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
-                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "False")
-                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-                End If
-            End If
-        Next
-
-        PropUpdateView() = True ' force a refresh
-
-    End Sub
-
-    Private Sub ShowAvatars()
-        Try
-            ViewNotBusy1 = False
-
-            AvatarView.Show()
-            ListView1.Hide()
-
-            AvatarView.BeginUpdate()
-            AvatarView.Items.Clear()
-
-            Dim Index = 0
-
-            ' Create items and subitems for each item.
-            Dim L As New Dictionary(Of String, String)
-
-            If MysqlIsRunning1 Then
-                L = MysqlInterface.GetAgentList()
-            End If
-
-            For Each Agent In L
-                Dim item1 As New ListViewItem(Agent.Key, Index)
-                item1.SubItems.Add(Agent.Value)
-                item1.SubItems.Add(My.Resources.Local)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index += 1
-            Next
-
-            If L.Count = 0 Then
-                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.Local_Grid)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-                Index += 1
-            End If
-
-            Index = 0
-
-            ' Hypergrid
-            '
-            ' Create items and subitems for each item.
-            Dim M As New Dictionary(Of String, String)
-            If MysqlIsRunning1 Then
-                M = GetHGAgentList()
-            End If
-
-            For Each Agent In M
-                If Agent.Value.Length > 0 Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add(My.Resources.HG_word_NT)
-                    AvatarView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
-            Next
-
-            If Index = 0 Then
-                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.HG_word_NT)
-                AvatarView.Items.AddRange(New ListViewItem() {item1})
-            End If
-
-            Me.AvatarView.TabIndex = 0
-            AvatarView.EndUpdate()
-
-            AvatarView.Show()
-
-            ViewNotBusy1 = True
-            PropUpdateView() = False
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-            Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
-        End Try
-
-    End Sub
-
-#End Region
-
-
-
-#Region "Private Methods"
 
     Private Sub ShowRegions()
 
@@ -790,17 +566,10 @@ Public Class RegionList
                     item1.SubItems.Add(Form1.PropRegionClass.CoordY(X).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
                     Dim size As String = ""
-                    If Form1.PropRegionClass.SizeX(X) = 256 Then
-                        size = "1X1"
-                    ElseIf Form1.PropRegionClass.SizeX(X) = 512 Then
-                        size = "2X2"
-                    ElseIf Form1.PropRegionClass.SizeX(X) = 768 Then
-                        size = "3X3"
-                    ElseIf Form1.PropRegionClass.SizeX(X) = 1024 Then
-                        size = "4X4"
-                    Else
-                        size = Form1.PropRegionClass.SizeX(X).ToString(Globalization.CultureInfo.InvariantCulture)
-                    End If
+
+                    Dim s As Integer = Form1.PropRegionClass.SizeX(X) / 256
+                    size = s & "X" & s
+
                     item1.SubItems.Add(size)
 
                     ' add estate name
@@ -957,6 +726,223 @@ Public Class RegionList
         AvatarView.Hide()
 
     End Sub
+
+#End Region
+
+#Region "Click Methods"
+
+    Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        RegionForm.Init("")
+        RegionForm.Activate()
+        RegionForm.Visible = True
+        RegionForm.Select()
+        RegionForm.BringToFront()
+
+    End Sub
+
+    Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.AvatarView.SelectedItems
+        Dim item As ListViewItem
+
+        For Each item In regions
+            Dim RegionName = item.SubItems(1).Text
+            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If R >= 0 Then
+                Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
+                Try
+                    Dim result = Process.Start(webAddress)
+                Catch ex As ObjectDisposedException
+                Catch ex As FileNotFoundException
+                Catch ex As System.ComponentModel.Win32Exception
+                End Try
+            End If
+        Next
+        PropUpdateView() = True
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
+
+        Form1.PropRegionClass.GetAllRegions()
+        LoadMyListView()
+
+    End Sub
+
+    ' ColumnClick event handler.
+    Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
+
+        ListView1.SuspendLayout()
+        Me.ListView1.Sorting = SortOrder.None
+
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
+        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
+
+        ListView1.ResumeLayout()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        Form1.Help("RegionList")
+    End Sub
+
+    Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
+
+        Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
+        Dim item As ListViewItem
+        For Each item In regions
+            Dim RegionName = item.SubItems(0).Text
+            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If R >= 0 Then
+                StartStopEdit(R, RegionName)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
+
+        Dim Item As ListViewItem = Nothing
+        Try
+            Item = ListView1.Items.Item(e.Index)
+        Catch ex As ArgumentOutOfRangeException
+        End Try
+
+        Dim n As Integer = Form1.PropRegionClass.FindRegionByName(Item.Text)
+        If n = -1 Then Return
+        Dim GroupName = Form1.PropRegionClass.GroupName(n)
+        For Each X In Form1.PropRegionClass.RegionListByGroupNum(GroupName)
+            If ViewNotBusy1 Then
+                If (e.CurrentValue = CheckState.Unchecked) Then
+                    Form1.PropRegionClass.RegionEnabled(X) = True
+                    ' and region file on disk
+                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
+                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "True")
+                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+                ElseIf (e.CurrentValue = CheckState.Checked) Then
+                    Form1.PropRegionClass.RegionEnabled(X) = False
+                    ' and region file on disk
+                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(X), ";")
+                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(X), "Enabled", "False")
+                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+                End If
+            End If
+        Next
+
+        PropUpdateView() = True ' force a refresh
+
+    End Sub
+
+    Private Sub ShowAvatars()
+        Try
+            ViewNotBusy1 = False
+
+            AvatarView.Show()
+            ListView1.Hide()
+
+            AvatarView.BeginUpdate()
+            AvatarView.Items.Clear()
+
+            Dim Index = 0
+
+            ' Create items and subitems for each item.
+            Dim L As New Dictionary(Of String, String)
+
+            If MysqlIsRunning1 Then
+                L = MysqlInterface.GetAgentList()
+            End If
+
+            For Each Agent In L
+                Dim item1 As New ListViewItem(Agent.Key, Index)
+                item1.SubItems.Add(Agent.Value)
+                item1.SubItems.Add(My.Resources.Local)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+                Index += 1
+            Next
+
+            If L.Count = 0 Then
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add("-".ToUpperInvariant)
+                item1.SubItems.Add(My.Resources.Local_Grid)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+                Index += 1
+            End If
+
+            Index = 0
+
+            ' Hypergrid
+            '
+            ' Create items and subitems for each item.
+            Dim M As New Dictionary(Of String, String)
+            If MysqlIsRunning1 Then
+                M = GetHGAgentList()
+            End If
+
+            For Each Agent In M
+                If Agent.Value.Length > 0 Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Agent.Value)
+                    item1.SubItems.Add(My.Resources.HG_word_NT)
+                    AvatarView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
+            Next
+
+            If Index = 0 Then
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add("-".ToUpperInvariant)
+                item1.SubItems.Add(My.Resources.HG_word_NT)
+                AvatarView.Items.AddRange(New ListViewItem() {item1})
+            End If
+
+            Me.AvatarView.TabIndex = 0
+            AvatarView.EndUpdate()
+
+            AvatarView.Show()
+
+            ViewNotBusy1 = True
+            PropUpdateView() = False
+#Disable Warning CA1031 ' Do not catch general exception types
+        Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
+            Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Private Methods"
+
+    Private Shared Function LoadImage(S As String) As Image
+        Dim bmp As Bitmap = Nothing
+        Dim u As New Uri(S)
+        Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
+        Dim response As System.Net.WebResponse = Nothing
+        Try
+            response = request.GetResponse()
+        Catch ex As NotImplementedException
+        End Try
+
+        Dim responseStream As System.IO.Stream = Nothing
+        Try
+            responseStream = response.GetResponseStream()
+        Catch ex As NotSupportedException
+        End Try
+
+        If responseStream IsNot Nothing Then
+            bmp = New Bitmap(responseStream)
+            responseStream.Dispose()
+        End If
+
+        Return bmp
+
+    End Function
 
     Private Sub StartStopEdit(n As Integer, RegionName As String)
 
@@ -1356,8 +1342,6 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
-
-
 #Region "Private Fields"
 
     Private col As Integer
@@ -1377,8 +1361,6 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
-
-
 
 #Region "Public Methods"
 
