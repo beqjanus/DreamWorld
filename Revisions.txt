@@ -2,17 +2,38 @@ Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
+V3.297
+
+Teleport signs could be fooled into showing offline regions if a region had crashed or been stopped without a quit command. Now they have to be both enabled and booted, too.
+
+OAR menus refreshed every hour from Hyperica/Outworldz – no need to restart to get a new release of a Region.
+
+Regions have an Override per region for Script Engine for X or Y Engine.
+
+UBODE and Bullet are the remaining Script Engines
+
+Diva Wifi updated to latest version which repairs problems in adding Default Avatars.
+
+Load OAR 0.9 link was busticated.
+
+New Categories for Publicity (and fixed the ones with commas).
+
+Ports and Script Engines now show in Region Lists.
+
+IF Apache is a service, leave MySQL running so PHP maps work.
+
+
 V3.296
 
 Added a Log->Error Log to the menu. This log is the first place to look when it crashes. Its always been there, just not in the menu. Doh!
 
 Changes to the way it detects the process IDs of running Opensims. Added a single class to monitor all of them. Hopefully this will eliminate some of the odd things that have been reported that happen on occasion, such as not closing he DOS windows, but only on first boot.
 
-Mysql now stops when you click Stop.  This helps prevent Mysql corruption. If Apache is running as a Service, Mysql, PHP and Apache are left running, even when you exit so your map and home pages will still appear. Diva Wifi Web page is part of Robust, so it will not.
+MySQL now stops when you click Stop.  This helps prevent MySQL corruption. If Apache is running as a Service, MySQL, PHP and Apache are left running, even when you exit so your map and home pages will still appear. Diva Wifi Web page is part of Robust, so it will not.
 
 Tweaks to the 4 icons, including a new Red X Error Icon.
 
-Updated Licenses to some of the downloadable OAR files to be absolutely clear which ones are exclusinve to the Outworldz.
+Updated Licenses to some of the downloadable OAR files to be absolutely clear which ones are exclusive to the Outworldz.
 
 
 
@@ -131,7 +152,7 @@ Updated to Released Opensim  "0.9.1.1 Yeti "Server Release Notes" hash #defa2358
 
 V3.23
 Teleport to a region from within Dreamgrid in the Region Start/Stop popup panel.
-Robust, Apache, Icecast and Mysql can be set to  auto restart if they crash
+Robust, Apache, Icecast and MySQL can be set to  auto restart if they crash
 Update Mysq.Data.dll
 Update Visual Studio 2017 to latest FXcops and reduce footprint on unused extension in Github
 Removed embedded zip compressors for smaller footprint.
@@ -139,7 +160,7 @@ Drop unused icons
 
 V3.22
 Shorten boot time by being smart about Firewall updates. On a very fast machine, it takes 9 seconds to get to robust start. Firewall took up 31 seconds more.  Now it takes 0 unless you add a region.
-Restart Robust, Apache,Mysql and Apache if Auto restart is Enabled
+Restart Robust, Apache,MySQL and Apache if Auto restart is Enabled
 
 V3.21
 Saving a region and them immediately re-opening it did not show changes. The changes were saved to disk but not reloaded into RAM.
@@ -210,7 +231,7 @@ Removed lots of warnings in Visual Studio 2019.
 
 V3.17 is a release candidate for V3.2, the official release that everybody gets a notice to update to.
 There is no longer an "updater versus installer".  For backwards compatibility, there are still two files on the web server, but they are identical.
-If you want to start over with a blank database, you can just delete mysql\data and it will be rebuilt as a blank system
+If you want to start over with a blank database, you can just delete MySQL\data and it will be rebuilt as a blank system
 New backgound updater process.
 "Welcome to " & SimName() & " , <USERNAME>") set for welcome message.
 Build process is much faster by using a temp folder instead of adding and deleting from a  zip. Also easier to audit.
@@ -219,7 +240,7 @@ Console Commands did not always pop open the DOS window
 Load OAR in some earlier versions was borked.
 GDI+ error when changing Publicity Photo is fixed
 Snapshot, MinTimerInterval, Disable Gloebits fixed in region Overrides
-MYSQL speedup with a small cache: uery_cache_size=8M
+MySQL speedup with a small cache: uery_cache_size=8M
 Compile instructions updated.
 Add help for ServerType, thanks to Garry Beaumont
 Access of shared member through an instance; qualifying expression will not be evaluated refactored
@@ -271,7 +292,7 @@ IM Offline works without having to open port 8003.
 Firewall code typo put an extra Apache Httpp Port 80 in the firewall every start.
 
 V3.06
-PHP Maps and Search working for any MYSQL port. Older systems used port 3309 as 3306 was use by some for Sim-On-A-Stick or OsGrid/Metro.
+PHP Maps and Search working for any MySQL port. Older systems used port 3309 as 3306 was use by some for Sim-On-A-Stick or OsGrid/Metro.
 Use port 8003 for Offline IM to fix a problem where IMs would loop endlessly in the Console
 Save IAR was non functional when all the Handles got dropped.
 Save IAR needs to fiund a running region.  If the first region was found, the region was not popped up on screen. Old bug.
@@ -297,7 +318,7 @@ Added Windows 1903 patches for Dot net 4.8 that caused many issues with MOAP, an
 Checkbox to enable FsAssets - a disk based De-duplicating Asset Filesystem. I reommend you start your regions one at a time so they will be properly de-duplicated one time.
 Reworked Region/Osgrid server to allow regions to have their own IP address.  Usually you do not need to do anything to run a region server except to
 add the DNS name and change the setting. But this fails if the region server is on a different network.  See Ports section Help for details.
-Auto Teleports now support multiple region servers.  Avatar counts will not work on Region servers - no access to the data unless you edit robust settings and grant access to the robust server with special Mysql commands.
+Auto Teleports now support multiple region servers.  Avatar counts will not work on Region servers - no access to the data unless you edit robust settings and grant access to the robust server with special MySQL commands.
 Added a catch-all Error message handler for any missed exceptions to catch unexpected crashes.
 Flotsam cache can be adjusted in size with a new panel.
 Allow the Partners to work on region server.  Also updated the Steampunk TP and set the partners prinm to full mod/copy.
@@ -338,7 +359,7 @@ Auto detect any loopback adapter named "Loopback", and set it up when the grid s
 This set loopback adapters with the correct IP automatically.
 V2.92
 Correct the count of HG Avatars in Region List ? was showing only the 1st one
-Added a longer timeout to Mysql connections.
+Added a longer timeout to MySQL connections.
 Drop Xbakes
 ?real' check if sim is still shutting down by poking port.
 

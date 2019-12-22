@@ -7655,6 +7655,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Waiting on Robust to start.
+        '''</summary>
+        Friend ReadOnly Property Waiting_on_Robust() As String
+            Get
+                Return ResourceManager.GetString("Waiting_on_Robust", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Waiting for all regions to exit.
         '''</summary>
         Friend ReadOnly Property Waiting_text() As String
