@@ -681,7 +681,7 @@ Public Class Form1
 
         PropRegionClass.RegionEnabled(N) = True
 
-        PropOpensimIsRunning() = True
+
 
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
@@ -721,7 +721,6 @@ Public Class Form1
         If SetIniData() Then Return   ' set up the INI files
 
         If Not StartMySQL() Then
-
             ToolBar(False)
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -773,6 +772,8 @@ Public Class Form1
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
+
+        PropOpensimIsRunning() = True
 
         ' Launch the rockets
         Print(My.Resources.Start_Regions_word)
@@ -3592,6 +3593,7 @@ Public Class Form1
 
         Application.DoEvents()
 
+        DoRegion(BootName)
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
@@ -3617,7 +3619,6 @@ Public Class Form1
 
         End If
 
-        DoRegion(BootName)
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
 
@@ -4208,7 +4209,7 @@ Public Class Form1
             SetWindowText(hwnd, windowName)
             status = NativeMethods.SetWindowText(hwnd, windowName)
             WindowCounter += 1
-            If WindowCounter > 600 Then '  60 seconds
+            If WindowCounter > 50 Then '  5 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
@@ -4309,35 +4310,36 @@ Public Class Form1
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection())
-            Dim UserStmt = "SELECT regionName from REGIONS"
-            Try
-                NewSQLConn.Open()
-                Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+        ' Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection())
+        'UserStmt = "SELECT regionName from REGIONS"
+        'Try
+        'NewSQLConn.Open()
+        'Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+        'Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-                While reader.Read()
-                    Dim LongName = reader.GetString(0)
-                    Diagnostics.Debug.Print("regionname {0}>", LongName)
+        'While reader.Read()
+        ' Dim LongName = reader.GetString(0)
+        'Diagnostics.Debug.Print("regionname {0}>", LongName)
+        For Each RegionNumber In PropRegionClass.RegionNumbers
+            'Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
+            If RegionNumber >= 0 Then
+                If PropRegionClass.Teleport(RegionNumber) = "True" And
+                             PropRegionClass.RegionEnabled(RegionNumber) = True And
+                             PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ToSort.Add(PropRegionClass.RegionName(RegionNumber))
+                End If
+            End If
+        Next
 
-                    Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                    If RegionNumber >= 0 Then
-                        If PropRegionClass.Teleport(RegionNumber) = "True" And
-                                PropRegionClass.RegionEnabled(RegionNumber) = True And
-                                PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted Then
-                            ToSort.Add(LongName)
-                        End If
-                    End If
+        'End While
 
-                End While
-
-                cmd.Dispose()
+        'cmd.Dispose()
 #Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
+        'Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
-                Console.WriteLine("Error: " & ex.Message)
-            End Try
-        End Using
+        ' Console.WriteLine("Error: " & ex.Message)
+        '      End Try
+        'End Using
 
         ' Acquire keys And sort them.
         ToSort.Sort()
@@ -5188,7 +5190,7 @@ Public Class Form1
                 Return True
             End If
         End Using
-        CheckPort = False
+        Return False
 
     End Function
 
