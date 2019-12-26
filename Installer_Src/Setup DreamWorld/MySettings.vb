@@ -140,8 +140,8 @@ Public Class MySettings
             RunOnce() = My.Settings.RunOnce
 
             SCEnable() = False
-            SCPortBase() = 8080
-            SCPortBase1() = 8081
+            SCPortBase() = 8100
+            SCPortBase1() = 8101
             SCPassword() = "A password"
             SCAdminPassword() = "Admin Password"
 
