@@ -1215,15 +1215,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property PortsChanged As Boolean
-        Get
-            Return CType(GetMySetting("PortsChanged", "True"), Boolean)
-        End Get
-        Set(value As Boolean)
-            SetMySetting("PortsChanged", Convert.ToString(value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property Primlimits() As Boolean
         Get
             Return CType(GetMySetting("Primlimits", "False"), Boolean)

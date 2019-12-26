@@ -427,7 +427,6 @@ Public Class FormRegion
             WriteRegion(N1)
             Form1.CopyOpensimProto(RegionName.Text)
             Form1.PropRegionClass.GetAllRegions()
-            Form1.Settings.PortsChanged = True
             Form1.PropUpdateView = True ' make form refresh
 
             Changed1 = False
@@ -454,7 +453,6 @@ Public Class FormRegion
 
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.PropRegionClass.GetAllRegions()
-                    Form1.Settings.PortsChanged = True
                     Form1.PropUpdateView() = True
                 End If
             End If
@@ -526,7 +524,6 @@ Public Class FormRegion
         End If
 
         Form1.PropRegionClass.GetAllRegions()
-        Form1.Settings.PortsChanged = True
         Form1.PropUpdateView = True
 
         Me.Close()
@@ -647,7 +644,6 @@ Public Class FormRegion
     Private Sub WriteRegion(n As Integer)
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
-        Form1.Settings.PortsChanged = True
 
         Dim Filepath = Form1.PropRegionClass.RegionPath(n)
         Dim Folderpath = Form1.PropRegionClass.FolderPath(n)
@@ -923,7 +919,6 @@ Public Class FormRegion
         End Try
 
         Form1.PropRegionClass.GetAllRegions()
-        Form1.Settings.PortsChanged = True
         Form1.PropUpdateView = True
 
         Oldname1 = RegionName.Text

@@ -24,6 +24,8 @@ Imports System.Text.RegularExpressions
 
 Public Class FormPorts
 
+
+
 #Region "Private Fields"
 
     Dim initted As Boolean
@@ -60,6 +62,8 @@ Public Class FormPorts
     End Sub
 
 #End Region
+
+
 
 #Region "Private Methods"
 
@@ -135,7 +139,6 @@ Public Class FormPorts
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
         Form1.Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
         Form1.Settings.SaveSettings()
-        Form1.Settings.PortsChanged = True
 
     End Sub
 

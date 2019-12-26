@@ -235,6 +235,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Public Enums"
 
     ' icons image list layout
@@ -549,12 +551,12 @@ Public Class RegionList
                     Try
                         Dim PID = Form1.PropRegionClass.ProcessID(X)
                         Dim component1 As Process = Process.GetProcessById(PID)
-                        If Form1.PropRegionHandles.ContainsKey(PID) Then
-                            Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                            item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-                        Else
-                            item1.SubItems.Add("0".ToUpperInvariant)
-                        End If
+                        'If Form1.PropRegionHandles.ContainsKey(PID) Then
+                        Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
+                        item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
+                        'Else
+                        'item1.SubItems.Add("0".ToUpperInvariant)
+                        'End If
 #Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -779,8 +781,7 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
-        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -916,6 +917,8 @@ Public Class RegionList
     End Sub
 
 #End Region
+
+
 
 #Region "Private Methods"
 
@@ -1344,6 +1347,8 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
+
+
 #Region "Private Fields"
 
     Private col As Integer
@@ -1363,6 +1368,8 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
