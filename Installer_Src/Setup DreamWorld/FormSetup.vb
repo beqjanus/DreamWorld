@@ -4818,7 +4818,6 @@ Public Class Form1
                 If UserClickedOK = DialogResult.OK Then
 
                     Dim offset = VarChooser(chosen)
-                    If offset.Length = 0 Then Return
 
                     Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
                     Dim thing = openFileDialog1.FileName
@@ -5482,7 +5481,7 @@ Public Class Form1
 
         Try
             If Settings.SCEnable Then
-                'Icecast 8080
+                'Icecast 8100-8101
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If

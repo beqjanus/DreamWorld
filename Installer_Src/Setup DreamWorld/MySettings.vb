@@ -1452,7 +1452,7 @@ Public Class MySettings
 
     Public Property SCPortBase() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase", "8080"), Integer)
+            Return CType(GetMySetting("SC_PortBase", "8100"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1461,7 +1461,7 @@ Public Class MySettings
 
     Public Property SCPortBase1() As Integer
         Get
-            Return CType(GetMySetting("SC_PortBase1", "8081"), Integer)
+            Return CType(GetMySetting("SC_PortBase1", "8101"), Integer)
         End Get
         Set
             SetMySetting("SC_PortBase1", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
