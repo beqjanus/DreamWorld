@@ -3910,11 +3910,8 @@ Public Class Form1
                         Next
                     End If
                     PropUpdateView = True ' make form refresh
-
                 End If
-
             End If
-
         Next
 
         ' now look at the exit stack
@@ -3928,7 +3925,6 @@ Public Class Form1
             Dim RegionName = PropExitList(0).ToString()
             PropExitList.RemoveAt(0)
 
-            Print(RegionName & " " & My.Resources.Shutdown_word)
             Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             GroupName = RegionName ' assume a group
@@ -3941,6 +3937,11 @@ Public Class Form1
                 RegionNumber = RegionList(0)
             End If
 
+            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped Then
+                ' already stoppped, from exit event or JSON via Region Ready module
+                Continue While
+            End If
+            Print(RegionName & " " & My.Resources.Shutdown_word)
             Dim Status = PropRegionClass.Status(RegionNumber)
             TimerValue = PropRegionClass.Timer(RegionNumber)
 

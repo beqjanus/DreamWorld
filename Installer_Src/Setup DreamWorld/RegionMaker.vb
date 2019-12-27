@@ -227,7 +227,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Return ' does not work as expected
+                    'Return ' does not work as expected
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
@@ -235,15 +235,6 @@ Public Class RegionMaker
                     If RegionNumber < 0 Then
                         Return
                     End If
-                    Timer(RegionNumber) = REGIONTIMER.Stopped
-                    If Status(RegionNumber) = SIMSTATUSENUM.RecyclingDown Then
-                        Status(RegionNumber) = SIMSTATUSENUM.RestartPending
-                        Form1.PropUpdateView = True ' make form refresh
-                    Else
-                        Status(RegionNumber) = SIMSTATUSENUM.Stopped
-                    End If
-
-                    Form1.PropUpdateView() = True
                     Form1.PropExitList.Add(json.region_name)
 
                 End If
@@ -1339,8 +1330,9 @@ Public Class RegionMaker
         'Content-Length:  118
         'Connection: Keep-Alive
         '
-        '{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
-
+        '"{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
+        '"{"alert":"region_ready","login":"enabled","region_name":"Region 2","region_id":"19f6adf0-5f35-4106-bcb8-dc3f2e846b89"}
+        '"{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""8021"",""region_id"":""c46ee5e5-5bb8-4cb5-8efd-eff44a0c7160""}"
         ' we want region name, UUID and server_startup could also be a probe from the outworldz to check if ports are open.
 
         ' WarmingUp(0) = True ShuttingDown(1) = True
