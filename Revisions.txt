@@ -2,6 +2,24 @@ Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
+V3.298
+Restart, Error handler, and Shutdown logic changes after a Dreamgrid restart where it has to find and re-attach to each region. This fixes the CPU usage = 0 and other glitches in the Region list. These occurred when Dreamgrid was restarted with regions already running and it could not find  the Process ID.
+
+Global and Local Search uses V3HG links which work inside Singularity and Firestorm viewer, Media On A Prim, and in Web Links. Many thanks to AI Austin and 
+
+Robust logging set back to INFO from DEBUG.
+
+Ports are initialized sequentially only at boot. Adding a new region puts the port onto the end.   This stops Region confusion when regions are added while system is running.
+
+Regions > 4X4 in some cases would not load using the GUI.
+
+Icecast port defaults changed to 8100-8102 for new users only.
+
+Minor Start/Stopped button fixes when something goes wrong in a boot.
+
+Icon size was off by 4 pixels in Region List which goofed up Large Screen mode
+
+
 V3.297
 
 Teleport signs could be fooled into showing offline regions if a region had crashed or been stopped without a quit command. Now they have to be both enabled and booted, too.
