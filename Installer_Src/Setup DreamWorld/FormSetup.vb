@@ -675,8 +675,8 @@ Public Class Form1
             FormRegions.Select()
             FormRegions.Visible = True
             FormRegions.BringToFront()
+            Buttons(StartButton)
             Return
-
         End If
 
         PropRegionClass.RegionEnabled(N) = True
@@ -3635,7 +3635,7 @@ Public Class Form1
                     ErrorLog(ex.Message)
                 End Try
                 For Each num In Regionclass.RegionListByGroupNum(thisname)
-                    Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booted ' force it up                    
+                    Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
