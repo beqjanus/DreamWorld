@@ -1444,7 +1444,7 @@ Public Class RegionMaker
                 Return "<html><head></head><body>Error</html>"
             End Try
 
-        ElseIf POST.ToLower(Globalization.CultureInfo.InvariantCulture).Contains("get_partner") Then
+        ElseIf POST.ToUpperInvariant.Contains("GET_PARTNER") Then
             Debug.Print("get Partner")
             Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID())
             If Not PWok Then Return ""
@@ -1463,7 +1463,7 @@ Public Class RegionMaker
             End If
 
             ' Partner prim
-        ElseIf POST.ToLower(Globalization.CultureInfo.InvariantCulture).Contains("set_partner") Then
+        ElseIf POST.ToUpperInvariant.Contains("SET_PARTNER") Then
             Debug.Print("set Partner")
             Dim PWok As Boolean = CheckPassword(POST, CStr(Settings.MachineID()))
             If Not PWok Then Return ""

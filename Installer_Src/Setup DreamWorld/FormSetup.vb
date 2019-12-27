@@ -713,7 +713,11 @@ Public Class Form1
 
         Print(My.Resources.Reading_Region_files)
         PropRegionClass.GetAllRegions()
-        If SetIniData() Then Return   ' set up the INI files
+        If SetIniData() Then
+            Buttons(StartButton)
+            Print(My.Resources.Stopped_word)
+            Return   ' set up the INI files
+        End If
 
         If Not StartMySQL() Then
             ToolBar(False)
@@ -749,6 +753,8 @@ Public Class Form1
         End If
 
         If Not StartRobust() Then
+            Buttons(StartButton)
+            Print(My.Resources.Stopped_word)
             Return
         End If
 
@@ -769,10 +775,13 @@ Public Class Form1
         Timer1.Start() 'Timer starts functioning
 
         PropOpensimIsRunning() = True
+        ToolBar(True)
 
         ' Launch the rockets
         Print(My.Resources.Start_Regions_word)
         If Not StartOpensimulator() Then
+            Buttons(StartButton)
+            Print(My.Resources.Stopped_word)
             Return
         End If
 
@@ -786,8 +795,6 @@ Public Class Form1
         Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with boot up
-
-        ToolBar(True)
 
     End Sub
 
@@ -900,7 +907,11 @@ Public Class Form1
         mnuShow.Checked = Settings.ConsoleShow
         mnuHide.Checked = Not Settings.ConsoleShow
 
-        If SetIniData() Then Return
+        If SetIniData() Then
+            Buttons(StartButton)
+            Print(My.Resources.Stopped_word)
+            Return
+        End If
 
         CheckForUpdates()
 
@@ -924,7 +935,6 @@ Public Class Form1
         LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Then
-
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
@@ -1000,6 +1010,7 @@ Public Class Form1
 
         Print("Zzzz...")
         End
+
     End Sub
 
     Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
@@ -1201,7 +1212,6 @@ Public Class Form1
             Catch ex As ArgumentNullException
             Catch ex As ArgumentException
             End Try
-
         Next
 
     End Sub
@@ -1322,7 +1332,6 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-
         Next
 
     End Sub
@@ -1538,9 +1547,10 @@ Public Class Form1
             Case "Metro"
                 Settings.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
                 Return PropOpensimBinPath & "bin\OpensimMetro.proto"
-
         End Select
-        Return Nothing
+        ' just in case...
+        Settings.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
+        Return PropOpensimBinPath & "bin\Opensim.proto"
 
     End Function
 
@@ -1747,18 +1757,10 @@ Public Class Form1
 
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        Return False
-
-    End Function
-
-    Private Function DoMySQL()
-
-        ' load and patch it up for MySQL
-        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\Gridcommon.ini", ";") Then Return True
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
+
         Settings.SaveINI(System.Text.Encoding.UTF8)
+
         Return False
 
     End Function
@@ -2615,7 +2617,6 @@ Public Class Form1
         If DoGridCommon() Then Return True
         If EditForeigners() Then Return True
         If DelLibrary() Then Return True
-        If DoMySQL() Then Return True
         If DoFlotsamINI() Then Return True
         If DoOpensimINI() Then Return True
         If DoWifi() Then Return True
@@ -2735,21 +2736,18 @@ Public Class Form1
 
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
+        PropAborting = True
         StopAllRegions()
+        Timer1.Stop()
 
         PropUpdateView = True ' make form refresh
         ' cannot load OAR or IAR, either
         IslandToolStripMenuItem.Visible = False
         ClothingInventoryToolStripMenuItem.Visible = False
-        Timer1.Stop()
         PropOpensimIsRunning() = False
-
         ToolBar(False)
-
         Print(My.Resources.Stopped_word)
         Buttons(StopButton)
-        Timer1.Enabled = False
-        PropAborting = True
 
     End Sub
 
@@ -2767,6 +2765,7 @@ Public Class Form1
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
+
     End Sub
 
     Private Sub StopAllRegions()
