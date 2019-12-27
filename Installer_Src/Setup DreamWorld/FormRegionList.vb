@@ -447,10 +447,11 @@ Public Class RegionList
 
             ImageListLarge1 = New ImageList()
 
-            If Pixels1 = 0 Then Pixels1 = 20
+            If Pixels1 = 0 Then Pixels1 = 24
             ImageListLarge1.ImageSize = New Size(Pixels1, Pixels1)
 
             ListView1.Items.Clear()
+            ImageListSmall1.ImageSize = New Drawing.Size(24, 24)
 
             Dim Num As Integer = 0
 
