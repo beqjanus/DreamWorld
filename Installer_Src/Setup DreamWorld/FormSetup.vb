@@ -6800,9 +6800,9 @@ Public Class Form1
                 Sleep(100)
                 If CPUAverageSpeed < PropCPUMAX Then
                     WaitForIt = False
-                    ctr -= 1
-                    If ctr <= 0 Then WaitForIt = False
                 End If
+                ctr -= 1
+                If ctr <= 0 Then WaitForIt = False
             End While
 
         End If
