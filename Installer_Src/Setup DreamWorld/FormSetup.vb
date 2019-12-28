@@ -6458,21 +6458,22 @@ Public Class Form1
         End Try
         counter = MaxFileNum
 
-        For Each OAR As String In AutoOARs
-            counter -= 1
-            If counter > 0 Then
-                Dim Name = Path.GetFileName(OAR)
-                Dim OarMenu As New ToolStripMenuItem With {
-                    .Text = Name,
-                    .ToolTipText = My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
-                }
-                AddHandler OarMenu.Click, New EventHandler(AddressOf BackupOarClick)
-                LoadLocalOARSToolStripMenuItem.Visible = True
-                LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-            End If
-
-        Next
+        If AutoOARs IsNot Nothing Then
+            For Each OAR As String In AutoOARs
+                counter -= 1
+                If counter > 0 Then
+                    Dim Name = Path.GetFileName(OAR)
+                    Dim OarMenu As New ToolStripMenuItem With {
+                        .Text = Name,
+                        .ToolTipText = My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    }
+                    AddHandler OarMenu.Click, New EventHandler(AddressOf BackupOarClick)
+                    LoadLocalOARSToolStripMenuItem.Visible = True
+                    LoadLocalOARSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                End If
+            Next
+        End If
 
         ' now for the IARs
 
