@@ -340,7 +340,7 @@ Public Class RegionMaker
                             fName = System.IO.Path.GetFileNameWithoutExtension(ini)
 
                             ' make a slot to hold the region data
-                            CreateRegion(fName)
+                            RegionNumber = CreateRegion(fName)
 
                             ' must be after Createregion or port blows up
                             Form1.Settings.LoadIni(ini, ";")
@@ -697,6 +697,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._AvatarCount
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._AvatarCount = Value
         End Set
     End Property
@@ -707,6 +708,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._ClampPrimSize
         End Get
         Set(ByVal Value As Boolean)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._ClampPrimSize = Value
         End Set
     End Property
@@ -717,6 +719,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._CoordX
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._CoordX = Value
         End Set
     End Property
@@ -727,6 +730,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._CoordY
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._CoordY = Value
         End Set
     End Property
@@ -747,6 +751,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._MaxAgents
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._MaxAgents = Value
         End Set
     End Property
@@ -767,6 +772,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._NonPhysicalPrimMax
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._NonPhysicalPrimMax = Value
         End Set
     End Property
@@ -777,6 +783,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._PhysicalPrimMax
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._PhysicalPrimMax = Value
         End Set
     End Property
@@ -787,6 +794,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._ProcessID
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._ProcessID = Value
         End Set
     End Property
@@ -797,6 +805,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._SizeX
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._SizeX = Value
         End Set
     End Property
@@ -807,26 +816,29 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._SizeY
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._SizeY = Value
         End Set
     End Property
 
     Public Property Status(RegionNumber As Integer) As Integer
         Get
-            If Bad(RegionNumber) Then Return 0
+            If Bad(RegionNumber) Then Return -1
             Return RegionList(RegionNumber)._Status
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Status = Value
         End Set
     End Property
 
     Public Property Timer(RegionNumber As Integer) As Integer
         Get
-            If Bad(RegionNumber) Then Return 0
+            If Bad(RegionNumber) Then Return -1
             Return RegionList(RegionNumber)._Timer
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Timer = Value
         End Set
     End Property
@@ -837,6 +849,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._UUID
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._UUID = Value
         End Set
     End Property
@@ -871,6 +884,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._FolderPath
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._FolderPath = Value
         End Set
     End Property
@@ -881,6 +895,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Group
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Group = Value
         End Set
     End Property
@@ -891,6 +906,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._IniPath
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._IniPath = Value
         End Set
     End Property
@@ -901,6 +917,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionName
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionName = Value
         End Set
     End Property
@@ -911,16 +928,18 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionPath
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionPath = Value
         End Set
     End Property
 
     Public Property RegionPort(RegionNumber As Integer) As Integer
         Get
-            If Bad(RegionNumber) Then Return 0
+            If Bad(RegionNumber) Then Return -1
             Return RegionList(RegionNumber)._RegionPort
         End Get
         Set(ByVal Value As Integer)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionPort = Value
         End Set
     End Property
@@ -935,6 +954,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._AllowGods
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._AllowGods = Value
         End Set
     End Property
@@ -945,6 +965,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Birds
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Birds = Value
         End Set
     End Property
@@ -955,6 +976,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._DisableGloebits
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._DisableGloebits = Value
         End Set
     End Property
@@ -965,6 +987,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._DisallowForeigners
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._DisallowForeigners = Value
         End Set
     End Property
@@ -975,6 +998,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._DisallowResidents
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._DisallowResidents = Value
         End Set
     End Property
@@ -985,6 +1009,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._FrameTime
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
             RegionList(RegionNumber)._FrameTime = Value
@@ -997,6 +1022,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._ManagerGod
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._ManagerGod = Value
         End Set
     End Property
@@ -1007,6 +1033,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._MapType
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._MapType = Value
         End Set
     End Property
@@ -1017,6 +1044,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._MinTimerInterval
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
             RegionList(RegionNumber)._MinTimerInterval = Value
@@ -1029,6 +1057,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Physics
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Physics = Value
         End Set
     End Property
@@ -1039,6 +1068,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionEnabled
         End Get
         Set(ByVal Value As Boolean)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionEnabled = Value
         End Set
     End Property
@@ -1049,6 +1079,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionGod
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionGod = Value
         End Set
     End Property
@@ -1059,6 +1090,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionSnapShot
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionSnapShot = Value
         End Set
     End Property
@@ -1069,6 +1101,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._ScriptEngine
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._ScriptEngine = Value
         End Set
     End Property
@@ -1079,6 +1112,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._SkipAutobackup
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._SkipAutobackup = Value
         End Set
     End Property
@@ -1090,6 +1124,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._RegionSmartStart
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._RegionSmartStart = Value
         End Set
 
@@ -1101,6 +1136,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Snapshot
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Snapshot = Value
         End Set
     End Property
@@ -1111,6 +1147,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Teleport
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Teleport = Value
         End Set
     End Property
@@ -1121,6 +1158,7 @@ Public Class RegionMaker
             Return RegionList(RegionNumber)._Tides
         End Get
         Set(ByVal Value As String)
+            If Bad(RegionNumber) Then Return
             RegionList(RegionNumber)._Tides = Value
         End Set
     End Property
