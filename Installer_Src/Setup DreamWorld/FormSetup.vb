@@ -4844,7 +4844,7 @@ Public Class Form1
                             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
                             ConsoleCommand(PropRegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                            ConsoleCommand(PropRegionClass.GroupName(Y), My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
 
                         Next
                     End If
