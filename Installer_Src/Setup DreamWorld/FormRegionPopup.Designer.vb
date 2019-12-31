@@ -24,17 +24,19 @@ Partial Class FormRegionPopup
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.StatsButton1 = New System.Windows.Forms.Button()
         Me.StatsButton = New System.Windows.Forms.Button()
         Me.EditButton1 = New System.Windows.Forms.Button()
         Me.StartButton3 = New System.Windows.Forms.Button()
         Me.RecycleButton2 = New System.Windows.Forms.Button()
         Me.StopButton1 = New System.Windows.Forms.Button()
-        Me.StatsButton1 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.StatsButton1)
         Me.GroupBox1.Controls.Add(Me.StatsButton)
         Me.GroupBox1.Controls.Add(Me.EditButton1)
@@ -43,10 +45,21 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Controls.Add(Me.StopButton1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(157, 198)
+        Me.GroupBox1.Size = New System.Drawing.Size(157, 226)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Region Controls"
+        '
+        'StatsButton1
+        '
+        Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatsButton1.Location = New System.Drawing.Point(19, 48)
+        Me.StatsButton1.Name = "StatsButton1"
+        Me.StatsButton1.Size = New System.Drawing.Size(121, 23)
+        Me.StatsButton1.TabIndex = 10
+        Me.StatsButton1.Text = "Statistics"
+        Me.StatsButton1.UseVisualStyleBackColor = True
         '
         'StatsButton
         '
@@ -63,7 +76,7 @@ Partial Class FormRegionPopup
         '
         Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(19, 164)
+        Me.EditButton1.Location = New System.Drawing.Point(15, 197)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(121, 23)
         Me.EditButton1.TabIndex = 8
@@ -103,22 +116,22 @@ Partial Class FormRegionPopup
         Me.StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         Me.StopButton1.UseVisualStyleBackColor = True
         '
-        'StatsButton1
+        'Button1
         '
-        Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.user1_into
-        Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatsButton1.Location = New System.Drawing.Point(19, 48)
-        Me.StatsButton1.Name = "StatsButton1"
-        Me.StatsButton1.Size = New System.Drawing.Size(121, 23)
-        Me.StatsButton1.TabIndex = 10
-        Me.StatsButton1.Text = "Statistics"
-        Me.StatsButton1.UseVisualStyleBackColor = True
+        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(19, 164)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(121, 23)
+        Me.Button1.TabIndex = 11
+        Me.Button1.Text = "View Log"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'FormRegionPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(173, 215)
+        Me.ClientSize = New System.Drawing.Size(173, 261)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -136,4 +149,5 @@ Partial Class FormRegionPopup
     Friend WithEvents StopButton1 As Button
     Friend WithEvents StatsButton As Button
     Friend WithEvents StatsButton1 As Button
+    Friend WithEvents Button1 As Button
 End Class
