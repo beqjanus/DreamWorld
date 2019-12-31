@@ -4645,6 +4645,7 @@ Public Class Form1
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                         Print("Backing up " & PropRegionClass.RegionName(Y))
                         SequentialPause()   ' wait for previous region to give us some CPU
+                        Sleep(30000)
                     End If
                 Next
             End If
