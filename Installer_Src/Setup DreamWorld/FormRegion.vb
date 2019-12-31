@@ -31,7 +31,8 @@ Public Class FormRegion
     Dim changed As Boolean
     Dim initted As Boolean = False
 
-    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
+    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save
+    ' a form
     Dim isNew As Boolean = False
 
     Dim n As Integer = 0
@@ -122,11 +123,11 @@ Public Class FormRegion
         Form1.PropRegionClass = RegionMaker.Instance()
         Form1.PropRegionClass.GetAllRegions()
 
+        ' NEW REGION
         If Name.Length = 0 Then
             IsNew1 = True
-
             Gods_Use_Default.Checked = True
-            RegionName.Text = Name & "Name of Region"
+            RegionName.Text = My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
             SizeX.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
             SizeY.Text = 256.ToString(Globalization.CultureInfo.InvariantCulture)
@@ -141,12 +142,9 @@ Public Class FormRegion
             ClampPrimSize.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            ScriptTimerTextBox.Text = 0.0909.ToString(Globalization.CultureInfo.InvariantCulture)
-            FrametimeBox.Text = 0.0909.ToString(Globalization.CultureInfo.InvariantCulture)
-            DisableGBCheckBox.Checked = False
             N1 = Form1.PropRegionClass.CreateRegion("")
         Else
-
+            ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
             N1 = Form1.PropRegionClass.FindRegionByName(Name)
             Oldname1 = Form1.PropRegionClass.RegionName(N1) ' backup in case of rename
@@ -227,6 +225,7 @@ Public Class FormRegion
             End If
         End If
 
+        ' The following are all options.
         If Form1.PropRegionClass.DisallowResidents(N1) = "True" Then
             DisallowResidents.Checked = True
         End If
@@ -404,11 +403,14 @@ Public Class FormRegion
                 YEngineButton.Checked = True
         End Select
 
-        Me.Show() ' time to show the results
-        Me.Activate()
-        Me.BringToFront()
-        Initted1 = True
-        Form1.HelpOnce("Region")
+        Try
+            Me.Show() ' time to show the results
+            Me.Activate()
+            Me.BringToFront()
+            Initted1 = True
+            Form1.HelpOnce("Region")
+        Catch
+        End Try
 
     End Sub
 
@@ -421,14 +423,11 @@ Public Class FormRegion
                 Me.Close()
             End If
         Else
-
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
-
             WriteRegion(N1)
             Form1.CopyOpensimProto(RegionName.Text)
             Form1.PropRegionClass.GetAllRegions()
             Form1.PropUpdateView = True ' make form refresh
-
             Changed1 = False
             Me.Close()
         End If
@@ -438,7 +437,6 @@ Public Class FormRegion
     Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Changed1 Then
-
             Form1.PropViewedSettings = True
             Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, My.Resources.Save_changes_word)
             If v = vbYes Then
@@ -450,10 +448,10 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(N1)
-
                     Form1.CopyOpensimProto(RegionName.Text)
                     Form1.PropRegionClass.GetAllRegions()
                     Form1.PropUpdateView() = True
+                    Changed1 = False
                 End If
             End If
         End If
@@ -999,6 +997,7 @@ Public Class FormRegion
                 MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info)
                 Return
             End If
+
             Changed1 = True
         End If
     End Sub

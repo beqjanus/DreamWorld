@@ -235,8 +235,6 @@ Public Class RegionList
 
 #End Region
 
-
-
 #Region "Public Enums"
 
     ' icons image list layout
@@ -451,7 +449,7 @@ Public Class RegionList
             ImageListLarge1.ImageSize = New Size(Pixels1, Pixels1)
 
             ListView1.Items.Clear()
-            ImageListSmall1.ImageSize = New Drawing.Size(24, 24)
+            ImageListSmall1.ImageSize = New Drawing.Size(20, 20)
 
             Dim Num As Integer = 0
 
@@ -585,9 +583,9 @@ Public Class RegionList
                     'Scripts XEngine or YEngine
                     Select Case Form1.PropRegionClass.ScriptEngine(X)
                         Case "YEngine"
-                            item1.SubItems.Add("YEngine")
+                            item1.SubItems.Add(My.Resources.YEngine_word)
                         Case "XEngine"
-                            item1.SubItems.Add("XEngine")
+                            item1.SubItems.Add(My.Resources.XEngine_word)
                         Case Else
                             item1.SubItems.Add("-".ToUpperInvariant)
                     End Select
@@ -782,7 +780,8 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
+        ' property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -918,8 +917,6 @@ Public Class RegionList
     End Sub
 
 #End Region
-
-
 
 #Region "Private Methods"
 
@@ -1259,6 +1256,9 @@ Public Class RegionList
                     Return
                 End If
 
+                Dim noquotes As Regex = New Regex("'")
+                dirpathname = noquotes.Replace(dirpathname, "")
+
                 Dim extension As String = Path.GetExtension(ofd.FileName)
                 extension = Mid(extension, 2, 5)
                 If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
@@ -1348,8 +1348,6 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
-
-
 #Region "Private Fields"
 
     Private col As Integer
@@ -1369,8 +1367,6 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
-
-
 
 #Region "Public Methods"
 

@@ -144,6 +144,16 @@ Public Class FormRegionPopup
         DialogResult = DialogResult.OK
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Try
+            Dim RegionNumber = Form1.PropRegionClass.FindRegionByName(_RegionName)
+            System.Diagnostics.Process.Start(Form1.PropMyFolder & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles StatsButton1.Click
 
         Dim RegionNum = Form1.PropRegionClass.FindRegionByName(_RegionName)
