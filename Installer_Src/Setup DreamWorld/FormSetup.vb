@@ -864,7 +864,8 @@ Public Class Form1
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or
+        ' identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -1567,7 +1568,8 @@ Public Class Form1
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
+        ' float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
         If PropRegionClass.MinTimerInterval(X).Length > 0 Then
             If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
@@ -1797,8 +1799,9 @@ Public Class Form1
 
         End Select
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
+        ' that do Not support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1886,9 +1889,11 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher
+        ' meshing = Meshmerizer meshing = ubODEMeshmerizer
 
-        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim with threads 4 = physics = ubODE
+        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
+        ' with threads 4 = physics = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2497,11 +2502,11 @@ Public Class Form1
         While reader.Peek <> -1
             line = reader.ReadLine()
 
-            If line.StartsWith("; START") Then
+            If line.StartsWith("; START", StringComparison.InvariantCulture) Then
                 Output += line & vbCrLf
                 Output += Authorizationlist
                 skip = True
-            ElseIf line.StartsWith("; END") Then
+            ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then
                 Output += line & vbCrLf
                 skip = False
             Else
@@ -2525,12 +2530,14 @@ Public Class Form1
 
     Private Function SetDefaultSims() As Boolean
 
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
+        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as
+            ' fallback it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
@@ -2544,8 +2551,9 @@ Public Class Form1
 
             FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start
+            ' region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -2574,11 +2582,11 @@ Public Class Form1
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
                     Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START") Then
+                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
                         Output += line & vbCrLf ' add back on the ; START
                         Output += RegionSetting
                         skip = True
-                    ElseIf line.StartsWith("; END") Then ' add back on the ; END
+                    ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then ' add back on the ; END
                         Output += line & vbCrLf
                         skip = False
                     Else
@@ -3279,7 +3287,7 @@ Public Class Form1
             For Each p In Process.GetProcesses
                 If p.MainWindowTitle = "Robust" Then
                     PropRobustProcID = p.Id
-                    Log("Info", "A DOS Box named Robust is already running")
+                    Log(My.Resources.Info, My.Resources.DosBoxRunning)
                     Return True
                 End If
             Next
@@ -3288,7 +3296,7 @@ Public Class Form1
 
         ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.is_Off)
         If Settings.ServerType <> "Robust" Then
-            Log("Info", "Running as a Region Server")
+            Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
             Return True
         End If
 
@@ -3296,7 +3304,7 @@ Public Class Form1
             Print("Robust:" & Settings.RobustServer)
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-            Log("Info", "Robust is not running on this machine")
+            Log(My.Resources.Info, My.Resources.Robust_not_Running)
             Return True
         End If
 
@@ -3313,7 +3321,7 @@ Public Class Form1
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
         Try
             RobustProcess.Start()
-            Log("Info", "Robust Launched")
+            Log(My.Resources.Info, My.Resources.Robust_running)
         Catch ex As InvalidOperationException
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
@@ -3367,9 +3375,9 @@ Public Class Form1
             End If
             Application.DoEvents()
             Sleep(100)
-
         End While
-        Log("Info", My.Resources.Robust_running)
+
+        Log(My.Resources.Info, My.Resources.Robust_running)
         If Settings.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
@@ -3545,56 +3553,74 @@ Public Class Form1
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
 
         If Regionclass Is Nothing Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             ErrorLog("No Region Class!")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Return False
         End If
         If RegionMaker.Instance Is Nothing Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             ErrorLog("No Region maker!")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Return False
         End If
         If PropAborting Then Return True
 
         Dim RegionNumber = Regionclass.FindRegionByName(BootName)
         If RegionNumber < 0 Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             ErrorLog("Cannot find " & BootName & " to boot!")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Return False
         End If
-
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
-
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
         If Regionclass.IsBooted(RegionNumber) Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " already running")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booting Up")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Suspended Then
             Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
@@ -3848,7 +3874,8 @@ Public Class Form1
                 Return
             End If
         End If
-        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
+        ' is true
         If PropMysqlExited Then
             StartMySQL()
             Return
@@ -3926,7 +3953,8 @@ Public Class Form1
             PropExitList.RemoveAt(0)
 
             Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we
+            ' need to get a region name from the group
             GroupName = RegionName ' assume a group
             RegionNumber = PropRegionClass.FindRegionByName(RegionName)
 
@@ -3954,7 +3982,8 @@ Public Class Form1
                 PropUpdateView = True ' make form refresh
             End If
 
-            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
+            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
+            ' restart the beast
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
                 Or PropRegionClass.IsBooted(RegionNumber) _
@@ -4090,7 +4119,9 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
+    ''' <summary>
+    ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
+    ''' </summary>
     ''' <param name="ProcessID">PID of the DOS box</param>
     ''' <param name="command">String</param>
     ''' <returns></returns>
@@ -4188,8 +4219,9 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
-    ''' timer to make sure we do not get stuck
+    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is
+    ''' no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It
+    ''' has a timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
     ''' <param name="windowName">the name of the Window</param>
@@ -4393,7 +4425,8 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4525,7 +4558,10 @@ Public Class Form1
         End If
     End Sub
 
-    ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
+    ''' <summary>
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
+    ''' </summary>
     Public Sub UploadPhoto()
 
         If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -4869,7 +4905,7 @@ Public Class Form1
             Return
         End If
 
-        Dim File As String = Mid(CStr(sender.text.ToString()), 1, InStr(CStr(sender.text.ToString().ToString), "|") - 2)
+        Dim File As String = Mid(CStr(sender.text.ToString()), 1, InStr(sender.text, "|") - 2)
         File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
         sender.checked = True
@@ -4975,7 +5011,7 @@ Public Class Form1
         ClothingInventoryToolStripMenuItem.Visible = False
 
         Dim LinkMenu As New ToolStripMenuItem With {
-                        .Text = "Web Download Link",
+                        .Text = My.Resources.Web_Download_Link_Word,
                         .ToolTipText = My.Resources.Click_to_load,
                         .DisplayStyle = ToolStripItemDisplayStyle.Text
                     }
@@ -5024,7 +5060,7 @@ Public Class Form1
         End Using
 
         Dim ClothesMenu As New ToolStripMenuItem With {
-                        .Text = "Web Download Link",
+                        .Text = My.Resources.Web_Download_Link_Word,
                         .ToolTipText = My.Resources.Click_to_load,
                         .DisplayStyle = ToolStripItemDisplayStyle.Text
                     }
@@ -5372,8 +5408,9 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
-            ' results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
+            ' anonymous random ID, both of the versions of Opensim and this program, and the
+            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
@@ -6168,7 +6205,7 @@ Public Class Form1
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim regionnum = PropRegionClass.FindRegionByName(CStr(sender.text.ToString().ToString()))
+            Dim regionnum = PropRegionClass.FindRegionByName(sender.text)
             Dim port As String = CStr(PropRegionClass.RegionPort(regionnum))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
@@ -6373,18 +6410,18 @@ Public Class Form1
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString().ToString() 'make a real URL
+        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString().ToString() & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.text & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text.ToString().ToString() 'make a real URL
+        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text.ToString().ToString() & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.text & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
@@ -6595,7 +6632,8 @@ Public Class Form1
 
         newScreenPosition = New ScreenPos(Webpage)
         If Not newScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the current form.
+            ' Set the new form's desktop location so it appears below and to the right of the
+            ' current form.
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -6849,7 +6887,10 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
+    ''' <summary>
+    ''' This method starts at the specified directory. It traverses all subdirectories. It returns a
+    ''' List of those directories.
+    ''' </summary>
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ' This list stores the results.
         Dim result As New List(Of String)

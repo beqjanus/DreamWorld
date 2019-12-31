@@ -2291,6 +2291,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A DOS Box named Robust is already running.
+        '''</summary>
+        Friend ReadOnly Property DosBoxRunning() As String
+            Get
+                Return ResourceManager.GetString("DosBoxRunning", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property download() As System.Drawing.Bitmap
@@ -4535,6 +4544,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Name of Region.
+        '''</summary>
+        Friend ReadOnly Property Name_of_Region_Word() As String
+            Get
+                Return ResourceManager.GetString("Name_of_Region_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Your system name has been set to {newname}. You can change the name in the DNS menu at any time.
         '''</summary>
         Friend ReadOnly Property NameAlreadySet() As String
@@ -6104,6 +6122,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Robust is not running on this machine.
+        '''</summary>
+        Friend ReadOnly Property Robust_not_Running() As String
+            Get
+                Return ResourceManager.GetString("Robust_not_Running", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Robust is running.
         '''</summary>
         Friend ReadOnly Property Robust_running() As String
@@ -6154,6 +6181,15 @@ Namespace My.Resources
         Friend ReadOnly Property Running() As String
             Get
                 Return ResourceManager.GetString("Running", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Running as a Region Server.
+        '''</summary>
+        Friend ReadOnly Property Running_as_a_Region_Server_word() As String
+            Get
+                Return ResourceManager.GetString("Running_as_a_Region_Server_word", resourceCulture)
             End Get
         End Property
         
@@ -7711,6 +7747,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Web Download Link.
+        '''</summary>
+        Friend ReadOnly Property Web_Download_Link_Word() As String
+            Get
+                Return ResourceManager.GetString("Web_Download_Link_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Web Port (80, or 8000).
         '''</summary>
         Friend ReadOnly Property Web_Port() As String
@@ -7836,6 +7881,24 @@ Namespace My.Resources
         Friend ReadOnly Property Wrong() As String
             Get
                 Return ResourceManager.GetString("Wrong", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XEngine.
+        '''</summary>
+        Friend ReadOnly Property XEngine_word() As String
+            Get
+                Return ResourceManager.GetString("XEngine_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to YEngine.
+        '''</summary>
+        Friend ReadOnly Property YEngine_word() As String
+            Get
+                Return ResourceManager.GetString("YEngine_word", resourceCulture)
             End Get
         End Property
         
