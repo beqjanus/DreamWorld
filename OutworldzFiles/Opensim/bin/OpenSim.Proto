@@ -44,11 +44,11 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8017
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=ZZZ
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
 BaseHostname=192.168.2.135
@@ -943,7 +943,7 @@ Enabled=False
 
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.0909090909090909
+MinTimerInterval=0.090909
 
 [XEngine]
 
@@ -960,7 +960,7 @@ Enabled=True
 ; IdleTimeout = 60
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.0909090909090909
+MinTimerInterval=0.090909
 
 ;# {Priority} {Enabled:true} {Priority for script engine threads?} {Lowest BelowNormal Normal AboveNormal Highest} BelowNormal
 ;; Thread priority ("Lowest", "BelowNormal", "Normal", "AboveNormal",
@@ -996,7 +996,7 @@ MinTimerInterval=0.0909090909090909
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=True
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts
