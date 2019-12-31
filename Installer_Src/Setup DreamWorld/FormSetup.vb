@@ -4080,12 +4080,12 @@ Public Class Form1
     Public Shared Sub Sleep(value As Integer)
 
         ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up console
-        Dim sleeptime = value / 10  ' now in tenths
-        Dim counter = 10
-        While counter > 0
+        Dim sleeptime = value / 100  ' now in tenths
+
+        While sleeptime > 0
             Application.DoEvents()
-            Thread.Sleep(CType(sleeptime, Integer))
-            counter -= 1
+            Thread.Sleep(100)
+            sleeptime -= 1
         End While
 
     End Sub
@@ -4607,6 +4607,8 @@ Public Class Form1
                         ' show it, stop it, start it, or edit it
                         Dim hwnd = GetHwnd(PropRegionClass.GroupName(Y))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                        Print("Backing up " & PropRegionClass.RegionName(Y))
+                        SequentialPause()   ' wait for previous region to give us some CPU
                     End If
                 Next
             End If
