@@ -104,10 +104,10 @@ Public Class Form1
 
     Private _viewedSettings As Boolean = False
 
-    Private Adv As AdvancedForm
+    Private Adv As New AdvancedForm
 
     Private cpu As New PerformanceCounter
-
+    Private FormOARS As New FormOAR
     Private MyCPUCollection(181) As Double
 
     Private MyRAMCollection(181) As Double
@@ -864,8 +864,7 @@ Public Class Form1
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or
-        ' identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -881,7 +880,6 @@ Public Class Form1
         Print(My.Resources.Getting_regions_word)
 
         PropRegionClass = RegionMaker.Instance()
-        Adv = New AdvancedForm
 
         PropInitted = True
 
@@ -1568,8 +1566,7 @@ Public Class Form1
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
 
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
-        ' float, or nothing
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
         If PropRegionClass.MinTimerInterval(X).Length > 0 Then
             If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
@@ -1799,9 +1796,8 @@ Public Class Form1
 
         End Select
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
-        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
-        ' that do Not support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
+        ' support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1889,11 +1885,9 @@ Public Class Form1
             Settings.SetIni("Permissions", "allow_grid_gods", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher
-        ' meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
 
-        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim
-        ' with threads 4 = physics = ubODE
+        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim with threads 4 = physics = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2530,14 +2524,12 @@ Public Class Form1
 
     Private Function SetDefaultSims() As Boolean
 
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
-        ' edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as
-            ' fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
             Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If o < 0 Then
@@ -2551,9 +2543,8 @@ Public Class Form1
 
             FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
-            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start
-            ' region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is
+            ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -2698,6 +2689,7 @@ Public Class Form1
     End Sub
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
+
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
                 Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
@@ -3874,8 +3866,7 @@ Public Class Form1
                 Return
             End If
         End If
-        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
-        ' is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash is true
         If PropMysqlExited Then
             StartMySQL()
             Return
@@ -3953,8 +3944,7 @@ Public Class Form1
             PropExitList.RemoveAt(0)
 
             Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we
-            ' need to get a region name from the group
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             GroupName = RegionName ' assume a group
             RegionNumber = PropRegionClass.FindRegionByName(RegionName)
 
@@ -3982,8 +3972,7 @@ Public Class Form1
                 PropUpdateView = True ' make form refresh
             End If
 
-            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and
-            ' restart the beast
+            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
                 Or PropRegionClass.IsBooted(RegionNumber) _
@@ -4119,9 +4108,7 @@ Public Class Form1
 
     End Sub
 
-    ''' <summary>
-    ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
-    ''' </summary>
+    ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
     ''' <param name="ProcessID">PID of the DOS box</param>
     ''' <param name="command">String</param>
     ''' <returns></returns>
@@ -4219,9 +4206,8 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is
-    ''' no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It
-    ''' has a timer to make sure we do not get stuck
+    ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
+    ''' timer to make sure we do not get stuck
     ''' </summary>
     ''' <param name="hwnd">Handle to the window to change the text on</param>
     ''' <param name="windowName">the name of the Window</param>
@@ -4425,8 +4411,7 @@ Public Class Form1
     End Function
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
-    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -4556,12 +4541,10 @@ Public Class Form1
         If result <> "OK" Then
             ErrorLog(My.Resources.Wrong & " " & result)
         End If
+
     End Sub
 
-    ''' <summary>
-    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
-    ''' known to be on line.
-    ''' </summary>
+    ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
     Public Sub UploadPhoto()
 
         If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -5411,9 +5394,8 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
-            ' anonymous random ID, both of the versions of Opensim and this program, and the
-            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
+            ' results See my privacy policy at https://www.outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
@@ -6635,8 +6617,7 @@ Public Class Form1
 
         newScreenPosition = New ScreenPos(Webpage)
         If Not newScreenPosition.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the
-            ' current form.
+            ' Set the new form's desktop location so it appears below and to the right of the current form.
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -6890,10 +6871,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' This method starts at the specified directory. It traverses all subdirectories. It returns a
-    ''' List of those directories.
-    ''' </summary>
+    ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ' This list stores the results.
         Dim result As New List(Of String)
@@ -7262,6 +7240,15 @@ Public Class Form1
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
+
+    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadFreeDreamGridOARsToolStripMenuItem.Click
+        If PropInitted Then
+            FormOARS.Activate()
+            FormOARS.Visible = True
+            FormOARS.Select()
+            FormOARS.BringToFront()
+        End If
     End Sub
 
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click

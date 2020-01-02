@@ -256,6 +256,12 @@
     <Compile Include="FormIARSave.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormOAR.Designer.vb">
+      <DependentUpon>FormOAR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormOAR.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormRegionPopup.Designer.vb">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>
     </Compile>
@@ -493,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOAR.resx">
+      <DependentUpon>FormOAR.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPermissions.en.resx">
       <DependentUpon>FormPermissions.vb</DependentUpon>
