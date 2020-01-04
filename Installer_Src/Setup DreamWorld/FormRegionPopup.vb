@@ -133,6 +133,12 @@ Public Class FormRegionPopup
             End If
         End If
 
+        Dim RegionNumber = Form1.PropRegionClass.FindRegionByName(RegionName)
+        If Form1.CheckPort(Form1.Settings.PublicIP, Form1.PropRegionClass.GroupPort(RegionNumber)) Then
+            Form1.PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted
+            Form1.PropUpdateView = True ' make form refresh
+        End If
+
     End Sub
 
 #End Region
