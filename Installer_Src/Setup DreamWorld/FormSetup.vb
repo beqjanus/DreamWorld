@@ -36,7 +36,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.299"
+    Private _MyVersion As String = "3.3"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 
 #End Region
@@ -67,7 +67,7 @@ Public Class Form1
     Private _exitList As New ArrayList()
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
-    Private _ForceTerrain As Boolean = False
+    Private _ForceTerrain As Boolean = True
     Private _IcecastCrashCounter As Integer = 0
     Private _IceCastExited As Integer = 0
     Private _IcecastProcID As Integer
@@ -104,7 +104,7 @@ Public Class Form1
 
     Private _viewedSettings As Boolean = False
 
-    Private Adv As AdvancedForm
+    Private Adv As New AdvancedForm
 
     Private cpu As New PerformanceCounter
 
@@ -657,14 +657,7 @@ Public Class Form1
 
         Buttons(BusyButton)
 
-        With cpu
-            .CategoryName = "Processor"
-            .CounterName = "% Processor Time"
-            .InstanceName = "_Total"
-        End With
-
         Dim DefaultName As String = ""
-        Print(My.Resources.Starting_word)
 
         Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If N = -1 Then
@@ -679,6 +672,7 @@ Public Class Form1
             Return
         End If
 
+        Print(My.Resources.Starting_word)
         PropRegionClass.RegionEnabled(N) = True
 
         PropExitHandlerIsBusy = False
@@ -881,7 +875,6 @@ Public Class Form1
         Print(My.Resources.Getting_regions_word)
 
         PropRegionClass = RegionMaker.Instance()
-        Adv = New AdvancedForm
 
         PropInitted = True
 
@@ -913,6 +906,12 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Return
         End If
+
+        With cpu
+            .CategoryName = "Processor"
+            .CounterName = "% Processor Time"
+            .InstanceName = "_Total"
+        End With
 
         CheckForUpdates()
 
@@ -2698,6 +2697,7 @@ Public Class Form1
     End Sub
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
+
         If PropOpensimIsRunning() Then
             If Settings.ApacheEnable Then
                 Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
@@ -4308,7 +4308,24 @@ Public Class Form1
             speed3 = speed2
             speed2 = speed1
             speed1 = speed
-            speed = cpu.NextValue()
+            Try
+                speed = cpu.NextValue()
+            Catch ex As Exception
+
+                Dim pUpdate As Process = New Process()
+                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                    .Arguments = "/ R",
+                    .FileName = "loadctr"
+                }
+                pUpdate.StartInfo = pi
+
+                Try
+                    pUpdate.Start()
+                    pUpdate.WaitForExit()
+                Catch ex1 As InvalidOperationException
+                Catch ex1 As ComponentModel.Win32Exception
+                End Try
+            End Try
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
 
@@ -4547,6 +4564,64 @@ Public Class Form1
 
     End Function
 
+    Public Function LoadOARContent(thing As String) As Boolean
+
+        If Not PropOpensimIsRunning() Then
+            Print(My.Resources.Not_Running)
+            Return False
+        End If
+
+        Dim region = ChooseRegion(True)
+        If region.Length = 0 Then Return False
+
+        Dim offset = VarChooser(region)
+
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
+        Dim num = PropRegionClass.FindRegionByName(region)
+        If num < 0 Then
+            MsgBox(My.Resources.Cannot_find_region_word)
+            Return False
+        End If
+        Dim GroupName = PropRegionClass.GroupName(num)
+        Dim once As Boolean = False
+        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+            Try
+                If Not once Then
+                    Print(My.Resources.Opensimulator_is_loading & " " & thing)
+                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
+
+                    ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
+                    If backMeUp = vbYes Then
+                        ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                    End If
+                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
+
+                    Dim ForceParcel As String = ""
+                    If PropForceParcel() Then ForceParcel = " --force-parcels "
+                    Dim ForceTerrain As String = ""
+                    If PropForceTerrain Then ForceTerrain = " --force-terrain "
+                    Dim ForceMerge As String = ""
+                    If PropForceMerge Then ForceMerge = " --merge "
+                    Dim UserName As String = ""
+                    If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
+
+                    ConsoleCommand(PropRegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                    once = True
+                End If
+#Disable Warning CA1031 ' Do not catch general exception types
+            Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
+                ErrorLog(My.Resources.Error_word & ":" & ex.Message)
+            End Try
+        Next
+
+        Me.Focus()
+        Return True
+
+    End Function
+
     Public Sub UploadCategory()
 
         'PHASE 2, upload Description and Categories
@@ -4569,6 +4644,7 @@ Public Class Form1
         If result <> "OK" Then
             ErrorLog(My.Resources.Wrong & " " & result)
         End If
+
     End Sub
 
     ''' <summary>
@@ -4789,64 +4865,6 @@ Public Class Form1
         End If
 
     End Sub
-
-    Private Function LoadOARContent(thing As String) As Boolean
-
-        If Not PropOpensimIsRunning() Then
-            Print(My.Resources.Not_Running)
-            Return False
-        End If
-
-        Dim region = ChooseRegion(True)
-        If region.Length = 0 Then Return False
-
-        Dim offset = VarChooser(region)
-
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
-        Dim num = PropRegionClass.FindRegionByName(region)
-        If num < 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word)
-            Return False
-        End If
-        Dim GroupName = PropRegionClass.GroupName(num)
-        Dim once As Boolean = False
-        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-            Try
-                If Not once Then
-                    Print(My.Resources.Opensimulator_is_loading & " " & thing)
-                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
-
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
-                    If backMeUp = vbYes Then
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
-                    End If
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
-
-                    Dim ForceParcel As String = ""
-                    If PropForceParcel() Then ForceParcel = " --force-parcels "
-                    Dim ForceTerrain As String = ""
-                    If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                    Dim ForceMerge As String = ""
-                    If PropForceMerge Then ForceMerge = " --merge "
-                    Dim UserName As String = ""
-                    If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
-                    once = True
-                End If
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-                ErrorLog(My.Resources.Error_word & ":" & ex.Message)
-            End Try
-        Next
-
-        Me.Focus()
-        Return True
-
-    End Function
 
     Private Sub LoadRegionOarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOarToolStripMenuItem.Click
 
@@ -7275,6 +7293,16 @@ Public Class Form1
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
+
+    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadFreeDreamGridOARsToolStripMenuItem.Click
+        If PropInitted Then
+            Dim FormOARS As New FormOAR
+            FormOARS.Activate()
+            FormOARS.Visible = True
+            FormOARS.Select()
+            FormOARS.BringToFront()
+        End If
     End Sub
 
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click

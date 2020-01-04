@@ -273,6 +273,8 @@ Public Class RegionList
         FormExists1 = True
         Pixels1 = 70
 
+        AllNone.Checked = True
+
         ListView1.Visible = False
         ListView1.LabelWrap = True
         ListView1.AutoArrange = True
@@ -734,6 +736,8 @@ Public Class RegionList
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
+        Form1.PropRegionClass.GetAllRegions()
+
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -798,9 +802,9 @@ Public Class RegionList
         Dim item As ListViewItem
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text
-            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
-                StartStopEdit(R, RegionName)
+            Dim RegionNumber = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If RegionNumber >= 0 Then
+                StartStopEdit(RegionNumber, RegionName)
             End If
         Next
 
@@ -970,15 +974,25 @@ Public Class RegionList
 
         If chosen = "Start" Then
 
-            ' it was stopped, and off, so we start up
-            If Not Form1.StartMySQL() Then
+            Form1.Buttons(Form1.BusyButton)
 
+            If Not Form1.StartMySQL() Then
                 Form1.Print(My.Resources.Stopped_word)
             End If
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(n))
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(n))
+
+            Form1.Timer1.Interval = 1000
             Form1.Timer1.Start() 'Timer starts functioning
+            Form1.Buttons(Form1.StopButton)
+            Form1.PropOpensimIsRunning() = True
+            Form1.ToolBar(True)
+            ' show the IAR and OAR menu when we are up
+            If Form1.PropContentAvailable Then
+                Form1.IslandToolStripMenuItem.Visible = True
+                Form1.ClothingInventoryToolStripMenuItem.Visible = True
+            End If
 
         ElseIf chosen = "Stop" Then
 
@@ -1071,7 +1085,7 @@ Public Class RegionList
 
 #Region "Clicks"
 
-    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNome.CheckedChanged
+    Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNone.CheckedChanged
 
         For Each X As ListViewItem In ListView1.Items
             If ItemsAreChecked1 Then
