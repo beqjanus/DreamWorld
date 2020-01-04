@@ -67,7 +67,7 @@ Public Class Form1
     Private _exitList As New ArrayList()
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
-    Private _ForceTerrain As Boolean = False
+    Private _ForceTerrain As Boolean = True
     Private _IcecastCrashCounter As Integer = 0
     Private _IceCastExited As Integer = 0
     Private _IcecastProcID As Integer
