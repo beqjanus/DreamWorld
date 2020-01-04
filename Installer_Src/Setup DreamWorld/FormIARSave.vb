@@ -111,7 +111,7 @@ Public Class FormIARSave
             Return
         End If
         If GPassword.Length = 0 Then
-            MsgBox(My.Resources.Password)
+            MsgBox(My.Resources.Password_word)
             Return
         End If
 
