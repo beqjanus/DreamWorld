@@ -3308,6 +3308,19 @@ Public Class Form1
             Return True
         End If
 
+        Sleep(5000)
+        If CheckRobust() Then
+            RobustPictureBox.Image = My.Resources.nav_plain_green
+            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
+
+            For Each p In Process.GetProcesses
+                If p.MainWindowTitle = "Robust" Then
+                    PropRobustProcID = p.Id
+                    Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                    Return True
+                End If
+            Next
+        End If
         PropRobustProcID = 0
         Print(My.Resources.Starting_word & " Robust")
 
@@ -3869,10 +3882,7 @@ Public Class Form1
 
         If PropRestartRobust And PropRobustExited = True Then
             PropRobustExited = False
-            If Not CheckRobust() Then
-                StartRobust()
-                Return
-            End If
+            StartRobust()
         End If
         ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
         ' is true
@@ -3948,9 +3958,12 @@ Public Class Form1
         PropExitHandlerIsBusy = True
 
         While PropExitList.Count > 0
-
-            Dim RegionName = PropExitList(0).ToString()
-            PropExitList.RemoveAt(0)
+            Dim RegionName As String
+            Try
+                RegionName = PropExitList(0).ToString()
+                PropExitList.RemoveAt(0)
+            Catch
+            End Try
 
             Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
@@ -6155,7 +6168,7 @@ Public Class Form1
 
     Private Function ScanAgents() As Integer
 
-        If Not CheckRobust() Then Return 0
+        If Not CheckMysql() Then Return 0
 
         ' Scan all the regions
         Dim sbttl As Integer = 0
