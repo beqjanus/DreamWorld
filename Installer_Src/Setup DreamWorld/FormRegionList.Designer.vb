@@ -30,7 +30,7 @@ Partial Class RegionList
         Me.RefreshButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.AddRegionButton = New System.Windows.Forms.Button()
-        Me.AllNome = New System.Windows.Forms.CheckBox()
+        Me.AllNone = New System.Windows.Forms.CheckBox()
         Me.RunAllButton = New System.Windows.Forms.Button()
         Me.StopAllButton = New System.Windows.Forms.Button()
         Me.RestartButton = New System.Windows.Forms.Button()
@@ -95,16 +95,16 @@ Partial Class RegionList
         Me.ToolTip1.SetToolTip(Me.AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
         Me.AddRegionButton.UseVisualStyleBackColor = True
         '
-        'AllNome
+        'AllNone
         '
-        Me.AllNome.AutoSize = True
-        Me.AllNome.Location = New System.Drawing.Point(12, 41)
-        Me.AllNome.Name = "AllNome"
-        Me.AllNome.Size = New System.Drawing.Size(68, 17)
-        Me.AllNome.TabIndex = 4
-        Me.AllNome.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
-        Me.ToolTip1.SetToolTip(Me.AllNome, Global.Outworldz.My.Resources.Resources.Selectallnone)
-        Me.AllNome.UseVisualStyleBackColor = True
+        Me.AllNone.AutoSize = True
+        Me.AllNone.Location = New System.Drawing.Point(12, 41)
+        Me.AllNone.Name = "AllNone"
+        Me.AllNone.Size = New System.Drawing.Size(68, 17)
+        Me.AllNone.TabIndex = 4
+        Me.AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
+        Me.ToolTip1.SetToolTip(Me.AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
+        Me.AllNone.UseVisualStyleBackColor = True
         '
         'RunAllButton
         '
@@ -275,7 +275,7 @@ Partial Class RegionList
         Me.Controls.Add(Me.RestartButton)
         Me.Controls.Add(Me.StopAllButton)
         Me.Controls.Add(Me.RunAllButton)
-        Me.Controls.Add(Me.AllNome)
+        Me.Controls.Add(Me.AllNone)
         Me.Controls.Add(Me.AddRegionButton)
         Me.Controls.Add(Me.RefreshButton)
         Me.Controls.Add(Me.ListView1)
@@ -297,7 +297,7 @@ Partial Class RegionList
     Friend WithEvents RefreshButton As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents AddRegionButton As Button
-    Friend WithEvents AllNome As CheckBox
+    Friend WithEvents AllNone As CheckBox
     Friend WithEvents RunAllButton As Button
     Friend WithEvents StopAllButton As Button
     Friend WithEvents RestartButton As Button
