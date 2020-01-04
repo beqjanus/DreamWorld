@@ -988,11 +988,6 @@ Public Class RegionList
             Form1.Buttons(Form1.StopButton)
             Form1.PropOpensimIsRunning() = True
             Form1.ToolBar(True)
-            ' show the IAR and OAR menu when we are up
-            If Form1.PropContentAvailable Then
-                Form1.IslandToolStripMenuItem.Visible = True
-                Form1.ClothingInventoryToolStripMenuItem.Visible = True
-            End If
 
         ElseIf chosen = "Stop" Then
 

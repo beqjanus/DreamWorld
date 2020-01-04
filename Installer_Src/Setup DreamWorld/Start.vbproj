@@ -717,6 +717,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\Image1.jpg" />
     <None Include="Resources\navigate_open.png" />
     <None Include="Resources\server_connection.png" />
     <None Include="Resources\flag_poland.png" />

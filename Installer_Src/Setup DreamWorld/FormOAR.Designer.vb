@@ -76,7 +76,7 @@ Partial Class FormOAR
         Me.Controls.Add(Me.DataGridView)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormOAR"
-        Me.Text = "Free OARs"
+        Me.Text = ""
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()

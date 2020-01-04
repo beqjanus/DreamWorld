@@ -6,6 +6,7 @@ Public Class FormOAR
 
 #Region "Private Fields"
 
+    Private _type As String = Nothing
     Private initSize = 200
     Private k As Integer = 50
 
@@ -61,16 +62,13 @@ Public Class FormOAR
 
 #Region "Start/Stop"
 
-    Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-
-        SetScreen()
-
-        Form1.HelpOnce("Load OAR")
+    Public Sub Init(type As String)
+        _type = type
 
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = Form1.SecureDomain() & "/outworldz_installer/JSON/OAR.json?r=1" & Form1.GetPostData()
+                Dim str = Form1.SecureDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -100,8 +98,16 @@ Public Class FormOAR
         DataGridView.Width = initSize
         DataGridView.ColumnHeadersHeight = initSize
         DataGridView.ShowCellToolTips = True
+        DataGridView.AllowUserToAddRows = False
 
         Redraw()
+
+    End Sub
+
+    Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
+        SetScreen()
+        Form1.HelpOnce("Load OAR-IAR")
 
     End Sub
 
@@ -112,8 +118,16 @@ Public Class FormOAR
     Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
 
         Dim File = json(e.RowIndex).name
-        File = Form1.PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
-        Form1.LoadOARContent(File)
+        File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+        If File.EndsWith(".oar") Then
+            Form1.LoadOARContent(File)
+        ElseIf File.EndsWith(".iar") Then
+            Form1.LoadIARContent(File)
+        ElseIf File.EndsWith(".OAR") Then
+            Form1.LoadOARContent(File)
+        ElseIf File.EndsWith(".IAR") Then
+            Form1.LoadIARContent(File)
+        End If
 
     End Sub
 
@@ -161,28 +175,30 @@ Public Class FormOAR
         DataGridView.Width = Me.Width - 50
         DataGridView.Columns(0).Width = Me.Width - k
         DataGridView.ColumnHeadersHeight = Me.Width - k
+
         Dim ctr = 0
 
         Try
 
             DataGridView.Rows.Clear()
             For Each item In json
+                Debug.Print("Item:" & item.name)
                 Dim bmp As Bitmap = New Bitmap(Me.Width - k, Me.Width - k)
-                Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/OAR/" & item.photo)
-                Dim img = GetImageFromURL(link)
-                Dim s = img.Size
+                Dim img As Image = My.Resources.NoImage
+                If item.photo.Length > 0 Then
+                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
+                    img = GetImageFromURL(link)
+                End If
 
                 Using g As Graphics = Graphics.FromImage(bmp)
                     g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                 End Using
 
-                If img.Width > 128 Then
-                    Dim size = Format(item.size / (1024 * 1024), "###0.00")
-                    Dim str = item.name & vbCrLf & size & "MB" & vbCrLf & item.license
-                    DataGridView.Rows.Add(bmp)
-                    Dim cell As DataGridViewCell = DataGridView.Rows(ctr).Cells(0)
-                    cell.ToolTipText = str
-                End If
+                Dim size = Format(item.size / (1024 * 1024), "###0.00")
+                Dim str = item.name & vbCrLf & size & "MB" & vbCrLf & item.license
+                DataGridView.Rows.Add(bmp)
+                Dim cell As DataGridViewCell = DataGridView.Rows(ctr).Cells(0)
+                cell.ToolTipText = str
 
                 ctr += 1
             Next
@@ -197,7 +213,7 @@ Public Class FormOAR
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        Form1.Help("Load OAR")
+        Form1.Help("Load OAR-IAR")
     End Sub
 
     Private Class JSONresult

@@ -57,7 +57,6 @@ Public Class Form1
     Private _ApacheExited As Integer = 0
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
-    Private _ContentAvailable As Boolean = False
     Private _CPUMAX As Single = 75
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
@@ -242,15 +241,6 @@ Public Class Form1
         End Get
         Set(ByVal Value As Boolean)
             _ApacheUninstalling = Value
-        End Set
-    End Property
-
-    Public Property PropContentAvailable() As Boolean
-        Get
-            Return _ContentAvailable
-        End Get
-        Set(ByVal Value As Boolean)
-            _ContentAvailable = Value
         End Set
     End Property
 
@@ -779,12 +769,6 @@ Public Class Form1
             Return
         End If
 
-        ' show the IAR and OAR menu when we are up
-        If PropContentAvailable Then
-            IslandToolStripMenuItem.Visible = True
-            ClothingInventoryToolStripMenuItem.Visible = True
-        End If
-
         Buttons(StopButton)
         Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
@@ -931,7 +915,7 @@ Public Class Form1
         LoadHelp()        ' Help loads once
 
         Print(My.Resources.RefreshingOAR)
-        SetIAROARContent() ' load IAR and OAR web content
+        'SetIAROARContent() ' load IAR and OAR web content
         LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Then
@@ -2714,7 +2698,7 @@ Public Class Form1
                 Catch ex As System.ComponentModel.Win32Exception
                 End Try
                 Print(My.Resources.User_Name_word & ":" & Settings.AdminFirst & " " & Settings.AdminLast)
-                Print(My.Resources.Password & ":" & Settings.Password)
+                Print(My.Resources.Password_word & ":" & Settings.Password)
             End If
         Else
             If Settings.ApacheEnable Then
@@ -4479,7 +4463,7 @@ Public Class Form1
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS()
             LoadLocalIAROAR() ' refresh the pulldowns.
-            SetIAROARContent() ' load IAR and OAR web content
+            'SetIAROARContent() ' load IAR and OAR web content
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
@@ -4538,7 +4522,7 @@ Public Class Form1
         Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
         Dim user = InputBox(My.Resources.Enter_1_2)
-        Dim password = InputBox(My.Resources.Password)
+        Dim password = InputBox(My.Resources.Password_word)
         If user.Length > 0 And password.Length > 0 Then
             ConsoleCommand(PropRegionClass.GroupName(num), "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
             ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" & vbCrLf)
@@ -4609,48 +4593,6 @@ Public Class Form1
 
     End Function
 
-    Public Sub UploadCategory()
-
-        'PHASE 2, upload Description and Categories
-        Dim result As String = Nothing
-        If Settings.Categories.Length = 0 Then Return
-
-        Using client As New WebClient ' download client for web pages
-            Try
-                Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
-                result = client.DownloadString(str)
-            Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            End Try
-        End Using
-
-        If result <> "OK" Then
-            ErrorLog(My.Resources.Wrong & " " & result)
-        End If
-
-    End Sub
-
-    ''' <summary>
-    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
-    ''' known to be on line.
-    ''' </summary>
-    Public Sub UploadPhoto()
-
-        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
-
-            UploadCategory()
-
-            Dim Myupload As New UploadImage
-            Myupload.PostContentUploadFile()
-
-        End If
-
-    End Sub
-
     Public Function VarChooser(RegionName As String) As String
 
         Dim RegionNumber = PropRegionClass.FindRegionByName(RegionName)
@@ -4683,20 +4625,6 @@ Public Class Form1
         Return PropSelectedBox
 
     End Function
-
-    Private Sub AddLog(name As String)
-        Dim LogMenu As New ToolStripMenuItem With {
-                .Text = name,
-                .ToolTipText = My.Resources.Click_to_View_this_word,
-                .Size = New Size(269, 26),
-                .Image = My.Resources.Resources.document_view,
-                .DisplayStyle = ToolStripItemDisplayStyle.Text
-            }
-        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
-        ViewLogsToolStripMenuItem.Visible = True
-        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
-
-    End Sub
 
     Private Sub AllRegionsOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllTheRegionsOarsToolStripMenuItem.Click
 
@@ -4779,47 +4707,15 @@ Public Class Form1
 
     End Sub
 
-    Private Sub LoadHelp()
-
-        ' read help files for menu
-
-        Dim folders As Array = Nothing
-        Try
-            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
-
-        For Each aline As String In folders
-            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
-                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-                Dim HelpMenu As New ToolStripMenuItem With {
-                    .Text = aline,
-                    .ToolTipText = My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.question_and_answer
-                }
-                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
-                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
-            End If
-        Next
-
-        AddLog("All Logs")
-        AddLog("Robust")
-        AddLog("Error")
-        AddLog("Outworldz")
-        AddLog("Icecast")
-        AddLog("MySQL")
-        AddLog("All Settings")
-        AddLog("--- Regions ---")
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            Dim Name = PropRegionClass.RegionName(X)
-            AddLog("Region " & Name)
-        Next
-
+    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
+        If PropInitted Then
+            Dim FormOARS As New FormOAR
+            FormOARS.Activate()
+            FormOARS.Visible = True
+            FormOARS.Select()
+            FormOARS.Init("OAR")
+            FormOARS.BringToFront()
+        End If
     End Sub
 
     Private Sub LoadInventoryIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem.Click
@@ -5024,108 +4920,67 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SetIAROARContent()
+#End Region
 
-        IslandToolStripMenuItem.DropDownItems.Clear()
-        IslandToolStripMenuItem.Visible = False
-        ClothingInventoryToolStripMenuItem.DropDownItems.Clear()
-        ClothingInventoryToolStripMenuItem.Visible = False
+#Region "Publicity"
 
-        Dim LinkMenu As New ToolStripMenuItem With {
-                        .Text = My.Resources.Web_Download_Link_Word,
-                        .ToolTipText = My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
-                    }
-        AddHandler LinkMenu.Click, New EventHandler(AddressOf OarClick)
-        IslandToolStripMenuItem.Visible = True
-        IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LinkMenu})
+    Public Sub UploadCategory()
 
-        Dim oars As String = ""
-        Using client As New WebClient ' download client for web pages
-
-            Try
-                oars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=OAR&r=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            End Try
-        End Using
-
-        Dim line As String = ""
-
-        Using oarreader = New StringReader(oars)
-            Dim ContentSeen As Boolean = False
-            While Not ContentSeen
-                line = oarreader.ReadLine()
-                If line <> Nothing Then
-                    Log(My.Resources.Info, "" & line)
-                    Dim OarMenu As New ToolStripMenuItem With {
-                        .Text = line,
-                        .ToolTipText = My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
-                    }
-                    AddHandler OarMenu.Click, New EventHandler(AddressOf OarClick)
-                    IslandToolStripMenuItem.Visible = True
-                    IslandToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                    PropContentAvailable = True
-                Else
-                    ContentSeen = True
-                End If
-            End While
-        End Using
-
-        Dim ClothesMenu As New ToolStripMenuItem With {
-                        .Text = My.Resources.Web_Download_Link_Word,
-                        .ToolTipText = My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
-                    }
-        AddHandler ClothesMenu.Click, New EventHandler(AddressOf IarClick)
-        ClothingInventoryToolStripMenuItem.Visible = True
-        ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {ClothesMenu})
-
-        Dim iars As String = ""
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        If Settings.Categories.Length = 0 Then Return
 
         Using client As New WebClient ' download client for web pages
             Try
-                iars = client.DownloadString(SecureDomain() & "/Outworldz_Installer/Content.plx?type=IAR&r=" & RandomNumber.Random())
+                Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
+                result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
             Catch ex As WebException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
             Catch ex As NotSupportedException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
             End Try
-
-            Using iarreader As New StringReader(iars)
-                Dim ContentSeen As Boolean = False
-                While Not ContentSeen
-                    line = iarreader.ReadLine()
-                    If line <> Nothing Then
-                        Log(My.Resources.Info, "" & line)
-                        Dim IarMenu As New ToolStripMenuItem With {
-                            .Text = line,
-                            .ToolTipText = My.Resources.Click_to_load,
-                            .DisplayStyle = ToolStripItemDisplayStyle.Text
-                        }
-                        AddHandler IarMenu.Click, New EventHandler(AddressOf IarClick)
-                        ClothingInventoryToolStripMenuItem.Visible = True
-                        ClothingInventoryToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                        PropContentAvailable = True
-                    Else
-                        ContentSeen = True
-                    End If
-                End While
-            End Using
         End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & " " & result)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server is
+    ''' known to be on line.
+    ''' </summary>
+    Public Sub UploadPhoto()
+
+        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
+
+            UploadCategory()
+
+            Dim Myupload As New UploadImage
+            Myupload.PostContentUploadFile()
+
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Logging"
+
+    Private Sub AddLog(name As String)
+        Dim LogMenu As New ToolStripMenuItem With {
+                .Text = name,
+                .ToolTipText = My.Resources.Click_to_View_this_word,
+                .Size = New Size(269, 26),
+                .Image = My.Resources.Resources.document_view,
+                .DisplayStyle = ToolStripItemDisplayStyle.Text
+            }
+        AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
+        ViewLogsToolStripMenuItem.Visible = True
+        ViewLogsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {LogMenu})
 
     End Sub
 
@@ -6661,8 +6516,11 @@ Public Class Form1
             FormHelp.Activate()
             FormHelp.Visible = True
             FormHelp.Init(Webpage)
-            FormHelp.Select()
-            FormHelp.BringToFront()
+            Try
+                FormHelp.Select()
+                FormHelp.BringToFront()
+            Catch
+            End Try
 
         End If
 
@@ -6745,6 +6603,49 @@ Public Class Form1
         For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum("*")
             ConsoleCommand(PropRegionClass.RegionName(RegionNum), "debug jobengine status{ENTER}" & vbCrLf)
         Next
+    End Sub
+
+    Private Sub LoadHelp()
+
+        ' read help files for menu
+
+        Dim folders As Array = Nothing
+        Try
+            folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
+        Catch ex As ArgumentException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
+
+        For Each aline As String In folders
+            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
+                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
+                Dim HelpMenu As New ToolStripMenuItem With {
+                    .Text = aline,
+                    .ToolTipText = My.Resources.Click_to_load,
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.question_and_answer
+                }
+                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
+                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+            End If
+        Next
+
+        AddLog("All Logs")
+        AddLog("Robust")
+        AddLog("Error")
+        AddLog("Outworldz")
+        AddLog("Icecast")
+        AddLog("MySQL")
+        AddLog("All Settings")
+        AddLog("--- Regions ---")
+        For Each X As Integer In PropRegionClass.RegionNumbers
+            Dim Name = PropRegionClass.RegionName(X)
+            AddLog("Region " & Name)
+        Next
+
     End Sub
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
@@ -7223,6 +7124,17 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
+        If PropInitted Then
+            Dim FormOARS As New FormOAR
+            FormOARS.Activate()
+            FormOARS.Init("IAR")
+            FormOARS.Visible = True
+            FormOARS.Select()
+            FormOARS.BringToFront()
+        End If
+    End Sub
+
     Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
         Settings.Language = "cs"
         Language(sender, e)
@@ -7280,16 +7192,6 @@ Public Class Form1
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
-    End Sub
-
-    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadFreeDreamGridOARsToolStripMenuItem.Click
-        If PropInitted Then
-            Dim FormOARS As New FormOAR
-            FormOARS.Activate()
-            FormOARS.Visible = True
-            FormOARS.Select()
-            FormOARS.BringToFront()
-        End If
     End Sub
 
     Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
