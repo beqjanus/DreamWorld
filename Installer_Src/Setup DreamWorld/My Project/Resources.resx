@@ -766,7 +766,7 @@
   <data name="ErrorRegion" xml:space="preserve">
     <value>Error: Failed to set the Opensim.ini for region</value>
   </data>
-  <data name="Password" xml:space="preserve">
+  <data name="Password_word" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="Region_Controls" xml:space="preserve">
@@ -2700,5 +2700,8 @@
   </data>
   <data name="YEngine_word" xml:space="preserve">
     <value>YEngine</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
+    <value>Object Path and name</value>
   </data>
 </root>

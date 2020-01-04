@@ -5015,6 +5015,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Object Path and name.
+        '''</summary>
+        Friend ReadOnly Property Object_Path_and_name() As String
+            Get
+                Return ResourceManager.GetString("Object_Path_and_name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Open Dynamic Engine.
         '''</summary>
         Friend ReadOnly Property ODE_text() As String
@@ -5188,20 +5197,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Password.
-        '''</summary>
-        Friend ReadOnly Property Password() As String
-            Get
-                Return ResourceManager.GetString("Password", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to You can only change the password when Opensim is running.
         '''</summary>
         Friend ReadOnly Property Password_Text() As String
             Get
                 Return ResourceManager.GetString("Password_Text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Password.
+        '''</summary>
+        Friend ReadOnly Property Password_word() As String
+            Get
+                Return ResourceManager.GetString("Password_word", resourceCulture)
             End Get
         End Property
         
