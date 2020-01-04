@@ -657,14 +657,7 @@ Public Class Form1
 
         Buttons(BusyButton)
 
-        With cpu
-            .CategoryName = "Processor"
-            .CounterName = "% Processor Time"
-            .InstanceName = "_Total"
-        End With
-
         Dim DefaultName As String = ""
-        Print(My.Resources.Starting_word)
 
         Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If N = -1 Then
@@ -679,6 +672,7 @@ Public Class Form1
             Return
         End If
 
+        Print(My.Resources.Starting_word)
         PropRegionClass.RegionEnabled(N) = True
 
         PropExitHandlerIsBusy = False
@@ -912,6 +906,12 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Return
         End If
+
+        With cpu
+            .CategoryName = "Processor"
+            .CounterName = "% Processor Time"
+            .InstanceName = "_Total"
+        End With
 
         CheckForUpdates()
 
@@ -4295,7 +4295,24 @@ Public Class Form1
             speed3 = speed2
             speed2 = speed1
             speed1 = speed
-            speed = cpu.NextValue()
+            Try
+                speed = cpu.NextValue()
+            Catch ex As Exception
+
+                Dim pUpdate As Process = New Process()
+                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                    .Arguments = "/ R",
+                    .FileName = "loadctr"
+                }
+                pUpdate.StartInfo = pi
+
+                Try
+                    pUpdate.Start()
+                    pUpdate.WaitForExit()
+                Catch ex1 As InvalidOperationException
+                Catch ex1 As ComponentModel.Win32Exception
+                End Try
+            End Try
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
 
