@@ -1,9 +1,0 @@
-Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-
-http://uc.onikenkon.com/
-
-Powered by OpenSimulator
-Developed in collaboration with the Center for Computer Games & Virtual Worlds
-Supported by the National Library of Medicine - National Institutes of Health
-Default world development by Michael Emory Cerquoni (a.k.a. Nebadon Izumi) at Oni Kenkon
-Preset avatar development by Ina Centaur at OS Avatars

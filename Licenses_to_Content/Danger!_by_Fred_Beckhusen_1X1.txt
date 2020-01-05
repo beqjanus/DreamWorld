@@ -7,7 +7,8 @@ The Landing gate is by Lussyport: https://sketchfab.com/luyssport
 CC- Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
 
 ======================================================================
-Yo Frankie! files are licensed under the Creative Commons Attribution license 3.0. In short, this means you can freely reuse and distribute this content, also commercially, for as long you provide a proper attribution.
+Yo Frankie! files are licensed under the Creative Commons Attribution license 3.0. In short, this means you can
+freely reuse and distribute this content, also commercially, for as long you provide a proper attribution.
 
 The attribution is: (c) copyright Blender Foundation | apricot.blender.org.
 

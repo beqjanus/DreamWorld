@@ -1,2 +1,4 @@
 
-This is a virtual world archive of an undersea observatory by Justin K. Reeve which is shared to allow others to use this marine biology build for OpenSim. For additional information, please see: http://blog.wsd.net/jreeve/undersea-observatory-for-opensim/
+This is a virtual world archive of an undersea observatory by Justin K. Reeve
+which is shared to allow others to use this marine biology build for OpenSim.
+For additional information, please see: http://blog.wsd.net/jreeve/undersea-observatory-for-opensim/
