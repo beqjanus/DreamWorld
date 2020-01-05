@@ -7,7 +7,7 @@ Public Class FormOAR
 #Region "Private Fields"
 
     Private _type As String = Nothing
-    Private initSize = 200
+    Private initSize = 275
     Private k As Integer = 50
 
 #End Region
@@ -88,18 +88,18 @@ Public Class FormOAR
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
 
-        'DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
+        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
         DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
 
         'add 10 px p[adding to bottom
-        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(0, 0, 0, 10)
+        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(0, 0, 0, 0)
 
         DataGridView.RowHeadersVisible = False
         DataGridView.Width = initSize
         DataGridView.ColumnHeadersHeight = initSize
         DataGridView.ShowCellToolTips = True
         DataGridView.AllowUserToAddRows = False
-
+        SetScreen()
         Redraw()
 
     End Sub
@@ -119,13 +119,9 @@ Public Class FormOAR
 
         Dim File = json(e.RowIndex).name
         File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
-        If File.EndsWith(".oar") Then
+        If File.EndsWith(".oar") Or File.EndsWith(".gz") Or File.EndsWith(".tgz") Then
             Form1.LoadOARContent(File)
         ElseIf File.EndsWith(".iar") Then
-            Form1.LoadIARContent(File)
-        ElseIf File.EndsWith(".OAR") Then
-            Form1.LoadOARContent(File)
-        ElseIf File.EndsWith(".IAR") Then
             Form1.LoadIARContent(File)
         End If
 
@@ -145,6 +141,7 @@ Public Class FormOAR
             req = Nothing
         Catch ex As Exception
             Form1.Log("Warn", ex.Message)
+            retVal = My.Resources.NoImage
         End Try
 
         Return retVal
@@ -183,7 +180,10 @@ Public Class FormOAR
             DataGridView.Rows.Clear()
             For Each item In json
                 Debug.Print("Item:" & item.name)
-                Dim bmp As Bitmap = New Bitmap(Me.Width - k, Me.Width - k)
+                'If item.name.Contains("arrakis") Then
+                'Dim bp = 1
+                'End If
+                Dim bmp As Bitmap = New Bitmap(Me.Width - k - 50, Me.Width - k - 50)
                 Dim img As Image = My.Resources.NoImage
                 If item.photo.Length > 0 Then
                     Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
