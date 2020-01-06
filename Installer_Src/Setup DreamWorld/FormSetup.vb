@@ -1575,9 +1575,7 @@ Public Class Form1
         StopRobust()
         PropStopMysql = True
         If Not Settings.ApacheService Then StopMysql()
-        ' cannot load OAR or IAR, either
-        IslandToolStripMenuItem.Visible = False
-        ClothingInventoryToolStripMenuItem.Visible = False
+
         Timer1.Stop()
         PropOpensimIsRunning() = False
 
@@ -3308,9 +3306,7 @@ Public Class Form1
         Timer1.Stop()
 
         PropUpdateView = True ' make form refresh
-        ' cannot load OAR or IAR, either
-        IslandToolStripMenuItem.Visible = False
-        ClothingInventoryToolStripMenuItem.Visible = False
+
         PropOpensimIsRunning() = False
         ToolBar(False)
         Print(My.Resources.Stopped_word)
@@ -6669,8 +6665,7 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If Settings.ServerType = "Metro" _
-            Or Settings.ServerType = "OsGrid" Then Return
+        If Settings.ServerType <> "Grid" Then Return
 
         ' modify this to migrate search datbase upwards a rev
         If Not Settings.SearchMigration = 3 Then
@@ -6684,20 +6679,21 @@ Public Class Form1
             pi.FileName = "Create_OsSearch.bat"
             pi.UseShellExecute = True
             pi.CreateNoWindow = False
-            pi.WindowStyle = ProcessWindowStyle.Hidden
-            Using ProcessMysql As Process = New Process With {
+            pi.WindowStyle = ProcessWindowStyle.Normal
+
+            Using MysqlSearch As Process = New Process With {
                     .StartInfo = pi
                 }
 
                 Try
-                    ProcessMysql.Start()
-                    ProcessMysql.WaitForExit()
+                    MysqlSearch.Start()
+                    MysqlSearch.WaitForExit()
                 Catch ex As InvalidOperationException
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    ErrorLog("Could not create Search Database: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = PropMyFolder
                     Return
                 Catch ex As System.ComponentModel.Win32Exception
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    ErrorLog("Could not create Search Database: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = PropMyFolder
                     Return
                 End Try
