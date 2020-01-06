@@ -5589,7 +5589,7 @@ Public Class Form1
         Catch ex As PathTooLongException
         Catch ex As IOException
         End Try
-
+        If AutoIARs.Length = 0 Then Return
         counter = MaxFileNum
         For Each IAR As String In AutoIARs
             counter -= 1
