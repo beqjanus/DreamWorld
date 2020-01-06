@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Threading
 Imports Newtonsoft.Json
 
 Public Class FormOAR
@@ -150,41 +151,6 @@ Public Class FormOAR
 
     End Function
 
-    Private Sub ImageToJson()
-
-        For Each item In json
-            Application.DoEvents()
-            Debug.Print("Item:" & item.name)
-
-            Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
-            If item.Cache IsNot Nothing Then
-                Using g As Graphics = Graphics.FromImage(bmp)
-                    g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
-                End Using
-            Else
-                Dim img As Image = Nothing
-                If item.photo.Length > 0 Then
-                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
-                    img = GetImageFromURL(link)
-                End If
-
-                If img Is Nothing Then
-                    img = NoImage(item)
-                End If
-
-                Using g As Graphics = Graphics.FromImage(bmp)
-                    g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
-                End Using
-            End If
-            item.Cache = bmp
-
-            item.size = Format(item.size / (1024 * 1024), "###0.00")
-            item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
-
-        Next
-
-    End Sub
-
     Private Sub Save(item As JSONresult, row As Integer, col As Integer)
 
         If item.name.StartsWith("underwater") Then
@@ -220,6 +186,54 @@ Public Class FormOAR
         Public photo As String
         Public size As String
         Public str As String
+
+#End Region
+
+#Region "Fields"
+
+#End Region
+
+#Region "Constructors"
+
+#End Region
+
+#Region "Destructors"
+
+#End Region
+
+#Region "Delegates"
+
+#End Region
+
+#Region "Events"
+
+#End Region
+
+#Region "Enums"
+
+#End Region
+
+#Region "Interfaces"
+
+#End Region
+
+#Region "Properties"
+
+#End Region
+
+#Region "Indexers"
+
+#End Region
+
+#Region "Methods"
+
+#End Region
+
+#Region "Structs"
+
+#End Region
+
+#Region "Classes"
 
 #End Region
 
@@ -287,16 +301,8 @@ Public Class FormOAR
 
         _type = type
         Me.Hide()
-        Try
-            SetScreen()
-            GetData()
-            ImageToJson()
-            Redraw()
-        Catch ex As Exception
-            Return
-        End Try
 
-        _initted = True
+        InitiateThread()
 
     End Sub
 
@@ -308,6 +314,18 @@ Public Class FormOAR
         If _type = "OAR" Then Form1.HelpOnce("Load OAR")
         If _type = "IAR" Then Form1.HelpOnce("Load IAR")
     End Sub
+
+    Private Function DoWork(ByVal ref_json() As JSONresult) As JSONresult
+
+        Try
+            json = GetData()
+            json = ImageToJson(json)
+        Catch ex As Exception
+            Return Nothing
+        End Try
+        _initted = True
+        Return Nothing
+    End Function
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
@@ -324,11 +342,28 @@ Public Class FormOAR
 
     End Sub
 
+    Private Sub InitiateThread()
+
+        Dim WebThread As New Thread(DirectCast(Function() DoWork(json), ThreadStart))
+
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As ArgumentException
+            Form1.Log(My.Resources.Error_word, ex.Message)
+        Catch ex As ThreadStartException
+            Form1.Log(My.Resources.Error_word, ex.Message)
+        Catch ex As InvalidOperationException
+            Form1.Log(My.Resources.Error_word, ex.Message)
+        End Try
+        WebThread.Start()
+
+    End Sub
+
 #End Region
 
 #Region "Data"
 
-    Private Sub GetData()
+    Private Function GetData()
 
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
@@ -337,25 +372,29 @@ Public Class FormOAR
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
+                Return Nothing
             Catch ex As WebException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
+                Return Nothing
             Catch ex As NotSupportedException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
+                Return Nothing
             End Try
         End Using
+        Try
+            json = JsonConvert.DeserializeObject(Of JSONresult())(result)
+        Catch
+            Return Nothing
+        End Try
+        Return json
 
-        json = JsonConvert.DeserializeObject(Of JSONresult())(result)
-
-    End Sub
+    End Function
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
         DataGridView.Hide()
-        GetData()
-        ImageToJson()
+        json = GetData()
+        json = ImageToJson(json)
         Redraw()
 
     End Sub
@@ -363,6 +402,42 @@ Public Class FormOAR
 #End Region
 
 #Region "Imagery"
+
+    Private Function ImageToJson(ByVal json() As JSONresult)
+
+        For Each item In json
+            Application.DoEvents()
+            Debug.Print("Item:" & item.name)
+
+            Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
+            If item.Cache IsNot Nothing Then
+                Using g As Graphics = Graphics.FromImage(bmp)
+                    g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
+                End Using
+            Else
+                Dim img As Image = Nothing
+                If item.photo.Length > 0 Then
+                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
+                    img = GetImageFromURL(link)
+                End If
+
+                If img Is Nothing Then
+                    img = NoImage(item)
+                End If
+
+                Using g As Graphics = Graphics.FromImage(bmp)
+                    g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
+                End Using
+            End If
+            item.Cache = bmp
+
+            item.size = Format(item.size / (1024 * 1024), "###0.00")
+            item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
+
+        Next
+        Return json
+
+    End Function
 
     Private Function NoImage(item As JSONresult) As Image
 
