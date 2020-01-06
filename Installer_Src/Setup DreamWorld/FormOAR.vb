@@ -1,22 +1,238 @@
-﻿Imports Newtonsoft.Json
-Imports System.Net
-Imports System.IO
+﻿Imports System.Net
+Imports Newtonsoft.Json
 
 Public Class FormOAR
 
 #Region "Private Fields"
 
+    Private _initted As Boolean = False
     Private _type As String = Nothing
-    Private initSize = 275
+    Private imgSize As Integer = 256
+    Private initSize As Integer = 512
     Private k As Integer = 50
+
+#End Region
+
+#Region "Public Fields"
+
+    Private json() As JSONresult
+
+#End Region
+
+#Region "Draw"
+
+    Public Sub Redraw()
+
+        Dim gdTextColumn As New DataGridViewTextBoxColumn
+        DataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+
+        Dim gdImageColumn As New DataGridViewImageColumn
+        DataGridView.Columns.Add(gdImageColumn)
+        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
+        DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+
+        'add 10 px padding to bottom
+        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(5, 5, 5, 5)
+
+        DataGridView.RowHeadersVisible = False
+        DataGridView.Width = initSize
+        DataGridView.ColumnHeadersHeight = initSize
+        DataGridView.ShowCellToolTips = True
+        DataGridView.AllowUserToAddRows = False
+
+        Dim NumColumns As Integer = Math.Ceiling(Me.Width / imgSize)
+        If NumColumns = 0 Then
+            NumColumns = 1
+        End If
+
+        DataGridView.Height = Me.Height - 100
+        DataGridView.RowTemplate.Height = Math.Ceiling((Me.Width - k) / NumColumns)
+        DataGridView.RowTemplate.MinimumHeight = Math.Ceiling((Me.Width - k) / NumColumns)
+
+        DataGridView.Width = Me.Width - 50
+        'DataGridView.Columns(0).Width = Me.Width - k
+        DataGridView.ColumnHeadersHeight = Math.Ceiling((Me.Width - k) / NumColumns)
+
+        DataGridView.SuspendLayout()
+
+        DataGridView.Columns.Clear()
+        DataGridView.Rows.Clear()
+        DataGridView.ClearSelection()
+
+        For index = 1 To NumColumns 'How many do you want?
+            Dim col As New DataGridViewImageColumn
+            With col
+                .Width = (Me.Width - k) / NumColumns
+                .Name = "Details" & CStr(index)
+            End With
+            DataGridView.Columns.Insert(0, col)
+        Next
+
+        Dim cnt = json.Length
+        Me.Text = CStr(cnt) & " Items"
+
+        Dim column = 0
+        Dim rowcounter = 0
+        For Each item In json
+            Application.DoEvents()
+            Debug.Print("Item:" & item.name)
+
+            If column = 0 Then DataGridView.Rows.Add()
+            Save(item, rowcounter, column)
+
+            column += 1
+            If column = NumColumns Then
+                rowcounter += 1
+                column = 0
+            End If
+        Next
+
+        While column < NumColumns And column > 0
+            DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
+            column += 1
+        End While
+
+        For Each x As DataGridViewRow In DataGridView.Rows
+            x.MinimumHeight = (Me.Width - k) / NumColumns
+        Next
+        DataGridView.ResumeLayout()
+        DataGridView.Show()
+
+    End Sub
+
+    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
+
+        Dim File As String = json(e.RowIndex).name
+        File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+        If File.EndsWith(".oar") Or File.EndsWith(".gz") Or File.EndsWith(".tgz") Then
+            Form1.LoadOARContent(File)
+        ElseIf File.EndsWith(".iar") Then
+            Form1.LoadIARContent(File)
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "IO"
+
+    Private Function GetImageFromURL(ByVal url As Uri) As Image
+
+        Dim retVal As Image = Nothing
+
+        Try
+            Dim req As System.Net.WebRequest = System.Net.WebRequest.Create(url)
+            Using request As System.Net.WebResponse = req.GetResponse
+                Using stream As System.IO.Stream = request.GetResponseStream
+                    retVal = New Bitmap(System.Drawing.Image.FromStream(stream))
+                End Using
+            End Using
+            req = Nothing
+        Catch ex As Exception
+            Form1.Log("Warn", ex.Message)
+        End Try
+
+        Return retVal
+
+    End Function
+
+    Private Function GetTextFromURL(ByVal url As Uri) As String
+
+        Dim retVal As String = Nothing
+        Try
+            Using client As WebClient = New WebClient()
+                Return client.DownloadString(url)
+            End Using
+        Catch ex As Exception
+            Form1.Log("Warn", ex.Message)
+        End Try
+        Return ""
+
+    End Function
+
+    Private Sub ImageToJson()
+
+        For Each item In json
+            Application.DoEvents()
+            Debug.Print("Item:" & item.name)
+
+            Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
+            If item.Cache IsNot Nothing Then
+                Using g As Graphics = Graphics.FromImage(bmp)
+                    g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
+                End Using
+            Else
+                Dim img As Image = Nothing
+                If item.photo.Length > 0 Then
+                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
+                    img = GetImageFromURL(link)
+                End If
+
+                If img Is Nothing Then
+                    img = NoImage(item)
+                End If
+
+                Using g As Graphics = Graphics.FromImage(bmp)
+                    g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
+                End Using
+            End If
+            item.Cache = bmp
+
+            item.size = Format(item.size / (1024 * 1024), "###0.00")
+            item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
+
+        Next
+
+    End Sub
+
+    Private Sub Save(item As JSONresult, row As Integer, col As Integer)
+
+        If item.name.StartsWith("underwater") Then
+            Dim bp = 1
+        End If
+        If item.Cache.Width > 0 Then
+            DataGridView.Rows(row).Cells(col).Value = item.Cache
+            DataGridView.Rows(row).Cells(col).ToolTipText = item.str
+        Else
+            DataGridView.Rows(row).Cells(col).Value = NoImage(item)
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+
+        If _type = "IAR" Then Form1.Help("Load IAR")
+        If _type = "OAR" Then Form1.Help("Load OAR")
+
+    End Sub
+
+#End Region
+
+#Region "Public Classes"
+
+    Public Class JSONresult
+
+#Region "Public Fields"
+
+        Public [Date] As String
+        Public Cache As Image
+        Public license As String
+        Public name As String
+        Public photo As String
+        Public size As String
+        Public str As String
+
+#End Region
+
+    End Class
 
 #End Region
 
 #Region "ScreenSize"
 
     Private _screenPosition As ScreenPos
+    Dim aHeight As Integer
+    Dim aWidth As Integer
     Private Handler As New EventHandler(AddressOf Resize_page)
-    Private json() As JSONresult
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -29,15 +245,20 @@ Public Class FormOAR
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-
+        If Not _initted Then Return
         ScreenPosition.SaveXY(Me.Left, Me.Top)
         ScreenPosition.SaveHW(Me.Height, Me.Width)
-        Redraw()
+
+        If Height <> aHeight Or Width <> aWidth Then
+            aHeight = Height
+            aWidth = Width
+            Redraw()
+        End If
 
     End Sub
 
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ScreenPos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
@@ -46,7 +267,7 @@ Public Class FormOAR
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = initSize * 4
+            Me.Height = initSize
         Else
             Me.Height = hw.Item(0)
         End If
@@ -63,7 +284,51 @@ Public Class FormOAR
 #Region "Start/Stop"
 
     Public Sub Init(type As String)
+
         _type = type
+        Me.Hide()
+        Try
+            SetScreen()
+            GetData()
+            ImageToJson()
+            Redraw()
+        Catch ex As Exception
+            Return
+        End Try
+
+        _initted = True
+
+    End Sub
+
+    Public Sub ShowForm()
+
+        If Not _initted Then Return
+        Me.Show()
+        Redraw()
+        If _type = "OAR" Then Form1.HelpOnce("Load OAR")
+        If _type = "IAR" Then Form1.HelpOnce("Load IAR")
+    End Sub
+
+    Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+
+        Me.Hide()
+        DataGridView.Hide()
+        SetScreen()
+
+    End Sub
+
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+        Me.Hide()
+        e.Cancel = True
+
+    End Sub
+
+#End Region
+
+#Region "Data"
+
+    Private Sub GetData()
 
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
@@ -72,163 +337,48 @@ Public Class FormOAR
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Return
             Catch ex As WebException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Return
             Catch ex As NotSupportedException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Return
             End Try
         End Using
 
         json = JsonConvert.DeserializeObject(Of JSONresult())(result)
 
-        Dim gdTextColumn As New DataGridViewTextBoxColumn
+    End Sub
 
-        DataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Dim gdImageColumn As New DataGridViewImageColumn
-        DataGridView.Columns.Add(gdImageColumn)
-
-        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
-        DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-
-        'add 10 px p[adding to bottom
-        DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(0, 0, 0, 0)
-
-        DataGridView.RowHeadersVisible = False
-        DataGridView.Width = initSize
-        DataGridView.ColumnHeadersHeight = initSize
-        DataGridView.ShowCellToolTips = True
-        DataGridView.AllowUserToAddRows = False
-        SetScreen()
+        DataGridView.Hide()
+        GetData()
+        ImageToJson()
         Redraw()
 
     End Sub
 
-    Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-
-        SetScreen()
-        Form1.HelpOnce("Load OAR-IAR")
-
-    End Sub
-
 #End Region
 
-#Region "Private"
+#Region "Imagery"
 
-    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
+    Private Function NoImage(item As JSONresult) As Image
 
-        Dim File = json(e.RowIndex).name
-        File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
-        If File.EndsWith(".oar") Or File.EndsWith(".gz") Or File.EndsWith(".tgz") Then
-            Form1.LoadOARContent(File)
-        ElseIf File.EndsWith(".iar") Then
-            Form1.LoadIARContent(File)
-        End If
+        Dim bmp = My.Resources.Blank256
+        Dim drawFont As Font = New Font("Arial", 12)
 
-    End Sub
+        Dim newImage = New Bitmap(256, 256)
+        Dim gr = Graphics.FromImage(newImage)
+        gr.DrawImageUnscaled(bmp, 0, 0)
+        item.name = item.name.Replace("-", vbCrLf)
+        item.name = item.name.Replace("_", vbCrLf)
+        gr.DrawString(item.name, drawFont, Brushes.Black, 30, 100)
 
-    Private Function GetImageFromURL(ByVal url As Uri) As Image
-
-        Dim retVal As Image = Nothing
-
-        Try
-            Dim req As System.Net.WebRequest = System.Net.WebRequest.Create(url)
-            Using request As System.Net.WebResponse = req.GetResponse
-                Using stream As System.IO.Stream = request.GetResponseStream
-                    retVal = New Bitmap(System.Drawing.Image.FromStream(stream))
-                End Using
-            End Using
-            req = Nothing
-        Catch ex As Exception
-            Form1.Log("Warn", ex.Message)
-            retVal = My.Resources.NoImage
-        End Try
-
-        Return retVal
+        Return newImage
 
     End Function
-
-    Private Function GetTextFromURL(ByVal url As Uri) As String
-
-        Dim retVal As String = Nothing
-
-        Try
-            Using client As WebClient = New WebClient()
-                Return client.DownloadString(url)
-            End Using
-        Catch ex As Exception
-            Form1.Log("Warn", ex.Message)
-        End Try
-        Return ""
-
-    End Function
-
-    Private Sub Redraw()
-
-        DataGridView.Height = Me.Height - 100
-        DataGridView.RowTemplate.Height = Me.Width - k
-        DataGridView.RowTemplate.MinimumHeight = Me.Width - k
-
-        DataGridView.Width = Me.Width - 50
-        DataGridView.Columns(0).Width = Me.Width - k
-        DataGridView.ColumnHeadersHeight = Me.Width - k
-
-        Dim ctr = 0
-
-        Try
-
-            DataGridView.Rows.Clear()
-            For Each item In json
-                Debug.Print("Item:" & item.name)
-                'If item.name.Contains("arrakis") Then
-                'Dim bp = 1
-                'End If
-                Dim bmp As Bitmap = New Bitmap(Me.Width - k - 50, Me.Width - k - 50)
-                Dim img As Image = My.Resources.NoImage
-                If item.photo.Length > 0 Then
-                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
-                    img = GetImageFromURL(link)
-                End If
-
-                Using g As Graphics = Graphics.FromImage(bmp)
-                    g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
-                End Using
-
-                Dim size = Format(item.size / (1024 * 1024), "###0.00")
-                Dim str = item.name & vbCrLf & size & "MB" & vbCrLf & item.license
-                DataGridView.Rows.Add(bmp)
-                Dim cell As DataGridViewCell = DataGridView.Rows(ctr).Cells(0)
-                cell.ToolTipText = str
-
-                ctr += 1
-            Next
-        Catch ex As Exception
-            Form1.Log("Error", ex.Message)
-        End Try
-
-        For Each x As DataGridViewRow In DataGridView.Rows
-            x.MinimumHeight = Me.Width - k
-        Next
-
-    End Sub
-
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        Form1.Help("Load OAR-IAR")
-    End Sub
-
-    Private Class JSONresult
-
-#Region "Public Fields"
-
-        Public [Date] As String
-        Public license As String
-        Public name As String
-        Public photo As String
-        Public size As String
-
-#End Region
-
-    End Class
 
 #End Region
 

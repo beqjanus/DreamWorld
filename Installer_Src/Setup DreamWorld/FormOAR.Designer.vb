@@ -25,6 +25,7 @@ Partial Class FormOAR
         Me.DataGridView = New System.Windows.Forms.DataGridView()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
@@ -52,7 +53,7 @@ Partial Class FormOAR
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.RefreshToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
@@ -67,6 +68,12 @@ Partial Class FormOAR
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
         '
+        'RefreshToolStripMenuItem
+        '
+        Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(58, 24)
+        Me.RefreshToolStripMenuItem.Text = "Refresh"
+        '
         'FormOAR
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -76,7 +83,6 @@ Partial Class FormOAR
         Me.Controls.Add(Me.DataGridView)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormOAR"
-        Me.Text = ""
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
@@ -88,4 +94,5 @@ Partial Class FormOAR
     Friend WithEvents DataGridView As DataGridView
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents RefreshToolStripMenuItem As ToolStripMenuItem
 End Class
