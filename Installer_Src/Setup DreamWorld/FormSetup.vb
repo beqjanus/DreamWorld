@@ -5589,23 +5589,24 @@ Public Class Form1
         Catch ex As PathTooLongException
         Catch ex As IOException
         End Try
-        If AutoIARs.Length = 0 Then Return
-        counter = MaxFileNum
-        For Each IAR As String In AutoIARs
-            counter -= 1
-            If counter > 0 Then
-                Dim Name = Path.GetFileName(IAR)
-                Dim IarMenu As New ToolStripMenuItem With {
+        If AutoIARs IsNot Nothing Then
+            counter = MaxFileNum
+            For Each IAR As String In AutoIARs
+                counter -= 1
+                If counter > 0 Then
+                    Dim Name = Path.GetFileName(IAR)
+                    Dim IarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = My.Resources.Click_to_load,
                     .DisplayStyle = ToolStripItemDisplayStyle.Text
                 }
-                AddHandler IarMenu.Click, New EventHandler(AddressOf BackupIarClick)
-                LoadLocalIARsToolStripMenuItem.Visible = True
-                LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-            End If
+                    AddHandler IarMenu.Click, New EventHandler(AddressOf BackupIarClick)
+                    LoadLocalIARsToolStripMenuItem.Visible = True
+                    LoadLocalIARsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
+                End If
 
-        Next
+            Next
+        End If
 
     End Sub
 
