@@ -153,9 +153,6 @@ Public Class FormOAR
 
     Private Sub Save(item As JSONresult, row As Integer, col As Integer)
 
-        If item.name.StartsWith("underwater") Then
-            Dim bp = 1
-        End If
         If item.Cache.Width > 0 Then
             DataGridView.Rows(row).Cells(col).Value = item.Cache
             DataGridView.Rows(row).Cells(col).ToolTipText = item.str
@@ -177,8 +174,6 @@ Public Class FormOAR
 
     Public Class JSONresult
 
-#Region "Public Fields"
-
         Public [Date] As String
         Public Cache As Image
         Public license As String
@@ -186,56 +181,6 @@ Public Class FormOAR
         Public photo As String
         Public size As String
         Public str As String
-
-#End Region
-
-#Region "Fields"
-
-#End Region
-
-#Region "Constructors"
-
-#End Region
-
-#Region "Destructors"
-
-#End Region
-
-#Region "Delegates"
-
-#End Region
-
-#Region "Events"
-
-#End Region
-
-#Region "Enums"
-
-#End Region
-
-#Region "Interfaces"
-
-#End Region
-
-#Region "Properties"
-
-#End Region
-
-#Region "Indexers"
-
-#End Region
-
-#Region "Methods"
-
-#End Region
-
-#Region "Structs"
-
-#End Region
-
-#Region "Classes"
-
-#End Region
 
     End Class
 
@@ -315,7 +260,7 @@ Public Class FormOAR
         If _type = "IAR" Then Form1.HelpOnce("Load IAR")
     End Sub
 
-    Private Function DoWork(ByVal ref_json() As JSONresult) As JSONresult
+    Private Function DoWork() As JSONresult
 
         Try
             json = GetData()
@@ -344,7 +289,7 @@ Public Class FormOAR
 
     Private Sub InitiateThread()
 
-        Dim WebThread As New Thread(DirectCast(Function() DoWork(json), ThreadStart))
+        Dim WebThread As New Thread(DirectCast(Function() DoWork(), ThreadStart))
 
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
