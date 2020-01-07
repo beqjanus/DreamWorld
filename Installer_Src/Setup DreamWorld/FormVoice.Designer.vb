@@ -85,7 +85,7 @@ Partial Class FormVoice
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 20)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = My.Resources.Password
+        Me.Label2.Text = My.Resources.Password_word
         '
         'Label1
         '

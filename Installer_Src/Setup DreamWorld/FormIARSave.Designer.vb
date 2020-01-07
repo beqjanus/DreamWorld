@@ -48,7 +48,7 @@ Partial Class FormIARSave
         '
         Me.AviName.Location = New System.Drawing.Point(5, 77)
         Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(142, 20)
+        Me.AviName.Size = New System.Drawing.Size(179, 20)
         Me.AviName.TabIndex = 14
         Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
         '
@@ -64,7 +64,7 @@ Partial Class FormIARSave
         '
         Me.ObjectNameBox.Location = New System.Drawing.Point(5, 25)
         Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(153, 20)
+        Me.ObjectNameBox.Size = New System.Drawing.Size(210, 20)
         Me.ObjectNameBox.TabIndex = 12
         Me.ObjectNameBox.Text = "/"
         Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
@@ -87,7 +87,7 @@ Partial Class FormIARSave
         Me.GroupBox1.Size = New System.Drawing.Size(369, 198)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "IAR"
+        Me.GroupBox1.Text = My.Resources.Save_Inventory_IAR_word
         '
         'Button2
         '
@@ -110,7 +110,7 @@ Partial Class FormIARSave
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox1.Location = New System.Drawing.Point(168, 25)
+        Me.PictureBox1.Location = New System.Drawing.Point(190, 51)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(25, 22)
         Me.PictureBox1.TabIndex = 20
@@ -119,45 +119,45 @@ Partial Class FormIARSave
         'Pwd
         '
         Me.Pwd.AutoSize = True
-        Me.Pwd.Location = New System.Drawing.Point(207, 107)
+        Me.Pwd.Location = New System.Drawing.Point(221, 106)
         Me.Pwd.Name = "Pwd"
         Me.Pwd.Size = New System.Drawing.Size(87, 13)
         Me.Pwd.TabIndex = 19
-        Me.Pwd.Text = "Avatar Password"
+        Me.Pwd.Text = My.Resources.Password_word
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(207, 81)
+        Me.Label3.Location = New System.Drawing.Point(221, 80)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 18
-        Me.Label3.Text = "Avatar Name"
+        Me.Label3.Text = My.Resources.Avatar_Name_word
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(207, 55)
+        Me.Label2.Location = New System.Drawing.Point(221, 54)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Backup Name"
+        Me.Label2.Text = My.Resources.Backup_Name
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(207, 29)
+        Me.Label1.Location = New System.Drawing.Point(221, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(113, 13)
         Me.Label1.TabIndex = 16
-        Me.Label1.Text = "Object Path and name"
+        Me.Label1.Text = My.Resources.Object_Path_and_name
         '
         'Password
         '
         Me.Password.Location = New System.Drawing.Point(5, 103)
         Me.Password.Name = "Password"
         Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.Password.Size = New System.Drawing.Size(142, 20)
+        Me.Password.Size = New System.Drawing.Size(179, 20)
         Me.Password.TabIndex = 15
         Me.Password.UseSystemPasswordChar = True
         '
@@ -195,7 +195,7 @@ Partial Class FormIARSave
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormIARSave"
-        Me.Text = "Save IAR"
+        Me.Text = My.Resources.Save_Inventory_IAR_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
