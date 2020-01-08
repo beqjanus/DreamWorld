@@ -1604,7 +1604,7 @@ Public Class Form1
             Try
                 If Not once Then
                     Print(My.Resources.Opensimulator_is_loading & " " & thing)
-                    thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
+                    If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then

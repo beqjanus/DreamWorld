@@ -4,6 +4,22 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
+#Region "JSON"
+
+    Public Class JSONresult
+
+        Public [Date] As String
+        Public Cache As Image
+        Public license As String
+        Public name As String
+        Public photo As String
+        Public size As String
+        Public str As String
+
+    End Class
+
+#End Region
+
 #Region "Private Fields"
 
     Private _initted As Boolean = False
@@ -68,25 +84,32 @@ Public Class FormOAR
             End With
             DataGridView.Columns.Insert(0, col)
         Next
-
-        Dim cnt = json.Length
-        Me.Text = CStr(cnt) & " Items"
-
         Dim column = 0
         Dim rowcounter = 0
-        For Each item In json
-            Application.DoEvents()
-            Debug.Print("Item:" & item.name)
+        If json IsNot Nothing Then
+            Dim cnt = json.Length
+            Me.Text = CStr(cnt) & " Items"
 
-            If column = 0 Then DataGridView.Rows.Add()
-            Save(item, rowcounter, column)
+            For Each item In json
+                Application.DoEvents()
+                Debug.Print("Item:" & item.name)
 
-            column += 1
-            If column = NumColumns Then
-                rowcounter += 1
-                column = 0
-            End If
-        Next
+                If column = 0 Then DataGridView.Rows.Add()
+                Save(item, rowcounter, column)
+
+                column += 1
+                If column = NumColumns Then
+                    rowcounter += 1
+                    column = 0
+                End If
+            Next
+        Else
+            DataGridView.Rows.Add()
+            While column < NumColumns
+                DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.NoImage
+                column += 1
+            End While
+        End If
 
         While column < NumColumns And column > 0
             DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
@@ -119,18 +142,15 @@ Public Class FormOAR
 
 #Region "IO"
 
-    Private Function GetImageFromURL(ByVal url As Uri) As Image
+    Private Shared Function GetImageFromURL(ByVal url As Uri) As Image
 
-        Dim retVal As Image = Nothing
-
+        Dim req As WebRequest = System.Net.WebRequest.Create(url)
         Try
-            Dim req As System.Net.WebRequest = System.Net.WebRequest.Create(url)
             Using request As System.Net.WebResponse = req.GetResponse
                 Using stream As IO.Stream = request.GetResponseStream
-                    retVal = New Bitmap(System.Drawing.Image.FromStream(stream))
+                    Return New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
-            req = Nothing
         Catch ex As NotImplementedException
             Form1.Log("Warn", ex.Message)
         Catch ex As NotSupportedException
@@ -141,9 +161,11 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
+        Catch ex As Exception
+            Form1.Log("Warn", ex.Message)
         End Try
 
-        Return retVal
+        Return Nothing
 
     End Function
 
@@ -166,13 +188,17 @@ Public Class FormOAR
     End Function
 
     Private Sub Save(item As JSONresult, row As Integer, col As Integer)
+        Try
+            If item.Cache.Width > 0 Then
+                DataGridView.Rows(row).Cells(col).Value = item.Cache
+                DataGridView.Rows(row).Cells(col).ToolTipText = item.str
+            Else
+                DataGridView.Rows(row).Cells(col).Value = NoImage(item)
+            End If
+        Catch ex As System.NullReferenceException
+            Form1.Log("Error", ex.Message)
+        End Try
 
-        If item.Cache.Width > 0 Then
-            DataGridView.Rows(row).Cells(col).Value = item.Cache
-            DataGridView.Rows(row).Cells(col).ToolTipText = item.str
-        Else
-            DataGridView.Rows(row).Cells(col).Value = NoImage(item)
-        End If
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
@@ -181,22 +207,6 @@ Public Class FormOAR
         If _type = "OAR" Then Form1.Help("Load OAR")
 
     End Sub
-
-#End Region
-
-#Region "Public Classes"
-
-    Public Class JSONresult
-
-        Public [Date] As String
-        Public Cache As Image
-        Public license As String
-        Public name As String
-        Public photo As String
-        Public size As String
-        Public str As String
-
-    End Class
 
 #End Region
 
@@ -267,7 +277,6 @@ Public Class FormOAR
 
     Public Sub ShowForm()
 
-        If Not _initted Then Return
         Me.Show()
         Redraw()
         If _type = "OAR" Then Form1.HelpOnce("Load OAR")
@@ -276,14 +285,12 @@ Public Class FormOAR
 
     Private Function DoWork() As JSONresult
 
-        Try
-            json = GetData()
-            json = ImageToJson(json)
-        Catch ex As Exception
-            Return Nothing
-        End Try
+        json = GetData()
+        json = ImageToJson(json)
+
         _initted = True
         Return Nothing
+
     End Function
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -362,55 +369,70 @@ Public Class FormOAR
 
 #Region "Imagery"
 
-    Private Function ImageToJson(ByVal json() As JSONresult)
-
-        For Each item In json
-            Application.DoEvents()
-            Debug.Print("Item:" & item.name)
-
-            Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
-            If item.Cache IsNot Nothing Then
-                Using g As Graphics = Graphics.FromImage(bmp)
-                    g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
-                End Using
-            Else
-                Dim img As Image = Nothing
-                If item.photo.Length > 0 Then
-                    Dim link As Uri = New Uri("https://www.outworldz.com/XXXXXXoutworldz_installer/" & _type & "/" & item.photo)
-                    img = GetImageFromURL(link)
-                End If
-
-                If img Is Nothing Then
-                    img = NoImage(item)
-                End If
-
-                Using g As Graphics = Graphics.FromImage(bmp)
-                    g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
-                End Using
-            End If
-            item.Cache = bmp
-
-            item.size = Format(item.size / (1024 * 1024), "###0.00")
-            item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
-
-        Next
-        Return json
-
-    End Function
-
-    Private Function NoImage(item As JSONresult) As Image
+    Private Shared Function NoImage(item As JSONresult) As Image
 
         Dim bmp = My.Resources.Blank256
         Dim drawFont As Font = New Font("Arial", 12)
 
         Dim newImage = New Bitmap(256, 256)
-        Dim gr = Graphics.FromImage(newImage)
-        gr.DrawImageUnscaled(bmp, 0, 0)
-        item.name = item.name.Replace("-", vbCrLf)
-        item.name = item.name.Replace("_", vbCrLf)
-        gr.DrawString(item.name, drawFont, Brushes.Black, 30, 100)
+        Try
+            Dim gr = Graphics.FromImage(newImage)
+            gr.DrawImageUnscaled(bmp, 0, 0)
+            item.name = item.name.Replace("-", vbCrLf)
+            item.name = item.name.Replace("_", vbCrLf)
+            gr.DrawString(item.name, drawFont, Brushes.Black, 30, 100)
+        Catch ex As Exception
+            Dim bp = 1
+        End Try
 
         Return newImage
+
+    End Function
+
+    Private Function ImageToJson(ByVal json() As JSONresult)
+
+        If json IsNot Nothing Then
+
+            For Each item In json
+                Application.DoEvents()
+                Debug.Print("Item:" & item.name)
+
+                Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
+                If item.Cache IsNot Nothing Then
+                    Using g As Graphics = Graphics.FromImage(bmp)
+                        g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
+                    End Using
+                Else
+                    Dim img As Image = Nothing
+                    If item.photo.Length > 0 Then
+                        Try
+                            Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.photo)
+                            img = GetImageFromURL(link)
+                        Catch ex As Exception
+                        End Try
+                    End If
+
+                    If img Is Nothing Then
+                        img = NoImage(item)
+                    End If
+                    Try
+                        Using g As Graphics = Graphics.FromImage(bmp)
+                            g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
+                        End Using
+                    Catch ex As Exception
+                        Dim bp = 1
+                    End Try
+
+                End If
+                item.Cache = bmp
+
+                item.size = Format(item.size / (1024 * 1024), "###0.00")
+                item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
+
+            Next
+        End If
+
+        Return json
 
     End Function
 
