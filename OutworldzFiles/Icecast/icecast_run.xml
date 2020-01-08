@@ -1,13 +1,13 @@
 <icecast>
-<hostname>192.168.2.135</hostname>
+<hostname>mach.outworldz.net</hostname>
 <location>DreamGrid</location>
 <admin>email@somewhere.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
-    <port>8080</port>
+    <port>8100</port>
 </listen-socket>
 <listen-socket>
-   <port>8081</port>
+   <port>8101</port>
    <shoutcast-compat>1</shoutcast-compat>
 </listen-socket>
 <limits>

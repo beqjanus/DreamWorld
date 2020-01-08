@@ -44,7 +44,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8016
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -996,7 +996,7 @@ MinTimerInterval=0.0909090909090909
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=False
+DeleteScriptsOnStartup=True
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts

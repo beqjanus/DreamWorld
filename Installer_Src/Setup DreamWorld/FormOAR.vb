@@ -105,9 +105,11 @@ Public Class FormOAR
 
         Dim File As String = json(e.RowIndex).name
         File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
-        If File.EndsWith(".oar") Or File.EndsWith(".gz") Or File.EndsWith(".tgz") Then
+        If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
+            File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
+            File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
             Form1.LoadOARContent(File)
-        ElseIf File.EndsWith(".iar") Then
+        ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
             Form1.LoadIARContent(File)
         End If
 
@@ -124,12 +126,20 @@ Public Class FormOAR
         Try
             Dim req As System.Net.WebRequest = System.Net.WebRequest.Create(url)
             Using request As System.Net.WebResponse = req.GetResponse
-                Using stream As System.IO.Stream = request.GetResponseStream
+                Using stream As IO.Stream = request.GetResponseStream
                     retVal = New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
             req = Nothing
-        Catch ex As Exception
+        Catch ex As NotImplementedException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As NotSupportedException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As ArgumentNullException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As ArgumentException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
         End Try
 
@@ -144,7 +154,11 @@ Public Class FormOAR
             Using client As WebClient = New WebClient()
                 Return client.DownloadString(url)
             End Using
-        Catch ex As Exception
+        Catch ex As ArgumentNullException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As WebException
+            Form1.Log("Warn", ex.Message)
+        Catch ex As NotSupportedException
             Form1.Log("Warn", ex.Message)
         End Try
         Return ""
@@ -362,7 +376,7 @@ Public Class FormOAR
             Else
                 Dim img As Image = Nothing
                 If item.photo.Length > 0 Then
-                    Dim link As Uri = New Uri("https://www.outworldz.com/outworldz_installer/" & _type & "/" & item.photo)
+                    Dim link As Uri = New Uri("https://www.outworldz.com/XXXXXXoutworldz_installer/" & _type & "/" & item.photo)
                     img = GetImageFromURL(link)
                 End If
 

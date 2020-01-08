@@ -36,6 +36,13 @@ Public Class Form1
 
 #Region "Version"
 
+    Private _MyVersion As String = "3.3"
+    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
+
+#End Region
+
+#Region "Private"
+
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -59,7 +66,7 @@ Public Class Form1
     Private _ForceTerrain As Boolean = True
     Private _IcecastCrashCounter As Integer = 0
     Private _IceCastExited As Integer = 0
-    Private _IcecastProcID As Integer
+    Private _IcecastProcID As Integer = 0
     Private _Initted As Boolean = False
     Private _IPv4Address As String
     Private _IsRunning As Boolean = False
@@ -70,7 +77,6 @@ Public Class Form1
     Private _MysqlCrashCounter As Integer = 0
     Private _MysqlExited As Integer = 0
     Private _myUPnpMap As UPnp
-    Private _MyVersion As String = "3.3"
     Private _OpensimBinPath As String
     Private _PropAborting As Boolean = False
     Private _regionClass As RegionMaker
@@ -82,43 +88,26 @@ Public Class Form1
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
-    Private _RobustProcID As Integer
+    Private _RobustProcID As Integer = 0
     Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
-    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
-
-#End Region
-
-#Region "Private"
-
     Private _speed As Double = 50   ' 1/2 to start the average off
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
     Private _UserName As String = ""
-
     Private _viewedSettings As Boolean = False
-
     Private Adv As New AdvancedForm
-
     Private cpu As New PerformanceCounter
-
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
-
     Private MyRAMCollection(181) As Double
-
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
-    Private speed As Single
-
-    Private speed1 As Single
-
-    Private speed2 As Single
-
-    Private speed3 As Single
-
+    Private speed As Single = 0
+    Private speed1 As Single = 0
+    Private speed2 As Single = 0
+    Private speed3 As Single = 0
     Private Update_version As String = Nothing
-
     Private ws As NetServer
 
 #End Region

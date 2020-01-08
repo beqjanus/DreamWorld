@@ -1,9 +1,25 @@
 Revisions for DreamGrid
 
-This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
+This is a high-level view of major changes. Revs such as 3.2 or 3.3 are releases and will trigger "Update Is Available" messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
-V3.3
-Load Free Oar and Load Free IAR pulls data at startup with images, licenses, and names of all free OARS and IARS. This is a general release and is in the Automatic Updater.
+V3.3 This is a general release and is in the Automatic Updater.
+
+Opensim set to OpenSimulator version 0.9.1.1 Snail.  This changes some LSL constants so an automatic script cache clear will be done at first boot.
+
+Load Free Oar and Load Free IAR pulls data at startup with images, licenses, and names of all free OARS and IARS.
+
+Inworld restarts of a region are buggy.  So Inworld Restart now shuts down the entire Instance. You must set the the Auto Restart capability of DreamGrgid to restart the sim.
+
+Sculpt maps should be converted to Meshes and support physics.
+
+Allow logins while scripts are loading.
+
+UbODE: convex shape type on normal prims and convex shape type on sculpts enabled, and MeshFileCache enabled (UBODE only)
+
+llCastRay set to V3 which Meshes prims for good accuracy in ray hit detection, handling basic and tortured prims, sculpts and meshes.
+Uses ellipsoid, correctly sized avatar capsules.
+Handles complex terrain, multi-prim objects and seated avatars.
+Implements throttling and the status codes RCERR_UNKNOWN and RCERR_CAST_TIME_EXCEEDED, so LSL scripts need to handle these responses and RCERR_SIM_PERF_LOW.
 
 V3.299
 New:Opensim updated to 066a6fbaa1 ("changes on lludp acks and resends", 2019-12-18) which hopefully will fix where you cannot see mesh and land when running a viewer.
@@ -14,7 +30,7 @@ Fix: Deregistering all regions was awkward to run as mysql had not been started.
 
 New: Region Popup now has a View Log button.
 
-Minor: An 'alert' was missing in one load oar 
+Minor: An 'alert' was missing in one load oar
 
 Fix: Would never start a region if CPU > 75%.  Was supposed to start after 1 minute wait.
 
@@ -27,7 +43,7 @@ Bug: No single quotes allowed in DOS box names as the Windows handler cannot gra
 V3.298
 Restart, Error handler, and Shutdown logic changes after a Dreamgrid restart where it has to find and re-attach to each region. This fixes the CPU usage = 0 and other glitches in the Region list. These occurred when Dreamgrid was restarted with regions already running and it could not find  the Process ID.
 
-Global and Local Search uses V3HG links which work inside Singularity and Firestorm viewer, Media On A Prim, and in Web Links. Many thanks to AI Austin and 
+Global and Local Search uses V3HG links which work inside Singularity and Firestorm viewer, Media On A Prim, and in Web Links. Many thanks to AI Austin and
 
 Robust logging set back to INFO from DEBUG.
 
@@ -40,7 +56,6 @@ Icecast port defaults changed to 8100-8102 for new users only.
 Minor Start/Stopped button fixes when something goes wrong in a boot.
 
 Icon size was off by 4 pixels in Region List which goofed up Large Screen mode
-
 
 V3.297
 
@@ -62,7 +77,6 @@ Ports and Script Engines now show in Region Lists.
 
 IF Apache is a service, leave MySQL running so PHP maps work.
 
-
 V3.296
 
 Added a Log->Error Log to the menu. This log is the first place to look when it crashes. Its always been there, just not in the menu. Doh!
@@ -74,8 +88,6 @@ MySQL now stops when you click Stop.  This helps prevent MySQL corruption. If Ap
 Tweaks to the 4 icons, including a new Red X Error Icon.
 
 Updated Licenses to some of the downloadable OAR files to be absolutely clear which ones are exclusive to the Outworldz.
-
-
 
 V3.295
 

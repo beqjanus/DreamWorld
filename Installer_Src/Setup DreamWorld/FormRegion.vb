@@ -409,7 +409,7 @@ Public Class FormRegion
             Me.BringToFront()
             Initted1 = True
             Form1.HelpOnce("Region")
-        Catch
+        Catch ex As Exception
         End Try
 
     End Sub

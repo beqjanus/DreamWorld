@@ -25,10 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define DG
-// #undefine DG
-
-
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -45,7 +41,6 @@ using OpenMetaverse;
 
 using Nini.Config;
 using log4net;
-
 
 namespace OpenSim.Services.HypergridService
 {
@@ -80,10 +75,6 @@ namespace OpenSim.Services.HypergridService
         private bool m_allowDuplicatePresences = false;
         private static string m_messageKey;
 
-        private static bool m_ALT_Enabled = false;
-        private static Int32 m_DiagnosticsPort;
-        private static string m_PrivURL;
-
         public GatekeeperService(IConfigSource config, ISimulationService simService)
         {
             if (!m_Initialized)
@@ -108,7 +99,6 @@ namespace OpenSim.Services.HypergridService
 
                 string scope = serverConfig.GetString("ScopeID", UUID.Zero.ToString());
                 UUID.TryParse(scope, out m_ScopeID);
-
                 //m_WelcomeMessage = serverConfig.GetString("WelcomeMessage", "Welcome to OpenSim!");
                 m_AllowTeleportsToAnyRegion = serverConfig.GetBoolean("AllowTeleportsToAnyRegion", true);
                 m_ExternalName = Util.GetConfigVarFromSections<string>(config, "GatekeeperURI",
@@ -165,30 +155,9 @@ namespace OpenSim.Services.HypergridService
                     m_allowDuplicatePresences = presenceConfig.GetBoolean("AllowDuplicatePresences", m_allowDuplicatePresences);
                 }
 
-                // Auto Load Teleport
-
-                IConfig ALTConfig = config.Configs["AutoLoadTeleport"];    // get data from 
-               
-                m_ALT_Enabled = ALTConfig.GetBoolean("Enabled", true);
-                if (m_ALT_Enabled)
-                {
-                    m_log.Info("[AutoLoadTeleport]: Enabled");
-
-                    // Get the http port to talk to from Const Section
-                    IConfig ConstConfig = config.Configs["Const"];
-                    m_DiagnosticsPort = ConstConfig.GetInt("DiagnosticsPort",8001);    // listener port for Dreamgrid
-                    m_PrivURL = ConstConfig.GetString("PrivURL", "http://localhost");    // private IP
-                } else
-                {
-                    m_log.Info("[AutoLoadTeleport]: Disabled");
-                }
-
-                // </Auto Load Teleport>
-
                 IConfig messagingConfig = config.Configs["Messaging"];
                 if (messagingConfig != null)
                     m_messageKey = messagingConfig.GetString("MessageKey", String.Empty);
-
                 m_log.Debug("[GATEKEEPER SERVICE]: Starting...");
             }
         }
@@ -220,8 +189,7 @@ namespace OpenSim.Services.HypergridService
 
             m_log.DebugFormat("[GATEKEEPER SERVICE]: Request to link to {0}", (regionName == string.Empty)? "default region" : regionName);
             if (!m_AllowTeleportsToAnyRegion || regionName == string.Empty)
-            {    
-                
+            {
                 List<GridRegion> defs = m_GridService.GetDefaultHypergridRegions(m_ScopeID);
                 if (defs != null && defs.Count > 0)
                 {
@@ -238,7 +206,6 @@ namespace OpenSim.Services.HypergridService
             else
             {
                 region = m_GridService.GetRegionByName(m_ScopeID, regionName);
-
                 if (region == null)
                 {
                     reason = "Region not found";
@@ -256,46 +223,6 @@ namespace OpenSim.Services.HypergridService
             imageURL = region.ServerURI + "index.php?method=" + regionimage;
 
             return true;
-        }
-
-        public UUID  GetALTRegion(UUID regionID, UUID agentID)
-        {
-            // !!! Fkb DreamGrid Auto Load Teleport (ALT) (Smart Start) sends requested Region UUID to Dreamgrid.
-            // If region is online, returns same UUID. If Offline, returns UUID for Welcome
-            
-            if (m_ALT_Enabled)
-            {              
-                // http://127.0.0.1:8001/ALT=regionUUID/AGENTID=AgentUUID]  
-                // !!!
-                string url = m_PrivURL + ":" + m_DiagnosticsPort + "/ALT=" + regionID + "/AGENT=" + agentID;
-                m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-                webRequest.Timeout = 30000; //30 Second Timeout
-                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
-
-                try
-                {
-                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                    string Result = String.Empty;
-                    string tempStr = reader.ReadLine();
-                    while (tempStr != null)
-                    {
-                        Result = Result + tempStr;
-                        tempStr = reader.ReadLine();
-                    }
-                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                    regionID = OpenMetaverse.UUID.Parse(Result);
-                }
-                catch (WebException ex)
-                {
-                    m_log.Error("[SMARTSTART]: " + ex.Message);
-                }
-            }
-            return regionID;
-
         }
 
         public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
@@ -316,9 +243,6 @@ namespace OpenSim.Services.HypergridService
                 message = "Teleporting to the default region.";
                 return m_DefaultGatewayRegion;
             }
-
-
-            regionID= GetALTRegion(regionID, agentID);      // DreamGrid fkb
 
             GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
 

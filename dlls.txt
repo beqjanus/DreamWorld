@@ -1,10 +1,13 @@
 \Outworldzfiles\opensim\bin\BulletXNA.dll
 \Outworldzfiles\opensim\bin\C5.dll
 \Outworldzfiles\opensim\bin\CSJ2K.dll
+\Outworldzfiles\opensim\bin\CsvHelper.dll
+\Outworldzfiles\opensim\bin\Diva.AddinExample.dll
 \Outworldzfiles\opensim\bin\Diva.Data.dll
 \Outworldzfiles\opensim\bin\Diva.Data.MySQL.dll
 \Outworldzfiles\opensim\bin\Diva.Data.SQLite.dll
 \Outworldzfiles\opensim\bin\Diva.Interfaces.dll
+\Outworldzfiles\opensim\bin\Diva.OnLook.dll
 \Outworldzfiles\opensim\bin\Diva.OpenSimServices.dll
 \Outworldzfiles\opensim\bin\Diva.Utils.dll
 \Outworldzfiles\opensim\bin\Diva.Wifi.dll
@@ -119,6 +122,7 @@
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Performance.dll
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Permissions.dll
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Stress.dll
+\Outworldzfiles\opensim\bin\OpenSimBirds.Module.dll
 \Outworldzfiles\opensim\bin\OpenSimSearch.Modules.dll
 \Outworldzfiles\opensim\bin\OpenSimTide.Module.dll
 \Outworldzfiles\opensim\bin\PrimMesher.dll

@@ -21,6 +21,7 @@ zh-cn
 zh-tw
 baretail.udm
 **/.gitopensim
+**/*.csproj
 /OutworldzFiles/Apache/htdocs/Joomla
 *.pid
 **/WifiPages-Custom
