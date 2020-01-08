@@ -196,13 +196,8 @@ Public Class FormBackupCheckboxes
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
-        If Not Form1.CheckMysql Then
-            MySqlCheckBox.Enabled = True
-            MySqlCheckBox.Checked = True
-        Else
-            MySqlCheckBox.Enabled = False
-            MySqlCheckBox.Checked = False
-        End If
+        MySqlCheckBox.Enabled = True
+        MySqlCheckBox.Checked = True
 
         If Form1.Settings.FsAssetsEnabled Then
             FSAssetsCheckBox.Enabled = True

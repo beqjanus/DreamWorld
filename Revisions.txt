@@ -2,6 +2,9 @@ Revisions for DreamGrid
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two or more digits such as 3.22 is a beta and will not trigger the "Update Is Available" Message.
 
+V3.3
+Load Free Oar and Load Free IAR pulls data at startup with images, licenses, and names of all free OARS and IARS. This is a general release and is in the Automatic Updater.
+
 V3.299
 New:Opensim updated to 066a6fbaa1 ("changes on lludp acks and resends", 2019-12-18) which hopefully will fix where you cannot see mesh and land when running a viewer.
 
