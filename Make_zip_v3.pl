@@ -209,7 +209,9 @@ JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
 JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
 JustDelete('O:/Opensim/Zip/Make_zip_v3.pl');
 JustDelete('O:/Opensim/Zip/Make_zip_v2.pl');
-
+JustDelete('O:/Opensim/Zip/Start.vshost.exe.manifest');
+JustDelete('O:/Opensim/Zip/Start.vshost.exe.config');
+JustDelete('O:/Opensim/Zip/Start.vshost.exe');
 
 #####################
 print "Make zip\n";
