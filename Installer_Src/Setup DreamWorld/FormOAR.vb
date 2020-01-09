@@ -27,6 +27,7 @@ Public Class FormOAR
     Private imgSize As Integer = 256
     Private initSize As Integer = 512
     Private k As Integer = 50
+    Private NumColumns As Integer
 
 #End Region
 
@@ -57,7 +58,7 @@ Public Class FormOAR
         DataGridView.ShowCellToolTips = True
         DataGridView.AllowUserToAddRows = False
 
-        Dim NumColumns As Integer = Math.Ceiling(Me.Width / imgSize)
+        NumColumns = Math.Ceiling(Me.Width / imgSize)
         If NumColumns = 0 Then
             NumColumns = 1
         End If
@@ -124,17 +125,20 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellContentClick
+    Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
 
-        Dim File As String = json(e.RowIndex).name
-        File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
-        If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
-            File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
-            File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
-            Form1.LoadOARContent(File)
-        ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-            Form1.LoadIARContent(File)
-        End If
+        Try
+            Dim File As String = json(e.ColumnIndex + (NumColumns * e.RowIndex)).name
+            File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+            If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
+                File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
+                File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
+                Form1.LoadOARContent(File)
+            ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+                Form1.LoadIARContent(File)
+            End If
+        Catch ex As System.IndexOutOfRangeException
+        End Try
 
     End Sub
 
@@ -378,8 +382,7 @@ Public Class FormOAR
         Try
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
-            item.name = item.name.Replace("-", vbCrLf)
-            item.name = item.name.Replace("_", vbCrLf)
+
             gr.DrawString(item.name, drawFont, Brushes.Black, 30, 100)
         Catch ex As Exception
             Dim bp = 1
