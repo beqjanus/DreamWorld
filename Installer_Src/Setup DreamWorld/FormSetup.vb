@@ -5647,6 +5647,7 @@ Public Class Form1
 
     Private Sub UpdaterGo(Filename As String)
 
+        KillAll()
         StopApache(True) 'reaylly stop it, even if a service
         StopMysql()
 

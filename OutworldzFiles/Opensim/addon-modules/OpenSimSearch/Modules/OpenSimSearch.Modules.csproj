@@ -23,7 +23,7 @@
 	  </FileUpgradeFlags>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	  <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 	  <BaseAddress>285212672</BaseAddress>
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
@@ -44,7 +44,7 @@
 	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	  <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 	  <BaseAddress>285212672</BaseAddress>
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
@@ -85,12 +85,24 @@
 		  <Name>OpenMetaverseTypes</Name>
 		<Private>False</Private>
 	  </Reference>
+	  <Reference Include="OpenSim.Framework" >
+		  <Name>OpenSim.Framework</Name>
+		<Private>False</Private>
+	  </Reference>
+	  <Reference Include="OpenSim.Region.Framework" >
+		  <Name>OpenSim.Region.Framework</Name>
+		<Private>False</Private>
+	  </Reference>
 	  <Reference Include="OpenSim.Region.Framework.Interfaces" >
 		  <Name>OpenSim.Region.Framework.Interfaces</Name>
 		<Private>False</Private>
 	  </Reference>
 	  <Reference Include="OpenSim.Region.Framework.Scenes" >
 		  <Name>OpenSim.Region.Framework.Scenes</Name>
+		<Private>False</Private>
+	  </Reference>
+	  <Reference Include="OpenSim.Services.Interfaces" >
+		  <Name>OpenSim.Services.Interfaces</Name>
 		<Private>False</Private>
 	  </Reference>
 	  <Reference Include="System" >
@@ -107,24 +119,6 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\OpenSim\Framework\OpenSim.Framework.csproj">
-		<Name>OpenSim.Framework</Name>
-		<Project>{BCCDBB55-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\..\OpenSim\Region\Framework\OpenSim.Region.Framework.csproj">
-		<Name>OpenSim.Region.Framework</Name>
-		<Project>{C98F6D97-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
-	  <ProjectReference Include="..\..\..\OpenSim\Services\Interfaces\OpenSim.Services.Interfaces.csproj">
-		<Name>OpenSim.Services.Interfaces</Name>
-		<Project>{08ECE473-0000-0000-0000-000000000000}</Project>
-		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-		<Private>False</Private>
-	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Include="SearchModule\OpenSearch.cs">
