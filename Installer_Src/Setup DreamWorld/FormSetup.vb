@@ -2588,7 +2588,7 @@ Public Class Form1
 
 #Region "Icecast"
 
-    Public Sub SaveIceCast()
+    Public Function SaveIceCast()
 
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
         Dim name As String = rgx.Replace(Settings.SimName, "")
@@ -2642,8 +2642,9 @@ Public Class Form1
         Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Icecast\icecast_run.xml", False)
             outputFile.WriteLine(icecast)
         End Using
+        Return False
 
-    End Sub
+    End Function
 
     ''' <summary>Check is Icecast port 8081 is up</summary>
     ''' <returns>boolean</returns>
@@ -3502,6 +3503,7 @@ Public Class Form1
         If MapSetup() Then Return True
         If DoPHP() Then Return True
         If DoApache() Then Return True
+        If SaveIceCast() Then Return True
 
         Return False
 
