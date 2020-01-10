@@ -2036,6 +2036,46 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
+
+        If PropAborting Then Return
+
+        If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
+            _MysqlCrashCounter += 1
+            PropMysqlExited = True
+            Return
+        End If
+        _MysqlCrashCounter = 0
+        Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
+        Dim files As Array = Nothing
+        Try
+            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+        Catch ex As ArgumentException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As DirectoryNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
+
+        If files.Length > 0 Then
+            Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Error_word)
+            If (yesno = vbYes) Then
+
+                For Each FileName As String In files
+                    Try
+                        System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
+                    Catch ex As InvalidOperationException
+                    Catch ex As System.ComponentModel.Win32Exception
+                    End Try
+                Next
+            End If
+        Else
+            PropAborting = True
+            MsgBox(My.Resources.Error_word, vbInformation, My.Resources.Error_word)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Subs"
@@ -2209,10 +2249,6 @@ Public Class Form1
 #End Region
 
 #Region "Private subs"
-
-    Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-        ConsoleCommand("Robust", "reset user password{ENTER}")
-    End Sub
 
     'End Sub
     Private Sub Chart()
@@ -2451,7 +2487,7 @@ Public Class Form1
 
     ''' <summary>Fires when the form changes size or position</summary>
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
-        Dim Y = Me.Height - 130
+        Dim Y = Me.Height - 150
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
@@ -2536,6 +2572,16 @@ Public Class Form1
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
+    End Sub
+
+    Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
+        Settings.Language = "no"
+        Language(sender, e)
+    End Sub
+
+    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
+        Settings.Language = "pt"
+        Language(sender, e)
     End Sub
 
 #End Region
@@ -2704,6 +2750,32 @@ Public Class Form1
 
     End Sub
 
+    Private Sub MakeMysql()
+
+        Dim m As String = PropMyFolder & "\OutworldzFiles\Mysql\"
+        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
+            Print(My.Resources.Create_DB)
+            Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
+                For Each ZipEntry In zip
+                    Application.DoEvents()
+                    ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
+                Next
+            End Using
+        End If
+
+    End Sub
+
+    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
+
+        If CheckMysql() Then
+            PropStopMysql = True
+            StopMysql()
+        Else
+            StartMySQL()
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Robust"
@@ -2739,82 +2811,6 @@ Public Class Form1
 
 #Region "tbd"
 
-    Private Sub MakeMysql()
-
-        Dim m As String = PropMyFolder & "\OutworldzFiles\Mysql\"
-        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
-            Print(My.Resources.Create_DB)
-            Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
-                For Each ZipEntry In zip
-                    Application.DoEvents()
-                    ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
-                Next
-            End Using
-        End If
-
-    End Sub
-
-    Private Function MapSetup() As Boolean
-
-        Dim phptext = "<?php " & vbCrLf &
-"/* General Domain */" & vbCrLf &
-"$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
-"$CONF_port          = " & """" & Settings.HttpPort & """" & "; " & vbCrLf &
-"$CONF_sim_domain    = " & """" & "http://" & Settings.PublicIP & "/" & """" & ";" & vbCrLf &
-"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
-"/* MySQL Database */ " & vbCrLf &
-"$CONF_db_server     = " & """" & Settings.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
-"$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
-"$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
-"$CONF_db_database   = " & """" & Settings.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
-"/* The Coordinates Of the Grid-Center */ " & vbCrLf &
-"$CONF_center_coord_x = " & """" & CStr(Settings.MapCenterX) & """" & ";		// the Center-X-Coordinate " & vbCrLf &
-"$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
-"// style-sheet items" & vbCrLf &
-"$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"?>"
-
-        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
-            outputFile.WriteLine(phptext)
-        End Using
-
-        phptext = "<?php " & vbCrLf &
-"$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
-"$DB_HOST = " & """" & Settings.RobustServer & """" & ";" & vbCrLf &
-"$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
-"$DB_USER = " & """" & Settings.RobustUsername & """" & ";" & vbCrLf &
-"$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
-"$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
-"?>"
-
-        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
-            outputFile.WriteLine(phptext)
-        End Using
-        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\PHP7\databaseinfo.php", False)
-            outputFile.WriteLine(phptext)
-        End Using
-
-        Return False
-
-    End Function
-
-    Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
-
-        Print("(c) 2017 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
-        Dim webAddress As String = SecureDomain & "/Outworldz_Installer"
-        Try
-            Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
-
-    End Sub
-
-    Private Sub MnuExit_Click(sender As System.Object, e As EventArgs) Handles mnuExit.Click
-        ReallyQuit()
-    End Sub
-
     Private Sub MnuHide_Click(sender As System.Object, e As EventArgs) Handles mnuHide.Click
         Print(My.Resources.Not_Shown)
         mnuShow.Checked = False
@@ -2822,68 +2818,6 @@ Public Class Form1
 
         Settings.ConsoleShow = mnuShow.Checked
         Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreContentToolStripMenuItem.Click
-
-        Dim webAddress As String = SecureDomain & "/cgi/freesculpts.plx"
-        Try
-            Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
-
-    End Sub
-
-    Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
-
-        If PropAborting Then Return
-
-        If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
-            _MysqlCrashCounter += 1
-            PropMysqlExited = True
-            Return
-        End If
-        _MysqlCrashCounter = 0
-        Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
-        Dim files As Array = Nothing
-        Try
-            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
-
-        If files.Length > 0 Then
-            Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, My.Resources.Error_word)
-            If (yesno = vbYes) Then
-
-                For Each FileName As String In files
-                    Try
-                        System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
-                    End Try
-                Next
-            End If
-        Else
-            PropAborting = True
-            MsgBox(My.Resources.Error_word, vbInformation, My.Resources.Error_word)
-        End If
-
-    End Sub
-
-    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
-
-        If CheckMysql() Then
-            PropStopMysql = True
-            StopMysql()
-        Else
-            StartMySQL()
-        End If
 
     End Sub
 
@@ -2903,11 +2837,6 @@ Public Class Form1
 
         End If
 
-    End Sub
-
-    Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
-        Settings.Language = "no"
-        Language(sender, e)
     End Sub
 
     Private Sub OarClick(sender As Object, e As EventArgs)
@@ -2949,38 +2878,6 @@ Public Class Form1
         End If
 
     End Function
-
-    Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
-        Dim webAddress As String = PropMyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
-        Try
-            Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        If PictureBox1.AccessibleName = "Open".ToUpperInvariant Then
-            Me.Width = 645
-            Me.Height = 435
-            PictureBox1.Image = My.Resources.Arrow2Left
-            PictureBox1.AccessibleName = "Close".ToUpperInvariant
-        Else
-            PictureBox1.Image = My.Resources.Arrow2Right
-            Me.Width = 385
-            Me.Height = 240
-            PictureBox1.AccessibleName = "Open".ToUpperInvariant
-        End If
-        Application.DoEvents()
-        Resize_page(sender, e)
-
-    End Sub
-
-    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
-        Settings.Language = "pt"
-        Language(sender, e)
-    End Sub
 
     Private Sub PortTest(Weblink As String, Port As Integer)
 
@@ -4246,7 +4143,12 @@ Public Class Form1
                     Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionNum))
             End Select
         Else
-            Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+            Select Case PropRegionClass.MaxPrims(RegionNum)
+                Case ""
+                    Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+                Case Else
+                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionNum))
+            End Select
         End If
 
         Select Case PropRegionClass.MaxAgents(RegionNum)
@@ -4732,6 +4634,51 @@ Public Class Form1
 
     End Function
 
+    Private Function MapSetup() As Boolean
+
+        Dim phptext = "<?php " & vbCrLf &
+"/* General Domain */" & vbCrLf &
+"$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
+"$CONF_port          = " & """" & Settings.HttpPort & """" & "; " & vbCrLf &
+"$CONF_sim_domain    = " & """" & "http://" & Settings.PublicIP & "/" & """" & ";" & vbCrLf &
+"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
+"/* MySQL Database */ " & vbCrLf &
+"$CONF_db_server     = " & """" & Settings.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
+"$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
+"$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
+"$CONF_db_database   = " & """" & Settings.RobustDataBaseName & """" & ";     // Name Of Robust Server " & vbCrLf &
+"/* The Coordinates Of the Grid-Center */ " & vbCrLf &
+"$CONF_center_coord_x = " & """" & CStr(Settings.MapCenterX) & """" & ";		// the Center-X-Coordinate " & vbCrLf &
+"$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
+"// style-sheet items" & vbCrLf &
+"$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
+"?>"
+
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+
+        phptext = "<?php " & vbCrLf &
+"$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
+"$DB_HOST = " & """" & Settings.RobustServer & """" & ";" & vbCrLf &
+"$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
+"$DB_USER = " & """" & Settings.RobustUsername & """" & ";" & vbCrLf &
+"$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
+"$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
+"?>"
+
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\PHP7\databaseinfo.php", False)
+            outputFile.WriteLine(phptext)
+        End Using
+
+        Return False
+
+    End Function
+
 #End Region
 
 #Region "Help"
@@ -4936,8 +4883,12 @@ Public Class Form1
         PropOpensimIsRunning() = False
         ToolBar(False)
         Print(My.Resources.Stopped_word)
-        Buttons(StopButton)
+        Buttons(StartButton)
 
+    End Sub
+
+    Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
+        ConsoleCommand("Robust", "reset user password{ENTER}")
     End Sub
 
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
@@ -5325,6 +5276,38 @@ Public Class Form1
 
     End Sub
 
+    Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
+
+        Print("(c) 2017 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
+        Dim webAddress As String = SecureDomain & "/Outworldz_Installer"
+        Try
+            Process.Start(webAddress)
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+
+    End Sub
+
+    Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreContentToolStripMenuItem.Click
+
+        Dim webAddress As String = SecureDomain & "/cgi/freesculpts.plx"
+        Try
+            Process.Start(webAddress)
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+
+    End Sub
+
+    Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
+        Dim webAddress As String = PropMyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
+        Try
+            Process.Start(webAddress)
+        Catch ex As InvalidOperationException
+        Catch ex As System.ComponentModel.Win32Exception
+        End Try
+    End Sub
+
     ''' <summary>Start Button on main form</summary>
     Private Sub StartButton_Click(sender As System.Object, e As EventArgs) Handles StartButton.Click
         Startup()
@@ -5399,7 +5382,7 @@ Public Class Form1
         If Not KillAll() Then Return
         Buttons(StartButton)
         Print(My.Resources.Stopped_word)
-
+        Buttons(StartButton)
         ToolBar(False)
 
     End Sub
@@ -5673,10 +5656,7 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_is_available, vbYesNo)
-            If result = vbYes Then
-                UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
-            End If
+            UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
         Else
             ErrorLog("ExitCode=" & CStr(ExitCode))
         End If
@@ -7119,6 +7099,10 @@ Public Class Form1
 
         KillFiles(files)   ' wipe these files out
 
+    End Sub
+
+    Private Sub MnuExit_Click(sender As System.Object, e As EventArgs) Handles mnuExit.Click
+        ReallyQuit()
     End Sub
 
 #End Region
