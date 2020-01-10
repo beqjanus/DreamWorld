@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Outworldz.UpdateGrid
+            Me.MainForm = Global.Outworldz.Downloader
         End Sub
     End Class
 End Namespace
