@@ -31,8 +31,7 @@ Public Class FormRegion
     Dim changed As Boolean
     Dim initted As Boolean = False
 
-    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save
-    ' a form
+    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
     Dim isNew As Boolean = False
 
     Dim n As Integer = 0
@@ -162,8 +161,8 @@ Public Class FormRegion
             NonphysicalPrimMax.Text = CStr(Form1.PropRegionClass.NonPhysicalPrimMax(N1))
             PhysicalPrimMax.Text = CStr(Form1.PropRegionClass.PhysicalPrimMax(N1))
             ClampPrimSize.Checked = Form1.PropRegionClass.ClampPrimSize(N1)
-            MaxPrims.Text = CStr(Form1.PropRegionClass.MaxPrims(N1))
-            MaxAgents.Text = CStr(Form1.PropRegionClass.MaxAgents(N1))
+            MaxPrims.Text = Form1.PropRegionClass.MaxPrims(N1)
+            MaxAgents.Text = Form1.PropRegionClass.MaxAgents(N1)
 
             ' Size buttons can be zero
             If Form1.PropRegionClass.SizeY(N1) = 0 And Form1.PropRegionClass.SizeX(N1) = 0 Then
@@ -287,8 +286,6 @@ Public Class FormRegion
             Case "5" : Physics_Default.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
-
-        MaxPrims.Text = Form1.PropRegionClass.MaxPrims(N1).ToString(Globalization.CultureInfo.InvariantCulture)
 
         Select Case Form1.PropRegionClass.AllowGods(N1)
             Case ""
