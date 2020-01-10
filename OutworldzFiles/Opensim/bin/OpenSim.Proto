@@ -44,14 +44,14 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8021
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Welcome
+RegionFolderName=Snowgarde
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.135
+BaseHostname=Nospam.outworldz.net
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,7 +59,7 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.135
+PrivURL=http://10.6.1.14
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
@@ -269,7 +269,7 @@ UseSeparatePhysicsThread=True
 
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
 ;; Default script engine to use. Currently, we have XEngine and YEngine
-DefaultScriptEngine=XEngine
+DefaultScriptEngine=YEngine
 
 ;# {HttpProxy} {} {Proxy URL for llHTTPRequest and dynamic texture loading} {} http://proxy.com:8080
 ;; Http proxy setting for llHTTPRequest and dynamic texture loading, if
@@ -451,7 +451,7 @@ permissionmodules=DefaultPermissionsModule
 ;# {allow_grid_gods} {} {Allow grid gods?} {true false} false
 ;; This allows users with a UserLevel of 200 or more to assume god
 ;; powers in the regions in this simulator.
-allow_grid_gods=False
+allow_grid_gods=True
 
 ;; This allows some control over permissions
 ;; please note that this still doesn't duplicate SL, and is not intended to
@@ -507,7 +507,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.135
+host_domain_header_from=Nospam.outworldz.net
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -520,7 +520,7 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=Gmail for notification
+SMTP_SERVER_LOGIN=
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
 SMTP_SERVER_PASSWORD=Gmail password
@@ -575,7 +575,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.135/32
+OutboundDisallowForUserScriptsExcept=10.6.1.14/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -592,7 +592,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=192.168.2.135
+ExternalHostNameForLSL=Nospam.outworldz.net
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -724,7 +724,7 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|PrivURL}:${Const|PrivatePort}
+; OfflineMessageURL=${Const|PrivURL}:${Const|PrivatePort}
 
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
@@ -939,7 +939,7 @@ MeshModelAllowTextureToInventory=true
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=False
+Enabled=True
 
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
@@ -950,7 +950,7 @@ MinTimerInterval=0.2
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=True
+Enabled=False
 
 ;; How many threads to keep alive even if nothing is happening
 ; MinThreads = 2
