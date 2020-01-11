@@ -21,13 +21,12 @@ Public Module Firewall
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Form1.Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.SCPortBase1) & vbCrLf
         End If
 
-        Dim RegionNumber As Integer = 0
         Dim start = CInt(Form1.Settings.FirstRegionPort)
 
         ' regions need both
-        For RegionNumber = start To Form1.PropMaxPortUsed
-            Command = Command & "netsh advfirewall firewall  add rule name=""Region TCP Port " & CStr(RegionNumber) & """ dir=in action=allow protocol=TCP localport=" & CStr(RegionNumber) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Region UDP Port " & CStr(RegionNumber) & """ dir=in action=allow protocol=UDP localport=" & CStr(RegionNumber) & vbCrLf
+        For port As Integer = start To Form1.PropMaxPortUsed
+            Command = Command & "netsh advfirewall firewall  add rule name=""Region TCP Port " & CStr(port) & """ dir=in action=allow protocol=TCP localport=" & CStr(port) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Region UDP Port " & CStr(port) & """ dir=in action=allow protocol=UDP localport=" & CStr(port) & vbCrLf
         Next
 
         Return Command
@@ -49,12 +48,10 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Form1.Settings.ApachePort) & """" & vbCrLf
         End If
 
-        Dim RegionNumber As Integer = 0
         Dim start = CInt(Form1.Settings.FirstRegionPort)
-
-        For RegionNumber = start To Form1.PropMaxPortUsed
-            Command = Command & "netsh advfirewall firewall  delete rule name=""Region TCP Port " & CStr(RegionNumber) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & CStr(RegionNumber) & """" & vbCrLf
+        For Port As Integer = start To Form1.PropMaxPortUsed
+            Command = Command & "netsh advfirewall firewall  delete rule name=""Region TCP Port " & CStr(Port) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & CStr(Port) & """" & vbCrLf
         Next
 
         Return Command

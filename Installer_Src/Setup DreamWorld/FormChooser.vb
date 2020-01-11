@@ -76,16 +76,16 @@ Public Class Choice
             DataGridView.Rows.Add("! Add New Name")
         End If
 
-        For Each RegionNumber As Integer In PropRegionClass.RegionNumbers
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             Dim name As String
             If type = "Group" Then
-                name = PropRegionClass.GroupName(RegionNumber)
+                name = PropRegionClass.GroupName(RegionUUID)
             Else
-                name = PropRegionClass.RegionName(RegionNumber)
+                name = PropRegionClass.RegionName(RegionUUID)
             End If
 
             ' Only show running sims option
-            If (JustRunning And PropRegionClass.IsBooted(RegionNumber)) Then
+            If (JustRunning And PropRegionClass.IsBooted(RegionUUID)) Then
                 If L.Contains(name) Then
                 Else
                     If name.Length > 0 Then DataGridView.Rows.Add(name)

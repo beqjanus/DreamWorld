@@ -27,8 +27,6 @@ Imports MySql.Data.MySqlClient
 
 Public Class NetServer
 
-
-
 #Region "Private Fields"
 
     Private Shared blnFlag As Boolean
@@ -42,8 +40,6 @@ Public Class NetServer
     Private WebThread As Thread
 
 #End Region
-
-
 
 #Region "Public Properties"
 
@@ -147,8 +143,6 @@ Public Class NetServer
 
 #End Region
 
-
-
 #Region "Internal Methods"
 
     Friend Shared Function GetWebServer() As NetServer
@@ -164,8 +158,6 @@ Public Class NetServer
     End Function
 
 #End Region
-
-
 
 #Region "Private Methods"
 
@@ -195,9 +187,9 @@ Public Class NetServer
 
                 While reader.Read()
                     Dim LongName = reader.GetString(0)
-                    Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-                    If RegionNumber >= 0 Then
-                        If PropRegionClass.Teleport(RegionNumber) = "True" Then
+                    Dim RegionUUID = PropRegionClass.FindRegionByName(LongName)
+                    If RegionUUID.Length > 0 Then
+                        If PropRegionClass.Teleport(RegionUUID) = "True" Then
                             ToSort.Add(LongName)
                         End If
                     End If

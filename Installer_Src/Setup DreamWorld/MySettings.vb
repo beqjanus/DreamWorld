@@ -25,8 +25,6 @@ Imports IniParser
 
 Public Class MySettings
 
-
-
 #Region "Private Fields"
 
     Dim Apachein As New List(Of String)
@@ -230,7 +228,8 @@ Public Class MySettings
     ''' <returns></returns>
     Public Sub SetIni(section As String, key As String, value As String)
 
-        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
+        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
+        ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -644,8 +643,9 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that needs to already exist in the scene - i.e. be rezzed in
-    ''' the region.
+    ''' By default the module will create a flock of plain wooden spheres, however this can be
+    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e.
+    ''' be rezzed in the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -1080,8 +1080,8 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = Form1.PropRegionClass.CoordY(regionNumber)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = Form1.PropRegionClass.CoordY(RegionUUID)
             Return Val("0".ToUpperInvariant & GetMySetting("MapCenterX", Center))
         End Get
         Set
@@ -1091,8 +1091,8 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            Dim regionNumber = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = Form1.PropRegionClass.CoordX(regionNumber)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = Form1.PropRegionClass.CoordX(RegionUUID)
             Return Val("0".ToUpperInvariant & GetMySetting("MapCenterY", Center))
         End Get
         Set
@@ -1398,7 +1398,7 @@ Public Class MySettings
 
     Public Property RobustServer() As String
         Get
-            Return CType(GetMySetting("RobustServer"), String)
+            Return GetMySetting("RobustServer", "127.0.0.1")
         End Get
         Set
             SetMySetting("RobustServer", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

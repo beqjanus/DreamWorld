@@ -55,13 +55,13 @@ Public Class FormDisplacement1X1
 
 #Region "Public Methods"
 
-    Public Sub Init(RegionNumber As Integer)
+    Public Sub Init(RegionUUID As String)
 
         'Dim RegionPhoto = New RegionPhoto(Name)
 
         'map-1-1000-1000-objects
-        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionNumber)
-        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionNumber)
+        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionUUID)
+        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionUUID)
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place

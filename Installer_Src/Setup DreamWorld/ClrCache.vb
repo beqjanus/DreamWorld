@@ -44,9 +44,9 @@ Public Class ClrCache
     Public Shared Sub WipeAssets()
 
         If Form1.PropOpensimIsRunning Then
-            For Each regionnum In Form1.PropRegionClass.RegionNumbers
-                If Form1.PropRegionClass.IsBooted(regionnum) Then
-                    Dim Box = Form1.PropRegionClass.GroupName(regionnum)
+            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
+                If Form1.PropRegionClass.IsBooted(RegionUUID) Then
+                    Dim Box = Form1.PropRegionClass.GroupName(RegionUUID)
                     Form1.ConsoleCommand(Box, "fcache clear{ENTER}")
                 End If
             Next

@@ -80,21 +80,21 @@ Public Class FormRegions
             Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
-            Dim RegionNum = Form1.PropRegionClass.FindRegionByName(chosen)
-            Dim X = Form1.PropRegionClass.CoordX(RegionNum)
-            Dim Y = Form1.PropRegionClass.CoordY(RegionNum)
+            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(chosen)
+            Dim X = Form1.PropRegionClass.CoordX(RegionUUID)
+            Dim Y = Form1.PropRegionClass.CoordY(RegionUUID)
             Dim Err As Boolean = False
             Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each RegionNumber In Form1.PropRegionClass.RegionNumbers
-                If (Form1.PropRegionClass.CoordX(RegionNumber) + DeltaX) <= 0 Then
+            For Each UUID As String In Form1.PropRegionClass.RegionUUIDs
+                If (Form1.PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
                     Err = True
-                    Failed = Form1.PropRegionClass.RegionName(RegionNumber)
+                    Failed = Form1.PropRegionClass.RegionName(UUID)
                 End If
-                If (Form1.PropRegionClass.CoordY(RegionNumber) + DeltaY) <= 0 Then
+                If (Form1.PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
                     Err = True
-                    Failed = Form1.PropRegionClass.RegionName(RegionNumber)
+                    Failed = Form1.PropRegionClass.RegionName(UUID)
                 End If
             Next
 
@@ -103,10 +103,10 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each RegionNumber In Form1.PropRegionClass.RegionNumbers
-                Form1.PropRegionClass.CoordX(RegionNumber) = Form1.PropRegionClass.CoordX(RegionNumber) + DeltaX
-                Form1.PropRegionClass.CoordY(RegionNumber) = Form1.PropRegionClass.CoordY(RegionNumber) + DeltaY
-                Form1.PropRegionClass.WriteRegionObject(Form1.PropRegionClass.RegionName(RegionNumber))
+            For Each UUID As String In Form1.PropRegionClass.RegionUUIDs
+                Form1.PropRegionClass.CoordX(RegionUUID) = Form1.PropRegionClass.CoordX(UUID) + DeltaX
+                Form1.PropRegionClass.CoordY(RegionUUID) = Form1.PropRegionClass.CoordY(UUID) + DeltaY
+                Form1.PropRegionClass.WriteRegionObject(Form1.PropRegionClass.RegionName(UUID))
             Next
 
         End If
@@ -167,7 +167,7 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each X As Integer In Form1.PropRegionClass.RegionNumbers
+        For Each X As Integer In Form1.PropRegionClass.RegionUUIDs
             RegionBox.Items.Add(Form1.PropRegionClass.RegionName(X))
         Next
 
@@ -178,7 +178,7 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each X As Integer In Form1.PropRegionClass.RegionNumbers
+        For Each X As Integer In Form1.PropRegionClass.RegionUUIDs
             'If PropRegionClass.RegionEnabled(X) Then
             WelcomeBox1.Items.Add(Form1.PropRegionClass.RegionName(X))
             'End If
@@ -216,7 +216,7 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each Z As Integer In Form1.PropRegionClass.RegionNumbers
+        For Each Z As Integer In Form1.PropRegionClass.RegionUUIDs
 
             Dim RegionName = Form1.PropRegionClass.RegionName(Z)
 #Disable Warning CA2000 ' Dispose objects before losing scope

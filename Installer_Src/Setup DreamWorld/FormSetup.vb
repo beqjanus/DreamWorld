@@ -793,75 +793,53 @@ Public Class Form1
     ''' <returns>success = true</returns>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
 
-        If Regionclass Is Nothing Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-            ErrorLog("No Region Class!")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
-            Return False
-        End If
-        If RegionMaker.Instance Is Nothing Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-            ErrorLog("No Region maker!")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
-            Return False
-        End If
+        If Regionclass Is Nothing Then Return False
+        If RegionMaker.Instance Is Nothing Then Return False
+
         If PropAborting Then Return True
 
-        Dim RegionNumber = Regionclass.FindRegionByName(BootName)
-        If RegionNumber < 0 Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        Dim RegionUUID = Regionclass.FindRegionByName(BootName)
+        Dim GroupName = Regionclass.GroupName(RegionUUID)
+
+        If RegionUUID = "" Then
             ErrorLog("Cannot find " & BootName & " to boot!")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             Return False
         End If
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
-        If Regionclass.IsBooted(RegionNumber) Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.IsBooted(RegionUUID) Then
             Log(My.Resources.Info, "Region " & BootName & " already running")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booting Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booting Up")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        If Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Suspended Then
-            Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
+        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
             PropUpdateView = True ' make form refresh
             Return True
         End If
@@ -869,24 +847,24 @@ Public Class Form1
         Application.DoEvents()
 
         DoRegion(BootName)
-        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionNumber))
+        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
 
             ' if running, grab it and return
-            If Regionclass.ProcessID(RegionNumber) = 0 Then
+            If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-                    If p.MainWindowTitle = Regionclass.GroupName(RegionNumber) Then
+                    If p.MainWindowTitle = GroupName Then
                         Try
-                            PropRegionHandles.Add(p.Id, Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
+                            PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
                         Catch ex As ArgumentException
                             ErrorLog(ex.Message)
                         End Try
-                        Dim thisname = PropRegionClass.GroupName(RegionNumber)
-                        For Each num In Regionclass.RegionListByGroupNum(thisname)
-                            Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
-                            Regionclass.ProcessID(num) = p.Id
+                        Dim thisname = GroupName
+                        For Each RegionUUID In Regionclass.RegionUUIDListByName(thisname)
+                            Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                            Regionclass.ProcessID(RegionUUID) = p.Id
                         Next
                         PropUpdateView = True ' make form refresh
                         Return True
@@ -894,14 +872,15 @@ Public Class Form1
                 Next
                 Return False
             Else
-                Dim thisname = PropRegionClass.GroupName(RegionNumber)
+
                 Try
-                    PropRegionHandles.Add(Regionclass.ProcessID(RegionNumber), Regionclass.GroupName(RegionNumber)) ' save in the list of exit events in case it crashes or exits
+                    PropRegionHandles.Add(Regionclass.ProcessID(RegionUUID), GroupName) ' save in the list of exit events in case it crashes or exits
                 Catch ex As ArgumentException
                     ErrorLog(ex.Message)
                 End Try
-                For Each num In Regionclass.RegionListByGroupNum(thisname)
-                    Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+
+                For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
+                    Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -909,11 +888,11 @@ Public Class Form1
 
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & PropRegionClass.GroupName(RegionNumber))
+        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & GroupName)
 
         Dim myProcess As Process = GetNewProcess()
-        Dim Groupname = Regionclass.GroupName(RegionNumber)
-        Print(My.Resources.Starting_word & " " & Groupname)
+
+        Print(My.Resources.Starting_word & " " & GroupName)
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -922,12 +901,12 @@ Public Class Form1
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "bin\OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
         myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & Regionclass.GroupName(RegionNumber) & """"
+        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\Opensim.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & Regionclass.GroupName(RegionNumber) & "\PID.pid")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpensimConsole.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & Regionclass.GroupName(RegionNumber) & "\OpenSimStats.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\Opensim.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\PID.pid")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpensimConsole.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpenSimStats.log")
 
         SequentialPause()   ' wait for previous region to give us some CPU
 
@@ -944,24 +923,24 @@ Public Class Form1
             Dim PID = WaitForPID(myProcess)
             ' check if it gave us a PID, if not, it failed.
             If PID = 0 Then
-                Regionclass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Error
+                Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
                 PropUpdateView = True ' make form refresh
                 Return False
             End If
 
-            For Each num In Regionclass.RegionListByGroupNum(Groupname)
-                Log("Debug", "Process started for " & Regionclass.RegionName(num) & " PID=" & CStr(myProcess.Id) & " Num:" & CStr(num))
-                Regionclass.Status(num) = RegionMaker.SIMSTATUSENUM.Booting
-                Regionclass.ProcessID(num) = myProcess.Id
-                Regionclass.Timer(num) = RegionMaker.REGIONTIMER.StartCounting
+            For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
+                Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
+                Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
+                Regionclass.ProcessID(UUID) = myProcess.Id
+                Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
             Next
 
             PropUpdateView = True ' make form refresh
             Application.DoEvents()
-            SetWindowTextCall(myProcess, Regionclass.GroupName(RegionNumber))
+            SetWindowTextCall(myProcess, GroupName)
 
-            Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & Groupname)
-            PropRegionHandles.Add(myProcess.Id, Groupname) ' save in the list of exit events in case it crashes or exits
+            Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
+            PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
         End If
 
         PropOpensimIsRunning() = True
@@ -1114,9 +1093,7 @@ Public Class Form1
             Dim PID As Integer
             If name <> "Robust" Then
 
-                Dim X As List(Of Integer) = PropRegionClass.RegionListByGroupNum(name)
-
-                PID = PropRegionClass.ProcessID(X(0))
+                PID = PropRegionClass.ProcessID(PropRegionClass.FindRegionByName(name))
                 Try
                     If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1163,9 +1140,8 @@ Public Class Form1
 
     Public Sub CopyOpensimProto(name As String)
 
-        If name Is Nothing Then Return
-        Dim X = PropRegionClass.FindRegionByName(name)
-        If (X > -1) Then Opensimproto(X)
+        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        If RegionUUID <> "" Then Opensimproto(RegionUUID)
 
     End Sub
 
@@ -1210,57 +1186,6 @@ Public Class Form1
 
     End Function
 
-    Public Function DoGetHostAddresses(hostName As [String]) As String
-
-        Try
-            Dim IPList As IPHostEntry = System.Net.Dns.GetHostEntry(hostName)
-
-            For Each IPaddress In IPList.AddressList
-                If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) Then
-                    Dim ip = IPaddress.ToString()
-                    Return ip
-                End If
-            Next
-            Return String.Empty
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-            ErrorLog("Warn:Unable to resolve name:" & ex.Message)
-        End Try
-        Return String.Empty
-
-    End Function
-
-    Public Function DoGloebits() As Boolean
-
-        'Gloebits.ini
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
-        If Settings.GloebitsEnable Then
-            Settings.SetIni("Gloebit", "Enabled", "True")
-        Else
-            Settings.SetIni("Gloebit", "Enabled", "False")
-        End If
-
-        If Settings.GloebitsMode Then
-            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
-        Else
-            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
-        End If
-
-        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
-        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
-
-        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-        Return False
-
-    End Function
-
     Public Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
             MsgBox(message, vbInformation)
@@ -1285,20 +1210,41 @@ Public Class Form1
 
     Public Sub ForceStopGroup(Groupname As String)
 
-        For Each RegionNumber In PropRegionClass.RegionListByGroupNum(Groupname)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
 
             ' Called by a sim restart, do not change status
-            'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
+
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+            Log(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " Stopped")
             ' End If
 
-            PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
 
     End Sub
+
+    Public Function GetHostAddresses(hostName As String) As String
+
+        Try
+            Dim IPList As IPHostEntry = System.Net.Dns.GetHostEntry(hostName)
+
+            For Each IPaddress In IPList.AddressList
+                If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) Then
+                    Dim ip = IPaddress.ToString()
+                    Return ip
+                End If
+            Next
+            Return String.Empty
+#Disable Warning CA1031 ' Do not catch general exception types
+        Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
+            ErrorLog("Warn:Unable to resolve name:" & ex.Message)
+        End Try
+        Return String.Empty
+
+    End Function
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
@@ -1314,10 +1260,10 @@ Public Class Form1
             Return h
         End If
 
-        Dim Regionlist = PropRegionClass.RegionListByGroupNum(Groupname)
+        Dim Regionlist = PropRegionClass.RegionUUIDListByName(Groupname)
 
-        For Each X As Integer In Regionlist
-            Dim pid = PropRegionClass.ProcessID(X)
+        For Each RegionUUID As String In Regionlist
+            Dim pid = PropRegionClass.ProcessID(RegionUUID)
 
             Dim ctr = 20   ' 2 seconds
             Dim found As Boolean = False
@@ -1463,29 +1409,29 @@ Public Class Form1
 
         Dim TotalRunningRegions As Integer
 
-        For Each Regionnumber As Integer In PropRegionClass.RegionNumbers
-            If PropRegionClass.IsBooted(Regionnumber) Then
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropRegionClass.IsBooted(RegionUUID) Then
                 TotalRunningRegions += 1
             End If
         Next
         Log(My.Resources.Info, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
-            Not (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
-            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-            Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                Print(My.Resources.Stopping_word & " " & PropRegionClass.RegionName(X))
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
+            Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
+            Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+            Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
+                Print(My.Resources.Stopping_word & " " & PropRegionClass.RegionName(RegionUUID))
                 SequentialPause()
-                ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
-                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "q{ENTER}" & vbCrLf)
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                 PropUpdateView = True ' make form refresh
             End If
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
-        Dim last As Integer = PropRegionClass.RegionNumbers.Count
+        Dim last As Integer = PropRegionClass.RegionUUIDs.Count
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -1497,12 +1443,12 @@ Public Class Form1
                 counter -= 1
                 Dim CountisRunning As Integer = 0
 
-                For Each X As Integer In PropRegionClass.RegionNumbers
-                    If (Not PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) And PropRegionClass.RegionEnabled(X) Then
-                        If CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(X)) Then
+                For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) And PropRegionClass.RegionEnabled(RegionUUID) Then
+                        If CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
                             CountisRunning += 1
                         Else
-                            StopGroup(PropRegionClass.GroupName(X))
+                            StopGroup(PropRegionClass.GroupName(RegionUUID))
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
@@ -1554,9 +1500,9 @@ Public Class Form1
         Dim num As Integer = -1
 
         ' find one that is running
-        For Each RegionNum In PropRegionClass.RegionNumbers
-            If PropRegionClass.IsBooted(RegionNum) Then
-                num = RegionNum
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                num = RegionUUID
             End If
         Next
         If num = -1 Then
@@ -1593,25 +1539,25 @@ Public Class Form1
         Dim offset = VarChooser(region)
 
         Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
-        Dim num = PropRegionClass.FindRegionByName(region)
-        If num < 0 Then
+        Dim testRegionUUID As String = PropRegionClass.FindRegionByName(region)
+        If testRegionUUID.Length = 0 Then
             MsgBox(My.Resources.Cannot_find_region_word)
             Return False
         End If
-        Dim GroupName = PropRegionClass.GroupName(num)
+        Dim GroupName = PropRegionClass.GroupName(testRegionUUID)
         Dim once As Boolean = False
-        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(GroupName)
             Try
                 If Not once Then
                     Print(My.Resources.Opensimulator_is_loading & " " & thing)
                     If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & region & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(Y), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
                     Dim ForceParcel As String = ""
                     If PropForceParcel() Then ForceParcel = " --force-parcels "
@@ -1622,8 +1568,8 @@ Public Class Form1
                     Dim UserName As String = ""
                     If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                    ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
                     once = True
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1690,8 +1636,8 @@ Public Class Form1
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
-                For Each Regionnumber In PropRegionClass.RegionNumbers
-                    name = PropRegionClass.GroupName(Regionnumber)
+                For Each UUID As String In PropRegionClass.RegionUUIDs
+                    name = PropRegionClass.GroupName(UUID)
                     path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
                 Next
             End If
@@ -1891,24 +1837,23 @@ Public Class Form1
         End If
 
         Dim GroupName As String
-        Dim RegionNumber As Integer
         Dim TimerValue As Integer
 
-        For Each X As Integer In PropRegionClass.RegionNumbers
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
             ' count up to auto restart , when high enough, restart the sim
-            If PropRegionClass.Timer(X) >= 0 Then
-                PropRegionClass.Timer(X) = PropRegionClass.Timer(X) + 1
+            If PropRegionClass.Timer(RegionUUID) >= 0 Then
+                PropRegionClass.Timer(RegionUUID) = PropRegionClass.Timer(RegionUUID) + 1
             End If
-            GroupName = PropRegionClass.GroupName(X)
+            GroupName = PropRegionClass.GroupName(RegionUUID)
 
             ' too long running, possible shutdown
-            If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(X) >= 0 Then
-                TimerValue = PropRegionClass.Timer(X)
+            If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
+                TimerValue = PropRegionClass.Timer(RegionUUID)
 
                 ' if it is past time and no one is in the sim... Smart shutdown
-                If PropRegionClass.SmartStart(X) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
-                    DoSuspend_Resume(PropRegionClass.RegionName(X))
+                If PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
 
                 End If
 
@@ -1916,23 +1861,23 @@ Public Class Form1
                 If (TimerValue / 30) >= (Settings.AutoRestartInterval()) _
                     And Settings.AutoRestartInterval() > 0 _
                     And Not AvatarsIsInGroup(GroupName) _
-                    And PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                     ' shut down the group when one minute has gone by, or multiple thereof.
 
                     If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
                         SequentialPause()
-                        ConsoleCommand(PropRegionClass.GroupName(X), "q{ENTER}" & vbCrLf)
+                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "q{ENTER}" & vbCrLf)
                         Print(My.Resources.Automatic_restart_word & GroupName)
                         ' shut down all regions in the DOS box
-                        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                            PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                         Next
                     Else
                         ' shut down all regions in the DOS box
-                        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                            PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Stopped
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
                         Next
                     End If
                     PropUpdateView = True ' make form refresh
@@ -1951,32 +1896,32 @@ Public Class Form1
             Dim RegionName = PropExitList(0).ToString()
             PropExitList.RemoveAt(0)
 
-            Dim RegionList = PropRegionClass.RegionListByGroupNum(RegionName)
+            Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
             GroupName = RegionName ' assume a group
-            RegionNumber = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
 
-            If RegionNumber >= 0 Then
-                GroupName = PropRegionClass.GroupName(RegionNumber) ' Yup, Get Name of the Dos box
+            If RegionUUID.Length > 0 Then
+                GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
             Else
                 ' Nope, grab the first region, Group name is already set
-                RegionNumber = RegionList(0)
+                RegionUUID = RegionList(0)
             End If
 
-            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
                 ' already stoppped, from exit event or JSON via Region Ready module
                 Continue While
             End If
             Print(RegionName & " " & My.Resources.Shutdown_word)
-            Dim Status = PropRegionClass.Status(RegionNumber)
-            TimerValue = PropRegionClass.Timer(RegionNumber)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+            TimerValue = PropRegionClass.Timer(RegionUUID)
 
             'Auto restart phase begins
             If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                For Each R In RegionList
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
+                For Each UUID In RegionList
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
                 Next
                 PropUpdateView = True ' make form refresh
             End If
@@ -1985,16 +1930,16 @@ Public Class Form1
             ' restart the beast
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
-                Or PropRegionClass.IsBooted(RegionNumber) _
+                Or PropRegionClass.IsBooted(RegionUUID) _
                 And TimerValue >= 0 _
                 And PropRestartNow = False Then
 
                 If Settings.RestartOnCrash Then
                     ' shut down all regions in the DOS box
                     Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                    For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
-                        PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RestartPending
+                    For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                        PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
                     Next
                     PropUpdateView = True
                 Else
@@ -2002,7 +1947,7 @@ Public Class Form1
                     Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
-                            System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
+                            System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
                         Catch ex As InvalidOperationException
                         Catch ex As System.ComponentModel.Win32Exception
                         End Try
@@ -2013,20 +1958,20 @@ Public Class Form1
             End If
 
             ' if a resume is signaled, unsuspend it
-            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionNumber), True)
-                PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
                 PropUpdateView = True
             End If
 
             ' if a RestartPending is signaled, boot it up
-            If PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(RegionNumber))
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
                 PropUpdateView = True
             End If
 
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 PropUpdateView = True
             End If
 
@@ -2082,12 +2027,12 @@ Public Class Form1
 
     Public Function VarChooser(RegionName As String) As String
 
-        Dim RegionNumber = PropRegionClass.FindRegionByName(RegionName)
-        Dim size = PropRegionClass.SizeX(RegionNumber)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim size = PropRegionClass.SizeX(RegionUUID)
         If size = 256 Then  ' 1x1
             Using VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
                 ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.Init(RegionNumber)
+                VarForm.Init(RegionUUID)
                 VarForm.ShowDialog()
             End Using
         ElseIf size = 512 Then  ' 2x2
@@ -2164,8 +2109,8 @@ Public Class Form1
     Private Function AvatarsIsInGroup(groupname As String) As Boolean
 
         Dim present As Integer = 0
-        For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum(groupname)
-            present += PropRegionClass.AvatarCount(RegionNum)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
+            present += PropRegionClass.AvatarCount(RegionUUID)
         Next
 
         Return CType(present, Boolean)
@@ -2420,17 +2365,17 @@ Public Class Form1
         ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
 
         Dim Authorizationlist As String = ""
-        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionNum)
+            Dim simName = PropRegionClass.RegionName(RegionUUID)
             '(replace spaces with underscore)
             simName = simName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
             Dim df As Boolean = False
             Dim dr As Boolean = False
-            If PropRegionClass.DisallowForeigners(RegionNum) = "True" Then
+            If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
                 df = True
             End If
-            If PropRegionClass.DisallowResidents(RegionNum) = "True" Then
+            If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
                 dr = True
             End If
             If Not dr And Not df Then
@@ -2964,36 +2909,16 @@ Public Class Form1
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
-        ' Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection())
-        'UserStmt = "SELECT regionName from REGIONS"
-        'Try
-        'NewSQLConn.Open()
-        'Dim cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
-        'Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
-        'While reader.Read()
-        ' Dim LongName = reader.GetString(0)
-        'Diagnostics.Debug.Print("regionname {0}>", LongName)
-        For Each RegionNumber In PropRegionClass.RegionNumbers
-            'Dim RegionNumber = PropRegionClass.FindRegionByName(LongName)
-            If RegionNumber >= 0 Then
-                If PropRegionClass.Teleport(RegionNumber) = "True" And
-                             PropRegionClass.RegionEnabled(RegionNumber) = True And
-                             PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted Then
-                    ToSort.Add(PropRegionClass.RegionName(RegionNumber))
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If RegionUUID.Length > 0 Then
+                If PropRegionClass.Teleport(RegionUUID) = "True" And
+                    PropRegionClass.RegionEnabled(RegionUUID) = True And
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ToSort.Add(PropRegionClass.RegionName(RegionUUID))
                 End If
             End If
         Next
-
-        'End While
-
-        'cmd.Dispose()
-#Disable Warning CA1031 ' Do not catch general exception types
-        'Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-        ' Console.WriteLine("Error: " & ex.Message)
-        '      End Try
-        'End Using
 
         ' Acquire keys And sort them.
         ToSort.Sort()
@@ -3034,10 +2959,10 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim X = PropRegionClass.FindRegionByName(name)
-        If X > -1 Then
-            ConsoleCommand(PropRegionClass.GroupName(X), "change region " & name & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(X), "restart region " & name & "{ENTER}" & vbCrLf)
+        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length > 0 Then
+            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & name & "{ENTER}" & vbCrLf)
+            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "restart region " & name & "{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3049,9 +2974,9 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim X = PropRegionClass.FindRegionByName(name)
-        If X > -1 Then
-            ConsoleCommand(PropRegionClass.GroupName(X), "restart{ENTER}" & vbCrLf)
+        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length > 0 Then
+            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "restart{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3244,11 +3169,11 @@ Public Class Form1
                     Dim Password = SaveIAR.GPassword
 
                     Dim flag As Boolean = False
-                    For Each RegionNumber As Integer In PropRegionClass.RegionNumbers
-                        Dim GName = PropRegionClass.GroupName(RegionNumber)
+                    For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                        Dim GName = PropRegionClass.GroupName(RegionUUID)
                         Dim RNUm = PropRegionClass.FindRegionByName(GName)
-                        If PropRegionClass.IsBooted(RegionNumber) And Not flag Then
-                            ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save iar " _
+                        If PropRegionClass.IsBooted(RegionUUID) And Not flag Then
+                            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save iar " _
                                        & Name & " " _
                                        & """" & itemName & """" _
                                        & " " & """" & Password & """" & " " _
@@ -3273,7 +3198,7 @@ Public Class Form1
 
             Dim chosen = ChooseRegion(True)
             If chosen.Length = 0 Then Return
-            Dim RegionNumber As Integer = PropRegionClass.FindRegionByName(chosen)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
 
             Dim Message, title, defaultValue As String
             Dim myValue As String
@@ -3287,11 +3212,11 @@ Public Class Form1
             ' If user has clicked Cancel, set myValue to defaultValue
             If myValue.Length = 0 Then Return
 
-            If PropRegionClass.IsBooted(RegionNumber) Then
-                Dim Group = PropRegionClass.GroupName(RegionNumber)
-                ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                Dim Group = PropRegionClass.GroupName(RegionUUID)
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
             End If
             Me.Focus()
             Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
@@ -3314,8 +3239,8 @@ Public Class Form1
         Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
         '; start with zero avatars
-        For Each RegionNum In PropRegionClass.RegionNumbers
-            PropRegionClass.AvatarCount(RegionNum) = 0
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            PropRegionClass.AvatarCount(RegionUUID) = 0
         Next
 
         ToolTip1.SetToolTip(Label3, "")
@@ -3324,10 +3249,10 @@ Public Class Form1
             Dim Avatar = NameValue.Key
             Dim RegionName = NameValue.Value
 
-            Dim regionNumber = PropRegionClass.FindRegionByName(RegionName)
-            If regionNumber >= 0 Then
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
                 ToolTip1.SetToolTip(Label3, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(Label3))
-                PropRegionClass.AvatarCount(regionNumber) += 1
+                PropRegionClass.AvatarCount(RegionUUID) += 1
             End If
         Next
 
@@ -3374,9 +3299,9 @@ Public Class Form1
 
         If Not PropOpensimIsRunning() Then Print(My.Resources.Not_Running)
 
-        For Each Regionnumber As Integer In PropRegionClass.RegionNumbers
-            If PropRegionClass.IsBooted(Regionnumber) Then
-                ConsoleCommand(PropRegionClass.GroupName(Regionnumber), "set log level " & msg & "{ENTER}" & vbCrLf)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "set log level " & msg & "{ENTER}" & vbCrLf)
             End If
         Next
         ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
@@ -3389,10 +3314,10 @@ Public Class Form1
             Return
         End If
         Dim rname = ChooseRegion(True)
-        Dim X = PropRegionClass.FindRegionByName(rname)
-        If X > -1 Then
-            ConsoleCommand(PropRegionClass.GroupName(X), "change region " & rname & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(X), cmd & "{ENTER}" & vbCrLf)
+        Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+        If RegionUUID.Length > 0 Then
+            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & rname & "{ENTER}" & vbCrLf)
+            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), cmd & "{ENTER}" & vbCrLf)
         End If
 
     End Sub
@@ -3407,16 +3332,14 @@ Public Class Form1
         Try
             ' add this sim name as a default to the file as HG regions, and add the other regions as
             ' fallback it may have been deleted
-            Dim o As Integer = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+            Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
-            If o < 0 Then
+            If WelcomeUUID.Length = 0 Then
                 MsgBox(My.Resources.Cannot_locate, vbInformation)
                 Return True
             End If
 
             Dim DefaultName = Settings.WelcomeRegion
-            '(replace spaces with underscore)
-            DefaultName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
 
             FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
 
@@ -3427,10 +3350,10 @@ Public Class Form1
             Dim RegionSetting As String = Nothing
 
             ' make a long list of the various regions with region_ at the start
-            For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-                Dim RegionName = PropRegionClass.RegionName(RegionNum)
+            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName <> Settings.WelcomeRegion Then
-                    If Settings.SmartStart And PropRegionClass.SmartStart(RegionNum) = "True" Then
+                    If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                         RegionSetting += "Region_" & RegionName & " = " & "FallbackRegion, Persistent" & vbCrLf
                     Else
@@ -3696,6 +3619,36 @@ Public Class Form1
 
 #Region "Do"
 
+    Public Function DoGloebits() As Boolean
+
+        'Gloebits.ini
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
+        If Settings.GloebitsEnable Then
+            Settings.SetIni("Gloebit", "Enabled", "True")
+        Else
+            Settings.SetIni("Gloebit", "Enabled", "False")
+        End If
+
+        If Settings.GloebitsMode Then
+            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
+        Else
+            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
+        End If
+
+        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
+        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
+
+        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+
+        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Return False
+
+    End Function
+
     Private Function DoApache()
 
         If Not Settings.ApacheEnable Then Return False
@@ -3753,13 +3706,13 @@ Public Class Form1
         Dim BirdData As String = ""
 
         ' Birds setup per region
-        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionNum)
+            Dim simName = PropRegionClass.RegionName(RegionUUID)
 
-            If Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";") Then Return True
+            If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
-            If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionNum) = "True" Then
+            If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionUUID) = "True" Then
 
                 BirdData = BirdData & "[" & simName & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
@@ -4100,22 +4053,22 @@ Public Class Form1
 
         CopyOpensimProto(simName)
 
-        Dim RegionNum = PropRegionClass.FindRegionByName(simName)
+        Dim RegionUUID = PropRegionClass.FindRegionByName(simName)
 
-        If Settings.LoadIni(PropRegionClass.RegionPath(RegionNum), ";") Then Return True
+        If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
         ' Autobackup
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "" Then
+        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
             Settings.SetIni(simName, "AutoBackup", "True")
         Else
             Settings.SetIni(simName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
-        If PropRegionClass.RegionEnabled(RegionNum) Then
+        If PropRegionClass.RegionEnabled(RegionUUID) Then
             Settings.SetIni(simName, "Enabled", "True")
         Else
             Settings.SetIni(simName, "Enabled", "False")
@@ -4123,70 +4076,70 @@ Public Class Form1
 
         ' Extended in v 2.1
 
-        Select Case PropRegionClass.NonPhysicalPrimMax(RegionNum)
+        Select Case PropRegionClass.NonPhysicalPrimMax(RegionUUID)
             Case ""
                 Settings.SetIni(simName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(simName, "NonPhysicalPrimMax", PropRegionClass.NonPhysicalPrimMax(RegionNum))
+                Settings.SetIni(simName, "NonPhysicalPrimMax", PropRegionClass.NonPhysicalPrimMax(RegionUUID))
         End Select
 
-        Select Case PropRegionClass.PhysicalPrimMax(RegionNum)
+        Select Case PropRegionClass.PhysicalPrimMax(RegionUUID)
             Case ""
                 Settings.SetIni(simName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(simName, "PhysicalPrimMax", PropRegionClass.PhysicalPrimMax(RegionNum))
+                Settings.SetIni(simName, "PhysicalPrimMax", PropRegionClass.PhysicalPrimMax(RegionUUID))
         End Select
 
         If (Settings.Primlimits) Then
-            Select Case PropRegionClass.MaxPrims(RegionNum)
+            Select Case PropRegionClass.MaxPrims(RegionUUID)
                 Case ""
                     Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionNum))
+                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
             End Select
         Else
-            Select Case PropRegionClass.MaxPrims(RegionNum)
+            Select Case PropRegionClass.MaxPrims(RegionUUID)
                 Case ""
                     Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionNum))
+                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
             End Select
         End If
 
-        Select Case PropRegionClass.MaxAgents(RegionNum)
+        Select Case PropRegionClass.MaxAgents(RegionUUID)
             Case ""
                 Settings.SetIni(simName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(simName, "MaxAgents", PropRegionClass.MaxAgents(RegionNum))
+                Settings.SetIni(simName, "MaxAgents", PropRegionClass.MaxAgents(RegionUUID))
         End Select
 
-        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
 
         ' Optional Extended in v 2.31 optional things
-        If PropRegionClass.MapType(RegionNum) = "None" Then
+        If PropRegionClass.MapType(RegionUUID) = "None" Then
             Settings.SetIni(simName, "GenerateMaptiles", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Simple" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
             Settings.SetIni(simName, "GenerateMaptiles", "True")
             Settings.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
             Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
             Settings.SetIni(simName, "TexturePrims", "False")
             Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
             Settings.SetIni(simName, "GenerateMaptiles", "True")
             Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
             Settings.SetIni(simName, "TexturePrims", "False")
             Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
             Settings.SetIni(simName, "GenerateMaptiles", "True")
             Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
             Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
             Settings.SetIni(simName, "TexturePrims", "False")
             Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
             Settings.SetIni(simName, "GenerateMaptiles", "True")
             Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
@@ -4202,24 +4155,24 @@ Public Class Form1
             Settings.SetIni(simName, "RenderMeshes", "")
         End If
 
-        Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionNum))
-        Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionNum))
-        Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionNum))
-        Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionNum))
-        Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionNum))
-        Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionNum))
-        Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionNum))
-        Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionNum))
-        Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionNum))
-        Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionNum))
-        Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionNum))
-        Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionNum))
-        Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionNum))
+        Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionUUID))
+        Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionUUID))
+        Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionUUID))
+        Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionUUID))
+        Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionUUID))
+        Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionUUID))
+        Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionUUID))
+        Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionUUID))
+        Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionUUID))
+        Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionUUID))
+        Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionUUID))
+        Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionUUID))
+        Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionUUID))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionNum) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
 
@@ -4228,11 +4181,11 @@ Public Class Form1
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "" Then
+        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionNum) = "True" Then
+        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
         End If
 
@@ -4244,28 +4197,28 @@ Public Class Form1
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
-        If PropRegionClass.MapType(RegionNum) = "Simple" Then
+        If PropRegionClass.MapType(RegionUUID) = "Simple" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Good" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
             Settings.SetIni(simName, "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Better" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionNum) = "Best" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
@@ -4274,7 +4227,7 @@ Public Class Form1
             Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
-        Select Case PropRegionClass.Physics(RegionNum)
+        Select Case PropRegionClass.Physics(RegionUUID)
             Case ""
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
@@ -4307,7 +4260,7 @@ Public Class Form1
                 ' do nothing
         End Select
 
-        Select Case PropRegionClass.AllowGods(RegionNum)
+        Select Case PropRegionClass.AllowGods(RegionUUID)
             Case ""
                 Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
             Case "False"
@@ -4316,7 +4269,7 @@ Public Class Form1
                 Settings.SetIni("Permissions", "allow_grid_gods", "True")
         End Select
 
-        Select Case PropRegionClass.RegionGod(RegionNum)
+        Select Case PropRegionClass.RegionGod(RegionUUID)
             Case ""
                 Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
             Case "False"
@@ -4325,7 +4278,7 @@ Public Class Form1
                 Settings.SetIni("Permissions", "region_owner_is_god", "True")
         End Select
 
-        Select Case PropRegionClass.ManagerGod(RegionNum)
+        Select Case PropRegionClass.ManagerGod(RegionUUID)
             Case ""
                 Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
             Case "False"
@@ -4335,38 +4288,38 @@ Public Class Form1
         End Select
 
         ' no main setting for these
-        Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionNum))
-        If PropRegionClass.DisallowForeigners(RegionNum).Length > 0 Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionUUID))
+        If PropRegionClass.DisallowForeigners(RegionUUID).Length > 0 Then
+            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If PropRegionClass.DisallowResidents(RegionNum).Length > 0 Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.DisallowResidents(RegionUUID).Length > 0 Then
+            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
         ' V3.15
-        If PropRegionClass.NonPhysicalPrimMax(RegionNum).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If PropRegionClass.PhysicalPrimMax(RegionNum).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If PropRegionClass.MinTimerInterval(RegionNum).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
+            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If PropRegionClass.FrameTime(RegionNum).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(PropRegionClass.FrameTime(RegionNum), Globalization.CultureInfo.InvariantCulture))
+        If PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "FrameTime", Convert.ToString(PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If PropRegionClass.DisableGloebits(RegionNum) = "True" Then
+        If PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         ' Search
-        Select Case PropRegionClass.Snapshot(RegionNum)
+        Select Case PropRegionClass.Snapshot(RegionUUID)
             Case ""
                 Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
             Case "True"
@@ -4376,13 +4329,13 @@ Public Class Form1
         End Select
 
         'ScriptEngine Overrides
-        If PropRegionClass.ScriptEngine(RegionNum) = "XEngine" Then
+        If PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
             Settings.SetIni("XEngine", "Enabled", "True")
             Settings.SetIni("YEngine", "Enabled", "False")
         End If
 
-        If PropRegionClass.ScriptEngine(RegionNum) = "YEngine" Then
+        If PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
             Settings.SetIni("XEngine", "Enabled", "False")
             Settings.SetIni("YEngine", "Enabled", "True")
@@ -4454,8 +4407,8 @@ Public Class Form1
 
     Private Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
 
-        Dim RegionNum = PropRegionClass.FindRegionByName(RegionName)
-        Dim PID = PropRegionClass.ProcessID(RegionNum)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
         Dim R As String
         If ResumeSwitch Then
@@ -4489,14 +4442,14 @@ Public Class Form1
             SuspendProcess.Close()
         End Try
 
-        Dim GroupName = PropRegionClass.GroupName(RegionNum)
-        For Each Y In PropRegionClass.RegionListByGroupNum(GroupName)
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
             If ResumeSwitch Then
-                PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.StartCounting
-                PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Booted
+                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
+                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
             Else
-                PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.Suspended
+                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Suspended
             End If
         Next
         PropUpdateView = True ' make form refresh
@@ -4515,10 +4468,10 @@ Public Class Form1
         Catch ex As ArgumentException
         End Try
 
-        For Each RegionNum As Integer In PropRegionClass.RegionNumbers
-            Dim simName = PropRegionClass.RegionName(RegionNum)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            Dim simName = PropRegionClass.RegionName(RegionUUID)
             'Tides Setup per region
-            If Settings.TideEnabled And PropRegionClass.Tides(RegionNum) = "True" Then
+            If Settings.TideEnabled And PropRegionClass.Tides(RegionUUID) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
                     "[" & simName & "]" & vbCrLf &
@@ -4721,8 +4674,8 @@ Public Class Form1
         AddLog("MySQL")
         AddLog("All Settings")
         AddLog("--- Regions ---")
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            Dim Name = PropRegionClass.RegionName(X)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            Dim Name = PropRegionClass.RegionName(RegionUUID)
             AddLog("Region " & Name)
         Next
 
@@ -4743,14 +4696,14 @@ Public Class Form1
 
         If PropRegionClass Is Nothing Then Return
 
-        For Each RegionNum In PropRegionClass.RegionNumbers
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
             Dim Menu As New ToolStripMenuItem With {
-                .Text = PropRegionClass.RegionName(RegionNum),
-                .ToolTipText = My.Resources.Click_to_View_this_word & " " & PropRegionClass.RegionName(RegionNum),
+                .Text = PropRegionClass.RegionName(RegionUUID),
+                .ToolTipText = My.Resources.Click_to_View_this_word & " " & PropRegionClass.RegionName(RegionUUID),
                 .DisplayStyle = ToolStripItemDisplayStyle.Text
             }
-            If PropRegionClass.IsBooted(RegionNum) Then
+            If PropRegionClass.IsBooted(RegionUUID) Then
                 Menu.Enabled = True
             Else
                 Menu.Enabled = False
@@ -4829,27 +4782,18 @@ Public Class Form1
             Return
         End If
 
-        Dim n As Integer = 0
-        Dim L As New List(Of String)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropRegionClass.IsBooted(RegionUUID) Then
 
-        For Each RegionNumber In PropRegionClass.RegionNumbers
-            If PropRegionClass.IsBooted(RegionNumber) Then
-                Dim Group = PropRegionClass.GroupName(RegionNumber)
-                For Each Y In PropRegionClass.RegionListByGroupNum(Group)
-                    If Not L.Contains(PropRegionClass.RegionName(Y)) Then
-                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "change region " & """" & PropRegionClass.RegionName(Y) & """" & "{ENTER}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(RegionNumber), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(Y) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
-                        L.Add(PropRegionClass.RegionName(Y))
-                        ' show it, stop it, start it, or edit it
-                        Dim hwnd = GetHwnd(PropRegionClass.GroupName(Y))
-                        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
-                        Print("Backing up " & PropRegionClass.RegionName(Y))
-                        SequentialPause()   ' wait for previous region to give us some CPU
-                        Sleep(30000)
-                    End If
-                Next
+                Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+
+                Sleep(15000)
+                SequentialPause()   ' wait for previous region to give us some CPU
+                Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
             End If
-            n += 1
         Next
 
     End Sub
@@ -4867,9 +4811,12 @@ Public Class Form1
         Dim rname = ChooseRegion(True)
         If rname.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            Dim X = PropRegionClass.FindRegionByName(rname)
-            ConsoleCommand(PropRegionClass.GroupName(X), "change region  " & PropRegionClass.RegionName(X) & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(X), "alert " & Message & "{ENTER}" & vbCrLf)
+            Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+            If RegionUUID.Length > 0 Then
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
+                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & Message & "{ENTER}" & vbCrLf)
+            End If
+
         End If
 
     End Sub
@@ -4983,8 +4930,8 @@ Public Class Form1
     End Sub
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
-        For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionNum), "debug jobengine status{ENTER}" & vbCrLf)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "debug jobengine status{ENTER}" & vbCrLf)
         Next
     End Sub
 
@@ -4998,11 +4945,11 @@ Public Class Form1
         Dim HowManyAreOnline As Integer = 0
         Dim Message = InputBox(My.Resources.What_2_say_To_all)
         If Message.Length > 0 Then
-            For Each X As Integer In PropRegionClass.RegionNumbers
-                If PropRegionClass.AvatarCount(X) > 0 Then
+            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                If PropRegionClass.AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
-                    ConsoleCommand(PropRegionClass.GroupName(X), "change region  " & PropRegionClass.RegionName(X) & "{ENTER}" & vbCrLf)
-                    ConsoleCommand(PropRegionClass.GroupName(X), "alert " & Message & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & Message & "{ENTER}" & vbCrLf)
                 End If
 
             Next
@@ -5198,7 +5145,7 @@ Public Class Form1
         If PropOpensimIsRunning() Then
             Dim chosen = ChooseRegion(True)
             If chosen.Length = 0 Then Return
-            Dim RegionNumber As Integer = PropRegionClass.FindRegionByName(chosen)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
 
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
@@ -5221,15 +5168,15 @@ Public Class Form1
                     If thing.Length > 0 Then
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                        Dim Group = PropRegionClass.GroupName(RegionNumber)
-                        For Each Y In PropRegionClass.RegionListByGroupNum(Group)
+                        Dim Group = PropRegionClass.GroupName(RegionUUID)
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(Group)
 
-                            ConsoleCommand(PropRegionClass.GroupName(Y), "change region " & chosen & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(UUID), "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
-                                ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(PropRegionClass.GroupName(Y), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                                ConsoleCommand(PropRegionClass.GroupName(UUID), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
-                            ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
                             Dim ForceParcel As String = ""
                             If PropForceParcel() Then ForceParcel = " --force-parcels "
@@ -5240,8 +5187,8 @@ Public Class Form1
                             Dim UserName As String = ""
                             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
-                            ConsoleCommand(PropRegionClass.GroupName(Y), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                            ConsoleCommand(PropRegionClass.GroupName(Y), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(UUID), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
 
                         Next
                     End If
@@ -5317,8 +5264,8 @@ Public Class Form1
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim regionnum = PropRegionClass.FindRegionByName(sender.text)
-            Dim port As String = CStr(PropRegionClass.RegionPort(regionnum))
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(sender.text)
+            Dim port As String = CStr(PropRegionClass.RegionPort(RegionUUID))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
                 Process.Start(webAddress)
@@ -5332,10 +5279,10 @@ Public Class Form1
 
     Private Sub StopAllRegions()
 
-        For Each X As Integer In PropRegionClass.RegionNumbers
-            PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped
-            PropRegionClass.ProcessID(X) = 0
-            PropRegionClass.Timer(X) = RegionMaker.REGIONTIMER.Stopped
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+            PropRegionClass.ProcessID(RegionUUID) = 0
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Try
             PropExitList.Clear()
@@ -5473,14 +5420,14 @@ Public Class Form1
 
         Dim Used As New List(Of String)
         ' Boot them up
-        For Each X As Integer In PropRegionClass.RegionNumbers()
-            If PropRegionClass.IsBooted(X) Then
-                Dim RegionName = PropRegionClass.RegionName(X)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
                 If Used.Contains(RegionName) Then Continue For
                 Used.Add(RegionName)
 
-                Dim Port = PropRegionClass.GroupPort(X)
+                Dim Port = PropRegionClass.GroupPort(RegionUUID)
                 Print(My.Resources.Checking_Loopback_word & " " & RegionName)
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
             End If
@@ -5534,8 +5481,8 @@ Public Class Form1
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
-        For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionNum), "show threads{ENTER}" & vbCrLf)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "show threads{ENTER}" & vbCrLf)
         Next
     End Sub
 
@@ -5696,8 +5643,8 @@ Public Class Form1
     End Sub
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
-        For Each RegionNum As Integer In PropRegionClass.RegionListByGroupNum("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionNum), "xengine status{ENTER}" & vbCrLf)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "xengine status{ENTER}" & vbCrLf)
         Next
     End Sub
 
@@ -5757,8 +5704,8 @@ Public Class Form1
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
             Print(My.Resources.Grid_UDP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
 
-            For Each X As Integer In PropRegionClass.RegionNumbers
-                Dim R As Integer = PropRegionClass.RegionPort(X)
+            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
                 Application.DoEvents()
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
@@ -5766,15 +5713,15 @@ Public Class Form1
                     Application.DoEvents()
                 End If
 
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(X) & " ")
-                Print(PropRegionClass.RegionName(X) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
+                Print(PropRegionClass.RegionName(RegionUUID) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.TCP)
                     Application.DoEvents()
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(X) & " ")
-                Print(PropRegionClass.RegionName(X) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
+                Print(PropRegionClass.RegionName(RegionUUID) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
 
             Next
 
@@ -5788,10 +5735,10 @@ Public Class Form1
 
     End Function
 
-    Public Function Opensimproto(X As Integer) As Boolean
+    Public Function Opensimproto(RegionUUID As String) As Boolean
 
-        Dim regionName = PropRegionClass.RegionName(X)
-        Dim pathname = PropRegionClass.IniPath(X)
+        Dim regionName = PropRegionClass.RegionName(RegionUUID)
+        Dim pathname = PropRegionClass.IniPath(RegionUUID)
 
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
 
@@ -5799,26 +5746,26 @@ Public Class Form1
 
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(X))) ' varies with region
+        Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(RegionUUID))) ' varies with region
 
         ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a
         ' float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If PropRegionClass.MinTimerInterval(X).Length > 0 Then
-            If Not Double.TryParse(PropRegionClass.MinTimerInterval(X), Xtime) Then
+        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
+            If Not Double.TryParse(PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
                 Xtime = 1.0 / 11.0
             End If
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
-        Dim name = PropRegionClass.RegionName(X)
+        Dim name = PropRegionClass.RegionName(RegionUUID)
 
         ' save the http listener port away for the group
-        PropRegionClass.GroupPort(X) = PropRegionClass.RegionPort(X)
+        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(X)))
+        Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(RegionUUID)))
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Try
@@ -5906,22 +5853,22 @@ Public Class Form1
 
         If Settings.Sequential Then
 
-            For Each X As Integer In PropRegionClass.RegionNumbers
-                If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(X) And
-                    Not (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
-                    Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-                    Or PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped) Then
+            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
+                    Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
+                    Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
+                    Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                     Dim ctr = 600 ' 1 minute max to start a region
                     Dim WaitForIt = True
                     While WaitForIt
                         Sleep(100)
-                        If PropRegionClass.RegionEnabled(X) _
+                        If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
-                            And (PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
-                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
-                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                                PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting) Then
+                            And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
+                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
+                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
+                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
                             WaitForIt = True
                         Else
                             WaitForIt = False
@@ -6024,8 +5971,8 @@ Public Class Form1
 
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
 
-        Dim X = PropRegionClass.FindRegionByName(regionname)
-        If Settings.LoadIni(PropRegionClass.RegionPath(X), ";") Then
+        Dim RegionUUID = PropRegionClass.FindRegionByName(regionname)
+        If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then
             Return True
         End If
         Settings.SetIni(regionname, key, value)
@@ -6491,9 +6438,9 @@ Public Class Form1
         If Not StartRobust() Then Return False
 
         ' Boot them up
-        For Each X As Integer In PropRegionClass.RegionNumbers()
-            If PropRegionClass.RegionEnabled(X) Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(X))
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
+            If PropRegionClass.RegionEnabled(RegionUUID) Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
             End If
         Next
 
@@ -6625,8 +6572,8 @@ Public Class Form1
 
         Dim DefaultName As String = ""
 
-        Dim N = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        If N = -1 Then
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+        If RegionUUID.Length = 0 Then
             MsgBox(My.Resources.Default_Welcome, vbInformation)
             Print(My.Resources.Stopped_word)
             Dim FormRegions = New FormRegions
@@ -6639,7 +6586,7 @@ Public Class Form1
         End If
 
         Print(My.Resources.Starting_word)
-        PropRegionClass.RegionEnabled(N) = True
+        PropRegionClass.RegionEnabled(RegionUUID) = True
 
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
@@ -6672,7 +6619,7 @@ Public Class Form1
         End If
 
         Print(My.Resources.Reading_Region_files)
-        PropRegionClass.GetAllRegions()
+
         If SetIniData() Then
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -6754,13 +6701,13 @@ Public Class Form1
 
     Public Sub StopGroup(Groupname As String)
 
-        For Each RegionNumber In PropRegionClass.RegionListByGroupNum(Groupname)
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
             ' Called by a sim restart, do not change status
-            'If Not PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Stopped
-            Log(My.Resources.Info, PropRegionClass.RegionName(RegionNumber) & " Stopped")
+
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+            Log(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " Stopped")
             'End If
-            PropRegionClass.Timer(RegionNumber) = RegionMaker.REGIONTIMER.Stopped
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
@@ -6835,8 +6782,6 @@ Public Class Form1
         TextBox1.SelectionStart = TextBox1.Text.Length
         TextBox1.ScrollToCaret()
 
-        SetScreen()     ' move Form to fit screen from SetXY.ini
-
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
@@ -6862,8 +6807,6 @@ Public Class Form1
         Me.Text += " V" & PropMyVersion
 
         PropOpensimIsRunning() = False ' true when opensim is running
-
-        Me.Show()
 
         Print(My.Resources.Getting_regions_word)
 

@@ -29,16 +29,16 @@ Module CrashDetector
         If Not Form1.Settings.RestartonPhysics() Then Return
 
         Dim Used As New List(Of String)
-        For Each RegionNum As Integer In Form1.PropRegionClass.RegionNumbers
-            If Form1.PropRegionClass.IsBooted(RegionNum) Then
-                Dim Group = Form1.PropRegionClass.GroupName(RegionNum)
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+            If Form1.PropRegionClass.IsBooted(RegionUUID) Then
+                Dim Group = Form1.PropRegionClass.GroupName(RegionUUID)
                 If Not Used.Contains(Group) Then
                     Used.Add(Group)
-                    Dim logline = Form1.PropRegionClass.LineCounter(RegionNum)
-                    Dim RegionName = Form1.PropRegionClass.RegionName(RegionNum)
+                    Dim logline = Form1.PropRegionClass.LineCounter(RegionUUID)
+                    Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
                     Dim ctr As Integer = 0
                     Dim line As String = ""
-                    Dim fname = Form1.PropRegionClass.IniPath(RegionNum) & "Opensim.log"
+                    Dim fname = Form1.PropRegionClass.IniPath(RegionUUID) & "Opensim.log"
 
                     If File.Exists(fname) Then
                         Dim fs = New FileStream(fname, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
@@ -53,13 +53,13 @@ Module CrashDetector
                                         Form1.Print(My.Resources.Restarting_word & " " & RegionName)
                                         Form1.PropRestartNow = True
                                         Form1.SequentialPause()
-                                        Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionNum), "q{ENTER}" + vbCrLf)
-                                        Form1.PropRegionClass.Timer(RegionNum) = RegionMaker.REGIONTIMER.Stopped
-                                        Form1.PropRegionClass.Status(RegionNum) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                                        Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                                        Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                                     End If
                                 End If
                             End While
-                            Form1.PropRegionClass.LineCounter(RegionNum) = ctr
+                            Form1.PropRegionClass.LineCounter(RegionUUID) = ctr
                         End Using
                     End If
                 End If

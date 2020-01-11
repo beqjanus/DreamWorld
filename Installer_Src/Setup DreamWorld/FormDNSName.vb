@@ -172,7 +172,7 @@ Public Class FormDNSName
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
         Form1.RegisterName(DNSNameBox.Text)
-        Dim IP = Form1.DoGetHostAddresses(DNSNameBox.Text)
+        Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
         Dim address As IPAddress = Nothing
         If IPAddress.TryParse(IP, address) Then
             MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
