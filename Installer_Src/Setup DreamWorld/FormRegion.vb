@@ -1444,6 +1444,10 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub EnabledCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnabledCheckBox.CheckedChanged
+        If Initted1 Then Changed1 = TrueIf Initted1 Then Changed1 = True
+    End Sub
+
 #End Region
 
 End Class
