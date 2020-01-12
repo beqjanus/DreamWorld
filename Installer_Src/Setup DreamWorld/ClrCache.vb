@@ -66,6 +66,29 @@ Public Class ClrCache
             Next
         End If
 
+
+        folders = Nothing
+        Try
+            folders = IO.Directory.GetFiles(Form1.Settings.CacheFolder)
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        End Try
+
+        If folders IsNot Nothing Then
+            Dim ctr As Integer = 0
+            For Each folder As String In folders
+                FileStuff.DeleteFile(folder)
+                ctr += 1
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                Application.DoEvents()
+            Next
+        End If
+
+
+
     End Sub
 
     Public Shared Sub WipeBakes()
@@ -80,7 +103,7 @@ Public Class ClrCache
         Form1.Print(My.Resources.Clearing_Image_Cache_word)
         Dim folders() = Nothing
         Try
-            folders = IO.Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\", "*", SearchOption.TopDirectoryOnly)
+            folders = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
@@ -91,9 +114,9 @@ Public Class ClrCache
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                FileStuff.DeleteFile(folder)
                 ctr += 1
-                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
                 Application.DoEvents()
             Next
         End If

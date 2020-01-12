@@ -80,6 +80,7 @@ Public Class FormCaches
         If CheckBox4.Checked Then
             ClrCache.WipeImage()
         End If
+
         If CheckBox5.Checked Then
             ClrCache.WipeMesh()
         End If
