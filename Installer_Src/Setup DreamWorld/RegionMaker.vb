@@ -32,8 +32,8 @@ Public Class RegionMaker
 
     Private Shared FInstance As RegionMaker = Nothing
     Private _Grouplist As New Dictionary(Of String, Integer)
+    Private _RegionListIsInititalized As Boolean = False
     Dim Backup As New ArrayList()
-    Private initted As Boolean = False
     Dim json As New JSONresult
     Private RegionList As New Dictionary(Of String, Region_data)
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
@@ -315,7 +315,7 @@ Public Class RegionMaker
 
     End Function
 
-    Public Sub GetAllRegions()
+    Public Function GetAllRegions() As Integer
         Try
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
@@ -331,7 +331,7 @@ Public Class RegionMaker
             Dim RegionUUID As String = ""
             folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
             For Each FolderName As String In folders
-                'Form1.Log(My.Resources.Info,"Region Path:" + FolderName)
+
                 regionfolders = Directory.GetDirectories(FolderName)
                 For Each FileName As String In regionfolders
 
@@ -350,17 +350,15 @@ Public Class RegionMaker
                         For Each ini As String In inis
                             fName = System.IO.Path.GetFileNameWithoutExtension(ini)
 
-                            ' make a slot to hold the region data
-
-                            ' must be after Createregion or port blows up
                             Form1.Settings.LoadIni(ini, ";")
 
                             RegionUUID = Form1.Settings.GetIni(fName, "RegionUUID", "", "String")
                             Dim SomeUUID As New Guid
-                            CreateRegion(fName, RegionUUID)
                             If Not Guid.TryParse(RegionUUID, SomeUUID) Then
                                 MsgBox("Cannot read RegionUUID in INI file for  " & fName)
                             End If
+
+                            CreateRegion(fName, RegionUUID)
 
                             ' we do not save the above as we are making a new one.
                             Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
@@ -426,7 +424,7 @@ Public Class RegionMaker
                                     SmartStart(RegionUUID) = False
                             End Select
 
-                            If initted Then
+                            If _RegionListIsInititalized Then
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
                                 If o >= 0 Then
@@ -449,14 +447,15 @@ Public Class RegionMaker
                 Next
             Next
 
-            initted = True
+            _RegionListIsInititalized = True
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
             Debug.Print(ex.Message)
         End Try
+        Return RegionList.Count
 
-    End Sub
+    End Function
 
     Public Function LargestPort() As Integer
 

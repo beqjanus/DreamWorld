@@ -282,7 +282,7 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
-        ' Form1.PropRegionClass.GetAllRegions()
+        Dim count = Form1.PropRegionClass.GetAllRegions()
         Me.Name = "Region List"
         Me.Text = My.Resources.Region_List
         AvatarView.Hide()
@@ -438,10 +438,6 @@ Public Class RegionList
 
         Try
 
-            Dim MysqlIsRunning = False
-            If Form1.CheckMysql Then
-                MysqlIsRunning = True
-            End If
             ViewNotBusy1 = False
             ListView1.BeginUpdate()
 
@@ -462,7 +458,7 @@ Public Class RegionList
 
                     Dim Letter As String = ""
                     If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped _
-                        And Form1.PropRegionClass.SmartStart(RegionUUID) Then
+                        And Form1.PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         Letter = "Waiting"
                         Num = DGICON.SmartStart
                     ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
@@ -774,7 +770,7 @@ Public Class RegionList
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        'Form1.PropRegionClass.GetAllRegions()
+        ' Form1.PropRegionClass.GetAllRegions()
         LoadMyListView()
 
     End Sub
@@ -1036,7 +1032,7 @@ Public Class RegionList
         ElseIf chosen = "Edit" Then
 
             Dim RegionForm As New FormRegion
-            RegionForm.Init(Form1.PropRegionClass.RegionName(RegionUUID))
+            RegionForm.Init(RegionName)
             RegionForm.Activate()
             RegionForm.Visible = True
             RegionForm.Select()

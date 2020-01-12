@@ -151,13 +151,8 @@ Public Class FormRegion
             EnabledCheckBox.Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
             RegionName.Text = Name
             Me.Text = Name & " Region" ' on screen
-            RegionName.Text = Form1.PropRegionClass.RegionName(RegionUUID) ' on form
-
-            If UUID.Text.Length = 0 Then
-                MsgBox(My.Resources.UUID0)
-                Me.Close()
-            End If
-
+            RegionName.Text = Name
+            UUID.Text = RegionUUID
             NonphysicalPrimMax.Text = CStr(Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
             PhysicalPrimMax.Text = CStr(Form1.PropRegionClass.PhysicalPrimMax(RegionUUID))
             ClampPrimSize.Checked = Form1.PropRegionClass.ClampPrimSize(RegionUUID)
@@ -891,7 +886,7 @@ Public Class FormRegion
                             "ScriptEngine = " & Form1.PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
                             "SmartStart = " & Form1.PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
-        Debug.Print(Region)
+        'Debug.Print(Region)
 
         Try
             Using outputFile As New StreamWriter(Form1.PropRegionClass.RegionPath(RegionUUID), False)
