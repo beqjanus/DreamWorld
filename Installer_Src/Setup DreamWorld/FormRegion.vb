@@ -513,7 +513,7 @@ Public Class FormRegion
             End Try
         End If
 
-        'Form1.PropRegionClass.GetAllRegions()
+        Form1.PropRegionClass.DeleteRegion(RegionUUID)
         Form1.PropUpdateView = True
 
         Me.Close()
@@ -1445,7 +1445,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub EnabledCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnabledCheckBox.CheckedChanged
-        If Initted1 Then Changed1 = TrueIf Initted1 Then Changed1 = True
+        If Initted1 Then Changed1 = True
     End Sub
 
 #End Region
