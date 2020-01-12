@@ -27,6 +27,7 @@ Public Class RegionList
 
 #Region "Declarations"
 
+    Private initted = False
     Private Shared _FormExists As Boolean = False
     Private _ImageListLarge As ImageList
     Private _ImageListSmall As New ImageList
@@ -394,6 +395,7 @@ Public Class RegionList
         SetScreen(TheView1)
 
         Form1.HelpOnce("RegionList")
+        initted = True
 
     End Sub
 
@@ -455,7 +457,7 @@ Public Class RegionList
             Try
 
                 For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
-
+                    Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
                     Dim Letter As String = ""
                     If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped _
                         And Form1.PropRegionClass.SmartStart(RegionUUID) = "True" Then
@@ -820,21 +822,16 @@ Public Class RegionList
         Dim GroupName = Form1.PropRegionClass.GroupName(UUID)
 
         For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
-            If ViewNotBusy1 Then
-                If (e.CurrentValue = CheckState.Unchecked) Then
-                    Form1.PropRegionClass.RegionEnabled(RegionUUID) = True
-                    ' and region file on disk
-                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", "True")
-                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-                ElseIf (e.CurrentValue = CheckState.Checked) Then
-                    Form1.PropRegionClass.RegionEnabled(RegionUUID) = False
-                    ' and region file on disk
-                    Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-                    Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", "False")
-                    Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-                End If
+            'If ViewNotBusy1 Then
+            If (e.NewValue = CheckState.Unchecked) Then
+                Form1.PropRegionClass.RegionEnabled(RegionUUID) = False
+            Else
+                Form1.PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
+            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+            Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
+            Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+            'End If
         Next
 
         PropUpdateView() = True ' force a refresh
@@ -1082,12 +1079,25 @@ Public Class RegionList
 
     Private Sub AllNone_CheckedChanged(sender As Object, e As EventArgs) Handles AllNone.CheckedChanged
 
+        If Not initted Then Return
+
         For Each X As ListViewItem In ListView1.Items
+            Dim RegionUUID As String
             If ItemsAreChecked1 Then
                 X.Checked = CType(CheckState.Unchecked, Boolean)
             Else
                 X.Checked = CType(CheckState.Checked, Boolean)
             End If
+            Dim name = X.Text
+            If name.Length > 0 Then
+                'Dim name = X.SubItems(1).Text
+                RegionUUID = Form1.PropRegionClass.FindRegionByName(name)
+                Form1.PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
+                Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+                Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", X.Checked)
+                Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+            End If
+
         Next
 
         If ItemsAreChecked1 Then
