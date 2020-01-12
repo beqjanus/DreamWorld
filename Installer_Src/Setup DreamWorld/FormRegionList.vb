@@ -283,13 +283,11 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
-        Dim count = Form1.PropRegionClass.GetAllRegions()
+        'Dim count = Form1.PropRegionClass.GetAllRegions()
         Me.Name = "Region List"
         Me.Text = My.Resources.Region_List
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
-
-        Application.DoEvents()
 
         ' Set the view to show details.
         TheView1 = Form1.Settings.RegionListView()
@@ -322,7 +320,6 @@ Public Class RegionList
 
         ' Select the item and sub items when selection is made.
         ListView1.FullRowSelect = True
-
         AvatarView.FullRowSelect = True
 
         ' Display grid lines.
@@ -389,7 +386,7 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
         Form1.PropUpdateView = True ' make form refresh
 
-        Timer1.Interval = 1000 ' check for Form1.PropUpdateView every second
+        Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
 
         SetScreen(TheView1)
@@ -411,7 +408,7 @@ Public Class RegionList
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        If PropUpdateView() Or Timertick1 Mod 120 = 0 Then ' force a refresh
+        If PropUpdateView() Or Timertick1 Mod 480 = 0 Then ' force a refresh
             LoadMyListView()
         End If
         Timertick1 += 1
@@ -458,6 +455,11 @@ Public Class RegionList
 
                 For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
                     Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
+                    ' Breakpoint
+                    If RegionName = "Welcome" Then
+                        Dim a = 1
+                    End If
+
                     Dim Letter As String = ""
                     If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped _
                         And Form1.PropRegionClass.SmartStart(RegionUUID) = "True" Then
@@ -532,8 +534,8 @@ Public Class RegionList
                         Else
                             ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                         End If
-                        'Num = X !!!
-                        'TODO: not sure what this did
+                        Num = 0
+                        'TODO: not sure what this did - map view only?
 
                     End If
 
@@ -541,7 +543,9 @@ Public Class RegionList
                     Dim item1 As New ListViewItem(Form1.PropRegionClass.RegionName(RegionUUID), Num) With {
                         .Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
                     }
-                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+
+
+                        item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     item1.SubItems.Add(Letter)
@@ -1084,9 +1088,9 @@ Public Class RegionList
         For Each X As ListViewItem In ListView1.Items
             Dim RegionUUID As String
             If ItemsAreChecked1 Then
-                X.Checked = CType(CheckState.Unchecked, Boolean)
-            Else
                 X.Checked = CType(CheckState.Checked, Boolean)
+            Else
+                X.Checked = CType(CheckState.Unchecked, Boolean)
             End If
             Dim name = X.Text
             If name.Length > 0 Then
