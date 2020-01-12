@@ -143,115 +143,14 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Sub CheckPost()
+    Public Sub DeleteRegion(UUID As String)
 
-        ' Delete off end of list so we don't skip over one
-        If WebserverList.Count = 0 Then Return
-
-        WebserverList.Reverse()
-
-        For LOOPVAR = WebserverList.Count - 1 To 0 Step -1
-            If WebserverList.Count = 0 Then Return
-            Try
-                Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
-
-                ' This search returns the substring between two strings, so the first index Is moved
-                ' to the character just after the first string.
-                Dim POST As String = Uri.UnescapeDataString(ProcessString)
-                Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
-                Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
-                Dim rawJSON = POST.Substring(first, last - first + 1)
-                WebserverList.RemoveAt(LOOPVAR)
-
-                Try
-                    json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
-#Disable Warning CA1031 ' Do not catch general exception types
-                Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-                    Debug.Print(ex.Message)
-                    Continue For
-                    Return
-                End Try
-
-                ' rawJSON
-                ' "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
-
-                If json.login = "enabled" Then
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
-
-                    Dim RegionUUID As String = FindRegionByName(json.region_name)
-                    If RegionUUID.Length = 0 Then
-                        Return
-                    End If
-
-                    RegionEnabled(RegionUUID) = True
-                    Status(RegionUUID) = SIMSTATUSENUM.Booted
-                    Form1.PropUpdateView() = True
-
-                    If Debugger.IsAttached = True Then
-                        Try
-                            '! debug TeleportAvatarDict.Add("Test", "Test User")
-                        Catch ex As ArgumentException
-                        End Try
-                    End If
-
-                    Dim Removelist As New List(Of String)
-                    If Form1.Settings.SmartStart Then
-                        For Each Keypair In TeleportAvatarDict
-                            Application.DoEvents()
-                            If Keypair.Value = json.region_name Then
-                                Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
-                                If AgentName.Length > 0 Then
-                                    Form1.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
-                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
-                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
-                                    Try
-                                        Removelist.Add(Keypair.Key)
-                                    Catch ex As ArgumentException
-                                    End Try
-                                End If
-                            End If
-                        Next
-                    End If
-
-                    ' now delete the avatars we just teleported
-                    For Each Name In Removelist
-                        Try
-                            TeleportAvatarDict.Remove(Name)
-                        Catch ex As ArgumentNullException
-                        End Try
-                    Next
-
-                    If Form1.Settings.ConsoleShow = False Then
-                        Dim hwnd = Form1.GetHwnd(GroupName(RegionUUID))
-                        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
-                    End If
-
-                ElseIf json.login = "shutdown" Then
-
-                    'Return ' does not work as expected
-
-                    Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
-
-                    Dim RegionUUID As String = FindRegionByName(json.region_name)
-                    If RegionUUID.Length = 0 Then
-                        Return
-                    End If
-                    Form1.PropExitList.Add(json.region_name)
-
-                End If
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-                Debug.Print(ex.Message)
-            End Try
-        Next
+        If RegionList.Contains(UUID) Then
+            RegionList.Remove(UUID)
+        End If
 
     End Sub
+
 
     Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
@@ -1337,13 +1236,13 @@ Public Class RegionMaker
 
     Private Function Bad(RegionUUID As String) As Boolean
 
+        If RegionList.ContainsKey(RegionUUID) Then
+            Return False
+        End If
+
         If RegionUUID = "" Then
             Form1.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
             Return True
-        End If
-
-        If RegionList.ContainsKey(RegionUUID) Then
-            Return False
         End If
 
         Form1.ErrorLog("Region UUID does not exist. " & CStr(RegionUUID))
