@@ -54,14 +54,14 @@ Public Class ClrCache
         End If
 
         Form1.Print(My.Resources.Clearing_Assets)
-        Dim folders() = Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\Assetcache\", "*", SearchOption.AllDirectories)
+        Dim folders() = Directory.GetDirectories(Form1.Settings.CacheFolder, "*", SearchOption.TopDirectoryOnly)
 
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
                 FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
                 Application.DoEvents()
             Next
         End If
@@ -80,7 +80,7 @@ Public Class ClrCache
         Form1.Print(My.Resources.Clearing_Image_Cache_word)
         Dim folders() = Nothing
         Try
-            folders = IO.Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+            folders = IO.Directory.GetDirectories(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\", "*", SearchOption.TopDirectoryOnly)
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
@@ -89,11 +89,11 @@ Public Class ClrCache
         End Try
 
         If folders IsNot Nothing Then
-            Dim ctr = 0
+            Dim ctr As Integer = 0
             For Each folder As String In folders
                 FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
                 Application.DoEvents()
             Next
         End If
@@ -103,17 +103,7 @@ Public Class ClrCache
     Public Shared Sub WipeMesh()
 
         Form1.Print(My.Resources.Clearing_Mesh_Cache_word)
-        Dim fCount As Integer
-
         Dim folders As Array = Nothing
-        Try
-            fCount = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories).Length
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
 
         Try
             folders = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
