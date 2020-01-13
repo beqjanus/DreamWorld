@@ -57,6 +57,7 @@ Public Class FormOAR
         DataGridView.ColumnHeadersHeight = initSize
         DataGridView.ShowCellToolTips = True
         DataGridView.AllowUserToAddRows = False
+        DataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect
 
         NumColumns = Math.Ceiling(Me.Width / imgSize)
         If NumColumns = 0 Then
