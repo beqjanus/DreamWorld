@@ -524,8 +524,12 @@ Public Class RegionList
 
                         If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                             Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
+                            Dim bmp As Image
+                            Try
+                                bmp = LoadImage(img)
+                            Catch
+                            End Try
 
-                            Dim bmp As Image = LoadImage(img)
                             If bmp Is Nothing Then
                                 ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                             Else
@@ -544,8 +548,7 @@ Public Class RegionList
                         .Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
                     }
 
-
-                        item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     item1.SubItems.Add(Letter)
@@ -820,7 +823,7 @@ Public Class RegionList
             Item = ListView1.Items.Item(e.Index)
         Catch ex As ArgumentOutOfRangeException
         End Try
-
+        If Item.Text.Length = 0 Then Return
         Dim UUID As String = Form1.PropRegionClass.FindRegionByName(Item.Text)
         If UUID.Length = 0 Then Return
         Dim GroupName = Form1.PropRegionClass.GroupName(UUID)
@@ -838,7 +841,8 @@ Public Class RegionList
             'End If
         Next
 
-        PropUpdateView() = True ' force a refresh
+        PropUpdateView() = True
+
 
     End Sub
 
