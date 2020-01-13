@@ -872,12 +872,9 @@ Public Class Form1
                 Next
                 Return False
             Else
-
-                Try
+                If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
                     PropRegionHandles.Add(Regionclass.ProcessID(RegionUUID), GroupName) ' save in the list of exit events in case it crashes or exits
-                Catch ex As ArgumentException
-                    ErrorLog(ex.Message)
-                End Try
+                End If
 
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
@@ -1091,7 +1088,7 @@ Public Class Form1
         If command.Length > 0 Then
 
             Dim PID As Integer
-            If Name <> "Robust" Then
+            If RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Try
@@ -1855,7 +1852,6 @@ Public Class Form1
                 ' if it is past time and no one is in the sim... Smart shutdown
                 If PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
-
                 End If
 
                 ' auto restart timer
@@ -1884,6 +1880,7 @@ Public Class Form1
                     PropUpdateView = True ' make form refresh
                 End If
             End If
+            Application.DoEvents()
         Next
 
         ' now look at the exit stack
@@ -1891,11 +1888,14 @@ Public Class Form1
         If PropExitList.Count = 0 Then Return
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
-
+        Dim RegionName As String = Nothing
         While PropExitList.Count > 0
-
-            Dim RegionName = PropExitList(0).ToString()
-            PropExitList.RemoveAt(0)
+            Try
+                RegionName = PropExitList(0).ToString()
+                PropExitList.RemoveAt(0)
+            Catch ex As Exception
+                Diagnostics.Debug.Print("Warn: Exitlist item is null")
+            End Try
 
             Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
@@ -1975,6 +1975,8 @@ Public Class Form1
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 PropUpdateView = True
             End If
+
+            Application.DoEvents()
 
         End While
 
@@ -5903,6 +5905,7 @@ Public Class Form1
             If Settings.DNSName.Length > 0 Then
                 Settings.PublicIP = Settings.DNSName()
                 Settings.SaveSettings()
+                Print(My.Resources.Setup_Network)
                 Dim ret = RegisterDNS()
                 Return ret
             Else
