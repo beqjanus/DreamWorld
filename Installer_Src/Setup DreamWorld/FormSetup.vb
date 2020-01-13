@@ -1896,7 +1896,7 @@ Public Class Form1
                 RegionName = PropExitList(0).ToString()
                 PropExitList.RemoveAt(0)
             Catch ex As Exception
-                ErrorLog("Internal Error:Exitlist item is null")
+                ErrorLog("Error:Exitlist item is null")
             End Try
 
             Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)

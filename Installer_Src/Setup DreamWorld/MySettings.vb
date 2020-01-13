@@ -1081,7 +1081,7 @@ Public Class MySettings
     Public Property MapCenterX() As Integer
         Get
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = Form1.PropRegionClass.CoordY(RegionUUID)
+            Dim Center As String = Form1.PropRegionClass.CoordX(RegionUUID)
             Return Val("0".ToUpperInvariant & GetMySetting("MapCenterX", Center))
         End Get
         Set
@@ -1092,7 +1092,7 @@ Public Class MySettings
     Public Property MapCenterY() As Integer
         Get
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = Form1.PropRegionClass.CoordX(RegionUUID)
+            Dim Center As String = Form1.PropRegionClass.CoordY(RegionUUID)
             Return Val("0".ToUpperInvariant & GetMySetting("MapCenterY", Center))
         End Get
         Set
