@@ -1185,7 +1185,7 @@ Public Class Form1
 
     Public Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
-            'MsgBox(message, vbInformation)
+            MsgBox(message, vbInformation)
         End If
         Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
@@ -1883,6 +1883,8 @@ Public Class Form1
             Application.DoEvents()
         Next
 
+        Application.DoEvents()
+
         ' now look at the exit stack
 
         If PropExitList.Count = 0 Then Return
@@ -1894,7 +1896,7 @@ Public Class Form1
                 RegionName = PropExitList(0).ToString()
                 PropExitList.RemoveAt(0)
             Catch ex As Exception
-                Diagnostics.Debug.Print("Warn: Exitlist item is null")
+                ErrorLog("Internal Error:Exitlist item is null")
             End Try
 
             Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
@@ -1969,6 +1971,7 @@ Public Class Form1
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
                 PropUpdateView = True
+                Application.DoEvents()
             End If
 
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
@@ -6445,6 +6448,7 @@ Public Class Form1
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
+                Application.DoEvents()
             End If
         Next
 
@@ -6723,6 +6727,7 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
+            Application.DoEvents()
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
