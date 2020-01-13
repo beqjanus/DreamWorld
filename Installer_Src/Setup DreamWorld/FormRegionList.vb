@@ -148,7 +148,7 @@ Public Class RegionList
         End Set
     End Property
 
-    Public Property ViewNotBusy1 As Boolean
+    Public Property ViewBusy As Boolean
         Get
             Return ViewNotBusy
         End Get
@@ -211,7 +211,7 @@ Public Class RegionList
 
     Private Sub Panel1_MouseWheel(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseWheel
 
-        If TheView1 = ViewType.Maps And ViewNotBusy1 Then
+        If TheView1 = ViewType.Maps And Not ViewBusy Then
             ' Update the drawing based upon the mouse wheel scrolling.
             Dim numberOfTextLinesToMove As Integer = CInt(e.Delta * SystemInformation.MouseWheelScrollLines / 120)
 
@@ -271,6 +271,7 @@ Public Class RegionList
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        ViewBusy = True
         FormExists1 = True
         Pixels1 = 70
 
@@ -386,12 +387,12 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
         Form1.PropUpdateView = True ' make form refresh
 
+        ViewBusy = False
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
 
         SetScreen(TheView1)
 
-        Form1.HelpOnce("RegionList")
         initted = True
 
     End Sub
@@ -437,7 +438,7 @@ Public Class RegionList
 
         Try
 
-            ViewNotBusy1 = False
+            ViewBusy = True
             ListView1.BeginUpdate()
 
             ImageListLarge1 = New ImageList()
@@ -524,7 +525,7 @@ Public Class RegionList
 
                         If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                             Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
-                            Dim bmp As Image
+                            Dim bmp As Image = Nothing
                             Try
                                 bmp = LoadImage(img)
                             Catch
@@ -714,8 +715,9 @@ Public Class RegionList
                 Next i
 
                 ListView1.EndUpdate()
-                ViewNotBusy1 = True
                 PropUpdateView() = False
+                ViewBusy = False = True
+
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -824,12 +826,16 @@ Public Class RegionList
         Catch ex As ArgumentOutOfRangeException
         End Try
         If Item.Text.Length = 0 Then Return
+        If ViewBusy Then
+            Return
+        End If
+
         Dim UUID As String = Form1.PropRegionClass.FindRegionByName(Item.Text)
         If UUID.Length = 0 Then Return
         Dim GroupName = Form1.PropRegionClass.GroupName(UUID)
 
         For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
-            'If ViewNotBusy1 Then
+
             If (e.NewValue = CheckState.Unchecked) Then
                 Form1.PropRegionClass.RegionEnabled(RegionUUID) = False
             Else
@@ -843,12 +849,11 @@ Public Class RegionList
 
         PropUpdateView() = True
 
-
     End Sub
 
     Private Sub ShowAvatars()
         Try
-            ViewNotBusy1 = False
+            ViewBusy = True
 
             AvatarView.Show()
             ListView1.Hide()
@@ -913,7 +918,7 @@ Public Class RegionList
 
             AvatarView.Show()
 
-            ViewNotBusy1 = True
+            ViewBusy = False
             PropUpdateView() = False
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
@@ -1126,9 +1131,9 @@ Public Class RegionList
                 End If
 
                 ' shut down all regions in the DOS box
-                For Each Y In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
-                    Form1.PropRegionClass.Timer(Y) = RegionMaker.REGIONTIMER.Stopped
-                    Form1.PropRegionClass.Status(Y) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                    Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                    Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 Next
 
                 PropUpdateView = True ' make form refresh
