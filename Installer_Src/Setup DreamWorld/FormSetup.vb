@@ -931,7 +931,7 @@ Public Class Form1
             For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                Regionclass.ProcessID(UUID) = myProcess.Id
+                Regionclass.ProcessID(UUID) = PID
                 Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
             Next
 
@@ -1085,15 +1085,15 @@ Public Class Form1
     ''' <param name="ProcessID">PID of the DOS box</param>
     ''' <param name="command">String</param>
     ''' <returns></returns>
-    Public Function ConsoleCommand(name As String, command As String) As Boolean
+    Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
         If command Is Nothing Then Return False
         If command.Length > 0 Then
 
             Dim PID As Integer
-            If name <> "Robust" Then
+            If Name <> "Robust" Then
 
-                PID = PropRegionClass.ProcessID(PropRegionClass.FindRegionByName(name))
+                PID = PropRegionClass.ProcessID(RegionUUID)
                 Try
                     If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1423,7 +1423,7 @@ Public Class Form1
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
                 Print(My.Resources.Stopping_word & " " & PropRegionClass.RegionName(RegionUUID))
                 SequentialPause()
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "q{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                 PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                 PropUpdateView = True ' make form refresh
@@ -1497,15 +1497,16 @@ Public Class Form1
             Return False
         End If
 
-        Dim num As Integer = -1
+        Dim UUID As String = ""
 
         ' find one that is running
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             If PropRegionClass.IsBooted(RegionUUID) Then
-                num = RegionUUID
+                UUID = RegionUUID
+                Exit For
             End If
         Next
-        If num = -1 Then
+        If UUID.Length = 0 Then
             MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info)
             Return False
         End If
@@ -1515,8 +1516,8 @@ Public Class Form1
         Dim user = InputBox(My.Resources.Enter_1_2)
         Dim password = InputBox(My.Resources.Password_word)
         If user.Length > 0 And password.Length > 0 Then
-            ConsoleCommand(PropRegionClass.GroupName(num), "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(num), "alert IAR content Is loaded{ENTER}" & vbCrLf)
+            ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
+            ConsoleCommand(UUID, "alert IAR content Is loaded{ENTER}" & vbCrLf)
             Print(My.Resources.isLoading & vbCrLf & Path)
         Else
             Print(My.Resources.Canceled_IAR)
@@ -1552,12 +1553,12 @@ Public Class Form1
                     Print(My.Resources.Opensimulator_is_loading & " " & thing)
                     If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & region & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
-                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
                     Dim ForceParcel As String = ""
                     If PropForceParcel() Then ForceParcel = " --force-parcels "
@@ -1568,8 +1569,8 @@ Public Class Form1
                     Dim UserName As String = ""
                     If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
                     once = True
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1866,7 +1867,7 @@ Public Class Form1
 
                     If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
                         SequentialPause()
-                        ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "q{ENTER}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
                         Print(My.Resources.Automatic_restart_word & GroupName)
                         ' shut down all regions in the DOS box
                         For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
@@ -2961,8 +2962,8 @@ Public Class Form1
         Dim name = ChooseRegion(True)
         Dim RegionUUID = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & name & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "restart region " & name & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "change region " & name & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "restart region " & name & "{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
         End If
 
@@ -2976,7 +2977,7 @@ Public Class Form1
         Dim name = ChooseRegion(True)
         Dim RegionUUID = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "restart{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "restart{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
         End If
 
@@ -3173,7 +3174,7 @@ Public Class Form1
                         Dim GName = PropRegionClass.GroupName(RegionUUID)
                         Dim RNUm = PropRegionClass.FindRegionByName(GName)
                         If PropRegionClass.IsBooted(RegionUUID) And Not flag Then
-                            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save iar " _
+                            ConsoleCommand(RegionUUID, "save iar " _
                                        & Name & " " _
                                        & """" & itemName & """" _
                                        & " " & """" & Password & """" & " " _
@@ -3214,9 +3215,9 @@ Public Class Form1
 
             If PropRegionClass.IsBooted(RegionUUID) Then
                 Dim Group = PropRegionClass.GroupName(RegionUUID)
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
             End If
             Me.Focus()
             Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
@@ -3235,7 +3236,7 @@ Public Class Form1
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
 
-        ' combine the two dictioaries to get an avatar count per region
+        ' combine the two dictionaries to get an avatar count per region
         Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
         '; start with zero avatars
@@ -3301,7 +3302,7 @@ Public Class Form1
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             If PropRegionClass.IsBooted(RegionUUID) Then
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "set log level " & msg & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
             End If
         Next
         ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
@@ -3316,8 +3317,8 @@ Public Class Form1
         Dim rname = ChooseRegion(True)
         Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & rname & "{ENTER}" & vbCrLf)
-            ConsoleCommand(PropRegionClass.GroupName(RegionUUID), cmd & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "change region " & rname & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, cmd & "{ENTER}" & vbCrLf)
         End If
 
     End Sub
@@ -4786,8 +4787,8 @@ Public Class Form1
             If PropRegionClass.IsBooted(RegionUUID) Then
 
                 Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
 
                 Sleep(15000)
                 SequentialPause()   ' wait for previous region to give us some CPU
@@ -4813,8 +4814,8 @@ Public Class Form1
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
             Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
             If RegionUUID.Length > 0 Then
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
-                ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & Message & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
             End If
 
         End If
@@ -4931,7 +4932,7 @@ Public Class Form1
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "debug jobengine status{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "debug jobengine status{ENTER}" & vbCrLf)
         Next
     End Sub
 
@@ -4948,8 +4949,8 @@ Public Class Form1
             For Each RegionUUID As String In PropRegionClass.RegionUUIDs
                 If PropRegionClass.AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
-                    ConsoleCommand(PropRegionClass.GroupName(RegionUUID), "alert " & Message & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
                 End If
 
             Next
@@ -5171,12 +5172,12 @@ Public Class Form1
                         Dim Group = PropRegionClass.GroupName(RegionUUID)
                         For Each UUID In PropRegionClass.RegionUUIDListByName(Group)
 
-                            ConsoleCommand(PropRegionClass.GroupName(UUID), "change region " & chosen & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
-                                ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(PropRegionClass.GroupName(UUID), "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(UUID, "alert " & My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
-                            ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "alert " & My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
                             Dim ForceParcel As String = ""
                             If PropForceParcel() Then ForceParcel = " --force-parcels "
@@ -5187,8 +5188,8 @@ Public Class Form1
                             Dim UserName As String = ""
                             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
-                            ConsoleCommand(PropRegionClass.GroupName(UUID), "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                            ConsoleCommand(PropRegionClass.GroupName(UUID), "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
 
                         Next
                     End If
@@ -5482,7 +5483,7 @@ Public Class Form1
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "show threads{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "show threads{ENTER}" & vbCrLf)
         Next
     End Sub
 
@@ -5644,7 +5645,7 @@ Public Class Form1
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
-            ConsoleCommand(PropRegionClass.RegionName(RegionUUID), "xengine status{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
         Next
     End Sub
 

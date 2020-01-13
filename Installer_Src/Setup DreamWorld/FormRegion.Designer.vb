@@ -601,6 +601,7 @@ Partial Class FormRegion
         '
         'UUID
         '
+        Me.UUID.Enabled = False
         Me.UUID.Location = New System.Drawing.Point(9, 71)
         Me.UUID.Name = "UUID"
         Me.UUID.Size = New System.Drawing.Size(215, 20)
