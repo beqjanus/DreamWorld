@@ -167,8 +167,8 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each X As Integer In Form1.PropRegionClass.RegionUUIDs
-            RegionBox.Items.Add(Form1.PropRegionClass.RegionName(X))
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+            RegionBox.Items.Add(Form1.PropRegionClass.RegionName(RegionUUID))
         Next
 
     End Sub
@@ -178,10 +178,8 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each X As Integer In Form1.PropRegionClass.RegionUUIDs
-            'If PropRegionClass.RegionEnabled(X) Then
-            WelcomeBox1.Items.Add(Form1.PropRegionClass.RegionName(X))
-            'End If
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+            WelcomeBox1.Items.Add(Form1.PropRegionClass.RegionName(RegionUUID))
         Next
 
         Dim s = WelcomeBox1.FindString(Form1.Settings.WelcomeRegion)
