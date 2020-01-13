@@ -70,12 +70,12 @@ Public Class FormRegionPopup
 
         _RegionName = RegionName
 
-        Dim X = Form1.PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
-        GroupBox1.Text = Form1.PropRegionClass.GroupName(X)
+        GroupBox1.Text = Form1.PropRegionClass.GroupName(RegionUUID)
 
-        If Not Form1.PropRegionClass.RegionEnabled(X) Then
-
+        If Not Form1.PropRegionClass.RegionEnabled(RegionUUID) Then
+            ShowConsoleButton.Enabled = False
             StatsButton1.Enabled = False
             StartButton3.Enabled = False
             StopButton1.Enabled = False
@@ -84,7 +84,10 @@ Public Class FormRegionPopup
             EditButton1.Enabled = True
         Else
 
-            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                ShowConsoleButton.Enabled = True
+                'TODO: Unsuspend region
+
                 StatsButton1.Enabled = False
                 StartButton3.Enabled = True
                 StopButton1.Enabled = True
@@ -93,7 +96,8 @@ Public Class FormRegionPopup
                 EditButton1.Enabled = False
             End If
 
-            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = True
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
@@ -102,8 +106,9 @@ Public Class FormRegionPopup
                 EditButton1.Enabled = True
             End If
 
-            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
+                Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
@@ -112,8 +117,9 @@ Public Class FormRegionPopup
                 EditButton1.Enabled = True
             End If
 
-            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Booting Or
-                Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
+                Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+                ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton3.Enabled = False
                 StopButton1.Enabled = True
@@ -123,7 +129,8 @@ Public Class FormRegionPopup
             End If
 
             ' stopped
-            If Form1.PropRegionClass.Status(X) = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+                ShowConsoleButton.Enabled = False
                 StatsButton1.Enabled = False
                 StartButton3.Enabled = True
                 StopButton1.Enabled = False
@@ -133,11 +140,23 @@ Public Class FormRegionPopup
             End If
         End If
 
-        Dim RegionNumber = Form1.PropRegionClass.FindRegionByName(RegionName)
-        If Form1.CheckPort(Form1.Settings.PublicIP, Form1.PropRegionClass.GroupPort(RegionNumber)) Then
-            Form1.PropRegionClass.Status(RegionNumber) = RegionMaker.SIMSTATUSENUM.Booted
+        If Form1.CheckPort(Form1.Settings.PublicIP, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
+            ShowConsoleButton.Enabled = True
+            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
             Form1.PropUpdateView = True ' make form refresh
         End If
+
+        ' show it, stop it, start it, or edit it
+        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+        If hwnd <> IntPtr.Zero Then
+            Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+            Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+            Application.DoEvents()
+            Threading.Thread.Sleep(1000)
+        End If
+
+        BringToFront()
 
     End Sub
 
@@ -170,6 +189,10 @@ Public Class FormRegionPopup
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles ShowConsoleButton.Click
+
     End Sub
 
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click

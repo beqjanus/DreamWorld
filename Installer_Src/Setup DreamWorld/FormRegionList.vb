@@ -27,11 +27,11 @@ Public Class RegionList
 
 #Region "Declarations"
 
-    Private initted = False
     Private Shared _FormExists As Boolean = False
     Private _ImageListLarge As ImageList
     Private _ImageListSmall As New ImageList
     Private colsize = New ScreenPos(MyBase.Name & "ColumnSize")
+    Private initted = False
     Private ItemsAreChecked As Boolean = False
     Private MysqlIsRunning As Boolean = False
     Private pixels As Integer = 70
@@ -544,8 +544,7 @@ Public Class RegionList
                         .Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
                     }
 
-
-                        item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     item1.SubItems.Add(Letter)
@@ -950,16 +949,6 @@ Public Class RegionList
 
     Private Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
-        ' show it, stop it, start it, or edit it
-        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
-        If hwnd <> IntPtr.Zero Then
-            Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-            ' already shutting down
-        End If
-
-        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
-        Form1.Sleep(1000)
         Dim Choices As New FormRegionPopup
         Dim chosen As String = ""
         Choices.Init(RegionName)
@@ -1009,7 +998,7 @@ Public Class RegionList
 
             If (StopIt) Then
 
-                Dim h As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Dim hwnd As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
