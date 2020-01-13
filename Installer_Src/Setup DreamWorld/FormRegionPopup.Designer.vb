@@ -24,6 +24,7 @@ Partial Class FormRegionPopup
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ShowConsoleButton = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.StatsButton1 = New System.Windows.Forms.Button()
         Me.StatsButton = New System.Windows.Forms.Button()
@@ -31,7 +32,6 @@ Partial Class FormRegionPopup
         Me.StartButton3 = New System.Windows.Forms.Button()
         Me.RecycleButton2 = New System.Windows.Forms.Button()
         Me.StopButton1 = New System.Windows.Forms.Button()
-        Me.ShowConsoleButton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -53,6 +53,18 @@ Partial Class FormRegionPopup
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Region Controls"
+        '
+        'ShowConsoleButton
+        '
+        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ShowConsoleButton.Location = New System.Drawing.Point(28, 36)
+        Me.ShowConsoleButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ShowConsoleButton.Name = "ShowConsoleButton"
+        Me.ShowConsoleButton.Size = New System.Drawing.Size(182, 35)
+        Me.ShowConsoleButton.TabIndex = 12
+        Me.ShowConsoleButton.Text = "View Console"
+        Me.ShowConsoleButton.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -138,23 +150,11 @@ Partial Class FormRegionPopup
         Me.StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         Me.StopButton1.UseVisualStyleBackColor = True
         '
-        'ShowConsoleButton
-        '
-        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
-        Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ShowConsoleButton.Location = New System.Drawing.Point(28, 36)
-        Me.ShowConsoleButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ShowConsoleButton.Name = "ShowConsoleButton"
-        Me.ShowConsoleButton.Size = New System.Drawing.Size(182, 35)
-        Me.ShowConsoleButton.TabIndex = 12
-        Me.ShowConsoleButton.Text = "View Console"
-        Me.ShowConsoleButton.UseVisualStyleBackColor = True
-        '
         'FormRegionPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(264, 472)
+        Me.ClientSize = New System.Drawing.Size(264, 447)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)

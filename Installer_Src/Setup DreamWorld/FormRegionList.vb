@@ -820,15 +820,15 @@ Public Class RegionList
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
+        If ViewBusy Then
+            Return
+        End If
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
         Catch ex As ArgumentOutOfRangeException
         End Try
         If Item.Text.Length = 0 Then Return
-        If ViewBusy Then
-            Return
-        End If
 
         Dim UUID As String = Form1.PropRegionClass.FindRegionByName(Item.Text)
         If UUID.Length = 0 Then Return
@@ -980,7 +980,7 @@ Public Class RegionList
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(RegionUUID))
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
-
+            Application.DoEvents()
             Form1.Timer1.Interval = 1000
             Form1.Timer1.Start() 'Timer starts functioning
             Form1.Buttons(Form1.StopButton)
