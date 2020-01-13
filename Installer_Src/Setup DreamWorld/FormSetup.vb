@@ -1188,7 +1188,7 @@ Public Class Form1
 
     Public Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
-            MsgBox(message, vbInformation)
+            'MsgBox(message, vbInformation)
         End If
         Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
@@ -1781,7 +1781,6 @@ Public Class Form1
 #End Region
 
 #Region "Exit Handlers"
-
 
     ' Handle Exited event and display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
