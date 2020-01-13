@@ -369,7 +369,7 @@ Public Class RegionMaker
                             CreateRegion(fName, RegionUUID)
 
                             ' we do not save the above as we are making a new one.
-                            Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
+                            RegionEnabled(RegionUUID) = Form1.Settings.GetIni(fName, "Enabled", "True", "Boolean")
 
                             RegionPath(RegionUUID) = ini ' save the path
                             FolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(ini)
