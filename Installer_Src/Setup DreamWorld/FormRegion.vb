@@ -1074,15 +1074,15 @@ Public Class FormRegion
             Form1.StartMySQL()
             Form1.StartRobust()
 
-            Dim X = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
-            If X > -1 Then
+            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
+            If RegionUUID.Length > 0 Then
 
-                If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(X)) Then
+                If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(X), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(X)) And loopctr > 0
+                While Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                     Form1.Sleep(1000)
                     loopctr -= 1
                 End While
