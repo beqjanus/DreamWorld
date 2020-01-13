@@ -74,7 +74,12 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html"
+
+        Dim X As Integer = Form1.Settings.MapCenterX
+        Dim Y As Integer = Form1.Settings.MapCenterY
+
+        Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html?X=" & CStr(X) & "&Y=" & CStr(Y)
+
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
