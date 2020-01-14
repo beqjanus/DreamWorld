@@ -41,6 +41,7 @@ Public Class AdvancedForm
     Dim FormServerType As New FormServerType
     Dim Gloebits As New Gloebits
     Dim Icecast As New Icecast
+    Dim Logging As New FormLogging
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
     Dim Tide As New Tides
@@ -113,9 +114,7 @@ Public Class AdvancedForm
 
 #Region "Public Methods"
 
-    ''' <summary>
-    ''' Dispose!
-    ''' </summary>
+    ''' <summary>Dispose!</summary>
     ''' <remarks></remarks>
 
 #End Region
@@ -293,6 +292,18 @@ Public Class AdvancedForm
         FormDNSName.Select()
         FormDNSName.BringToFront()
 
+    End Sub
+
+    Private Sub LoggingButton_Click(sender As Object, e As EventArgs) Handles LoggingButton.Click
+
+        Logging.Close()
+        Logging.Dispose()
+        Logging = New FormLogging With {
+            .Visible = True
+        }
+        Logging.Activate()
+        Logging.Select()
+        Logging.BringToFront()
     End Sub
 
     Private Sub MapsButton_Click(sender As Object, e As EventArgs) Handles MapsButton.Click

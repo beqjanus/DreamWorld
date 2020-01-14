@@ -1051,6 +1051,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property LogLevel() As String
+        Get
+            Return CType(GetMySetting("LogLevel", "info"), String)
+        End Get
+        Set
+            SetMySetting("LogLevel", Value)
+        End Set
+    End Property
+
     Public Property LoopBackDiag() As Boolean
         Get
             Return CType(GetMySetting("LoopBackDiag", "True"), Boolean)
