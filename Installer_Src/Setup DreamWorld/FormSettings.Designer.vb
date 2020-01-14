@@ -45,14 +45,15 @@ Partial Class AdvancedForm
         Me.CacheButton1 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ApacheButton = New System.Windows.Forms.Button()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.ScriptButton = New System.Windows.Forms.Button()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.LoggingButton = New System.Windows.Forms.Button()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
         'TOSButton
         '
-        Me.TOSButton.Location = New System.Drawing.Point(327, 135)
+        Me.TOSButton.Location = New System.Drawing.Point(171, 251)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(145, 23)
         Me.TOSButton.TabIndex = 15
@@ -62,7 +63,7 @@ Partial Class AdvancedForm
         '
         'TideButton
         '
-        Me.TideButton.Location = New System.Drawing.Point(327, 106)
+        Me.TideButton.Location = New System.Drawing.Point(171, 222)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(145, 23)
         Me.TideButton.TabIndex = 14
@@ -82,7 +83,7 @@ Partial Class AdvancedForm
         '
         'VoiceButton1
         '
-        Me.VoiceButton1.Location = New System.Drawing.Point(327, 164)
+        Me.VoiceButton1.Location = New System.Drawing.Point(171, 280)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
         Me.VoiceButton1.TabIndex = 16
@@ -92,7 +93,7 @@ Partial Class AdvancedForm
         '
         'Shoutcast
         '
-        Me.Shoutcast.Location = New System.Drawing.Point(167, 19)
+        Me.Shoutcast.Location = New System.Drawing.Point(15, 221)
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
@@ -102,7 +103,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(168, 49)
+        Me.MapsButton.Location = New System.Drawing.Point(15, 279)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -132,7 +133,7 @@ Partial Class AdvancedForm
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(167, 193)
+        Me.RegionsButton1.Location = New System.Drawing.Point(169, 106)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
@@ -142,7 +143,7 @@ Partial Class AdvancedForm
         '
         'DivaButton1
         '
-        Me.DivaButton1.Location = New System.Drawing.Point(327, 193)
+        Me.DivaButton1.Location = New System.Drawing.Point(171, 309)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(145, 23)
         Me.DivaButton1.TabIndex = 18
@@ -152,7 +153,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(168, 76)
+        Me.PortsButton1.Location = New System.Drawing.Point(15, 308)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -163,7 +164,7 @@ Partial Class AdvancedForm
         'PhysicsButton1
         '
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(168, 135)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(170, 48)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
@@ -183,7 +184,7 @@ Partial Class AdvancedForm
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(325, 19)
+        Me.Button3.Location = New System.Drawing.Point(169, 135)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(143, 23)
         Me.Button3.TabIndex = 13
@@ -193,7 +194,7 @@ Partial Class AdvancedForm
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(168, 106)
+        Me.Button2.Location = New System.Drawing.Point(170, 19)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(143, 23)
         Me.Button2.TabIndex = 9
@@ -213,7 +214,7 @@ Partial Class AdvancedForm
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(168, 163)
+        Me.Button4.Location = New System.Drawing.Point(170, 76)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 23)
         Me.Button4.TabIndex = 11
@@ -233,7 +234,7 @@ Partial Class AdvancedForm
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(327, 77)
+        Me.Button1.Location = New System.Drawing.Point(171, 193)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(145, 23)
         Me.Button1.TabIndex = 20
@@ -251,8 +252,19 @@ Partial Class AdvancedForm
         Me.ToolTip1.SetToolTip(Me.ApacheButton, Global.Outworldz.My.Resources.Resources.ApacheWebServer)
         Me.ApacheButton.UseVisualStyleBackColor = True
         '
+        'ScriptButton
+        '
+        Me.ScriptButton.Location = New System.Drawing.Point(169, 164)
+        Me.ScriptButton.Name = "ScriptButton"
+        Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
+        Me.ScriptButton.TabIndex = 22
+        Me.ScriptButton.Text = "Scripts"
+        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_Server)
+        Me.ScriptButton.UseVisualStyleBackColor = True
+        '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.LoggingButton)
         Me.GroupBox8.Controls.Add(Me.ScriptButton)
         Me.GroupBox8.Controls.Add(Me.ApacheButton)
         Me.GroupBox8.Controls.Add(Me.Button1)
@@ -276,20 +288,20 @@ Partial Class AdvancedForm
         Me.GroupBox8.Controls.Add(Me.Shoutcast)
         Me.GroupBox8.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(489, 230)
+        Me.GroupBox8.Size = New System.Drawing.Size(340, 345)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Global Settings"
         '
-        'ScriptButton
+        'LoggingButton
         '
-        Me.ScriptButton.Location = New System.Drawing.Point(325, 48)
-        Me.ScriptButton.Name = "ScriptButton"
-        Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
-        Me.ScriptButton.TabIndex = 22
-        Me.ScriptButton.Text = "Scripts"
-        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_Server)
-        Me.ScriptButton.UseVisualStyleBackColor = True
+        Me.LoggingButton.Location = New System.Drawing.Point(15, 250)
+        Me.LoggingButton.Name = "LoggingButton"
+        Me.LoggingButton.Size = New System.Drawing.Size(143, 23)
+        Me.LoggingButton.TabIndex = 23
+        Me.LoggingButton.Text = "Logging"
+        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
+        Me.LoggingButton.UseVisualStyleBackColor = True
         '
         'AdvancedForm
         '
@@ -297,7 +309,7 @@ Partial Class AdvancedForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(521, 264)
+        Me.ClientSize = New System.Drawing.Size(371, 369)
         Me.Controls.Add(Me.GroupBox8)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -330,4 +342,5 @@ Partial Class AdvancedForm
     Friend WithEvents Button1 As Button
     Friend WithEvents ApacheButton As Button
     Friend WithEvents ScriptButton As Button
+    Friend WithEvents LoggingButton As Button
 End Class

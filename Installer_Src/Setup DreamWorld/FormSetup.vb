@@ -886,6 +886,7 @@ Public Class Form1
         End If
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & GroupName)
+        Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
 
         Dim myProcess As Process = GetNewProcess()
 
@@ -1711,6 +1712,40 @@ Public Class Form1
 
     End Sub
 
+    Private Sub LogViewClick(sender As Object, e As EventArgs)
+
+        Dim name As String = sender.text.ToString()
+
+        Viewlog(name)
+    End Sub
+
+#End Region
+
+#Region "SetLogging"
+
+    Public Sub SendMsg(msg As String)
+        Dim hwnd As IntPtr
+        If PropOpensimIsRunning() Then
+            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                If PropRegionClass.IsBooted(RegionUUID) Then
+                    ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
+                    hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                    Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                End If
+            Next
+            ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
+            Form1.ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+        End If
+
+        Settings.LogLevel = msg
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
+        SendMsg("all")
+    End Sub
+
     Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
         SendMsg("debug")
     End Sub
@@ -1723,11 +1758,16 @@ Public Class Form1
         SendMsg("fatal")
     End Sub
 
-    Private Sub LogViewClick(sender As Object, e As EventArgs)
+    Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
+        SendMsg("info")
+    End Sub
 
-        Dim name As String = sender.text.ToString()
+    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
+        SendMsg("off")
+    End Sub
 
-        Viewlog(name)
+    Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
+        SendMsg("warn")
     End Sub
 
 #End Region
@@ -2810,10 +2850,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
-        SendMsg("off")
-    End Sub
-
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
@@ -3302,19 +3338,6 @@ Public Class Form1
             Catch ex As System.ComponentModel.Win32Exception
             End Try
         End Using
-
-    End Sub
-
-    Private Sub SendMsg(msg As String)
-
-        If Not PropOpensimIsRunning() Then Print(My.Resources.Not_Running)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
-            End If
-        Next
-        ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
 
     End Sub
 
@@ -4808,10 +4831,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
-        SendMsg("all")
-    End Sub
-
     Private Sub AllUsersAllSimsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustOneRegionToolStripMenuItem.Click
 
         If Not PropOpensimIsRunning() Then
@@ -4933,10 +4952,6 @@ Public Class Form1
         End If
         sender.checked = True
 
-    End Sub
-
-    Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
-        SendMsg(My.Resources.Info)
     End Sub
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
@@ -6491,6 +6506,7 @@ Public Class Form1
             Return True
         End If
 
+        Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
         Print(My.Resources.Starting_word & " Robust")
 
