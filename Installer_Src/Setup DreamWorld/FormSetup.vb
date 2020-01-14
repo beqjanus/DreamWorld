@@ -3240,9 +3240,13 @@ Public Class Form1
         Dim sbttl As Integer = 0
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
-
-        ' combine the two dictionaries to get an avatar count per region
-        Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+        Dim C As Dictionary(Of String, String)
+        Try
+            ' combine the two dictionaries to get an avatar count per region
+            C = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+        End Try
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
