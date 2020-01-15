@@ -3276,20 +3276,24 @@ Public Class Form1
         Dim sbttl As Integer = 0
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
-        Dim C As Dictionary(Of String, String)
-        Try
-            ' combine the two dictionaries to get an avatar count per region
-            C = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-        End Try
+        Dim C As Dictionary(Of String, String) = Nothing
+
+        ' Merge the two
+        For Each keyname In A
+            C.Add(keyname.Key, keyname.Value)
+        Next
+        For Each keyname In B
+            If Not C.ContainsKey(keyname.Key) Then
+                C.Add(keyname.Key, keyname.Value)
+            End If
+        Next
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             PropRegionClass.AvatarCount(RegionUUID) = 0
         Next
 
-        ToolTip1.SetToolTip(Label3, "")
+        ToolTip1.SetToolTip(AviLabel, "")
 
         For Each NameValue In C
             Dim Avatar = NameValue.Key
@@ -3297,7 +3301,7 @@ Public Class Form1
 
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ToolTip1.SetToolTip(Label3, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(Label3))
+                ToolTip1.SetToolTip(AviLabel, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(AviLabel))
                 PropRegionClass.AvatarCount(RegionUUID) += 1
             End If
         Next
@@ -4751,7 +4755,7 @@ Public Class Form1
 
     Public Sub ToolBar(visible As Boolean)
 
-        Label3.Visible = visible
+        AviLabel.Visible = visible
         AvatarLabel.Visible = visible
         PercentCPU.Visible = visible
         PercentRAM.Visible = visible
