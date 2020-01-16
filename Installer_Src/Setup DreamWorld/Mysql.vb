@@ -223,7 +223,10 @@ Public Module MysqlInterface
                                 Debug.Print("Avatar {0}", m.Groups(2).Value)
                                 Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
-                                Dict.Add(Avatar, GetRegionName(UUID))
+                                If UUID <> "00000000-0000-0000-0000-000000000000" Then
+                                    Dict.Add(Avatar, GetRegionName(UUID))
+                                End If
+
                             Next
                         End While
                     End Using
