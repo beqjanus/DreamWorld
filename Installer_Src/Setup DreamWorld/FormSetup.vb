@@ -3276,17 +3276,20 @@ Public Class Form1
         Dim sbttl As Integer = 0
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
-        Dim C As Dictionary(Of String, String) = Nothing
+        Dim C As New Dictionary(Of String, String)
 
         ' Merge the two
         For Each keyname In A
             C.Add(keyname.Key, keyname.Value)
         Next
+
         For Each keyname In B
             If Not C.ContainsKey(keyname.Key) Then
                 C.Add(keyname.Key, keyname.Value)
             End If
         Next
+
+
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
