@@ -908,7 +908,7 @@ Public Class FormRegion
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
-        'Form1.PropRegionClass.GetAllRegions()
+        Form1.PropRegionClass.GetAllRegions()
         Form1.PropUpdateView = True
 
         Oldname1 = RegionName.Text
