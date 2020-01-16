@@ -1852,6 +1852,9 @@ Public Class Form1
 
         If PropRestartRobust And PropRobustExited = True Then
             PropRobustExited = False
+            RobustPictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_exited)
+
             If Not CheckRobust() Then
                 StartRobust()
                 Return
@@ -1860,16 +1863,22 @@ Public Class Form1
         ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
         ' is true
         If PropMysqlExited Then
+            MysqlPictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.MySql_Exited)
             StartMySQL()
             Return
         End If
 
         If PropApacheExited Then
+            ApachePictureBox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Exited)
             StartApache()
             Return
         End If
 
         If PropIceCastExited Then
+            IceCastPicturebox.Image = My.Resources.nav_plain_red
+            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Exited)
             StartIcecast()
             Return
         End If
@@ -5636,7 +5645,7 @@ Public Class Form1
     Private Sub UpdaterGo(Filename As String)
 
         KillAll()
-        StopApache(True) 'reaylly stop it, even if a service
+        StopApache(True) 'really stop it, even if a service
         StopMysql()
 
         Dim pUpdate As Process = New Process()
