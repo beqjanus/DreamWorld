@@ -1579,6 +1579,7 @@ Public Class Form1
 
                     ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionUUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "generate map {ENTER}" & vbCrLf)
                     once = True
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1592,6 +1593,15 @@ Public Class Form1
         Return True
 
     End Function
+
+    Public Sub ShowRegionMap()
+
+        Dim region = ChooseRegion(True)
+        If region.Length = 0 Then Return
+
+        VarChooser(region, False)
+
+    End Sub
 
 #End Region
 
@@ -2090,16 +2100,21 @@ Public Class Form1
 
 #Region "Subs"
 
-    Public Function VarChooser(RegionName As String) As String
+    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True) As String
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionUUID)
-        Using VarForm As New FormDisplacement ' form for choosing a region in  a var
-            Dim span = Math.Ceiling(size / 256)
-            ' Show Dialog as a modal dialog
-            VarForm.Init(span, RegionUUID)
+        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+        Dim span = Math.Ceiling(size / 256)
+        ' Show Dialog as a modal dialog
+        VarForm.Init(span, RegionUUID)
+
+        If modal Then
             VarForm.ShowDialog()
-        End Using
+            VarForm.Dispose()
+        Else
+            VarForm.Show()
+        End If
 
         Return PropSelectedBox
 
@@ -5252,7 +5267,7 @@ Public Class Form1
 
                             ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                             ConsoleCommand(UUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
-
+                            ConsoleCommand(UUID, "generate map {ENTER}" & vbCrLf)
                         Next
                     End If
                 End If
@@ -7193,6 +7208,12 @@ Public Class Form1
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
         ReallyQuit()
+    End Sub
+
+    Private Sub ViewRegionMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewRegionMapToolStripMenuItem.Click
+
+        ShowRegionMap()
+
     End Sub
 
 #End Region

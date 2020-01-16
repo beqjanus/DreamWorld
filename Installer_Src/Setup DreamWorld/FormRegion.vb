@@ -532,7 +532,7 @@ Public Class FormRegion
 
                 If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
                 While Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0

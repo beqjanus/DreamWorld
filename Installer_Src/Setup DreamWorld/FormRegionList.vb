@@ -1019,7 +1019,7 @@ Public Class RegionList
                 Dim hwnd As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
@@ -1049,7 +1049,7 @@ Public Class RegionList
         ElseIf chosen = "Recycle" Then
 
             Form1.SequentialPause()
-            Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+            Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
             Form1.PropRestartNow = True
 
@@ -1078,9 +1078,8 @@ Public Class RegionList
     Private Sub StopRegionbyUUID(RegionUUID As String)
 
         Form1.SequentialPause()
-        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
         Form1.Log("Region", "Stopping Region " + Form1.PropRegionClass.GroupName(RegionUUID))
-        Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+        Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
     End Sub
 
@@ -1134,7 +1133,7 @@ Public Class RegionList
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(RegionUUID))
                 End If
 

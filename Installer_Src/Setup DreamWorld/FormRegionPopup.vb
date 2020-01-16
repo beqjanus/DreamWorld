@@ -172,8 +172,8 @@ Public Class FormRegionPopup
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
-            Dim RegionNumber = Form1.PropRegionClass.FindRegionByName(_RegionName)
-            System.Diagnostics.Process.Start(Form1.PropMyFolder & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionNumber) & "Opensim.log" & """")
+            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(_RegionName)
+            System.Diagnostics.Process.Start(Form1.PropMyFolder & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
@@ -217,6 +217,12 @@ Public Class FormRegionPopup
     Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton1.Click
         gPick = "Stop"
         DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub ViewMapButton_Click(sender As Object, e As EventArgs) Handles ViewMapButton.Click
+
+        Form1.VarChooser(_RegionName, False)
+
     End Sub
 
 #End Region

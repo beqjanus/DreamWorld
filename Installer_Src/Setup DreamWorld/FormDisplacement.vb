@@ -57,10 +57,10 @@ Public Class FormDisplacement
 
     Public Sub Init(Size As Integer, RegionUUID As String)
 
-        Me.Width = Size * 128 + 60
-        Me.Height = Size * 128 + 100
+        Me.Width = Size * 256 + 60
+        Me.Height = Size * 256 + 100
         Me.Text = CStr(Size) + " X " & CStr(Size)
-
+        Me.Name = "FormDisplacement_" & RegionUUID
         MakeArray(Size, RegionUUID)
 
     End Sub
@@ -170,67 +170,32 @@ Public Class FormDisplacement
 
     Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
 
+        'Return photo
         Dim bmp = photo
         Dim drawFont As Font = New Font("Arial", 12)
-        Dim newImage = New Bitmap(128, 128)
+        Dim newImage = New Bitmap(256, 256)
+        Dim gr As Graphics
         Try
-            Dim gr = Graphics.FromImage(newImage)
+            gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
-            gr.DrawString(item, drawFont, Brushes.White, 10, 60)
+            gr.DrawString(item, drawFont, Brushes.White, 10, 20)
         Catch ex As Exception
         End Try
 
         Return newImage
     End Function
 
-    Private Sub MakeArray(size As Integer, RegionUUID As String)
-
-        Dim StartAt = 128 * (size - 1)
-        For Y = 0 To size - 1
-            Dim OffsetY = 20
-            For X = 0 To size - 1
-                Dim OffsetX = 20
-
-                Dim Name = "PictureBox" & CStr(X) & CStr(Y)
-                Dim PictureBox As New PictureBox()
-                PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-                PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-                PictureBox.ErrorImage = Global.Outworldz.My.Resources.Resources.water
-                PictureBox.InitialImage = Global.Outworldz.My.Resources.Resources.water
-
-                ' make an image of the region with X,Y text on it.
-                Dim str = CStr(X * 256) & "," & CStr(Y * 256)
-                PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID))
-                PictureBox.Tag = "<" & str & ",0>"
-                Dim X1 = OffsetX + (X * 128)
-                Dim Y1 = OffsetY + StartAt - (Y * 128)
-                PictureBox.Location = New System.Drawing.Point(X1, Y1)
-                PictureBox.Margin = New System.Windows.Forms.Padding(0, 0, 0, 5)
-                PictureBox.Name = Name
-                PictureBox.Size = New System.Drawing.Size(128, 128)
-                PictureBox.TabIndex = X + (Y * X)
-                PictureBox.TabStop = False
-                Me.Controls.Add(PictureBox)
-                ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
-                AddHandler PictureBox.Click, PicClick
-
-                OffsetX += 128
-            Next
-            OffsetY += 128
-        Next
-
-    End Sub
-
-    Private Function MakePhotoOfRegion(regionUUID As String) As Image
+    Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
         'Dim RegionPhoto = New RegionPhoto(Name)
 
         'map-1-1000-1000-objects
-        Dim Xcoord = Form1.PropRegionClass.CoordX(regionUUID)
-        Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID)
+        Dim Xcoord = Form1.PropRegionClass.CoordX(regionUUID) + X
+        Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Form1.PropOpensimBinPath & "bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Debug.Print(RegionPhoto)
         Dim Pic As Image
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
@@ -245,5 +210,43 @@ Public Class FormDisplacement
         Return Pic
 
     End Function
+
+    Private Sub MakeArray(size As Integer, RegionUUID As String)
+
+        Dim StartAt = 256 * (size - 1)
+        For Y = 0 To size - 1
+            Dim OffsetY = 20
+            For X = 0 To size - 1
+                Dim OffsetX = 20
+
+                Dim Name = "PictureBox" & CStr(X) & CStr(Y)
+                Dim PictureBox As New PictureBox()
+                PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+                PictureBox.ErrorImage = Global.Outworldz.My.Resources.Resources.water
+                PictureBox.InitialImage = Global.Outworldz.My.Resources.Resources.water
+
+                ' make an image of the region with X,Y text on it.
+                Dim str = CStr(X * 256) & "," & CStr(Y * 256)
+                PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
+                PictureBox.Tag = "<" & str & ",0>"
+                Dim X1 = OffsetX + (X * 256)
+                Dim Y1 = OffsetY + StartAt - (Y * 256)
+                PictureBox.Location = New System.Drawing.Point(X1, Y1)
+                PictureBox.Margin = New System.Windows.Forms.Padding(0, 0, 0, 5)
+                PictureBox.Name = Name
+                PictureBox.Size = New System.Drawing.Size(256, 256)
+                PictureBox.TabIndex = X + (Y * X)
+                PictureBox.TabStop = False
+                Me.Controls.Add(PictureBox)
+                ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
+                AddHandler PictureBox.Click, PicClick
+
+                OffsetX += 256
+            Next
+            OffsetY += 256
+        Next
+
+    End Sub
 
 End Class
