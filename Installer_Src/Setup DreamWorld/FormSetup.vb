@@ -42,7 +42,7 @@ Public Class Form1
 #End Region
 
 #Region "Private"
-    Private D As New Dictionary(Of String, String)
+
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -91,13 +91,17 @@ Public Class Form1
     Private _RobustProcID As Integer = 0
     Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
-    Private _speed As Double = 50   ' 1/2 to start the average off
+    Private _speed As Double = 50
+
+    ' 1/2 to start the average off
     Private _StopMysql As Boolean = True
+
     Private _UpdateView As Boolean = True
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private Adv As New AdvancedForm
     Private cpu As New PerformanceCounter
+    Private D As New Dictionary(Of String, String)
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -855,6 +859,7 @@ Public Class Form1
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
+                    Application.DoEvents()
                     If p.MainWindowTitle = GroupName Then
                         Try
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -865,6 +870,7 @@ Public Class Form1
                         For Each RegionUUID In Regionclass.RegionUUIDListByName(thisname)
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.ProcessID(RegionUUID) = p.Id
+                            Application.DoEvents()
                         Next
                         PropUpdateView = True ' make form refresh
                         Return True
@@ -878,6 +884,7 @@ Public Class Form1
 
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                    Application.DoEvents()
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -1536,8 +1543,11 @@ Public Class Form1
         If region.Length = 0 Then Return False
 
         Dim offset = VarChooser(region)
+        If offset.Length = 0 Then Return False
 
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNoCancel, My.Resources.Backup_word)
+        If backMeUp = vbCancel Then Return False
+
         Dim testRegionUUID As String = PropRegionClass.FindRegionByName(region)
         If testRegionUUID.Length = 0 Then
             MsgBox(My.Resources.Cannot_find_region_word)
@@ -2084,30 +2094,12 @@ Public Class Form1
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionUUID)
-        If size = 256 Then  ' 1x1
-            Using VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.Init(RegionUUID)
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 512 Then  ' 2x2
-            Using VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 768 Then ' 3x3
-            Using VarForm As New FormDisplacement3x3 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 1024 Then ' 4x4
-            Using VarForm As New FormDisplacement ' form for choosing a region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
-        Else
-            Return ""
-        End If
+        Using VarForm As New FormDisplacement ' form for choosing a region in  a var
+            Dim span = Math.Ceiling(size / 256)
+            ' Show Dialog as a modal dialog
+            VarForm.Init(span, RegionUUID)
+            VarForm.ShowDialog()
+        End Using
 
         Return PropSelectedBox
 
@@ -3301,9 +3293,6 @@ Public Class Form1
                 C.Add(keyname.Key, keyname.Value)
             End If
         Next
-
-
-
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs

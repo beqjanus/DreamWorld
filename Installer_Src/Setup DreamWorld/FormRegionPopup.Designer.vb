@@ -161,6 +161,7 @@ Partial Class FormRegionPopup
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormRegionPopup"
+        Me.TopMost = True
         Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
 

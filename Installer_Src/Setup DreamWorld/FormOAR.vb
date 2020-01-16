@@ -42,22 +42,27 @@ Public Class FormOAR
     Public Sub Redraw()
 
         Dim gdTextColumn As New DataGridViewTextBoxColumn
-        DataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+        'DataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
-        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
-        DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        'DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        DataGridView.ScrollBars = ScrollBars.Both
+        DataGridView.AutoSize = False
+        'DataGridView.Left = DockStyle.Left
 
         'add 10 px padding to bottom
         DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(5, 5, 5, 5)
 
         DataGridView.RowHeadersVisible = False
         DataGridView.Width = initSize
-        DataGridView.ColumnHeadersHeight = initSize
+        'DataGridView.ColumnHeadersHeight = initSize
         DataGridView.ShowCellToolTips = True
         DataGridView.AllowUserToAddRows = False
         DataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect
+        DataGridView.ScrollBars = ScrollBars.Both
+        DataGridView.Enabled = True
 
         NumColumns = Math.Ceiling(Me.Width / imgSize)
         If NumColumns = 0 Then
@@ -69,10 +74,10 @@ Public Class FormOAR
         DataGridView.RowTemplate.MinimumHeight = Math.Ceiling((Me.Width - k) / NumColumns)
 
         DataGridView.Width = Me.Width - 50
-        'DataGridView.Columns(0).Width = Me.Width - k
+        DataGridView.Columns(0).Width = Me.Width - k
         DataGridView.ColumnHeadersHeight = Math.Ceiling((Me.Width - k) / NumColumns)
 
-        DataGridView.SuspendLayout()
+        'DataGridView.SuspendLayout()
 
         DataGridView.Columns.Clear()
         DataGridView.Rows.Clear()
@@ -83,6 +88,7 @@ Public Class FormOAR
             With col
                 .Width = (Me.Width - k) / NumColumns
                 .Name = "Details" & CStr(index)
+                .Frozen = False
             End With
             DataGridView.Columns.Insert(0, col)
         Next
@@ -118,10 +124,10 @@ Public Class FormOAR
             column += 1
         End While
 
-        For Each x As DataGridViewRow In DataGridView.Rows
-            x.MinimumHeight = (Me.Width - k) / NumColumns
-        Next
-        DataGridView.ResumeLayout()
+        ' For Each x As DataGridViewRow In DataGridView.Rows x.MinimumHeight = (Me.Width - k) /
+        ' NumColumns Next
+
+        DataGridView.PerformLayout()
         DataGridView.Show()
 
     End Sub
@@ -134,6 +140,7 @@ Public Class FormOAR
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
+                Me.Hide()
                 Form1.LoadOARContent(File)
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                 Form1.LoadIARContent(File)
@@ -264,6 +271,8 @@ Public Class FormOAR
         Else
             Me.Width = hw.Item(1)
         End If
+
+        '  DataGridView.PerformLayout()
 
     End Sub
 

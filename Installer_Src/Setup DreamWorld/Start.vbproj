@@ -214,28 +214,10 @@
     <Compile Include="FormCaches.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDisplacement2x2.Designer.vb">
-      <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
+    <Compile Include="FormDisplacement.Designer.vb">
+      <DependentUpon>FormDisplacement.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormDisplacement2x2.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDisplacement3x3.Designer.vb">
-      <DependentUpon>FormDisplacement3x3.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormDisplacement3x3.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDisplacement4x4.Designer.vb">
-      <DependentUpon>FormDisplacement4x4.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormDisplacement4x4.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormDisplacement1X1.Designer.vb">
-      <DependentUpon>FormDisplacement1X1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormDisplacement1X1.vb">
+    <Compile Include="FormDisplacement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormFlotsamCache.Designer.vb">
@@ -485,17 +467,8 @@
       <DependentUpon>FormCaches.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDisplacement2x2.resx">
-      <DependentUpon>FormDisplacement2x2.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDisplacement3x3.resx">
-      <DependentUpon>FormDisplacement3x3.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDisplacement4x4.resx">
-      <DependentUpon>FormDisplacement4x4.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormDisplacement1X1.resx">
-      <DependentUpon>FormDisplacement1X1.vb</DependentUpon>
+    <EmbeddedResource Include="FormDisplacement.resx">
+      <DependentUpon>FormDisplacement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormFlotsamCache.resx">
       <DependentUpon>FormFlotsamCache.vb</DependentUpon>
