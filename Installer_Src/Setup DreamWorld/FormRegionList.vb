@@ -869,6 +869,10 @@ Public Class RegionList
             If MysqlIsRunning1 Then
                 L = MysqlInterface.GetAgentList()
             End If
+            If Debugger.IsAttached Then
+                L.Add("Ferd Frederix", "Welcome")
+            End If
+
 
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -895,6 +899,10 @@ Public Class RegionList
             If MysqlIsRunning1 Then
                 M = GetHGAgentList()
             End If
+            If Debugger.IsAttached Then
+                M.Add("Nyira Machabelli", "SandBox")
+            End If
+
 
             For Each Agent In M
                 If Agent.Value.Length > 0 Then

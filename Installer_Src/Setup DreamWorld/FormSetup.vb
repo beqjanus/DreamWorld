@@ -3287,6 +3287,11 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
+        If Debugger.IsAttached Then
+            A.Add("Ferd Frederix", "Welcome")
+            B.Add("Nyira Machabelli", "SandBox")
+        End If
+
         ' Merge the two
         For Each keyname In A
             C.Add(keyname.Key, keyname.Value)
@@ -3297,8 +3302,8 @@ Public Class Form1
             End If
         Next
 
-        C.Add("Fred", "Welcome")
-        C.Add("Debbie", "Sandbox")
+
+
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
@@ -3318,16 +3323,20 @@ Public Class Form1
             End If
         Next
 
+        Dim Str As String = ""
         For Each NameValue In C
             Dim Avatar = NameValue.Key
             Dim RegionName = NameValue.Value
 
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ToolTip1.SetToolTip(AviLabel, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(AviLabel))
                 PropRegionClass.AvatarCount(RegionUUID) += 1
+                Str += Avatar & " in " & RegionName & ", "
             End If
         Next
+
+        ToolTip1.SetToolTip(AviLabel, Str)
+
         Dim E As New List(Of String)
         For Each NameValue In D
             Dim Avatar = NameValue.Key
