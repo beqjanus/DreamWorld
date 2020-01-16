@@ -42,7 +42,7 @@ Public Class Form1
 #End Region
 
 #Region "Private"
-
+    Private D As New Dictionary(Of String, String)
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -3276,7 +3276,7 @@ Public Class Form1
         Dim sbttl As Integer = 0
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
-        Dim C As Dictionary(Of String, String) = Nothing
+        Dim C As New Dictionary(Of String, String)
 
         ' Merge the two
         For Each keyname In A
@@ -3288,12 +3288,26 @@ Public Class Form1
             End If
         Next
 
+        C.Add("Fred", "Welcome")
+        C.Add("Debbie", "Sandbox")
+
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             PropRegionClass.AvatarCount(RegionUUID) = 0
         Next
 
         ToolTip1.SetToolTip(AviLabel, "")
+        AvatarLabel.Text = CStr(0)
+
+        For Each NameValue In C
+            Dim Avatar = NameValue.Key
+            Dim RegionName = NameValue.Value
+
+            If Not D.ContainsKey(Avatar) Then
+                Print(Avatar & " is in " & RegionName)
+                D.Add(Avatar, RegionName)
+            End If
+        Next
 
         For Each NameValue In C
             Dim Avatar = NameValue.Key
@@ -3304,6 +3318,19 @@ Public Class Form1
                 ToolTip1.SetToolTip(AviLabel, Avatar & ":" & RegionName & vbCrLf & ToolTip1.GetToolTip(AviLabel))
                 PropRegionClass.AvatarCount(RegionUUID) += 1
             End If
+        Next
+        Dim E As New List(Of String)
+        For Each NameValue In D
+            Dim Avatar = NameValue.Key
+            Dim RegionName = NameValue.Value
+
+            If Not C.ContainsKey(Avatar) Then
+                Print(Avatar & " left " & RegionName)
+                E.Add(Avatar)
+            End If
+        Next
+        For Each F In E
+            D.Remove(F)
         Next
 
         Dim total As Integer = C.Count
