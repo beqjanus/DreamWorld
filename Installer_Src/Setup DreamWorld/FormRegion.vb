@@ -527,7 +527,7 @@ Public Class FormRegion
             Form1.StartMySQL()
             Form1.StartRobust()
 
-            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
                 If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()

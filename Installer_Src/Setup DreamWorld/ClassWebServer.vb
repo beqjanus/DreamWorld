@@ -187,7 +187,7 @@ Public Class NetServer
 
                 While reader.Read()
                     Dim LongName = reader.GetString(0)
-                    Dim RegionUUID = PropRegionClass.FindRegionByName(LongName)
+                    Dim RegionUUID As String = PropRegionClass.FindRegionByName(LongName)
                     If RegionUUID.Length > 0 Then
                         If PropRegionClass.Teleport(RegionUUID) = "True" Then
                             ToSort.Add(LongName)

@@ -70,7 +70,7 @@ Public Class FormRegionPopup
 
         _RegionName = RegionName
 
-        Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
         GroupBox1.Text = Form1.PropRegionClass.GroupName(RegionUUID)
 
@@ -151,9 +151,7 @@ Public Class FormRegionPopup
         If hwnd <> IntPtr.Zero Then
             Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
             Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-            Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
             Application.DoEvents()
-            Threading.Thread.Sleep(1000)
         End If
 
         BringToFront()
@@ -172,7 +170,7 @@ Public Class FormRegionPopup
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
-            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(_RegionName)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(_RegionName)
             System.Diagnostics.Process.Start(Form1.PropMyFolder & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
@@ -192,7 +190,8 @@ Public Class FormRegionPopup
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles ShowConsoleButton.Click
-
+        gPick = "Console"
+        DialogResult = DialogResult.OK
     End Sub
 
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click
@@ -221,7 +220,7 @@ Public Class FormRegionPopup
 
     Private Sub ViewMapButton_Click(sender As Object, e As EventArgs) Handles ViewMapButton.Click
 
-        Form1.VarChooser(_RegionName, False)
+        Form1.VarChooser(_RegionName, False, False)
 
     End Sub
 

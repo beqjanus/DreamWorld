@@ -764,8 +764,8 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(1).Text
-            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
                 Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
@@ -873,7 +873,6 @@ Public Class RegionList
                 L.Add("Ferd Frederix", "Welcome")
             End If
 
-
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
                 item1.SubItems.Add(Agent.Value)
@@ -902,7 +901,6 @@ Public Class RegionList
             If Debugger.IsAttached Then
                 M.Add("Nyira Machabelli", "SandBox")
             End If
-
 
             For Each Agent In M
                 If Agent.Value.Length > 0 Then
@@ -1035,6 +1033,13 @@ Public Class RegionList
                 End If
 
                 PropUpdateView = True ' make form refresh
+            End If
+
+        ElseIf chosen = "Console" Then
+            Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
+            If PID > 0 Then
+                Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
             End If
 
         ElseIf chosen = "Edit" Then
@@ -1301,8 +1306,8 @@ Public Class RegionList
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
-                    Dim i = Form1.PropRegionClass.FindRegionByName(filename)
-                    If i >= 0 Then
+                    Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
+                    If RegionUUID.Length > 0 Then
                         MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
                         ofd.Dispose()
                         Return

@@ -24,7 +24,7 @@ Public Class FormOAR
 
     Private _initted As Boolean = False
     Private _type As String = Nothing
-    Private g_skip As Boolean = False
+
     Private imgSize As Integer = 256
     Private initSize As Integer = 512
     Private k As Integer = 50
@@ -310,7 +310,7 @@ Public Class FormOAR
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
 
         Me.Hide()
-        g_skip = False
+
         e.Cancel = True
 
     End Sub
@@ -420,7 +420,7 @@ Public Class FormOAR
                     End If
 
                     If img Is Nothing Then
-                        g_skip = True
+
                         img = NoImage(item)
                     End If
 
