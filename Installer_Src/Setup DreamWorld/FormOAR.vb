@@ -24,6 +24,7 @@ Public Class FormOAR
 
     Private _initted As Boolean = False
     Private _type As String = Nothing
+    Private g_skip As Boolean = False
     Private imgSize As Integer = 256
     Private initSize As Integer = 512
     Private k As Integer = 50
@@ -42,22 +43,19 @@ Public Class FormOAR
     Public Sub Redraw()
 
         Dim gdTextColumn As New DataGridViewTextBoxColumn
-        'DataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
         DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.DisplayedCells
-        'DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+
         DataGridView.ScrollBars = ScrollBars.Both
         DataGridView.AutoSize = False
-        'DataGridView.Left = DockStyle.Left
 
         'add 10 px padding to bottom
         DataGridView.RowTemplate.DefaultCellStyle.Padding = New Padding(5, 5, 5, 5)
 
         DataGridView.RowHeadersVisible = False
         DataGridView.Width = initSize
-        'DataGridView.ColumnHeadersHeight = initSize
         DataGridView.ShowCellToolTips = True
         DataGridView.AllowUserToAddRows = False
         DataGridView.SelectionMode = DataGridViewSelectionMode.CellSelect
@@ -76,9 +74,6 @@ Public Class FormOAR
         DataGridView.Width = Me.Width - 50
         DataGridView.Columns(0).Width = Me.Width - k
         DataGridView.ColumnHeadersHeight = Math.Ceiling((Me.Width - k) / NumColumns)
-
-        'DataGridView.SuspendLayout()
-
         DataGridView.Columns.Clear()
         DataGridView.Rows.Clear()
         DataGridView.ClearSelection()
@@ -123,9 +118,6 @@ Public Class FormOAR
             DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
             column += 1
         End While
-
-        ' For Each x As DataGridViewRow In DataGridView.Rows x.MinimumHeight = (Me.Width - k) /
-        ' NumColumns Next
 
         DataGridView.PerformLayout()
         DataGridView.Show()
@@ -272,7 +264,7 @@ Public Class FormOAR
             Me.Width = hw.Item(1)
         End If
 
-        '  DataGridView.PerformLayout()
+        ' DataGridView.PerformLayout()
 
     End Sub
 
@@ -310,7 +302,7 @@ Public Class FormOAR
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         Me.Hide()
-        DataGridView.Hide()
+        'DataGridView.Hide()
         SetScreen()
 
     End Sub
@@ -318,6 +310,7 @@ Public Class FormOAR
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
 
         Me.Hide()
+        g_skip = False
         e.Cancel = True
 
     End Sub
@@ -422,12 +415,15 @@ Public Class FormOAR
                             Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.photo)
                             img = GetImageFromURL(link)
                         Catch ex As Exception
+
                         End Try
                     End If
 
                     If img Is Nothing Then
+                        g_skip = True
                         img = NoImage(item)
                     End If
+
                     Try
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)

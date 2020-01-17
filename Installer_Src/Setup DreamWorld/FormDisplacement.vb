@@ -55,7 +55,15 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
-    Public Sub Init(Size As Integer, RegionUUID As String)
+    Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
+
+        If map Then
+            ToolStripMenuItem1.Visible = True
+            HelpToolStripMenuItem.Visible = True
+        Else
+            ToolStripMenuItem1.Visible = False
+            HelpToolStripMenuItem.Visible = False
+        End If
 
         Me.Width = Size * 256 + 60
         Me.Height = Size * 256 + 100
