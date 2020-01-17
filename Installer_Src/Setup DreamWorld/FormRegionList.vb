@@ -764,7 +764,7 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(1).Text
-            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                 Try
@@ -873,7 +873,6 @@ Public Class RegionList
                 L.Add("Ferd Frederix", "Welcome")
             End If
 
-
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
                 item1.SubItems.Add(Agent.Value)
@@ -902,7 +901,6 @@ Public Class RegionList
             If Debugger.IsAttached Then
                 M.Add("Nyira Machabelli", "SandBox")
             End If
-
 
             For Each Agent In M
                 If Agent.Value.Length > 0 Then
@@ -1019,7 +1017,7 @@ Public Class RegionList
                 Dim hwnd As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
@@ -1037,6 +1035,13 @@ Public Class RegionList
                 PropUpdateView = True ' make form refresh
             End If
 
+        ElseIf chosen = "Console" Then
+            Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
+            If PID > 0 Then
+                Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+            End If
+
         ElseIf chosen = "Edit" Then
 
             Dim RegionForm As New FormRegion
@@ -1049,7 +1054,7 @@ Public Class RegionList
         ElseIf chosen = "Recycle" Then
 
             Form1.SequentialPause()
-            Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+            Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
             Form1.PropRestartNow = True
 
@@ -1078,9 +1083,8 @@ Public Class RegionList
     Private Sub StopRegionbyUUID(RegionUUID As String)
 
         Form1.SequentialPause()
-        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
         Form1.Log("Region", "Stopping Region " + Form1.PropRegionClass.GroupName(RegionUUID))
-        Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+        Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
     End Sub
 
@@ -1134,7 +1138,7 @@ Public Class RegionList
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(Form1.PropRegionClass.GroupName(RegionUUID), "q{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(RegionUUID))
                 End If
 
@@ -1301,8 +1305,8 @@ Public Class RegionList
                 If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
 
                     Dim filename = GetRegionsName(ofd.FileName)
+                    Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
 
-                    Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(filename)
                     If RegionUUID.Length > 0 Then
                         MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
                         ofd.Dispose()

@@ -80,7 +80,7 @@ Public Class FormRegions
             Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
-            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(chosen)
+            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(chosen)
             Dim X = Form1.PropRegionClass.CoordX(RegionUUID)
             Dim Y = Form1.PropRegionClass.CoordY(RegionUUID)
             Dim Err As Boolean = False

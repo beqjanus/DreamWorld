@@ -117,6 +117,32 @@ Public Class RegionMaker
 
 #Region "Subs"
 
+    ''' <summary>
+    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
+    ''' </summary>
+    Public Shared Sub UpdateAllRegionPorts()
+
+        Form1.Print(My.Resources.Updating_Ports_word)
+
+        Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+            Dim simName = Form1.PropRegionClass.RegionName(RegionUUID)
+            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+
+            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
+            ' Self setting Region Ports
+            Form1.PropMaxPortUsed = Portnumber
+            Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+            Portnumber += 1
+            Application.DoEvents()
+        Next
+
+        Form1.Print(My.Resources.Setup_Firewall_word)
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+
+    End Sub
+
     Public Sub CheckPost()
 
         ' Delete off end of list so we don't skip over one
@@ -181,8 +207,11 @@ Public Class RegionMaker
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
                                     Form1.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
-                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "change region " & json.region_name & "{ENTER}")
-                                    Form1.ConsoleCommand(Form1.Settings.WelcomeRegion, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+
+                                    Dim Welcome = Form1.Settings.WelcomeRegion
+                                    Dim UUID = FindRegionByName(Welcome)
+                                    Form1.ConsoleCommand(UUID, "change region " & json.region_name & "{ENTER}")
+                                    Form1.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As ArgumentException
@@ -226,40 +255,6 @@ Public Class RegionMaker
         Next
 
     End Sub
-    ''' <summary>
-    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
-    ''' </summary>
-    Public Shared Sub UpdateAllRegionPorts()
-
-        Form1.Print(My.Resources.Updating_Ports_word)
-
-        Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-            Dim simName = Form1.PropRegionClass.RegionName(RegionUUID)
-            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-
-            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
-            Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
-            ' Self setting Region Ports
-            Form1.PropMaxPortUsed = Portnumber
-            Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-            Portnumber += 1
-            Application.DoEvents()
-        Next
-
-        Form1.Print(My.Resources.Setup_Firewall_word)
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-
-    End Sub
-
-    Public Sub DeleteRegion(UUID As String)
-
-        If RegionList.ContainsKey(UUID) Then
-            RegionList.Remove(UUID)
-        End If
-
-    End Sub
-
 
     Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
@@ -308,6 +303,14 @@ Public Class RegionMaker
         Return r._UUID
 
     End Function
+
+    Public Sub DeleteRegion(UUID As String)
+
+        If RegionList.ContainsKey(UUID) Then
+            RegionList.Remove(UUID)
+        End If
+
+    End Sub
 
     Public Function FindBackupByName(Name As String) As Integer
 

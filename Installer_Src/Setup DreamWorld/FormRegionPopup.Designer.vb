@@ -32,11 +32,13 @@ Partial Class FormRegionPopup
         Me.StartButton3 = New System.Windows.Forms.Button()
         Me.RecycleButton2 = New System.Windows.Forms.Button()
         Me.StopButton1 = New System.Windows.Forms.Button()
+        Me.ViewMapButton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ViewMapButton)
         Me.GroupBox1.Controls.Add(Me.ShowConsoleButton)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.StatsButton1)
@@ -49,7 +51,7 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox1.Size = New System.Drawing.Size(236, 409)
+        Me.GroupBox1.Size = New System.Drawing.Size(236, 456)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Region Controls"
@@ -106,7 +108,7 @@ Partial Class FormRegionPopup
         '
         Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(28, 355)
+        Me.EditButton1.Location = New System.Drawing.Point(28, 394)
         Me.EditButton1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(182, 35)
@@ -150,17 +152,30 @@ Partial Class FormRegionPopup
         Me.StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         Me.StopButton1.UseVisualStyleBackColor = True
         '
+        'ViewMapButton
+        '
+        Me.ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.ViewMapButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ViewMapButton.Location = New System.Drawing.Point(28, 349)
+        Me.ViewMapButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ViewMapButton.Name = "ViewMapButton"
+        Me.ViewMapButton.Size = New System.Drawing.Size(182, 35)
+        Me.ViewMapButton.TabIndex = 13
+        Me.ViewMapButton.Text = "View Map"
+        Me.ViewMapButton.UseVisualStyleBackColor = True
+        '
         'FormRegionPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(264, 447)
+        Me.ClientSize = New System.Drawing.Size(264, 492)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormRegionPopup"
+        Me.TopMost = True
         Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -175,4 +190,5 @@ Partial Class FormRegionPopup
     Friend WithEvents StatsButton1 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents ShowConsoleButton As Button
+    Friend WithEvents ViewMapButton As Button
 End Class

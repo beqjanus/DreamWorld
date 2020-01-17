@@ -1522,6 +1522,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click to load the lower left corner of the file into this location.  .
+        '''</summary>
+        Friend ReadOnly Property Click_To_Load_Here() As String
+            Get
+                Return ResourceManager.GetString("Click_To_Load_Here", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to request Voice Service.
         '''</summary>
         Friend ReadOnly Property Click_to_Request_Voice_Service() As String

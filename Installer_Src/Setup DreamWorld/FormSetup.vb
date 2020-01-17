@@ -42,7 +42,7 @@ Public Class Form1
 #End Region
 
 #Region "Private"
-    Private D As New Dictionary(Of String, String)
+
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -88,16 +88,21 @@ Public Class Form1
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
+    Private _RobustIsStarting As Boolean = False
     Private _RobustProcID As Integer = 0
     Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
-    Private _speed As Double = 50   ' 1/2 to start the average off
+    Private _speed As Double = 50
+
+    ' 1/2 to start the average off
     Private _StopMysql As Boolean = True
+
     Private _UpdateView As Boolean = True
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private Adv As New AdvancedForm
     Private cpu As New PerformanceCounter
+    Private D As New Dictionary(Of String, String)
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -688,7 +693,7 @@ Public Class Form1
             Dim x = False
 
             While Not x And ctr > 0
-                Sleep(100)
+
                 Try
                     x = NativeMethods.ShowWindow(handle, command)
                     If x Then Return True
@@ -697,6 +702,7 @@ Public Class Form1
 #Enable Warning CA1031 ' Do not catch general exception types
                 End Try
                 ctr -= 1
+                Sleep(100)
             End While
         End If
         Return False
@@ -798,7 +804,7 @@ Public Class Form1
 
         If PropAborting Then Return True
 
-        Dim RegionUUID = Regionclass.FindRegionByName(BootName)
+        Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
         Dim GroupName = Regionclass.GroupName(RegionUUID)
 
         If RegionUUID = "" Then
@@ -855,6 +861,7 @@ Public Class Form1
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
+                    Application.DoEvents()
                     If p.MainWindowTitle = GroupName Then
                         Try
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -865,6 +872,7 @@ Public Class Form1
                         For Each RegionUUID In Regionclass.RegionUUIDListByName(thisname)
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.ProcessID(RegionUUID) = p.Id
+                            Application.DoEvents()
                         Next
                         PropUpdateView = True ' make form refresh
                         Return True
@@ -878,6 +886,7 @@ Public Class Form1
 
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                    Application.DoEvents()
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -1138,7 +1147,7 @@ Public Class Form1
 
     Public Sub CopyOpensimProto(name As String)
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID <> "" Then Opensimproto(RegionUUID)
 
     End Sub
@@ -1536,8 +1545,11 @@ Public Class Form1
         If region.Length = 0 Then Return False
 
         Dim offset = VarChooser(region)
+        If offset.Length = 0 Then Return False
 
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNoCancel, My.Resources.Backup_word)
+        If backMeUp = vbCancel Then Return False
+
         Dim testRegionUUID As String = PropRegionClass.FindRegionByName(region)
         If testRegionUUID.Length = 0 Then
             MsgBox(My.Resources.Cannot_find_region_word)
@@ -1569,6 +1581,7 @@ Public Class Form1
 
                     ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                     ConsoleCommand(RegionUUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "generate map {ENTER}" & vbCrLf)
                     once = True
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1582,6 +1595,15 @@ Public Class Form1
         Return True
 
     End Function
+
+    Public Sub ShowRegionMap()
+
+        Dim region = ChooseRegion(False)
+        If region.Length = 0 Then Return
+
+        VarChooser(region, False, False)
+
+    End Sub
 
 #End Region
 
@@ -1952,7 +1974,7 @@ Public Class Form1
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
             GroupName = RegionName ' assume a group
-            Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
             If RegionUUID.Length > 0 Then
                 GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
@@ -2080,33 +2102,20 @@ Public Class Form1
 
 #Region "Subs"
 
-    Public Function VarChooser(RegionName As String) As String
+    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionUUID)
-        If size = 256 Then  ' 1x1
-            Using VarForm As New FormDisplacement1X1 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.Init(RegionUUID)
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 512 Then  ' 2x2
-            Using VarForm As New FormDisplacement2x2 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 768 Then ' 3x3
-            Using VarForm As New FormDisplacement3x3 ' form for choosing a  region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
-        ElseIf size = 1024 Then ' 4x4
-            Using VarForm As New FormDisplacement ' form for choosing a region in  a var
-                ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-                VarForm.ShowDialog()
-            End Using
+        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+        Dim span = Math.Ceiling(size / 256)
+        ' Show Dialog as a modal dialog
+        VarForm.Init(span, RegionUUID, Map)
+
+        If modal Then
+            VarForm.ShowDialog()
+            VarForm.Dispose()
         Else
-            Return ""
+            VarForm.Show()
         End If
 
         Return PropSelectedBox
@@ -3010,7 +3019,7 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & name & "{ENTER}" & vbCrLf)
             ConsoleCommand(RegionUUID, "restart region " & name & "{ENTER}" & vbCrLf)
@@ -3025,7 +3034,7 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "restart{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
@@ -3216,14 +3225,10 @@ Public Class Form1
                     End If
 
                     Dim Name = SaveIAR.GAvatarName
-
                     Dim Password = SaveIAR.GPassword
 
-                    Dim flag As Boolean = False
                     For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-                        Dim GName = PropRegionClass.GroupName(RegionUUID)
-                        Dim RNUm = PropRegionClass.FindRegionByName(GName)
-                        If PropRegionClass.IsBooted(RegionUUID) And Not flag Then
+                        If PropRegionClass.IsBooted(RegionUUID) Then
                             ConsoleCommand(RegionUUID, "save iar " _
                                        & Name & " " _
                                        & """" & itemName & """" _
@@ -3231,7 +3236,7 @@ Public Class Form1
                                        & """" & ToBackup & """" _
                                        & "{ENTER}" & vbCrLf
                                       )
-                            flag = True
+                            Exit For
                             Print(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
                         End If
                     Next
@@ -3301,9 +3306,6 @@ Public Class Form1
                 C.Add(keyname.Key, keyname.Value)
             End If
         Next
-
-
-
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
@@ -3396,7 +3398,7 @@ Public Class Form1
             Return
         End If
         Dim rname = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & rname & "{ENTER}" & vbCrLf)
             ConsoleCommand(RegionUUID, cmd & "{ENTER}" & vbCrLf)
@@ -4135,7 +4137,7 @@ Public Class Form1
 
         CopyOpensimProto(simName)
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(simName)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(simName)
 
         If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
@@ -4889,7 +4891,7 @@ Public Class Form1
         Dim rname = ChooseRegion(True)
         If rname.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
             If RegionUUID.Length > 0 Then
                 ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
@@ -5263,7 +5265,7 @@ Public Class Form1
 
                             ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
                             ConsoleCommand(UUID, "alert " & My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
-
+                            ConsoleCommand(UUID, "generate map {ENTER}" & vbCrLf)
                         Next
                     End If
                 End If
@@ -6046,7 +6048,7 @@ Public Class Form1
 
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(regionname)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(regionname)
         If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then
             Return True
         End If
@@ -6527,6 +6529,8 @@ Public Class Form1
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
+        ' prevent recursion
+        If _RobustIsStarting Then Return True
         If CheckRobust() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
@@ -6555,6 +6559,8 @@ Public Class Form1
             Return True
         End If
 
+        _RobustIsStarting = True
+
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
         Print(My.Resources.Starting_word & " Robust")
@@ -6576,6 +6582,7 @@ Public Class Form1
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
+            _RobustIsStarting = False
             Return False
         Catch ex As System.ComponentModel.Win32Exception
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
@@ -6584,6 +6591,7 @@ Public Class Form1
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
             Buttons(StartButton)
+            _RobustIsStarting = False
             Return False
         End Try
 
@@ -6592,6 +6600,7 @@ Public Class Form1
             RobustPictureBox.Image = My.Resources.error_icon
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
             Log("Error", My.Resources.Robust_failed_to_start)
+            _RobustIsStarting = False
             Return False
         End If
 
@@ -6619,12 +6628,14 @@ Public Class Form1
                 Buttons(StartButton)
                 RobustPictureBox.Image = My.Resources.nav_plain_red
                 ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
+                _RobustIsStarting = False
                 Return False
             End If
             Application.DoEvents()
             Sleep(100)
         End While
 
+        _RobustIsStarting = False
         Log(My.Resources.Info, My.Resources.Robust_running)
         If Settings.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
@@ -7204,6 +7215,12 @@ Public Class Form1
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
         ReallyQuit()
+    End Sub
+
+    Private Sub ViewRegionMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewRegionMapToolStripMenuItem.Click
+
+        ShowRegionMap()
+
     End Sub
 
 #End Region

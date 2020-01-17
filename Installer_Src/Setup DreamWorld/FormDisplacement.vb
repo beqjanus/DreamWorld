@@ -20,12 +20,13 @@
 
 #End Region
 
-Public Class FormDisplacement1X1
+Public Class FormDisplacement
 
 #Region "ScreenSize"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
+    Private PicClick As New EventHandler(AddressOf PictureBox_Click)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -38,7 +39,6 @@ Public Class FormDisplacement1X1
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
 
@@ -55,27 +55,21 @@ Public Class FormDisplacement1X1
 
 #Region "Public Methods"
 
-    Public Sub Init(RegionUUID As String)
+    Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
 
-        'Dim RegionPhoto = New RegionPhoto(Name)
+        If map Then
+            ToolStripMenuItem1.Visible = True
+            HelpToolStripMenuItem.Visible = True
+        Else
+            ToolStripMenuItem1.Visible = False
+            HelpToolStripMenuItem.Visible = False
+        End If
 
-        'map-1-1000-1000-objects
-        Dim Xcoord = Form1.PropRegionClass.CoordX(RegionUUID)
-        Dim Ycoord = Form1.PropRegionClass.CoordY(RegionUUID)
-
-        Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.PropOpensimBinPath & "\bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
-        Try
-            Dim Pic As Image = Bitmap.FromFile(RegionPhoto)
-            PictureBox3.Image = Pic
-            Pic = Nothing
-        Catch ex As OutOfMemoryException
-            PictureBox3.Image = My.Resources.water
-        Catch ex As IO.FileNotFoundException
-            PictureBox3.Image = My.Resources.water
-        Catch ex As ArgumentException
-            PictureBox3.Image = My.Resources.water
-        End Try
+        Me.Width = Size * 256 + 60
+        Me.Height = Size * 256 + 100
+        Me.Text = CStr(Size) + " X " & CStr(Size)
+        Me.Name = "FormDisplacement_" & RegionUUID
+        MakeArray(Size, RegionUUID)
 
     End Sub
 
@@ -169,8 +163,10 @@ Public Class FormDisplacement1X1
 
     End Sub
 
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Form1.PropSelectedBox = " --displacement <0,0,0>  "
+    Private Sub PictureBox_Click(sender As Object, e As EventArgs)
+
+        Dim tag = sender.Tag
+        Form1.PropSelectedBox = " --displacement " & tag & " "
         Me.Close()
     End Sub
 
@@ -179,5 +175,86 @@ Public Class FormDisplacement1X1
     End Sub
 
 #End Region
+
+    Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
+
+        'Return photo
+        Dim bmp = photo
+        Dim drawFont As Font = New Font("Arial", 12)
+        Dim newImage = New Bitmap(256, 256)
+        Dim gr As Graphics
+        Try
+            gr = Graphics.FromImage(newImage)
+            gr.DrawImageUnscaled(bmp, 0, 0)
+            gr.DrawString(item, drawFont, Brushes.White, 10, 20)
+        Catch ex As Exception
+        End Try
+
+        Return newImage
+    End Function
+
+    Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
+
+        'Dim RegionPhoto = New RegionPhoto(Name)
+
+        'map-1-1000-1000-objects
+        Dim Xcoord = Form1.PropRegionClass.CoordX(regionUUID) + X
+        Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
+
+        Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
+        Dim RegionPhoto = Form1.PropOpensimBinPath & "bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Debug.Print(RegionPhoto)
+        Dim Pic As Image
+        Try
+            Pic = Bitmap.FromFile(RegionPhoto)
+        Catch ex As OutOfMemoryException
+            Pic = My.Resources.water
+        Catch ex As IO.FileNotFoundException
+            Pic = My.Resources.water
+        Catch ex As ArgumentException
+            Pic = My.Resources.water
+        End Try
+
+        Return Pic
+
+    End Function
+
+    Private Sub MakeArray(size As Integer, RegionUUID As String)
+
+        Dim StartAt = 256 * (size - 1)
+        For Y = 0 To size - 1
+            Dim OffsetY = 20
+            For X = 0 To size - 1
+                Dim OffsetX = 20
+
+                Dim Name = "PictureBox" & CStr(X) & CStr(Y)
+                Dim PictureBox As New PictureBox()
+                PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+                PictureBox.ErrorImage = Global.Outworldz.My.Resources.Resources.water
+                PictureBox.InitialImage = Global.Outworldz.My.Resources.Resources.water
+
+                ' make an image of the region with X,Y text on it.
+                Dim str = CStr(X * 256) & "," & CStr(Y * 256)
+                PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
+                PictureBox.Tag = "<" & str & ",0>"
+                Dim X1 = OffsetX + (X * 256)
+                Dim Y1 = OffsetY + StartAt - (Y * 256)
+                PictureBox.Location = New System.Drawing.Point(X1, Y1)
+                PictureBox.Margin = New System.Windows.Forms.Padding(0, 0, 0, 5)
+                PictureBox.Name = Name
+                PictureBox.Size = New System.Drawing.Size(256, 256)
+                PictureBox.TabIndex = X + (Y * X)
+                PictureBox.TabStop = False
+                Me.Controls.Add(PictureBox)
+                ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
+                AddHandler PictureBox.Click, PicClick
+
+                OffsetX += 256
+            Next
+            OffsetY += 256
+        Next
+
+    End Sub
 
 End Class
