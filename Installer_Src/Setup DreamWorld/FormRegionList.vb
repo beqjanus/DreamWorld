@@ -764,8 +764,8 @@ Public Class RegionList
 
         For Each item In regions
             Dim RegionName = item.SubItems(1).Text
-            Dim R = Form1.PropRegionClass.FindRegionByName(RegionName)
-            If R >= 0 Then
+            Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName)
+            If RegionUUID.Length > 0 Then
                 Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
@@ -1302,8 +1302,8 @@ Public Class RegionList
 
                     Dim filename = GetRegionsName(ofd.FileName)
 
-                    Dim i = Form1.PropRegionClass.FindRegionByName(filename)
-                    If i >= 0 Then
+                    Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(filename)
+                    If RegionUUID.Length > 0 Then
                         MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
                         ofd.Dispose()
                         Return
