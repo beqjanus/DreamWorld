@@ -1093,7 +1093,7 @@ Public Class Form1
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Try
-                    If PID >= 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
 #Disable Warning CA1031 ' Do not catch general exception types
                 Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
