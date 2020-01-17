@@ -693,7 +693,7 @@ Public Class Form1
             Dim x = False
 
             While Not x And ctr > 0
-                Sleep(100)
+
                 Try
                     x = NativeMethods.ShowWindow(handle, command)
                     If x Then Return True
@@ -702,6 +702,7 @@ Public Class Form1
 #Enable Warning CA1031 ' Do not catch general exception types
                 End Try
                 ctr -= 1
+                Sleep(100)
             End While
         End If
         Return False
@@ -803,7 +804,7 @@ Public Class Form1
 
         If PropAborting Then Return True
 
-        Dim RegionUUID = Regionclass.FindRegionByName(BootName)
+        Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
         Dim GroupName = Regionclass.GroupName(RegionUUID)
 
         If RegionUUID = "" Then
@@ -1146,7 +1147,7 @@ Public Class Form1
 
     Public Sub CopyOpensimProto(name As String)
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID <> "" Then Opensimproto(RegionUUID)
 
     End Sub
@@ -1973,7 +1974,7 @@ Public Class Form1
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
             GroupName = RegionName ' assume a group
-            Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
             If RegionUUID.Length > 0 Then
                 GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
@@ -3018,7 +3019,7 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & name & "{ENTER}" & vbCrLf)
             ConsoleCommand(RegionUUID, "restart region " & name & "{ENTER}" & vbCrLf)
@@ -3033,7 +3034,7 @@ Public Class Form1
             Return
         End If
         Dim name = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "restart{ENTER}" & vbCrLf)
             PropUpdateView = True ' make form refresh
@@ -3224,14 +3225,10 @@ Public Class Form1
                     End If
 
                     Dim Name = SaveIAR.GAvatarName
-
                     Dim Password = SaveIAR.GPassword
 
-                    Dim flag As Boolean = False
                     For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-                        Dim GName = PropRegionClass.GroupName(RegionUUID)
-                        Dim RNUm = PropRegionClass.FindRegionByName(GName)
-                        If PropRegionClass.IsBooted(RegionUUID) And Not flag Then
+                        If PropRegionClass.IsBooted(RegionUUID) Then
                             ConsoleCommand(RegionUUID, "save iar " _
                                        & Name & " " _
                                        & """" & itemName & """" _
@@ -3239,7 +3236,7 @@ Public Class Form1
                                        & """" & ToBackup & """" _
                                        & "{ENTER}" & vbCrLf
                                       )
-                            flag = True
+                            Exit For
                             Print(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
                         End If
                     Next
@@ -3401,7 +3398,7 @@ Public Class Form1
             Return
         End If
         Dim rname = ChooseRegion(True)
-        Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & rname & "{ENTER}" & vbCrLf)
             ConsoleCommand(RegionUUID, cmd & "{ENTER}" & vbCrLf)
@@ -4140,7 +4137,7 @@ Public Class Form1
 
         CopyOpensimProto(simName)
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(simName)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(simName)
 
         If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
@@ -4894,7 +4891,7 @@ Public Class Form1
         Dim rname = ChooseRegion(True)
         If rname.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            Dim RegionUUID = PropRegionClass.FindRegionByName(rname)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
             If RegionUUID.Length > 0 Then
                 ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
@@ -6051,7 +6048,7 @@ Public Class Form1
 
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
 
-        Dim RegionUUID = PropRegionClass.FindRegionByName(regionname)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(regionname)
         If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then
             Return True
         End If
