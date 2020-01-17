@@ -29,6 +29,7 @@ Public Class FormRegion
 #Region "Declarations"
 
     Dim _RegionUUID As String = ""
+    Dim BoxSize As Integer = 256
     Dim changed As Boolean
     Dim initted As Boolean = False
 
@@ -38,7 +39,6 @@ Public Class FormRegion
 
     Dim oldname As String = ""
     Dim RName As String
-    Dim BoxSize As Integer = 256
 
     Public Sub New()
 
@@ -529,7 +529,6 @@ Public Class FormRegion
 
             Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
-
                 If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
@@ -541,7 +540,7 @@ Public Class FormRegion
                 End While
 
                 If loopctr > 0 Then
-                    Form1.ConsoleCommand("Robust", "deregister region id " + UUID.Text + "{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand("Robust", "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Reion_Removed)
                 End If
             End If
