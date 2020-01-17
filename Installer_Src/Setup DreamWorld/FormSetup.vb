@@ -88,6 +88,7 @@ Public Class Form1
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
+    Private _RobustIsStarting As Boolean = False
     Private _RobustProcID As Integer = 0
     Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
@@ -1596,10 +1597,10 @@ Public Class Form1
 
     Public Sub ShowRegionMap()
 
-        Dim region = ChooseRegion(True)
+        Dim region = ChooseRegion(False)
         If region.Length = 0 Then Return
 
-        VarChooser(region, False)
+        VarChooser(region, False, False)
 
     End Sub
 
@@ -2100,14 +2101,14 @@ Public Class Form1
 
 #Region "Subs"
 
-    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True) As String
+    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionUUID)
         Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
         Dim span = Math.Ceiling(size / 256)
         ' Show Dialog as a modal dialog
-        VarForm.Init(span, RegionUUID)
+        VarForm.Init(span, RegionUUID, Map)
 
         If modal Then
             VarForm.ShowDialog()
@@ -6531,6 +6532,8 @@ Public Class Form1
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
+        ' prevent recursion
+        If _RobustIsStarting Then Return True
         If CheckRobust() Then
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
@@ -6559,6 +6562,8 @@ Public Class Form1
             Return True
         End If
 
+        _RobustIsStarting = True
+
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
         Print(My.Resources.Starting_word & " Robust")
@@ -6580,6 +6585,7 @@ Public Class Form1
             Buttons(StartButton)
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
+            _RobustIsStarting = False
             Return False
         Catch ex As System.ComponentModel.Win32Exception
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
@@ -6588,6 +6594,7 @@ Public Class Form1
             RobustPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
             Buttons(StartButton)
+            _RobustIsStarting = False
             Return False
         End Try
 
@@ -6596,6 +6603,7 @@ Public Class Form1
             RobustPictureBox.Image = My.Resources.error_icon
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
             Log("Error", My.Resources.Robust_failed_to_start)
+            _RobustIsStarting = False
             Return False
         End If
 
@@ -6623,12 +6631,14 @@ Public Class Form1
                 Buttons(StartButton)
                 RobustPictureBox.Image = My.Resources.nav_plain_red
                 ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
+                _RobustIsStarting = False
                 Return False
             End If
             Application.DoEvents()
             Sleep(100)
         End While
 
+        _RobustIsStarting = False
         Log(My.Resources.Info, My.Resources.Robust_running)
         If Settings.ConsoleShow = False Then
             ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
