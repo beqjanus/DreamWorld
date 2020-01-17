@@ -46,8 +46,7 @@ Public Class ClrCache
         If Form1.PropOpensimIsRunning Then
             For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
                 If Form1.PropRegionClass.IsBooted(RegionUUID) Then
-                    Dim Box = Form1.PropRegionClass.GroupName(RegionUUID)
-                    Form1.ConsoleCommand(Box, "fcache clear{ENTER}")
+                    Form1.ConsoleCommand(RegionUUID, "fcache clear{ENTER}")
                 End If
             Next
             Return
@@ -65,7 +64,6 @@ Public Class ClrCache
                 Application.DoEvents()
             Next
         End If
-
 
         folders = Nothing
         Try
@@ -86,8 +84,6 @@ Public Class ClrCache
                 Application.DoEvents()
             Next
         End If
-
-
 
     End Sub
 
