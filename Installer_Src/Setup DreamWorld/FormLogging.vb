@@ -49,20 +49,20 @@
 
         SetScreen()
 
-        Select Case Form1.Settings.LogLevel.ToLowerInvariant
-            Case "off"
+        Select Case Form1.Settings.LogLevel.ToUpperInvariant
+            Case "OFF"
                 RadioOff.Checked = True
-            Case "debug"
+            Case "DEBUG"
                 RadioDebug.Checked = True
-            Case "info"
+            Case "INFO"
                 RadioInfo.Checked = True
-            Case "warn"
+            Case "WARN"
                 RadioWarn.Checked = True
-            Case "error"
+            Case "ERROR"
                 RadioError.Checked = True
-            Case "fatal"
+            Case "FATAL"
                 RadioFatal.Checked = True
-            Case "all"
+            Case "ALL"
                 RadioAll.Checked = True
             Case Else
                 RadioInfo.Checked = True
