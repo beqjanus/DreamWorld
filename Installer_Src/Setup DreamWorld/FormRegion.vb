@@ -602,6 +602,8 @@ Public Class FormRegion
         End If
 
         Form1.PropRegionClass.DeleteRegion(RegionUUID)
+        Form1.PropRegionClass.GetAllRegions()
+
         Form1.PropUpdateView = True
 
         Me.Close()
