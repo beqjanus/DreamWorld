@@ -26,9 +26,20 @@ Imports MySql.Data.MySqlClient
 
 Public Module MysqlInterface
 
+    Private _IsRunning As Boolean = False
+
     Sub New()
         'nothing
     End Sub
+
+    Public Property IsRunning As Boolean
+        Get
+            Return _IsRunning
+        End Get
+        Set(value As Boolean)
+            _IsRunning = value
+        End Set
+    End Property
 
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
@@ -109,9 +120,7 @@ Public Module MysqlInterface
 
     End Sub
 
-    ''' <summary>
-    ''' Returns Estate Name give an Estate UUID
-    ''' </summary>
+    ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>
     Public Function EstateName(UUID As String) As String
@@ -246,12 +255,18 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function IsMySqlRunning() As String
+    Public Function IsMySqlRunning(check As Boolean) As String
+
+        ' dop not waste timer probing a port unless Mysql has been started, or we doin;t care, hence
+        ' the boolean check
+        If Not check And IsRunning() Then Return True
+        If Not IsRunning Then Return False
 
         Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
+            IsRunning() = True
             Return version
         End If
         Return Nothing
