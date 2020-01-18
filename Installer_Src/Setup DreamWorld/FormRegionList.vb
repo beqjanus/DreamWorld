@@ -423,7 +423,7 @@ Public Class RegionList
     Private Sub LoadMyListView()
 
         MysqlIsRunning = False
-        If Form1.CheckMysql Then
+        If Form1.CheckMysql(False) Then
             MysqlIsRunning = True
         End If
         If TheView1 = ViewType.Avatars Then
@@ -437,6 +437,9 @@ Public Class RegionList
     Private Sub ShowRegions()
 
         Try
+            If ViewBusy = True Then
+                Return
+            End If
 
             ViewBusy = True
             ListView1.BeginUpdate()
@@ -455,6 +458,8 @@ Public Class RegionList
             Try
 
                 For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
+
+                    Application.DoEvents()
                     Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
                     ' Breakpoint
                     If RegionName = "Welcome" Then
@@ -715,24 +720,20 @@ Public Class RegionList
                 Next i
 
                 ListView1.EndUpdate()
-                PropUpdateView() = False
-                ViewBusy = False = True
 
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
-                'Form1.PropRegionClass.GetAllRegions()
-                PropUpdateView() = False
             End Try
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
-
-            PropUpdateView() = False
         End Try
 
+        PropUpdateView() = False
+        ViewBusy = False
         ListView1.Show()
         AvatarView.Hide()
 
