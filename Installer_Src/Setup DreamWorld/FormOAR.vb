@@ -8,13 +8,76 @@ Public Class FormOAR
 
     Public Class JSONresult
 
-        Public [Date] As String
-        Public Cache As Image
-        Public license As String
-        Public name As String
-        Public photo As String
-        Public size As String
-        Public str As String
+        Private _cache As Image
+        Private _date As String
+        Private _license As String
+        Private _name As String
+        Private _photo As String
+        Private _size As String
+        Private _str As String
+
+        Public Property [Date] As String
+            Get
+                Return _date
+            End Get
+            Set(value As String)
+                _date = value
+            End Set
+        End Property
+
+        Public Property Cache As Image
+            Get
+                Return _cache
+            End Get
+            Set(value As Image)
+                _cache = value
+            End Set
+        End Property
+
+        Public Property License As String
+            Get
+                Return _license
+            End Get
+            Set(value As String)
+                _license = value
+            End Set
+        End Property
+
+        Public Property Name As String
+            Get
+                Return _name
+            End Get
+            Set(value As String)
+                _name = value
+            End Set
+        End Property
+
+        Public Property Photo As String
+            Get
+                Return _photo
+            End Get
+            Set(value As String)
+                _photo = value
+            End Set
+        End Property
+
+        Public Property Size As String
+            Get
+                Return _size
+            End Get
+            Set(value As String)
+                _size = value
+            End Set
+        End Property
+
+        Public Property Str As String
+            Get
+                Return _str
+            End Get
+            Set(value As String)
+                _str = value
+            End Set
+        End Property
 
     End Class
 
@@ -95,7 +158,7 @@ Public Class FormOAR
 
             For Each item In json
                 Application.DoEvents()
-                Debug.Print("Item:" & item.name)
+                Debug.Print("Item:" & item.Name)
 
                 If column = 0 Then DataGridView.Rows.Add()
                 Save(item, rowcounter, column)
@@ -127,7 +190,7 @@ Public Class FormOAR
     Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
 
         Try
-            Dim File As String = json(e.ColumnIndex + (NumColumns * e.RowIndex)).name
+            Dim File As String = json(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
             File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
@@ -195,7 +258,7 @@ Public Class FormOAR
         Try
             If item.Cache.Width > 0 Then
                 DataGridView.Rows(row).Cells(col).Value = item.Cache
-                DataGridView.Rows(row).Cells(col).ToolTipText = item.str
+                DataGridView.Rows(row).Cells(col).ToolTipText = item.Str
             Else
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
@@ -386,7 +449,7 @@ Public Class FormOAR
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
 
-            gr.DrawString(item.name, drawFont, Brushes.Black, 30, 100)
+            gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
         Catch ex As Exception
             Dim bp = 1
         End Try
@@ -401,7 +464,7 @@ Public Class FormOAR
 
             For Each item In json
                 Application.DoEvents()
-                Debug.Print("Item:" & item.name)
+                Debug.Print("Item:" & item.Name)
 
                 Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
                 If item.Cache IsNot Nothing Then
@@ -410,9 +473,9 @@ Public Class FormOAR
                     End Using
                 Else
                     Dim img As Image = Nothing
-                    If item.photo.Length > 0 Then
+                    If item.Photo.Length > 0 Then
                         Try
-                            Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.photo)
+                            Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
                             img = GetImageFromURL(link)
                         Catch ex As Exception
 
@@ -435,8 +498,8 @@ Public Class FormOAR
                 End If
                 item.Cache = bmp
 
-                item.size = Format(item.size / (1024 * 1024), "###0.00")
-                item.str = item.name & vbCrLf & item.size & "MB" & vbCrLf & item.license
+                item.Size = Format(item.Size / (1024 * 1024), "###0.00")
+                item.Str = item.Name & vbCrLf & item.Size & "MB" & vbCrLf & item.License
 
             Next
         End If
