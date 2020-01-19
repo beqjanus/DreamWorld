@@ -180,15 +180,13 @@ Public Class FormDisplacement
 
         'Return photo
         Dim bmp = photo
-        Dim drawFont As Font = New Font("Arial", 12)
-        Dim newImage = New Bitmap(256, 256)
-        Dim gr As Graphics
-        Try
-            gr = Graphics.FromImage(newImage)
-            gr.DrawImageUnscaled(bmp, 0, 0)
-            gr.DrawString(item, drawFont, Brushes.White, 10, 20)
-        Catch ex As Exception
-        End Try
+        Dim newImage As New Bitmap(256, 256)
+        Using drawFont As Font = New Font("Arial", 12)
+            Using gr As Graphics = Graphics.FromImage(newImage)
+                gr.DrawImageUnscaled(bmp, 0, 0)
+                gr.DrawString(item, drawFont, Brushes.White, 10, 20)
+            End Using
+        End Using
 
         Return newImage
     End Function
