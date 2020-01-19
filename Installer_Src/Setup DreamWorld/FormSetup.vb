@@ -2684,11 +2684,6 @@ Public Class Form1
             Sleep(100)
         End While
 
-        ' one last check - they may have aborted
-        If Not PropOpensimIsRunning Then
-            _RobustIsStarting = False
-            Return False
-        End If
 
         _RobustIsStarting = False
         Log(My.Resources.Info, My.Resources.Robust_running)
@@ -2757,17 +2752,16 @@ Public Class Form1
             End If
         End If
 
+        GridNames.SetServerNames()
+
+        Print("DNS")
         If SetPublicIP() Then
             OpenPorts()
         End If
 
         Print(My.Resources.Reading_Region_files)
 
-        If SetIniData() Then
-            Buttons(StartButton)
-            Print(My.Resources.Stopped_word)
-            Return   ' set up the INI files
-        End If
+
 
         If Not StartMySQL() Then
             ToolBar(False)
@@ -4992,10 +4986,6 @@ Public Class Form1
 
         CheckDefaultPorts()
         PropMyUPnpMap = New UPnp()
-
-        If SetPublicIP() Then
-            OpenPorts()
-        End If
 
         SetQuickEditOff()
 
