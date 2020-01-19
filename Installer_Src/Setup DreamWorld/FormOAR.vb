@@ -228,8 +228,6 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
-        Catch ex As Exception
-            Form1.Log("Warn", ex.Message)
         End Try
 
         Return Nothing
@@ -448,7 +446,6 @@ Public Class FormOAR
         Try
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
-
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
         Catch ex As Exception
             Dim bp = 1
@@ -474,16 +471,11 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Try
-                            Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
-                            img = GetImageFromURL(link)
-                        Catch ex As Exception
-
-                        End Try
+                        Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
+                        img = GetImageFromURL(link)
                     End If
 
                     If img Is Nothing Then
-
                         img = NoImage(item)
                     End If
 
