@@ -1,6 +1,6 @@
 ﻿#Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -45,7 +45,7 @@ Public Class UploadImage
     Public Sub PostContentUploadFile()
 
         Try
-            Dim URL = New Uri("https://www.outworldz.com/cgi/uploadphoto.plx")
+            Dim URL = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
 
             Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
             Dim params As New Specialized.NameValueCollection From {

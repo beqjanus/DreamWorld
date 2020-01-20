@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for Outworldz.com https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -63,7 +63,7 @@ Public Class Form1
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
     Private _DNSSTimer As Integer = 0
-    Private _Domain As String = "http://www.outworldz.com"
+    Private _Domain As String = "http://outworldz.com"
     Private _ExitHandlerIsBusy As Boolean = False
     Private _exitList As New ArrayList()
     Private _ForceMerge As Boolean = False
@@ -5200,7 +5200,7 @@ Public Class Form1
     Private Sub IarClick(sender As Object, e As EventArgs)
 
         If sender.text.ToString() = "Web Download Link" Then
-            Dim webAddress As String = "https://www.outworldz.com/outworldz_installer/IAR"
+            Dim webAddress As String = "https://outworldz.com/outworldz_installer/IAR"
             Try
                 Process.Start(webAddress)
             Catch ex As InvalidOperationException
@@ -5875,7 +5875,7 @@ Public Class Form1
     Private Sub OarClick(sender As Object, e As EventArgs)
 
         If sender.text.ToString() = "Web Download Link" Then
-            Dim webAddress As String = "https://www.outworldz.com/outworldz_installer/OAR"
+            Dim webAddress As String = "https://outworldz.com/outworldz_installer/OAR"
             Try
                 Process.Start(webAddress)
             Catch ex As InvalidOperationException
@@ -5961,7 +5961,7 @@ Public Class Form1
 
             ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
             ' anonymous random ID, both of the versions of Opensim and this program, and the
-            ' diagnostics test results See my privacy policy at https://www.outworldz.com/privacy.htm
+            ' diagnostics test results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
@@ -6003,8 +6003,8 @@ Public Class Form1
     Private Sub RegionListHTML()
 
         'http://localhost:8002/bin/data/teleports.htm
-        'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
+        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
+        '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
         Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
@@ -6904,7 +6904,7 @@ Public Class Form1
     End Sub
 
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/technical.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException

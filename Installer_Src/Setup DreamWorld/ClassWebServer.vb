@@ -1,6 +1,6 @@
 ﻿#Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -165,8 +165,8 @@ Public Class NetServer
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
         'to http://localhost:8001/teleports.htm
-        'Outworldz|Welcome||www.outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||www.outworldz.com9000Welcome|128,128,96|
+        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
+        '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
         HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf

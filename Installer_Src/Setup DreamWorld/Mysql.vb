@@ -1,6 +1,6 @@
 ﻿#Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -211,7 +211,7 @@ Public Module MysqlInterface
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         ' griduse table column UserID
-        '6f285c43-e656-42d9-b0e9-a78684fee15c;http://www.Outworldz.com:9000/;Ferd Frederix
+        '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
 
         Dim UserStmt = "SELECT UserID, LastRegionID from GridUser where online = 'true'"

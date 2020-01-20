@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for outworldz.com+ https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,

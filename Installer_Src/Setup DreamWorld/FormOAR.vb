@@ -228,6 +228,7 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
+        Catch
         End Try
 
         Return Nothing
@@ -471,7 +472,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As Uri = New Uri("https://www.outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As Uri = New Uri("https://outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
                         img = GetImageFromURL(link)
                     End If
 

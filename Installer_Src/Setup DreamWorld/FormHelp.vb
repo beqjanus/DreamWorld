@@ -1,6 +1,6 @@
 ﻿#Region "Copyright"
 
-' Copyright 2014 Fred Beckhusen for www.Outworldz.com https://opensource.org/licenses/AGPL
+' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -70,7 +70,7 @@ Public Class FormHelp
 #Region "Private Methods"
 
     Private Sub DatabaseHelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseHelpToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Rebuilding_from_a_blank_database.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Rebuilding_from_a_blank_database.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -80,7 +80,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub DreamgridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DreamgridToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -94,7 +94,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub HomeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HomeToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com"
+        Dim webAddress As String = "https://outworldz.com"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -104,7 +104,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub LoopbackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopbackToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Loopback.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Loopback.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -114,7 +114,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub PortsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortsToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/PortForwarding.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -165,7 +165,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub StepbyStepInstallationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StepbyStepInstallationToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Startup.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Startup.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -175,7 +175,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/technical.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
@@ -185,7 +185,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
-        Dim webAddress As String = "https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
+        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException
