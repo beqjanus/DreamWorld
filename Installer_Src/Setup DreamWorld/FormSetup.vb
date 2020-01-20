@@ -36,11 +36,23 @@ Public Class Form1
 
 #Region "Version"
 
+    Private _MyVersion As String = "3.31"
+    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
+
+#End Region
+
+#Region "Fields"
+
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private WithEvents UpdateProcess As New Process()
+
+#End Region
+
+#Region "Private Fields"
+
     Private _ApacheCrashCounter As Integer = 0
     Private _ApacheExited As Integer = 0
     Private _ApacheProcessID As Integer = 0
@@ -70,7 +82,7 @@ Public Class Form1
     Private _MysqlCrashCounter As Integer = 0
     Private _MysqlExited As Integer = 0
     Private _myUPnpMap As UPnp
-    Private _MyVersion As String = "3.31"
+
     Private _OpensimBinPath As String
     Private _PropAborting As Boolean = False
     Private _regionClass As RegionMaker
@@ -86,12 +98,6 @@ Public Class Form1
     Private _RobustProcID As Integer = 0
     Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
-    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
-
-#End Region
-
-#Region "Private"
-
     Private _speed As Double = 50
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
@@ -2148,10 +2154,6 @@ Public Class Form1
 
     End Sub
 
-#End Region
-
-#Region "Logging"
-
     Public Function StartApache() As Boolean
 
         If Settings.SearchEnabled Then
@@ -2684,7 +2686,6 @@ Public Class Form1
             Sleep(100)
         End While
 
-
         _RobustIsStarting = False
         Log(My.Resources.Info, My.Resources.Robust_running)
         If Settings.ConsoleShow = False Then
@@ -2760,8 +2761,6 @@ Public Class Form1
         End If
 
         Print(My.Resources.Reading_Region_files)
-
-
 
         If Not StartMySQL() Then
             ToolBar(False)
@@ -3043,6 +3042,10 @@ Public Class Form1
         Return PID
 
     End Function
+
+#End Region
+
+#Region "Private Methods"
 
     Private Sub AddLog(name As String)
         Dim LogMenu As New ToolStripMenuItem With {
@@ -5691,10 +5694,6 @@ Public Class Form1
         Viewlog(name)
     End Sub
 
-#End Region
-
-#Region "Set Log Level"
-
     Private Sub LoopBackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopBackToolStripMenuItem.Click
 
         Help("Loopback Fixes")
@@ -7139,124 +7138,12 @@ Public Class Form1
         SendMsg("warn")
     End Sub
 
-#End Region
-
-#Region "Publicity"
-
-#End Region
-
-#Region "Exit Handlers"
-
-#End Region
-
-#Region "Subs"
-
-#End Region
-
-#Region "Functions"
-
-#End Region
-
-#Region "Backup"
-
-#End Region
-
-#Region "Charting"
-
-#End Region
-
-#Region "Diagnostics"
-
-#End Region
-
-#Region "Resize"
-
-#End Region
-
-#Region "Languages"
-
-#End Region
-
-#Region "Icecast"
-
-#End Region
-
-#Region "Booting"
-
-#End Region
-
-#Region "Mysql"
-
-#End Region
-
-#Region "Robust"
-
-#End Region
-
-#Region "Console Hide/Show"
-
-#End Region
-
-#Region "DNS"
-
-#End Region
-
-#Region "OAR"
-
-#End Region
-
-#Region "Ports"
-
-#End Region
-
-#Region "Toolstrip"
-
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
             ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
             Application.DoEvents()
         Next
     End Sub
-
-#End Region
-
-#Region "Snapshot"
-
-#End Region
-
-#Region "Do INI"
-
-#End Region
-
-#Region "Help"
-
-#End Region
-
-#Region "StartStop"
-
-#Region "Apache"
-
-#End Region
-
-#Region "Icecast"
-
-#End Region
-
-#Region "MySQL"
-
-#End Region
-
-#Region "StartOpensim"
-
-#End Region
-
-#Region "Startup"
-
-#End Region
-
-#End Region
-
-#Region "Kill"
 
     ''' <summary>Kill processes by name</summary>
     ''' <param name="processName"></param>
@@ -7276,14 +7163,6 @@ Public Class Form1
         Next
 
     End Sub
-
-#End Region
-
-#Region "Timer"
-
-#End Region
-
-#Region "IAR"
 
 #End Region
 
