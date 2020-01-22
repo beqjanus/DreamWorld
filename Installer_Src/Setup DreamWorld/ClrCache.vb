@@ -44,7 +44,7 @@ Public Class ClrCache
     Public Shared Sub WipeAssets()
 
         If Form1.PropOpensimIsRunning Then
-            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
                 If Form1.PropRegionClass.IsBooted(RegionUUID) Then
                     Form1.ConsoleCommand(RegionUUID, "fcache clear{ENTER}")
                 End If
@@ -58,9 +58,12 @@ Public Class ClrCache
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Try
+                    FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Catch
+                End Try
                 ctr += 1
-                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
                 Application.DoEvents()
             Next
         End If
@@ -78,9 +81,12 @@ Public Class ClrCache
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                FileStuff.DeleteFile(folder)
+                Try
+                    FileStuff.DeleteFile(folder)
+                Catch
+                End Try
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
                 Application.DoEvents()
             Next
         End If
@@ -90,7 +96,10 @@ Public Class ClrCache
     Public Shared Sub WipeBakes()
 
         Form1.Print(My.Resources.Clearing_Bake_Cache_word)
-        FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Try
+            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Catch
+        End Try
 
     End Sub
 
@@ -110,9 +119,12 @@ Public Class ClrCache
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                FileStuff.DeleteFile(folder)
+                Try
+                    FileStuff.DeleteFile(folder)
+                Catch
+                End Try
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr))
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
                 Application.DoEvents()
             Next
         End If
@@ -136,7 +148,12 @@ Public Class ClrCache
         If folders IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each folder As String In folders
-                FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Try
+                    FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Catch
+                End Try
+
+
             Next
         End If
 
@@ -144,25 +161,29 @@ Public Class ClrCache
 
     Public Shared Sub WipeScripts()
 
-        If Not Form1.PropOpensimIsRunning() Then
-            Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
-            If folders IsNot Nothing Then
-                Form1.Print(My.Resources.Clearing_Script)
-                Dim ctr As Integer = 0
-                For Each script As String In folders
-                    Dim ext = Path.GetExtension(script)
-                    If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
-                        FileStuff.DeleteFile(script)
-                        ctr += 1
-                        If ctr Mod 100 = 0 Then
-                            Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+        Try
+            If Not Form1.PropOpensimIsRunning() Then
+                Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+                If folders IsNot Nothing Then
+                    Form1.Print(My.Resources.Clearing_Script)
+                    Dim ctr As Integer = 0
+                    For Each script As String In folders
+                        Dim ext = Path.GetExtension(script)
+                        If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
+                            FileStuff.DeleteFile(script)
+                            ctr += 1
+                            If ctr Mod 100 = 0 Then
+                                Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+                            End If
+                            Application.DoEvents()
                         End If
-                        Application.DoEvents()
-                    End If
-                Next
-            End If
+                    Next
+                End If
 
-        End If
+            End If
+        Catch
+        End Try
+
 
     End Sub
 

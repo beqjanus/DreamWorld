@@ -214,9 +214,9 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each Z As Integer In Form1.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
-            Dim RegionName = Form1.PropRegionClass.RegionName(Z)
+            Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
