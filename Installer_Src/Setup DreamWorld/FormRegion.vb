@@ -33,8 +33,7 @@ Public Class FormRegion
     Dim changed As Boolean
     Dim initted As Boolean = False
 
-    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save
-    ' a form
+    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
     Dim isNew As Boolean = False
 
     Dim oldname As String = ""
@@ -887,18 +886,18 @@ Public Class FormRegion
         End If
 
         ' global coords
-        If Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
+        If Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
             Message = My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message
-        ElseIf Convert.ToInt16("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
+        ElseIf Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = My.Resources.Region_Coordinate_X_is_too_large
             Return Message
         End If
 
-        If Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
+        If Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
             Message = My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
-        ElseIf Convert.ToInt16("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
+        ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If
@@ -1342,14 +1341,6 @@ Public Class FormRegion
         Oldname1 = RegionName.Text
 
     End Sub
-
-#End Region
-
-#Region "Changed"
-
-#End Region
-
-#Region "MoreExtras"
 
 #End Region
 

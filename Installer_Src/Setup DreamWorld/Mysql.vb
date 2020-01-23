@@ -255,21 +255,16 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function IsMySqlRunning(check As Boolean) As String
-
-        ' dop not waste timer probing a port unless Mysql has been started, or we doin;t care, hence
-        ' the boolean check
-        If Not check And IsRunning() Then Return True
-        If Not IsRunning Then Return False
+    Public Function IsMySqlRunning() As Boolean
 
         Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
             IsRunning() = True
-            Return version
+            Return True
         End If
-        Return Nothing
+        Return False
 
     End Function
 

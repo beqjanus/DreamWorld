@@ -55,6 +55,8 @@ Public Class TosForm
 
 #End Region
 
+
+
 #Region "Private Methods"
 
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
@@ -87,20 +89,6 @@ Public Class TosForm
             End Try
         Else
             MsgBox(My.Resources.Not_Running)
-        End If
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
-        Dim response = MsgBox("Clicking Yes will force all users to re-agree to the TOS on next login or visit.", vbYesNo)
-        If response = vbYes Then
-
-            If MysqlInterface.IsMySqlRunning(False) Is Nothing Then
-                MsgBox("MySql is not running, so I cannot save the re-validate data. Start Opensim or Mysql and try again.")
-            Else
-                MysqlInterface.QueryString("update opensim.griduser set TOS = '';")
-            End If
         End If
 
     End Sub

@@ -20,7 +20,6 @@
 
 #End Region
 
-
 Imports System.IO
 
 Imports System.Text.RegularExpressions
@@ -118,9 +117,7 @@ Public Class RegionMaker
 
 #Region "Subs"
 
-    ''' <summary>
-    ''' Self setting Region Ports Iterate over all regions and set the ports from the starting value
-    ''' </summary>
+    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Shared Sub UpdateAllRegionPorts()
 
         Form1.Print(My.Resources.Updating_Ports_word)
@@ -156,8 +153,7 @@ Public Class RegionMaker
             Try
                 Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
 
-                ' This search returns the substring between two strings, so the first index Is moved
-                ' to the character just after the first string.
+                ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
@@ -174,11 +170,8 @@ Public Class RegionMaker
                     Return
                 End Try
 
-                ' rawJSON
-                ' "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
-                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}"
-                ' String rawJSON
+                ' rawJSON "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
+                ' "{""alert"":""region_ready"",""login"":""enabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
                 ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
@@ -667,6 +660,8 @@ Public Class RegionMaker
     ' hold a copy of the Main region data on a per-form basis
     Private Class Region_data
 
+#Region "Public Fields"
+
         Public _AvatarCount As Integer = 0
         Public _ClampPrimSize As Boolean = False
         Public _CoordX As Integer = 1000
@@ -687,6 +682,8 @@ Public Class RegionMaker
         Public _Status As Integer = 0
         Public _Timer As Integer = 0
         Public _UUID As String = ""
+
+#End Region
 
 #End Region
 
@@ -789,6 +786,8 @@ Public Class RegionMaker
         Get
             If RegionUUID Is Nothing Then Return "100"
             If Bad(RegionUUID) Then Return "100"
+            If RegionList(RegionUUID)._MaxAgents = "" Then RegionList(RegionUUID)._MaxAgents = 100
+
             Return RegionList(RegionUUID)._MaxAgents
         End Get
         Set(ByVal Value As String)
@@ -802,6 +801,7 @@ Public Class RegionMaker
         Get
             If RegionUUID Is Nothing Then Return "45000"
             If Bad(RegionUUID) Then Return "45000"
+            If RegionList(RegionUUID)._MaxPrims = "" Then RegionList(RegionUUID)._MaxPrims = 45000
             Return RegionList(RegionUUID)._MaxPrims
         End Get
         Set(ByVal Value As String)
@@ -1453,8 +1453,7 @@ Public Class RegionMaker
 
         If Settings Is Nothing Then Return "<html><head></head><body>Error</html>"
         If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
-        ' set Region.Booted to true if the POST from the region indicates it is online requires a
-        ' section in Opensim.ini where [RegionReady] has this:
+        ' set Region.Booted to true if the POST from the region indicates it is online requires a section in Opensim.ini where [RegionReady] has this:
 
         '[RegionReady]
 
@@ -1565,8 +1564,7 @@ Public Class RegionMaker
 
                 If match.Success And match2.Success Then
 
-                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the
-                    ' Diva DLL Diva is stubbed off.
+                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
                     Dim myConnection As MySqlConnection = New MySqlConnection(Form1.Settings.RobustMysqlConnection)

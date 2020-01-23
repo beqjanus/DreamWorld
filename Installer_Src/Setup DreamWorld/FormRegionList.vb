@@ -33,7 +33,7 @@ Public Class RegionList
     Private colsize = New ScreenPos(MyBase.Name & "ColumnSize")
     Private initted = False
     Private ItemsAreChecked As Boolean = False
-    Private MysqlIsRunning As Boolean = False
+
     Private pixels As Integer = 70
     Private TheView As Integer = ViewType.Details
     Private Timertick As Integer = 0
@@ -100,15 +100,6 @@ Public Class RegionList
         End Get
         Set(value As Boolean)
             ItemsAreChecked = value
-        End Set
-    End Property
-
-    Public Property MysqlIsRunning1 As Boolean
-        Get
-            Return MysqlIsRunning
-        End Get
-        Set(value As Boolean)
-            MysqlIsRunning = value
         End Set
     End Property
 
@@ -235,6 +226,8 @@ Public Class RegionList
     End Sub
 
 #End Region
+
+
 
 #Region "Public Enums"
 
@@ -390,11 +383,9 @@ Public Class RegionList
         ViewBusy = False
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
-
         SetScreen(TheView1)
-
         initted = True
-
+        Application.DoEvents()
     End Sub
 
     Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
@@ -410,6 +401,10 @@ Public Class RegionList
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
         If PropUpdateView() Or Timertick1 Mod 480 = 0 Then ' force a refresh
+            If ViewBusy = True Then
+                PropUpdateView = False
+                Return
+            End If
             LoadMyListView()
         End If
         Timertick1 += 1
@@ -422,10 +417,6 @@ Public Class RegionList
 
     Private Sub LoadMyListView()
 
-        MysqlIsRunning = False
-        If Form1.CheckMysql(False) Then
-            MysqlIsRunning = True
-        End If
         If TheView1 = ViewType.Avatars Then
             ShowAvatars()
         Else
@@ -459,12 +450,7 @@ Public Class RegionList
 
                 For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
-                    Application.DoEvents()
                     Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
-                    ' Breakpoint
-                    If RegionName = "Welcome" Then
-                        Dim a = 1
-                    End If
 
                     Dim Letter As String = ""
                     If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped _
@@ -567,9 +553,7 @@ Public Class RegionList
                         'If Form1.PropRegionHandles.ContainsKey(PID) Then
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                         item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-                        'Else
-                        'item1.SubItems.Add("0".ToUpperInvariant)
-                        'End If
+
 #Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
@@ -589,7 +573,7 @@ Public Class RegionList
 
                     ' add estate name
                     Dim Estate = "-".ToUpperInvariant
-                    If MysqlIsRunning Then
+                    If MysqlInterface.IsRunning() Then
                         Estate = MysqlInterface.EstateName(Form1.PropRegionClass.UUID(RegionUUID))
                     End If
                     item1.SubItems.Add(Estate)
@@ -750,11 +734,12 @@ Public Class RegionList
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
+        RegionForm.BringToFront()
         RegionForm.Init("")
         RegionForm.Activate()
+        Application.DoEvents()
         RegionForm.Visible = True
         RegionForm.Select()
-        RegionForm.BringToFront()
 
     End Sub
 
@@ -782,7 +767,6 @@ Public Class RegionList
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        ' Form1.PropRegionClass.GetAllRegions()
         LoadMyListView()
 
     End Sub
@@ -793,8 +777,7 @@ Public Class RegionList
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this
-        ' property immediately sorts the ListView using the ListViewItemComparer object.
+        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
         Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
 
         ListView1.ResumeLayout()
@@ -814,6 +797,7 @@ Public Class RegionList
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
+                Application.DoEvents()
             End If
         Next
 
@@ -867,7 +851,7 @@ Public Class RegionList
             ' Create items and subitems for each item.
             Dim L As New Dictionary(Of String, String)
 
-            If MysqlIsRunning1 Then
+            If MysqlInterface.IsMySqlRunning() Then
                 L = MysqlInterface.GetAgentList()
             End If
             If Debugger.IsAttached Then
@@ -896,7 +880,7 @@ Public Class RegionList
             '
             ' Create items and subitems for each item.
             Dim M As New Dictionary(Of String, String)
-            If MysqlIsRunning1 Then
+            If MysqlInterface.IsMySqlRunning() Then
                 M = GetHGAgentList()
             End If
             If Debugger.IsAttached Then
@@ -937,6 +921,8 @@ Public Class RegionList
 
 #End Region
 
+
+
 #Region "Private Methods"
 
     Private Shared Function LoadImage(S As String) As Image
@@ -969,9 +955,8 @@ Public Class RegionList
         Dim Choices As New FormRegionPopup
         Dim chosen As String = ""
         Choices.Init(RegionName)
-        Choices.ShowDialog()
-        Choices.Activate()
         Choices.BringToFront()
+        Choices.ShowDialog()
 
         ' Read the chosen sim name
         chosen = Choices.Choice()
@@ -1046,11 +1031,11 @@ Public Class RegionList
         ElseIf chosen = "Edit" Then
 
             Dim RegionForm As New FormRegion
+            RegionForm.BringToFront()
             RegionForm.Init(RegionName)
             RegionForm.Activate()
             RegionForm.Visible = True
             RegionForm.Select()
-            RegionForm.BringToFront()
 
         ElseIf chosen = "Recycle" Then
 
@@ -1179,7 +1164,7 @@ Public Class RegionList
         ' Show testDialog as a modal dialog and determine if DialogResult = OK.
 
         Chooseform.FillGrid("Group")
-
+        Chooseform.BringToFront()
         Dim chosen As String
         Chooseform.ShowDialog()
         Try
@@ -1391,6 +1376,8 @@ Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
 
+
+
 #Region "Private Fields"
 
     Private col As Integer
@@ -1410,6 +1397,8 @@ Class ListViewItemComparer
     End Sub
 
 #End Region
+
+
 
 #Region "Public Methods"
 
