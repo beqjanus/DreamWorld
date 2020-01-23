@@ -4748,26 +4748,23 @@ Public Class Form1
                         For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
                             PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                             PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                            Application.DoEvents()
                         Next
                     Else
                         ' shut down all regions in the DOS box
                         For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
                             PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                             PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                            Application.DoEvents()
                         Next
                     End If
                     PropUpdateView = True ' make form refresh
                 End If
             End If
-            Application.DoEvents()
+
         Next
 
         Application.DoEvents()
 
         ' now look at the exit stack
-
         If PropExitList.Count = 0 Then Return
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
@@ -4779,11 +4776,21 @@ Public Class Form1
             Catch ex As Exception
             End Try
 
-            'For groups we need to get a region name from the group            
+            Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we
+            ' need to get a region name from the group
+            GroupName = RegionName ' assume a group
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-            GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
 
-            Dim RegionList = PropRegionClass.RegionUUIDListByName(GroupName)
+            If RegionUUID.Length > 0 Then
+                GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
+            Else
+                ' Nope, grab the first region, Group name is already set
+                RegionUUID = RegionList(0)
+
+            End If
+            RegionList = PropRegionClass.RegionUUIDListByName(GroupName)
+            If GroupName.Length = 0 Then Continue While ' may have been deleted
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
                 ' already stoppped, from exit event or JSON via Region Ready module
@@ -4798,9 +4805,30 @@ Public Class Form1
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
                 For Each UUID In RegionList
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    Application.DoEvents()
                 Next
                 PropUpdateView = True ' make form refresh
+                Continue While
+            End If
+
+            ' if a resume is signaled, unsuspend it
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+                PropUpdateView = True
+                Continue While
+            End If
+
+            ' if a RestartPending is signaled, boot it up
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
+                PropUpdateView = True
+                Continue While
+            End If
+
+            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                PropUpdateView = True
+                Continue While
             End If
 
             ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
@@ -4816,7 +4844,6 @@ Public Class Form1
                     For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
                         PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                        Application.DoEvents()
                     Next
                     PropUpdateView = True
                 Else
@@ -4833,27 +4860,6 @@ Public Class Form1
                     PropUpdateView = True
                 End If
             End If
-
-            ' if a resume is signaled, unsuspend it
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                PropUpdateView = True
-            End If
-
-            ' if a RestartPending is signaled, boot it up
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
-                PropUpdateView = True
-                Application.DoEvents()
-            End If
-
-            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                PropUpdateView = True
-            End If
-
-            Application.DoEvents()
 
         End While
 
