@@ -20,6 +20,8 @@
 
 #End Region
 
+'Option Strict On
+
 Imports System.IO
 Imports System.Management
 Imports System.Net
@@ -54,7 +56,7 @@ Public Class Form1
 #Region "Private Fields"
 
     Private _ApacheCrashCounter As Integer = 0
-    Private _ApacheExited As Integer = 0
+    Private _ApacheExited As Boolean = False
     Private _ApacheProcessID As Integer = 0
     Private _ApacheUninstalling As Boolean = False
     Private _ContentIAR As FormOAR
@@ -70,7 +72,7 @@ Public Class Form1
     Private _ForceParcel As Boolean = False
     Private _ForceTerrain As Boolean = True
     Private _IcecastCrashCounter As Integer = 0
-    Private _IceCastExited As Integer = 0
+    Private _IceCastExited As Boolean = False
     Private _IcecastProcID As Integer = 0
     Private _Initted As Boolean = False
     Private _IPv4Address As String
@@ -80,7 +82,7 @@ Public Class Form1
     Private _myFolder As String
     Private _mySetting As New MySettings
     Private _MysqlCrashCounter As Integer = 0
-    Private _MysqlExited As Integer = 0
+    Private _MysqlExited As Boolean = False
     Private _myUPnpMap As UPnp
 
     Private _OpensimBinPath As String
@@ -88,8 +90,8 @@ Public Class Form1
     Private _regionClass As RegionMaker
     Private _regionForm As RegionList
     Private _regionHandles As New Dictionary(Of Integer, String)
-    Private _RestartApache As Integer = 0
-    Private _RestartMysql As Integer = 0
+    Private _RestartApache As Boolean = False
+    Private _RestartMysql As Boolean = False
     Private _RestartNow As Boolean = False
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
@@ -961,14 +963,15 @@ Public Class Form1
 
     End Function
 
-    Public Sub Buttons(button As System.Object)
+    Public Sub Buttons(b As Button)
 
+        If b Is Nothing Then Return
         ' Turns off all 3 stacked buttons, then enables one of them
         BusyButton.Visible = False
         StopButton.Visible = False
         StartButton.Visible = False
 
-        button.Visible = True
+        b.Visible = True
 
     End Sub
 
@@ -1152,7 +1155,7 @@ Public Class Form1
     Public Sub CopyOpensimProto(name As String)
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID <> "" Then Opensimproto(RegionUUID)
+        If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
 
     End Sub
 
@@ -1724,7 +1727,7 @@ Public Class Form1
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
             End If
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
-            Print(My.Resources.Grid_TCP_is_set * ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
+            Print(My.Resources.Grid_TCP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
 
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP) Then
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP)
@@ -1885,7 +1888,7 @@ Public Class Form1
 
     End Function
 
-    Public Function SaveIceCast()
+    Public Function SaveIceCast() As Boolean
 
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
         Dim name As String = rgx.Replace(Settings.SimName, "")
@@ -1939,6 +1942,7 @@ Public Class Form1
         Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Icecast\icecast_run.xml", False)
             outputFile.WriteLine(icecast)
         End Using
+
         Return False
 
     End Function
@@ -3010,7 +3014,7 @@ Public Class Form1
 
     Public Function WaitForPID(myProcess As Process) As Integer
 
-        If myProcess Is Nothing Then Return False
+        If myProcess Is Nothing Then Return 0
 
         Dim PID As Integer = 0
         Dim TooMany As Integer = 0
@@ -3226,20 +3230,20 @@ Public Class Form1
 
     End Sub
 
-    Private Sub BackupIarClick(sender As Object, e As EventArgs)
+    Private Sub BackupIarClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text 'make a real URL
+        Dim File As String = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.Text 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.Text & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
 
-    Private Sub BackupOarClick(sender As Object, e As EventArgs)
+    Private Sub BackupOarClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.text 'make a real URL
+        Dim File = PropMyFolder & "/OutworldzFiles/AutoBackup/" & sender.Text 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.text & ".  " & My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & sender.Text & ".  " & My.Resources.Take_time)
         End If
 
     End Sub
@@ -3358,7 +3362,7 @@ Public Class Form1
 
         Try
             For Each result In results
-                Dim value = ((result("TotalVisibleMemorySize") - result("FreePhysicalMemory")) / result("TotalVisibleMemorySize")) * 100
+                Dim value = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
 
                 Dim j = 180
                 While j >= 0
@@ -3656,13 +3660,13 @@ Public Class Form1
 
     End Sub
 
-    Private Function DoApache()
+    Private Function DoApache() As Boolean
 
         If Not Settings.ApacheEnable Then Return False
 
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
-        If Settings.LoadLiteralIni(ini) Then Return True
+        Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
@@ -3689,7 +3693,7 @@ Public Class Form1
 
         ' lean rightward paths for Apache
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
-        If Settings.LoadLiteralIni(ini) Then Return True
+        Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
@@ -3700,6 +3704,8 @@ Public Class Form1
     End Function
 
     Private Function DoBirds() As Boolean
+
+        If Not Settings.BirdsModuleStartup Then Return False
 
         Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
         Try
@@ -3795,14 +3801,14 @@ Public Class Form1
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";") Then Return True
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
-        Settings.SetIni("AssetCache", "FileCacheEnabled", Settings.CacheEnabled)
+        Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
         Settings.SaveINI(System.Text.Encoding.ASCII)
         Return False
 
     End Function
 
-    Private Function DoGridCommon()
+    Private Function DoGridCommon() As Boolean
 
         'Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
@@ -4041,7 +4047,7 @@ Public Class Form1
         Return False
     End Function
 
-    Private Function DoPHP()
+    Private Function DoPHP() As Boolean
 
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
@@ -4163,9 +4169,7 @@ Public Class Form1
         End If
 
         Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionUUID))
-        Settings.SetIni(simName, "AllowGods", PropRegionClass.AllowGods(RegionUUID))
-        Settings.SetIni(simName, "RegionGod", PropRegionClass.RegionGod(RegionUUID))
-        Settings.SetIni(simName, "ManagerGod", PropRegionClass.ManagerGod(RegionUUID))
+
         Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionUUID))
         Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionUUID))
         Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionUUID))
@@ -5167,9 +5171,9 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
-    Private Sub HelpClick(sender As Object, e As EventArgs)
+    Private Sub HelpClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        If sender.text.ToString() <> "Dreamgrid Manual.pdf" Then Help(sender.text.ToString())
+        If sender.Text <> "Dreamgrid Manual.pdf" Then Help(sender.Text)
 
     End Sub
 
@@ -5197,9 +5201,9 @@ Public Class Form1
 
     End Sub
 
-    Private Sub IarClick(sender As Object, e As EventArgs)
+    Private Sub IarClick(sender As ToolStripMenuItem)
 
-        If sender.text.ToString() = "Web Download Link" Then
+        If sender.Text = "Web Download Link" Then
             Dim webAddress As String = "https://outworldz.com/outworldz_installer/IAR"
             Try
                 Process.Start(webAddress)
@@ -5209,12 +5213,12 @@ Public Class Form1
             Return
         End If
 
-        Dim file As String = Mid(CStr(sender.text.ToString()), 1, InStr(CStr(sender.text.ToString()), "|") - 2)
+        Dim file As String = Mid(sender.Text, 1, InStr(sender.Text, "|") - 2)
         file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
         If LoadIARContent(file) Then
             Print(My.Resources.isLoading & " " & file)
         End If
-        sender.checked = True
+        sender.Checked = True
 
     End Sub
 
@@ -5378,7 +5382,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Language(sender, e)
+    Private Sub Language(sender As Object, e As EventArgs)
         Settings.SaveSettings()
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
@@ -5669,29 +5673,28 @@ Public Class Form1
 
     End Sub
 
-    Private Sub LocalIarClick(sender As Object, e As EventArgs)
+    Private Sub LocalIarClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        Dim File As String = PropMyFolder & "/OutworldzFiles/IAR/" & sender.text.ToString() 'make a real URL
+        Dim File As String = PropMyFolder & "/OutworldzFiles/IAR/" & sender.Text 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & sender.text.ToString())
+            Print(My.Resources.Opensimulator_is_loading & sender.Text)
         End If
 
     End Sub
 
-    Private Sub LocalOarClick(sender As Object, e As EventArgs)
+    Private Sub LocalOarClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        Dim File = PropMyFolder & "/OutworldzFiles/OAR/" & sender.text.ToString() 'make a real URL
+        Dim File = PropMyFolder & "/OutworldzFiles/OAR/" & sender.Text 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & sender.text.ToString())
+            Print(My.Resources.Opensimulator_is_loading & sender.Text)
         End If
 
     End Sub
 
-    Private Sub LogViewClick(sender As Object, e As EventArgs)
+    Private Sub LogViewClick(sender As ToolStripMenuItem, e As EventArgs)
 
-        Dim name As String = sender.text.ToString()
+        Viewlog(sender.Text)
 
-        Viewlog(name)
     End Sub
 
     Private Sub LoopBackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopBackToolStripMenuItem.Click
@@ -5872,9 +5875,9 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
-    Private Sub OarClick(sender As Object, e As EventArgs)
+    Private Sub OarClick(sender As ToolStripMenuItem)
 
-        If sender.text.ToString() = "Web Download Link" Then
+        If sender.Text = "Web Download Link" Then
             Dim webAddress As String = "https://outworldz.com/outworldz_installer/OAR"
             Try
                 Process.Start(webAddress)
@@ -5884,10 +5887,10 @@ Public Class Form1
             Return
         End If
 
-        Dim File As String = Mid(CStr(sender.text.ToString()), 1, InStr(sender.text, "|") - 2)
+        Dim File As String = Mid(CStr(sender.Text), 1, InStr(sender.Text, "|") - 2)
         File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
         LoadOARContent(File)
-        sender.checked = True
+        sender.Checked = True
 
     End Sub
 
@@ -5919,6 +5922,24 @@ Public Class Form1
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        If PictureBox1.AccessibleName = "Open".ToUpperInvariant Then
+            Me.Width = 645
+            Me.Height = 435
+            PictureBox1.Image = My.Resources.Arrow2Left
+            PictureBox1.AccessibleName = "Close".ToUpperInvariant
+        Else
+            PictureBox1.Image = My.Resources.Arrow2Right
+            Me.Width = 385
+            Me.Height = 240
+            PictureBox1.AccessibleName = "Open".ToUpperInvariant
+        End If
+        Application.DoEvents()
+        Resize_page(sender, e)
+
     End Sub
 
     Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
@@ -6753,9 +6774,9 @@ Public Class Form1
         Startup()
     End Sub
 
-    Private Sub Statmenu(sender As Object, e As EventArgs)
+    Private Sub Statmenu(sender As ToolStripMenuItem, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(sender.text)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(sender.Text)
             Dim port As String = CStr(PropRegionClass.RegionPort(RegionUUID))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try

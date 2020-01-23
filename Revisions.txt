@@ -36,7 +36,7 @@ Changing the enable flag in Regions did not prompt "save?", if you just closed t
 
 Cache clear happens much faster. Except for scripts. Nothing more I can do there as every script has to be examined.
 
-Selecting an OART showed the entire row selected. Now it is just the cell, Thanks AI Austin!
+Selecting an OAR showed the entire row selected. Now it is just the cell, Thanks AI Austin!
 
 
 V3.3 - This is a general release and is in the Automatic Updater.

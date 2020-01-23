@@ -55,7 +55,7 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
-    Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
+    Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
             ToolStripMenuItem1.Visible = True
