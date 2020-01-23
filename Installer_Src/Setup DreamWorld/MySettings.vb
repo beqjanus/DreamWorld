@@ -1812,7 +1812,7 @@ Public Class MySettings
 #Region "Apache"
 
     ' reader ApacheStrings
-    Public Function LoadLiteralIni(ini As String)
+    Public Sub LoadLiteralIni(ini As String)
 
         Apachein.Clear()
         Using Reader As New StreamReader(ini, System.Text.Encoding.UTF8)
@@ -1821,9 +1821,7 @@ Public Class MySettings
             End While
         End Using
 
-        Return False
-
-    End Function
+    End Sub
 
     'writer of ApacheStrings
     Public Sub SaveLiteralIni(ini As String, name As String)
