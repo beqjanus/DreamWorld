@@ -457,7 +457,7 @@ Public Class RegionList
             ' have to get maps by http port + region UUID, not region port + uuid
             Try
 
-                For Each RegionUUID In Form1.PropRegionClass.RegionUUIDs
+                For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
                     Application.DoEvents()
                     Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
