@@ -188,7 +188,6 @@ Public Class FormRegion
             RegionUUID = Form1.PropRegionClass.FindRegionByName(Name)
             Oldname1 = Form1.PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
             EnabledCheckBox.Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
-            RegionName.Text = Name
             Me.Text = Name & " Region" ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
@@ -244,7 +243,7 @@ Public Class FormRegion
             ElseIf Form1.PropRegionClass.SizeY(RegionUUID) = 256 * 14 Then
                 RadioButton4.Checked = True
                 BoxSize = 256 * 14
-            ElseIf Form1.PropRegionClass.SizeY(RegionUUID) = 256 * 16 Then
+            ElseIf Form1.PropRegionClass.SizeY(RegionUUID) = 256 * 15 Then
                 RadioButton4.Checked = True
                 BoxSize = 256 * 15
             ElseIf Form1.PropRegionClass.SizeY(RegionUUID) = 256 * 16 Then
