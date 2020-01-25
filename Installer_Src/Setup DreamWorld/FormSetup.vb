@@ -4767,7 +4767,7 @@ Public Class Form1
 
         Next
 
-        'Application.doevents()
+        ' Exit Handler
 
         ' now look at the exit stack
         If PropExitList.Count = 0 Then Return
@@ -6733,12 +6733,11 @@ Public Class Form1
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
-            PropRegionForm.BringToFront()
         Else
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
-            PropRegionForm.BringToFront()
+
         End If
 
     End Sub

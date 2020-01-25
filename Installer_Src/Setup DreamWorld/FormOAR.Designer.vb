@@ -85,7 +85,7 @@ Partial Class FormOAR
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormOAR"
-        Me.TopMost = True
+        Me.TopMost = False
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()

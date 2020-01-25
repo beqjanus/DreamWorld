@@ -1229,7 +1229,7 @@ Partial Class FormRegion
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormRegion"
         Me.Text = "Region"
-        Me.TopMost = True
+        Me.TopMost = False
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)

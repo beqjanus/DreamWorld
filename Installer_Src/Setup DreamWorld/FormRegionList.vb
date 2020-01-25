@@ -729,7 +729,7 @@ Public Class RegionList
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
-        'Form1.PropRegionClass.GetAllRegions()
+
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
@@ -1318,7 +1318,7 @@ Public Class RegionList
                     Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                 End If
 
-                'Form1.PropRegionClass.GetAllRegions()
+
                 LoadMyListView()
             End If
         End If

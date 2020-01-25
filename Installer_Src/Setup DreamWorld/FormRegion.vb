@@ -119,7 +119,7 @@ Public Class FormRegion
 
     End Function
 
-    Shared Function RegionChosen() As String
+    Shared Function RegionChosen(regionName As String) As String
 
         Dim Chooseform As New Choice ' form for choosing a set of regions
         ' Show testDialog as a modal dialog and determine if DialogResult = OK.
@@ -128,11 +128,13 @@ Public Class FormRegion
 
         Dim chosen As String
         Chooseform.ShowDialog()
+
+
         Try
             ' Read the chosen sim name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             If chosen = "! Add New Name" Then
-                chosen = InputBox(My.Resources.Enter_Dos_Name)
+                chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
         Catch ex As ArgumentOutOfRangeException
             chosen = ""
@@ -161,7 +163,7 @@ Public Class FormRegion
         Name = Name.Trim() ' remove spaces
 
         Form1.PropRegionClass = RegionMaker.Instance()
-        'Form1.PropRegionClass.GetAllRegions()
+
 
         ' NEW REGION
         If Name.Length = 0 Then
@@ -462,7 +464,7 @@ Public Class FormRegion
         Try
             Me.Show() ' time to show the results
             Me.Activate()
-            Me.BringToFront()
+
             Initted1 = True
             Form1.HelpOnce("Region")
         Catch ex As Exception
@@ -509,7 +511,6 @@ Public Class FormRegion
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
             Form1.CopyOpensimProto(RegionName.Text)
-            'Form1.PropRegionClass.GetAllRegions()
             Form1.PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
@@ -635,7 +636,7 @@ Public Class FormRegion
                 Else
                     WriteRegion(RegionUUID)
                     Form1.CopyOpensimProto(RegionName.Text)
-                    'Form1.PropRegionClass.GetAllRegions()
+
                     Form1.PropUpdateView() = True
                     Changed1 = False
                 End If
@@ -1104,7 +1105,7 @@ Public Class FormRegion
         If IsNew1 Then
             Dim NewGroup As String
 
-            NewGroup = RegionChosen()
+            NewGroup = RegionChosen(RegionName.Text)
             If NewGroup.Length = 0 Then
                 Form1.Print(My.Resources.Aborted_word)
                 Return
@@ -1132,8 +1133,9 @@ Public Class FormRegion
             End If
 
             Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Filepath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
             Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
-
+            Folderpath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
         End If
 
         ' save the changes to the memory structure, then to disk
@@ -1315,7 +1317,7 @@ Public Class FormRegion
         'Debug.Print(Region)
 
         Try
-            Using outputFile As New StreamWriter(Form1.PropRegionClass.RegionPath(RegionUUID), False)
+            Using outputFile As New StreamWriter(Filepath, False)
                 outputFile.Write(Region)
             End Using
         Catch ex As UnauthorizedAccessException

@@ -806,6 +806,7 @@ Public Class RegionMaker
         End Get
         Set(ByVal Value As String)
             If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._MaxPrims = Value
         End Set
     End Property
