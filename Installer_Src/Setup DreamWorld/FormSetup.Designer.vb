@@ -193,15 +193,15 @@ Partial Class Form1
         '
         Me.mnuSettings.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RegionsToolStripMenuItem, Me.ConsoleToolStripMenuItem1, Me.LanguageToolStripMenuItem, Me.AdvancedSettingsToolStripMenuItem})
         Me.mnuSettings.Name = "mnuSettings"
-        Me.mnuSettings.Size = New System.Drawing.Size(61, 22)
-        Me.mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        Me.mnuSettings.Size = New System.Drawing.Size(49, 22)
+        Me.mnuSettings.Text = "Setup"
         '
         'RegionsToolStripMenuItem
         '
         Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         '
         'ConsoleToolStripMenuItem1
@@ -209,7 +209,7 @@ Partial Class Form1
         Me.ConsoleToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHide, Me.mnuShow})
         Me.ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ConsoleToolStripMenuItem1.Name = "ConsoleToolStripMenuItem1"
-        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(157, 22)
+        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
         Me.ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
         Me.ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
         '
@@ -218,13 +218,13 @@ Partial Class Form1
         Me.mnuHide.Checked = True
         Me.mnuHide.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuHide.Name = "mnuHide"
-        Me.mnuHide.Size = New System.Drawing.Size(103, 22)
+        Me.mnuHide.Size = New System.Drawing.Size(180, 22)
         Me.mnuHide.Text = Global.Outworldz.My.Resources.Resources.Hide
         '
         'mnuShow
         '
         Me.mnuShow.Name = "mnuShow"
-        Me.mnuShow.Size = New System.Drawing.Size(103, 22)
+        Me.mnuShow.Size = New System.Drawing.Size(180, 22)
         Me.mnuShow.Text = Global.Outworldz.My.Resources.Resources.Show_word
         '
         'LanguageToolStripMenuItem
@@ -232,147 +232,147 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnglishToolStripMenuItem, Me.PortgueseToolStripMenuItem, Me.BasqueToolStripMenuItem, Me.CatalanToolStripMenuItem, Me.CzechToolStripMenuItem, Me.ChineseSimplifedToolStripMenuItem, Me.ChineseTraditionalToolStripMenuItem, Me.DutchToolStripMenuItem, Me.FrenchToolStripMenuItem, Me.FinnishToolStripMenuItem, Me.GermanToolStripMenuItem, Me.GreekToolStripMenuItem, Me.HebrewToolStripMenuItem, Me.IcelandicToolStripMenuItem, Me.IrishToolStripMenuItem, Me.NorwegianToolStripMenuItem, Me.PolishToolStripMenuItem, Me.RussianToolStripMenuItem, Me.SpanishToolStripMenuItem, Me.SwedishToolStripMenuItem})
         Me.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
-        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
         '
         'EnglishToolStripMenuItem
         '
         Me.EnglishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_usa
         Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
-        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.EnglishToolStripMenuItem.Text = "English"
         '
         'PortgueseToolStripMenuItem
         '
         Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
         Me.PortgueseToolStripMenuItem.Name = "PortgueseToolStripMenuItem"
-        Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.PortgueseToolStripMenuItem.Text = "Portguese"
         '
         'BasqueToolStripMenuItem
         '
         Me.BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources._250px_Flag_of_the_Basque_Country_svg
         Me.BasqueToolStripMenuItem.Name = "BasqueToolStripMenuItem"
-        Me.BasqueToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.BasqueToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.BasqueToolStripMenuItem.Text = "Basque"
         '
         'CatalanToolStripMenuItem
         '
         Me.CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_catalan
         Me.CatalanToolStripMenuItem.Name = "CatalanToolStripMenuItem"
-        Me.CatalanToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.CatalanToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.CatalanToolStripMenuItem.Text = "Catalan"
         '
         'CzechToolStripMenuItem
         '
         Me.CzechToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_czech_republic
         Me.CzechToolStripMenuItem.Name = "CzechToolStripMenuItem"
-        Me.CzechToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.CzechToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.CzechToolStripMenuItem.Text = "Czech"
         '
         'ChineseSimplifedToolStripMenuItem
         '
         Me.ChineseSimplifedToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_china
         Me.ChineseSimplifedToolStripMenuItem.Name = "ChineseSimplifedToolStripMenuItem"
-        Me.ChineseSimplifedToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ChineseSimplifedToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.ChineseSimplifedToolStripMenuItem.Text = "Chinese Simplifed"
         '
         'ChineseTraditionalToolStripMenuItem
         '
         Me.ChineseTraditionalToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_taiwan
         Me.ChineseTraditionalToolStripMenuItem.Name = "ChineseTraditionalToolStripMenuItem"
-        Me.ChineseTraditionalToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ChineseTraditionalToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.ChineseTraditionalToolStripMenuItem.Text = "Chinese Traditional"
         '
         'DutchToolStripMenuItem
         '
         Me.DutchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_netherlands
         Me.DutchToolStripMenuItem.Name = "DutchToolStripMenuItem"
-        Me.DutchToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.DutchToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.DutchToolStripMenuItem.Text = "Dutch"
         '
         'FrenchToolStripMenuItem
         '
         Me.FrenchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_france
         Me.FrenchToolStripMenuItem.Name = "FrenchToolStripMenuItem"
-        Me.FrenchToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.FrenchToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.FrenchToolStripMenuItem.Text = "French"
         '
         'FinnishToolStripMenuItem
         '
         Me.FinnishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_finland
         Me.FinnishToolStripMenuItem.Name = "FinnishToolStripMenuItem"
-        Me.FinnishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.FinnishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.FinnishToolStripMenuItem.Text = "Finnish"
         '
         'GermanToolStripMenuItem
         '
         Me.GermanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_germany
         Me.GermanToolStripMenuItem.Name = "GermanToolStripMenuItem"
-        Me.GermanToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.GermanToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.GermanToolStripMenuItem.Text = "German"
         '
         'GreekToolStripMenuItem
         '
         Me.GreekToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_greece
         Me.GreekToolStripMenuItem.Name = "GreekToolStripMenuItem"
-        Me.GreekToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.GreekToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.GreekToolStripMenuItem.Text = "Greek"
         '
         'HebrewToolStripMenuItem
         '
         Me.HebrewToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_israel
         Me.HebrewToolStripMenuItem.Name = "HebrewToolStripMenuItem"
-        Me.HebrewToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.HebrewToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.HebrewToolStripMenuItem.Text = "Hebrew"
         '
         'IcelandicToolStripMenuItem
         '
         Me.IcelandicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iceland
         Me.IcelandicToolStripMenuItem.Name = "IcelandicToolStripMenuItem"
-        Me.IcelandicToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.IcelandicToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.IcelandicToolStripMenuItem.Text = "Icelandic"
         '
         'IrishToolStripMenuItem
         '
         Me.IrishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_ireland
         Me.IrishToolStripMenuItem.Name = "IrishToolStripMenuItem"
-        Me.IrishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.IrishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.IrishToolStripMenuItem.Text = "Irish"
         '
         'NorwegianToolStripMenuItem
         '
         Me.NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_norway
         Me.NorwegianToolStripMenuItem.Name = "NorwegianToolStripMenuItem"
-        Me.NorwegianToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.NorwegianToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.NorwegianToolStripMenuItem.Text = "Norwegian"
         '
         'PolishToolStripMenuItem
         '
         Me.PolishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_poland
         Me.PolishToolStripMenuItem.Name = "PolishToolStripMenuItem"
-        Me.PolishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.PolishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.PolishToolStripMenuItem.Text = "Polish"
         '
         'RussianToolStripMenuItem
         '
         Me.RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_russia1
         Me.RussianToolStripMenuItem.Name = "RussianToolStripMenuItem"
-        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.RussianToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.RussianToolStripMenuItem.Text = "Russian"
         '
         'SpanishToolStripMenuItem
         '
         Me.SpanishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_spain
         Me.SpanishToolStripMenuItem.Name = "SpanishToolStripMenuItem"
-        Me.SpanishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.SpanishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.SpanishToolStripMenuItem.Text = "Spanish"
         '
         'SwedishToolStripMenuItem
         '
         Me.SwedishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_sweden
         Me.SwedishToolStripMenuItem.Name = "SwedishToolStripMenuItem"
-        Me.SwedishToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.SwedishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.SwedishToolStripMenuItem.Text = "Swedish"
         '
         'AdvancedSettingsToolStripMenuItem
@@ -380,7 +380,7 @@ Partial Class Form1
         Me.AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.AdvancedSettingsToolStripMenuItem.Name = "AdvancedSettingsToolStripMenuItem"
         Me.AdvancedSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
         '
@@ -802,58 +802,58 @@ Partial Class Form1
         '
         Me.IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.IslandToolStripMenuItem.Name = "IslandToolStripMenuItem"
-        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.IslandToolStripMenuItem.Text = "Load Free DreamGrid OARs"
+        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.IslandToolStripMenuItem.Text = "Load Free DreamGrid OARs (web)"
         '
         'ClothingInventoryToolStripMenuItem
         '
         Me.ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.ClothingInventoryToolStripMenuItem.Name = "ClothingInventoryToolStripMenuItem"
-        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.ClothingInventoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory
+        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.ClothingInventoryToolStripMenuItem.Text = "Load Free Avatar Inventory (web)"
         Me.ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_text
         '
         'LoadLocalOARSToolStripMenuItem
         '
         Me.LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.LoadLocalOARSToolStripMenuItem.Name = "LoadLocalOARSToolStripMenuItem"
-        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_OARs
+        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.LoadLocalOARSToolStripMenuItem.Text = "Load Local OARs"
         '
         'LoadLocalIARsToolStripMenuItem
         '
         Me.LoadLocalIARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.LoadLocalIARsToolStripMenuItem.Name = "LoadLocalIARsToolStripMenuItem"
-        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.LoadLocalIARsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_IARs
+        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.LoadLocalIARsToolStripMenuItem.Text = "Load Local IARs"
         '
         'OARToolStripMenuItem
         '
         Me.OARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadRegionOarToolStripMenuItem, Me.SaveRegionOARToolStripMenuItem, Me.AllTheRegionsOarsToolStripMenuItem})
         Me.OARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.OARToolStripMenuItem.Name = "OARToolStripMenuItem"
-        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.OARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_Load_and_Save
+        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.OARToolStripMenuItem.Text = "OAR Load, Save and Backup"
         '
         'LoadRegionOarToolStripMenuItem
         '
         Me.LoadRegionOarToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
         Me.LoadRegionOarToolStripMenuItem.Name = "LoadRegionOarToolStripMenuItem"
-        Me.LoadRegionOarToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.LoadRegionOarToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.LoadRegionOarToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
         '
         'SaveRegionOARToolStripMenuItem
         '
         Me.SaveRegionOARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.SaveRegionOARToolStripMenuItem.Name = "SaveRegionOARToolStripMenuItem"
-        Me.SaveRegionOARToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.SaveRegionOARToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.SaveRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
         '
         'AllTheRegionsOarsToolStripMenuItem
         '
         Me.AllTheRegionsOarsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.AllTheRegionsOarsToolStripMenuItem.Name = "AllTheRegionsOarsToolStripMenuItem"
-        Me.AllTheRegionsOarsToolStripMenuItem.Size = New System.Drawing.Size(254, 22)
+        Me.AllTheRegionsOarsToolStripMenuItem.Size = New System.Drawing.Size(258, 26)
         Me.AllTheRegionsOarsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_All_Regions
         '
         'IARToolStripMenuItem
@@ -861,41 +861,41 @@ Partial Class Form1
         Me.IARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadInventoryIARToolStripMenuItem, Me.SaveInventoryIARToolStripMenuItem})
         Me.IARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.IARToolStripMenuItem.Name = "IARToolStripMenuItem"
-        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
         Me.IARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.IAR_Load_and_Save
         '
         'LoadInventoryIARToolStripMenuItem
         '
         Me.LoadInventoryIARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
         Me.LoadInventoryIARToolStripMenuItem.Name = "LoadInventoryIARToolStripMenuItem"
-        Me.LoadInventoryIARToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.LoadInventoryIARToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.LoadInventoryIARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Inventory_IAR
         '
         'SaveInventoryIARToolStripMenuItem
         '
         Me.SaveInventoryIARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.SaveInventoryIARToolStripMenuItem.Name = "SaveInventoryIARToolStripMenuItem"
-        Me.SaveInventoryIARToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.SaveInventoryIARToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.SaveInventoryIARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_Inventory_IAR_word
         '
         'MoreContentToolStripMenuItem
         '
         Me.MoreContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
         Me.MoreContentToolStripMenuItem.Name = "MoreContentToolStripMenuItem"
-        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
-        Me.MoreContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands
+        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
+        Me.MoreContentToolStripMenuItem.Text = "More Free Islands and Parts (web)"
         Me.MoreContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(270, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(252, 6)
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_and_Repair_Database_word
         '
         'BackupRestoreToolStripMenuItem
@@ -903,7 +903,7 @@ Partial Class Form1
         Me.BackupRestoreToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupDatabaseToolStripMenuItem, Me.RestoreDatabaseToolStripMenuItem1})
         Me.BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupRestoreToolStripMenuItem.Name = "BackupRestoreToolStripMenuItem"
-        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
         Me.BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.SQL_Database_Backup_Restore
         '
         'BackupDatabaseToolStripMenuItem
@@ -911,27 +911,27 @@ Partial Class Form1
         Me.BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupDatabaseToolStripMenuItem.Name = "BackupDatabaseToolStripMenuItem"
         Me.BackupDatabaseToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
-        Me.BackupDatabaseToolStripMenuItem.Size = New System.Drawing.Size(210, 22)
+        Me.BackupDatabaseToolStripMenuItem.Size = New System.Drawing.Size(214, 26)
         Me.BackupDatabaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Databases
         '
         'RestoreDatabaseToolStripMenuItem1
         '
         Me.RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.RestoreDatabaseToolStripMenuItem1.Name = "RestoreDatabaseToolStripMenuItem1"
-        Me.RestoreDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(210, 22)
+        Me.RestoreDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(214, 26)
         Me.RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Restore_Database_word
         '
         'BackupCriticalFilesToolStripMenuItem
         '
         Me.BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupCriticalFilesToolStripMenuItem.Name = "BackupCriticalFilesToolStripMenuItem"
-        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(273, 22)
+        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(255, 26)
         Me.BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(270, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(252, 6)
         '
         'Timer1
         '
