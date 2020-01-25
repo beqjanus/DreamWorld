@@ -144,7 +144,7 @@ Public Class FormFsAssets
             .Description = My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
+        openFileDialog1.Dispose()
         ' Process input if the user clicked OK.
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.SelectedPath
@@ -155,7 +155,7 @@ Public Class FormFsAssets
                 Changed = True
             End If
         End If
-        openFileDialog1.Dispose()
+
 
     End Sub
 
