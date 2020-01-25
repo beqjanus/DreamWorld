@@ -43,7 +43,7 @@ Namespace My
 
             Dim Result As String
             Dim hr As Integer = Runtime.InteropServices.Marshal.GetHRForException(ex)
-            Result = ex.GetType.ToString & "(0x" & hr.ToString("X8") & "): " & ex.Message & Environment.NewLine & ex.StackTrace & Environment.NewLine
+            Result = ex.GetType.ToString() & "(0x" & hr.ToString("X8", Globalization.CultureInfo.InvariantCulture) & "): " & ex.Message & Environment.NewLine & ex.StackTrace & Environment.NewLine
             Dim st As StackTrace = New StackTrace(ex, True)
             For Each sf As StackFrame In st.GetFrames
                 If sf.GetFileLineNumber() > 0 Then
