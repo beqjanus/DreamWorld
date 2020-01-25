@@ -661,9 +661,9 @@ Public Class Form1
                 Else
                     Diagnostics.Debug.Print("Skipping script")
                 End If
-                Application.DoEvents()
+                'Application.doevents()
             Next
-            Application.DoEvents()
+            'Application.doevents()
         Loop
 
         ' Return the list
@@ -710,7 +710,7 @@ Public Class Form1
         Dim sleeptime = value / 100  ' now in tenths
 
         While sleeptime > 0
-            Application.DoEvents()
+            'Application.doevents()
             Thread.Sleep(100)
             sleeptime -= 1
         End While
@@ -843,7 +843,7 @@ Public Class Form1
             Return True
         End If
 
-        Application.DoEvents()
+        'Application.doevents()
 
         DoRegion(BootName)
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
@@ -854,7 +854,7 @@ Public Class Form1
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-                    Application.DoEvents()
+                    'Application.doevents()
                     If p.MainWindowTitle = GroupName Then
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -863,7 +863,7 @@ Public Class Form1
                         For Each RegionUUID In Regionclass.RegionUUIDListByName(thisname)
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.ProcessID(RegionUUID) = p.Id
-                            Application.DoEvents()
+                            'Application.doevents()
                         Next
                         PropUpdateView = True ' make form refresh
                         Return True
@@ -877,7 +877,7 @@ Public Class Form1
 
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
-                    Application.DoEvents()
+                    'Application.doevents()
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -931,11 +931,11 @@ Public Class Form1
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                 Regionclass.ProcessID(UUID) = PID
                 Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
-                Application.DoEvents()
+                'Application.doevents()
             Next
 
             PropUpdateView = True ' make form refresh
-            Application.DoEvents()
+            'Application.doevents()
             SetWindowTextCall(myProcess, GroupName)
 
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
@@ -1227,7 +1227,7 @@ Public Class Form1
 
     Public Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
-            MsgBox(message, vbInformation)
+            'MsgBox(message, vbInformation)
         End If
         Logger(My.Resources.Error_word, message, My.Resources.Error_word)
     End Sub
@@ -1255,7 +1255,7 @@ Public Class Form1
             Log(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " Stopped")
             ' End If
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-            Application.DoEvents()
+            'Application.doevents()
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
@@ -1272,7 +1272,7 @@ Public Class Form1
                     Dim ip = IPaddress.ToString()
                     Return ip
                 End If
-                Application.DoEvents()
+                'Application.doevents()
             Next
             Return String.Empty
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1312,7 +1312,7 @@ Public Class Form1
                     If pList.Id = pid Then
                         Return pList.MainWindowHandle
                     End If
-                    Application.DoEvents()
+                    'Application.doevents()
                     ctr -= 1
                 Next
             End While
@@ -1439,9 +1439,9 @@ Public Class Form1
         ' close everything as gracefully as possible.
 
         StopIcecast()
-        Application.DoEvents()
+        'Application.doevents()
         StopApache(False) ' do not stop if a service
-        Application.DoEvents()
+        'Application.doevents()
         Dim n As Integer = PropRegionClass.RegionCount()
 
         Dim TotalRunningRegions As Integer
@@ -1450,7 +1450,7 @@ Public Class Form1
             If PropRegionClass.IsBooted(RegionUUID) Then
                 TotalRunningRegions += 1
             End If
-            Application.DoEvents()
+            'Application.doevents()
         Next
         Log(My.Resources.Info, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
@@ -1466,7 +1466,7 @@ Public Class Form1
                 PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                 PropUpdateView = True ' make form refresh
             End If
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
@@ -1491,7 +1491,7 @@ Public Class Form1
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
-                    Application.DoEvents()
+                    'Application.doevents()
                     If CountisRunning = 0 Then Exit For
                 Next
 
@@ -1544,7 +1544,7 @@ Public Class Form1
                 UUID = RegionUUID
                 Exit For
             End If
-            Application.DoEvents()
+            'Application.doevents()
         Next
         If UUID.Length = 0 Then
             MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info)
@@ -1622,7 +1622,7 @@ Public Class Form1
 #Enable Warning CA1031 ' Do not catch general exception types
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Me.Focus()
@@ -1700,7 +1700,7 @@ Public Class Form1
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
-                Application.DoEvents()
+                'Application.doevents()
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
                 End If
@@ -1731,19 +1731,19 @@ Public Class Form1
 
             For Each RegionUUID As String In PropRegionClass.RegionUUIDs
                 Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
-                Application.DoEvents()
+                'Application.doevents()
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.UDP)
-                    Application.DoEvents()
+                    'Application.doevents()
                 End If
 
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
                 Print(PropRegionClass.RegionName(RegionUUID) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
-                Application.DoEvents()
+                'Application.doevents()
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.TCP)
-                    Application.DoEvents()
+                    'Application.doevents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
                 Print(PropRegionClass.RegionName(RegionUUID) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -2140,7 +2140,7 @@ Public Class Form1
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-            Application.DoEvents()
+            'Application.doevents()
         End While
         Return True
 
@@ -2181,7 +2181,7 @@ Public Class Form1
 
         ApachePictureBox.Image = My.Resources.navigate_open
         ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Starting_word)
-        Application.DoEvents()
+        'Application.doevents()
 
         If Settings.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -2194,7 +2194,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
         End If
 
@@ -2209,7 +2209,7 @@ Public Class Form1
             PropApacheExited = False
             Return True
         End If
-        Application.DoEvents()
+        'Application.doevents()
 
         If Settings.ApacheService Then
             PropApacheUninstalling = True
@@ -2220,7 +2220,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
@@ -2229,7 +2229,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.FileName = "sc"
@@ -2239,7 +2239,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
@@ -2248,7 +2248,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
 
             Sleep(3000)
@@ -2269,7 +2269,7 @@ Public Class Form1
                 Catch ex As System.ComponentModel.Win32Exception
                     Print(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
-                Application.DoEvents()
+                'Application.doevents()
                 ApacheProcess.WaitForExit()
 
                 If ApacheProcess.ExitCode <> 0 Then
@@ -2289,7 +2289,7 @@ Public Class Form1
                 Catch ex As System.ComponentModel.Win32Exception
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                 End Try
-                Application.DoEvents()
+                'Application.doevents()
                 ApacheProcess.WaitForExit()
 
                 If ApacheProcess.ExitCode <> 0 Then
@@ -2297,7 +2297,7 @@ Public Class Form1
                 Else
                     ApachePictureBox.Image = My.Resources.nav_plain_green
                     ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
-                    Application.DoEvents()
+                    'Application.doevents()
                 End If
             End Using
         Else
@@ -2317,17 +2317,17 @@ Public Class Form1
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                     ApachePictureBox.Image = My.Resources.nav_plain_red
                     ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
-                    Application.DoEvents()
+                    'Application.doevents()
                     Return False
                 Catch ex As System.ComponentModel.Win32Exception
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                     ApachePictureBox.Image = My.Resources.nav_plain_red
                     ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
-                    Application.DoEvents()
+                    'Application.doevents()
                     Return False
                 End Try
 
-                Application.DoEvents()
+                'Application.doevents()
 
                 ' wait for PID
                 Dim ApachePID = WaitForPID(ApacheProcess)
@@ -2348,7 +2348,7 @@ Public Class Form1
                         Print(My.Resources.Apache_Failed)
                         Return False
                     End If
-                    Application.DoEvents()
+                    'Application.doevents()
 
                     Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
                     If isRunning Then
@@ -2356,7 +2356,7 @@ Public Class Form1
                         ApachePictureBox.Image = My.Resources.nav_plain_green
                         ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
                         PropApacheExited = False
-                        Application.DoEvents()
+                        'Application.doevents()
                         Return True
                     End If
                     Sleep(100)
@@ -2377,7 +2377,7 @@ Public Class Form1
         End If
 
         Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
-        Application.DoEvents()
+        'Application.doevents()
 
         If IceCastRunning Then
             IceCastPicturebox.Image = My.Resources.nav_plain_green
@@ -2417,7 +2417,7 @@ Public Class Form1
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
             Return False
         End Try
-        Application.DoEvents()
+        'Application.doevents()
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
@@ -2452,7 +2452,7 @@ Public Class Form1
 
         MysqlPictureBox.Image = My.Resources.navigate_open
         ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
-        Application.DoEvents()
+        'Application.doevents()
         ' Start MySql in background.
 
         Print(My.Resources.Mysql_Starting)
@@ -2485,7 +2485,7 @@ Public Class Form1
         CreateService()
         CreateStopMySql()
 
-        Application.DoEvents()
+        'Application.doevents()
         ' Mysql was not running, so lets start it up.
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
@@ -2509,7 +2509,7 @@ Public Class Form1
         Dim ctr As Integer = 0
         While Not MysqlOk And Not PropAborting
 
-            Application.DoEvents()
+            'Application.doevents()
 
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             If ctr = 60 Then ' about 60 seconds when it fails
@@ -2532,7 +2532,7 @@ Public Class Form1
                         Catch ex As InvalidOperationException
                         Catch ex As System.ComponentModel.Win32Exception
                         End Try
-                        Application.DoEvents()
+                        'Application.doevents()
                     Next
                 End If
                 Buttons(StartButton)
@@ -2568,7 +2568,7 @@ Public Class Form1
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
-                Application.DoEvents()
+                'Application.doevents()
             End If
         Next
 
@@ -2592,7 +2592,7 @@ Public Class Form1
                     Log(My.Resources.Info, My.Resources.DosBoxRunning)
                     Return True
                 End If
-                Application.DoEvents()
+                'Application.doevents()
             Next
         End If
         RobustPictureBox.Image = My.Resources.navigate_open
@@ -2662,7 +2662,7 @@ Public Class Form1
         Dim counter = 0
         While Not CheckRobust() And PropOpensimIsRunning
             Log("Error", My.Resources.Waiting_on_Robust)
-            Application.DoEvents()
+            'Application.doevents()
             counter += 1
             ' wait a minute for it to start
             If counter > 600 Then
@@ -2683,7 +2683,7 @@ Public Class Form1
                 _RobustIsStarting = False
                 Return False
             End If
-            Application.DoEvents()
+            'Application.doevents()
             Sleep(100)
         End While
 
@@ -2697,7 +2697,7 @@ Public Class Form1
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
 
         PropRobustExited = False
-        Application.DoEvents()
+        'Application.doevents()
 
         Return True
 
@@ -2744,7 +2744,7 @@ Public Class Form1
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
-        Application.DoEvents()
+        'Application.doevents()
         If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
             Dim BTime As Integer = CInt(Settings.AutobackupInterval)
@@ -2753,8 +2753,6 @@ Public Class Form1
                 Print(My.Resources.AutorestartTime & CStr(BTime) & " + 30.")
             End If
         End If
-
-        GridNames.SetServerNames()
 
         Print("DNS")
         If SetPublicIP() Then
@@ -2804,7 +2802,7 @@ Public Class Form1
 
         If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
             ConsoleCommand("Robust", "create user{ENTER}")
-            Application.DoEvents()
+            'Application.doevents()
             MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
 
             If Settings.ConsoleShow = False Then
@@ -2845,7 +2843,7 @@ Public Class Form1
             Log(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " Stopped")
 
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-            Application.DoEvents()
+            'Application.doevents()
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
         PropUpdateView = True ' make form refresh
@@ -2860,7 +2858,7 @@ Public Class Form1
         While CheckRobust() And ctr < 60
             Sleep(1000)
             ctr += 1
-            Application.DoEvents()
+            'Application.doevents()
         End While
 
         RobustPictureBox.Image = My.Resources.nav_plain_red
@@ -2911,13 +2909,12 @@ Public Class Form1
     ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
     Public Sub UploadPhoto()
 
-        If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
-
-            UploadCategory()
-
-            Dim Myupload As New UploadImage
-            Myupload.PostContentUploadFile()
-
+        If Settings.GDPR() Then
+            If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
+                UploadCategory()
+                Dim Myupload As New UploadImage
+                Myupload.PostContentUploadFile()
+            End If
         End If
 
     End Sub
@@ -2970,7 +2967,7 @@ Public Class Form1
                 For Each UUID As String In PropRegionClass.RegionUUIDs
                     name = PropRegionClass.GroupName(UUID)
                     path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
-                    Application.DoEvents()
+                    'Application.doevents()
                 Next
             End If
 
@@ -2988,7 +2985,7 @@ Public Class Form1
 
                 For Each FileName As String In files
                     path.Add("""" & FileName & """")
-                    Application.DoEvents()
+                    'Application.doevents()
                 Next
 
             End If
@@ -3000,7 +2997,7 @@ Public Class Form1
         For Each item In result
             Log("View", item)
             logs = logs & " " & item
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Try
@@ -3204,7 +3201,7 @@ Public Class Form1
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
             present += PropRegionClass.AvatarCount(RegionUUID)
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Return CType(present, Boolean)
@@ -3371,7 +3368,7 @@ Public Class Form1
                 MyRAMCollection(0) = CDbl(value)
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
-                Application.DoEvents()
+                'Application.doevents()
             Next
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
@@ -3528,14 +3525,14 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
-            Application.DoEvents()
+            'Application.doevents()
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log(My.Resources.Info, "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
             End If
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
     End Sub
@@ -3558,7 +3555,7 @@ Public Class Form1
         For Each thing As String In Logfiles
             ' clear out the log files
             FileStuff.DeleteFile(thing)
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
     End Sub
@@ -4637,7 +4634,7 @@ Public Class Form1
             ElseIf dr And df Then
                 Authorizationlist += "Region_" & simName & " = DisallowResidents " & vbCrLf
             End If
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Dim reader As StreamReader
@@ -4770,7 +4767,7 @@ Public Class Form1
 
         Next
 
-        Application.DoEvents()
+        'Application.doevents()
 
         ' now look at the exit stack
         If PropExitList.Count = 0 Then Return
@@ -4890,7 +4887,7 @@ Public Class Form1
 
     ''' <summary>Fires when the form changes size or position</summary>
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
-        Dim Y = Me.Height - 150
+        Dim Y = Me.Height - 100
         TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
@@ -4946,7 +4943,6 @@ Public Class Form1
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
-
 
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
@@ -5147,7 +5143,7 @@ Public Class Form1
                                     'Console.WriteLine("{0}:{1}", a(0), a(1))
                                     Simevents.Add(a(0), a(1))
                                 End If
-                                Application.DoEvents()
+
                             Next
                             WriteEvent(osconnection, Simevents)
                         End While
@@ -5317,7 +5313,7 @@ Public Class Form1
 
         For Each filename As String In AL
             FileStuff.DeleteFile(PropMyFolder & filename)
-            Application.DoEvents()
+
         Next
 
     End Sub
@@ -5712,7 +5708,7 @@ Public Class Form1
             Print(My.Resources.Create_DB)
             Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
                 For Each ZipEntry In zip
-                    Application.DoEvents()
+
                     ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                 Next
             End Using
@@ -5834,7 +5830,7 @@ Public Class Form1
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
-                    Application.DoEvents()
+
                 Next
             End If
         Else
@@ -5940,7 +5936,7 @@ Public Class Form1
             Me.Height = 240
             PictureBox1.AccessibleName = "Open".ToUpperInvariant
         End If
-        Application.DoEvents()
+
         Resize_page(sender, e)
 
     End Sub
@@ -6041,7 +6037,7 @@ Public Class Form1
                     ToSort.Add(PropRegionClass.RegionName(RegionUUID))
                 End If
             End If
-            Application.DoEvents()
+
         Next
 
         ' Acquire keys And sort them.
@@ -6304,7 +6300,7 @@ Public Class Form1
                                       )
                             Exit For
                             Print(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
-                            Application.DoEvents()
+
                         End If
                     Next
                 End If
@@ -6395,7 +6391,6 @@ Public Class Form1
             End If
         Next
 
-        Application.DoEvents()
 
         Dim Str As String = ""
         For Each NameValue In C
@@ -6518,7 +6513,7 @@ Public Class Form1
                     RegionName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                     RegionSetting += "Region_" & Settings.WelcomeRegion & " = " & """" & "DefaultRegion, DefaultHGRegion" & """" & vbCrLf
                 End If
-                Application.DoEvents()
+
             Next
 
             Dim skip As Boolean = False
@@ -6604,7 +6599,6 @@ Public Class Form1
                     Try
                         LoopbackProcess.Start()
                         LoopbackProcess.WaitForExit()
-                        Application.DoEvents()
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
@@ -6673,7 +6667,7 @@ Public Class Form1
 
     Private Sub SetupSearch()
 
-        If Settings.ServerType <> "Grid" Then Return
+        If Settings.ServerType <> "Robust" Then Return
 
         ' modify this to migrate search datbase upwards a rev
         If Not Settings.SearchMigration = 3 Then
@@ -6687,7 +6681,7 @@ Public Class Form1
             pi.FileName = "Create_OsSearch.bat"
             pi.UseShellExecute = True
             pi.CreateNoWindow = False
-            pi.WindowStyle = ProcessWindowStyle.Normal
+            pi.WindowStyle = ProcessWindowStyle.Minimized
 
             Using MysqlSearch As Process = New Process With {
                     .StartInfo = pi
@@ -6823,7 +6817,6 @@ Public Class Form1
                 Try
                     ApacheProcess.Start()
                     ApacheProcess.WaitForExit()
-                    Application.DoEvents()
                 Catch ex As InvalidOperationException
                     Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
                 Catch ex As System.ComponentModel.Win32Exception
@@ -6863,13 +6856,13 @@ Public Class Form1
 
     Private Sub StopMysql()
 
-        Application.DoEvents()
+
         If Not MysqlInterface.IsMySqlRunning() Then
-            Application.DoEvents()
+            'Application.doevents()
             MysqlInterface.IsRunning = False    ' mark all as not running
             MysqlPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
-            Application.DoEvents()
+            'Application.doevents()
             Return
         End If
 
@@ -6877,7 +6870,7 @@ Public Class Form1
             MysqlInterface.IsRunning = True    ' mark all as not running
             MysqlPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Running)
-            Application.DoEvents()
+            'Application.doevents()
             Print(My.Resources.MySQL_Was_Running)
             Return
         End If
@@ -6899,7 +6892,7 @@ Public Class Form1
         Catch ex As InvalidOperationException
         Catch ex As System.ComponentModel.Win32Exception
         End Try
-        Application.DoEvents()
+        'Application.doevents()
         p.WaitForExit()
         p.Close()
         MysqlPictureBox.Image = My.Resources.nav_plain_red
@@ -6909,10 +6902,10 @@ Public Class Form1
             MysqlInterface.IsRunning = True    ' mark all as not running
             MysqlPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Running)
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
-        Application.DoEvents()
+        'Application.doevents()
 
     End Sub
 
@@ -7046,8 +7039,7 @@ Public Class Form1
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
-            LoadLocalIAROAR() ' refresh the pulldowns.
-            'SetIAROARContent() ' load IAR and OAR web content
+            LoadLocalIAROAR() ' refresh the pulldowns.            
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
@@ -7105,7 +7097,7 @@ Public Class Form1
         KillAll()
         StopApache(True) 'really stop it, even if a service
         StopMysql()
-        Application.DoEvents()
+        'Application.doevents()
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
@@ -7164,7 +7156,7 @@ Public Class Form1
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
             ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
-            Application.DoEvents()
+            'Application.doevents()
         Next
     End Sub
 
@@ -7182,7 +7174,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
     End Sub

@@ -47,7 +47,7 @@ Module FileStuff
             ' Now check whether its a file or a folder and take action accordingly
             If File.Exists(fileSystemInfo.FullName) Then
                 Form1.Print(fileSystemInfo.Name)
-                Application.DoEvents()
+                'Application.doevents()
                 Try
                     CopyFile(fileSystemInfo.FullName, destinationFileName, True)
                 Catch ex As FileNotFoundException
@@ -73,7 +73,7 @@ Module FileStuff
                     End Try
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
-                Application.DoEvents()
+                'Application.doevents()
             End If
 
         Next

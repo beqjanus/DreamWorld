@@ -64,7 +64,7 @@ Public Class ClrCache
                 End Try
                 ctr += 1
                 Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                Application.DoEvents()
+                'Application.doevents()
             Next
         End If
 
@@ -87,7 +87,7 @@ Public Class ClrCache
                 End Try
                 ctr += 1
                 If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                Application.DoEvents()
+                'Application.doevents()
             Next
         End If
 
@@ -125,7 +125,7 @@ Public Class ClrCache
                 End Try
                 ctr += 1
                 If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                Application.DoEvents()
+                'Application.doevents()
             Next
         End If
 
@@ -175,7 +175,7 @@ Public Class ClrCache
                             If ctr Mod 100 = 0 Then
                                 Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
                             End If
-                            Application.DoEvents()
+                            'Application.doevents()
                         End If
                     Next
                 End If

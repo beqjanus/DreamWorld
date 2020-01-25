@@ -151,7 +151,7 @@ Public Class FormRegionPopup
         If hwnd <> IntPtr.Zero Then
             Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
             Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
         BringToFront()

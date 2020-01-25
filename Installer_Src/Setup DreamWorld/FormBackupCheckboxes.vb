@@ -79,7 +79,7 @@ Public Class FormBackupCheckboxes
             'Write to the Target
             streamWrite.Write(byteBuffer, 0, intBytesRead)
 
-            Application.DoEvents()    'do it
+            'Application.doevents()    'do it
         End While
 
         'Clean up
@@ -112,7 +112,7 @@ Public Class FormBackupCheckboxes
 
             PrintStatus("Backing up Regions Folder")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
         If MySqlCheckBox.Checked Then
@@ -127,7 +127,7 @@ Public Class FormBackupCheckboxes
             End Try
             PrintStatus("Backing up MySql\Data Folder")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
         If FSAssetsCheckBox.Checked Then
@@ -150,7 +150,7 @@ Public Class FormBackupCheckboxes
 
             PrintStatus("Backing up FSAssets Folder")
             FileStuff.CopyFolder(folder, Dest + "\FSAssets")
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
         If CustomCheckBox.Checked Then
@@ -167,7 +167,7 @@ Public Class FormBackupCheckboxes
             PrintStatus("Backing up Wifi Folders")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
-            Application.DoEvents()
+            'Application.doevents()
         End If
 
         If SettingsBox.Checked Then

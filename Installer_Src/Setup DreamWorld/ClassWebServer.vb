@@ -85,7 +85,7 @@ Public Class NetServer
 
         Log(My.Resources.Info, My.Resources.Stopping_Webserver)
         listen = False
-        Application.DoEvents()
+        'Application.doevents()
         WebThread.Abort()
 
     End Sub

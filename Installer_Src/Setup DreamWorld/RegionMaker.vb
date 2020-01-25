@@ -133,7 +133,7 @@ Public Class RegionMaker
             Form1.PropMaxPortUsed = Portnumber
             Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
-            Application.DoEvents()
+            'Application.doevents()
         Next
 
         Form1.Print(My.Resources.Setup_Firewall_word)
@@ -196,7 +196,7 @@ Public Class RegionMaker
                     Dim Removelist As New List(Of String)
                     If Form1.Settings.SmartStart Then
                         For Each Keypair In TeleportAvatarDict
-                            Application.DoEvents()
+                            'Application.doevents()
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
@@ -441,7 +441,7 @@ Public Class RegionMaker
                                 End If
                             End If
 
-                            Application.DoEvents()
+                            'Application.doevents()
                         Next
 #Disable Warning CA1031 ' Do not catch general exception types
                     Catch ex As Exception

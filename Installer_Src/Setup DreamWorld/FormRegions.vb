@@ -226,7 +226,7 @@ Public Class FormRegions
             RegionForm.Select()
             RegionForm.BringToFront()
 
-            Application.DoEvents()
+            'Application.doevents()
             counter += 1
             Y += 100
             X += 100

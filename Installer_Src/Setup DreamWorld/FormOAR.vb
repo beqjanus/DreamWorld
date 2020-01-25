@@ -6,7 +6,13 @@ Public Class FormOAR
 
 #Region "JSON"
 
+#Disable Warning CA1034
+
+#Region "Public Classes"
+
     Public Class JSONresult
+
+#Region "Private Fields"
 
         Private _cache As Image
         Private _date As String
@@ -15,6 +21,14 @@ Public Class FormOAR
         Private _photo As String
         Private _size As String
         Private _str As String
+
+#End Region
+
+#Enable Warning CA1034
+
+#End Region
+
+#Region "Properties"
 
         Public Property [Date] As String
             Get
@@ -83,6 +97,8 @@ Public Class FormOAR
 
 #End Region
 
+#End Region
+
 #Region "Private Fields"
 
     Private _initted As Boolean = False
@@ -125,13 +141,13 @@ Public Class FormOAR
         DataGridView.ScrollBars = ScrollBars.Both
         DataGridView.Enabled = True
 
-        NumColumns = Math.Ceiling(Me.Width / imgSize)
+        NumColumns = Math.Ceiling(Me.Width / imgSize) - 1
         If NumColumns = 0 Then
             NumColumns = 1
         End If
 
         DataGridView.Height = Me.Height - 100
-        DataGridView.RowTemplate.Height = Math.Ceiling((Me.Width - k) / NumColumns)
+        DataGridView.RowTemplate.Height = 256 ' Math.Ceiling((Me.Width - k) / NumColumns)
         DataGridView.RowTemplate.MinimumHeight = Math.Ceiling((Me.Width - k) / NumColumns)
 
         DataGridView.Width = Me.Width - 50
@@ -144,9 +160,11 @@ Public Class FormOAR
         For index = 1 To NumColumns 'How many do you want?
             Dim col As New DataGridViewImageColumn
             With col
-                .Width = (Me.Width - k) / NumColumns
+                .Width = 256 '(Me.Width - k) / NumColumns
                 .Name = "Details" & CStr(index)
                 .Frozen = False
+                .ImageLayout = DataGridViewImageCellLayout.Zoom
+
             End With
             DataGridView.Columns.Insert(0, col)
         Next
@@ -157,7 +175,7 @@ Public Class FormOAR
             Me.Text = CStr(cnt) & " Items"
 
             For Each item In json
-                Application.DoEvents()
+                'Application.doevents()
                 Debug.Print("Item:" & item.Name)
 
                 If column = 0 Then DataGridView.Rows.Add()
@@ -403,7 +421,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = Form1.SecureDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
+                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -438,6 +456,28 @@ Public Class FormOAR
 
 #Region "Imagery"
 
+    Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
+
+        ' Create solid brush.
+        Using blueBrush As SolidBrush = New SolidBrush(Color.DarkCyan)
+            ' Create rectangle.
+            Dim rect As Rectangle = New Rectangle(0, 0, 256, 30)
+            Dim bmp = photo
+            Dim newImage As New Bitmap(256, 256)
+            Using drawFont As Font = New Font("Arial", 7)
+                Using gr As Graphics = Graphics.FromImage(newImage)
+                    gr.DrawImageUnscaled(bmp, 0, 0)
+                    gr.FillRectangle(blueBrush, rect)
+                    gr.DrawString(item, drawFont, Brushes.White, 10, 15)
+                End Using
+            End Using
+
+            Return newImage
+
+        End Using
+
+    End Function
+
     Private Shared Function NoImage(item As JSONresult) As Image
 
         Dim bmp = My.Resources.Blank256
@@ -461,7 +501,7 @@ Public Class FormOAR
         If json IsNot Nothing Then
 
             For Each item In json
-                Application.DoEvents()
+                'Application.doevents()
                 Debug.Print("Item:" & item.Name)
 
                 Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
@@ -472,21 +512,28 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As Uri = New Uri("https://outworldz.com/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As Uri = New Uri(Form1.PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
+#Disable Warning CA2000
                         img = GetImageFromURL(link)
+#Enable Warning CA2000
+
                     End If
 
                     If img Is Nothing Then
+#Disable Warning CA2000
                         img = NoImage(item)
+#Enable Warning CA2000
                     End If
+
+                    img = DrawTextOnImage(item.Name, img)
 
                     Try
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
                     Catch ex As Exception
-                        Dim bp = 1
                     End Try
+                    img.Dispose()
 
                 End If
                 item.Cache = bmp

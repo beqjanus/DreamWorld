@@ -115,7 +115,7 @@ Public Class FormDNSName
 
         NextNameButton.Text = My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
-        Application.DoEvents()
+        'Application.doevents()
         Dim newname = Form1.GetNewDnsName()
         NextNameButton.Text = My.Resources.Next1
         If newname.Length = 0 Then

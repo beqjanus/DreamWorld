@@ -385,7 +385,7 @@ Public Class RegionList
         Timer1.Start() 'Timer starts functioning
         SetScreen(TheView1)
         initted = True
-        Application.DoEvents()
+        'Application.doevents()
     End Sub
 
     Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
@@ -737,7 +737,7 @@ Public Class RegionList
         RegionForm.BringToFront()
         RegionForm.Init("")
         RegionForm.Activate()
-        Application.DoEvents()
+        'Application.doevents()
         RegionForm.Visible = True
         RegionForm.Select()
 
@@ -797,7 +797,7 @@ Public Class RegionList
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
-                Application.DoEvents()
+                'Application.doevents()
             End If
         Next
 
@@ -972,7 +972,7 @@ Public Class RegionList
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(RegionUUID))
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
-            Application.DoEvents()
+            'Application.doevents()
             Form1.Timer1.Interval = 1000
             Form1.Timer1.Start() 'Timer starts functioning
             Form1.Buttons(Form1.StopButton)

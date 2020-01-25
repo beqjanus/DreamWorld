@@ -155,7 +155,7 @@ Public Class FormApache
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
             Form1.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
@@ -164,7 +164,7 @@ Public Class FormApache
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            Application.DoEvents()
+            'Application.doevents()
             ApacheProcess.WaitForExit()
             Form1.Print(My.Resources.Apache_has_been_removed)
         End Using
