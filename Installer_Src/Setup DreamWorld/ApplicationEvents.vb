@@ -36,24 +36,23 @@ Namespace My
 
         Private Sub MyApplication_UnhandledException(
                     ByVal sender As Object,
-            ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
+                    ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
          ) Handles Me.UnhandledException
 
-            Form1.Log("FATAL", e.Exception.Message)
-            Form1.Log("FATAL:", DisplayObjectInfo(sender))
+            Dim ex = e.Exception
 
-            Dim resp As MsgBoxResult = MsgBox(My.Resources.Appexception + e.Exception.Message, vbOKCancel)
-            If resp = vbOK Then
-                e.ExitApplication = False
-            Else
-                Try
-                    System.Diagnostics.Process.Start(Form1.PropMyFolder + "\baretail.exe", """" + Form1.PropMyFolder + "\OutworldzFiles\Outworldz.log" + """")
-                Catch ex As ObjectDisposedException
-                Catch ex As InvalidOperationException
-                Catch ex As System.ComponentModel.Win32Exception
-                End Try
-                e.ExitApplication = False
-            End If
+            Dim Result As String
+            Dim hr As Integer = Runtime.InteropServices.Marshal.GetHRForException(ex)
+            Result = ex.GetType.ToString & "(0x" & hr.ToString("X8") & "): " & ex.Message & Environment.NewLine & ex.StackTrace & Environment.NewLine
+            Dim st As StackTrace = New StackTrace(ex, True)
+            For Each sf As StackFrame In st.GetFrames
+                If sf.GetFileLineNumber() > 0 Then
+                    Result &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
+                End If
+            Next
+            Form1.ErrorLog(Result)
+            Form1.ErrorLog(DisplayObjectInfo(sender))
+
         End Sub
 
 #End Region
