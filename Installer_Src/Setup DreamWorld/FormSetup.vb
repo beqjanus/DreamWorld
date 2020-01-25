@@ -38,7 +38,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.31"
+    Private _MyVersion As String = "3.33"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 
 #End Region
@@ -52,8 +52,6 @@ Public Class Form1
     Private WithEvents UpdateProcess As New Process()
 
 #End Region
-
-
 
 #Region "Private Fields"
 
@@ -124,8 +122,6 @@ Public Class Form1
 
 #End Region
 
-
-
 #Region "Public Events"
 
     Public Event ApacheExited As EventHandler
@@ -135,8 +131,6 @@ Public Class Form1
     Public Event RobustExited As EventHandler
 
 #End Region
-
-
 
 #Region "Public Enums"
 
@@ -159,8 +153,6 @@ Public Class Form1
     End Enum
 
 #End Region
-
-
 
 #Region "Public Properties"
 
@@ -594,8 +586,6 @@ Public Class Form1
     End Property
 
 #End Region
-
-
 
 #Region "Public Methods"
 
@@ -3045,8 +3035,6 @@ Public Class Form1
     End Function
 
 #End Region
-
-
 
 #Region "Private Methods"
 
