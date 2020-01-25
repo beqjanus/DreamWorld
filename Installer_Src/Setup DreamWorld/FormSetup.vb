@@ -696,6 +696,7 @@ Public Class Form1
                 End Try
                 ctr -= 1
                 Sleep(100)
+                Application.DoEvents()
             End While
         End If
         Return False
@@ -710,7 +711,7 @@ Public Class Form1
         Dim sleeptime = value / 100  ' now in tenths
 
         While sleeptime > 0
-            'Application.doevents()
+            Application.DoEvents()
             Thread.Sleep(100)
             sleeptime -= 1
         End While
@@ -1312,7 +1313,7 @@ Public Class Form1
                     If pList.Id = pid Then
                         Return pList.MainWindowHandle
                     End If
-                    'Application.doevents()
+                    Application.DoEvents()
                     ctr -= 1
                 Next
             End While
@@ -1491,7 +1492,7 @@ Public Class Form1
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
-                    'Application.doevents()
+                    Application.DoEvents()
                     If CountisRunning = 0 Then Exit For
                 Next
 
@@ -2140,7 +2141,7 @@ Public Class Form1
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-            'Application.doevents()
+
         End While
         Return True
 
@@ -2348,7 +2349,7 @@ Public Class Form1
                         Print(My.Resources.Apache_Failed)
                         Return False
                     End If
-                    'Application.doevents()
+
 
                     Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
                     If isRunning Then
@@ -2356,7 +2357,7 @@ Public Class Form1
                         ApachePictureBox.Image = My.Resources.nav_plain_green
                         ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
                         PropApacheExited = False
-                        'Application.doevents()
+
                         Return True
                     End If
                     Sleep(100)
@@ -2509,7 +2510,6 @@ Public Class Form1
         Dim ctr As Integer = 0
         While Not MysqlOk And Not PropAborting
 
-            'Application.doevents()
 
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             If ctr = 60 Then ' about 60 seconds when it fails
@@ -2568,7 +2568,7 @@ Public Class Form1
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
-                'Application.doevents()
+                Application.DoEvents()
             End If
         Next
 
@@ -2592,7 +2592,7 @@ Public Class Form1
                     Log(My.Resources.Info, My.Resources.DosBoxRunning)
                     Return True
                 End If
-                'Application.doevents()
+
             Next
         End If
         RobustPictureBox.Image = My.Resources.navigate_open
@@ -2683,7 +2683,7 @@ Public Class Form1
                 _RobustIsStarting = False
                 Return False
             End If
-            'Application.doevents()
+
             Sleep(100)
         End While
 
@@ -2858,7 +2858,6 @@ Public Class Form1
         While CheckRobust() And ctr < 60
             Sleep(1000)
             ctr += 1
-            'Application.doevents()
         End While
 
         RobustPictureBox.Image = My.Resources.nav_plain_red
@@ -3032,6 +3031,7 @@ Public Class Form1
             End If
 
             Sleep(100)
+
             TooMany += 1
         Loop
 
@@ -3125,7 +3125,7 @@ Public Class Form1
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
 
-                Sleep(15000)
+                Sleep(5000)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)

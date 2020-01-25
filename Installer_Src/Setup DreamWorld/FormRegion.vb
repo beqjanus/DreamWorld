@@ -1135,7 +1135,7 @@ Public Class FormRegion
             Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
             Filepath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
             Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
-            Folderpath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
+
         End If
 
         ' save the changes to the memory structure, then to disk
