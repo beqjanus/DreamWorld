@@ -149,6 +149,7 @@ Public Class FormDiva
     End Sub
 
     Private Sub WifiEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles WifiEnabled.CheckedChanged
+
         If Not initted Then Return
         Form1.Settings.WifiEnabled = WifiEnabled.Checked
         Form1.Settings.SaveSettings()
@@ -271,7 +272,7 @@ Public Class FormDiva
 #Region "Splash"
 
     Private Sub BlackRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles BlackRadioButton.CheckedChanged
-
+        If Not initted Then Return
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
             Form1.Print(My.Resources.Theme_Black)
@@ -288,7 +289,7 @@ Public Class FormDiva
     End Sub
 
     Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
-
+        If Not initted Then Return
         Form1.Settings.SimName = GridName.Text
 
     End Sub
@@ -298,7 +299,7 @@ Public Class FormDiva
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles CustomButton1.CheckedChanged
-
+        If Not initted Then Return
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
             Form1.Print(My.Resources.theme_Custom)
@@ -316,6 +317,7 @@ Public Class FormDiva
 
     Private Sub WhiteRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles WhiteRadioButton.CheckedChanged
 
+        If Not initted Then Return
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
             Form1.Print(My.Resources.Theme_White)
