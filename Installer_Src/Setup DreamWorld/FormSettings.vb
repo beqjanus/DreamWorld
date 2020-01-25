@@ -24,6 +24,7 @@ Public Class AdvancedForm
     Implements IDisposable
 
 #Region "Declarations"
+#Disable Warning CA2213
 
     Private Backups As New FormAutoBackups
     Private Bird As New BirdForm
@@ -47,6 +48,7 @@ Public Class AdvancedForm
     Dim Tide As New Tides
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
+#Enable Warning CA2213
 
 #End Region
 
@@ -100,7 +102,7 @@ Public Class AdvancedForm
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = Form1.SecureDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
         Catch ex As ObjectDisposedException

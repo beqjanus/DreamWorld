@@ -99,21 +99,16 @@ Public Class Form1
     Private _RobustExited As Boolean = False
     Private _RobustIsStarting As Boolean = False
     Private _RobustProcID As Integer = 0
-    Private _SecureDomain As String = "https://outworldz.com"
     Private _SelectedBox As String = ""
     Private _speed As Double = 50
     Private _StopMysql As Boolean = True
     Private _UpdateView As Boolean = True
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
-    Private Adv As New AdvancedForm
-    Private cpu As New PerformanceCounter
     Private D As New Dictionary(Of String, String)
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
-    Private newScreenPosition As ScreenPos
-    Private ScreenPosition As ScreenPos
     Private speed As Single = 0
     Private speed1 As Single = 0
     Private speed2 As Single = 0
@@ -122,6 +117,18 @@ Public Class Form1
     Private ws As NetServer
 
 #End Region
+
+#Region "No Warning"
+
+#Disable Warning CA2213
+    Private Adv As New AdvancedForm
+    Private newScreenPosition As ScreenPos
+    Private ScreenPosition As ScreenPos
+    Private cpu As New PerformanceCounter
+#Disable Warning CA2213
+
+#End Region
+
 
 #Region "Public Events"
 
@@ -559,14 +566,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property SecureDomain As String
-        Get
-            Return _SecureDomain
-        End Get
-        Set(value As String)
-            _SecureDomain = value
-        End Set
-    End Property
 
     Public Property Settings As MySettings
         Get
@@ -985,7 +984,7 @@ Public Class Form1
         Using client As New WebClient ' download client for web pages
             Print(My.Resources.Checking_for_Updates_word)
             Try
-                Update_version = client.DownloadString(SecureDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
+                Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
             Catch ex As ArgumentNullException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
@@ -2892,7 +2891,7 @@ Public Class Form1
 
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = SecureDomain() & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
+                Dim str = PropDomain & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As ArgumentNullException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -2927,7 +2926,12 @@ Public Class Form1
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim size = PropRegionClass.SizeX(RegionUUID)
+
+
+
+#Disable Warning CA2000
         Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+#Disable Warning CA2213
         Dim span = Math.Ceiling(size / 256)
         ' Show Dialog as a modal dialog
         VarForm.Init(span, RegionUUID, Map)
@@ -5123,7 +5127,7 @@ Public Class Form1
                 DeleteEvents(osconnection)
 
                 Using client As New WebClient()
-                    Dim Stream = client.OpenRead(SecureDomain() & "/events.txt?r=" & RandomNumber.Random)
+                    Dim Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & RandomNumber.Random)
                     Using reader = New StreamReader(Stream)
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
@@ -5202,7 +5206,7 @@ Public Class Form1
     Private Sub IarClick(sender As ToolStripMenuItem)
 
         If sender.Text = "Web Download Link" Then
-            Dim webAddress As String = "https://outworldz.com/outworldz_installer/IAR"
+            Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
             Try
                 Process.Start(webAddress)
             Catch ex As InvalidOperationException
@@ -5765,7 +5769,7 @@ Public Class Form1
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
 
         Print("(c) 2017 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
-        Dim webAddress As String = SecureDomain & "/Outworldz_Installer"
+        Dim webAddress As String = PropDomain & "/Outworldz_Installer"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -5790,7 +5794,7 @@ Public Class Form1
 
     Private Sub MoreContentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MoreContentToolStripMenuItem.Click
 
-        Dim webAddress As String = SecureDomain & "/cgi/freesculpts.plx"
+        Dim webAddress As String = PropDomain & "/cgi/freesculpts.plx"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -5877,7 +5881,7 @@ Public Class Form1
     Private Sub OarClick(sender As ToolStripMenuItem)
 
         If sender.Text = "Web Download Link" Then
-            Dim webAddress As String = "https://outworldz.com/outworldz_installer/OAR"
+            Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
             Try
                 Process.Start(webAddress)
             Catch ex As InvalidOperationException
@@ -5983,7 +5987,7 @@ Public Class Form1
             ' results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
-            Dim Url = SecureDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
+            Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
             Try
                 isPortOpen = client.DownloadString(Url)
             Catch ex As ArgumentNullException
@@ -6924,7 +6928,7 @@ Public Class Form1
     End Sub
 
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
+        Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
@@ -7055,7 +7059,7 @@ Public Class Form1
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        Dim webAddress As String = SecureDomain() & "/Outworldz_Installer/PortForwarding.htm"
+        Dim webAddress As String = PropDomain() & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
         Catch ex As InvalidOperationException
