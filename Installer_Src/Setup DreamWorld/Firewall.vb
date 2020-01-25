@@ -36,14 +36,16 @@ Public Module Firewall
     Function DeleteFirewallRules() As String
 
         Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Form1.Settings.DiagnosticPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim UDP Port " & CStr(Form1.Settings.DiagnosticPort) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & CStr(Form1.Settings.HttpPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & CStr(Form1.Settings.HttpPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & CStr(Form1.Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & CStr(Form1.Settings.HttpPort) & """" & vbCrLf
+
+        If Form1.Settings.SCEnable Then
+            Command += "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & CStr(Form1.Settings.SCPortBase) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & CStr(Form1.Settings.SCPortBase) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & CStr(Form1.Settings.SCPortBase1) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & CStr(Form1.Settings.SCPortBase1) & """" & vbCrLf
 
+        End If
         If Form1.Settings.ApacheEnable Then
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Form1.Settings.ApachePort) & """" & vbCrLf
         End If
@@ -65,6 +67,9 @@ Public Module Firewall
         Try
             Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
             ns.WriteLine(CMD)
+            If Debugger.IsAttached Then
+                ns.WriteLine("@pause")
+            End If
             ns.Close()
         Catch ex As IOException
         Catch ex As UnauthorizedAccessException
