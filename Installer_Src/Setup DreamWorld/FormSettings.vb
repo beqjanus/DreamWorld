@@ -124,6 +124,30 @@ Public Class AdvancedForm
         e.Cancel = True
         Me.Visible = False
 
+        Backups.Dispose()
+        Bird.Dispose()
+        FormApache.Dispose()
+        FormCache.Dispose()
+        FormDatabase.Dispose()
+        FormDiva.Dispose()
+        FormDNSName.Dispose()
+        FormPermissions.Dispose()
+        FormPhysics.Dispose()
+        FormPorts.Dispose()
+        FormPublicity.Dispose()
+        FormRegions.Dispose()
+        FormRestart.Dispose()
+        FormServerType.Dispose()
+        Gloebits.Dispose()
+        Icecast.Dispose()
+        Logging.Dispose()
+        Maps.Dispose()
+        Scripts.Dispose()
+        Tide.Dispose()
+        Tos.Dispose()
+        Voice.Dispose()
+
+
     End Sub
 
 #Region "Clicks"
