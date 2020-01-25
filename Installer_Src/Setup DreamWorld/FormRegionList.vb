@@ -29,7 +29,9 @@ Public Class RegionList
 
     Private Shared _FormExists As Boolean = False
     Private _ImageListLarge As ImageList
+#Disable Warning CA2213
     Private _ImageListSmall As New ImageList
+#Enable Warning CA2213
     Private colsize = New ScreenPos(MyBase.Name & "ColumnSize")
     Private initted = False
     Private ItemsAreChecked As Boolean = False
@@ -226,8 +228,6 @@ Public Class RegionList
     End Sub
 
 #End Region
-
-
 
 #Region "Public Enums"
 
