@@ -71,11 +71,17 @@ Public Module Firewall
         Catch ex As ArgumentException
         Catch ex As System.Security.SecurityException
         End Try
+        Dim Windowstyle As ProcessWindowStyle
+        If Debugger.IsAttached Then
+            Windowstyle = ProcessWindowStyle.Normal
+        Else
+            Windowstyle = ProcessWindowStyle.Hidden
+        End If
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
             .FileName = Form1.PropMyFolder & "\fw.bat",
-            .WindowStyle = ProcessWindowStyle.Hidden,
+            .WindowStyle = Windowstyle,
             .Verb = "runas"
         }
         Using ProcessFirewall As Process = New Process With {
