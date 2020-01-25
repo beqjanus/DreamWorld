@@ -55,6 +55,7 @@ Public Class Form1
 
 #Region "Private Fields"
 
+    Private _DNS_is_registered = False
     Private _ApacheCrashCounter As Integer = 0
     Private _ApacheExited As Boolean = False
     Private _ApacheProcessID As Integer = 0
@@ -1180,6 +1181,7 @@ Public Class Form1
 
     Public Function DelLibrary() As Boolean
 
+        Print("->Set Library")
         Try
             System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Clothing Library (small).iar")
             System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Objects Library (small).iar")
@@ -1197,6 +1199,7 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
+        Print("->Set Globits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else
@@ -1815,15 +1818,19 @@ Public Class Form1
 
     End Sub
 
-    Public Function RegisterDNS() As Boolean
+    Public Function RegisterDNS(force As Boolean) As Boolean
 
         If Settings.DNSName.Length = 0 Then
             Return True
         End If
 
+
         If IPCheck.IsPrivateIP(Settings.DNSName) Then
             Return True
         End If
+
+        If _DNS_is_registered And Not force Then Return True
+        _DNS_is_registered = True
 
         Dim client As New WebClient
         Dim Checkname As String
@@ -1881,6 +1888,7 @@ Public Class Form1
 
     Public Function SaveIceCast() As Boolean
 
+        Print("->Set IceCast")
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
         Dim name As String = rgx.Replace(Settings.SimName, "")
 
@@ -2011,12 +2019,12 @@ Public Class Form1
                 Settings.PublicIP = Settings.DNSName()
                 Settings.SaveSettings()
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS()
+                Dim ret = RegisterDNS(False)
                 Return ret
             Else
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS()
+                Dim ret = RegisterDNS(False)
                 Settings.SaveSettings()
                 Return ret
             End If
@@ -2036,14 +2044,14 @@ Public Class Form1
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
-            If RegisterDNS() Then
+            If RegisterDNS(False) Then
                 Return True
             End If
 
         End If
 
         If Settings.PublicIP = "localhost" Or Settings.PublicIP = "127.0.0.1" Then
-            RegisterDNS()
+            RegisterDNS(False)
             Return True
         End If
 
@@ -3650,7 +3658,7 @@ Public Class Form1
     Private Function DoApache() As Boolean
 
         If Not Settings.ApacheEnable Then Return False
-
+        Print("->Set Apache")
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
@@ -3693,7 +3701,7 @@ Public Class Form1
     Private Function DoBirds() As Boolean
 
         If Not Settings.BirdsModuleStartup Then Return False
-
+        Print("->Set Birds")
         Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
         Try
             System.IO.File.Delete(BirdFile)
@@ -3785,7 +3793,9 @@ Public Class Form1
 
     Private Function DoFlotsamINI() As Boolean
 
+
         If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";") Then Return True
+        Print("->Set Flotsam Cache")
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
@@ -3796,6 +3806,8 @@ Public Class Form1
     End Function
 
     Private Function DoGridCommon() As Boolean
+
+        Print("->Set GridCommon.ini")
 
         'Choose a GridCommon.ini to use.
         Dim GridCommon As String = "GridcommonGridServer"
@@ -3830,7 +3842,7 @@ Public Class Form1
 
         ' Opensim.ini
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
-
+        Print("->Set Opensim.Proto")
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
@@ -4033,6 +4045,7 @@ Public Class Form1
 
     Private Function DoPHP() As Boolean
 
+        Print("->Set PHP7")
         Dim ini = PropMyFolder & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
@@ -4343,6 +4356,7 @@ Public Class Form1
 
     Private Function DoRobust() As Boolean
 
+        Print("->Set Robust")
         If Settings.ServerType = "Robust" Then
             ' Robust Process
             If Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";") Then
@@ -4454,6 +4468,7 @@ Public Class Form1
 
     Private Function DoTides() As Boolean
 
+        Print("->Set Tides")
         Dim TideData As String = ""
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
         Try
@@ -4536,9 +4551,9 @@ Public Class Form1
 
     Private Function DoWifi() As Boolean
 
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";") Then
-            Return True
-        End If
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";") Then Return True
+
+        Print("->Set Diva Wifi page")
 
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
@@ -4592,6 +4607,7 @@ Public Class Form1
 
     Private Function EditForeigners() As Boolean
 
+        Print("->Set Residents/Foreigners")
         ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
 
         Dim Authorizationlist As String = ""
@@ -4894,6 +4910,8 @@ Public Class Form1
             Log("Startup:", DisplayObjectInfo(Me))
         End If
 
+
+
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
         PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
 
@@ -4924,6 +4942,7 @@ Public Class Form1
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
+
 
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
@@ -4960,7 +4979,6 @@ Public Class Form1
         Print(My.Resources.Getting_regions_word)
 
         PropRegionClass = RegionMaker.Instance()
-
         PropInitted = True
 
         ClearLogFiles() ' clear log files
@@ -5700,6 +5718,7 @@ Public Class Form1
 
     Private Function MapSetup() As Boolean
 
+        Print("->Set Maps")
         Dim phptext = "<?php " & vbCrLf &
 "/* General Domain */" & vbCrLf &
 "$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
@@ -6457,6 +6476,7 @@ Public Class Form1
 
     Private Function SetDefaultSims() As Boolean
 
+        Print("->Set Default Sims")
         ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
@@ -6504,7 +6524,7 @@ Public Class Form1
                 While reader.Peek <> -1
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
-                    Diagnostics.Debug.Print(line)
+                    'Diagnostics.Debug.Print(line)
                     If line.StartsWith("; START", StringComparison.InvariantCulture) Then
                         Output += line & vbCrLf ' add back on the ; START
                         Output += RegionSetting
@@ -6516,7 +6536,7 @@ Public Class Form1
                         If Not skip Then Output += line & vbCrLf
                     End If
 
-                    Diagnostics.Debug.Print(Output)
+                    'Diagnostics.Debug.Print(Output)
                     outputFile.WriteLine(Output)
 
                 End While
@@ -7021,7 +7041,7 @@ Public Class Form1
 
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
-            RegisterDNS()
+            RegisterDNS(True)
             LoadLocalIAROAR() ' refresh the pulldowns.
             'SetIAROARContent() ' load IAR and OAR web content
         End If
