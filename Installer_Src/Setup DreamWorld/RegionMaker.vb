@@ -148,17 +148,17 @@ Public Class RegionMaker
 
         WebserverList.Reverse()
 
-        For LOOPVAR = WebserverList.Count - 1 To 0 Step -1
-            If WebserverList.Count = 0 Then Return
+        While WebserverList.Count > 0
+
             Try
-                Dim ProcessString As String = WebserverList(LOOPVAR) ' recover the PID as string
+                Dim ProcessString As String = WebserverList(0) ' recover the PID as string
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
                 Dim rawJSON = POST.Substring(first, last - first + 1)
-                WebserverList.RemoveAt(LOOPVAR)
+                WebserverList.RemoveAt(0)
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
@@ -166,8 +166,7 @@ Public Class RegionMaker
                 Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
                     Debug.Print(ex.Message)
-                    Continue For
-                    Return
+                    Continue While
                 End Try
 
                 ' rawJSON "{""alert"":""region_ready"",""login"":""disabled"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String rawJSON
@@ -179,7 +178,7 @@ Public Class RegionMaker
 
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
-                        Return
+                        Continue While
                     End If
 
                     RegionEnabled(RegionUUID) = True
@@ -211,6 +210,7 @@ Public Class RegionMaker
                                     Catch ex As ArgumentException
                                     End Try
                                 End If
+
                             End If
                         Next
                     End If
@@ -230,7 +230,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    'Return ' does not work as expected
+                    Return ' does not work as expected
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
@@ -238,7 +238,7 @@ Public Class RegionMaker
                     If RegionUUID.Length = 0 Then
                         Return
                     End If
-                    Form1.PropExitList.Add(json.region_name)
+                    Form1.PropExitList.Add(json.region_name, RegionUUID)
 
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -246,7 +246,7 @@ Public Class RegionMaker
 #Enable Warning CA1031 ' Do not catch general exception types
                 Debug.Print(ex.Message)
             End Try
-        Next
+        End While
 
     End Sub
 
@@ -1505,6 +1505,7 @@ Public Class RegionMaker
             Dim RegionUUID As String = ""
             Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
             Dim match As Match = pattern.Match(POST)
+
             If match.Success Then
                 RegionUUID = match.Groups(1).Value
                 Dim AgentUUID = match.Groups(2).Value

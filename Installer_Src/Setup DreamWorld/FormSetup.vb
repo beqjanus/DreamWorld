@@ -55,6 +55,7 @@ Public Class Form1
 
 #Region "Private Fields"
 
+    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
     Private _DNS_is_registered = False
     Private _ApacheCrashCounter As Integer = 0
     Private _ApacheExited As Boolean = False
@@ -68,7 +69,7 @@ Public Class Form1
     Private _DNSSTimer As Integer = 0
     Private _Domain As String = "http://outworldz.com"
     Private _ExitHandlerIsBusy As Boolean = False
-    Private _exitList As New ArrayList()
+    Private _exitList As New Dictionary(Of String, String)
     Private _ForceMerge As Boolean = False
     Private _ForceParcel As Boolean = False
     Private _ForceTerrain As Boolean = True
@@ -85,7 +86,6 @@ Public Class Form1
     Private _MysqlCrashCounter As Integer = 0
     Private _MysqlExited As Boolean = False
     Private _myUPnpMap As UPnp
-
     Private _OpensimBinPath As String
     Private _PropAborting As Boolean = False
     Private _regionClass As RegionMaker
@@ -272,7 +272,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public ReadOnly Property PropExitList As ArrayList
+    Public ReadOnly Property PropExitList As Dictionary(Of String, String)
         Get
             Return _exitList
         End Get
@@ -1307,7 +1307,7 @@ Public Class Form1
             Dim ctr = 20   ' 2 seconds
             Dim found As Boolean = False
             While Not found And ctr > 0
-                Sleep(100)
+                Thread.Sleep(100) ' no doevents
 
                 For Each pList As Process In Process.GetProcesses()
                     If pList.Id = pid Then
@@ -3335,7 +3335,7 @@ Public Class Form1
                 MyCPUCollection(i + 1) = MyCPUCollection(i)
                 i -= 1
             End While
-
+            Application.DoEvents()
             MyCPUCollection(0) = speed
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -3368,7 +3368,7 @@ Public Class Form1
                 MyRAMCollection(0) = CDbl(value)
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
-                'Application.doevents()
+                Application.DoEvents()
             Next
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
@@ -4682,7 +4682,8 @@ Public Class Form1
         SendMsg("error")
     End Sub
 
-    Private Sub ExitHandlerPoll()
+
+    Private Sub Changestate()
 
         If PropAborting Then Return ' not if we are aborting
 
@@ -4696,7 +4697,8 @@ Public Class Form1
                 Return
             End If
         End If
-        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash is true
+        ' From the cross-threaded exited function. These can only be set if Settings.RestartOnCrash
+        ' is true
         If PropMysqlExited Then
             MysqlPictureBox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.MySql_Exited)
@@ -4720,26 +4722,120 @@ Public Class Form1
 
         Dim GroupName As String
         Dim TimerValue As Integer
-
+        If PropExitHandlerIsBusy Then Return
+        PropExitHandlerIsBusy = True
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
             ' count up to auto restart , when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
                 PropRegionClass.Timer(RegionUUID) = PropRegionClass.Timer(RegionUUID) + 1
             End If
+
+
             GroupName = PropRegionClass.GroupName(RegionUUID)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+
+            'Auto restart phase begins
+            ' if a RestartPending is signaled, boot it up
+            If Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
+                PropUpdateView = True
+                Continue For
+            End If
+
+            ' if a resume is signaled, unsuspend it
+            If Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+                PropUpdateView = True
+                Continue For
+            End If
+
+            If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                Dim Regionlist = PropRegionClass.RegionUUIDListByName(GroupName)
+                For Each UUID In RegionList
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+                Next
+                PropUpdateView = True ' make form refresh
+                Continue For
+            End If
+
+            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                PropUpdateView = True
+                Continue For
+            End If
+
 
             ' too long running, possible shutdown
             If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
                 TimerValue = PropRegionClass.Timer(RegionUUID)
 
+                Dim Overdone = TimerValue * ExitInterval / 60
                 ' if it is past time and no one is in the sim... Smart shutdown
-                If PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart And (TimerValue * 6) >= 60 And Not AvatarsIsInGroup(GroupName) Then
+                If PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart And Overdone >= 1 And Not AvatarsIsInGroup(GroupName) Then
+                    Diagnostics.Debug.Print(GroupName & " suspend")
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
                 End If
 
-                ' auto restart timer
-                If (TimerValue / 30) >= (Settings.AutoRestartInterval()) _
+                ' auto restart timer based on 5 second tick
+                If Overdone >= Settings.AutoRestartInterval() _
+                    And Settings.AutoRestartInterval() > 0 _
+                    And Not AvatarsIsInGroup(GroupName) _
+                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ' shut down the group when one minute has gone by, or multiple thereof.
+                    Diagnostics.Debug.Print(GroupName & " AutoRestart")
+                    If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
+                        SequentialPause()
+                        ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                        Print(My.Resources.Automatic_restart_word & GroupName)
+                        ' shut down all regions in the DOS box
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                        Next
+                    Else
+                        ' shut down all regions in the DOS box, cant show the box
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                        Next
+                    End If
+                    PropUpdateView = True ' make form refresh
+                End If
+            End If
+        Next
+        PropExitHandlerIsBusy = False
+
+    End Sub
+
+    Private Sub ExitHandlerPoll()
+
+        If PropAborting Then Return ' not if we are aborting
+
+        If PropExitHandlerIsBusy Then Return
+        PropExitHandlerIsBusy = True
+
+        Dim GroupName As String
+        Dim TimerValue As Integer
+
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+
+
+            GroupName = PropRegionClass.GroupName(RegionUUID)
+
+            ' too long running, possible shutdown
+            If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
+                TimerValue = PropRegionClass.Timer(RegionUUID)
+                Dim Expired As Integer = TimerValue / 60 / ExitInterval
+                ' if it is past time and no one is in the sim... Smart shutdown
+                If PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart And Expired >= 1 And Not AvatarsIsInGroup(GroupName) Then
+                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
+                End If
+
+                ' auto restart timer 
+                If Expired >= (Settings.AutoRestartInterval()) _
                     And Settings.AutoRestartInterval() > 0 _
                     And Not AvatarsIsInGroup(GroupName) _
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -4767,110 +4863,10 @@ Public Class Form1
 
         Next
 
-        ' Exit Handler
-
-        ' now look at the exit stack
-        If PropExitList.Count = 0 Then Return
-        If PropExitHandlerIsBusy Then Return
-        PropExitHandlerIsBusy = True
-        Dim RegionName As String = Nothing
-        While PropExitList.Count > 0
-            Try
-                RegionName = PropExitList(0).ToString()
-                PropExitList.RemoveAt(0)
-            Catch ex As Exception
-            End Try
-
-            Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we
-            ' need to get a region name from the group
-            GroupName = RegionName ' assume a group
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
-            If RegionUUID.Length > 0 Then
-                GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
-            Else
-                ' Nope, grab the first region, Group name is already set
-                RegionUUID = RegionList(0)
-
-            End If
-            RegionList = PropRegionClass.RegionUUIDListByName(GroupName)
-            If GroupName.Length = 0 Then Continue While ' may have been deleted
-
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
-                ' already stoppped, from exit event or JSON via Region Ready module
-                Continue While
-            End If
-            Print(RegionName & " " & My.Resources.Shutdown_word)
-            Dim Status = PropRegionClass.Status(RegionUUID)
-            TimerValue = PropRegionClass.Timer(RegionUUID)
-
-            'Auto restart phase begins
-            If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                For Each UUID In RegionList
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue While
-            End If
-
-            ' if a resume is signaled, unsuspend it
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                PropUpdateView = True
-                Continue While
-            End If
-
-            ' if a RestartPending is signaled, boot it up
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
-                PropUpdateView = True
-                Continue While
-            End If
-
-            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                PropUpdateView = True
-                Continue While
-            End If
-
-            ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
-            If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
-                Or Status = RegionMaker.SIMSTATUSENUM.Booting) _
-                Or PropRegionClass.IsBooted(RegionUUID) _
-                And TimerValue >= 0 _
-                And PropRestartNow = False Then
-
-                If Settings.RestartOnCrash Then
-                    ' shut down all regions in the DOS box
-                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                    For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                        PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    Next
-                    PropUpdateView = True
-                Else
-                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                    Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
-                    If (yesno = vbYes) Then
-                        Try
-                            System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-                        Catch ex As InvalidOperationException
-                        Catch ex As System.ComponentModel.Win32Exception
-                        End Try
-                    End If
-                    StopGroup(GroupName)
-                    PropUpdateView = True
-                End If
-            End If
-
-        End While
-
         PropExitHandlerIsBusy = False
 
     End Sub
+
 
     Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
         SendMsg("fatal")
@@ -6355,13 +6351,13 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
-        If Debugger.IsAttached Then
-            Try
-                A.Add("Ferd Frederix", "Welcome")
-                B.Add("Nyira Machabelli", "SandBox")
-            Catch ex As Exception
-            End Try
-        End If
+        'If Debugger.IsAttached Then
+        'Try
+        'A.Add("Ferd Frederix", "Welcome")
+        'B.Add("Nyira Machabelli", "SandBox")
+        'Catch ex As Exception
+        'End Try
+        'End If
 
         ' Merge the two
         For Each keyname In A
@@ -7018,15 +7014,16 @@ Public Class Form1
 
         If PropAborting Then Return
 
-        ' Check for a restart RegionRestart requires MOD 2 seconds to slow it down a bit
-        If PropDNSSTimer Mod 2 = 0 Then
-            PropRegionClass.CheckPost()
-            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-        End If
 
-        If PropDNSSTimer Mod 15 = 0 Then
+        If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count each 15 seconds
             RegionListHTML() ' create HTML for older 2.4 region teleporters
+        End If
+
+        If PropDNSSTimer Mod ExitInterval = 0 Then
+            PropRegionClass.CheckPost()
+            ChangeState()
+            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         End If
 
         ' every 5 minutes

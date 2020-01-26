@@ -30,14 +30,14 @@ Public Class Handler
 
 #Region "Private Fields"
 
-    Dim Exitlist1 As New ArrayList()
+    Dim Exitlist1 As New Dictionary(Of String, String)
     Dim RegionHandles1 As New Dictionary(Of Integer, String)
 
 #End Region
 
 #Region "Public Methods"
 
-    Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As ArrayList) As Process
+    Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As Dictionary(Of String, String)) As Process
 
         Exitlist1 = ExitList
         RegionHandles1 = RegionHandles
@@ -50,22 +50,21 @@ Public Class Handler
 #Region "Private Methods"
 
     Private Sub OpensimProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyProcess.Exited
+        ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
 
-        ' Handle any process that exits by stacking it. DoExitHandlerPoll will clean up stack
         Dim pid = 0
         pid = CType(sender.Id, Integer)
 
         Try
-            Exitlist1.Add(RegionHandles1.Item(pid))
-            Debug.Print(RegionHandles1.Item(pid) & " Exited")
-        Catch ex As KeyNotFoundException
-        Catch ex As ArgumentNullException
-        Catch ex As NotSupportedException
-        End Try
-
-        Try
+            Dim name = RegionHandles1.Item(pid)
+            If name.Length > 0 Then
+                If Not Exitlist1.ContainsKey(name) Then
+                    Exitlist1.Add(name, "")
+                    Debug.Print(RegionHandles1.Item(pid) & " Exited")
+                End If
+            End If
             RegionHandles1.Remove(pid)
-        Catch ex As ArgumentNullException
+        Catch ex As KeyNotFoundException
         End Try
 
     End Sub

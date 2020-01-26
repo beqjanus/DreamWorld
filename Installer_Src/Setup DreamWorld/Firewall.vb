@@ -67,9 +67,9 @@ Public Module Firewall
         Try
             Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
             ns.WriteLine(CMD)
-            If Debugger.IsAttached Then
-                ns.WriteLine("@pause")
-            End If
+            'If Debugger.IsAttached Then
+            'ns.WriteLine("@pause")
+            'End If
             ns.Close()
         Catch ex As IOException
         Catch ex As UnauthorizedAccessException

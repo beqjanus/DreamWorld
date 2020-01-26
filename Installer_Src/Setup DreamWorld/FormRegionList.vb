@@ -854,9 +854,10 @@ Public Class RegionList
             If MysqlInterface.IsMySqlRunning() Then
                 L = MysqlInterface.GetAgentList()
             End If
-            If Debugger.IsAttached Then
-                L.Add("Ferd Frederix", "Welcome")
-            End If
+
+            'If Debugger.IsAttached Then
+            'L.Add("Ferd Frederix", "Welcome")
+            'End If
 
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -883,9 +884,9 @@ Public Class RegionList
             If MysqlInterface.IsMySqlRunning() Then
                 M = GetHGAgentList()
             End If
-            If Debugger.IsAttached Then
-                M.Add("Nyira Machabelli", "SandBox")
-            End If
+            ' If Debugger.IsAttached Then
+            'M.Add("Nyira Machabelli", "SandBox")
+            'End If
 
             For Each Agent In M
                 If Agent.Value.Length > 0 Then
@@ -988,7 +989,7 @@ Public Class RegionList
                 If Form1.PropRegionClass.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
                     If Form1.PropRegionClass.AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar + Form1.PropRegionClass.RegionName(num) + My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
+                        response = MsgBox(My.Resources.OneAvatar & " " & Form1.PropRegionClass.RegionName(num) & " " & My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     Else
                         response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     End If
