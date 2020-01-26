@@ -72,22 +72,22 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property GroupPort(regionUUID As String) As Integer
+    Public Property GroupPort(RegionUUID As String) As Integer
         Get
-            Dim RegionName = GroupName(regionUUID)
-            If _Grouplist.ContainsKey(RegionName) Then
-                Return _Grouplist.Item(RegionName)
+            Dim GN As String = GroupName(RegionUUID)
+            If _Grouplist.ContainsKey(GN) Then
+                Return _Grouplist.Item(GN)
             End If
             Return 0
         End Get
-        Set(ByVal Value As Integer)
 
-            Dim RegionName = GroupName(regionUUID)
-            If _Grouplist.ContainsKey(RegionName) Then
-                _Grouplist.Remove(RegionName)
-                _Grouplist.Add(RegionName, Value)
+        Set(ByVal Value As Integer)
+            Dim GN As String = GroupName(RegionUUID)
+            If _Grouplist.ContainsKey(GN) Then
+                _Grouplist.Remove(GN)
+                _Grouplist.Add(GN, Value)
             Else
-                _Grouplist.Add(RegionName, Value)
+                _Grouplist.Add(GN, Value)
             End If
 
             'DebugGroup

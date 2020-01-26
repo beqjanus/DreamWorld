@@ -806,6 +806,8 @@ Public Class Form1
             Return False
         End If
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
+
+
         If Regionclass.IsBooted(RegionUUID) Then
             Log(My.Resources.Info, "Region " & BootName & " already running")
             PropUpdateView = True ' make form refresh
@@ -844,8 +846,6 @@ Public Class Form1
             Return True
         End If
 
-        'Application.doevents()
-
         DoRegion(BootName)
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
@@ -860,9 +860,10 @@ Public Class Form1
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
                         End If
-                        Dim thisname = GroupName
-                        For Each RegionUUID In Regionclass.RegionUUIDListByName(thisname)
+
+                        For Each RegionUUID In Regionclass.RegionUUIDListByName(GroupName)
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                            Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                             Regionclass.ProcessID(RegionUUID) = p.Id
                             'Application.doevents()
                         Next
@@ -870,6 +871,7 @@ Public Class Form1
                         Return True
                     End If
                 Next
+                Print("Error, cannot find Window ")
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -878,12 +880,19 @@ Public Class Form1
 
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+                    Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                     'Application.doevents()
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
-
+        Else
+            If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                PropUpdateView = True ' make form refresh
+                Return True
+            End If
         End If
 
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & GroupName)
@@ -891,7 +900,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess()
 
-        Print(My.Resources.Starting_word & " " & GroupName)
+        Print(My.Resources.Starting_word & " " & BootName)
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -924,6 +933,7 @@ Public Class Form1
             If PID = 0 Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
                 PropUpdateView = True ' make form refresh
+                Print("Failed to get a PID for region " & BootName)
                 Return False
             End If
 
@@ -931,12 +941,11 @@ Public Class Form1
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                 Regionclass.ProcessID(UUID) = PID
-                Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                 'Application.doevents()
             Next
 
             PropUpdateView = True ' make form refresh
-            'Application.doevents()
+            Application.DoEvents()
             SetWindowTextCall(myProcess, GroupName)
 
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
@@ -950,6 +959,7 @@ Public Class Form1
             Return True
         End If
 
+        Print("Failed to boot region " & BootName)
         Return False
 
     End Function
@@ -3023,23 +3033,22 @@ Public Class Form1
             Catch ex As InvalidOperationException
             End Try
 
-            If p Is Nothing Then Return 0
-
-            If p.ProcessName.Length > 0 Then
-                PID = p.Id
-                Exit Do
+            If p IsNot Nothing Then
+                If p.ProcessName.Length > 0 Then
+                    PID = myProcess.Id
+                    Return PID
+                End If
             End If
 
             Sleep(100)
-
             TooMany += 1
         Loop
-
-        If PID = 0 Then
+        Try
             Print("Cannot get a Process ID from " & myProcess.ProcessName)
-        End If
+        Catch
+        End Try
 
-        Return PID
+        Return 0
 
     End Function
 
@@ -4812,6 +4821,9 @@ Public Class Form1
 
     Private Sub ExitHandlerPoll()
 
+
+        Return
+
         If PropAborting Then Return ' not if we are aborting
 
         If PropExitHandlerIsBusy Then Return
@@ -6351,13 +6363,13 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
-        'If Debugger.IsAttached Then
-        'Try
-        'A.Add("Ferd Frederix", "Welcome")
-        'B.Add("Nyira Machabelli", "SandBox")
-        'Catch ex As Exception
-        'End Try
-        'End If
+        If Debugger.IsAttached Then
+            Try
+                A.Add("Ferd Frederix", "SandBox")
+                B.Add("Nyira Machabelli", "SandBox")
+            Catch ex As Exception
+            End Try
+        End If
 
         ' Merge the two
         For Each keyname In A
