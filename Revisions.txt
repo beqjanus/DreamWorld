@@ -5,7 +5,9 @@ This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases
 
 V3.33 Beta
 
-Generate graphic titles to all web-downloadble IAR and OARs. 
+God modes tested and work
+
+Generate graphic titles to all web-downloadable IAR and OARs. 
 
 Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the crap you peeps get for free.  Its 385 GB used out of 400. Eeep.
 
@@ -21,7 +23,7 @@ Closing the settings form now closes all the child settings forms for garbage co
 
 Tests DNS name when saved.
 
-
+Can now add multiple regions at the same time.
 
 
 
