@@ -1,21 +1,19 @@
    REVISIONS FOR DREAMGRID
-This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
 
 V3.33 Beta
 
-God modes tested and work
-
 Generate graphic titles to all web-downloadable IAR and OARs. 
 
-Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the crap you peeps get for free.  Its 385 GB used out of 400. Eeep.
+Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the 3D crap you peeps get for free.  Its 385 GB used out of 400. Eeep.
 
 SSL added to Hyperica.com content. What a pain.  Should be "Future-proof" for both SSL and non-SSL versions of Hyperica.com and Outworldz.com by not using SSL at all except thru server-side redirects.  
 
-Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down.  Grid-wide Search and load OAR and IAR will obviously be offline.  Deal with it.
+Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down.  Grid-wide Search and load OAR and IAR will obviously be offline.  Deal with it.  DYN DNS is dual redundant, one server in Europe, one in Dallas.
 
-Added uncaught exception error handler/logger.  See Error.log if it just quits.
+Added uncaught exception error handler/logger.  See Error.log if Dreamgrid just quits.  
 
 Closing the settings form now closes all the child settings forms for garbage collection.
 
@@ -23,7 +21,7 @@ Closing the settings form now closes all the child settings forms for garbage co
 
 Tests DNS name when saved.
 
-Can now add multiple regions at the same time.
+Can now add multiple regions at the same time with breakage.
 
 
 
