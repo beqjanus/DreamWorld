@@ -40,6 +40,7 @@ Public Class RegionMaker
     Dim WebserverList As New List(Of String)
 
     Public Enum REGIONTIMER As Integer
+        Paused = -2
         Stopped = -1
         StartCounting = 0
     End Enum
@@ -56,12 +57,12 @@ Public Class RegionMaker
         [Resume] = 8
         Suspended = 9
         [Error] = 10
-
+        RestartStage2 = 11
     End Enum
 
 #End Region
 
-#Region "Property"
+#Region "Instance"
 
     Public Shared ReadOnly Property Instance() As RegionMaker
         Get
@@ -72,32 +73,15 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property GroupPort(RegionUUID As String) As Integer
-        Get
-            Dim GN As String = GroupName(RegionUUID)
-            If _Grouplist.ContainsKey(GN) Then
-                Return _Grouplist.Item(GN)
-            End If
-            Return 0
-        End Get
-
-        Set(ByVal Value As Integer)
-            Dim GN As String = GroupName(RegionUUID)
-            If _Grouplist.ContainsKey(GN) Then
-                _Grouplist.Remove(GN)
-                _Grouplist.Add(GN, Value)
-            Else
-                _Grouplist.Add(GN, Value)
-            End If
-
-            'DebugGroup
-        End Set
-    End Property
-
 #End Region
 
 #Region "Start/Stop"
 
+    Public Sub ClearStack()
+
+        WebserverList.Clear()
+
+    End Sub
     Private Sub New()
 
         GetAllRegions()
@@ -183,6 +167,7 @@ Public Class RegionMaker
 
                     RegionEnabled(RegionUUID) = True
                     Status(RegionUUID) = SIMSTATUSENUM.Booted
+                    Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                     Form1.PropUpdateView() = True
 
                     If Debugger.IsAttached = True Then
@@ -230,7 +215,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Return ' does not work as expected
+                    'Return '!!!  does not work as expected at the moment fkb
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
@@ -238,8 +223,8 @@ Public Class RegionMaker
                     If RegionUUID.Length = 0 Then
                         Return
                     End If
-                    Form1.PropExitList.Add(json.region_name, RegionUUID)
-
+                    Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown")
+                    Diagnostics.Debug.Print("RegionReady " & json.region_name & " shutdown")
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
@@ -920,6 +905,30 @@ Public Class RegionMaker
 
 #Region "Properties"
 
+    Public Property GroupPort(RegionUUID As String) As Integer
+        Get
+            Dim GN As String = GroupName(RegionUUID)
+            If _Grouplist.ContainsKey(GN) Then
+                Return _Grouplist.Item(GN)
+            End If
+            Return 0
+        End Get
+
+        Set(ByVal Value As Integer)
+            Dim GN As String = GroupName(RegionUUID)
+            If _Grouplist.ContainsKey(GN) Then
+                If Value > _Grouplist.Item(GN) Then
+                    _Grouplist.Item(GN) = Value
+                End If
+
+            Else
+                    _Grouplist.Add(GN, Value)
+            End If
+
+            'DebugGroup
+        End Set
+    End Property
+
     Public ReadOnly Property RegionCount() As Integer
         Get
             Return RegionList.Count
@@ -1330,7 +1339,7 @@ Public Class RegionMaker
             End If
         Next
         If (L.Count = 0) Then
-            Debug.Print("Not found:" & Gname)
+            L.Add(FindRegionByName(Gname))
         End If
         Return L
 

@@ -246,8 +246,8 @@ Public Class RegionList
         SmartStart = 10
         Home = 11
         HomeOffline = 12
-        Suspended = 13
-
+        Pending = 13
+        Suspended = 14
     End Enum
 
 #End Region
@@ -377,15 +377,28 @@ Public Class RegionList
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  14- Error
         Form1.PropUpdateView = True ' make form refresh
 
         ViewBusy = False
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
         SetScreen(TheView1)
+
+        Dim TotalSize As Integer
+        Dim RegionCount As Integer
+        Dim TotalRegionCount As Integer
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+
+            TotalSize += Form1.PropRegionClass.SizeX(RegionUUID) / 256 * Form1.PropRegionClass.SizeY(RegionUUID) / 256
+            If Form1.PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
+            TotalRegionCount += 1
+        Next
+        Me.Text = "Regions: " & CStr(TotalRegionCount) & ".  Enabled: " & CStr(RegionCount) & ". Total Area: " & CStr(TotalSize) & " Regions"
+
+
         initted = True
-        'Application.doevents()
+
     End Sub
 
     Private Sub MyListView_AfterLabelEdit(sender As Object, e As System.Windows.Forms.LabelEditEventArgs) Handles ListView1.AfterLabelEdit
@@ -478,6 +491,9 @@ Public Class RegionList
                     ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                         Letter = "Stopping"
                         Num = DGICON.shuttingdown
+                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                        Letter = "Pending"
+                        Num = DGICON.Pending
                     ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(RegionUUID) = 1 Then
                         Letter = "Running"
                         Num = DGICON.user1
@@ -729,8 +745,6 @@ Public Class RegionList
 
     Private Sub Addregion_Click(sender As Object, e As EventArgs) Handles AddRegionButton.Click
 
-
-
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -797,7 +811,7 @@ Public Class RegionList
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
-                'Application.doevents()
+                Application.DoEvents()
             End If
         Next
 
@@ -923,8 +937,6 @@ Public Class RegionList
 
 #End Region
 
-
-
 #Region "Private Methods"
 
     Private Shared Function LoadImage(S As String) As Image
@@ -1044,7 +1056,6 @@ Public Class RegionList
             Form1.SequentialPause()
             Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
-            Form1.PropRestartNow = True
 
             ' shut down all regions in the DOS box
 
@@ -1114,7 +1125,6 @@ Public Class RegionList
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
-        Form1.PropRestartNow = True
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
@@ -1192,7 +1202,7 @@ Public Class RegionList
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
-        Form1.KillAll()
+        Form1.DoStopActions()
 
     End Sub
 

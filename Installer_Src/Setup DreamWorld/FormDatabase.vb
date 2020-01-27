@@ -132,6 +132,7 @@ Public Class FormDatabase
 
     Private Sub SaveAll()
 
+
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time

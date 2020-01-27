@@ -79,7 +79,7 @@ Public Class Icecast
 
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
-        Form1.SaveIceCast()
+        Form1.DOSaveIceCast()
 
     End Sub
 

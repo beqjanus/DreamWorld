@@ -224,9 +224,6 @@ Public Class ScreenPos
             If disposing Then
                 ' TODO: dispose managed state (managed objects).
             End If
-
-            ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
-            ' TODO: set large fields to null.
         End If
         disposedValue = True
     End Sub

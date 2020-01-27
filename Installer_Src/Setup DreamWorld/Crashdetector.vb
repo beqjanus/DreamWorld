@@ -51,7 +51,6 @@ Module CrashDetector
                                     If line.Contains("Timeout detected for thread " & """bulletunmanaged") Then
                                         ' Restart
                                         Form1.Print(My.Resources.Restarting_word & " " & RegionName)
-                                        Form1.PropRestartNow = True
                                         Form1.SequentialPause()
                                         Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                                         Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
