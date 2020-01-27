@@ -95,7 +95,7 @@ Public Class Form1
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartApache As Boolean = False
     Private _RestartMysql As Boolean = False
-    Private _RestartNow As Boolean = False
+
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
@@ -108,7 +108,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 15 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -2846,6 +2846,7 @@ Public Class Form1
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
+
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
                 PropRegionClass.Timer(RegionUUID) = PropRegionClass.Timer(RegionUUID) + 1
@@ -2858,6 +2859,7 @@ Public Class Form1
 
             ' if a RestartPending is signaled, boot it up
             If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+
                 Boot(PropRegionClass, RegionName)
                 PropUpdateView = True
                 Continue For
