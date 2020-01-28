@@ -3898,32 +3898,36 @@ Public Class Form1
                 ' do nothing
         End Select
 
-        Select Case PropRegionClass.AllowGods(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
-            Case "False"
-                Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
-            Case "True"
-                Settings.SetIni("Permissions", "allow_grid_gods", "True")
-        End Select
+        If Not PropRegionClass.GodDefault(RegionUUID) Then
 
-        Select Case PropRegionClass.RegionGod(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-            Case "False"
-                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-            Case "True"
-                Settings.SetIni("Permissions", "region_owner_is_god", "True")
-        End Select
+            Select Case PropRegionClass.AllowGods(RegionUUID)
+                Case ""
+                    Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
+                Case "False"
+                    Settings.SetIni("Permissions", "allow_grid_gods", "False")
+                Case "True"
+                    Settings.SetIni("Permissions", "allow_grid_gods", "True")
+            End Select
 
-        Select Case PropRegionClass.ManagerGod(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-            Case "False"
-                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-            Case "True"
-                Settings.SetIni("Permissions", "region_manager_is_god", "True")
-        End Select
+            Select Case PropRegionClass.RegionGod(RegionUUID)
+                Case ""
+                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
+                Case "False"
+                    Settings.SetIni("Permissions", "region_owner_is_god", "False")
+                Case "True"
+                    Settings.SetIni("Permissions", "region_owner_is_god", "True")
+            End Select
+
+            Select Case PropRegionClass.ManagerGod(RegionUUID)
+                Case ""
+                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
+                Case "False"
+                    Settings.SetIni("Permissions", "region_manager_is_god", "False")
+                Case "True"
+                    Settings.SetIni("Permissions", "region_manager_is_god", "True")
+            End Select
+
+        End If
 
         ' no main setting for these
         Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionUUID))

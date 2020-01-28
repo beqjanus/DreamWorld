@@ -67,8 +67,8 @@ Partial Class FormPermissions
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(133, 17)
         Me.AllowGods.TabIndex = 14
-        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow200
-        Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
+        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
+        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'GodHelp

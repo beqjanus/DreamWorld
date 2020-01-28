@@ -261,7 +261,8 @@ Public Class RegionMaker
             ._MaxPrims = 15000,
             ._MaxAgents = 100,
             ._MapType = "",
-            ._MinTimerInterval = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._GodDefault = True,
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -392,6 +393,7 @@ Public Class RegionMaker
                             MapType(RegionUUID) = Form1.Settings.GetIni(fName, "MapType", "", "String")
                             Physics(RegionUUID) = Form1.Settings.GetIni(fName, "Physics", "", "String")
                             MaxPrims(RegionUUID) = Form1.Settings.GetIni(fName, "MaxPrims", "", "String")
+                            GodDefault(RegionUUID) = Form1.Settings.GetIni(fName, "GodDefault", "", "String")
                             AllowGods(RegionUUID) = Form1.Settings.GetIni(fName, "AllowGods", "", "String")
                             RegionGod(RegionUUID) = Form1.Settings.GetIni(fName, "RegionGod", "", "String")
                             ManagerGod(RegionUUID) = Form1.Settings.GetIni(fName, "ManagerGod", "", "String")
@@ -493,7 +495,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(2000, 996)
+            Max = RandomNumber.Between(5000, 996)
         End If
         Return Max
 
@@ -510,7 +512,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(2000, 1000)
+            Max = RandomNumber.Between(5000, 1000)
         End If
         Return Max
 
@@ -599,6 +601,7 @@ Public Class RegionMaker
         & "RegionSnapShot = " & RegionSnapShot(RegionUUID) & vbCrLf _
         & "MapType = " & MapType(RegionUUID) & vbCrLf _
         & "Physics = " & Physics(RegionUUID) & vbCrLf _
+        & "GodDefault = " & GodDefault(RegionUUID) & vbCrLf _
         & "AllowGods = " & AllowGods(RegionUUID) & vbCrLf _
         & "RegionGod = " & RegionGod(RegionUUID) & vbCrLf _
         & "ManagerGod = " & ManagerGod(RegionUUID) & vbCrLf _
@@ -668,6 +671,7 @@ Public Class RegionMaker
         Public _Timer As Integer = 0
         Public _UUID As String = ""
 
+
 #End Region
 
 #End Region
@@ -686,6 +690,7 @@ Public Class RegionMaker
         Public _NonPhysicalPrimMax As String = ""
         Public _PhysicalPrimMax As String = ""
         Public _Physics As String = "  "
+        Public _GodDefault As Boolean = True
         Public _RegionGod As String = ""
         Public _RegionSmartStart As String = ""
         Public _RegionSnapShot As String = ""
@@ -1135,6 +1140,19 @@ Public Class RegionMaker
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
             RegionList(RegionUUID)._MinTimerInterval = Value
+        End Set
+    End Property
+
+    Public Property GodDefault(RegionUUID As String) As Boolean
+        Get
+            If RegionUUID Is Nothing Then Return True
+            If Bad(RegionUUID) Then Return True
+            Return RegionList(RegionUUID)._GodDefault
+        End Get
+        Set(ByVal Value As Boolean)
+            If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
+            RegionList(RegionUUID)._GodDefault = Value
         End Set
     End Property
 

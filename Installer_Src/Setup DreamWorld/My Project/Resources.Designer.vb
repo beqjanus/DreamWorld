@@ -234,7 +234,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Allow or disallow Gods.
+        '''  Looks up a localized string similar to Allow Level-based gods.
         '''</summary>
         Friend ReadOnly Property Allow_Or_Disallow_Gods_word() As String
             Get
@@ -252,11 +252,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Allow 200+ Level gods.
+        '''  Looks up a localized string similar to If this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with **Allow Gods In This Region**.  This setting has nothing to do with the other two settings..
         '''</summary>
-        Friend ReadOnly Property Allow200() As String
+        Friend ReadOnly Property AllowGodsTooltip() As String
             Get
-                Return ResourceManager.GetString("Allow200", resourceCulture)
+                Return ResourceManager.GetString("AllowGodsTooltip", resourceCulture)
             End Get
         End Property
         
@@ -5723,6 +5723,15 @@ Namespace My.Resources
         Friend ReadOnly Property Region_Database() As String
             Get
                 Return ResourceManager.GetString("Region_Database", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Max number of Avatars + NPCs.
+        '''</summary>
+        Friend ReadOnly Property Region_full_msg() As String
+            Get
+                Return ResourceManager.GetString("Region_full_msg", resourceCulture)
             End Get
         End Property
         

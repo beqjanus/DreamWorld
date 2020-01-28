@@ -5,7 +5,9 @@ This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases
 
 V3.33 Beta
 
-Generate graphic titles to all web-downloadable IAR and OARs. 
+Generate graphic titles to all web-downloadable IAR and OARs.
+
+The various  Grid Gods can now be overridden in the region panel to be ON or OFF or default. Previously it was ON or Default.
 
 Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the 3D crap you peeps get for free.  Its 385 GB used out of 400. Eeep.
 
