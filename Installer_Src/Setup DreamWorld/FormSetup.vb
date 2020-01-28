@@ -2004,6 +2004,7 @@ Public Class Form1
     End Sub
 
     Public Sub UploadPhoto()
+
         ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
         If Settings.GDPR() Then
             If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -2088,7 +2089,9 @@ Public Class Form1
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
+
         ConsoleCommand("Robust", "create user{ENTER}")
+
     End Sub
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
@@ -2161,7 +2164,9 @@ Public Class Form1
     End Sub
 
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
+
         SendMsg("all")
+
     End Sub
 
     Private Sub AllUsersAllSimsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustOneRegionToolStripMenuItem.Click
@@ -2197,7 +2202,6 @@ Public Class Form1
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
             present += PropRegionClass.AvatarCount(RegionUUID)
-            'Application.doevents()
         Next
 
         Return CType(present, Boolean)
@@ -2329,14 +2333,13 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
-            'Application.doevents()
+            Application.DoEvents()
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log(My.Resources.Info, "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
             End If
-            'Application.doevents()
         Next
 
     End Sub
@@ -2414,7 +2417,7 @@ Public Class Form1
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-                    'Application.doevents()
+
                     If p.MainWindowTitle = GroupName Then
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -2424,13 +2427,12 @@ Public Class Form1
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                             Regionclass.ProcessID(RegionUUID) = p.Id
-                            'Application.doevents()
                         Next
                         PropUpdateView = True ' make form refresh
                         Return True
                     End If
                 Next
-                Print("Error, cannot find Window ")
+                ErrorLog("Cannot find Window " & BootName)
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -2440,7 +2442,6 @@ Public Class Form1
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
-                    'Application.doevents()
                 Next
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -2501,7 +2502,6 @@ Public Class Form1
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                 Regionclass.ProcessID(UUID) = PID
-                'Application.doevents()
             Next
 
             PropUpdateView = True ' make form refresh
@@ -2760,7 +2760,7 @@ Public Class Form1
         For Each thing As String In Logfiles
             ' clear out the log files
             FileStuff.DeleteFile(thing)
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
     End Sub
@@ -3255,7 +3255,7 @@ Public Class Form1
             ElseIf dr And df Then
                 Authorizationlist += "Region_" & simName & " = DisallowResidents " & vbCrLf
             End If
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
         Dim reader As StreamReader
@@ -4393,7 +4393,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
     End Sub
@@ -4444,7 +4444,7 @@ Public Class Form1
                 For Each UUID As String In PropRegionClass.RegionUUIDs
                     name = PropRegionClass.GroupName(UUID)
                     path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
-                    'Application.doevents()
+                    Application.DoEvents()
                 Next
             End If
 
@@ -4462,7 +4462,6 @@ Public Class Form1
 
                 For Each FileName As String In files
                     path.Add("""" & FileName & """")
-                    'Application.doevents()
                 Next
 
             End If
@@ -4474,7 +4473,6 @@ Public Class Form1
         For Each item In result
             Log("View", item)
             logs = logs & " " & item
-            'Application.doevents()
         Next
 
         Try
