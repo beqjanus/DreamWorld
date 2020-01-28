@@ -1766,10 +1766,11 @@ Public Class Form1
             Dim ctr = 600 ' 1 minute max to start a region
             Dim WaitForIt = True
             While WaitForIt
-                Sleep(100)
                 If CPUAverageSpeed < PropCPUMAX Then
                     WaitForIt = False
+                    Continue While ' speed up loop if we are already fast enough
                 End If
+                Sleep(100)
                 ctr -= 1
                 If ctr <= 0 Then WaitForIt = False
             End While
