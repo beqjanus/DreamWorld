@@ -3588,13 +3588,6 @@ Public Class Form1
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Gods
-
-        If (Settings.RegionOwnerIsGod Or Settings.RegionManagerIsGod) Then
-            Settings.SetIni("Permissions", "allow_grid_gods", "True")
-        Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "False")
-        End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
 
@@ -3909,7 +3902,7 @@ Public Class Form1
             Case ""
                 Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
             Case "False"
-                Settings.SetIni("Permissions", "allow_grid_gods", "False")
+                Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
             Case "True"
                 Settings.SetIni("Permissions", "allow_grid_gods", "True")
         End Select
@@ -3918,7 +3911,7 @@ Public Class Form1
             Case ""
                 Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
             Case "False"
-                Settings.SetIni("Permissions", "region_owner_is_god", "False")
+                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
             Case "True"
                 Settings.SetIni("Permissions", "region_owner_is_god", "True")
         End Select
@@ -3927,7 +3920,7 @@ Public Class Form1
             Case ""
                 Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
             Case "False"
-                Settings.SetIni("Permissions", "region_manager_is_god", "False")
+                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
             Case "True"
                 Settings.SetIni("Permissions", "region_manager_is_god", "True")
         End Select
