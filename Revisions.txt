@@ -13,7 +13,7 @@ Reworked Cache on main server to load much faster.  My server's SSD needs upgrad
 
 SSL added to Hyperica.com content. What a pain.  Should be "Future-proof" for both SSL and non-SSL versions of Hyperica.com and Outworldz.com by not using SSL at all except thru server-side redirects.  
 
-Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down.  Grid-wide Search and load OAR and IAR will obviously be offline.  Deal with it.  DYN DNS is dual redundant, one server in Europe, one in Dallas.
+Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down. Grid-wide Search and load OAR and IAR will obviously be offline.    DYN DNS for outworldz.net domain users is dual redundant, one server in Europe, one in Dallas.
 
 Added uncaught exception error handler/logger.  See Error.log if Dreamgrid just quits.  
 
@@ -34,6 +34,7 @@ Clicking the Clear cache button could cause a crash if the fsasset folder did no
 V3.31 Beta
 
 A major change in internal structure should speed up the region list and boot to be significantly faster. This also improves responsiveness due to fewer blocking loops.
+
 New grids will get a set of regions at a random starting address. This greatly reduces the problem of teleport fails when hypergridding between grids where the regions are at the same X and Y location. You can't.
 
 Both the Metropolis map and the Google map use automagic to center the welcome region on the map.
