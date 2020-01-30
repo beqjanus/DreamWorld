@@ -64,7 +64,7 @@ Public Class Form1
     Private _ApacheUninstalling As Boolean = False
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
-    Private _CPUMAX As Single = 75
+    Private _CPUMAX As Single = 90
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
     Private _DNS_is_registered = False
@@ -282,10 +282,6 @@ Public Class Form1
             Settings.SaveSettings()
         End If
 
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
-
-        PropOpensimIsRunning() = True
         ToolBar(True)
 
         ' Launch the rockets
@@ -307,7 +303,6 @@ Public Class Form1
 
         PropExitHandlerIsBusy = False
         PropAborting = False
-        Timer1.Start() 'Timer starts functioning
 
         If Not StartRobust() Then Return False
 
@@ -2351,6 +2346,11 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
+
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
+        PropOpensimIsRunning() = True
+
         If PropAborting Then Return True
 
         Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
@@ -2400,10 +2400,6 @@ Public Class Form1
         End If
 
         DoRegion(BootName)
-
-        If BootName = "Multi1" Then
-            Dim bp = 1
-        End If
 
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
@@ -2512,9 +2508,7 @@ Public Class Form1
                 PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
             End If
 
-            PropOpensimIsRunning() = True
             Buttons(StopButton)
-
             Return True
         End If
 
