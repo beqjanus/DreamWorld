@@ -2716,4 +2716,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Max number of Avatars + NPCs</value>
   </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>Failed to Connect to Search Database</value>
+  </data>
 </root>

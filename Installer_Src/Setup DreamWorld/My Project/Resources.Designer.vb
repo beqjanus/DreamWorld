@@ -6412,6 +6412,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Failed to Connect to Search Database.
+        '''</summary>
+        Friend ReadOnly Property Search_Connect_failed() As String
+            Get
+                Return ResourceManager.GetString("Search_Connect_failed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
         Friend ReadOnly Property Search_word() As String
