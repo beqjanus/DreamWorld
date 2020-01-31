@@ -2119,10 +2119,10 @@ Public Class Form1
             Print(My.Resources.Not_Running)
             Return
         End If
-        Dim rname = ChooseRegion(True)
-        If rname.Length > 0 Then
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
