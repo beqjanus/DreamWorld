@@ -107,10 +107,10 @@ Public Class RegionMaker
 
         Dim Portnumber As Integer = CInt(Form1.Settings.FirstRegionPort())
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-            Dim simName = Form1.PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
             Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
 
-            Form1.Settings.SetIni(simName, "InternalPort", CStr(Portnumber))
+            Form1.Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
             Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber

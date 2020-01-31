@@ -3175,9 +3175,9 @@ Public Class Form1
         Dim Authorizationlist As String = ""
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             '(replace spaces with underscore)
-            simName = simName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+            RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
             Dim df As Boolean = False
             Dim dr As Boolean = False
             If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
@@ -3189,11 +3189,11 @@ Public Class Form1
             If Not dr And Not df Then
 
             ElseIf dr And Not df Then
-                Authorizationlist += "Region_" & simName & " = DisallowResidents" & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowResidents" & vbCrLf
             ElseIf Not dr And df Then
-                Authorizationlist += "Region_" & simName & " = DisallowForeigners" & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowForeigners" & vbCrLf
             ElseIf dr And df Then
-                Authorizationlist += "Region_" & simName & " = DisallowResidents " & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowResidents " & vbCrLf
             End If
             Application.DoEvents()
         Next
@@ -3241,7 +3241,7 @@ Public Class Form1
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
+        Settings.SetLiteralIni("Define SRVROOT", "Define SRVROOT " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
@@ -3268,9 +3268,8 @@ Public Class Form1
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
-        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
-        Settings.SetLiteralIni("SSLSessionCache", "SSLSessionCache shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
         Return False
 
@@ -3294,13 +3293,13 @@ Public Class Form1
         ' Birds setup per region
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
             If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionUUID) = "True" Then
 
-                BirdData = BirdData & "[" & simName & "]" & vbCrLf &
+                BirdData = BirdData & "[" & RegionName & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
             "BirdsModuleStartup = True" & vbCrLf & vbCrLf &
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
@@ -3770,12 +3769,12 @@ Public Class Form1
         End Try
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             'Tides Setup per region
             If Settings.TideEnabled And PropRegionClass.Tides(RegionUUID) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
-                    "[" & simName & "]" & vbCrLf &
+                    "[" & RegionName & "]" & vbCrLf &
                 ";this determines whether the module does anything in this region" & vbCrLf &
                 ";# {TideEnabled} {} {Enable the tide to come in And out?} {true false} false" & vbCrLf &
                 "TideEnabled = True" & vbCrLf &
