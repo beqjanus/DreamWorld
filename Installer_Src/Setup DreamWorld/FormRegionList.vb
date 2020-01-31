@@ -547,7 +547,6 @@ Public Class RegionList
                             ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                         End If
                         Num = 0
-                        'TODO: not sure what this did - map view only?
 
                     End If
 

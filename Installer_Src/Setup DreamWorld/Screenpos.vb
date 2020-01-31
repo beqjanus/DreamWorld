@@ -214,7 +214,7 @@ Public Class ScreenPos
     Public Sub Dispose() Implements IDisposable.Dispose
         ' Do not change this code. Put cleanup code in Dispose(disposing As Boolean) above.
         Dispose(True)
-        ' TODO: uncomment the following line if Finalize() is overridden above.
+
         GC.SuppressFinalize(Me)
     End Sub
 
@@ -222,13 +222,13 @@ Public Class ScreenPos
     Protected Overridable Sub Dispose(disposing As Boolean)
         If Not disposedValue Then
             If disposing Then
-                ' TODO: dispose managed state (managed objects).
+
             End If
         End If
         disposedValue = True
     End Sub
 
-    ' TODO: override Finalize() only if Dispose(disposing As Boolean) above has code to free unmanaged resources.
+    '
     'Protected Overrides Sub Finalize()
     '    ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
     '    Dispose(False)
