@@ -89,7 +89,6 @@ Public Class RegionMaker
             CreateRegion("Welcome")
             Form1.Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome")
-            'GetAllRegions()
             Form1.Settings.WelcomeRegion = "Welcome"
             Form1.Settings.SaveSettings()
         End If
@@ -611,8 +610,8 @@ Public Class RegionMaker
         & "DisableGloebits = " & DisableGloebits(RegionUUID) & vbCrLf _
         & "DisallowForeigners = " & DisallowForeigners(RegionUUID) & vbCrLf _
         & "DisallowResidents = " & DisallowResidents(RegionUUID) & vbCrLf _
-        & "MinTimerInterval =" & vbCrLf _
-        & "Frametime =" & vbCrLf _
+        & "MinTimerInterval =" & MinTimerInterval(RegionUUID) & vbCrLf _
+        & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf
 
@@ -1696,7 +1695,7 @@ Public Class RegionMaker
 
 #Region "Opensim.ini writers"
 
-    Public Function SetRegionVars(RegionName As String, RegionUUID As String) As Boolean
+    Public Shared Function SetRegionVars(RegionName As String, RegionUUID As String) As Boolean
 
         ' edit the region INI
         If Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
@@ -1709,7 +1708,7 @@ Public Class RegionMaker
         End If
 
         Form1.Settings.SetIni(RegionName, "InternalPort", Convert.ToString(Form1.PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        Form1.Settings.SetIni(RegionName, "ExternalHostName", ExternLocalServerName())
+        Form1.Settings.SetIni(RegionName, "ExternalHostName", Form1.ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
         If Form1.PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -1734,7 +1733,7 @@ Public Class RegionMaker
                 Form1.Settings.SetIni(RegionName, "PhysicalPrimMax", Form1.PropRegionClass.PhysicalPrimMax(RegionUUID))
         End Select
 
-        If (Settings.Primlimits) Then
+        If (Form1.Settings.Primlimits) Then
             Select Case Form1.PropRegionClass.MaxPrims(RegionUUID)
                 Case ""
                     Form1.Settings.SetIni(RegionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -1800,7 +1799,6 @@ Public Class RegionMaker
         End If
 
         Form1.Settings.SetIni(RegionName, "DisableGloebits", Form1.PropRegionClass.DisableGloebits(RegionUUID))
-
         Form1.Settings.SetIni(RegionName, "RegionSnapShot", Form1.PropRegionClass.RegionSnapShot(RegionUUID))
         Form1.Settings.SetIni(RegionName, "Birds", Form1.PropRegionClass.Birds(RegionUUID))
         Form1.Settings.SetIni(RegionName, "Tides", Form1.PropRegionClass.Tides(RegionUUID))
@@ -1817,10 +1815,10 @@ Public Class RegionMaker
 
         '''
     End Function
-    Public Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
+    Public Shared Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
 
         ' Opensim.ini in Region Folder specific to this region
-        If Form1.Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
+        If Form1.Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
 
@@ -1842,8 +1840,8 @@ Public Class RegionMaker
         End If
 
         Form1.Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Form1.Settings.AutobackupInterval)
-        Form1.Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Form1.Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
+        Form1.Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Form1.Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
+        Form1.Settings.SetIni("AutoBackupModule", "AutoBackupDir", Form1.BackupPath())
 
         If Form1.PropRegionClass.MapType(RegionUUID) = "Simple" Then
             Form1.Settings.SetIni("Map", "GenerateMaptiles", "True")
@@ -1912,7 +1910,7 @@ Public Class RegionMaker
 
             Select Case Form1.PropRegionClass.AllowGods(RegionUUID)
                 Case ""
-                    Form1.Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
+                    Form1.Settings.SetIni("Permissions", "allow_grid_gods", CStr(Form1.Settings.AllowGridGods))
                 Case "False"
                     Form1.Settings.SetIni("Permissions", "allow_grid_gods", "False")
                 Case "True"
@@ -1921,7 +1919,7 @@ Public Class RegionMaker
 
             Select Case Form1.PropRegionClass.RegionGod(RegionUUID)
                 Case ""
-                    Form1.Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
+                    Form1.Settings.SetIni("Permissions", "region_owner_is_god", CStr(Form1.Settings.RegionOwnerIsGod))
                 Case "False"
                     Form1.Settings.SetIni("Permissions", "region_owner_is_god", "False")
                 Case "True"
@@ -1930,7 +1928,7 @@ Public Class RegionMaker
 
             Select Case Form1.PropRegionClass.ManagerGod(RegionUUID)
                 Case ""
-                    Form1.Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
+                    Form1.Settings.SetIni("Permissions", "region_manager_is_god", CStr(Form1.Settings.RegionManagerIsGod))
                 Case "False"
                     Form1.Settings.SetIni("Permissions", "region_manager_is_god", "False")
                 Case "True"
@@ -1979,7 +1977,7 @@ Public Class RegionMaker
         ' Search
         Select Case Form1.PropRegionClass.Snapshot(RegionUUID)
             Case ""
-                Form1.Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
+                Form1.Settings.SetIni("DataSnapshot", "index_sims", CStr(Form1.Settings.SearchEnabled))
             Case "True"
                 Form1.Settings.SetIni("DataSnapshot", "index_sims", "True")
             Case "False"
@@ -2006,11 +2004,63 @@ Public Class RegionMaker
 
     End Function
 
-    Public Sub CopyOpensimProto(name As String)
+    Public Shared Sub CopyOpensimProto(name As String)
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
 
     End Sub
+
+
+    Public Shared Function Opensimproto(RegionUUID As String) As Boolean
+
+        Dim regionName = Form1.PropRegionClass.RegionName(RegionUUID)
+        Dim pathname = Form1.PropRegionClass.IniPath(RegionUUID)
+
+        If Form1.Settings.LoadIni(Form1.GetOpensimProto(), ";") Then Return True
+
+        Form1.Settings.SetIni("Const", "BaseHostname", Form1.Settings.BaseHostName)
+
+        Form1.Settings.SetIni("Const", "PublicPort", CStr(Form1.Settings.HttpPort)) ' 8002
+        Form1.Settings.SetIni("Const", "PrivURL", "http://" & CStr(Form1.Settings.PrivateURL)) ' local IP
+        Form1.Settings.SetIni("Const", "http_listener_port", CStr(Form1.PropRegionClass.RegionPort(RegionUUID))) ' varies with region
+
+        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
+        Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
+        If Form1.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
+            If Not Double.TryParse(Form1.PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
+                Xtime = 1.0 / 11.0
+            End If
+        End If
+        Form1.Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+        Form1.Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+
+        Dim name = Form1.PropRegionClass.RegionName(RegionUUID)
+
+        ' save the http listener port away for the group
+        Form1.PropRegionClass.GroupPort(RegionUUID) = Form1.PropRegionClass.RegionPort(RegionUUID)
+
+        Form1.Settings.SetIni("Const", "PrivatePort", CStr(Form1.Settings.PrivatePort)) '8003
+        Form1.Settings.SetIni("Const", "RegionFolderName", Form1.PropRegionClass.GroupName(RegionUUID))
+        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+
+        Try
+            My.Computer.FileSystem.CopyFile(Form1.GetOpensimProto(), pathname & "Opensim.ini", True)
+        Catch ex As FileNotFoundException
+        Catch ex As PathTooLongException
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentNullException
+        Catch ex As ArgumentException
+        Catch ex As InvalidOperationException
+        Catch ex As NotSupportedException
+        Catch ex As System.Security.SecurityException
+        End Try
+
+        Return False
+
+    End Function
+
+#End Region
 
 End Class
