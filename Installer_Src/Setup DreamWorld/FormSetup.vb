@@ -5270,7 +5270,6 @@ Public Class Form1
         End If
 
         If Settings.ServerType <> "Robust" Then
-
             Return
         End If
         Print(My.Resources.Checking_Loopback_word)

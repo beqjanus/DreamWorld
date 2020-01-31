@@ -2285,7 +2285,7 @@
     <value>Starting the Control Panel</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>Your system name has been set to {newname}. You can change the name in the DNS menu at any time</value>
+    <value>Your system Hypergrid name has been reset. You can change the name in the Setup-Settings-&gt;DNS menu</value>
   </data>
   <data name="Better" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Better.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -4572,7 +4572,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Your system name has been set to {newname}. You can change the name in the DNS menu at any time.
+        '''  Looks up a localized string similar to Your system Hypergrid name has been reset. You can change the name in the Setup-Settings-&gt;DNS menu.
         '''</summary>
         Friend ReadOnly Property NameAlreadySet() As String
             Get
