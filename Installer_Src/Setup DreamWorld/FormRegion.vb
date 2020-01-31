@@ -498,7 +498,7 @@ Public Class FormRegion
         Else
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
-            Form1.CopyOpensimProto(RegionName.Text)
+            RegionMaker.CopyOpensimProto(RegionName.Text)
             Form1.PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
@@ -623,7 +623,7 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
-                    Form1.CopyOpensimProto(RegionName.Text)
+                    RegionMaker.CopyOpensimProto(RegionName.Text)
 
                     Form1.PropUpdateView() = True
                     Changed1 = False

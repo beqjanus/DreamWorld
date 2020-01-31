@@ -1274,13 +1274,6 @@ Public Class Form1
 
     End Function
 
-    Public Sub CopyOpensimProto(name As String)
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
-
-    End Sub
-
     Public Sub CopyWifi(Page As String)
         Try
             System.IO.Directory.Delete(PropOpensimBinPath & "WifiPages", True)
@@ -1665,54 +1658,6 @@ Public Class Form1
 
     End Function
 
-    Public Function Opensimproto(RegionUUID As String) As Boolean
-
-        Dim regionName = PropRegionClass.RegionName(RegionUUID)
-        Dim pathname = PropRegionClass.IniPath(RegionUUID)
-
-        If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
-
-        Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
-
-        Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(RegionUUID))) ' varies with region
-
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
-        Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            If Not Double.TryParse(PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
-                Xtime = 1.0 / 11.0
-            End If
-        End If
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-
-        Dim name = PropRegionClass.RegionName(RegionUUID)
-
-        ' save the http listener port away for the group
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
-
-        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(RegionUUID)))
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        Try
-            My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As InvalidOperationException
-        Catch ex As NotSupportedException
-        Catch ex As System.Security.SecurityException
-        End Try
-
-        Return False
-
-    End Function
 
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
@@ -1806,10 +1751,9 @@ Public Class Form1
             Print(My.Resources.Public_IP_Setup_Word)
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
-#Disable Warning CA1308 ' Normalize strings to uppercase
-            Dim x = Settings.PublicIP.ToLower(Globalization.CultureInfo.InvariantCulture)
-#Enable Warning CA1308 ' Normalize strings to uppercase
-            If x.Contains("outworldz.net") Then
+
+            Dim UC = Settings.PublicIP.ToUpperInvariant()
+            If UC.Contains("OUTWORLDZ.NET") Then
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
@@ -2244,7 +2188,7 @@ Public Class Form1
 
     End Sub
 
-    Private Function BackupPath() As String
+    Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
@@ -2403,11 +2347,7 @@ Public Class Form1
             Return True
         End If
 
-        DoRegion(BootName)
-
-        If BootName = "Multi1" Then
-            Dim bp = 1
-        End If
+        DoRegion(BootName, RegionUUID) ' setup region ini file
 
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
@@ -3686,306 +3626,22 @@ Public Class Form1
 
     End Function
 
-    Private Function DoRegion(simName As String) As Boolean
+    Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
 
-        'Regions - write all region.ini files with public IP and Public port
-        ' has to be bound late so regions data is there.
+        ''' <summary>
+        ''' Copy the Opensim proto
+        ''' Write the Region INI with RegionClass
+        ''' Set the Opensim.ini
+        ''' </summary>
+        ''' <returns>True if error</returns>
+        ''' 
 
-        CopyOpensimProto(simName)
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(simName)
-
-        If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
-
-        ' Autobackup
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
-            Settings.SetIni(simName, "AutoBackup", "True")
-        Else
-            Settings.SetIni(simName, "AutoBackup", "False")
-        End If
-
-        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
-
-        ' not a standard INI, only use by the Dreamers
-        If PropRegionClass.RegionEnabled(RegionUUID) Then
-            Settings.SetIni(simName, "Enabled", "True")
-        Else
-            Settings.SetIni(simName, "Enabled", "False")
-        End If
-
-        ' Extended in v 2.1
-
-        Select Case PropRegionClass.NonPhysicalPrimMax(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "NonPhysicalPrimMax", PropRegionClass.NonPhysicalPrimMax(RegionUUID))
-        End Select
-
-        Select Case PropRegionClass.PhysicalPrimMax(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "PhysicalPrimMax", PropRegionClass.PhysicalPrimMax(RegionUUID))
-        End Select
-
-        If (Settings.Primlimits) Then
-            Select Case PropRegionClass.MaxPrims(RegionUUID)
-                Case ""
-                    Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
-                Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
-            End Select
-        Else
-            Select Case PropRegionClass.MaxPrims(RegionUUID)
-                Case ""
-                    Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
-                Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
-            End Select
-        End If
-
-        Select Case PropRegionClass.MaxAgents(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "MaxAgents", PropRegionClass.MaxAgents(RegionUUID))
-        End Select
-
-        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-
-        ' Optional Extended in v 2.31 optional things
-        If PropRegionClass.MapType(RegionUUID) = "None" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(simName, "TexturePrims", "True")
-            Settings.SetIni(simName, "RenderMeshes", "True")
-        Else
-            Settings.SetIni(simName, "GenerateMaptiles", "")
-            Settings.SetIni(simName, "MapImageModule", "")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "")      ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "")
-            Settings.SetIni(simName, "TexturePrims", "")
-            Settings.SetIni(simName, "RenderMeshes", "")
-        End If
-
-        Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionUUID))
-
-        Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionUUID))
-        Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionUUID))
-        Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionUUID))
-        Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionUUID))
-        Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionUUID))
-        Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionUUID))
-        Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionUUID))
-        Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionUUID))
-        Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionUUID))
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
-            Return True
-        End If
-
-        ' Autobackup
-        If Settings.AutoBackup Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        End If
-
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        End If
-
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        If Not Settings.AutoBackup Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
-
-        If PropRegionClass.MapType(RegionUUID) = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "True")
-            Settings.SetIni("Map", "RenderMeshes", "True")
-        End If
-
-        Select Case PropRegionClass.Physics(RegionUUID)
-            Case ""
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case "0"
-                Settings.SetIni("Startup", "meshing", "ZeroMesher")
-                Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "1"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "2"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "3"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case "4"
-                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "5"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case Else
-                ' do nothing
-        End Select
-
-        If Not PropRegionClass.GodDefault(RegionUUID) Then
-
-            Select Case PropRegionClass.AllowGods(RegionUUID)
-                Case ""
-                    Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
-                Case "False"
-                    Settings.SetIni("Permissions", "allow_grid_gods", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "allow_grid_gods", "True")
-            End Select
-
-            Select Case PropRegionClass.RegionGod(RegionUUID)
-                Case ""
-                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-                Case "False"
-                    Settings.SetIni("Permissions", "region_owner_is_god", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "region_owner_is_god", "True")
-            End Select
-
-            Select Case PropRegionClass.ManagerGod(RegionUUID)
-                Case ""
-                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-                Case "False"
-                    Settings.SetIni("Permissions", "region_manager_is_god", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "region_manager_is_god", "True")
-            End Select
-
-        End If
-
-        ' no main setting for these
-        Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionUUID))
-        If PropRegionClass.DisallowForeigners(RegionUUID).Length > 0 Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.DisallowResidents(RegionUUID).Length > 0 Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        ' V3.15
-        If PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
-            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-        End If
-
-        ' Search
-        Select Case PropRegionClass.Snapshot(RegionUUID)
-            Case ""
-                Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
-            Case "True"
-                Settings.SetIni("DataSnapshot", "index_sims", "True")
-            Case "False"
-                Settings.SetIni("DataSnapshot", "index_sims", "False")
-        End Select
-
-        'ScriptEngine Overrides
-        If PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
-            Settings.SetIni("XEngine", "Enabled", "True")
-            Settings.SetIni("YEngine", "Enabled", "False")
-        End If
-
-        If PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
-            Settings.SetIni("XEngine", "Enabled", "False")
-            Settings.SetIni("YEngine", "Enabled", "True")
-        End If
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
+        RegionMaker.CopyOpensimProto(RegionName)
+        If RegionMaker.SetOpensimIni(RegionName, RegionUUID) Then Return True
 
         Return False
+
     End Function
 
     Private Function DoRobust() As Boolean
@@ -6744,14 +6400,11 @@ Public Class Form1
                 Try
                     osconnection.Open()
                 Catch ex As InvalidOperationException
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
+
+                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                     Return
                 Catch ex As MySqlException
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
+                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                     Return
                 End Try
                 DeleteEvents(osconnection)
