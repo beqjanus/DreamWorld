@@ -158,7 +158,7 @@ Public Class RegionMaker
 
                 If json.login = "enabled" Then
                     Form1.Print(json.region_name & " " & My.Resources.Ready)
-
+                    Form1.Logger("Ready", json.region_name, "Restart")
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
                         Continue While
@@ -223,7 +223,7 @@ Public Class RegionMaker
                         Return
                     End If
                     Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown")
-                    Diagnostics.Debug.Print("RegionReady " & json.region_name & " shutdown")
+                    Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
@@ -261,7 +261,7 @@ Public Class RegionMaker
             ._MaxAgents = 100,
             ._MapType = "",
             ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
-            ._GodDefault = True,
+            ._GodDefault = "True",
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -392,7 +392,7 @@ Public Class RegionMaker
                             MapType(RegionUUID) = Form1.Settings.GetIni(fName, "MapType", "", "String")
                             Physics(RegionUUID) = Form1.Settings.GetIni(fName, "Physics", "", "String")
                             MaxPrims(RegionUUID) = Form1.Settings.GetIni(fName, "MaxPrims", "", "String")
-                            GodDefault(RegionUUID) = Form1.Settings.GetIni(fName, "GodDefault", "", "String")
+                            GodDefault(RegionUUID) = Form1.Settings.GetIni(fName, "GodDefault", "True", "String")
                             AllowGods(RegionUUID) = Form1.Settings.GetIni(fName, "AllowGods", "", "String")
                             RegionGod(RegionUUID) = Form1.Settings.GetIni(fName, "RegionGod", "", "String")
                             ManagerGod(RegionUUID) = Form1.Settings.GetIni(fName, "ManagerGod", "", "String")
@@ -689,7 +689,7 @@ Public Class RegionMaker
         Public _NonPhysicalPrimMax As String = ""
         Public _PhysicalPrimMax As String = ""
         Public _Physics As String = "  "
-        Public _GodDefault As Boolean = True
+        Public _GodDefault As String = "True"
         Public _RegionGod As String = ""
         Public _RegionSmartStart As String = ""
         Public _RegionSnapShot As String = ""
@@ -1142,13 +1142,13 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property GodDefault(RegionUUID As String) As Boolean
+    Public Property GodDefault(RegionUUID As String) As String
         Get
-            If RegionUUID Is Nothing Then Return True
+            If RegionUUID Is Nothing Then Return "True"
             If Bad(RegionUUID) Then Return True
             Return RegionList(RegionUUID)._GodDefault
         End Get
-        Set(ByVal Value As Boolean)
+        Set(ByVal Value As String)
             If RegionUUID Is Nothing Then Return
             If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._GodDefault = Value
@@ -1906,7 +1906,8 @@ Public Class RegionMaker
                 ' do nothing
         End Select
 
-        If Not Form1.PropRegionClass.GodDefault(RegionUUID) Then
+        If Form1.PropRegionClass.GodDefault(RegionUUID) = "" _
+            Or Form1.PropRegionClass.GodDefault(RegionUUID) = "False" Then
 
             Select Case Form1.PropRegionClass.AllowGods(RegionUUID)
                 Case ""
@@ -1916,6 +1917,7 @@ Public Class RegionMaker
                 Case "True"
                     Form1.Settings.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
+
 
             Select Case Form1.PropRegionClass.RegionGod(RegionUUID)
                 Case ""
@@ -1935,9 +1937,11 @@ Public Class RegionMaker
                     Form1.Settings.SetIni("Permissions", "region_manager_is_god", "True")
             End Select
 
+        Else
+            Form1.Settings.SetIni("Permissions", "allow_grid_gods", "False")
+            Form1.Settings.SetIni("Permissions", "region_manager_is_god", "False")
+            Form1.Settings.SetIni("Permissions", "allow_grid_gods", "True")
         End If
-
-
 
         ' V3.15
         If Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
