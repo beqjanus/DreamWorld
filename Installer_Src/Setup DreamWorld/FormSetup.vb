@@ -1174,6 +1174,8 @@ Public Class Form1
         Using ClientSocket As New TcpClient
             Try
                 ClientSocket.Connect(ServerAddress, Port)
+                ClientSocket.SendTimeout = 2
+                ClientSocket.ReceiveTimeout = 2
             Catch ex As ArgumentNullException
                 Log(My.Resources.Info, "Argument Null " & ex.Message)
                 Return False
@@ -1422,25 +1424,13 @@ Public Class Form1
 
     Public Function GetPostData() As String
 
-        Dim UPnp As String = "Fail"
-        If Settings.UPnpDiag Then
-            UPnp = "Pass"
-        End If
-        Dim Loopb As String = "Fail"
-        If Settings.LoopBackDiag Then
-            Loopb = "Pass"
-        End If
-
         Dim Grid As String = "Grid"
 
         Dim data As String = "&MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
+        & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
-        & "&uPnp=" & CStr(UPnp) _
-        & "&Loop=" & CStr(Loopb) _
         & "&Type=" & CStr(Grid) _
-        & "&Ver=" & CStr(PropUseIcons) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&r=" & RandomNumber.Random()
         Return data
@@ -1910,7 +1900,7 @@ Public Class Form1
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
-
+        Logger("Group Stopped", Groupname, "Restart")
     End Sub
 
     Public Sub ToolBar(visible As Boolean)
@@ -2299,48 +2289,58 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
-        If PropAborting Then Return True
+        If PropAborting Then
+            Logger("Aborting", BootName, "Restart")
+            Return True
+        End If
 
         Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
         Dim GroupName = Regionclass.GroupName(RegionUUID)
 
         If RegionUUID = "" Then
             ErrorLog("Cannot find " & BootName & " to boot!")
+            Logger("Cannot find", BootName, "Restart")
             Return False
         End If
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
 
         If Regionclass.IsBooted(RegionUUID) Then
+            Logger("Already Running", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " already running")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            Logger("Already warming up", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
+            Logger("Already booting up", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booting Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            Logger("Cannot boot, shutting down", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+            Logger("Already Recycling Down", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            Logger("Suspended, Resuming it", BootName, "Restart")
             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
             PropUpdateView = True ' make form refresh
@@ -2352,7 +2352,7 @@ Public Class Form1
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
-
+            Logger(My.Resources.is_already_running_word, BootName, "Restart")
             ' if running, grab it and return
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
@@ -2368,11 +2368,15 @@ Public Class Form1
                             Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                             Regionclass.ProcessID(RegionUUID) = p.Id
                         Next
+
+                        Logger("Located, is already running", BootName, "Restart")
+
                         PropUpdateView = True ' make form refresh
                         Return True
                     End If
                 Next
                 ErrorLog("Cannot find Window " & BootName)
+                Logger("Cannot find Window", BootName, "Restart")
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -2383,6 +2387,9 @@ Public Class Form1
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                 Next
+
+                Logger("Booting Up", BootName, "Restart")
+
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -2391,6 +2398,7 @@ Public Class Form1
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                 Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                Logger("Suspended, Resuming it instead", GroupName, "Restart")
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -2418,7 +2426,7 @@ Public Class Form1
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpenSimStats.log")
 
         SequentialPause()   ' wait for previous region to give us some CPU
-
+        Logger("Booting", GroupName, "Restart")
         Dim ok As Boolean = False
         Try
             ok = myProcess.Start
@@ -2434,7 +2442,8 @@ Public Class Form1
             If PID = 0 Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
                 PropUpdateView = True ' make form refresh
-                Print("Failed to get a PID for region " & BootName)
+                Print("Failed to get a PID for region " & GroupName)
+                Logger("No PID", GroupName, "Restart")
                 Return False
             End If
 
@@ -2458,7 +2467,7 @@ Public Class Form1
 
             Return True
         End If
-
+        Logger("Failed to boot ", BootName, "Restart")
         Print("Failed to boot region " & BootName)
         Return False
 
@@ -2584,6 +2593,8 @@ Public Class Form1
 
         SetLoopback()
 
+        LoadLocalIAROAR() ' refresh the pulldowns.
+
         'mnuShow shows the DOS box for Opensimulator
         mnuShow.Checked = Settings.ConsoleShow
         mnuHide.Checked = Not Settings.ConsoleShow
@@ -2687,7 +2698,9 @@ Public Class Form1
 
         Dim Logfiles = New List(Of String) From {
             PropMyFolder & "\OutworldzFiles\Error.log",
+            PropMyFolder & "\OutworldzFiles\Diagnostics.log",
             PropMyFolder & "\OutworldzFiles\Outworldz.log",
+            PropMyFolder & "\OutworldzFiles\Restart.log",
             PropMyFolder & "\OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt",
             PropMyFolder & "\OutworldzFiles\Diagnostics.log",
             PropMyFolder & "\OutworldzFiles\UPnp.log",
@@ -2800,13 +2813,14 @@ Public Class Form1
 
             ' if a RestartPending is signaled, boot it up
             If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-
+                Logger("Booting", GroupName, "Restart")
                 Boot(PropRegionClass, RegionName)
                 PropUpdateView = True
                 Continue For
 
                 ' if a resume is signaled, unsuspend it
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                Logger("Suspend", GroupName, "Restart")
                 DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
                 PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
@@ -2814,80 +2828,98 @@ Public Class Form1
                 Continue For
 
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                Logger("Restart Pending", GroupName, "Restart")
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-
                 For Each R In RegionList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 PropUpdateView = True ' make form refresh
                 Continue For
 
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                Logger("To Stage 2", GroupName, "Restart")
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
                 For Each R In RegionList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 PropUpdateView = True ' make form refresh                
                 Continue For
 
             ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-
+                Logger("Stopping", GroupName, "Restart")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
                 PropUpdateView = True
                 Continue For
+            ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
+                ' May have  missed an UP signal
+                Logger("Still Booting", GroupName, "Restart")
 
-            End If
-
-            ''''''''''''''''''''''''''''''''''''''
-
-            ' too long running, possible shutdown
-            If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
-                TimerValue = PropRegionClass.Timer(RegionUUID)
-
-                'How Long Region ran in minutes
-                Dim Expired As Single = TimerValue * ExitInterval / 60
-
-                ' if it is past time and no one is in the sim... Smart shutdown
-                If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                    And Settings.SmartStart _
-                    And Expired >= 1 _
-                    And Not AvatarsIsInGroup(GroupName) Then
-                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
-                End If
-
-                ' auto restart timer
-                If Expired >= (Settings.AutoRestartInterval()) _
-                    And Settings.AutoRestartInterval() > 0 _
-                    And Not AvatarsIsInGroup(GroupName) _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-
-                    ' shut down the group when AutoRestartInterval has gone by.
-
-                    If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
-                        SequentialPause()
-                        ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-                        Print(My.Resources.Automatic_restart_word & GroupName)
-                        ' shut down all regions in the DOS box
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                If TimerValue Mod 10 = 0 Then
+                    Dim isUp As Boolean = CheckPort(Settings.PublicIP, PropRegionClass.RegionPort(RegionUUID))
+                    If isUp Then
+                        For Each R In RegionList
+                            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
                         Next
-                    Else
-                        ' shut down all regions in the DOS box
-
-
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                        Next
+                        PropUpdateView = True
                     End If
-                    PropUpdateView = True ' make form refresh
+                End If
+                Continue For
+
+            Else
+
+                ''''''''''''''''''''''''''''''''''''''
+
+                ' too long running, possible shutdown
+                If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
+                    TimerValue = PropRegionClass.Timer(RegionUUID)
+
+                    'How Long Region ran in minutes
+                    Dim Expired As Single = TimerValue * ExitInterval / 60
+
+                    ' if it is past time and no one is in the sim... Smart shutdown
+                    If PropRegionClass.SmartStart(RegionUUID) = "True" _
+                        And Settings.SmartStart _
+                        And Expired >= 1 _
+                        And Not AvatarsIsInGroup(GroupName) Then
+                        Logger("DoSuspend_Resume", RegionName, "Restart")
+                        DoSuspend_Resume(RegionName)
+                        Continue For
+                    End If
+
+                    ' auto restart timer
+                    If Expired >= (Settings.AutoRestartInterval()) _
+                        And Settings.AutoRestartInterval() > 0 _
+                        And Not AvatarsIsInGroup(GroupName) _
+                        And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+
+                        ' shut down the group when AutoRestartInterval has gone by.
+                        Logger("Quitting", RegionName, "Restart")
+                        If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
+                            Logger("Dos Box Located", RegionName, "Restart")
+                            SequentialPause()
+                            ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            Print(My.Resources.Automatic_restart_word & GroupName)
+                            ' shut down all regions in the DOS box
+                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                            Next
+                        Else
+                            ' shut down all regions in the DOS box
+                            Logger("Stopping", RegionName, "Restart")
+                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                            Next
+                        End If
+                        PropUpdateView = True ' make form refresh
+                    End If
                 End If
             End If
-
         Next
 
         ' now look at the exit stack
@@ -2898,27 +2930,33 @@ Public Class Form1
             Dim Reason = PropExitList.Item(RegionName)
             PropExitList.Remove(RegionName)
 
-            Print(RegionName & " " & Reason)
+            Logger(Reason, RegionName & " Scanned", "Restart")
+            Print(Reason & "" & RegionName)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
             GroupName = RegionName ' assume a group
             Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+            Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
             If RegionUUID.Length > 0 Then
                 GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
+                Logger(Reason, GroupName & " Scanned", "Restart")
             End If
 
             Dim Status = PropRegionClass.Status(RegionUUID)
+            Logger(CStr(Status), GroupName & " TimerValue", "Restart")
             TimerValue = PropRegionClass.Timer(RegionUUID)
-
+            Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
             ' Maybe we crashed during warm up or running. 
             ' Skip prompt if auto restart on crash and restart the beast
+
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
                 And TimerValue >= 0 Then
 
+                Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
                     ' shut down all regions in the DOS box
                     Print(GroupName & " " & My.Resources.Quit_unexpectedly)
@@ -2938,8 +2976,6 @@ Public Class Form1
                 End If
                 PropUpdateView = True
             End If
-
-
 
         End While
         PropExitHandlerIsBusy = False
@@ -3341,13 +3377,14 @@ Public Class Form1
     Private Sub DoDiag()
 
         If IPCheck.IsPrivateIP(Settings.DNSName) Then
+            Logger("INFO", My.Resources.LAN_IP, "Diagnostics")
             Print(My.Resources.LAN_IP)
             Return
         End If
 
         Print("---------------------------")
         Print(My.Resources.Running_Network)
-
+        Logger("INFO", My.Resources.Running_Network, "Diagnostics")
         Settings.DiagFailed = False
 
         OpenPorts() ' Open router ports with UPnp
@@ -3357,6 +3394,7 @@ Public Class Form1
         TestAllRegionPorts()    ' All Dos boxes, actually
 
         If Settings.DiagFailed Then
+            Logger("ERROR", My.Resources.Diags_Failed, "Diagnostics")
             Dim answer = MsgBox(My.Resources.Diags_Failed, vbYesNo)
             If answer = vbYes Then
                 ShowLog()
@@ -5112,16 +5150,20 @@ Public Class Form1
                 result = client.DownloadString(Weblink)
             Catch ex As ArgumentNullException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
             Catch ex As NotSupportedException
+                Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
             End Try
         End Using
 
         If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
+            Logger("INFO", My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture), "Diagnostics")
             Print(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
         Else
             Print(My.Resources.Loopback_Failed & " " & Weblink)
+            Logger("INFO", My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
         End If
@@ -5131,6 +5173,7 @@ Public Class Form1
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
+            Logger("INFO", "Server Is Not Robust", "Diagnostics")
             Return
         End If
 
@@ -5142,22 +5185,28 @@ Public Class Form1
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
+            Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
             Catch ex As ArgumentNullException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
             Catch ex As WebException
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As NotSupportedException
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
 
         If isPortOpen = "yes" Then
+            Logger("INFO", My.Resources.Incoming_Works, "Diagnostics")
             Print(My.Resources.Incoming_Works)
         Else
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
+            Logger("INFO", My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & My.Resources.Not_Forwarded, "Diagnostics")
             Print(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & My.Resources.Not_Forwarded)
         End If
 
@@ -5191,15 +5240,15 @@ Public Class Form1
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
+            Logger("INFO", "UPNP OK", "Diagnostics")
             Settings.UPnpDiag = True
             Settings.SaveSettings()
-
             Return True
         Else
+            Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
             Print(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()
-
             Return False
         End If
 
@@ -5229,11 +5278,11 @@ Public Class Form1
 
                 If Used.Contains(RegionName) Then Continue For
                 Used.Add(RegionName)
-
+                Logger("INFO", "Testing region " & RegionName, "Diagnostics")
                 Dim Port = PropRegionClass.GroupPort(RegionUUID)
                 Print(My.Resources.Checking_Loopback_word & " " & RegionName)
+                Logger("INFO", My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
-
             End If
         Next
 
@@ -5243,19 +5292,26 @@ Public Class Form1
 
         Dim result As String = ""
         Print(My.Resources.Checking_LAN_Loopback_word)
+        Logger("Info", My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
         Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Logger("Info", "URL= " & weblink, "Diagnostics")
         Using client As New WebClient
             Try
                 result = client.DownloadString(weblink)
             Catch ex As ArgumentNullException
+                Logger("ERROR", ex.Message, "Diagnostics")
             Catch ex As WebException
+                Logger("ERROR", ex.Message, "Diagnostics")
             Catch ex As NotSupportedException
+                Logger("ERROR", ex.Message, "Diagnostics")
             End Try
         End Using
 
         If result = "Test Completed" Then
+            Logger("INFO", My.Resources.Passed_LAN, "Diagnostics")
             Print(My.Resources.Passed_LAN)
         Else
+            Logger("INFO", My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
             Print(My.Resources.Failed_LAN & " " & weblink)
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
@@ -5266,13 +5322,17 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+            Logger("INFO", "Local LAN IP", "Diagnostics")
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
+            Logger("INFO", "Robust, Test Skipped", "Diagnostics")
+
             Return
         End If
         Print(My.Resources.Checking_Loopback_word)
+        Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
         PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
 
     End Sub
@@ -6461,19 +6521,19 @@ Public Class Form1
         If PropAborting Then Return
 
         If PropDNSSTimer Mod 60 = 0 Then
-            ScanAgents() ' update agent count each 15 seconds
+            ScanAgents() ' update agent count  seconds
             RegionListHTML() ' create HTML for older 2.4 region teleporters
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP
 
-        If PropDNSSTimer Mod ExitInterval = 0 Then
+        If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             RestartDOSboxes()
         End If
 
         ' every 5 minutes
-        If PropDNSSTimer Mod 300 = 0 Then
+        If PropDNSSTimer Mod 300 = 0 And PropDNSSTimer > 0 Then
             CrashDetector.Find()
             RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
         End If
@@ -6481,10 +6541,9 @@ Public Class Form1
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
-            LoadLocalIAROAR() ' refresh the pulldowns.
         End If
 
-        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
+        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
