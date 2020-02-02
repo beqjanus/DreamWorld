@@ -43,34 +43,33 @@ Public Class ClrCache
 
     Public Shared Sub WipeAssets()
 
-        If Form1.PropOpensimIsRunning Then
-            For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-                If Form1.PropRegionClass.IsBooted(RegionUUID) Then
-                    Form1.ConsoleCommand(RegionUUID, "fcache clear{ENTER}")
-                End If
-            Next
-            Return
-        End If
-
         Form1.Print(My.Resources.Clearing_Assets)
-        Dim folders() = Directory.GetDirectories(Form1.Settings.CacheFolder, "*", SearchOption.TopDirectoryOnly)
-
+        Dim folders() = Nothing
+        Dim Flotsam As String = Form1.Settings.CacheFolder
+        If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
+            Flotsam = Form1.Settings.OpensimBinPath & "bin\assetcache"
+        End If
+        If Directory.Exists(Flotsam) Then
+            folders = Directory.GetDirectories(Flotsam, "*", SearchOption.TopDirectoryOnly)
+        End If
+        Dim ctr As Integer = 0
         If folders IsNot Nothing Then
-            Dim ctr As Integer = 0
+
             For Each folder As String In folders
                 Try
                     FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 Catch
                 End Try
                 ctr += 1
-                Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                'Application.doevents()
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+                Application.DoEvents()
             Next
         End If
+        Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
 
-        folders = Nothing
+        Dim files() = Nothing
         Try
-            folders = IO.Directory.GetFiles(Form1.Settings.CacheFolder)
+            files = IO.Directory.GetFiles(Flotsam)
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
@@ -78,17 +77,18 @@ Public Class ClrCache
         Catch ex As IOException
         End Try
 
-        If folders IsNot Nothing Then
-            Dim ctr As Integer = 0
-            For Each folder As String In folders
+        ctr = 0
+        If files IsNot Nothing Then
+            For Each file As String In files
                 Try
-                    FileStuff.DeleteFile(folder)
+                    FileStuff.DeleteFile(file)
                 Catch
                 End Try
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                'Application.doevents()
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
             Next
+            Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
         End If
 
     End Sub
@@ -96,37 +96,61 @@ Public Class ClrCache
     Public Shared Sub WipeBakes()
 
         Form1.Print(My.Resources.Clearing_Bake_Cache_word)
-        Try
-            FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\bakes\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        Catch
-        End Try
+        Dim files() = Nothing
+        If Directory.Exists(Form1.PropOpensimBinPath & "bin\bakes\") Then
+            Try
+                files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            End Try
+        End If
+
+        If files IsNot Nothing Then
+            Dim ctr As Integer = 0
+            For Each file As String In files
+                Try
+                    FileStuff.DeleteFile(file)
+                Catch
+                End Try
+                ctr += 1
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
+            Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+        End If
 
     End Sub
 
     Public Shared Sub WipeImage()
 
         Form1.Print(My.Resources.Clearing_Image_Cache_word)
-        Dim folders() = Nothing
-        Try
-            folders = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
+        Dim files() = Nothing
+        If Directory.Exists(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\") Then
+            Try
+                files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            End Try
+        End If
 
-        If folders IsNot Nothing Then
+        If files IsNot Nothing Then
             Dim ctr As Integer = 0
-            For Each folder As String In folders
+            For Each file As String In files
                 Try
-                    FileStuff.DeleteFile(folder)
+                    FileStuff.DeleteFile(file)
                 Catch
                 End Try
                 ctr += 1
-                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                'Application.doevents()
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
             Next
+            Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
         End If
 
     End Sub
@@ -134,55 +158,58 @@ Public Class ClrCache
     Public Shared Sub WipeMesh()
 
         Form1.Print(My.Resources.Clearing_Mesh_Cache_word)
-        Dim folders As Array = Nothing
 
-        Try
-            folders = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\MeshCache\", "*", SearchOption.AllDirectories)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        End Try
-
-        If folders IsNot Nothing Then
-            Dim ctr As Integer = 0
-            For Each folder As String In folders
-                Try
-                    FileStuff.DeleteDirectory(Form1.PropOpensimBinPath & "bin\MeshCache\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                Catch
-                End Try
-
-
-            Next
+        Dim files() = Nothing
+        If Directory.Exists(Form1.PropOpensimBinPath & "bin\MeshCache\") Then
+            Try
+                files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentException
+            Catch ex As PathTooLongException
+            Catch ex As IOException
+            End Try
         End If
 
+        Dim ctr As Integer = 0
+        If files IsNot Nothing Then
+            For Each file As String In files
+                Try
+                    FileStuff.DeleteFile(file)
+                Catch
+                End Try
+                ctr += 1
+                If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
+        End If
+        Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
     End Sub
 
     Public Shared Sub WipeScripts()
 
-        Try
-            If Not Form1.PropOpensimIsRunning() Then
-                Dim folders() = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+        If Not Form1.PropOpensimIsRunning() Then
+            Dim ctr As Integer = 0
+            Dim folders() = Nothing
+            If Directory.Exists(Form1.PropOpensimBinPath & "bin\ScriptEngines\") Then
+                folders = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
                 If folders IsNot Nothing Then
                     Form1.Print(My.Resources.Clearing_Script)
-                    Dim ctr As Integer = 0
+
                     For Each script As String In folders
                         Dim ext = Path.GetExtension(script)
                         If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
                             FileStuff.DeleteFile(script)
                             ctr += 1
-                            If ctr Mod 100 = 0 Then
-                                Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
-                            End If
-                            'Application.doevents()
+                            If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+
+                            Application.DoEvents()
                         End If
                     Next
                 End If
-
             End If
-        Catch
-        End Try
+            Form1.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+        End If
 
 
     End Sub

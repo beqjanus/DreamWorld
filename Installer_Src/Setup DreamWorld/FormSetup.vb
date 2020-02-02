@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.33"
+    Private _MyVersion As String = "3.34"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -1045,7 +1045,7 @@ Public Class Form1
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "" Then
+        If Settings.ConsoleShow = "" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
         End If
 
@@ -2417,7 +2417,16 @@ Public Class Form1
 
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "bin\OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
-        myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+
+        Select Case Settings.ConsoleShow
+            Case "True"
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case ""
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
+
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\Opensim.log")
@@ -2868,7 +2877,7 @@ Public Class Form1
                 Continue For
             ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
                 ' May have  missed an UP signal
-                Logger("Still Booting", GroupName, "Restart")
+                'Logger("Still Booting", GroupName, "Restart")
 
                 If TimerValue Mod 10 = 0 Then
                     Dim isUp As Boolean = CheckPort(Settings.PublicIP, PropRegionClass.RegionPort(RegionUUID))
@@ -4576,13 +4585,14 @@ Public Class Form1
         IcecastProcess.StartInfo.CreateNoWindow = False
         IcecastProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\icecast"
 
-        If Settings.ConsoleShow = "True" Then
-            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        ElseIf Settings.ConsoleShow = "True" Or Settings.ConsoleShow = "" Then
-            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        Else
-            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        End If
+        Select Case Settings.ConsoleShow
+            Case "True"
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case ""
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
 
         Try
             IcecastProcess.Start()
@@ -5020,7 +5030,7 @@ Public Class Form1
             Case "True"
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "False"
-                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case ""
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
@@ -5094,7 +5104,16 @@ Public Class Form1
 
         Log(My.Resources.Info, My.Resources.Robust_running)
 
-        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+        Select Case Settings.ConsoleShow
+            Case "True"
+                ' Do nothing, Always Show
+            Case "False"
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            Case ""
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+        End Select
+
+
 
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)

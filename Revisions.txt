@@ -2,34 +2,32 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-
-V3.33 Beta
-
-Generate graphic titles to all web-downloadable IAR and OARs.
-
-The various  Grid Gods can now be overridden in the region panel to be ON or OFF or default. Previously it was ON or Default.
-
-Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the 3D crap you peeps get for free.  Its 385 GB used out of 400. Eeep.
-
-SSL added to Hyperica.com content. What a pain.  Should be "Future-proof" for both SSL and non-SSL versions of Hyperica.com and Outworldz.com by not using SSL at all except thru server-side redirects.  
-
-Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down. Grid-wide Search and load OAR and IAR will obviously be offline.    DYN DNS for outworldz.net domain users is dual redundant, one server in Europe, one in Dallas.
-
-Added uncaught exception error handler/logger.  See Error.log if Dreamgrid just quits.  
-
+V.33 Beta 
+Can always hide region DOS boxes,always show, or hide when done with an action.
+God Mode fixes where region overrides could get stuck on or off
+Disable Residents fixes where region overrides could get stuck on or off
+Lots of tweaks to region restart.
+Made it so the chooser and other important dialogs pop to the front. It was not really possible to edit two regions, before this. 
+Can now add multiple regions at the same time withou breakage.
+A Diagnostics log to show the details.
+Added uncaught exception error handler/logger.  See Error.log if it just quits.
+Use HTTP with redirects at server in case SSL fails.
+A new "Pausing" icon/state when Region Recycling is used. Restarts will be about 30 seconds now as there are two stages
+Allow_osMessageObject and Allow_osGetNotecard set true for Satyr farming by non estate managers.
+Updates to Nuget repos.
+Updated Apache to latest version 2.4.1 so it can handle TLS1.3.
+Generate graphic titles to all web-downloadble IAR and OARs. 
+Reworked Cache on main server to load much faster.  My server's SSD needs upgrading due to all the 3D crap you peeps get for free.  Its 385 GB used out of 400. Eeep!
+SSL added to Hyperica.com content. What a pain.  Should be "Future-proof" for both SSL and non-SSL versions of Hyperica.com and Outworldz.com by not using SSL at all except thru server-side redirects.
+Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down.  Grid-wide Search and load OAR and IAR will obviously be offline.  Deal with it.
 Closing the settings form now closes all the child settings forms for garbage collection.
-
 15X15-sized region was not selectable, and the settings defaulted to max of 4 if you looked again after a save.
-
 Tests DNS name when saved.
-
-Can now add multiple regions at the same time with breakage.
-
-
 
 V3.32 Beta 
 
 Clicking the Clear cache button could cause a crash if the fsasset folder did not exist.
+
 
 V3.31 Beta
 

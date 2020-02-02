@@ -196,7 +196,7 @@ Public Class MySettings
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
-            MsgBox(ex.Message)
+            Form1.Log("Warn", ex.Message)
             Return True
         End Try
         INI = arg
