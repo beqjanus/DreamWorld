@@ -3410,11 +3410,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide.
+        '''  Looks up a localized string similar to Hide Regions When Finished.
         '''</summary>
         Friend ReadOnly Property Hide() As String
             Get
                 Return ResourceManager.GetString("Hide", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Always Hide Regions.
+        '''</summary>
+        Friend ReadOnly Property Hide_Allways_word() As String
+            Get
+                Return ResourceManager.GetString("Hide_Allways_word", resourceCulture)
             End Get
         End Property
         
@@ -3952,6 +3961,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Load Free Avatar Inventory (www).
+        '''</summary>
+        Friend ReadOnly Property Load_Free_Avatar_Inventory_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Free_Avatar_Inventory_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Load Free DreamGrid OARs (www).
+        '''</summary>
+        Friend ReadOnly Property Load_Free_DreamGrid_OARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Free_DreamGrid_OARs_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Load Free Dreamworld OARs.
         '''</summary>
         Friend ReadOnly Property Load_Free_Dreamworld_OARs() As String
@@ -3979,11 +4006,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Load Local IARs.
+        '''</summary>
+        Friend ReadOnly Property Load_Local_IARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Local_IARs_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Load Local OARs from the OAR folder.
         '''</summary>
         Friend ReadOnly Property Load_Local_OARs() As String
             Get
                 Return ResourceManager.GetString("Load_Local_OARs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Load Local OARs.
+        '''</summary>
+        Friend ReadOnly Property Load_Local_OARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Local_OARs_word", resourceCulture)
             End Get
         End Property
         
@@ -4433,6 +4478,15 @@ Namespace My.Resources
         Friend ReadOnly Property More_Free_Islands() As String
             Get
                 Return ResourceManager.GetString("More_Free_Islands", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to More Free Islands and Parts (www).
+        '''</summary>
+        Friend ReadOnly Property More_Free_Islands_and_Parts_word() As String
+            Get
+                Return ResourceManager.GetString("More_Free_Islands_and_Parts_word", resourceCulture)
             End Get
         End Property
         
@@ -5031,6 +5085,15 @@ Namespace My.Resources
         Friend ReadOnly Property OAR_Load_and_Save() As String
             Get
                 Return ResourceManager.GetString("OAR_Load_and_Save", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OAR Load, Save and Backup.
+        '''</summary>
+        Friend ReadOnly Property OAR_load_save_backupp_word() As String
+            Get
+                Return ResourceManager.GetString("OAR_load_save_backupp_word", resourceCulture)
             End Get
         End Property
         
@@ -6448,6 +6511,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to See Ports In Use.
+        '''</summary>
+        Friend ReadOnly Property See_Ports_In_Use_word() As String
+            Get
+                Return ResourceManager.GetString("See_Ports_In_Use_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to I&apos;ll see you again when I wake up all fresh and new!.
         '''</summary>
         Friend ReadOnly Property SeeYouSoon() As String
@@ -6648,6 +6720,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Setup.
+        '''</summary>
+        Friend ReadOnly Property Setup_word() As String
+            Get
+                Return ResourceManager.GetString("Setup_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Shoutcast is not Enabled..
         '''</summary>
         Friend ReadOnly Property Shoutcast_Disabled() As String
@@ -6693,7 +6774,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show.
+        '''  Looks up a localized string similar to Always Show Regions.
         '''</summary>
         Friend ReadOnly Property Show_word() As String
             Get

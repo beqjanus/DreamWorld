@@ -86,7 +86,7 @@ Public Class MySettings
             ConsolePass() = My.Settings.ConsolePass
             CoordX() = CInt(My.Settings.CoordX)
             CoordY() = CInt(My.Settings.CoordY)
-            ConsoleShow = My.Settings.ConsoleShow
+
 
             DiagFailed() = My.Settings.DiagFailed
 
@@ -350,7 +350,7 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
-        If value = Nothing Then Return
+        'If value = Nothing Then Return
         SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
@@ -746,12 +746,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property ConsoleShow() As Boolean
+    Public Property ConsoleShow() As String
         Get
-            Return CType(GetMySetting("ConsoleShow", "False"), Boolean)
+            Return CType(GetMySetting("ConsoleShow", ""), String)
         End Get
         Set
-            SetMySetting("ConsoleShow", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("ConsoleShow", Value)
         End Set
     End Property
 

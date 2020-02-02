@@ -130,7 +130,7 @@ Public Class Form1
 
     ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
-        '366, 236
+        '365, 238 default
         ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
@@ -140,17 +140,17 @@ Public Class Form1
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 240
+            Me.Height = 238
         Else
             Me.Height = hw.Item(0)
         End If
 
         If hw.Item(1) = 0 Then
-            Me.Width = 385
+            Me.Width = 365
         Else
             Me.Width = hw.Item(1)
 
-            If Me.Width > 390 Then
+            If Me.Width > 375 Then
                 PictureBox1.Image = My.Resources.Arrow2Left
                 PictureBox1.AccessibleName = "Close".ToUpperInvariant
             Else
@@ -273,11 +273,7 @@ Public Class Form1
             ConsoleCommand("Robust", "create user{ENTER}")
             'Application.doevents()
             MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
-
-            If Settings.ConsoleShow = False Then
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-            End If
-
+            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
             Settings.RunOnce = True
             Settings.SaveSettings()
         End If
@@ -1047,7 +1043,11 @@ Public Class Form1
         Return result
     End Function
 
-    Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+    Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+
+        If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "" Then
+            Return True
+        End If
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -1656,11 +1656,11 @@ Public Class Form1
                 If PropRegionClass.IsBooted(RegionUUID) Then
                     ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
                     hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
             ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
-            Form1.ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
 
         Settings.LogLevel = msg
@@ -2091,7 +2091,7 @@ Public Class Form1
                 Sleep(5000)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
             End If
         Next
 
@@ -2596,8 +2596,21 @@ Public Class Form1
         LoadLocalIAROAR() ' refresh the pulldowns.
 
         'mnuShow shows the DOS box for Opensimulator
-        mnuShow.Checked = Settings.ConsoleShow
-        mnuHide.Checked = Not Settings.ConsoleShow
+        Select Case Settings.ConsoleShow
+            Case "True"
+                mnuShow.Checked = True
+                mnuHide.Checked = False
+                mnuHideAllways.Checked = False
+            Case "False"
+                mnuShow.Checked = False
+                mnuHide.Checked = True
+                mnuHideAllways.Checked = False
+            Case ""
+                mnuShow.Checked = False
+                mnuHide.Checked = False
+                mnuHideAllways.Checked = True
+        End Select
+
 
         If SetIniData() Then
             Buttons(StartButton)
@@ -4563,8 +4576,10 @@ Public Class Form1
         IcecastProcess.StartInfo.CreateNoWindow = False
         IcecastProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\icecast"
 
-        If Settings.ConsoleShow Then
+        If Settings.ConsoleShow = "True" Then
             IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+        ElseIf Settings.ConsoleShow = "True" Or Settings.ConsoleShow = "" Then
+            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         Else
             IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End If
@@ -5000,7 +5015,16 @@ Public Class Form1
 
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = PropOpensimBinPath & "bin"
-        RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+
+        Select Case Settings.ConsoleShow
+            Case "True"
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            Case ""
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
+
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
         Try
             RobustProcess.Start()
@@ -5069,9 +5093,8 @@ Public Class Form1
         _RobustIsStarting = False
 
         Log(My.Resources.Info, My.Resources.Robust_running)
-        If Settings.ConsoleShow = False Then
-            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-        End If
+
+        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
 
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
@@ -5327,10 +5350,10 @@ Public Class Form1
         End If
 
         If Settings.ServerType <> "Robust" Then
-            Logger("INFO", "Robust, Test Skipped", "Diagnostics")
-
+            Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
             Return
         End If
+
         Print(My.Resources.Checking_Loopback_word)
         Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
         PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
@@ -5758,13 +5781,38 @@ Public Class Form1
     Private Sub MnuExit_Click(sender As System.Object, e As EventArgs) Handles mnuExit.Click
         ReallyQuit()
     End Sub
+    Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As EventArgs) Handles mnuShow.Click
+
+        Print(My.Resources.Is_Shown)
+        mnuShow.Checked = True
+        mnuHide.Checked = False
+        mnuHideAllways.Checked = False
+
+        Settings.ConsoleShow = "True"
+        Settings.SaveSettings()
+
+    End Sub
 
     Private Sub MnuHide_Click(sender As System.Object, e As EventArgs) Handles mnuHide.Click
+
         Print(My.Resources.Not_Shown)
         mnuShow.Checked = False
         mnuHide.Checked = True
+        mnuHideAllways.Checked = False
 
-        Settings.ConsoleShow = mnuShow.Checked
+        Settings.ConsoleShow = "False"
+        Settings.SaveSettings()
+
+    End Sub
+
+
+    Private Sub mnuHideAllways_Click(sender As Object, e As EventArgs) Handles mnuHideAllways.Click
+        Print(My.Resources.Not_Shown)
+        mnuShow.Checked = False
+        mnuHide.Checked = False
+        mnuHideAllways.Checked = True
+
+        Settings.ConsoleShow = ""
         Settings.SaveSettings()
 
     End Sub
@@ -6095,16 +6143,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As EventArgs) Handles mnuShow.Click
-
-        Print(My.Resources.Is_Shown)
-        mnuShow.Checked = True
-        mnuHide.Checked = False
-
-        Settings.ConsoleShow = mnuShow.Checked
-        Settings.SaveSettings()
-
-    End Sub
 
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox(My.Resources.Enter_1_2)
@@ -6119,7 +6157,7 @@ Public Class Form1
 
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
 
-        DoStopActions
+        DoStopActions()
 
     End Sub
 
@@ -6920,6 +6958,7 @@ Public Class Form1
         Return False
 
     End Function
+
 
 
 

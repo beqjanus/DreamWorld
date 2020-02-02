@@ -1038,7 +1038,13 @@ Public Class RegionList
             Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
             If PID > 0 Then
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Dim tmp As String = Form1.Settings.ConsoleShow
+
+                'temp show console
+                Form1.Settings.ConsoleShow = "True"
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+                Form1.Settings.ConsoleShow = tmp
+
             End If
 
         ElseIf chosen = "Edit" Then

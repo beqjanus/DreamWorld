@@ -207,7 +207,7 @@ Public Class RegionMaker
                         End Try
                     Next
 
-                    If Form1.Settings.ConsoleShow = False Then
+                    If Form1.Settings.ConsoleShow = "False" Or Form1.Settings.ConsoleShow = "" Then
                         Dim hwnd = Form1.GetHwnd(GroupName(RegionUUID))
                         Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                     End If

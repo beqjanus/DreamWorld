@@ -665,7 +665,7 @@
     <value>Avatars</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Hide Regions When Finished</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>Highest used: 8004</value>
@@ -1079,7 +1079,7 @@
     <value>..\Resources\nav_plain_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>Show</value>
+    <value>Always Show Regions</value>
   </data>
   <data name="TechInfo" xml:space="preserve">
     <value>Technical Information</value>
@@ -2718,5 +2718,32 @@
   </data>
   <data name="Search_Connect_failed" xml:space="preserve">
     <value>Failed to Connect to Search Database</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>Always Hide Regions</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>Load Free Avatar Inventory (www)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>Load Free DreamGrid OARs (www)</value>
+  </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Load Local IARs</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Load Local OARs</value>
+  </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>More Free Islands and Parts (www)</value>
+  </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR Load, Save and Backup</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>See Ports In Use</value>
+  </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>Setup</value>
   </data>
 </root>
