@@ -184,6 +184,7 @@ Public Class FormRegion
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
             RegionUUID = Form1.PropRegionClass.CreateRegion("")
+            Gods_Use_Default.Checked = True
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
@@ -348,48 +349,52 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        Select Case Form1.PropRegionClass.AllowGods(RegionUUID)
-            Case ""
-                AllowGods.Checked = False
-            Case "False"
-                AllowGods.Checked = False
-            Case "True"
-                AllowGods.Checked = True
-                Gods_Use_Default.Checked = False
-        End Select
-
-        Select Case Form1.PropRegionClass.RegionGod(RegionUUID)
-            Case ""
-                RegionGod.Checked = False
-            Case "False"
-                RegionGod.Checked = False
-            Case "True"
-                RegionGod.Checked = True
-                Gods_Use_Default.Checked = False
-        End Select
-
-        Select Case Form1.PropRegionClass.ManagerGod(RegionUUID)
-            Case ""
-                ManagerGod.Checked = False
-            Case "False"
-                ManagerGod.Checked = False
-            Case "True"
-                ManagerGod.Checked = True
-                Gods_Use_Default.Checked = False
-        End Select
-
-        ' if none, turn it off
-        If Form1.PropRegionClass.AllowGods(RegionUUID) = "False" And
-             Form1.PropRegionClass.RegionGod(RegionUUID) = "False" And
-            Form1.PropRegionClass.ManagerGod(RegionUUID) = "False" Then
+        If Form1.PropRegionClass.GodDefault(RegionUUID) Then
+            AllowGods.Checked = False
+            RegionGod.Checked = False
+            ManagerGod.Checked = False
             Gods_Use_Default.Checked = True
-        End If
+        Else
+            Select Case Form1.PropRegionClass.AllowGods(RegionUUID)
+                Case ""
+                    AllowGods.Checked = False
+                Case "False"
+                    AllowGods.Checked = False
+                    Gods_Use_Default.Checked = False
+                Case "True"
+                    AllowGods.Checked = True
+                    Gods_Use_Default.Checked = False
+            End Select
 
-        ' if none, turn it off
-        If Form1.PropRegionClass.AllowGods(RegionUUID) = "" And
-             Form1.PropRegionClass.RegionGod(RegionUUID) = "" And
-            Form1.PropRegionClass.ManagerGod(RegionUUID) = "" Then
-            Gods_Use_Default.Checked = True
+            Select Case Form1.PropRegionClass.RegionGod(RegionUUID)
+                Case ""
+                    RegionGod.Checked = False
+                Case "False"
+                    RegionGod.Checked = False
+                    Gods_Use_Default.Checked = False
+                Case "True"
+                    RegionGod.Checked = True
+                    Gods_Use_Default.Checked = False
+            End Select
+
+            Select Case Form1.PropRegionClass.ManagerGod(RegionUUID)
+                Case ""
+                    ManagerGod.Checked = False
+                Case "False"
+                    ManagerGod.Checked = False
+                    Gods_Use_Default.Checked = False
+                Case "True"
+                    ManagerGod.Checked = True
+                    Gods_Use_Default.Checked = False
+            End Select
+
+            ' if none selected, turn default on. This updates old code to new GodDefault global
+
+            If Form1.PropRegionClass.AllowGods(RegionUUID) = "" And
+                 Form1.PropRegionClass.RegionGod(RegionUUID) = "" And
+                Form1.PropRegionClass.ManagerGod(RegionUUID) = "" Then
+                Gods_Use_Default.Checked = True
+            End If
         End If
 
         Select Case Form1.PropRegionClass.RegionSnapShot(RegionUUID)
@@ -472,23 +477,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
-
-        If AllowGods.Checked Then
-            Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Gods")
-        Else
-            If AllowGods.Checked = False And
-                RegionGod.Checked = False And
-                ManagerGod.Checked = False Then
-                Gods_Use_Default.Checked = True
-            End If
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
 
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
@@ -510,7 +498,7 @@ Public Class FormRegion
         Else
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
-            Form1.CopyOpensimProto(RegionName.Text)
+            RegionMaker.CopyOpensimProto(RegionName.Text)
             Form1.PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
@@ -635,7 +623,7 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
-                    Form1.CopyOpensimProto(RegionName.Text)
+                    RegionMaker.CopyOpensimProto(RegionName.Text)
 
                     Form1.PropUpdateView() = True
                     Changed1 = False
@@ -655,35 +643,6 @@ Public Class FormRegion
         Form1.Help("Permissions")
     End Sub
 
-    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
-
-        If Gods_Use_Default.Checked Then
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is set to default for Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub ManagerGod_CheckedChanged(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
-
-        If ManagerGod.Checked Then
-            Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Manager Gods")
-        Else
-            If AllowGods.Checked = False And
-                RegionGod.Checked = False And
-                ManagerGod.Checked = False Then
-                Gods_Use_Default.Checked = True
-            End If
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Manager Gods")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
@@ -851,23 +810,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
-
-        If RegionGod.Checked Then
-            Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Region Gods")
-        Else
-            If AllowGods.Checked = False And
-                RegionGod.Checked = False And
-                ManagerGod.Checked = False Then
-                Gods_Use_Default.Checked = True
-            End If
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
 
     Private Function RegionValidate() As String
 
@@ -1196,24 +1138,15 @@ Public Class FormRegion
         End If
 
         If Gods_Use_Default.Checked Then
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
-        End If
-        If AllowGods.Checked Then
-            Form1.PropRegionClass.AllowGods(RegionUUID) = "True"
-        Else
+            Form1.PropRegionClass.GodDefault(RegionUUID) = "True"
             Form1.PropRegionClass.AllowGods(RegionUUID) = ""
-        End If
-        If RegionGod.Checked Then
-            Form1.PropRegionClass.RegionGod(RegionUUID) = "True"
-        Else
             Form1.PropRegionClass.RegionGod(RegionUUID) = ""
-        End If
-        If ManagerGod.Checked Then
-            Form1.PropRegionClass.ManagerGod(RegionUUID) = "True"
-        Else
             Form1.PropRegionClass.ManagerGod(RegionUUID) = ""
+        Else
+            Form1.PropRegionClass.GodDefault(RegionUUID) = "False"
+            Form1.PropRegionClass.AllowGods(RegionUUID) = CStr(AllowGods.Checked)
+            Form1.PropRegionClass.RegionGod(RegionUUID) = CStr(RegionGod.Checked)
+            Form1.PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
         End If
 
         Dim Host = Form1.Settings.ExternalHostName
@@ -1301,6 +1234,7 @@ Public Class FormRegion
                             "RegionSnapShot = " & Snapshot & vbCrLf &
                             "MapType = " & Map & vbCrLf &
                             "Physics = " & Phys & vbCrLf &
+                            "GodDefault = " & Form1.PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
                             "AllowGods = " & Form1.PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
                             "RegionGod = " & Form1.PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
                             "ManagerGod = " & Form1.PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
@@ -1345,7 +1279,7 @@ Public Class FormRegion
 
 #End Region
 
-    Private Sub XENgineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
+    Private Sub XEngineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
 
         If XEngineButton.Checked Then
             ScriptDefaultButton.Checked = False
@@ -1521,6 +1455,66 @@ Public Class FormRegion
         End If
 
     End Sub
+
+#End Region
+
+#Region "Gods"
+
+    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
+
+        If RegionGod.Checked Then
+            Gods_Use_Default.Checked = False
+            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Region Gods")
+        Else
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
+
+        If AllowGods.Checked Then
+            Gods_Use_Default.Checked = False
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Gods")
+        Else
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub ManagerGod_CheckedChanged(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
+
+        If ManagerGod.Checked Then
+            Gods_Use_Default.Checked = False
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Manager Gods")
+        Else
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Manager Gods")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+
+    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
+
+        If Gods_Use_Default.Checked Then
+            Form1.Log(My.Resources.Info, "Region " + Name + " Is set to default for Gods")
+            AllowGods.Checked = False
+            RegionGod.Checked = False
+            ManagerGod.Checked = False
+            Gods_Use_Default.Checked = True
+        Else
+            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
 
 #End Region
 

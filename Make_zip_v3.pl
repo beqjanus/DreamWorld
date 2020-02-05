@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.32";
+my $v = "3.34";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -213,6 +213,8 @@ JustDelete('O:/Opensim/Zip/Start.vshost.exe.manifest');
 JustDelete('O:/Opensim/Zip/Start.vshost.exe.config');
 JustDelete('O:/Opensim/Zip/Start.vshost.exe');
 
+JustDelete('O:/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
+
 #####################
 print "Make zip\n";
 unlink "O:/Opensim/Zips/DreamGrid$type.zip";
@@ -226,8 +228,8 @@ if ($publish)
 	
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid$type.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid-Update$type.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	print "Revisions\n";

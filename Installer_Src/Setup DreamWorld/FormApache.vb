@@ -176,8 +176,9 @@ Public Class FormApache
         Dim InstallProcess As New Process
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
         '
-        '2012
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x64.exe"
+        ' all of them
+        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\Visual C++ Redist Installer V56.exe"
+
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
@@ -186,30 +187,7 @@ Public Class FormApache
         End Try
 
         InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2012_vcredist_x86.exe"
-        Try
-            InstallProcess.Start()
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
 
-        InstallProcess.WaitForExit()
-        ' 2015
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x64.exe"
-        Try
-            InstallProcess.Start()
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
-
-        InstallProcess.WaitForExit()
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\2015_vc_redist.x86.exe"
-        Try
-            InstallProcess.Start()
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
-        End Try
-        InstallProcess.WaitForExit()
         InstallProcess.Dispose()
 
     End Sub

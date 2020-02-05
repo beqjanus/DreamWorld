@@ -19,7 +19,7 @@
     <AssemblyName>Start</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -473,15 +473,8 @@
       <DependentUpon>FormApache.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormChooser.en.resx">
-      <DependentUpon>FormChooser.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormBackupCheckboxes.resx">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormBird.en.resx">
-      <DependentUpon>FormBird.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
@@ -505,12 +498,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormOAR.resx">
       <DependentUpon>FormOAR.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormPermissions.en.resx">
-      <DependentUpon>FormPermissions.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormRegion.en.resx">
-      <DependentUpon>FormRegion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegionPopup.resx">
       <DependentUpon>FormRegionPopup.vb</DependentUpon>

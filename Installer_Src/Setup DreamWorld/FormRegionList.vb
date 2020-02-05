@@ -547,7 +547,6 @@ Public Class RegionList
                             ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                         End If
                         Num = 0
-                        'TODO: not sure what this did - map view only?
 
                     End If
 
@@ -1039,7 +1038,13 @@ Public Class RegionList
             Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
             If PID > 0 Then
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Dim tmp As String = Form1.Settings.ConsoleShow
+
+                'temp show console
+                Form1.Settings.ConsoleShow = "True"
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+                Form1.Settings.ConsoleShow = tmp
+
             End If
 
         ElseIf chosen = "Edit" Then

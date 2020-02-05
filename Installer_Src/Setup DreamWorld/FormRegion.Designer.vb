@@ -254,7 +254,7 @@ Partial Class FormRegion
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(160, 13)
         Me.Label11.TabIndex = 36
-        Me.Label11.Text = "Max Number of Prims in a Parcel"
+        Me.Label11.Text = Global.Outworldz.My.Resources.Resources.Max_NumPrims
         Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
@@ -278,10 +278,9 @@ Partial Class FormRegion
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(69, 201)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(649, 13)
+        Me.Label12.Size = New System.Drawing.Size(155, 13)
         Me.Label12.TabIndex = 38
-        Me.Label12.Text = "How many Avatars + NPC's can be in a region before the region is shown as Full. T" &
-    "he actual value is set in Estate Settings in the viewer."
+        Me.Label12.Text = Global.Outworldz.My.Resources.Resources.Region_full_msg
         Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Resources.Max_Agents)
         '
         'ClampPrimSize
@@ -345,7 +344,7 @@ Partial Class FormRegion
         Me.GodHelp.Size = New System.Drawing.Size(30, 27)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word)
+        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Help)
         '
         'AllowGods
         '
@@ -355,7 +354,7 @@ Partial Class FormRegion
         Me.AllowGods.Size = New System.Drawing.Size(131, 17)
         Me.AllowGods.TabIndex = 1858
         Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
-        Me.ToolTip1.SetToolTip(Me.AllowGods, resources.GetString("AllowGods.ToolTip"))
+        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'ManagerGod
@@ -444,6 +443,7 @@ Partial Class FormRegion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.GroupBox8)
         Me.GroupBox1.Controls.Add(Me.Physics_Default)
         Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
         Me.GroupBox1.Controls.Add(Me.PhysicsubODE)
@@ -827,7 +827,6 @@ Partial Class FormRegion
         'GroupBox6
         '
         Me.GroupBox6.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.GroupBox6.Controls.Add(Me.GroupBox8)
         Me.GroupBox6.Controls.Add(Me.GroupBox7)
         Me.GroupBox6.Controls.Add(Me.Label13)
         Me.GroupBox6.Controls.Add(Me.GroupBox3)
@@ -847,7 +846,7 @@ Partial Class FormRegion
         Me.GroupBox8.Controls.Add(Me.ScriptDefaultButton)
         Me.GroupBox8.Controls.Add(Me.XEngineButton)
         Me.GroupBox8.Controls.Add(Me.YEngineButton)
-        Me.GroupBox8.Location = New System.Drawing.Point(17, 407)
+        Me.GroupBox8.Location = New System.Drawing.Point(0, 97)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(236, 99)
         Me.GroupBox8.TabIndex = 1886
@@ -897,7 +896,7 @@ Partial Class FormRegion
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
-        Me.GroupBox7.Location = New System.Drawing.Point(255, 309)
+        Me.GroupBox7.Location = New System.Drawing.Point(258, 274)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(222, 197)
         Me.GroupBox7.TabIndex = 1881
@@ -991,7 +990,7 @@ Partial Class FormRegion
         Me.MapBox.Controls.Add(Me.MapBetter)
         Me.MapBox.Controls.Add(Me.MapBest)
         Me.MapBox.Controls.Add(Me.MapGood)
-        Me.MapBox.Location = New System.Drawing.Point(256, 44)
+        Me.MapBox.Location = New System.Drawing.Point(254, 16)
         Me.MapBox.Name = "MapBox"
         Me.MapBox.Size = New System.Drawing.Size(222, 247)
         Me.MapBox.TabIndex = 1881

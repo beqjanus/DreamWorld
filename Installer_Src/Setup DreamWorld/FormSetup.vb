@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.33"
+    Private _MyVersion As String = "3.34"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -95,7 +95,7 @@ Public Class Form1
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartApache As Boolean = False
     Private _RestartMysql As Boolean = False
-    Private _RestartNow As Boolean = False
+
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
@@ -108,7 +108,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 15 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -130,7 +130,7 @@ Public Class Form1
 
     ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
-        '366, 236
+        '365, 238 default
         ScreenPosition = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
@@ -140,17 +140,17 @@ Public Class Form1
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 240
+            Me.Height = 238
         Else
             Me.Height = hw.Item(0)
         End If
 
         If hw.Item(1) = 0 Then
-            Me.Width = 385
+            Me.Width = 365
         Else
             Me.Width = hw.Item(1)
 
-            If Me.Width > 390 Then
+            If Me.Width > 375 Then
                 PictureBox1.Image = My.Resources.Arrow2Left
                 PictureBox1.AccessibleName = "Close".ToUpperInvariant
             Else
@@ -273,11 +273,7 @@ Public Class Form1
             ConsoleCommand("Robust", "create user{ENTER}")
             'Application.doevents()
             MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
-
-            If Settings.ConsoleShow = False Then
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-            End If
-
+            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
             Settings.RunOnce = True
             Settings.SaveSettings()
         End If
@@ -1042,7 +1038,11 @@ Public Class Form1
         Return result
     End Function
 
-    Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+    Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+
+        If Settings.ConsoleShow = "" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+            Return True
+        End If
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -1170,6 +1170,7 @@ Public Class Form1
         Dim result As IAsyncResult = Nothing
         Using ClientSocket As New TcpClient
             Try
+
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
                 success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1))
                 ClientSocket.EndConnect(result)
@@ -1269,13 +1270,6 @@ Public Class Form1
         Return True
 
     End Function
-
-    Public Sub CopyOpensimProto(name As String)
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
-
-    End Sub
 
     Public Sub CopyWifi(Page As String)
         Try
@@ -1425,25 +1419,13 @@ Public Class Form1
 
     Public Function GetPostData() As String
 
-        Dim UPnp As String = "Fail"
-        If Settings.UPnpDiag Then
-            UPnp = "Pass"
-        End If
-        Dim Loopb As String = "Fail"
-        If Settings.LoopBackDiag Then
-            Loopb = "Pass"
-        End If
-
         Dim Grid As String = "Grid"
 
         Dim data As String = "&MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(Convert.ToString(PropMyVersion, Globalization.CultureInfo.InvariantCulture)) _
+        & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
         & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
-        & "&uPnp=" & CStr(UPnp) _
-        & "&Loop=" & CStr(Loopb) _
         & "&Type=" & CStr(Grid) _
-        & "&Ver=" & CStr(PropUseIcons) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&r=" & RandomNumber.Random()
         Return data
@@ -1661,54 +1643,6 @@ Public Class Form1
 
     End Function
 
-    Public Function Opensimproto(RegionUUID As String) As Boolean
-
-        Dim regionName = PropRegionClass.RegionName(RegionUUID)
-        Dim pathname = PropRegionClass.IniPath(RegionUUID)
-
-        If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
-
-        Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
-
-        Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.RegionPort(RegionUUID))) ' varies with region
-
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
-        Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            If Not Double.TryParse(PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
-                Xtime = 1.0 / 11.0
-            End If
-        End If
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-
-        Dim name = PropRegionClass.RegionName(RegionUUID)
-
-        ' save the http listener port away for the group
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
-
-        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", CStr(PropRegionClass.GroupName(RegionUUID)))
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        Try
-            My.Computer.FileSystem.CopyFile(GetOpensimProto(), pathname & "Opensim.ini", True)
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As InvalidOperationException
-        Catch ex As NotSupportedException
-        Catch ex As System.Security.SecurityException
-        End Try
-
-        Return False
-
-    End Function
 
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
@@ -1717,11 +1651,11 @@ Public Class Form1
                 If PropRegionClass.IsBooted(RegionUUID) Then
                     ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
                     hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
             ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
-            Form1.ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End If
 
         Settings.LogLevel = msg
@@ -1762,10 +1696,11 @@ Public Class Form1
             Dim ctr = 600 ' 1 minute max to start a region
             Dim WaitForIt = True
             While WaitForIt
-                Sleep(100)
                 If CPUAverageSpeed < PropCPUMAX Then
                     WaitForIt = False
+                    Continue While ' speed up loop if we are already fast enough
                 End If
+                Sleep(100)
                 ctr -= 1
                 If ctr <= 0 Then WaitForIt = False
             End While
@@ -1801,10 +1736,9 @@ Public Class Form1
             Print(My.Resources.Public_IP_Setup_Word)
             Settings.PublicIP = Settings.DNSName
             Settings.SaveSettings()
-#Disable Warning CA1308 ' Normalize strings to uppercase
-            Dim x = Settings.PublicIP.ToLower(Globalization.CultureInfo.InvariantCulture)
-#Enable Warning CA1308 ' Normalize strings to uppercase
-            If x.Contains("outworldz.net") Then
+
+            Dim UC = Settings.PublicIP.ToUpperInvariant()
+            If UC.Contains("OUTWORLDZ.NET") Then
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
@@ -1961,7 +1895,7 @@ Public Class Form1
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
-
+        Logger("Group Stopped", Groupname, "Restart")
     End Sub
 
     Public Sub ToolBar(visible As Boolean)
@@ -1999,6 +1933,7 @@ Public Class Form1
     End Sub
 
     Public Sub UploadPhoto()
+
         ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
         If Settings.GDPR() Then
             If System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Photo.png") Then
@@ -2083,7 +2018,9 @@ Public Class Form1
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
+
         ConsoleCommand("Robust", "create user{ENTER}")
+
     End Sub
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
@@ -2149,14 +2086,16 @@ Public Class Form1
                 Sleep(5000)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
             End If
         Next
 
     End Sub
 
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
+
         SendMsg("all")
+
     End Sub
 
     Private Sub AllUsersAllSimsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustOneRegionToolStripMenuItem.Click
@@ -2165,10 +2104,10 @@ Public Class Form1
             Print(My.Resources.Not_Running)
             Return
         End If
-        Dim rname = ChooseRegion(True)
-        If rname.Length > 0 Then
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "alert " & Message & "{ENTER}" & vbCrLf)
@@ -2192,7 +2131,6 @@ Public Class Form1
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
             present += PropRegionClass.AvatarCount(RegionUUID)
-            'Application.doevents()
         Next
 
         Return CType(present, Boolean)
@@ -2235,7 +2173,7 @@ Public Class Form1
 
     End Sub
 
-    Private Function BackupPath() As String
+    Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
@@ -2324,14 +2262,13 @@ Public Class Form1
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
         Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
         For Each localdllname In localdlls
-            'Application.doevents()
+            Application.DoEvents()
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                 Log(My.Resources.Info, "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
             End If
-            'Application.doevents()
         Next
 
     End Sub
@@ -2359,58 +2296,65 @@ Public Class Form1
 
         If RegionUUID = "" Then
             ErrorLog("Cannot find " & BootName & " to boot!")
+            Logger("Cannot find", BootName, "Restart")
             Return False
         End If
         Log(My.Resources.Info, "Region: Starting Region " & BootName)
 
         If Regionclass.IsBooted(RegionUUID) Then
+            Logger("Already Running", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " already running")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            Logger("Already warming up", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
+            Logger("Already booting up", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booting Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            Logger("Cannot boot, shutting down", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+            Logger("Already Recycling Down", BootName, "Restart")
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            Logger("Suspended, Resuming it", BootName, "Restart")
             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
-        DoRegion(BootName)
+        DoRegion(BootName, RegionUUID) ' setup region ini file
 
         Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
-
+            Logger(My.Resources.is_already_running_word, BootName, "Restart")
             ' if running, grab it and return
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-                    'Application.doevents()
+
                     If p.MainWindowTitle = GroupName Then
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -2420,13 +2364,16 @@ Public Class Form1
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                             Regionclass.ProcessID(RegionUUID) = p.Id
-                            'Application.doevents()
                         Next
+
+                        Logger("Located, is already running", BootName, "Restart")
+
                         PropUpdateView = True ' make form refresh
                         Return True
                     End If
                 Next
-                Print("Error, cannot find Window ")
+                ErrorLog("Cannot find Window " & BootName)
+                Logger("Cannot find Window", BootName, "Restart")
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -2436,8 +2383,10 @@ Public Class Form1
                 For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
-                    'Application.doevents()
                 Next
+
+                Logger("Booting Up", BootName, "Restart")
+
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -2446,6 +2395,7 @@ Public Class Form1
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                 Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                Logger("Suspended, Resuming it instead", GroupName, "Restart")
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -2464,7 +2414,16 @@ Public Class Form1
 
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "bin\OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
-        myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+
+        Select Case Settings.ConsoleShow
+            Case "True"
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case ""
+                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
+
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\Opensim.log")
@@ -2473,7 +2432,7 @@ Public Class Form1
         FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpenSimStats.log")
 
         SequentialPause()   ' wait for previous region to give us some CPU
-
+        Logger("Booting", GroupName, "Restart")
         Dim ok As Boolean = False
         Try
             ok = myProcess.Start
@@ -2489,7 +2448,8 @@ Public Class Form1
             If PID = 0 Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
                 PropUpdateView = True ' make form refresh
-                Print("Failed to get a PID for region " & BootName)
+                Print("Failed to get a PID for region " & GroupName)
+                Logger("No PID", GroupName, "Restart")
                 Return False
             End If
 
@@ -2497,7 +2457,6 @@ Public Class Form1
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                 Regionclass.ProcessID(UUID) = PID
-                'Application.doevents()
             Next
 
             PropUpdateView = True ' make form refresh
@@ -2512,7 +2471,7 @@ Public Class Form1
             Buttons(StopButton)
             Return True
         End If
-
+        Logger("Failed to boot ", BootName, "Restart")
         Print("Failed to boot region " & BootName)
         Return False
 
@@ -2638,9 +2597,24 @@ Public Class Form1
 
         SetLoopback()
 
+        LoadLocalIAROAR() ' refresh the pulldowns.
+
         'mnuShow shows the DOS box for Opensimulator
-        mnuShow.Checked = Settings.ConsoleShow
-        mnuHide.Checked = Not Settings.ConsoleShow
+        Select Case Settings.ConsoleShow
+            Case "True"
+                mnuShow.Checked = True
+                mnuHide.Checked = False
+                mnuHideAllways.Checked = False
+            Case "False"
+                mnuShow.Checked = False
+                mnuHide.Checked = True
+                mnuHideAllways.Checked = False
+            Case ""
+                mnuShow.Checked = False
+                mnuHide.Checked = False
+                mnuHideAllways.Checked = True
+        End Select
+
 
         If SetIniData() Then
             Buttons(StartButton)
@@ -2741,7 +2715,9 @@ Public Class Form1
 
         Dim Logfiles = New List(Of String) From {
             PropMyFolder & "\OutworldzFiles\Error.log",
+            PropMyFolder & "\OutworldzFiles\Diagnostics.log",
             PropMyFolder & "\OutworldzFiles\Outworldz.log",
+            PropMyFolder & "\OutworldzFiles\Restart.log",
             PropMyFolder & "\OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt",
             PropMyFolder & "\OutworldzFiles\Diagnostics.log",
             PropMyFolder & "\OutworldzFiles\UPnp.log",
@@ -2754,7 +2730,7 @@ Public Class Form1
         For Each thing As String In Logfiles
             ' clear out the log files
             FileStuff.DeleteFile(thing)
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
     End Sub
@@ -2841,6 +2817,7 @@ Public Class Form1
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
+
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
                 PropRegionClass.Timer(RegionUUID) = PropRegionClass.Timer(RegionUUID) + 1
@@ -2853,12 +2830,14 @@ Public Class Form1
 
             ' if a RestartPending is signaled, boot it up
             If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                Logger("Booting", GroupName, "Restart")
                 Boot(PropRegionClass, RegionName)
                 PropUpdateView = True
                 Continue For
 
                 ' if a resume is signaled, unsuspend it
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                Logger("Suspend", GroupName, "Restart")
                 DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
                 PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
@@ -2866,80 +2845,98 @@ Public Class Form1
                 Continue For
 
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                Logger("Restart Pending", GroupName, "Restart")
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-
                 For Each R In RegionList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 PropUpdateView = True ' make form refresh
                 Continue For
 
             ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                Logger("To Stage 2", GroupName, "Restart")
                 Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
                 For Each R In RegionList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 PropUpdateView = True ' make form refresh                
                 Continue For
 
             ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-
+                Logger("Stopping", GroupName, "Restart")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
                 PropUpdateView = True
                 Continue For
+            ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
+                ' May have  missed an UP signal
+                'Logger("Still Booting", GroupName, "Restart")
 
-            End If
-
-            ''''''''''''''''''''''''''''''''''''''
-
-            ' too long running, possible shutdown
-            If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
-                TimerValue = PropRegionClass.Timer(RegionUUID)
-
-                'How Long Region ran in minutes
-                Dim Expired As Single = TimerValue * ExitInterval / 60
-
-                ' if it is past time and no one is in the sim... Smart shutdown
-                If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                    And Settings.SmartStart _
-                    And Expired >= 1 _
-                    And Not AvatarsIsInGroup(GroupName) Then
-                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID))
-                End If
-
-                ' auto restart timer
-                If Expired >= (Settings.AutoRestartInterval()) _
-                    And Settings.AutoRestartInterval() > 0 _
-                    And Not AvatarsIsInGroup(GroupName) _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-
-                    ' shut down the group when AutoRestartInterval has gone by.
-
-                    If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
-                        SequentialPause()
-                        ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-                        Print(My.Resources.Automatic_restart_word & GroupName)
-                        ' shut down all regions in the DOS box
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                If TimerValue Mod 10 = 0 Then
+                    Dim isUp As Boolean = CheckPort(Settings.PublicIP, PropRegionClass.RegionPort(RegionUUID))
+                    If isUp Then
+                        For Each R In RegionList
+                            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
                         Next
-                    Else
-                        ' shut down all regions in the DOS box
-
-
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                        Next
+                        PropUpdateView = True
                     End If
-                    PropUpdateView = True ' make form refresh
+                End If
+                Continue For
+
+            Else
+
+                ''''''''''''''''''''''''''''''''''''''
+
+                ' too long running, possible shutdown
+                If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
+                    TimerValue = PropRegionClass.Timer(RegionUUID)
+
+                    'How Long Region ran in minutes
+                    Dim Expired As Single = TimerValue * ExitInterval / 60
+
+                    ' if it is past time and no one is in the sim... Smart shutdown
+                    If PropRegionClass.SmartStart(RegionUUID) = "True" _
+                        And Settings.SmartStart _
+                        And Expired >= 1 _
+                        And Not AvatarsIsInGroup(GroupName) Then
+                        Logger("DoSuspend_Resume", RegionName, "Restart")
+                        DoSuspend_Resume(RegionName)
+                        Continue For
+                    End If
+
+                    ' auto restart timer
+                    If Expired >= (Settings.AutoRestartInterval()) _
+                        And Settings.AutoRestartInterval() > 0 _
+                        And Not AvatarsIsInGroup(GroupName) _
+                        And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+
+                        ' shut down the group when AutoRestartInterval has gone by.
+                        Logger("Quitting", RegionName, "Restart")
+                        If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
+                            Logger("Dos Box Located", RegionName, "Restart")
+                            SequentialPause()
+                            ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            Print(My.Resources.Automatic_restart_word & GroupName)
+                            ' shut down all regions in the DOS box
+                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                            Next
+                        Else
+                            ' shut down all regions in the DOS box
+                            Logger("Stopping", RegionName, "Restart")
+                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                            Next
+                        End If
+                        PropUpdateView = True ' make form refresh
+                    End If
                 End If
             End If
-
         Next
 
         ' now look at the exit stack
@@ -2950,27 +2947,33 @@ Public Class Form1
             Dim Reason = PropExitList.Item(RegionName)
             PropExitList.Remove(RegionName)
 
-            Print(RegionName & " " & Reason)
+            Logger(Reason, RegionName & " Scanned", "Restart")
+            Print(Reason & "" & RegionName)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
             GroupName = RegionName ' assume a group
             Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+            Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
             If RegionUUID.Length > 0 Then
                 GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
+                Logger(Reason, GroupName & " Scanned", "Restart")
             End If
 
             Dim Status = PropRegionClass.Status(RegionUUID)
+            Logger(CStr(Status), GroupName & " TimerValue", "Restart")
             TimerValue = PropRegionClass.Timer(RegionUUID)
-
+            Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
             ' Maybe we crashed during warm up or running. 
             ' Skip prompt if auto restart on crash and restart the beast
+
             If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booting _
                 Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
                 And TimerValue >= 0 Then
 
+                Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
                     ' shut down all regions in the DOS box
                     Print(GroupName & " " & My.Resources.Quit_unexpectedly)
@@ -2990,8 +2993,6 @@ Public Class Form1
                 End If
                 PropUpdateView = True
             End If
-
-
 
         End While
         PropExitHandlerIsBusy = False
@@ -3227,9 +3228,9 @@ Public Class Form1
         Dim Authorizationlist As String = ""
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             '(replace spaces with underscore)
-            simName = simName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+            RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
             Dim df As Boolean = False
             Dim dr As Boolean = False
             If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
@@ -3241,13 +3242,13 @@ Public Class Form1
             If Not dr And Not df Then
 
             ElseIf dr And Not df Then
-                Authorizationlist += "Region_" & simName & " = DisallowResidents" & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowResidents" & vbCrLf
             ElseIf Not dr And df Then
-                Authorizationlist += "Region_" & simName & " = DisallowForeigners" & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowForeigners" & vbCrLf
             ElseIf dr And df Then
-                Authorizationlist += "Region_" & simName & " = DisallowResidents " & vbCrLf
+                Authorizationlist += "Region_" & RegionName & " = DisallowResidents " & vbCrLf
             End If
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
         Dim reader As StreamReader
@@ -3293,7 +3294,7 @@ Public Class Form1
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetLiteralIni("ServerRoot", "ServerRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
+        Settings.SetLiteralIni("Define SRVROOT", "Define SRVROOT " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
         Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
         Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
@@ -3320,9 +3321,8 @@ Public Class Form1
         ini = PropMyFolder & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
-        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & PropCurSlashDir & "/Outworldzfiles/Apache/htdocs""")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
-        Settings.SetLiteralIni("SSLSessionCache", "SSLSessionCache shmcb:""" & PropCurSlashDir & "/Outworldzfiles/Apache/logs" & "/ssl_scache(512000)""")
+
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
         Return False
 
@@ -3346,13 +3346,13 @@ Public Class Form1
         ' Birds setup per region
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
             If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionUUID) = "True" Then
 
-                BirdData = BirdData & "[" & simName & "]" & vbCrLf &
+                BirdData = BirdData & "[" & RegionName & "]" & vbCrLf &
             ";this Is the default And determines whether the module does anything" & vbCrLf &
             "BirdsModuleStartup = True" & vbCrLf & vbCrLf &
             ";set to false to disable the birds from appearing in this region" & vbCrLf &
@@ -3394,13 +3394,14 @@ Public Class Form1
     Private Sub DoDiag()
 
         If IPCheck.IsPrivateIP(Settings.DNSName) Then
+            Logger("INFO", My.Resources.LAN_IP, "Diagnostics")
             Print(My.Resources.LAN_IP)
             Return
         End If
 
         Print("---------------------------")
         Print(My.Resources.Running_Network)
-
+        Logger("INFO", My.Resources.Running_Network, "Diagnostics")
         Settings.DiagFailed = False
 
         OpenPorts() ' Open router ports with UPnp
@@ -3410,6 +3411,7 @@ Public Class Form1
         TestAllRegionPorts()    ' All Dos boxes, actually
 
         If Settings.DiagFailed Then
+            Logger("ERROR", My.Resources.Diags_Failed, "Diagnostics")
             Dim answer = MsgBox(My.Resources.Diags_Failed, vbYesNo)
             If answer = vbYes Then
                 ShowLog()
@@ -3580,13 +3582,6 @@ Public Class Form1
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Gods
-
-        If (Settings.RegionOwnerIsGod Or Settings.RegionManagerIsGod) Then
-            Settings.SetIni("Permissions", "allow_grid_gods", "True")
-        Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "False")
-        End If
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
 
@@ -3685,302 +3680,22 @@ Public Class Form1
 
     End Function
 
-    Private Function DoRegion(simName As String) As Boolean
+    Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
 
-        'Regions - write all region.ini files with public IP and Public port
-        ' has to be bound late so regions data is there.
+        ''' <summary>
+        ''' Copy the Opensim proto
+        ''' Write the Region INI with RegionClass
+        ''' Set the Opensim.ini
+        ''' </summary>
+        ''' <returns>True if error</returns>
+        ''' 
 
-        CopyOpensimProto(simName)
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(simName)
-
-        If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
-
-        ' Autobackup
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
-            Settings.SetIni(simName, "AutoBackup", "True")
-        Else
-            Settings.SetIni(simName, "AutoBackup", "False")
-        End If
-
-        Settings.SetIni(simName, "InternalPort", Convert.ToString(PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni(simName, "ExternalHostName", ExternLocalServerName())
-
-        ' not a standard INI, only use by the Dreamers
-        If PropRegionClass.RegionEnabled(RegionUUID) Then
-            Settings.SetIni(simName, "Enabled", "True")
-        Else
-            Settings.SetIni(simName, "Enabled", "False")
-        End If
-
-        ' Extended in v 2.1
-
-        Select Case PropRegionClass.NonPhysicalPrimMax(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "NonPhysicalPrimMax", PropRegionClass.NonPhysicalPrimMax(RegionUUID))
-        End Select
-
-        Select Case PropRegionClass.PhysicalPrimMax(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "PhysicalPrimMax", PropRegionClass.PhysicalPrimMax(RegionUUID))
-        End Select
-
-        If (Settings.Primlimits) Then
-            Select Case PropRegionClass.MaxPrims(RegionUUID)
-                Case ""
-                    Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
-                Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
-            End Select
-        Else
-            Select Case PropRegionClass.MaxPrims(RegionUUID)
-                Case ""
-                    Settings.SetIni(simName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
-                Case Else
-                    Settings.SetIni(simName, "MaxPrims", PropRegionClass.MaxPrims(RegionUUID))
-            End Select
-        End If
-
-        Select Case PropRegionClass.MaxAgents(RegionUUID)
-            Case ""
-                Settings.SetIni(simName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
-            Case Else
-                Settings.SetIni(simName, "MaxAgents", PropRegionClass.MaxAgents(RegionUUID))
-        End Select
-
-        Settings.SetIni(simName, "ClampPrimSize", Convert.ToString(PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-
-        ' Optional Extended in v 2.31 optional things
-        If PropRegionClass.MapType(RegionUUID) = "None" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(simName, "TexturePrims", "False")
-            Settings.SetIni(simName, "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni(simName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(simName, "TexturePrims", "True")
-            Settings.SetIni(simName, "RenderMeshes", "True")
-        Else
-            Settings.SetIni(simName, "GenerateMaptiles", "")
-            Settings.SetIni(simName, "MapImageModule", "")  ' versus MapImageModule
-            Settings.SetIni(simName, "TextureOnMapTile", "")      ' versus True
-            Settings.SetIni(simName, "DrawPrimOnMapTile", "")
-            Settings.SetIni(simName, "TexturePrims", "")
-            Settings.SetIni(simName, "RenderMeshes", "")
-        End If
-
-        Settings.SetIni(simName, "DisableGloebits", PropRegionClass.DisableGloebits(RegionUUID))
-
-        Settings.SetIni(simName, "RegionSnapShot", PropRegionClass.RegionSnapShot(RegionUUID))
-        Settings.SetIni(simName, "Birds", PropRegionClass.Birds(RegionUUID))
-        Settings.SetIni(simName, "Tides", PropRegionClass.Tides(RegionUUID))
-        Settings.SetIni(simName, "Teleport", PropRegionClass.Teleport(RegionUUID))
-        Settings.SetIni(simName, "DisallowForeigners", PropRegionClass.DisallowForeigners(RegionUUID))
-        Settings.SetIni(simName, "DisallowResidents", PropRegionClass.DisallowResidents(RegionUUID))
-        Settings.SetIni(simName, "SkipAutoBackup", PropRegionClass.SkipAutobackup(RegionUUID))
-        Settings.SetIni(simName, "Physics", PropRegionClass.Physics(RegionUUID))
-        Settings.SetIni(simName, "FrameTime", PropRegionClass.FrameTime(RegionUUID))
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Regions\" & PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
-            Return True
-        End If
-
-        ' Autobackup
-        If Settings.AutoBackup Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        End If
-
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        End If
-
-        If Settings.AutoBackup And PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        If Not Settings.AutoBackup Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
-
-        If PropRegionClass.MapType(RegionUUID) = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
-            Settings.SetIni(simName, "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "True")
-            Settings.SetIni("Map", "RenderMeshes", "True")
-        End If
-
-        Select Case PropRegionClass.Physics(RegionUUID)
-            Case ""
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case "0"
-                Settings.SetIni("Startup", "meshing", "ZeroMesher")
-                Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "1"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "2"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "3"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case "4"
-                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "5"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case Else
-                ' do nothing
-        End Select
-
-        Select Case PropRegionClass.AllowGods(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
-            Case "False"
-                Settings.SetIni("Permissions", "allow_grid_gods", "False")
-            Case "True"
-                Settings.SetIni("Permissions", "allow_grid_gods", "True")
-        End Select
-
-        Select Case PropRegionClass.RegionGod(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-            Case "False"
-                Settings.SetIni("Permissions", "region_owner_is_god", "False")
-            Case "True"
-                Settings.SetIni("Permissions", "region_owner_is_god", "True")
-        End Select
-
-        Select Case PropRegionClass.ManagerGod(RegionUUID)
-            Case ""
-                Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-            Case "False"
-                Settings.SetIni("Permissions", "region_manager_is_god", "False")
-            Case "True"
-                Settings.SetIni("Permissions", "region_manager_is_god", "True")
-        End Select
-
-        ' no main setting for these
-        Settings.SetIni("SmartStart", "Enabled", PropRegionClass.SmartStart(RegionUUID))
-        If PropRegionClass.DisallowForeigners(RegionUUID).Length > 0 Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.DisallowResidents(RegionUUID).Length > 0 Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        ' V3.15
-        If PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        End If
-
-        If PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
-            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-        End If
-
-        ' Search
-        Select Case PropRegionClass.Snapshot(RegionUUID)
-            Case ""
-                Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
-            Case "True"
-                Settings.SetIni("DataSnapshot", "index_sims", "True")
-            Case "False"
-                Settings.SetIni("DataSnapshot", "index_sims", "False")
-        End Select
-
-        'ScriptEngine Overrides
-        If PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
-            Settings.SetIni("XEngine", "Enabled", "True")
-            Settings.SetIni("YEngine", "Enabled", "False")
-        End If
-
-        If PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
-            Settings.SetIni("XEngine", "Enabled", "False")
-            Settings.SetIni("YEngine", "Enabled", "True")
-        End If
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
+        RegionMaker.CopyOpensimProto(RegionName)
+        If RegionMaker.SetOpensimIni(RegionName, RegionUUID) Then Return True
 
         Return False
+
     End Function
 
     Private Function DoRobust() As Boolean
@@ -4109,12 +3824,12 @@ Public Class Form1
         End Try
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-            Dim simName = PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             'Tides Setup per region
             If Settings.TideEnabled And PropRegionClass.Tides(RegionUUID) = "True" Then
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
-                    "[" & simName & "]" & vbCrLf &
+                    "[" & RegionName & "]" & vbCrLf &
                 ";this determines whether the module does anything in this region" & vbCrLf &
                 ";# {TideEnabled} {} {Enable the tide to come in And out?} {true false} false" & vbCrLf &
                 "TideEnabled = True" & vbCrLf &
@@ -4385,7 +4100,7 @@ Public Class Form1
             Catch ex As InvalidOperationException
             Catch ex As System.ComponentModel.Win32Exception
             End Try
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
     End Sub
@@ -4436,7 +4151,7 @@ Public Class Form1
                 For Each UUID As String In PropRegionClass.RegionUUIDs
                     name = PropRegionClass.GroupName(UUID)
                     path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
-                    'Application.doevents()
+                    Application.DoEvents()
                 Next
             End If
 
@@ -4454,7 +4169,6 @@ Public Class Form1
 
                 For Each FileName As String In files
                     path.Add("""" & FileName & """")
-                    'Application.doevents()
                 Next
 
             End If
@@ -4466,7 +4180,6 @@ Public Class Form1
         For Each item In result
             Log("View", item)
             logs = logs & " " & item
-            'Application.doevents()
         Next
 
         Try
@@ -4867,11 +4580,14 @@ Public Class Form1
         IcecastProcess.StartInfo.CreateNoWindow = False
         IcecastProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\icecast"
 
-        If Settings.ConsoleShow Then
-            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        Else
-            IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        End If
+        Select Case Settings.ConsoleShow
+            Case "True"
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case ""
+                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
 
         Try
             IcecastProcess.Start()
@@ -5304,7 +5020,16 @@ Public Class Form1
 
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = PropOpensimBinPath & "bin"
-        RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+
+        Select Case Settings.ConsoleShow
+            Case "True"
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case "False"
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Case ""
+                RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+        End Select
+
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
         Try
             RobustProcess.Start()
@@ -5373,9 +5098,17 @@ Public Class Form1
         _RobustIsStarting = False
 
         Log(My.Resources.Info, My.Resources.Robust_running)
-        If Settings.ConsoleShow = False Then
-            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-        End If
+
+        Select Case Settings.ConsoleShow
+            Case "True"
+                ' Do nothing, Always Show
+            Case "False"
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            Case ""
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+        End Select
+
+
 
         RobustPictureBox.Image = My.Resources.nav_plain_green
         ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
@@ -5454,16 +5187,20 @@ Public Class Form1
                 result = client.DownloadString(Weblink)
             Catch ex As ArgumentNullException
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
             Catch ex As NotSupportedException
+                Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
             End Try
         End Using
 
         If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
+            Logger("INFO", My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture), "Diagnostics")
             Print(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
         Else
             Print(My.Resources.Loopback_Failed & " " & Weblink)
+            Logger("INFO", My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
         End If
@@ -5473,6 +5210,7 @@ Public Class Form1
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
+            Logger("INFO", "Server Is Not Robust", "Diagnostics")
             Return
         End If
 
@@ -5484,22 +5222,28 @@ Public Class Form1
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
+            Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
             Catch ex As ArgumentNullException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
             Catch ex As WebException
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             Catch ex As NotSupportedException
+                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
 
         If isPortOpen = "yes" Then
+            Logger("INFO", My.Resources.Incoming_Works, "Diagnostics")
             Print(My.Resources.Incoming_Works)
         Else
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
+            Logger("INFO", My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & My.Resources.Not_Forwarded, "Diagnostics")
             Print(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & My.Resources.Not_Forwarded)
         End If
 
@@ -5533,15 +5277,15 @@ Public Class Form1
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
+            Logger("INFO", "UPNP OK", "Diagnostics")
             Settings.UPnpDiag = True
             Settings.SaveSettings()
-
             Return True
         Else
+            Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
             Print(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()
-
             Return False
         End If
 
@@ -5571,11 +5315,11 @@ Public Class Form1
 
                 If Used.Contains(RegionName) Then Continue For
                 Used.Add(RegionName)
-
+                Logger("INFO", "Testing region " & RegionName, "Diagnostics")
                 Dim Port = PropRegionClass.GroupPort(RegionUUID)
                 Print(My.Resources.Checking_Loopback_word & " " & RegionName)
+                Logger("INFO", My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
                 PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
-
             End If
         Next
 
@@ -5585,19 +5329,26 @@ Public Class Form1
 
         Dim result As String = ""
         Print(My.Resources.Checking_LAN_Loopback_word)
+        Logger("Info", My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
         Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Logger("Info", "URL= " & weblink, "Diagnostics")
         Using client As New WebClient
             Try
                 result = client.DownloadString(weblink)
             Catch ex As ArgumentNullException
+                Logger("ERROR", ex.Message, "Diagnostics")
             Catch ex As WebException
+                Logger("ERROR", ex.Message, "Diagnostics")
             Catch ex As NotSupportedException
+                Logger("ERROR", ex.Message, "Diagnostics")
             End Try
         End Using
 
         If result = "Test Completed" Then
+            Logger("INFO", My.Resources.Passed_LAN, "Diagnostics")
             Print(My.Resources.Passed_LAN)
         Else
+            Logger("INFO", My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
             Print(My.Resources.Failed_LAN & " " & weblink)
             Settings.LoopBackDiag = False
             Settings.DiagFailed = True
@@ -5608,14 +5359,17 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+            Logger("INFO", "Local LAN IP", "Diagnostics")
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-
+            Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
             Return
         End If
+
         Print(My.Resources.Checking_Loopback_word)
+        Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
         PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
 
     End Sub
@@ -6041,13 +5795,38 @@ Public Class Form1
     Private Sub MnuExit_Click(sender As System.Object, e As EventArgs) Handles mnuExit.Click
         ReallyQuit()
     End Sub
+    Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As EventArgs) Handles mnuShow.Click
+
+        Print(My.Resources.Is_Shown)
+        mnuShow.Checked = True
+        mnuHide.Checked = False
+        mnuHideAllways.Checked = False
+
+        Settings.ConsoleShow = "True"
+        Settings.SaveSettings()
+
+    End Sub
 
     Private Sub MnuHide_Click(sender As System.Object, e As EventArgs) Handles mnuHide.Click
+
         Print(My.Resources.Not_Shown)
         mnuShow.Checked = False
         mnuHide.Checked = True
+        mnuHideAllways.Checked = False
 
-        Settings.ConsoleShow = mnuShow.Checked
+        Settings.ConsoleShow = "False"
+        Settings.SaveSettings()
+
+    End Sub
+
+
+    Private Sub mnuHideAllways_Click(sender As Object, e As EventArgs) Handles mnuHideAllways.Click
+        Print(My.Resources.Not_Shown)
+        mnuShow.Checked = False
+        mnuHide.Checked = False
+        mnuHideAllways.Checked = True
+
+        Settings.ConsoleShow = ""
         Settings.SaveSettings()
 
     End Sub
@@ -6378,16 +6157,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ShowToolStripMenuItem_Click(sender As System.Object, e As EventArgs) Handles mnuShow.Click
-
-        Print(My.Resources.Is_Shown)
-        mnuShow.Checked = True
-        mnuHide.Checked = False
-
-        Settings.ConsoleShow = mnuShow.Checked
-        Settings.SaveSettings()
-
-    End Sub
 
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox(My.Resources.Enter_1_2)
@@ -6402,7 +6171,7 @@ Public Class Form1
 
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
 
-        DoStopActions
+        DoStopActions()
 
     End Sub
 
@@ -6741,14 +6510,11 @@ Public Class Form1
                 Try
                     osconnection.Open()
                 Catch ex As InvalidOperationException
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
+
+                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                     Return
                 Catch ex As MySqlException
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-                    Log(My.Resources.Error_word, "Failed to Connect to Search Database")
-#Enable Warning CA1303 ' Do not pass literals as localized parameters
+                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                     Return
                 End Try
                 DeleteEvents(osconnection)
@@ -6807,19 +6573,19 @@ Public Class Form1
         If PropAborting Then Return
 
         If PropDNSSTimer Mod 60 = 0 Then
-            ScanAgents() ' update agent count each 15 seconds
+            ScanAgents() ' update agent count  seconds
             RegionListHTML() ' create HTML for older 2.4 region teleporters
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP
 
-        If PropDNSSTimer Mod ExitInterval = 0 Then
+        If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             RestartDOSboxes()
         End If
 
         ' every 5 minutes
-        If PropDNSSTimer Mod 300 = 0 Then
+        If PropDNSSTimer Mod 300 = 0 And PropDNSSTimer > 0 Then
             CrashDetector.Find()
             RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
         End If
@@ -6827,10 +6593,9 @@ Public Class Form1
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
-            LoadLocalIAROAR() ' refresh the pulldowns.
         End If
 
-        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
+        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
@@ -7207,6 +6972,7 @@ Public Class Form1
         Return False
 
     End Function
+
 
 
 

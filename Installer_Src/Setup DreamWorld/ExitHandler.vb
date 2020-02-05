@@ -59,8 +59,7 @@ Public Class Handler
             Dim name = RegionHandles1.Item(pid)
             If name.Length > 0 Then
                 If Not Exitlist1.ContainsKey(name) Then
-                    Exitlist1.Add(name, " Instance exited")
-                    Debug.Print(name & " Exited")
+                    Exitlist1.Add(name, "DOS Box exit")
                 End If
             End If
             RegionHandles1.Remove(pid)

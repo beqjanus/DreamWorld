@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -234,7 +234,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Allow or disallow Gods.
+        '''  Looks up a localized string similar to Allow Level-based gods.
         '''</summary>
         Friend ReadOnly Property Allow_Or_Disallow_Gods_word() As String
             Get
@@ -252,11 +252,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Allow 200+ Level gods.
+        '''  Looks up a localized string similar to If this box is checked In Settings-&gt;Permissions, then any  user with a level  &gt;= 100 in the Web panel can become a God, anywhere.  This can be set for individual regions if the default in Permissions is UN-checked,  and you override it in the region panel with **Allow Gods In This Region**.  This setting has nothing to do with the other two settings..
         '''</summary>
-        Friend ReadOnly Property Allow200() As String
+        Friend ReadOnly Property AllowGodsTooltip() As String
             Get
-                Return ResourceManager.GetString("Allow200", resourceCulture)
+                Return ResourceManager.GetString("AllowGodsTooltip", resourceCulture)
             End Get
         End Property
         
@@ -3410,11 +3410,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hide.
+        '''  Looks up a localized string similar to Hide Regions When Finished.
         '''</summary>
         Friend ReadOnly Property Hide() As String
             Get
                 Return ResourceManager.GetString("Hide", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Always Hide Regions.
+        '''</summary>
+        Friend ReadOnly Property Hide_Allways_word() As String
+            Get
+                Return ResourceManager.GetString("Hide_Allways_word", resourceCulture)
             End Get
         End Property
         
@@ -3952,6 +3961,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Load Free Avatar Inventory (www).
+        '''</summary>
+        Friend ReadOnly Property Load_Free_Avatar_Inventory_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Free_Avatar_Inventory_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Load Free DreamGrid OARs (www).
+        '''</summary>
+        Friend ReadOnly Property Load_Free_DreamGrid_OARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Free_DreamGrid_OARs_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Load Free Dreamworld OARs.
         '''</summary>
         Friend ReadOnly Property Load_Free_Dreamworld_OARs() As String
@@ -3979,11 +4006,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Load Local IARs.
+        '''</summary>
+        Friend ReadOnly Property Load_Local_IARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Local_IARs_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Load Local OARs from the OAR folder.
         '''</summary>
         Friend ReadOnly Property Load_Local_OARs() As String
             Get
                 Return ResourceManager.GetString("Load_Local_OARs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Load Local OARs.
+        '''</summary>
+        Friend ReadOnly Property Load_Local_OARs_word() As String
+            Get
+                Return ResourceManager.GetString("Load_Local_OARs_word", resourceCulture)
             End Get
         End Property
         
@@ -4437,6 +4482,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to More Free Islands and Parts (www).
+        '''</summary>
+        Friend ReadOnly Property More_Free_Islands_and_Parts_word() As String
+            Get
+                Return ResourceManager.GetString("More_Free_Islands_and_Parts_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click for More Help on the Website.
         '''</summary>
         Friend ReadOnly Property More_Help() As String
@@ -4572,7 +4626,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Your system name has been set to {newname}. You can change the name in the DNS menu at any time.
+        '''  Looks up a localized string similar to Your system Hypergrid name has been reset. You can change the name in the Setup-Settings-&gt;DNS menu.
         '''</summary>
         Friend ReadOnly Property NameAlreadySet() As String
             Get
@@ -5031,6 +5085,15 @@ Namespace My.Resources
         Friend ReadOnly Property OAR_Load_and_Save() As String
             Get
                 Return ResourceManager.GetString("OAR_Load_and_Save", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OAR Load, Save and Backup.
+        '''</summary>
+        Friend ReadOnly Property OAR_load_save_backupp_word() As String
+            Get
+                Return ResourceManager.GetString("OAR_load_save_backupp_word", resourceCulture)
             End Get
         End Property
         
@@ -5727,6 +5790,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Max number of Avatars + NPCs.
+        '''</summary>
+        Friend ReadOnly Property Region_full_msg() As String
+            Get
+                Return ResourceManager.GetString("Region_full_msg", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Region List.
         '''</summary>
         Friend ReadOnly Property Region_List() As String
@@ -6403,6 +6475,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Failed to Connect to Search Database.
+        '''</summary>
+        Friend ReadOnly Property Search_Connect_failed() As String
+            Get
+                Return ResourceManager.GetString("Search_Connect_failed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search.
         '''</summary>
         Friend ReadOnly Property Search_word() As String
@@ -6426,6 +6507,15 @@ Namespace My.Resources
         Friend ReadOnly Property See_Log() As String
             Get
                 Return ResourceManager.GetString("See_Log", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to See Ports In Use.
+        '''</summary>
+        Friend ReadOnly Property See_Ports_In_Use_word() As String
+            Get
+                Return ResourceManager.GetString("See_Ports_In_Use_word", resourceCulture)
             End Get
         End Property
         
@@ -6630,6 +6720,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Setup.
+        '''</summary>
+        Friend ReadOnly Property Setup_word() As String
+            Get
+                Return ResourceManager.GetString("Setup_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Shoutcast is not Enabled..
         '''</summary>
         Friend ReadOnly Property Shoutcast_Disabled() As String
@@ -6675,7 +6774,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Show.
+        '''  Looks up a localized string similar to Always Show Regions.
         '''</summary>
         Friend ReadOnly Property Show_word() As String
             Get
