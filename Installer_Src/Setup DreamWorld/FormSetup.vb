@@ -1166,25 +1166,26 @@ Public Class Form1
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Log(My.Resources.Info, "Checking port " & CStr(Port))
+        Dim success As Boolean = False
+        Dim result As IAsyncResult = Nothing
         Using ClientSocket As New TcpClient
             Try
-                ClientSocket.Connect(ServerAddress, Port)
+                result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1))
+                ClientSocket.EndConnect(result)
             Catch ex As ArgumentNullException
-                Log(My.Resources.Info, "Argument Null " & ex.Message)
-                Return False
             Catch ex As ArgumentOutOfRangeException
-                Log(My.Resources.Info, "Argument Out of Range " & ex.Message)
-                Return False
             Catch ex As SocketException
-                Log(My.Resources.Info, "Socket Exception& ex.message" & ex.Message)
-                Return False
-
+            Catch ex As AbandonedMutexException
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
             End Try
 
-            If ClientSocket.Connected Then
+            If success Then
                 Log(My.Resources.Info, " port probe success on port " & CStr(Port))
                 Return True
             End If
+
         End Using
         Log(My.Resources.Info, " port probe fail on port " & CStr(Port))
         Return False
