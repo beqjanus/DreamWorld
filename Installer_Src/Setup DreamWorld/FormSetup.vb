@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.34"
+    Private _MyVersion As String = "3.35"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
