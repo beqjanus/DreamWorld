@@ -64,7 +64,7 @@ Public Class Form1
     Private _ApacheUninstalling As Boolean = False
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
-    Private _CPUMAX As Single = 75
+    Private _CPUMAX As Single = 90
     Private _CurSlashDir As String
     Private _debugOn As Boolean = False
     Private _DNS_is_registered = False
@@ -278,10 +278,6 @@ Public Class Form1
             Settings.SaveSettings()
         End If
 
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
-
-        PropOpensimIsRunning() = True
         ToolBar(True)
 
         ' Launch the rockets
@@ -303,7 +299,6 @@ Public Class Form1
 
         PropExitHandlerIsBusy = False
         PropAborting = False
-        Timer1.Start() 'Timer starts functioning
 
         If Not StartRobust() Then Return False
 
@@ -1171,27 +1166,27 @@ Public Class Form1
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Log(My.Resources.Info, "Checking port " & CStr(Port))
+        Dim success As Boolean = False
+        Dim result As IAsyncResult = Nothing
         Using ClientSocket As New TcpClient
             Try
-                ClientSocket.Connect(ServerAddress, Port)
-                ClientSocket.SendTimeout = 2
-                ClientSocket.ReceiveTimeout = 2
-            Catch ex As ArgumentNullException
-                Log(My.Resources.Info, "Argument Null " & ex.Message)
-                Return False
-            Catch ex As ArgumentOutOfRangeException
-                Log(My.Resources.Info, "Argument Out of Range " & ex.Message)
-                Return False
-            Catch ex As SocketException
-                Log(My.Resources.Info, "Socket Exception& ex.message" & ex.Message)
-                Return False
 
+                result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1))
+                ClientSocket.EndConnect(result)
+            Catch ex As ArgumentNullException
+            Catch ex As ArgumentOutOfRangeException
+            Catch ex As SocketException
+            Catch ex As AbandonedMutexException
+            Catch ex As ObjectDisposedException
+            Catch ex As InvalidOperationException
             End Try
 
-            If ClientSocket.Connected Then
+            If success Then
                 Log(My.Resources.Info, " port probe success on port " & CStr(Port))
                 Return True
             End If
+
         End Using
         Log(My.Resources.Info, " port probe fail on port " & CStr(Port))
         Return False
@@ -2289,10 +2284,12 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
-        If PropAborting Then
-            Logger("Aborting", BootName, "Restart")
-            Return True
-        End If
+
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
+        PropOpensimIsRunning() = True
+
+        If PropAborting Then Return True
 
         Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
         Dim GroupName = Regionclass.GroupName(RegionUUID)
@@ -2471,9 +2468,7 @@ Public Class Form1
                 PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
             End If
 
-            PropOpensimIsRunning() = True
             Buttons(StopButton)
-
             Return True
         End If
         Logger("Failed to boot ", BootName, "Restart")
