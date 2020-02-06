@@ -8,7 +8,7 @@ REM (You will receive help if you start the script with a non-existent interface
 set Interface=%1%
 
 REM Thanks to this internet service, we can get the IP without frills
-Set URL="http://hypergrid.org/my_external_ip.php"
+Set URL="http://api.ipify.org/"
 
 echo NAT_Loopback_Tool.bat v1.3
 echo Dreamgrid Edition by Fred Beckhusen(at)outworldz.com
@@ -29,6 +29,9 @@ echo Setting interface %Interface% to external IP (OS is %OS%)
 REM netsh needs OS differentiation
 IF "%OS%"=="Windows_NT" netsh interface ip set address name=%Interface% source=static addr=%NewIP%  mask=255.255.255.0
 IF NOT "%OS%"=="Windows_NT" netsh interface ipv4 set address name=%Interface% source=static addr=%NewIP%  mask=255.255.255.0
+goto end
 
+errorNoIP:
+echo No IP found
 :end
 
