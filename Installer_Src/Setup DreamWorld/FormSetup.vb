@@ -5264,7 +5264,6 @@ Public Class Form1
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                     Try
                         LoopbackProcess.Start()
-                        LoopbackProcess.WaitForExit()
                     Catch ex As InvalidOperationException
                     Catch ex As System.ComponentModel.Win32Exception
                     End Try
