@@ -79,7 +79,7 @@ Public Class FormBackupCheckboxes
             'Write to the Target
             streamWrite.Write(byteBuffer, 0, intBytesRead)
 
-            'Application.doevents()    'do it
+            Application.DoEvents()    'do it
         End While
 
         'Clean up

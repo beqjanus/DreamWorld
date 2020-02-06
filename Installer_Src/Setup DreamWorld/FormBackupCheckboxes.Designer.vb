@@ -78,7 +78,7 @@ Partial Class FormBackupCheckboxes
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(112, 35)
         Me.Button2.TabIndex = 12
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Skip_word
+        Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'SettingsBox
