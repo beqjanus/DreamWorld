@@ -242,6 +242,7 @@ Public Class MySettings
 
     Public Sub SetMyIni(section As String, key As String, value As String)
 
+        If value = Nothing Then value = ""
         'Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
@@ -350,7 +351,7 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
-        'If value = Nothing Then Return
+        If value = Nothing Then value = ""
         SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
