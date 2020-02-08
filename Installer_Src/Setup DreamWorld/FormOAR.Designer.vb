@@ -26,9 +26,11 @@ Partial Class FormOAR
         Me.DataGridView = New System.Windows.Forms.DataGridView()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView
@@ -40,25 +42,25 @@ Partial Class FormOAR
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView.ColumnHeadersVisible = False
         Me.DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DataGridView.Location = New System.Drawing.Point(21, 36)
+        Me.DataGridView.Location = New System.Drawing.Point(11, 31)
+        Me.DataGridView.Margin = New System.Windows.Forms.Padding(2)
         Me.DataGridView.MultiSelect = False
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.RowHeadersWidth = 62
         Me.DataGridView.RowTemplate.Height = 3
         Me.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.DataGridView.ShowCellErrors = False
-        Me.DataGridView.Size = New System.Drawing.Size(557, 429)
+        Me.DataGridView.Size = New System.Drawing.Size(371, 286)
         Me.DataGridView.TabIndex = 0
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.RefreshToolStripMenuItem})
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(9, 2, 0, 2)
-        Me.MenuStrip2.Size = New System.Drawing.Size(785, 36)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(523, 26)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -66,29 +68,42 @@ Partial Class FormOAR
         '
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 32)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
         '
-        'RefreshToolStripMenuItem
+        'TextBox1
         '
-        Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
-        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(86, 32)
-        Me.RefreshToolStripMenuItem.Text = "Refresh"
+        Me.TextBox1.Location = New System.Drawing.Point(124, 6)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(215, 20)
+        Me.TextBox1.TabIndex = 1891
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view1
+        Me.PictureBox1.Location = New System.Drawing.Point(97, 6)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(21, 20)
+        Me.PictureBox1.TabIndex = 1892
+        Me.PictureBox1.TabStop = False
         '
         'FormOAR
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(785, 651)
+        Me.ClientSize = New System.Drawing.Size(523, 434)
+        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormOAR"
-        Me.TopMost = False
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -97,5 +112,6 @@ Partial Class FormOAR
     Friend WithEvents DataGridView As DataGridView
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents RefreshToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

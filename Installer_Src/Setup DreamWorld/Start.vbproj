@@ -379,6 +379,12 @@
     <Compile Include="FormScripts.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSearch.Designer.vb">
+      <DependentUpon>FormSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormServerType.Designer.vb">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </Compile>
@@ -558,6 +564,9 @@
     <EmbeddedResource Include="FormScripts.resx">
       <DependentUpon>FormScripts.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormSearch.resx">
+      <DependentUpon>FormSearch.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormServerType.resx">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </EmbeddedResource>
@@ -707,6 +716,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\view1.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\selection_view.png" />
     <None Include="Resources\Blank256.jpg" />
     <None Include="Resources\Image1.jpg" />
     <None Include="Resources\navigate_open.png" />

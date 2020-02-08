@@ -7,12 +7,7 @@ Public Class FormOAR
 #Region "JSON"
 
 #Disable Warning CA1034
-
-#Region "Public Classes"
-
     Public Class JSONresult
-
-#Region "Private Fields"
 
         Private _cache As Image
         Private _date As String
@@ -22,11 +17,10 @@ Public Class FormOAR
         Private _size As String
         Private _str As String
 
-#End Region
-
 #Enable Warning CA1034
 
 #End Region
+
 
 #Region "Properties"
 
@@ -97,7 +91,6 @@ Public Class FormOAR
 
 #End Region
 
-#End Region
 
 #Region "Private Fields"
 
@@ -114,12 +107,13 @@ Public Class FormOAR
 #Region "Public Fields"
 
     Private json() As JSONresult
+    Private SearchArray() As JSONresult
 
 #End Region
 
 #Region "Draw"
 
-    Public Sub Redraw()
+    Public Sub Redraw(json As JSONresult())
 
         Dim gdTextColumn As New DataGridViewTextBoxColumn
 
@@ -319,7 +313,7 @@ Public Class FormOAR
         If Height <> aHeight Or Width <> aWidth Then
             aHeight = Height
             aWidth = Width
-            Redraw()
+            Redraw(SearchArray)
         End If
 
     End Sub
@@ -344,8 +338,6 @@ Public Class FormOAR
             Me.Width = hw.Item(1)
         End If
 
-        ' DataGridView.PerformLayout()
-
     End Sub
 
 #End Region
@@ -364,7 +356,7 @@ Public Class FormOAR
     Public Sub ShowForm()
 
         Me.Show()
-        Redraw()
+        Redraw(SearchArray)
         If _type = "OAR" Then Form1.HelpOnce("Load OAR")
         If _type = "IAR" Then Form1.HelpOnce("Load IAR")
     End Sub
@@ -373,7 +365,7 @@ Public Class FormOAR
 
         json = GetData()
         json = ImageToJson(json)
-
+        SearchArray = json
         _initted = True
         Return Nothing
 
@@ -382,7 +374,6 @@ Public Class FormOAR
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         Me.Hide()
-        'DataGridView.Hide()
         SetScreen()
 
     End Sub
@@ -390,7 +381,6 @@ Public Class FormOAR
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles MyBase.FormClosing
 
         Me.Hide()
-
         e.Cancel = True
 
     End Sub
@@ -443,14 +433,6 @@ Public Class FormOAR
 
     End Function
 
-    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
-
-        DataGridView.Hide()
-        json = GetData()
-        json = ImageToJson(json)
-        Redraw()
-
-    End Sub
 
 #End Region
 
@@ -547,6 +529,44 @@ Public Class FormOAR
         Return json
 
     End Function
+#End Region
+
+#Region "Search"
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        Search()
+
+    End Sub
+
+    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyPress
+
+        Search()
+
+    End Sub
+
+    Private Sub Search()
+        Dim searchterm = TextBox1.Text
+
+        If searchterm.Length > 0 Then
+            Erase SearchArray
+            ' search thru search and 
+            For Each item In json
+                If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                    Dim l As Integer
+                    If SearchArray Is Nothing Then
+                        l = 0
+                    Else l = SearchArray.Length
+                    End If
+                    Array.Resize(SearchArray, l + 1)
+                    SearchArray(SearchArray.Length - 1) = item
+                End If
+            Next
+            Redraw(SearchArray)
+        Else
+            Redraw(json)
+        End If
+    End Sub
 
 #End Region
 
