@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.34";
+my $v = "3.35";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -134,20 +134,20 @@ say("Signing");
 use IO::All;
 sign($dir);
 
+#
+#say("Mysql");
+#chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
+#print `mysqladmin.exe --port 3309 -u root shutdown`;
+#print `mysqladmin.exe --port 3306 -u root shutdown`;
 
-say("Mysql");
-chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-print `mysqladmin.exe --port 3309 -u root shutdown`;
-print `mysqladmin.exe --port 3306 -u root shutdown`;
-
-sleep(5);
+#sleep(5);
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
 
 print "Processing Main Zip\n";
 
-JustDelete('O:\\Opensim\\Zip');
+JustDelete('\\Opensim\\Zip');
 
 my @files =   `cmd /c dir /b `;
 
@@ -185,40 +185,40 @@ foreach my $lang (@languages)
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
 
-DeleteandKeep('O:\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
+DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
 say("Drop Opensim Source code from update");
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Doc');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/share');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.git');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/compile.bat');	
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/makefile');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/nant-color');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');	
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Opensim.sln');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/Opensim.build');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
-JustDelete('O:/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
-JustDelete('O:/Opensim/Zip/Make_zip_v3.pl');
-JustDelete('O:/Opensim/Zip/Make_zip_v2.pl');
-JustDelete('O:/Opensim/Zip/Start.vshost.exe.manifest');
-JustDelete('O:/Opensim/Zip/Start.vshost.exe.config');
-JustDelete('O:/Opensim/Zip/Start.vshost.exe');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/share');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.git');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/compile.bat');	
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makefile');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/nant-color');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');	
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.sln');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.build');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
+JustDelete('/Opensim/Zip/Make_zip_v3.pl');
+JustDelete('/Opensim/Zip/Make_zip_v2.pl');
+JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
+JustDelete('/Opensim/Zip/Start.vshost.exe.config');
+JustDelete('/Opensim/Zip/Start.vshost.exe');
 
-JustDelete('O:/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
+JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
 
 #####################
 print "Make zip\n";
-unlink "O:/Opensim/Zips/DreamGrid$type.zip";
-my $x = `../7z.exe -tzip -r a  O:\\Opensim\\Zips\\DreamGrid$type.zip O:\\Opensim\\Zip\\*.*`;
+unlink "/Opensim/Zips/DreamGrid$type.zip";
+my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
 
 sleep(1);
 
@@ -276,7 +276,7 @@ sub ProcessDir
 {
 	my $file = shift;
 	
-	my $x = `xcopy /E /I O:\\Opensim\\Outworldz_Dreamgrid\\$file O:\\Opensim\\zip\\$file`;
+	my $x = `xcopy /E /I \\Opensim\\Outworldz_Dreamgrid\\$file \\Opensim\\zip\\$file`;
 	$x =~ s/\n//g;
 	if ($x =~ /File\(s\) copied/) {
 		print "$file ok\n";
