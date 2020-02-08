@@ -2,6 +2,16 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.35 Beta
+Added Search to Load OAR and Load IAR (web)
+Stopped a crash on Server 2016 if Publicity was blank.
+Several Updater and Downloader changes so updates can be skipped. Updates are automatically downloaded to a zip file in the root folder. The next startup or Help->Check For Updates, it detects the fresh zip and asks if you want to update to that version. If yes, it brings up the Backup screen, then shuts down mysql and Apache, and launches an unzipper.   if you chose No, it will not prompt you again until the next version is ready.
+
+V3.34 Beta
+When region is not running, speed up region click from 15 seconds to 1 second by using an async TCPCLient to probe the port.
+Reset CPU usage to 90% instead of 75% for slow machines
+Crash on Server 2016 when SetMyINI value is nothing.
+
 V.33 Beta 
 Can always hide region DOS boxes,always show, or hide when done with an action.
 God Mode fixes where region overrides could get stuck on or off
