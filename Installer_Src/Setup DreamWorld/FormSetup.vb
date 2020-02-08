@@ -3096,7 +3096,7 @@ Public Class Form1
 
                     'Diagnostics.Debug.Print(Output)
                     outputFile.WriteLine(Output)
-
+                    Application.DoEvents()
                 End While
             End Using
             'close your reader
@@ -3345,7 +3345,7 @@ Public Class Form1
 
         ' Birds setup per region
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-
+            Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
@@ -6655,53 +6655,56 @@ Public Class Form1
             End Try
         End Using
         If Update_version.Length = 0 Then Update_version = "0"
-        Dim Delta As Single = 0
-        Try
-            Delta = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture) - Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As FormatException
-        Catch ex As OverflowException
-        End Try
 
-        If Delta > 0 Then
+        If Settings.SkipUpdateCheck < Update_version Then
+            If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
+                Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_Downloaded, vbYesNo)
+                If result = MsgBoxResult.Yes Then
 
-            If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & CStr(Update_version) & ".zip") Then
-                Dim result = MsgBox("V" & Update_version & My.Resources.Update_Downloaded, vbYesNo)
-                If result = vbOK Then
-                    UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
+                    Dim BackupForm As New FormBackupCheckboxes
+                    Dim ret = BackupForm.ShowDialog()
+                    If ret = DialogResult.OK Then
+                        UpdaterGo("DreamGrid-V" & Update_version & ".zip")
+                        Return
+                    End If
+                Else
+                    Settings.SkipUpdateCheck() = Update_version
+                    Settings.SaveSettings()
+                    Return
                 End If
-                Return
             End If
+        End If
 
-            Print(My.Resources.Update_is_available & ":" & Update_version)
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip",
+        ' we already have the file
+        If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
+            Return
+        End If
+
+        Print(My.Resources.Update_is_available & ":" & Update_version)
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = "DreamGrid-V" & Update_version & ".zip",
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 
-            If Debugger.IsAttached Then
-                pi.WindowStyle = ProcessWindowStyle.Normal
-            Else
-                pi.WindowStyle = ProcessWindowStyle.Minimized
-            End If
+        UpdateProcess.StartInfo = pi
+        UpdateProcess.EnableRaisingEvents = True
+        Try
+            UpdateProcess.Start()
+        Catch ex As InvalidOperationException
+            Print(My.Resources.ErrUpdate)
+        Catch ex As ComponentModel.Win32Exception
+            Print(My.Resources.ErrUpdate)
+        End Try
 
-            UpdateProcess.StartInfo = pi
-            UpdateProcess.EnableRaisingEvents = True
-            Try
-                UpdateProcess.Start()
-            Catch ex As InvalidOperationException
-                Print(My.Resources.ErrUpdate)
-            Catch ex As ComponentModel.Win32Exception
-                Print(My.Resources.ErrUpdate)
-            End Try
-        End If
 
     End Sub
+
     Private Sub UpdaterGo(Filename As String)
 
         KillAll()
         StopApache(True) 'really stop it, even if a service
         StopMysql()
-        'Application.doevents()
+        Application.DoEvents()
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
@@ -6724,7 +6727,7 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
+            Settings.SkipUpdateCheck() = Update_version
         Else
             ErrorLog("ExitCode=" & CStr(ExitCode))
         End If

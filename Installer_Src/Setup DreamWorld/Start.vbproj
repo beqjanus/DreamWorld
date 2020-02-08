@@ -379,12 +379,6 @@
     <Compile Include="FormScripts.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSearch.Designer.vb">
-      <DependentUpon>FormSearch.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormSearch.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormServerType.Designer.vb">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </Compile>
@@ -563,9 +557,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormScripts.resx">
       <DependentUpon>FormScripts.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormSearch.resx">
-      <DependentUpon>FormSearch.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormServerType.resx">
       <DependentUpon>FormServerType.vb</DependentUpon>

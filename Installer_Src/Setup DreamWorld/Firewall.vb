@@ -77,11 +77,7 @@ Public Module Firewall
         Catch ex As System.Security.SecurityException
         End Try
         Dim Windowstyle As ProcessWindowStyle
-        If Debugger.IsAttached Then
-            Windowstyle = ProcessWindowStyle.Normal
-        Else
-            Windowstyle = ProcessWindowStyle.Hidden
-        End If
+        Windowstyle = ProcessWindowStyle.Hidden
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",

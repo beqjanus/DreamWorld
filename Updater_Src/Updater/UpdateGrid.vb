@@ -11,8 +11,22 @@ Imports System.Threading
 
 Public Class UpdateGrid
 
+#Region "Private Fields"
+
     Dim Filename As String = ""
     Dim MyFolder As String = ""
+
+#End Region
+
+#Region "Public Methods"
+
+    Public Sub TextPrint(ByVal str As String)
+        Label1.Text = str
+    End Sub
+
+#End Region
+
+#Region "Private Methods"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -63,7 +77,6 @@ Public Class UpdateGrid
                 Try
                     Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
                         For Each ZipEntry In zip
-                            Application.DoEvents()
                             ctr = ctr + 1
                             If ZipEntry.FileName <> "Ionic.Zip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
                                 TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
@@ -89,8 +102,19 @@ Public Class UpdateGrid
 
     End Sub
 
-    Public Sub TextPrint(ByVal str As String)
-        Label1.Text = str
+    Private Sub StopApache()
+
+        Using ApacheProcess As New Process()
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+            ApacheProcess.Start()
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+        End Using
+
+        Zap("httpd")
+        Zap("rotatelogs")
+
     End Sub
 
     Private Sub StopMYSQL()
@@ -121,21 +145,6 @@ Public Class UpdateGrid
 
     End Sub
 
-    Private Sub StopApache()
-
-        Using ApacheProcess As New Process()
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-            ApacheProcess.Start()
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-        End Using
-
-        Zap("httpd")
-        Zap("rotatelogs")
-
-    End Sub
-
     Private Sub Zap(processName As String)
 
         ' Kill process by name
@@ -147,5 +156,7 @@ Public Class UpdateGrid
         Next
 
     End Sub
+
+#End Region
 
 End Class

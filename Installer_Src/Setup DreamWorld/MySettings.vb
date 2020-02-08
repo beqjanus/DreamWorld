@@ -157,7 +157,6 @@ Public Class MySettings
 
             UPnPEnabled() = My.Settings.UPnPEnabled
             UPnpDiag() = My.Settings.UPnpDiag
-
             VivoxEnabled = My.Settings.VivoxEnabled
             VivoxUserName() = My.Settings.Vivox_username
             VivoxPassword() = My.Settings.Vivox_password
@@ -1748,6 +1747,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property SkipUpdateCheck() As Single
+        Get
+            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+        End Get
+        Set
+            SetMySetting("SkipUpdateCheck", CStr(Value))
         End Set
     End Property
 

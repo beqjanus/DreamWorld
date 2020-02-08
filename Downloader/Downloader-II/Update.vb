@@ -7,7 +7,15 @@ Imports System.IO
 
 Public Class Update
 
-    Dim MyFolder = Nothing   ' Holds the current folder that we are running in
+#Region "Private Fields"
+
+    Dim MyFolder = Nothing
+
+#End Region
+
+    ' Holds the current folder that we are running in
+
+#Region "Private Methods"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Show()
@@ -50,11 +58,13 @@ Public Class Update
 
             Environment.Exit(0)
         Else
-            MsgBox("Syntax: Downloder DreamGrid-Vn.n.zip")
+            MsgBox("Syntax: Downloader DreamGrid-Vn.n.zip")
         End If
 
         Environment.Exit(1)
 
     End Sub
+
+#End Region
 
 End Class
