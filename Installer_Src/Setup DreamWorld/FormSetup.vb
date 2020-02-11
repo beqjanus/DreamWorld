@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.35"
+    Private _MyVersion As String = "3.36"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -6654,26 +6654,42 @@ Public Class Form1
                 Return
             End Try
         End Using
+
+        ' Update Error checks
+
+        ' could be nothing
         If Update_version.Length = 0 Then Update_version = "0"
 
-        If Settings.SkipUpdateCheck < Update_version Then
-            If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
-                Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_Downloaded, vbYesNo)
-                If result = MsgBoxResult.Yes Then
+        ' Could be "FALSE"
+        Try
+            Log("Update", Settings.SkipUpdateCheck)
+        Catch ex As Exception
+            Settings.SkipUpdateCheck = PropMyVersion
+        End Try
 
-                    Dim BackupForm As New FormBackupCheckboxes
-                    Dim ret = BackupForm.ShowDialog()
-                    If ret = DialogResult.OK Then
-                        UpdaterGo("DreamGrid-V" & Update_version & ".zip")
-                        Return
-                    End If
-                Else
-                    Settings.SkipUpdateCheck() = Update_version
-                    Settings.SaveSettings()
+        ' ould be the same or later version already
+        If Settings.SkipUpdateCheck >= Update_version Then
+            Return
+        End If
+
+        ' may need to get the new file
+        If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
+            Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_Downloaded, vbYesNo)
+            If result = MsgBoxResult.Yes Then
+
+                Dim BackupForm As New FormBackupCheckboxes
+                Dim ret = BackupForm.ShowDialog()
+                If ret = DialogResult.OK Then
+                    UpdaterGo("DreamGrid-V" & Update_version & ".zip")
                     Return
                 End If
+            Else
+                Settings.SkipUpdateCheck() = Update_version
+                Settings.SaveSettings()
+                Return
             End If
         End If
+
 
         ' we already have the file
         If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then

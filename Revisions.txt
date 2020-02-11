@@ -2,6 +2,9 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.36 beta
+Possible hard crash in Check for Update if going from from V3.34 to V3.35.  A variable was FALSE, should have been a number
+
 V3.35 Beta
 Added Search to Load OAR and Load IAR (web)
 Stopped a crash on Server 2016 if Publicity was blank.
