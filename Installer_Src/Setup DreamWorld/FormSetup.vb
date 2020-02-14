@@ -5210,7 +5210,7 @@ Public Class Form1
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
-            Logger("INFO", "Server Is Not Robust", "Diagnostics")
+            'Logger("INFO", "Server Is Not Robust", "Diagnostics")
             Return
         End If
 
@@ -5277,12 +5277,12 @@ Public Class Form1
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
-            Logger("INFO", "UPNP OK", "Diagnostics")
+            'Logger("INFO", "UPNP OK", "Diagnostics")
             Settings.UPnpDiag = True
             Settings.SaveSettings()
             Return True
         Else
-            Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
+            'Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
             Print(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()
@@ -5359,17 +5359,17 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Logger("INFO", "Local LAN IP", "Diagnostics")
+            'Logger("INFO", "Local LAN IP", "Diagnostics")
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-            Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
+            'Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
             Return
         End If
 
         Print(My.Resources.Checking_Loopback_word)
-        Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
+        'Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
         PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
 
     End Sub
@@ -6658,7 +6658,7 @@ Public Class Form1
         ' Update Error checks
 
         ' could be nothing
-        If Update_version.Length = 0 Then Update_version = "0"
+        If Update_version.Length = 0 Then Update_version = PropMyVersion
 
         ' Could be "FALSE"
         Try
