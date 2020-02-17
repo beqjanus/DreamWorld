@@ -213,7 +213,7 @@ Public Class Form1
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
-        'Application.doevents()
+
         If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
             Dim BTime As Integer = CInt(Settings.AutobackupInterval)
@@ -4981,6 +4981,15 @@ Public Class Form1
             Return True
         End If
         If CheckRobust() Then
+
+            If Settings.RobustServer <> "127.0.0.1" And Settings.RobustServer <> "localhost" Then
+                Print("Robust:" & Settings.RobustServer)
+                RobustPictureBox.Image = My.Resources.nav_plain_green
+                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
+                Log(My.Resources.Info, My.Resources.Robust_not_Running)
+                Return True
+            End If
+
             RobustPictureBox.Image = My.Resources.nav_plain_green
             ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
             For Each p In Process.GetProcesses
@@ -5000,13 +5009,7 @@ Public Class Form1
             Return True
         End If
 
-        If Settings.RobustServer <> "127.0.0.1" And Settings.RobustServer <> "localhost" Then
-            Print("Robust:" & Settings.RobustServer)
-            RobustPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-            Log(My.Resources.Info, My.Resources.Robust_not_Running)
-            Return True
-        End If
+
 
         _RobustIsStarting = True
 
