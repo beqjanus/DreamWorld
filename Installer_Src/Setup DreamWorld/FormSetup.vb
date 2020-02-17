@@ -2355,7 +2355,12 @@ Public Class Form1
             End If
         Next
 
-        If Not isRegionRunning Then isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+        If Not isRegionRunning Then
+            isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+            If isRegionRunning Then
+                Log("Info:", "Detected Region " & BootName & " already running on port " & CStr(Regionclass.GroupPort(RegionUUID)))
+            End If
+        End If
 
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
@@ -6400,13 +6405,13 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
-        If Debugger.IsAttached Then
-            Try
-                A.Add("Ferd Frederix", "SandBox")
-                B.Add("Nyira Machabelli", "SandBox")
-            Catch ex As Exception
-            End Try
-        End If
+        'If Debugger.IsAttached Then
+        'Try
+        'A.Add("Ferd Frederix", "SandBox")
+        'B.Add("Nyira Machabelli", "SandBox")
+        'Catch ex As Exception
+        'End Try
+        'E'nd If
 
         ' Merge the two
         For Each keyname In A
