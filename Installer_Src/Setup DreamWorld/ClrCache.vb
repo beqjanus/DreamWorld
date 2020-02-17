@@ -137,10 +137,7 @@ Public Class ClrCache
         If files IsNot Nothing Then
             Dim ctr As Integer = 0
             For Each file As String In files
-                Try
-                    FileStuff.DeleteFile(file)
-                Catch
-                End Try
+                FileStuff.DeleteFile(file)
                 ctr += 1
                 If ctr Mod 100 = 0 Then Form1.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
                 Application.DoEvents()
