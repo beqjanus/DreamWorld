@@ -240,7 +240,7 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
-        Catch ex As NotSupportedException
+
         End Try
 
         Return Nothing
@@ -426,7 +426,9 @@ Public Class FormOAR
         End Using
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
+#Disable Warning CA1031
         Catch
+#Enable Warning CA1031
             Return Nothing
         End Try
         Return json
@@ -470,9 +472,10 @@ Public Class FormOAR
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
-        Catch ex As argumentnullException
+
+#Disable Warning CA1031
         Catch ex As Exception
-            Dim bp = 1
+#Enable Warning CA1031
         End Try
 
         Return newImage
@@ -514,7 +517,9 @@ Public Class FormOAR
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
+#Disable Warning CA1031
                     Catch ex As Exception
+#Enable Warning CA1031
                     End Try
                     img.Dispose()
 

@@ -472,7 +472,9 @@ Public Class FormRegion
 
             Initted1 = True
             Form1.HelpOnce("Region")
+#Disable Warning CA1031
         Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
     End Sub
