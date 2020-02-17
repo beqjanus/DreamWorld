@@ -178,6 +178,7 @@ Public Class FormDNSName
 
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
+        NextNameButton.Text = My.Resources.Busy_word
         Form1.RegisterName(DNSNameBox.Text)
         Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
         Dim address As IPAddress = Nothing
@@ -186,6 +187,7 @@ Public Class FormDNSName
         Else
             MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
         End If
+        NextNameButton.Text = My.Resources.Next1
 
     End Sub
 
