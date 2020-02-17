@@ -140,7 +140,16 @@ Public Class FormRegionPopup
             End If
         End If
 
-        If Form1.CheckPort(Form1.Settings.PublicIP, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
+
+        Dim isRegionRunning As Boolean = False
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = GroupBox1.Text Then
+                isRegionRunning = True
+                Exit For
+            End If
+        Next
+
+        If isRegionRunning Then
             ShowConsoleButton.Enabled = True
             Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
             Form1.PropUpdateView = True ' make form refresh
@@ -151,7 +160,6 @@ Public Class FormRegionPopup
         If hwnd <> IntPtr.Zero Then
             Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
             Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-            'Application.doevents()
         End If
 
         BringToFront()

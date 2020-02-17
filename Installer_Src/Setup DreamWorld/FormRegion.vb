@@ -280,10 +280,6 @@ Public Class FormRegion
                 CoordY.Text = Form1.PropRegionClass.CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
-            ' and port
-            If Form1.PropRegionClass.RegionPort(RegionUUID) <> 0 Then
-                RegionPort.Text = Form1.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
-            End If
         End If
 
         ' The following are all options.

@@ -2358,7 +2358,7 @@ Public Class Form1
 
         Dim isRegionRunning As Boolean = False
         For Each p In Process.GetProcesses
-            If p.MainWindowTitle = BootName Then
+            If p.MainWindowTitle = GroupName Then
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 isRegionRunning = True
                 Exit For
@@ -3031,7 +3031,7 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
-        Print("->Set Globits")
+        Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else

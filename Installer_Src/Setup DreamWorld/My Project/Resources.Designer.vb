@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -994,7 +994,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Cannot_locate_folder_word() As String
             Get
-                Return ResourceManager.GetString("Cannot locate folder_word", resourceCulture)
+                Return ResourceManager.GetString("Cannot_locate_folder_word", resourceCulture)
             End Get
         End Property
         
@@ -4037,7 +4037,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Load_Parcel() As String
             Get
-                Return ResourceManager.GetString("Load Parcel", resourceCulture)
+                Return ResourceManager.GetString("Load_Parcel", resourceCulture)
             End Get
         End Property
         
@@ -4172,7 +4172,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Manager_God_word() As String
             Get
-                Return ResourceManager.GetString("Manager God_word", resourceCulture)
+                Return ResourceManager.GetString("Manager_God_word", resourceCulture)
             End Get
         End Property
         

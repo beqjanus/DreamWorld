@@ -222,7 +222,7 @@ Public Class RegionMaker
                     If RegionUUID.Length = 0 Then
                         Return
                     End If
-                    Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown")
+                    Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown ")
                     Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -452,31 +452,19 @@ Public Class RegionMaker
 
         ' locate largest port
         Dim MaxNum As Integer = 0
-        Dim Portlist As New Dictionary(Of String, Integer)
+
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
             Try
-                Portlist.Add(pair.Key, pair.Value._RegionPort)
+                If pair.Value._RegionPort > MaxNum Then
+                    MaxNum = pair.Value._RegionPort
+                End If
             Catch ex As ArgumentNullException
                 Debug.Print(ex.Message)
             Catch ex As ArgumentException
                 Debug.Print(ex.Message)
             End Try
-        Next
-
-        If Portlist.Count = 0 Then
-            Return 0
-        End If
-
-        For Each thing As KeyValuePair(Of String, Integer) In Portlist
-            If thing.Value > MaxNum Then
-                MaxNum = thing.Value ' max is always the current value
-            End If
-
-            If Not Portlist.ContainsKey(MaxNum + 1) Then
-                Return MaxNum  ' Found a blank spot at Max + 1 so return Max
-            End If
         Next
 
         Return MaxNum

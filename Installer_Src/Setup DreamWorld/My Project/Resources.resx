@@ -409,7 +409,7 @@
   <data name="Click_Caches" xml:space="preserve">
     <value>Click to set up Caches for scripts, assets, and images</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
+  <data name="Load_Parcel" xml:space="preserve">
     <value>Load Parcel</value>
   </data>
   <data name="picfilter" xml:space="preserve">
@@ -1426,7 +1426,7 @@
   <data name="Object_Path_and_name" xml:space="preserve">
     <value>Object Path and name</value>
   </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
     <value>Cannot locate folder</value>
   </data>
   <data name="Icecast_starting" xml:space="preserve">
@@ -2482,7 +2482,7 @@
   <data name="Default_Checked_word" xml:space="preserve">
     <value>Default: Checked</value>
   </data>
-  <data name="Manager God_word" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="Icecast_failed" xml:space="preserve">

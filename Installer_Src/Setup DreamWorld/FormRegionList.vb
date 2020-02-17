@@ -811,7 +811,6 @@ Public Class RegionList
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
-                Application.DoEvents()
             End If
         Next
 
@@ -819,9 +818,7 @@ Public Class RegionList
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
-        If ViewBusy Then
-            Return
-        End If
+
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
@@ -843,7 +840,7 @@ Public Class RegionList
             Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
             Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
             Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-            'End If
+
         Next
 
         PropUpdateView() = True
