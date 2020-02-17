@@ -2346,7 +2346,17 @@ Public Class Form1
 
         DoRegion(BootName, RegionUUID) ' setup region ini file
 
-        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+        Dim isRegionRunning As Boolean = False
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = BootName Then
+                Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                isRegionRunning = True
+                Exit For
+            End If
+        Next
+
+        If Not isRegionRunning Then isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
             Logger(My.Resources.is_already_running_word, BootName, "Restart")
@@ -4928,6 +4938,7 @@ Public Class Form1
 
     Public Sub StopRobust()
 
+        Print(My.Resources.Stopping_word & " Robust")
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
@@ -4980,27 +4991,28 @@ Public Class Form1
         If _RobustIsStarting Then
             Return True
         End If
+
+        ' Check the HTTP port
         If CheckRobust() Then
-
-            If Settings.RobustServer <> "127.0.0.1" And Settings.RobustServer <> "localhost" Then
-                Print("Robust:" & Settings.RobustServer)
-                RobustPictureBox.Image = My.Resources.nav_plain_green
-                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-                Log(My.Resources.Info, My.Resources.Robust_not_Running)
-                Return True
-            End If
-
-            RobustPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
             For Each p In Process.GetProcesses
                 If p.MainWindowTitle = "Robust" Then
                     PropRobustProcID = p.Id
                     Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                    ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
                     Return True
                 End If
-
             Next
         End If
+
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = "Robust" Then
+                PropRobustProcID = p.Id
+                Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
+                Return True
+            End If
+        Next
+
         RobustPictureBox.Image = My.Resources.navigate_open
 
         ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.is_Off)
@@ -6669,9 +6681,15 @@ Public Class Form1
         Catch ex As Exception
             Settings.SkipUpdateCheck = PropMyVersion
         End Try
+        Dim uv As Single = 0
+        Try
+            uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
+        Catch ex As overflowexception
+        Catch ex As formatexception
+        End Try
 
         ' ould be the same or later version already
-        If Settings.SkipUpdateCheck >= Update_version Then
+        If Settings.SkipUpdateCheck >= uv Then
             Return
         End If
 
