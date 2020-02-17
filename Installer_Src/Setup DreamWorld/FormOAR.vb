@@ -240,7 +240,7 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
-        Catch
+        Catch ex As NotSupportedException
         End Try
 
         Return Nothing
@@ -470,6 +470,7 @@ Public Class FormOAR
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
+        Catch ex As argumentnullException
         Catch ex As Exception
             Dim bp = 1
         End Try
