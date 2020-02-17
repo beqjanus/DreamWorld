@@ -302,6 +302,11 @@ Public Class Form1
 
         If Not StartRobust() Then Return False
 
+        ' Allow these to change w/o rebooting
+        DoOpensimINI()
+        DoGloebits()
+        DoBirds()
+
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -773,7 +778,10 @@ Public Class Form1
             speed1 = speed
             Try
                 speed = cpu.NextValue()
+
+#Disable Warning CA1031
             Catch ex As Exception
+#Enable Warning CA1031
 
                 Dim pUpdate As Process = New Process()
                 Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -1996,7 +2004,9 @@ Public Class Form1
         Loop
         Try
             Print("Cannot get a Process ID from " & myProcess.ProcessName)
+#Disable Warning CA1031
         Catch
+#Enable Warning CA1031
         End Try
 
         Return 0
@@ -3343,7 +3353,7 @@ Public Class Form1
 
     End Function
 
-    Private Function DoBirds() As Boolean
+    Public Function DoBirds() As Boolean
 
         If Not Settings.BirdsModuleStartup Then Return False
         Print("->Set Birds")
@@ -3484,7 +3494,7 @@ Public Class Form1
 
     End Function
 
-    Private Function DoOpensimINI() As Boolean
+    Public Function DoOpensimINI() As Boolean
 
         ' Opensim.ini
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
@@ -6683,7 +6693,9 @@ Public Class Form1
         ' Could be "FALSE"
         Try
             Log("Update", Settings.SkipUpdateCheck)
+#Disable Warning CA1031
         Catch ex As Exception
+#Enable Warning CA1031
             Settings.SkipUpdateCheck = PropMyVersion
         End Try
         Dim uv As Single = 0
@@ -6794,7 +6806,9 @@ Public Class Form1
             Try
                 FormHelp.Select()
                 FormHelp.BringToFront()
+#Disable Warning CA1031
             Catch
+#Enable Warning CA1031
             End Try
 
         End If
