@@ -1021,17 +1021,17 @@ Public Class RegionList
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
                     Next
+                    Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
                 Else
                     ' shut down all regions in the DOS box
                     For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' already shutting down
                     Next
                 End If
 
