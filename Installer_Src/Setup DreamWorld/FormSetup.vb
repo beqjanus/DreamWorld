@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.35"
+    Private _MyVersion As String = "3.37"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -213,7 +213,7 @@ Public Class Form1
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
-        'Application.doevents()
+
         If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
             Dim BTime As Integer = CInt(Settings.AutobackupInterval)
@@ -301,6 +301,11 @@ Public Class Form1
         PropAborting = False
 
         If Not StartRobust() Then Return False
+
+        ' Allow these to change w/o rebooting
+        DoOpensimINI()
+        DoGloebits()
+        DoBirds()
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
@@ -773,7 +778,10 @@ Public Class Form1
             speed1 = speed
             Try
                 speed = cpu.NextValue()
+
+#Disable Warning CA1031
             Catch ex As Exception
+#Enable Warning CA1031
 
                 Dim pUpdate As Process = New Process()
                 Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -1996,7 +2004,9 @@ Public Class Form1
         Loop
         Try
             Print("Cannot get a Process ID from " & myProcess.ProcessName)
+#Disable Warning CA1031
         Catch
+#Enable Warning CA1031
         End Try
 
         Return 0
@@ -2346,7 +2356,22 @@ Public Class Form1
 
         DoRegion(BootName, RegionUUID) ' setup region ini file
 
-        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+        Dim isRegionRunning As Boolean = False
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = GroupName Then
+                Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                isRegionRunning = True
+                Exit For
+            End If
+        Next
+
+        If Not isRegionRunning Then
+            isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+            If isRegionRunning Then
+                Log("Info:", "Detected Region " & BootName & " already running on port " & CStr(Regionclass.GroupPort(RegionUUID)))
+            End If
+        End If
+
         If isRegionRunning Then
             Print(BootName & " " & My.Resources.is_already_running_word)
             Logger(My.Resources.is_already_running_word, BootName, "Restart")
@@ -3010,7 +3035,7 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
-        Print("->Set Globits")
+        Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else
@@ -3100,7 +3125,7 @@ Public Class Form1
 
                     'Diagnostics.Debug.Print(Output)
                     outputFile.WriteLine(Output)
-
+                    Application.DoEvents()
                 End While
             End Using
             'close your reader
@@ -3332,7 +3357,7 @@ Public Class Form1
 
     End Function
 
-    Private Function DoBirds() As Boolean
+    Public Function DoBirds() As Boolean
 
         If Not Settings.BirdsModuleStartup Then Return False
         Print("->Set Birds")
@@ -3349,7 +3374,7 @@ Public Class Form1
 
         ' Birds setup per region
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-
+            Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
@@ -3473,7 +3498,7 @@ Public Class Form1
 
     End Function
 
-    Private Function DoOpensimINI() As Boolean
+    Public Function DoOpensimINI() As Boolean
 
         ' Opensim.ini
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
@@ -4932,6 +4957,7 @@ Public Class Form1
 
     Public Sub StopRobust()
 
+        Print(My.Resources.Stopping_word & " Robust")
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
@@ -4984,18 +5010,28 @@ Public Class Form1
         If _RobustIsStarting Then
             Return True
         End If
+
+        ' Check the HTTP port
         If CheckRobust() Then
-            RobustPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
             For Each p In Process.GetProcesses
                 If p.MainWindowTitle = "Robust" Then
                     PropRobustProcID = p.Id
                     Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                    ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
                     Return True
                 End If
-
             Next
         End If
+
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = "Robust" Then
+                PropRobustProcID = p.Id
+                Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
+                Return True
+            End If
+        Next
+
         RobustPictureBox.Image = My.Resources.navigate_open
 
         ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.is_Off)
@@ -5004,13 +5040,7 @@ Public Class Form1
             Return True
         End If
 
-        If Settings.RobustServer <> "127.0.0.1" And Settings.RobustServer <> "localhost" Then
-            Print("Robust:" & Settings.RobustServer)
-            RobustPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-            Log(My.Resources.Info, My.Resources.Robust_not_Running)
-            Return True
-        End If
+
 
         _RobustIsStarting = True
 
@@ -5217,6 +5247,7 @@ Public Class Form1
 #Disable Warning ca1303
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
 #Enable Warning ca1303
+
             Return
         End If
 
@@ -5282,14 +5313,16 @@ Public Class Form1
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
+
 #Disable Warning ca1303
             Logger("INFO", "UPNP OK", "Diagnostics")
 #Enable Warning ca1303
+
             Settings.UPnpDiag = True
             Settings.SaveSettings()
             Return True
         Else
-            Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
+            'Logger("INFO", My.Resources.UPNP_Disabled, "Diagnostics")
             Print(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()
@@ -5366,21 +5399,25 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+
 #Disable Warning ca1303
             Logger("INFO", "Local LAN IP", "Diagnostics")
 #Enable Warning ca1303
+
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
+
 #Disable Warning ca1303
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
 #Enable Warning ca1303
+
             Return
         End If
 
         Print(My.Resources.Checking_Loopback_word)
-        Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
+        'Logger("INFO", My.Resources.Checking_Loopback_word, "Diagnostics")
         PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
 
     End Sub
@@ -6396,13 +6433,13 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
-        If Debugger.IsAttached Then
-            Try
-                A.Add("Ferd Frederix", "SandBox")
-                B.Add("Nyira Machabelli", "SandBox")
-            Catch ex As Exception
-            End Try
-        End If
+        'If Debugger.IsAttached Then
+        'Try
+        'A.Add("Ferd Frederix", "SandBox")
+        'B.Add("Nyira Machabelli", "SandBox")
+        'Catch ex As Exception
+        'End Try
+        'E'nd If
 
         ' Merge the two
         For Each keyname In A
@@ -6665,54 +6702,81 @@ Public Class Form1
                 Return
             End Try
         End Using
-        If Update_version.Length = 0 Then Update_version = "0"
-        Dim Delta As Single = 0
+
+        ' Update Error checks
+
+        ' could be nothing
+        If Update_version.Length = 0 Then Update_version = PropMyVersion
+
+        ' Could be "FALSE"
         Try
-            Delta = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture) - Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As FormatException
-        Catch ex As OverflowException
+            Log("Update", Settings.SkipUpdateCheck)
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+            Settings.SkipUpdateCheck = PropMyVersion
+        End Try
+        Dim uv As Single = 0
+        Try
+            uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
+        Catch ex As overflowexception
+        Catch ex As formatexception
         End Try
 
-        If Delta > 0 Then
+        ' ould be the same or later version already
+        If Settings.SkipUpdateCheck >= uv Then
+            Return
+        End If
 
-            If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & CStr(Update_version) & ".zip") Then
-                Dim result = MsgBox("V" & Update_version & My.Resources.Update_Downloaded, vbYesNo)
-                If result = vbOK Then
-                    UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
+        ' may need to get the new file
+        If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
+            Dim result = MsgBox("V" & Update_version & " " & My.Resources.Update_Downloaded, vbYesNo)
+            If result = MsgBoxResult.Yes Then
+
+                Dim BackupForm As New FormBackupCheckboxes
+                Dim ret = BackupForm.ShowDialog()
+                If ret = DialogResult.OK Then
+                    UpdaterGo("DreamGrid-V" & Update_version & ".zip")
+                    Return
                 End If
+            Else
+                Settings.SkipUpdateCheck() = Update_version
+                Settings.SaveSettings()
                 Return
             End If
+        End If
 
-            Print(My.Resources.Update_is_available & ":" & Update_version)
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip",
+
+        ' we already have the file
+        If System.IO.File.Exists(PropMyFolder & "\DreamGrid-V" & Update_version & ".zip") Then
+            Return
+        End If
+
+        Print(My.Resources.Update_is_available & ":" & Update_version)
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = "DreamGrid-V" & Update_version & ".zip",
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 
-            If Debugger.IsAttached Then
-                pi.WindowStyle = ProcessWindowStyle.Normal
-            Else
-                pi.WindowStyle = ProcessWindowStyle.Minimized
-            End If
+        UpdateProcess.StartInfo = pi
+        UpdateProcess.EnableRaisingEvents = True
+        Try
+            UpdateProcess.Start()
+        Catch ex As InvalidOperationException
+            Print(My.Resources.ErrUpdate)
+        Catch ex As ComponentModel.Win32Exception
+            Print(My.Resources.ErrUpdate)
+        End Try
 
-            UpdateProcess.StartInfo = pi
-            UpdateProcess.EnableRaisingEvents = True
-            Try
-                UpdateProcess.Start()
-            Catch ex As InvalidOperationException
-                Print(My.Resources.ErrUpdate)
-            Catch ex As ComponentModel.Win32Exception
-                Print(My.Resources.ErrUpdate)
-            End Try
-        End If
 
     End Sub
+
     Private Sub UpdaterGo(Filename As String)
 
         KillAll()
         StopApache(True) 'really stop it, even if a service
         StopMysql()
-        'Application.doevents()
+        Application.DoEvents()
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
@@ -6735,7 +6799,7 @@ Public Class Form1
 
         Dim ExitCode = UpdateProcess.ExitCode
         If ExitCode = 0 Then
-            UpdaterGo("DreamGrid-V" & Convert.ToString(Update_version, Globalization.CultureInfo.InvariantCulture) & ".zip")
+            Settings.SkipUpdateCheck() = Update_version
         Else
             ErrorLog("ExitCode=" & CStr(ExitCode))
         End If
@@ -6760,7 +6824,9 @@ Public Class Form1
             Try
                 FormHelp.Select()
                 FormHelp.BringToFront()
+#Disable Warning CA1031
             Catch
+#Enable Warning CA1031
             End Try
 
         End If

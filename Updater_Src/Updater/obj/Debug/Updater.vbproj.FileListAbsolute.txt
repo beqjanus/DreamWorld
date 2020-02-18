@@ -1,2 +1,13 @@
 C:\Opensim\Outworldz Dreamgrid 3\Updater_Src\Updater-II\bin\Debug\DreamGridSetup.exe.config
 C:\Opensim\Outworldz Dreamgrid 3\Updater_Src\Updater\bin\Debug\DreamGridSetup.exe.config
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Debug\DreamGridSetup.exe.config
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Debug\DreamGridSetup.exe
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Debug\DreamGridSetup.pdb
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Updater.vbprojAssemblyReference.cache
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Outworldz.Resources.resources
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Outworldz.UpdateGrid.resources
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Updater.vbproj.GenerateResource.cache
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\DreamGridSetup.exe
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\DreamGridSetup.pdb
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Debug\Ionic.Zip.dll
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Updater.vbproj.CopyComplete

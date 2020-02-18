@@ -533,11 +533,12 @@ Public Class RegionList
                         If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                             Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
                             Dim bmp As Image = Nothing
+#Disable Warning CA1031
                             Try
                                 bmp = LoadImage(img)
                             Catch
                             End Try
-
+#Enable Warning CA1031
                             If bmp Is Nothing Then
                                 ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                             Else
@@ -810,7 +811,6 @@ Public Class RegionList
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
-                Application.DoEvents()
             End If
         Next
 
@@ -818,9 +818,7 @@ Public Class RegionList
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
-        If ViewBusy Then
-            Return
-        End If
+
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
@@ -842,7 +840,7 @@ Public Class RegionList
             Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
             Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
             Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-            'End If
+
         Next
 
         PropUpdateView() = True
@@ -984,6 +982,12 @@ Public Class RegionList
             End If
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(RegionUUID))
+
+            ' Allow these to change w/o rebooting
+            Form1.DoOpensimINI()
+            Form1.DoGloebits()
+            Form1.DoBirds()
+
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
             'Application.doevents()
             Form1.Timer1.Interval = 1000

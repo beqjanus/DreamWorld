@@ -157,7 +157,6 @@ Public Class MySettings
 
             UPnPEnabled() = My.Settings.UPnPEnabled
             UPnpDiag() = My.Settings.UPnpDiag
-
             VivoxEnabled = My.Settings.VivoxEnabled
             VivoxUserName() = My.Settings.Vivox_username
             VivoxPassword() = My.Settings.Vivox_password
@@ -242,6 +241,7 @@ Public Class MySettings
 
     Public Sub SetMyIni(section As String, key As String, value As String)
 
+        If value = Nothing Then value = ""
         'Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
@@ -353,6 +353,7 @@ Public Class MySettings
 #Disable Warning CA1062
         SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
+
     End Sub
 
 #End Region
@@ -1747,6 +1748,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property SkipUpdateCheck() As Single
+        Get
+            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+        End Get
+        Set
+            SetMySetting("SkipUpdateCheck", CStr(Value))
         End Set
     End Property
 

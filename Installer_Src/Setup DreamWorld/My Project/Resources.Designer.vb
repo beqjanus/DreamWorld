@@ -994,7 +994,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Cannot_locate_folder_word() As String
             Get
-                Return ResourceManager.GetString("Cannot locate folder_word", resourceCulture)
+                Return ResourceManager.GetString("Cannot_locate_folder_word", resourceCulture)
             End Get
         End Property
         
@@ -4037,7 +4037,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Load_Parcel() As String
             Get
-                Return ResourceManager.GetString("Load Parcel", resourceCulture)
+                Return ResourceManager.GetString("Load_Parcel", resourceCulture)
             End Get
         End Property
         
@@ -4172,7 +4172,7 @@ Namespace My.Resources
         '''</summary>
         Friend ReadOnly Property Manager_God_word() As String
             Get
-                Return ResourceManager.GetString("Manager God_word", resourceCulture)
+                Return ResourceManager.GetString("Manager_God_word", resourceCulture)
             End Get
         End Property
         
@@ -6547,6 +6547,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property selection_view() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("selection_view", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Send Alert Message.
         '''</summary>
         Friend ReadOnly Property Send_Alert_Message_word() As String
@@ -7684,6 +7694,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property view() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("view", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to View as Icons.
         '''</summary>
         Friend ReadOnly Property View_as_Icons() As String
@@ -7761,6 +7781,16 @@ Namespace My.Resources
         Friend ReadOnly Property View_Web_Interface_text() As String
             Get
                 Return ResourceManager.GetString("View_Web_Interface_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property view1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("view1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
