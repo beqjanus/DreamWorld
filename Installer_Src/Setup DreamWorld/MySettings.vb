@@ -350,9 +350,9 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
-        'If value = Nothing Then Return
+#Disable Warning CA1062
         SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
-
+#Enable Warning CA1062
     End Sub
 
 #End Region
