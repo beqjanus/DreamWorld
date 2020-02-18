@@ -2126,7 +2126,7 @@ Public Class Form1
         End If
 
     End Sub
-    Private Function AvatarsIsInGroup(groupname As String) As Boolean
+    Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
@@ -2817,126 +2817,130 @@ Public Class Form1
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
-                PropRegionClass.Timer(RegionUUID) = PropRegionClass.Timer(RegionUUID) + 1
+                PropRegionClass.Timer(RegionUUID) += 1
             End If
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            Dim RegionList = PropRegionClass.RegionUUIDListByName(RegionName)
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(RegionName)
 
-            ' if a RestartPending is signaled, boot it up
-            If PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
-                Logger("Booting", GroupName, "Restart")
-                Boot(PropRegionClass, RegionName)
-                PropUpdateView = True
-                Continue For
+            If PropOpensimIsRunning() Then
 
-                ' if a resume is signaled, unsuspend it
-            ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
-                Logger("Suspend", GroupName, "Restart")
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                PropUpdateView = True
-                Continue For
+                ' if a RestartPending is signaled, boot it up
+                If Status = RegionMaker.SIMSTATUSENUM.RestartPending And Not PropAborting Then
+                    Logger("Booting", GroupName, "Restart")
+                    Boot(PropRegionClass, RegionName)
+                    PropUpdateView = True
+                    Continue For
 
-            ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
-                Logger("Restart Pending", GroupName, "Restart")
-                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                For Each R In RegionList
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue For
+                    ' if a resume is signaled, unsuspend it
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
+                    Logger("Suspend", GroupName, "Restart")
+                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                    PropUpdateView = True
+                    Continue For
 
-            ElseIf PropOpensimIsRunning() And Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                Logger("To Stage 2", GroupName, "Restart")
-                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                For Each R In RegionList
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                Next
-                PropUpdateView = True ' make form refresh                
-                Continue For
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                    Logger("Restart Pending", GroupName, "Restart")
+                    Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                    Next
+                    PropUpdateView = True ' make form refresh
+                    Continue For
 
-            ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                Logger("Stopping", GroupName, "Restart")
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                StopGroup(GroupName)
-                PropUpdateView = True
-                Continue For
-            ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
-                ' May have  missed an UP signal
-                'Logger("Still Booting", GroupName, "Restart")
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                    Logger("To Stage 2", GroupName, "Restart")
+                    Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                    Next
+                    PropUpdateView = True ' make form refresh                
+                    Continue For
 
-                If TimerValue Mod 10 = 0 Then
-                    Dim isUp As Boolean = CheckPort(Settings.PublicIP, PropRegionClass.RegionPort(RegionUUID))
-                    If isUp Then
-                        For Each R In RegionList
-                            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
-                            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
-                        Next
-                        PropUpdateView = True
-                    End If
-                End If
-                Continue For
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                    Logger("Stopping", GroupName, "Restart")
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                    StopGroup(GroupName)
+                    PropUpdateView = True
+                    Continue For
 
-            Else
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
+                    ' May have  missed an UP signal
+                    'Logger("Still Booting", GroupName, "Restart")
 
-                ''''''''''''''''''''''''''''''''''''''
-
-                ' too long running, possible shutdown
-                If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
-                    TimerValue = PropRegionClass.Timer(RegionUUID)
-
-                    'How Long Region ran in minutes
-                    Dim Expired As Single = TimerValue * ExitInterval / 60
-
-                    ' if it is past time and no one is in the sim... Smart shutdown
-                    If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                        And Settings.SmartStart _
-                        And Expired >= 1 _
-                        And Not AvatarsIsInGroup(GroupName) Then
-                        Logger("DoSuspend_Resume", RegionName, "Restart")
-                        DoSuspend_Resume(RegionName)
-                        Continue For
-                    End If
-
-                    ' auto restart timer
-                    If Expired >= (Settings.AutoRestartInterval()) _
-                        And Settings.AutoRestartInterval() > 0 _
-                        And Not AvatarsIsInGroup(GroupName) _
-                        And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-
-                        ' shut down the group when AutoRestartInterval has gone by.
-                        Logger("Quitting", RegionName, "Restart")
-                        If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
-                            Logger("Dos Box Located", RegionName, "Restart")
-                            SequentialPause()
-                            ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-                            Print(My.Resources.Automatic_restart_word & GroupName)
-                            ' shut down all regions in the DOS box
-                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                    If TimerValue Mod 10 = 0 Then
+                        Dim isUp As Boolean = CheckPort(Settings.PublicIP, PropRegionClass.RegionPort(RegionUUID))
+                        If isUp Then
+                            For Each R In GroupList
+                                PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                                PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
                             Next
-                        Else
-                            ' shut down all regions in the DOS box
-                            Logger("Stopping", RegionName, "Restart")
-                            For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
-                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                            Next
+                            PropUpdateView = True
                         End If
-                        PropUpdateView = True ' make form refresh
+                    End If
+                    Continue For
+
+                Else
+
+                    ''''''''''''''''''''''''''''''''''''''
+
+                    ' too long running, possible shutdown
+                    If PropOpensimIsRunning() And Not PropAborting And PropRegionClass.Timer(RegionUUID) >= 0 Then
+                        TimerValue = PropRegionClass.Timer(RegionUUID)
+
+                        'How Long Region ran in minutes
+                        Dim Expired As Single = TimerValue * ExitInterval / 60
+
+                        ' if it is past time and no one is in the sim... Smart shutdown
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" _
+                            And Settings.SmartStart _
+                            And Expired >= 1 _
+                            And Not AvatarsIsInGroup(GroupName) Then
+                            Logger("DoSuspend_Resume", RegionName, "Restart")
+                            DoSuspend_Resume(RegionName)
+                            Continue For
+                        End If
+
+                        ' auto restart timer
+                        If Expired >= (Settings.AutoRestartInterval()) _
+                            And Settings.AutoRestartInterval() > 0 _
+                            And Not AvatarsIsInGroup(GroupName) _
+                            And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+
+                            ' shut down the group when AutoRestartInterval has gone by.
+                            Logger("Quitting", RegionName, "Restart")
+                            If ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE) Then
+                                Logger("Dos Box Located", RegionName, "Restart")
+                                SequentialPause()
+                                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                                Print(My.Resources.Automatic_restart_word & GroupName)
+                                ' shut down all regions in the DOS box
+                                For Each UUID In GroupList
+                                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                                Next
+                            Else
+                                ' shut down all regions in the DOS box
+                                Logger("Stopping", RegionName, "Restart")
+                                For Each UUID In GroupList
+                                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                                Next
+                            End If
+                            PropUpdateView = True ' make form refresh
+                        End If
                     End If
                 End If
             End If
+
         Next
 
         ' now look at the exit stack
@@ -5210,7 +5214,9 @@ Public Class Form1
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
+#Disable Warning ca1303
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
+#Enable Warning ca1303
             Return
         End If
 
@@ -5276,7 +5282,9 @@ Public Class Form1
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
+#Disable Warning ca1303
             Logger("INFO", "UPNP OK", "Diagnostics")
+#Enable Warning ca1303
             Settings.UPnpDiag = True
             Settings.SaveSettings()
             Return True
@@ -5358,12 +5366,16 @@ Public Class Form1
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+#Disable Warning ca1303
             Logger("INFO", "Local LAN IP", "Diagnostics")
+#Enable Warning ca1303
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
+#Disable Warning ca1303
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
+#Enable Warning ca1303
             Return
         End If
 
