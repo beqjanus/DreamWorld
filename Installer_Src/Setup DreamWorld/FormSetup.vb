@@ -108,7 +108,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 15 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -1903,7 +1903,6 @@ Public Class Form1
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
         Log(My.Resources.Info, Groupname & " Group is now stopped")
-        Logger("Group Stopped", Groupname, "Restart")
     End Sub
 
     Public Sub ToolBar(visible As Boolean)
@@ -2865,8 +2864,11 @@ Public Class Form1
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume And Not PropAborting Then
                     Logger("Suspend", GroupName, "Restart")
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                    PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                    For Each R In GroupList
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+                        PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                    Next
+
                     PropUpdateView = True
                     Continue For
 
@@ -2896,6 +2898,9 @@ Public Class Form1
                     StopGroup(GroupName)
                     PropUpdateView = True
                     Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    Logger("Stopped", GroupName, "Restart")
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
                     ' May have  missed an UP signal
