@@ -149,18 +149,6 @@ Public Class FormRegionPopup
             End If
         Next
 
-        If isRegionRunning Then
-            ShowConsoleButton.Enabled = True
-            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-            Form1.PropUpdateView = True ' make form refresh
-        End If
-
-        ' show it, stop it, start it, or edit it
-        Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
-        If hwnd <> IntPtr.Zero Then
-            Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-        End If
 
         BringToFront()
 
