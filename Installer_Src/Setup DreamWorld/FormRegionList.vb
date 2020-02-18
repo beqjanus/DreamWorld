@@ -1132,13 +1132,14 @@ Public Class RegionList
 
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-
+            Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
             If Form1.PropOpensimIsRunning() _
                 And Form1.PropRegionClass.RegionEnabled(RegionUUID) _
-                And Not Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-                And Not Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                And Not Form1.AvatarsIsInGroup(GroupName) And
+                (Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting _
+                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) Then
 
-                Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
+                Dim hwnd = Form1.GetHwnd(GroupName)
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
