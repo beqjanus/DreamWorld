@@ -37,7 +37,7 @@ Public Class RegionMaker
     Dim json As New JSONresult
     Private RegionList As New Dictionary(Of String, Region_data)
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
-    Dim WebserverList As New List(Of String)
+    Public WebserverList As New List(Of String)
 
     Public Enum REGIONTIMER As Integer
         Paused = -2
@@ -184,7 +184,7 @@ Public Class RegionMaker
 
                     Form1.Print(json.region_name & " " & My.Resources.Ready)
                     Form1.PropUpdateView() = True
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
+
                     Form1.Logger("Ready", json.region_name, "Restart")
 
                     If Debugger.IsAttached = True Then
