@@ -580,8 +580,7 @@ Public Class RegionList
 #Disable Warning CA1031 ' Do not catch general exception types
                         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
-                            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                            Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+
                             item1.SubItems.Add("0".ToUpperInvariant)
                         End Try
                     Else
