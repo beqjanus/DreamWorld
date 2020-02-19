@@ -2858,222 +2858,222 @@ Public Class Form1
         BootedList.Clear()
 
         Dim GroupName As String
-            Dim TimerValue As Integer
+        Dim TimerValue As Integer
 
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-                ' count up to auto restart, when high enough, restart the sim
-                If PropRegionClass.Timer(RegionUUID) >= 0 Then
-                    PropRegionClass.Timer(RegionUUID) += 1
-                End If
+            ' count up to auto restart, when high enough, restart the sim
+            If PropRegionClass.Timer(RegionUUID) >= 0 Then
+                PropRegionClass.Timer(RegionUUID) += 1
+            End If
 
-                GroupName = PropRegionClass.GroupName(RegionUUID)
-                Dim Status = PropRegionClass.Status(RegionUUID)
-                Logger(GetStateString(Status), GroupName, "Restart")
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                Dim GroupList = PropRegionClass.RegionUUIDListByName(RegionName)
+            GroupName = PropRegionClass.GroupName(RegionUUID)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+            Logger(GetStateString(Status), GroupName, "Restart")
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(RegionName)
 
-                If PropOpensimIsRunning() Then
+            If PropOpensimIsRunning() Then
 
-                    If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
 
                     'Stopped = 0
                     Logger("State is Stopped", GroupName, "Restart")
                     Continue For
 
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
 
-                        'Booting = 1
-                        Logger("State is Booting", GroupName, "Restart")
-                        Continue For
+                    'Booting = 1
+                    Logger("State is Booting", GroupName, "Restart")
+                    Continue For
 
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
 
-                        'Booted = 2
-                        Logger("State is Booted", GroupName, "Restart")
+                    'Booted = 2
+                    Logger("State is Booted", GroupName, "Restart")
 
-                        ' May be too long running?
-                        TimerValue = PropRegionClass.Timer(RegionUUID)
-                        If TimerValue >= 0 Then
+                    ' May be too long running?
+                    TimerValue = PropRegionClass.Timer(RegionUUID)
+                    If TimerValue >= 0 Then
 
-                            'How Long Region ran in minutes
-                            Dim Expired As Single = TimerValue * ExitInterval / 60
+                        'How Long Region ran in minutes
+                        Dim Expired As Single = TimerValue * ExitInterval / 60
 
-                            ' if it is past time and no one is in the sim... Smart shutdown
-                            If PropRegionClass.SmartStart(RegionUUID) = "True" _
+                        ' if it is past time and no one is in the sim... Smart shutdown
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" _
                             And Settings.SmartStart _
                             And Expired >= 1 _
                             And Not AvatarsIsInGroup(GroupName) Then
-                                Logger("State Changed to Suspended", RegionName, "Restart")
-                                DoSuspend_Resume(RegionName)
-                                Continue For
-                            End If
+                            Logger("State Changed to Suspended", RegionName, "Restart")
+                            DoSuspend_Resume(RegionName)
+                            Continue For
+                        End If
 
-                            ' auto restart timer
-                            If Expired >= Settings.AutoRestartInterval() _
+                        ' auto restart timer
+                        If Expired >= Settings.AutoRestartInterval() _
                             And Settings.AutoRestartInterval() > 0 _
                             And Not AvatarsIsInGroup(GroupName) Then
 
-                                ' shut down the group when AutoRestartInterval has gone by.
-                                Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
-                                ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
-                                SequentialPause()
-                                ' shut down all regions in the DOS box
-                                For Each UUID In GroupList
-                                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                                Next
-                                Logger("State changed to RecyclingDown", GroupName, "Restart")
-                                Print(My.Resources.Automatic_restart_word & GroupName)
-                                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-                                PropUpdateView = True ' make form refresh
-                            End If
+                            ' shut down the group when AutoRestartInterval has gone by.
+                            Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
+                            ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
+                            SequentialPause()
+                            ' shut down all regions in the DOS box
+                            For Each UUID In GroupList
+                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                            Next
+                            Logger("State changed to RecyclingDown", GroupName, "Restart")
+                            Print(My.Resources.Automatic_restart_word & GroupName)
+                            ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            PropUpdateView = True ' make form refresh
                         End If
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-
-                        'RecyclingUp= 3
-                        Logger("State is RecyclingUp", GroupName, "Restart")
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                        'RecyclingDown = 4
-                        Logger("State is RecyclingDown", GroupName, "Restart")
-                        Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                        For Each R In GroupList
-                            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                        Next
-                        Logger("State changed to RestartStage2", GroupName, "Restart")
-                        PropUpdateView = True ' make form refresh                
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-
-                        'ShuttingDown = 5
-                        Logger("State is ShuttingDown", GroupName, "Restart")
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                        StopGroup(GroupName)
-                        PropUpdateView = True
-                        Logger("State changed to Stopped", GroupName, "Restart")
-                        Continue For
-
-                        ' if a RestartPending is signaled, boot it up
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
-                        Logger("State is RestartPending", GroupName, "Restart")
-                        'RestartPending = 6
-                        Logger("State is Booting", GroupName, "Restart")
-                        Boot(PropRegionClass, RegionName)
-                        Logger("State is now Booted", GroupName, "Restart")
-                        PropUpdateView = True
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume Then
-
-                        '[Resume] = 8
-                        Logger("State is Resuming", GroupName, "Restart")
-                        DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                        For Each R In GroupList
-                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                        Next
-                        Logger("State changed to Booted", GroupName, "Restart")
-                        PropUpdateView = True
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
-
-                        'Suspended = 9
-                        Logger("State is Suspended", GroupName, "Restart")
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
-
-                        'Error = 10
-                        Logger("State is Error", GroupName, "Restart")
-                        Continue For
-
-                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
-
-                        'RestartStage2 = 11
-                        Logger("State is Restart Pending", GroupName, "Restart")
-                        Print(My.Resources.Restart_Pending_for_word & " " & GroupName)
-                        For Each R In GroupList
-                            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
-                            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                        Next
-                        Logger("State changed to RestartPending", GroupName, "Restart")
-                        PropUpdateView = True ' make form refresh
-                        Continue For
-                    Else
-#Disable Warning CA1303
-                        Logger("ExitHandlerPoll", "None of the above!", "Restart")
-#Enable Warning CA1303
                     End If
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+
+                    'RecyclingUp= 3
+                    Logger("State is RecyclingUp", GroupName, "Restart")
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                    'RecyclingDown = 4
+                    Logger("State is RecyclingDown", GroupName, "Restart")
+                    Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                    Next
+                    Logger("State changed to RestartStage2", GroupName, "Restart")
+                    PropUpdateView = True ' make form refresh                
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+
+                    'ShuttingDown = 5
+                    Logger("State is ShuttingDown", GroupName, "Restart")
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                    StopGroup(GroupName)
+                    PropUpdateView = True
+                    Logger("State changed to Stopped", GroupName, "Restart")
+                    Continue For
+
+                    ' if a RestartPending is signaled, boot it up
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
+                    Logger("State is RestartPending", GroupName, "Restart")
+                    'RestartPending = 6
+                    Logger("State is Booting", GroupName, "Restart")
+                    Boot(PropRegionClass, RegionName)
+                    Logger("State is now Booted", GroupName, "Restart")
+                    PropUpdateView = True
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume Then
+
+                    '[Resume] = 8
+                    Logger("State is Resuming", GroupName, "Restart")
+                    DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                    For Each R In GroupList
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+                        PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                    Next
+                    Logger("State changed to Booted", GroupName, "Restart")
+                    PropUpdateView = True
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
+
+                    'Suspended = 9
+                    Logger("State is Suspended", GroupName, "Restart")
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
+
+                    'Error = 10
+                    Logger("State is Error", GroupName, "Restart")
+                    Continue For
+
+                ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+
+                    'RestartStage2 = 11
+                    Logger("State is Restart Pending", GroupName, "Restart")
+                    Print(My.Resources.Restart_Pending_for_word & " " & GroupName)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                    Next
+                    Logger("State changed to RestartPending", GroupName, "Restart")
+                    PropUpdateView = True ' make form refresh
+                    Continue For
+                Else
+#Disable Warning CA1303
+                    Logger("ExitHandlerPoll", "None of the above!", "Restart")
+#Enable Warning CA1303
+                End If
+            End If
+
+            ' now look at the exit stack
+
+            While PropExitList.Count > 0
+
+                RegionName = PropExitList.Keys.First
+                Dim Reason = PropExitList.Item(RegionName)
+                PropExitList.Remove(RegionName)
+
+                Logger(Reason, RegionName & " Scanned", "Restart")
+                Print(Reason & "" & RegionName)
+
+                ' Need a region number and a Name. Name is either a region or a Group. For groups we
+                ' need to get a region name from the group
+                GroupName = RegionName ' assume a group
+                RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+                Dim PID = PropRegionClass.ProcessID(RegionUUID)
+
+                If RegionUUID.Length > 0 Then
+                    GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
+                    Logger(Reason, GroupName & " Scanned", "Restart")
                 End If
 
-                ' now look at the exit stack
+                Logger(GetStateString(Status), GroupName & " TimerValue", "Restart")
+                TimerValue = PropRegionClass.Timer(RegionUUID)
 
-                While PropExitList.Count > 0
+                Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
+                ' Maybe we crashed during warm up or running. 
+                ' Skip prompt if auto restart on crash and restart the beast
 
-                    RegionName = PropExitList.Keys.First
-                    Dim Reason = PropExitList.Item(RegionName)
-                    PropExitList.Remove(RegionName)
-
-                    Logger(Reason, RegionName & " Scanned", "Restart")
-                    Print(Reason & "" & RegionName)
-
-                    ' Need a region number and a Name. Name is either a region or a Group. For groups we
-                    ' need to get a region name from the group
-                    GroupName = RegionName ' assume a group
-                    RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-                    Dim PID = PropRegionClass.ProcessID(RegionUUID)
-
-                    If RegionUUID.Length > 0 Then
-                        GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
-                        Logger(Reason, GroupName & " Scanned", "Restart")
-                    End If
-
-                    Logger(GetStateString(Status), GroupName & " TimerValue", "Restart")
-                    TimerValue = PropRegionClass.Timer(RegionUUID)
-
-                    Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
-                    ' Maybe we crashed during warm up or running. 
-                    ' Skip prompt if auto restart on crash and restart the beast
-
-                    If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
+                If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
                     Or Status = RegionMaker.SIMSTATUSENUM.Booting _
                     Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
                     And TimerValue >= 0 Then
 
-                        Logger("Crash", GroupName & " Crashed", "Restart")
-                        If Settings.RestartOnCrash Then
-                            ' shut down all regions in the DOS box
-                            Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                            StopGroup(GroupName)
-                        Else
-                            Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                            Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
-                            If (yesno = vbYes) Then
-                                Try
-                                    System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-                                Catch ex As InvalidOperationException
-                                Catch ex As System.ComponentModel.Win32Exception
-                                End Try
-                            End If
-                            StopGroup(GroupName)
-
+                    Logger("Crash", GroupName & " Crashed", "Restart")
+                    If Settings.RestartOnCrash Then
+                        ' shut down all regions in the DOS box
+                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                        StopGroup(GroupName)
+                    Else
+                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                        Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
+                        If (yesno = vbYes) Then
+                            Try
+                                System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                            Catch ex As InvalidOperationException
+                            Catch ex As System.ComponentModel.Win32Exception
+                            End Try
                         End If
-                        PropUpdateView = True
+                        StopGroup(GroupName)
+
                     End If
+                    PropUpdateView = True
+                End If
 
-                End While
+            End While
 
-            Next
+        Next
 
 
-            PropExitHandlerIsBusy = False
+        PropExitHandlerIsBusy = False
 
     End Sub
 
