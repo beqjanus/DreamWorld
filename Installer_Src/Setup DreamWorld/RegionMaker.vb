@@ -131,9 +131,9 @@ Public Class RegionMaker
         While WebserverList.Count > 0
 
             Try
-                Dim ProcessString As String = WebserverList(WebserverList.Count - 1) ' recover the PID as string
+                Dim ProcessString As String = WebserverList(0) ' recover the PID as string
 
-                WebserverList.RemoveAt(WebserverList.Count - 1)
+                WebserverList.RemoveAt(0)
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
@@ -168,9 +168,9 @@ Public Class RegionMaker
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
                         Form1.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
-
                         Continue While
                     End If
+
                     Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
                     Form1.BootedList.Add(RegionUUID)
                     'Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
@@ -228,16 +228,25 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Return '!!!  does not work as expected at the moment fkb
+                    Continue While
+                    '!!!  does not work as expected at the moment. 
+                    'If it Then did we could reattach And capture any quitting region.
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
-                    Dim RegionUUID As String = FindRegionByName(json.region_name)
-                    If RegionUUID.Length = 0 Then
-                        Return
-                    End If
-                    Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown ")
-                    Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
+                        Dim RegionUUID As String = FindRegionByName(json.region_name)
+                        If RegionUUID.Length = 0 Then
+                            Return
+                        End If
+                        Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown ")
+                        Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
+
+                    ElseIf json.login = "disabled" Then
+                        Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                        Continue While
+                    Else
+                        Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                    Continue While
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
