@@ -2872,7 +2872,7 @@ Public Class Form1
             Dim Status = PropRegionClass.Status(RegionUUID)
             Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            Dim GroupList = PropRegionClass.RegionUUIDListByName(RegionName)
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
 
             If PropOpensimIsRunning() Then
 
