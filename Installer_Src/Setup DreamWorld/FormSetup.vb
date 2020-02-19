@@ -2223,7 +2223,7 @@ Public Class Form1
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         PropAborting = True
-        StopAllRegions()
+        ClearAllRegions()
         Timer1.Stop()
 
         PropUpdateView = True ' make form refresh
@@ -2872,7 +2872,7 @@ Public Class Form1
             Dim Status = PropRegionClass.Status(RegionUUID)
             Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            Dim GroupList = PropRegionClass.RegionUUIDListByName(RegionName)
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
 
             If PropOpensimIsRunning() Then
 
@@ -4156,7 +4156,7 @@ Public Class Form1
             PropUpdateView = True ' make form refresh
         End If
 
-        StopAllRegions()
+        ClearAllRegions()
 
         StopRobust()
         PropStopMysql = True
@@ -4182,7 +4182,7 @@ Public Class Form1
         End
 
     End Sub
-    Private Sub StopAllRegions()
+    Private Sub ClearAllRegions()
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             Logger("State is Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")

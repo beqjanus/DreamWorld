@@ -463,7 +463,8 @@ Public Class RegionList
 
                 For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
-                    Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
+                    Dim Groupname As String = Form1.PropRegionClass.GroupName(RegionUUID)
+
                     Dim Status = Form1.PropRegionClass.Status(RegionUUID)
 
                     Dim Letter As String = ""
