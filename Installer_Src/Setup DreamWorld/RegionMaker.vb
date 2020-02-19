@@ -138,7 +138,11 @@ Public Class RegionMaker
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
-                Dim rawJSON = POST.Substring(first, last - first + 1)
+                Dim rawJSON As String = ""
+                If first > -1 And last > -1 Then
+                    rawJSON = POST.Substring(first, last - first + 1)
+                End If
+
                 WebserverList.RemoveAt(WebserverList.Count - 1)
 
                 Try
@@ -228,7 +232,10 @@ Public Class RegionMaker
 #Enable Warning CA1031 ' Do not catch general exception types
                 Debug.Print(ex.Message)
             End Try
+
         End While
+
+        Form1.PropUpdateView() = True
 
     End Sub
 
