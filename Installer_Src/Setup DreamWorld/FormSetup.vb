@@ -4093,12 +4093,13 @@ Public Class Form1
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
                 Print(My.Resources.Stopping_word & " " & PropRegionClass.GroupName(RegionUUID))
                 SequentialPause()
-                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                 For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 Next
+                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
 
             End If
             PropUpdateView = True ' make form refresh
