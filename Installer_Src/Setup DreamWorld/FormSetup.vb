@@ -2925,8 +2925,8 @@ Public Class Form1
                                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             Next
                             Logger("State changed to RecyclingDown", GroupName, "Restart")
-                            Print(My.Resources.Automatic_restart_word & GroupName)
                             ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            Print(My.Resources.Automatic_restart_word & GroupName)
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
@@ -4194,6 +4194,7 @@ Public Class Form1
             PropExitList.Clear()
             PropRegionClass.ClearStack()
             PropRegionHandles.Clear()
+            RegionMaker.WebserverList.Clear()
         Catch ex As NotSupportedException
         End Try
 
