@@ -129,19 +129,17 @@ Public Class RegionMaker
         ' Delete off end of list so we don't skip over one
         If WebserverList.Count = 0 Then Return
 
-        WebserverList.Reverse()
-
         While WebserverList.Count > 0
 
             Try
-                Dim ProcessString As String = WebserverList(0) ' recover the PID as string
+                Dim ProcessString As String = WebserverList(WebserverList.Count - 1) ' recover the PID as string
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
                 Dim rawJSON = POST.Substring(first, last - first + 1)
-                WebserverList.RemoveAt(0)
+                WebserverList.RemoveAt(WebserverList.Count - 1)
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
