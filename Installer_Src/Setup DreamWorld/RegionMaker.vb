@@ -126,22 +126,21 @@ Public Class RegionMaker
 
     Public Sub CheckPost()
 
-        ' Delete off end of list so we don't skip over one
         If WebserverList.Count = 0 Then Return
-
-        WebserverList.Reverse()
 
         While WebserverList.Count > 0
 
             Try
-                Dim ProcessString As String = WebserverList(0) ' recover the PID as string
+                Dim ProcessString As String = WebserverList(WebserverList.Count - 1) ' recover the PID as string
+                ' Delete off end of list so we don't skip over one
+                WebserverList.RemoveAt(WebserverList.Count - 1)
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
                 Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
                 Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
+                If last = -1 Then Continue While
                 Dim rawJSON = POST.Substring(first, last - first + 1)
-                WebserverList.RemoveAt(0)
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
@@ -157,16 +156,20 @@ Public Class RegionMaker
                 ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
-                    Form1.Logger("Ready", json.region_name, "Restart")
+                    Form1.Logger("RegionReady: Enabled", json.region_name, "Restart")
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
+                        Form1.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
                         Continue While
                     End If
-
-                    RegionEnabled(RegionUUID) = True
-                    Status(RegionUUID) = SIMSTATUSENUM.Booted
-                    Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                    Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
+                    Form1.BootedList.Add(RegionUUID)
+                    'Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
+                    'For Each R As String In GroupList
+                    'Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
+                    'Form1.BootedList.Add(R)
+                    'Next
+                    Form1.Print(json.region_name & " " & My.Resources.Ready)
                     Form1.PropUpdateView() = True
 
                     If Debugger.IsAttached = True Then
@@ -214,7 +217,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    'Return '!!!  does not work as expected at the moment fkb
+                    Return '!!!  does not work as expected at the moment fkb
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
 
@@ -1339,13 +1342,10 @@ Public Class RegionMaker
 
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
-            If pair.Value._Group = Gname Or Gname = "*" Then
+            If pair.Value._Group = Gname Then
                 L.Add(pair.Value._UUID)
             End If
         Next
-        If (L.Count = 0) Then
-            L.Add(FindRegionByName(Gname))
-        End If
         Return L
 
     End Function
