@@ -384,20 +384,23 @@ Public Class RegionList
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
         SetScreen(TheView1)
+        ShowTitle()
+        initted = True
+
+
+    End Sub
+
+    Private Sub ShowTitle()
 
         Dim TotalSize As Integer
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-
             TotalSize += Form1.PropRegionClass.SizeX(RegionUUID) / 256 * Form1.PropRegionClass.SizeY(RegionUUID) / 256
             If Form1.PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
             TotalRegionCount += 1
         Next
         Me.Text = "Regions: " & CStr(TotalRegionCount) & ".  Enabled: " & CStr(RegionCount) & ". Total Area: " & CStr(TotalSize) & " Regions"
-
-
-        initted = True
 
     End Sub
 
@@ -768,6 +771,7 @@ Public Class RegionList
         RegionForm.Visible = True
         RegionForm.Select()
 
+
     End Sub
 
     Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
@@ -795,6 +799,7 @@ Public Class RegionList
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
         LoadMyListView()
+        ShowTitle()
 
     End Sub
 
@@ -809,10 +814,13 @@ Public Class RegionList
 
         ListView1.ResumeLayout()
 
+
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
         Form1.Help("RegionList")
+
     End Sub
 
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
@@ -853,9 +861,8 @@ Public Class RegionList
             Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
             Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
             Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-
         Next
-
+        ShowTitle()
         PropUpdateView() = True
 
     End Sub
@@ -950,6 +957,7 @@ Public Class RegionList
 #Region "Private Methods"
 
     Private Shared Function LoadImage(S As String) As Image
+
         Dim bmp As Bitmap = Nothing
         Dim u As New Uri(S)
         Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
@@ -1134,6 +1142,8 @@ Public Class RegionList
             End If
 
         Next
+
+        ShowTitle()
 
         If ItemsAreChecked1 Then
             ItemsAreChecked1 = False
