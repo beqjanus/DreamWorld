@@ -2,6 +2,17 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.38 Beta
+Fixes to region restart
+
+
+V3.37 Beta
+Updates started at 0, should be  at curtrent version to prevent repetitive begging for updates.
+Robust double start fixes.
+DNS shows busy when testing.
+Allow changes to Opensim.ini, Gloebits and birds to take effect without resetting the entire system, usually through changing a region settings.
+Max region port function would not always return the highest port, preventing multiple DOS boxes from booting w/o restarting the system
+
 V3.36 beta
 Possible hard crash in Check for Update if going from from V3.34 to V3.35.  A variable was FALSE, should have been a number
 

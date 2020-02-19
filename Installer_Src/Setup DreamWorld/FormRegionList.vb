@@ -464,43 +464,44 @@ Public Class RegionList
                 For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
                     Dim RegionName As String = Form1.PropRegionClass.GroupName(RegionUUID)
+                    Dim Status = Form1.PropRegionClass.Status(RegionUUID)
 
                     Dim Letter As String = ""
-                    If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped _
+                    If Status = RegionMaker.SIMSTATUSENUM.Stopped _
                         And Form1.PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         Letter = "Waiting"
                         Num = DGICON.SmartStart
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
                         Letter = "Suspended"
                         Num = DGICON.Suspended
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
                         Letter = "Recycling Down"
                         Num = DGICON.recyclingdown
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
                         Letter = "Recycling Up"
                         Num = DGICON.recyclingup
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
                         Letter = "Restart Pending"
                         Num = DGICON.recyclingup
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RetartingNow Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RetartingNow Then
                         Letter = "Restarting Now"
                         Num = DGICON.recyclingup
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
                         Letter = "Booting"
                         Num = DGICON.bootingup
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                         Letter = "Stopping"
                         Num = DGICON.shuttingdown
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
                         Letter = "Pending"
                         Num = DGICON.Pending
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(RegionUUID) = 1 Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(RegionUUID) = 1 Then
                         Letter = "Running"
                         Num = DGICON.user1
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(RegionUUID) > 1 Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And Form1.PropRegionClass.AvatarCount(RegionUUID) > 1 Then
                         Letter = "Running"
                         Num = DGICON.user2
-                    ElseIf Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
                         If Form1.PropRegionClass.RegionName(RegionUUID) = Form1.Settings.WelcomeRegion Then
                             Num = DGICON.Home
                             Letter = "Running"
@@ -530,7 +531,7 @@ Public Class RegionList
                     ' maps
                     If TheView1 = ViewType.Maps Then
 
-                        If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                        If Status = RegionMaker.SIMSTATUSENUM.Booted Then
                             Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
                             Dim bmp As Image = Nothing
 #Disable Warning CA1031
@@ -563,18 +564,29 @@ Public Class RegionList
                     Dim fmtXY = "00000" ' 65536
                     Dim fmtRam = "0000." ' 9999 MB
                     ' RAM
-                    Try
-                        Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
-                        Dim component1 As Process = Process.GetProcessById(PID)
-                        'If Form1.PropRegionHandles.ContainsKey(PID) Then
-                        Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
+
+                    If Status = RegionMaker.SIMSTATUSENUM.Booting _
+                        Or Status = RegionMaker.SIMSTATUSENUM.Booted _
+                        Or Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
+                        Or Status = RegionMaker.SIMSTATUSENUM.RecyclingDown _
+                        Then
+
+                        Try
+                            Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
+                            Dim component1 As Process = Process.GetProcessById(PID)
+                            Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
+                            item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
 
 #Disable Warning CA1031 ' Do not catch general exception types
-                    Catch ex As Exception
+                        Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
+                            Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                            Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+                            item1.SubItems.Add("0".ToUpperInvariant)
+                        End Try
+                    Else
                         item1.SubItems.Add("0".ToUpperInvariant)
-                    End Try
+                    End If
 
                     item1.SubItems.Add(Form1.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(Form1.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
@@ -719,7 +731,6 @@ Public Class RegionList
                     End If
                 Next i
 
-                ListView1.EndUpdate()
 
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch ex As Exception
@@ -732,10 +743,12 @@ Public Class RegionList
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
+        ListView1.EndUpdate()
         PropUpdateView() = False
         ViewBusy = False
         ListView1.Show()
         AvatarView.Hide()
+
 
     End Sub
 
@@ -1020,13 +1033,14 @@ Public Class RegionList
                 Dim hwnd As IntPtr = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
                     Next
                     Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
                     For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
@@ -1063,15 +1077,16 @@ Public Class RegionList
         ElseIf chosen = "Recycle" Then
 
             Form1.SequentialPause()
-            Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
-
             ' shut down all regions in the DOS box
-
-            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+            Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
+            Form1.Logger("RecyclingDown", GroupName, "Restart")
+            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
                 Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                 Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                Form1.Logger("RecyclingDown", Form1.PropRegionClass.RegionName(RegionUUID), "Restart")
             Next
+            Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
@@ -1088,13 +1103,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub StopRegionbyUUID(RegionUUID As String)
 
-        Form1.SequentialPause()
-        Form1.Log("Region", "Stopping Region " + Form1.PropRegionClass.GroupName(RegionUUID))
-        Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
-
-    End Sub
 
 #End Region
 
@@ -1141,20 +1150,28 @@ Public Class RegionList
                 And Form1.PropRegionClass.RegionEnabled(RegionUUID) _
                 And Not Form1.AvatarsIsInGroup(GroupName) And
                 (Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting _
-                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) Then
+                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
+                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = Form1.GetHwnd(GroupName)
                 If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
                     Form1.SequentialPause()
-                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(RegionUUID))
+                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 End If
 
-                ' shut down all regions in the DOS box
-                For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
-                    Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                    Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                Next
+                If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+                    Next
+                Else
+                    ' shut down all regions in the DOS box
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                        Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                    Next
+
+                End If
 
                 PropUpdateView = True ' make form refresh
             End If

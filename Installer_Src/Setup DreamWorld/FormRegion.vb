@@ -526,7 +526,7 @@ Public Class FormRegion
 
                 If loopctr > 0 Then
                     Form1.ConsoleCommand("Robust", "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
-                    Form1.Print(My.Resources.Reion_Removed)
+                    Form1.Print(My.Resources.Region_Removed)
                 End If
             End If
 
