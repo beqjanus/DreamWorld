@@ -1909,10 +1909,11 @@ Public Class Form1
     Public Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
+            Logger(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
-        Log(My.Resources.Info, Groupname & " Group is now stopped")
+        Logger(My.Resources.Info, Groupname & " Group is now stopped", "Restart")
     End Sub
 
     Public Sub ToolBar(visible As Boolean)
@@ -2945,27 +2946,27 @@ Public Class Form1
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                     Next
-                    Logger("State changed to RestartStage2", GroupName, "Restart")
+                    Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
                     PropUpdateView = True ' make form refresh                
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
 
                     'ShuttingDown = 5
-                    Logger("State is ShuttingDown", GroupName, "Restart")
+                    Logger("State is ShuttingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                     StopGroup(GroupName)
                     PropUpdateView = True
-                    Logger("State changed to Stopped", GroupName, "Restart")
+                    Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
                     Continue For
 
                     ' if a RestartPending is signaled, boot it up
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
                     Logger("State is RestartPending", GroupName, "Restart")
                     'RestartPending = 6
-                    Logger("State is Booting", GroupName, "Restart")
+                    Logger("State is Booting", PropRegionClass.RegionName(RegionUUID), "Restart")
                     Boot(PropRegionClass, RegionName)
-                    Logger("State is now Booted", GroupName, "Restart")
+                    Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Restart")
                     PropUpdateView = True
                     Continue For
 
@@ -2975,10 +2976,11 @@ Public Class Form1
                     Logger("State is Resuming", GroupName, "Restart")
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
                     For Each R In GroupList
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-                        PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+                        Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
                     Next
-                    Logger("State changed to Booted", GroupName, "Restart")
+
                     PropUpdateView = True
                     Continue For
 
@@ -3002,8 +3004,9 @@ Public Class Form1
                     For Each R In GroupList
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                        Logger("State changed to RestartPending", PropRegionClass.RegionName(R), "Restart")
                     Next
-                    Logger("State changed to RestartPending", GroupName, "Restart")
+
                     PropUpdateView = True ' make form refresh
                     Continue For
                 Else
@@ -4182,6 +4185,7 @@ Public Class Form1
     Private Sub StopAllRegions()
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            Logger("State is Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
             PropRegionClass.ProcessID(RegionUUID) = 0
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
