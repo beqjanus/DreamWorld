@@ -133,6 +133,7 @@ Public Class RegionMaker
 
             Try
                 Dim ProcessString As String = WebserverList(WebserverList.Count - 1) ' recover the PID as string
+                WebserverList.RemoveAt(WebserverList.Count - 1)
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
@@ -141,9 +142,10 @@ Public Class RegionMaker
                 Dim rawJSON As String = ""
                 If first > -1 And last > -1 Then
                     rawJSON = POST.Substring(first, last - first + 1)
+                Else
+                    Form1.Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
+                    Continue While
                 End If
-
-                WebserverList.RemoveAt(WebserverList.Count - 1)
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
@@ -151,6 +153,7 @@ Public Class RegionMaker
                 Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types
                     Debug.Print(ex.Message)
+                    Form1.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
                     Continue While
                 End Try
 
@@ -159,10 +162,10 @@ Public Class RegionMaker
                 ' "{""alert"":""region_ready"",""login"":""shutdown"",""region_name"":""Welcome"",""region_id"":""365d804a-0df1-46cf-8acf-4320a3df3fca""}" String
 
                 If json.login = "enabled" Then
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
-                    Form1.Logger("Ready", json.region_name, "Restart")
+
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
+                        Form1.Logger("RegionReady", "Cannot find UUID for " & json.region_name, "Restart")
                         Continue While
                     End If
 
@@ -170,6 +173,8 @@ Public Class RegionMaker
                     Status(RegionUUID) = SIMSTATUSENUM.Booted
                     Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                     Form1.PropUpdateView() = True
+                    Form1.Print(json.region_name & " " & My.Resources.Ready)
+                    Form1.Logger("Ready", json.region_name, "Restart")
 
                     If Debugger.IsAttached = True Then
                         Try
