@@ -232,7 +232,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Continue While
+                    'Continue While
                     '!!!  does not work as expected at the moment. 
                     'If it Then did we could reattach And capture any quitting region.
 
