@@ -172,7 +172,6 @@ Public Class RegionMaker
                     End If
 
                     Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
-                    Form1.BootedList.Add(RegionUUID)
 
                     ' not used - wait on each region ready instead
 
