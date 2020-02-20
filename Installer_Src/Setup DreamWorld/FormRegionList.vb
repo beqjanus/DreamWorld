@@ -1090,10 +1090,10 @@ Public Class RegionList
             ' shut down all regions in the DOS box
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
             Form1.Logger("RecyclingDown", GroupName, "Restart")
-            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
-                Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-                Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Form1.Logger("RecyclingDown", Form1.PropRegionClass.RegionName(RegionUUID), "Restart")
+            For Each UUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
+                Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                Form1.Logger("RecyclingDown", Form1.PropRegionClass.RegionName(UUID), "Restart")
             Next
 
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
