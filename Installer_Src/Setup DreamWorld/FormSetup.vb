@@ -109,7 +109,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 1 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -1190,14 +1190,20 @@ Public Class Form1
             Try
 
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
-                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1))
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2))
                 ClientSocket.EndConnect(result)
             Catch ex As ArgumentNullException
+                success = 0
             Catch ex As ArgumentOutOfRangeException
+                success = 0
             Catch ex As SocketException
+                success = 0
             Catch ex As AbandonedMutexException
+                success = 0
             Catch ex As ObjectDisposedException
+                success = 0
             Catch ex As InvalidOperationException
+                success = 0
             End Try
 
             If success Then
@@ -2304,7 +2310,6 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
-
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
         PropOpensimIsRunning() = True
@@ -2366,28 +2371,13 @@ Public Class Form1
 
         DoRegion(BootName, RegionUUID) ' setup region ini file
 
-        Dim isRegionRunning As Boolean = False
-        For Each p In Process.GetProcesses
-            If p.MainWindowTitle = GroupName Then
-                Log(My.Resources.Info, My.Resources.DosBoxRunning)
-                isRegionRunning = True
-                Exit For
-            End If
-        Next
-
         Application.DoEvents()
-
-        If Not isRegionRunning Then
-            isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
-            If isRegionRunning Then
-                Log("Info:", "Detected Region " & BootName & " already running on port " & CStr(Regionclass.GroupPort(RegionUUID)))
-            End If
-        End If
+        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         Application.DoEvents()
 
         If isRegionRunning Then
-            Print(BootName & " " & My.Resources.is_already_running_word)
-            Logger(My.Resources.is_already_running_word, BootName, "Restart")
+            Print(GroupName & " " & My.Resources.is_already_running_word)
+            Logger(My.Resources.is_already_running_word, GroupName, "Restart")
             ' if running, grab it and return
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
@@ -2410,8 +2400,8 @@ Public Class Form1
                         Return True
                     End If
                 Next
-                ErrorLog("Cannot find Window " & BootName)
-                Logger("Cannot find Window", BootName, "Restart")
+                ErrorLog("Cannot find Window " & GroupName)
+                Logger("Cannot find Window", GroupName, "Restart")
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -2432,7 +2422,7 @@ Public Class Form1
             If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                Log(My.Resources.Info, GroupName & " skipped as it is Suspended, Resuming it instead")
                 Logger("Suspended, Resuming it instead", GroupName, "Restart")
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -2851,12 +2841,16 @@ Public Class Form1
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
 
-        For Each RegionUUID As String In BootedList
-            Logger("RegionReady Booted:", PropRegionClass.RegionName(RegionUUID), "Restart")
-            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-        Next
-        BootedList.Clear()
+        While BootedList.Count > 0
+            Dim R = BootedList(0)
+            BootedList.RemoveAt(0)
+            Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
+            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
+            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running)
+            PropUpdateView = True
+        End While
+
 
         Dim GroupName As String
         Dim TimerValue As Integer
@@ -2939,15 +2933,7 @@ Public Class Form1
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                    'RecyclingDown = 4
-                    Logger("State is RecyclingDown", GroupName, "Restart")
-                    Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                    For Each R In GroupList
-                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                    Next
-                    Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
-                    PropUpdateView = True ' make form refresh                
+                    ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
@@ -3008,72 +2994,74 @@ Public Class Form1
                     Next
 
                     PropUpdateView = True ' make form refresh
-                    Continue For
+
                 Else
 #Disable Warning CA1303
                     Logger("ExitHandlerPoll", "None of the above!", "Restart")
 #Enable Warning CA1303
                 End If
             End If
+        Next
 
-            ' now look at the exit stack
+        ' now look at the exit stack
 
-            While PropExitList.Count > 0
+        While PropExitList.Count > 0
 
-                RegionName = PropExitList.Keys.First
-                Dim Reason = PropExitList.Item(RegionName)
-                PropExitList.Remove(RegionName)
+            GroupName = PropExitList.Keys.First
+            Dim Reason = PropExitList.Item(GroupName)
+            PropExitList.Remove(GroupName)
 
-                Logger(Reason, RegionName & " Scanned", "Restart")
-                Print(Reason & "" & RegionName)
+            Logger(Reason, GroupName & " Exited", "Restart")
+            Print(Reason & ": " & GroupName)
 
-                ' Need a region number and a Name. Name is either a region or a Group. For groups we
-                ' need to get a region name from the group
-                GroupName = RegionName ' assume a group
-                RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-                Dim PID = PropRegionClass.ProcessID(RegionUUID)
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we
+            ' need to get a region name from the group
 
-                If RegionUUID.Length > 0 Then
-                    GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
-                    Logger(Reason, GroupName & " Scanned", "Restart")
-                End If
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
+            Dim RegionUUID = GroupList(0)
 
-                Logger(GetStateString(Status), GroupName & " TimerValue", "Restart")
-                TimerValue = PropRegionClass.Timer(RegionUUID)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+            Logger(GetStateString(Status), GroupName, "Restart")
+            If Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+                'RecyclingDown = 4
+                Logger("State is RecyclingDown", GroupName, "Restart")
+                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                For Each R In GroupList
+                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                Next
+                Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
 
-                Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
+            ElseIf (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
+            Or Status = RegionMaker.SIMSTATUSENUM.Booting _
+            Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
+            And TimerValue >= 0 Then
+
                 ' Maybe we crashed during warm up or running. 
                 ' Skip prompt if auto restart on crash and restart the beast
 
-                If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booting _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
-                    And TimerValue >= 0 Then
-
-                    Logger("Crash", GroupName & " Crashed", "Restart")
-                    If Settings.RestartOnCrash Then
-                        ' shut down all regions in the DOS box
-                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                        StopGroup(GroupName)
-                    Else
-                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                        Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
-                        If (yesno = vbYes) Then
-                            Try
-                                System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-                            Catch ex As InvalidOperationException
-                            Catch ex As System.ComponentModel.Win32Exception
-                            End Try
-                        End If
-                        StopGroup(GroupName)
-
+                Logger("Crash", GroupName & " Crashed", "Restart")
+                If Settings.RestartOnCrash Then
+                    ' shut down all regions in the DOS box
+                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                    StopGroup(GroupName)
+                Else
+                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                    Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
+                    If (yesno = vbYes) Then
+                        Try
+                            System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                        Catch ex As InvalidOperationException
+                        Catch ex As System.ComponentModel.Win32Exception
+                        End Try
                     End If
-                    PropUpdateView = True
+                    StopGroup(GroupName)
+
                 End If
 
-            End While
-
-        Next
+            End If
+            PropUpdateView = True
+        End While
 
 
         PropExitHandlerIsBusy = False
@@ -4194,7 +4182,7 @@ Public Class Form1
             PropExitList.Clear()
             PropRegionClass.ClearStack()
             PropRegionHandles.Clear()
-            RegionMaker.WebserverList.Clear()
+            PropRegionClass.WebserverList.Clear()
         Catch ex As NotSupportedException
         End Try
 
