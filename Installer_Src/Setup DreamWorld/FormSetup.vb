@@ -111,12 +111,12 @@ Public Class Form1
     Private D As New Dictionary(Of String, String)
     Private ExitInterval As Integer = 2 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
-    Private MyCPUCollection(181) As Double
-    Private MyRAMCollection(181) As Double
-    Private speed As Single = 0
-    Private speed1 As Single = 0
-    Private speed2 As Single = 0
-    Private speed3 As Single = 0
+    Private MyCPUCollection As New List(Of Double)
+    Private MyRAMCollection As New List(Of Double)
+    Private speed As Double = 0
+    Private speed1 As Double = 0
+    Private speed2 As Double = 0
+    Private speed3 As Double = 0
     Private Update_version As String = Nothing
     Private ws As NetServer
 
@@ -143,7 +143,10 @@ Public Class Form1
         If hw.Item(0) = 0 Then
             Me.Height = 238
         Else
-            Me.Height = hw.Item(0)
+            Try
+                Me.Height = hw.Item(0)
+            Catch
+            End Try
         End If
 
         If hw.Item(1) = 0 Then
@@ -166,8 +169,8 @@ Public Class Form1
     End Sub
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
         ''' <summary>Fires when the form changes size or position</summary>
-        Dim Y = Me.Height - 100
-        TextBox1.Size = New Size(TextBox1.Size.Width, Y)
+        'Dim Y = Me.Height - 100
+        ' TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
 #End Region
@@ -303,10 +306,7 @@ Public Class Form1
 
         If Not StartRobust() Then Return False
 
-        ' Allow these to change w/o rebooting
-        DoOpensimINI()
-        DoGloebits()
-        DoBirds()
+
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
@@ -810,13 +810,11 @@ Public Class Form1
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
 
-            Dim i = 180
-            While i >= 0
-                MyCPUCollection(i + 1) = MyCPUCollection(i)
-                i -= 1
-            End While
-            Application.DoEvents()
-            MyCPUCollection(0) = speed
+            MyCPUCollection.Add(CPUAverageSpeed)
+
+            If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
+
+
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
@@ -827,7 +825,8 @@ Public Class Form1
         ''reverse series
 
         ChartWrapper1.ClearChart()
-        ChartWrapper1.AddLinePlot("CPU", MyCPUCollection)
+        Dim CPU1() As Double = MyCPUCollection.ToArray()
+        ChartWrapper1.AddLinePlot("CPU", CPU1)
 
         'RAM
 
@@ -838,14 +837,10 @@ Public Class Form1
 
         Try
             For Each result In results
-                Dim value = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
+                Dim value As Double = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
+                MyRAMCollection.Add(value)
+                If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
 
-                Dim j = 180
-                While j >= 0
-                    MyRAMCollection(j + 1) = MyRAMCollection(j)
-                    j -= 1
-                End While
-                MyRAMCollection(0) = CDbl(value)
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
                 Application.DoEvents()
@@ -857,7 +852,8 @@ Public Class Form1
         End Try
 
         ChartWrapper2.ClearChart()
-        ChartWrapper2.AddLinePlot("RAM", MyRAMCollection)
+        Dim RAM() As Double = MyRAMCollection.ToArray()
+        ChartWrapper2.AddLinePlot("RAM", RAM)
 
     End Sub
     Private Sub SendScriptCmd(cmd As String)
@@ -2309,6 +2305,11 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
+        ' Allow these to change w/o rebooting
+        DoOpensimINI()
+        DoGloebits()
+        DoBirds()
+
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
         PropOpensimIsRunning() = True
@@ -2691,11 +2692,7 @@ Public Class Form1
 
         Print(My.Resources.Setup_Graphs_word)
         ' Graph fill
-        Dim i = 0
-        While i < 180
-            MyCPUCollection(i) = 0
-            i += 1
-        End While
+
 
         Dim msChart = ChartWrapper1.TheChart
         msChart.ChartAreas(0).AxisX.Maximum = 180
@@ -2707,11 +2704,7 @@ Public Class Form1
         ChartWrapper1.AddMarkers = True
         ChartWrapper1.MarkerFreq = 60
 
-        i = 0
-        While i < 180
-            MyRAMCollection(i) = 0
-            i += 1
-        End While
+
 
         msChart = ChartWrapper2.TheChart
         msChart.ChartAreas(0).AxisX.Maximum = 180
@@ -2870,7 +2863,7 @@ Public Class Form1
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
-            Logger(GetStateString(Status), GroupName, "Restart")
+            ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
 
@@ -3118,7 +3111,7 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
-        Print("->Set Gloebits")
+        'Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else
@@ -3585,7 +3578,7 @@ Public Class Form1
 
         ' Opensim.ini
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
-        Print("->Set Opensim.Proto")
+        'Print("->Set Opensim.Proto")
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
@@ -7158,6 +7151,7 @@ Public Class Form1
         Return False
 
     End Function
+
 
 
 
