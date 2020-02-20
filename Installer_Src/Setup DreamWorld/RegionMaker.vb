@@ -229,22 +229,22 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Continue While   ' this bit below interferes with restarting multiple regions in a DOS box                 
+                    'Continue While   ' this bit below interferes with restarting multiple regions in a DOS box                 
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
-
-                    Dim RegionUUID As String = FindRegionByName(json.region_name)
-                    If RegionUUID.Length = 0 Then
-                        Return
+                    Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(json.region_name)
+                    Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
+                    If Not Form1.PropExitList.ContainsKey(GName) Then
+                        Form1.PropExitList.Add(GName, "RegionReady: shutdown ")
                     End If
-                    Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown ")
+
                     Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
 
-                ElseIf json.login = "disabled" Then
-                    Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
-                    Continue While
-                Else
-                    Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                    ElseIf json.login = "disabled" Then
+                        Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                        Continue While
+                    Else
+                        Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
                     Continue While
                 End If
 #Disable Warning CA1031 ' Do not catch general exception types
