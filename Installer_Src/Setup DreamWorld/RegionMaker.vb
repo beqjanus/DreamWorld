@@ -176,11 +176,11 @@ Public Class RegionMaker
 
                     ' not used - wait on each region ready instead
 
-                    'Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
-                    'For Each R As String In GroupList
-                    'Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
-                    'Form1.BootedList.Add(R)
-                    'Next
+                    Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
+                    For Each R As String In GroupList
+                        Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
+                        Form1.BootedList.Add(R)
+                    Next
 
                     Form1.Logger("Ready", json.region_name, "Restart")
 
