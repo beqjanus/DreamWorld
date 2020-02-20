@@ -2849,7 +2849,7 @@ Public Class Form1
             Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
             PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
             PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
-            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Not_Running)
+            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running)
             PropUpdateView = True
         End While
 
