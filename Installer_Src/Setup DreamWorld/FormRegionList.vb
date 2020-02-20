@@ -410,7 +410,7 @@ Public Class RegionList
 
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                PropUpdateView = False
+                ' PropUpdateView = False
                 Return
             End If
             LoadMyListView()
@@ -1193,19 +1193,6 @@ Public Class RegionList
         Form1.Help("RegionList")
     End Sub
 
-    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        Form1.Settings.RegionListView() = ViewType.Maps
-        Form1.Settings.SaveSettings()
-        TheView1 = ViewType.Maps
-        ListView1.View = View.LargeIcon
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = False
-        Timer1.Stop()
-        LoadMyListView()
-
-    End Sub
 
     Private Function PickGroup() As String
 
@@ -1248,6 +1235,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Avatars
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Avatars
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Hide()
@@ -1262,6 +1250,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Icons
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Icons
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         SetScreen(TheView1)
         ListView1.View = View.SmallIcon
         ListView1.Show()
@@ -1277,6 +1266,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Details
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Details
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Show()
@@ -1292,6 +1282,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Maps
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Maps
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.LargeIcon
         ListView1.Show()
