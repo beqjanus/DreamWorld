@@ -1281,8 +1281,8 @@ Public Class Form1
             End Try
             Try
                 AppActivate(PID)
-                SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
-                SendKeys.SendWait(ToLowercaseKeys(command))
+                'SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
+                SendKeys.Send(ToLowercaseKeys(command))
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch
                 Return False
@@ -1698,35 +1698,34 @@ Public Class Form1
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                     Dim ctr = 600 ' 1 minute max to start a region
-                    Dim WaitForIt = True
-                    While WaitForIt
-                        Sleep(100)
+
+                    While True
+
                         If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
                             And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
-                            WaitForIt = True
                         Else
-                            WaitForIt = False
+                            Exit While
                         End If
                         ctr -= 1
-                        If ctr <= 0 Then WaitForIt = False
+                        If ctr <= 0 Then Exit While
+                        Sleep(100)
                     End While
                 End If
             Next
         Else
             Dim ctr = 600 ' 1 minute max to start a region
-            Dim WaitForIt = True
-            While WaitForIt
+
+            While True
                 If CPUAverageSpeed < PropCPUMAX Then
-                    WaitForIt = False
-                    Continue While ' speed up loop if we are already fast enough
+                    Exit While
                 End If
                 Sleep(100)
                 ctr -= 1
-                If ctr <= 0 Then WaitForIt = False
+                If ctr <= 0 Then Exit While
             End While
 
         End If
@@ -1840,13 +1839,12 @@ Public Class Form1
         WindowCounter = 0
 
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
-        Dim status = False
-        While status = False
-            Sleep(100)
-            SetWindowText(hwnd, windowName)
-            status = NativeMethods.SetWindowText(hwnd, windowName)
+
+        While True
+            Dim status = NativeMethods.SetWindowText(hwnd, windowName)
+            If status Then Exit While
             WindowCounter += 1
-            If WindowCounter > 50 Then '  5 seconds
+            If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
@@ -2371,10 +2369,18 @@ Public Class Form1
 
         DoRegion(BootName, RegionUUID) ' setup region ini file
 
-        Application.DoEvents()
-        Dim isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
-        Application.DoEvents()
+        Dim isRegionRunning As Boolean = False
 
+        For Each p In Process.GetProcesses
+            Application.DoEvents()
+            If p.MainWindowTitle = GroupName Then
+                isRegionRunning = True
+                Exit For
+            End If
+        Next
+
+        If Not isRegionRunning Then isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
+        Application.DoEvents()
         If isRegionRunning Then
             Print(GroupName & " " & My.Resources.is_already_running_word)
             Logger(My.Resources.is_already_running_word, GroupName, "Restart")
@@ -2382,7 +2388,7 @@ Public Class Form1
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-
+                    Application.DoEvents()
                     If p.MainWindowTitle = GroupName Then
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -2472,6 +2478,7 @@ Public Class Form1
         End Try
 
         If ok Then
+            SetWindowTextCall(myProcess, GroupName)
             Dim PID = WaitForPID(myProcess)
             ' check if it gave us a PID, if not, it failed.
             If PID = 0 Then
@@ -2489,8 +2496,6 @@ Public Class Form1
             Next
 
             PropUpdateView = True ' make form refresh
-            Application.DoEvents()
-            SetWindowTextCall(myProcess, GroupName)
 
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
             If Not PropRegionHandles.ContainsKey(myProcess.Id) Then
@@ -4111,14 +4116,17 @@ Public Class Form1
                 Dim CountisRunning As Integer = 0
 
                 For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) And
-                         PropRegionClass.RegionEnabled(RegionUUID) Then
-                        If CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
-                            CountisRunning += 1
-                        Else
-                            StopGroup(PropRegionClass.GroupName(RegionUUID))
-                            PropUpdateView = True ' make form refresh
-                        End If
+                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) _
+                        And PropRegionClass.RegionEnabled(RegionUUID) Then
+
+                        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+                        For Each p In Process.GetProcesses
+                            Application.DoEvents()
+                            If p.MainWindowTitle = GroupName Then
+                                CountisRunning += 1
+                                Exit For
+                            End If
+                        Next
                     End If
                     Application.DoEvents()
                     If CountisRunning = 0 Then Exit For
