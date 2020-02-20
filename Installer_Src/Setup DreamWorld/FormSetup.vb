@@ -109,7 +109,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 1 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection(181) As Double
     Private MyRAMCollection(181) As Double
@@ -6708,6 +6708,7 @@ Public Class Form1
 
         If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            Application.DoEvents()
             RestartDOSboxes()
         End If
 
