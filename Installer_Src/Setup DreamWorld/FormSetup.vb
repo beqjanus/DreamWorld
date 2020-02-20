@@ -143,11 +143,14 @@ Public Class Form1
         If hw.Item(0) = 0 Then
             Me.Height = 238
         Else
+
+#Disable Warning CA1031
             Try
                 Me.Height = hw.Item(0)
             Catch
             End Try
         End If
+#Enable Warning CA1031
 
         If hw.Item(1) = 0 Then
             Me.Width = 365
@@ -4086,7 +4089,7 @@ Public Class Form1
             Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                Print(My.Resources.Stopping_word & " " & PropRegionClass.GroupName(RegionUUID))
+                Print(PropRegionClass.GroupName(RegionUUID) & " " & My.Resources.Stopping_word)
                 SequentialPause()
 
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
@@ -4963,7 +4966,7 @@ Public Class Form1
             Return
         End If
 
-        Print(My.Resources.Stopping_word & " MySQL")
+        Print("MySQL " & My.Resources.Stopping_word)
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5043,7 +5046,7 @@ Public Class Form1
 
     Public Sub StopRobust()
 
-        Print(My.Resources.Stopping_word & " Robust")
+        Print("Robust " & My.Resources.Stopping_word)
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
@@ -6812,12 +6815,12 @@ Public Class Form1
 
         ' Could be "FALSE"
         Try
-            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = PropMyVersion
+            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
-            Settings.SkipUpdateCheck = PropMyVersion
+            Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
         End Try
+#Enable Warning CA1031
         Dim uv As Single = 0
         Try
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)

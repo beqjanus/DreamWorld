@@ -260,7 +260,7 @@ Partial Class Form1
         '
         'BasqueToolStripMenuItem
         '
-        Me.BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources._250px_Flag_of_the_Basque_Country_svg
+        Me.BasqueToolStripMenuItem.Image = Nothing
         Me.BasqueToolStripMenuItem.Name = "BasqueToolStripMenuItem"
         Me.BasqueToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.BasqueToolStripMenuItem.Text = "Basque"

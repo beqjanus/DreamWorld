@@ -1040,7 +1040,7 @@ Public Class RegionList
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
 
-                    Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
+                    Form1.Print(My.Resources.Not_Running & " " & My.Resources.Stopping_word)
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
@@ -1168,7 +1168,7 @@ Public Class RegionList
                 Dim hwnd = Form1.GetHwnd(GroupName)
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
                 Form1.SequentialPause()
-                Form1.Print(My.Resources.Restarting_word & " " & GroupName)
+                Form1.Print(My.Resources.Not_Running & " " & My.Resources.Restarting_word)
                 Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
