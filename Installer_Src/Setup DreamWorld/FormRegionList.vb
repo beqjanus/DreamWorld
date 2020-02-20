@@ -38,7 +38,7 @@ Public Class RegionList
 
     Private pixels As Integer = 70
     Private TheView As Integer = ViewType.Details
-    Private Timertick As Integer = 0
+
     Private ViewNotBusy As Boolean
 
     Private Enum ViewType As Integer
@@ -132,14 +132,6 @@ Public Class RegionList
         End Set
     End Property
 
-    Public Property Timertick1 As Integer
-        Get
-            Return Timertick
-        End Get
-        Set(value As Integer)
-            Timertick = value
-        End Set
-    End Property
 
     Public Property ViewBusy As Boolean
         Get
@@ -416,14 +408,14 @@ Public Class RegionList
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        If PropUpdateView() Or Timertick1 Mod 480 = 0 Then ' force a refresh
+        If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
                 PropUpdateView = False
                 Return
             End If
             LoadMyListView()
         End If
-        Timertick1 += 1
+
 
     End Sub
 
@@ -1045,7 +1037,7 @@ Public Class RegionList
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
+                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
 
                     Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
@@ -1156,34 +1148,39 @@ Public Class RegionList
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
+        Form1.PropOpensimIsRunning() = True
+        Form1.StartMySQL()
+        Form1.StartRobust()
+        Form1.Timer1.Interval = 1000
+        Form1.Timer1.Start() 'Timer starts functioning
+        Form1._TimerBusy = 0
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
-            If Form1.PropOpensimIsRunning() _
-                And Form1.PropRegionClass.RegionEnabled(RegionUUID) _
-                And Not Form1.AvatarsIsInGroup(GroupName) And
-                (Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting _
-                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
+            Dim Status = Form1.PropRegionClass.Status(RegionUUID)
+            If Form1.PropRegionClass.RegionEnabled(RegionUUID) And
+                Not Form1.AvatarsIsInGroup(GroupName) And
+                Not Form1.PropAborting And
+                (Status = RegionMaker.SIMSTATUSENUM.Booting _
+                Or Status = RegionMaker.SIMSTATUSENUM.Booted _
+                Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = Form1.GetHwnd(GroupName)
-                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
-                    Form1.SequentialPause()
-                    Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(RegionUUID))
-                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
-                End If
+                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+                Form1.SequentialPause()
+                Form1.Print(My.Resources.Restarting_word & " " & GroupName)
+                Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
-                If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
                     Next
                 Else
                     ' shut down all regions in the DOS box
-                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
                         Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                     Next
-
                 End If
 
                 PropUpdateView = True ' make form refresh
