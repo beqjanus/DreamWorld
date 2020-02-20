@@ -223,7 +223,7 @@ Public Class Form1
             Dim BTime As Integer = CInt(Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
-                Print(My.Resources.AutorestartTime & CStr(BTime) & " + 30.")
+                Print(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
             End If
         End If
 
@@ -2442,7 +2442,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess()
 
-        Print(My.Resources.Starting_word & " " & BootName)
+        Print(BootName & " " & My.Resources.Starting_word)
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -2846,7 +2846,7 @@ Public Class Form1
             Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
             PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
             PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
-            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running)
+            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Not_Running)
             PropUpdateView = True
         End While
 
@@ -2919,7 +2919,7 @@ Public Class Form1
                             Next
                             Logger("State changed to RecyclingDown", GroupName, "Restart")
                             ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-                            Print(My.Resources.Automatic_restart_word & GroupName)
+                            Print(GroupName & " " & My.Resources.Automatic_restart_word)
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
@@ -2985,7 +2985,7 @@ Public Class Form1
 
                     'RestartStage2 = 11
                     Logger("State is Restart Pending", GroupName, "Restart")
-                    Print(My.Resources.Restart_Pending_for_word & " " & GroupName)
+                    Print(GroupName & " " & My.Resources.Restart_Pending_word)
                     For Each R In GroupList
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
@@ -3011,7 +3011,7 @@ Public Class Form1
             PropExitList.Remove(GroupName)
 
             Logger(Reason, GroupName & " Exited", "Restart")
-            Print(Reason & ": " & GroupName)
+            Print(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we
             ' need to get a region name from the group
@@ -3028,7 +3028,7 @@ Public Class Form1
             If Status = RegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
                 'RecyclingDown = 4
                 Logger("State is RecyclingDown", GroupName, "Restart")
-                Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
+                Print(GroupName & " " & My.Resources.Restart_Queued_word)
                 For Each R In GroupList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
                     PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
@@ -5132,7 +5132,7 @@ Public Class Form1
 
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
-        Print(My.Resources.Starting_word & " Robust")
+        Print("Robust " & My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = True ' so we can redirect streams

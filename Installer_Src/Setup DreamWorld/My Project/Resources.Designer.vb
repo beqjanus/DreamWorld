@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -6106,11 +6106,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Restart Pending for.
+        '''  Looks up a localized string similar to Restart Pending.
         '''</summary>
-        Friend ReadOnly Property Restart_Pending_for_word() As String
+        Friend ReadOnly Property Restart_Pending_word() As String
             Get
-                Return ResourceManager.GetString("Restart_Pending_for_word", resourceCulture)
+                Return ResourceManager.GetString("Restart_Pending_word", resourceCulture)
             End Get
         End Property
         
@@ -6133,11 +6133,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Restart Queued for.
+        '''  Looks up a localized string similar to Restart Queued.
         '''</summary>
-        Friend ReadOnly Property Restart_Queued_for_word() As String
+        Friend ReadOnly Property Restart_Queued_word() As String
             Get
-                Return ResourceManager.GetString("Restart_Queued_for_word", resourceCulture)
+                Return ResourceManager.GetString("Restart_Queued_word", resourceCulture)
             End Get
         End Property
         
