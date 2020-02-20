@@ -229,7 +229,7 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    'Continue While   ' this bit below interferes with restarting multiple regions in a DOS box                 
+                    Continue While   ' this bit below interferes with restarting multiple regions in a DOS box                 
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
                     Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(json.region_name)
