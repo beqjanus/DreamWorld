@@ -1153,7 +1153,7 @@ Public Class RegionList
         Form1.StartRobust()
         Form1.Timer1.Interval = 1000
         Form1.Timer1.Start() 'Timer starts functioning
-        Form1._TimerBusy = 0
+        Form1.TimerBusy = 0
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)

@@ -1299,7 +1299,9 @@ Public Class RegionMaker
         End Set
     End Property
 
+#Disable Warning CA2227 ' Collection properties should be read only
     Public Property WebserverList As List(Of String)
+#Enable Warning CA2227 ' Collection properties should be read only
         Get
             Return _webserverList
         End Get
