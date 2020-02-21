@@ -3,8 +3,11 @@
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
 V3.38 Beta
-Fixes to region restart
-
+Extensive refactoring and state machine changed in region restart.  
+Main form resizes in all screen scale font size.
+Updated 15460 translations, including hand-updated German and French. Thank you very much to all the volunteers!
+Should be able to change most settings and restart the region without shutting down the grid.
+Sped up lots of places and much more threading during boot and shutdown.  
 
 V3.37 Beta
 Updates started at 0, should be  at curtrent version to prevent repetitive begging for updates.
