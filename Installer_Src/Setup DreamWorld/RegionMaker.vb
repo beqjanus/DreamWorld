@@ -37,7 +37,7 @@ Public Class RegionMaker
     Dim json As New JSONresult
     Private RegionList As New Dictionary(Of String, Region_data)
     Dim TeleportAvatarDict As New Dictionary(Of String, String)
-    Dim WebserverList As New List(Of String)
+    Private _webserverList As New List(Of String)
 
     Public Enum REGIONTIMER As Integer
         Paused = -2
@@ -172,19 +172,15 @@ Public Class RegionMaker
                     End If
 
                     Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
-                    Form1.BootedList.Add(RegionUUID)
 
                     ' not used - wait on each region ready instead
 
-                    'Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
-                    'For Each R As String In GroupList
-                    'Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
-                    'Form1.BootedList.Add(R)
-                    'Next
+                    Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
+                    For Each R As String In GroupList
+                        Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
+                        Form1.BootedList.Add(R)
+                    Next
 
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
-                    Form1.PropUpdateView() = True
-                    Form1.Print(json.region_name & " " & My.Resources.Ready)
                     Form1.Logger("Ready", json.region_name, "Restart")
 
                     If Debugger.IsAttached = True Then
@@ -232,18 +228,16 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    Continue While
-                    '!!!  does not work as expected at the moment. 
-                    'If it Then did we could reattach And capture any quitting region.
+                    Continue While   ' this bit below interferes with restarting multiple regions in a DOS box                 
 
                     Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
+                    Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(json.region_name)
+                    Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
+                    If Not Form1.PropExitList.ContainsKey(GName) Then
+                        Form1.PropExitList.Add(GName, "RegionReady: shutdown ")
+                    End If
 
-                        Dim RegionUUID As String = FindRegionByName(json.region_name)
-                        If RegionUUID.Length = 0 Then
-                            Return
-                        End If
-                        Form1.PropExitList.Add(json.region_name, "RegionReady: shutdown ")
-                        Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
+                    Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
 
                     ElseIf json.login = "disabled" Then
                         Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
@@ -1302,6 +1296,15 @@ Public Class RegionMaker
             If RegionUUID Is Nothing Then Return
             If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._Tides = Value
+        End Set
+    End Property
+
+    Public Property WebserverList As List(Of String)
+        Get
+            Return _webserverList
+        End Get
+        Set(value As List(Of String))
+            _webserverList = value
         End Set
     End Property
 

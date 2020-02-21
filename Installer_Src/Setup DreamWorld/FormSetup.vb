@@ -37,7 +37,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.37"
+    Private _MyVersion As String = "3.38"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -96,7 +96,7 @@ Public Class Form1
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartApache As Boolean = False
     Private _RestartMysql As Boolean = False
-
+    Public _TimerBusy As Integer = 0
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
@@ -109,14 +109,14 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 5 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 2 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
-    Private MyCPUCollection(181) As Double
-    Private MyRAMCollection(181) As Double
-    Private speed As Single = 0
-    Private speed1 As Single = 0
-    Private speed2 As Single = 0
-    Private speed3 As Single = 0
+    Private MyCPUCollection As New List(Of Double)
+    Private MyRAMCollection As New List(Of Double)
+    Private speed As Double = 0
+    Private speed1 As Double = 0
+    Private speed2 As Double = 0
+    Private speed3 As Double = 0
     Private Update_version As String = Nothing
     Private ws As NetServer
 
@@ -143,8 +143,14 @@ Public Class Form1
         If hw.Item(0) = 0 Then
             Me.Height = 238
         Else
-            Me.Height = hw.Item(0)
+
+#Disable Warning CA1031
+            Try
+                Me.Height = hw.Item(0)
+            Catch
+            End Try
         End If
+#Enable Warning CA1031
 
         If hw.Item(1) = 0 Then
             Me.Width = 365
@@ -166,8 +172,8 @@ Public Class Form1
     End Sub
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
         ''' <summary>Fires when the form changes size or position</summary>
-        Dim Y = Me.Height - 100
-        TextBox1.Size = New Size(TextBox1.Size.Width, Y)
+        'Dim Y = Me.Height - 100
+        ' TextBox1.Size = New Size(TextBox1.Size.Width, Y)
     End Sub
 
 #End Region
@@ -220,7 +226,7 @@ Public Class Form1
             Dim BTime As Integer = CInt(Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
-                Print(My.Resources.AutorestartTime & CStr(BTime) & " + 30.")
+                Print(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
             End If
         End If
 
@@ -303,10 +309,7 @@ Public Class Form1
 
         If Not StartRobust() Then Return False
 
-        ' Allow these to change w/o rebooting
-        DoOpensimINI()
-        DoGloebits()
-        DoBirds()
+
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
@@ -810,13 +813,11 @@ Public Class Form1
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
 
-            Dim i = 180
-            While i >= 0
-                MyCPUCollection(i + 1) = MyCPUCollection(i)
-                i -= 1
-            End While
-            Application.DoEvents()
-            MyCPUCollection(0) = speed
+            MyCPUCollection.Add(CPUAverageSpeed)
+
+            If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
+
+
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
@@ -827,7 +828,8 @@ Public Class Form1
         ''reverse series
 
         ChartWrapper1.ClearChart()
-        ChartWrapper1.AddLinePlot("CPU", MyCPUCollection)
+        Dim CPU1() As Double = MyCPUCollection.ToArray()
+        ChartWrapper1.AddLinePlot("CPU", CPU1)
 
         'RAM
 
@@ -838,14 +840,10 @@ Public Class Form1
 
         Try
             For Each result In results
-                Dim value = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
+                Dim value As Double = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
+                MyRAMCollection.Add(value)
+                If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
 
-                Dim j = 180
-                While j >= 0
-                    MyRAMCollection(j + 1) = MyRAMCollection(j)
-                    j -= 1
-                End While
-                MyRAMCollection(0) = CDbl(value)
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
                 Application.DoEvents()
@@ -857,7 +855,8 @@ Public Class Form1
         End Try
 
         ChartWrapper2.ClearChart()
-        ChartWrapper2.AddLinePlot("RAM", MyRAMCollection)
+        Dim RAM() As Double = MyRAMCollection.ToArray()
+        ChartWrapper2.AddLinePlot("RAM", RAM)
 
     End Sub
     Private Sub SendScriptCmd(cmd As String)
@@ -1190,14 +1189,20 @@ Public Class Form1
             Try
 
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
-                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1))
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2))
                 ClientSocket.EndConnect(result)
             Catch ex As ArgumentNullException
+                success = 0
             Catch ex As ArgumentOutOfRangeException
+                success = 0
             Catch ex As SocketException
+                success = 0
             Catch ex As AbandonedMutexException
+                success = 0
             Catch ex As ObjectDisposedException
+                success = 0
             Catch ex As InvalidOperationException
+                success = 0
             End Try
 
             If success Then
@@ -1245,6 +1250,8 @@ Public Class Form1
             If RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
+                Application.DoEvents()
+
                 Try
                     If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1275,8 +1282,8 @@ Public Class Form1
             End Try
             Try
                 AppActivate(PID)
-                SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
-                SendKeys.SendWait(ToLowercaseKeys(command))
+                SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
+                SendKeys.Send(ToLowercaseKeys(command))
 #Disable Warning CA1031 ' Do not catch general exception types
             Catch
                 Return False
@@ -1692,35 +1699,34 @@ Public Class Form1
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                     Dim ctr = 600 ' 1 minute max to start a region
-                    Dim WaitForIt = True
-                    While WaitForIt
-                        Sleep(100)
+
+                    While True
+
                         If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
                             And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
-                            WaitForIt = True
                         Else
-                            WaitForIt = False
+                            Exit While
                         End If
                         ctr -= 1
-                        If ctr <= 0 Then WaitForIt = False
+                        If ctr <= 0 Then Exit While
+                        Sleep(100)
                     End While
                 End If
             Next
         Else
             Dim ctr = 600 ' 1 minute max to start a region
-            Dim WaitForIt = True
-            While WaitForIt
+
+            While True
                 If CPUAverageSpeed < PropCPUMAX Then
-                    WaitForIt = False
-                    Continue While ' speed up loop if we are already fast enough
+                    Exit While
                 End If
                 Sleep(100)
                 ctr -= 1
-                If ctr <= 0 Then WaitForIt = False
+                If ctr <= 0 Then Exit While
             End While
 
         End If
@@ -1832,15 +1838,13 @@ Public Class Form1
         End Try
 
         WindowCounter = 0
-
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
-        Dim status = False
-        While status = False
-            Sleep(100)
-            SetWindowText(hwnd, windowName)
-            status = NativeMethods.SetWindowText(hwnd, windowName)
+        While True
+            Dim status = SetWindowText(hwnd, windowName)
+            status = SetWindowText(hwnd, windowName)
+            If status Then Exit While
             WindowCounter += 1
-            If WindowCounter > 50 Then '  5 seconds
+            If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
@@ -2304,6 +2308,10 @@ Public Class Form1
         If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
+        ' Allow these to change w/o rebooting
+        DoOpensimINI()
+        DoGloebits()
+        DoBirds()
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
@@ -2367,32 +2375,25 @@ Public Class Form1
         DoRegion(BootName, RegionUUID) ' setup region ini file
 
         Dim isRegionRunning As Boolean = False
+
         For Each p In Process.GetProcesses
+            Application.DoEvents()
             If p.MainWindowTitle = GroupName Then
-                Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 isRegionRunning = True
                 Exit For
             End If
         Next
 
+        If Not isRegionRunning Then isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
         Application.DoEvents()
-
-        If Not isRegionRunning Then
-            isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
-            If isRegionRunning Then
-                Log("Info:", "Detected Region " & BootName & " already running on port " & CStr(Regionclass.GroupPort(RegionUUID)))
-            End If
-        End If
-        Application.DoEvents()
-
         If isRegionRunning Then
-            Print(BootName & " " & My.Resources.is_already_running_word)
-            Logger(My.Resources.is_already_running_word, BootName, "Restart")
+            Print(GroupName & " " & My.Resources.is_already_running_word)
+            Logger(My.Resources.is_already_running_word, GroupName, "Restart")
             ' if running, grab it and return
             If Regionclass.ProcessID(RegionUUID) = 0 Then
                 Dim listP = Process.GetProcesses
                 For Each p In listP
-
+                    Application.DoEvents()
                     If p.MainWindowTitle = GroupName Then
                         If Not PropRegionHandles.ContainsKey(p.Id) Then
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
@@ -2410,8 +2411,8 @@ Public Class Form1
                         Return True
                     End If
                 Next
-                ErrorLog("Cannot find Window " & BootName)
-                Logger("Cannot find Window", BootName, "Restart")
+                ErrorLog("Cannot find Window " & GroupName)
+                Logger("Cannot find Window", GroupName, "Restart")
                 Return False
             Else
                 If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
@@ -2432,7 +2433,7 @@ Public Class Form1
             If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                Log(My.Resources.Info, GroupName & " skipped as it is Suspended, Resuming it instead")
                 Logger("Suspended, Resuming it instead", GroupName, "Restart")
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -2444,7 +2445,7 @@ Public Class Form1
 
         Dim myProcess As Process = GetNewProcess()
 
-        Print(My.Resources.Starting_word & " " & BootName)
+        Print(BootName & " " & My.Resources.Starting_word)
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -2482,6 +2483,7 @@ Public Class Form1
         End Try
 
         If ok Then
+
             Dim PID = WaitForPID(myProcess)
             ' check if it gave us a PID, if not, it failed.
             If PID = 0 Then
@@ -2491,7 +2493,7 @@ Public Class Form1
                 Logger("No PID", GroupName, "Restart")
                 Return False
             End If
-
+            SetWindowTextCall(myProcess, GroupName)
             For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
@@ -2499,8 +2501,6 @@ Public Class Form1
             Next
 
             PropUpdateView = True ' make form refresh
-            Application.DoEvents()
-            SetWindowTextCall(myProcess, GroupName)
 
             Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
             If Not PropRegionHandles.ContainsKey(myProcess.Id) Then
@@ -2695,11 +2695,7 @@ Public Class Form1
 
         Print(My.Resources.Setup_Graphs_word)
         ' Graph fill
-        Dim i = 0
-        While i < 180
-            MyCPUCollection(i) = 0
-            i += 1
-        End While
+
 
         Dim msChart = ChartWrapper1.TheChart
         msChart.ChartAreas(0).AxisX.Maximum = 180
@@ -2711,11 +2707,7 @@ Public Class Form1
         ChartWrapper1.AddMarkers = True
         ChartWrapper1.MarkerFreq = 60
 
-        i = 0
-        While i < 180
-            MyRAMCollection(i) = 0
-            i += 1
-        End While
+
 
         msChart = ChartWrapper2.TheChart
         msChart.ChartAreas(0).AxisX.Maximum = 180
@@ -2851,18 +2843,22 @@ Public Class Form1
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
 
-        For Each RegionUUID As String In BootedList
-            Logger("RegionReady Booted:", PropRegionClass.RegionName(RegionUUID), "Restart")
-            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
-        Next
-        BootedList.Clear()
+        While BootedList.Count > 0
+            Dim R = BootedList(0)
+            BootedList.RemoveAt(0)
+            Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
+            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
+            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running)
+            PropUpdateView = True
+        End While
+
 
         Dim GroupName As String
         Dim TimerValue As Integer
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-
+            Application.DoEvents()
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
                 PropRegionClass.Timer(RegionUUID) += 1
@@ -2870,7 +2866,7 @@ Public Class Form1
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
-            Logger(GetStateString(Status), GroupName, "Restart")
+            ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
 
@@ -2879,7 +2875,7 @@ Public Class Form1
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
 
                     'Stopped = 0
-                    Logger("State is Stopped", GroupName, "Restart")
+                    'Logger("State is Stopped", GroupName, "Restart")
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
@@ -2891,7 +2887,7 @@ Public Class Form1
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
 
                     'Booted = 2
-                    Logger("State is Booted", GroupName, "Restart")
+                    'Logger("State is Booted", GroupName, "Restart")
 
                     ' May be too long running?
                     TimerValue = PropRegionClass.Timer(RegionUUID)
@@ -2925,8 +2921,8 @@ Public Class Form1
                                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             Next
                             Logger("State changed to RecyclingDown", GroupName, "Restart")
-                            Print(My.Resources.Automatic_restart_word & GroupName)
                             ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            Print(GroupName & " " & My.Resources.Automatic_restart_word)
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
@@ -2939,15 +2935,8 @@ Public Class Form1
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-                    'RecyclingDown = 4
+
                     Logger("State is RecyclingDown", GroupName, "Restart")
-                    Print(My.Resources.Restart_Queued_for_word & " " & GroupName)
-                    For Each R In GroupList
-                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
-                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
-                    Next
-                    Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
-                    PropUpdateView = True ' make form refresh                
                     Continue For
 
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
@@ -2963,8 +2952,7 @@ Public Class Form1
                     ' if a RestartPending is signaled, boot it up
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
                     Logger("State is RestartPending", GroupName, "Restart")
-                    'RestartPending = 6
-                    Logger("State is Booting", PropRegionClass.RegionName(RegionUUID), "Restart")
+                    'RestartPending = 6                    
                     Boot(PropRegionClass, RegionName)
                     Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Restart")
                     PropUpdateView = True
@@ -3000,7 +2988,7 @@ Public Class Form1
 
                     'RestartStage2 = 11
                     Logger("State is Restart Pending", GroupName, "Restart")
-                    Print(My.Resources.Restart_Pending_for_word & " " & GroupName)
+                    Print(GroupName & " " & My.Resources.Restart_Pending_word)
                     For Each R In GroupList
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
@@ -3008,72 +2996,79 @@ Public Class Form1
                     Next
 
                     PropUpdateView = True ' make form refresh
-                    Continue For
+
                 Else
 #Disable Warning CA1303
                     Logger("ExitHandlerPoll", "None of the above!", "Restart")
 #Enable Warning CA1303
                 End If
             End If
+        Next
 
-            ' now look at the exit stack
+        ' now look at the exit stack
 
-            While PropExitList.Count > 0
+        While PropExitList.Count > 0
 
-                RegionName = PropExitList.Keys.First
-                Dim Reason = PropExitList.Item(RegionName)
-                PropExitList.Remove(RegionName)
+            GroupName = PropExitList.Keys.First
+            Dim Reason = PropExitList.Item(GroupName)
+            PropExitList.Remove(GroupName)
 
-                Logger(Reason, RegionName & " Scanned", "Restart")
-                Print(Reason & "" & RegionName)
+            Logger(Reason, GroupName & " Exited", "Restart")
+            Print(GroupName & " " & Reason)
 
-                ' Need a region number and a Name. Name is either a region or a Group. For groups we
-                ' need to get a region name from the group
-                GroupName = RegionName ' assume a group
-                RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-                Dim PID = PropRegionClass.ProcessID(RegionUUID)
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we
+            ' need to get a region name from the group
+            Dim RegionUUID As String = ""
+            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
+            If GroupList.Count > 0 Then
+                RegionUUID = GroupList(0)
+            Else
+                Logger("No UUID", GroupName, "Restart")
+            End If
 
-                If RegionUUID.Length > 0 Then
-                    GroupName = PropRegionClass.GroupName(RegionUUID) ' Yup, Get Name of the Dos box
-                    Logger(Reason, GroupName & " Scanned", "Restart")
-                End If
+            Dim Status = PropRegionClass.Status(RegionUUID)
+            Logger(GetStateString(Status), GroupName, "Restart")
+            If Status = RegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
+                'RecyclingDown = 4
+                Logger("State is RecyclingDown", GroupName, "Restart")
+                Print(GroupName & " " & My.Resources.Restart_Queued_word)
+                For Each R In GroupList
+                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
+                    PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                Next
+                Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
 
-                Logger(GetStateString(Status), GroupName & " TimerValue", "Restart")
-                TimerValue = PropRegionClass.Timer(RegionUUID)
+            ElseIf (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
+                Status = RegionMaker.SIMSTATUSENUM.Booting Or
+                Status = RegionMaker.SIMSTATUSENUM.Booted) And
+                TimerValue >= 0 And
+                Not PropAborting Then
 
-                Logger(CStr(TimerValue), GroupName & " TimerValue", "Restart")
                 ' Maybe we crashed during warm up or running. 
                 ' Skip prompt if auto restart on crash and restart the beast
 
-                If (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booting _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booted) _
-                    And TimerValue >= 0 Then
-
-                    Logger("Crash", GroupName & " Crashed", "Restart")
-                    If Settings.RestartOnCrash Then
-                        ' shut down all regions in the DOS box
-                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                        StopGroup(GroupName)
-                    Else
-                        Print(GroupName & " " & My.Resources.Quit_unexpectedly)
-                        Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
-                        If (yesno = vbYes) Then
-                            Try
-                                System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-                            Catch ex As InvalidOperationException
-                            Catch ex As System.ComponentModel.Win32Exception
-                            End Try
-                        End If
-                        StopGroup(GroupName)
-
+                Logger("Crash", GroupName & " Crashed", "Restart")
+                If Settings.RestartOnCrash Then
+                    ' shut down all regions in the DOS box
+                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                    StopGroup(GroupName)
+                Else
+                    Print(GroupName & " " & My.Resources.Quit_unexpectedly)
+                    Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
+                    If (yesno = vbYes) Then
+                        Try
+                            System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                        Catch ex As InvalidOperationException
+                        Catch ex As System.ComponentModel.Win32Exception
+                        End Try
                     End If
-                    PropUpdateView = True
+                    StopGroup(GroupName)
+
                 End If
 
-            End While
-
-        Next
+            End If
+            PropUpdateView = True
+        End While
 
 
         PropExitHandlerIsBusy = False
@@ -3119,7 +3114,7 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
-        Print("->Set Gloebits")
+        'Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
         Else
@@ -3586,7 +3581,7 @@ Public Class Form1
 
         ' Opensim.ini
         If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
-        Print("->Set Opensim.Proto")
+        'Print("->Set Opensim.Proto")
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
@@ -4094,7 +4089,7 @@ Public Class Form1
             Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                Print(My.Resources.Stopping_word & " " & PropRegionClass.GroupName(RegionUUID))
+                Print(PropRegionClass.GroupName(RegionUUID) & " " & My.Resources.Stopping_word)
                 SequentialPause()
 
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
@@ -4123,14 +4118,17 @@ Public Class Form1
                 Dim CountisRunning As Integer = 0
 
                 For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) And
-                         PropRegionClass.RegionEnabled(RegionUUID) Then
-                        If CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
-                            CountisRunning += 1
-                        Else
-                            StopGroup(PropRegionClass.GroupName(RegionUUID))
-                            PropUpdateView = True ' make form refresh
-                        End If
+                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) _
+                        And PropRegionClass.RegionEnabled(RegionUUID) Then
+
+                        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+                        For Each p In Process.GetProcesses
+                            Application.DoEvents()
+                            If p.MainWindowTitle = GroupName Then
+                                CountisRunning += 1
+                                Exit For
+                            End If
+                        Next
                     End If
                     Application.DoEvents()
                     If CountisRunning = 0 Then Exit For
@@ -4194,6 +4192,7 @@ Public Class Form1
             PropExitList.Clear()
             PropRegionClass.ClearStack()
             PropRegionHandles.Clear()
+            PropRegionClass.WebserverList.Clear()
         Catch ex As NotSupportedException
         End Try
 
@@ -4967,7 +4966,7 @@ Public Class Form1
             Return
         End If
 
-        Print(My.Resources.Stopping_word & " MySQL")
+        Print("MySQL " & My.Resources.Stopping_word)
 
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -5047,7 +5046,7 @@ Public Class Form1
 
     Public Sub StopRobust()
 
-        Print(My.Resources.Stopping_word & " Robust")
+        Print("Robust " & My.Resources.Stopping_word)
         ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
@@ -5136,7 +5135,7 @@ Public Class Form1
 
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
-        Print(My.Resources.Starting_word & " Robust")
+        Print("Robust " & My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -6701,10 +6700,19 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        Chart() ' do charts collection each second
+        If _TimerBusy > 0 And _TimerBusy < 15 Then
+            _TimerBusy += 1
+            Return
+        End If
 
+        _TimerBusy = 1
+
+
+        Chart() ' do charts collection each second
+        Application.DoEvents()
         If Not PropOpensimIsRunning() Then
             Timer1.Stop()
+            _TimerBusy = 0
             Return
         End If
 
@@ -6712,14 +6720,18 @@ Public Class Form1
 
         If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count  seconds
+            Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleporters
+            Application.DoEvents()
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP
 
         If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            Application.DoEvents()
             RestartDOSboxes()
+            Application.DoEvents()
         End If
 
         ' every 5 minutes
@@ -6731,13 +6743,16 @@ Public Class Form1
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
+            Application.DoEvents()
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
+            Application.DoEvents()
         End If
 
         PropDNSSTimer += 1
+        _TimerBusy = 0
 
     End Sub
     Private Sub RunDataSnapshot()
@@ -6800,12 +6815,12 @@ Public Class Form1
 
         ' Could be "FALSE"
         Try
-            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = PropMyVersion
+            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
-            Settings.SkipUpdateCheck = PropMyVersion
+            Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
         End Try
+#Enable Warning CA1031
         Dim uv As Single = 0
         Try
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
@@ -7139,6 +7154,7 @@ Public Class Form1
         Return False
 
     End Function
+
 
 
 

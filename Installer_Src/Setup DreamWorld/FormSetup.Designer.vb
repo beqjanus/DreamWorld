@@ -145,9 +145,7 @@ Partial Class Form1
         Me.RobustPictureBox = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.IceCastPicturebox = New System.Windows.Forms.PictureBox()
-        Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.AvatarLabel = New System.Windows.Forms.Label()
-        Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.AviLabel = New System.Windows.Forms.Label()
         Me.PercentCPU = New System.Windows.Forms.Label()
         Me.PercentRAM = New System.Windows.Forms.Label()
@@ -160,12 +158,16 @@ Partial Class Form1
         Me.BusyButton = New System.Windows.Forms.Button()
         Me.StopButton = New System.Windows.Forms.Button()
         Me.StartButton = New System.Windows.Forms.Button()
+        Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
+        Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.ApachePictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MysqlPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.IceCastPicturebox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FileToolStripMenuItem
@@ -202,7 +204,7 @@ Partial Class Form1
         Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         '
         'ConsoleToolStripMenuItem1
@@ -210,7 +212,7 @@ Partial Class Form1
         Me.ConsoleToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHide, Me.mnuShow, Me.mnuHideAllways})
         Me.ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ConsoleToolStripMenuItem1.Name = "ConsoleToolStripMenuItem1"
-        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(157, 22)
         Me.ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
         Me.ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
         '
@@ -219,19 +221,19 @@ Partial Class Form1
         Me.mnuHide.Checked = True
         Me.mnuHide.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuHide.Name = "mnuHide"
-        Me.mnuHide.Size = New System.Drawing.Size(180, 22)
+        Me.mnuHide.Size = New System.Drawing.Size(225, 22)
         Me.mnuHide.Text = Global.Outworldz.My.Resources.Resources.Hide
         '
         'mnuShow
         '
         Me.mnuShow.Name = "mnuShow"
-        Me.mnuShow.Size = New System.Drawing.Size(180, 22)
+        Me.mnuShow.Size = New System.Drawing.Size(225, 22)
         Me.mnuShow.Text = Global.Outworldz.My.Resources.Resources.Show_word
         '
         'mnuHideAllways
         '
         Me.mnuHideAllways.Name = "mnuHideAllways"
-        Me.mnuHideAllways.Size = New System.Drawing.Size(180, 22)
+        Me.mnuHideAllways.Size = New System.Drawing.Size(225, 22)
         Me.mnuHideAllways.Text = Global.Outworldz.My.Resources.Resources.Hide_Allways_word
         '
         'LanguageToolStripMenuItem
@@ -239,7 +241,7 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnglishToolStripMenuItem, Me.PortgueseToolStripMenuItem, Me.BasqueToolStripMenuItem, Me.CatalanToolStripMenuItem, Me.CzechToolStripMenuItem, Me.ChineseSimplifedToolStripMenuItem, Me.ChineseTraditionalToolStripMenuItem, Me.DutchToolStripMenuItem, Me.FrenchToolStripMenuItem, Me.FinnishToolStripMenuItem, Me.GermanToolStripMenuItem, Me.GreekToolStripMenuItem, Me.HebrewToolStripMenuItem, Me.IcelandicToolStripMenuItem, Me.IrishToolStripMenuItem, Me.NorwegianToolStripMenuItem, Me.PolishToolStripMenuItem, Me.RussianToolStripMenuItem, Me.SpanishToolStripMenuItem, Me.SwedishToolStripMenuItem})
         Me.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
-        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
         '
         'EnglishToolStripMenuItem
@@ -258,7 +260,7 @@ Partial Class Form1
         '
         'BasqueToolStripMenuItem
         '
-        Me.BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources._250px_Flag_of_the_Basque_Country_svg
+        Me.BasqueToolStripMenuItem.Image = Nothing
         Me.BasqueToolStripMenuItem.Name = "BasqueToolStripMenuItem"
         Me.BasqueToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.BasqueToolStripMenuItem.Text = "Basque"
@@ -387,7 +389,7 @@ Partial Class Form1
         Me.AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.AdvancedSettingsToolStripMenuItem.Name = "AdvancedSettingsToolStripMenuItem"
         Me.AdvancedSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
         '
@@ -794,7 +796,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(349, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(543, 24)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -809,14 +811,14 @@ Partial Class Form1
         '
         Me.IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.IslandToolStripMenuItem.Name = "IslandToolStripMenuItem"
-        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.IslandToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.IslandToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_DreamGrid_OARs_word
         '
         'ClothingInventoryToolStripMenuItem
         '
         Me.ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.ClothingInventoryToolStripMenuItem.Name = "ClothingInventoryToolStripMenuItem"
-        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.ClothingInventoryToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.ClothingInventoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_word
         Me.ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_text
         '
@@ -824,14 +826,14 @@ Partial Class Form1
         '
         Me.LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
         Me.LoadLocalOARSToolStripMenuItem.Name = "LoadLocalOARSToolStripMenuItem"
-        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.LoadLocalOARSToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_OARs_word
         '
         'LoadLocalIARsToolStripMenuItem
         '
         Me.LoadLocalIARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
         Me.LoadLocalIARsToolStripMenuItem.Name = "LoadLocalIARsToolStripMenuItem"
-        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.LoadLocalIARsToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.LoadLocalIARsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_IARs_word
         '
         'OARToolStripMenuItem
@@ -839,7 +841,7 @@ Partial Class Form1
         Me.OARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadRegionOarToolStripMenuItem, Me.SaveRegionOARToolStripMenuItem, Me.AllTheRegionsOarsToolStripMenuItem})
         Me.OARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
         Me.OARToolStripMenuItem.Name = "OARToolStripMenuItem"
-        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.OARToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.OARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_load_save_backupp_word
         '
         'LoadRegionOarToolStripMenuItem
@@ -868,7 +870,7 @@ Partial Class Form1
         Me.IARToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadInventoryIARToolStripMenuItem, Me.SaveInventoryIARToolStripMenuItem})
         Me.IARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.IARToolStripMenuItem.Name = "IARToolStripMenuItem"
-        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.IARToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.IARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.IAR_Load_and_Save
         '
         'LoadInventoryIARToolStripMenuItem
@@ -889,20 +891,20 @@ Partial Class Form1
         '
         Me.MoreContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
         Me.MoreContentToolStripMenuItem.Name = "MoreContentToolStripMenuItem"
-        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.MoreContentToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.MoreContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands_and_Parts_word
         Me.MoreContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(257, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(253, 6)
         '
         'CheckAndRepairDatbaseToolStripMenuItem
         '
         Me.CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.CheckAndRepairDatbaseToolStripMenuItem.Name = "CheckAndRepairDatbaseToolStripMenuItem"
-        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.CheckAndRepairDatbaseToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_and_Repair_Database_word
         '
         'BackupRestoreToolStripMenuItem
@@ -910,7 +912,7 @@ Partial Class Form1
         Me.BackupRestoreToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BackupDatabaseToolStripMenuItem, Me.RestoreDatabaseToolStripMenuItem1})
         Me.BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupRestoreToolStripMenuItem.Name = "BackupRestoreToolStripMenuItem"
-        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.BackupRestoreToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.SQL_Database_Backup_Restore
         '
         'BackupDatabaseToolStripMenuItem
@@ -932,13 +934,13 @@ Partial Class Form1
         '
         Me.BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.BackupCriticalFilesToolStripMenuItem.Name = "BackupCriticalFilesToolStripMenuItem"
-        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(260, 26)
+        Me.BackupCriticalFilesToolStripMenuItem.Size = New System.Drawing.Size(256, 22)
         Me.BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(257, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(253, 6)
         '
         'Timer1
         '
@@ -953,20 +955,23 @@ Partial Class Form1
         '
         'TextBox1
         '
+        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(15, 53)
+        Me.TextBox1.Location = New System.Drawing.Point(0, -8)
         Me.TextBox1.MaxLength = 15000
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(323, 133)
+        Me.TextBox1.Size = New System.Drawing.Size(320, 346)
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
         'ApachePictureBox
         '
         Me.ApachePictureBox.Image = CType(resources.GetObject("ApachePictureBox.Image"), System.Drawing.Image)
-        Me.ApachePictureBox.Location = New System.Drawing.Point(431, 6)
+        Me.ApachePictureBox.Location = New System.Drawing.Point(422, 32)
         Me.ApachePictureBox.Name = "ApachePictureBox"
         Me.ApachePictureBox.Size = New System.Drawing.Size(17, 17)
         Me.ApachePictureBox.TabIndex = 39
@@ -976,7 +981,7 @@ Partial Class Form1
         'MysqlPictureBox
         '
         Me.MysqlPictureBox.Image = CType(resources.GetObject("MysqlPictureBox.Image"), System.Drawing.Image)
-        Me.MysqlPictureBox.Location = New System.Drawing.Point(393, 6)
+        Me.MysqlPictureBox.Location = New System.Drawing.Point(384, 32)
         Me.MysqlPictureBox.Name = "MysqlPictureBox"
         Me.MysqlPictureBox.Size = New System.Drawing.Size(17, 17)
         Me.MysqlPictureBox.TabIndex = 40
@@ -986,7 +991,7 @@ Partial Class Form1
         'RobustPictureBox
         '
         Me.RobustPictureBox.Image = CType(resources.GetObject("RobustPictureBox.Image"), System.Drawing.Image)
-        Me.RobustPictureBox.Location = New System.Drawing.Point(470, 6)
+        Me.RobustPictureBox.Location = New System.Drawing.Point(461, 32)
         Me.RobustPictureBox.Name = "RobustPictureBox"
         Me.RobustPictureBox.Size = New System.Drawing.Size(17, 17)
         Me.RobustPictureBox.TabIndex = 43
@@ -1008,61 +1013,26 @@ Partial Class Form1
         'IceCastPicturebox
         '
         Me.IceCastPicturebox.Image = CType(resources.GetObject("IceCastPicturebox.Image"), System.Drawing.Image)
-        Me.IceCastPicturebox.Location = New System.Drawing.Point(510, 6)
+        Me.IceCastPicturebox.Location = New System.Drawing.Point(501, 32)
         Me.IceCastPicturebox.Name = "IceCastPicturebox"
         Me.IceCastPicturebox.Size = New System.Drawing.Size(17, 17)
         Me.IceCastPicturebox.TabIndex = 46
         Me.IceCastPicturebox.TabStop = False
         Me.ToolTip1.SetToolTip(Me.IceCastPicturebox, Global.Outworldz.My.Resources.Resources.Status_word)
         '
-        'ChartWrapper1
-        '
-        Me.ChartWrapper1.AddMarkers = True
-        Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
-        Me.ChartWrapper1.AxisYTitle = "CPU %"
-        Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
-        Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(380, 49)
-        Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ChartWrapper1.MarkerCount = 15
-        Me.ChartWrapper1.MarkerFreq = 0
-        Me.ChartWrapper1.MarkerSize = 8
-        Me.ChartWrapper1.Name = "ChartWrapper1"
-        Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(225, 159)
-        Me.ChartWrapper1.TabIndex = 31
-        Me.ChartWrapper1.Title = ""
-        '
         'AvatarLabel
         '
         Me.AvatarLabel.AutoSize = True
-        Me.AvatarLabel.Location = New System.Drawing.Point(23, 30)
+        Me.AvatarLabel.Location = New System.Drawing.Point(112, 36)
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(13, 13)
         Me.AvatarLabel.TabIndex = 32
         Me.AvatarLabel.Text = "0"
         '
-        'ChartWrapper2
-        '
-        Me.ChartWrapper2.AddMarkers = True
-        Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
-        Me.ChartWrapper2.AxisYTitle = "% Memory"
-        Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(380, 214)
-        Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.ChartWrapper2.MarkerCount = 15
-        Me.ChartWrapper2.MarkerFreq = 0
-        Me.ChartWrapper2.MarkerSize = 8
-        Me.ChartWrapper2.Name = "ChartWrapper2"
-        Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(225, 159)
-        Me.ChartWrapper2.TabIndex = 33
-        Me.ChartWrapper2.Title = ""
-        '
         'AviLabel
         '
         Me.AviLabel.AutoSize = True
-        Me.AviLabel.Location = New System.Drawing.Point(42, 30)
+        Me.AviLabel.Location = New System.Drawing.Point(131, 36)
         Me.AviLabel.Name = "AviLabel"
         Me.AviLabel.Size = New System.Drawing.Size(43, 13)
         Me.AviLabel.TabIndex = 34
@@ -1071,7 +1041,7 @@ Partial Class Form1
         'PercentCPU
         '
         Me.PercentCPU.AutoSize = True
-        Me.PercentCPU.Location = New System.Drawing.Point(115, 30)
+        Me.PercentCPU.Location = New System.Drawing.Point(204, 36)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
         Me.PercentCPU.TabIndex = 35
@@ -1080,7 +1050,7 @@ Partial Class Form1
         'PercentRAM
         '
         Me.PercentRAM.AutoSize = True
-        Me.PercentRAM.Location = New System.Drawing.Point(176, 30)
+        Me.PercentRAM.Location = New System.Drawing.Point(265, 36)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(13, 13)
         Me.PercentRAM.TabIndex = 37
@@ -1089,7 +1059,7 @@ Partial Class Form1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(377, 27)
+        Me.Label2.Location = New System.Drawing.Point(368, 53)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(42, 13)
         Me.Label2.TabIndex = 41
@@ -1098,7 +1068,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(416, 27)
+        Me.Label4.Location = New System.Drawing.Point(407, 53)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(44, 13)
         Me.Label4.TabIndex = 42
@@ -1107,7 +1077,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(457, 27)
+        Me.Label5.Location = New System.Drawing.Point(448, 53)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(41, 13)
         Me.Label5.TabIndex = 44
@@ -1116,7 +1086,7 @@ Partial Class Form1
         'IcecastLabel
         '
         Me.IcecastLabel.AutoSize = True
-        Me.IcecastLabel.Location = New System.Drawing.Point(497, 27)
+        Me.IcecastLabel.Location = New System.Drawing.Point(488, 53)
         Me.IcecastLabel.Name = "IcecastLabel"
         Me.IcecastLabel.Size = New System.Drawing.Size(42, 13)
         Me.IcecastLabel.TabIndex = 47
@@ -1124,7 +1094,7 @@ Partial Class Form1
         '
         'BusyButton
         '
-        Me.BusyButton.Location = New System.Drawing.Point(253, 25)
+        Me.BusyButton.Location = New System.Drawing.Point(12, 31)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(84, 23)
         Me.BusyButton.TabIndex = 51
@@ -1133,7 +1103,7 @@ Partial Class Form1
         '
         'StopButton
         '
-        Me.StopButton.Location = New System.Drawing.Point(253, 25)
+        Me.StopButton.Location = New System.Drawing.Point(12, 31)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(84, 23)
         Me.StopButton.TabIndex = 50
@@ -1142,24 +1112,78 @@ Partial Class Form1
         '
         'StartButton
         '
-        Me.StartButton.Location = New System.Drawing.Point(253, 25)
+        Me.StartButton.Location = New System.Drawing.Point(12, 31)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(84, 23)
         Me.StartButton.TabIndex = 49
         Me.StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
         Me.StartButton.UseVisualStyleBackColor = True
         '
+        'ChartWrapper2
+        '
+        Me.ChartWrapper2.AddMarkers = True
+        Me.ChartWrapper2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
+        Me.ChartWrapper2.AxisYTitle = "% Memory"
+        Me.ChartWrapper2.LegendVisible = False
+        Me.ChartWrapper2.Location = New System.Drawing.Point(339, 247)
+        Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ChartWrapper2.MarkerCount = 15
+        Me.ChartWrapper2.MarkerFreq = 0
+        Me.ChartWrapper2.MarkerSize = 8
+        Me.ChartWrapper2.Name = "ChartWrapper2"
+        Me.ChartWrapper2.SideLegendVisible = True
+        Me.ChartWrapper2.Size = New System.Drawing.Size(191, 159)
+        Me.ChartWrapper2.TabIndex = 33
+        Me.ChartWrapper2.Title = ""
+        '
+        'ChartWrapper1
+        '
+        Me.ChartWrapper1.AddMarkers = True
+        Me.ChartWrapper1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
+        Me.ChartWrapper1.AxisYTitle = "CPU %"
+        Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
+        Me.ChartWrapper1.LegendVisible = False
+        Me.ChartWrapper1.Location = New System.Drawing.Point(339, 78)
+        Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ChartWrapper1.MarkerCount = 15
+        Me.ChartWrapper1.MarkerFreq = 0
+        Me.ChartWrapper1.MarkerSize = 8
+        Me.ChartWrapper1.Name = "ChartWrapper1"
+        Me.ChartWrapper1.SideLegendVisible = True
+        Me.ChartWrapper1.Size = New System.Drawing.Size(191, 159)
+        Me.ChartWrapper1.TabIndex = 31
+        Me.ChartWrapper1.Title = ""
+        '
+        'Panel1
+        '
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Location = New System.Drawing.Point(12, 68)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(320, 341)
+        Me.Panel1.TabIndex = 54
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(349, 199)
+        Me.ClientSize = New System.Drawing.Size(543, 421)
+        Me.Controls.Add(Me.ChartWrapper1)
+        Me.Controls.Add(Me.ChartWrapper2)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BusyButton)
+        Me.Controls.Add(Me.AvatarLabel)
         Me.Controls.Add(Me.StopButton)
+        Me.Controls.Add(Me.AviLabel)
         Me.Controls.Add(Me.StartButton)
         Me.Controls.Add(Me.IcecastLabel)
+        Me.Controls.Add(Me.PercentCPU)
         Me.Controls.Add(Me.IceCastPicturebox)
+        Me.Controls.Add(Me.PercentRAM)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.RobustPictureBox)
@@ -1167,14 +1191,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.MysqlPictureBox)
         Me.Controls.Add(Me.ApachePictureBox)
-        Me.Controls.Add(Me.PercentRAM)
-        Me.Controls.Add(Me.PercentCPU)
-        Me.Controls.Add(Me.AviLabel)
-        Me.Controls.Add(Me.ChartWrapper2)
-        Me.Controls.Add(Me.AvatarLabel)
-        Me.Controls.Add(Me.ChartWrapper1)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.TextBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
@@ -1189,6 +1206,7 @@ Partial Class Form1
         CType(Me.RobustPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.IceCastPicturebox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1289,11 +1307,9 @@ Partial Class Form1
     Friend WithEvents ThreadpoolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents XengineToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents JobEngineToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ChartWrapper1 As MSChartWrapper.ChartWrapper
     Friend WithEvents ToolStripSeparator7 As ToolStripSeparator
     Friend WithEvents AvatarLabel As Label
     Friend WithEvents PDFManualToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
     Friend WithEvents AviLabel As Label
     Friend WithEvents PercentCPU As Label
     Friend WithEvents PercentRAM As Label
@@ -1337,4 +1353,7 @@ Partial Class Form1
     Friend WithEvents IslandToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ViewRegionMapToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuHideAllways As ToolStripMenuItem
+    Friend WithEvents ChartWrapper2 As MSChartWrapper.ChartWrapper
+    Friend WithEvents ChartWrapper1 As MSChartWrapper.ChartWrapper
+    Friend WithEvents Panel1 As Panel
 End Class

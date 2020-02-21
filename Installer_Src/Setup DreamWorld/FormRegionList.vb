@@ -38,7 +38,7 @@ Public Class RegionList
 
     Private pixels As Integer = 70
     Private TheView As Integer = ViewType.Details
-    Private Timertick As Integer = 0
+
     Private ViewNotBusy As Boolean
 
     Private Enum ViewType As Integer
@@ -132,14 +132,6 @@ Public Class RegionList
         End Set
     End Property
 
-    Public Property Timertick1 As Integer
-        Get
-            Return Timertick
-        End Get
-        Set(value As Integer)
-            Timertick = value
-        End Set
-    End Property
 
     Public Property ViewBusy As Boolean
         Get
@@ -384,20 +376,23 @@ Public Class RegionList
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
         SetScreen(TheView1)
+        ShowTitle()
+        initted = True
+
+
+    End Sub
+
+    Private Sub ShowTitle()
 
         Dim TotalSize As Integer
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-
             TotalSize += Form1.PropRegionClass.SizeX(RegionUUID) / 256 * Form1.PropRegionClass.SizeY(RegionUUID) / 256
             If Form1.PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
             TotalRegionCount += 1
         Next
         Me.Text = "Regions: " & CStr(TotalRegionCount) & ".  Enabled: " & CStr(RegionCount) & ". Total Area: " & CStr(TotalSize) & " Regions"
-
-
-        initted = True
 
     End Sub
 
@@ -413,14 +408,14 @@ Public Class RegionList
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        If PropUpdateView() Or Timertick1 Mod 480 = 0 Then ' force a refresh
+        If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                PropUpdateView = False
+                ' PropUpdateView = False
                 Return
             End If
             LoadMyListView()
         End If
-        Timertick1 += 1
+
 
     End Sub
 
@@ -768,6 +763,7 @@ Public Class RegionList
         RegionForm.Visible = True
         RegionForm.Select()
 
+
     End Sub
 
     Private Sub AvatarView_Click(sender As Object, e As EventArgs) Handles AvatarView.Click
@@ -795,6 +791,7 @@ Public Class RegionList
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
         LoadMyListView()
+        ShowTitle()
 
     End Sub
 
@@ -809,10 +806,13 @@ Public Class RegionList
 
         ListView1.ResumeLayout()
 
+
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
         Form1.Help("RegionList")
+
     End Sub
 
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
@@ -853,9 +853,8 @@ Public Class RegionList
             Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
             Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
             Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
-
         Next
-
+        ShowTitle()
         PropUpdateView() = True
 
     End Sub
@@ -950,6 +949,7 @@ Public Class RegionList
 #Region "Private Methods"
 
     Private Shared Function LoadImage(S As String) As Image
+
         Dim bmp As Bitmap = Nothing
         Dim u As New Uri(S)
         Dim request As System.Net.WebRequest = Net.WebRequest.Create(u)
@@ -1037,10 +1037,10 @@ Public Class RegionList
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a recycle.
+                        Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
 
-                    Form1.Print(My.Resources.Stopping_word & " " + Form1.PropRegionClass.GroupName(RegionUUID))
+                    Form1.Print(My.Resources.Not_Running & " " & My.Resources.Stopping_word)
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
@@ -1082,10 +1082,10 @@ Public Class RegionList
             ' shut down all regions in the DOS box
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
             Form1.Logger("RecyclingDown", GroupName, "Restart")
-            For Each RegionUUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
-                Form1.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-                Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Form1.Logger("RecyclingDown", Form1.PropRegionClass.RegionName(RegionUUID), "Restart")
+            For Each UUID In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
+                Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                Form1.Logger("RecyclingDown", Form1.PropRegionClass.RegionName(UUID), "Restart")
             Next
 
             Form1.Print(My.Resources.Recycle1 & "  " + Form1.PropRegionClass.GroupName(RegionUUID))
@@ -1135,6 +1135,8 @@ Public Class RegionList
 
         Next
 
+        ShowTitle()
+
         If ItemsAreChecked1 Then
             ItemsAreChecked1 = False
         Else
@@ -1146,34 +1148,39 @@ Public Class RegionList
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
+        Form1.PropOpensimIsRunning() = True
+        Form1.StartMySQL()
+        Form1.StartRobust()
+        Form1.Timer1.Interval = 1000
+        Form1.Timer1.Start() 'Timer starts functioning
+        Form1._TimerBusy = 0
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)
-            If Form1.PropOpensimIsRunning() _
-                And Form1.PropRegionClass.RegionEnabled(RegionUUID) _
-                And Not Form1.AvatarsIsInGroup(GroupName) And
-                (Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting _
-                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                Or Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
+            Dim Status = Form1.PropRegionClass.Status(RegionUUID)
+            If Form1.PropRegionClass.RegionEnabled(RegionUUID) And
+                Not Form1.AvatarsIsInGroup(GroupName) And
+                Not Form1.PropAborting And
+                (Status = RegionMaker.SIMSTATUSENUM.Booting _
+                Or Status = RegionMaker.SIMSTATUSENUM.Booted _
+                Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = Form1.GetHwnd(GroupName)
-                If Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE) Then
-                    Form1.SequentialPause()
-                    Form1.Print(My.Resources.Restarting_word & " " & Form1.PropRegionClass.GroupName(RegionUUID))
-                    Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
-                End If
+                Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
+                Form1.SequentialPause()
+                Form1.Print(My.Resources.Not_Running & " " & My.Resources.Restarting_word)
+                Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
-                If Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
                     Next
                 Else
                     ' shut down all regions in the DOS box
-                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
+                    For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(GroupName)
                         Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                     Next
-
                 End If
 
                 PropUpdateView = True ' make form refresh
@@ -1186,19 +1193,6 @@ Public Class RegionList
         Form1.Help("RegionList")
     End Sub
 
-    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-        Form1.Settings.RegionListView() = ViewType.Maps
-        Form1.Settings.SaveSettings()
-        TheView1 = ViewType.Maps
-        ListView1.View = View.LargeIcon
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = False
-        Timer1.Stop()
-        LoadMyListView()
-
-    End Sub
 
     Private Function PickGroup() As String
 
@@ -1241,6 +1235,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Avatars
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Avatars
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Hide()
@@ -1255,6 +1250,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Icons
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Icons
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         SetScreen(TheView1)
         ListView1.View = View.SmallIcon
         ListView1.Show()
@@ -1270,6 +1266,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Details
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Details
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Show()
@@ -1285,6 +1282,7 @@ Public Class RegionList
         Form1.Settings.RegionListView() = ViewType.Maps
         Form1.Settings.SaveSettings()
         TheView1 = ViewType.Maps
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
         ListView1.View = View.LargeIcon
         ListView1.Show()
