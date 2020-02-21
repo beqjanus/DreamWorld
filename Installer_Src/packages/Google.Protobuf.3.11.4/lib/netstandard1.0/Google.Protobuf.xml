@@ -66,12 +66,6 @@
             Returns <c>true</c> if this byte string is empty, <c>false</c> otherwise.
             </summary>
         </member>
-        <member name="P:Google.Protobuf.ByteString.Span">
-            <summary>
-            Provides read-only access to the data of this <see cref="T:Google.Protobuf.ByteString"/>.
-            No data is copied so this is the most efficient way of accessing.
-            </summary>
-        </member>
         <member name="M:Google.Protobuf.ByteString.ToByteArray">
             <summary>
             Converts this <see cref="T:Google.Protobuf.ByteString"/> into a byte array.
@@ -121,13 +115,6 @@
         <member name="M:Google.Protobuf.ByteString.CopyFrom(System.Byte[],System.Int32,System.Int32)">
             <summary>
             Constructs a <see cref="T:Google.Protobuf.ByteString" /> from a portion of a byte array.
-            </summary>
-        </member>
-        <member name="M:Google.Protobuf.ByteString.CopyFrom(System.ReadOnlySpan{System.Byte})">
-            <summary>
-            Constructs a <see cref="T:Google.Protobuf.ByteString" /> from a read only span. The contents
-            are copied, so further modifications to the span will not
-            be reflected in the returned <see cref="T:Google.Protobuf.ByteString" />.
             </summary>
         </member>
         <member name="M:Google.Protobuf.ByteString.CopyFrom(System.String,System.Text.Encoding)">
@@ -515,6 +502,11 @@
         <member name="M:Google.Protobuf.CodedInputStream.ReadGroup(Google.Protobuf.IMessage)">
             <summary>
             Reads an embedded group field from the stream.
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.CodedInputStream.ReadGroup(System.Int32,Google.Protobuf.UnknownFieldSet)">
+            <summary>
+            Reads an embedded group unknown field from the stream.
             </summary>
         </member>
         <member name="M:Google.Protobuf.CodedInputStream.ReadBytes">
