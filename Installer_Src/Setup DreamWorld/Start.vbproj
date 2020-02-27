@@ -259,6 +259,12 @@
     <Compile Include="FormIARSave.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormInitialSetup.Designer.vb">
+      <DependentUpon>FormInitialSetup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormInitialSetup.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormLogging.Designer.vb">
       <DependentUpon>FormLogging.vb</DependentUpon>
     </Compile>
@@ -492,6 +498,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInitialSetup.resx">
+      <DependentUpon>FormInitialSetup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogging.resx">
       <DependentUpon>FormLogging.vb</DependentUpon>
