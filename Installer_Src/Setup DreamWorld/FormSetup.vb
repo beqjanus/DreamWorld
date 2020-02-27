@@ -96,7 +96,7 @@ Public Class Form1
     Private _regionHandles As New Dictionary(Of Integer, String)
     Private _RestartApache As Boolean = False
     Private _RestartMysql As Boolean = False
-    Public _TimerBusy As Integer = 0
+    Private _timerBusy1 As Integer = 0
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer = 0
     Private _RobustExited As Boolean = False
@@ -770,12 +770,23 @@ Public Class Form1
         End Set
     End Property
 
+#Disable Warning CA2227 ' Collection properties should be read only
     Public Property BootedList As List(Of String)
+#Enable Warning CA2227 ' Collection properties should be read only
         Get
             Return _BootedList
         End Get
         Set(value As List(Of String))
             _BootedList = value
+        End Set
+    End Property
+
+    Public Property TimerBusy As Integer
+        Get
+            Return _timerBusy1
+        End Get
+        Set(value As Integer)
+            _timerBusy1 = value
         End Set
     End Property
 
@@ -6703,19 +6714,19 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If _TimerBusy > 0 And _TimerBusy < 15 Then
-            _TimerBusy += 1
+        If TimerBusy > 0 And TimerBusy < 15 Then
+            TimerBusy += 1
             Return
         End If
 
-        _TimerBusy = 1
+        TimerBusy = 1
 
 
         Chart() ' do charts collection each second
         Application.DoEvents()
         If Not PropOpensimIsRunning() Then
             Timer1.Stop()
-            _TimerBusy = 0
+            TimerBusy = 0
             Return
         End If
 
@@ -6755,7 +6766,7 @@ Public Class Form1
         End If
 
         PropDNSSTimer += 1
-        _TimerBusy = 0
+        TimerBusy = 0
 
     End Sub
     Private Sub RunDataSnapshot()

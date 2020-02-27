@@ -144,8 +144,8 @@
   <data name="AllNone_word" xml:space="preserve">
     <value>All / None</value>
   </data>
-  <data name="Allow200" xml:space="preserve">
-    <value>Dovolit bohy 200+ Level</value>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>Je-li toto políčko zaškrtnuto V Nastavení-&gt; Oprávnění, pak každý uživatel s úrovní&gt; = 100 na webové panelu se může stát Bohem a kdekoliv. To lze nastavit pro jednotlivé regiony v případě, že výchozí v Oprávnění je UN-kontrolovat, a vy to přepsat v regionu panelu ** Povolit Gods v tomto regionu **. Toto nastavení nemá nic společného s ostatními dvěma nastaveními.</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>Původní Second Life mraky</value>
@@ -160,7 +160,7 @@
     <value>Objekty mohou být převzaty z vaší sítě přes Hypergrid</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>Povolit nebo zakázat Gods</value>
+    <value>Dovolit bohy Level založených</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>Dovolit bohy vlastníka kraj</value>
@@ -202,7 +202,7 @@
     <value>Web Server se nepodařilo spustit</value>
   </data>
   <data name="Apache_has_been_removed" xml:space="preserve">
-    <value>Apache byl odstraněn jako služba</value>
+    <value>Apache byl odstraněn jako službu</value>
   </data>
   <data name="Apache_is_Set" xml:space="preserve">
     <value>Server Port web je sada</value>
@@ -282,13 +282,10 @@
   <data name="Backup_Custom" xml:space="preserve">
     <value>Záloha vlastních webových stránek</value>
   </data>
-  <data name="Backup_Data" xml:space="preserve">
-    <value>Zálohování souborů dat</value>
-  </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>zálohování databáze</value>
   </data>
-  <data name="Backup_Data_Files" xml:space="preserve">
+  <data name="Backup_Data_Files_word" xml:space="preserve">
     <value>Zálohování souborů dat</value>
   </data>
   <data name="Backup_Folder" xml:space="preserve">
@@ -313,7 +310,7 @@
     <value>Nastavení zálohování</value>
   </data>
   <data name="Backup_word" xml:space="preserve">
-    <value>Zálohování</value>
+    <value>Záloha</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
     <value>Best (prims + Mesh, velmi pomalu)</value>
@@ -387,14 +384,14 @@
   <data name="Cancel_word" xml:space="preserve">
     <value>zrušení</value>
   </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
-    <value>Nelze najít složku</value>
-  </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>Nemůže najít oblast</value>
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>Nelze najít výchozí uvítací region</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>Nelze najít složku</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>Nemůže normalizovat mapa jako region bude v místě méně než 0</value>
@@ -404,6 +401,9 @@
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>Nelze uložit region:</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>Kategorie</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Střed mapy souřadnic</value>
@@ -447,8 +447,14 @@
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Kontrola aktualizací</value>
   </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Vybrat složku</value>
+  </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Vyberte si, které mezipaměť vyprázdnit</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>Vyberte složku pro ukládání záloh</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>vyberte si kraj</value>
@@ -563,6 +569,9 @@
   </data>
   <data name="Click_to_load" xml:space="preserve">
     <value>Kliknutím na načtení tohoto obsahu</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>Kliknutím na načíst levý dolní roh souboru do tohoto místa.</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Kliknutím na vyžádání hlasové služby</value>
@@ -702,6 +711,9 @@
   <data name="Deregister_word" xml:space="preserve">
     <value>Deregister</value>
   </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>Popis</value>
+  </data>
   <data name="Details_word" xml:space="preserve">
     <value>podrobnosti</value>
   </data>
@@ -739,7 +751,7 @@
     <value>To bude méně bezpečné Pokud zakážete kufr, ale bude snazší Řeži objektů na zahraničních mřížek</value>
   </data>
   <data name="Disabling_Suitcase" xml:space="preserve">
-    <value>Deaktivace inventury Suitcase vystavuje celý svůj inventář do jiných mřížek. Ale je to snadné dát objekty z libovolného místa.</value>
+    <value>Deaktivace inventury Suitcase vystavuje celý svůj inventář do jiných mřížek. Ale to je snadné dát objekty z libovolného místa.</value>
   </data>
   <data name="Discard_Exit" xml:space="preserve">
     <value>Zahodit všechny změny a Konec?</value>
@@ -756,6 +768,9 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS Name &amp; Hypergrid</value>
   </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>DOS Box s názvem Robust je již spuštěn</value>
+  </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS Box</value>
   </data>
@@ -770,6 +785,9 @@
   </data>
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
+  </data>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>Dynamic DNS</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
     <value>Registrace DynDNS adresa</value>
@@ -898,10 +916,10 @@
     <value>Složky pro ukládání souborů</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0.0909)</value>
+    <value>Frame Rate (0,0909)</value>
   </data>
   <data name="FrameTime" xml:space="preserve">
-    <value>Výchozí 1/11 sec. Výchozí hodnota je 0.0909, což je 1 / 5th 55 FPS</value>
+    <value>Výchozí 1/11 sec. Výchozí hodnota je 0,0909, což je 1 / 5th 55 FPS</value>
   </data>
   <data name="Frame_Rate_word" xml:space="preserve">
     <value>Snímková frekvence</value>
@@ -919,7 +937,7 @@
     <value>Tento rošt je Friendly Name</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0.0909, nebo 1/11</value>
+    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0,0909, nebo 1/11</value>
   </data>
   <data name="FSA" xml:space="preserve">
     <value>Aktiva ve formě souborů</value>
@@ -1033,7 +1051,10 @@
     <value>Hypergrid je třeba pracovat.</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Skrýt</value>
+    <value>Skrýt Regiony Po dokončení</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>Vždy skrýt Regiony</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>Nejvyšší práce: 8004</value>
@@ -1197,9 +1218,6 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>Zobrazení seznamu avatary</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
-    <value>načíst Parcel</value>
-  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>loading settings.ini</value>
   </data>
@@ -1212,6 +1230,12 @@
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
     <value>Zatížení IARS z webu Outworldz</value>
   </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>Zatížení Free Avatar Inventory (www)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>Načíst zdarma DreamGrid vesel (www)</value>
+  </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>Načíst zdarma snový svět vesel</value>
   </data>
@@ -1221,8 +1245,17 @@
   <data name="Load_Local_IARs" xml:space="preserve">
     <value>Načíst lokální reakce související s infuzí ze složky IAR</value>
   </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Načíst místní reakce související s infuzí</value>
+  </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>Načíst místní vesla ze složky OAR</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Načíst místní vesla</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>načíst Parcel</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>Načíst Region Oar</value>
@@ -1260,17 +1293,17 @@
   <data name="LSL_Allow" xml:space="preserve">
     <value>LSL skripty nemohou dosáhnout jiný LAN PC. Máte-li zapnutou, mohou přistupovat k porty v síti LAN na jakémkoli PC. To je nebezpečné!</value>
   </data>
-  <data name="Make_backup" xml:space="preserve">
+  <data name="Make_a_backup_word" xml:space="preserve">
     <value>Vytvořit zálohu?</value>
   </data>
-  <data name="Manager God" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
-  </data>
-  <data name="Maps" xml:space="preserve">
-    <value>Mapy</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Všechny mapové dlaždice byly vymazány. Nastavte nastavení mapy a restartujte počítač, aby se nové mapy</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>Mapy</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Mapa souřadnicových: X</value>
@@ -1314,13 +1347,13 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Maximální rychlost (default = 1.0)</value>
   </data>
-  <data name="Merge_OAR" xml:space="preserve">
+  <data name="Merge_OAR_word" xml:space="preserve">
     <value>sloučení OAR</value>
   </data>
-  <data name="Merge_Objects" xml:space="preserve">
+  <data name="Merge_Objects_word" xml:space="preserve">
     <value>Sloučit objekty</value>
   </data>
-  <data name="Mesh_Cache" xml:space="preserve">
+  <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
   </data>
   <data name="Message_sent" xml:space="preserve">
@@ -1328,9 +1361,6 @@
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
-  </data>
-  <data name="MinusSign_NT" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>Minut</value>
@@ -1344,6 +1374,9 @@
   <data name="More_Free_Islands" xml:space="preserve">
     <value>Více Zdarma ostrovy a díly</value>
   </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>Více zdarma ostrovy a díly (www)</value>
+  </data>
   <data name="More_Help" xml:space="preserve">
     <value>Klikněte pro další pomoc na webových stránkách</value>
   </data>
@@ -1356,8 +1389,8 @@
   <data name="MustY" xml:space="preserve">
     <value>Musí být stejná jako Y</value>
   </data>
-  <data name="Must_be_Days" xml:space="preserve">
-    <value>Musí být počet dní</value>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>Musí být číslo</value>
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Musí být ve formátu PNG</value>
@@ -1387,7 +1420,10 @@
     <value>název</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>Vaše jméno systém byl nastaven na {NEWNAME}. Můžete změnit název v nabídce DNS kdykoliv</value>
+    <value>Systém název Hypergrid bylo obnoveno. Můžete změnit název v Setup-Nastavení-&gt; nabídce DNS</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>Název regionu</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>Soused Distance (default = 25.0)</value>
@@ -1479,13 +1515,31 @@
   <data name="Num_Birds" xml:space="preserve">
     <value>Počet ptáků se hrnou</value>
   </data>
+  <data name="NVMaxAgaents" xml:space="preserve">
+    <value>Není platné číslo Maximujm agentů hodnoty. Musí být větší než 0.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>Není platný maximální Prim Value. Musí být větší než 0.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>Není platné Non-fyzikální Prim Max Value. Musí být větší než 0</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>Není platný Physical Prim Max Value. Musí být větší než 0.</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>Veslo soubory jsou zálohy celých ostrovů</value>
   </data>
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Load a uložit</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR Load, Save and Backup</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
+    <value>Path objekt a název</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
     <value>Path objekt a název</value>
   </data>
   <data name="ODE_text" xml:space="preserve">
@@ -1539,11 +1593,11 @@
   <data name="Passed_LAN" xml:space="preserve">
     <value>Prošel LAN Testovací smyčka</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Heslo</value>
-  </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Můžete změnit pouze heslo, když Opensim běží</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>Heslo</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF Manual</value>
@@ -1553,6 +1607,9 @@
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>oprávnění</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>Fotografie</value>
   </data>
   <data name="Physical_Prim" xml:space="preserve">
     <value>Fyzická Prim Max Size</value>
@@ -1600,7 +1657,7 @@
     <value>Prim Name (default = SeaGull1)</value>
   </data>
   <data name="Print" xml:space="preserve">
-    <value>Vytisknout</value>
+    <value>Tisk</value>
   </data>
   <data name="Private_Port_Word" xml:space="preserve">
     <value>Private Port</value>
@@ -1674,8 +1731,23 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Kontroly region</value>
   </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>Region souřadnic X nemůže být nižší než 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>Region souřadnic X je příliš velká</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>Region souřadnic Y nemůže být nižší než 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>Region souřadnic Y je příliš velká</value>
+  </data>
   <data name="Region_Database" xml:space="preserve">
     <value>Databáze region</value>
+  </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>Maximální počet avatarů + NPC</value>
   </data>
   <data name="Region_List" xml:space="preserve">
     <value>Region Seznam</value>
@@ -1692,6 +1764,9 @@
   <data name="Region_Names_Special" xml:space="preserve">
     <value>Název regionu nelze používat speciální znaky</value>
   </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>Název regionu nesmí být prázdný</value>
+  </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Region Specifická nastavení přepisují tyto výchozí nastavení</value>
   </data>
@@ -1707,6 +1782,9 @@
   <data name="Region_Port_word" xml:space="preserve">
     <value>Region Port</value>
   </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>Region byl odstraněn</value>
+  </data>
   <data name="Region_ServerName" xml:space="preserve">
     <value>Server připojit. ‚Localhost‘ je výchozí.</value>
   </data>
@@ -1719,8 +1797,8 @@
   <data name="Region_Stats" xml:space="preserve">
     <value>Kraj Statistiky</value>
   </data>
-  <data name="Reion_Removed" xml:space="preserve">
-    <value>Region byl odstraněn</value>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>Region UUID je neplatná</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Obnovit mřížku</value>
@@ -1767,14 +1845,17 @@
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
     <value>Bulletsim fyzika crash vynutí restart simulátoru</value>
   </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>restart Pending</value>
+  </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
     <value>Tyto regiony budou všechny auto restart po tolika minutách běhu</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>restart periodicky</value>
   </data>
-  <data name="Restart_Queued_for_word" xml:space="preserve">
-    <value>Restart ve frontě pro</value>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>restart ve frontě</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
     <value>restart Region</value>
@@ -1806,6 +1887,9 @@
   <data name="Robust_failed_to_start" xml:space="preserve">
     <value>Robustní nepodařilo spustit</value>
   </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>Robustní není spuštěna v tomto počítači</value>
+  </data>
   <data name="Robust_running" xml:space="preserve">
     <value>Robustní běží</value>
   </data>
@@ -1817,6 +1901,9 @@
   </data>
   <data name="Running" xml:space="preserve">
     <value>Běh</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>Běží jako region Server</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Spuštění diagnostiky sítě</value>
@@ -1873,13 +1960,16 @@
     <value>Script Rate</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0.0909)</value>
+    <value>Script Timer Rate (0,0909)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0.0909)</value>
+    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0,0909)</value>
   </data>
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Hledat všude pletivem</value>
+  </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>Nepodařilo se připojit k vyhledávání v databázi</value>
   </data>
   <data name="Search_word" xml:space="preserve">
     <value>Vyhledávání</value>
@@ -1892,6 +1982,9 @@
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Chcete vidět log soubor?</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>Viz přístavů v provozu</value>
   </data>
   <data name="Selectallnone" xml:space="preserve">
     <value>Vybere všechny nebo žádné z políček</value>
@@ -1910,6 +2003,9 @@
   </data>
   <data name="Sequentially_text" xml:space="preserve">
     <value>Každá oblast se spustí pouze po předchozí oblast načtení</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>Server je typ</value>
   </data>
   <data name="Server_Type_word" xml:space="preserve">
     <value>Typ serveru</value>
@@ -1941,6 +2037,9 @@
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>Setup Voice Service</value>
   </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>Založit</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Set Level Debug</value>
   </data>
@@ -1963,7 +2062,7 @@
     <value>Ukázat detaily uživatele</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>Show</value>
+    <value>Vždy zobrazovat Regiony</value>
   </data>
   <data name="Shutdown_word" xml:space="preserve">
     <value>Vypnout</value>
@@ -2041,7 +2140,7 @@
     <value>Spuštění webserver</value>
   </data>
   <data name="Starting_word" xml:space="preserve">
-    <value>Začíná</value>
+    <value>Začínající</value>
   </data>
   <data name="StartLaunch" xml:space="preserve">
     <value>Není potřeba znovu klepněte na tlačítko Start. Začíná, když vypustil.</value>
@@ -2062,7 +2161,7 @@
     <value>Postavení</value>
   </data>
   <data name="STComment" xml:space="preserve">
-    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0.0909)</value>
+    <value>Nastavení rychlosti časovače Script. 1/11 druhý je výchozí (0,0909)</value>
   </data>
   <data name="Step1_word" xml:space="preserve">
     <value>Krok 1:</value>
@@ -2277,6 +2376,12 @@
   <data name="Voice" xml:space="preserve">
     <value>Hlas</value>
   </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>Nastavení hlasové</value>
+  </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>Čekání na Robustní zahájit</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Čekání pro všechny regiony na výjezdu</value>
   </data>
@@ -2288,6 +2393,9 @@
   </data>
   <data name="WebServerPanel" xml:space="preserve">
     <value>Server Panel web</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>Web Download Link</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Web Port (80 nebo 8000)</value>
@@ -2318,6 +2426,12 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Něco je s Internetem v pořádku</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>XEngine</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>Ano</value>

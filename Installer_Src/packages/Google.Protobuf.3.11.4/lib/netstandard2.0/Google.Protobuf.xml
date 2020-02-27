@@ -517,6 +517,11 @@
             Reads an embedded group field from the stream.
             </summary>
         </member>
+        <member name="M:Google.Protobuf.CodedInputStream.ReadGroup(System.Int32,Google.Protobuf.UnknownFieldSet)">
+            <summary>
+            Reads an embedded group unknown field from the stream.
+            </summary>
+        </member>
         <member name="M:Google.Protobuf.CodedInputStream.ReadBytes">
             <summary>
             Reads a bytes field value from the stream.

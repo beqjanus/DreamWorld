@@ -142,10 +142,10 @@
     <value>agentes</value>
   </data>
   <data name="AllNone_word" xml:space="preserve">
-    <value>Todos / Ninguno</value>
+    <value>Todos / ningunos</value>
   </data>
-  <data name="Allow200" xml:space="preserve">
-    <value>Permitir dioses 200+ Nivel</value>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>Si esta casilla está marcada en Preferencias-&gt; Permisos, cualquier usuario con un nivel de&gt; = 100 en el panel web puede convertirse en un Dios y en cualquier lugar. Esto se puede configurar para las regiones individuales si el defecto en permisos es controlada por la ONU, y que lo sustituya en el panel región con ** Permitir dioses En esta región **. Este ajuste no tiene nada que ver con los otros dos ámbitos.</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>Las nubes originales Second Life</value>
@@ -160,7 +160,7 @@
     <value>Los objetos pueden ser tomadas de su red a través de Hypergrid</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>Permitir o no permitir dioses</value>
+    <value>Permitir dioses a base de Nivel</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>Permitir dioses propietario Región</value>
@@ -181,7 +181,7 @@
     <value>Alfa-numérico signo menos (sin espacios ni caracteres especiales)</value>
   </data>
   <data name="Another_Region" xml:space="preserve">
-    <value>Esto permitirá a otra región para ser colocado en este lugar. ¿Continuar?</value>
+    <value>Esto permitirá a otra región para ser colocado en este lugar. ¿Seguir?</value>
   </data>
   <data name="ApacheFailed" xml:space="preserve">
     <value>No se pudo instalar el servicio</value>
@@ -384,14 +384,14 @@
   <data name="Cancel_word" xml:space="preserve">
     <value>Cancelar</value>
   </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
-    <value>No se puede encontrar la carpeta</value>
-  </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>No se puede encontrar región</value>
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>No se puede encontrar la región de bienvenida por defecto</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>No se puede encontrar la carpeta</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>No se puede asignar normalizar como una región estará en una posición inferior a 0</value>
@@ -401,6 +401,9 @@
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>No se puede guardar región:</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>Categoría</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Centro del mapa de coordenadas</value>
@@ -449,6 +452,9 @@
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Elegir el caché para vaciar</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>Seleccione una carpeta para almacenar las copias de seguridad</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>Elija Región</value>
@@ -564,6 +570,9 @@
   <data name="Click_to_load" xml:space="preserve">
     <value>Haga clic para cargar este contenido</value>
   </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>Haga clic para cargar la esquina inferior izquierda del archivo en esta ubicación.</value>
+  </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Clic para solicitar el servicio de voz</value>
   </data>
@@ -673,25 +682,25 @@
     <value>Por defecto 8003</value>
   </data>
   <data name="Default_8004_word" xml:space="preserve">
-    <value>Por defecto 8004</value>
+    <value>por defecto 8004</value>
   </data>
   <data name="Default_Checked_word" xml:space="preserve">
     <value>Valor predeterminado: seleccionado</value>
   </data>
   <data name="Default_Not_enabled" xml:space="preserve">
-    <value>La región por defecto 'Bienvenido' no está habilitada. ¿Continuar?</value>
+    <value>La región por defecto 'Bienvenido' no está habilitada. ¿Seguir?</value>
   </data>
   <data name="Default_Region_word" xml:space="preserve">
     <value>región por defecto</value>
   </data>
   <data name="Default_Welcome" xml:space="preserve">
-    <value>La región por defecto 'Bienvenido' no se encuentra en el sistema. ¿Continuar?</value>
+    <value>La región por defecto 'Bienvenido' no se encuentra en el sistema. ¿Seguir?</value>
   </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>Suprimido</value>
   </data>
   <data name="Delete_word" xml:space="preserve">
-    <value>Borrar</value>
+    <value>Eliminar</value>
   </data>
   <data name="DelMaps" xml:space="preserve">
     <value>Eliminar todos los mapas</value>
@@ -701,6 +710,9 @@
   </data>
   <data name="Deregister_word" xml:space="preserve">
     <value>Dar de baja</value>
+  </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>Descripción</value>
   </data>
   <data name="Details_word" xml:space="preserve">
     <value>detalles</value>
@@ -756,6 +768,9 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>Nombre DNS y Hypergrid</value>
   </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>Una ventana de DOS nombrado robusta ya se está ejecutando</value>
+  </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>Caja DOS</value>
   </data>
@@ -772,9 +787,12 @@
     <value>DreamGrid</value>
   </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
-    <value>dirección dinámica DNSRegistering DynDNS</value>
+    <value>DNS Dinámico</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
+    <value>Registro de dirección de DynDNS</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
     <value>contraseña DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1033,7 +1051,10 @@
     <value>Hypergrid debería estar trabajando.</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Esconder</value>
+    <value>Ocultar Regiones cuando haya terminado</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>Ocultar siempre Regiones</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>Más alta utilizada: 8004</value>
@@ -1045,7 +1066,7 @@
     <value>una alta calificación de agua en metros</value>
   </data>
   <data name="HomeText" xml:space="preserve">
-    <value>Casa</value>
+    <value>Hogar</value>
   </data>
   <data name="How_Close" xml:space="preserve">
     <value>¿Cómo podemos conseguir sin estar preocupado cerca de los bordes de las cosas?</value>
@@ -1144,7 +1165,7 @@
     <value>archivos ini (* .ini) | * | Todos los archivos ini (*. *) | *. *</value>
   </data>
   <data name="Install" xml:space="preserve">
-    <value>Instalar</value>
+    <value>Instalar en pc</value>
   </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>Instalar C ++ Runtimes</value>
@@ -1197,9 +1218,6 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>Ver lista de avatares</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
-    <value>cargar la parcela</value>
-  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>Cargando Settings.ini</value>
   </data>
@@ -1212,6 +1230,12 @@
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
     <value>IARS de carga de la página web Outworldz</value>
   </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>Cargar gratuito Avatar de inventario (www)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>Cargar gratuito DreamGrid RTO (www)</value>
+  </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>Cargar gratuito Dreamworld RTO</value>
   </data>
@@ -1221,8 +1245,17 @@
   <data name="Load_Local_IARs" xml:space="preserve">
     <value>Cargar asociadas a la perfusión local de la carpeta IAR</value>
   </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Cargar las RAP locales</value>
+  </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>RTO cargar locales desde la carpeta OAR</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Cargar RTO locales</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>cargar la parcela</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>Cargar Región OAR</value>
@@ -1263,7 +1296,7 @@
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>¿Hacer una copia de seguridad?</value>
   </data>
-  <data name="Manager God_word" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
@@ -1341,6 +1374,9 @@
   <data name="More_Free_Islands" xml:space="preserve">
     <value>Más islas libres y Piezas</value>
   </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>Más islas libres y Piezas (WWW)</value>
+  </data>
   <data name="More_Help" xml:space="preserve">
     <value>Haga clic para obtener más ayuda en el sitio Web</value>
   </data>
@@ -1384,7 +1420,10 @@
     <value>Nombre</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>El nombre del sistema se ha establecido en newname {}. Puede cambiar el nombre en el menú DNS en cualquier momento</value>
+    <value>Su sistema de nombres de Hypergrid se ha restablecido. Puede cambiar el nombre en el menú de configuración de DNS-Configuración-&gt;</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>Nombre de la Región</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>Vecino Distancia (por defecto = 25,0)</value>
@@ -1494,7 +1533,13 @@
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Cargar y Guardar</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR Cargar, Guardar y copia de seguridad</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
+    <value>Ruta objeto y el nombre</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
     <value>Ruta objeto y el nombre</value>
   </data>
   <data name="ODE_text" xml:space="preserve">
@@ -1548,11 +1593,11 @@
   <data name="Passed_LAN" xml:space="preserve">
     <value>Pasó la prueba de bucle invertido LAN</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Contraseña</value>
-  </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Sólo se puede cambiar la contraseña cuando se está ejecutando Opensim</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>Contraseña</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>Manual PDF</value>
@@ -1562,6 +1607,9 @@
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>permisos</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>Foto</value>
   </data>
   <data name="Physical_Prim" xml:space="preserve">
     <value>Prim física Tamaño máximo</value>
@@ -1657,7 +1705,7 @@
     <value>Reciclar</value>
   </data>
   <data name="Refresh1" xml:space="preserve">
-    <value>Refrescar</value>
+    <value>Actualizar</value>
   </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Contenido refrescante gratuito (IAR)</value>
@@ -1698,6 +1746,9 @@
   <data name="Region_Database" xml:space="preserve">
     <value>Base de datos región</value>
   </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>Número máximo de Avatares + NPC</value>
+  </data>
   <data name="Region_List" xml:space="preserve">
     <value>lista de regiones</value>
   </data>
@@ -1731,6 +1782,9 @@
   <data name="Region_Port_word" xml:space="preserve">
     <value>región del Puerto</value>
   </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>Región se ha eliminado</value>
+  </data>
   <data name="Region_ServerName" xml:space="preserve">
     <value>El servidor al que conectarse. 'Localhost' es el valor predeterminado.</value>
   </data>
@@ -1745,9 +1799,6 @@
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Región UUID no es válido</value>
-  </data>
-  <data name="Reion_Removed" xml:space="preserve">
-    <value>Región se ha eliminado</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Actualizar la cuadrícula</value>
@@ -1794,14 +1845,17 @@
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
     <value>accidente de la física Bulletsim obligará a reiniciar el simulador</value>
   </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>reinicio pendiente</value>
+  </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
     <value>Las regiones serán todos reinicio automático después de tantos minutos corriendo</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>reinicio periódicamente</value>
   </data>
-  <data name="Restart_Queued_for_word" xml:space="preserve">
-    <value>Reinicio cola para</value>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>En cola de reinicio</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
     <value>reinicio Región</value>
@@ -1833,6 +1887,9 @@
   <data name="Robust_failed_to_start" xml:space="preserve">
     <value>Robusta no se pudo iniciar</value>
   </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>Robusta no se está ejecutando en este equipo</value>
+  </data>
   <data name="Robust_running" xml:space="preserve">
     <value>es robusto en ejecución</value>
   </data>
@@ -1844,6 +1901,9 @@
   </data>
   <data name="Running" xml:space="preserve">
     <value>Corriendo</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>Se ejecuta como un servidor de la región</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Ejecución de los diagnósticos de red</value>
@@ -1908,6 +1968,9 @@
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Buscar todas las rejillas</value>
   </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>No se pudo conectar a la base de datos de búsqueda</value>
+  </data>
   <data name="Search_word" xml:space="preserve">
     <value>Buscar</value>
   </data>
@@ -1920,11 +1983,14 @@
   <data name="See_Log" xml:space="preserve">
     <value>¿Quieres ver el archivo de registro?</value>
   </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>Ver puertos en uso</value>
+  </data>
   <data name="Selectallnone" xml:space="preserve">
     <value>Selecciona todas o ninguna de las casillas de verificación</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Seleccionar</value>
+    <value>Seleccione</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Enviar mensaje de alerta</value>
@@ -1971,6 +2037,9 @@
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>Instalación de servicios de voz</value>
   </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>Preparar</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Conjunto nivel de depuración</value>
   </data>
@@ -1993,7 +2062,7 @@
     <value>Mostrar detalles del usuario</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>mostrar</value>
+    <value>Mostrar siempre Regiones</value>
   </data>
   <data name="Shutdown_word" xml:space="preserve">
     <value>Apagar</value>
@@ -2008,7 +2077,7 @@
     <value>Sim Tamaño</value>
   </data>
   <data name="Size_word" xml:space="preserve">
-    <value>tamaño</value>
+    <value>Talla</value>
   </data>
   <data name="Skip_Autobackup_word" xml:space="preserve">
     <value>Omitir copia de seguridad automática</value>
@@ -2128,7 +2197,7 @@
     <value>Habilitar Maleta Inventario</value>
   </data>
   <data name="Suspending_word" xml:space="preserve">
-    <value>suspender</value>
+    <value>suspendiendo</value>
   </data>
   <data name="System_Backup_word" xml:space="preserve">
     <value>sistema de copia de seguridad</value>
@@ -2170,7 +2239,7 @@
     <value>Tema:</value>
   </data>
   <data name="This_Moves" xml:space="preserve">
-    <value>Esto mueve todas las regiones por lo que la región elegida está en 1000,1000 para encajar el mapa. ¿Proceder?</value>
+    <value>Esto mueve todas las regiones por lo que la región elegida está en 1000,1000 para encajar el mapa. ¿Continuar?</value>
   </data>
   <data name="Thread_pools_word" xml:space="preserve">
     <value>Agrupaciones de hebras</value>
@@ -2209,7 +2278,7 @@
     <value>ubODE</value>
   </data>
   <data name="Unable_2_Save" xml:space="preserve">
-    <value>No es posible guardar los ajustes:</value>
+    <value>No se puede guardar la configuración:</value>
   </data>
   <data name="UnassignedPerson" xml:space="preserve">
     <value>Introduzca el nombre y apellido de la persona que será el propietario de los objetos no asignados</value>
@@ -2310,6 +2379,9 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>Configuración de voz</value>
   </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>Esperando en robusto para iniciar</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>A la espera de todas las regiones a la salida</value>
   </data>
@@ -2321,6 +2393,9 @@
   </data>
   <data name="WebServerPanel" xml:space="preserve">
     <value>Panel de Servidor Web</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>Web Enlace de descarga</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Puerto Web (80 o 8000)</value>
@@ -2351,5 +2426,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Algo está mal en Internet</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>XEngine</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>si</value>
   </data>
 </root>

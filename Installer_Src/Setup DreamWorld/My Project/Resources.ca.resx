@@ -121,7 +121,7 @@
     <value>avortat</value>
   </data>
   <data name="About_word" xml:space="preserve">
-    <value>Quant a</value>
+    <value>Sobre</value>
   </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>Afegir Regió</value>
@@ -144,8 +144,8 @@
   <data name="AllNone_word" xml:space="preserve">
     <value>Tots / Cap</value>
   </data>
-  <data name="Allow200" xml:space="preserve">
-    <value>Permetre déus 200+ Nivell</value>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>Si aquesta opció està marcada en Arranjament-&gt; Permisos, qualsevol usuari amb un nivell de&gt; = 100 en el panell web pot convertir-se en un Déu i en qualsevol lloc. Això es pot configurar per a les regions individuals si el defecte en permisos és controlada per l'ONU, i que el substitueixi en el panell regió amb ** Permetre déus En aquesta regió **. Aquest ajustament no té res a veure amb els altres dos àmbits.</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>Els núvols originals Second Life</value>
@@ -160,7 +160,7 @@
     <value>Els objectes poden ser preses de la seva xarxa a través de Hypergrid</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>Permetre o no permetre déus</value>
+    <value>Permetre déus a força de Nivell</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>Permetre déus propietari Regió</value>
@@ -313,7 +313,7 @@
     <value>reserva</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
-    <value>Millor (Prims + malla, molt lent)</value>
+    <value>Millor (+ malla Prims, molt lent)</value>
   </data>
   <data name="Better_Prims" xml:space="preserve">
     <value>Better (Prims, Lent)</value>
@@ -358,7 +358,7 @@
     <value>bala</value>
   </data>
   <data name="Busy_word" xml:space="preserve">
-    <value>Ocupada</value>
+    <value>Ocupat</value>
   </data>
   <data name="Caches_word" xml:space="preserve">
     <value>caixets</value>
@@ -384,14 +384,14 @@
   <data name="Cancel_word" xml:space="preserve">
     <value>Cancel · lar</value>
   </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
-    <value>No es pot trobar la carpeta</value>
-  </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>No es pot trobar regió</value>
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>No es pot trobar la regió de benvinguda per defecte</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>No es pot trobar la carpeta</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>No es pot assignar normalitzar com una regió estarà en una posició inferior a 0</value>
@@ -401,6 +401,9 @@
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>No es pot desar regió:</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>categoria</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Centre de mapa de coordenades</value>
@@ -449,6 +452,9 @@
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Triar la memòria cau per a buidar</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>Seleccioneu una carpeta per emmagatzemar les còpies de seguretat</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>Trieu Regió</value>
@@ -563,6 +569,9 @@
   </data>
   <data name="Click_to_load" xml:space="preserve">
     <value>Feu clic per carregar aquest contingut</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>Feu clic per carregar la cantonada inferior esquerra de l'arxiu en aquesta ubicació.</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Clic per sol·licitar el servei de veu</value>
@@ -702,6 +711,9 @@
   <data name="Deregister_word" xml:space="preserve">
     <value>Donar de baixa</value>
   </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>descripció</value>
+  </data>
   <data name="Details_word" xml:space="preserve">
     <value>Detalls</value>
   </data>
@@ -756,6 +768,9 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>Nom DNS i Hypergrid</value>
   </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>Una finestra de DOS nomenat robusta ja s'està executant</value>
+  </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>Caixa DOS</value>
   </data>
@@ -772,9 +787,12 @@
     <value>DreamGrid</value>
   </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
-    <value>direcció dinàmica DNSRegistering DynDNS</value>
+    <value>DNS dinàmic</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
+    <value>Registre de direcció de DynDNS</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
     <value>contrasenya DynDNS</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1033,7 +1051,10 @@
     <value>Hypergrid hauria d'estar treballant.</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Amaga</value>
+    <value>Amaga Regions quan hagi acabat</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>Amaga sempre Regions</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>Més alta utilitzada: 8004</value>
@@ -1197,9 +1218,6 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>Veure llista d'avatars</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
-    <value>carregar la parcel·la</value>
-  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>carregant Settings.ini</value>
   </data>
@@ -1212,6 +1230,12 @@
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
     <value>IARS de càrrega de la pàgina web Outworldz</value>
   </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>Carregar gratuït Avatar d'inventari (www)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>Carregar gratuït DreamGrid RTO (www)</value>
+  </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>Carregar gratuït Dreamworld RTO</value>
   </data>
@@ -1221,8 +1245,17 @@
   <data name="Load_Local_IARs" xml:space="preserve">
     <value>Carregar associades a la perfusió local de la carpeta IAR</value>
   </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Carregar les RAP locals</value>
+  </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>RTO carregar locals des de la carpeta OAR</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Carregar RTO locals</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>carregar la parcel·la</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>Carregar Regió OAR</value>
@@ -1263,7 +1296,7 @@
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>Fer una còpia de seguretat?</value>
   </data>
-  <data name="Manager God_word" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
@@ -1294,7 +1327,7 @@
     <value>Max Force (per defecte = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
-    <value>Alçada màxima (per defecte = 45,0)</value>
+    <value>Max Alçada (default = 45,0)</value>
   </data>
   <data name="Max_NonPhys" xml:space="preserve">
     <value>256 metres de la tempesta de foc. 1500 metres amb singularitat. No es pot fer una prim regulars més gran que això</value>
@@ -1341,6 +1374,9 @@
   <data name="More_Free_Islands" xml:space="preserve">
     <value>Més illes lliures i Peces</value>
   </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>Més illes lliures i Peces (WWW)</value>
+  </data>
   <data name="More_Help" xml:space="preserve">
     <value>Feu clic per obtenir més ajuda al lloc web</value>
   </data>
@@ -1384,7 +1420,10 @@
     <value>Nom</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>El nom de el sistema s'ha establert en newname {}. Podeu canviar el nom al menú DNS en qualsevol moment</value>
+    <value>El seu sistema de noms de Hypergrid s'ha restablert. Podeu canviar el nom al menú de configuració de DNS-Configuració-&gt;</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>Nom de la Regió</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>Veí Distància (per defecte = 25,0)</value>
@@ -1494,7 +1533,13 @@
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Carregar i Desa</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR Carregar, Guardar i còpia de seguretat</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
+    <value>Ruta objecte i el nom</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
     <value>Ruta objecte i el nom</value>
   </data>
   <data name="ODE_text" xml:space="preserve">
@@ -1548,11 +1593,11 @@
   <data name="Passed_LAN" xml:space="preserve">
     <value>Va passar la prova de bucle invertit LAN</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>contrasenya</value>
-  </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Només es pot canviar la contrasenya quan s'està executant Opensim</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>contrasenya</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>manual PDF</value>
@@ -1562,6 +1607,9 @@
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>permisos</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>foto</value>
   </data>
   <data name="Physical_Prim" xml:space="preserve">
     <value>Prim física Mida màxima</value>
@@ -1698,6 +1746,9 @@
   <data name="Region_Database" xml:space="preserve">
     <value>Base de dades regió</value>
   </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>Màxima de Avatars + NPC</value>
+  </data>
   <data name="Region_List" xml:space="preserve">
     <value>llista de regions</value>
   </data>
@@ -1731,6 +1782,9 @@
   <data name="Region_Port_word" xml:space="preserve">
     <value>regió del Port</value>
   </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>Regió s'ha eliminat</value>
+  </data>
   <data name="Region_ServerName" xml:space="preserve">
     <value>El servidor a què connectar-se. 'Localhost' és el valor per omissió.</value>
   </data>
@@ -1745,9 +1799,6 @@
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Regió UUID no és vàlid</value>
-  </data>
-  <data name="Reion_Removed" xml:space="preserve">
-    <value>Regió s'ha eliminat</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Actualitzar la quadrícula</value>
@@ -1794,14 +1845,17 @@
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
     <value>accident de la física Bulletsim obligarà a reiniciar el simulador</value>
   </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>reinici pendent</value>
+  </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
     <value>Les regions seran tots reinici automàtic després de tants minuts corrent</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>reinici periòdicament</value>
   </data>
-  <data name="Restart_Queued_for_word" xml:space="preserve">
-    <value>Reinici cua per</value>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>En cua de reinici</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
     <value>reinici Regió</value>
@@ -1831,7 +1885,10 @@
     <value>Robust sortit. Vols veure el fitxer de registre d'errors?</value>
   </data>
   <data name="Robust_failed_to_start" xml:space="preserve">
-    <value>Robusta no va poder iniciar</value>
+    <value>Robusta no es va poder iniciar</value>
+  </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>Robusta no s'està executant en aquest equip</value>
   </data>
   <data name="Robust_running" xml:space="preserve">
     <value>és robust en execució</value>
@@ -1844,6 +1901,9 @@
   </data>
   <data name="Running" xml:space="preserve">
     <value>córrer</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>S'executa com un servidor de la regió</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Execució dels diagnòstics de xarxa</value>
@@ -1908,6 +1968,9 @@
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Cercar totes les reixetes</value>
   </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>No s'ha pogut connectar a la base de dades de recerca</value>
+  </data>
   <data name="Search_word" xml:space="preserve">
     <value>Cerca</value>
   </data>
@@ -1919,6 +1982,9 @@
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Vols veure el fitxer de registre?</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>Veure ports en ús</value>
   </data>
   <data name="Selectallnone" xml:space="preserve">
     <value>Selecciona totes o cap de les caselles de verificació</value>
@@ -1971,6 +2037,9 @@
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>Instal·lació de serveis de veu</value>
   </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>disposició</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Conjunt nivell de depuració</value>
   </data>
@@ -1993,7 +2062,7 @@
     <value>Mostra els detalls de l'usuari</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>Espectacle</value>
+    <value>Mostra sempre Regions</value>
   </data>
   <data name="Shutdown_word" xml:space="preserve">
     <value>Tancar</value>
@@ -2014,7 +2083,7 @@
     <value>Ometre còpia de seguretat automàtica</value>
   </data>
   <data name="Skip_word" xml:space="preserve">
-    <value>Omet</value>
+    <value>Ometre</value>
   </data>
   <data name="Slow_Backup" xml:space="preserve">
     <value>A partir d'un lent però extensa base de dades de còpia de seguretat</value>
@@ -2122,7 +2191,7 @@
     <value>aturar tot</value>
   </data>
   <data name="Stop_word" xml:space="preserve">
-    <value>aturar</value>
+    <value>Atura</value>
   </data>
   <data name="Suitcase_enable" xml:space="preserve">
     <value>Habilitar Maleta Inventari</value>
@@ -2310,6 +2379,9 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>Configuració de veu</value>
   </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>Esperant en robust per iniciar</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>A l'espera de totes les regions a la sortida</value>
   </data>
@@ -2321,6 +2393,9 @@
   </data>
   <data name="WebServerPanel" xml:space="preserve">
     <value>Panell de Servidors Web</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>Web Enllaç de descàrrega</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Port web (80 o 8000)</value>
@@ -2351,5 +2426,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Alguna cosa està malament en Internet</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>XEngine</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>si</value>
   </data>
 </root>

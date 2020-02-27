@@ -144,8 +144,8 @@
   <data name="AllNone_word" xml:space="preserve">
     <value>全部/無</value>
   </data>
-  <data name="Allow200" xml:space="preserve">
-    <value>允許200+神級</value>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>如果選中該複選框在設置 - &gt;權限，然後在Web面板可以成為神，任何地方級&gt; = 100的任何用戶。這對於個別地區集如果權限默認未核對，並重寫它與**允許神在這一地區的區域面板**。此設置無關，與其他兩個設置。</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>原第二人生浮雲</value>
@@ -160,7 +160,7 @@
     <value>對象可以從電網通過Hypergrid採取</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>允許或禁止的神</value>
+    <value>允許基於級別的神</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>允許區域業主的神</value>
@@ -241,7 +241,7 @@
     <value>自動重新啟動</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
-    <value>0 - 關閉。多少分鐘，直到自動重新啟動發生？</value>
+    <value>0  - 關閉。多少分鐘，直到自動重新啟動發生？</value>
   </data>
   <data name="AutorestartTime" xml:space="preserve">
     <value>增加自動啟動時間讓重新啟動間隔後將備份結束半小時</value>
@@ -384,14 +384,14 @@
   <data name="Cancel_word" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
-    <value>無法找到文件夾</value>
-  </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>找不到地區</value>
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>無法找到默認歡迎區</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>無法找到文件夾</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>不能正常化映射為一個地區將在一個位置小於0</value>
@@ -401,6 +401,9 @@
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>無法保存區域：</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>類別</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>在地圖的中心坐標</value>
@@ -449,6 +452,9 @@
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>選擇清空緩存哪些</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>選擇一個文件夾來存儲備份</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>選擇地區</value>
@@ -563,6 +569,9 @@
   </data>
   <data name="Click_to_load" xml:space="preserve">
     <value>點擊加載此內容</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>點擊該文件的左下角加載到這個位置。</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>點擊申請語音服務</value>
@@ -702,6 +711,9 @@
   <data name="Deregister_word" xml:space="preserve">
     <value>註銷</value>
   </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>描述</value>
+  </data>
   <data name="Details_word" xml:space="preserve">
     <value>細節</value>
   </data>
@@ -756,6 +768,9 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS名稱和Hypergrid</value>
   </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>DOS框名為穩健已經運行</value>
+  </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS箱</value>
   </data>
@@ -772,9 +787,12 @@
     <value>DreamGrid</value>
   </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
-    <value>動態DNSRegistering DynDNS的地址</value>
+    <value>動態DNS</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
+    <value>註冊DynDNS的地址</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
     <value>DynDNS的密碼</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -826,13 +844,13 @@
     <value>錯誤：無法啟動DreamGridInstaller.exe。</value>
   </data>
   <data name="ErrorLevel0" xml:space="preserve">
-    <value>僅（錯誤）錯誤 - 0</value>
+    <value>僅（錯誤）錯誤 -  0</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
-    <value>1 - （信息）命中率統計</value>
+    <value>1  - （信息）命中率統計</value>
   </data>
   <data name="ErrorLevel2" xml:space="preserve">
-    <value>2 - （調試）高速緩存活動</value>
+    <value>2  - （調試）高速緩存活動</value>
   </data>
   <data name="ErrorRegion" xml:space="preserve">
     <value>錯誤：無法設置為Opensim.ini區域</value>
@@ -1000,7 +1018,7 @@
     <value>說明對內環回</value>
   </data>
   <data name="Help_Loopback_Text" xml:space="preserve">
-    <value>如何解決環回在Windows</value>
+    <value>#VALUE!</value>
   </data>
   <data name="Help_Manuals" xml:space="preserve">
     <value>幫助手冊</value>
@@ -1033,7 +1051,10 @@
     <value>Hypergrid應該是工作。</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>隱藏</value>
+    <value>隱藏區域完成後</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>始終隱藏地區</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>最高使用：8004</value>
@@ -1197,9 +1218,6 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>化身的視圖列表</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
-    <value>裝載包裹</value>
-  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>加載的Settings.ini</value>
   </data>
@@ -1212,6 +1230,12 @@
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
     <value>從Outworldz網站負載IARS</value>
   </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>無負載頭像庫存（WWW）</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>加載忙DreamGrid危及器官（WWW）</value>
+  </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>加載免費夢幻危及器官</value>
   </data>
@@ -1219,10 +1243,19 @@
     <value>加載廣告IAR</value>
   </data>
   <data name="Load_Local_IARs" xml:space="preserve">
-    <value>從IAR文件夾中加載本地IARS</value>
+    <value>從IAR文件加載當地IARS</value>
+  </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>加載本地IARS</value>
   </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>從OAR文件夾中加載本地危及器官</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>加載本地危及器官</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>裝載包裹</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>加載區OAR</value>
@@ -1263,11 +1296,11 @@
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>做一個備份？</value>
   </data>
-  <data name="Manager God_word" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
-    <value>所有地圖圖塊已被刪除。設置地圖設置並重新啟動，使新地圖</value>
+    <value>所有地圖圖塊已被刪除。設置地圖設置並重啟，使新地圖</value>
   </data>
   <data name="Maps_word" xml:space="preserve">
     <value>地圖</value>
@@ -1341,6 +1374,9 @@
   <data name="More_Free_Islands" xml:space="preserve">
     <value>更多免費群島和配件</value>
   </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>更多免費群島及其零件（WWW）</value>
+  </data>
   <data name="More_Help" xml:space="preserve">
     <value>點擊網站上的更多幫助</value>
   </data>
@@ -1384,7 +1420,10 @@
     <value>名稱</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>您的系統名稱已被設置為{} NEWNAME。您可以在DNS菜單隨時更改名稱</value>
+    <value>您的系統Hypergrid的名字已被重置。您可以在設置 - 設置 - &gt; DNS菜單中更改名稱</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>地區名稱</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>相鄰距離（缺省值= 25.0）</value>
@@ -1400,9 +1439,6 @@
   </data>
   <data name="Network_Ports" xml:space="preserve">
     <value>網絡端口</value>
-  </data>
-  <data name="New Resource Name" xml:space="preserve">
-    <value>zh-tw</value>
   </data>
   <data name="New_Content" xml:space="preserve">
     <value>新內容加載</value>
@@ -1497,7 +1533,13 @@
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR加載和保存</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR加載，保存和備份</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
+    <value>對象路徑和名稱</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
     <value>對象路徑和名稱</value>
   </data>
   <data name="ODE_text" xml:space="preserve">
@@ -1551,11 +1593,11 @@
   <data name="Passed_LAN" xml:space="preserve">
     <value>通過網絡環回測試</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>密碼</value>
-  </data>
   <data name="Password_Text" xml:space="preserve">
     <value>您只能更改密碼時的OpenSim是運行</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>密碼</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF手冊</value>
@@ -1565,6 +1607,9 @@
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>權限</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>照片</value>
   </data>
   <data name="Physical_Prim" xml:space="preserve">
     <value>物理普里姆最大尺寸</value>
@@ -1675,7 +1720,7 @@
     <value>區域</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>地區仍在運行</value>
+    <value>區域仍在運行</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>地區</value>
@@ -1700,6 +1745,9 @@
   </data>
   <data name="Region_Database" xml:space="preserve">
     <value>區數據庫</value>
+  </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>頭像+籌備的最大數量</value>
   </data>
   <data name="Region_List" xml:space="preserve">
     <value>地區列表</value>
@@ -1726,13 +1774,16 @@
     <value>區業主是上帝</value>
   </data>
   <data name="Region_Ports_word" xml:space="preserve">
-    <value>港口區</value>
+    <value>地區港口</value>
   </data>
   <data name="Region_Port_Start" xml:space="preserve">
     <value>地區港口開始＃</value>
   </data>
   <data name="Region_Port_word" xml:space="preserve">
     <value>港口區</value>
+  </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>區已被刪除</value>
   </data>
   <data name="Region_ServerName" xml:space="preserve">
     <value>服務器連接。 'localhost'的是默認的。</value>
@@ -1748,9 +1799,6 @@
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>地區UUID無效</value>
-  </data>
-  <data name="Reion_Removed" xml:space="preserve">
-    <value>區已被刪除</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>刷新網格</value>
@@ -1797,14 +1845,17 @@
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
     <value>Bulletsim物理碰撞將迫使模擬器重啟</value>
   </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>即將重啟</value>
+  </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
     <value>該地區將如此多分鐘後，所有自動重新啟動運行</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>定期重新啟動</value>
   </data>
-  <data name="Restart_Queued_for_word" xml:space="preserve">
-    <value>重新啟動已排隊準備</value>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>重新排隊</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
     <value>重新啟動區域</value>
@@ -1836,6 +1887,9 @@
   <data name="Robust_failed_to_start" xml:space="preserve">
     <value>樂百氏未能啟動</value>
   </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>樂百氏是不是這台機器上運行</value>
+  </data>
   <data name="Robust_running" xml:space="preserve">
     <value>健壯運行</value>
   </data>
@@ -1847,6 +1901,9 @@
   </data>
   <data name="Running" xml:space="preserve">
     <value>運行</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>運行的地區服務器</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>運行網絡診斷</value>
@@ -1900,7 +1957,7 @@
     <value>腳本緩存</value>
   </data>
   <data name="Script_Rate_word" xml:space="preserve">
-    <value>腳本率</value>
+    <value>腳本價格</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
     <value>腳本計時器頻率（0.0909）</value>
@@ -1910,6 +1967,9 @@
   </data>
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>搜索所有網格</value>
+  </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>無法連接到搜索數據庫</value>
   </data>
   <data name="Search_word" xml:space="preserve">
     <value>搜索</value>
@@ -1922,6 +1982,9 @@
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>你想看到的日誌文件？</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>請參閱使用端口</value>
   </data>
   <data name="Selectallnone" xml:space="preserve">
     <value>選擇複選框的全或無</value>
@@ -1974,6 +2037,9 @@
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>設置語音服務</value>
   </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>設定</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>設置調試級別</value>
   </data>
@@ -1996,7 +2062,7 @@
     <value>顯示用戶信息</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>顯示</value>
+    <value>始終顯示所有地區</value>
   </data>
   <data name="Shutdown_word" xml:space="preserve">
     <value>關掉</value>
@@ -2313,6 +2379,9 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>語音設置</value>
   </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>等待穩健開始</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>等待所有地區的出口</value>
   </data>
@@ -2324,6 +2393,9 @@
   </data>
   <data name="WebServerPanel" xml:space="preserve">
     <value>Web服務器面板</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>網頁下載鏈接</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Web端口（80或8000）</value>
@@ -2354,5 +2426,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>什麼是錯與互聯網</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>XEngine</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>是</value>
   </data>
 </root>

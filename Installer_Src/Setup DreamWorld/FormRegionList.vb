@@ -862,7 +862,6 @@ Public Class RegionList
     Private Sub ShowAvatars()
         Try
             ViewBusy = True
-
             AvatarView.Show()
             ListView1.Hide()
 
@@ -878,9 +877,9 @@ Public Class RegionList
                 L = MysqlInterface.GetAgentList()
             End If
 
-            If Debugger.IsAttached Then
-                L.Add("Ferd Frederix", "Welcome")
-            End If
+            ' If Debugger.IsAttached Then
+            'L.Add("Ferd Frederix", "Welcome")
+            'End If
 
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -898,8 +897,6 @@ Public Class RegionList
                 Index += 1
             End If
 
-            Index = 0
-
             ' Hypergrid
             '
             ' Create items and subitems for each item.
@@ -908,9 +905,9 @@ Public Class RegionList
                 M = GetHGAgentList()
             End If
 
-            If Debugger.IsAttached Then
-                M.Add("Nyira Machabelli", "SandBox")
-            End If
+            ' If Debugger.IsAttached Then
+            ' M.Add("Nyira Machabelli", "SandBox")
+            'End If
 
             For Each Agent In M
                 If Agent.Value.Length > 0 Then
@@ -933,7 +930,7 @@ Public Class RegionList
             AvatarView.EndUpdate()
 
             AvatarView.Show()
-
+            AvatarView.Visible = True
             ViewBusy = False
             PropUpdateView() = False
 #Disable Warning CA1031 ' Do not catch general exception types
@@ -1153,7 +1150,7 @@ Public Class RegionList
         Form1.StartRobust()
         Form1.Timer1.Interval = 1000
         Form1.Timer1.Start() 'Timer starts functioning
-        Form1._TimerBusy = 0
+        Form1.TimerBusy = 0
 
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim GroupName = Form1.PropRegionClass.GroupName(RegionUUID)

@@ -220,7 +220,6 @@ Partial Class RegionList
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
-        Me.AvatarView.Visible = False
         '
         'MenuStrip1
         '

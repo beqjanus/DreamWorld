@@ -144,8 +144,8 @@
   <data name="AllNone_word" xml:space="preserve">
     <value>Alla / Ingen</value>
   </data>
-  <data name="Allow200" xml:space="preserve">
-    <value>Låt 200+ Nivå gudar</value>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>Om den här rutan är markerad i Inställningar&gt; Behörigheter, då alla användare med en nivå&gt; = 100 i webbpanel kan bli en Gud, var som helst. Detta kan ställas in för enskilda regioner om standardbehörigheter är FN-kontrollerat, och du åsidosätta den i regionen panel med ** Låt gudar i denna region **. Denna inställning har ingenting att göra med de andra två inställningar.</value>
   </data>
   <data name="Allow_cloud" xml:space="preserve">
     <value>Den ursprungliga Second Life moln</value>
@@ -160,7 +160,7 @@
     <value>Objekt kan tas från elnätet via Hypergrid</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>Tillåta eller inte tillåta Gods</value>
+    <value>Tillåt Level-baserade gudar</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>Låt Region ägare gudar</value>
@@ -379,19 +379,19 @@
     <value>Fyll IAR avbryts - måste använda hela användarnamn och lösenord.</value>
   </data>
   <data name="Cancelled_word" xml:space="preserve">
-    <value>Avbokad</value>
+    <value>Inställt</value>
   </data>
   <data name="Cancel_word" xml:space="preserve">
-    <value>Avbryt</value>
-  </data>
-  <data name="Cannot locate folder_word" xml:space="preserve">
-    <value>Det går inte att hitta mappen</value>
+    <value>Annullera</value>
   </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>Kan inte hitta region</value>
   </data>
   <data name="Cannot_locate" xml:space="preserve">
     <value>Det går inte att hitta standard välkommen region</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>Det går inte att hitta mappen</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
     <value>Det går inte att normalisera kartan som region kommer att vara på en plats mindre än 0</value>
@@ -401,6 +401,9 @@
   </data>
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>Det går inte att spara region:</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>Kategori</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Mitten av kartan samordna</value>
@@ -449,6 +452,9 @@
   </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Välj vilken cache för att tömma</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>Välj en mapp för att lagra säkerhetskopior</value>
   </data>
   <data name="Choose_Region_word" xml:space="preserve">
     <value>Välj Region</value>
@@ -563,6 +569,9 @@
   </data>
   <data name="Click_to_load" xml:space="preserve">
     <value>Klicka för att ladda innehållet</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>Klicka för att ladda det nedre vänstra hörnet av filen till den här platsen.</value>
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Klicka för att begära Voice service</value>
@@ -702,6 +711,9 @@
   <data name="Deregister_word" xml:space="preserve">
     <value>Avregistrera</value>
   </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
   <data name="Details_word" xml:space="preserve">
     <value>detaljer</value>
   </data>
@@ -756,6 +768,9 @@
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS-namn &amp; Hypergrid</value>
   </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>En DOS Box som heter Robust redan är igång</value>
+  </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS Box</value>
   </data>
@@ -772,9 +787,12 @@
     <value>DreamGrid</value>
   </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
-    <value>Dynamisk DNSRegistering DynDNS adress</value>
+    <value>dynamisk DNS</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
+    <value>Registrera DynDNS adress</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
     <value>DynDNS lösenord</value>
   </data>
   <data name="EditRegion" xml:space="preserve">
@@ -1033,7 +1051,10 @@
     <value>Hypergrid borde arbeta.</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Dölj</value>
+    <value>Göm Regioner när du är klar</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>Alltid Göm Regioner</value>
   </data>
   <data name="Highest_Used" xml:space="preserve">
     <value>Högsta används: 8004</value>
@@ -1099,7 +1120,7 @@
     <value>Klicka för att få hjälp att inrätta Icecast</value>
   </data>
   <data name="Icecast_is_Set" xml:space="preserve">
-    <value>Icecast porten är inställd</value>
+    <value>Icecast Port är Set</value>
   </data>
   <data name="Icecast_Started" xml:space="preserve">
     <value>icecast igång</value>
@@ -1197,9 +1218,6 @@
   <data name="ListAvatars" xml:space="preserve">
     <value>Se lista över Avatars</value>
   </data>
-  <data name="Load Parcel" xml:space="preserve">
-    <value>Fyll Parcel</value>
-  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>Loading settings.ini</value>
   </data>
@@ -1212,6 +1230,12 @@
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
     <value>Last IAR från webbplats Outworldz</value>
   </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>Load gratis Avatar Inventory (www)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>Ladda gratis DreamGrid Åror (www)</value>
+  </data>
   <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
     <value>Ladda gratis Dreamworld Åror</value>
   </data>
@@ -1221,8 +1245,17 @@
   <data name="Load_Local_IARs" xml:space="preserve">
     <value>Fyll Lokala IAR från mappen IAR</value>
   </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>Fyll Lokala IAR</value>
+  </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>Fyll Lokala Åror från OAR mappen</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>Fyll Lokala Åror</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>Fyll Parcel</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>Fyll Region OAR</value>
@@ -1263,7 +1296,7 @@
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>Gör en backup?</value>
   </data>
-  <data name="Manager God_word" xml:space="preserve">
+  <data name="Manager_God_word" xml:space="preserve">
     <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
@@ -1291,13 +1324,13 @@
     <value>Max avstånd för andra fåglar som skall beaktas i samma flock</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (standard = 0,2)</value>
+    <value>Max Force (default = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Höjd (default = 45,0)</value>
   </data>
   <data name="Max_NonPhys" xml:space="preserve">
-    <value>256 meter i Firestorm. 1500 meter med singularitet. Du kan inte göra en vanlig prim större än detta</value>
+    <value>256 meter i Firestorm. 1500 meter med singularitet. Det går inte att göra en vanlig prim större än detta</value>
   </data>
   <data name="Max_NumPrims" xml:space="preserve">
     <value>Max antal Prims i ett paket</value>
@@ -1340,6 +1373,9 @@
   </data>
   <data name="More_Free_Islands" xml:space="preserve">
     <value>Friare Islands och delar</value>
+  </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>Friare Islands och delar (www)</value>
   </data>
   <data name="More_Help" xml:space="preserve">
     <value>Klicka för mer hjälp på webbplatsen</value>
@@ -1384,7 +1420,10 @@
     <value>namn</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>Systemet namn har ställts in på {newname}. Du kan ändra namnet på DNS-menyn när som helst</value>
+    <value>Systemet Hypergrid namn har återställts. Du kan ändra namnet på Setup-Inställningar&gt; DNS-menyn</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>Namn på Region</value>
   </data>
   <data name="Neighbor_Distance" xml:space="preserve">
     <value>Granne Avstånd (default = 25,0)</value>
@@ -1438,7 +1477,7 @@
     <value>Meddela Email</value>
   </data>
   <data name="NotValidUUID" xml:space="preserve">
-    <value>Inte en giltig UUID. Vill du ha en ny, Random UUID?</value>
+    <value>Inte ett giltigt UUID. Vill du ha en ny, Random UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
     <value>Detta verkar inte vidarebefordras till denna maskin i din router, så Hypergrid är inte tillgänglig. Detta kan möjligen fastställas genom 'Port Forwards' i din router. Se Hjälp-&gt; Port framåt.</value>
@@ -1494,7 +1533,13 @@
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Load och spara</value>
   </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>OAR Load, Spara och Backup</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
+    <value>Object sökväg och namn</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
     <value>Object sökväg och namn</value>
   </data>
   <data name="ODE_text" xml:space="preserve">
@@ -1537,7 +1582,7 @@
     <value>OSGrid Region Server</value>
   </data>
   <data name="OverridesMap" xml:space="preserve">
-    <value>Åsidosätter den globala kartan Inställningar för en region</value>
+    <value>Åsidosätter globala kartinställningarna för en region</value>
   </data>
   <data name="Owner_God" xml:space="preserve">
     <value>ägare Gud</value>
@@ -1548,11 +1593,11 @@
   <data name="Passed_LAN" xml:space="preserve">
     <value>Godkänd LAN loopback-test</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Lösenord</value>
-  </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Du kan endast ändra lösenordet när Opensim körs</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>Lösenord</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF Manual</value>
@@ -1562,6 +1607,9 @@
   </data>
   <data name="Permissions_word" xml:space="preserve">
     <value>Behörigheter</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>Foto</value>
   </data>
   <data name="Physical_Prim" xml:space="preserve">
     <value>Fysisk Prim Max Size</value>
@@ -1698,6 +1746,9 @@
   <data name="Region_Database" xml:space="preserve">
     <value>region Database</value>
   </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>Max antal Avatars + NPCs</value>
+  </data>
   <data name="Region_List" xml:space="preserve">
     <value>region List</value>
   </data>
@@ -1731,6 +1782,9 @@
   <data name="Region_Port_word" xml:space="preserve">
     <value>region Port</value>
   </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>Region har tagits bort</value>
+  </data>
   <data name="Region_ServerName" xml:space="preserve">
     <value>Servern att ansluta till. 'Localhost' är standard.</value>
   </data>
@@ -1745,9 +1799,6 @@
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Region UUID är ogiltig</value>
-  </data>
-  <data name="Reion_Removed" xml:space="preserve">
-    <value>Region har tagits bort</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Ladda nätet</value>
@@ -1794,14 +1845,17 @@
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
     <value>Bulletsim fysik kraschen kommer att tvinga en simulator omstart</value>
   </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>Starta om Väntar</value>
+  </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
     <value>Regionerna kommer all automatisk omstart efter så många minuter som körs</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>omstart period</value>
   </data>
-  <data name="Restart_Queued_for_word" xml:space="preserve">
-    <value>Starta om kö för</value>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>Starta om kö</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
     <value>Starta om Region</value>
@@ -1819,7 +1873,7 @@
     <value>Återställ databas</value>
   </data>
   <data name="Restore_word" xml:space="preserve">
-    <value>Återställa?</value>
+    <value>Återställ?</value>
   </data>
   <data name="Resuming_word" xml:space="preserve">
     <value>Återuppta</value>
@@ -1833,6 +1887,9 @@
   <data name="Robust_failed_to_start" xml:space="preserve">
     <value>Robust gick inte att starta</value>
   </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>Robust inte körs på den här maskinen</value>
+  </data>
   <data name="Robust_running" xml:space="preserve">
     <value>Robusta körs</value>
   </data>
@@ -1844,6 +1901,9 @@
   </data>
   <data name="Running" xml:space="preserve">
     <value>Löpning</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>Körs som en region Server</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Köra Nätverksdiagnostik</value>
@@ -1908,6 +1968,9 @@
   <data name="Search_All_Grids_word" xml:space="preserve">
     <value>Sök alla Galler</value>
   </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>Misslyckades med att ansluta till Sök databas</value>
+  </data>
   <data name="Search_word" xml:space="preserve">
     <value>Sök</value>
   </data>
@@ -1919,6 +1982,9 @@
   </data>
   <data name="See_Log" xml:space="preserve">
     <value>Vill du se loggfilen?</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>Se hamnar i användning</value>
   </data>
   <data name="Selectallnone" xml:space="preserve">
     <value>Väljer alla eller ingen av kryssrutorna</value>
@@ -1971,6 +2037,9 @@
   <data name="Setup_Voice_Service" xml:space="preserve">
     <value>Setup Voice service</value>
   </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>Uppstart</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Set Debug nivå</value>
   </data>
@@ -1993,7 +2062,7 @@
     <value>Visa Användaruppgifter</value>
   </data>
   <data name="Show_word" xml:space="preserve">
-    <value>Show</value>
+    <value>Visa alltid Regioner</value>
   </data>
   <data name="Shutdown_word" xml:space="preserve">
     <value>Stänga av</value>
@@ -2310,6 +2379,9 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>röst~~POS=TRUNC</value>
   </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>Väntar på Robust att starta</value>
+  </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Väntar på alla regioner för att avsluta</value>
   </data>
@@ -2321,6 +2393,9 @@
   </data>
   <data name="WebServerPanel" xml:space="preserve">
     <value>Web Server Panel</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>Web Hämta Link</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
     <value>Web Port (80 eller 8000)</value>
@@ -2351,5 +2426,14 @@
   </data>
   <data name="Wrong" xml:space="preserve">
     <value>Något är fel med Internet</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>XEngine</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>
