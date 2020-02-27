@@ -6842,8 +6842,12 @@ Public Class Form1
         Catch ex As FormatException
         End Try
 
-        ' ould be the same or later version already
-        If Settings.SkipUpdateCheck >= uv Then
+        ' could be the same or later version already
+        If uv <= Settings.SkipUpdateCheck Then
+            Return
+        End If
+
+        If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
             Return
         End If
 
@@ -6874,6 +6878,7 @@ Public Class Form1
         Print(My.Resources.Update_is_available & ":" & Update_version)
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .Arguments = "DreamGrid-V" & Update_version & ".zip",
+                .WindowStyle = ProcessWindowStyle.Minimized,
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 

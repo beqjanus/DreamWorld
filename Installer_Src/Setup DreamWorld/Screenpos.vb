@@ -72,7 +72,7 @@ Public Class ScreenPos
 
     Public Function ColumnWidth(name As String, size As Integer) As Integer
 
-        Dim w As Integer = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(name & "_width"), Integer)
+        Dim w As Integer = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width"), Integer)
         If w = 0 Then
             Return size
         End If
@@ -82,7 +82,7 @@ Public Class ScreenPos
     End Function
 
     Public Function Exists() As Boolean
-        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_Initted"), Integer)
+        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Initted"), Integer)
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Initted", "1")
         SaveFormSettings()
         If Value = 0 Then Return False
@@ -91,15 +91,15 @@ Public Class ScreenPos
 
     Public Function GetHW() As List(Of Integer)
 
-        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_W"), Integer)
+        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_H"), Integer)
+        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_W"), Integer)
 
         Dim r As New List(Of Integer) From {
             ValueHOld,
             ValueWOld
         }
-        Debug.Print("H<" + ValueHOld.ToString(Globalization.CultureInfo.InvariantCulture))
-        Debug.Print("W<" + ValueWOld.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("H<" + ValueHOld.ToString(Globalization.CultureInfo.CurrentCulture))
+        Debug.Print("W<" + ValueWOld.ToString(Globalization.CultureInfo.CurrentCulture))
         Return r
 
     End Function
@@ -109,8 +109,8 @@ Public Class ScreenPos
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
 
-        Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_X"), Integer)
-        Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(gName + "_Y"), Integer)
+        Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_X"), Integer)
+        Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Y"), Integer)
         If ValueXOld <= 0 Then
             ValueXOld = 100
         End If
@@ -130,8 +130,8 @@ Public Class ScreenPos
             ValueXOld,
             ValueYOld
         }
-        Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.InvariantCulture))
-        Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
+        Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
         Return r
 
     End Function
@@ -151,7 +151,7 @@ Public Class ScreenPos
     Public Sub putSize(name As String, size As Integer)
         If name Is Nothing Then Return
         ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
-        Data("Data".ToString(Globalization.CultureInfo.InvariantCulture))(name & "_width") = size.ToString(Globalization.CultureInfo.InvariantCulture)
+        Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width") = size.ToString(Globalization.CultureInfo.CurrentCulture)
 
     End Sub
 
@@ -169,8 +169,8 @@ Public Class ScreenPos
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_H", ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_W", ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_H", ValueH.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_W", ValueW.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
         Debug.Print("H>" + ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
         Debug.Print("W>" + ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -179,11 +179,11 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_X", ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Y", ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_X", ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Y", ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.InvariantCulture))
-        Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
 
     End Sub
 
@@ -193,8 +193,8 @@ Public Class ScreenPos
 
     Private Sub SetXYIni(section As String, key As String, value As String)
 
-        section = section.ToString(Globalization.CultureInfo.InvariantCulture)
-        key = key.ToString(Globalization.CultureInfo.InvariantCulture)
+        section = section.ToString(Globalization.CultureInfo.CurrentCulture)
+        key = key.ToString(Globalization.CultureInfo.CurrentCulture)
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it
