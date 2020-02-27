@@ -918,7 +918,7 @@ Erstellen einer neuen, leeren Datenbank</value>
     <value>DOS Box</value>
   </data>
   <data name="File_word" xml:space="preserve">
-    <value>File System Assets Database</value>
+    <value>File</value>
   </data>
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>Wird nicht ein OAR mit Autobackup speichern.</value>
