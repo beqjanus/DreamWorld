@@ -4171,7 +4171,10 @@ Public Class Form1
     Private Sub ReallyQuit()
 
         If Not KillAll() Then Return
-        PropWebServer.StopWebServer()
+        If PropWebServer IsNot Nothing Then
+            PropWebServer.StopWebServer()
+        End If
+
         PropAborting = True
         StopMysql()
 
