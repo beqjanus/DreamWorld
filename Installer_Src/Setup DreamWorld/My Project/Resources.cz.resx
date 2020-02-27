@@ -783,6 +783,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Upravit</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>E-mailem</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager je Bůh - Estate manažeři mohou stát bohy, ale právě pro tento majetek</value>
   </data>
@@ -821,6 +824,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Zadejte název objektu ( ‚/‘ bude zálohovat všechno, a ‚/ objekty / box‘ zálohuje ‚okno‘ ve složce objektů</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Zadejte Grid Informace o vlastníkovi</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Chyba: Nelze spustit DreamGridInstaller.exe.</value>
@@ -1192,6 +1198,9 @@
     <value>Velká mapa Metro</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Příjmení</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1757,6 +1766,9 @@
   </data>
   <data name="RenderMin" xml:space="preserve">
     <value>Render min Výška</value>
+  </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Zopakovat heslo</value>
   </data>
   <data name="Request_App" xml:space="preserve">
     <value>Požádat o App Creation</value>

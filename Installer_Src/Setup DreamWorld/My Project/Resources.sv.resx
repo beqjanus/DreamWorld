@@ -352,7 +352,7 @@
     <value>bullet fysik</value>
   </data>
   <data name="Bullet_Threaded_word" xml:space="preserve">
-    <value>bullet gäng~~POS=TRUNC</value>
+    <value>bullet Gäng</value>
   </data>
   <data name="Bullet_word_NT" xml:space="preserve">
     <value>Kula</value>
@@ -691,7 +691,7 @@
     <value>Standard 'Välkommen' region är inte aktiverad. Fortsätta?</value>
   </data>
   <data name="Default_Region_word" xml:space="preserve">
-    <value>standard~~POS=TRUNC region</value>
+    <value>Standard region</value>
   </data>
   <data name="Default_Welcome" xml:space="preserve">
     <value>Standard 'Välkommen' region inte finns i systemet. Fortsätta?</value>
@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Redigera</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>E-post</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager är Gud - Estate chefer kan bli gudar, men bara för denna egendom</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Ange det objektnamn ( '/' kommer säkerhetskopiera allt, och '/ objekt / box' kommer att backa upp 'box' i mapp Objects</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Ange nätägare Information</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Fel: Det gick inte att starta DreamGridInstaller.exe.</value>
@@ -910,82 +916,82 @@
     <value>Förnamn</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Flotsam Asset Cache</value>
+    <value>Förnamn</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Mapp att spara till</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>Standard 1/11 sek. Standard är 0,0909, som är en / 5:e av 55 FPS</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>frame Rate</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Frame Rate (0,0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Mapp att spara till</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Skaffa en gratis DYN DNS-namn</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Klicka att få en gratis Gloebits konto så att du kan köpa och sälja</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>Gratis DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Standard 1/11 sek. Standard är 0,0909, som är en / 5:e av 55 FPS</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Klicka att få en gratis Gloebits konto så att du kan köpa och sälja</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Denna Grid vänliga namn</value>
+    <value>Skaffa en gratis DYN DNS-namn</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL körs 55 FPS. Opensim är 11 FPS. Default = 0,0909, eller 1/11</value>
+    <value>Denna Grid vänliga namn</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Tillgångar som filer</value>
+    <value>SL körs 55 FPS. Opensim är 11 FPS. Default = 0,0909, eller 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>File System Assets Database</value>
+    <value>Tillgångar som filer</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets Server</value>
+    <value>File System Assets Database</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>De globala fågel inställningarna kommer att gälla för denna region</value>
+    <value>FsAssets Server</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>få regioner</value>
+    <value>De globala fågel inställningarna kommer att gälla för denna region</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Globala inställningar</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Globala Tide Inställningar</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>få regioner</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits Currency</value>
+    <value>Globala inställningar</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Bra (Warp3D)</value>
+    <value>Gloebits Currency</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>Grid-adress</value>
+    <value>Bra (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Grid-adress är</value>
+    <value>Grid-adress</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>Du kan ge den här adressen ut till människor och de kan besöka din grid</value>
+    <value>Grid-adress är</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Grid Server med robusta</value>
+    <value>Du kan ge den här adressen ut till människor och de kan besöka din grid</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Grid TCP Port är inställda</value>
+    <value>Grid Server med robusta</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Grid UDP Port är inställda</value>
+    <value>Grid TCP Port är inställda</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>De globala Tide inställningarna kommer att gälla för denna region</value>
+    <value>Grid UDP Port är inställda</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Uppdatering finns tillgänglig. Vill du avsluta DreamGrid och installera uppdateringen?</value>
@@ -1132,7 +1138,7 @@
     <value>ikoner</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>Opensim sparar OARS efter att ha kört denna långa</value>
+    <value>ikoner</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>ignorera Parcel</value>
@@ -1174,7 +1180,7 @@
     <value>Installera Desktop-ikonen</value>
   </data>
   <data name="Internet_address" xml:space="preserve">
-    <value>Internetadress adress~~POS=HEADCOMP</value>
+    <value>Internetadress</value>
   </data>
   <data name="Interval" xml:space="preserve">
     <value>Intervall</value>
@@ -1213,6 +1219,9 @@
     <value>Stor Metro karta</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Efternamn</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>Gör en backup?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Gör en backup?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Alla kartrutor har raderats. Ställ kartan inställningen och starta om att göra nya kartor</value>
@@ -1324,13 +1333,13 @@
     <value>Max avstånd för andra fåglar som skall beaktas i samma flock</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (default = 0,2)</value>
+    <value>Max avstånd för andra fåglar som skall beaktas i samma flock</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Höjd (default = 45,0)</value>
   </data>
   <data name="Max_NonPhys" xml:space="preserve">
-    <value>256 meter i Firestorm. 1500 meter med singularitet. Det går inte att göra en vanlig prim större än detta</value>
+    <value>256 meter i Firestorm. 1500 meter med singularitet. Du kan inte göra en vanlig prim större än detta</value>
   </data>
   <data name="Max_NumPrims" xml:space="preserve">
     <value>Max antal Prims i ett paket</value>
@@ -1348,10 +1357,10 @@
     <value>Max hastighet (default = 1,0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Merge OAR</value>
+    <value>Max 4096</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Sammanfoga objekt</value>
+    <value>Merge OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
@@ -1432,7 +1441,7 @@
     <value>Ett nätverk förändring inträffade. En omstart kan vara nödvändigt.</value>
   </data>
   <data name="Network_Diagnostics" xml:space="preserve">
-    <value>nätverks~~POS=TRUNC</value>
+    <value>Nätverksdiagnostik</value>
   </data>
   <data name="Network_Diagnostics_text" xml:space="preserve">
     <value>Kör diagnostikinstallations</value>
@@ -1480,10 +1489,10 @@
     <value>Inte ett giltigt UUID. Vill du ha en ny, Random UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Detta verkar inte vidarebefordras till denna maskin i din router, så Hypergrid är inte tillgänglig. Detta kan möjligen fastställas genom 'Port Forwards' i din router. Se Hjälp-&gt; Port framåt.</value>
+    <value>Normalt inställd på OutworldzFiles / Autobackup mapp med 'Autobackup'. Klicka för att ändra mappen.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Normalt inte verkställas av Opensim. Viewer kommer inte att visa mer än 45.000. Ställa detta här och gör det möjligt för detta i inställningarna driva gränsen och kan återvända Prims!</value>
+    <value>Detta verkar inte vidarebefordras till denna maskin i din router, så Hypergrid är inte tillgänglig. Detta kan möjligen fastställas genom 'Port Forwards' i din router. Se Hjälp-&gt; Port framåt.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim körs inte.</value>
@@ -1546,7 +1555,7 @@
     <value>Open Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ODE</value>
+    <value>Open Dynamic Engine</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Av</value>
@@ -1561,19 +1570,19 @@
     <value>Det finns en avatar</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>En region är fortfarande igång</value>
+    <value>Ok</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Endast Ägare och Estate chefer kommer att tillåtas i denna region</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Opensimulator är lastning</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Open Router portar med hjälp av Universal Plug and Play</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Endast Ägare och Estate chefer kommer att tillåtas i denna region</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>alternativ</value>
+    <value>Opensimulator är lastning</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>Eller:</value>
@@ -1582,7 +1591,7 @@
     <value>OSGrid Region Server</value>
   </data>
   <data name="OverridesMap" xml:space="preserve">
-    <value>Åsidosätter globala kartinställningarna för en region</value>
+    <value>Åsidosätter den globala kartan Inställningar för en region</value>
   </data>
   <data name="Owner_God" xml:space="preserve">
     <value>ägare Gud</value>
@@ -1591,7 +1600,7 @@
     <value>paket</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Godkänd LAN loopback-test</value>
+    <value>paket</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Du kan endast ändra lösenordet när Opensim körs</value>
@@ -1663,7 +1672,7 @@
     <value>Private Port</value>
   </data>
   <data name="Production_Mode_Word" xml:space="preserve">
-    <value>produktions~~POS=TRUNC</value>
+    <value>Produktionsläge</value>
   </data>
   <data name="Provide_Info" xml:space="preserve">
     <value>Ge tidvatteninformation på konsolen?</value>
@@ -1720,7 +1729,7 @@
     <value>Område</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>regioner fortfarande kör</value>
+    <value>Region UUID är ogiltig</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>regioner</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Render Min Längd</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Repetera lösenord</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Begär App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Boka ditt DYN DNS-namn. Detta är ett lösenord för ditt namn.</value>
+    <value>Begär App Creation</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>löst</value>
@@ -1831,7 +1843,7 @@
     <value>Starta om Intervall i minuter</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Omstart en instans</value>
+    <value>Bulletsim fysik kraschen kommer att tvinga en simulator omstart</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Omstart en region</value>
@@ -1858,16 +1870,16 @@
     <value>Starta om kö</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Starta om Region</value>
+    <value>Starta om kö</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>omstart Robust</value>
+    <value>Starta om Region</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Starta Inställningar</value>
+    <value>omstart Robust</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Omstart</value>
+    <value>Starta Inställningar</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Återställ databas</value>
@@ -1900,7 +1912,7 @@
     <value>Klicka på en aktiverad rad för att starta eller stoppa regionen. Klicka en handikappad rad att redigera regionen.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>Löpning</value>
+    <value>Kör som en tjänst</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Körs som en region Server</value>
@@ -1912,7 +1924,7 @@
     <value>Kör All</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Kör som en tjänst</value>
+    <value>Kör All</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>sandlådeläge</value>
@@ -1990,7 +2002,7 @@
     <value>Väljer alla eller ingen av kryssrutorna</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Välj</value>
+    <value>Jag ser du igen när jag vaknar allt färskt och nytt!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Skicka Alert meddelande</value>
@@ -2014,7 +2026,7 @@
     <value>inställningar</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Ställa Loopback Adapter till offentlig IP-adress</value>
+    <value>set Owner</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Inställning Firewall</value>
@@ -2044,7 +2056,7 @@
     <value>Set Debug nivå</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>set Owner</value>
+    <value>Set Debug nivå</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast är inte aktiverad.</value>
@@ -2245,22 +2257,22 @@
     <value>Ämnes pooler</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Tides</value>
+    <value>Tide Info Channel</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Aktivera tidvattnet att komma in och ut?</value>
+    <value>Ämnes pooler</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Info Channel</value>
+    <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Timeout i timmar</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Tolerans (default = 25,0)</value>
+    <value>Timeout i timmar</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Felsökning</value>
@@ -2302,7 +2314,7 @@
     <value>UPnP Disabled</value>
   </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
-    <value>Aktivera detta är att du har ett litet system och vill routern portarna för att automatiskt ställa in</value>
+    <value>Aktivera detta är att du har en litet system och vill routern portarna för att automatiskt ställa in</value>
   </data>
   <data name="UPnP_Enabled_word" xml:space="preserve">
     <value>UPnP</value>
@@ -2377,7 +2389,7 @@
     <value>Röst</value>
   </data>
   <data name="Voice_Settings_Word" xml:space="preserve">
-    <value>röst~~POS=TRUNC</value>
+    <value>Röstinställningar</value>
   </data>
   <data name="Waiting_on_Robust" xml:space="preserve">
     <value>Väntar på Robust att starta</value>

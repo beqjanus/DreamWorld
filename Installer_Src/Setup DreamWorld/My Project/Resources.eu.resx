@@ -229,7 +229,7 @@
     <value>Ziur zaude? Zure datu-basea izango backup batetik rloaded eta dauden eduki guztiak ordezkatu. Avatarrak, Sims, inbentarioa, guztiaren idatziko da gainetik.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
-    <value>Ziur eskualde hau ezabatu nahi duzula?</value>
+    <value>Ziur eskualdearen hau ezabatu nahi duzula?</value>
   </data>
   <data name="Asset_Cache_word" xml:space="preserve">
     <value>Asset Cache</value>
@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Editatu</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>Emaila</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Higiezinen Kudeatzaile God da - Higiezinen kudeatzaile jainko bihur daiteke, baina higiezinen horretarako</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Idatzi Objektu izenarekin ( '/' izango backup guztia, eta '/ objektuak / kutxa' babeskopia egingo 'box' karpeta Objektuak in</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Sartu Grid jabearen informazioa</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Ezin da abiaraziko DreamGridInstaller.exe.</value>
@@ -910,82 +916,82 @@
     <value>Izena</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Flotsam Asset Cache</value>
+    <value>Izena</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Karpetara gorde</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Marko tasa (0.0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>Lehenetsia 1/11 s. Lehenetsitako 0,0909 bertan 1 / 55. FPS 5ean da</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>Fotograma-tasa</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Marko tasa (0.0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Karpetara gorde</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Onena DYN DNS izena</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Klik batean Free Gloebits kontua Beraz You Can erosi eta saldu Get To</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>Free DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Lehenetsia 1/11 s. Lehenetsitako 0,0909 bertan 1/55 FPS 5ean da</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Klik batean Free Gloebits kontua Beraz You Can erosi eta saldu Get To</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Grid honen Lagunarteko izena</value>
+    <value>Onena DYN DNS izena</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL exekutatzen 55 FPS. Opensim 11 FPS da. Lehenetsia = 0,0909, edo 1/11</value>
+    <value>Grid honen Lagunarteko izena</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Aktibo fitxategiak gisa</value>
+    <value>SL exekutatzen 55 FPS. Opensim 11 FPS da. Lehenetsia = 0,0909, edo 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>File System Aktibo Database</value>
+    <value>Aktibo fitxategiak gisa</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets zerbitzaria</value>
+    <value>File System Aktibo Database</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>The global Bird ezarpenak egingo eskualde honetan aplikatzen</value>
+    <value>FsAssets zerbitzaria</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>eskuratzen eskualde</value>
+    <value>The global Bird ezarpenak egingo eskualde honetan aplikatzen</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Global ezarpenak</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Global Marea ezarpenak</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>eskuratzen eskualde</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits Moneta</value>
+    <value>Global ezarpenak</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Good (Warp3D)</value>
+    <value>Gloebits Moneta</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>Grid helbidea</value>
+    <value>Good (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Grid helbidea da</value>
+    <value>Grid helbidea</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>helbide honetan eman ahal izango duzu pertsona eta Saretak bisitatu ahal izango dute</value>
+    <value>Grid helbidea da</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Grid Server Sendoa With</value>
+    <value>helbide honetan eman ahal izango duzu pertsona eta Saretak bisitatu ahal izango dute</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Grid TCP Port multzoa da</value>
+    <value>Grid Server Sendoa With</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Grid UDP Port multzoa da</value>
+    <value>Grid TCP Port multzoa da</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>The global Marea ezarpenak egingo eskualde honetan aplikatzen</value>
+    <value>Grid UDP Port multzoa da</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Eguneratzea eskuragarri dago. Ez DreamGrid irteteko eta eguneratzea instalatu nahi duzu?</value>
@@ -1132,7 +1138,7 @@
     <value>Icons</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>Oarso gorde egingo Opensim hau luzea exekutatzen ondoren</value>
+    <value>Icons</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>Ez ikusi Paketeen</value>
@@ -1213,6 +1219,9 @@
     <value>Handiak Metro mapa</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Abizena</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Abizena</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>Egin segurtasun kopia bat?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Egin segurtasun kopia bat?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Mapan fitxak guztiak ezabatuko dira. Ezarri mapa ezarpena eta berrabiatu mapa berriak egiteko</value>
@@ -1324,7 +1333,7 @@
     <value>Max beste hegazti distantzia artalde berean kontuan hartu</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (lehenetsia = 0,2)</value>
+    <value>Max beste hegazti distantzia artalde berean kontuan hartu</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Altuera (lehenetsia = 45,0)</value>
@@ -1348,10 +1357,10 @@
     <value>Max Abiadura (lehenetsia = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>merge OAR</value>
+    <value>4096 gehienez</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Batu objektuak</value>
+    <value>merge OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Malla Cache</value>
@@ -1480,10 +1489,10 @@
     <value>Ez da baliozko UUID bat. Ez berrian, Random UUID bat nahi duzu?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Ez dirudi makina hau birbidaltzea bideratzailea, beraz Hypergrid ez dago eskuragarri. Hau daitezkeen 'Port Aurrelariak' konpondu zure router batean. Ikusi Help-&gt; Port Aurrelariak.</value>
+    <value>Normalean OutworldzFiles / AutoBackup karpeta gisa ezarrita 'AutoBackup' batera. Klik karpeta aldatzeko.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Ez da normalean Opensim behartuta. Viewer ezin izango 45.000 baino gehiago erakusteko. hau hemen ezarriz eta ezarpenak honek muga behartuko da eta Prims itzultzeko daiteke ahalbidetzen!</value>
+    <value>Ez dirudi makina hau birbidaltzea bideratzailea, beraz Hypergrid ez dago eskuragarri. Hau daitezkeen 'Port Aurrelariak' konpondu zure router batean. Ikusi Help-&gt; Port Aurrelariak.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim ez dago martxan.</value>
@@ -1546,7 +1555,7 @@
     <value>Open dinamikoa Motorra</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ODE</value>
+    <value>Open dinamikoa Motorra</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Off</value>
@@ -1561,19 +1570,19 @@
     <value>Ez dago avatar bat da</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>eskualde bat da, oraindik ere martxan</value>
+    <value>Ados</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Bakarrik Jabeak eta Higiezinen Zuzendariak egon eskualde honetan onartzen egingo</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Opensimulator kargatzen da</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Open Router Portuen Universal Plug and Play erabilita</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Bakarrik Jabeak eta Higiezinen Zuzendariak egon eskualde honetan onartzen egingo</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>Aukerak</value>
+    <value>Opensimulator kargatzen da</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>edo:</value>
@@ -1591,7 +1600,7 @@
     <value>paketeak</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Gainditu LAN loopback proba</value>
+    <value>paketeak</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>pasahitza bakarrik alda daiteke Opensim martxan da</value>
@@ -1720,7 +1729,7 @@
     <value>Region</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>eskualdetan oraindik martxan daude</value>
+    <value>Eskualde UUID baliogabea da</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Eskualde</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Errendatu Min Altuera</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>errepikatu pasahitza</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Eskatu aplikazioa Sorkuntza</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Erreserbatu zure DYN DNS izen. Hau zure izen pasahitz bat da.</value>
+    <value>Eskatu aplikazioa Sorkuntza</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>ebatzi</value>
@@ -1831,13 +1843,13 @@
     <value>Restart tartea minututan</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Restart bat adibidez</value>
+    <value>Bulletsim fisika hutsegite simulator berrabiaraztea bultzatuko du</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Restart bat eskualdean</value>
   </data>
   <data name="Restart_On_Crash" xml:space="preserve">
-    <value>eskualde bat izorratzen bada, eskualdeko berrabiaraziko da</value>
+    <value>eskualde batean izorratzen bada, eskualdeko berrabiaraziko da</value>
   </data>
   <data name="Restart_on_Physics_Crash" xml:space="preserve">
     <value>Restart Fisika Crash on</value>
@@ -1858,16 +1870,16 @@
     <value>Restart Ilaran</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Restart eskualdea</value>
+    <value>Restart Ilaran</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>Restart sendoa</value>
+    <value>Restart eskualdea</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Restart ezarpenak</value>
+    <value>Restart sendoa</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Berriro hasi</value>
+    <value>Restart ezarpenak</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Berreskuratu Database</value>
@@ -1900,7 +1912,7 @@
     <value>Klik hasteko edo eskualdeko gelditu gaituta ilara bat. Klik ezinduentzako ilara eskualdean editatzeko.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>carrera</value>
+    <value>Run As A Zerbitzua</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Eskualde zerbitzari gisa exekutatzen</value>
@@ -1912,7 +1924,7 @@
     <value>Run guztiak</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Run As A Zerbitzua</value>
+    <value>Run guztiak</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Sandbox modua</value>
@@ -1990,7 +2002,7 @@
     <value>Hautatzen guztiak edo bat ere ez karratuak of</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Aukeratu</value>
+    <value>duzu berriro ikusiko dut esnatu I freskoa guztiak eta berria!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Bidali Alerta Mezua</value>
@@ -2014,7 +2026,7 @@
     <value>ezarpenak</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Loopback egokitzaile ezartzen IP Publikoa helbidea</value>
+    <value>ezarri Titularra</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>konfigurazioa Firewall</value>
@@ -2044,7 +2056,7 @@
     <value>Ezarri arazketa-maila</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>ezarri Titularra</value>
+    <value>Ezarri arazketa-maila</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast ez dago gaituta.</value>
@@ -2245,22 +2257,22 @@
     <value>haria igerilekuak</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Mareak</value>
+    <value>Marea Info Channel</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Gaitu marea aldera eta atera?</value>
+    <value>haria igerilekuak</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Marea Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Marea Info Channel</value>
+    <value>Marea Hi / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>orduetan Timeout</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Tolerantzia (lehenetsia = 25,0)</value>
+    <value>orduetan Timeout</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Arazoak</value>

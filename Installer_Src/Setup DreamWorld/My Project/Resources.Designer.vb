@@ -2393,6 +2393,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Email.
+        '''</summary>
+        Friend ReadOnly Property Email_word() As String
+            Get
+                Return ResourceManager.GetString("Email_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Estate  Manager is God - Estate managers can become gods, but just for this estate.
         '''</summary>
         Friend ReadOnly Property EMGod() As String
@@ -2497,6 +2506,15 @@ Namespace My.Resources
         Friend ReadOnly Property Enter_Name() As String
             Get
                 Return ResourceManager.GetString("Enter_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter the Grid Owner Information.
+        '''</summary>
+        Friend ReadOnly Property Enter_the_Grid_Owner_Information_word() As String
+            Get
+                Return ResourceManager.GetString("Enter_the_Grid_Owner_Information_word", resourceCulture)
             End Get
         End Property
         
@@ -3918,9 +3936,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Last Name.
         '''</summary>
-        Friend ReadOnly Property Last_Name() As String
+        Friend ReadOnly Property Last_Name_Word() As String
             Get
-                Return ResourceManager.GetString("Last_Name", resourceCulture)
+                Return ResourceManager.GetString("Last_Name_Word", resourceCulture)
             End Get
         End Property
         
@@ -5993,6 +6011,15 @@ Namespace My.Resources
         Friend ReadOnly Property RenderMin() As String
             Get
                 Return ResourceManager.GetString("RenderMin", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Repeat Password.
+        '''</summary>
+        Friend ReadOnly Property Repeat_Password_word() As String
+            Get
+                Return ResourceManager.GetString("Repeat_Password_word", resourceCulture)
             End Get
         End Property
         

@@ -553,7 +553,7 @@
     <value>Нажмите Настроить Start / Stop</value>
   </data>
   <data name="Click_Server" xml:space="preserve">
-    <value>Нажмите, чтобы выбрать тип сервера. По умолчанию = сетка, но вы можете подключиться как сервер региона, OsGrid или сервера Metro региона</value>
+    <value>Нажмите, чтобы выбрать тип сервера. По умолчанию = Grid, но вы можете подключиться как сервер региона, OsGrid или сервера Metro региона</value>
   </data>
   <data name="Click_Start" xml:space="preserve">
     <value>Не удается запустить диагностику, если система не работает. Нажмите кнопку «Пуск» и повторите попытку.</value>
@@ -673,7 +673,7 @@
     <value>отлаживать</value>
   </data>
   <data name="Default_8001_word" xml:space="preserve">
-    <value>По умолчанию 8001</value>
+    <value>8001 По умолчанию</value>
   </data>
   <data name="Default_8002_word" xml:space="preserve">
     <value>По умолчанию 8002</value>
@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>редактировать</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>Эл. адрес</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Недвижимость менеджер Бог - менеджеры по недвижимости могут стать богами, но только для этого имущества</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Введите имя объекта ( «/» будет резервное копирование все, и «/ Объекты / ящик» будет создавать резервные копии «окно» в папке объектов</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Введите сетки Данные о владельце</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Ошибка: не удалось запустить DreamGridInstaller.exe.</value>
@@ -910,82 +916,82 @@
     <value>Имя</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Flotsam Asset Cache</value>
+    <value>Имя</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Папка для сохранения</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>По умолчанию 1/11 сек. По умолчанию 0,0909, который является 1 / пятый из 55 кадров в секунду</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>Частота кадров</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Frame Rate (0,0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Папка для сохранения</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Получите бесплатный DYN имя DNS</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Нажмите, чтобы получить бесплатную Gloebits счета, так что вы можете покупать и продавать</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>Бесплатный DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>По умолчанию 1/11 сек. По умолчанию 0,0909, который является 1 / пятый из 55 кадров в секунду</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Нажмите, чтобы получить бесплатную Gloebits счета, так что вы можете покупать и продавать</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Эта сетка в Friendly Name</value>
+    <value>Получите бесплатный DYN имя DNS</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL работает 55 FPS. OpenSim составляет 11 кадров в секунду. По умолчанию = 0,0909, или 1/11</value>
+    <value>Эта сетка в Понятное имя</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Активы в виде файлов</value>
+    <value>SL работает 55 FPS. OpenSim составляет 11 кадров в секунду. По умолчанию = 0,0909, или 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>Файловая система базы данных активов</value>
+    <value>Активы в виде файлов</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets сервера</value>
+    <value>Файловая система базы данных активов</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>Глобальные настройки птиц будут применяться к этому региону</value>
+    <value>FsAssets сервера</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>Попадая регионы</value>
+    <value>Глобальные настройки птиц будут применяться к этому региону</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Глобальные настройки</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Глобальные параметры Tide</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>Попадая регионы</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits валюты</value>
+    <value>Глобальные настройки</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Хорошо (Warp3D)</value>
+    <value>Gloebits валюты</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>Сетка адрес</value>
+    <value>Хорошо (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
     <value>Сетка адрес</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>Вы можете дать этот адрес к людям, и они могут посетить вашу сетку</value>
+    <value>Сетка адрес</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Сетка-сервер С Robust</value>
+    <value>Вы можете дать этот адрес к людям, и они могут посетить вашу сетку</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Сетка TCP Порт набор</value>
+    <value>Сетка-сервер С Robust</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Сетка UDP Порт набор</value>
+    <value>Сетка TCP Порт набор</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Глобальные настройки Tide будут применяться к этому региону</value>
+    <value>Сетка UDP Порт набор</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Обновление доступно. Вы хотите выйти DreamGrid и установить обновление?</value>
@@ -1132,7 +1138,7 @@
     <value>Иконки</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>OpenSim сэкономит ВЕСЛА после запуска этого долго</value>
+    <value>Иконки</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>Игнорирование посылок</value>
@@ -1213,6 +1219,9 @@
     <value>Большая карта метро</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Фамилия</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>Сделайте резервную копию?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Сделайте резервную копию?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Все фрагменты карты были стерты. Установите настройки карты и перезагрузки компьютера, чтобы сделать новые карты</value>
@@ -1324,7 +1333,7 @@
     <value>Максимальное расстояние для других птиц, которые будут рассматриваться в том же стаде</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (по умолчанию = 0,2)</value>
+    <value>Максимальное расстояние для других птиц, которые будут рассматриваться в том же стаде</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Максимальная высота (по умолчанию = 45,0)</value>
@@ -1348,10 +1357,10 @@
     <value>Максимальная скорость (по умолчанию = 1,0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Объединить ОАР</value>
+    <value>Максимум 4096</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Объединить объекты</value>
+    <value>Объединить ОАР</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
@@ -1480,10 +1489,10 @@
     <value>Не действительный UUID. Вы хотите, чтобы новый, случайный UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Это не по всей видимости, направлены на эту машину в маршрутизаторе, так Hypergrid не доступен. Это может возможно быть исправлено «Port форвардов» в маршрутизаторе. См Справка-&gt; Порт форвардов.</value>
+    <value>Обычно устанавливается в OutworldzFiles / AutoBackup папку с «AutoBackup». Нажмите, чтобы изменить папку.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Как правило, не применяются по OpenSim. Телезритель не будет показывать более 45000. Установка этого здесь и включение этого в настройках будет следить за соблюдением лимита и может вернуться примы!</value>
+    <value>Это не по всей видимости, направлены на эту машину в маршрутизаторе, так Hypergrid не доступен. Это может возможно быть исправлено «Port форвардов» в маршрутизаторе. См Справка-&gt; Порт форвардов.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>OpenSim не работает.</value>
@@ -1546,7 +1555,7 @@
     <value>Open Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ОДА</value>
+    <value>Open Dynamic Engine</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>от</value>
@@ -1561,19 +1570,19 @@
     <value>Существует одна аватара</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>Один регион все еще работает</value>
+    <value>Ok</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Только Менеджеры Владельцы и недвижимости будет разрешено в этом регионе</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>OpenSimulator загружается</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Порты Open маршрутизатора с помощью Universal Plug и Play</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Только Менеджеры Владельцы и недвижимости будет разрешено в этом регионе</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>Параметры</value>
+    <value>OpenSimulator загружается</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>Или:</value>
@@ -1591,7 +1600,7 @@
     <value>Посылки</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Прошел тест LAN Loopback</value>
+    <value>Посылки</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Вы можете изменить пароль при OpenSim это работает</value>
@@ -1720,7 +1729,7 @@
     <value>Область</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>регионы по-прежнему работает</value>
+    <value>Регион UUID недействителен</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>районы</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Рендер Минимальная высота</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Повторите пароль</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Запрос App Создание</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Зарезервируйте свое имя ДИН DNS. Это пароль для вашего имени.</value>
+    <value>Запрос App Создание</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>решены</value>
@@ -1831,7 +1843,7 @@
     <value>Перезапуск Интервал в минутах</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>один экземпляр Restart</value>
+    <value>Bulletsim аварии физика заставит рестарт имитатора</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Перезапуск один регион</value>
@@ -1858,16 +1870,16 @@
     <value>Перезапуск Queued</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Перезапуск область</value>
+    <value>Перезапуск Queued</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>Перезапуск Robust</value>
+    <value>Перезапуск область</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Параметры перезагрузки</value>
+    <value>Перезапуск Robust</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Начать сначала</value>
+    <value>Параметры перезагрузки</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Восстановление базы данных</value>
@@ -1900,7 +1912,7 @@
     <value>Нажмите на включенную строку, чтобы начать или остановить этот регион. Нажмите отключенную строку для редактирования региона.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>Бег</value>
+    <value>Run As A Service</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Запуск в области сервера</value>
@@ -1912,7 +1924,7 @@
     <value>Выполнить все</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Run As A Service</value>
+    <value>Выполнить все</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Режим песочницы</value>
@@ -1990,7 +2002,7 @@
     <value>Выбирает все или ни один из флажков</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Выбрать</value>
+    <value>Увидимся снова, когда я просыпаюсь, все свежее и новое!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Отправить сообщение оповещения</value>
@@ -2014,7 +2026,7 @@
     <value>настройки</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Настройка Loopback Adapter для общественного IP-адрес</value>
+    <value>Установить владельца</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Настройка брандмауэра</value>
@@ -2044,7 +2056,7 @@
     <value>Установить уровень отладки</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Установить владельца</value>
+    <value>Установить уровень отладки</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast не включена.</value>
@@ -2245,22 +2257,22 @@
     <value>пулы потоков</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>приливы</value>
+    <value>Tide Info Channel</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Включить волну, чтобы прийти и вне дома?</value>
+    <value>пулы потоков</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Привет / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Info Channel</value>
+    <value>Tide Привет / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Тайм-аут в часах</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Толерантность (по умолчанию = 25,0)</value>
+    <value>Тайм-аут в часах</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Исправление проблем</value>
@@ -2332,7 +2344,7 @@
     <value>Версия</value>
   </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
-    <value>По умолчанию: Enabled. Пользователи, возможно, потребуется уменьшить ширину полосы просмотра, если некоторые примы или части местности не резь. Изменение в ЛОЖЬ, если вам нужно использовать старые зрители, которые не поддерживают эту функцию</value>
+    <value>По умолчанию: Enabled. Пользователи, возможно, потребуется уменьшить ширину полосы просмотра, если некоторые примы или части местности не резь. Изменение в ЛОЖЬ, если вам нужно использовать старые зрители, которые не поддерживают данную функцию</value>
   </data>
   <data name="Viewer_Cache_word" xml:space="preserve">
     <value>Средство просмотра кэша</value>

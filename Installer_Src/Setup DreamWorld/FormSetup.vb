@@ -277,12 +277,22 @@ Public Class Form1
         End If
 
         If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
-            ConsoleCommand("Robust", "create user{ENTER}")
-            'Application.doevents()
-            MsgBox(My.Resources.Please_type, vbInformation, My.Resources.Information)
-            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-            Settings.RunOnce = True
-            Settings.SaveSettings()
+
+
+            Using InitialSetup As New FormInitialSetup ' form for use and password
+                Dim ret = InitialSetup.ShowDialog()
+                If ret = DialogResult.Cancel Then
+                    Buttons(StartButton)
+                    Print(My.Resources.Stopped_word)
+                    Return
+                End If
+
+                ' Read the chosen sim name
+                ConsoleCommand("Robust", "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
+                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                Settings.RunOnce = True
+                Settings.SaveSettings()
+            End Using
         End If
 
         ToolBar(True)
@@ -296,7 +306,7 @@ Public Class Form1
         End If
 
         Buttons(StopButton)
-        Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        Print(My.Resources.Grid_address & vbCrLf & "http: //" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with boot up
 

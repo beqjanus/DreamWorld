@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Bewerk</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager is God - Estate managers kunnen goden te worden, maar alleen voor deze landgoed</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Geef de naam Object ( '/' zal back-up alles, en '/ Objecten / box' maakt een back-up 'box' in de map Objects</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Voer de Grid Owner Information</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Fout: kan niet starten DreamGridInstaller.exe.</value>
@@ -910,82 +916,82 @@
     <value>Voornaam</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Flotsam Asset Cache</value>
+    <value>Voornaam</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Folder op te slaan op</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Beeldsnelheid (0,0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>Standaard 1/11 sec. Standaard is 0,0909 dat 1 / 5de van 55 FPS</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>Frame rate</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Beeldsnelheid (0,0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Folder op te slaan op</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Hier krijg je een gratis DYN DNS-naam</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Klik hier om een ​​gratis Gloebits account zodat u kunt kopen en verkopen Get</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>gratis DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Standaard 1/11 sec. Standaard is 0,0909 dat 1 / 5de van 55 FPS</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Klik hier om een ​​gratis Gloebits account zodat u kunt kopen en verkopen Get</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Dit Grid Friendly Name</value>
+    <value>Hier krijg je een gratis DYN DNS-naam</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL loopt 55 FPS. OpenSim is 11 FPS. Standaard = 0,0909, of 1/11</value>
+    <value>Dit Grid Friendly Name</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Activa Files</value>
+    <value>SL loopt 55 FPS. OpenSim is 11 FPS. Standaard = 0,0909, of 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>File System Assets Database</value>
+    <value>Activa Files</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets Server</value>
+    <value>File System Assets Database</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>De globale instellingen Bird zal gelden voor deze regio</value>
+    <value>FsAssets Server</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>Het krijgen van de regio's</value>
+    <value>De globale instellingen Bird zal gelden voor deze regio</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Algemene instellingen</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Global Tide Instellingen</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>Het krijgen van de regio's</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits Currency</value>
+    <value>Algemene instellingen</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Goed (Warp3D)</value>
+    <value>Gloebits Currency</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>Grid adres</value>
+    <value>Goed (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Grid-mailadres is</value>
+    <value>Grid adres</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>U kunt dit adres te geven aan mensen en ze kunnen je net een bezoek</value>
+    <value>Grid-mailadres is</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Grid Server met robuuste</value>
+    <value>U kunt dit adres te geven aan mensen en ze kunnen je net een bezoek</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Grid TCP poort is ingesteld</value>
+    <value>Grid Server met robuuste</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Grid UDP poort is ingesteld</value>
+    <value>Grid TCP poort is ingesteld</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>De globale Tide instellingen hebben betrekking op deze regio</value>
+    <value>Grid UDP poort is ingesteld</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Update beschikbaar is. Wilt u DreamGrid af te sluiten en de update te installeren?</value>
@@ -1132,7 +1138,7 @@
     <value>Icons</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>OpenSim zal OARS redden na het uitvoeren van deze lange</value>
+    <value>Icons</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>Negeer Parcel</value>
@@ -1213,6 +1219,9 @@
     <value>Grote Metro kaart</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Achternaam</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>Maak een back-up?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Maak een back-up?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Alle kaart tegels zijn gewist. Stel de kaart setting en reboot om nieuwe kaarten te maken</value>
@@ -1324,7 +1333,7 @@
     <value>Maximale afstand voor andere vogels te worden beschouwd in hetzelfde koppel</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (default = 0,2)</value>
+    <value>Maximale afstand voor andere vogels te worden beschouwd in hetzelfde koppel</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Hoogte (default = 45.0)</value>
@@ -1348,10 +1357,10 @@
     <value>Max Speed ​​(default = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Merge OAR</value>
+    <value>Maximaal 4096</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Merge Objects</value>
+    <value>Merge OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
@@ -1480,10 +1489,10 @@
     <value>Geen geldige UUID. Wilt u een nieuwe, willekeurige UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Dit lijkt niet te worden gericht aan deze machine in uw router, dus HyperGrid is niet beschikbaar. Dit kan mogelijk worden opgelost door 'Port Forwards' in je router. Zie Help-&gt; Port Forwards.</value>
+    <value>Normaal op OutworldzFiles / AutoBackup map met 'back-up''. Klik op de map te wijzigen.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Normaal gesproken niet afgedwongen door OpenSim. Viewer mag niet meer dan 45.000 tonen. Het instellen van deze hier en het inschakelen van deze in de instellingen zal de limiet af te dwingen en kunnen prims terugkeren!</value>
+    <value>Dit lijkt niet te worden gericht aan deze machine in uw router, dus HyperGrid is niet beschikbaar. Dit kan mogelijk worden opgelost door 'Port Forwards' in je router. Zie Help-&gt; Port Forwards.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>OpenSim is niet actief.</value>
@@ -1546,7 +1555,7 @@
     <value>Open Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ODE</value>
+    <value>Open Dynamic Engine</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Uit</value>
@@ -1561,19 +1570,19 @@
     <value>Er is een avatar</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>Een regio is nog steeds actief</value>
+    <value>OK</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Alleen eigenaren en Estate Managers zullen worden toegestaan ​​in deze regio</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>OpenSimulator wordt geladen</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Open Router poorten met behulp van Universal Plug and Play</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Alleen eigenaren en Estate Managers zullen worden toegestaan ​​in deze regio</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>opties</value>
+    <value>OpenSimulator wordt geladen</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>Of:</value>
@@ -1591,7 +1600,7 @@
     <value>Parcels</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Geslaagd LAN loopbacktest</value>
+    <value>Parcels</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>U kunt alleen het wachtwoord wijzigen wanneer OpenSim is running</value>
@@ -1720,7 +1729,7 @@
     <value>Regio</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>regio's zijn nog steeds actief</value>
+    <value>Regio UUID is ongeldig</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Regio's</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Render Min Hoogte</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Herhaal wachtwoord</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Vraag App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Reserveer uw DYN DNS-naam. Dit is een wachtwoord voor uw naam.</value>
+    <value>Vraag App Creation</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>opgelost</value>
@@ -1831,7 +1843,7 @@
     <value>Restart Interval in minuten</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Herstart één instantie</value>
+    <value>Bulletsim fysica crash zal een simulator herstart te forceren</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Restart één regio</value>
@@ -1858,16 +1870,16 @@
     <value>Restart wachtrij</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Restart Region</value>
+    <value>Restart wachtrij</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>Restart Robuuste</value>
+    <value>Restart Region</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Restart Instellingen</value>
+    <value>Restart Robuuste</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Herstarten</value>
+    <value>Restart Instellingen</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Database herstellen</value>
@@ -1900,7 +1912,7 @@
     <value>Klik op een ingeschakelde rij te starten of te stoppen met de regio. Klik op een rij uitgeschakeld om de regio te bewerken.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>Rennen</value>
+    <value>Run As A Service</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Uitgevoerd als een Region Server</value>
@@ -1912,7 +1924,7 @@
     <value>Run Alle</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Run As A Service</value>
+    <value>Run Alle</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>sandbox-modus</value>
@@ -1969,7 +1981,7 @@
     <value>Zoeken Alles Grids</value>
   </data>
   <data name="Search_Connect_failed" xml:space="preserve">
-    <value>Kan geen verbinding naar Zoeken Database</value>
+    <value>Kan geen verbinding maken zoekdatabase</value>
   </data>
   <data name="Search_word" xml:space="preserve">
     <value>Zoeken</value>
@@ -1990,7 +2002,7 @@
     <value>Selecteert alle of geen van de selectievakjes</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>kiezen</value>
+    <value>Ik zal je weer te zien als ik wakker word allemaal fris en nieuw!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Stuur Alert Message</value>
@@ -2014,7 +2026,7 @@
     <value>instellingen</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Instellen Loopback Adapter om Openbaar IP-adres</value>
+    <value>set Owner</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Setup Firewall</value>
@@ -2044,7 +2056,7 @@
     <value>Set Debug Level</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>set Owner</value>
+    <value>Set Debug Level</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast is niet ingeschakeld.</value>
@@ -2245,22 +2257,22 @@
     <value>draad zwembaden</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>getijden</value>
+    <value>Tide Info Channel</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Schakel de stroom in en uit te komen?</value>
+    <value>draad zwembaden</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Info Channel</value>
+    <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Timeout in uren</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Tolerantie (standaard = 25,0)</value>
+    <value>Timeout in uren</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Probleemoplossen</value>

@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>编辑</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>地产经理是上帝 - 房地产经理人可以成为神，而只是对这个楼盘</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>输入对象名称（“/”将备份一切，和“/对象/箱”将备份“盒子”文件夹中对象</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>输入电网所有者信息</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>错误：无法启动DreamGridInstaller.exe。</value>
@@ -910,82 +916,82 @@
     <value>名字</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>废料资产缓存</value>
+    <value>名字</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>文件夹保存到</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>帧速率（0.0909）</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>默认1/11秒。默认值是0.0909，其是55 FPS的1 /第五</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>帧率</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>帧速率（0.0909）</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>文件夹保存到</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>获取免费的DYN DNS名称</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>点击获得免费Gloebits帐户，以便您可以购买和出售</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>免费DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>默认1/11秒。默认值是0.0909，其是55 FPS的1 /第五</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>点击获得免费Gloebits帐户，以便您可以购买和出售</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>该网格的友好名称</value>
+    <value>获取免费的DYN DNS名称</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL运行55 FPS。的OpenSim是11 FPS。默认= 0.0909，或1/11</value>
+    <value>该网格的友好名称</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>资产档案</value>
+    <value>SL运行55 FPS。的OpenSim是11 FPS。默认= 0.0909，或1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>文件系统资产数据库</value>
+    <value>资产档案</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets服务器</value>
+    <value>文件系统资产数据库</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>全球禽流设置将适用于本地区</value>
+    <value>FsAssets服务器</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>获得区</value>
+    <value>全球禽流设置将适用于本地区</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>全局设置</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>世界潮流设置</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>获得区</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits货币</value>
+    <value>全局设置</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>良好（Warp3D）</value>
+    <value>Gloebits货币</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>网地址</value>
+    <value>良好（Warp3D）</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
     <value>网地址</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>你可以给这个地址出去的人，他们可以访问你的网格</value>
+    <value>网地址</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>网格服务器具有强大的</value>
+    <value>你可以给这个地址出去的人，他们可以访问你的网格</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>电网TCP端口设置</value>
+    <value>网格服务器具有强大的</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>电网UDP端口设置</value>
+    <value>电网TCP端口设置</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>全球潮设置将适用于本地区</value>
+    <value>电网UDP端口设置</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>更新是可用的。你想退出DreamGrid并安装更新？</value>
@@ -1132,7 +1138,7 @@
     <value>图标</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>的OpenSim会长时间运行之后保存桨</value>
+    <value>图标</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>忽略包裹</value>
@@ -1213,6 +1219,9 @@
     <value>大型地铁地图</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>姓</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>做一个备份？</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>做一个备份？</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>所有地图图块已被删除。设置地图设置并重新启动，使新地图</value>
@@ -1324,7 +1333,7 @@
     <value>对于其他鸟类的最大距离在同一个群被认为是</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>最高组（默认值= 0.2）</value>
+    <value>对于其他鸟类的最大距离在同一个群被认为是</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>最大高度（缺省值= 45.0）</value>
@@ -1348,10 +1357,10 @@
     <value>最大速度（缺省值= 1.0）</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>合并OAR</value>
+    <value>4096最大</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>合并对象</value>
+    <value>合并OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>网格缓存</value>
@@ -1480,10 +1489,10 @@
     <value>不是有效的UUID。你想一个新的，随机UUID？</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>这不会出现在你的路由器转发到本机，所以Hypergrid不可用。这可能可以通过“端口转发”在你的路由器固定。参见帮助 - &gt;端口转发。</value>
+    <value>通常设置为OutworldzFiles /自动备份文件夹“自动备份”。单击更改文件夹。</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>通常不被强制执行的OpenSim。浏览器不会显示超过45000个。这里设置这一点，并启用此设置中会强制限制，并可能返回prims！</value>
+    <value>这不会出现在你的路由器转发到本机，所以Hypergrid不可用。这可能可以通过“端口转发”在你的路由器固定。参见帮助 - &gt;端口转发。</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>的OpenSim没有运行。</value>
@@ -1546,7 +1555,7 @@
     <value>打开动态引擎</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>颂</value>
+    <value>打开动态引擎</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>离</value>
@@ -1561,19 +1570,19 @@
     <value>有一个头像</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>一个区域仍在运行</value>
+    <value>好</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>只有业主和房地产经理人将在这一地区被允许</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Opensimulator是装载</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>使用通用即插即用打开路由器的端口</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>只有业主和房地产经理人将在这一地区被允许</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>选项</value>
+    <value>Opensimulator是装载</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>要么：</value>
@@ -1591,7 +1600,7 @@
     <value>包裹</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>通过网络环回测试</value>
+    <value>包裹</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>您只能更改密码时的OpenSim是运行</value>
@@ -1720,7 +1729,7 @@
     <value>区域</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>地区仍在运行</value>
+    <value>地区UUID无效</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>地区</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>渲染最小高度</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>重复输入密码</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>请求程序创建</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>保留您DYN DNS名称。这是你的名密码。</value>
+    <value>请求程序创建</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>解决</value>
@@ -1831,7 +1843,7 @@
     <value>重新启动间隔时间（分钟）</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>重新启动一个实例</value>
+    <value>Bulletsim物理碰撞将迫使模拟器重启</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>重新启动一个区域</value>
@@ -1858,16 +1870,16 @@
     <value>重新排队</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>重新启动区域</value>
+    <value>重新排队</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>重启稳健</value>
+    <value>重新启动区域</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>重新启动设置</value>
+    <value>重启稳健</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>重新开始</value>
+    <value>重新启动设置</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>还原数据库</value>
@@ -1900,7 +1912,7 @@
     <value>点击实现的行启动或停止的区域。单击禁用行编辑区域。</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>运行</value>
+    <value>作为服务运行</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>运行的地区服务器</value>
@@ -1912,7 +1924,7 @@
     <value>所有运行</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>作为服务运行</value>
+    <value>所有运行</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>沙盒模式</value>
@@ -1990,7 +2002,7 @@
     <value>选择复选框的全或无</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>选择</value>
+    <value>我会再见到你，当我醒来所有耳目一新！</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>发送警报信息</value>
@@ -2014,7 +2026,7 @@
     <value>设置</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>设置回送适配器的公共IP地址</value>
+    <value>设置所有者</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>设置防火墙</value>
@@ -2044,7 +2056,7 @@
     <value>设置调试级别</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>设置所有者</value>
+    <value>设置调试级别</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast的未启用。</value>
@@ -2245,22 +2257,22 @@
     <value>线程池</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>潮汐</value>
+    <value>潮资讯频道</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>启用潮进出？</value>
+    <value>线程池</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>潮高/低通道</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>潮资讯频道</value>
+    <value>潮高/低通道</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>超时以小时为单位</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>公差（缺省值= 25.0）</value>
+    <value>超时以小时为单位</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>故障排除</value>
@@ -2272,7 +2284,7 @@
     <value>UBIT ODE /混合子弹</value>
   </data>
   <data name="ubODE_Hybrid_word" xml:space="preserve">
-    <value>ubODE混合</value>
+    <value>ubODE混合动力车</value>
   </data>
   <data name="ubODE_word" xml:space="preserve">
     <value>ubODE</value>

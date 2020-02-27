@@ -331,7 +331,7 @@
     <value>Bird Module</value>
   </data>
   <data name="Bird_Settings_word" xml:space="preserve">
-    <value>fugle~~POS=TRUNC Innstillinger</value>
+    <value>Fugle Innstillinger</value>
   </data>
   <data name="Black_word" xml:space="preserve">
     <value>Svart</value>
@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Redigere</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>e-post</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager er Gud - eiendom ledere kan bli guder, men bare for denne eiendom</value>
   </data>
@@ -840,6 +843,9 @@
   <data name="Enter_Name" xml:space="preserve">
     <value>Skriv inn objektnavnet ( '/' vil sikkerhetskopiere alt, og '/ objekter / box' vil sikkerhetskopiere 'boks' i mappeobjekter</value>
   </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Skriv inn Grid Eierinformasjon</value>
+  </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Feil: Klarte ikke å starte DreamGridInstaller.exe.</value>
   </data>
@@ -847,7 +853,7 @@
     <value>0 - (ERROR) feil bare</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
-    <value>1 - (info) hit rate statistikk</value>
+    <value>1 - (Info) hit rate statistikk</value>
   </data>
   <data name="ErrorLevel2" xml:space="preserve">
     <value>2 - (feilsøking) Buffer Aktivitet</value>
@@ -910,82 +916,82 @@
     <value>Fornavn</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Drivgods Asset Cache</value>
+    <value>Fornavn</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Mappe for å lagre til</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>Standard 1/11 sek. Standard er 0,0909 som er 1 / 5th av 55 FPS</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>Bildefrekvens</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Frame Rate (0,0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Mappe for å lagre til</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Få en gratis DYN DNS Name</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Klikk for å få en gratis Gloebits konto slik at du kan kjøpe og selge</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>Gratis DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Standard 1/11 sek. Standard er 0,0909 som er 1 / 5th av 55 FPS</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Klikk for å få en gratis Gloebits konto slik at du kan kjøpe og selge</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Dette Grid Friendly Name</value>
+    <value>Få en gratis DYN DNS Name</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL kjører 55 FPS. OpenSim er 11 FPS. Standard = 0,0909, eller 1/11</value>
+    <value>Dette Grid Friendly Name</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Eiendeler som filer</value>
+    <value>SL kjører 55 FPS. OpenSim er 11 FPS. Standard = 0,0909, eller 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>File System Eiendeler Database</value>
+    <value>Eiendeler som filer</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets Server</value>
+    <value>File System Eiendeler Database</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>De globale Fugle innstillingene vil gjelde for denne regionen</value>
+    <value>FsAssets Server</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>Komme regioner</value>
+    <value>De globale Fugle innstillingene vil gjelde for denne regionen</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Globale innstillinger</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Globale Tide Innstillinger</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>Komme regioner</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits Valuta</value>
+    <value>Globale innstillinger</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>God (Warp3D)</value>
+    <value>Gloebits Valuta</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>Grid-adresse</value>
+    <value>God (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Grid-adresse er</value>
+    <value>Grid-adresse</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>Du kan gi denne adressen ut til folk, og de kan gå til rutenett</value>
+    <value>Grid-adresse er</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Grid Server med Robust</value>
+    <value>Du kan gi denne adressen ut til folk, og de kan gå til rutenett</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Grid TCP Port er sett</value>
+    <value>Grid Server med Robust</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Grid UDP Port er sett</value>
+    <value>Grid TCP Port er sett</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>De globale Tide innstillingene vil gjelde for denne regionen</value>
+    <value>Grid UDP Port er sett</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Oppdatering er tilgjengelig. Ønsker du å gå ut DreamGrid og installere oppdateringen?</value>
@@ -1132,7 +1138,7 @@
     <value>ikoner</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>OpenSim vil spare ÅRER etter å ha kjørt dette lenge</value>
+    <value>ikoner</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>Ignorer Parcel</value>
@@ -1215,6 +1221,9 @@
   <data name="Last_Name" xml:space="preserve">
     <value>Etternavn</value>
   </data>
+  <data name="Last_Name_word" xml:space="preserve">
+    <value>Etternavn</value>
+  </data>
   <data name="ListAvatars" xml:space="preserve">
     <value>Vis liste over avatarer</value>
   </data>
@@ -1273,7 +1282,7 @@
     <value>Lokalt søk</value>
   </data>
   <data name="Log_Level" xml:space="preserve">
-    <value>logg~~POS=TRUNC</value>
+    <value>Loggnivå</value>
   </data>
   <data name="Loopback_Failed" xml:space="preserve">
     <value>Loopback Test mislyktes. Web-adressen svarte ikke.</value>
@@ -1297,10 +1306,10 @@
     <value>Lag en backup?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Lag en backup?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
-    <value>Alle kartseksjoner er slettet. Sett kartet innstillingen og omstart for å lage nye kart</value>
+    <value>Alle kart fliser har blitt slettet. Sett kartet innstillingen og omstart for å lage nye kart</value>
   </data>
   <data name="Maps_word" xml:space="preserve">
     <value>Maps</value>
@@ -1324,7 +1333,7 @@
     <value>Maks avstand til andre fugler å bli vurdert i samme flokk</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max Force (standard = 0,2)</value>
+    <value>Maks avstand til andre fugler å bli vurdert i samme flokk</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Maks høyde (standard = 45,0)</value>
@@ -1348,10 +1357,10 @@
     <value>Max Speed ​​(standard = 1,0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Flett OAR</value>
+    <value>Maksimalt 4096</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Slå sammen objekter</value>
+    <value>Flett OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
@@ -1432,7 +1441,7 @@
     <value>Et nettverk endring oppstått. En omstart kan være nødvendig.</value>
   </data>
   <data name="Network_Diagnostics" xml:space="preserve">
-    <value>nettverks~~POS=TRUNC</value>
+    <value>Nettverksdiagnostikk</value>
   </data>
   <data name="Network_Diagnostics_text" xml:space="preserve">
     <value>Kjør installasjons diagnostikk</value>
@@ -1468,7 +1477,7 @@
     <value>Normaliser Regioner</value>
   </data>
   <data name="Normally_Set" xml:space="preserve">
-    <value>Normalt settes til OutworldzFiles / Auto mappe med 'Autobackup'. Klikk for å endre mappen.</value>
+    <value>Normalt settes til OutworldzFiles / Auto mappe med 'Auto'. Klikk for å endre mappen.</value>
   </data>
   <data name="Normal_Prim" xml:space="preserve">
     <value>Du kan ikke lage en vanlig prim større enn dette.</value>
@@ -1480,10 +1489,10 @@
     <value>Ikke en gyldig UUID. Vil du ha en ny, tilfeldig UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Dette ser ikke ut til å bli videresendt til denne maskinen i ruteren, så Hypergrid er ikke tilgjengelig. Dette kan muligens bli løst ved 'Port Forwards' i ruteren. Se Hjelp-&gt; Port Forwards.</value>
+    <value>Normalt settes til OutworldzFiles / Auto mappe med 'Auto'. Klikk for å endre mappen.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>normalt ikke håndheves av OpenSim. Viewer vil ikke vise mer enn 45.000. Sette dette her og aktivere dette i innstillingene vil håndheve grensen og kan returnere Prims!</value>
+    <value>Dette ser ikke ut til å bli videresendt til denne maskinen i ruteren, så Hypergrid er ikke tilgjengelig. Dette kan muligens bli løst ved 'Port Forwards' i ruteren. Se Hjelp-&gt; Port Forwards.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>OpenSim kjører ikke.</value>
@@ -1546,7 +1555,7 @@
     <value>Åpne Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ODE</value>
+    <value>Åpne Dynamic Engine</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Av</value>
@@ -1561,19 +1570,19 @@
     <value>Det er en avatar</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>En region er fremdeles i gang</value>
+    <value>ok</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Bare eiere og eiendomsforvaltere vil bli tillatt i denne regionen</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Opensimulator er lasting</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Åpne Router Ports bruker Universal Plug and Play</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Bare eiere og eiendomsforvaltere vil bli tillatt i denne regionen</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>alternativer</value>
+    <value>Opensimulator er lasting</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>Eller:</value>
@@ -1591,7 +1600,7 @@
     <value>pakker</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Bestått LAN Loopback Test</value>
+    <value>pakker</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Du kan bare endre passordet når OpenSim er løping</value>
@@ -1720,7 +1729,7 @@
     <value>Region</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>regionene går ennå</value>
+    <value>Region UUID er ugyldig</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>regioner</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Render Min Høyde</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Gjenta passord</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Be App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Reservere DYN DNS-navn. Dette er et passord for ditt navn.</value>
+    <value>Be App Creation</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>løst</value>
@@ -1831,7 +1843,7 @@
     <value>Restart Intervall i minutter</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Restart én forekomst</value>
+    <value>Bulletsim fysikk krasj vil tvinge en simulator omstart</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Restart en region</value>
@@ -1858,16 +1870,16 @@
     <value>Restart kø</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Restart Region</value>
+    <value>Restart kø</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>Restart Robust</value>
+    <value>Restart Region</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Restart Innstillinger</value>
+    <value>Restart Robust</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>Omstart</value>
+    <value>Restart Innstillinger</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Gjenopprett database</value>
@@ -1900,7 +1912,7 @@
     <value>Klikk på en aktivert rad for å starte eller stoppe regionen. Klikk på en funksjonshemmet rad for å redigere regionen.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>Løping</value>
+    <value>Kjøres som en tjeneste</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Kjører som en region Server</value>
@@ -1912,7 +1924,7 @@
     <value>Kjør Alle</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Kjøres som en tjeneste</value>
+    <value>Kjør Alle</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>sandkasse modus</value>
@@ -1954,7 +1966,7 @@
     <value>scripts</value>
   </data>
   <data name="Script_cache_word" xml:space="preserve">
-    <value>Skriptbuffer buffer~~POS=HEADCOMP</value>
+    <value>Skriptbuffer</value>
   </data>
   <data name="Script_Rate_word" xml:space="preserve">
     <value>script Ranger</value>
@@ -1990,7 +2002,7 @@
     <value>Velger alle eller ingen av boksene</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Plukke ut</value>
+    <value>Jeg ser deg igjen når jeg våkner opp frisk og nye!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Send Alert Message</value>
@@ -2014,7 +2026,7 @@
     <value>innstillinger</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Innstilling Loopback Adapter til offentlig IP-adresse</value>
+    <value>Still inn eier</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>oppsett brannmur</value>
@@ -2044,7 +2056,7 @@
     <value>Set Debug nivå</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Still inn eier</value>
+    <value>Set Debug nivå</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast er ikke aktivert.</value>
@@ -2245,22 +2257,22 @@
     <value>Tråd bassenger</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Tides</value>
+    <value>Tide Info Channel</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Aktiver tide å komme inn og ut?</value>
+    <value>Tråd bassenger</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Info Channel</value>
+    <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Timeout i timer</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Toleranse (standard = 25,0)</value>
+    <value>Timeout i timer</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Feilsøking</value>
@@ -2377,7 +2389,7 @@
     <value>Stemme</value>
   </data>
   <data name="Voice_Settings_Word" xml:space="preserve">
-    <value>stemme~~POS=TRUNC innstillinger~~POS=HEADCOMP</value>
+    <value>Stemmeinnstillinger</value>
   </data>
   <data name="Waiting_on_Robust" xml:space="preserve">
     <value>Venter på Robust å starte</value>

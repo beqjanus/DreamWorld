@@ -202,7 +202,7 @@
     <value>Web Server se nepodařilo spustit</value>
   </data>
   <data name="Apache_has_been_removed" xml:space="preserve">
-    <value>Apache byl odstraněn jako službu</value>
+    <value>Apache byl odstraněn jako služba</value>
   </data>
   <data name="Apache_is_Set" xml:space="preserve">
     <value>Server Port web je sada</value>
@@ -751,7 +751,7 @@
     <value>To bude méně bezpečné Pokud zakážete kufr, ale bude snazší Řeži objektů na zahraničních mřížek</value>
   </data>
   <data name="Disabling_Suitcase" xml:space="preserve">
-    <value>Deaktivace inventury Suitcase vystavuje celý svůj inventář do jiných mřížek. Ale to je snadné dát objekty z libovolného místa.</value>
+    <value>Deaktivace inventury Suitcase vystavuje celý svůj inventář do jiných mřížek. Ale je to snadné dát objekty z libovolného místa.</value>
   </data>
   <data name="Discard_Exit" xml:space="preserve">
     <value>Zahodit všechny změny a Konec?</value>
@@ -801,6 +801,9 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Upravit</value>
   </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>E-mailem</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager je Bůh - Estate manažeři mohou stát bohy, ale právě pro tento majetek</value>
   </data>
@@ -839,6 +842,9 @@
   </data>
   <data name="Enter_Name" xml:space="preserve">
     <value>Zadejte název objektu ( ‚/‘ bude zálohovat všechno, a ‚/ objekty / box‘ zálohuje ‚okno‘ ve složce objektů</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>Zadejte Grid Informace o vlastníkovi</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Chyba: Nelze spustit DreamGridInstaller.exe.</value>
@@ -910,82 +916,82 @@
     <value>Jméno</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Flotsam Asset Cache</value>
+    <value>Jméno</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Složky pro ukládání souborů</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate (0,0909)</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
-    <value>Výchozí 1/11 sec. Výchozí hodnota je 0,0909, což je 1 / 5th 55 FPS</value>
-  </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
     <value>Snímková frekvence</value>
   </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>Frame Rate (0,0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Složky pro ukládání souborů</value>
+  </data>
   <data name="FreeName" xml:space="preserve">
-    <value>Získejte zdarma Dyn DNS jméno</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
-    <value>Klepněte na tlačítko získat zdarma Gloebits účet, takže můžete kupovat a prodávat</value>
-  </data>
-  <data name="Free_DLC_word" xml:space="preserve">
     <value>zdarma DLC</value>
   </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>Výchozí 1/11 sec. Výchozí hodnota je 0,0909, což je 1 / 5th 55 FPS</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Klepněte na tlačítko získat zdarma Gloebits účet, takže můžete kupovat a prodávat</value>
+  </data>
   <data name="Friendly" xml:space="preserve">
-    <value>Tento rošt je Friendly Name</value>
+    <value>Získejte zdarma Dyn DNS jméno</value>
   </data>
   <data name="FRText" xml:space="preserve">
-    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0,0909, nebo 1/11</value>
+    <value>Tento rošt je Friendly Name</value>
   </data>
   <data name="FSA" xml:space="preserve">
-    <value>Aktiva ve formě souborů</value>
+    <value>SL provozuje 55 FPS. Opensim je 11 FPS. Default = 0,0909, nebo 1/11</value>
   </data>
   <data name="FSassets" xml:space="preserve">
-    <value>File System Assets Database</value>
+    <value>Aktiva ve formě souborů</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets Server</value>
+    <value>File System Assets Database</value>
   </data>
   <data name="GBoids" xml:space="preserve">
-    <value>Globální nastavení ptáků se budou vztahovat k tomuto regionu</value>
+    <value>FsAssets Server</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>Získání regiony</value>
+    <value>Globální nastavení ptáků se budou vztahovat k tomuto regionu</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Globální nastavení</value>
-  </data>
-  <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Globální nastavení Tide</value>
   </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>Získání regiony</value>
+  </data>
   <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits měny</value>
+    <value>Globální nastavení</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Good (Warp3D)</value>
+    <value>Gloebits měny</value>
   </data>
   <data name="Grid_address" xml:space="preserve">
-    <value>adresa Grid</value>
+    <value>Good (Warp3D)</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Grid adresa</value>
+    <value>adresa Grid</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>Můžete uvést tuto adresu k lidem a oni mohou navštívit svého mřížku</value>
+    <value>Grid adresa</value>
   </data>
   <data name="Grid_Server_With_Robust" xml:space="preserve">
-    <value>Grid Server S Robustní</value>
+    <value>Můžete uvést tuto adresu k lidem a oni mohou navštívit svého mřížku</value>
   </data>
   <data name="Grid_TCP_is_set" xml:space="preserve">
-    <value>Grid TCP port nastaven</value>
+    <value>Grid Server S Robustní</value>
   </data>
   <data name="Grid_UDP_is_set" xml:space="preserve">
-    <value>Grid UDP port nastaven</value>
+    <value>Grid TCP port nastaven</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Globální nastavení Tide se budou vztahovat k tomuto regionu</value>
+    <value>Grid UDP port nastaven</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Aktualizace je k dispozici. Chcete ukončit DreamGrid a nainstalovat aktualizaci?</value>
@@ -1132,7 +1138,7 @@
     <value>ikony</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>Opensim ušetří vesel po spuštění tak dlouho</value>
+    <value>ikony</value>
   </data>
   <data name="Ignore_Parcel" xml:space="preserve">
     <value>ignorovat Parcel</value>
@@ -1213,6 +1219,9 @@
     <value>Velká mapa Metro</value>
   </data>
   <data name="Last_Name" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="Last_Name_word" xml:space="preserve">
     <value>Příjmení</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1297,7 +1306,7 @@
     <value>Vytvořit zálohu?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Manager_God</value>
+    <value>Vytvořit zálohu?</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Všechny mapové dlaždice byly vymazány. Nastavte nastavení mapy a restartujte počítač, aby se nové mapy</value>
@@ -1324,7 +1333,7 @@
     <value>Maximální vzdálenost pro ostatní ptáky je třeba zvážit ve stejném stádu</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Maximální síla (default = 0.2)</value>
+    <value>Maximální vzdálenost pro ostatní ptáky je třeba zvážit ve stejném stádu</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Maximální výška (default = 45.0)</value>
@@ -1348,10 +1357,10 @@
     <value>Maximální rychlost (default = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>sloučení OAR</value>
+    <value>Maximálně 4096</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Sloučit objekty</value>
+    <value>sloučení OAR</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mesh Cache</value>
@@ -1480,10 +1489,10 @@
     <value>Není platný UUID. Chcete nový, náhodný UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>To se nezdá být předány k tomuto počítači ve svém směrovači, takže Hypergrid není k dispozici. Toto může být případně stanovena ‚Port Dopředu‘ v routeru. Viz Nápověda-&gt; port dopředu.</value>
+    <value>Za normálních okolností nastavena na OutworldzFiles / AutoBackup složka s ‚automatické zálohování‘. Klikněte pro změnu složky.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Které obvykle není vynucováno Opensim. Divák se nezobrazí více než 45.000. Toto nastavení zde a umožňuje to v nastavení bude prosazovat limit a může vrátit prims!</value>
+    <value>To se nezdá být předány k tomuto počítači ve svém směrovači, takže Hypergrid není k dispozici. Toto může být případně stanovena ‚Port Dopředu‘ v routeru. Viz Nápověda-&gt; port dopředu.</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim neběží.</value>
@@ -1546,7 +1555,7 @@
     <value>Otevřená Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>ÓDA</value>
+    <value>Otevřená Dynamic Engine</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Vypnuto</value>
@@ -1561,19 +1570,19 @@
     <value>Je tam jeden avatar</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>Jedna oblast je stále spuštěn</value>
+    <value>OK</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Pouze Manažeři Majitelé a majetek budou moci v tomto regionu</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Opensimulator se načítá</value>
-  </data>
-  <data name="Open_Router_Ports" xml:space="preserve">
     <value>Porty otevřené směrovači Universal Plug and Play</value>
   </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>Pouze Manažeři Majitelé a majetek budou moci v tomto regionu</value>
+  </data>
   <data name="Options" xml:space="preserve">
-    <value>možnosti</value>
+    <value>Opensimulator se načítá</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>Nebo:</value>
@@ -1591,7 +1600,7 @@
     <value>balíky</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Prošel LAN Testovací smyčka</value>
+    <value>balíky</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Můžete změnit pouze heslo, když Opensim běží</value>
@@ -1720,7 +1729,7 @@
     <value>Oblast</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>regiony jsou stále běží</value>
+    <value>Region UUID je neplatná</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>regiony</value>
@@ -1809,11 +1818,14 @@
   <data name="RenderMin" xml:space="preserve">
     <value>Render min Výška</value>
   </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>Zopakovat heslo</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Požádat o App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Vyhradit své jméno DYN DNS. To je heslo své jméno.</value>
+    <value>Požádat o App Creation</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>vyřešen</value>
@@ -1831,7 +1843,7 @@
     <value>Restart Interval v minutách</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Restartování jedna instance</value>
+    <value>Bulletsim fyzika crash vynutí restart simulátoru</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Restart jeden region</value>
@@ -1858,16 +1870,16 @@
     <value>restart ve frontě</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>restart Region</value>
+    <value>restart ve frontě</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
-    <value>restart Robust</value>
+    <value>restart Region</value>
   </data>
   <data name="Restart_Settings_word" xml:space="preserve">
-    <value>Nastavení restart</value>
+    <value>restart Robust</value>
   </data>
   <data name="Restart_word" xml:space="preserve">
-    <value>restart</value>
+    <value>Nastavení restart</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>obnovení databáze</value>
@@ -1900,7 +1912,7 @@
     <value>Po kliknutí na řádek povoleno spustit nebo zastavit region. Klepnutím na zakázané řádek upravit oblast.</value>
   </data>
   <data name="Running" xml:space="preserve">
-    <value>Běh</value>
+    <value>Běžet jako služba</value>
   </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Běží jako region Server</value>
@@ -1912,7 +1924,7 @@
     <value>Run All</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Běžet jako služba</value>
+    <value>Run All</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Režim pískoviště</value>
@@ -1990,7 +2002,7 @@
     <value>Vybere všechny nebo žádné z políček</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Vybrat</value>
+    <value>Já tě zase vidím, když se probudím, všechno čerstvé a nové!</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Poslat varovnou zprávu</value>
@@ -2014,7 +2026,7 @@
     <value>Nastavení</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Nastavení Loopback Adapter pro veřejnou IP adresu</value>
+    <value>Určit vlastníka</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Nastavení Firewall</value>
@@ -2044,7 +2056,7 @@
     <value>Set Level Debug</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Určit vlastníka</value>
+    <value>Set Level Debug</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast není povoleno.</value>
@@ -2245,22 +2257,22 @@
     <value>závit bazény</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Tides</value>
+    <value>Tide Informace o kanálu</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Umožnit příliv přijít dovnitř a ven?</value>
+    <value>závit bazény</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Informace o kanálu</value>
+    <value>Tide Hi / Lo Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Prodleva v hodinách</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Tolerance (default = 25.0)</value>
+    <value>Prodleva v hodinách</value>
   </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Poradce při potížích</value>
