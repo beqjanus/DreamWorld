@@ -69,7 +69,7 @@ Partial Class Tides
         Me.GroupBox1.Size = New System.Drawing.Size(283, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Global Tide Settings"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Global_Tide_Settings_word
         '
         'RunOnBoot
         '
@@ -109,7 +109,7 @@ Partial Class Tides
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(100, 13)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = "Tide Hi/Lo Channel"
+        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Tide_Hi_Lo_Channel_word
         '
         'TideHiLoChannelTextBox
         '
@@ -125,7 +125,7 @@ Partial Class Tides
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(91, 13)
         Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Tide Info Channel"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Tide_Info_Channel_word
         '
         'TideInfoChannelTextBox
         '
@@ -141,7 +141,7 @@ Partial Class Tides
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Cycle Time in seconds"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Cycle_Time_in_seconds
         '
         'CycleTimeTextBox
         '
@@ -158,7 +158,7 @@ Partial Class Tides
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(88, 13)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Low Water Level"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Low_Water_Level
         '
         'TideLowLevelTextBox
         '
@@ -175,7 +175,7 @@ Partial Class Tides
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "High Water Level"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.High_Water_Level
         '
         'TideHighLevelTextBox
         '
@@ -238,7 +238,7 @@ Partial Class Tides
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Tides"
-        Me.Text = "Tides"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Tides_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

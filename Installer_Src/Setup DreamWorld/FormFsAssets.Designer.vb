@@ -67,7 +67,7 @@ Partial Class FormFsAssets
         Me.b.Size = New System.Drawing.Size(420, 233)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
-        Me.b.Text = "File System Assets Database"
+        Me.b.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
         '
         'SaveButton
         '
@@ -98,7 +98,7 @@ Partial Class FormFsAssets
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(93, 20)
         Me.Label6.TabIndex = 1888
-        Me.Label6.Text = "Data Folder"
+        Me.Label6.Text = Global.Outworldz.My.Resources.Resources.Data_Folder_word
         '
         'PictureBox2
         '
@@ -164,7 +164,7 @@ Partial Class FormFsAssets
         Me.Controls.Add(Me.b)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormFsAssets"
-        Me.Text = "File System Assets Database"
+        Me.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
         Me.b.ResumeLayout(False)
         Me.b.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()

@@ -162,7 +162,7 @@ Partial Class FormVoice
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormVoice"
-        Me.Text = "Voice"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

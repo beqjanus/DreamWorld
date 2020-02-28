@@ -2446,8 +2446,9 @@
   <data name="ApacheWebServer" xml:space="preserve">
     <value>Webserver + Search and Map</value>
   </data>
-  <data name="MySqlPort" xml:space="preserve">
+  <data name="MySqlPort_word" xml:space="preserve">
     <value>MySQL Port</value>
+    <comment>changed name</comment>
   </data>
   <data name="flag_iceland" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_iceland.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2760,13 +2761,47 @@
   </data>
   <data name="Email_word" xml:space="preserve">
     <value>Email</value>
-    <comment>new</comment>
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>Enter the Grid Owner Information</value>
   </data>
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>Repeat Password</value>
+  </data>
+  <data name="Assets_as_Files_word" xml:space="preserve">
+    <value>Assets as Files</value>
+    <comment>New</comment>
+  </data>
+  <data name="Click_for_God_Mode" xml:space="preserve">
+    <value>Click to set up God mode and other permissions</value>
+    <comment>New</comment>
+  </data>
+  <data name="Desired_Separation_word" xml:space="preserve">
+    <value>Desired Separation (default=5.0)</value>
+    <comment>new</comment>
+  </data>
+  <data name="Logging_word" xml:space="preserve">
+    <value>Logging</value>
+    <comment>new</comment>
+  </data>
+  <data name="Script_Engine_word" xml:space="preserve">
+    <value>Script Engine</value>
+    <comment>new</comment>
+  </data>
+  <data name="View_Console_word" xml:space="preserve">
+    <value>View Console</value>
+    <comment>new</comment>
+  </data>
+  <data name="View_Log_word" xml:space="preserve">
+    <value>View Log</value>
+    <comment>new</comment>
+  </data>
+  <data name="View_Map_word" xml:space="preserve">
+    <value>View Map</value>
+    <comment>new</comment>
+  </data>
+  <data name="View_Statistics_Word" xml:space="preserve">
+    <value>View Statistics</value>
     <comment>new</comment>
   </data>
 </root>

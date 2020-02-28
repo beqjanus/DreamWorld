@@ -708,7 +708,7 @@ Partial Class FormRegion
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(68, 13)
         Me.Label16.TabIndex = 44
-        Me.Label16.Text = "Region Ports"
+        Me.Label16.Text = Global.Outworldz.My.Resources.Resources.Region_Port_word
         '
         'Label6
         '
@@ -751,7 +751,7 @@ Partial Class FormRegion
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(285, 13)
         Me.Label8.TabIndex = 25
-        Me.Label8.Text = "Alpha-Numeric plus minus sign (no spaces or special chars)"
+        Me.Label8.Text = Global.Outworldz.My.Resources.Resources.AlphaNum
         '
         'GroupBox2
         '
@@ -778,7 +778,7 @@ Partial Class FormRegion
         Me.GroupBox2.Size = New System.Drawing.Size(297, 114)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Sim Size"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Sim_Size_word
         '
         'Label3
         '
@@ -839,7 +839,7 @@ Partial Class FormRegion
         Me.GroupBox6.Size = New System.Drawing.Size(483, 506)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Region Specific Settings"
+        Me.GroupBox6.Text = Global.Outworldz.My.Resources.Resources.Region_Specific_Settings
         '
         'GroupBox8
         '
@@ -851,7 +851,7 @@ Partial Class FormRegion
         Me.GroupBox8.Size = New System.Drawing.Size(236, 99)
         Me.GroupBox8.TabIndex = 1886
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Script Engine"
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.Script_Engine_word
         '
         'ScriptDefaultButton
         '
@@ -901,7 +901,7 @@ Partial Class FormRegion
         Me.GroupBox7.Size = New System.Drawing.Size(222, 197)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Modules"
+        Me.GroupBox7.Text = Global.Outworldz.My.Resources.Resources.Modules
         '
         'Label13
         '
@@ -910,7 +910,7 @@ Partial Class FormRegion
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(123, 13)
         Me.Label13.TabIndex = 1884
-        Me.Label13.Text = "Region Specific Settings"
+        Me.Label13.Text = Global.Outworldz.My.Resources.Resources.Region_Specific_Settings
         '
         'GroupBox3
         '
@@ -922,7 +922,7 @@ Partial Class FormRegion
         Me.GroupBox3.Size = New System.Drawing.Size(231, 101)
         Me.GroupBox3.TabIndex = 1883
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Search"
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Search_word
         '
         'Publish
         '
@@ -969,7 +969,7 @@ Partial Class FormRegion
         Me.GroupBox4.Size = New System.Drawing.Size(228, 122)
         Me.GroupBox4.TabIndex = 1882
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
+        Me.GroupBox4.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         '
         'Gods_Use_Default
         '
@@ -995,7 +995,7 @@ Partial Class FormRegion
         Me.MapBox.Size = New System.Drawing.Size(222, 247)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = "Maps"
+        Me.MapBox.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         '
         'Maps_Use_Default
         '
@@ -1129,7 +1129,7 @@ Partial Class FormRegion
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormRegion"
-        Me.Text = "Region"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Region
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)

@@ -160,8 +160,7 @@
     <value>Objekte können von Ihrem Raster über Hypergrid genommen werden</value>
   </data>
   <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
-    <value>
-Erlaube oder verbiete Gött Modus</value>
+    <value>Erlaube oder verbiete Gött Modus</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
     <value>Erlauben Region Eigentümer Götter</value>
@@ -209,8 +208,7 @@ Erlaube oder verbiete Gött Modus</value>
     <value>Der Webserver-Port ist festgelegt</value>
   </data>
   <data name="Apache_running" xml:space="preserve">
-    <value>
-Webserver läuft</value>
+    <value>Webserver läuft</value>
   </data>
   <data name="Apache_starting" xml:space="preserve">
     <value>Webserver startet</value>
@@ -243,12 +241,10 @@ Webserver läuft</value>
     <value>automatischer Neustart</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
-    <value>
-0 - Aus. Wie viele Minuten bis zum automatischen Neustart?</value>
+    <value>0 - Aus. Wie viele Minuten bis zum automatischen Neustart?</value>
   </data>
   <data name="AutorestartTime" xml:space="preserve">
-    <value>
-Erhöhen der automatischen Neustartzeit, damit Backups 30 Minuten nach dem Neustartintervall beendet werden</value>
+    <value>Erhöhen der automatischen Neustartzeit, damit Backups 30 Minuten nach dem Neustartintervall beendet werden</value>
   </data>
   <data name="Auto_Backup_word" xml:space="preserve">
     <value>Automatisches Backup</value>
@@ -284,8 +280,7 @@ Erhöhen der automatischen Neustartzeit, damit Backups 30 Minuten nach dem Neust
     <value>Sichern von Einstellungen</value>
   </data>
   <data name="Backup_Custom" xml:space="preserve">
-    <value>
-Benutzerdefinierte Webseiten sichern</value>
+    <value>Benutzerdefinierte Webseiten sichern</value>
   </data>
   <data name="Backup_Databases" xml:space="preserve">
     <value>Backup-Datenbanken</value>
@@ -399,8 +394,7 @@ Benutzerdefinierte Webseiten sichern</value>
     <value>Der Standard-Begrüßungsbereich kann nicht gefunden werden</value>
   </data>
   <data name="Cannot_Normalize" xml:space="preserve">
-    <value>
-Karte kann nicht normalisiert werden, da sich eine Region an einer Position befindet, die kleiner als 0 ist</value>
+    <value>Karte kann nicht normalisiert werden, da sich eine Region an einer Position befindet, die kleiner als 0 ist</value>
   </data>
   <data name="Cannot_resolve_word" xml:space="preserve">
     <value>Kann nicht lösen</value>
@@ -445,8 +439,7 @@ Karte kann nicht normalisiert werden, da sich eine Region an einer Position befi
     <value>Überprüfen Router</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
-    <value>
-Datenbank überprüfen und reparieren</value>
+    <value>Datenbank überprüfen und reparieren</value>
   </data>
   <data name="Check_Diag" xml:space="preserve">
     <value>Überprüfen Diagnose-Port</value>
@@ -479,8 +472,7 @@ Datenbank überprüfen und reparieren</value>
     <value>Clamp Prim Größe</value>
   </data>
   <data name="Clearing_Assets" xml:space="preserve">
-    <value>
-Lösche Asset Cache Dies kann lange dauern.</value>
+    <value>Lösche Asset Cache Dies kann lange dauern.</value>
   </data>
   <data name="Clearing_Bake_Cache_word" xml:space="preserve">
     <value>Lösche Bake Cache</value>
@@ -495,8 +487,7 @@ Lösche Asset Cache Dies kann lange dauern.</value>
     <value>Lösche Mesh Cache</value>
   </data>
   <data name="Clearing_Script" xml:space="preserve">
-    <value>
-Lösche Skript Cache  Dies kann lange dauern.</value>
+    <value>Lösche Skript Cache  Dies kann lange dauern.</value>
   </data>
   <data name="ClearReg" xml:space="preserve">
     <value>Alle Registrierungen löschen</value>
@@ -505,15 +496,13 @@ Lösche Skript Cache  Dies kann lange dauern.</value>
     <value>Löschen Region Liste</value>
   </data>
   <data name="Clear_and_Load_word" xml:space="preserve">
-    <value>
-Löschen und laden</value>
+    <value>Löschen und laden</value>
   </data>
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>Cache leeren</value>
   </data>
   <data name="Clear_Selected_Caches_word" xml:space="preserve">
-    <value>
-Ausgewählte Caches löschen</value>
+    <value>Ausgewählte Caches löschen</value>
   </data>
   <data name="ClickStartStop" xml:space="preserve">
     <value>Klicken Sie zum Starten oder Stoppen Robust</value>
@@ -522,19 +511,16 @@ Ausgewählte Caches löschen</value>
     <value>Die Regionen können in Gruppen starten oder zu stoppen, je nachdem, wie Sie Ihre Regionen Ordner organisiert.</value>
   </data>
   <data name="Click_2_Choose" xml:space="preserve">
-    <value>
-Klicken Sie, um eine Gruppe auszuwählen</value>
+    <value>Klicken Sie, um eine Gruppe auszuwählen</value>
   </data>
   <data name="Click_Birds" xml:space="preserve">
     <value>Klicken Sie hier, um das Vogel Modul einzurichten</value>
   </data>
   <data name="Click_Caches" xml:space="preserve">
-    <value>
-Klicken Sie hier, um Caches für Skripts, Assets und Bilder einzurichten</value>
+    <value>Klicken Sie hier, um Caches für Skripts, Assets und Bilder einzurichten</value>
   </data>
   <data name="Click_Currency" xml:space="preserve">
-    <value>
-Klicken Sie hier, um die Währung einzurichten</value>
+    <value>Klicken Sie hier, um die Währung einzurichten</value>
   </data>
   <data name="Click_Database" xml:space="preserve">
     <value>Klicken Sie auf die Datenbank einrichten</value>
@@ -576,8 +562,7 @@ Klicken Sie hier, um die Währung einzurichten</value>
     <value>Klicken Sie auf ‚Start‘ zu beginnen.</value>
   </data>
   <data name="Click_Tides" xml:space="preserve">
-    <value>
-Klicken Sie hier, um Gezeiten einzurichten</value>
+    <value>Klicken Sie hier, um Gezeiten einzurichten</value>
   </data>
   <data name="Click_to_change_the_folder" xml:space="preserve">
     <value>Klicken Sie auf den Ordner ändern</value>
@@ -595,8 +580,7 @@ Klicken Sie hier, um Gezeiten einzurichten</value>
     <value>Klicken Sie auf diese anzuzeigen</value>
   </data>
   <data name="Click_Voice" xml:space="preserve">
-    <value>
-Klicken Sie hier, um Vivox Voice einzurichten</value>
+    <value>Klicken Sie hier, um Vivox Voice einzurichten</value>
   </data>
   <data name="Click_Web" xml:space="preserve">
     <value>Klicken Sie auf Ihre Web Control Panel einzurichten</value>
@@ -647,8 +631,7 @@ Klicken Sie hier, um Vivox Voice einzurichten</value>
     <value>Erstellen Produktionskonto</value>
   </data>
   <data name="Create_DB" xml:space="preserve">
-    <value>
-Erstellen einer neuen, leeren Datenbank</value>
+    <value>Erstellen einer neuen, leeren Datenbank</value>
   </data>
   <data name="Create_Sandbox_word" xml:space="preserve">
     <value>Sandbox erstellen</value>

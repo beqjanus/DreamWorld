@@ -86,7 +86,7 @@ Partial Class FormDiva
         Me.Web.Size = New System.Drawing.Size(279, 214)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
-        Me.Web.Text = "Wifi Interface Admin"
+        Me.Web.Text = Global.Outworldz.My.Resources.Resources.Wifi_interface
         '
         'WiFi
         '
@@ -114,7 +114,7 @@ Partial Class FormDiva
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(62, 13)
         Me.Label17.TabIndex = 15
-        Me.Label17.Text = "Notify Email"
+        Me.Label17.Text = Global.Outworldz.My.Resources.Resources.Notify_Email
         '
         'AdminEmail
         '
@@ -130,7 +130,7 @@ Partial Class FormDiva
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(58, 13)
         Me.Label12.TabIndex = 13
-        Me.Label12.Text = "Last Name"
+        Me.Label12.Text = Global.Outworldz.My.Resources.Resources.Last_Name_Word
         '
         'AccountConfirmationRequired
         '
@@ -163,7 +163,7 @@ Partial Class FormDiva
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(57, 13)
         Me.Label11.TabIndex = 10
-        Me.Label11.Text = "First Name"
+        Me.Label11.Text = Global.Outworldz.My.Resources.Resources.First_name_word
         '
         'Label10
         '
@@ -172,7 +172,7 @@ Partial Class FormDiva
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(53, 13)
         Me.Label10.TabIndex = 9
-        Me.Label10.Text = "Password"
+        Me.Label10.Text = Global.Outworldz.My.Resources.Resources.Password_word
         '
         'AdminPassword
         '
@@ -198,7 +198,7 @@ Partial Class FormDiva
         Me.GroupBox6.Size = New System.Drawing.Size(279, 150)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "SMTP Send Email Account"
+        Me.GroupBox6.Text = Global.Outworldz.My.Resources.Resources.SMTP
         '
         'SmtpPort
         '
@@ -214,7 +214,7 @@ Partial Class FormDiva
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(59, 13)
         Me.Label24.TabIndex = 1870
-        Me.Label24.Text = "SMTP Port"
+        Me.Label24.Text = Global.Outworldz.My.Resources.Resources.SMTPPort_word
         '
         'SmtpHost
         '
@@ -230,7 +230,7 @@ Partial Class FormDiva
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(62, 13)
         Me.Label23.TabIndex = 1868
-        Me.Label23.Text = "SMTP Host"
+        Me.Label23.Text = Global.Outworldz.My.Resources.Resources.SMTPHost_word
         '
         'GmailPassword
         '
@@ -247,7 +247,7 @@ Partial Class FormDiva
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(86, 13)
         Me.Label18.TabIndex = 1866
-        Me.Label18.Text = "SMTP Password"
+        Me.Label18.Text = Global.Outworldz.My.Resources.Resources.SMTPPassword_word
         '
         'Label14
         '
@@ -256,7 +256,7 @@ Partial Class FormDiva
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(60, 13)
         Me.Label14.TabIndex = 1865
-        Me.Label14.Text = "User Name"
+        Me.Label14.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
         '
         'GmailUsername
         '
@@ -272,7 +272,7 @@ Partial Class FormDiva
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(126, 13)
         Me.Label2.TabIndex = 1867
-        Me.Label2.Text = "This Grid's Friendly Name"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Friendly
         '
         'GridName
         '
@@ -288,7 +288,7 @@ Partial Class FormDiva
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(139, 13)
         Me.Label19.TabIndex = 1868
-        Me.Label19.Text = "Viewer Splash Screen URL:"
+        Me.Label19.Text = Global.Outworldz.My.Resources.Resources.SplashScreen
         '
         'SplashPage
         '
@@ -314,7 +314,7 @@ Partial Class FormDiva
         Me.GroupBox1.Size = New System.Drawing.Size(279, 190)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Splash Screen"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.SplashScreen
         '
         'Label4
         '
@@ -323,7 +323,7 @@ Partial Class FormDiva
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 13)
         Me.Label4.TabIndex = 1876
-        Me.Label4.Text = "Viewer Greeting"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Viewer_Greeting_word
         '
         'GreetingTextBox
         '
@@ -350,7 +350,7 @@ Partial Class FormDiva
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(43, 13)
         Me.Label1.TabIndex = 1859
-        Me.Label1.Text = "Theme:"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Theme_word
         '
         'WhiteRadioButton
         '
@@ -405,7 +405,7 @@ Partial Class FormDiva
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
-        Me.ApacheToolStripMenuItem.Text = "Apache"
+        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
         'FormDiva
         '
@@ -419,7 +419,7 @@ Partial Class FormDiva
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
-        Me.Text = "Web Server Panel"
+        Me.Text = Global.Outworldz.My.Resources.Resources.WebServerPanel
         Me.Web.ResumeLayout(False)
         Me.Web.PerformLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).EndInit()

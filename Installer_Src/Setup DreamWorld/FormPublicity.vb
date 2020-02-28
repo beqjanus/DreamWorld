@@ -78,7 +78,7 @@ Public Class FormPublicity
 
     Private Sub Publicity_Close(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Dim category As String = Nothing
+        Dim category As String = ""
         For Each i In CategoryCheckbox.CheckedItems
             If i.length > 0 Then category += i & ","
         Next

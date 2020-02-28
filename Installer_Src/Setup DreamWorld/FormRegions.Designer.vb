@@ -70,7 +70,7 @@ Partial Class FormRegions
         Me.GroupBox2.Size = New System.Drawing.Size(316, 510)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Regions"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Region
         '
         'SmartStartEnabled
         '
@@ -145,7 +145,7 @@ Partial Class FormRegions
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(92, 20)
         Me.Label1.TabIndex = 1860
-        Me.Label1.Text = "Edit Region"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.EditRegion
         '
         'RegionButton
         '
@@ -188,7 +188,7 @@ Partial Class FormRegions
         Me.WelcomeRegion.Name = "WelcomeRegion"
         Me.WelcomeRegion.Size = New System.Drawing.Size(109, 20)
         Me.WelcomeRegion.TabIndex = 32
-        Me.WelcomeRegion.Text = "Default region"
+        Me.WelcomeRegion.Text = Global.Outworldz.My.Resources.Resources.Default_Region_word
         '
         'WelcomeBox1
         '
@@ -258,7 +258,7 @@ Partial Class FormRegions
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
-        Me.Text = "Region"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Region
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()

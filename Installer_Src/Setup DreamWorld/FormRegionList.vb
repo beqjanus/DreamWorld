@@ -31,8 +31,8 @@ Public Class RegionList
     Private _ImageListLarge As ImageList
 #Disable Warning CA2213
     Private _ImageListSmall As New ImageList
+    Private colsize As New ScreenPos("Region List")
 #Enable Warning CA2213
-    Private colsize = New ScreenPos(MyBase.Name & "ColumnSize")
     Private initted = False
     Private ItemsAreChecked As Boolean = False
 
@@ -251,6 +251,8 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = False
         Form1.Settings.SaveSettings()
         FormExists1 = False
+        _ImageListSmall.Dispose()
+        colsize.Dispose()
 
     End Sub
 
@@ -269,7 +271,7 @@ Public Class RegionList
         Form1.Settings.RegionListVisible = True
         Form1.Settings.SaveSettings()
 
-        'Dim count = Form1.PropRegionClass.GetAllRegions()
+
         Me.Name = "Region List"
         Me.Text = My.Resources.Region_List
         AvatarView.Hide()
@@ -277,6 +279,9 @@ Public Class RegionList
 
         ' Set the view to show details.
         TheView1 = Form1.Settings.RegionListView()
+        SetScreen(TheView1)
+
+
         Dim W As View
 
         If TheView1 = ViewType.Details Then
@@ -289,6 +294,7 @@ Public Class RegionList
             ListView1.CheckBoxes = False
             W = View.LargeIcon
         End If
+
 
         ListView1.View = W
         AvatarView.View = View.Details
@@ -375,7 +381,7 @@ Public Class RegionList
         ViewBusy = False
         Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
         Timer1.Start() 'Timer starts functioning
-        SetScreen(TheView1)
+
         ShowTitle()
         initted = True
 
@@ -1297,7 +1303,7 @@ Public Class RegionList
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
         Dim ofd As New OpenFileDialog
-        ofd.InitialDirectory = "c\\"
+        ofd.InitialDirectory = "c:\"
         ofd.Filter = My.Resources.INI_Filter
         ofd.FilterIndex = 2
         ofd.RestoreDirectory = True

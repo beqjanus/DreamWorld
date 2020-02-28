@@ -123,7 +123,7 @@ Partial Class FormScripts
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormScripts"
-        Me.Text = "Scripts"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)

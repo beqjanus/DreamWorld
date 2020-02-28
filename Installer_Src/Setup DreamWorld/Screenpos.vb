@@ -41,6 +41,9 @@ Public Class ScreenPos
     Public Sub New(Name As String)
 
         gName = Name ' save gName for this form
+        If Name = "" Then
+            Return
+        End If
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -72,6 +75,10 @@ Public Class ScreenPos
 
     Public Function ColumnWidth(name As String, size As Integer) As Integer
 
+        If Data Is Nothing Then
+            Return size
+        End If
+
         Dim w As Integer = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width"), Integer)
         If w = 0 Then
             Return size
@@ -82,6 +89,11 @@ Public Class ScreenPos
     End Function
 
     Public Function Exists() As Boolean
+
+        If Data Is Nothing Then
+            Return True
+        End If
+
         Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Initted"), Integer)
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Initted", "1")
         SaveFormSettings()
@@ -91,6 +103,9 @@ Public Class ScreenPos
 
     Public Function GetHW() As List(Of Integer)
 
+        If Data Is Nothing Then
+            Return New List(Of Integer)
+        End If
         Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_H"), Integer)
         Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_W"), Integer)
 
@@ -106,33 +121,37 @@ Public Class ScreenPos
 
     Public Function GetXY() As List(Of Integer)
 
-        Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
-        Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-
-        Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_X"), Integer)
-        Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Y"), Integer)
-        If ValueXOld <= 0 Then
-            ValueXOld = 100
+        If Data Is Nothing Then
+            Return New List(Of Integer)
         End If
-        'If ValueXOld > screenWidth Then
-        ' ValueXOld = screenWidth - 100
-        'End If
-        If ValueYOld <= 0 Then
-            ValueYOld = 100
-        End If
-        'If ValueYOld > screenHeight Then
-        'ValueYOld = screenHeight - 100
-        'End If
+        Try
+            Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
+            Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+            Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_X"), Integer)
+            Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Y"), Integer)
+            If ValueXOld <= 0 Then
+                ValueXOld = 100
+            End If
 
-        SaveXY(ValueXOld, ValueYOld)
+            If ValueYOld <= 0 Then
+                ValueYOld = 100
+            End If
 
-        Dim r As New List(Of Integer) From {
-            ValueXOld,
-            ValueYOld
-        }
-        Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
-        Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
-        Return r
+            SaveXY(ValueXOld, ValueYOld)
+
+            Dim r As New List(Of Integer) From {
+                ValueXOld,
+                ValueYOld
+            }
+
+            Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
+            Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
+            Return r
+        Catch ex As Exception
+            Form1.Logger("Resize", ex.Message, "Error")
+        End Try
+        Return New List(Of Integer) From {100, 100}
+
 
     End Function
 
@@ -149,7 +168,14 @@ Public Class ScreenPos
     End Sub
 
     Public Sub putSize(name As String, size As Integer)
+
         If name Is Nothing Then Return
+        name = name.Replace("\n", "")
+        name = name.Replace("\r", "")
+        If name Is Nothing Then Return
+        If Data Is Nothing Then
+            Return
+        End If
         ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
         Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width") = size.ToString(Globalization.CultureInfo.CurrentCulture)
 
@@ -157,6 +183,7 @@ Public Class ScreenPos
 
     Public Sub SaveFormSettings()
 
+        If Data Is Nothing Then Return
         Try
             parser.WriteFile(myINI, Data, System.Text.Encoding.UTF8)
 #Disable Warning CA1031 ' Do not catch general exception types

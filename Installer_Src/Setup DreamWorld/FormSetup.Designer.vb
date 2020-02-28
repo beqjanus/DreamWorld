@@ -1039,7 +1039,7 @@ Partial Class Form1
         Me.AviLabel.Name = "AviLabel"
         Me.AviLabel.Size = New System.Drawing.Size(43, 13)
         Me.AviLabel.TabIndex = 34
-        Me.AviLabel.Text = "Avatars"
+        Me.AviLabel.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         '
         'PercentCPU
         '
@@ -1145,7 +1145,7 @@ Partial Class Form1
         Me.ChartWrapper1.AddMarkers = True
         Me.ChartWrapper1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
-        Me.ChartWrapper1.AxisYTitle = "CPU %"
+        Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False
         Me.ChartWrapper1.Location = New System.Drawing.Point(339, 78)

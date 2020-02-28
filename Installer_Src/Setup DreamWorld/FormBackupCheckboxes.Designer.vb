@@ -56,7 +56,7 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Size = New System.Drawing.Size(902, 312)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Backup"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         '
         'TextBox1
         '
@@ -78,7 +78,7 @@ Partial Class FormBackupCheckboxes
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(112, 35)
         Me.Button2.TabIndex = 12
-        Me.Button2.Text = "Cancel"
+        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'SettingsBox
@@ -192,7 +192,7 @@ Partial Class FormBackupCheckboxes
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormBackupCheckboxes"
-        Me.Text = "System Backup"
+        Me.Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

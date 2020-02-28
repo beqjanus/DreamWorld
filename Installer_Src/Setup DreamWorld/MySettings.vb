@@ -349,10 +349,13 @@ Public Class MySettings
     End Sub
 
     Public Sub SetMySetting(key As String, value As String)
-
+        Try
 #Disable Warning CA1062
-        SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
+            SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
+        Catch ex As Exception
+            Form1.Logger("Error", ex.Message, "Error")
+        End Try
 
     End Sub
 

@@ -72,7 +72,7 @@ Partial Class Icecast
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(78, 20)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Password"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Password_word
         '
         'GroupBox1
         '
@@ -94,7 +94,7 @@ Partial Class Icecast
         Me.GroupBox1.Size = New System.Drawing.Size(424, 302)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "IceCast Server"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.iceCastServer
         '
         'Label4
         '
@@ -104,7 +104,7 @@ Partial Class Icecast
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(51, 20)
         Me.Label4.TabIndex = 1861
-        Me.Label4.Text = "Port 2"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.port2
         '
         'ShoutcastPort1
         '
@@ -141,7 +141,7 @@ Partial Class Icecast
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 20)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Admin Password"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Admin_Password_word
         '
         'AdminPassword
         '
@@ -159,7 +159,7 @@ Partial Class Icecast
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 20)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Port 1"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Port1
         '
         'ShoutcastPort
         '
@@ -209,7 +209,7 @@ Partial Class Icecast
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Icecast"
-        Me.Text = "IceCast"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Icecast
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.icecast_help)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

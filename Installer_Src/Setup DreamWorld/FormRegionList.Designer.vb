@@ -256,7 +256,7 @@ Partial Class RegionList
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(131, 25)
         Me.Label1.TabIndex = 18606
-        Me.Label1.Text = "Please wait ..."
+        Me.Label1.Text = ""
         '
         'RegionList
         '
@@ -283,7 +283,7 @@ Partial Class RegionList
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "RegionList"
-        Me.Text = "Region List"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Region_List
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)

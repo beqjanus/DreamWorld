@@ -78,7 +78,7 @@ Partial Class FormFlotsamCache
         Me.GroupBox1.Size = New System.Drawing.Size(480, 278)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Flotsam Asset Cache"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
         '
         'Button1
         '
@@ -136,7 +136,7 @@ Partial Class FormFlotsamCache
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(126, 20)
         Me.Label5.TabIndex = 1865
-        Me.Label5.Text = "Timeout in hours"
+        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word
         '
         'Label4
         '
@@ -146,7 +146,7 @@ Partial Class FormFlotsamCache
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(118, 20)
         Me.Label4.TabIndex = 1864
-        Me.Label4.Text = "Cache Enabled"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Cache_Enabled_word
         '
         'Label2
         '
@@ -156,7 +156,7 @@ Partial Class FormFlotsamCache
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(77, 20)
         Me.Label2.TabIndex = 1863
-        Me.Label2.Text = "Log Level"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Log_Level
         '
         'CacheFolder
         '
@@ -174,7 +174,7 @@ Partial Class FormFlotsamCache
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(122, 20)
         Me.Label1.TabIndex = 1861
-        Me.Label1.Text = "Cache Directory"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Cache_Directory_word
         '
         'LogLevelBox
         '
@@ -221,7 +221,7 @@ Partial Class FormFlotsamCache
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormFlotsamCache"
-        Me.Text = "Asset Cache"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

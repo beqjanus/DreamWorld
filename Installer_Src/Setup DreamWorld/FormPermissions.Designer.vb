@@ -58,7 +58,7 @@ Partial Class FormPermissions
         Me.GroupBox4.Size = New System.Drawing.Size(231, 118)
         Me.GroupBox4.TabIndex = 49
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
+        Me.GroupBox4.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         '
         'AllowGods
         '
@@ -111,7 +111,7 @@ Partial Class FormPermissions
         Me.LimitsBox.Size = New System.Drawing.Size(233, 49)
         Me.LimitsBox.TabIndex = 1861
         Me.LimitsBox.TabStop = False
-        Me.LimitsBox.Text = "Prim Limits"
+        Me.LimitsBox.Text = Global.Outworldz.My.Resources.Resources.Prim_Limits
         '
         'EnableMaxPrims
         '
@@ -155,7 +155,7 @@ Partial Class FormPermissions
         Me.GroupBox7.Size = New System.Drawing.Size(226, 56)
         Me.GroupBox7.TabIndex = 1863
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Clouds"
+        Me.GroupBox7.Text = Global.Outworldz.My.Resources.Resources.Clouds_word
         '
         'DomainUpDown1
         '
@@ -202,7 +202,7 @@ Partial Class FormPermissions
         Me.GroupBox1.Size = New System.Drawing.Size(231, 45)
         Me.GroupBox1.TabIndex = 1864
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Export Permission"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Export_Permission_word
         '
         'FormPermissions
         '
@@ -217,7 +217,7 @@ Partial Class FormPermissions
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPermissions"
-        Me.Text = "Permissions"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

@@ -164,7 +164,7 @@ Partial Class FormDNSName
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(334, 20)
         Me.Label2.TabIndex = 1878
-        Me.Label2.Text = "DNS Name or SomeName.Outworldz.net or IP"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.DNSNameText
         '
         'Label1
         '
@@ -174,7 +174,7 @@ Partial Class FormDNSName
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(143, 20)
         Me.Label1.TabIndex = 1876
-        Me.Label1.Text = "DynDNS password"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.DynDNS_password_word
         '
         'MenuStrip1
         '
@@ -213,7 +213,7 @@ Partial Class FormDNSName
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormDNSName"
-        Me.Text = "DNS Name & Hypergrid"
+        Me.Text = Global.Outworldz.My.Resources.DNS_HG_Name
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help)
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)

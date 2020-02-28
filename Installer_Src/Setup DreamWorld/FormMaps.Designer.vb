@@ -72,7 +72,7 @@ Partial Class FormMaps
         Me.MapBox.Size = New System.Drawing.Size(171, 294)
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = "Maps"
+        Me.MapBox.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         '
         'ViewMap
         '
@@ -215,7 +215,7 @@ Partial Class FormMaps
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
         Me.Label5.TabIndex = 1876
-        Me.Label5.Text = "Render Min Height"
+        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.RenderMin
         '
         'Label4
         '
@@ -224,7 +224,7 @@ Partial Class FormMaps
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 13)
         Me.Label4.TabIndex = 1875
-        Me.Label4.Text = "Render Max Height"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.RenderMax
         '
         'RenderMinH
         '
@@ -283,7 +283,7 @@ Partial Class FormMaps
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 1868
-        Me.Label1.Text = "Map Center Location:"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Map_Center_Location_word
         '
         'MenuStrip2
         '
@@ -323,7 +323,7 @@ Partial Class FormMaps
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormMaps"
-        Me.Text = "Maps"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         Me.MapBox.ResumeLayout(False)
         Me.MapBox.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()

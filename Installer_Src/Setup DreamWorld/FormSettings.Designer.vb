@@ -199,7 +199,7 @@ Partial Class AdvancedForm
         Me.Button2.Size = New System.Drawing.Size(143, 23)
         Me.Button2.TabIndex = 9
         Me.Button2.Text = "Permissions"
-        Me.ToolTip1.SetToolTip(Me.Button2, "Click to set up God mode and other permissions")
+        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
         Me.Button2.UseVisualStyleBackColor = True
         '
         'DNSButton
@@ -291,7 +291,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(340, 345)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Global Settings"
+        Me.GroupBox8.Text = My.Resources.GlobalSettings_word()
         '
         'LoggingButton
         '
@@ -299,7 +299,7 @@ Partial Class AdvancedForm
         Me.LoggingButton.Name = "LoggingButton"
         Me.LoggingButton.Size = New System.Drawing.Size(143, 23)
         Me.LoggingButton.TabIndex = 23
-        Me.LoggingButton.Text = "Logging"
+        Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
         Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
         Me.LoggingButton.UseVisualStyleBackColor = True
         '
@@ -314,7 +314,7 @@ Partial Class AdvancedForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "AdvancedForm"
-        Me.Text = "Common Settings"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.GroupBox8.ResumeLayout(False)
         Me.ResumeLayout(False)
 

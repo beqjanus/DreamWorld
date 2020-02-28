@@ -33,6 +33,7 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
+Imports Outworldz
 
 Public Class Form1
 
@@ -41,14 +42,12 @@ Public Class Form1
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
-#Region "Suppress warning"
 #Disable Warning CA2213
-    Private Adv As New AdvancedForm
     Private cpu As New PerformanceCounter
+#Enable Warning CA2213
+
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
-#Enable Warning CA2214
-#End Region
 
 #Region "Globals"
 
@@ -57,7 +56,7 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private WithEvents UpdateProcess As New Process()
-
+    Private _Adv As AdvancedForm
     Private _ApacheCrashCounter As Integer = 0
     Private _ApacheExited As Boolean = False
     Private _ApacheProcessID As Integer = 0
@@ -125,20 +124,20 @@ Public Class Form1
 #Region "Resize"
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
-        ScreenPosition.SaveHW(Me.Height, Me.Width)
+        ScreenPosition1.SaveXY(Me.Left, Me.Top)
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
     End Sub
 
     ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
         '365, 238 default
-        ScreenPosition = New ScreenPos("Form1")
+        ScreenPosition1 = New ScreenPos("Form1")
         AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
         Left = xy.Item(0)
         Top = xy.Item(1)
 
-        Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+        Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
 
         If hw.Item(0) = 0 Then
             Me.Height = 238
@@ -167,7 +166,7 @@ Public Class Form1
 
         End If
 
-        ScreenPosition.SaveHW(Me.Height, Me.Width)
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
 
     End Sub
     Private Sub Form1_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
@@ -311,7 +310,11 @@ Public Class Form1
         ' done with boot up
 
     End Sub
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
+        cpu.Dispose()
+
+    End Sub
     Public Function StartOpensimulator() As Boolean
 
         PropExitHandlerIsBusy = False
@@ -800,6 +803,41 @@ Public Class Form1
         End Set
     End Property
 
+    Public Property Adv1 As AdvancedForm
+        Get
+            Return _Adv
+        End Get
+        Set(value As AdvancedForm)
+            _Adv = value
+        End Set
+    End Property
+    Public Property NewScreenPosition1 As ScreenPos
+        Get
+            Return newScreenPosition
+        End Get
+        Set(value As ScreenPos)
+            newScreenPosition = value
+        End Set
+    End Property
+
+    Public Property Cpu1 As PerformanceCounter
+        Get
+            Return cpu
+        End Get
+        Set(value As PerformanceCounter)
+            cpu = value
+        End Set
+    End Property
+
+    Public Property ScreenPosition1 As ScreenPos
+        Get
+            Return ScreenPosition
+        End Get
+        Set(value As ScreenPos)
+            ScreenPosition = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Things"
@@ -811,7 +849,7 @@ Public Class Form1
             speed2 = speed1
             speed1 = speed
             Try
-                speed = cpu.NextValue()
+                speed = Me.Cpu1.NextValue()
 
 #Disable Warning CA1031
             Catch ex As Exception
@@ -2106,10 +2144,10 @@ Public Class Form1
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
 
         If PropInitted Then
-            Adv.Activate()
-            Adv.Visible = True
-            Adv.Select()
-            Adv.BringToFront()
+            Adv1.Activate()
+            Adv1.Visible = True
+            Adv1.Select()
+            Adv1.BringToFront()
         End If
 
     End Sub
@@ -2594,6 +2632,8 @@ Public Class Form1
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
 
+
+
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
@@ -2617,6 +2657,9 @@ Public Class Form1
         Buttons(BusyButton)
 
         ToolBar(False)
+
+        Adv1 = New AdvancedForm
+
 
         Me.Show()
 
@@ -2682,7 +2725,7 @@ Public Class Form1
             Return
         End If
 
-        With cpu
+        With Cpu1
             .CategoryName = "Processor"
             .CounterName = "% Processor Time"
             .InstanceName = "_Total"
@@ -4200,7 +4243,7 @@ Public Class Form1
         StopMysql()
 
         Print("Zzzz...")
-        Sleep(2000)
+        Thread.Sleep(2000)
         End
 
     End Sub
@@ -6946,8 +6989,8 @@ Public Class Form1
 
     Public Sub HelpOnce(Webpage As String)
 
-        newScreenPosition = New ScreenPos(Webpage)
-        If Not newScreenPosition.Exists() Then
+        NewScreenPosition1 = New ScreenPos(Webpage)
+        If Not NewScreenPosition1.Exists() Then
             ' Set the new form's desktop location so it appears below and to the right of the current form.
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp

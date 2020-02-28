@@ -87,7 +87,7 @@ Partial Class Choice
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Choice"
-        Me.Text = "Choose Region"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Choose_Region_word
         Me.TopMost = True
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

@@ -56,7 +56,7 @@ Partial Class FormPublicity
         Me.GroupBox11.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = "Photo"
+        Me.GroupBox11.Text = Global.Outworldz.My.Resources.Resources.Photo_Word
         '
         'PublicPhoto
         '
@@ -125,7 +125,7 @@ Partial Class FormPublicity
         Me.GroupBox1.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox1.TabIndex = 1892
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Category"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Category_word
         '
         'CategoryCheckbox
         '
@@ -152,7 +152,7 @@ Partial Class FormPublicity
         Me.GroupBox2.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox2.TabIndex = 1896
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Description"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Description_word
         '
         'DescriptionBox
         '
@@ -177,7 +177,7 @@ Partial Class FormPublicity
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
-        Me.Text = "Publicity"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         CType(Me.PublicPhoto, System.ComponentModel.ISupportInitialize).EndInit()

@@ -176,7 +176,7 @@ Partial Class FormPhysics
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
-        Me.Text = "Physics"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Physics_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

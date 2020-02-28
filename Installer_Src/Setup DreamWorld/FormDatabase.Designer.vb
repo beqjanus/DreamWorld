@@ -81,7 +81,7 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Size = New System.Drawing.Size(277, 210)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
-        Me.StandaloneGroup.Text = "Region Database"
+        Me.StandaloneGroup.Text = Global.Outworldz.My.Resources.Resources.Region_Database
         '
         'ClearRegionTable
         '
@@ -107,7 +107,7 @@ Partial Class FormDatabase
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(64, 13)
         Me.Label2.TabIndex = 42
-        Me.Label2.Text = "MySQL Port"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.MySqlPort_word
         '
         'Label1
         '
@@ -116,7 +116,7 @@ Partial Class FormDatabase
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Region Server"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Region_Server_word
         '
         'RegionServer
         '
@@ -133,7 +133,7 @@ Partial Class FormDatabase
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(53, 13)
         Me.Label22.TabIndex = 17
-        Me.Label22.Text = "Password"
+        Me.Label22.Text = Global.Outworldz.My.Resources.Resources.Password_word
         '
         'Label20
         '
@@ -167,7 +167,7 @@ Partial Class FormDatabase
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(60, 13)
         Me.Label21.TabIndex = 16
-        Me.Label21.Text = "User Name"
+        Me.Label21.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
         '
         'RegionMySqlPassword
         '
@@ -207,7 +207,7 @@ Partial Class FormDatabase
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 13)
         Me.Label3.TabIndex = 1885
-        Me.Label3.Text = "Assets as Files"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Assets_as_Files_word
         '
         'Button1
         '
@@ -260,7 +260,7 @@ Partial Class FormDatabase
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 13)
         Me.Label9.TabIndex = 35
-        Me.Label9.Text = "Password"
+        Me.Label9.Text = Global.Outworldz.My.Resources.Resources.Password_word
         '
         'RobustDbPort
         '
@@ -285,7 +285,7 @@ Partial Class FormDatabase
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(60, 13)
         Me.Label15.TabIndex = 34
-        Me.Label15.Text = "User Name"
+        Me.Label15.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
         '
         'Label8
         '
@@ -294,7 +294,7 @@ Partial Class FormDatabase
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(64, 13)
         Me.Label8.TabIndex = 32
-        Me.Label8.Text = "MySQL Port"
+        Me.Label8.Text = Global.Outworldz.My.Resources.Resources.MySqlPort_word
         '
         'RobustDBPassword
         '
@@ -372,7 +372,7 @@ Partial Class FormDatabase
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
-        Me.Text = "Database"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Database_word
         Me.StandaloneGroup.ResumeLayout(False)
         Me.StandaloneGroup.PerformLayout()
         Me.GridGroup.ResumeLayout(False)

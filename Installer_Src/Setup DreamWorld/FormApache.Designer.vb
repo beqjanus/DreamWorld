@@ -201,7 +201,7 @@ Partial Class FormApache
         Me.GroupBox1.Size = New System.Drawing.Size(225, 249)
         Me.GroupBox1.TabIndex = 186741
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Search"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Search_word
         '
         'FormApache
         '

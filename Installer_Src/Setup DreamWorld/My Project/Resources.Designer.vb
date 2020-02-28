@@ -442,6 +442,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Assets as Files.
+        '''</summary>
+        Friend ReadOnly Property Assets_as_Files_word() As String
+            Get
+                Return ResourceManager.GetString("Assets_as_Files_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Auto Backup.
         '''</summary>
         Friend ReadOnly Property Auto_Backup_word() As String
@@ -1387,6 +1396,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click to set up God mode and other permissions.
+        '''</summary>
+        Friend ReadOnly Property Click_for_God_Mode() As String
+            Get
+                Return ResourceManager.GetString("Click_for_God_Mode", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click For Help.
         '''</summary>
         Friend ReadOnly Property Click_For_Help() As String
@@ -2018,6 +2036,15 @@ Namespace My.Resources
         Friend ReadOnly Property Description_word() As String
             Get
                 Return ResourceManager.GetString("Description_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Desired Separation (default=5.0).
+        '''</summary>
+        Friend ReadOnly Property Desired_Separation_word() As String
+            Get
+                Return ResourceManager.GetString("Desired_Separation_word", resourceCulture)
             End Get
         End Property
         
@@ -4123,6 +4150,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Logging.
+        '''</summary>
+        Friend ReadOnly Property Logging_word() As String
+            Get
+                Return ResourceManager.GetString("Logging_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Loopback Test Failed. Web address did not respond..
         '''</summary>
         Friend ReadOnly Property Loopback_Failed() As String
@@ -4619,9 +4655,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to MySQL Port.
         '''</summary>
-        Friend ReadOnly Property MySqlPort() As String
+        Friend ReadOnly Property MySqlPort_word() As String
             Get
-                Return ResourceManager.GetString("MySqlPort", resourceCulture)
+                Return ResourceManager.GetString("MySqlPort_word", resourceCulture)
             End Get
         End Property
         
@@ -6430,6 +6466,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Script Engine.
+        '''</summary>
+        Friend ReadOnly Property Script_Engine_word() As String
+            Get
+                Return ResourceManager.GetString("Script_Engine_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Script Rate.
         '''</summary>
         Friend ReadOnly Property Script_Rate_word() As String
@@ -7749,6 +7794,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to View Console.
+        '''</summary>
+        Friend ReadOnly Property View_Console_word() As String
+            Get
+                Return ResourceManager.GetString("View_Console_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to View Region Details.
         '''</summary>
         Friend ReadOnly Property View_Details() As String
@@ -7767,11 +7821,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to View Log.
+        '''</summary>
+        Friend ReadOnly Property View_Log_word() As String
+            Get
+                Return ResourceManager.GetString("View_Log_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to View Logs.
         '''</summary>
         Friend ReadOnly Property View_Logs() As String
             Get
                 Return ResourceManager.GetString("View_Logs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View Map.
+        '''</summary>
+        Friend ReadOnly Property View_Map_word() As String
+            Get
+                Return ResourceManager.GetString("View_Map_word", resourceCulture)
             End Get
         End Property
         
@@ -7790,6 +7862,15 @@ Namespace My.Resources
         Friend ReadOnly Property View_Simulator_Stats() As String
             Get
                 Return ResourceManager.GetString("View_Simulator_Stats", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View Statistics.
+        '''</summary>
+        Friend ReadOnly Property View_Statistics_Word() As String
+            Get
+                Return ResourceManager.GetString("View_Statistics_Word", resourceCulture)
             End Get
         End Property
         

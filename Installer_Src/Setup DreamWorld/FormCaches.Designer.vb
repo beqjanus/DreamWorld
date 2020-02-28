@@ -186,7 +186,7 @@ Partial Class FormCaches
         Me.GroupBox2.Size = New System.Drawing.Size(380, 154)
         Me.GroupBox2.TabIndex = 18602
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Flotsam Asset Cache"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
         '
         'PictureBox1
         '
@@ -205,7 +205,7 @@ Partial Class FormCaches
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 13)
         Me.Label4.TabIndex = 1864
-        Me.Label4.Text = "Cache Enabled"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Cache_Enabled_word
         '
         'Label1
         '
@@ -214,7 +214,7 @@ Partial Class FormCaches
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 13)
         Me.Label1.TabIndex = 1861
-        Me.Label1.Text = "Cache Directory"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Cache_Directory_word
         '
         'PictureBox2
         '
@@ -233,7 +233,7 @@ Partial Class FormCaches
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 13)
         Me.Label2.TabIndex = 1863
-        Me.Label2.Text = "Log Level"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Log_Level
         '
         'CacheTimeout
         '
@@ -286,7 +286,7 @@ Partial Class FormCaches
         Me.GroupBox3.Size = New System.Drawing.Size(380, 51)
         Me.GroupBox3.TabIndex = 18603
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Viewer Cache"
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Viewer_Cache_word
         '
         'ViewerCacheCheckbox
         '
@@ -311,7 +311,7 @@ Partial Class FormCaches
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
-        Me.Text = "Cache Control"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Cache_Control_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()

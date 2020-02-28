@@ -65,7 +65,7 @@ Partial Class FormRegionPopup
         Me.ShowConsoleButton.Name = "ShowConsoleButton"
         Me.ShowConsoleButton.Size = New System.Drawing.Size(182, 35)
         Me.ShowConsoleButton.TabIndex = 12
-        Me.ShowConsoleButton.Text = "View Console"
+        Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
         Me.ShowConsoleButton.UseVisualStyleBackColor = True
         '
         'Button1
@@ -77,7 +77,7 @@ Partial Class FormRegionPopup
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(182, 35)
         Me.Button1.TabIndex = 11
-        Me.Button1.Text = "View Log"
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'StatsButton1
@@ -89,7 +89,7 @@ Partial Class FormRegionPopup
         Me.StatsButton1.Name = "StatsButton1"
         Me.StatsButton1.Size = New System.Drawing.Size(182, 35)
         Me.StatsButton1.TabIndex = 10
-        Me.StatsButton1.Text = "Statistics"
+        Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
         Me.StatsButton1.UseVisualStyleBackColor = True
         '
         'StatsButton
@@ -161,7 +161,7 @@ Partial Class FormRegionPopup
         Me.ViewMapButton.Name = "ViewMapButton"
         Me.ViewMapButton.Size = New System.Drawing.Size(182, 35)
         Me.ViewMapButton.TabIndex = 13
-        Me.ViewMapButton.Text = "View Map"
+        Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
         Me.ViewMapButton.UseVisualStyleBackColor = True
         '
         'FormRegionPopup
