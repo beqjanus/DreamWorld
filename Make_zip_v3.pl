@@ -179,8 +179,7 @@ foreach my $lang (@languages)
 	ProcessDir ($lang);
 }
 
-
-
+my $x = `OutworldzFiles\\Opensim\\mysql\bin\\mysqladmin.exe -u root --port 3306 shutdown`;
 
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE

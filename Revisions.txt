@@ -2,6 +2,18 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+
+V3.4 release 2/28/2080
+
+Fixed issues in German Translation that caused a crash for Dieter Mueller. Thank you very much for the valuable feedback.
+About 100 of the translations were not 'taking'.
+New form for Nooblets to use to create the initial avatar. Thanks to Garry Beaumont for pushing for this.
+Avatar View in Region list was not set to visible. Oops
+Spellcheck every manual - Office 365 Word has no grammer (sic) or other errors, and it shows readability from 6th to 9th grade so there is no excuse for not reading them. 
+Publicity module crash when nothing was entered.  There was a string set to nothing. Should have been "", which is not nothing.
+
+
+
 V3.38 Beta
 Extensive refactoring and state machine changed in region restart.  
 Main form resizes in all screen scale font size.
