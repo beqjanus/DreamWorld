@@ -135,12 +135,10 @@ use IO::All;
 sign($dir);
 
 #
-#say("Mysql");
-#chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-#print `mysqladmin.exe --port 3309 -u root shutdown`;
-#print `mysqladmin.exe --port 3306 -u root shutdown`;
+say("Mysql");
+chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
+print `mysqladmin.exe --port 3306 -u root shutdown`;
 
-#sleep(5);
 chdir ($dir);
 DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
@@ -178,8 +176,6 @@ foreach my $lang (@languages)
 {
 	ProcessDir ($lang);
 }
-
-my $x = `OutworldzFiles\\Opensim\\mysql\bin\\mysqladmin.exe -u root --port 3306 shutdown`;
 
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
