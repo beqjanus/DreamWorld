@@ -202,7 +202,7 @@ Public Class FormOAR
     Private Sub DataGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView.CellClick
 
         Try
-            Dim File As String = json(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
+            Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
             File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
@@ -362,6 +362,7 @@ Public Class FormOAR
     End Sub
 
     Private Function DoWork() As JSONresult
+
 
         json = GetData()
         json = ImageToJson(json)
@@ -573,6 +574,8 @@ Public Class FormOAR
             Redraw(json)
         End If
     End Sub
+
+
 
 #End Region
 
