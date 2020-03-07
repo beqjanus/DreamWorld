@@ -2,6 +2,9 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.41 Post fixes release 3/6/2020
+
+A load OAR or Load IAR search and clicking to load it got you the wrong item.  Thankxx for the tip, Scott Taylor!
 
 V3.4 release 2/28/2080
 

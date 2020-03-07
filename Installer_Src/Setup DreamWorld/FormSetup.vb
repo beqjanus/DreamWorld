@@ -38,7 +38,7 @@ Imports Outworldz
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.4"
+    Private _MyVersion As String = "3.41"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -6931,7 +6931,7 @@ Public Class Form1
         Print(My.Resources.Update_is_available & ":" & Update_version)
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .Arguments = "DreamGrid-V" & Update_version & ".zip",
-                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WindowStyle = ProcessWindowStyle.Hidden,
                 .FileName = """" & PropMyFolder & "\Downloader.exe" & """"
             }
 
