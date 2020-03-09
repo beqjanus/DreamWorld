@@ -198,7 +198,7 @@ Partial Class AdvancedForm
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(143, 23)
         Me.Button2.TabIndex = 9
-        Me.Button2.Text = "Permissions"
+        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
         Me.Button2.UseVisualStyleBackColor = True
         '
@@ -258,7 +258,7 @@ Partial Class AdvancedForm
         Me.ScriptButton.Name = "ScriptButton"
         Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
         Me.ScriptButton.TabIndex = 22
-        Me.ScriptButton.Text = "Scripts"
+        Me.ScriptButton.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
         Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.ScriptButton.UseVisualStyleBackColor = True
         '
@@ -291,7 +291,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(340, 345)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = My.Resources.GlobalSettings_word()
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.GlobalSettings_word()
         '
         'LoggingButton
         '
