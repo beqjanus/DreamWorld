@@ -305,7 +305,7 @@ Public Class Form1
         End If
 
         Buttons(StopButton)
-        Print(My.Resources.Grid_address & vbCrLf & "http: //" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with boot up
 
