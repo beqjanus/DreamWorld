@@ -184,7 +184,7 @@ Public Class FormCaches
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.SelectedPath
             If thing.Length > 0 Then
-                Form1.Settings.BackupFolder = thing
+                Form1.Settings.CacheFolder = thing
                 Form1.Settings.SaveSettings()
                 CacheFolder.Text = thing
                 Form1.PropViewedSettings = True
