@@ -629,13 +629,14 @@ economy=${Const|BaseURL}:${Const|PublicPort}
 ;about = ${Const|BaseURL}/about
 ; account creation: optional: page providing further information about obtaining
 ;                             a user account on your grid
-register=${Const|BaseURL}:${Const|PublicPort}
+register=${Const|BaseURL}:${Const|PublicPort}/wifi/user/account/
 
 ; help: optional: page providing further assistance for users of your grid
 help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
 
 ; password help: optional: page providing password assistance for users of your grid
-;password = ${Const|BaseURL}/password
+password = ${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword
+
 ; HG address of the gatekeeper, if you have one
 ; this is the entry point for all the regions of the world
 ; gatekeeper = ${Const|BaseURL}:${Const|PublicPort}/
