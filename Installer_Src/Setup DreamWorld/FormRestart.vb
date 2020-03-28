@@ -26,6 +26,12 @@ Public Class FormRestart
 
 #Region "Private Fields"
 
+    Private _bAutoRestartEnabled As Boolean
+    Private _iAutostart As Integer
+    Private _bRestartOnCrash As Boolean
+    Private _bRestartonPhysics As Boolean
+    Private _bSequential As Boolean
+
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
     Dim initted As Boolean = False
@@ -48,6 +54,20 @@ Public Class FormRestart
 #Region "Private Methods"
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+
+
+        Form1.Settings.AutoRestartEnabled = _bAutoRestartEnabled
+        Form1.Settings.Autostart = _iAutostart
+
+        Try
+            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
+        Catch ex As FormatException
+            Form1.Settings.AutoRestartInterval = 0
+        End Try
+
+        Form1.Settings.RestartOnCrash = RestartOnCrash.Checked
+        Form1.Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
+        Form1.Settings.Sequential = SequentialCheckBox1.Checked
 
         Form1.PropViewedSettings = True
         Form1.Settings.SaveSettings()
@@ -101,11 +121,11 @@ Public Class FormRestart
                 AutoRestartBox.Text = (BTime + 30).ToString(Globalization.CultureInfo.InvariantCulture)
                 MsgBox(My.Resources.Increasing_time & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
-            Form1.Settings.AutoRestartEnabled = True
+            _bAutoRestartEnabled = True
         Else
             Form1.Settings.AutoRestartEnabled = False
             Form1.Settings.AutoRestartInterval = 0
-            AutoRestartBox.Text = "0".ToUpperInvariant
+            _bAutoRestartEnabled = "0".ToUpperInvariant
         End If
         Form1.Settings.SaveSettings()
 
@@ -117,32 +137,31 @@ Public Class FormRestart
         Dim digitsOnly As Regex = New Regex("[^\d]")
         AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
 
-        Try
-            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
-            Form1.Settings.SaveSettings()
-        Catch ex As FormatException
-        End Try
-
     End Sub
 
     Private Sub AutoStartCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoStartCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.Autostart = AutoStartCheckbox.Checked
-        Form1.Settings.SaveSettings()
+        _iAutostart = AutoStartCheckbox.Checked
 
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+
         Form1.Help("Restart")
+
     End Sub
 
     Private Sub RestartOnCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnCrash.CheckedChanged
-        Form1.Settings.RestartOnCrash = RestartOnCrash.Checked
+
+        _bRestartOnCrash = RestartOnCrash.Checked
+
     End Sub
 
     Private Sub RestartOnPhysicsCrash_CheckedChanged(sender As Object, e As EventArgs) Handles RestartOnPhysicsCrash.CheckedChanged
-        Form1.Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
+
+        _bRestartonPhysics = RestartOnPhysicsCrash.Checked
+
     End Sub
 
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
@@ -154,8 +173,7 @@ Public Class FormRestart
     Private Sub SequentialCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SequentialCheckBox1.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.Sequential = SequentialCheckBox1.Checked
-        Form1.Settings.SaveSettings()
+        _bSequential = SequentialCheckBox1.Checked
 
     End Sub
 
