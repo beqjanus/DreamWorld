@@ -91,6 +91,7 @@ Public Class RegionMaker
             WriteRegionObject("Welcome")
             Form1.Settings.WelcomeRegion = "Welcome"
             Form1.Settings.SaveSettings()
+            GetAllRegions()
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
 

@@ -38,7 +38,7 @@ Imports Outworldz
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.41"
+    Private _MyVersion As String = "3.42"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
