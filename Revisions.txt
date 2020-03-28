@@ -4,7 +4,7 @@ This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases
 
 V3.42 Postfixes released 3/27/2010
 
-Region Restart Form could crash if you fat fingered some settings. Now it saves on close after sanity checks.
+Region Restart Form could crash if you fat-fingered some settings. Now it saves on close after sanity checks.
 On first boot, Welcome did not start due to not having a group port.
 TOS form would save, but not stick around after an update or a change from black to white or custom.
 Always set Gloebits INI as region servers will crash without it set up.
