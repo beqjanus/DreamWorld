@@ -88,8 +88,14 @@ include("../Metromap/includes/config.php");
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
     
-        $v3    = "hop://" . $row["gateway"] ;     
-        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        $hop    = "hop://" . $row["gateway"] ;
+        $v3     = "secondlife://http|!!" . $row["gateway"] ;
+        $hg     = "secondlife://" . $row["gateway"] ;
+        
+        
+        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        $link = "<br><a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
   
         
         $description = $row["description"] .  '<br><br><a href="' . $v3 . '">Link: ' . $row["gateway"] . '</a>';

@@ -76,6 +76,7 @@ include("../Metromap/includes/config.php");
     
             where
             Regions.gateway not like '192.168%'
+            and Name <> ''
             and Regions.gateway not like '172.16%'
             and Regions.gateway not like '172.17%'
             and Regions.gateway not like '172.18%'
@@ -111,9 +112,24 @@ include("../Metromap/includes/config.php");
     {
       
         $location = $row["Location"];
-        $v3    = "hop://" . $row["AGateway"] . '/' .  $row["Regioname"] . '/'. $location;     
-        $local = "secondlife:///app//teleport/" . $row["AGateway"] . '/' .  $row["Regioname"] . $location ;             
-        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        #$v3    = "hop://" . $row["AGateway"] . '/' .  $row["Regioname"] . '/'. $location;     
+        #$local = "secondlife:///app//teleport/" . $row["AGateway"] . '/' .  $row["Regioname"] . $location ;             
+        
+        $gateway = str_replace (':', '|', $row["AGateway"] );
+        $regionname = str_replace(' ','+',$row["Regioname"]);
+        
+        
+        
+        #$hop    = "hop://" . $row["AGateway"] .  '/' .$row["Regioname"] . '/'. $location;     
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname . '/'. $location;     
+        #$hg     = "secondlife://" . $row["AGateway"]  .   '/' .$row["Regioname"] . '/'. $location;     
+        
+        
+        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        $link = "<br><a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
+        
+        
         $name = wordwrap($row["Name"],35, "<br>\n", false);
         
         $row = array("hop"=>$link ,

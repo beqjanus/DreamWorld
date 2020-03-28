@@ -136,9 +136,20 @@
     $counter = 0;
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-         $v3    = "hop://" . $row["gateway"] . '/' . $row["landingpoint"] ;     
+        $gateway = str_replace (':', '|', $row["gateway"] );
+        $regionname = str_replace(' ','+',$row["regionname"]);
         
+        
+        #$hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname. '/' . $row["landingpoint"];
+        #$hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
+            
+        
+        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
+  
+        
         
         $category = "";
         if ($row["searchcategory"] == 0) { $category = "Any"; }

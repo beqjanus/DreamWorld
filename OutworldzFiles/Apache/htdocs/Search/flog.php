@@ -36,6 +36,8 @@
 
 define ("FLOG_IGNORE", true);	// comment this to get data in logs
 
+define ("FLOG_SHOW_TIME",true);
+
 if( defined( "FLOG_HAS_BEEN_INCLUDED" ) ) return;
 define( "FLOG_HAS_BEEN_INCLUDED", true );
 

@@ -92,7 +92,7 @@ include("../Metromap/includes/config.php");
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
         $host = $row["host"];
-
+        
         // get the port
         $sql1 = "SELECT gateway FROM ossearch.hostsregister  where host = :text1";
 
@@ -105,8 +105,12 @@ include("../Metromap/includes/config.php");
             $gateway = $row1["gateway"];
         }
 
+        $gateway = str_replace (':', '|', $gateway );
+        #$regionname = str_replace(' ','+',$row["regionname"]);
+        
         // make hyperlink
-        $v3    = "hop://" . $gateway;
+        #$v3    = "hop://" . $gateway;
+        $v3     =  "secondlife://http|!!" . $gateway  ;
         $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
 
         // get the hours of runtime
