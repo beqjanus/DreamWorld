@@ -144,6 +144,7 @@ Public Class TosForm
             Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
+
         Catch ex As IOException
         Catch ex As UnauthorizedAccessException
         Catch ex As ArgumentException

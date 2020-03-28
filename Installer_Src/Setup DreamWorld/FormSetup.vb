@@ -3177,7 +3177,7 @@ Public Class Form1
     Public Function DoGloebits() As Boolean
 
         'Gloebits.ini
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
+
         'Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
@@ -4045,24 +4045,27 @@ Public Class Form1
 
     Private Function DoTos() As Boolean
 
-        ' TOSModule is disabled in Grids
-        If (False) Then
-            If Settings.LoadIni(PropOpensimBinPath & "bin\DivaTOS.ini", ";") Then
-                Return True
-            End If
+        Try
+            Dim reader As System.IO.StreamReader
+            reader = System.IO.File.OpenText(PropMyFolder + "\tos.html")
+            'now loop through each line
+            Dim HTML As String = ""
+            While reader.Peek <> -1
+                HTML = HTML + reader.ReadLine() + vbCrLf
+            End While
+            reader.Close()
 
-            'Disable it as it is broken for now.
+            Using outputFile As New StreamWriter(PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+                outputFile.WriteLine(HTML)
+            End Using
 
-            'Settings.SetIni("TOSModule", "Enabled", Settings.TOSEnabled)
-            Settings.SetIni("TOSModule", "Enabled", CStr(False))
-            'Settings.SetIni("TOSModule", "Message", Settings.TOSMessage)
-            'Settings.SetIni("TOSModule", "Timeout", Settings.TOSTimeout)
-            Settings.SetIni("TOSModule", "ShowToLocalUsers", CStr(Settings.ShowToLocalUsers))
-            Settings.SetIni("TOSModule", "ShowToForeignUsers", CStr(Settings.ShowToForeignUsers))
-            Settings.SetIni("TOSModule", "TOS_URL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/wifi/termsofservice.html")
-            Settings.SaveINI(System.Text.Encoding.UTF8)
-        End If
-        Return False
+        Catch ex As IOException
+        Catch ex As UnauthorizedAccessException
+        Catch ex As ArgumentException
+        Catch ex As System.Security.SecurityException
+        End Try
+
+
     End Function
 
     Private Function DoWifi() As Boolean
@@ -4186,15 +4189,18 @@ Public Class Form1
                         And PropRegionClass.RegionEnabled(RegionUUID) Then
 
                         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                        For Each p In Process.GetProcesses
-                            Application.DoEvents()
-                            If p.MainWindowTitle = GroupName Then
-                                CountisRunning += 1
-                                Exit For
-                            End If
-                        Next
+                        If GroupName.Length > 0 Then
+                            For Each p In Process.GetProcesses
+                                Application.DoEvents()
+                                If p.MainWindowTitle = GroupName Then
+                                    CountisRunning += 1
+                                    Exit For
+                                End If
+                            Next
+                        End If
+
                     End If
-                    Application.DoEvents()
+                        Application.DoEvents()
                     If CountisRunning = 0 Then Exit For
                 Next
 
