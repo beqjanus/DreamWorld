@@ -38,7 +38,7 @@ Imports Outworldz
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.42"
+    Private _MyVersion As String = "3.43"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -3177,7 +3177,7 @@ Public Class Form1
     Public Function DoGloebits() As Boolean
 
         'Gloebits.ini
-
+        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
         'Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
