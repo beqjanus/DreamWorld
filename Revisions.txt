@@ -2,6 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
+V3.43 Release 4/7/2020
+
+Missing line of code broke Gloebits if any settings were not the default.
+Home page links fixed in viewer for login and Help
+
+
 V3.42 Postfixes released 3/27/2010
 
 Region Restart Form could crash if you fat-fingered some settings. Now it saves on close after sanity checks.

@@ -4064,7 +4064,7 @@ Public Class Form1
         Catch ex As ArgumentException
         Catch ex As System.Security.SecurityException
         End Try
-
+        Return False
 
     End Function
 
