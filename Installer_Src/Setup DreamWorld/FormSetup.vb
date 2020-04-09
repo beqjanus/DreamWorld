@@ -33,7 +33,7 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
-Imports Outworldz
+
 
 Public Class Form1
 
@@ -1875,6 +1875,7 @@ Public Class Form1
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
         If myProcess Is Nothing Then
+            ErrorLog("Process is nothing " & windowName)
             Return False
         End If
 
@@ -1900,8 +1901,11 @@ Public Class Form1
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
-            status = SetWindowText(hwnd, windowName)
-            If status Then Exit While
+
+            If status And myProcess.MainWindowTitle = windowName Then
+                Exit While
+            End If
+
             WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
