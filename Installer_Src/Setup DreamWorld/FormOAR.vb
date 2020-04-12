@@ -240,7 +240,8 @@ Public Class FormOAR
             Form1.Log("Warn", ex.Message)
         Catch ex As System.Security.SecurityException
             Form1.Log("Warn", ex.Message)
-
+        Catch ex As Exception
+            Form1.Log("Warn", ex.Message)
         End Try
 
         Return Nothing
