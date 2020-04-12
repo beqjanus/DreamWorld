@@ -33,12 +33,12 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
 Imports MySql.Data.MySqlClient
-Imports Outworldz
+
 
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.43"
+    Private _MyVersion As String = "3.44"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -1875,6 +1875,7 @@ Public Class Form1
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
         If myProcess Is Nothing Then
+            ErrorLog("Process is nothing " & windowName)
             Return False
         End If
 
@@ -1889,19 +1890,27 @@ Public Class Form1
                 End If
             End While
         Catch ex As PlatformNotSupportedException
+            ErrorLog(windowName & ":" & ex.Message)
             Return False
         Catch ex As InvalidOperationException
+            ErrorLog(windowName & ":" & ex.Message)
             Return False
         Catch ex As NotSupportedException
+            ErrorLog(windowName & ":" & ex.Message)
             Return False
         End Try
+
+        Sleep(1000)
 
         WindowCounter = 0
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
-            status = SetWindowText(hwnd, windowName)
-            If status Then Exit While
+
+            If status And myProcess.MainWindowTitle = windowName Then
+                Exit While
+            End If
+
             WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
@@ -3427,33 +3436,38 @@ Public Class Form1
         Dim line As String
         Dim Output As String = ""
 
-        reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
-        'now loop through each line
-        Dim skip As Boolean = False
-        While reader.Peek <> -1
-            line = reader.ReadLine()
+        Try
+            reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+            'now loop through each line
+            Dim skip As Boolean = False
+            While reader.Peek <> -1
+                line = reader.ReadLine()
 
-            If line.StartsWith("; START", StringComparison.InvariantCulture) Then
-                Output += line & vbCrLf
-                Output += Authorizationlist
-                skip = True
-            ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then
-                Output += line & vbCrLf
-                skip = False
-            Else
-                If Not skip Then Output += line & vbCrLf
-            End If
+                If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                    Output += line & vbCrLf
+                    Output += Authorizationlist
+                    skip = True
+                ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then
+                    Output += line & vbCrLf
+                    skip = False
+                Else
+                    If Not skip Then Output += line & vbCrLf
+                End If
 
-        End While
+            End While
 
-        'close the reader
-        reader.Close()
 
-        FileStuff.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+            'close the reader
+            reader.Close()
 
-        Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
-            outputFile.Write(Output)
-        End Using
+            FileStuff.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+
+            Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
+                outputFile.Write(Output)
+            End Using
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+        End Try
 
         Return False
 
@@ -4064,6 +4078,7 @@ Public Class Form1
         Catch ex As ArgumentException
         Catch ex As System.Security.SecurityException
         End Try
+
         Return False
 
     End Function
@@ -6878,6 +6893,9 @@ Public Class Form1
             Catch ex As NotSupportedException
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
+            Catch ex As exception
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                Return
             End Try
         End Using
 
@@ -6899,6 +6917,7 @@ Public Class Form1
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
         Catch ex As OverflowException
         Catch ex As FormatException
+        Catch ex As exception
         End Try
 
         ' could be the same or later version already
