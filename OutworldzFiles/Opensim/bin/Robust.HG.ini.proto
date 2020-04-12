@@ -116,7 +116,7 @@ MapAddServiceConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:MapAddS
 MapGetServiceConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:MapGetServiceConnector"
 
 ;; Uncomment this if you want offline IM to work
-OfflineIMServiceConnector="${Const|PrivatePort}/OpenSim.Addons.OfflineIM.dll:OfflineIMServiceRobustConnector"
+OfflineIMServiceConnector="${Const|PublicPort}/OpenSim.Addons.OfflineIM.dll:OfflineIMServiceRobustConnector"
 
 ;; Uncomment this if you want Groups V2 to work
 GroupsServiceConnector="${Const|PrivatePort}/OpenSim.Addons.Groups.dll:GroupsServiceRobustConnector"
