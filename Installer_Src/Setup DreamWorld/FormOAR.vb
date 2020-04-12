@@ -230,6 +230,8 @@ Public Class FormOAR
                     Return New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
+        Catch ex As WebException
+            Form1.Log("Warn", ex.Message)
         Catch ex As NotImplementedException
             Form1.Log("Warn", ex.Message)
         Catch ex As NotSupportedException
