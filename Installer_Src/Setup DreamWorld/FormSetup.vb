@@ -3631,10 +3631,16 @@ Public Class Form1
 
         Select Case Settings.ServerType
             Case "Robust"
-                My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                Try
+                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                Catch
+                End Try
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
-                My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                Try
+                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                Catch
+                End Try
                 GridCommon = "Gridcommon-RegionServer.ini"
             Case "OsGrid"
                 GridCommon = "Gridcommon-OsGridServer.ini"
