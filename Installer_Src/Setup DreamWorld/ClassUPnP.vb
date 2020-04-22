@@ -50,6 +50,7 @@ Public Class UPnp
             UPnpnat = New NATUPNPLib.UPnPNAT
 #Disable Warning CA1031
         Catch ex As Exception
+            Form1.ErrorLog(ex.Message)
 #Enable Warning CA1031
         End Try
 

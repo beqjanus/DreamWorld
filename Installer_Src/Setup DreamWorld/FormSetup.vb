@@ -4511,20 +4511,20 @@ Public Class Form1
     End Sub
     Public Function StartApache() As Boolean
 
-        If Settings.SearchEnabled Then
-            Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
-            SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
-            SiteMapContents += "<url>" & vbCrLf
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
-            SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
-            SiteMapContents += "<priority>1.0</priority>" & vbCrLf
-            SiteMapContents += "</url>" & vbCrLf
-            SiteMapContents += "</urlset>" & vbCrLf
 
-            Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
-                outputFile.WriteLine(SiteMapContents)
-            End Using
-        End If
+        Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
+        SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
+        SiteMapContents += "<url>" & vbCrLf
+        SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
+        SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
+        SiteMapContents += "<priority>1.0</priority>" & vbCrLf
+        SiteMapContents += "</url>" & vbCrLf
+        SiteMapContents += "</urlset>" & vbCrLf
+
+        Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
+            outputFile.WriteLine(SiteMapContents)
+        End Using
+
 
         If Not Settings.ApacheEnable Then
             ApachePictureBox.Image = My.Resources.nav_plain_blue
