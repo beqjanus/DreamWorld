@@ -136,7 +136,7 @@ GatekeeperServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:Ga
 UserAgentServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserAgentServerConnector"
 HeloServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HeloServiceInConnector"
 HGFriendsServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HGFriendsServerConnector"
-InstantMessageServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
+InstantMessageServerConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
 HGInventoryServiceConnector="HGInventoryService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:XInventoryInConnector"
 HGAssetServiceConnector="HGAssetService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:AssetServiceConnector"
 
