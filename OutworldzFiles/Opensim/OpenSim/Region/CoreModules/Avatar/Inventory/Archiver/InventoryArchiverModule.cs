@@ -567,6 +567,8 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver
                 return null;
             }
 
+            return account; // fkb no passwords for IAR  Dreamgrid
+
             try
             {
                 string encpass = Util.Md5Hash(pass);
