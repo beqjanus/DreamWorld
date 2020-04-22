@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.44"
+    Private _MyVersion As String = "3.45"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -256,14 +256,9 @@ Public Class Form1
         If Settings.BirdsModuleStartup Then
             Try
                 My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As FileNotFoundException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
         Else
             FileStuff.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
@@ -4770,14 +4765,15 @@ Public Class Form1
             Return True
         End If
 
-        Dim IceCastRunning = CheckPort(Settings.PublicIP, Settings.SCPortBase)
-        'Application.doevents()
-
-        If IceCastRunning Then
-            IceCastPicturebox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
-            Return True
-        End If
+        ' Check if DOS box exists, first, if so, its running.
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = "Icecast" Then
+                PropIcecastProcID = p.Id
+                IceCastPicturebox.Image = My.Resources.nav_plain_green
+                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Icecast_Started)
+                Return True
+            End If
+        Next
 
         IceCastPicturebox.Image = My.Resources.navigate_open
 
@@ -5194,26 +5190,21 @@ Public Class Form1
             Return True
         End If
 
-        ' Check the HTTP port
-        If CheckRobust() Then
-            For Each p In Process.GetProcesses
-                If p.MainWindowTitle = "Robust" Then
-                    PropRobustProcID = p.Id
-                    Log(My.Resources.Info, My.Resources.DosBoxRunning)
-                    ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-                    Return True
-                End If
-            Next
-        End If
-
         For Each p In Process.GetProcesses
             If p.MainWindowTitle = "Robust" Then
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                RobustPictureBox.Image = My.Resources.nav_plain_green
                 ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
                 Return True
             End If
         Next
+
+        ' Check the HTTP port
+        If CheckRobust() Then
+            Return True
+        End If
+
 
         RobustPictureBox.Image = My.Resources.navigate_open
 

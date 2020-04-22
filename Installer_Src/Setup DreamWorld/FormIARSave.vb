@@ -110,10 +110,10 @@ Public Class FormIARSave
             MsgBox(My.Resources.Enter_1_2)
             Return
         End If
-        If GPassword.Length = 0 Then
-            MsgBox(My.Resources.Password_word)
-            Return
-        End If
+        ' If GPassword.Length = 0 Then
+        ' MsgBox(My.Resources.Password_word)
+        ' Return
+        '  End If
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
     End Sub

@@ -578,11 +578,9 @@ Public Class RegionList
                             Dim component1 As Process = Process.GetProcessById(PID)
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
                         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-
+#Enable Warning CA1031
                             item1.SubItems.Add("0".ToUpperInvariant)
                         End Try
                     Else
@@ -733,14 +731,14 @@ Public Class RegionList
                 Next i
 
 
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -784,9 +782,10 @@ Public Class RegionList
                 Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
-                Catch ex As ObjectDisposedException
-                Catch ex As FileNotFoundException
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
+
                 End Try
             End If
         Next
@@ -841,7 +840,9 @@ Public Class RegionList
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
-        Catch ex As ArgumentOutOfRangeException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
         If Item.Text.Length = 0 Then Return
 
@@ -939,9 +940,10 @@ Public Class RegionList
             AvatarView.Visible = True
             ViewBusy = False
             PropUpdateView() = False
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -959,13 +961,19 @@ Public Class RegionList
         Dim response As System.Net.WebResponse = Nothing
         Try
             response = request.GetResponse()
-        Catch ex As NotImplementedException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
         End Try
 
         Dim responseStream As System.IO.Stream = Nothing
         Try
             responseStream = response.GetResponseStream()
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
         End Try
 
         If responseStream IsNot Nothing Then
@@ -1101,8 +1109,10 @@ Public Class RegionList
             Dim link = "secondlife://http|!!" & Form1.Settings.PublicIP & "|" & Form1.Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+
             End Try
 
         End If
@@ -1209,9 +1219,9 @@ Public Class RegionList
         Try
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-        Catch ex As InvalidOperationException
-            chosen = ""
-        Catch ex As ArgumentOutOfRangeException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             chosen = ""
         End Try
 
@@ -1348,11 +1358,10 @@ Public Class RegionList
                     If Not Directory.Exists(NewFilepath) Then
                         Try
                             Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
-                        Catch ex As ArgumentException
-                        Catch ex As IO.PathTooLongException
-                        Catch ex As NotSupportedException
-                        Catch ex As UnauthorizedAccessException
-                        Catch ex As IO.IOException
+#Disable Warning CA1031
+                        Catch ex As Exception
+#Enable Warning CA1031
+
                         End Try
                     End If
 
@@ -1385,8 +1394,10 @@ Public Class RegionList
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
         End Try
 
     End Sub

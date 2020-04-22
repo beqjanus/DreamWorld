@@ -179,7 +179,7 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
 
         DialogResult = DialogResult.OK
         Me.Close()
@@ -219,6 +219,7 @@ Public Class FormBackupCheckboxes
 
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
+        Application.DoEvents()
 
     End Sub
 

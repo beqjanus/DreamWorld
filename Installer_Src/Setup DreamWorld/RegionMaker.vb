@@ -151,9 +151,10 @@ Public Class RegionMaker
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
                 Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
                     Debug.Print(ex.Message)
                     Form1.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
                     Continue While
@@ -187,7 +188,9 @@ Public Class RegionMaker
                     If Debugger.IsAttached = True Then
                         Try
                             '! debug TeleportAvatarDict.Add("Test", "Test User")
-                        Catch ex As ArgumentException
+#Disable Warning CA1031
+                        Catch ex As Exception
+#Enable Warning CA1031
                         End Try
                     End If
 
@@ -206,7 +209,9 @@ Public Class RegionMaker
                                     Form1.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
-                                    Catch ex As ArgumentException
+#Disable Warning CA1031
+                                    Catch ex As Exception
+#Enable Warning CA1031
                                     End Try
                                 End If
 
@@ -218,7 +223,10 @@ Public Class RegionMaker
                     For Each Name In Removelist
                         Try
                             TeleportAvatarDict.Remove(Name)
-                        Catch ex As ArgumentNullException
+#Disable Warning CA1031
+                        Catch ex As Exception
+#Enable Warning CA1031
+
                         End Try
                     Next
 
@@ -240,16 +248,17 @@ Public Class RegionMaker
 
                     Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
 
-                    ElseIf json.login = "disabled" Then
-                        Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
-                        Continue While
-                    Else
-                        Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                ElseIf json.login = "disabled" Then
+                    Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                    Continue While
+                Else
+                    Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
                     Continue While
                 End If
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
                 Debug.Print(ex.Message)
             End Try
 
@@ -355,11 +364,10 @@ Public Class RegionMaker
                         Dim inis = Nothing
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
-                        Catch ex As ArgumentException
-                        Catch ex As UnauthorizedAccessException
-                        Catch ex As DirectoryNotFoundException
-                        Catch ex As PathTooLongException
-                        Catch ex As IOException
+#Disable Warning CA1031
+                        Catch ex As Exception
+#Enable Warning CA1031
+
                         End Try
 
                         For Each ini As String In inis
@@ -454,9 +462,10 @@ Public Class RegionMaker
 
                             Application.DoEvents()
                         Next
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
                     Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
@@ -464,9 +473,10 @@ Public Class RegionMaker
             Next
 
             _RegionListIsInititalized = True
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
             Debug.Print(ex.Message)
         End Try
         Return RegionList.Count
@@ -485,10 +495,10 @@ Public Class RegionMaker
                 If pair.Value._RegionPort > MaxNum Then
                     MaxNum = pair.Value._RegionPort
                 End If
-            Catch ex As ArgumentNullException
-                Debug.Print(ex.Message)
-            Catch ex As ArgumentException
-                Debug.Print(ex.Message)
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+
             End Try
         Next
 
@@ -539,10 +549,10 @@ Public Class RegionMaker
         For Each pair In RegionList
             Try
                 Portlist.Add(pair.Value._RegionPort, pair.Value._RegionName)
-            Catch ex As ArgumentNullException
-                Form1.ErrorLog("LowestPort" & ex.Message)
-            Catch ex As ArgumentException
-                Form1.ErrorLog("LowestPort" & ex.Message)
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+
             End Try
         Next
 
@@ -577,11 +587,10 @@ Public Class RegionMaker
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
                     Directory.CreateDirectory(pathtoWelcome)
-                Catch ex As ArgumentException
-                Catch ex As IO.PathTooLongException
-                Catch ex As NotSupportedException
-                Catch ex As UnauthorizedAccessException
-                Catch ex As IO.IOException
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
+
                 End Try
             End If
         Else
@@ -634,10 +643,10 @@ Public Class RegionMaker
             Using outputFile As New StreamWriter(fname, True)
                 outputFile.WriteLine(proto)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
         End Try
 
     End Sub
@@ -1566,7 +1575,10 @@ Public Class RegionMaker
                         Status(RegionUUID) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(RegionUUID))
-                        Catch ex As ArgumentNullException
+#Disable Warning CA1031
+                        Catch ex As Exception
+#Enable Warning CA1031
+
                         End Try
 
                         TeleportAvatarDict.Add(AgentUUID, RegionName(RegionUUID))
@@ -1631,9 +1643,10 @@ Public Class RegionMaker
                 Else
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
                 Return "<html><head></head><body>Error</html>"
             End Try
 
@@ -1692,9 +1705,10 @@ Public Class RegionMaker
                             myCommand1.ExecuteScalar()
                             myConnection.Close()
                         End Using
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
                     Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
+
                         Debug.Print(ex.Message)
                     End Try
 
@@ -2072,15 +2086,10 @@ Public Class RegionMaker
 
         Try
             My.Computer.FileSystem.CopyFile(Form1.GetOpensimProto(), pathname & "Opensim.ini", True)
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As InvalidOperationException
-        Catch ex As NotSupportedException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
         End Try
 
         Return False
