@@ -8,33 +8,22 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
+using NATUPNPLib;
 
 namespace UPnPPortForwardManager
 {
     public partial class Form1 : Form
     {
+        #region Public Constructors
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            lbPortMappings.DoubleClick += new EventHandler(lbPortMappings_DoubleClick);
+        #endregion Public Constructors
 
-            RefreshPortMappings();
-        }
-
-        void lbPortMappings_DoubleClick(object sender, EventArgs e)
-        {
-            // Double clicking on a Static Port Mapping in the list will open up the Edit Dialog.
-            btnEdit_Click(sender, e);
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshPortMappings();
-        }
+        #region Private Methods
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -51,6 +40,15 @@ namespace UPnPPortForwardManager
             }
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            foreach (NATUPnPListBoxItem p in lbPortMappings.SelectedItems)
+            {
+                UPnPNATHelper.Remove(p.Mapping.ExternalPort, p.Mapping.Protocol);
+            }
+            RefreshPortMappings();
+        }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (lbPortMappings.SelectedItem != null)
@@ -58,7 +56,7 @@ namespace UPnPPortForwardManager
                 NATUPNPLib.IStaticPortMapping p = ((NATUPnPListBoxItem)lbPortMappings.SelectedItem).Mapping;
 
                 UPnPMappingDialog dialog = new UPnPMappingDialog();
-                
+
                 dialog.MappingDescription = p.Description;
                 dialog.MappingEnabled = p.Enabled;
                 dialog.MappingExternalIPAddress = p.ExternalIPAddress;
@@ -78,16 +76,29 @@ namespace UPnPPortForwardManager
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
-            foreach (NATUPnPListBoxItem p in lbPortMappings.SelectedItems)
-            {
-                UPnPNATHelper.Remove(p.Mapping.ExternalPort, p.Mapping.Protocol);
-            }
             RefreshPortMappings();
         }
 
-        void RefreshPortMappings()
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            lbPortMappings.DoubleClick += new EventHandler(lbPortMappings_DoubleClick);
+
+            RefreshPortMappings();
+        }
+
+        private void lbPortMappings_DoubleClick(object sender, EventArgs e)
+        {
+            // Double clicking on a Static Port Mapping in the list will open up the Edit Dialog.
+            btnEdit_Click(sender, e);
+        }
+
+        private void lbPortMappings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void RefreshPortMappings()
         {
             lbPortMappings.Items.Clear();
 
@@ -97,34 +108,41 @@ namespace UPnPPortForwardManager
                 {
                     lbPortMappings.Items.Add(new NATUPnPListBoxItem(p));
                 }
-            } 
-            catch
-            {
-                MessageBox.Show("UPnp is not supported on this router with this program");
-                Application.Exit();
-
             }
-
+            catch (Exception e)
+            {
+                MessageBox.Show("UPnp is not supported on this router with this program:" + e.Message);
+                Application.Exit();
+            }
         }
 
-        private void lbPortMappings_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        #endregion Private Methods
     }
 
     public class NATUPnPListBoxItem
     {
+        #region Public Constructors
+
         public NATUPnPListBoxItem(NATUPNPLib.IStaticPortMapping mapping)
         {
             this.Mapping = mapping;
         }
 
+        #endregion Public Constructors
+
+        #region Public Properties
+
         public NATUPNPLib.IStaticPortMapping Mapping { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override string ToString()
         {
             return this.Mapping.Description;
         }
+
+        #endregion Public Methods
     }
 }
