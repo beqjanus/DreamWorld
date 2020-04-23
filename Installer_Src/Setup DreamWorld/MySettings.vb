@@ -1848,12 +1848,14 @@ Public Class MySettings
         Catch ex As ArgumentNullException
         Catch ex As ArgumentException
         Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
+        Catch ex As PathTooLongException '!!!
         Catch ex As IOException
         Catch ex As NotSupportedException
         Catch ex As Security.SecurityException
         Catch ex As UnauthorizedAccessException
         End Try
+
+        FileStuff.DeleteFile(ini)
 
         Dim file As System.IO.StreamWriter
         file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
