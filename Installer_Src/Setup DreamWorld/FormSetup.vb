@@ -3667,16 +3667,25 @@ Public Class Form1
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                     If Settings.SearchLocal Then
-                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/register.php;http://www.hyperica.com/Search/register.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/register.php")
                         Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                         Settings.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://www.hyperica.com/Search/query.php")
                     End If
                 Else
                     Settings.SetIni("DataSnapshot", "index_sims", "False")
+                    Settings.SetIni("DataSnapshot", "data_services", "")
+                    Settings.SetIni("Search", "SearchURL", "")
+                    Settings.SetIni("Search", "SimulatorFeatures", "")
+                    Settings.SetIni("SimulatorFeatures", "SearchURL", "")
+                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                 End If
 
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
@@ -3915,34 +3924,38 @@ Public Class Form1
             Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
             Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-            If Settings.SearchLocal Then
-                Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Search/query.php")
+            If Settings.SearchEnabled Then
+                If Settings.SearchLocal Then
+                    Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Search/query.php")
+                Else
+                    Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+                End If
             Else
-                Settings.SetIni("LoginService", "SearchURL", "http://www.hyperica.com/Search/query.php")
+                Settings.SetIni("LoginService", "SearchURL", "")
             End If
 
             Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
             'FSASSETS
             If Settings.FsAssetsEnabled Then
-                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
-            Else
-                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+                    Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                    Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+                Else
+                    Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+                    Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+                End If
+
+                Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
+                Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
+                Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
+
+                Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+
+                Settings.SaveINI(System.Text.Encoding.UTF8)
+
             End If
 
-            Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
-            Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
-            Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
-
-            Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
-
-            Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        End If
-
-        Return False
+            Return False
     End Function
 
     Private Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
@@ -6723,8 +6736,34 @@ Public Class Form1
 
     Private Sub GetEvents()
 
-        If Not Settings.SearchEnabled Then Return
+        If Not Settings.EventTimerEnabled Then
+            ' delete old events
 
+            Try
+                Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
+                    Try
+                        osconnection.Open()
+                    Catch ex As InvalidOperationException
+
+                        Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
+                        Return
+                    Catch ex As MySqlException
+                        Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
+                        Return
+                    End Try
+                    DeleteEvents(osconnection)
+                End Using
+
+#Disable Warning CA1031 ' Do not catch general exception types
+            Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
+                ErrorLog(ex.Message)
+            End Try
+
+            Return
+        End If
+
+        'if enabled, get the eventsa from Outworldz.com
         Dim Simevents As New Dictionary(Of String, String)
         Dim ctr As Integer = 0
         Try
@@ -6785,14 +6824,9 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy > 0 And TimerBusy < 15 Then
-            TimerBusy += 1
-            Return
-        End If
 
+        If TimerBusy = 1 Then Return
         TimerBusy = 1
-
-
         Chart() ' do charts collection each second
         Application.DoEvents()
         If Not PropOpensimIsRunning() Then
@@ -6831,7 +6865,7 @@ Public Class Form1
             Application.DoEvents()
         End If
 
-        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
+        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
             GetEvents() ' get the events from the Outworldz main server for all grids
             Application.DoEvents()
         End If
