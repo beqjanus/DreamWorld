@@ -3483,7 +3483,7 @@ Public Class Form1
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
         Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog""")
+        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
         ' needed for Php5 upgrade
         Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
         Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
@@ -4568,15 +4568,6 @@ Public Class Form1
         Print(My.Resources.Checking_Apache_service_word)
         ' Stop MSFT server if we are on port 80 and enabled
 
-        Dim Running = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
-        If Running Then
-            Print(My.Resources.Apache_running)
-            ApachePictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
-            PropApacheExited = False
-            Return True
-        End If
-        'Application.doevents()
 
         If Settings.ApacheService Then
             PropApacheUninstalling = True
