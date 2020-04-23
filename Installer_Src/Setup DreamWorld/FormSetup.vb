@@ -3670,13 +3670,13 @@ Public Class Form1
                         Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/register.php")
                         Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
-                        Settings.SetIni("SimulatorFeatures", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
+
                         Settings.SetIni("SimulatorFeatures", "SearchServerURI", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
                         Settings.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
-                        Settings.SetIni("SimulatorFeatures", "SearchURL", "http://www.hyperica.com/Search/query.php")
+
                         Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://www.hyperica.com/Search/query.php")
                     End If
                 Else
@@ -3684,7 +3684,7 @@ Public Class Form1
                     Settings.SetIni("DataSnapshot", "data_services", "")
                     Settings.SetIni("Search", "SearchURL", "")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
-                    Settings.SetIni("SimulatorFeatures", "SearchURL", "")
+
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                 End If
 
