@@ -62,7 +62,7 @@ Public Class FormRestart
         Try
             Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
             Form1.Settings.AutoRestartInterval = 0

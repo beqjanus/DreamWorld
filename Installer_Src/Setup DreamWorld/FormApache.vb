@@ -154,8 +154,9 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -163,8 +164,9 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -184,8 +186,9 @@ Public Class FormApache
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         InstallProcess.WaitForExit()

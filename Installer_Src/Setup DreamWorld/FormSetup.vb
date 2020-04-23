@@ -143,13 +143,13 @@ Public Class Form1
             Me.Height = 238
         Else
 
-#Disable Warning CA1031
             Try
                 Me.Height = hw.Item(0)
+#Disable Warning CA1031
             Catch
+#Enable Warning CA1031
             End Try
         End If
-#Enable Warning CA1031
 
         If hw.Item(1) = 0 Then
             Me.Width = 365
@@ -257,7 +257,7 @@ Public Class Form1
             Try
                 My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
             End Try
         Else
@@ -847,7 +847,7 @@ Public Class Form1
                 speed = Me.Cpu1.NextValue()
 
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
 
                 Dim pUpdate As Process = New Process()
@@ -860,8 +860,9 @@ Public Class Form1
                 Try
                     pUpdate.Start()
                     pUpdate.WaitForExit()
-                Catch ex1 As InvalidOperationException
-                Catch ex1 As ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
                 End Try
             End Try
 
@@ -873,9 +874,9 @@ Public Class Form1
 
 
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog(ex.Message)
         End Try
 
@@ -902,9 +903,9 @@ Public Class Form1
                 PercentRAM.Text = CStr(value) & "% RAM"
                 Application.DoEvents()
             Next
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
 
@@ -950,8 +951,10 @@ Public Class Form1
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
                 Process.Start(webAddress)
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
         Else
             Print(My.Resources.Not_Running)
@@ -971,10 +974,10 @@ Public Class Form1
         For Each folder As String In AL
             Try
                 System.IO.Directory.Delete(PropMyFolder & folder, True)
-            Catch ex As IOException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
         Next
 
@@ -1083,11 +1086,10 @@ Public Class Form1
             ' Add all immediate file paths
             Try
                 result.AddRange(Directory.GetFiles(dir, "*.dll"))
-            Catch ex As ArgumentException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As DirectoryNotFoundException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
 
             ' Loop through all subdirectories and add them to the stack.
@@ -1124,10 +1126,9 @@ Public Class Form1
 
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
-
-#Disable Warning CA1031 ' Do not catch general exception types
-                Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
                 End Try
                 ctr -= 1
                 Sleep(100)
@@ -1213,8 +1214,9 @@ Public Class Form1
             pMySqlBackup.StartInfo = pi
             Try
                 pMySqlBackup.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
 
             End Try
 
@@ -1245,17 +1247,9 @@ Public Class Form1
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
                 success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2))
                 ClientSocket.EndConnect(result)
-            Catch ex As ArgumentNullException
-                success = 0
-            Catch ex As ArgumentOutOfRangeException
-                success = 0
-            Catch ex As SocketException
-                success = 0
-            Catch ex As AbandonedMutexException
-                success = 0
-            Catch ex As ObjectDisposedException
-                success = 0
-            Catch ex As InvalidOperationException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
                 success = 0
             End Try
 
@@ -1281,9 +1275,9 @@ Public Class Form1
             Try
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
         End Using
@@ -1308,18 +1302,18 @@ Public Class Form1
 
                 Try
                     If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
-#Disable Warning CA1031 ' Do not catch general exception types
-                Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
                     Return False
                 End Try
             Else
                 PID = PropRobustProcID
                 Try
                     ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
-#Disable Warning CA1031 ' Do not catch general exception types
-                Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
                     Return False
                 End Try
             End If
@@ -1331,17 +1325,19 @@ Public Class Form1
                 command = command.Replace("%", "{%}")
                 command = command.Replace("(", "{(}")
                 command = command.Replace(")", "{)}")
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             Try
                 AppActivate(PID)
                 SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
                 SendKeys.Send(ToLowercaseKeys(command))
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
             Catch
                 Return False
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
             End Try
 
         End If
@@ -1354,24 +1350,19 @@ Public Class Form1
         Try
             System.IO.Directory.Delete(PropOpensimBinPath & "WifiPages", True)
             System.IO.Directory.Delete(PropOpensimBinPath & "bin\WifiPages", True)
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         Try
             My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "WifiPages-" & Page, PropOpensimBinPath & "WifiPages", True)
             My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\WifiPages-" & Page, PropOpensimBinPath & "\bin\WifiPages", True)
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As InvalidOperationException
-        Catch ex As NotSupportedException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
     End Sub
@@ -1382,10 +1373,10 @@ Public Class Form1
         Try
             System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Clothing Library (small).iar")
             System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Objects Library (small).iar")
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         Return False
@@ -1419,9 +1410,9 @@ Public Class Form1
                 'Application.doevents()
             Next
             Return String.Empty
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog("Warn:Unable to resolve name:" & ex.Message)
         End Try
         Return String.Empty
@@ -1434,9 +1425,10 @@ Public Class Form1
             Dim h As IntPtr
             Try
                 h = RobustProcess.MainWindowHandle
-            Catch ex As InvalidOperationException
-                h = IntPtr.Zero
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
                 h = IntPtr.Zero
             End Try
             Return h
@@ -1599,9 +1591,9 @@ Public Class Form1
                     ConsoleCommand(RegionUUID, "generate map {ENTER}" & vbCrLf)
                     once = True
                 End If
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
             'Application.doevents()
@@ -1712,10 +1704,10 @@ Public Class Form1
 
             Next
 
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch e As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
-            Log("UPnP", "UPnP Exception caught:  " & e.Message)
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+            Log("UPnP", "UPnP Exception caught:  " & ex.Message)
             Return False
         End Try
         Return True 'successfully added
@@ -1839,13 +1831,10 @@ Public Class Form1
                 Try
                     ' Set Public IP
                     Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
-                Catch ex As ArgumentNullException
-                    ErrorLog(My.Resources.Wrong & " api.ipify.org")
-                    Settings.DiagFailed = True
-                Catch ex As WebException
-                    ErrorLog(My.Resources.Wrong & " api.ipify.org")
-                    Settings.DiagFailed = True
-                Catch ex As NotSupportedException
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                     ErrorLog(My.Resources.Wrong & " api.ipify.org")
                     Settings.DiagFailed = True
                 End Try
@@ -1884,13 +1873,10 @@ Public Class Form1
                     Return False
                 End If
             End While
-        Catch ex As PlatformNotSupportedException
-            ErrorLog(windowName & ":" & ex.Message)
-            Return False
-        Catch ex As InvalidOperationException
-            ErrorLog(windowName & ":" & ex.Message)
-            Return False
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             ErrorLog(windowName & ":" & ex.Message)
             Return False
         End Try
@@ -1952,11 +1938,10 @@ Public Class Form1
                 Try
                     MysqlSearch.Start()
                     MysqlSearch.WaitForExit()
-                Catch ex As InvalidOperationException
-                    ErrorLog("Could not create Search Database: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = PropMyFolder
-                    Return
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch ex As exception
+#Enable Warning CA1031
+
                     ErrorLog("Could not create Search Database: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = PropMyFolder
                     Return
@@ -2002,11 +1987,10 @@ Public Class Form1
             Try
                 Dim str = PropDomain & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
                 result = client.DownloadString(str)
-            Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
+
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
@@ -2065,8 +2049,10 @@ Public Class Form1
 
             Try
                 p = Process.GetProcessById(myProcess.Id)
-            Catch ex As ArgumentException
-            Catch ex As InvalidOperationException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
 
             If p IsNot Nothing Then
@@ -2117,15 +2103,19 @@ Public Class Form1
                 Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
-                Catch ex As InvalidOperationException
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                 End Try
             Else
                 Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
                 Try
                     Process.Start(webAddress)
-                Catch ex As InvalidOperationException
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                 End Try
                 Print(My.Resources.User_Name_word & ":" & Settings.AdminFirst & " " & Settings.AdminLast)
                 Print(My.Resources.Password_word & ":" & Settings.Password)
@@ -2135,8 +2125,10 @@ Public Class Form1
                 Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
-                Catch ex As InvalidOperationException
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                 End Try
             Else
                 Print(My.Resources.Not_Running)
@@ -2327,8 +2319,9 @@ Public Class Form1
             }
             Try
                 pMySqlDiag1.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
 
             End Try
             pMySqlDiag1.WaitForExit()
@@ -2539,9 +2532,10 @@ Public Class Form1
         Try
             ok = myProcess.Start
             Application.DoEvents()
-        Catch ex As InvalidOperationException
-            ErrorLog(ex.Message)
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             ErrorLog(ex.Message)
         End Try
 
@@ -2591,8 +2585,10 @@ Public Class Form1
 
             Try
                 PowerShell.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
         End Using
 
@@ -2847,8 +2843,10 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Server_Commands"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
     End Sub
 
@@ -3126,8 +3124,10 @@ Public Class Form1
                     If (yesno = vbYes) Then
                         Try
                             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-                        Catch ex As InvalidOperationException
-                        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                        Catch
+#Enable Warning CA1031
+
                         End Try
                     End If
                     StopGroup(GroupName)
@@ -3277,9 +3277,9 @@ Public Class Form1
             End Using
             'close your reader
             reader.Close()
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
             MsgBox(My.Resources.no_Default_sim, vbInformation, My.Resources.Settings_word)
             Return True
         End Try
@@ -3460,7 +3460,10 @@ Public Class Form1
             Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
                 outputFile.Write(Output)
             End Using
-        Catch ex As Exception
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             ErrorLog(ex.Message)
         End Try
 
@@ -3492,10 +3495,10 @@ Public Class Form1
 
         Try
             Directory.Delete(PropMyFolder & "\Outworldzfiles\PHP5", True)
-        Catch ex As DirectoryNotFoundException
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         ' lean rightward paths for Apache
@@ -3516,10 +3519,10 @@ Public Class Form1
         Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
         Try
             System.IO.File.Delete(BirdFile)
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         Dim BirdData As String = ""
@@ -3938,24 +3941,24 @@ Public Class Form1
 
             'FSASSETS
             If Settings.FsAssetsEnabled Then
-                    Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-                    Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
-                Else
-                    Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-                    Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
-                End If
-
-                Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
-                Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
-                Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
-
-                Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
-
-                Settings.SaveINI(System.Text.Encoding.UTF8)
-
+                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+            Else
+                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
             End If
 
-            Return False
+            Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
+            Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
+            Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
+
+            Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+
+            Settings.SaveINI(System.Text.Encoding.UTF8)
+
+        End If
+
+        Return False
     End Function
 
     Private Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
@@ -3988,9 +3991,10 @@ Public Class Form1
         Try
             SuspendProcess.Start()
             SuspendProcess.WaitForExit()
-        Catch ex As InvalidOperationException
-            Print(My.Resources.NTSuspend)
-        Catch ex As ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
             Print(My.Resources.NTSuspend)
         Finally
             SuspendProcess.Close()
@@ -4017,10 +4021,10 @@ Public Class Form1
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
         Try
             System.IO.File.Delete(TideFile)
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
@@ -4087,10 +4091,10 @@ Public Class Form1
                 outputFile.WriteLine(HTML)
             End Using
 
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         Return False
@@ -4229,7 +4233,7 @@ Public Class Form1
                         End If
 
                     End If
-                        Application.DoEvents()
+                    Application.DoEvents()
                     If CountisRunning = 0 Then Exit For
                 Next
 
@@ -4295,7 +4299,10 @@ Public Class Form1
             PropRegionClass.ClearStack()
             PropRegionHandles.Clear()
             PropRegionClass.WebserverList.Clear()
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
     End Sub
@@ -4316,9 +4323,10 @@ Public Class Form1
             Log(My.Resources.Info, "Stopping process " & processName)
             Try
                 P.Kill()
-            Catch ex As NotSupportedException
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             Application.DoEvents()
         Next
@@ -4341,11 +4349,10 @@ Public Class Form1
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
     End Sub
     Public Sub Viewlog(name As String)
@@ -4380,11 +4387,10 @@ Public Class Form1
                 Dim files As Array = Nothing
                 Try
                     files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-                Catch ex As ArgumentException
-                Catch ex As UnauthorizedAccessException
-                Catch ex As DirectoryNotFoundException
-                Catch ex As PathTooLongException
-                Catch ex As IOException
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                 End Try
 
                 For Each FileName As String In files
@@ -4404,8 +4410,10 @@ Public Class Form1
 
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", logs)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
     End Sub
@@ -4457,8 +4465,10 @@ Public Class Form1
             Dim Apachelog As String = PropMyFolder & "\Outworldzfiles\Apache\logs\error*.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & Apachelog & """")
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
         End If
 
@@ -4471,13 +4481,10 @@ Public Class Form1
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
+
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
             End Try
@@ -4506,9 +4513,10 @@ Public Class Form1
                 Try
                     ApacheProcess.Start()
                     ApacheProcess.WaitForExit()
-                Catch ex As InvalidOperationException
-                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch ex As exception
+#Enable Warning CA1031
+
                     Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
                 End Try
 
@@ -4558,8 +4566,10 @@ Public Class Form1
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -4575,8 +4585,10 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -4584,8 +4596,10 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -4594,8 +4608,10 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -4603,8 +4619,10 @@ Public Class Form1
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -4622,9 +4640,10 @@ Public Class Form1
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 Try
                     ApacheProcess.Start()
-                Catch ex As InvalidOperationException
-                    Print(My.Resources.ApacheFailed & ":" & ex.Message)
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch ex As exception
+#Enable Warning CA1031
+
                     Print(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
                 'Application.doevents()
@@ -4642,9 +4661,10 @@ Public Class Form1
 
                 Try
                     ApacheProcess.Start()
-                Catch ex As InvalidOperationException
-                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                Catch ex As exception
+#Enable Warning CA1031
+
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                 End Try
                 'Application.doevents()
@@ -4671,13 +4691,11 @@ Public Class Form1
                 ApacheProcess.StartInfo.Arguments = ""
                 Try
                     ApacheProcess.Start()
-                Catch ex As InvalidOperationException
-                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                    ApachePictureBox.Image = My.Resources.nav_plain_red
-                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
-                    'Application.doevents()
-                    Return False
-                Catch ex As System.ComponentModel.Win32Exception
+
+#Disable Warning CA1031
+                Catch ex As exception
+#Enable Warning CA1031
+
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                     ApachePictureBox.Image = My.Resources.nav_plain_red
                     ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
@@ -4736,11 +4754,10 @@ Public Class Form1
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                Return False
-            Catch ex As WebException
-                Return False
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
                 Return False
             End Try
 
@@ -4803,12 +4820,10 @@ Public Class Form1
 
         Try
             IcecastProcess.Start()
-        Catch ex As InvalidOperationException
-            Print(My.Resources.Icecast_failed & ":" & ex.Message)
-            IceCastPicturebox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
-            Return False
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastPicturebox.Image = My.Resources.nav_plain_red
             ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
@@ -4852,8 +4867,10 @@ Public Class Form1
             Dim IceCastLog As String = PropMyFolder & "\Outworldzfiles\Icecast\log\error.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & IceCastLog & """")
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
             End Try
         End If
 
@@ -4905,11 +4922,10 @@ Public Class Form1
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
                                  & "mysqld.exe --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
 
         End Try
 
@@ -4928,9 +4944,10 @@ Public Class Form1
         Try
             ProcessMySql.Start()
             MysqlInterface.IsRunning = True
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
         End Try
 
         PropOpensimIsRunning = False
@@ -4948,18 +4965,18 @@ Public Class Form1
                     Dim files As Array = Nothing
                     Try
                         files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-                    Catch ex As ArgumentException
-                    Catch ex As UnauthorizedAccessException
-                    Catch ex As DirectoryNotFoundException
-                    Catch ex As PathTooLongException
-                    Catch ex As IOException
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
+
                     End Try
 
                     For Each FileName As String In files
                         Try
                             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                        Catch ex As InvalidOperationException
-                        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                        Catch
+#Enable Warning CA1031
                         End Try
                         'Application.doevents()
                     Next
@@ -4999,11 +5016,9 @@ Public Class Form1
         Dim files As Array = Nothing
         Try
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         If files.Length > 0 Then
@@ -5013,8 +5028,9 @@ Public Class Form1
                 For Each FileName As String In files
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & FileName & """")
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
                     End Try
 
                 Next
@@ -5074,8 +5090,9 @@ Public Class Form1
         Try
             p.Start()
             MysqlInterface.IsRunning = False    ' mark all as not running
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
         'Application.doevents()
         p.WaitForExit()
@@ -5106,11 +5123,9 @@ Public Class Form1
                 outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
             "mysqld.exe --install Mysql --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -5125,11 +5140,9 @@ Public Class Form1
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -5167,13 +5180,9 @@ Public Class Form1
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As ArgumentNullException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As WebException
-                If ex.Message.Contains("404") Then Return True
-                Return False
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 If ex.Message.Contains("404") Then Return True
                 Return False
             End Try
@@ -5246,15 +5255,9 @@ Public Class Form1
         Try
             RobustProcess.Start()
             Log(My.Resources.Info, My.Resources.Robust_running)
-        Catch ex As InvalidOperationException
-            Print("Robust " & My.Resources.did_not_start_word & ex.Message)
-            KillAll()
-            Buttons(StartButton)
-            RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
-            _RobustIsStarting = False
-            Return False
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
             Buttons(StartButton)
@@ -5291,8 +5294,9 @@ Public Class Form1
                     Dim Log As String = """" & PropOpensimBinPath & "bin\Robust.log" & """"
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe " & Log)
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
                     End Try
                 End If
                 Buttons(StartButton)
@@ -5355,8 +5359,9 @@ Public Class Form1
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         End If
 
@@ -5397,13 +5402,12 @@ Public Class Form1
         Using client As New WebClient
             Try
                 result = client.DownloadString(Weblink)
-            Catch ex As ArgumentNullException
+            Catch ex As WebException  ' not an error as could be a 404 from Diva being off            
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
                 Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
-            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
-            Catch ex As NotSupportedException
-                Logger("ERROR", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
             End Try
         End Using
 
@@ -5440,13 +5444,7 @@ Public Class Form1
             Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
-            Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
-            Catch ex As WebException
-                Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            Catch ex As NotSupportedException
+            Catch ex As WebException  ' not an error as could be a 404 from Diva being off            
                 Logger("ERROR", My.Resources.Wrong & " " & ex.Message, "Diagnostics")
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
@@ -5479,8 +5477,9 @@ Public Class Form1
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                     Try
                         LoopbackProcess.Start()
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
                     End Try
                     Exit For
                 End Using
@@ -5515,8 +5514,9 @@ Public Class Form1
         '''
         Try
             System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & PropMyFolder & "\OutworldzFiles\Outworldz.log" & """")
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -5553,11 +5553,9 @@ Public Class Form1
         Using client As New WebClient
             Try
                 result = client.DownloadString(weblink)
-            Catch ex As ArgumentNullException
-                Logger("ERROR", ex.Message, "Diagnostics")
-            Catch ex As WebException
-                Logger("ERROR", ex.Message, "Diagnostics")
-            Catch ex As NotSupportedException
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 Logger("ERROR", ex.Message, "Diagnostics")
             End Try
         End Using
@@ -5647,8 +5645,9 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Inventory_Archives"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -5656,8 +5655,9 @@ Public Class Form1
         Dim webAddress As String = "http://opensimulator.org/wiki/Load_Oar_0.9.0%2B"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -5672,9 +5672,9 @@ Public Class Form1
         If sender.Text = "Web Download Link" Then
             Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
             Try
-                Process.Start(webAddress)
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
             Return
         End If
@@ -5794,11 +5794,9 @@ Public Class Form1
         Dim OARs As Array = Nothing
         Try
             OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         For Each OAR As String In OARs
@@ -5826,11 +5824,9 @@ Public Class Form1
         Dim AutoOARs As Array = Nothing
         Try
             AutoOARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
         counter = MaxFileNum
 
@@ -5858,11 +5854,9 @@ Public Class Form1
 
         Try
             IARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         LoadLocalIARsToolStripMenuItem.DropDownItems.Clear()
@@ -5894,11 +5888,9 @@ Public Class Form1
         Dim AutoIARs As Array = Nothing
         Try
             AutoIARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
         If AutoIARs IsNot Nothing Then
             counter = MaxFileNum
@@ -6012,8 +6004,9 @@ Public Class Form1
         Dim webAddress As String = PropDomain & "/Outworldz_Installer"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -6062,8 +6055,9 @@ Public Class Form1
         Dim webAddress As String = PropDomain & "/cgi/freesculpts.plx"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -6085,8 +6079,9 @@ Public Class Form1
             Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
             Try
                 Process.Start(webAddress)
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
             Return
         End If
@@ -6106,8 +6101,9 @@ Public Class Form1
         Dim webAddress As String = PropMyFolder & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -6207,9 +6203,9 @@ Public Class Form1
                                 & "mysql -u root opensim <  " & """" & thing & """" _
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
-#Disable Warning CA1031 ' Do not catch general exception types
-                    Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+                    Catch ex As exception
+#Enable Warning CA1031
                         ErrorLog("Failed to create restore file:" & ex.Message)
                         Return
                     End Try
@@ -6226,9 +6222,9 @@ Public Class Form1
 
                     Try
                         pMySqlRestore.Start()
-                    Catch ex As InvalidOperationException
-                    Catch ex As System.ComponentModel.Win32Exception
-
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
                     End Try
 
                     Print(My.Resources.Do_Not_Interrupt_word)
@@ -6370,8 +6366,9 @@ Public Class Form1
             CPortsProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Try
                 CPortsProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         End Using
 
@@ -6416,8 +6413,9 @@ Public Class Form1
         Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -6431,8 +6429,9 @@ Public Class Form1
         Dim webAddress As String = PropDomain() & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -6442,8 +6441,9 @@ Public Class Form1
             Print(My.Resources.Icecast_Desc & webAddress & "/stream")
             Try
                 Process.Start(webAddress)
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         ElseIf Settings.SCEnable = False Then
             Print(My.Resources.Shoutcast_Disabled)
@@ -6482,9 +6482,9 @@ Public Class Form1
             }
             Try
                 ProcessUpnp.Start()
-            Catch ex As InvalidOperationException
-                ErrorLog("ErrorUPnp failed to launch: " & ex.Message)
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 ErrorLog("ErrorUPnp failed to launch: " & ex.Message)
             End Try
         End Using
@@ -6615,7 +6615,7 @@ Public Class Form1
         'Try
         'A.Add("Ferd Frederix", "SandBox")
         'B.Add("Nyira Machabelli", "SandBox")
-        'Catch ex As Exception
+        'Catch
         'End Try
         'E'nd If
 
@@ -6715,11 +6715,9 @@ Public Class Form1
             Using outputFile As New StreamWriter(HTMLFILE, True)
                 outputFile.WriteLine(HTML)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -6734,20 +6732,17 @@ Public Class Form1
                 Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
                     Try
                         osconnection.Open()
-                    Catch ex As InvalidOperationException
-
-                        Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                        Return
-                    Catch ex As MySqlException
+#Disable Warning CA1031
+                    Catch
+#Enable Warning CA1031
                         Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                         Return
                     End Try
                     DeleteEvents(osconnection)
                 End Using
-
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 ErrorLog(ex.Message)
             End Try
 
@@ -6761,11 +6756,9 @@ Public Class Form1
             Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
                 Try
                     osconnection.Open()
-                Catch ex As InvalidOperationException
-
-                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                    Return
-                Catch ex As MySqlException
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
                     Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
                     Return
                 End Try
@@ -6800,9 +6793,9 @@ Public Class Form1
 
                 End Using ' client
             End Using ' osconnection
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog(ex.Message)
         End Try
 
@@ -6883,10 +6876,9 @@ Public Class Form1
             Try
                 ProcessPHP.Start()
                 ProcessPHP.WaitForExit()
-            Catch ex As InvalidOperationException
-                FileIO.FileSystem.CurrentDirectory = PropMyFolder
-                ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 FileIO.FileSystem.CurrentDirectory = PropMyFolder
                 ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
             End Try
@@ -6906,16 +6898,9 @@ Public Class Form1
             Print(My.Resources.Checking_for_Updates_word)
             Try
                 Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
-            Catch ex As ArgumentNullException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            Catch ex As WebException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            Catch ex As NotSupportedException
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
+#Disable Warning CA1031
             Catch ex As exception
+#Enable Warning CA1031
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             End Try
@@ -6930,16 +6915,16 @@ Public Class Form1
         Try
             If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
             Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
         End Try
 #Enable Warning CA1031
         Dim uv As Single = 0
         Try
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As OverflowException
-        Catch ex As FormatException
-        Catch ex As exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         ' could be the same or later version already
@@ -6986,9 +6971,9 @@ Public Class Form1
         UpdateProcess.EnableRaisingEvents = True
         Try
             UpdateProcess.Start()
-        Catch ex As InvalidOperationException
-            Print(My.Resources.ErrUpdate)
-        Catch ex As ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
             Print(My.Resources.ErrUpdate)
         End Try
 
@@ -7010,9 +6995,9 @@ Public Class Form1
         Print(My.Resources.SeeYouSoon)
         Try
             pUpdate.Start()
-        Catch ex As InvalidOperationException
-            ErrorLog(My.Resources.ErrInstall)
-        Catch ex As ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
             ErrorLog(My.Resources.ErrInstall)
         End Try
         End ' program
@@ -7074,11 +7059,9 @@ Public Class Form1
         Dim folders As Array = Nothing
         Try
             folders = Directory.GetFiles(PropMyFolder & "\Outworldzfiles\Help")
-        Catch ex As ArgumentException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         For Each aline As String In folders
@@ -7132,13 +7115,9 @@ Public Class Form1
 
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
-        Catch ex As ArgumentNullException
-            ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
-            Return False
-        Catch ex As Net.WebException
-            ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
-            Return False
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
             Return False
         Finally
@@ -7159,13 +7138,9 @@ Public Class Form1
         Dim client As New WebClient ' download client for web pages
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
-        Catch ex As ArgumentNullException
-            ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
-            Return ""
-        Catch ex As Net.WebException
-            ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
-            Return ""
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
             Return ""
         Finally
@@ -7187,15 +7162,9 @@ Public Class Form1
         Dim Checkname As String
         Try
             Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
-        Catch ex As ArgumentNullException
-            ErrorLog("Error:Cannot get new name:" & ex.Message)
-            client.Dispose()
-            Return ""
-        Catch ex As WebException
-            ErrorLog("Error:Cannot get new name:" & ex.Message)
-            client.Dispose()
-            Return ""
-        Catch ex As NotSupportedException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             ErrorLog("Error:Cannot get new name:" & ex.Message)
             client.Dispose()
             Return ""

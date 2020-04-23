@@ -579,7 +579,7 @@ Public Class RegionList
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
                             item1.SubItems.Add("0".ToUpperInvariant)
                         End Try
@@ -732,12 +732,12 @@ Public Class RegionList
 
 
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch ex As exception
 #Enable Warning CA1031
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
@@ -783,7 +783,7 @@ Public Class RegionList
                 Try
                     Dim result = Process.Start(webAddress)
 #Disable Warning CA1031
-                Catch ex As Exception
+                Catch
 #Enable Warning CA1031
 
                 End Try
@@ -841,7 +841,7 @@ Public Class RegionList
         Try
             Item = ListView1.Items.Item(e.Index)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
         If Item.Text.Length = 0 Then Return
@@ -941,7 +941,7 @@ Public Class RegionList
             ViewBusy = False
             PropUpdateView() = False
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
@@ -962,7 +962,7 @@ Public Class RegionList
         Try
             response = request.GetResponse()
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try
@@ -971,7 +971,7 @@ Public Class RegionList
         Try
             responseStream = response.GetResponseStream()
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try
@@ -1110,7 +1110,7 @@ Public Class RegionList
             Try
                 System.Diagnostics.Process.Start(link)
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
 
             End Try
@@ -1220,7 +1220,7 @@ Public Class RegionList
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
             chosen = ""
         End Try
@@ -1359,7 +1359,7 @@ Public Class RegionList
                         Try
                             Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
 
                         End Try
@@ -1395,7 +1395,7 @@ Public Class RegionList
         Try
             Process.Start(webAddress)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try

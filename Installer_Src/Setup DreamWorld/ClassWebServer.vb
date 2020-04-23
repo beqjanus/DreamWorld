@@ -70,7 +70,7 @@ Public Class NetServer
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -134,7 +134,7 @@ Public Class NetServer
 
             End Using
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
     End Sub
@@ -176,7 +176,7 @@ Public Class NetServer
             Try
                 NewSQLConn.Open()
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
                 Return HTML
             End Try
@@ -214,7 +214,7 @@ Public Class NetServer
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
             End Using
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
     End Sub
@@ -230,7 +230,7 @@ Public Class NetServer
             Try
                 listener.Start() ' Throws Exception
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch ex As exception
 #Enable Warning CA1031
                 Log(My.Resources.Error_word, ex.Message)
                 Return

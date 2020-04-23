@@ -47,13 +47,9 @@ Public Module MysqlInterface
         Using ClientSocket As New TcpClient
             Try
                 ClientSocket.Connect(ServerAddress, iPort)
-            Catch ex As ArgumentNullException
-                Return False
-            Catch ex As ArgumentOutOfRangeException
-                Return False
-            Catch ex As SocketException
-                Return False
-            Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Return False
             End Try
 
@@ -75,10 +71,9 @@ Public Module MysqlInterface
                 Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
                     cmd.ExecuteScalar()
                 End Using
-            Catch ex As InvalidOperationException
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            Catch ex As MySqlException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Debug.Print("Failed to Connect to OsSearch")
                 Return
             End Try
@@ -94,10 +89,9 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, osconnection)
                     cmd.ExecuteScalar()
                 End Using
-            Catch ex As InvalidOperationException
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            Catch ex As MySqlException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Debug.Print("Failed to Connect to OsSearch")
                 Return
             End Try
@@ -146,7 +140,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-        Catch ex As MySqlException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         End Try
@@ -166,7 +162,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-        Catch ex As MySqlException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         Finally
@@ -195,7 +193,9 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-            Catch ex As MySqlException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -240,9 +240,9 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -279,9 +279,9 @@ Public Module MysqlInterface
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
                 Return v
-#Disable Warning CA1031 ' Do not catch general exception types
-            Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 Debug.Print(ex.Message)
             End Try
         End Using
@@ -308,7 +308,9 @@ Public Module MysqlInterface
                     End If
                 End Using
             End Using
-        Catch ex As MySqlException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             MysqlConn.Close()

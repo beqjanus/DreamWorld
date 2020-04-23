@@ -53,11 +53,9 @@ Public Class FormHelp
         Try
             Dim Page As String = Form1.PropMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
             RichTextBox1.LoadFile(Page)
-        Catch ex As IO.IOException
-            MsgBox(My.Resources.Sorry_No_Help, vbInformation)
-            Form1.ErrorLog("Error:" + ex.Message)
-            Me.Close()
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             MsgBox(My.Resources.Sorry_No_Help, vbInformation)
             Form1.ErrorLog("Error:" + ex.Message)
             Me.Close()
@@ -73,9 +71,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Rebuilding_from_a_blank_database.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -83,9 +81,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -97,9 +95,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -107,9 +105,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Loopback.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -117,9 +115,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -131,9 +129,9 @@ Public Class FormHelp
         }
         Try
             Process.Start(info)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -158,9 +156,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://github.com/Outworldz/DreamWorld"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -168,9 +166,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Startup.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -178,9 +176,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -188,9 +186,9 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 

@@ -61,10 +61,9 @@ Public Class MySettings
                 Using outputFile As New StreamWriter(myINI, False)
                     outputFile.WriteLine(contents)
                 End Using
-            Catch ex As IOException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentException
-            Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
 
             LoadSettingsIni()
@@ -192,9 +191,9 @@ Public Class MySettings
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.Log("Warn", ex.Message)
             Return True
         End Try
@@ -212,9 +211,9 @@ Public Class MySettings
         Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
             Form1.ErrorLog(My.Resources.Failed_to_load_Settings_INI_word)
         End Try
 
@@ -231,9 +230,9 @@ Public Class MySettings
         ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -246,9 +245,9 @@ Public Class MySettings
         ' sets values into any INI file
         Try
             MyData(section)(key) = value ' replace it
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -313,9 +312,9 @@ Public Class MySettings
 #Disable Warning CA1062 ' Validate arguments of public methods
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1062 ' Validate arguments of public methods
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
         Catch
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
             Return D
         End Try
 
@@ -326,9 +325,9 @@ Public Class MySettings
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -339,9 +338,9 @@ Public Class MySettings
         Form1.Log(My.Resources.Info, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
@@ -353,7 +352,7 @@ Public Class MySettings
 #Disable Warning CA1062
             SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
-        Catch ex As Exception
+        Catch ex As exception
             Form1.Logger("Error", ex.Message, "Error")
         End Try
 
@@ -514,9 +513,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As OverflowException
-            Catch ex As InvalidCastException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
             Return 25
         End Get
@@ -542,9 +541,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As OverflowException
-            Catch ex As InvalidCastException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
             Return 5
         End Get
@@ -575,9 +574,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As OverflowException
-            Catch ex As InvalidCastException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 0.2
         End Get
@@ -592,9 +591,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As OverflowException
-            Catch ex As InvalidCastException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 25
         End Get
@@ -609,9 +608,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As OverflowException
-            Catch ex As InvalidCastException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 1.0
         End Get
@@ -635,9 +634,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As InvalidCastException
-            Catch ex As OverflowException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 25
         End Get
@@ -667,9 +666,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As InvalidCastException
-            Catch ex As OverflowException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 25
         End Get
@@ -808,9 +807,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As InvalidCastException
-            Catch ex As OverflowException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 0.5
         End Get
@@ -1126,9 +1125,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As InvalidCastException
-            Catch ex As OverflowException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 0.2
         End Get
@@ -1352,9 +1351,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
-            Catch ex As FormatException
-            Catch ex As InvalidCastException
-            Catch ex As OverflowException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             Return 4096
 
@@ -1845,14 +1844,9 @@ Public Class MySettings
 
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException '!!!
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As Security.SecurityException
-        Catch ex As UnauthorizedAccessException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         FileStuff.DeleteFile(ini)

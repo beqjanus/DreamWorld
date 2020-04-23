@@ -152,7 +152,7 @@ Public Class RegionMaker
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
 #Disable Warning CA1031
-                Catch ex As Exception
+                Catch ex As exception
 #Enable Warning CA1031
 
                     Debug.Print(ex.Message)
@@ -189,7 +189,7 @@ Public Class RegionMaker
                         Try
                             '! debug TeleportAvatarDict.Add("Test", "Test User")
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
                         End Try
                     End If
@@ -210,7 +210,7 @@ Public Class RegionMaker
                                     Try
                                         Removelist.Add(Keypair.Key)
 #Disable Warning CA1031
-                                    Catch ex As Exception
+                                    Catch
 #Enable Warning CA1031
                                     End Try
                                 End If
@@ -224,7 +224,7 @@ Public Class RegionMaker
                         Try
                             TeleportAvatarDict.Remove(Name)
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
 
                         End Try
@@ -256,7 +256,7 @@ Public Class RegionMaker
                     Continue While
                 End If
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch ex As exception
 #Enable Warning CA1031
 
                 Debug.Print(ex.Message)
@@ -365,7 +365,7 @@ Public Class RegionMaker
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
 
                         End Try
@@ -463,7 +463,7 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
 #Disable Warning CA1031
-                    Catch ex As Exception
+                    Catch ex As exception
 #Enable Warning CA1031
 
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
@@ -474,7 +474,7 @@ Public Class RegionMaker
 
             _RegionListIsInititalized = True
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Debug.Print(ex.Message)
@@ -496,7 +496,7 @@ Public Class RegionMaker
                     MaxNum = pair.Value._RegionPort
                 End If
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
 
             End Try
@@ -550,7 +550,7 @@ Public Class RegionMaker
             Try
                 Portlist.Add(pair.Value._RegionPort, pair.Value._RegionName)
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
 
             End Try
@@ -588,7 +588,7 @@ Public Class RegionMaker
                 Try
                     Directory.CreateDirectory(pathtoWelcome)
 #Disable Warning CA1031
-                Catch ex As Exception
+                Catch
 #Enable Warning CA1031
 
                 End Try
@@ -644,7 +644,7 @@ Public Class RegionMaker
                 outputFile.WriteLine(proto)
             End Using
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try
@@ -1576,7 +1576,7 @@ Public Class RegionMaker
                         Try
                             TeleportAvatarDict.Remove(RegionName(RegionUUID))
 #Disable Warning CA1031
-                        Catch ex As Exception
+                        Catch
 #Enable Warning CA1031
 
                         End Try
@@ -1644,7 +1644,7 @@ Public Class RegionMaker
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
 
                 Return "<html><head></head><body>Error</html>"
@@ -1706,7 +1706,7 @@ Public Class RegionMaker
                             myConnection.Close()
                         End Using
 #Disable Warning CA1031
-                    Catch ex As Exception
+                    Catch ex As exception
 #Enable Warning CA1031
 
                         Debug.Print(ex.Message)
@@ -2087,7 +2087,7 @@ Public Class RegionMaker
         Try
             My.Computer.FileSystem.CopyFile(Form1.GetOpensimProto(), pathname & "Opensim.ini", True)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try

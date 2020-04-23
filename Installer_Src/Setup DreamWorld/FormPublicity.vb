@@ -102,7 +102,7 @@ Public Class FormPublicity
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
@@ -165,7 +165,7 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
 #Disable Warning CA1031
-                Catch ex As Exception
+                Catch
 #Enable Warning CA1031
 
                 End Try
@@ -176,7 +176,7 @@ Public Class FormPublicity
                     Try
                         newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
 #Disable Warning CA1031
-                    Catch ex As Exception
+                    Catch ex As exception
 #Enable Warning CA1031
 
                         MsgBox(ex.Message)

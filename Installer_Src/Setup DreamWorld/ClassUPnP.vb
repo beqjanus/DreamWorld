@@ -49,7 +49,7 @@ Public Class UPnp
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
             Form1.ErrorLog(ex.Message)
 #Enable Warning CA1031
         End Try
@@ -133,7 +133,7 @@ Public Class UPnp
             ' Okay, continue on
             staticMapping.Add(port, CStr(prot), port, localIP, True, desc + ":" + CStr(port))
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
 
@@ -166,7 +166,7 @@ Public Class UPnp
 
             Next
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
 
@@ -192,7 +192,7 @@ Public Class UPnp
                         LIP = EndPoint.Address.ToString()
                     End Using
 #Disable Warning CA1031
-                Catch ex As Exception
+                Catch
 #Enable Warning CA1031
                     LIP = LocalIPForced()
 
@@ -205,7 +205,7 @@ Public Class UPnp
                 LIP = CacheIP
             End If
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
         Return LIP
@@ -218,7 +218,7 @@ Public Class UPnp
         Try
             staticMapping.Remove(port, prot.ToString)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
     End Sub
@@ -243,7 +243,7 @@ Public Class UPnp
             If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
     End Sub
@@ -263,7 +263,7 @@ Public Class UPnp
                 dynamicEnabled = False
             End If
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
             dynamicEnabled = False
         End Try
@@ -282,7 +282,7 @@ Public Class UPnp
                 Return
             End If
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
             staticEnabled = False
         End Try

@@ -71,10 +71,9 @@ Public Module Firewall
             'ns.WriteLine("@pause")
             'End If
             ns.Close()
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
         Dim Windowstyle As ProcessWindowStyle
         Windowstyle = ProcessWindowStyle.Hidden
@@ -91,9 +90,9 @@ Public Module Firewall
 
             Try
                 ProcessFirewall.Start()
-            Catch ex As InvalidOperationException
-                Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
 

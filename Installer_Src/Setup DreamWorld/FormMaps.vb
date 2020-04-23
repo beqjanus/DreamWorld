@@ -53,11 +53,9 @@ Public Class FormMaps
         Try
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
-        Catch ex As ArgumentException
-        Catch ex As IO.PathTooLongException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As IO.IOException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
         Form1.Print(My.Resources.Maps_Erased)
 
@@ -67,9 +65,9 @@ Public Class FormMaps
         Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CStr(Form1.Settings.ApachePort) & "/Metromap/index.php"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -82,9 +80,9 @@ Public Class FormMaps
 
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -105,9 +103,9 @@ Public Class FormMaps
         Dim webAddress As String = "http://" + Form1.Settings.PublicIP & ":" & Form1.Settings.ApachePort & "/Metromap/indexmax.php"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 

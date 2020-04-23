@@ -70,7 +70,7 @@ Public Class ClrCache
         Try
             files = IO.Directory.GetFiles(Flotsam)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
 
@@ -96,7 +96,7 @@ Public Class ClrCache
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
             End Try
         End If
@@ -123,7 +123,7 @@ Public Class ClrCache
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
             End Try
         End If
@@ -150,7 +150,7 @@ Public Class ClrCache
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch
 #Enable Warning CA1031
             End Try
         End If

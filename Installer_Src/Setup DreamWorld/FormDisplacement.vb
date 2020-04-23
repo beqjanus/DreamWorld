@@ -205,11 +205,9 @@ Public Class FormDisplacement
         Dim Pic As Image
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
-        Catch ex As OutOfMemoryException
-            Pic = My.Resources.water
-        Catch ex As IO.FileNotFoundException
-            Pic = My.Resources.water
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Pic = My.Resources.water
         End Try
 

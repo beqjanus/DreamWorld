@@ -63,7 +63,9 @@ Public Class Handler
                 End If
             End If
             RegionHandles1.Remove(pid)
-        Catch ex As KeyNotFoundException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
     End Sub

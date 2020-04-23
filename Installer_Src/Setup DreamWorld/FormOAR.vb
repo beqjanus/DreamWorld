@@ -213,7 +213,7 @@ Public Class FormOAR
                 Form1.LoadIARContent(File)
             End If
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
         End Try
@@ -234,7 +234,7 @@ Public Class FormOAR
                 End Using
             End Using
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Form1.Log("Warn", ex.Message)
@@ -252,7 +252,7 @@ Public Class FormOAR
                 Return client.DownloadString(url)
             End Using
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Form1.Log("Warn", ex.Message)
@@ -270,7 +270,7 @@ Public Class FormOAR
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Form1.Log("Error", ex.Message)
@@ -392,7 +392,7 @@ Public Class FormOAR
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch ex As exception
 #Enable Warning CA1031
 
             Form1.Log(My.Resources.Error_word, ex.Message)
@@ -413,7 +413,7 @@ Public Class FormOAR
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
                 result = client.DownloadString(str)
 #Disable Warning CA1031
-            Catch ex As Exception
+            Catch ex As exception
 #Enable Warning CA1031
 
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -423,7 +423,7 @@ Public Class FormOAR
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
 
             Return Nothing
@@ -471,7 +471,7 @@ Public Class FormOAR
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
 
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
 
@@ -515,7 +515,7 @@ Public Class FormOAR
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
 #Disable Warning CA1031
-                    Catch ex As Exception
+                    Catch
 #Enable Warning CA1031
                     End Try
                     img.Dispose()
