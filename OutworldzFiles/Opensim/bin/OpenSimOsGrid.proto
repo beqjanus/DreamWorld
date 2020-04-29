@@ -1,4 +1,4 @@
-;; OSGRID VERSION
+﻿;; OSGRID VERSION
 ;; This is the main configuration file for OpenSimulator.
 ;; If it's named OpenSim.ini then it will be loaded by OpenSimulator.
 ;; If it's named OpenSim.ini.example then you will need to copy it to
@@ -44,7 +44,7 @@
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=http://hg.osgrid.org
+BaseHostname=hg.osgrid.org
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,7 +59,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://192.168.2.135
+PrivURL=http://192.168.2.133
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -69,7 +69,7 @@ GridName=DreamGrid
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
 DiagnosticsPort=8001
-http_listener_port=8004
+http_listener_port=7001
 
 [Startup]
 
@@ -277,7 +277,7 @@ CacheSculptMaps=false
 physics=BulletSim
 
 ; Used by DreamGrid - do not change this
-UseSeparatePhysicsThread=true
+UseSeparatePhysicsThread=True
 
 ; ubODE and  OpenDynamicsEngine does allocate a lot of memory on stack. On linux you may need to increase its limit
 ; script opensim-ode-sh starts opensim setting that limit. You may need to increase it even more on large regions
@@ -334,6 +334,8 @@ LogShowStatsSeconds=3600
 ;; set both true if you don't care to use SSL, they are needed to contact regions or grids that do use it.
 ;# economy module
 economymodule=BetaGridLikeMoneyModule
+DefaultScriptEngine=XEngine
+FrameTime=0.0909090909090909
 
 [RegionReady]
 
@@ -384,7 +386,7 @@ alert_uri=http://localhost:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=true
+GenerateMaptiles=True
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -403,16 +405,16 @@ MapImageModule=MapImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=false
+TextureOnMapTile=False
 
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=false
+DrawPrimOnMapTile=False
 
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=false
+TexturePrims=False
 
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
 ;; Only texture prims that have a diagonal size greater than this number
@@ -420,7 +422,9 @@ TexturePrimSize=48
 
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map.
-RenderMeshes=false
+RenderMeshes=False
+RenderMaxHeight=4096
+RenderMinHeight=0
 
 ;# {MapColorWater} {} {Water color for textured and shaded maps} {"#1D475F"}
 ; MapColorWater = "#3399FF"
@@ -519,7 +523,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=http://hg.osgrid.org
+host_domain_header_from=hg.osgrid.org
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -599,7 +603,7 @@ http_listener_port=${Const|http_listener_port}
 ; to whitelist all ports on addresses 192.168.1.0 to 192.168.1.255
 ; To specify an individual IP address use the /32 netmask
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.135/32
+OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 
 ;
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
@@ -617,7 +621,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.135/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - llRequestURL/llRequestSecureURL are disabled
 ; UNCOMMENT AND SET THIS TO YOUR EXTERNAL OR LOCAL ADDRESS TO ENABLE AS NEEDED
-ExternalHostNameForLSL=http://hg.osgrid.org
+ExternalHostNameForLSL=hg.osgrid.org
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -661,6 +665,7 @@ shard="OpenSim"
 ;; service
 ; XmlRpcHubURI = http://example.com
 [ClientStack.LindenUDP]
+SupportViewerObjectsCache=True
 
 ;; See OpensSimDefaults.ini for the throttle options. You can copy the
 ;; relevant sections and override them here.
@@ -956,11 +961,11 @@ economymodule=BetaGridLikeMoneyModule
 ;; DANGER, do not use with HG, don't leave regions running alone with it.
 ;; TPs or crossings to/from Xengine will full recompile scripts losing state.
 ;; attachment scripts may misbehave, cars will stop on crossings, etc.
-Enabled=false
+Enabled=False
 ScriptStackSize=256
 ScriptHeapSize=256
 UseSourceHashCode=true
-MinTimerInterval=0.1
+MinTimerInterval=0.2
 
 ;ScriptBasePath="ScriptEngines"
 [XEngine]
@@ -1014,6 +1019,8 @@ AppDomainLoading=false
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
 DeleteScriptsOnStartup=False
+Enabled=True
+MinTimerInterval=0.2
 
 ;# {CompactMemOnLoad} {} {compacts memory on each script load at startup?} {true false} false
 ;; forces calls to memory garbage collector before loading each script DLL during region startup.
@@ -1103,7 +1110,7 @@ Include-osslEnable="config-include/osslEnableDG.ini"
 ;
 ; For this to work you need to obtain an admin account from Vivox
 ; that allows you to create voice accounts and region channels.
-enabled=false
+enabled=False
 
 ; vivox voice server
 vivox_server=www.osp.vivox.com
@@ -1350,7 +1357,7 @@ AutoBackupDir=O:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/AutoBackup/
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=false
+enabled=False
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
 density=0.5

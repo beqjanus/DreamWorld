@@ -71,6 +71,7 @@ unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
 unlink "$dir/OutworldzFiles/PHPLog.log" ;
+unlink "$dir/OutworldzFiles/Restart.log" ;
 unlink "$dir/SET_externalIP-log.txt";
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";

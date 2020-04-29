@@ -31,14 +31,14 @@ Partial Class FormIARSave
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Pwd = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Password = New System.Windows.Forms.TextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Pwd = New System.Windows.Forms.Label()
-        Me.Password = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
@@ -116,6 +116,15 @@ Partial Class FormIARSave
         Me.PictureBox1.TabIndex = 20
         Me.PictureBox1.TabStop = False
         '
+        'Pwd
+        '
+        Me.Pwd.AutoSize = True
+        Me.Pwd.Location = New System.Drawing.Point(221, 106)
+        Me.Pwd.Name = "Pwd"
+        Me.Pwd.Size = New System.Drawing.Size(53, 13)
+        Me.Pwd.TabIndex = 19
+        Me.Pwd.Text = "Password"
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -143,6 +152,15 @@ Partial Class FormIARSave
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Object Path and name"
         '
+        'Password
+        '
+        Me.Password.Location = New System.Drawing.Point(5, 103)
+        Me.Password.Name = "Password"
+        Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.Password.Size = New System.Drawing.Size(179, 20)
+        Me.Password.TabIndex = 15
+        Me.Password.UseSystemPasswordChar = True
+        '
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
@@ -168,26 +186,6 @@ Partial Class FormIARSave
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
-        '
-        'Pwd
-        '
-        Me.Pwd.AutoSize = True
-        Me.Pwd.Location = New System.Drawing.Point(221, 106)
-        Me.Pwd.Name = "Pwd"
-        Me.Pwd.Size = New System.Drawing.Size(53, 13)
-        Me.Pwd.TabIndex = 19
-        Me.Pwd.Text = "Password"
-        Me.Pwd.Visible = False
-        '
-        'Password
-        '
-        Me.Password.Location = New System.Drawing.Point(5, 103)
-        Me.Password.Name = "Password"
-        Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.Password.Size = New System.Drawing.Size(179, 20)
-        Me.Password.TabIndex = 15
-        Me.Password.UseSystemPasswordChar = True
-        Me.Password.Visible = False
         '
         'FormIARSave
         '

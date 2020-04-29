@@ -2,22 +2,24 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-V3.35 Release 4/21/2020
-Opensim does not check password for saving an IAR.  If you do this on the command line, you must put something in, but it is ignored.
-In the old versions of OpenSim 0.6.x, an administrator did not need to know the password of an avatar in order to export IARs. 
-Normally OpenSim requires that password to be fed along with the first name and last name of the avatar. This does not add any security 
-at all since anybody that has direct console access to OpenSim is able to perform much more than export IARs. It is also majorly inconvenient 
-since it is frequently necessary to dump OARs and IARs in order to restore a crashed grid.   Thanks to Grimore.org for the idea.
+V3.36 Release 4/26/2020
+Opensim checks passwords for IARS now, but you only use Wifi Admin’s password. Makes it much easier to dump an IAR for a customer/user and makes it more secure. Users can load IARS in the Wifi Web Panel using their password.
 
-Change Offline IM Group port to port 8003 to stop endlessly repeating error messages in Robust
-Try catch broken or missing Libraries for one person who wants no library.
-Simplified Try catch to catch all exceptions everywhere
-Speed up detection of stopped Robust and Icecast windows 
-Could not disable search entirely
+V3.35 Release 4/21/2020
+Change Offline IM Group port to port 8003 to stop endlessly repeating error messages in Robust.
+Allow empty bin\Libraries.proto for one person who wants no library.
+Simplified Try catch to catch all exceptions everywhere. 
+Speed up detection of stopped Robust and Icecast windows. 
+Lots and lots of small Search changes to make it more reliable and stop all the "Search is offline" messages
+Could not disable search entirely. Now you can.
+Upnp Manager crash fix.
+Enabling Apache will remove and re-install the service on startup to make it easier to move to a new folder.
+PHP.ini got duplicated - now it's just one. Also changed some PHP settings for Search.
+
 
 V3.34 Release
-Try Catch OAR load from web and other Web checkst o remove dependency on Outworldz and Hyperica.
-More checks on WindowsTitle as Windows is not always setting them
+Try Catch OAR load from web and other Web checks to remove dependency on Outworldz and Hyperica.
+More checks on WindowsTitle as Windows is not always setting them.
 
 
 V3.43 Release 4/7/2020
