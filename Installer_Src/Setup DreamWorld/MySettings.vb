@@ -751,7 +751,7 @@ Public Class MySettings
 
     Public Property ConsoleShow() As String
         Get
-            Return CType(GetMySetting("ConsoleShow", ""), String)
+            Return CType(GetMySetting("ConsoleShow", "False"), String)
         End Get
         Set
             SetMySetting("ConsoleShow", Value)

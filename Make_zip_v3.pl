@@ -5,13 +5,14 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.45";
+my $v = "3.47";
 
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
 
 say ("DreamGrid$type.zip");
+
 
 
 say ('Server Publish? <enter for no>');
@@ -220,8 +221,11 @@ my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zi
 
 sleep(1);
 
+
+
 if ($publish)
 {
+copy:
 	say ("Publishing now");
 	
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}

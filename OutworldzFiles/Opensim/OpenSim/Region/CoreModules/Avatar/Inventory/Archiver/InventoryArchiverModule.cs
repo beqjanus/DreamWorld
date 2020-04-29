@@ -210,7 +210,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver
         {
             if (m_scenes.Count > 0)
             {
-                UserAccount userInfo = GetUserInfo("Wifi" , "Admin", pass);
+                UserAccount userInfo = GetUserInfo(firstName, lastName, pass);
 
                 if (userInfo != null)
                 {
@@ -254,7 +254,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver
 
             if (m_scenes.Count > 0)
             {
-                UserAccount userInfo = GetUserInfo("Wifi" , "Admin", pass);
+                UserAccount userInfo = GetUserInfo(firstName, lastName, pass);
 
                 if (userInfo != null)
                 {

@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.46"
+    Private _MyVersion As String = "3.47"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -2681,7 +2681,7 @@ Public Class Form1
         PropOpensimIsRunning() = False ' true when opensim is running
 
         Print(My.Resources.Getting_regions_word)
-
+        Application.DoEvents()
         PropRegionClass = RegionMaker.Instance()
         PropInitted = True
 
@@ -2695,13 +2695,13 @@ Public Class Form1
 
         CheckDefaultPorts()
         PropMyUPnpMap = New UPnp()
-
+        Application.DoEvents()
         SetQuickEditOff()
-
+        Application.DoEvents()
         SetLoopback()
-
+        Application.DoEvents()
         LoadLocalIAROAR() ' refresh the pulldowns.
-
+        Application.DoEvents()
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"
@@ -2732,15 +2732,19 @@ Public Class Form1
         End With
 
         CheckForUpdates()
+        Application.DoEvents()
 
         Print(My.Resources.Setup_Ports_word)
+        Application.DoEvents()
         RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
 
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
 
         Print(My.Resources.Starting_WebServer_word)
+        Application.DoEvents()
         PropWebServer.StartServer(PropMyFolder, Settings)
+
 
         CheckDiagPort()
 
@@ -2748,8 +2752,9 @@ Public Class Form1
 
         LoadHelp()        ' Help loads once
 
+
         Print(My.Resources.RefreshingOAR)
-        'SetIAROARContent() ' load IAR and OAR web content
+        Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Then
@@ -2788,15 +2793,17 @@ Public Class Form1
         End If
 
         Print(My.Resources.Checking_MySql_word)
-
+        Application.DoEvents()
         If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
+            Application.DoEvents()
             Startup()
         Else
             Settings.SaveSettings()
             Print(My.Resources.Ready_to_Launch & vbCrLf & My.Resources.Click_Start_2_Begin & vbCrLf)
+            Application.DoEvents()
             Buttons(StartButton)
         End If
 

@@ -2,10 +2,13 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-V3.36 Release 4/26/2020
+V3.47 Release Candidate for 4.5 4/26/2020
+The IAR save only saved the Wifi Admin IAR. Reverted back to standard Opensim so you need to know or reset the users password. Doh!
+
+V3.46 Release 4/26/2020
 Opensim checks passwords for IARS now, but you only use Wifi Admin’s password. Makes it much easier to dump an IAR for a customer/user and makes it more secure. Users can load IARS in the Wifi Web Panel using their password.
 
-V3.35 Release 4/21/2020
+V3.45 Release 4/21/2020
 Change Offline IM Group port to port 8003 to stop endlessly repeating error messages in Robust.
 Allow empty bin\Libraries.proto for one person who wants no library.
 Simplified Try catch to catch all exceptions everywhere. 
@@ -17,7 +20,7 @@ Enabling Apache will remove and re-install the service on startup to make it eas
 PHP.ini got duplicated - now it's just one. Also changed some PHP settings for Search.
 
 
-V3.34 Release
+V3.44 Release
 Try Catch OAR load from web and other Web checks to remove dependency on Outworldz and Hyperica.
 More checks on WindowsTitle as Windows is not always setting them.
 
