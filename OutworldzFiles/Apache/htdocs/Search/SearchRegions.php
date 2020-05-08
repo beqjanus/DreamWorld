@@ -114,10 +114,18 @@
 
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     { 
-        $v3    = "hop://" . $row["gateway"] . '/'. $row["regionname"];     
-      
+        $gateway = str_replace (':', '|', $row["gateway"] );
+        $regionname = str_replace(' ','+',$row["regionname"]);
         
-        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a><br>";
+       # $hop    = "hop://" . $row["gateway"] .  '/' .$row["Regioname"] ;
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname ;
+        #$hg     = "secondlife://" . $row["gateway"]  .   '/' .$row["Regioname"];
+        
+        
+        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        $link = "<a href=\"$v3\"><img src=\"v3hg.png\" height=\"24\"></a>";
+        #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
+        
         
         $row = array("hop"=>$link,
                      "Grid"=>$row["gateway"],

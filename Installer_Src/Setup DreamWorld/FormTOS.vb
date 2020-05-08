@@ -69,10 +69,9 @@ Public Class TosForm
             Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -83,9 +82,9 @@ Public Class TosForm
             Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/termsofservice.html"
             Try
                 Process.Start(webAddress)
-            Catch ex As ObjectDisposedException
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
         Else
             MsgBox(My.Resources.Not_Running)
@@ -144,10 +143,10 @@ Public Class TosForm
             Using outputFile As New StreamWriter(Form1.PropMyFolder + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         Me.Close()

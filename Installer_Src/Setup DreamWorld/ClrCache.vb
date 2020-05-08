@@ -69,11 +69,9 @@ Public Class ClrCache
         Dim files() = Nothing
         Try
             files = IO.Directory.GetFiles(Flotsam)
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
 
         ctr = 0
@@ -97,11 +95,9 @@ Public Class ClrCache
         If Directory.Exists(Form1.PropOpensimBinPath & "bin\bakes\") Then
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         End If
 
@@ -126,11 +122,9 @@ Public Class ClrCache
         If Directory.Exists(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\") Then
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         End If
 
@@ -155,11 +149,9 @@ Public Class ClrCache
         If Directory.Exists(Form1.PropOpensimBinPath & "bin\MeshCache\") Then
             Try
                 files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
             End Try
         End If
 

@@ -103,11 +103,9 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-            Catch ex As ArgumentException
-            Catch ex As IO.PathTooLongException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As IO.IOException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
 
             PrintStatus("Backing up Regions Folder")
@@ -119,11 +117,9 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-            Catch ex As ArgumentException
-            Catch ex As IO.PathTooLongException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As IO.IOException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             PrintStatus("Backing up MySql\Data Folder")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
@@ -134,11 +130,9 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
-            Catch ex As ArgumentException
-            Catch ex As IO.PathTooLongException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As IO.IOException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
 
             Dim folder As String = "./fsassets"
@@ -158,11 +152,9 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-            Catch ex As ArgumentException
-            Catch ex As IO.PathTooLongException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As IO.IOException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             PrintStatus("Backing up Wifi Folders")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
@@ -179,7 +171,7 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
 
         DialogResult = DialogResult.OK
         Me.Close()
@@ -219,6 +211,7 @@ Public Class FormBackupCheckboxes
 
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
+        Application.DoEvents()
 
     End Sub
 

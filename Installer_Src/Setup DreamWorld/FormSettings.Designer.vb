@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class AdvancedForm
     Inherits System.Windows.Forms.Form
 
@@ -291,7 +291,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(340, 345)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.GlobalSettings_word()
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.GlobalSettings_word
         '
         'LoggingButton
         '

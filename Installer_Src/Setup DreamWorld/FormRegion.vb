@@ -112,7 +112,9 @@ Public Class FormRegion
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-        Catch ex As ArgumentNullException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         Return value
@@ -136,11 +138,9 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
-        Catch ex As ArgumentOutOfRangeException
-            chosen = ""
-        Catch ex As InvalidOperationException
-            chosen = ""
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             chosen = ""
         End Try
 
@@ -469,7 +469,7 @@ Public Class FormRegion
             Initted1 = True
             Form1.HelpOnce("Region")
 #Disable Warning CA1031
-        Catch ex As Exception
+        Catch
 #Enable Warning CA1031
         End Try
 
@@ -575,14 +575,9 @@ Public Class FormRegion
             FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
-            Catch ex As ArgumentNullException
-            Catch ex As ArgumentException
-            Catch ex As FileNotFoundException
-            Catch ex As PathTooLongException
-            Catch ex As IOException
-            Catch ex As NotSupportedException
-            Catch ex As Security.SecurityException
-            Catch ex As UnauthorizedAccessException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
         End If
 
@@ -853,10 +848,9 @@ Public Class FormRegion
                 Message = My.Resources.NVNonPhysPrim
                 Return Message
             End If
-        Catch ex As InvalidCastException
-            Message = My.Resources.NVNonPhysPrim
-            Return Message
-        Catch ex As OverflowException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Message = My.Resources.NVNonPhysPrim
             Return Message
         End Try
@@ -866,10 +860,9 @@ Public Class FormRegion
                 Message = My.Resources.NVPhysPrim
                 Return Message
             End If
-        Catch ex As InvalidCastException
-            Message = My.Resources.NVPhysPrim
-            Return Message
-        Catch ex As OverflowException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Message = My.Resources.NVPhysPrim
             Return Message
         End Try
@@ -879,10 +872,9 @@ Public Class FormRegion
                 Message = My.Resources.NVMaxPrim
                 Return Message
             End If
-        Catch ex As InvalidCastException
-            Message = My.Resources.NVMaxPrim
-            Return Message
-        Catch ex As OverflowException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Message = My.Resources.NVMaxPrim
             Return Message
         End Try
@@ -891,10 +883,9 @@ Public Class FormRegion
                 Message = My.Resources.NVMaxAgaents
                 Return Message
             End If
-        Catch ex As InvalidCastException
-            Message = My.Resources.NVMaxAgaents
-            Return Message
-        Catch ex As OverflowException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             Message = My.Resources.NVMaxAgaents
             Return Message
         End Try
@@ -1009,28 +1000,9 @@ Public Class FormRegion
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
-            Catch ex As ArgumentNullException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As ArgumentException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As FileNotFoundException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As PathTooLongException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As IOException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As NotSupportedException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As Security.SecurityException
-                Form1.Print(My.Resources.Aborted_word)
-                Return
-            Catch ex As UnauthorizedAccessException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
                 Form1.Print(My.Resources.Aborted_word)
                 Return
             End Try
@@ -1054,19 +1026,9 @@ Public Class FormRegion
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
                     Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
-                Catch ex As ArgumentException
-                    Form1.Print(My.Resources.Aborted_word)
-                    Return
-                Catch ex As IO.PathTooLongException
-                    Form1.Print(My.Resources.Aborted_word)
-                    Return
-                Catch ex As NotSupportedException
-                    Form1.Print(My.Resources.Aborted_word)
-                    Return
-                Catch ex As UnauthorizedAccessException
-                    Form1.Print(My.Resources.Aborted_word)
-                    Return
-                Catch ex As IO.IOException
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
                     Form1.Print(My.Resources.Aborted_word)
                     Return
                 End Try
@@ -1252,19 +1214,9 @@ Public Class FormRegion
             Using outputFile As New StreamWriter(Filepath, False)
                 outputFile.Write(Region)
             End Using
-        Catch ex As UnauthorizedAccessException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As ArgumentNullException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As ArgumentException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As DirectoryNotFoundException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As PathTooLongException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As IOException
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
-        Catch ex As Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 

@@ -12,14 +12,9 @@ Module FileStuff
 
         Try
             My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
     End Sub
@@ -32,11 +27,9 @@ Module FileStuff
         If Not System.IO.Directory.Exists(destinationPath) Then
             Try
                 System.IO.Directory.CreateDirectory(destinationPath)
-            Catch ex As ArgumentException
-            Catch ex As IO.PathTooLongException
-            Catch ex As NotSupportedException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As IO.IOException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
         End If
 
@@ -59,26 +52,18 @@ Module FileStuff
 
                 Try
                         CopyFile(fileSystemInfo.FullName, destinationFileName, True)
-                    Catch ex As FileNotFoundException
-                    Catch ex As PathTooLongException
-                    Catch ex As IOException
-                    Catch ex As UnauthorizedAccessException
-                    Catch ex As ArgumentNullException
-                    Catch ex As ArgumentException
-                    Catch ex As InvalidOperationException
-                    Catch ex As NotSupportedException
-                    Catch ex As System.Security.SecurityException
-                    End Try
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
+                End Try
                 Else
                     ' Recursively call the method to copy all the nested folders
                     If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
-                    Catch ex As ArgumentException
-                    Catch ex As IO.PathTooLongException
-                    Catch ex As NotSupportedException
-                    Catch ex As UnauthorizedAccessException
-                    Catch ex As IO.IOException
+#Disable Warning CA1031
+                    Catch ex As Exception
+#Enable Warning CA1031
                     End Try
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
@@ -91,14 +76,9 @@ Module FileStuff
     Sub DeleteDirectory(folder As String, param As FileIO.DeleteDirectoryOption)
         Try
             My.Computer.FileSystem.DeleteDirectory(folder, param)
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -106,14 +86,9 @@ Module FileStuff
 
         Try
             My.Computer.FileSystem.DeleteFile(file)
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As FileNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As NotSupportedException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
     End Sub

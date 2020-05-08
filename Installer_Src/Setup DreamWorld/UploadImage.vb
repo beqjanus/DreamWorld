@@ -61,9 +61,10 @@ Public Class UploadImage
 
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
 
@@ -82,16 +83,10 @@ Public Class UploadImage
         Dim reqStream As Stream
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
-        Catch ex As IOException
-            UploadError(ex.Message)
-            Return
-        Catch ex As UnauthorizedAccessException
-            UploadError(ex.Message)
-            Return
-        Catch ex As ArgumentException
-            UploadError(ex.Message)
-            Return
-        Catch ex As InvalidOperationException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
+
             UploadError(ex.Message)
             Return
         End Try
@@ -149,10 +144,9 @@ Public Class UploadImage
             Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
             sw.Flush() : sw.Close()
-        Catch ex As IOException
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentException
-        Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         r_State.Request.BeginGetResponse(AddressOf ResponseAvailable, r_State)

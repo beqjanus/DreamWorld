@@ -1,4 +1,4 @@
-;; ROBUST VERSION
+﻿;; ROBUST VERSION
 ;; This is the main configuration file for OpenSimulator.
 ;; If it's named OpenSim.ini then it will be loaded by OpenSimulator.
 ;; If it's named OpenSim.ini.example then you will need to copy it to
@@ -44,7 +44,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=7001
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -59,15 +59,15 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=8002
+PublicPort=9000
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
-PrivatePort=8003
+PrivatePort=9001
 
 ; The URL of the Robust server, if PublicPort and PrivatePort must be
 ; accessed via different hostnames as in the case of a NAT gateway
-PrivURL=10.6.1.103
+PrivURL=http://192.168.2.133
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -264,7 +264,7 @@ meshing=Meshmerizer
 physics=BulletSim
 
 ; Used by DreamGrid - do not change this
-UseSeparatePhysicsThread=true
+UseSeparatePhysicsThread=True
 
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
 ;; Default script engine to use. Currently, we only have XEngine
@@ -318,6 +318,8 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
 economymodule=BetaGridLikeMoneyModule
+DefaultScriptEngine=XEngine
+FrameTime=0.0909090909090909
 
 [RegionReady]
 
@@ -367,7 +369,7 @@ alert_uri=http://localhost:${Const|DiagnosticsPort}
 ;; If false then the texture referenced by MaptileStaticUUID is used instead, which can also be overridden
 ;; in individual region config file(s).  If you do not want to upload map tiles at all, then you will need
 ;; both to set this to false and comment out the [Modules] MapImageServiceModule setting in config-include/
-GenerateMaptiles=true
+GenerateMaptiles=True
 
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
@@ -386,23 +388,25 @@ MapImageModule=MapImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=false
+TextureOnMapTile=False
 
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=false
+DrawPrimOnMapTile=False
 
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=false
+TexturePrims=False
 
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
 ;; Only texture prims that have a diagonal size greater than this number
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=false
+RenderMeshes=False
+RenderMaxHeight=4096
+RenderMinHeight=0
 
 [PrimLimitsModule]
 
@@ -552,7 +556,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=10.6.1.103/32
+OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -613,6 +617,7 @@ shard="OpenSim"
 ;; service
 ; XmlRpcHubURI = http://example.com
 [ClientStack.LindenUDP]
+SupportViewerObjectsCache=True
 
 ;; See OpensSimDefaults.ini for the throttle options. You can copy the
 ;; relevant sections and override them here.
@@ -964,6 +969,8 @@ DeleteScriptsOnStartup=False
 ;# {KillTimedOutScripts} {} {Kill script in case of event time overruns?} {true false} false
 ;; If a script overruns it's event limit, kill the script?
 KillTimedOutScripts=true
+Enabled=True
+MinTimerInterval=0.2
 
 ;# {ScriptDelayFactor} {} {Multiplier for scripting delays} {} 1.0
 ;; Sets the multiplier for the scripting delays
@@ -1018,7 +1025,7 @@ Include-osslEnable="config-include/osslEnableDG.ini"
 ;
 ; For this to work you need to obtain an admin account from Vivox
 ; that allows you to create voice accounts and region channels.
-enabled=false
+enabled=False
 
 ; vivox voice server
 vivox_server=www.osp.vivox.com
@@ -1314,7 +1321,7 @@ enabled=False
 
 ; Enable this to generate classic particle clouds above the sim.
 ; default is disabled - turn it on here
-enabled=false
+enabled=False
 
 ; Density of cloud cover 0.0 to 1.0 Default 0.5
 density=0.5
@@ -1328,3 +1335,7 @@ cloud_update_rate=1000
 ;;LandServices module is required for ossearch to function properly in grid mode.
 LandServices="RemoteLandServicesConnector"
 LandServiceConnector="True"
+
+[YEngine]
+Enabled=False
+MinTimerInterval=0.2

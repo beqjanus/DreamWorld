@@ -81,9 +81,9 @@ Public Class FormVoice
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Try
             Process.Start(webAddress)
-        Catch ex As ObjectDisposedException
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
     End Sub
 

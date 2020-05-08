@@ -65,6 +65,8 @@ Public Class FormApache
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
+
+
         Form1.Settings.SaveSettings()
         Form1.PropViewedSettings = True
 
@@ -152,8 +154,9 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -161,8 +164,9 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
             'Application.doevents()
             ApacheProcess.WaitForExit()
@@ -182,8 +186,9 @@ Public Class FormApache
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
-        Catch ex As InvalidOperationException
-        Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
         End Try
 
         InstallProcess.WaitForExit()
@@ -191,6 +196,20 @@ Public Class FormApache
         InstallProcess.Dispose()
 
     End Sub
+
+    Private Sub EnableSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Form1.Settings.SearchEnabled = EnableSearchCheckBox.Checked
+
+    End Sub
+
+    Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
+        If Not initted Then Return
+        Form1.Settings.EventTimerEnabled = EventsCheckBox.Checked
+    End Sub
+
+
 
 #End Region
 

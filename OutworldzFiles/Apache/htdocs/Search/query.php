@@ -511,7 +511,7 @@ function dir_events_query($method_name, $params, $app_data)
     {
         $date = strftime("%m/%d %I:%M %p", $row["dateUTC"]);
 
-//      flog($date);
+        flog($date);
         //The landing point is only needed when this event query is
         //called to allow placement of event markers on the world map.
         $data[] = array(
@@ -785,7 +785,7 @@ function classifieds_info_query($method_name, $params, $app_data)
 
 $request_xml = file_get_contents("php://input");
 
-#flog('Request' . $request_xml);
+flog('Request' . $request_xml);
 if ($request_xml == "") { 
   echo "<meta http-equiv=\"refresh\" content=\"0;URL='/Search/index.php'\" />";
 }

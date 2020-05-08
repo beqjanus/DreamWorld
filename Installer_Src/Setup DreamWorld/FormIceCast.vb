@@ -89,9 +89,9 @@ Public Class Icecast
             Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
             Try
                 Process.Start(webAddress)
-            Catch ex As ObjectDisposedException
-            Catch ex As InvalidOperationException
-            Catch ex As System.ComponentModel.Win32Exception
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
         ElseIf Form1.Settings.SCEnable = False Then
             Form1.Print(My.Resources.IceCast_disabled)

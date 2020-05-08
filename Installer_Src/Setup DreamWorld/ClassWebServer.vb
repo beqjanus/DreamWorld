@@ -69,11 +69,9 @@ Public Class NetServer
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As ArgumentException
-            Log(My.Resources.Error_word, ex.Message)
-        Catch ex As ThreadStartException
-            Log(My.Resources.Error_word, ex.Message)
-        Catch ex As InvalidOperationException
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
@@ -135,9 +133,9 @@ Public Class NetServer
                 End Using
 
             End Using
-#Disable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
         Catch
-#Enable Warning CA1031 ' Do not catch general exception types
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -177,8 +175,9 @@ Public Class NetServer
             Dim UserStmt = "SELECT regionName from REGIONS"
             Try
                 NewSQLConn.Open()
-            Catch ex As InvalidOperationException
-            Catch ex As MySqlException
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
                 Return HTML
             End Try
 
@@ -214,14 +213,9 @@ Public Class NetServer
             Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
             End Using
-        Catch ex As UnauthorizedAccessException
-        Catch ex As ArgumentNullException
-        Catch ex As ArgumentException
-        Catch ex As DirectoryNotFoundException
-        Catch ex As PathTooLongException
-        Catch ex As IOException
-        Catch ex As System.Security.SecurityException
-        Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
         End Try
     End Sub
 
@@ -235,10 +229,9 @@ Public Class NetServer
 
             Try
                 listener.Start() ' Throws Exception
-            Catch ex As HttpListenerException
-                Log(My.Resources.Error_word, ex.Message)
-                Return
-            Catch ex As ObjectDisposedException
+#Disable Warning CA1031
+            Catch ex As exception
+#Enable Warning CA1031
                 Log(My.Resources.Error_word, ex.Message)
                 Return
             End Try

@@ -58,10 +58,9 @@ Public Class ScreenPos
                 Using outputFile As New StreamWriter(myINI, True)
                     outputFile.WriteLine(contents)
                 End Using
-            Catch ex As IOException
-            Catch ex As UnauthorizedAccessException
-            Catch ex As ArgumentException
-            Catch ex As System.Security.SecurityException
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
             End Try
 
             LoadXYIni()
@@ -147,7 +146,7 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
-        Catch ex As Exception
+        Catch ex As exception
             Form1.Logger("Resize", ex.Message, "Error")
         End Try
         Return New List(Of Integer) From {100, 100}
@@ -159,9 +158,9 @@ Public Class ScreenPos
 
         Try
             Data = parser.ReadFile(myINI, System.Text.Encoding.UTF8)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
 
@@ -186,9 +185,9 @@ Public Class ScreenPos
         If Data Is Nothing Then Return
         Try
             parser.WriteFile(myINI, Data, System.Text.Encoding.UTF8)
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -225,9 +224,9 @@ Public Class ScreenPos
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it
-#Disable Warning CA1031 ' Do not catch general exception types
-        Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+#Disable Warning CA1031
+        Catch ex As exception
+#Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
 

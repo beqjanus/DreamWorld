@@ -116,7 +116,7 @@ MapAddServiceConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:MapAddS
 MapGetServiceConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:MapGetServiceConnector"
 
 ;; Uncomment this if you want offline IM to work
-OfflineIMServiceConnector="${Const|PrivatePort}/OpenSim.Addons.OfflineIM.dll:OfflineIMServiceRobustConnector"
+OfflineIMServiceConnector="${Const|PublicPort}/OpenSim.Addons.OfflineIM.dll:OfflineIMServiceRobustConnector"
 
 ;; Uncomment this if you want Groups V2 to work
 GroupsServiceConnector="${Const|PrivatePort}/OpenSim.Addons.Groups.dll:GroupsServiceRobustConnector"
@@ -136,7 +136,7 @@ GatekeeperServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:Ga
 UserAgentServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserAgentServerConnector"
 HeloServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HeloServiceInConnector"
 HGFriendsServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HGFriendsServerConnector"
-InstantMessageServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
+InstantMessageServerConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
 HGInventoryServiceConnector="HGInventoryService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:XInventoryInConnector"
 HGAssetServiceConnector="HGAssetService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:AssetServiceConnector"
 
@@ -629,13 +629,14 @@ economy=${Const|BaseURL}:${Const|PublicPort}
 ;about = ${Const|BaseURL}/about
 ; account creation: optional: page providing further information about obtaining
 ;                             a user account on your grid
-register=${Const|BaseURL}:${Const|PublicPort}
+register=${Const|BaseURL}:${Const|PublicPort}/wifi/user/account/
 
 ; help: optional: page providing further assistance for users of your grid
 help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
 
 ; password help: optional: page providing password assistance for users of your grid
-;password = ${Const|BaseURL}/password
+password = ${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword
+
 ; HG address of the gatekeeper, if you have one
 ; this is the entry point for all the regions of the world
 ; gatekeeper = ${Const|BaseURL}:${Const|PublicPort}/

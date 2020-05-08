@@ -101,11 +101,10 @@ Public Class FormPublicity
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-        Catch ex As OutOfMemoryException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As IO.FileNotFoundException
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
-        Catch ex As ArgumentException
+#Disable Warning CA1031
+        Catch
+#Enable Warning CA1031
+
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
         Dim tmp = Form1.Settings.Description
@@ -165,9 +164,10 @@ Public Class FormPublicity
                 PictureBox9.Image = Nothing
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
-                Catch ex As IO.FileNotFoundException
-                Catch ex As ArgumentNullException
-                Catch ex As OutOfMemoryException
+#Disable Warning CA1031
+                Catch
+#Enable Warning CA1031
+
                 End Try
 
                 FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
@@ -175,10 +175,10 @@ Public Class FormPublicity
                 Using newBitmap = New Bitmap(PictureBox9.Image)
                     Try
                         newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
-                    Catch ex As ArgumentNullException
-                        MsgBox(ex.Message)
-                        Return
-                    Catch ex As Runtime.InteropServices.ExternalException
+#Disable Warning CA1031
+                    Catch ex As exception
+#Enable Warning CA1031
+
                         MsgBox(ex.Message)
                         Return
                     End Try
