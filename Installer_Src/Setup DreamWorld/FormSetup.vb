@@ -2720,6 +2720,7 @@ Public Class Form1
 
 
         If SetIniData() Then
+            MsgBox("Failed to setup")
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
             Return
@@ -3669,7 +3670,7 @@ Public Class Form1
     Public Function DoOpensimINI() As Boolean
 
         ' Opensim.ini
-        If Settings.LoadIni(GetOpensimProto(), ";") Then Return True
+        Settings.LoadIni(GetOpensimProto(), ";")
         'Print("->Set Opensim.Proto")
         Select Case Settings.ServerType
             Case "Robust"
