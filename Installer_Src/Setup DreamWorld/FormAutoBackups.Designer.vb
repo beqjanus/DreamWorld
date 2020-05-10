@@ -59,20 +59,20 @@ Partial Class FormAutoBackups
         Me.GroupBox3.Controls.Add(Me.AutoBackupInterval)
         Me.GroupBox3.Controls.Add(Me.AutoBackup)
         Me.GroupBox3.Location = New System.Drawing.Point(20, 56)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Size = New System.Drawing.Size(380, 276)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Auto_Backup_word
+        Me.GroupBox3.Text = "Auto Backup"
         '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(302, 165)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(46, 34)
         Me.PictureBox1.TabIndex = 1858
@@ -83,7 +83,7 @@ Partial Class FormAutoBackups
         '
         Me.AutoBackupHelp.Image = Global.Outworldz.My.Resources.Resources.about
         Me.AutoBackupHelp.Location = New System.Drawing.Point(307, 76)
-        Me.AutoBackupHelp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AutoBackupHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.AutoBackupHelp.Name = "AutoBackupHelp"
         Me.AutoBackupHelp.Size = New System.Drawing.Size(41, 31)
         Me.AutoBackupHelp.TabIndex = 1857
@@ -97,12 +97,12 @@ Partial Class FormAutoBackups
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(112, 20)
         Me.Label6.TabIndex = 16
-        Me.Label6.Text = Global.Outworldz.My.Resources.Resources.Backup_Folder
+        Me.Label6.Text = "Backup Folder"
         '
         'BaseFolder
         '
         Me.BaseFolder.Location = New System.Drawing.Point(14, 200)
-        Me.BaseFolder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BaseFolder.Margin = New System.Windows.Forms.Padding(4)
         Me.BaseFolder.Name = "BaseFolder"
         Me.BaseFolder.Size = New System.Drawing.Size(334, 26)
         Me.BaseFolder.TabIndex = 4
@@ -116,12 +116,12 @@ Partial Class FormAutoBackups
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(106, 20)
         Me.Label9.TabIndex = 14
-        Me.Label9.Text = Global.Outworldz.My.Resources.Resources.Keep_for_Days
+        Me.Label9.Text = "Keep for days"
         '
         'AutoBackupKeepFilesForDays
         '
         Me.AutoBackupKeepFilesForDays.Location = New System.Drawing.Point(230, 129)
-        Me.AutoBackupKeepFilesForDays.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AutoBackupKeepFilesForDays.Margin = New System.Windows.Forms.Padding(4)
         Me.AutoBackupKeepFilesForDays.Name = "AutoBackupKeepFilesForDays"
         Me.AutoBackupKeepFilesForDays.Size = New System.Drawing.Size(68, 26)
         Me.AutoBackupKeepFilesForDays.TabIndex = 3
@@ -135,15 +135,15 @@ Partial Class FormAutoBackups
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(61, 20)
         Me.Label8.TabIndex = 12
-        Me.Label8.Text = Global.Outworldz.My.Resources.Resources.Interval
+        Me.Label8.Text = "Interval"
         '
         'AutoBackupInterval
         '
         Me.AutoBackupInterval.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.AutoBackupInterval.FormattingEnabled = True
-        Me.AutoBackupInterval.Items.AddRange(New Object() {"Hourly", "12 Hour", "Daily", "2 days", " 3 days", "4 days", "5 days", "6 days", "Weekly"})
+        Me.AutoBackupInterval.Items.AddRange(New Object() {"Hourly", "12 Hour", "Daily", "2 days", "3 days", "4 days", "5 days", "6 days", "Weekly"})
         Me.AutoBackupInterval.Location = New System.Drawing.Point(120, 82)
-        Me.AutoBackupInterval.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AutoBackupInterval.Margin = New System.Windows.Forms.Padding(4)
         Me.AutoBackupInterval.Name = "AutoBackupInterval"
         Me.AutoBackupInterval.Size = New System.Drawing.Size(180, 28)
         Me.AutoBackupInterval.TabIndex = 2
@@ -153,7 +153,7 @@ Partial Class FormAutoBackups
         '
         Me.AutoBackup.AutoSize = True
         Me.AutoBackup.Location = New System.Drawing.Point(33, 36)
-        Me.AutoBackup.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AutoBackup.Margin = New System.Windows.Forms.Padding(4)
         Me.AutoBackup.Name = "AutoBackup"
         Me.AutoBackup.Size = New System.Drawing.Size(94, 24)
         Me.AutoBackup.TabIndex = 1
@@ -168,7 +168,7 @@ Partial Class FormAutoBackups
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.BackupToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(417, 35)
+        Me.MenuStrip2.Size = New System.Drawing.Size(417, 33)
         Me.MenuStrip2.TabIndex = 18601
         Me.MenuStrip2.Text = "0"
         '
@@ -217,7 +217,7 @@ Partial Class FormAutoBackups
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox3)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormAutoBackups"
         Me.Text = "Auto Backup"
