@@ -300,6 +300,8 @@ AllowRemoteDelete=false
 ; If set to true, AllowRemoteDelete = true is required as well.
 ; Default is false.
 AllowRemoteDeleteAllTypes=false
+; allow map tiles in db to be deleted.
+AllowRemoteDelete  = true
 
 ; * This configuration loads the inventory server modules. It duplicates
 ; * the function of the legacy inventory server
