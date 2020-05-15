@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.47";
+my $v = "3.48";
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -222,7 +222,6 @@ my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zi
 sleep(1);
 
 
-
 if ($publish)
 {
 copy:
@@ -240,13 +239,13 @@ copy:
 	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
-}
 
-foreach my $lang (@languages)
-{
-	JustDelete ($lang);
-}
+	foreach my $lang (@languages)
+	{
+		JustDelete ($lang);
+	}
 
+}
 
 
 say "Done!";

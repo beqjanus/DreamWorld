@@ -292,7 +292,7 @@ AssetLoaderArgs=./assets/AssetSets.xml
 ; There is no harm in having this as false - it just means that historical maptile assets are not deleted.
 ; This only applies to maptiles served via the version 1 viewer mechanisms
 ; Default is false
-AllowRemoteDelete=false
+AllowRemoteDelete=true
 
 ; Allow all assets to be remotely deleted.
 ; Only set this to true if you are operating a grid where you control all calls to the asset service
@@ -300,6 +300,7 @@ AllowRemoteDelete=false
 ; If set to true, AllowRemoteDelete = true is required as well.
 ; Default is false.
 AllowRemoteDeleteAllTypes=false
+
 
 ; * This configuration loads the inventory server modules. It duplicates
 ; * the function of the legacy inventory server
