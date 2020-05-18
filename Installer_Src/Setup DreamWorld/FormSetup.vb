@@ -2945,6 +2945,19 @@ Public Class Form1
 
             If PropOpensimIsRunning() Then
 
+                'Stopped = 0
+                'Booting = 1
+                'Booted = 2
+                'RecyclingUp = 3
+                'RecyclingDown = 4
+                'ShuttingDown = 5
+                'RestartPending = 6
+                'RetartingNow = 7
+                '[Resume] = 8
+                'Suspended = 9
+                '[Error] = 10
+                'RestartStage2 = 11
+
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
 
                     'Stopped = 0
@@ -3101,6 +3114,20 @@ Public Class Form1
 
             Dim Status = PropRegionClass.Status(RegionUUID)
             Logger(GetStateString(Status), GroupName, "Restart")
+
+            'Stopped = 0
+            'Booting = 1
+            'Booted = 2
+            'RecyclingUp = 3
+            'RecyclingDown = 4
+            'ShuttingDown = 5
+            'RestartPending = 6
+            'RetartingNow = 7
+            '[Resume] = 8
+            'Suspended = 9
+            '[Error] = 10
+            'RestartStage2 = 11
+
             If Status = RegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
                 'RecyclingDown = 4
                 Logger("State is RecyclingDown", GroupName, "Restart")
@@ -3125,6 +3152,11 @@ Public Class Form1
                     ' shut down all regions in the DOS box
                     Print(GroupName & " " & My.Resources.Quit_unexpectedly)
                     StopGroup(GroupName)
+                    Print(GroupName & " " & My.Resources.Restart_Queued_word)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
+                        PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
+                    Next
                 Else
                     Print(GroupName & " " & My.Resources.Quit_unexpectedly)
                     Dim yesno = MsgBox(GroupName & " " & My.Resources.Quit_unexpectedly & " " & My.Resources.See_Log, vbYesNo, My.Resources.Error_word)

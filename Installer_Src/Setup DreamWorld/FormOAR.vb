@@ -21,7 +21,6 @@ Public Class FormOAR
 
 #End Region
 
-
 #Region "Properties"
 
         Public Property [Date] As String
@@ -90,7 +89,6 @@ Public Class FormOAR
     End Class
 
 #End Region
-
 
 #Region "Private Fields"
 
