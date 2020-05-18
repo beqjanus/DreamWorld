@@ -48,20 +48,21 @@ Partial Class FormVoice
         Me.GroupBox1.Controls.Add(Me.VivoxEnable)
         Me.GroupBox1.Controls.Add(Me.VivoxPassword)
         Me.GroupBox1.Controls.Add(Me.VivoxUserName)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 63)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 42)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(475, 202)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(486, 202)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Setup_Voice_Service
+        Me.GroupBox1.Text = "Setup Voice Service"
         '
         'RunOnBoot
         '
         Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
         Me.RunOnBoot.Location = New System.Drawing.Point(408, 19)
-        Me.RunOnBoot.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RunOnBoot.Margin = New System.Windows.Forms.Padding(4)
         Me.RunOnBoot.Name = "RunOnBoot"
         Me.RunOnBoot.Size = New System.Drawing.Size(45, 42)
         Me.RunOnBoot.TabIndex = 1861
@@ -70,7 +71,7 @@ Partial Class FormVoice
         'RequestPassword
         '
         Me.RequestPassword.Location = New System.Drawing.Point(9, 27)
-        Me.RequestPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RequestPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.RequestPassword.Name = "RequestPassword"
         Me.RequestPassword.Size = New System.Drawing.Size(371, 34)
         Me.RequestPassword.TabIndex = 0
@@ -85,7 +86,7 @@ Partial Class FormVoice
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 20)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = My.Resources.Password_word
+        Me.Label2.Text = "Password"
         '
         'Label1
         '
@@ -95,13 +96,13 @@ Partial Class FormVoice
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 20)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = My.Resources.User_ID_word
+        Me.Label1.Text = "User ID"
         '
         'VivoxEnable
         '
         Me.VivoxEnable.AutoSize = True
         Me.VivoxEnable.Location = New System.Drawing.Point(14, 76)
-        Me.VivoxEnable.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.VivoxEnable.Margin = New System.Windows.Forms.Padding(4)
         Me.VivoxEnable.Name = "VivoxEnable"
         Me.VivoxEnable.Size = New System.Drawing.Size(85, 24)
         Me.VivoxEnable.TabIndex = 1
@@ -111,7 +112,7 @@ Partial Class FormVoice
         'VivoxPassword
         '
         Me.VivoxPassword.Location = New System.Drawing.Point(164, 152)
-        Me.VivoxPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.VivoxPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.VivoxPassword.Name = "VivoxPassword"
         Me.VivoxPassword.Size = New System.Drawing.Size(277, 26)
         Me.VivoxPassword.TabIndex = 3
@@ -120,7 +121,7 @@ Partial Class FormVoice
         'VivoxUserName
         '
         Me.VivoxUserName.Location = New System.Drawing.Point(164, 117)
-        Me.VivoxUserName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.VivoxUserName.Margin = New System.Windows.Forms.Padding(4)
         Me.VivoxUserName.Name = "VivoxUserName"
         Me.VivoxUserName.Size = New System.Drawing.Size(277, 26)
         Me.VivoxUserName.TabIndex = 2
@@ -132,7 +133,7 @@ Partial Class FormVoice
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(545, 35)
+        Me.MenuStrip2.Size = New System.Drawing.Size(486, 33)
         Me.MenuStrip2.TabIndex = 1888
         Me.MenuStrip2.Text = "0"
         '
@@ -155,14 +156,14 @@ Partial Class FormVoice
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(545, 286)
+        Me.ClientSize = New System.Drawing.Size(486, 244)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormVoice"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
+        Me.Text = "Vivox Voice"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

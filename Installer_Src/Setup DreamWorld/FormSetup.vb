@@ -156,14 +156,6 @@ Public Class Form1
         Else
             Me.Width = hw.Item(1)
 
-            If Me.Width > 375 Then
-                PictureBox1.Image = My.Resources.Arrow2Left
-                PictureBox1.AccessibleName = "Close".ToUpperInvariant
-            Else
-                PictureBox1.Image = My.Resources.Arrow2Right
-                PictureBox1.AccessibleName = "Open".ToUpperInvariant
-            End If
-
         End If
 
         ScreenPosition1.SaveHW(Me.Height, Me.Width)
@@ -1428,13 +1420,7 @@ Public Class Form1
                 End If
             Next
 
-            'Dim h As IntPtr
-            'Try
-            'h = RobustProcess.MainWindowHandle
-#Disable Warning CA1031
-            ' Catch
-#Enable Warning CA1031
-            'End Try
+
             Dim h As IntPtr = IntPtr.Zero
             Return h
 
@@ -2196,7 +2182,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs) Handles ApachePictureBox.Click
+    Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs)
 
         If Not CheckApache() Then
             StartApache()
@@ -2540,7 +2526,7 @@ Public Class Form1
             ok = myProcess.Start
             Application.DoEvents()
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             ErrorLog(ex.Message)
@@ -2886,29 +2872,24 @@ Public Class Form1
 
         If PropRestartRobust And PropRobustExited = True Then
             PropRobustExited = False
-            RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_exited)
-
+            RobustIs(False)
             If Not CheckRobust() Then
                 StartRobust()
             End If
         End If
 
         If PropMysqlExited Then
-            MysqlPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.MySql_Exited)
+            MySqlIs(False)
             StartMySQL()
         End If
 
         If PropApacheExited Then
-            ApachePictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Exited)
+            MySqlIs(False)
             StartApache()
         End If
 
         If PropIceCastExited Then
-            IceCastPicturebox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Exited)
+            IceCastIs(False)
             StartIcecast()
         End If
 
@@ -3507,7 +3488,7 @@ Public Class Form1
                 outputFile.Write(Output)
             End Using
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             ErrorLog(ex.Message)
@@ -4528,7 +4509,7 @@ Public Class Form1
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
 
                 If ex.Message.Contains("200 OK") Then Return True
@@ -4560,7 +4541,7 @@ Public Class Form1
                     ApacheProcess.Start()
                     ApacheProcess.WaitForExit()
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
@@ -4572,8 +4553,8 @@ Public Class Form1
             Zap("rotatelogs")
         End If
 
-        ApachePictureBox.Image = My.Resources.nav_plain_red
-        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Stopped_word)
+        ApacheIs(False)
+
 
     End Sub
     Public Function StartApache() As Boolean
@@ -4594,15 +4575,12 @@ Public Class Form1
 
 
         If Not Settings.ApacheEnable Then
-            ApachePictureBox.Image = My.Resources.nav_plain_blue
-            ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Disabled_word)
+            ApacheIs(False)
             Print(My.Resources.Apache_Disabled)
             Return True
         End If
 
-        ApachePictureBox.Image = My.Resources.navigate_open
-        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Starting_word)
-        'Application.doevents()
+        ApacheIs(True)
 
         If Settings.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -4636,7 +4614,7 @@ Public Class Form1
 #Enable Warning CA1031
 
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
@@ -4647,7 +4625,7 @@ Public Class Form1
 #Enable Warning CA1031
 
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.FileName = "sc"
@@ -4659,7 +4637,7 @@ Public Class Form1
 #Enable Warning CA1031
 
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
@@ -4670,7 +4648,7 @@ Public Class Form1
 #Enable Warning CA1031
 
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
 
             Sleep(3000)
@@ -4687,12 +4665,12 @@ Public Class Form1
                 Try
                     ApacheProcess.Start()
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     Print(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
-                'Application.doevents()
+                Application.DoEvents()
                 ApacheProcess.WaitForExit()
 
                 If ApacheProcess.ExitCode <> 0 Then
@@ -4708,7 +4686,7 @@ Public Class Form1
                 Try
                     ApacheProcess.Start()
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
@@ -4719,9 +4697,7 @@ Public Class Form1
                 If ApacheProcess.ExitCode <> 0 Then
                     Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
                 Else
-                    ApachePictureBox.Image = My.Resources.nav_plain_green
-                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
-                    'Application.doevents()
+                    ApacheIs(True)
                 End If
             End Using
         Else
@@ -4739,13 +4715,12 @@ Public Class Form1
                     ApacheProcess.Start()
 
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                    ApachePictureBox.Image = My.Resources.nav_plain_red
-                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
-                    'Application.doevents()
+                    ApacheIs(False)
+
                     Return False
                 End Try
 
@@ -4754,8 +4729,7 @@ Public Class Form1
                 ' wait for PID
                 Dim ApachePID = WaitForPID(ApacheProcess)
                 If ApachePID = 0 Then
-                    ApachePictureBox.Image = My.Resources.error_icon
-                    ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_Failed)
+                    ApacheIs(False)
                     Return False
                 End If
 
@@ -4774,8 +4748,7 @@ Public Class Form1
                     Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
                     If isRunning Then
                         Print(My.Resources.Apache_running)
-                        ApachePictureBox.Image = My.Resources.nav_plain_green
-                        ToolTip1.SetToolTip(ApachePictureBox, My.Resources.Apache_running)
+                        ApacheIs(True)
                         PropApacheExited = False
 
                         Return True
@@ -4820,15 +4793,14 @@ Public Class Form1
     Private Sub StopIcecast()
 
         Zap("icecast")
-        IceCastPicturebox.Image = My.Resources.nav_plain_red
-        ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Stopped_word)
+        IceCastIs(False)
+
 
     End Sub
     Public Function StartIcecast() As Boolean
 
         If Not Settings.SCEnable Then
-            IceCastPicturebox.Image = My.Resources.nav_plain_blue
-            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.IceCast_disabled)
+            IceCastIs(True)
             Return True
         End If
 
@@ -4836,13 +4808,10 @@ Public Class Form1
         For Each p In Process.GetProcesses
             If p.MainWindowTitle = "Icecast" Then
                 PropIcecastProcID = p.Id
-                IceCastPicturebox.Image = My.Resources.nav_plain_green
-                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Icecast_Started)
+                IceCastIs(True)
                 Return True
             End If
         Next
-
-        IceCastPicturebox.Image = My.Resources.navigate_open
 
         FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\access.log")
         FileStuff.DeleteFile(PropMyFolder & "\Outworldzfiles\Icecast\log\error.log")
@@ -4867,28 +4836,27 @@ Public Class Form1
         Try
             IcecastProcess.Start()
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
-            IceCastPicturebox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
+            IceCastIs(False)
+
             Return False
         End Try
         'Application.doevents()
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
-            IceCastPicturebox.Image = My.Resources.error_icon
-            ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_failed)
+            IceCastIs(False)
+
             Return False
         End If
 
         SetWindowTextCall(IcecastProcess, "Icecast")
         ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
+        IceCastIs(True)
 
-        IceCastPicturebox.Image = My.Resources.nav_plain_green
-        ToolTip1.SetToolTip(IceCastPicturebox, My.Resources.Icecast_Started)
 
         PropIceCastExited = False
         Return True
@@ -4935,8 +4903,7 @@ Public Class Form1
 
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True
-            MysqlPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Mysql_is_Running)
+            MySqlIs(True)
             PropMysqlExited = False
             Return True
         End If
@@ -4944,9 +4911,7 @@ Public Class Form1
         ' Build data folder if it does not exist
         MakeMysql()
 
-        MysqlPictureBox.Image = My.Resources.navigate_open
-        ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
-        'Application.doevents()
+        MySqlIs(False)
         ' Start MySql in background.
 
         Print(My.Resources.Mysql_Starting)
@@ -5040,8 +5005,7 @@ Public Class Form1
 
         PropMysqlExited = False
         MysqlInterface.IsRunning = True
-        MysqlPictureBox.Image = My.Resources.nav_plain_green
-        ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Mysql_is_Running)
+        MySqlIs(True)
         PropMysqlExited = False
 
         Return True
@@ -5107,17 +5071,15 @@ Public Class Form1
         If Not MysqlInterface.IsMySqlRunning() Then
             'Application.doevents()
             MysqlInterface.IsRunning = False    ' mark all as not running
-            MysqlPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
-            'Application.doevents()
+            MySqlIs(False)
+
             Return
         End If
 
         If Not PropStopMysql Then
             MysqlInterface.IsRunning = True    ' mark all as not running
-            MysqlPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Running)
-            'Application.doevents()
+
+            MySqlIs(True)
             Print(My.Resources.MySQL_Was_Running)
             Return
         End If
@@ -5140,20 +5102,17 @@ Public Class Form1
         Catch
 #Enable Warning CA1031
         End Try
-        'Application.doevents()
+        Application.DoEvents()
         p.WaitForExit()
         p.Close()
-        MysqlPictureBox.Image = My.Resources.nav_plain_red
-        ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Stopped_word)
 
+
+        MySqlIs(False)
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True    ' mark all as not running
-            MysqlPictureBox.Image = My.Resources.nav_plain_green
-            ToolTip1.SetToolTip(MysqlPictureBox, My.Resources.Running)
-            'Application.doevents()
-        End If
+            MySqlIs(True)
 
-        'Application.doevents()
+        End If
 
     End Sub
 
@@ -5208,14 +5167,7 @@ Public Class Form1
             ctr += 1
         End While
 
-        RobustPictureBox.Image = My.Resources.nav_plain_red
-        ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Stopped_word)
-
-        ' trust, but verify
-        If ctr >= 60 Then
-            RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Stopped_word)
-        End If
+        RobustIs(False)
 
     End Sub
     ''' <summary>Check is Robust port 8002 is up</summary>
@@ -5227,7 +5179,7 @@ Public Class Form1
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 If ex.Message.Contains("404") Then Return True
                 Return False
@@ -5253,9 +5205,7 @@ Public Class Form1
             If p.MainWindowTitle = "Robust" Then
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
-                RobustPictureBox.Image = My.Resources.nav_plain_green
-                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-
+                RobustIs(True)
                 Select Case Settings.ConsoleShow
                     Case "True"
                     ' Do nothing, Always Show
@@ -5284,10 +5234,7 @@ Public Class Form1
             Return True
         End If
 
-
-        RobustPictureBox.Image = My.Resources.navigate_open
-
-        ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.is_Off)
+        RobustIs(True)
         If Settings.ServerType <> "Robust" Then
             Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
             Return True
@@ -5320,22 +5267,22 @@ Public Class Form1
             RobustProcess.Start()
             Log(My.Resources.Info, My.Resources.Robust_running)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
             Buttons(StartButton)
-            RobustPictureBox.Image = My.Resources.nav_plain_red
-            ToolTip1.SetToolTip(RobustPictureBox, "Robust " & My.Resources.did_not_start_word & ex.Message)
-            Buttons(StartButton)
+
+            RobustIs(False)
+
             _RobustIsStarting = False
             Return False
         End Try
 
         PropRobustProcID = WaitForPID(RobustProcess)
         If PropRobustProcID = 0 Then
-            RobustPictureBox.Image = My.Resources.error_icon
-            ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
+
+            RobustIs(False)
             Log("Error", My.Resources.Robust_failed_to_start)
             _RobustIsStarting = False
             Return False
@@ -5364,8 +5311,8 @@ Public Class Form1
                     End Try
                 End If
                 Buttons(StartButton)
-                RobustPictureBox.Image = My.Resources.nav_plain_red
-                ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_failed_to_start)
+
+                RobustIs(False)
                 _RobustIsStarting = False
                 Return False
             End If
@@ -5388,13 +5335,8 @@ Public Class Form1
                 ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End Select
 
-
-
-        RobustPictureBox.Image = My.Resources.nav_plain_green
-        ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
-
+        RobustIs(True)
         PropRobustExited = False
-
 
         Return True
 
@@ -5417,7 +5359,8 @@ Public Class Form1
             Return
         End If
         _RobustCrashCounter = 0
-        RobustPictureBox.Image = My.Resources.nav_plain_red
+        RobustIs(False)
+
         Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, My.Resources.Error_word)
         If (yesno = vbYes) Then
             Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
@@ -5618,7 +5561,7 @@ Public Class Form1
             Try
                 result = client.DownloadString(weblink)
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 Logger("ERROR", ex.Message, "Diagnostics")
             End Try
@@ -5752,7 +5695,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub IceCastPicturebox_Click(sender As Object, e As EventArgs) Handles IceCastPicturebox.Click
+    Private Sub IceCastPicturebox_Click(sender As Object, e As EventArgs)
 
         If Not CheckIcecast() Then
             StartIcecast()
@@ -6126,7 +6069,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs) Handles MysqlPictureBox.Click
+    Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs)
 
         If MysqlInterface.IsMySqlRunning() Then
             PropStopMysql = True
@@ -6171,23 +6114,6 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
-        If PictureBox1.AccessibleName = "Open".ToUpperInvariant Then
-            Me.Width = 645
-            Me.Height = 435
-            PictureBox1.Image = My.Resources.Arrow2Left
-            PictureBox1.AccessibleName = "Close".ToUpperInvariant
-        Else
-            PictureBox1.Image = My.Resources.Arrow2Right
-            Me.Width = 385
-            Me.Height = 240
-            PictureBox1.AccessibleName = "Open".ToUpperInvariant
-        End If
-
-        Resize_page(sender, e)
-
-    End Sub
 
     Private Sub RegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegionsToolStripMenuItem.Click
         ShowRegionform()
@@ -6268,7 +6194,7 @@ Public Class Form1
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
 #Disable Warning CA1031
-                    Catch ex As exception
+                    Catch ex As Exception
 #Enable Warning CA1031
                         ErrorLog("Failed to create restore file:" & ex.Message)
                         Return
@@ -6305,7 +6231,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub RobustPictureBox_Click(sender As Object, e As EventArgs) Handles RobustPictureBox.Click
+    Private Sub RobustPictureBox_Click(sender As Object, e As EventArgs)
 
         If Not CheckRobust() Then
             StartRobust()
@@ -7312,5 +7238,78 @@ Public Class Form1
 
 #End Region
 
+
+#Region "Is"
+    Private Sub IceCastIs(Running As Boolean)
+
+        If Not Running Then
+            IcecastToolStripMenuItem.Image = My.Resources.nav_plain_red
+        Else
+            IcecastToolStripMenuItem.Image = My.Resources.check2
+        End If
+
+    End Sub
+
+    Private Sub RobustIs(Running As Boolean)
+
+        If Not Running Then
+            RobustToolStripMenuItem.Image = My.Resources.nav_plain_red
+        Else
+            RobustToolStripMenuItem.Image = My.Resources.check2
+        End If
+
+    End Sub
+
+    Private Sub ApacheIs(Running As Boolean)
+
+        If Not Running Then
+            ApacheToolStripMenuItem.Image = My.Resources.nav_plain_red
+        Else
+            ApacheToolStripMenuItem.Image = My.Resources.check2
+        End If
+
+    End Sub
+
+    Private Sub MySqlIs(Running As Boolean)
+
+        If Not Running Then
+            MysqlToolStripMenuItem.Image = My.Resources.nav_plain_red
+        Else
+            MysqlToolStripMenuItem.Image = My.Resources.check2
+        End If
+
+    End Sub
+
+    Private Sub MysqlToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MysqlToolStripMenuItem.Click
+
+        StopMysql()
+        StartMySQL()
+
+    End Sub
+
+    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+
+        StopApache(True)
+        StartApache()
+
+    End Sub
+
+    Private Sub RobustToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RobustToolStripMenuItem.Click
+
+        StopRobust()
+        StartRobust()
+
+    End Sub
+
+    Private Sub IcecastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IcecastToolStripMenuItem.Click
+
+        StopIcecast()
+        StartIcecast()
+
+    End Sub
+
+
+
+#End Region
 
 End Class
