@@ -61,7 +61,7 @@ BaseURL=http://${Const|BaseHostname}
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
 
 PrivURL=http://10.6.1.14
-PrivURL=http://192.168.2.133
+
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
