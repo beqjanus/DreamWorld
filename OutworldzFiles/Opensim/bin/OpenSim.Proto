@@ -689,7 +689,7 @@ SearchServerURI=http://www.hyperica.com/Search/query.php
 ;; This serves the same purpose as the DestinationGuideURI in the
 ;; LoginService setting in the Robust server. This will override
 ;; the Robust setting if desired as an option.
-DestinationGuide="http://www.hyperica.com/destination-guide"
+DestinationGuide="https://hyperica.com/destination-guide"
 
 [Chat]
 
@@ -904,8 +904,8 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
 ;; New way of specifying data services, one per service
-;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
-;data_services=http://www.hyperica.com/Search/register.php
+;DATA_SRV_MISearch=http://hyperica.com/Search/register.php
+;data_services=https://hyperica.com/Search/register.php
 data_services=http://www.hyperica.com/Search/register.php
 
 [Search]
