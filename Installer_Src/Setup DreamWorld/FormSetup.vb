@@ -3683,11 +3683,11 @@ Public Class Form1
 
                         Settings.SetIni("SimulatorFeatures", "SearchServerURI", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
                     Else
-                        Settings.SetIni("DataSnapshot", "data_services", "http://www.hyperica.com/Search/register.php")
-                        Settings.SetIni("Search", "SearchURL", "http://www.hyperica.com/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "https://hyperica.com/Search/register.php")
+                        Settings.SetIni("Search", "SearchURL", "https://hyperica.com/Search/query.php")
+                        Settings.SetIni("Search", "SimulatorFeatures", "https://hyperica.com/Search/query.php")
 
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://www.hyperica.com/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "https://hyperica.com/Search/query.php")
                     End If
                 Else
                     Settings.SetIni("DataSnapshot", "index_sims", "False")
@@ -3938,7 +3938,7 @@ Public Class Form1
                 If Settings.SearchLocal Then
                     Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Search/query.php")
                 Else
-                    Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+                    Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
                 End If
             Else
                 Settings.SetIni("LoginService", "SearchURL", "")

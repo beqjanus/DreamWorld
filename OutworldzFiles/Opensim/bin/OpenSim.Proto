@@ -682,7 +682,7 @@ Cap_GetDisplayNames="localhost"
 ;; and will override that value if set here. The Robust setting
 ;; provides a working default for the grid and setting here is
 ;; optional.
-SearchServerURI=http://www.hyperica.com/Search/query.php
+SearchServerURI=https://hyperica.com/Search/query.php
 
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
@@ -906,14 +906,14 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ;DATA_SRV_MISearch=http://hyperica.com/Search/register.php
 ;data_services=https://hyperica.com/Search/register.php
-data_services=http://www.hyperica.com/Search/register.php
+data_services=https://hyperica.com/Search/register.php
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=http://www.hyperica.com/Search/query.php
-SimulatorFeatures=http://www.hyperica.com/Search/query.php
+SearchURL=https://hyperica.com/Search/query.php
+SimulatorFeatures=https://hyperica.com/Search/query.php
 
 [Economy]
 
