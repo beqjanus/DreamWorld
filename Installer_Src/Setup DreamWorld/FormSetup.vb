@@ -1123,7 +1123,6 @@ Public Class Form1
 
             While Not HandleValid And ctr > 0
                 Try
-
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
 #Disable Warning CA1031
@@ -1422,16 +1421,23 @@ Public Class Form1
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = "Robust" Then
-            Dim h As IntPtr
-            Try
-                h = RobustProcess.MainWindowHandle
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
 
-                h = IntPtr.Zero
-            End Try
+            For Each pList As Process In Process.GetProcesses()
+                If pList.ProcessName = "Robust" Then
+                    Return pList.MainWindowHandle
+                End If
+            Next
+
+            'Dim h As IntPtr
+            'Try
+            'h = RobustProcess.MainWindowHandle
+#Disable Warning CA1031
+            ' Catch
+#Enable Warning CA1031
+            'End Try
+            Dim h As IntPtr = IntPtr.Zero
             Return h
+
         End If
 
         Dim Regionlist = PropRegionClass.RegionUUIDListByName(Groupname)
@@ -1439,19 +1445,13 @@ Public Class Form1
         For Each RegionUUID As String In Regionlist
             Dim pid = PropRegionClass.ProcessID(RegionUUID)
 
-            Dim ctr = 20   ' 2 seconds
-            Dim found As Boolean = False
-            While Not found And ctr > 0
-                Thread.Sleep(100) ' no doevents
 
-                For Each pList As Process In Process.GetProcesses()
-                    If pList.Id = pid Then
-                        Return pList.MainWindowHandle
-                    End If
-                    Application.DoEvents()
-                    ctr -= 1
-                Next
-            End While
+            For Each pList As Process In Process.GetProcesses()
+                If pList.Id = pid Then
+                    Return pList.MainWindowHandle
+                End If
+                Application.DoEvents()
+            Next
         Next
         Return IntPtr.Zero
 
@@ -2462,7 +2462,14 @@ Public Class Form1
                         Next
 
                         Logger("Located, is already running", BootName, "Restart")
-
+                        Select Case Settings.ConsoleShow
+                            Case "True"
+                            ' Do nothing, Always Show
+                            Case "False"
+                                ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
+                            Case ""
+                                ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
+                        End Select
                         PropUpdateView = True ' make form refresh
                         Return True
                     End If
@@ -5248,12 +5255,32 @@ Public Class Form1
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 RobustPictureBox.Image = My.Resources.nav_plain_green
                 ToolTip1.SetToolTip(RobustPictureBox, My.Resources.Robust_running)
+
+                Select Case Settings.ConsoleShow
+                    Case "True"
+                    ' Do nothing, Always Show
+                    Case "False"
+                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                    Case ""
+                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                End Select
+
                 Return True
             End If
         Next
 
         ' Check the HTTP port
         If CheckRobust() Then
+
+            Select Case Settings.ConsoleShow
+                Case "True"
+                    ' Do nothing, Always Show
+                Case "False"
+                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                Case ""
+                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            End Select
+
             Return True
         End If
 
@@ -5265,8 +5292,6 @@ Public Class Form1
             Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
             Return True
         End If
-
-
 
         _RobustIsStarting = True
 
@@ -6790,7 +6815,7 @@ Public Class Form1
 
         'if enabled, get the eventsa from Outworldz.com
         Dim Simevents As New Dictionary(Of String, String)
-        Dim ctr As Integer = 0
+
         Try
             Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
                 Try
@@ -6809,7 +6834,6 @@ Public Class Form1
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
 
-                            ctr += 1
                             ' Split line on comma.
                             Dim array As String() = s.Split("|".ToCharArray())
                             Simevents.Clear()
