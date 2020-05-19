@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.133
+BaseHostname=mach.outworldz.net
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,8 +59,6 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-
-PrivURL=http://10.6.1.14
 PrivURL=http://192.168.2.133
 
 ; Automatically changed by Dreamworld - do not change this
@@ -510,10 +508,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-
-
-host_domain_header_from=192.168.2.133
-
+host_domain_header_from=mach.outworldz.net
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -583,7 +578,6 @@ http_listener_port=${Const|http_listener_port}
 ;
 OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 
-
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
 ;; By default, llHTTPRequest limits the response body to 2048 bytes.
@@ -599,8 +593,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-
-ExternalHostNameForLSL=10.6.1.14
+ExternalHostNameForLSL=mach.outworldz.net
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -689,14 +682,14 @@ Cap_GetDisplayNames="localhost"
 ;; and will override that value if set here. The Robust setting
 ;; provides a working default for the grid and setting here is
 ;; optional.
-SearchServerURI=http://www.hyperica.com/Search/query.php
+SearchServerURI=https://hyperica.com/Search/query.php
 
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
 ;; This serves the same purpose as the DestinationGuideURI in the
 ;; LoginService setting in the Robust server. This will override
 ;; the Robust setting if desired as an option.
-DestinationGuide="http://www.hyperica.com/destination-guide"
+DestinationGuide="https://hyperica.com/destination-guide"
 
 [Chat]
 
@@ -735,7 +728,8 @@ OfflineMessageModule="Offline Message Module V2"
 ; OfflineMessageURL=${Const|PrivURL}:${Const|PrivatePort}
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
 ;; For standalones, this is the storage dll.
-StorageProvider = Offline Message Module V2
+StorageProvider=OpenSim.Data.MySQL.dll
+
 ;# {MuteListModule} {OfflineMessageModule:OfflineMessageModule} {} {} MuteListModule
 ;; Mute list handler (not yet implemented). MUST BE SET to allow offline
 ;; messages to work
@@ -748,7 +742,7 @@ MuteListModule=MuteListModule
 ;; Control whether group invites and notices are stored for offline users.
 ;; Default is true.
 ;; This applies to both core groups module.
-ForwardOfflineGroupMessages=true
+ForwardOfflineGroupMessages=false
 
 [BulletSim]
 
@@ -910,16 +904,16 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
 ;; New way of specifying data services, one per service
-;DATA_SRV_MISearch=http://www.hyperica.com/Search/register.php
-;data_services=http://www.hyperica.com/Search/register.php
-data_services=http://www.hyperica.com/Search/register.php
+;DATA_SRV_MISearch=http://hyperica.com/Search/register.php
+;data_services=https://hyperica.com/Search/register.php
+data_services=https://hyperica.com/Search/register.php
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=http://www.hyperica.com/Search/query.php
-SimulatorFeatures=http://www.hyperica.com/Search/query.php
+SearchURL=https://hyperica.com/Search/query.php
+SimulatorFeatures=https://hyperica.com/Search/query.php
 
 [Economy]
 
@@ -950,7 +944,7 @@ Enabled=False
 
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0,2
+MinTimerInterval=0.2
 
 [XEngine]
 
@@ -967,7 +961,7 @@ Enabled=True
 ; IdleTimeout = 60
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0,2
+MinTimerInterval=0.2
 
 ;# {Priority} {Enabled:true} {Priority for script engine threads?} {Lowest BelowNormal Normal AboveNormal Highest} BelowNormal
 ;; Thread priority ("Lowest", "BelowNormal", "Normal", "AboveNormal",
@@ -1003,7 +997,7 @@ MinTimerInterval=0,2
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=True
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts

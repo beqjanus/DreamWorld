@@ -192,8 +192,9 @@ Public Class MySettings
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
+            MsgBox(ex.Message)
             Form1.Log("Warn", ex.Message)
             Return True
         End Try
