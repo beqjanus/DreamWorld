@@ -156,6 +156,14 @@ Partial Class Form1
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -785,7 +793,7 @@ Partial Class Form1
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.MysqlToolStripMenuItem, Me.ApacheToolStripMenuItem, Me.RobustToolStripMenuItem, Me.IcecastToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.MysqlToolStripMenuItem, Me.RobustToolStripMenuItem, Me.ApacheToolStripMenuItem, Me.IcecastToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
@@ -937,6 +945,7 @@ Partial Class Form1
         '
         'MysqlToolStripMenuItem
         '
+        Me.MysqlToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartToolStripMenuItem})
         Me.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.MysqlToolStripMenuItem.Name = "MysqlToolStripMenuItem"
         Me.MysqlToolStripMenuItem.Size = New System.Drawing.Size(71, 24)
@@ -944,6 +953,7 @@ Partial Class Form1
         '
         'ApacheToolStripMenuItem
         '
+        Me.ApacheToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem3, Me.RestartToolStripMenuItem2})
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
@@ -951,6 +961,7 @@ Partial Class Form1
         '
         'RobustToolStripMenuItem
         '
+        Me.RobustToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem2, Me.RestartToolStripMenuItem1})
         Me.RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RobustToolStripMenuItem.Name = "RobustToolStripMenuItem"
         Me.RobustToolStripMenuItem.Size = New System.Drawing.Size(76, 24)
@@ -958,6 +969,7 @@ Partial Class Form1
         '
         'IcecastToolStripMenuItem
         '
+        Me.IcecastToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem4, Me.RestartToolStripMenuItem3})
         Me.IcecastToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.IcecastToolStripMenuItem.Name = "IcecastToolStripMenuItem"
         Me.IcecastToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
@@ -1096,6 +1108,54 @@ Partial Class Form1
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(320, 341)
         Me.Panel1.TabIndex = 54
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem1.Text = "Help"
+        '
+        'HelpToolStripMenuItem2
+        '
+        Me.HelpToolStripMenuItem2.Name = "HelpToolStripMenuItem2"
+        Me.HelpToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem2.Text = "Help"
+        '
+        'HelpToolStripMenuItem3
+        '
+        Me.HelpToolStripMenuItem3.Name = "HelpToolStripMenuItem3"
+        Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem3.Text = "Help"
+        '
+        'HelpToolStripMenuItem4
+        '
+        Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
+        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(180, 22)
+        Me.HelpToolStripMenuItem4.Text = "Help"
+        '
+        'RestartToolStripMenuItem
+        '
+        Me.RestartToolStripMenuItem.Name = "RestartToolStripMenuItem"
+        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RestartToolStripMenuItem.Text = "Restart"
+        '
+        'RestartToolStripMenuItem1
+        '
+        Me.RestartToolStripMenuItem1.Name = "RestartToolStripMenuItem1"
+        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.RestartToolStripMenuItem1.Text = "Restart"
+        '
+        'RestartToolStripMenuItem2
+        '
+        Me.RestartToolStripMenuItem2.Name = "RestartToolStripMenuItem2"
+        Me.RestartToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
+        Me.RestartToolStripMenuItem2.Text = "Restart"
+        '
+        'RestartToolStripMenuItem3
+        '
+        Me.RestartToolStripMenuItem3.Name = "RestartToolStripMenuItem3"
+        Me.RestartToolStripMenuItem3.Size = New System.Drawing.Size(180, 22)
+        Me.RestartToolStripMenuItem3.Text = "Restart"
         '
         'Form1
         '
@@ -1268,4 +1328,12 @@ Partial Class Form1
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RobustToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IcecastToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents RestartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents RestartToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents RestartToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem4 As ToolStripMenuItem
+    Friend WithEvents RestartToolStripMenuItem3 As ToolStripMenuItem
 End Class

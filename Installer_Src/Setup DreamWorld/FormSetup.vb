@@ -849,6 +849,7 @@ Public Class Form1
                 }
                 pUpdate.StartInfo = pi
 
+
                 Try
                     pUpdate.Start()
                     pUpdate.WaitForExit()
@@ -1322,7 +1323,8 @@ Public Class Form1
 
             End Try
             Try
-                AppActivate(PID)
+
+                AppActivate(PropRobustProcID)
                 SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
                 SendKeys.Send(ToLowercaseKeys(command))
 #Disable Warning CA1031
@@ -4800,7 +4802,7 @@ Public Class Form1
     Public Function StartIcecast() As Boolean
 
         If Not Settings.SCEnable Then
-            IceCastIs(True)
+            IceCastIs(False)
             Return True
         End If
 
@@ -7308,6 +7310,57 @@ Public Class Form1
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
+
+        Help("Icecast")
+
+    End Sub
+
+    Private Sub RestartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem3.Click
+
+        StopApache(True)
+        StartApache()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem3.Click
+
+        Help("Apache")
+
+    End Sub
+
+    Private Sub RestartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem2.Click
+
+        StopRobust()
+        StartRobust()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem2.Click
+
+        Help("ServerType")
+
+    End Sub
+
+    Private Sub RestartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem1.Click
+
+        StopRobust()
+        StartRobust()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        Help("Database")
+
+    End Sub
+
+    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
+
+        StopMysql()
+        StartMySQL()
+
+    End Sub
 
 
 #End Region
