@@ -4582,8 +4582,6 @@ Public Class Form1
             Return True
         End If
 
-        ApacheIs(True)
-
         If Settings.ApachePort = 80 Then
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
             ApacheProcess.StartInfo.FileName = "net"
@@ -4592,18 +4590,18 @@ Public Class Form1
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             Try
                 ApacheProcess.Start()
+
 #Disable Warning CA1031
             Catch
 #Enable Warning CA1031
 
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
         End If
 
         Print(My.Resources.Checking_Apache_service_word)
         ' Stop MSFT server if we are on port 80 and enabled
-
 
         If Settings.ApacheService Then
             PropApacheUninstalling = True
@@ -4629,7 +4627,7 @@ Public Class Form1
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-
+            ApacheIs(False)
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             Try
@@ -4669,7 +4667,7 @@ Public Class Form1
 #Disable Warning CA1031
                 Catch ex As Exception
 #Enable Warning CA1031
-
+                    ApacheIs(False)
                     Print(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
@@ -4677,6 +4675,7 @@ Public Class Form1
 
                 If ApacheProcess.ExitCode <> 0 Then
                     Print(My.Resources.ApacheFailed)
+                    ApacheIs(False)
                 Else
                     PropApacheUninstalling = False ' installed now, trap errors
                 End If
@@ -4693,12 +4692,14 @@ Public Class Form1
 
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                 End Try
-                'Application.doevents()
+                Application.DoEvents()
                 ApacheProcess.WaitForExit()
 
                 If ApacheProcess.ExitCode <> 0 Then
                     Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
+                    ApacheIs(False)
                 Else
+                    Print(My.Resources.Apache_running)
                     ApacheIs(True)
                 End If
             End Using
@@ -4722,11 +4723,10 @@ Public Class Form1
 
                     Print(My.Resources.Apache_Failed & ":" & ex.Message)
                     ApacheIs(False)
-
                     Return False
                 End Try
 
-                'Application.doevents()
+                Application.DoEvents()
 
                 ' wait for PID
                 Dim ApachePID = WaitForPID(ApacheProcess)
@@ -4744,6 +4744,7 @@ Public Class Form1
                     ' wait 60 seconds for it to start
                     If counter > 600 Then
                         Print(My.Resources.Apache_Failed)
+                        ApacheIs(False)
                         Return False
                     End If
 
@@ -4752,7 +4753,6 @@ Public Class Form1
                         Print(My.Resources.Apache_running)
                         ApacheIs(True)
                         PropApacheExited = False
-
                         Return True
                     End If
                     Sleep(100)
@@ -4797,11 +4797,11 @@ Public Class Form1
         Zap("icecast")
         IceCastIs(False)
 
-
     End Sub
     Public Function StartIcecast() As Boolean
 
         If Not Settings.SCEnable Then
+            Print(Global.Outworldz.My.Resources.Resources.IceCast_disabled)
             IceCastIs(False)
             Return True
         End If
@@ -4963,12 +4963,10 @@ Public Class Form1
 
         End Try
 
-        PropOpensimIsRunning = False
-
         ' wait for MySql to come up
         Dim MysqlOk As Boolean
         Dim ctr As Integer = 0
-        While Not MysqlOk And Not PropAborting
+        While Not MysqlOk
 
             Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
             If ctr = 60 Then ' about 60 seconds when it fails
@@ -5008,6 +5006,8 @@ Public Class Form1
         PropMysqlExited = False
         MysqlInterface.IsRunning = True
         MySqlIs(True)
+
+        Print(Global.Outworldz.My.Resources.Resources.Mysql_is_Running)
         PropMysqlExited = False
 
         Return True
@@ -5071,16 +5071,14 @@ Public Class Form1
     Private Sub StopMysql()
 
         If Not MysqlInterface.IsMySqlRunning() Then
-            'Application.doevents()
+            Application.DoEvents()
             MysqlInterface.IsRunning = False    ' mark all as not running
             MySqlIs(False)
-
             Return
         End If
 
         If Not PropStopMysql Then
-            MysqlInterface.IsRunning = True    ' mark all as not running
-
+            MysqlInterface.IsRunning = True    ' mark all as  running
             MySqlIs(True)
             Print(My.Resources.MySQL_Was_Running)
             Return
@@ -5239,6 +5237,7 @@ Public Class Form1
         RobustIs(True)
         If Settings.ServerType <> "Robust" Then
             Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
+            Print(Global.Outworldz.My.Resources.Resources.Robust_running)
             Return True
         End If
 
@@ -5274,16 +5273,13 @@ Public Class Form1
             Print("Robust " & My.Resources.did_not_start_word & ex.Message)
             KillAll()
             Buttons(StartButton)
-
             RobustIs(False)
-
             _RobustIsStarting = False
             Return False
         End Try
 
         PropRobustProcID = WaitForPID(RobustProcess)
         If PropRobustProcID = 0 Then
-
             RobustIs(False)
             Log("Error", My.Resources.Robust_failed_to_start)
             _RobustIsStarting = False
@@ -5338,6 +5334,7 @@ Public Class Form1
         End Select
 
         RobustIs(True)
+        Print(Global.Outworldz.My.Resources.Resources.Robust_running)
         PropRobustExited = False
 
         Return True
@@ -7241,14 +7238,15 @@ Public Class Form1
 #End Region
 
 
-#Region "Is"
+#Region "IsRunning"
     Private Sub IceCastIs(Running As Boolean)
 
         If Not Running Then
-            IcecastToolStripMenuItem.Image = My.Resources.nav_plain_red
+            RestartIcecastItem.Image = My.Resources.nav_plain_red
         Else
-            IcecastToolStripMenuItem.Image = My.Resources.check2
+            RestartIcecastItem.Image = My.Resources.check2
         End If
+        Application.DoEvents()
 
     End Sub
 
@@ -7259,16 +7257,18 @@ Public Class Form1
         Else
             RobustToolStripMenuItem.Image = My.Resources.check2
         End If
+        Application.DoEvents()
 
     End Sub
 
     Private Sub ApacheIs(Running As Boolean)
 
         If Not Running Then
-            ApacheToolStripMenuItem.Image = My.Resources.nav_plain_red
+            RestartApacheItem.Image = My.Resources.nav_plain_red
         Else
-            ApacheToolStripMenuItem.Image = My.Resources.check2
+            RestartApacheItem.Image = My.Resources.check2
         End If
+        Application.DoEvents()
 
     End Sub
 
@@ -7279,49 +7279,52 @@ Public Class Form1
         Else
             MysqlToolStripMenuItem.Image = My.Resources.check2
         End If
+        Application.DoEvents()
 
     End Sub
 
-    Private Sub MysqlToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MysqlToolStripMenuItem.Click
 
-        StopMysql()
-        StartMySQL()
+#End Region
 
-    End Sub
+#Region "RestartAndHelpMenu"
 
-    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+    Private Sub RestartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles RestartIceCastItem2.Click
 
-        StopApache(True)
-        StartApache()
-
-    End Sub
-
-    Private Sub RobustToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RobustToolStripMenuItem.Click
-
-        StopRobust()
-        StartRobust()
-
-    End Sub
-
-    Private Sub IcecastToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IcecastToolStripMenuItem.Click
-
+        PropAborting = True
         StopIcecast()
         StartIcecast()
+        PropAborting = False
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
+    Private Sub RestartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestartRobustItem.Click
 
-        Help("Icecast")
+        PropAborting = True
+        StopRobust()
+        StartRobust()
+        PropAborting = False
 
     End Sub
 
-    Private Sub RestartToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem3.Click
 
-        StopApache(True)
+    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartMysqlItem.Click
+
+        PropAborting = True
+        PropStopMysql = True
+        StopMysql()
+        StartMySQL()
+        PropAborting = False
+
+    End Sub
+
+    Private Sub RestartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem2.Click
+
+        PropAborting = True
         StartApache()
+        PropAborting = False
 
     End Sub
+
 
     Private Sub HelpToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem3.Click
 
@@ -7329,23 +7332,10 @@ Public Class Form1
 
     End Sub
 
-    Private Sub RestartToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem2.Click
-
-        StopRobust()
-        StartRobust()
-
-    End Sub
 
     Private Sub HelpToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem2.Click
 
         Help("ServerType")
-
-    End Sub
-
-    Private Sub RestartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem1.Click
-
-        StopRobust()
-        StartRobust()
 
     End Sub
 
@@ -7355,12 +7345,13 @@ Public Class Form1
 
     End Sub
 
-    Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartToolStripMenuItem.Click
 
-        StopMysql()
-        StartMySQL()
+    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
+
+        Help("Icecast")
 
     End Sub
+
 
 
 #End Region

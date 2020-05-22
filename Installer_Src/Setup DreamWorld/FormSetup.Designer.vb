@@ -136,9 +136,17 @@ Partial Class Form1
         Me.BackupCriticalFilesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.MysqlToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartMysqlItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RobustToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.IcecastToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartRobustItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartApacheItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartIcecastItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartIceCastItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
@@ -156,14 +164,6 @@ Partial Class Form1
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestartToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestartToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RestartToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -793,7 +793,7 @@ Partial Class Form1
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.MysqlToolStripMenuItem, Me.RobustToolStripMenuItem, Me.ApacheToolStripMenuItem, Me.IcecastToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.MysqlToolStripMenuItem, Me.RobustToolStripMenuItem, Me.RestartApacheItem, Me.RestartIcecastItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
@@ -945,35 +945,91 @@ Partial Class Form1
         '
         'MysqlToolStripMenuItem
         '
-        Me.MysqlToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartToolStripMenuItem})
+        Me.MysqlToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem})
         Me.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.MysqlToolStripMenuItem.Name = "MysqlToolStripMenuItem"
         Me.MysqlToolStripMenuItem.Size = New System.Drawing.Size(71, 24)
         Me.MysqlToolStripMenuItem.Text = "Mysql"
         '
-        'ApacheToolStripMenuItem
+        'HelpToolStripMenuItem1
         '
-        Me.ApacheToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem3, Me.RestartToolStripMenuItem2})
-        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
-        Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
-        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
-        Me.ApacheToolStripMenuItem.Text = "Apache"
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'RestartMysqlItem
+        '
+        Me.RestartMysqlItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RestartMysqlItem.Name = "RestartMysqlItem"
+        Me.RestartMysqlItem.Size = New System.Drawing.Size(184, 26)
+        Me.RestartMysqlItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         '
         'RobustToolStripMenuItem
         '
-        Me.RobustToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem2, Me.RestartToolStripMenuItem1})
+        Me.RobustToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem2, Me.RestartRobustItem})
         Me.RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RobustToolStripMenuItem.Name = "RobustToolStripMenuItem"
         Me.RobustToolStripMenuItem.Size = New System.Drawing.Size(76, 24)
         Me.RobustToolStripMenuItem.Text = "Robust"
         '
-        'IcecastToolStripMenuItem
+        'HelpToolStripMenuItem2
         '
-        Me.IcecastToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem4, Me.RestartToolStripMenuItem3})
-        Me.IcecastToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
-        Me.IcecastToolStripMenuItem.Name = "IcecastToolStripMenuItem"
-        Me.IcecastToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
-        Me.IcecastToolStripMenuItem.Text = "Icecast"
+        Me.HelpToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem2.Name = "HelpToolStripMenuItem2"
+        Me.HelpToolStripMenuItem2.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'RestartRobustItem
+        '
+        Me.RestartRobustItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RestartRobustItem.Name = "RestartRobustItem"
+        Me.RestartRobustItem.Size = New System.Drawing.Size(184, 26)
+        Me.RestartRobustItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        '
+        'RestartApacheItem
+        '
+        Me.RestartApacheItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem3, Me.RestartToolStripMenuItem2})
+        Me.RestartApacheItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.RestartApacheItem.Name = "RestartApacheItem"
+        Me.RestartApacheItem.Size = New System.Drawing.Size(79, 24)
+        Me.RestartApacheItem.Text = "Apache"
+        '
+        'HelpToolStripMenuItem3
+        '
+        Me.HelpToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem3.Name = "HelpToolStripMenuItem3"
+        Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'RestartToolStripMenuItem2
+        '
+        Me.RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RestartToolStripMenuItem2.Name = "RestartToolStripMenuItem2"
+        Me.RestartToolStripMenuItem2.Size = New System.Drawing.Size(184, 26)
+        Me.RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        '
+        'RestartIcecastItem
+        '
+        Me.RestartIcecastItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem4, Me.RestartIceCastItem2})
+        Me.RestartIcecastItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.RestartIcecastItem.Name = "RestartIcecastItem"
+        Me.RestartIcecastItem.Size = New System.Drawing.Size(75, 24)
+        Me.RestartIcecastItem.Text = "Icecast"
+        '
+        'HelpToolStripMenuItem4
+        '
+        Me.HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
+        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Resources.Help
+        '
+        'RestartIceCastItem2
+        '
+        Me.RestartIceCastItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RestartIceCastItem2.Name = "RestartIceCastItem2"
+        Me.RestartIceCastItem2.Size = New System.Drawing.Size(184, 26)
+        Me.RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         '
         'Timer1
         '
@@ -1109,54 +1165,6 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(320, 341)
         Me.Panel1.TabIndex = 54
         '
-        'HelpToolStripMenuItem1
-        '
-        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.HelpToolStripMenuItem1.Text = "Help"
-        '
-        'HelpToolStripMenuItem2
-        '
-        Me.HelpToolStripMenuItem2.Name = "HelpToolStripMenuItem2"
-        Me.HelpToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
-        Me.HelpToolStripMenuItem2.Text = "Help"
-        '
-        'HelpToolStripMenuItem3
-        '
-        Me.HelpToolStripMenuItem3.Name = "HelpToolStripMenuItem3"
-        Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(180, 22)
-        Me.HelpToolStripMenuItem3.Text = "Help"
-        '
-        'HelpToolStripMenuItem4
-        '
-        Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
-        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(180, 22)
-        Me.HelpToolStripMenuItem4.Text = "Help"
-        '
-        'RestartToolStripMenuItem
-        '
-        Me.RestartToolStripMenuItem.Name = "RestartToolStripMenuItem"
-        Me.RestartToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.RestartToolStripMenuItem.Text = "Restart"
-        '
-        'RestartToolStripMenuItem1
-        '
-        Me.RestartToolStripMenuItem1.Name = "RestartToolStripMenuItem1"
-        Me.RestartToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.RestartToolStripMenuItem1.Text = "Restart"
-        '
-        'RestartToolStripMenuItem2
-        '
-        Me.RestartToolStripMenuItem2.Name = "RestartToolStripMenuItem2"
-        Me.RestartToolStripMenuItem2.Size = New System.Drawing.Size(180, 22)
-        Me.RestartToolStripMenuItem2.Text = "Restart"
-        '
-        'RestartToolStripMenuItem3
-        '
-        Me.RestartToolStripMenuItem3.Name = "RestartToolStripMenuItem3"
-        Me.RestartToolStripMenuItem3.Size = New System.Drawing.Size(180, 22)
-        Me.RestartToolStripMenuItem3.Text = "Restart"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1180,7 +1188,7 @@ Partial Class Form1
         Me.MinimumSize = New System.Drawing.Size(363, 134)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DreamGrid"
+        Me.Text = "Dream Grid"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1325,15 +1333,15 @@ Partial Class Form1
     Friend WithEvents ChartWrapper1 As MSChartWrapper.ChartWrapper
     Friend WithEvents Panel1 As Panel
     Friend WithEvents MysqlToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestartApacheItem As ToolStripMenuItem
     Friend WithEvents RobustToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents IcecastToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestartIcecastItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents RestartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestartMysqlItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem2 As ToolStripMenuItem
-    Friend WithEvents RestartToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents RestartRobustItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem3 As ToolStripMenuItem
     Friend WithEvents RestartToolStripMenuItem2 As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem4 As ToolStripMenuItem
-    Friend WithEvents RestartToolStripMenuItem3 As ToolStripMenuItem
+    Friend WithEvents RestartIceCastItem2 As ToolStripMenuItem
 End Class
