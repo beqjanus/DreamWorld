@@ -2,12 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.1 or 3.2 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.04 is a beta and will not trigger the Update Is Available Message.
 
-V3.48 Release Candidate for 4.5 5/15/2020
+V3.48 Release Candidate for 3.5 5/15/2020
 Recompiled Opensim
 Map tiles in Mysql are automatically deleted when rebuilt to save disk space
 Offline message module fixes
-3 day autobackup would not work due to extra leading space
-
+3 day autobackup would not work due to extra leading space]
+Home page Icons relocated so app supports Large fonts. Clicking an icon restarts the service.
 
 V3.47 Release Candidate for 4.5 4/26/2020
 The IAR save only saved the Wifi Admin IAR. Reverted back to standard Opensim so you need to know or reset the users password. Doh!
