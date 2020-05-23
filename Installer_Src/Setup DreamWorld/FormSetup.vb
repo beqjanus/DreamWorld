@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.48"
+    Private _MyVersion As String = "3.49"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -1324,7 +1324,7 @@ Public Class Form1
             End Try
             Try
 
-                AppActivate(PropRobustProcID)
+                AppActivate(PID)
                 SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
                 SendKeys.Send(ToLowercaseKeys(command))
 #Disable Warning CA1031
