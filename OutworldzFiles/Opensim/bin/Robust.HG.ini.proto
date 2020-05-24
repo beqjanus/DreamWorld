@@ -43,6 +43,7 @@ PublicPort=8002
 ;; Set by Dreamgrid
 ; The private port of the Robust server
 PrivatePort=8003
+; port used for icons, teleports and other tasks when communicating to/from opensim
 DiagnosticsPort=8001
 
 ; * The startup section lists all the connectors to start up in this server
@@ -136,7 +137,7 @@ GatekeeperServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:Ga
 UserAgentServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserAgentServerConnector"
 HeloServiceInConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HeloServiceInConnector"
 HGFriendsServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:HGFriendsServerConnector"
-InstantMessageServerConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
+InstantMessageServerConnector="${Const|PublicPort}/OpenSim.Server.Handlers.dll:InstantMessageServerConnector"
 HGInventoryServiceConnector="HGInventoryService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:XInventoryInConnector"
 HGAssetServiceConnector="HGAssetService@${Const|PublicPort}/OpenSim.Server.Handlers.dll:AssetServiceConnector"
 
