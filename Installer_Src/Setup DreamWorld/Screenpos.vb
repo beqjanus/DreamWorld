@@ -41,7 +41,7 @@ Public Class ScreenPos
     Public Sub New(Name As String)
 
         gName = Name ' save gName for this form
-        If Name = "" Then
+        If gName.Length = 0 Then
             Return
         End If
         parser = New FileIniDataParser()
