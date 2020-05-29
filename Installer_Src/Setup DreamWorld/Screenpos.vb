@@ -40,22 +40,21 @@ Public Class ScreenPos
 
     Public Sub New(Name As String)
 
-        gName = Name ' save gName for this form
-        If gName.Length = 0 Then
-            Return
-        End If
+        If String.IsNullOrEmpty(Name) Then Return
+        GName1 = Name ' save gName for this form
+
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        myINI = Form1.PropMyFolder + "\OutworldzFiles\XYSettings.ini"
+        MyINI1 = Form1.PropMyFolder + "\OutworldzFiles\XYSettings.ini"
 
-        If File.Exists(myINI) Then
+        If File.Exists(MyINI1) Then
             LoadXYIni()
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
-                Using outputFile As New StreamWriter(myINI, True)
+                Using outputFile As New StreamWriter(MyINI1, True)
                     outputFile.WriteLine(contents)
                 End Using
 #Disable Warning CA1031
@@ -93,8 +92,8 @@ Public Class ScreenPos
             Return True
         End If
 
-        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Initted"), Integer)
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Initted", "1")
+        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Initted"), Integer)
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Initted", "1")
         SaveFormSettings()
         If Value = 0 Then Return False
         Return True
@@ -105,8 +104,8 @@ Public Class ScreenPos
         If Data Is Nothing Then
             Return New List(Of Integer)
         End If
-        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_W"), Integer)
+        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
+        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_W"), Integer)
 
         Dim r As New List(Of Integer) From {
             ValueHOld,
@@ -126,8 +125,8 @@ Public Class ScreenPos
         Try
             Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
             Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-            Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_X"), Integer)
-            Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(gName + "_Y"), Integer)
+            Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_X"), Integer)
+            Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Y"), Integer)
             If ValueXOld <= 0 Then
                 ValueXOld = 100
             End If
@@ -146,7 +145,7 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
-        Catch ex As exception
+        Catch ex As Exception
             Form1.Logger("Resize", ex.Message, "Error")
         End Try
         Return New List(Of Integer) From {100, 100}
@@ -157,9 +156,9 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-            Data = parser.ReadFile(myINI, System.Text.Encoding.UTF8)
+            Data = parser.ReadFile(MyINI1, System.Text.Encoding.UTF8)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
@@ -184,9 +183,9 @@ Public Class ScreenPos
 
         If Data Is Nothing Then Return
         Try
-            parser.WriteFile(myINI, Data, System.Text.Encoding.UTF8)
+            parser.WriteFile(MyINI1, Data, System.Text.Encoding.UTF8)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
@@ -195,8 +194,8 @@ Public Class ScreenPos
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
 
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_H", ValueH.ToString(Globalization.CultureInfo.CurrentCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_W", ValueW.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", ValueH.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_W", ValueW.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
         Debug.Print("H>" + ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
         Debug.Print("W>" + ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -205,8 +204,8 @@ Public Class ScreenPos
 
     Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
 
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_X", ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), gName + "_Y", ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_X", ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Y", ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
         Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
         Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
@@ -225,12 +224,14 @@ Public Class ScreenPos
         Try
             Data(section)(key) = value ' replace it
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
 
     End Sub
+
+#End Region
 
 #Region "IDisposable Support"
 
@@ -263,6 +264,27 @@ Public Class ScreenPos
 
 #End Region
 
+#Region "Properties"
+
+    Public Property GName1 As String
+        Get
+            Return gName
+        End Get
+        Set(value As String)
+            gName = value
+        End Set
+    End Property
+
+    Public Property MyINI1 As String
+        Get
+            Return myINI
+        End Get
+        Set(value As String)
+            myINI = value
+        End Set
+    End Property
+
 #End Region
+
 
 End Class
