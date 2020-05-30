@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=mach.outworldz.net
+BaseHostname=192.168.2.133
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -508,7 +508,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=mach.outworldz.net
+host_domain_header_from=192.168.2.133
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -521,10 +521,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=Gmail for notification
+SMTP_SERVER_LOGIN=
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=Gmail password
+SMTP_SERVER_PASSWORD=
 
 [Network]
 'must be started with parameter "-console=rest". Furthermore, the configuration options
@@ -593,7 +593,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=mach.outworldz.net
+ExternalHostNameForLSL=192.168.2.133
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -1080,10 +1080,10 @@ vivox_server=www.osp.vivox.com
 vivox_sip_uri=osp.vivox.com
 
 ; vivox admin user name
-vivox_admin_user=someusername
+vivox_admin_user=
 
 ; vivox admin password
-vivox_admin_password=somepassword
+vivox_admin_password=
 
 ; channel type: "channel" or "positional"
 ; - positional: spatial sound (default)
