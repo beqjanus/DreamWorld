@@ -38,7 +38,7 @@ Public Class UpdateGrid
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
         If Debugger.IsAttached = True Then
-            MyFolder = "C:\tmp\testing"
+            MyFolder = "D:\Opensim\Dreamgrid"
             ' for testing, as the compiler buries itself in ../../../debug
         End If
 
@@ -72,12 +72,18 @@ Public Class UpdateGrid
                     My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 Catch ex As Exception
                 End Try
-
+                Dim err As Integer = 0
+                Dim fname As String = ""
                 Dim ctr As Integer
                 Try
                     Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
                         For Each ZipEntry In zip
                             ctr = ctr + 1
+                            fname = ZipEntry.FileName
+
+                            File.Delete(Path.GetFileName(ZipEntry.FileName) & ".PendingOverwrite")
+                            File.Delete(Path.GetFileName(ZipEntry.FileName) & ".tmp")
+
                             If ZipEntry.FileName <> "Ionic.Zip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
                                 TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
                                 Application.DoEvents()
@@ -86,11 +92,13 @@ Public Class UpdateGrid
                         Next
                     End Using
                 Catch ex As Exception
-                    TextPrint("Unable to extract file: " + ex.Message)
+                    TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
                     Thread.Sleep(3000)
+
+                    err += 1
                 End Try
                 Application.DoEvents()
-                TextPrint("Completed!")
+                If Not err Then TextPrint("Completed!")
                 Application.DoEvents()
                 Thread.Sleep(3000)
                 End
