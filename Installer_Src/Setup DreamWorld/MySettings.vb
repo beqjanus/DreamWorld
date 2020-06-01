@@ -129,7 +129,7 @@ Public Class MySettings
             RegionDbPassword() = My.Settings.RegionDbPassword
             RegionDBUsername() = My.Settings.RegionDBUsername
 
-            ' Robust
+            ' RobustSCAdminPassword
             RobustServer() = My.Settings.RobustServer
             RobustPassword() = My.Settings.RobustPassword
             RobustUsername() = My.Settings.RobustUsername
@@ -139,8 +139,9 @@ Public Class MySettings
             SCEnable() = False
             SCPortBase() = 8100
             SCPortBase1() = 8101
-            SCPassword() = "A password"
-            SCAdminPassword() = "Admin Password"
+            Dim SCPasswordAdmin = New PassGen
+            SCPassword() = SCPasswordAdmin.GeneratePass()
+            SCAdminPassword() = SCPasswordAdmin.GeneratePass()
 
             SizeX() = My.Settings.SizeX
             SizeY() = My.Settings.SizeY

@@ -521,10 +521,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=
+SMTP_SERVER_LOGIN=Gmail for notification
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=
+SMTP_SERVER_PASSWORD=Gmail password
 
 [Network]
 'must be started with parameter "-console=rest". Furthermore, the configuration options
@@ -1080,10 +1080,10 @@ vivox_server=www.osp.vivox.com
 vivox_sip_uri=osp.vivox.com
 
 ; vivox admin user name
-vivox_admin_user=
+vivox_admin_user=someusername
 
 ; vivox admin password
-vivox_admin_password=
+vivox_admin_password=somepassword
 
 ; channel type: "channel" or "positional"
 ; - positional: spatial sound (default)

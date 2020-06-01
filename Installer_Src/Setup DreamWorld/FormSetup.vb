@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.5"
+    Private _MyVersion As String = "3.52"
     Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
 #End Region
 
@@ -3352,7 +3352,7 @@ Public Class Form1
                                   "<source-password>" & Settings.SCPassword & "</source-password>" & vbCrLf +
                                   "<relay-password>" & Settings.SCPassword & "</relay-password>" & vbCrLf +
                                   "<admin-user>admin</admin-user>" & vbCrLf +
-                                  "<admin-password>" & Settings.SCPassword & "</admin-password>" & vbCrLf +
+                                  "<admin-password>" & Settings.SCAdminPassword & "</admin-password>" & vbCrLf +
                               "</authentication>" & vbCrLf +
                               "<http-headers>" & vbCrLf +
                               "    <header name=" & """" & "Access-Control-Allow-Origin" & """" & " value=" & """" & "*" & """" & "/>" & vbCrLf +
