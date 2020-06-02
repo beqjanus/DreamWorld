@@ -2,11 +2,49 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta and will not trigger the Update Is Available Message.
 
+V5.53 Post Fixes 6/2/2020
+
+Tuned Apache.conf for speed, security, in effort to "Future Proof" if people add Wordpress or Joomla.
+
+Include conf/extra/httpd-mpm.conf whioch has been tweaked to use  a 4 core machine without too much RAM in use. 
++    KeepAlive on
++    KeepAliveTimeout 5
++    MaxKeepAliveRequests 100
++    TimeOut 60
++    StartServers        4
++    ServerLimit         4
++    MaxRequestWorkers   200
++    MaxClients          400
++    MinSpareThreads     100
++    MaxSpareThreads     250
++    ThreadsPerChild     50
++    ThreadLimit         64
++    MaxRequestsPerChild  2000
+
+Added MIMEMagicFile module and conf/magic for peeking in file contents to determine the MIME type.
+Just in case of user error, prevent .user.ini PHP settings files from being viewed by Web clients.
+Added a bunch of mod_deflates for compression for various browsers.
+Added a bunch of expires by type for web browsers built-in caches.
+
++<IfModule mod_expires.c>
++        ExpiresActive On
++        ExpiresDefault "access plus 1 week"
++        ExpiresByType image/jpg "access plus 1 month"
++        ExpiresByType image/jpeg "access plus  1 month"
++        ExpiresByType image/gif "access plus  1 month"
++        ExpiresByType image/png "access plus  1 month"
++        ExpiresByType text/css "access plus  1 month"        
++        ExpiresByType application/pdf "access plus 1 month"
++        ExpiresByType application/zip "access plus 1 month"
++        ExpiresByType text/x-javascript "access plus 1 hour"
++        ExpiresByType image/x-icon "access plus 1 year"
++</IfModule>
+
 V3.52 Post Fixes 5/31/2020
 'admin' password for Icecast was the same as the stream password.  Extended the "new grid" random passwords to 15 characters.
 
 V3.51 Post fixes. 5/28/2020
-Tweaks at turn off DEBUG in opensim.exe.config, make a longer default password for Wifi Admin
+Tweaks at turn off DEBUG in opensim.exe.config, make a longer default password for Wifi Admin.
 
 
 V3.5 Release 5/26/2020

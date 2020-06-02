@@ -38,8 +38,8 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.52"
-    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
+    Private _MyVersion As String = "3.53"
+    Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
 #End Region
 
 #Disable Warning CA2213
