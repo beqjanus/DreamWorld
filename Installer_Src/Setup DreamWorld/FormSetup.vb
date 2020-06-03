@@ -38,8 +38,8 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.49"
-    Private _SimVersion As String = "066a6fbaa1 (changes on lludp acks and resends, 2019-12-18)"
+    Private _MyVersion As String = "3.53"
+    Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
 #End Region
 
 #Disable Warning CA2213
@@ -3353,7 +3353,7 @@ Public Class Form1
                                   "<source-password>" & Settings.SCPassword & "</source-password>" & vbCrLf +
                                   "<relay-password>" & Settings.SCPassword & "</relay-password>" & vbCrLf +
                                   "<admin-user>admin</admin-user>" & vbCrLf +
-                                  "<admin-password>" & Settings.SCPassword & "</admin-password>" & vbCrLf +
+                                  "<admin-password>" & Settings.SCAdminPassword & "</admin-password>" & vbCrLf +
                               "</authentication>" & vbCrLf +
                               "<http-headers>" & vbCrLf +
                               "    <header name=" & """" & "Access-Control-Allow-Origin" & """" & " value=" & """" & "*" & """" & "/>" & vbCrLf +
@@ -6473,7 +6473,7 @@ Public Class Form1
             Try
                 ProcessUpnp.Start()
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog("ErrorUPnp failed to launch: " & ex.Message)
             End Try
@@ -6731,7 +6731,7 @@ Public Class Form1
                     DeleteEvents(osconnection)
                 End Using
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog(ex.Message)
             End Try
@@ -6783,7 +6783,7 @@ Public Class Form1
                 End Using ' client
             End Using ' osconnection
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog(ex.Message)
         End Try
@@ -6866,7 +6866,7 @@ Public Class Form1
                 ProcessPHP.Start()
                 ProcessPHP.WaitForExit()
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 FileIO.FileSystem.CurrentDirectory = PropMyFolder
                 ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
@@ -6888,7 +6888,7 @@ Public Class Form1
             Try
                 Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
@@ -7105,7 +7105,7 @@ Public Class Form1
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
             Return False
@@ -7128,7 +7128,7 @@ Public Class Form1
         Try
             Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
             Return ""
@@ -7152,7 +7152,7 @@ Public Class Form1
         Try
             Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog("Error:Cannot get new name:" & ex.Message)
             client.Dispose()
@@ -7352,6 +7352,7 @@ Public Class Form1
         Help("Icecast")
 
     End Sub
+
 
 
 

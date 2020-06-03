@@ -36,7 +36,7 @@ Public Class PassGen
 
     Public Function GeneratePass() As String
         possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
-        len = 6
+        len = 15
 
         Dim cpossibleChars() As Char
         cpossibleChars = possibleChars.ToCharArray()

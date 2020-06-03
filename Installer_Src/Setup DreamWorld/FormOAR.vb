@@ -325,12 +325,12 @@ Public Class FormOAR
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = initSize
+            Me.Height = initSize * 2
         Else
             Me.Height = hw.Item(0)
         End If
         If hw.Item(1) = 0 Then
-            Me.Width = initSize
+            Me.Width = initSize * 2
         Else
             Me.Width = hw.Item(1)
         End If
@@ -568,6 +568,7 @@ Public Class FormOAR
             Redraw(json)
         End If
     End Sub
+
 
 
 

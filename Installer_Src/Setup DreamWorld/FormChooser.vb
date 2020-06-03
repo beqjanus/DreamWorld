@@ -42,6 +42,7 @@ Public Class Choice
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
         ScreenPosition.SaveXY(Me.Left, Me.Top)
+        ScreenPosition.SaveHW(Me.Height, Me.Width)
     End Sub
 
     Private Sub SetScreen()
@@ -51,6 +52,19 @@ Public Class Choice
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+        Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+        '1106, 460
+        If hw.Item(0) = 0 Then
+            Me.Height = 314
+        Else
+            Me.Height = hw.Item(0)
+        End If
+        If hw.Item(1) = 0 Then
+            Me.Width = 264
+        Else
+            Me.Width = hw.Item(1)
+        End If
+
     End Sub
 
 #End Region
@@ -142,6 +156,9 @@ Public Class Choice
         OKButton1.Enabled = True
         DialogResult = DialogResult.OK
     End Sub
+
+
+
 
 #End Region
 

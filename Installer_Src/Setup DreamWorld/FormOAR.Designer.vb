@@ -50,7 +50,7 @@ Partial Class FormOAR
         Me.DataGridView.RowTemplate.Height = 3
         Me.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.DataGridView.ShowCellErrors = False
-        Me.DataGridView.Size = New System.Drawing.Size(371, 286)
+        Me.DataGridView.Size = New System.Drawing.Size(856, 392)
         Me.DataGridView.TabIndex = 0
         '
         'MenuStrip2
@@ -60,7 +60,7 @@ Partial Class FormOAR
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(675, 26)
+        Me.MenuStrip2.Size = New System.Drawing.Size(899, 26)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -92,7 +92,7 @@ Partial Class FormOAR
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(675, 434)
+        Me.ClientSize = New System.Drawing.Size(899, 434)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MenuStrip2)
