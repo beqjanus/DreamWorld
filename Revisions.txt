@@ -2,7 +2,7 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta and will not trigger the Update Is Available Message.
 
-V5.53 Post Fixes 6/2/2020
+V3.53 Post Fixes 6/2/2020
 
 Tuned Apache.conf for speed, security, in effort to "Future Proof" if people add Wordpress or Joomla.
 
