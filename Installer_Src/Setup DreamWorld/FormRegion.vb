@@ -457,7 +457,7 @@ Public Class FormRegion
             Case ""
                 ScriptDefaultButton.Checked = True
             Case "XEngine"
-                XEngineButton.Checked = False
+                XEngineButton.Checked = True
             Case "YEngine"
                 YEngineButton.Checked = True
         End Select
@@ -1160,6 +1160,7 @@ Public Class FormRegion
         End If
 
         Dim ScriptEngine As String = ""
+        Form1.PropRegionClass.ScriptEngine(RegionUUID) = ""
         If XEngineButton.Checked = True Then
             ScriptEngine = "XEngine"
             Form1.PropRegionClass.ScriptEngine(RegionUUID) = "XEngine"
