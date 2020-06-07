@@ -628,7 +628,7 @@ Public Class FormRegion
 
 #End Region
 
-#Region "Functions"
+
 
 #Region "Private Methods"
 
@@ -1229,27 +1229,6 @@ Public Class FormRegion
 
 #End Region
 
-    Private Sub XEngineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
-
-        If XEngineButton.Checked Then
-            ScriptDefaultButton.Checked = False
-            YEngineButton.Checked = False
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub YEngineButton_CheckedChanged(sender As Object, e As EventArgs) Handles YEngineButton.CheckedChanged
-
-        If YEngineButton.Checked Then
-            ScriptDefaultButton.Checked = False
-            XEngineButton.Checked = False
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-#End Region
 
 #Region "Radio"
 
@@ -1361,15 +1340,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub RadioButton5_CheckedChanged_1(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
-
-        If ScriptDefaultButton.Checked Then
-            XEngineButton.Checked = False
-            YEngineButton.Checked = False
-        End If
-
-    End Sub
-
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton7.CheckedChanged
 
         If Initted1 And RadioButton7.Checked Then
@@ -1461,6 +1431,35 @@ Public Class FormRegion
             Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
         End If
 
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
+
+        If ScriptDefaultButton.Checked Then
+            XEngineButton.Checked = False
+            YEngineButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub XEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
+
+        If XEngineButton.Checked Then
+            ScriptDefaultButton.Checked = False
+            YEngineButton.Checked = False
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub YEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles YEngineButton.CheckedChanged
+
+        If YEngineButton.Checked Then
+            ScriptDefaultButton.Checked = False
+            XEngineButton.Checked = False
+        End If
         If Initted1 Then Changed1 = True
 
     End Sub

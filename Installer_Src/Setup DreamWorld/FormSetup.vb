@@ -3661,13 +3661,17 @@ Public Class Form1
             Case "Robust"
                 Try
                     My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+#Disable Warning CA1031
                 Catch
+#Enable Warning CA1031
                 End Try
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
                 Try
                     My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+#Enable Warning CA1031
                 Catch
+#Disable Warning CA1031
                 End Try
                 GridCommon = "Gridcommon-RegionServer.ini"
             Case "OsGrid"
