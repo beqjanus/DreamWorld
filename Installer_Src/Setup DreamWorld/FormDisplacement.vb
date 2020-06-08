@@ -55,6 +55,7 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
+
     Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
@@ -67,9 +68,11 @@ Public Class FormDisplacement
 
         Me.Width = Size * 256 + 60
         Me.Height = Size * 256 + 100
-        Me.Text = CStr(Size) + " X " & CStr(Size)
+
+        Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
+        Me.Text = RegionName & " " & CStr(Size) + " X " & CStr(Size)
         Me.Name = "FormDisplacement_" & RegionUUID
-        MakeArray(Size, RegionUUID)
+        MakeArray(Size, RegionUUID, map)
 
     End Sub
 
@@ -179,11 +182,12 @@ Public Class FormDisplacement
     Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
 
         'Return photo
-        Dim bmp = photo
+        '
+        'Dim bmp = photo
         Dim newImage As New Bitmap(256, 256)
         Using drawFont As Font = New Font("Arial", 12)
             Using gr As Graphics = Graphics.FromImage(newImage)
-                gr.DrawImageUnscaled(bmp, 0, 0)
+                gr.DrawImageUnscaled(photo, 0, 0, photo.Width, photo.Height)
                 gr.DrawString(item, drawFont, Brushes.White, 10, 20)
             End Using
         End Using
@@ -193,8 +197,6 @@ Public Class FormDisplacement
 
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
-        'Dim RegionPhoto = New RegionPhoto(Name)
-
         'map-1-1000-1000-objects
         Dim Xcoord = Form1.PropRegionClass.CoordX(regionUUID) + X
         Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
@@ -202,6 +204,7 @@ Public Class FormDisplacement
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Form1.PropOpensimBinPath & "bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
         Debug.Print(RegionPhoto)
+        'RegionPhoto = "E:\Outworldz Dreamgrid\OutworldzFiles\Opensim\bin\maptiles\00000000-0000-0000-0000-000000000000\Anthony-ward-grid.jpg"
         Dim Pic As Image
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
@@ -215,7 +218,7 @@ Public Class FormDisplacement
 
     End Function
 
-    Private Sub MakeArray(size As Integer, RegionUUID As String)
+    Private Sub MakeArray(size As Integer, RegionUUID As String, Optional map As Boolean = True)
 
         Dim StartAt = 256 * (size - 1)
         For Y = 0 To size - 1
@@ -226,14 +229,25 @@ Public Class FormDisplacement
                 Dim Name = "PictureBox" & CStr(X) & CStr(Y)
                 Dim PictureBox As New PictureBox()
                 PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-                PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+                If map Then
+                    PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+                Else
+                    PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+                End If
+
                 PictureBox.ErrorImage = Global.Outworldz.My.Resources.Resources.water
                 PictureBox.InitialImage = Global.Outworldz.My.Resources.Resources.water
 
-                ' make an image of the region with X,Y text on it.
-                Dim str = CStr(X * 256) & "," & CStr(Y * 256)
-                PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
-                PictureBox.Tag = "<" & str & ",0>"
+                If map Then
+                    ' make an image of the region with X,Y text on it.
+                    Dim str = CStr(X * 256) & "," & CStr(Y * 256)
+                    PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
+                    PictureBox.Tag = "<" & str & ",0>"
+                Else
+                    PictureBox.Image = MakePhotoOfRegion(RegionUUID, X, Y)
+                End If
+
+
                 Dim X1 = OffsetX + (X * 256)
                 Dim Y1 = OffsetY + StartAt - (Y * 256)
                 PictureBox.Location = New System.Drawing.Point(X1, Y1)
@@ -242,6 +256,7 @@ Public Class FormDisplacement
                 PictureBox.Size = New System.Drawing.Size(256, 256)
                 PictureBox.TabIndex = X + (Y * X)
                 PictureBox.TabStop = False
+
                 Me.Controls.Add(PictureBox)
                 ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
                 AddHandler PictureBox.Click, PicClick
@@ -252,5 +267,6 @@ Public Class FormDisplacement
         Next
 
     End Sub
+
 
 End Class

@@ -354,7 +354,11 @@ Public Class MySettings
 #Disable Warning CA1062
             SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
-        Catch ex As exception
+
+#Disable Warning CA1031
+        Catch ex As Exception
+#Enable Warning CA1031
+
             Form1.Logger("Error", ex.Message, "Error")
         End Try
 

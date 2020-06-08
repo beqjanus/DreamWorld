@@ -1874,7 +1874,8 @@
     <value>Click to Enable Hypergrid or change DNS Name</value>
   </data>
   <data name="AlphaNum" xml:space="preserve">
-    <value>Alpha-Numeric plus minus sign (no spaces or special chars)</value>
+    <value>Alpha-Numeric plus minus sign and space character</value>
+    <comment>updated</comment>
   </data>
   <data name="Error_Region" xml:space="preserve">
     <value>Error: Cannot understand the contents of region file :</value>

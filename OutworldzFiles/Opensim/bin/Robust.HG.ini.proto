@@ -46,6 +46,10 @@ PrivatePort=8003
 ; port used for icons, teleports and other tasks when communicating to/from opensim
 DiagnosticsPort=8001
 
+; jOpenSim URL
+jOpensimURL = "http://MEINDOMAINNAME:JOpensimPORT"
+jOpensimURLSSL = "https://MEINDOMAINNAME:jOpenSimPORT"    
+    
 ; * The startup section lists all the connectors to start up in this server
 ; * instance. This may be only one, or it may be the entire server suite.
 ; * Multiple connectors should be separated by commas.
@@ -522,12 +526,14 @@ AllowRemoteSetLoginLevel="false"
 MapTileURL="${Const|BaseURL}:${Const|PublicPort}/";
 
 ; Url to search service
+;SearchURL = "${Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
 ;SearchURL=http://www.hyperica.com/Search/query.php
 SearchURL=${Const|BaseURL}:80/Search/query.php
 
 ; For V3 destination guide
+;DestinationGuide = "${Const|jOpensimURL}/index.php?option=com_opensim&view=guide&tmpl=component"
 DestinationGuide="http://www.hyperica.com/destination-guide/"
-DestinationGuideURI="http://www.hyperica.com/destination-guide/"
+;DestinationGuideURI="http://www.hyperica.com/destination-guide/"
 
 ; For V3 avatar picker (( work in progress ))
 ; AvatarPicker = "${Const|BaseURL}/avatars"
@@ -620,10 +626,12 @@ gridnick=${Const|GridName}
 ; login page: optional: if it exists it will be used to tell the client to use
 ;                       this as splash page
 ;; Set by Dreamgrid
+;welcome = ${Const|jOpensimURL}/index.php?option=com_opensim
 welcome=http://www.outworldz.com/Outworldz_installer/Welcome.htm
 
 ; helper uri: optional: if it exists it will be used to tell the client to use
 ;                       this for all economy related things
+;economy = ${Const|jOpensimURL}/components/com_opensim/
 ;economy = ${Const|BaseURL):${Const|PublicPort}
 economy=${Const|BaseURL}:${Const|PublicPort}
 
@@ -634,6 +642,7 @@ economy=${Const|BaseURL}:${Const|PublicPort}
 register=${Const|BaseURL}:${Const|PublicPort}/wifi/user/account/
 
 ; help: optional: page providing further assistance for users of your grid
+; help = ${Const|jOpensimURLSSL}/
 help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
 
 ; password help: optional: page providing password assistance for users of your grid

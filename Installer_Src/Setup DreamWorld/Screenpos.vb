@@ -145,7 +145,9 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
+#Disable Warning CA1031
         Catch ex As Exception
+#Enable Warning CA1031
             Form1.Logger("Resize", ex.Message, "Error")
         End Try
         Return New List(Of Integer) From {100, 100}
