@@ -181,7 +181,7 @@ Public Class FormDisplacement
 
     Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
 
-        'Return photo
+        Return photo
         '
         'Dim bmp = photo
         Dim newImage As New Bitmap(256, 256)
