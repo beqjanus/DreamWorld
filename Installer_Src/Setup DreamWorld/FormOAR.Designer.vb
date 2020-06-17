@@ -22,12 +22,15 @@ Partial Class FormOAR
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormOAR))
         Me.DataGridView = New System.Windows.Forms.DataGridView()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,7 +45,7 @@ Partial Class FormOAR
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView.ColumnHeadersVisible = False
         Me.DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DataGridView.Location = New System.Drawing.Point(11, 31)
+        Me.DataGridView.Location = New System.Drawing.Point(14, 39)
         Me.DataGridView.Margin = New System.Windows.Forms.Padding(2)
         Me.DataGridView.MultiSelect = False
         Me.DataGridView.Name = "DataGridView"
@@ -50,17 +53,17 @@ Partial Class FormOAR
         Me.DataGridView.RowTemplate.Height = 3
         Me.DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.DataGridView.ShowCellErrors = False
-        Me.DataGridView.Size = New System.Drawing.Size(856, 392)
+        Me.DataGridView.Size = New System.Drawing.Size(1070, 490)
         Me.DataGridView.TabIndex = 0
         '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30, Me.RefreshToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(899, 26)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(8, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(1124, 26)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -68,31 +71,40 @@ Partial Class FormOAR
         '
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(73, 24)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(124, 6)
+        Me.TextBox1.Location = New System.Drawing.Point(287, 8)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(215, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(268, 22)
         Me.TextBox1.TabIndex = 1891
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view1
-        Me.PictureBox1.Location = New System.Drawing.Point(97, 6)
+        Me.PictureBox1.Location = New System.Drawing.Point(253, 5)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(21, 20)
+        Me.PictureBox1.Size = New System.Drawing.Size(26, 25)
         Me.PictureBox1.TabIndex = 1892
         Me.PictureBox1.TabStop = False
         '
+        'RefreshToolStripMenuItem
+        '
+        Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
+        Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(90, 24)
+        Me.RefreshToolStripMenuItem.Text = "Refresh"
+        '
         'FormOAR
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(899, 434)
+        Me.ClientSize = New System.Drawing.Size(1124, 542)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MenuStrip2)
@@ -114,4 +126,6 @@ Partial Class FormOAR
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents RefreshToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Timer1 As Timer
 End Class

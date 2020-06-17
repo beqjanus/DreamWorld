@@ -4,6 +4,9 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
+    Dim WebThread As Thread
+    Dim TimerBusy As Boolean = False
+
 #Region "JSON"
 
 #Disable Warning CA1034
@@ -357,7 +360,6 @@ Public Class FormOAR
         Me.Hide()
 
         InitiateThread()
-
     End Sub
 
     Public Sub ShowForm()
@@ -369,7 +371,6 @@ Public Class FormOAR
     End Sub
 
     Private Function DoWork() As JSONresult
-
 
         json = GetData()
         json = ImageToJson(json)
@@ -395,7 +396,7 @@ Public Class FormOAR
 
     Private Sub InitiateThread()
 
-        Dim WebThread As New Thread(DirectCast(Function() DoWork(), ThreadStart))
+        WebThread = New Thread(DirectCast(Function() DoWork(), ThreadStart))
 
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -579,8 +580,23 @@ Public Class FormOAR
         End If
     End Sub
 
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
+        Timer1.Interval = 1
+        Timer1.Start()
 
+    End Sub
+
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
+
+        If TimerBusy = 0 Then InitiateThread()
+        If TimerBusy = 1 Then Return
+        TimerBusy = 1
+        If WebThread.IsAlive Then Return
+        Timer1.Stop()
+        Search()
+
+    End Sub
 
 #End Region
 
