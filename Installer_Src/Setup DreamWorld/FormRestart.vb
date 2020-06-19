@@ -50,10 +50,8 @@ Public Class FormRestart
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-
         Form1.Settings.AutoRestartEnabled = ARTimerBox.Checked
         Form1.Settings.Autostart = AutoStartCheckbox.Checked
-
         Try
             Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
@@ -79,8 +77,18 @@ Public Class FormRestart
 
         AutoStartCheckbox.Checked = Form1.Settings.Autostart
         SequentialCheckBox1.Checked = Form1.Settings.Sequential
-        RestartOnCrash.Checked = Form1.Settings.RestartOnCrash
-        RestartOnPhysicsCrash.Checked = Form1.Settings.RestartonPhysics
+
+        ' Restart on Physics crash is only good for Bullet  in a thread as if it crashed any other way, 
+        ' it will restart under AutoRestart
+
+        Debug.Print(Form1.Settings.Physics)
+        If Form1.Settings.Physics <> 4 Then
+            RestartOnPhysicsCrash.Enabled = False
+            RestartOnCrash.Checked = False
+        Else
+            RestartOnPhysicsCrash.Checked = Form1.Settings.RestartonPhysics
+            RestartOnCrash.Checked = True
+        End If
 
         SetScreen()
         Form1.HelpOnce("Restart")

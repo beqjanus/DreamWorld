@@ -3819,8 +3819,11 @@ Public Class Form1
 
 
         ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
-
-        ' 0 = physics = none 1 = OpenDynamicsEngine 2 = physics = BulletSim 3 = physics = BulletSim with threads 4 = physics = ubODE
+        ' 0 = none 
+        ' 1 = OpenDynamicsEngine
+        ' 2 = BulletSim 
+        ' 3 = BulletSim with threads 
+        ' 4 = ubODE
 
         Select Case Settings.Physics
             Case 0
