@@ -75,6 +75,7 @@ Public Class NetServer
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
+        WebThread.Priority = ThreadPriority.Highest
         running = True
 
     End Sub
@@ -83,7 +84,7 @@ Public Class NetServer
 
         Log(My.Resources.Info, My.Resources.Stopping_Webserver)
         listen = False
-        'Application.doevents()
+
         WebThread.Abort()
 
     End Sub
