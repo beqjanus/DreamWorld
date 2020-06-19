@@ -595,6 +595,7 @@ Public Class FormOAR
         If WebThread.IsAlive Then Return
         Timer1.Stop()
         Search()
+        TimerBusy = 0
 
     End Sub
 
