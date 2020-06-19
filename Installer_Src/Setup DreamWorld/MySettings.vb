@@ -1390,6 +1390,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CMS() As String
+        Get
+            Return CType(GetMySetting("CMS", "DreamGrid"), String)
+        End Get
+        Set
+            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property RestartonPhysics() As Boolean
         Get
             Return CType(GetMySetting("RestartonPhysics", "False"), Boolean)

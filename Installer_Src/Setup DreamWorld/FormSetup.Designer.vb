@@ -164,8 +164,10 @@ Partial Class Form1
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FileToolStripMenuItem
@@ -797,7 +799,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(653, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(693, 26)
         Me.MenuStrip1.TabIndex = 21
         Me.MenuStrip1.Text = "0"
         '
@@ -1123,18 +1125,18 @@ Partial Class Form1
         'ChartWrapper2
         '
         Me.ChartWrapper2.AddMarkers = True
-        Me.ChartWrapper2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChartWrapper2.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(347, 206)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(7, 206)
         Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(293, 159)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(317, 187)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
@@ -1143,19 +1145,18 @@ Partial Class Form1
         Me.ChartWrapper1.AddMarkers = True
         Me.ChartWrapper1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChartWrapper1.AutoSize = True
         Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(347, 36)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(7, 20)
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(293, 159)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(317, 170)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -1169,14 +1170,25 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(320, 341)
         Me.Panel1.TabIndex = 54
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.AutoSize = True
+        Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.GroupBox1.Controls.Add(Me.ChartWrapper1)
+        Me.GroupBox1.Controls.Add(Me.ChartWrapper2)
+        Me.GroupBox1.Location = New System.Drawing.Point(353, 26)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(340, 408)
+        Me.GroupBox1.TabIndex = 55
+        Me.GroupBox1.TabStop = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(653, 421)
-        Me.Controls.Add(Me.ChartWrapper1)
-        Me.Controls.Add(Me.ChartWrapper2)
+        Me.ClientSize = New System.Drawing.Size(693, 421)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BusyButton)
         Me.Controls.Add(Me.AvatarLabel)
@@ -1196,6 +1208,7 @@ Partial Class Form1
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1348,4 +1361,5 @@ Partial Class Form1
     Friend WithEvents ClothingInventoryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalOARSToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalIARsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

@@ -3382,7 +3382,7 @@ Public Class Form1
 
     End Function
 
-    Private Function DoMapSetup() As Boolean
+    Private Function DoPHPDBSetup() As Boolean
 
         Print("->Set Maps")
         Dim phptext = "<?php " & vbCrLf &
@@ -3402,7 +3402,7 @@ Public Class Form1
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"$CONF_HOME            = " & """" & "DreamGrid" & """" & ";          //Link To your Home Folder in htdocs.  Wordpress, DreamGrid or Joomla/JOpensim" & vbCrLf &
+"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder" & vbCrLf &
 "?>"
 
         Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
@@ -3541,6 +3541,7 @@ Public Class Form1
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
+
         Return False
 
     End Function
@@ -4572,6 +4573,8 @@ Public Class Form1
     End Sub
     Public Function StartApache() As Boolean
 
+        ' Depends upon PHP for home page
+        DoPHPDBSetup()
 
         Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
         SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
@@ -4673,6 +4676,9 @@ Public Class Form1
                 ApacheProcess.StartInfo.CreateNoWindow = True
                 ApacheProcess.StartInfo.WorkingDirectory = PropMyFolder & "\Outworldzfiles\Apache\bin\"
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+                DoApache()
+
                 Try
                     ApacheProcess.Start()
 #Disable Warning CA1031
@@ -4710,7 +4716,7 @@ Public Class Form1
                     Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
                     ApacheIs(False)
                 Else
-                    Print(My.Resources.Apache_running)
+                    Print(My.Resources.Apache_running & " : " & Settings.ApachePort)
                     ApacheIs(True)
                 End If
             End Using
@@ -5256,6 +5262,9 @@ Public Class Form1
 
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
+
+        DoRobust()
+
         Print("Robust " & My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
@@ -7233,7 +7242,7 @@ Public Class Form1
         If DoGloebits() Then Return True
         If DoTides() Then Return True
         If DoBirds() Then Return True
-        If DoMapSetup() Then Return True
+        If DoPHPDBSetup() Then Return True
         If DoPHP() Then Return True
         If DoApache() Then Return True
         If DOIceCast() Then Return True
