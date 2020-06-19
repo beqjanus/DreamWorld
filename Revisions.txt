@@ -2,7 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-
+V3.56 Post Fixes 6/18/2020
+Bug fix: Change priority of webserver to realtime to help icons stay in sync on super busy servers.
+Tweak: Re-write Icecast XML on Start, not just boot.
+Crash prevention: If blank "Server Admin" email, use "not@set.yet" to allow Apache to start anyway. 
+Performance: Don't scan logs if Restart on physics Crash is set for anything but Bullet in a separate thread as it useless.
+Added a switch to Apache to select DreamGrid Diva, WordPress, or Joomla/JOpensim folder as the home page
 
 V3.55 Post Fixes 6/12/2020
 Added a Refresh button to the OAR loader

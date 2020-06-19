@@ -3402,6 +3402,7 @@ Public Class Form1
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
+"$CONF_HOME            = " & """" & "DreamGrid" & """" & ";          //Link To your Home Folder in htdocs.  Wordpress, DreamGrid or Joomla/JOpensim" & vbCrLf &
 "?>"
 
         Using outputFile As New StreamWriter(PropMyFolder & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
