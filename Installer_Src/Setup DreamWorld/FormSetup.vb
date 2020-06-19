@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.53"
+    Private _MyVersion As String = "3.55"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
 #End Region
 
@@ -3321,11 +3321,12 @@ Public Class Form1
 
     End Function
 
-    Public Function DOSaveIceCast() As Boolean
+    Public Function DoIceCast() As Boolean
 
         Print("->Set IceCast")
         Dim rgx As New Regex("[^a-zA-Z0-9 ]")
         Dim name As String = rgx.Replace(Settings.SimName, "")
+
 
         Dim icecast As String = "<icecast>" & vbCrLf +
                            "<hostname>" & Settings.PublicIP & "</hostname>" & vbCrLf +
@@ -3504,6 +3505,7 @@ Public Class Form1
 
         If Not Settings.ApacheEnable Then Return False
         Print("->Set Apache")
+
         ' lean rightward paths for Apache
         Dim ini = PropMyFolder & "\Outworldzfiles\Apache\conf\httpd.conf"
         Settings.LoadLiteralIni(ini)
@@ -4795,8 +4797,6 @@ Public Class Form1
 
     End Function
 
-
-
     Private Sub StopIcecast()
 
         Zap("icecast")
@@ -4810,6 +4810,8 @@ Public Class Form1
             IceCastIs(False)
             Return True
         End If
+
+        DoIcecast()
 
         ' Check if DOS box exists, first, if so, its running.
         For Each p In Process.GetProcesses
@@ -7230,7 +7232,7 @@ Public Class Form1
         If DoMapSetup() Then Return True
         If DoPHP() Then Return True
         If DoApache() Then Return True
-        If DOSaveIceCast() Then Return True
+        If DOIceCast() Then Return True
 
         Return False
 
