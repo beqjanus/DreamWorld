@@ -1127,7 +1127,7 @@ Partial Class Form1
         Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(350, 239)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(347, 206)
         Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
@@ -1148,7 +1148,7 @@ Partial Class Form1
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(350, 69)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(347, 36)
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
