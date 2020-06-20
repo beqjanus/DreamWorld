@@ -15,5 +15,5 @@ $CONF_center_coord_x = "1000";		// the Center-X-Coordinate
 $CONF_center_coord_y = "1000";		// the Center-Y-Coordinate 
 // style-sheet items
 $CONF_style_sheet     = "/css/stylesheet.css";          //Link To your StyleSheet
-$CONF_HOME            = "DreamGrid";          //Link To your Home Folder in htdocs.  Wordpress, DreamGrid or Joomla/JOpensim
+$CONF_HOME            = "DreamGrid";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder
 ?>
