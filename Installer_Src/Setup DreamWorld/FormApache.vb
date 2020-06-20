@@ -249,7 +249,7 @@ Public Class FormApache
     Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
 
         If Not initted Then Return
-        If EnableOther.Checked Then Form1.Settings.CMS = Other.Text
+        If EnableOther.Checked Then Other.Text = Form1.Settings.CMS
 
     End Sub
 
