@@ -145,6 +145,7 @@ Public Class FormDNSName
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                 End If
+                Form1.Settings.DNSName = DNSNameBox.Text
             Catch ex As ArgumentNullException
             End Try
         End If
