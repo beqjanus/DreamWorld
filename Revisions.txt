@@ -3,11 +3,16 @@
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
 V3.56 Post Fixes 6/18/2020
-Bug fix: Change priority of webserver to realtime to help icons stay in sync on super busy servers.
+New Feature: Updates could destroy added on services such as WordPress or Joomla.  Added a switch to 
+Apache to select "DreamGrid Diva", WordPress, or Joomla/JOpensim or "Other" folder as the home page, 
+such as http://(your grid):80, aka http://(your grid). Documentation on this is not in this update. 
+But to put it simply, there are three new folders in Apache/htdocs. Unzip Joomla or WordPress in the folder.
+Change the Setting in Apache, click the Apache icon and select Restart. The rest is just setting up your CMS.
+Improvement: Change priority of webserver to realtime to help icons stay in sync on super busy servers.
 Tweak: Re-write Icecast XML on Start, not just boot.
 Crash prevention: If blank "Server Admin" email, use "not@set.yet" to allow Apache to start anyway. 
-Performance: Don't scan logs if Restart on physics Crash is set for anything but Bullet in a separate thread as it useless.
-Added a switch to Apache to select DreamGrid Diva, WordPress, or Joomla/JOpensim folder as the home page
+Performance: Don't scan logs if Restart on physics Crash is set for anything but Bullet in a separate thread, as it useless.
+
 
 V3.55 Post Fixes 6/12/2020
 Added a Refresh button to the OAR loader
