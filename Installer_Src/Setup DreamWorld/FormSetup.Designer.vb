@@ -1129,7 +1129,7 @@ Partial Class Form1
         Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(7, 206)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(7, 212)
         Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
@@ -1178,7 +1178,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.ChartWrapper2)
         Me.GroupBox1.Location = New System.Drawing.Point(353, 26)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(340, 408)
+        Me.GroupBox1.Size = New System.Drawing.Size(340, 420)
         Me.GroupBox1.TabIndex = 55
         Me.GroupBox1.TabStop = False
         '
