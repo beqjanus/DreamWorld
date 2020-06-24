@@ -264,7 +264,6 @@ Public Class Form1
 
         If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
 
-
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
                 If ret = DialogResult.Cancel Then
@@ -1090,14 +1089,17 @@ Public Class Form1
 
             'Save, but skip scriptengines
             For Each directoryName In Directory.GetDirectories(dir)
-                If Not directoryName.Contains("ScriptEngines") Then
+                If Not directoryName.Contains("ScriptEngines") And
+                    Not directoryName.Contains("fsassets") And
+                    Not directoryName.Contains("assetcache") And
+                    Not directoryName.Contains("j2kDecodeCache") Then
                     stack.Push(directoryName)
                 Else
                     Diagnostics.Debug.Print("Skipping script")
                 End If
-                'Application.doevents()
+                Application.DoEvents()
             Next
-            'Application.doevents()
+            Application.DoEvents()
         Loop
 
         ' Return the list
@@ -1106,7 +1108,7 @@ Public Class Form1
 
     Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        If Settings.ConsoleShow = "" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+        If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
         End If
 
@@ -1286,29 +1288,42 @@ Public Class Form1
         If command Is Nothing Then Return False
         If command.Length > 0 Then
 
+            Dim ShowDosBox As Boolean = True
+            Select Case Settings.ConsoleShow
+                Case "True"
+                    ShowDosBox = True
+                Case "False"
+                    ShowDosBox = True
+                Case ""
+                    ShowDosBox = False
+            End Select
+
             Dim PID As Integer
             If RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Application.DoEvents()
-
                 Try
-                    If PID > 0 Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    If PID > 0 And ShowDosBox Then
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    End If
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
                     Return False
                 End Try
-            Else
+            Else ' Robust
                 PID = PropRobustProcID
                 Try
-                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    If ShowDosBox Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
                     Return False
                 End Try
             End If
+
+            Application.DoEvents()
 
             Try
                 'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
@@ -1325,8 +1340,22 @@ Public Class Form1
             Try
 
                 AppActivate(PID)
+                Application.DoEvents()
+
                 SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
                 SendKeys.Send(ToLowercaseKeys(command))
+                Application.DoEvents()
+                Select Case Settings.ConsoleShow
+                    Case "True"
+                        ' do nothing, already up
+                    Case "False"
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
+                    Case ""
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
+                End Select
+
+
+
 #Disable Warning CA1031
             Catch
                 Return False
@@ -1400,7 +1429,7 @@ Public Class Form1
                     Dim ip = IPaddress.ToString()
                     Return ip
                 End If
-                'Application.doevents()
+                Application.DoEvents()
             Next
             Return String.Empty
 #Disable Warning CA1031
@@ -1506,7 +1535,7 @@ Public Class Form1
                 UUID = RegionUUID
                 Exit For
             End If
-            'Application.doevents()
+            Application.DoEvents()
         Next
         If UUID.Length = 0 Then
             MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info)
@@ -1584,7 +1613,7 @@ Public Class Form1
 #Enable Warning CA1031
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
-            'Application.doevents()
+            Application.DoEvents()
         Next
 
         Me.Focus()
@@ -1642,7 +1671,7 @@ Public Class Form1
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP)
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
-                'Application.doevents()
+                Application.DoEvents()
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP)
                 End If
@@ -1673,19 +1702,19 @@ Public Class Form1
 
             For Each RegionUUID As String In PropRegionClass.RegionUUIDs
                 Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
-                'Application.doevents()
+                Application.DoEvents()
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.UDP)
-                    'Application.doevents()
+                    Application.DoEvents()
                 End If
 
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
                 Print(PropRegionClass.RegionName(RegionUUID) & " UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
-                'Application.doevents()
+                Application.DoEvents()
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.TCP)
-                    'Application.doevents()
+                    Application.DoEvents()
                 End If
                 PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ")
                 Print(PropRegionClass.RegionName(RegionUUID) & " TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -2455,7 +2484,7 @@ Public Class Form1
                             ' Do nothing, Always Show
                             Case "False"
                                 ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
-                            Case ""
+                            Case "None"
                                 ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
                         End Select
                         PropUpdateView = True ' make form refresh
@@ -2510,7 +2539,7 @@ Public Class Form1
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "False"
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case ""
+            Case "None"
                 myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
 
@@ -2707,7 +2736,7 @@ Public Class Form1
                 mnuShow.Checked = False
                 mnuHide.Checked = True
                 mnuHideAllways.Checked = False
-            Case ""
+            Case "None"
                 mnuShow.Checked = False
                 mnuHide.Checked = False
                 mnuHideAllways.Checked = True
@@ -4848,7 +4877,7 @@ Public Class Form1
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "False"
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case ""
+            Case "None"
                 IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
 
@@ -4863,7 +4892,7 @@ Public Class Form1
 
             Return False
         End Try
-        'Application.doevents()
+        Application.DoEvents()
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
@@ -4962,7 +4991,7 @@ Public Class Form1
         CreateService()
         CreateStopMySql()
 
-        'Application.doevents()
+        Application.DoEvents()
         ' Mysql was not running, so lets start it up.
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
@@ -5006,7 +5035,7 @@ Public Class Form1
                         Catch
 #Enable Warning CA1031
                         End Try
-                        'Application.doevents()
+                        Application.DoEvents()
                     Next
                 End If
                 Buttons(StartButton)
@@ -5223,12 +5252,13 @@ Public Class Form1
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 RobustIs(True)
+
                 Select Case Settings.ConsoleShow
                     Case "True"
                     ' Do nothing, Always Show
                     Case "False"
                         ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-                    Case ""
+                    Case "None"
                         ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
                 End Select
 
@@ -5244,7 +5274,7 @@ Public Class Form1
                     ' Do nothing, Always Show
                 Case "False"
                     ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-                Case ""
+                Case "None"
                     ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
             End Select
 
@@ -5279,7 +5309,7 @@ Public Class Form1
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "False"
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case ""
+            Case "None"
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
 
@@ -5312,7 +5342,7 @@ Public Class Form1
         Dim counter = 0
         While Not CheckRobust() And PropOpensimIsRunning
             Log("Error", My.Resources.Waiting_on_Robust)
-            'Application.doevents()
+            Application.DoEvents()
             counter += 1
             ' wait a minute for it to start
             If counter > 600 Then
@@ -5349,7 +5379,7 @@ Public Class Form1
                 ' Do nothing, Always Show
             Case "False"
                 ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
-            Case ""
+            Case "None"
                 ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
         End Select
 
@@ -6071,7 +6101,7 @@ Public Class Form1
         mnuHide.Checked = False
         mnuHideAllways.Checked = True
 
-        Settings.ConsoleShow = ""
+        Settings.ConsoleShow = "None"
         Settings.SaveSettings()
 
     End Sub
@@ -6474,7 +6504,7 @@ Public Class Form1
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
             ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
-            'Application.doevents()
+            Application.DoEvents()
         Next
     End Sub
 
@@ -6816,9 +6846,12 @@ Public Class Form1
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
+        TimerBusy += 1
+        If TimerBusy < 10 And TimerBusy > 1 Then
+            Diagnostics.Debug.Print("Ticker busy")
+            Return
+        End If
 
-        If TimerBusy = 1 Then Return
-        TimerBusy = 1
         Chart() ' do charts collection each second
         Application.DoEvents()
         If Not PropOpensimIsRunning() Then
