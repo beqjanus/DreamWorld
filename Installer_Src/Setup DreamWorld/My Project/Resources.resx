@@ -2805,4 +2805,12 @@
     <value>View Statistics</value>
     <comment>new</comment>
   </data>
+  <data name="Backup_MySQL_Phrase" xml:space="preserve">
+    <value>Backing up MySql\Data Folder. Please Wait. Screen will appear frozen.</value>
+    <comment>new</comment>
+  </data>
+  <data name="Backup_Regions" xml:space="preserve">
+    <value>Backing up Regions Folder</value>
+    <comment>new</comment>
+  </data>
 </root>

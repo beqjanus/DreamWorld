@@ -180,7 +180,7 @@ Public Class FormOAR
             Me.Text = CStr(cnt) & " Items"
 
             For Each item In json
-                'Application.doevents()
+                Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
                 If column = 0 Then DataGridView.Rows.Add()
@@ -493,7 +493,7 @@ Public Class FormOAR
         If json IsNot Nothing Then
 
             For Each item In json
-                'Application.doevents()
+                Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
                 Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)

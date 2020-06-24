@@ -763,7 +763,7 @@ Public Class RegionList
         RegionForm.BringToFront()
         RegionForm.Init("")
         RegionForm.Activate()
-        'Application.doevents()
+        Application.DoEvents()
         RegionForm.Visible = True
         RegionForm.Select()
 
@@ -819,7 +819,6 @@ Public Class RegionList
         Form1.Help("RegionList")
 
     End Sub
-
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
@@ -992,7 +991,7 @@ Public Class RegionList
         Choices.Init(RegionName)
         Choices.BringToFront()
         Choices.ShowDialog()
-
+        Application.DoEvents()
         ' Read the chosen sim name
         chosen = Choices.Choice()
         Choices.Dispose()
@@ -1013,7 +1012,7 @@ Public Class RegionList
             Form1.DoBirds()
 
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
-            'Application.doevents()
+            Application.DoEvents()
             Form1.Timer1.Interval = 1000
             Form1.Timer1.Start() 'Timer starts functioning
             Form1.Buttons(Form1.StopButton)
@@ -1068,8 +1067,8 @@ Public Class RegionList
             Dim PID = Form1.PropRegionClass.ProcessID(RegionUUID)
             If PID > 0 Then
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
-                Dim tmp As String = Form1.Settings.ConsoleShow
 
+                Dim tmp As String = Form1.Settings.ConsoleShow
                 'temp show console
                 Form1.Settings.ConsoleShow = "True"
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)

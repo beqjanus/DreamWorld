@@ -108,9 +108,9 @@ Public Class FormBackupCheckboxes
 #Enable Warning CA1031
             End Try
 
-            PrintStatus("Backing up Regions Folder")
+            PrintStatus(My.Resources.Backup_Regions)
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
-            'Application.doevents()
+            Application.DoEvents()
         End If
 
         If MySqlCheckBox.Checked Then
@@ -121,9 +121,9 @@ Public Class FormBackupCheckboxes
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-            PrintStatus("Backing up MySql\Data Folder")
+            PrintStatus(My.Resources.Backup_MySQL_Phrase)
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
-            'Application.doevents()
+            Application.DoEvents()
         End If
 
         If FSAssetsCheckBox.Checked Then
@@ -144,7 +144,7 @@ Public Class FormBackupCheckboxes
 
             PrintStatus("Backing up FSAssets Folder")
             FileStuff.CopyFolder(folder, Dest + "\FSAssets")
-            'Application.doevents()
+            Application.DoEvents()
         End If
 
         If CustomCheckBox.Checked Then
@@ -159,7 +159,7 @@ Public Class FormBackupCheckboxes
             PrintStatus("Backing up Wifi Folders")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
             FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
-            'Application.doevents()
+            Application.DoEvents()
         End If
 
         If SettingsBox.Checked Then

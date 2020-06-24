@@ -172,7 +172,7 @@ Public Class FormApache
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
             Form1.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
@@ -182,7 +182,7 @@ Public Class FormApache
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
             Form1.Print(My.Resources.Apache_has_been_removed)
         End Using
