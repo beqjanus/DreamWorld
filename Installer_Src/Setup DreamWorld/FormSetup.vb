@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.56"
+    Private _MyVersion As String = "3.57"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
 #End Region
 
@@ -2235,9 +2235,11 @@ Public Class Form1
 
     Private Sub BackupCriticalFilesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupCriticalFilesToolStripMenuItem.Click
 
+
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim CriticalForm As New FormBackupCheckboxes
 #Enable Warning CA2000 ' Dispose objects before losing scope
+
         CriticalForm.Activate()
         CriticalForm.Visible = True
         CriticalForm.Select()

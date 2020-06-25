@@ -56,6 +56,7 @@ Public Class FormBackupCheckboxes
 
 #Region "Private Methods"
 
+
     Private Shared Sub CpyFile(From As String, Dest As String)
 
         If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
@@ -179,6 +180,8 @@ Public Class FormBackupCheckboxes
     End Sub
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
         Form1.HelpOnce("Backup Manually")
 
         TextBox1.BackColor = Me.BackColor
