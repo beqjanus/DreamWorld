@@ -1163,7 +1163,7 @@ Public Class Form1
 
         If D Is Nothing Then Return
 
-        Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,gateway,eventflags) values (" _
+        Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags) values (" _
                         & "'" & D.Item("simname") & "'," _
                         & "'" & D.Item("category") & "'," _
                         & "'" & D.Item("creatoruuid") & "'," _
@@ -1176,7 +1176,6 @@ Public Class Form1
                         & "'" & D.Item("coveramount") & "'," _
                         & "'" & D.Item("parcelUUID") & "'," _
                         & "'" & D.Item("globalPos") & "'," _
-                        & "'" & D.Item("gateway") & "'," _
                         & "'" & D.Item("eventflags") & "')"
 
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
@@ -2689,11 +2688,7 @@ Public Class Form1
 
         Me.Show()
 
-        ContentOAR = New FormOAR
-        ContentOAR.Init("OAR")
 
-        ContentIAR = New FormOAR
-        ContentIAR.Init("IAR")
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
@@ -2751,6 +2746,7 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Return
         End If
+
 
         With Cpu1
             .CategoryName = "Processor"
@@ -2822,6 +2818,14 @@ Public Class Form1
         Print(My.Resources.Checking_MySql_word)
         Application.DoEvents()
         If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
+
+
+        ContentOAR = New FormOAR
+        ContentOAR.Init("OAR")
+
+        ContentIAR = New FormOAR
+        ContentIAR.Init("IAR")
+
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
