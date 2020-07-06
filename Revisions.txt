@@ -2,6 +2,15 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.57 Post Fixes 7/6/2020
+Bug Fix:Console = None works again.
+Performance: Skip huge folders with no dlls in updates 
+Bug Fix:Fix timer reentrant issue that shut down the icons.  
+Performance: Added back the DoEvents to make UI more responsive.
+Coding: Added example on how to make an addin for Opensim
+Bug Fix: Race condition of very fast machines could cause it to hang on boot.
+Bug Fix: Local Events missing a column.
+
 V3.56 Post Fixes 6/18/2020
 New Feature: Updates could destroy added on services such as WordPress or Joomla.  Added a switch to 
 Apache to select "DreamGrid Diva", WordPress, or Joomla/JOpensim or "Other" folder as the home page, 

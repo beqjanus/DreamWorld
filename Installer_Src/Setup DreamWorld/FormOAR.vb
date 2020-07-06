@@ -359,6 +359,7 @@ Public Class FormOAR
         _type = type
         Me.Hide()
 
+        Thread.Sleep(15)
         InitiateThread()
     End Sub
 
@@ -419,7 +420,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
+                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
 #Disable Warning CA1031
             Catch ex As exception
