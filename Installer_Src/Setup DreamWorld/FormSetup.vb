@@ -3729,6 +3729,15 @@ Public Class Form1
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
+
+        ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling
+        ' ;; and available when they return. True by default.
+        If Settings.Suitcase Then
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
+        Else
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "false")
+        End If
+
         Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
