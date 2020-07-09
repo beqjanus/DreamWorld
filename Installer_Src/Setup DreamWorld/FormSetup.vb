@@ -5295,10 +5295,9 @@ Public Class Form1
             Return True
         End If
 
-        RobustIs(True)
+
         If Settings.ServerType <> "Robust" Then
-            Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
-            Print(Global.Outworldz.My.Resources.Resources.Robust_running)
+            RobustIs(True)
             Return True
         End If
 
