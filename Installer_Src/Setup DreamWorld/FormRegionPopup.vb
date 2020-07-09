@@ -68,6 +68,12 @@ Public Class FormRegionPopup
 
     Public Sub Init(RegionName As String)
 
+        If Form1.Settings.ServerType = "Robust" Then
+            ViewMapButton.Enabled = True
+        Else
+            ViewMapButton.Enabled = False
+        End If
+
         _RegionName = RegionName
 
         Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
