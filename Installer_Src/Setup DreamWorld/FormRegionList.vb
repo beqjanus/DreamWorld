@@ -434,7 +434,7 @@ Public Class RegionList
 #Region "LoadListView"
 
     Private Sub LoadMyListView()
-
+        BringToFront()
         If TheView1 = ViewType.Avatars Then
             ShowAvatars()
         Else
