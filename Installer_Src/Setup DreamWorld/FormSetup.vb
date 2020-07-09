@@ -273,8 +273,8 @@ Public Class Form1
                 End If
 
                 ' Read the chosen sim name
-                ConsoleCommand("Robust", "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 Settings.RunOnce = True
                 Settings.SaveSettings()
             End Using
@@ -867,7 +867,7 @@ Public Class Form1
 
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog(ex.Message)
         End Try
@@ -896,7 +896,7 @@ Public Class Form1
                 Application.DoEvents()
             Next
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -1269,7 +1269,7 @@ Public Class Form1
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
@@ -1298,7 +1298,7 @@ Public Class Form1
             End Select
 
             Dim PID As Integer
-            If RegionUUID <> "Robust" Then
+            If RegionUUID <> RobustName() Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Application.DoEvents()
@@ -1432,7 +1432,7 @@ Public Class Form1
             Next
             Return String.Empty
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog("Warn:Unable to resolve name:" & ex.Message)
         End Try
@@ -1442,10 +1442,10 @@ Public Class Form1
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
-        If Groupname = "Robust" Then
+        If Groupname = RobustName() Then
 
             For Each pList As Process In Process.GetProcesses()
-                If pList.ProcessName = "Robust" Then
+                If pList.ProcessName = RobustName() Then
                     Return pList.MainWindowHandle
                 End If
             Next
@@ -1608,7 +1608,7 @@ Public Class Form1
                     once = True
                 End If
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
@@ -1721,7 +1721,7 @@ Public Class Form1
             Next
 
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log("UPnP", "UPnP Exception caught:  " & ex.Message)
             Return False
@@ -1741,8 +1741,8 @@ Public Class Form1
                     ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
-            ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
-            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
+            ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
         End If
 
         Settings.LogLevel = msg
@@ -1890,7 +1890,7 @@ Public Class Form1
                 End If
             End While
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             ErrorLog(windowName & ":" & ex.Message)
@@ -1955,7 +1955,7 @@ Public Class Form1
                     MysqlSearch.Start()
                     MysqlSearch.WaitForExit()
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     ErrorLog("Could not create Search Database: " & ex.Message)
@@ -2004,7 +2004,7 @@ Public Class Form1
                 Dim str = PropDomain & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
                 result = client.DownloadString(str)
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
 
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -2108,7 +2108,7 @@ Public Class Form1
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
 
-        ConsoleCommand("Robust", "create user{ENTER}")
+        ConsoleCommand(RobustName, "create user{ENTER}")
 
     End Sub
 
@@ -2313,7 +2313,9 @@ Public Class Form1
     End Sub
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-        ConsoleCommand("Robust", "reset user password{ENTER}")
+
+        ConsoleCommand(RobustName, "reset user password{ENTER}")
+
     End Sub
 
     Private Sub CheckAndRepairDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
@@ -4856,7 +4858,7 @@ Public Class Form1
             Return True
         End If
 
-        DoIcecast()
+        DoIceCast()
 
         ' Check if DOS box exists, first, if so, its running.
         For Each p In Process.GetProcesses
@@ -5211,7 +5213,7 @@ Public Class Form1
     Public Sub StopRobust()
 
         Print("Robust " & My.Resources.Stopping_word)
-        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
+        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
         While CheckRobust() And ctr < 60
@@ -5245,6 +5247,12 @@ Public Class Form1
 
     End Function
 
+    Private Function RobustName() As String
+
+        Return "Robust " & Settings.PublicIP
+
+    End Function
+
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
@@ -5254,7 +5262,7 @@ Public Class Form1
         End If
 
         For Each p In Process.GetProcesses
-            If p.MainWindowTitle = "Robust" Then
+            If p.MainWindowTitle = RobustName() Then
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 RobustIs(True)
@@ -5263,9 +5271,9 @@ Public Class Form1
                     Case "True"
                     ' Do nothing, Always Show
                     Case "False"
-                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                     Case "None"
-                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 End Select
 
                 Return True
@@ -5279,9 +5287,9 @@ Public Class Form1
                 Case "True"
                     ' Do nothing, Always Show
                 Case "False"
-                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 Case "None"
-                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
             End Select
 
             Return True
@@ -5342,7 +5350,7 @@ Public Class Form1
             Return False
         End If
 
-        SetWindowTextCall(RobustProcess, "Robust")
+        SetWindowTextCall(RobustProcess, RobustName)
 
         ' Wait for Robust to start listening
         Dim counter = 0
@@ -5384,9 +5392,9 @@ Public Class Form1
             Case "True"
                 ' Do nothing, Always Show
             Case "False"
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
             Case "None"
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
         End Select
 
         RobustIs(True)
@@ -6429,7 +6437,7 @@ Public Class Form1
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox(My.Resources.Enter_1_2)
         If person.Length > 0 Then
-            ConsoleCommand("Robust", "show account " & person & "{ENTER}")
+            ConsoleCommand(RobustName, "show account " & person & "{ENTER}")
         End If
     End Sub
 
