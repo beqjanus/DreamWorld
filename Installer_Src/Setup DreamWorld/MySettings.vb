@@ -71,6 +71,7 @@ Public Class MySettings
             AdminFirst() = My.Settings.AdminFirst
             AdminLast() = My.Settings.AdminLast
             AdminEmail() = My.Settings.AdminEmail
+
             AutoBackup() = My.Settings.AutoBackup
             AutobackupInterval() = My.Settings.AutobackupInterval
 
@@ -379,7 +380,9 @@ Public Class MySettings
 
     Public Property AdminEmail() As String
         Get
-            Return CType(GetMySetting("AdminEmail"), String)
+            Dim mail As String = GetMySetting("AdminEmail")
+            If mail.length = 0 Then mail = "not@set.yet"
+            Return CType(mail, String)
         End Get
         Set
             SetMySetting("AdminEmail", Value)
@@ -1384,6 +1387,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("RestartOnCrash", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property CMS() As String
+        Get
+            Return CType(GetMySetting("CMS", "DreamGrid"), String)
+        End Get
+        Set
+            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 

@@ -180,7 +180,7 @@ Public Class FormOAR
             Me.Text = CStr(cnt) & " Items"
 
             For Each item In json
-                'Application.doevents()
+                Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
                 If column = 0 Then DataGridView.Rows.Add()
@@ -359,6 +359,7 @@ Public Class FormOAR
         _type = type
         Me.Hide()
 
+        Thread.Sleep(15)
         InitiateThread()
     End Sub
 
@@ -419,7 +420,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json?r=1" & Form1.GetPostData()
+                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
 #Disable Warning CA1031
             Catch ex As exception
@@ -493,7 +494,7 @@ Public Class FormOAR
         If json IsNot Nothing Then
 
             For Each item In json
-                'Application.doevents()
+                Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
                 Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
@@ -595,6 +596,7 @@ Public Class FormOAR
         If WebThread.IsAlive Then Return
         Timer1.Stop()
         Search()
+        TimerBusy = 0
 
     End Sub
 

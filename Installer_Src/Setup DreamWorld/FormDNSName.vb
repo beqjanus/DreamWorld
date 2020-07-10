@@ -115,7 +115,7 @@ Public Class FormDNSName
 
         NextNameButton.Text = My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
-        'Application.doevents()
+        Application.DoEvents()
         Dim newname = Form1.GetNewDnsName()
         NextNameButton.Text = My.Resources.Next1
         If newname.Length = 0 Then
@@ -130,25 +130,24 @@ Public Class FormDNSName
 
     End Sub
 
+
     Private Sub SaveAll()
 
         NextNameButton.Text = My.Resources.Saving_word
+        Dim address As System.Net.IPAddress = Nothing
 
-        If Form1.RegisterName(DNSNameBox.Text).Length >= 0 Then
-            Form1.Settings.DNSName = DNSNameBox.Text
-            Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
-            Dim address As IPAddress = Nothing
-            If IPAddress.TryParse(IP, address) Then
-                MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
-            Else
-                MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
-            End If
-        End If
-
-        If Form1.Settings.DNSName.Length = 0 Then
-            Form1.Settings.PublicIP = Form1.Settings.PrivateURL
+        If DNSNameBox.Text.Length = 0 Then
+            Form1.Settings.PublicIP = IP()
         Else
-            Form1.Settings.PublicIP = DNSNameBox.Text
+            Try
+                If IPAddress.TryParse(DNSNameBox.Text, address) Then
+                    Form1.Settings.PublicIP = IP()
+                Else
+                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                End If
+                Form1.Settings.DNSName = DNSNameBox.Text
+            Catch ex As ArgumentNullException
+            End Try
         End If
 
         Form1.Settings.SaveSettings()
@@ -176,20 +175,35 @@ Public Class FormDNSName
 
     End Sub
 
+
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
         NextNameButton.Text = My.Resources.Busy_word
         Form1.RegisterName(DNSNameBox.Text)
-        Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
-        Dim address As IPAddress = Nothing
-        If IPAddress.TryParse(IP, address) Then
-            MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP, vbInformation, My.Resources.Info)
+
+        Dim address As System.Net.IPAddress = Nothing
+        If DNSNameBox.Text.Length = 0 Then
+            Form1.Settings.PublicIP = IP()
         Else
-            MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
+            Try
+                If IPAddress.TryParse(DNSNameBox.Text, address) Then
+                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP(), vbInformation, My.Resources.Info)
+                Else
+                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                    If IP.Length = 0 Then
+                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
+                    Else
+                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & IP, vbInformation, My.Resources.Info)
+                    End If
+                End If
+            Catch ex As ArgumentNullException
+            End Try
         End If
+
         NextNameButton.Text = My.Resources.Next1
 
     End Sub
+
 
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 

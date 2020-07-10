@@ -66,8 +66,8 @@ Public Class FormApache
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
 
-
         Form1.Settings.SaveSettings()
+
         Form1.PropViewedSettings = True
 
     End Sub
@@ -86,6 +86,20 @@ Public Class FormApache
         Else
             LocalSearchCheckBox.Checked = False
             AllGridSearchCheckBox.Checked = True
+        End If
+
+        '''' set the other bvox and the radios for Different CMS systems. 
+        ''' This is used to redirect all access to apache / to the folder listed below
+        ''' 
+        If Form1.Settings.CMS = "DreamGrid" Then
+            EnableDiva.Checked = True
+        ElseIf Form1.Settings.CMS = "Wordpress" Then
+            EnableWP.Checked = True
+        ElseIf Form1.Settings.CMS = "JOpensim" Then
+            EnableJOpensim.Checked = True
+        Else
+            EnableOther.Checked = True
+            Other.Text = Form1.Settings.CMS
         End If
 
         EnableSearchCheckBox.Checked = Form1.Settings.SearchEnabled
@@ -158,7 +172,7 @@ Public Class FormApache
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
             Form1.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
@@ -168,7 +182,7 @@ Public Class FormApache
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-            'Application.doevents()
+            Application.DoEvents()
             ApacheProcess.WaitForExit()
             Form1.Print(My.Resources.Apache_has_been_removed)
         End Using
@@ -205,8 +219,51 @@ Public Class FormApache
     End Sub
 
     Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
+
         If Not initted Then Return
         Form1.Settings.EventTimerEnabled = EventsCheckBox.Checked
+
+    End Sub
+
+    Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
+
+        If Not initted Then Return
+        If EnableDiva.Checked Then Form1.Settings.CMS = "DreamGrid"
+
+    End Sub
+
+    Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
+
+        If Not initted Then Return
+        If EnableWP.Checked Then Form1.Settings.CMS = "Wordpress"
+
+    End Sub
+
+    Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
+
+        If Not initted Then Return
+        If EnableJOpensim.Checked Then Form1.Settings.CMS = "JOpensim"
+
+    End Sub
+
+    Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
+
+        If Not initted Then Return
+        If EnableOther.Checked Then Other.Text = Form1.Settings.CMS
+
+    End Sub
+
+    Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
+
+        If Not initted Then Return
+        If Other.Text.Length > 0 Then
+            EnableOther.Checked = True
+        Else
+            EnableOther.Checked = False
+            EnableDiva.Checked = True
+        End If
+        Form1.Settings.CMS = Other.Text
+
     End Sub
 
 

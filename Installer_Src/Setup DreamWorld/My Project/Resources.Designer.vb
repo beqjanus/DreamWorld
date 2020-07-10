@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  A strongly-typed resource class, for looking up localized strings, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -640,6 +640,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Backing up MySql\Data Folder. Please Wait. Screen will appear frozen..
+        '''</summary>
+        Friend ReadOnly Property Backup_MySQL_Phrase() As String
+            Get
+                Return ResourceManager.GetString("Backup_MySQL_Phrase", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Backup Name.
         '''</summary>
         Friend ReadOnly Property Backup_Name() As String
@@ -654,6 +663,15 @@ Namespace My.Resources
         Friend ReadOnly Property Backup_Region() As String
             Get
                 Return ResourceManager.GetString("Backup_Region", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backing up Regions Folder.
+        '''</summary>
+        Friend ReadOnly Property Backup_Regions() As String
+            Get
+                Return ResourceManager.GetString("Backup_Regions", resourceCulture)
             End Get
         End Property
         

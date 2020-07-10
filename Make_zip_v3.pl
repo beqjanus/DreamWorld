@@ -5,8 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.54";
-
+my $v = "3.57";
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
@@ -129,6 +128,7 @@ sign($exes);
 
 use File::Copy::Recursive qw(dircopy);
 dircopy($exes,$dir) or die("$!\n");
+
 
 unlink "$dir/Start.exe.lastcodeanalysissucceeded";
 unlink "$dir/Start.exe.CodeAnalysisLog.xml";
@@ -381,7 +381,10 @@ sub sign
 			my $r = qq!../Certs/sigcheck64.exe "$name"!;
 			print $r. "\n";
 			my $result1 = `$r`;
-			if ($result1 =~ /Publisher:.*Outworldz, LLC/) {
+			
+			print $result1;
+			
+			if ($result1 =~ /Outworldz, LLC/) {
 				next;
 			}
 			$result1 =~ s/\n//g;
@@ -390,7 +393,7 @@ sub sign
 			};
 			
 			
-			my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "D7EA8E5F8E6D27B138ECD93811DAA6B02B0BA333" "$name"!;
+			my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "d7ea8e5f8e6d27b138ecd93811daa6b02b0ba333" "$name"!;
 			print $f;
 			my $result = `$f`;
 			print $result. "\n";

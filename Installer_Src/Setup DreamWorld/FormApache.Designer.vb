@@ -37,10 +37,17 @@ Partial Class FormApache
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Other = New System.Windows.Forms.TextBox()
+        Me.EnableOther = New System.Windows.Forms.RadioButton()
+        Me.EnableJOpensim = New System.Windows.Forms.RadioButton()
+        Me.EnableDiva = New System.Windows.Forms.RadioButton()
+        Me.EnableWP = New System.Windows.Forms.RadioButton()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -159,7 +166,7 @@ Partial Class FormApache
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(395, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(574, 26)
         Me.MenuStrip1.TabIndex = 186740
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -193,11 +200,75 @@ Partial Class FormApache
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Search"
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.Other)
+        Me.GroupBox3.Controls.Add(Me.EnableOther)
+        Me.GroupBox3.Controls.Add(Me.EnableJOpensim)
+        Me.GroupBox3.Controls.Add(Me.EnableDiva)
+        Me.GroupBox3.Controls.Add(Me.EnableWP)
+        Me.GroupBox3.Location = New System.Drawing.Point(403, 28)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox3.Size = New System.Drawing.Size(150, 162)
+        Me.GroupBox3.TabIndex = 186742
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "CMS"
+        '
+        'Other
+        '
+        Me.Other.Location = New System.Drawing.Point(5, 125)
+        Me.Other.Name = "Other"
+        Me.Other.Size = New System.Drawing.Size(140, 20)
+        Me.Other.TabIndex = 186741
+        '
+        'EnableOther
+        '
+        Me.EnableOther.AutoSize = True
+        Me.EnableOther.Location = New System.Drawing.Point(14, 102)
+        Me.EnableOther.Name = "EnableOther"
+        Me.EnableOther.Size = New System.Drawing.Size(90, 17)
+        Me.EnableOther.TabIndex = 186745
+        Me.EnableOther.Text = "Enable Other:"
+        Me.EnableOther.UseVisualStyleBackColor = True
+        '
+        'EnableJOpensim
+        '
+        Me.EnableJOpensim.AutoSize = True
+        Me.EnableJOpensim.Location = New System.Drawing.Point(14, 78)
+        Me.EnableJOpensim.Name = "EnableJOpensim"
+        Me.EnableJOpensim.Size = New System.Drawing.Size(107, 17)
+        Me.EnableJOpensim.TabIndex = 186743
+        Me.EnableJOpensim.Text = "Enable JOpensim"
+        Me.EnableJOpensim.UseVisualStyleBackColor = True
+        '
+        'EnableDiva
+        '
+        Me.EnableDiva.AutoSize = True
+        Me.EnableDiva.Location = New System.Drawing.Point(14, 31)
+        Me.EnableDiva.Name = "EnableDiva"
+        Me.EnableDiva.Size = New System.Drawing.Size(113, 17)
+        Me.EnableDiva.TabIndex = 186744
+        Me.EnableDiva.Text = "Enable Diva Panel"
+        Me.EnableDiva.UseVisualStyleBackColor = True
+        '
+        'EnableWP
+        '
+        Me.EnableWP.AutoSize = True
+        Me.EnableWP.Location = New System.Drawing.Point(14, 54)
+        Me.EnableWP.Name = "EnableWP"
+        Me.EnableWP.Size = New System.Drawing.Size(112, 17)
+        Me.EnableWP.TabIndex = 186742
+        Me.EnableWP.Text = "Enable Wordpress"
+        Me.EnableWP.UseVisualStyleBackColor = True
+        '
         'FormApache
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(395, 205)
+        Me.ClientSize = New System.Drawing.Size(574, 205)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)
@@ -211,6 +282,8 @@ Partial Class FormApache
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -231,4 +304,10 @@ Partial Class FormApache
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Other As TextBox
+    Friend WithEvents EnableOther As RadioButton
+    Friend WithEvents EnableJOpensim As RadioButton
+    Friend WithEvents EnableDiva As RadioButton
+    Friend WithEvents EnableWP As RadioButton
 End Class
