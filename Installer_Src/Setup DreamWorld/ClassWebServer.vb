@@ -58,6 +58,7 @@ Public Class NetServer
 
     Public Sub StartServer(pathinfo As String, Settings As MySettings)
 
+        If Settings Is Nothing Then Return
         ' stash some globs
         Setting = Settings
         MyPort = CStr(Settings.DiagnosticPort)
@@ -70,7 +71,7 @@ Public Class NetServer
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try

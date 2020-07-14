@@ -549,7 +549,14 @@ Public Class Form1
             _KillSource = value
         End Set
     End Property
-
+    Public Property PropMaxXMLPortUsed As Integer
+        Get
+            Return _MaxPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxPortUsed = value
+        End Set
+    End Property
     Public Property PropMaxPortUsed As Integer
         Get
             Return _MaxPortUsed
@@ -1088,7 +1095,7 @@ Public Class Form1
         Return result
     End Function
 
-    Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+    Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
         If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
@@ -1359,7 +1366,7 @@ Public Class Form1
 
     End Function
 
-    Public Function ExternLocalServerName() As String
+    Public Shared Function ExternLocalServerName() As String
         ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
         ''' <returns>Host for regions</returns>
         Dim Host As String
@@ -5411,7 +5418,7 @@ Public Class Form1
 
     End Sub
 
-    Public Sub CheckDefaultPorts()
+    Public Shared Sub CheckDefaultPorts()
 
         If Settings.DiagnosticPort = Settings.HttpPort _
         Or Settings.DiagnosticPort = Settings.PrivatePort _

@@ -157,7 +157,7 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub SetScreen(View As Integer)
+    Private Sub SetScreen()
 
         Me.Show()
         ScreenPosition = New ScreenPos(MyBase.Name)
@@ -284,7 +284,7 @@ Public Class RegionList
 
         ' Set the view to show details.
         TheView1 = Settings.RegionListView()
-        SetScreen(TheView1)
+        SetScreen()
 
 
         Dim W As View
@@ -1263,7 +1263,7 @@ Public Class RegionList
         Settings.SaveSettings()
         TheView1 = ViewType.Avatars
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        SetScreen(TheView1)
+        SetScreen()
         ListView1.View = View.Details
         ListView1.Hide()
         AvatarView.Show()
@@ -1278,7 +1278,7 @@ Public Class RegionList
         Settings.SaveSettings()
         TheView1 = ViewType.Icons
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-        SetScreen(TheView1)
+        SetScreen()
         ListView1.View = View.SmallIcon
         ListView1.Show()
         AvatarView.Hide()
@@ -1294,7 +1294,7 @@ Public Class RegionList
         Settings.SaveSettings()
         TheView1 = ViewType.Details
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        SetScreen(TheView1)
+        SetScreen()
         ListView1.View = View.Details
         ListView1.Show()
         AvatarView.Hide()
@@ -1310,7 +1310,7 @@ Public Class RegionList
         Settings.SaveSettings()
         TheView1 = ViewType.Maps
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        SetScreen(TheView1)
+        SetScreen()
         ListView1.View = View.LargeIcon
         ListView1.Show()
         AvatarView.Hide()

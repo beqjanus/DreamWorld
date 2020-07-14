@@ -73,6 +73,7 @@ Public Class ScreenPos
 
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
 
+        If name Is Nothing Then Return 0
         If name.Contains("Enable") Then
             Dim x = 1
         End If
