@@ -84,6 +84,7 @@ Public Class Form1
     Private _IsRunning As Boolean = False
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
+    Private _MaxXMLPortUsed As Integer = 0
     Private _myFolder As String
 
     Private _MysqlCrashCounter As Integer = 0
@@ -215,7 +216,7 @@ Public Class Form1
 
         If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Integer = CInt(Settings.AutobackupInterval)
+            Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
                 Print(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
@@ -551,10 +552,10 @@ Public Class Form1
     End Property
     Public Property PropMaxXMLPortUsed As Integer
         Get
-            Return _MaxPortUsed
+            Return _MaxXMLPortUsed
         End Get
         Set(value As Integer)
-            _MaxPortUsed = value
+            _MaxXMLPortUsed = value
         End Set
     End Property
     Public Property PropMaxPortUsed As Integer
@@ -3709,7 +3710,7 @@ Public Class Form1
 
         ' Opensim.ini
         Settings.LoadIni(GetOpensimProto(), ";")
-        'Print("->Set Opensim.Proto")
+
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
@@ -3733,7 +3734,6 @@ Public Class Form1
                     Settings.SetIni("DataSnapshot", "data_services", "")
                     Settings.SetIni("Search", "SearchURL", "")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
-
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                 End If
 
@@ -3745,6 +3745,7 @@ Public Class Form1
             Case "Metro"
 
         End Select
+
 
         ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
         ' support this feature
@@ -3788,6 +3789,7 @@ Public Class Form1
         Else
             Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
         End If
+
 
         Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.BaseHostName)
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))

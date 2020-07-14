@@ -106,18 +106,25 @@ Public Class RegionMaker
 
         Form1.Print(My.Resources.Updating_Ports_word)
 
-        Dim Portnumber As Integer = CInt(Settings.FirstRegionPort())
+        Dim Portnumber As Integer = Settings.FirstRegionPort()
+        Dim XMLPortnumber As Integer = Settings.FirstXMLRegionPort()
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
             Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
 
             Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
             Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
+
+            Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
+            Form1.PropRegionClass.XMLRegionPort(RegionUUID) = XMLPortnumber
+
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
+            Form1.PropMaxXMLPortUsed = XMLPortnumber
+
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
-
+            If XMLPortnumber > 1024 Then XMLPortnumber += 1
         Next
 
         Form1.Print(My.Resources.Setup_Firewall_word)
@@ -307,6 +314,7 @@ Public Class RegionMaker
             ._FrameTime = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._SkipAutobackup = "",
             ._ScriptEngine = "",
+            ._XMLRegionPort = "",
             ._RegionSmartStart = ""
         }
 
@@ -415,8 +423,8 @@ Public Class RegionMaker
                             Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(2000, 1000) & "," & RandomNumber.Between(2000, 1000))
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                            CoordX(RegionUUID) = CInt(parts(0))
-                            CoordY(RegionUUID) = CInt(parts(1))
+                            CoordX(RegionUUID) = CInt("0" & parts(0))
+                            CoordY(RegionUUID) = CInt("0" & parts(1))
 
                             ' options parameters coming from INI file can be blank!
                             MinTimerInterval(RegionUUID) = Settings.GetIni(fName, "MinTimerInterval", "", "String")
@@ -438,6 +446,7 @@ Public Class RegionMaker
                             SkipAutobackup(RegionUUID) = Settings.GetIni(fName, "SkipAutoBackup", "", "String")
                             Snapshot(RegionUUID) = Settings.GetIni(fName, "RegionSnapShot", "", "String")
                             ScriptEngine(RegionUUID) = Settings.GetIni(fName, "ScriptEngine", "", "String")
+                            XMLRegionPort(RegionUUID) = Settings.GetIni(fName, "XMLRegionPort", "", "String")
 
                             Select Case Settings.GetIni(fName, "SmartStart", "False", "String")
                                 Case "True"
@@ -635,6 +644,7 @@ Public Class RegionMaker
         & "MinTimerInterval =" & MinTimerInterval(RegionUUID) & vbCrLf _
         & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
+        & "XmlRpcPort =" & XMLRegionPort(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf
 
         FileStuff.DeleteFile(fname)
@@ -716,6 +726,7 @@ Public Class RegionMaker
         Public _RegionSmartStart As String = ""
         Public _RegionSnapShot As String = ""
         Public _ScriptEngine As String = ""
+        Public _XMLRegionPort As String = ""
         Public _SkipAutobackup As String = ""
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
@@ -1229,6 +1240,20 @@ Public Class RegionMaker
         End Set
     End Property
 
+
+    Public Property XMLRegionPort(RegionUUID As String) As String
+        Get
+            If RegionUUID Is Nothing Then Return ""
+            If Bad(RegionUUID) Then Return ""
+            Return RegionList(RegionUUID)._XMLRegionPort
+        End Get
+        Set(ByVal Value As String)
+            If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
+            RegionList(RegionUUID)._XMLRegionPort = Value
+        End Set
+    End Property
+
     Public Property ScriptEngine(RegionUUID As String) As String
         Get
             If RegionUUID Is Nothing Then Return ""
@@ -1736,6 +1761,7 @@ Public Class RegionMaker
         ' edit the region INI
         If Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
+
         ' Autobackup
         If Settings.AutoBackup And Form1.PropRegionClass.SkipAutobackup(RegionUUID) = "" Then
             Settings.SetIni(RegionName, "AutoBackup", "True")
@@ -1753,7 +1779,15 @@ Public Class RegionMaker
             Settings.SetIni(RegionName, "Enabled", "False")
         End If
 
+
         ' Extended in v 2.1
+
+
+        If Settings.FirstXMLRegionPort > 0 Then
+            Settings.SetIni(RegionName, "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+        Else
+            Settings.SetIni(RegionName, "XmlRpcPort", "")
+        End If
 
         Select Case Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID)
             Case ""
@@ -1844,6 +1878,7 @@ Public Class RegionMaker
         Settings.SetIni(RegionName, "SkipAutoBackup", Form1.PropRegionClass.SkipAutobackup(RegionUUID))
         Settings.SetIni(RegionName, "Physics", Form1.PropRegionClass.Physics(RegionUUID))
         Settings.SetIni(RegionName, "FrameTime", Form1.PropRegionClass.FrameTime(RegionUUID))
+        Settings.SetIni(RegionName, "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
@@ -1857,6 +1892,13 @@ Public Class RegionMaker
         If Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
+
+        If Settings.FirstXMLRegionPort > 0 Then
+            Settings.SetIni("XMLRPC", "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+        Else
+            Settings.SetIni("XMLRPC", "XmlRpcPort", "")
+        End If
+
 
         ' Autobackup
         If Settings.AutoBackup Then

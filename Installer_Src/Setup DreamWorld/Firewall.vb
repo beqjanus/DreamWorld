@@ -50,7 +50,7 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        Dim start = CInt(Settings.FirstRegionPort)
+        Dim start = CInt("0" & Settings.FirstRegionPort)
         For Port As Integer = start To Form1.PropMaxPortUsed
             Command = Command & "netsh advfirewall firewall  delete rule name=""Region TCP Port " & CStr(Port) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & CStr(Port) & """" & vbCrLf

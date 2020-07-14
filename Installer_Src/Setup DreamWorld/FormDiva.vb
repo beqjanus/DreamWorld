@@ -254,7 +254,7 @@ Public Class FormDiva
         Dim digitsOnly As Regex = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
-        Settings.SmtpPort = CInt(SmtpPort.Text)
+        Settings.SmtpPort = CInt("0" & SmtpPort.Text)
         Settings.SaveSettings()
 
     End Sub

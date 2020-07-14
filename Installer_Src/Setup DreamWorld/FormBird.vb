@@ -182,7 +182,7 @@ Public Class BirdForm
         If changed Then
             Form1.PropViewedSettings = True
         End If
-        Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
+        Settings.BirdsFlockSize = CInt("0" & BirdsFlockSizeDomain.Text)
         Settings.SaveSettings()
 
     End Sub

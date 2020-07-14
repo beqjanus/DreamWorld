@@ -183,7 +183,7 @@ Public Class FormDatabase
         If Not Initted1 Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         RobustDbPort.Text = digitsOnly.Replace(RobustDbPort.Text, "")
-        Settings.MySqlRobustDBPort = CInt(RobustDbPort.Text)
+        Settings.MySqlRobustDBPort = CInt("0" & RobustDbPort.Text)
         Settings.SaveSettings()
 
     End Sub
@@ -239,7 +239,7 @@ Public Class FormDatabase
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MysqlRegionPort.Text = digitsOnly.Replace(MysqlRegionPort.Text, "")
 
-        Settings.MySqlRegionDBPort = CInt(MysqlRegionPort.Text)
+        Settings.MySqlRegionDBPort = CInt("0" & MysqlRegionPort.Text)
         Settings.SaveSettings()
 
     End Sub

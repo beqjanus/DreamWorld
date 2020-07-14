@@ -80,6 +80,12 @@ Public Class FormPorts
 
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
         'ports
@@ -169,6 +175,18 @@ Public Class FormPorts
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
         Form1.Help("Ports")
     End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        FirstXMLRegionPort.Text = digitsOnly.Replace(FirstXMLRegionPort.Text, "")
+        Settings.FirstXMLRegionPort() = CInt(FirstXMLRegionPort.Text)
+        Settings.SaveSettings()
+
+    End Sub
+
 
 #End Region
 
