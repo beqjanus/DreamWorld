@@ -78,13 +78,13 @@ Public Class FormPorts
 
         SetScreen()
 
+        RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
-
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -123,7 +123,7 @@ Public Class FormPorts
         Dim digitsOnly As Regex = New Regex("[^\d]")
         DiagnosticPort.Text = digitsOnly.Replace(DiagnosticPort.Text, "")
 
-        Settings.DiagnosticPort = CInt(DiagnosticPort.Text)
+        Settings.DiagnosticPort = CInt("0" & DiagnosticPort.Text)
         Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
@@ -143,8 +143,17 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
-        Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
+        Settings.FirstRegionPort() = CInt("0" & FirstRegionPort.Text)
         Settings.SaveSettings()
+
+        RegionMaker.UpdateAllRegionPorts()
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
+        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
 
     End Sub
 
@@ -154,7 +163,7 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
-        Settings.HttpPort = CInt(HTTPPort.Text)
+        Settings.HttpPort = CInt("0" & HTTPPort.Text)
         Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
@@ -166,14 +175,16 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
-        Settings.PrivatePort = CInt(PrivatePort.Text)
+        Settings.PrivatePort = CInt("0" & PrivatePort.Text)
         Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
 
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
+
         Form1.Help("Ports")
+
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
@@ -182,8 +193,18 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         FirstXMLRegionPort.Text = digitsOnly.Replace(FirstXMLRegionPort.Text, "")
-        Settings.FirstXMLRegionPort() = CInt(FirstXMLRegionPort.Text)
+        Settings.FirstXMLRegionPort() = CInt("0" & FirstXMLRegionPort.Text)
         Settings.SaveSettings()
+
+        RegionMaker.UpdateAllRegionPorts()
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
+        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
 
     End Sub
 

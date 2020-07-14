@@ -25,8 +25,8 @@ Partial Class FormPorts
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.MaxX = New System.Windows.Forms.Label()
+        Me.MaxXLabel = New System.Windows.Forms.Label()
         Me.FirstXMLRegionPort = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ExternalHostName = New System.Windows.Forms.TextBox()
@@ -52,8 +52,8 @@ Partial Class FormPorts
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Label2)
         Me.GroupBox2.Controls.Add(Me.MaxX)
+        Me.GroupBox2.Controls.Add(Me.MaxXLabel)
         Me.GroupBox2.Controls.Add(Me.FirstXMLRegionPort)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.ExternalHostName)
@@ -75,23 +75,23 @@ Partial Class FormPorts
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Ports"
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(20, 200)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(105, 13)
-        Me.Label2.TabIndex = 1867
-        Me.Label2.Text = "Highest used: 20001"
-        '
         'MaxX
         '
         Me.MaxX.AutoSize = True
-        Me.MaxX.Location = New System.Drawing.Point(19, 177)
+        Me.MaxX.Location = New System.Drawing.Point(20, 200)
         Me.MaxX.Name = "MaxX"
-        Me.MaxX.Size = New System.Drawing.Size(108, 13)
-        Me.MaxX.TabIndex = 1866
-        Me.MaxX.Text = "XMLRPC Port Start #"
+        Me.MaxX.Size = New System.Drawing.Size(105, 13)
+        Me.MaxX.TabIndex = 1867
+        Me.MaxX.Text = "Highest used: 20001"
+        '
+        'MaxXLabel
+        '
+        Me.MaxXLabel.AutoSize = True
+        Me.MaxXLabel.Location = New System.Drawing.Point(19, 177)
+        Me.MaxXLabel.Name = "MaxXLabel"
+        Me.MaxXLabel.Size = New System.Drawing.Size(108, 13)
+        Me.MaxXLabel.TabIndex = 1866
+        Me.MaxXLabel.Text = "XMLRPC Port Start #"
         '
         'FirstXMLRegionPort
         '
@@ -99,7 +99,7 @@ Partial Class FormPorts
         Me.FirstXMLRegionPort.Name = "FirstXMLRegionPort"
         Me.FirstXMLRegionPort.Size = New System.Drawing.Size(47, 20)
         Me.FirstXMLRegionPort.TabIndex = 1865
-        Me.ToolTip1.SetToolTip(Me.FirstXMLRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
+        Me.ToolTip1.SetToolTip(Me.FirstXMLRegionPort, "20800")
         '
         'Label1
         '
@@ -280,7 +280,7 @@ Partial Class FormPorts
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Label2 As Label
     Friend WithEvents MaxX As Label
+    Friend WithEvents MaxXLabel As Label
     Friend WithEvents FirstXMLRegionPort As TextBox
 End Class
