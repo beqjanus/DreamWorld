@@ -497,6 +497,7 @@ Public Class FormRegion
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
             RegionMaker.CopyOpensimProto(RegionName.Text)
+            Firewall.SetFirewall()
             Form1.PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
@@ -617,7 +618,7 @@ Public Class FormRegion
                 Else
                     WriteRegion(RegionUUID)
                     RegionMaker.CopyOpensimProto(RegionName.Text)
-
+                    Firewall.SetFirewall()
                     Form1.PropUpdateView() = True
                     Changed1 = False
                 End If
@@ -952,7 +953,9 @@ Public Class FormRegion
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+
         Form1.Help("Region")
+
     End Sub
 
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
@@ -1464,6 +1467,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
+
 
 
 #End Region
