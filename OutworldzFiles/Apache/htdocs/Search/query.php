@@ -157,7 +157,7 @@ function dir_places_query($method_name, $params, $app_data)
     $data = array();
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
-        $data[] = array(
+        @$data[] = array(
                 "parcel_id" => $row["infouuid"],
                 "name" => $row["url"].":".$row["port"].$row["regioname"]." ".$row["parcelname"],
                 "for_sale" => "False",
