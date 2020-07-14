@@ -1498,7 +1498,9 @@ Public Class Form1
 
         Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
-        Dim user = InputBox(My.Resources.Enter_1_2)
+        Dim user As String = InputBox(My.Resources.Enter_1_2)
+
+
         Dim password = InputBox(My.Resources.Password_word)
         If user.Length > 0 And password.Length > 0 Then
             ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
