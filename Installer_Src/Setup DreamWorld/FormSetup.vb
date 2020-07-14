@@ -6792,13 +6792,10 @@ Public Class Form1
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
-            RegisterDNS(True)
-            Application.DoEvents()
         End If
 
         If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
-            GetEvents() ' get the events from the Outworldz main server for all grids
-            Application.DoEvents()
+            GetEvents() ' get the events from the Outworldz main server for all grids            
         End If
 
         PropDNSSTimer += 1
@@ -7071,7 +7068,7 @@ Public Class Form1
             client.Dispose()
         End Try
 
-        If Checkname = "UPDATED" Then Return True
+        If Checkname.Contains("UPDATE") Then Return True
         Return False
 
     End Function
