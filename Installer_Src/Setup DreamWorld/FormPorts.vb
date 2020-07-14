@@ -70,7 +70,7 @@ Public Class FormPorts
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -78,16 +78,22 @@ Public Class FormPorts
 
         SetScreen()
 
-        FirstRegionPort.Text = CStr(Form1.Settings.FirstRegionPort())
+        RegionMaker.UpdateAllRegionPorts()
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-        uPnPEnabled.Checked = Form1.Settings.UPnPEnabled
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+        uPnPEnabled.Checked = Settings.UPnPEnabled
 
         'ports
-        DiagnosticPort.Text = CStr(Form1.Settings.DiagnosticPort)
-        PrivatePort.Text = CStr(Form1.Settings.PrivatePort)
-        HTTPPort.Text = CStr(Form1.Settings.HttpPort)
+        DiagnosticPort.Text = CStr(Settings.DiagnosticPort)
+        PrivatePort.Text = CStr(Settings.PrivatePort)
+        HTTPPort.Text = CStr(Settings.HttpPort)
 
-        ExternalHostName.Text = Form1.Settings.OverrideName
+        ExternalHostName.Text = Settings.OverrideName
 
         Form1.HelpOnce("Ports")
         initted = True
@@ -97,8 +103,8 @@ Public Class FormPorts
     Private Sub UPnPEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles uPnPEnabled.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.UPnPEnabled = uPnPEnabled.Checked
-        Form1.Settings.SaveSettings()
+        Settings.UPnPEnabled = uPnPEnabled.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -117,8 +123,8 @@ Public Class FormPorts
         Dim digitsOnly As Regex = New Regex("[^\d]")
         DiagnosticPort.Text = digitsOnly.Replace(DiagnosticPort.Text, "")
 
-        Form1.Settings.DiagnosticPort = CInt(DiagnosticPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.DiagnosticPort = CInt("0" & DiagnosticPort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
@@ -127,7 +133,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Form1.Settings.OverrideName = ExternalHostName.Text
+        Settings.OverrideName = ExternalHostName.Text
 
     End Sub
 
@@ -137,8 +143,17 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
-        Form1.Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.FirstRegionPort() = CInt("0" & FirstRegionPort.Text)
+        Settings.SaveSettings()
+
+        RegionMaker.UpdateAllRegionPorts()
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
+        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
 
     End Sub
 
@@ -148,8 +163,8 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
-        Form1.Settings.HttpPort = CInt(HTTPPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.HttpPort = CInt("0" & HTTPPort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
@@ -160,15 +175,39 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
-        Form1.Settings.PrivatePort = CInt(PrivatePort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.PrivatePort = CInt("0" & PrivatePort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
 
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
+
         Form1.Help("Ports")
+
     End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        FirstXMLRegionPort.Text = digitsOnly.Replace(FirstXMLRegionPort.Text, "")
+        Settings.FirstXMLRegionPort() = CInt("0" & FirstXMLRegionPort.Text)
+        Settings.SaveSettings()
+
+        RegionMaker.UpdateAllRegionPorts()
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
+        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
+        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+
+
+    End Sub
+
 
 #End Region
 

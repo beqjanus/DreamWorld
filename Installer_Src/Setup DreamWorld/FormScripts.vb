@@ -16,9 +16,9 @@
 
         SetScreen()
 
-        LSLCheckbox.Checked = Form1.Settings.LSLHTTP()
+        LSLCheckbox.Checked = Settings.LSLHTTP()
 
-        If Form1.Settings.ScriptEngine() = "YEngine" Then
+        If Settings.ScriptEngine() = "YEngine" Then
             YengineButton.Checked = True
             XengineButton.Checked = False
         Else
@@ -39,8 +39,8 @@
 
         If initted Then
 
-            Form1.Settings.LSLHTTP() = LSLCheckbox.Checked
-            Form1.Settings.SaveSettings()
+            Settings.LSLHTTP() = LSLCheckbox.Checked
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -48,16 +48,16 @@
     Private Sub XengineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XengineButton.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.ScriptEngine() = "XEngine"
-        Form1.Settings.SaveSettings()
+        Settings.ScriptEngine() = "XEngine"
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub YEngineRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles YengineButton.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.ScriptEngine() = "YEngine"
-        Form1.Settings.SaveSettings()
+        Settings.ScriptEngine() = "YEngine"
+        Settings.SaveSettings()
 
     End Sub
 

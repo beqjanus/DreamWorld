@@ -65,7 +65,7 @@ Public Class FormPhysics
 
         SetScreen()
 
-        Select Case Form1.Settings.Physics
+        Select Case Settings.Physics
             Case 0 : PhysicsNone.Checked = True
             Case 1 : PhysicsODE.Checked = True
             Case 2 : PhysicsBullet.Checked = True
@@ -95,55 +95,55 @@ Public Class FormPhysics
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
         If Not initted Then Return
         If PhysicsBullet.Checked Then
-            Form1.Settings.Physics = 2
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 2
+            Settings.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
         If Not initted Then Return
         If PhysicsHybrid.Checked Then
-            Form1.Settings.Physics = 5
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 5
+            Settings.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
         If Not initted Then Return
         If PhysicsNone.Checked Then
-            Form1.Settings.Physics = 0
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 0
+            Settings.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
         If Not initted Then Return
         If PhysicsSeparate.Checked Then
-            Form1.Settings.Physics = 3
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 3
+            Settings.SaveSettings()
         End If
     End Sub
 
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
         If Not initted Then Return
         If PhysicsubODE.Checked Then
-            Form1.Settings.Physics = 4
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 4
+            Settings.SaveSettings()
         End If
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
         If Not initted Then Return
         If PhysicsODE.Checked Then
-            Form1.Settings.Physics = 1
-            Form1.Settings.SaveSettings()
+            Settings.Physics = 1
+            Settings.SaveSettings()
         End If
     End Sub
 

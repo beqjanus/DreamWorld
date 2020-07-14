@@ -215,6 +215,7 @@
     <Compile Include="ClrCache.vb" />
     <Compile Include="Crashdetector.vb" />
     <Compile Include="Dump.vb" />
+    <Compile Include="Events.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
@@ -411,6 +412,7 @@
     </Compile>
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="ExitHandler.vb" />
+    <Compile Include="GlobalSettings.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />

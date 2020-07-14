@@ -59,7 +59,7 @@ PublicPort=8002
 PrivatePort=8003
 
 ;# {PrivURL} {} {PrivURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
-PrivURL=http://192.168.2.133
+PrivURL=http://10.242.2.3
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
@@ -69,7 +69,7 @@ GridName=DreamGrid
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
 DiagnosticsPort=8001
-http_listener_port=7001
+http_listener_port=8004
 
 [Startup]
 
@@ -333,9 +333,9 @@ LogShowStatsSeconds=3600
 ;; having both options true does provide encryption but with low security
 ;; set both true if you don't care to use SSL, they are needed to contact regions or grids that do use it.
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
 DefaultScriptEngine=XEngine
 FrameTime=0.0909090909090909
+economymodule=BetaGridLikeMoneyModule
 
 [RegionReady]
 
@@ -603,7 +603,7 @@ http_listener_port=${Const|http_listener_port}
 ; to whitelist all ports on addresses 192.168.1.0 to 192.168.1.255
 ; To specify an individual IP address use the /32 netmask
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.133/32
+OutboundDisallowForUserScriptsExcept=10.242.2.3/32
 
 ;
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation

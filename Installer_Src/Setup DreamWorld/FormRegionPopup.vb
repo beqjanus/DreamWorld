@@ -68,6 +68,12 @@ Public Class FormRegionPopup
 
     Public Sub Init(RegionName As String)
 
+        If Settings.ServerType = "Robust" Then
+            ViewMapButton.Enabled = True
+        Else
+            ViewMapButton.Enabled = False
+        End If
+
         _RegionName = RegionName
 
         Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
@@ -178,7 +184,7 @@ Public Class FormRegionPopup
 
         Dim RegionNum = Form1.PropRegionClass.FindRegionByName(_RegionName)
         Dim RegionPort = Form1.PropRegionClass.GroupPort(RegionNum)
-        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
 #Disable Warning CA1031

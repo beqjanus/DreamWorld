@@ -40,6 +40,7 @@ Public Class Form1
 #Region "Version"
     Private _MyVersion As String = "3.57"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
+    Private _SearchRev = 4  ' the rev of the Search Table
 #End Region
 
 #Disable Warning CA2213
@@ -83,8 +84,9 @@ Public Class Form1
     Private _IsRunning As Boolean = False
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
+    Private _MaxXMLPortUsed As Integer = 0
     Private _myFolder As String
-    Private _mySetting As New MySettings
+
     Private _MysqlCrashCounter As Integer = 0
     Private _MysqlExited As Boolean = False
     Private _myUPnpMap As UPnp
@@ -214,7 +216,7 @@ Public Class Form1
 
         If Settings.AutoBackup Then
             ' add 30 minutes to allow time to auto backup and then restart
-            Dim BTime As Integer = CInt(Settings.AutobackupInterval)
+            Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
                 Print(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
@@ -235,7 +237,6 @@ Public Class Form1
             Return
         End If
 
-        SetupSearch()
 
         StartApache()
 
@@ -273,8 +274,8 @@ Public Class Form1
                 End If
 
                 ' Read the chosen sim name
-                ConsoleCommand("Robust", "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 Settings.RunOnce = True
                 Settings.SaveSettings()
             End Using
@@ -307,8 +308,6 @@ Public Class Form1
         PropAborting = False
 
         If Not StartRobust() Then Return False
-
-
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
@@ -551,7 +550,14 @@ Public Class Form1
             _KillSource = value
         End Set
     End Property
-
+    Public Property PropMaxXMLPortUsed As Integer
+        Get
+            Return _MaxXMLPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxXMLPortUsed = value
+        End Set
+    End Property
     Public Property PropMaxPortUsed As Integer
         Get
             Return _MaxPortUsed
@@ -751,14 +757,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property Settings As MySettings
-        Get
-            Return _mySetting
-        End Get
-        Set(value As MySettings)
-            _mySetting = value
-        End Set
-    End Property
 
     Public Property SimVersion As String
         Get
@@ -867,7 +865,7 @@ Public Class Form1
 
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog(ex.Message)
         End Try
@@ -896,7 +894,7 @@ Public Class Form1
                 Application.DoEvents()
             Next
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -1031,15 +1029,7 @@ Public Class Form1
         Return False
     End Function
 
-    Public Shared Sub DeleteEvents(Connection As MySqlConnection)
 
-        Dim stm = "delete from events"
-        Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
-            Dim rowsdeleted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
-        End Using
-
-    End Sub
 
     Public Shared Function GetDlls(fname As String) As List(Of String)
 
@@ -1106,7 +1096,7 @@ Public Class Form1
         Return result
     End Function
 
-    Public Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
+    Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
         If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
             Return True
@@ -1159,33 +1149,6 @@ Public Class Form1
 
     End Function
 
-    Public Shared Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
-
-        If D Is Nothing Then Return
-
-        Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags) values (" _
-                        & "'" & D.Item("simname") & "'," _
-                        & "'" & D.Item("category") & "'," _
-                        & "'" & D.Item("creatoruuid") & "'," _
-                        & "'" & D.Item("owneruuid") & "'," _
-                        & "'" & D.Item("name") & "'," _
-                        & "'" & D.Item("description") & "'," _
-                        & "'" & D.Item("dateUTC") & "'," _
-                        & "'" & D.Item("duration") & "'," _
-                        & "'" & D.Item("covercharge") & "'," _
-                        & "'" & D.Item("coveramount") & "'," _
-                        & "'" & D.Item("parcelUUID") & "'," _
-                        & "'" & D.Item("globalPos") & "'," _
-                        & "'" & D.Item("eventflags") & "')"
-
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-        Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-            Dim rowsinserted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Insert: {0}", CStr(rowsinserted))
-        End Using
-
-    End Sub
 
     Public Sub BackupDB()
 
@@ -1269,7 +1232,7 @@ Public Class Form1
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
@@ -1298,7 +1261,7 @@ Public Class Form1
             End Select
 
             Dim PID As Integer
-            If RegionUUID <> "Robust" Then
+            If RegionUUID <> RobustName() Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Application.DoEvents()
@@ -1404,7 +1367,7 @@ Public Class Form1
 
     End Function
 
-    Public Function ExternLocalServerName() As String
+    Public Shared Function ExternLocalServerName() As String
         ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
         ''' <returns>Host for regions</returns>
         Dim Host As String
@@ -1432,7 +1395,7 @@ Public Class Form1
             Next
             Return String.Empty
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             ErrorLog("Warn:Unable to resolve name:" & ex.Message)
         End Try
@@ -1442,10 +1405,10 @@ Public Class Form1
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
-        If Groupname = "Robust" Then
+        If Groupname = RobustName() Then
 
             For Each pList As Process In Process.GetProcesses()
-                If pList.ProcessName = "Robust" Then
+                If pList.ProcessName = RobustName() Then
                     Return pList.MainWindowHandle
                 End If
             Next
@@ -1543,7 +1506,9 @@ Public Class Form1
 
         Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
 
-        Dim user = InputBox(My.Resources.Enter_1_2)
+        Dim user As String = InputBox(My.Resources.Enter_1_2)
+
+
         Dim password = InputBox(My.Resources.Password_word)
         If user.Length > 0 And password.Length > 0 Then
             ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf)
@@ -1608,7 +1573,7 @@ Public Class Form1
                     once = True
                 End If
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
@@ -1721,7 +1686,7 @@ Public Class Form1
             Next
 
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log("UPnP", "UPnP Exception caught:  " & ex.Message)
             Return False
@@ -1741,8 +1706,8 @@ Public Class Form1
                     ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
-            ConsoleCommand("Robust", "set log level " & msg & "{ENTER}" & vbCrLf)
-            ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+            ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
+            ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
         End If
 
         Settings.LogLevel = msg
@@ -1890,7 +1855,7 @@ Public Class Form1
                 End If
             End While
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             ErrorLog(windowName & ":" & ex.Message)
@@ -1934,7 +1899,7 @@ Public Class Form1
         If Settings.ServerType <> "Robust" Then Return
 
         ' modify this to migrate search datbase upwards a rev
-        If Not Settings.SearchMigration = 3 Then
+        If Not Settings.SearchMigration = _SearchRev Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -1955,7 +1920,7 @@ Public Class Form1
                     MysqlSearch.Start()
                     MysqlSearch.WaitForExit()
 #Disable Warning CA1031
-                Catch ex As exception
+                Catch ex As Exception
 #Enable Warning CA1031
 
                     ErrorLog("Could not create Search Database: " & ex.Message)
@@ -1966,7 +1931,7 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            Settings.SearchMigration = 3
+            Settings.SearchMigration = _SearchRev
             Settings.SaveSettings()
 
         End If
@@ -2004,7 +1969,7 @@ Public Class Form1
                 Dim str = PropDomain & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
                 result = client.DownloadString(str)
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
 
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -2108,7 +2073,7 @@ Public Class Form1
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
 
-        ConsoleCommand("Robust", "create user{ENTER}")
+        ConsoleCommand(RobustName, "create user{ENTER}")
 
     End Sub
 
@@ -2313,7 +2278,9 @@ Public Class Form1
     End Sub
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
-        ConsoleCommand("Robust", "reset user password{ENTER}")
+
+        ConsoleCommand(RobustName, "reset user password{ENTER}")
+
     End Sub
 
     Private Sub CheckAndRepairDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckAndRepairDatbaseToolStripMenuItem.Click
@@ -2685,10 +2652,7 @@ Public Class Form1
 
         Adv1 = New AdvancedForm
 
-
         Me.Show()
-
-
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
@@ -2826,6 +2790,7 @@ Public Class Form1
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
 
+        SetupSearch()
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
@@ -3727,6 +3692,15 @@ Public Class Form1
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
+
+        ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling
+        ' ;; and available when they return. True by default.
+        If Settings.Suitcase Then
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
+        Else
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "false")
+        End If
+
         Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
 
@@ -3736,7 +3710,7 @@ Public Class Form1
 
         ' Opensim.ini
         Settings.LoadIni(GetOpensimProto(), ";")
-        'Print("->Set Opensim.Proto")
+
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
@@ -3760,7 +3734,6 @@ Public Class Form1
                     Settings.SetIni("DataSnapshot", "data_services", "")
                     Settings.SetIni("Search", "SearchURL", "")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
-
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                 End If
 
@@ -3772,6 +3745,7 @@ Public Class Form1
             Case "Metro"
 
         End Select
+
 
         ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
         ' support this feature
@@ -3815,6 +3789,7 @@ Public Class Form1
         Else
             Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
         End If
+
 
         Settings.SetIni("Network", "ExternalHostNameForLSL", Settings.BaseHostName)
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
@@ -4856,7 +4831,7 @@ Public Class Form1
             Return True
         End If
 
-        DoIcecast()
+        DoIceCast()
 
         ' Check if DOS box exists, first, if so, its running.
         For Each p In Process.GetProcesses
@@ -5211,7 +5186,7 @@ Public Class Form1
     Public Sub StopRobust()
 
         Print("Robust " & My.Resources.Stopping_word)
-        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
+        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
         While CheckRobust() And ctr < 60
@@ -5245,6 +5220,7 @@ Public Class Form1
 
     End Function
 
+
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
@@ -5254,7 +5230,7 @@ Public Class Form1
         End If
 
         For Each p In Process.GetProcesses
-            If p.MainWindowTitle = "Robust" Then
+            If p.MainWindowTitle = RobustName() Then
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info, My.Resources.DosBoxRunning)
                 RobustIs(True)
@@ -5263,9 +5239,9 @@ Public Class Form1
                     Case "True"
                     ' Do nothing, Always Show
                     Case "False"
-                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                     Case "None"
-                        ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 End Select
 
                 Return True
@@ -5279,18 +5255,17 @@ Public Class Form1
                 Case "True"
                     ' Do nothing, Always Show
                 Case "False"
-                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
                 Case "None"
-                    ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
             End Select
 
             Return True
         End If
 
-        RobustIs(True)
+
         If Settings.ServerType <> "Robust" Then
-            Log(My.Resources.Info, My.Resources.Running_as_a_Region_Server_word)
-            Print(Global.Outworldz.My.Resources.Resources.Robust_running)
+            RobustIs(True)
             Return True
         End If
 
@@ -5342,7 +5317,7 @@ Public Class Form1
             Return False
         End If
 
-        SetWindowTextCall(RobustProcess, "Robust")
+        SetWindowTextCall(RobustProcess, RobustName)
 
         ' Wait for Robust to start listening
         Dim counter = 0
@@ -5384,9 +5359,9 @@ Public Class Form1
             Case "True"
                 ' Do nothing, Always Show
             Case "False"
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
             Case "None"
-                ShowDOSWindow(GetHwnd("Robust"), SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
         End Select
 
         RobustIs(True)
@@ -5445,7 +5420,7 @@ Public Class Form1
 
     End Sub
 
-    Public Sub CheckDefaultPorts()
+    Public Shared Sub CheckDefaultPorts()
 
         If Settings.DiagnosticPort = Settings.HttpPort _
         Or Settings.DiagnosticPort = Settings.PrivatePort _
@@ -6429,7 +6404,7 @@ Public Class Form1
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox(My.Resources.Enter_1_2)
         If person.Length > 0 Then
-            ConsoleCommand("Robust", "show account " & person & "{ENTER}")
+            ConsoleCommand(RobustName, "show account " & person & "{ENTER}")
         End If
     End Sub
 
@@ -6768,82 +6743,6 @@ Public Class Form1
     End Sub
 
 
-    Private Sub GetEvents()
-
-        If Not Settings.EventTimerEnabled Then
-            ' delete old events
-
-            Try
-                Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                    Try
-                        osconnection.Open()
-#Disable Warning CA1031
-                    Catch
-#Enable Warning CA1031
-                        Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                        Return
-                    End Try
-                    DeleteEvents(osconnection)
-                End Using
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
-                ErrorLog(ex.Message)
-            End Try
-
-            Return
-        End If
-
-        'if enabled, get the eventsa from Outworldz.com
-        Dim Simevents As New Dictionary(Of String, String)
-
-        Try
-            Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                Try
-                    osconnection.Open()
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
-                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                    Return
-                End Try
-                DeleteEvents(osconnection)
-
-                Using client As New WebClient()
-                    Dim Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & RandomNumber.Random)
-                    Using reader = New StreamReader(Stream)
-                        While reader.Peek <> -1
-                            Dim s = reader.ReadLine
-
-                            ' Split line on comma.
-                            Dim array As String() = s.Split("|".ToCharArray())
-                            Simevents.Clear()
-                            ' Loop over each string received.
-                            Dim part As String
-                            For Each part In array
-                                ' Display to console.
-                                Dim a As String() = part.Split("^".ToCharArray())
-                                If a.Length = 2 Then
-                                    a(1) = a(1).Replace("'", "\'")
-                                    a(1) = a(1).Replace("`", vbLf)
-                                    'Console.WriteLine("{0}:{1}", a(0), a(1))
-                                    Simevents.Add(a(0), a(1))
-                                End If
-
-                            Next
-                            WriteEvent(osconnection, Simevents)
-                        End While
-                    End Using ' reader
-
-                End Using ' client
-            End Using ' osconnection
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
-            ErrorLog(ex.Message)
-        End Try
-
-    End Sub
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
@@ -6892,6 +6791,7 @@ Public Class Form1
 
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
+            RegisterDNS(True)
             RegisterDNS(True)
             Application.DoEvents()
         End If

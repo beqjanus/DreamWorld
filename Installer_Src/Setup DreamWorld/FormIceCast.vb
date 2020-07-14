@@ -65,7 +65,7 @@ Public Class Icecast
 
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
-        Form1.Settings.SCAdminPassword = AdminPassword.Text
+        Settings.SCAdminPassword = AdminPassword.Text
 
     End Sub
 
@@ -78,14 +78,14 @@ Public Class Icecast
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
         Form1.DoIceCast()
 
     End Sub
 
     Private Sub LoadURL_Click(sender As Object, e As EventArgs) Handles LoadURL.Click
         If Form1.PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://" + Form1.Settings.PublicIP + ":" + ShoutcastPort.Text
+            Dim webAddress As String = "http://" + Settings.PublicIP + ":" + ShoutcastPort.Text
             Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
             Try
                 Process.Start(webAddress)
@@ -93,7 +93,7 @@ Public Class Icecast
             Catch ex As Exception
 #Enable Warning CA1031
             End Try
-        ElseIf Form1.Settings.SCEnable = False Then
+        ElseIf Settings.SCEnable = False Then
             Form1.Print(My.Resources.IceCast_disabled)
         Else
             Form1.Print(My.Resources.Not_Running)
@@ -109,11 +109,11 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ShoutcastPort.Text = Form1.Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)
-        ShoutcastPort1.Text = Form1.Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)
-        AdminPassword.Text = Form1.Settings.SCAdminPassword
-        ShoutcastPassword.Text = Form1.Settings.SCPassword
-        ShoutcastEnable.Checked = Form1.Settings.SCEnable
+        ShoutcastPort.Text = Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)
+        ShoutcastPort1.Text = Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)
+        AdminPassword.Text = Settings.SCAdminPassword
+        ShoutcastPassword.Text = Settings.SCPassword
+        ShoutcastEnable.Checked = Settings.SCEnable
 
         AdminPassword.UseSystemPasswordChar = True
         ShoutcastPassword.UseSystemPasswordChar = True
@@ -124,7 +124,7 @@ Public Class Icecast
 
     Private Sub ShoutcastEnable_CheckedChanged(sender As Object, e As EventArgs) Handles ShoutcastEnable.CheckedChanged
 
-        Form1.Settings.SCEnable = ShoutcastEnable.Checked
+        Settings.SCEnable = ShoutcastEnable.Checked
 
     End Sub
 
@@ -136,7 +136,7 @@ Public Class Icecast
 
     Private Sub ShoutcastPassword_TextChanged(sender As Object, e As EventArgs) Handles ShoutcastPassword.TextChanged
 
-        Form1.Settings.SCPassword = ShoutcastPassword.Text
+        Settings.SCPassword = ShoutcastPassword.Text
 
     End Sub
 
@@ -145,7 +145,7 @@ Public Class Icecast
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
 
-        If Not Integer.TryParse(ShoutcastPort.Text, Form1.Settings.SCPortBase) Then
+        If Not Integer.TryParse(ShoutcastPort.Text, Settings.SCPortBase) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
@@ -156,7 +156,7 @@ Public Class Icecast
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
 
-        If Not Integer.TryParse(ShoutcastPort1.Text, Form1.Settings.SCPortBase1) Then
+        If Not Integer.TryParse(ShoutcastPort1.Text, Settings.SCPortBase1) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 

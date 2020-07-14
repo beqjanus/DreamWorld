@@ -49,8 +49,8 @@ Public Class UploadImage
 
             Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
             Dim params As New Specialized.NameValueCollection From {
-                {"MachineID", Form1.Settings.MachineID()},
-                {"DnsName", Form1.Settings.PublicIP}
+                {"MachineID", Settings.MachineID()},
+                {"DnsName", Settings.PublicIP}
             }
 
             Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)

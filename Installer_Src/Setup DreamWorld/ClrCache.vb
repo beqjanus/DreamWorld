@@ -45,9 +45,9 @@ Public Class ClrCache
 
         Form1.Print(My.Resources.Clearing_Assets)
         Dim folders() = Nothing
-        Dim Flotsam As String = Form1.Settings.CacheFolder
+        Dim Flotsam As String = Settings.CacheFolder
         If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
-            Flotsam = Form1.Settings.OpensimBinPath & "bin\assetcache"
+            Flotsam = Settings.OpensimBinPath & "bin\assetcache"
         End If
         If Directory.Exists(Flotsam) Then
             folders = Directory.GetDirectories(Flotsam, "*", SearchOption.TopDirectoryOnly)

@@ -315,7 +315,7 @@ if (mysqli_connect_errno())
                  {
                     $region_value = $region_sg[$q];
                     $sim_new = 0;
-                    list($region_uuid, $region_name, $region_locx, $region_locy, $region_serverip, $region_sizex, $region_sizey, $region_owner, $region_type) = explode(";",$region_value);
+                    @list($region_uuid, $region_name, $region_locx, $region_locy, $region_serverip, $region_sizex, $region_sizey, $region_owner, $region_type) = @explode(";",$region_value);
 
                       if ($region_sizey == 0) { $region_sizey = 256; }
 

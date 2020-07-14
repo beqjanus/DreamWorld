@@ -9,49 +9,49 @@
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
         ' all private in case of local mode
-        Form1.Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Form1.Settings.PrivateURL = Form1.Settings.PublicIP
-        Form1.Settings.BaseHostName = Form1.Settings.PublicIP
+        Settings.PublicIP = PropMyUPnpMap.LocalIP
+        Settings.PrivateURL = Settings.PublicIP
+        Settings.BaseHostName = Settings.PublicIP
 
         ' Set them back to the DNS name if there is one
-        If Form1.Settings.DNSName.Length > 0 Then
-            Form1.Settings.PublicIP = Form1.Settings.DNSName
-            Form1.Settings.BaseHostName = Form1.Settings.DNSName
-            Form1.Print("DNS Name=" & Form1.Settings.PublicIP)
+        If Settings.DNSName.Length > 0 Then
+            Settings.PublicIP = Settings.DNSName
+            Settings.BaseHostName = Settings.DNSName
+            Form1.Print("DNS Name=" & Settings.PublicIP)
         End If
 
-        If Form1.Settings.ServerType = "Robust" Then
-            Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
+        If Settings.ServerType = "Robust" Then
+            Settings.ExternalHostName = Settings.PublicIP
             Form1.Print(My.Resources.Server_Type_is & " Robust")
-        ElseIf Form1.Settings.ServerType = "OsGrid" Then
-            Form1.Settings.PublicIP = "hg.osgrid.org"
-            Form1.Settings.ExternalHostName = PublicIP.IP()
-            Form1.Settings.BaseHostName = Form1.Settings.PublicIP
+        ElseIf Settings.ServerType = "OsGrid" Then
+            Settings.PublicIP = "hg.osgrid.org"
+            Settings.ExternalHostName = PublicIP.IP()
+            Settings.BaseHostName = Settings.PublicIP
             Form1.Print(My.Resources.Server_Type_is & " OSGrid")
-        ElseIf Form1.Settings.ServerType = "Region" Then
+        ElseIf Settings.ServerType = "Region" Then
             Form1.Print(My.Resources.Server_Type_is & " Region")
-            Form1.Settings.ExternalHostName = Form1.Settings.PublicIP
-            Form1.Settings.BaseHostName = Form1.Settings.PublicIP
-        ElseIf Form1.Settings.ServerType = "Metro" Then
-            Form1.Settings.PublicIP = "hg.osgrid.org"
-            Form1.Settings.ExternalHostName = PublicIP.IP()
-            Form1.Settings.BaseHostName = Form1.Settings.PublicIP
+            Settings.ExternalHostName = Settings.PublicIP
+            Settings.BaseHostName = Settings.PublicIP
+        ElseIf Settings.ServerType = "Metro" Then
+            Settings.PublicIP = "hg.osgrid.org"
+            Settings.ExternalHostName = PublicIP.IP()
+            Settings.BaseHostName = Settings.PublicIP
             Form1.Print(My.Resources.Server_Type_is & " Metro")
         End If
 
-        If Form1.Settings.OverrideName.Length > 0 Then
-            Form1.Settings.ExternalHostName = Form1.Settings.OverrideName
-            Form1.Print("Region IP=" & Form1.Settings.ExternalHostName)
+        If Settings.OverrideName.Length > 0 Then
+            Settings.ExternalHostName = Settings.OverrideName
+            Form1.Print("Region IP=" & Settings.ExternalHostName)
         End If
 
-        Dim n = Form1.Settings.DNSName
+        Dim n = Settings.DNSName
         If n.Length = 0 Then n = "(none)"
 
         Form1.Print("WAN IP   = " & PublicIP.IP)
-        Form1.Print("LAN IP   = " & Form1.Settings.PrivateURL)
+        Form1.Print("LAN IP   = " & Settings.PrivateURL)
         Form1.Print("DNS = " & n)
-        Form1.Print("Region = " & Form1.Settings.ExternalHostName)
-        Form1.Print("Hostname = " & Form1.Settings.BaseHostName)
+        Form1.Print("Region = " & Settings.ExternalHostName)
+        Form1.Print("Hostname = " & Settings.BaseHostName)
 
     End Sub
 

@@ -66,10 +66,10 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
         Form1.PropViewedSettings = True
         If setpassword And Form1.PropOpensimIsRunning() Then
-            Form1.ConsoleCommand("Robust", "reset user password " & Form1.Settings.AdminFirst & " " & Form1.Settings.AdminLast & " " & Form1.Settings.Password & "{ENTER}" + vbCrLf)
+            Form1.ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
         End If
 
     End Sub
@@ -79,19 +79,19 @@ Public Class FormDiva
         SetScreen()
 
         'Wifi
-        WifiEnabled.Checked = Form1.Settings.WifiEnabled
-        AdminEmail.Text = Form1.Settings.AdminEmail
-        AccountConfirmationRequired.Checked = Form1.Settings.AccountConfirmationRequired
-        GmailPassword.Text = Form1.Settings.SmtpPassword
-        GmailUsername.Text = Form1.Settings.SmtPropUserName
-        SmtpPort.Text = CStr(Form1.Settings.SmtpPort)
-        SmtpHost.Text = Form1.Settings.SmtpHost
-        SplashPage.Text = Form1.Settings.SplashPage
-        GridName.Text = Form1.Settings.SimName
+        WifiEnabled.Checked = Settings.WifiEnabled
+        AdminEmail.Text = Settings.AdminEmail
+        AccountConfirmationRequired.Checked = Settings.AccountConfirmationRequired
+        GmailPassword.Text = Settings.SmtpPassword
+        GmailUsername.Text = Settings.SmtPropUserName
+        SmtpPort.Text = CStr(Settings.SmtpPort)
+        SmtpHost.Text = Settings.SmtpHost
+        SplashPage.Text = Settings.SplashPage
+        GridName.Text = Settings.SimName
 
-        If Form1.Settings.Theme = "White" Then WhiteRadioButton.Checked = True
-        If Form1.Settings.Theme = "Black" Then BlackRadioButton.Checked = True
-        If Form1.Settings.Theme = "Custom" Then CustomButton1.Checked = True
+        If Settings.Theme = "White" Then WhiteRadioButton.Checked = True
+        If Settings.Theme = "Black" Then BlackRadioButton.Checked = True
+        If Settings.Theme = "Custom" Then CustomButton1.Checked = True
 
         'Gmail
         'passwords are asterisks
@@ -99,19 +99,19 @@ Public Class FormDiva
         GmailPassword.UseSystemPasswordChar = True
 
         ' ports
-        AdminPassword.Text = Form1.Settings.Password
-        AdminLast.Text = Form1.Settings.AdminLast
-        AdminFirst.Text = Form1.Settings.AdminFirst
+        AdminPassword.Text = Settings.Password
+        AdminLast.Text = Settings.AdminLast
+        AdminFirst.Text = Settings.AdminFirst
 
-        If Form1.Settings.Theme = "White" Then
+        If Settings.Theme = "White" Then
             BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = True
             CustomButton1.Checked = False
-        ElseIf Form1.Settings.Theme = "Black" Then
+        ElseIf Settings.Theme = "Black" Then
             BlackRadioButton.Checked = True
             WhiteRadioButton.Checked = False
             CustomButton1.Checked = False
-        ElseIf Form1.Settings.Theme = "Custom" Then
+        ElseIf Settings.Theme = "Custom" Then
             BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = False
             CustomButton1.Checked = True
@@ -123,7 +123,7 @@ Public Class FormDiva
             AdminPassword.Enabled = False
         End If
 
-        GreetingTextBox.Text = Form1.Settings.WelcomeMessage
+        GreetingTextBox.Text = Settings.WelcomeMessage
         Form1.HelpOnce("Diva")
 
         initted = True
@@ -137,8 +137,8 @@ Public Class FormDiva
     Private Sub AccountConfirmationRequired_CheckedChanged(sender As Object, e As EventArgs) Handles AccountConfirmationRequired.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.AccountConfirmationRequired = AccountConfirmationRequired.Checked
-        Form1.Settings.SaveSettings()
+        Settings.AccountConfirmationRequired = AccountConfirmationRequired.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -151,8 +151,8 @@ Public Class FormDiva
     Private Sub WifiEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles WifiEnabled.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.WifiEnabled = WifiEnabled.Checked
-        Form1.Settings.SaveSettings()
+        Settings.WifiEnabled = WifiEnabled.Checked
+        Settings.SaveSettings()
 
         If WifiEnabled.Checked Then
             AdminFirst.Enabled = True
@@ -182,16 +182,16 @@ Public Class FormDiva
     Private Sub AdminFirst_TextChanged_2(sender As Object, e As EventArgs) Handles AdminFirst.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.AdminFirst = AdminFirst.Text
-        Form1.Settings.SaveSettings()
+        Settings.AdminFirst = AdminFirst.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub AdminLast_TextChanged(sender As Object, e As EventArgs) Handles AdminLast.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.AdminLast = AdminLast.Text
-        Form1.Settings.SaveSettings()
+        Settings.AdminLast = AdminLast.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -204,8 +204,8 @@ Public Class FormDiva
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.Password = AdminPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.Password = AdminPassword.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -218,24 +218,24 @@ Public Class FormDiva
     Private Sub GmailPassword_TextChanged(sender As Object, e As EventArgs) Handles GmailPassword.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.SmtpPassword = GmailPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.SmtpPassword = GmailPassword.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub GmailUsername_TextChanged(sender As Object, e As EventArgs) Handles GmailUsername.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.SmtPropUserName = GmailUsername.Text
-        Form1.Settings.SaveSettings()
+        Settings.SmtPropUserName = GmailUsername.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.Password = AdminPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.Password = AdminPassword.Text
+        Settings.SaveSettings()
 
         setpassword = True
 
@@ -244,8 +244,8 @@ Public Class FormDiva
     Private Sub SmtpHost_TextChanged(sender As Object, e As EventArgs) Handles SmtpHost.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.SmtpHost = SmtpHost.Text
-        Form1.Settings.SaveSettings()
+        Settings.SmtpHost = SmtpHost.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -254,16 +254,16 @@ Public Class FormDiva
         Dim digitsOnly As Regex = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
-        Form1.Settings.SmtpPort = CInt(SmtpPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.SmtpPort = CInt("0" & SmtpPort.Text)
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_3(sender As Object, e As EventArgs) Handles AdminEmail.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.AdminEmail = AdminEmail.Text
-        Form1.Settings.SaveSettings()
+        Settings.AdminEmail = AdminEmail.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -276,7 +276,7 @@ Public Class FormDiva
         If BlackRadioButton.Checked Then
             Form1.CopyWifi("Black")
             Form1.Print(My.Resources.Theme_Black)
-            Form1.Settings.Theme = "Black"
+            Settings.Theme = "Black"
         End If
 
     End Sub
@@ -284,13 +284,13 @@ Public Class FormDiva
     Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.WelcomeMessage = GreetingTextBox.Text
+        Settings.WelcomeMessage = GreetingTextBox.Text
 
     End Sub
 
     Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
         If Not initted Then Return
-        Form1.Settings.SimName = GridName.Text
+        Settings.SimName = GridName.Text
 
     End Sub
 
@@ -303,7 +303,7 @@ Public Class FormDiva
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
             Form1.Print(My.Resources.theme_Custom)
-            Form1.Settings.Theme = "Custom"
+            Settings.Theme = "Custom"
         End If
 
     End Sub
@@ -311,7 +311,7 @@ Public Class FormDiva
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.SplashPage = SplashPage.Text
+        Settings.SplashPage = SplashPage.Text
 
     End Sub
 
@@ -321,7 +321,7 @@ Public Class FormDiva
         If WhiteRadioButton.Checked Then
             Form1.CopyWifi("White")
             Form1.Print(My.Resources.Theme_White)
-            Form1.Settings.Theme = "White"
+            Settings.Theme = "White"
         End If
 
     End Sub

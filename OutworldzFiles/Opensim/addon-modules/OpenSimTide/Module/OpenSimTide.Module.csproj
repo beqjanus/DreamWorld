@@ -109,6 +109,9 @@
 	<ItemGroup>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="TideModule\TideModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
