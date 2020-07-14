@@ -62,7 +62,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles SmallMapButton.Click
-        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CStr(Form1.Settings.ApachePort) & "/Metromap/index.php"
+        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/Metromap/index.php"
         Try
             Process.Start(webAddress)
 #Disable Warning CA1031
@@ -73,10 +73,10 @@ Public Class FormMaps
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        Dim X As Integer = Form1.Settings.MapCenterX
-        Dim Y As Integer = Form1.Settings.MapCenterY
+        Dim X As Integer = Settings.MapCenterX
+        Dim Y As Integer = Settings.MapCenterY
 
-        Dim webAddress As String = "http://" & CStr(Form1.Settings.PublicIP) & ":" & CStr(Form1.Settings.HttpPort) & "/wifi/map.html?X=" & CStr(X) & "&Y=" & CStr(Y)
+        Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/map.html?X=" & CStr(X) & "&Y=" & CStr(Y)
 
         Try
             Process.Start(webAddress)
@@ -95,12 +95,12 @@ Public Class FormMaps
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub LargeMapButton_Click(sender As Object, e As EventArgs) Handles LargeMapButton.Click
-        Dim webAddress As String = "http://" + Form1.Settings.PublicIP & ":" & Form1.Settings.ApachePort & "/Metromap/indexmax.php"
+        Dim webAddress As String = "http://" + Settings.PublicIP & ":" & Settings.ApachePort & "/Metromap/indexmax.php"
         Try
             Process.Start(webAddress)
 #Disable Warning CA1031
@@ -110,19 +110,19 @@ Public Class FormMaps
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-        If Form1.Settings.MapType = "None" Then
+        If Settings.MapType = "None" Then
             MapNone.Checked = True
             MapPicture.Image = My.Resources.blankbox
-        ElseIf Form1.Settings.MapType = "Simple" Then
+        ElseIf Settings.MapType = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = My.Resources.Simple
-        ElseIf Form1.Settings.MapType = "Good" Then
+        ElseIf Settings.MapType = "Good" Then
             MapGood.Checked = True
             MapPicture.Image = My.Resources.Good
-        ElseIf Form1.Settings.MapType = "Better" Then
+        ElseIf Settings.MapType = "Better" Then
             MapBetter.Checked = True
             MapPicture.Image = My.Resources.Better
-        ElseIf Form1.Settings.MapType = "Best" Then
+        ElseIf Settings.MapType = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = My.Resources.Best
         End If
@@ -133,9 +133,9 @@ Public Class FormMaps
             Button2.Enabled = False
         End If
 
-        If Form1.Settings.ApacheEnable Then
-            MapYStart.Text = CStr(Form1.Settings.MapCenterY)
-            MapXStart.Text = CStr(Form1.Settings.MapCenterX)
+        If Settings.ApacheEnable Then
+            MapYStart.Text = CStr(Settings.MapCenterY)
+            MapXStart.Text = CStr(Settings.MapCenterX)
             MapYStart.Enabled = True
             MapXStart.Enabled = True
             LargeMapButton.Enabled = True
@@ -147,8 +147,8 @@ Public Class FormMaps
             SmallMapButton.Enabled = False
         End If
 
-        RenderMaxH.Text = CStr(Form1.Settings.RenderMaxHeight)
-        RenderMinH.Text = CStr(Form1.Settings.RenderMinHeight)
+        RenderMaxH.Text = CStr(Settings.RenderMaxHeight)
+        RenderMinH.Text = CStr(Settings.RenderMinHeight)
 
         Form1.HelpOnce("Maps")
         SetScreen()
@@ -157,21 +157,21 @@ Public Class FormMaps
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
-        Form1.Settings.MapType = "Best"
+        Settings.MapType = "Best"
         MapPicture.Image = My.Resources.Best
 
     End Sub
 
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
-        Form1.Settings.MapType = "Better"
+        Settings.MapType = "Better"
         MapPicture.Image = My.Resources.Better
 
     End Sub
 
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
-        Form1.Settings.MapType = "Good"
+        Settings.MapType = "Good"
 
         MapPicture.Image = My.Resources.Good
 
@@ -185,14 +185,14 @@ Public Class FormMaps
 
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
-        Form1.Settings.MapType = "None"
+        Settings.MapType = "None"
         MapPicture.Image = My.Resources.blankbox
 
     End Sub
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
-        Form1.Settings.MapType = "Simple"
+        Settings.MapType = "Simple"
         MapPicture.Image = My.Resources.Simple
 
     End Sub
@@ -201,7 +201,7 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
-        Form1.Settings.MapCenterX = CInt("0" & MapXStart.Text)
+        Settings.MapCenterX = CInt("0" & MapXStart.Text)
 
     End Sub
 
@@ -209,7 +209,7 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
-        Form1.Settings.MapCenterY = CInt("0" & MapYStart.Text)
+        Settings.MapCenterY = CInt("0" & MapYStart.Text)
 
     End Sub
 
@@ -218,7 +218,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
         If CInt("0" & RenderMaxH.Text) <= 4096 And CInt("0" & RenderMaxH.Text) > 100 Then
-            Form1.Settings.RenderMaxHeight = CInt("0" & RenderMaxH.Text)
+            Settings.RenderMaxHeight = CInt("0" & RenderMaxH.Text)
 
         End If
 
@@ -228,7 +228,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
         If CInt("0" & RenderMaxH.Text) >= -100 Then
-            Form1.Settings.RenderMinHeight = CInt("0" & RenderMinH.Text)
+            Settings.RenderMinHeight = CInt("0" & RenderMinH.Text)
         End If
 
     End Sub

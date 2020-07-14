@@ -253,8 +253,8 @@ Public Class RegionList
 
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
-        Form1.Settings.RegionListVisible = False
-        Form1.Settings.SaveSettings()
+        Settings.RegionListVisible = False
+        Settings.SaveSettings()
         FormExists1 = False
         _ImageListSmall.Dispose()
         colsize.Dispose()
@@ -273,8 +273,8 @@ Public Class RegionList
         ListView1.LabelWrap = True
         ListView1.AutoArrange = True
 
-        Form1.Settings.RegionListVisible = True
-        Form1.Settings.SaveSettings()
+        Settings.RegionListVisible = True
+        Settings.SaveSettings()
 
 
         Me.Name = "Region List"
@@ -283,7 +283,7 @@ Public Class RegionList
         AvatarView.CheckBoxes = False
 
         ' Set the view to show details.
-        TheView1 = Form1.Settings.RegionListView()
+        TheView1 = Settings.RegionListView()
         SetScreen(TheView1)
 
 
@@ -509,7 +509,7 @@ Public Class RegionList
                         Letter = "Running"
                         Num = DGICON.user2
                     ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
-                        If Form1.PropRegionClass.RegionName(RegionUUID) = Form1.Settings.WelcomeRegion Then
+                        If Form1.PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
                             Num = DGICON.Home
                             Letter = "Running"
                         Else
@@ -518,7 +518,7 @@ Public Class RegionList
                         End If
                     ElseIf Not Form1.PropRegionClass.RegionEnabled(RegionUUID) Then
                         Letter = "Disabled"
-                        If Form1.PropRegionClass.RegionName(RegionUUID) = Form1.Settings.WelcomeRegion Then
+                        If Form1.PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
                             Num = DGICON.HomeOffline
                         Else
                             Num = DGICON.disabled
@@ -794,7 +794,7 @@ Public Class RegionList
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                Dim webAddress As String = "hop://" & Form1.Settings.DNSName & ":" & Form1.Settings.HttpPort & "/" & RegionName
+                Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
 #Disable Warning CA1031
@@ -871,9 +871,9 @@ Public Class RegionList
             Else
                 Form1.PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
-            Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-            Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
-            Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+            Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+            Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
+            Settings.SaveINI(System.Text.Encoding.UTF8)
         Next
         ShowTitle()
         PropUpdateView() = True
@@ -1083,11 +1083,11 @@ Public Class RegionList
             If PID > 0 Then
                 Dim hwnd = Form1.GetHwnd(Form1.PropRegionClass.GroupName(RegionUUID))
 
-                Dim tmp As String = Form1.Settings.ConsoleShow
+                Dim tmp As String = Settings.ConsoleShow
                 'temp show console
-                Form1.Settings.ConsoleShow = "True"
+                Settings.ConsoleShow = "True"
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
-                Form1.Settings.ConsoleShow = tmp
+                Settings.ConsoleShow = tmp
 
             End If
 
@@ -1120,7 +1120,7 @@ Public Class RegionList
         ElseIf chosen = "Teleport" Then
             'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
 
-            Dim link = "secondlife://http|!!" & Form1.Settings.PublicIP & "|" & Form1.Settings.HttpPort & "+" & RegionName
+            Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
 #Disable Warning CA1031
@@ -1155,9 +1155,9 @@ Public Class RegionList
                 'Dim name = X.SubItems(1).Text
                 RegionUUID = Form1.PropRegionClass.FindRegionByName(name)
                 Form1.PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
-                Form1.Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-                Form1.Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", X.Checked)
-                Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+                Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+                Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", X.Checked)
+                Settings.SaveINI(System.Text.Encoding.UTF8)
             End If
 
         Next
@@ -1259,8 +1259,8 @@ Public Class RegionList
 
     Private Sub ViewAvatars_Click(sender As Object, e As EventArgs) Handles AvatarsButton.Click
 
-        Form1.Settings.RegionListView() = ViewType.Avatars
-        Form1.Settings.SaveSettings()
+        Settings.RegionListView() = ViewType.Avatars
+        Settings.SaveSettings()
         TheView1 = ViewType.Avatars
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
@@ -1274,8 +1274,8 @@ Public Class RegionList
 
     Private Sub ViewCompact_Click(sender As Object, e As EventArgs) Handles IconsButton.Click
 
-        Form1.Settings.RegionListView() = ViewType.Icons
-        Form1.Settings.SaveSettings()
+        Settings.RegionListView() = ViewType.Icons
+        Settings.SaveSettings()
         TheView1 = ViewType.Icons
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         SetScreen(TheView1)
@@ -1290,8 +1290,8 @@ Public Class RegionList
 
     Private Sub ViewDetail_Click(sender As Object, e As EventArgs) Handles DetailsButton.Click
 
-        Form1.Settings.RegionListView() = ViewType.Details
-        Form1.Settings.SaveSettings()
+        Settings.RegionListView() = ViewType.Details
+        Settings.SaveSettings()
         TheView1 = ViewType.Details
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
@@ -1306,8 +1306,8 @@ Public Class RegionList
 
     Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
 
-        Form1.Settings.RegionListView() = ViewType.Maps
-        Form1.Settings.SaveSettings()
+        Settings.RegionListView() = ViewType.Maps
+        Settings.SaveSettings()
         TheView1 = ViewType.Maps
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen(TheView1)
@@ -1405,7 +1405,7 @@ Public Class RegionList
         If regionname.Length = 0 Then Return
         Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(regionname)
         Dim RegionPort = Form1.PropRegionClass.GroupPort(RegionUUID)
-        Dim webAddress As String = "http://" & Form1.Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
 #Disable Warning CA1031

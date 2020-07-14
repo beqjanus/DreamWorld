@@ -60,7 +60,7 @@ Public Class NetServer
 
         ' stash some globs
         Setting = Settings
-        MyPort = CStr(Form1.Settings.DiagnosticPort)
+        MyPort = CStr(Settings.DiagnosticPort)
         PropMyFolder = pathinfo
 
         If running Then Return

@@ -26,7 +26,7 @@ Module CrashDetector
 
     Public Sub Find()
 
-        If Not Form1.Settings.RestartonPhysics() Then Return
+        If Not Settings.RestartonPhysics() Then Return
 
         Dim Used As New List(Of String)
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs

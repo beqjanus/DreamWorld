@@ -41,7 +41,7 @@
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -49,7 +49,7 @@
 
         SetScreen()
 
-        Select Case Form1.Settings.LogLevel.ToUpperInvariant
+        Select Case Settings.LogLevel.ToUpperInvariant
             Case "OFF"
                 RadioOff.Checked = True
             Case "DEBUG"

@@ -56,22 +56,22 @@ Public Class FormVoice
 #Region "Private Methods"
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles VivoxEnable.CheckedChanged
-        Form1.Settings.VivoxEnabled = VivoxEnable.Checked
-        Form1.Settings.SaveSettings()
+        Settings.VivoxEnabled = VivoxEnable.Checked
+        Settings.SaveSettings()
     End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         Me.Text = My.Resources.Voice_Settings_Word
-        VivoxEnable.Checked = Form1.Settings.VivoxEnabled
-        VivoxPassword.Text = Form1.Settings.VivoxPassword
-        VivoxUserName.Text = Form1.Settings.VivoxUserName
+        VivoxEnable.Checked = Settings.VivoxEnabled
+        VivoxPassword.Text = Settings.VivoxPassword
+        VivoxUserName.Text = Settings.VivoxUserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
         Form1.HelpOnce("Vivox")
@@ -101,15 +101,15 @@ Public Class FormVoice
 
     Private Sub VivoxPassword_TextChanged(sender As Object, e As EventArgs) Handles VivoxPassword.TextChanged
         VivoxPassword.UseSystemPasswordChar = False
-        Form1.Settings.VivoxPassword = VivoxPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.VivoxPassword = VivoxPassword.Text
+        Settings.SaveSettings()
     End Sub
 
     Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
 #Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.Settings.VivoxUserName = VivoxUserName.Text
+        Settings.VivoxUserName = VivoxUserName.Text
 #Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
     End Sub
 
 #End Region

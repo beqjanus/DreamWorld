@@ -70,7 +70,7 @@ Public Class FormPorts
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -78,16 +78,16 @@ Public Class FormPorts
 
         SetScreen()
 
-        FirstRegionPort.Text = CStr(Form1.Settings.FirstRegionPort())
+        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-        uPnPEnabled.Checked = Form1.Settings.UPnPEnabled
+        uPnPEnabled.Checked = Settings.UPnPEnabled
 
         'ports
-        DiagnosticPort.Text = CStr(Form1.Settings.DiagnosticPort)
-        PrivatePort.Text = CStr(Form1.Settings.PrivatePort)
-        HTTPPort.Text = CStr(Form1.Settings.HttpPort)
+        DiagnosticPort.Text = CStr(Settings.DiagnosticPort)
+        PrivatePort.Text = CStr(Settings.PrivatePort)
+        HTTPPort.Text = CStr(Settings.HttpPort)
 
-        ExternalHostName.Text = Form1.Settings.OverrideName
+        ExternalHostName.Text = Settings.OverrideName
 
         Form1.HelpOnce("Ports")
         initted = True
@@ -97,8 +97,8 @@ Public Class FormPorts
     Private Sub UPnPEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles uPnPEnabled.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.UPnPEnabled = uPnPEnabled.Checked
-        Form1.Settings.SaveSettings()
+        Settings.UPnPEnabled = uPnPEnabled.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -117,8 +117,8 @@ Public Class FormPorts
         Dim digitsOnly As Regex = New Regex("[^\d]")
         DiagnosticPort.Text = digitsOnly.Replace(DiagnosticPort.Text, "")
 
-        Form1.Settings.DiagnosticPort = CInt(DiagnosticPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.DiagnosticPort = CInt(DiagnosticPort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
@@ -127,7 +127,7 @@ Public Class FormPorts
 
         If Not initted Then Return
 
-        Form1.Settings.OverrideName = ExternalHostName.Text
+        Settings.OverrideName = ExternalHostName.Text
 
     End Sub
 
@@ -137,8 +137,8 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         FirstRegionPort.Text = digitsOnly.Replace(FirstRegionPort.Text, "")
-        Form1.Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.FirstRegionPort() = CInt(FirstRegionPort.Text)
+        Settings.SaveSettings()
 
     End Sub
 
@@ -148,8 +148,8 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
-        Form1.Settings.HttpPort = CInt(HTTPPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.HttpPort = CInt(HTTPPort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub
@@ -160,8 +160,8 @@ Public Class FormPorts
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
-        Form1.Settings.PrivatePort = CInt(PrivatePort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.PrivatePort = CInt(PrivatePort.Text)
+        Settings.SaveSettings()
         Form1.CheckDefaultPorts()
 
     End Sub

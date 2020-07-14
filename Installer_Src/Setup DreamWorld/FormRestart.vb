@@ -50,43 +50,43 @@ Public Class FormRestart
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.Settings.AutoRestartEnabled = ARTimerBox.Checked
-        Form1.Settings.Autostart = AutoStartCheckbox.Checked
+        Settings.AutoRestartEnabled = ARTimerBox.Checked
+        Settings.Autostart = AutoStartCheckbox.Checked
         Try
-            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
+            Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
-            Form1.Settings.AutoRestartInterval = 0
+            Settings.AutoRestartInterval = 0
         End Try
 
-        Form1.Settings.RestartOnCrash = RestartOnCrash.Checked
-        Form1.Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
-        Form1.Settings.Sequential = SequentialCheckBox1.Checked
+        Settings.RestartOnCrash = RestartOnCrash.Checked
+        Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
+        Settings.Sequential = SequentialCheckBox1.Checked
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoRestartBox.Text = Form1.Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
+        AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
 
-        ARTimerBox.Checked = Form1.Settings.AutoRestartEnabled
+        ARTimerBox.Checked = Settings.AutoRestartEnabled
 
-        AutoStartCheckbox.Checked = Form1.Settings.Autostart
-        SequentialCheckBox1.Checked = Form1.Settings.Sequential
+        AutoStartCheckbox.Checked = Settings.Autostart
+        SequentialCheckBox1.Checked = Settings.Sequential
 
         ' Restart on Physics crash is only good for Bullet  in a thread as if it crashed any other way, 
         ' it will restart under AutoRestart
 
-        Debug.Print(Form1.Settings.Physics)
-        If Form1.Settings.Physics <> 4 Then
+        Debug.Print(Settings.Physics)
+        If Settings.Physics <> 4 Then
             RestartOnPhysicsCrash.Enabled = False
             RestartOnCrash.Checked = False
         Else
-            RestartOnPhysicsCrash.Checked = Form1.Settings.RestartonPhysics
+            RestartOnPhysicsCrash.Checked = Settings.RestartonPhysics
             RestartOnCrash.Checked = True
         End If
 
@@ -120,18 +120,18 @@ Public Class FormRestart
 
         If Not initted Then Return
         If ARTimerBox.Checked Then
-            Dim BTime As Int16 = CType(Form1.Settings.AutobackupInterval, Int16)
-            If Form1.Settings.AutoBackup And Form1.Settings.AutoRestartInterval > 0 And Form1.Settings.AutoRestartInterval < BTime Then
-                Form1.Settings.AutoRestartInterval = BTime + 30
+            Dim BTime As Int16 = CType(Settings.AutobackupInterval, Int16)
+            If Settings.AutoBackup And Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+                Settings.AutoRestartInterval = BTime + 30
                 AutoRestartBox.Text = (BTime + 30).ToString(Globalization.CultureInfo.InvariantCulture)
                 MsgBox(My.Resources.Increasing_time & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
 
         Else
-            Form1.Settings.AutoRestartEnabled = False
-            Form1.Settings.AutoRestartInterval = 0
+            Settings.AutoRestartEnabled = False
+            Settings.AutoRestartInterval = 0
         End If
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 

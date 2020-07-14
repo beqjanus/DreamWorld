@@ -154,7 +154,7 @@ Public Class FormRegion
         '!!! remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
-            Form1.Settings.SmartStart = False
+            Settings.SmartStart = False
         End If
 
         Me.Focus()
@@ -515,18 +515,18 @@ Public Class FormRegion
 
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
-                If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
+                If Form1.CheckPort(Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+                While Form1.CheckPort(Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                     Form1.Sleep(1000)
                     loopctr -= 1
                 End While
 
                 If loopctr > 0 Then
-                    Form1.ConsoleCommand("Robust", "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RobustName(), "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Region_Removed)
                 End If
             End If
@@ -694,16 +694,16 @@ Public Class FormRegion
             MapBetter.Checked = False
             MapBest.Checked = False
 
-            If Form1.Settings.MapType = "None" Then
+            If Settings.MapType = "None" Then
                 MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.Settings.MapType = "Simple" Then
+            ElseIf Settings.MapType = "Simple" Then
                 MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.Settings.MapType = "Good" Then
+            ElseIf Settings.MapType = "Good" Then
                 MapPicture.Image = My.Resources.Good
-            ElseIf Form1.Settings.MapType = "Better" Then
+            ElseIf Settings.MapType = "Better" Then
                 MapPicture.Image = My.Resources.Better
-            ElseIf Form1.Settings.MapType = "Best" Then
-                Form1.Settings.MapType = "Best"
+            ElseIf Settings.MapType = "Best" Then
+                Settings.MapType = "Best"
             End If
         End If
 
@@ -1112,7 +1112,7 @@ Public Class FormRegion
             Form1.PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
         End If
 
-        Dim Host = Form1.Settings.ExternalHostName
+        Dim Host = Settings.ExternalHostName
 
         If DisallowForeigners.Checked Then
             Form1.PropRegionClass.DisallowForeigners(RegionUUID) = "True"

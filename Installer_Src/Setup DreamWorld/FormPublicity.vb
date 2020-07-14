@@ -66,8 +66,8 @@ Public Class FormPublicity
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
         If initted Then
-            Form1.Settings.GDPR() = GDPRCheckBox.Checked
-            Form1.Settings.SaveSettings()
+            Settings.GDPR() = GDPRCheckBox.Checked
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -83,13 +83,13 @@ Public Class FormPublicity
             If i.length > 0 Then category += i & ","
         Next
 
-        Form1.Settings.Categories = category
+        Settings.Categories = category
 
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
-        Form1.Settings.Description = tmp
+        Settings.Description = tmp
 
         Form1.UploadCategory()
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -97,7 +97,7 @@ Public Class FormPublicity
 
         SetScreen()
 
-        GDPRCheckBox.Checked = Form1.Settings.GDPR()
+        GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
@@ -107,11 +107,11 @@ Public Class FormPublicity
 
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
-        Dim tmp = Form1.Settings.Description
+        Dim tmp = Settings.Description
         tmp = tmp.Replace("<br>", vbCrLf)
         DescriptionBox.Text = tmp
 
-        Dim cats = Form1.Settings.Categories.Split(",")
+        Dim cats = Settings.Categories.Split(",")
 
         For Each itemname In cats
             Dim Index = CategoryCheckbox.FindStringExact(itemname)

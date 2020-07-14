@@ -56,13 +56,13 @@ Public Class Tides
 #Region "Private Methods"
 
     Private Sub BroadcastTideInfo_CheckedChanged(sender As Object, e As EventArgs) Handles BroadcastTideInfo.CheckedChanged
-        Form1.Settings.BroadcastTideInfo = BroadcastTideInfo.Checked
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.BroadcastTideInfo = BroadcastTideInfo.Checked
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub CycleTimeTextBox_TextChanged(sender As Object, e As EventArgs) Handles CycleTimeTextBox.TextChanged
-        Form1.Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.CycleTime = CType(CycleTimeTextBox.Text, Integer)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
@@ -72,20 +72,20 @@ Public Class Tides
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        TideEnabledCheckbox.Checked = CType(Form1.Settings.TideEnabled, Boolean)
-        TideHighLevelTextBox.Text = Convert.ToString(Form1.Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture)
-        TideLowLevelTextBox.Text = Convert.ToString(Form1.Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture)
-        CycleTimeTextBox.Text = Form1.Settings.CycleTime.ToString(Globalization.CultureInfo.InvariantCulture)
-        BroadcastTideInfo.Checked = CType(Form1.Settings.BroadcastTideInfo, Boolean)
-        TideInfoChannelTextBox.Text = CStr(Form1.Settings.TideInfoChannel)
-        TideHiLoChannelTextBox.Text = CStr(Form1.Settings.TideLevelChannel)
-        TideInfoDebugCheckBox.Checked = Form1.Settings.TideInfoDebug
+        TideEnabledCheckbox.Checked = CType(Settings.TideEnabled, Boolean)
+        TideHighLevelTextBox.Text = Convert.ToString(Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture)
+        TideLowLevelTextBox.Text = Convert.ToString(Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture)
+        CycleTimeTextBox.Text = Settings.CycleTime.ToString(Globalization.CultureInfo.InvariantCulture)
+        BroadcastTideInfo.Checked = CType(Settings.BroadcastTideInfo, Boolean)
+        TideInfoChannelTextBox.Text = CStr(Settings.TideInfoChannel)
+        TideHiLoChannelTextBox.Text = CStr(Settings.TideLevelChannel)
+        TideInfoDebugCheckBox.Checked = Settings.TideInfoDebug
         SetScreen()
         Form1.HelpOnce("Tides")
     End Sub
@@ -95,33 +95,33 @@ Public Class Tides
     End Sub
 
     Private Sub TideEnabledCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TideEnabledCheckbox.CheckedChanged
-        Form1.Settings.TideEnabled = TideEnabledCheckbox.Checked
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideEnabled = TideEnabledCheckbox.Checked
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub TideHghLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHighLevelTextBox.TextChanged
-        Form1.Settings.TideHighLevel() = CType(TideHighLevelTextBox.Text, Single)
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideHighLevel() = CType(TideHighLevelTextBox.Text, Single)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub TideHiLoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideHiLoChannelTextBox.TextChanged
-        Form1.Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideLevelChannel = CType(TideHiLoChannelTextBox.Text, Integer)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub TideInfoChannelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideInfoChannelTextBox.TextChanged
-        Form1.Settings.TideInfoChannel = CType(TideInfoChannelTextBox.Text, Integer)
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideInfoChannel = CType(TideInfoChannelTextBox.Text, Integer)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub TideInfoDebugCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TideInfoDebugCheckBox.CheckedChanged
-        Form1.Settings.TideInfoDebug = TideInfoDebugCheckBox.Checked
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideInfoDebug = TideInfoDebugCheckBox.Checked
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
     Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
-        Form1.Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
-        Form1.Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
 #End Region

@@ -80,7 +80,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
 
-        If Not Double.TryParse(BirdsBorderSizeTextBox.Text, Form1.Settings.BirdsBorderSize) Then
+        If Not Double.TryParse(BirdsBorderSizeTextBox.Text, Settings.BirdsBorderSize) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
@@ -94,7 +94,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
 
-        If Not Double.TryParse(BirdsMaxHeightTextBox.Text, Form1.Settings.BirdsMaxHeight) Then
+        If Not Double.TryParse(BirdsMaxHeightTextBox.Text, Settings.BirdsMaxHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
@@ -105,9 +105,9 @@ Public Class BirdForm
 
         If Not initted Then Return
         If BirdsModuleStartupbox.Checked Then
-            Form1.Settings.BirdsModuleStartup = True
+            Settings.BirdsModuleStartup = True
         Else
-            Form1.Settings.BirdsModuleStartup = False
+            Settings.BirdsModuleStartup = False
         End If
         changed = True
 
@@ -119,7 +119,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
 
-        If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Form1.Settings.BirdsNeighbourDistance) Then
+        If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Settings.BirdsNeighbourDistance) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
         changed = True
@@ -131,7 +131,7 @@ Public Class BirdForm
         If Not initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
-        If Not Double.TryParse(BirdsToleranceTextBox.Text, Form1.Settings.BirdsTolerance) Then
+        If Not Double.TryParse(BirdsToleranceTextBox.Text, Settings.BirdsTolerance) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
         changed = True
@@ -150,7 +150,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ChatChanelTextBox.Text = digitsOnly.Replace(ChatChanelTextBox.Text, "")
 
-        If Not Integer.TryParse(ChatChanelTextBox.Text, Form1.Settings.BirdsChatChannel) Then
+        If Not Integer.TryParse(ChatChanelTextBox.Text, Settings.BirdsChatChannel) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
         changed = True
@@ -169,7 +169,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
 
-        If Double.TryParse(DesiredSeparationTextBox.Text, Form1.Settings.BirdsDesiredSeparation) Then
+        If Double.TryParse(DesiredSeparationTextBox.Text, Settings.BirdsDesiredSeparation) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
         changed = True
@@ -182,8 +182,8 @@ Public Class BirdForm
         If changed Then
             Form1.PropViewedSettings = True
         End If
-        Form1.Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
-        Form1.Settings.SaveSettings()
+        Settings.BirdsFlockSize = CInt(BirdsFlockSizeDomain.Text)
+        Settings.SaveSettings()
 
     End Sub
 
@@ -194,7 +194,7 @@ Public Class BirdForm
         ' Add any initialization after the InitializeComponent() call.
         SetScreen()
 
-        BirdsModuleStartupbox.Checked = Form1.Settings.BirdsModuleStartup
+        BirdsModuleStartupbox.Checked = Settings.BirdsModuleStartup
 
         BirdsFlockSizeDomain.Sorted = False
 
@@ -202,17 +202,17 @@ Public Class BirdForm
         For i = 1 To 100
             BirdsFlockSizeDomain.Items.Add(i.ToString(Globalization.CultureInfo.InvariantCulture))
         Next
-        BirdsFlockSizeDomain.SelectedIndex = Form1.Settings.BirdsFlockSize - 1
+        BirdsFlockSizeDomain.SelectedIndex = Settings.BirdsFlockSize - 1
 
-        ChatChanelTextBox.Text = Form1.Settings.BirdsChatChannel.ToString(Globalization.CultureInfo.InvariantCulture)
-        MaxSpeedTextBox.Text = Form1.Settings.BirdsMaxSpeed.ToString(Globalization.CultureInfo.InvariantCulture)
-        MaxForceTextBox.Text = Form1.Settings.BirdsMaxForce.ToString(Globalization.CultureInfo.InvariantCulture)
-        BirdsNeighbourDistanceTextBox.Text = Form1.Settings.BirdsNeighbourDistance.ToString(Globalization.CultureInfo.InvariantCulture)
-        DesiredSeparationTextBox.Text = Form1.Settings.BirdsDesiredSeparation.ToString(Globalization.CultureInfo.InvariantCulture)
-        BirdsToleranceTextBox.Text = Form1.Settings.BirdsTolerance.ToString(Globalization.CultureInfo.InvariantCulture)
-        BirdsBorderSizeTextBox.Text = Form1.Settings.BirdsBorderSize.ToString(Globalization.CultureInfo.InvariantCulture)
-        BirdsMaxHeightTextBox.Text = Form1.Settings.BirdsMaxHeight.ToString(Globalization.CultureInfo.InvariantCulture)
-        PrimNameTextBox.Text = Form1.Settings.BirdsPrim
+        ChatChanelTextBox.Text = Settings.BirdsChatChannel.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxSpeedTextBox.Text = Settings.BirdsMaxSpeed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxForceTextBox.Text = Settings.BirdsMaxForce.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsNeighbourDistanceTextBox.Text = Settings.BirdsNeighbourDistance.ToString(Globalization.CultureInfo.InvariantCulture)
+        DesiredSeparationTextBox.Text = Settings.BirdsDesiredSeparation.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsToleranceTextBox.Text = Settings.BirdsTolerance.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsBorderSizeTextBox.Text = Settings.BirdsBorderSize.ToString(Globalization.CultureInfo.InvariantCulture)
+        BirdsMaxHeightTextBox.Text = Settings.BirdsMaxHeight.ToString(Globalization.CultureInfo.InvariantCulture)
+        PrimNameTextBox.Text = Settings.BirdsPrim
 
         Form1.HelpOnce("Birds")
         initted = True
@@ -223,7 +223,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
 
-        If Not Double.TryParse(MaxForceTextBox.Text, Form1.Settings.BirdsMaxForce) Then
+        If Not Double.TryParse(MaxForceTextBox.Text, Settings.BirdsMaxForce) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
         changed = True
@@ -236,7 +236,7 @@ Public Class BirdForm
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
 
-        If Not Double.TryParse(MaxSpeedTextBox.Text, Form1.Settings.BirdsMaxSpeed) Then
+        If Not Double.TryParse(MaxSpeedTextBox.Text, Settings.BirdsMaxSpeed) Then
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
@@ -247,7 +247,7 @@ Public Class BirdForm
     Private Sub PrimNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles PrimNameTextBox.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.BirdsPrim = PrimNameTextBox.Text
+        Settings.BirdsPrim = PrimNameTextBox.Text
         changed = True
 
     End Sub

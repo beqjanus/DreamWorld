@@ -5,23 +5,23 @@ Public Module Firewall
     Function AddFirewallRules() As String
 
         ' TCP only for 8001 (DiagnosticPort) and both for 8002
-        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & Form1.Settings.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.DiagnosticPort) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & Form1.Settings.HttpPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.HttpPort) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & Form1.Settings.HttpPort & """ dir=in action=allow protocol=UDP localport=" & CStr(Form1.Settings.HttpPort) & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & Settings.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.DiagnosticPort) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & Settings.HttpPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.HttpPort) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & Settings.HttpPort & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.HttpPort) & vbCrLf
 
-        If Form1.Settings.ApacheEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Form1.Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.ApachePort) & vbCrLf
+        If Settings.ApacheEnable Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
-        If Form1.Settings.SCEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & CStr(Form1.Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Form1.Settings.SCPortBase) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & CStr(Form1.Settings.SCPortBase) & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.SCPortBase) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & CStr(Form1.Settings.SCPortBase1) & """ dir=in action=allow protocol=UDP localport=" & CStr(Form1.Settings.SCPortBase1) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Form1.Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Form1.Settings.SCPortBase1) & vbCrLf
+        If Settings.SCEnable Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase1) & vbCrLf _
+                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
         End If
 
-        Dim start = CInt(Form1.Settings.FirstRegionPort)
+        Dim start = CInt(Settings.FirstRegionPort)
 
         ' regions need both
         For port As Integer = start To Form1.PropMaxPortUsed
@@ -35,22 +35,22 @@ Public Module Firewall
 
     Function DeleteFirewallRules() As String
 
-        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Form1.Settings.DiagnosticPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & CStr(Form1.Settings.HttpPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & CStr(Form1.Settings.HttpPort) & """" & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & CStr(Settings.HttpPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & CStr(Settings.HttpPort) & """" & vbCrLf
 
-        If Form1.Settings.SCEnable Then
-            Command += "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & CStr(Form1.Settings.SCPortBase) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & CStr(Form1.Settings.SCPortBase) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & CStr(Form1.Settings.SCPortBase1) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & CStr(Form1.Settings.SCPortBase1) & """" & vbCrLf
+        If Settings.SCEnable Then
+            Command += "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """" & vbCrLf _
+                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
 
         End If
-        If Form1.Settings.ApacheEnable Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Form1.Settings.ApachePort) & """" & vbCrLf
+        If Settings.ApacheEnable Then
+            Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        Dim start = CInt(Form1.Settings.FirstRegionPort)
+        Dim start = CInt(Settings.FirstRegionPort)
         For Port As Integer = start To Form1.PropMaxPortUsed
             Command = Command & "netsh advfirewall firewall  delete rule name=""Region TCP Port " & CStr(Port) & """" & vbCrLf _
                           & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & CStr(Port) & """" & vbCrLf

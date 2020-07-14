@@ -40,6 +40,7 @@ Public Class Form1
 #Region "Version"
     Private _MyVersion As String = "3.57"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
+    Private _SearchRev = 4  ' the rev of the Search Table
 #End Region
 
 #Disable Warning CA2213
@@ -84,7 +85,7 @@ Public Class Form1
     Private _KillSource As Boolean = False
     Private _MaxPortUsed As Integer = 0
     Private _myFolder As String
-    Private _mySetting As New MySettings
+
     Private _MysqlCrashCounter As Integer = 0
     Private _MysqlExited As Boolean = False
     Private _myUPnpMap As UPnp
@@ -235,7 +236,6 @@ Public Class Form1
             Return
         End If
 
-        SetupSearch()
 
         StartApache()
 
@@ -307,8 +307,6 @@ Public Class Form1
         PropAborting = False
 
         If Not StartRobust() Then Return False
-
-
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
@@ -751,14 +749,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property Settings As MySettings
-        Get
-            Return _mySetting
-        End Get
-        Set(value As MySettings)
-            _mySetting = value
-        End Set
-    End Property
 
     Public Property SimVersion As String
         Get
@@ -1031,15 +1021,7 @@ Public Class Form1
         Return False
     End Function
 
-    Public Shared Sub DeleteEvents(Connection As MySqlConnection)
 
-        Dim stm = "delete from events"
-        Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
-            Dim rowsdeleted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
-        End Using
-
-    End Sub
 
     Public Shared Function GetDlls(fname As String) As List(Of String)
 
@@ -1159,33 +1141,6 @@ Public Class Form1
 
     End Function
 
-    Public Shared Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
-
-        If D Is Nothing Then Return
-
-        Dim stm = "insert into events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,eventflags) values (" _
-                        & "'" & D.Item("simname") & "'," _
-                        & "'" & D.Item("category") & "'," _
-                        & "'" & D.Item("creatoruuid") & "'," _
-                        & "'" & D.Item("owneruuid") & "'," _
-                        & "'" & D.Item("name") & "'," _
-                        & "'" & D.Item("description") & "'," _
-                        & "'" & D.Item("dateUTC") & "'," _
-                        & "'" & D.Item("duration") & "'," _
-                        & "'" & D.Item("covercharge") & "'," _
-                        & "'" & D.Item("coveramount") & "'," _
-                        & "'" & D.Item("parcelUUID") & "'," _
-                        & "'" & D.Item("globalPos") & "'," _
-                        & "'" & D.Item("eventflags") & "')"
-
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-        Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-            Dim rowsinserted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Insert: {0}", CStr(rowsinserted))
-        End Using
-
-    End Sub
 
     Public Sub BackupDB()
 
@@ -1934,7 +1889,7 @@ Public Class Form1
         If Settings.ServerType <> "Robust" Then Return
 
         ' modify this to migrate search datbase upwards a rev
-        If Not Settings.SearchMigration = 3 Then
+        If Not Settings.SearchMigration = _SearchRev Then
 
             MysqlInterface.DeleteSearchDatabase()
 
@@ -1966,7 +1921,7 @@ Public Class Form1
 
             FileIO.FileSystem.CurrentDirectory = PropMyFolder
 
-            Settings.SearchMigration = 3
+            Settings.SearchMigration = _SearchRev
             Settings.SaveSettings()
 
         End If
@@ -2687,10 +2642,7 @@ Public Class Form1
 
         Adv1 = New AdvancedForm
 
-
         Me.Show()
-
-
 
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
@@ -2828,6 +2780,7 @@ Public Class Form1
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
 
+        SetupSearch()
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
@@ -5256,11 +5209,6 @@ Public Class Form1
 
     End Function
 
-    Private Function RobustName() As String
-
-        Return "Robust " & Settings.PublicIP
-
-    End Function
 
     Public Function StartRobust() As Boolean
 
@@ -6784,82 +6732,6 @@ Public Class Form1
     End Sub
 
 
-    Private Sub GetEvents()
-
-        If Not Settings.EventTimerEnabled Then
-            ' delete old events
-
-            Try
-                Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                    Try
-                        osconnection.Open()
-#Disable Warning CA1031
-                    Catch
-#Enable Warning CA1031
-                        Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                        Return
-                    End Try
-                    DeleteEvents(osconnection)
-                End Using
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
-                ErrorLog(ex.Message)
-            End Try
-
-            Return
-        End If
-
-        'if enabled, get the eventsa from Outworldz.com
-        Dim Simevents As New Dictionary(Of String, String)
-
-        Try
-            Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                Try
-                    osconnection.Open()
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
-                    Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                    Return
-                End Try
-                DeleteEvents(osconnection)
-
-                Using client As New WebClient()
-                    Dim Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & RandomNumber.Random)
-                    Using reader = New StreamReader(Stream)
-                        While reader.Peek <> -1
-                            Dim s = reader.ReadLine
-
-                            ' Split line on comma.
-                            Dim array As String() = s.Split("|".ToCharArray())
-                            Simevents.Clear()
-                            ' Loop over each string received.
-                            Dim part As String
-                            For Each part In array
-                                ' Display to console.
-                                Dim a As String() = part.Split("^".ToCharArray())
-                                If a.Length = 2 Then
-                                    a(1) = a(1).Replace("'", "\'")
-                                    a(1) = a(1).Replace("`", vbLf)
-                                    'Console.WriteLine("{0}:{1}", a(0), a(1))
-                                    Simevents.Add(a(0), a(1))
-                                End If
-
-                            Next
-                            WriteEvent(osconnection, Simevents)
-                        End While
-                    End Using ' reader
-
-                End Using ' client
-            End Using ' osconnection
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
-            ErrorLog(ex.Message)
-        End Try
-
-    End Sub
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
@@ -6908,6 +6780,7 @@ Public Class Form1
 
         'hourly
         If PropDNSSTimer Mod 3600 = 0 Then
+            RegisterDNS(True)
             RegisterDNS(True)
             Application.DoEvents()
         End If
