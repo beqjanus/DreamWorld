@@ -189,9 +189,7 @@ Public Class RegionList
 
         Dim w = ListView1.Columns(e.ColumnIndex).Width
         Dim name = ListView1.Columns(e.ColumnIndex).Text
-        If name.Contains("Enable") Then
-            Dim x = 1
-        End If
+
         ScreenPosition.putSize(name & TheView1.ToString(Globalization.CultureInfo.InvariantCulture), w)
         Diagnostics.Debug.Print(name & TheView1.ToString(Globalization.CultureInfo.InvariantCulture) & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
         ScreenPosition.SaveFormSettings()
@@ -286,9 +284,7 @@ Public Class RegionList
         TheView1 = Settings.RegionListView()
         SetScreen()
 
-
         Dim W As View
-
         If TheView1 = ViewType.Details Then
             W = View.Details
             ListView1.CheckBoxes = True
@@ -299,7 +295,6 @@ Public Class RegionList
             ListView1.CheckBoxes = False
             W = View.LargeIcon
         End If
-
 
         ListView1.View = W
         AvatarView.View = View.Details
@@ -329,14 +324,16 @@ Public Class RegionList
 
         ListView1.AllowColumnReorder = True
 
-        ' Create columns for the items and subitems.
+        ' Create columns for details, icons 
         ListView1.Columns.Add(My.Resources.Enable_word, colsize.ColumnWidth(My.Resources.Enable_word & "2", 120), HorizontalAlignment.Center)
+
+        ' for details
         ListView1.Columns.Add(My.Resources.DOS_Box_word, colsize.ColumnWidth(My.Resources.DOS_Box_word & "2", 120), HorizontalAlignment.Left)
         ListView1.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth(My.Resources.Agents_word & "2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word & "2", 120), HorizontalAlignment.Center)
-        ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word, 80), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word & "2", 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth(My.Resources.Region_Ports_word & "2", 50), HorizontalAlignment.Center)
-        ListView1.Columns.Add("XMLRPC", colsize.ColumnWidth("XMLRPC" & "2", 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add("XMLRPC", colsize.ColumnWidth("XMLRPC2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("X".ToUpperInvariant & "2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Y".ToUpperInvariant & "2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word & "2", 40), HorizontalAlignment.Center)
@@ -440,7 +437,6 @@ Public Class RegionList
             ShowAvatars()
         Else
             ShowRegions()
-
         End If
 
     End Sub
@@ -463,15 +459,11 @@ Public Class RegionList
             ListView1.Items.Clear()
             ImageListSmall1.ImageSize = New Drawing.Size(20, 20)
 
-            Dim Num As Integer = 0
-
-            ' have to get maps by http port + region UUID, not region port + uuid
             Try
-
                 For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
+                    Dim Num As Integer = 0
                     Dim Groupname As String = Form1.PropRegionClass.GroupName(RegionUUID)
-
                     Dim Status = Form1.PropRegionClass.Status(RegionUUID)
 
                     Dim Letter As String = ""
@@ -532,24 +524,15 @@ Public Class RegionList
                     End If
 
                     ' Create items and subitems for each item. Place a check mark next to the item.
-                    Dim item1 As New ListViewItem(Form1.PropRegionClass.RegionName(RegionUUID), Num) With {
+                    Dim item1 As New ListViewItem(Form1.PropRegionClass.RegionName(RegionUUID), Num) With
+                        {
                             .Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
                         }
 
-                    If TheView1 = ViewType.Icons Then
-                        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
-                    ElseIf TheView1 = ViewType.Details Then
-                        For Each col In ListView1.Columns
-                            Dim name = col.Text
-                            Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
-                                col.Width = colsize.ColumnWidth(name & TheView1.ToString(Globalization.CultureInfo.InvariantCulture))
-                            End Using
-                        Next
+                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
-
-
-                        item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                        item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                         item1.SubItems.Add(Letter)
                         Dim fmtXY = "00000" ' 65536
@@ -581,11 +564,9 @@ Public Class RegionList
                         item1.SubItems.Add(Form1.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                         item1.SubItems.Add(Form1.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
-                        Dim size As String = ""
-
+                        ' Size of region 
                         Dim s As Integer = Form1.PropRegionClass.SizeX(RegionUUID) / 256
-                        size = s & "X" & s
-
+                        Dim size As String = s & "X" & s
                         item1.SubItems.Add(size)
 
                         ' add estate name
@@ -701,9 +682,9 @@ Public Class RegionList
                         Else
                             item1.SubItems.Add("-".ToUpperInvariant)
                         End If
-                    Else
-                        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-                    End If
+
+
+
                     ' maps
                     If TheView1 = ViewType.Maps Then
 
@@ -724,14 +705,33 @@ Public Class RegionList
                         Else
                             ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                         End If
-                        Num = 0
 
                     End If
 
-
                     ListView1.Items.AddRange(New ListViewItem() {item1})
-
                 Next
+
+
+                If TheView1 = ViewType.Icons Then
+                    ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+                ElseIf TheView1 = ViewType.Details Then
+                    For Each col In ListView1.Columns
+                        Dim name = col.Text
+                        Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
+                            col.Width = colsize.ColumnWidth(name & TheView1.ToString(Globalization.CultureInfo.InvariantCulture))
+                        End Using
+                    Next
+
+                    For i As Integer = 0 To ListView1.Items.Count - 1
+                        If ListView1.Items(i).Checked Then
+                            ListView1.Items(i).ForeColor = SystemColors.ControlText
+                        Else
+                            ListView1.Items(i).ForeColor = SystemColors.GrayText
+                        End If
+                    Next i
+                Else
+                    ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+                End If
 
                 'Assign the ImageList objects to the ListView.
                 ListView1.LargeImageList = ImageListLarge1
@@ -739,17 +739,8 @@ Public Class RegionList
 
                 Me.ListView1.TabIndex = 0
 
-                For i As Integer = 0 To ListView1.Items.Count - 1
-                    If ListView1.Items(i).Checked Then
-                        ListView1.Items(i).ForeColor = SystemColors.ControlText
-                    Else
-                        ListView1.Items(i).ForeColor = SystemColors.GrayText
-                    End If
-                Next i
-
-
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
@@ -819,6 +810,9 @@ Public Class RegionList
 
     ' ColumnClick event handler.
     Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
+
+
+
 
         ListView1.SuspendLayout()
         Me.ListView1.Sorting = SortOrder.None
@@ -1445,7 +1439,6 @@ End Class
 Class ListViewItemComparer
     Implements IComparer
 #Disable Warning IDE0044 ' Add readonly modifier
-
 
 
 #Region "Private Fields"
