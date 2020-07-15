@@ -2813,4 +2813,7 @@
     <value>Backing up Regions Folder</value>
     <comment>new</comment>
   </data>
+  <data name="XMLRPC" xml:space="preserve">
+    <value>XMLRPC</value>
+  </data>
 </root>

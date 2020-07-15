@@ -38,7 +38,7 @@ Imports MySql.Data.MySqlClient
 Public Class Form1
 
 #Region "Version"
-    Private _MyVersion As String = "3.57"
+    Private _MyVersion As String = "3.58"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
     Private _SearchRev = 4  ' the rev of the Search Table
 #End Region
@@ -1408,7 +1408,7 @@ Public Class Form1
         If Groupname = RobustName() Then
 
             For Each pList As Process In Process.GetProcesses()
-                If pList.ProcessName = RobustName() Then
+                If pList.ProcessName = "Robust" Then
                     Return pList.MainWindowHandle
                 End If
             Next

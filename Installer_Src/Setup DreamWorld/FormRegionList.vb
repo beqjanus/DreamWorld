@@ -333,7 +333,7 @@ Public Class RegionList
         ListView1.Columns.Add(My.Resources.Status_word, colsize.ColumnWidth(My.Resources.Status_word & "2", 120), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth(My.Resources.RAM_Word & "2", 80), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth(My.Resources.Region_Ports_word & "2", 50), HorizontalAlignment.Center)
-        ListView1.Columns.Add("XMLRPC", colsize.ColumnWidth("XMLRPC2", 50), HorizontalAlignment.Center)
+        ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth(My.Resources.XMLRPC, 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("X".ToUpperInvariant & "2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add("Y".ToUpperInvariant, colsize.ColumnWidth("Y".ToUpperInvariant & "2", 50), HorizontalAlignment.Center)
         ListView1.Columns.Add(My.Resources.Size_word, colsize.ColumnWidth(My.Resources.Size_word & "2", 40), HorizontalAlignment.Center)
