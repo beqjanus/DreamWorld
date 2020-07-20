@@ -1395,7 +1395,7 @@ Public Class RegionMaker
     Public Sub RegionDump()
 
         If Not Form1.PropDebug Then Return
-        Dim ctr = 0
+
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
             DebugRegions(pair.Value._UUID)

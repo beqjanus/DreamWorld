@@ -1666,7 +1666,7 @@
   <data name="No_Avatars" xml:space="preserve">
     <value>No Avatars</value>
   </data>
-  <data name="Running" xml:space="preserve">
+  <data name="Running_word" xml:space="preserve">
     <value>Running</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2815,5 +2815,8 @@
   </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>XMLRPC</value>
+  </data>
+  <data name="Hours_word" xml:space="preserve">
+    <value>Hours</value>
   </data>
 </root>

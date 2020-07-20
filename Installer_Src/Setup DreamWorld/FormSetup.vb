@@ -110,7 +110,7 @@ Public Class Form1
     Private _UserName As String = ""
     Private _viewedSettings As Boolean = False
     Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 2 ' seconds per poll interval in Exitlist
+    Private ExitInterval As Integer = 1 ' seconds per poll interval in Exitlist
     Private Handler As New EventHandler(AddressOf Resize_page)
     Private MyCPUCollection As New List(Of Double)
     Private MyRAMCollection As New List(Of Double)
@@ -2022,7 +2022,7 @@ Public Class Form1
 
         If myProcess Is Nothing Then Return 0
 
-        Dim PID As Integer = 0
+        Dim PID As Integer
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
@@ -2913,7 +2913,7 @@ Public Class Form1
             Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
             PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
             PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
-            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running)
+            Print(PropRegionClass.RegionName(R) & " " & My.Resources.Running_word)
             PropUpdateView = True
         End While
 
@@ -6076,7 +6076,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub mnuHideAllways_Click(sender As Object, e As EventArgs) Handles mnuHideAllways.Click
+    Private Sub MnuHideAllways_Click(sender As Object, e As EventArgs) Handles mnuHideAllways.Click
         Print(My.Resources.Not_Shown)
         mnuShow.Checked = False
         mnuHide.Checked = False
@@ -6346,16 +6346,22 @@ Public Class Form1
             ' If user has clicked Cancel, set myValue to defaultValue
             If myValue.Length = 0 Then Return
 
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim Group = PropRegionClass.GroupName(RegionUUID)
-                ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
+            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
+                ' nothing
+            Else
+                myValue += ".oar"
             End If
-            Me.Focus()
-            Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
-        Else
-            Print(My.Resources.Not_Running)
+
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                    Dim Group = PropRegionClass.GroupName(RegionUUID)
+                    ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
+                    ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
+                End If
+                Me.Focus()
+                Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
+            Else
+                Print(My.Resources.Not_Running)
         End If
 
     End Sub
@@ -6767,6 +6773,15 @@ Public Class Form1
 
         If PropAborting Then Return
 
+        ' print hourly marks on console
+        If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
+
+            Dim thisDate As Date = Now
+            Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
+
+            Print(dt & " " & My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & My.Resources.Hours_word)
+        End If
+
         If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()
@@ -6783,18 +6798,15 @@ Public Class Form1
             Application.DoEvents()
         End If
 
-        ' every 5 minutes
-        If PropDNSSTimer Mod 300 = 0 And PropDNSSTimer > 0 Then
-            CrashDetector.Find()
-            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
-        End If
 
-        'hourly
+        'hourly for DNS 
         If PropDNSSTimer Mod 3600 = 0 Then
             RegisterDNS(True)
         End If
 
-        If Settings.EventTimerEnabled And PropDNSSTimer Mod 3600 = 0 Then
+        ' hourly
+        If PropDNSSTimer > 0 And PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 120 Then
+            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
             GetEvents() ' get the events from the Outworldz main server for all grids            
         End If
 

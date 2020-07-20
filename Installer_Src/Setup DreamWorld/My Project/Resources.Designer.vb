@@ -3547,6 +3547,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hours.
+        '''</summary>
+        Friend ReadOnly Property Hours_word() As String
+            Get
+                Return ResourceManager.GetString("Hours_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to How close to the edges of things can we get without being worried?.
         '''</summary>
         Friend ReadOnly Property How_Close() As String
@@ -6376,15 +6385,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Running.
-        '''</summary>
-        Friend ReadOnly Property Running() As String
-            Get
-                Return ResourceManager.GetString("Running", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Running as a Region Server.
         '''</summary>
         Friend ReadOnly Property Running_as_a_Region_Server_word() As String
@@ -6399,6 +6399,15 @@ Namespace My.Resources
         Friend ReadOnly Property Running_Network() As String
             Get
                 Return ResourceManager.GetString("Running_Network", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Running.
+        '''</summary>
+        Friend ReadOnly Property Running_word() As String
+            Get
+                Return ResourceManager.GetString("Running_word", resourceCulture)
             End Get
         End Property
         
