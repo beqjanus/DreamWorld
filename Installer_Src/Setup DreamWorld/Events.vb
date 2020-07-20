@@ -7,43 +7,15 @@ Module Events
 
     Public Sub GetEvents()
 
-        If Not Settings.EventTimerEnabled Then
-            ' delete old events
-
-            Try
-                Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                    Try
-                        osconnection.Open()
-#Disable Warning CA1031
-                    Catch
-#Enable Warning CA1031
-                        Form1.Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                        Return
-                    End Try
-                    DeleteEvents(osconnection)
-                End Using
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
-                Form1.ErrorLog(ex.Message)
-            End Try
-
-            Return
-        End If
-
-        'if enabled, get the eventsa from Outworldz.com
-        Dim Simevents As New Dictionary(Of String, String)
+        If Not Settings.EventTimerEnabled Then Return
 
         Try
             Using osconnection = New MySqlConnection(Settings.OSSearchConnectionString())
-                Try
-                    osconnection.Open()
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
-                    Form1.Log(My.Resources.Error_word, My.Resources.Search_Connect_failed)
-                    Return
-                End Try
+                osconnection.Open()
+
+                'if enabled, get the events from Outworldz.com
+                Dim Simevents As New Dictionary(Of String, String)
+
                 DeleteEvents(osconnection)
 
                 Using client As New WebClient()
