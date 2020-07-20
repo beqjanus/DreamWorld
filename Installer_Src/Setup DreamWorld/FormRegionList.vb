@@ -530,11 +530,9 @@ Public Class RegionList
                         }
 
                     item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                    item1.SubItems.Add(Form1.PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-
                     item1.SubItems.Add(Form1.PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
-                        item1.SubItems.Add(Letter)
+                    item1.SubItems.Add(Letter)
                         Dim fmtXY = "00000" ' 65536
                         Dim fmtRam = "0000." ' 9999 MB
                         ' RAM
