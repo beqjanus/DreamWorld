@@ -213,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClrCache.vb" />
-    <Compile Include="Crashdetector.vb" />
     <Compile Include="Dump.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="FileStuff.vb" />

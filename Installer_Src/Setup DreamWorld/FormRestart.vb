@@ -61,7 +61,6 @@ Public Class FormRestart
         End Try
 
         Settings.RestartOnCrash = RestartOnCrash.Checked
-        Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
         Settings.Sequential = SequentialCheckBox1.Checked
 
         Form1.PropViewedSettings = True
@@ -83,10 +82,8 @@ Public Class FormRestart
 
         Debug.Print(Settings.Physics)
         If Settings.Physics <> 4 Then
-            RestartOnPhysicsCrash.Enabled = False
             RestartOnCrash.Checked = False
         Else
-            RestartOnPhysicsCrash.Checked = Settings.RestartonPhysics
             RestartOnCrash.Checked = True
         End If
 
@@ -157,6 +154,7 @@ Public Class FormRestart
         Form1.Help("Restart")
 
     End Sub
+
 
 
 #End Region
