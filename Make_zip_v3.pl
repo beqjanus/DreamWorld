@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.57";
+my $v = "3.59";
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
@@ -231,7 +231,7 @@ copy:
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	print "Revisions\n";
 	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
@@ -279,7 +279,7 @@ sub ProcessDir
 {
 	my $file = shift;
 	
-	my $x = `xcopy /E /I \\Opensim\\Outworldz_Dreamgrid\\$file \\Opensim\\zip\\$file`;
+	my $x = `xcopy /E /I \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
 	$x =~ s/\n//g;
 	if ($x =~ /File\(s\) copied/) {
 		print "$file ok\n";
@@ -376,6 +376,13 @@ sub sign
 	foreach my $file (@files) {
 		my $name = $file->name;
 		next if $name =~ /Microsoft|Debug|\.git|baretail|Downloader|Bouncy|Google|Tuple/;
+		
+		if ($name =~ /Start\.exe/i)
+		{
+			my $bp =1 ;
+			
+		}
+		
 		if ($name =~ /dll$|exe$/ ) {
 			
 			my $r = qq!../Certs/sigcheck64.exe "$name"!;
@@ -384,7 +391,7 @@ sub sign
 			
 			print $result1;
 			
-			if ($result1 =~ /Outworldz, LLC/) {
+			if ($result1 !~ /Unsigned/) {
 				next;
 			}
 			$result1 =~ s/\n//g;
@@ -398,10 +405,7 @@ sub sign
 			my $result = `$f`;
 			print $result. "\n";
 			$result =~ s/\n//g;
-			if ($result =~ /Verified(.*)/)
-			{
-				say($1);
-			}
+			
 			if ($result !~ /success/) {
 				say ("***** Failed to sign!");
 				die;
