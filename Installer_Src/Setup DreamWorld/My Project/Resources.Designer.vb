@@ -703,6 +703,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Bannedviewe.
+        '''</summary>
+        Friend ReadOnly Property Banned_word() As String
+            Get
+                Return ResourceManager.GetString("Banned_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property basque() As System.Drawing.Bitmap
@@ -1636,6 +1645,15 @@ Namespace My.Resources
         Friend ReadOnly Property Clouds_word() As String
             Get
                 Return ResourceManager.GetString("Clouds_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Comment or Notes.
+        '''</summary>
+        Friend ReadOnly Property Comment_or_Notes_Word() As String
+            Get
+                Return ResourceManager.GetString("Comment_or_Notes_Word", resourceCulture)
             End Get
         End Property
         
@@ -3889,6 +3907,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to IPV4 Address.
+        '''</summary>
+        Friend ReadOnly Property IPV4_Address_word() As String
+            Get
+                Return ResourceManager.GetString("IPV4_Address_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to is already running.
         '''</summary>
         Friend ReadOnly Property is_already_running_word() As String
@@ -4236,6 +4263,15 @@ Namespace My.Resources
         Friend ReadOnly Property LSL_Allow() As String
             Get
                 Return ResourceManager.GetString("LSL_Allow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to MAC Address.
+        '''</summary>
+        Friend ReadOnly Property MAC_Address_word() As String
+            Get
+                Return ResourceManager.GetString("MAC_Address_word", resourceCulture)
             End Get
         End Property
         

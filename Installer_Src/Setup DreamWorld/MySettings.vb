@@ -323,7 +323,7 @@ Public Class MySettings
 
     End Function
 
-    Public Sub SaveINI(encoding As Object)
+    Public Sub SaveINI(encoding As System.Text.Encoding)
 
         Form1.Log(My.Resources.Info, "Save INI " & INI)
         Try
@@ -368,7 +368,6 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
-
 
 
     Public Property AccountConfirmationRequired() As Boolean

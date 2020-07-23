@@ -5199,7 +5199,7 @@ Public Class Form1
     End Sub
     ''' <summary>Check is Robust port 8002 is up</summary>
     ''' <returns>boolean</returns>
-    Private Function CheckRobust() As Boolean
+    Public Function CheckRobust() As Boolean
 
         Using client As New WebClient ' download client for web pages
             Dim Up As String
@@ -7218,7 +7218,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub RobustIs(Running As Boolean)
+    Public Sub RobustIs(Running As Boolean)
 
         If Not Running Then
             RobustToolStripMenuItem.Image = My.Resources.nav_plain_red

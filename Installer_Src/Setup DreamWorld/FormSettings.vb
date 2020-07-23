@@ -48,6 +48,8 @@ Public Class AdvancedForm
     Dim Tide As New Tides
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
+    Dim Banlist As New FormBanList
+
 #Enable Warning CA2213
 
 #End Region
@@ -89,7 +91,11 @@ Public Class AdvancedForm
 
         SetScreen()
 
-        Dim x = Threading.Thread.CurrentThread.CurrentUICulture
+        If Settings.ServerType = "Robust" Then
+            BanListButton.Enabled = True
+        Else
+            BanListButton.Enabled = False
+        End If
 
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
@@ -148,6 +154,7 @@ Public Class AdvancedForm
         Tide.Dispose()
         Tos.Dispose()
         Voice.Dispose()
+        BanListButton.Dispose()
 
 
     End Sub
@@ -168,7 +175,6 @@ Public Class AdvancedForm
 
     Private Sub BackupButton1_Click(sender As Object, e As EventArgs) Handles BackupButton1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Backups.Close()
         Backups.Dispose()
         Backups = New FormAutoBackups
@@ -181,7 +187,6 @@ Public Class AdvancedForm
 
     Private Sub Birds_Click(sender As Object, e As EventArgs) Handles Birds.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Bird.Close()
         Bird.Dispose()
         Bird = New BirdForm
@@ -194,7 +199,6 @@ Public Class AdvancedForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GloebitsButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Gloebits.Close()
         Gloebits.Dispose()
         Gloebits = New Gloebits
@@ -207,7 +211,6 @@ Public Class AdvancedForm
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles PortsButton1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPorts.Close()
         FormPorts.Dispose()
         FormPorts = New FormPorts
@@ -232,7 +235,6 @@ Public Class AdvancedForm
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPermissions.Close()
         FormPermissions.Dispose()
         FormPermissions = New FormPermissions
@@ -245,7 +247,6 @@ Public Class AdvancedForm
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormRestart.Close()
         FormRestart.Dispose()
         FormRestart = New FormRestart
@@ -258,7 +259,6 @@ Public Class AdvancedForm
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPublicity.Close()
         FormPublicity.Dispose()
         FormPublicity = New FormPublicity
@@ -283,7 +283,6 @@ Public Class AdvancedForm
 
     Private Sub DatabaseButton2_Click(sender As Object, e As EventArgs) Handles DatabaseButton2.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDatabase.Close()
         FormDatabase.Dispose()
         FormDatabase = New FormDatabase
@@ -296,7 +295,6 @@ Public Class AdvancedForm
 
     Private Sub DivaButton1_Click(sender As Object, e As EventArgs) Handles DivaButton1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDiva.Close()
         FormDiva.Dispose()
         FormDiva = New FormDiva
@@ -309,7 +307,6 @@ Public Class AdvancedForm
 
     Private Sub DNSButton_Click(sender As Object, e As EventArgs) Handles DNSButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormDNSName.Close()
         FormDNSName.Dispose()
         FormDNSName = New FormDNSName
@@ -334,7 +331,6 @@ Public Class AdvancedForm
 
     Private Sub MapsButton_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Maps.Close()
         Maps.Dispose()
         Maps = New FormMaps
@@ -347,7 +343,6 @@ Public Class AdvancedForm
 
     Private Sub PhysicsButton1_Click(sender As Object, e As EventArgs) Handles PhysicsButton1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         FormPhysics.Close()
         FormPhysics.Dispose()
         FormPhysics = New FormPhysics
@@ -372,7 +367,6 @@ Public Class AdvancedForm
 
     Private Sub ScriptButton_Click(sender As Object, e As EventArgs) Handles ScriptButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Scripts.Close()
         Scripts.Dispose()
         Scripts = New FormScripts
@@ -385,7 +379,6 @@ Public Class AdvancedForm
 
     Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Icecast.Close()
         Icecast.Dispose()
         Icecast = New Icecast With {
@@ -399,7 +392,6 @@ Public Class AdvancedForm
 
     Private Sub TideButton_Click(sender As Object, e As EventArgs) Handles TideButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Tide.Close()
         Tide.Dispose()
         Tide = New Tides
@@ -412,7 +404,7 @@ Public Class AdvancedForm
 
     Private Sub TOSButton_Click(sender As Object, e As EventArgs) Handles TOSButton.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
+
         Tos.Close()
         Tos.Dispose()
         Tos = New TosForm
@@ -423,9 +415,9 @@ Public Class AdvancedForm
 
     End Sub
 
+
     Private Sub VoiceButton1_Click(sender As Object, e As EventArgs) Handles VoiceButton1.Click
 
-        ' Set the new form's desktop location so it appears below and to the right of the current form.
         Voice.Close()
         Voice.Dispose()
         Voice = New FormVoice
@@ -433,6 +425,25 @@ Public Class AdvancedForm
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
+
+    End Sub
+
+    Private Sub BanListButton_Click(sender As Object, e As EventArgs) Handles BanListButton.Click
+
+        If Settings.ServerType = "Robust" Then
+            Banlist.Close()
+            Banlist.Dispose()
+            Banlist = New FormBanList
+            Banlist.LoadCollectionData()
+            Banlist.Activate()
+            Banlist.Visible = True
+            Banlist.Select()
+            Banlist.BringToFront()
+        Else
+            Banlist.Close()
+            Banlist.Dispose()
+        End If
+
 
     End Sub
 

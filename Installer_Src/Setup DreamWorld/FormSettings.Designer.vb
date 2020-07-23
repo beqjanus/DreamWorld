@@ -46,8 +46,9 @@ Partial Class AdvancedForm
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ApacheButton = New System.Windows.Forms.Button()
         Me.ScriptButton = New System.Windows.Forms.Button()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.LoggingButton = New System.Windows.Forms.Button()
+        Me.BanListButton = New System.Windows.Forms.Button()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.GroupBox8.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -73,7 +74,7 @@ Partial Class AdvancedForm
         '
         'GloebitsButton
         '
-        Me.GloebitsButton.Location = New System.Drawing.Point(15, 163)
+        Me.GloebitsButton.Location = New System.Drawing.Point(15, 192)
         Me.GloebitsButton.Name = "GloebitsButton"
         Me.GloebitsButton.Size = New System.Drawing.Size(143, 23)
         Me.GloebitsButton.TabIndex = 4
@@ -93,7 +94,7 @@ Partial Class AdvancedForm
         '
         'Shoutcast
         '
-        Me.Shoutcast.Location = New System.Drawing.Point(15, 221)
+        Me.Shoutcast.Location = New System.Drawing.Point(15, 250)
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(143, 23)
         Me.Shoutcast.TabIndex = 6
@@ -103,7 +104,7 @@ Partial Class AdvancedForm
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(15, 279)
+        Me.MapsButton.Location = New System.Drawing.Point(15, 308)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(143, 23)
         Me.MapsButton.TabIndex = 7
@@ -113,7 +114,7 @@ Partial Class AdvancedForm
         '
         'Birds
         '
-        Me.Birds.Location = New System.Drawing.Point(15, 77)
+        Me.Birds.Location = New System.Drawing.Point(15, 106)
         Me.Birds.Name = "Birds"
         Me.Birds.Size = New System.Drawing.Size(145, 23)
         Me.Birds.TabIndex = 2
@@ -153,7 +154,7 @@ Partial Class AdvancedForm
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(15, 308)
+        Me.PortsButton1.Location = New System.Drawing.Point(15, 337)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -174,7 +175,7 @@ Partial Class AdvancedForm
         '
         'DatabaseButton2
         '
-        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 134)
+        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 163)
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(145, 23)
         Me.DatabaseButton2.TabIndex = 3
@@ -204,7 +205,7 @@ Partial Class AdvancedForm
         '
         'DNSButton
         '
-        Me.DNSButton.Location = New System.Drawing.Point(15, 192)
+        Me.DNSButton.Location = New System.Drawing.Point(15, 221)
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(143, 23)
         Me.DNSButton.TabIndex = 5
@@ -224,7 +225,7 @@ Partial Class AdvancedForm
         '
         'CacheButton1
         '
-        Me.CacheButton1.Location = New System.Drawing.Point(15, 105)
+        Me.CacheButton1.Location = New System.Drawing.Point(15, 134)
         Me.CacheButton1.Name = "CacheButton1"
         Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
         Me.CacheButton1.TabIndex = 19
@@ -262,8 +263,29 @@ Partial Class AdvancedForm
         Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.ScriptButton.UseVisualStyleBackColor = True
         '
+        'LoggingButton
+        '
+        Me.LoggingButton.Location = New System.Drawing.Point(15, 279)
+        Me.LoggingButton.Name = "LoggingButton"
+        Me.LoggingButton.Size = New System.Drawing.Size(143, 23)
+        Me.LoggingButton.TabIndex = 23
+        Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
+        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
+        Me.LoggingButton.UseVisualStyleBackColor = True
+        '
+        'BanListButton
+        '
+        Me.BanListButton.Location = New System.Drawing.Point(15, 76)
+        Me.BanListButton.Name = "BanListButton"
+        Me.BanListButton.Size = New System.Drawing.Size(145, 23)
+        Me.BanListButton.TabIndex = 24
+        Me.BanListButton.Text = "Ban List"
+        Me.ToolTip1.SetToolTip(Me.BanListButton, "Click to set up Avatar, MAC address and IP bans")
+        Me.BanListButton.UseVisualStyleBackColor = True
+        '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.BanListButton)
         Me.GroupBox8.Controls.Add(Me.LoggingButton)
         Me.GroupBox8.Controls.Add(Me.ScriptButton)
         Me.GroupBox8.Controls.Add(Me.ApacheButton)
@@ -288,20 +310,10 @@ Partial Class AdvancedForm
         Me.GroupBox8.Controls.Add(Me.Shoutcast)
         Me.GroupBox8.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(340, 345)
+        Me.GroupBox8.Size = New System.Drawing.Size(340, 380)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.GlobalSettings_word
-        '
-        'LoggingButton
-        '
-        Me.LoggingButton.Location = New System.Drawing.Point(15, 250)
-        Me.LoggingButton.Name = "LoggingButton"
-        Me.LoggingButton.Size = New System.Drawing.Size(143, 23)
-        Me.LoggingButton.TabIndex = 23
-        Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
-        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
-        Me.LoggingButton.UseVisualStyleBackColor = True
+        Me.GroupBox8.Text = "Global Settings"
         '
         'AdvancedForm
         '
@@ -309,12 +321,12 @@ Partial Class AdvancedForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(371, 369)
+        Me.ClientSize = New System.Drawing.Size(371, 404)
         Me.Controls.Add(Me.GroupBox8)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "AdvancedForm"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        Me.Text = "Settings"
         Me.GroupBox8.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -343,4 +355,5 @@ Partial Class AdvancedForm
     Friend WithEvents ApacheButton As Button
     Friend WithEvents ScriptButton As Button
     Friend WithEvents LoggingButton As Button
+    Friend WithEvents BanListButton As Button
 End Class

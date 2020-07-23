@@ -64,9 +64,14 @@ Public Module Firewall
 
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
+        Write(CMD)
+
+    End Sub
+    Private Sub Write(cmd As String)
+
         Try
             Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
-            ns.WriteLine(CMD)
+            ns.WriteLine(cmd)
             'If Debugger.IsAttached Then
             'ns.WriteLine("@pause")
             'End If
@@ -99,5 +104,14 @@ Public Module Firewall
         End Using
 
     End Sub
+
+    Public Sub BlockIP(Ip As String)
+
+        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
+        Write(Command)
+
+    End Sub
+
+
 
 End Module
