@@ -78,7 +78,6 @@ Public Class FormBanList
                     t = row.Cells(1).Value
                 End If
 
-
                 fname.WriteLine(s & "|" & t)
 
                 Dim I As System.Net.IPAddress = Nothing
@@ -111,7 +110,7 @@ Public Class FormBanList
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
 
-                If Form1.CheckRobust() Then
+                If Form1.IsRobustRunning() Then
                     Form1.PropAborting = True
                     Form1.StopRobust()
                     Form1.StartRobust()
@@ -123,7 +122,6 @@ Public Class FormBanList
         Finally
             fname.Close()
         End Try
-
 
     End Sub
 
@@ -191,6 +189,11 @@ Public Class FormBanList
                     If line.Length > 1 Then
                         Dim words() = line.Split("|")
                         table.Rows.Add(words(0), words(1))
+
+                        ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode
+                        Dim I As System.Net.IPAddress = Nothing
+                        If IPAddress.TryParse(words(0), I) Then Firewall.ReleaseIp(words(0))
+
                     End If
                 End While
             End Using
@@ -234,10 +237,10 @@ Public Class FormBanList
 
     End Sub
 
-
     Private Sub FormBanList_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
 
         colsize.Dispose()
 
     End Sub
+
 End Class

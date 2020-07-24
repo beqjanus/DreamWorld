@@ -67,6 +67,7 @@ Public Module Firewall
         Write(CMD)
 
     End Sub
+
     Private Sub Write(cmd As String)
 
         Try
@@ -112,6 +113,13 @@ Public Module Firewall
 
     End Sub
 
+    Public Sub ReleaseIp(Ip As String)
 
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & "" & vbCrLf
+        Write(Command)
+
+        Write(Command)
+
+    End Sub
 
 End Module
