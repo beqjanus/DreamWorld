@@ -26,7 +26,6 @@ Public Class FormRestart
 
 #Region "Private Fields"
 
-
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
     Dim initted As Boolean = False
@@ -46,7 +45,7 @@ Public Class FormRestart
 
 #End Region
 
-#Region "Private Methods"
+#Region "Load and Close"
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
@@ -71,21 +70,10 @@ Public Class FormRestart
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
-
         ARTimerBox.Checked = Settings.AutoRestartEnabled
-
         AutoStartCheckbox.Checked = Settings.Autostart
         SequentialCheckBox1.Checked = Settings.Sequential
-
-        ' Restart on Physics crash is only good for Bullet  in a thread as if it crashed any other way, 
-        ' it will restart under AutoRestart
-
-        Debug.Print(Settings.Physics)
-        If Settings.Physics <> 4 Then
-            RestartOnCrash.Checked = False
-        Else
-            RestartOnCrash.Checked = True
-        End If
+        RestartOnCrash.Checked = Settings.RestartOnCrash
 
         SetScreen()
         Form1.HelpOnce("Restart")
@@ -93,6 +81,10 @@ Public Class FormRestart
         initted = True ' suppress the install of the startup on formload
 
     End Sub
+
+#End Region
+
+#Region "SetScreen"
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -123,7 +115,6 @@ Public Class FormRestart
                 AutoRestartBox.Text = (BTime + 30).ToString(Globalization.CultureInfo.InvariantCulture)
                 MsgBox(My.Resources.Increasing_time & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
-
         Else
             Settings.AutoRestartEnabled = False
             Settings.AutoRestartInterval = 0
@@ -140,22 +131,17 @@ Public Class FormRestart
 
     End Sub
 
-
-
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
         Form1.Help("Restart")
 
     End Sub
 
-
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
 
         Form1.Help("Restart")
 
     End Sub
-
-
 
 #End Region
 
