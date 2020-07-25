@@ -552,7 +552,7 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyPress
+    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
 
         Search()
 

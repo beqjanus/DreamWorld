@@ -2006,7 +2006,6 @@ Public Class Form1
 #Disable Warning CA1031
             Catch ex As Exception
 #Enable Warning CA1031
-
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
         End Using
