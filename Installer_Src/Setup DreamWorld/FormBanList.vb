@@ -142,7 +142,9 @@ Public Class FormBanList
                     Form1.PropAborting = False
                 End If
             End If
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
+#Enable Warning CA1031 ' Do not catch general exception types
             Form1.ErrorLog("Ban List:" & ex.Message)
         Finally
             fname.Close()
@@ -161,6 +163,7 @@ Public Class FormBanList
     End Sub
 
 #End Region
+#Region "Private Subs"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
@@ -228,8 +231,10 @@ Public Class FormBanList
 
             DataGridView1.Columns(0).Width = colsize.ColumnWidth("Banned", 240)
             DataGridView1.Columns(1).Width = colsize.ColumnWidth("Comment", 500)
+#Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
-
+#Enable Warning CA1031 ' Do not catch general exception types
+            Form1.ErrorLog("Banlist:" & ex.Message)
         End Try
 
     End Sub
@@ -262,5 +267,7 @@ Public Class FormBanList
         Saveneeded = True
 
     End Sub
+
+#End Region
 
 End Class

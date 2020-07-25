@@ -92,11 +92,7 @@ Public Class AdvancedForm
 
         SetScreen()
 
-        If Settings.ServerType = "Robust" Then
-            BanListButton.Enabled = True
-        Else
-            BanListButton.Enabled = False
-        End If
+        BanListButton.Enabled = True
 
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
