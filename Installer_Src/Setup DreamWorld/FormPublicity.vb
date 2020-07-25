@@ -175,8 +175,9 @@ Public Class FormPublicity
                 Using newBitmap = New Bitmap(PictureBox9.Image)
                     Try
                         newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                        newBitmap.Dispose()
 #Disable Warning CA1031
-                    Catch ex As exception
+                    Catch ex As Exception
 #Enable Warning CA1031
 
                         MsgBox(ex.Message)
