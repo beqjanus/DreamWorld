@@ -6883,6 +6883,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Set Up WordPress database.
+        '''</summary>
+        Friend ReadOnly Property Setup_Wordpress() As String
+            Get
+                Return ResourceManager.GetString("Setup_Wordpress", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Shoutcast is not Enabled..
         '''</summary>
         Friend ReadOnly Property Shoutcast_Disabled() As String

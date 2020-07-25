@@ -6,6 +6,7 @@ Partial Class FormBanList
     <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
+            colsize.Dispose()
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
             End If

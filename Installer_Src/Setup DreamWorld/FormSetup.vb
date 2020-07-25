@@ -38,7 +38,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.58"
+    Private _MyVersion As String = "3.59"
     Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
     Private _SearchRev = 4  ' the rev of the Search Table
 
@@ -239,6 +239,10 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Return
         End If
+
+        SetupSearch()
+
+        SetupWordPress()
 
         StartApache()
 
@@ -1891,6 +1895,40 @@ Public Class Form1
 
     End Sub
 
+    Private Sub SetupWordPress()
+
+        If Settings.ServerType <> "Robust" Then Return
+
+        Print(My.Resources.Setup_Wordpress)
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+        FileIO.FileSystem.CurrentDirectory = PropMyFolder & "\Outworldzfiles\mysql\bin\"
+        pi.FileName = "Create_WordPress.bat"
+        pi.UseShellExecute = True
+        pi.CreateNoWindow = False
+        pi.WindowStyle = ProcessWindowStyle.Minimized
+
+        Using MysqlWordpress As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                MysqlWordpress.Start()
+                MysqlWordpress.WaitForExit()
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+
+                ErrorLog("Could not create WordPress Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = PropMyFolder
+                Return
+            End Try
+        End Using
+
+        FileIO.FileSystem.CurrentDirectory = PropMyFolder
+
+    End Sub
+
     Private Sub SetupSearch()
 
         If Settings.ServerType <> "Robust" Then Return
@@ -2775,8 +2813,6 @@ Public Class Form1
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
-
-        SetupSearch()
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)

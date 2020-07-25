@@ -24,6 +24,7 @@ Public Class AdvancedForm
     Implements IDisposable
 
 #Region "Declarations"
+
 #Disable Warning CA2213
 
     Private Backups As New FormAutoBackups
@@ -155,7 +156,6 @@ Public Class AdvancedForm
         Tos.Dispose()
         Voice.Dispose()
         BanListButton.Dispose()
-
 
     End Sub
 
@@ -404,7 +404,6 @@ Public Class AdvancedForm
 
     Private Sub TOSButton_Click(sender As Object, e As EventArgs) Handles TOSButton.Click
 
-
         Tos.Close()
         Tos.Dispose()
         Tos = New TosForm
@@ -414,7 +413,6 @@ Public Class AdvancedForm
         Tos.BringToFront()
 
     End Sub
-
 
     Private Sub VoiceButton1_Click(sender As Object, e As EventArgs) Handles VoiceButton1.Click
 
@@ -434,7 +432,7 @@ Public Class AdvancedForm
             Banlist.Close()
             Banlist.Dispose()
             Banlist = New FormBanList
-            Banlist.LoadCollectionData()
+
             Banlist.Activate()
             Banlist.Visible = True
             Banlist.Select()
@@ -443,7 +441,6 @@ Public Class AdvancedForm
             Banlist.Close()
             Banlist.Dispose()
         End If
-
 
     End Sub
 

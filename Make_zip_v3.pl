@@ -80,6 +80,7 @@ unlink "$dir/Outworldzfiles/Icecast/log/access.log" ;
 unlink "$dir/UpdateGrid.log";
 unlink "$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db" ;
+unlink "$dir/OutworldzFiles/BanList.txt" ;
 
 #Setting
 unlink "$dir/Outworldzfiles/Settings.ini" ;
@@ -229,8 +230,6 @@ copy:
 	
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	print "Revisions\n";
@@ -240,12 +239,18 @@ copy:
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
 
-	foreach my $lang (@languages)
-	{
-		JustDelete ($lang);
-	}
-
 }
+
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
+
+
+foreach my $lang (@languages)
+{
+	JustDelete ($lang);
+}
+
+
 
 
 say "Done!";

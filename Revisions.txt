@@ -2,6 +2,19 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.59 Release Condidate 7/24/2020
+Add Denial-of-Service protection. 
+Added Settable Ban lists for Grids, Viewer type, IP addresses and MAC addresses.
+Saving an oar without a .oar extension now gets .oar added on
+RegionList could be shifted one column to the right.
+Create a blank Wordpress database using robust credentials.
+Add manual to show how to install Wordpress. Save WP in Outworldzfile\htdocs\WordPress and load http://localhots/Wordpress in a browser. Use Robust'Credentials.
+FollowSymLinks, SymLinksIfOwnerMatch added to Apache httpd.conf for easier integration of WordPress, and Directory Index was re-ordered.
+Fixed Restart on Crash to ignore physics engine.
+Removed Scan of Region logs to improve performance. 
+YEngine script is now the default for new DreamGrids.
+
+
 V3.58 Post Fixes 7/14/2020
 When more than one grid is run on a PC do not shut off wrong Robust.
 Region Form remembers the column widths in Details mode.

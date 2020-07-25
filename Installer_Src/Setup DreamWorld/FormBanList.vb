@@ -54,18 +54,23 @@ Public Class FormBanList
 
 #End Region
 
+#Region "Start Stop"
+
     Private Sub Q() Handles Me.Closing
 
         If Saveneeded = False Then Return
 
         Dim MACString As String = ""
         Dim ViewerString As String = ""
+        Dim GridString As String = ""
         Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Form1.PropMyFolder & "/Outworldzfiles/BanList.txt", False)
         Try
 
             For Each row As DataGridViewRow In DataGridView1.Rows
                 Dim s As String
                 Dim t As String
+
+                ' handle DBNull and empty lines
 
                 If IsDBNull(row.Cells(0).Value) Or row.Cells(0).Value Is Nothing Then
                     s = ""
@@ -78,34 +83,54 @@ Public Class FormBanList
                     t = row.Cells(1).Value
                 End If
 
+                Debug.Print("BanList Add " & s)
+                ' save to Ban List
                 fname.WriteLine(s & "|" & t)
 
+                ' Ban IP's
                 Dim I As System.Net.IPAddress = Nothing
                 If IPAddress.TryParse(s, I) Then
                     Firewall.BlockIP(s)
                     Continue For
                 End If
 
-                Dim pattern1 As Regex = New Regex("\w+:\w+:\w+:\w+:\w+:\w")
+                ' ban MAC Addresses with and without caps and :
+                Dim pattern1 As Regex = New Regex("[0-9a-zA-Z]:")
                 Dim match1 As Match = pattern1.Match(s)
                 If match1.Success Then
-                    MACString += s & "|"
+                    MACString += s & " "
+                    Continue For
+                End If
+
+                ' ban grid Addresses
+                Dim pattern2 As Regex = New Regex("^http:\/\/\w+:\d+$")
+                Dim match2 As Match = pattern2.Match(s)
+                If match2.Success Then
+                    GridString += s & " "
                     Continue For
                 End If
 
                 ' none of the above, must be a viewer
                 If s.Length > 0 Then ViewerString += s & "|"
+
             Next
 
             If Settings.ServerType = "Robust" Then
-                ' Robust Process
+                ' Robust Process only
                 If Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Robust.HG.ini.proto", ";") Then
                     MsgBox(My.Resources.Error_word)
                     Return
                 End If
 
+                ' Ban grids
+                Settings.SetIni("LoginService", "AllowExcept", GridString)
+                Settings.SetIni("UserAgentService", "AllowExcept_Level_200", GridString)
+
+                ' Ban Macs
                 Settings.SetIni("LoginService", "DeniedMacs", MACString)
                 Settings.SetIni("GateKeeper", "DeniedMacs", MACString)
+
+                'Ban Viewers
                 Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
@@ -125,16 +150,17 @@ Public Class FormBanList
 
     End Sub
 
-    Public Sub LoadCollectionData()
-
-        GetData()
+    Public Sub LoadCollectionData() Handles Me.Load
 
         SetScreen()
+        GetData()
         BringToFront()
 
         Form1.HelpOnce("BanList")
 
     End Sub
+
+#End Region
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
@@ -234,12 +260,6 @@ Public Class FormBanList
     Private Sub DataGridView1_Delrow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
 
         Saveneeded = True
-
-    End Sub
-
-    Private Sub FormBanList_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
-
-        colsize.Dispose()
 
     End Sub
 

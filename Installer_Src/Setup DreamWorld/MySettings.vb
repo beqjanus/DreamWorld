@@ -87,7 +87,6 @@ Public Class MySettings
             CoordX() = CInt("0" & My.Settings.CoordX)
             CoordY() = CInt("0" & My.Settings.CoordY)
 
-
             DiagFailed() = My.Settings.DiagFailed
 
             DiagnosticPort() = CInt("0" & My.Settings.DiagnosticPort)
@@ -369,7 +368,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -471,7 +469,6 @@ Public Class MySettings
         End Set
     End Property
 
-
     Public Property FirstXMLRegionPort() As Integer
         Get
             Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
@@ -480,7 +477,6 @@ Public Class MySettings
             SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
-
 
     Public Property AutoRestartInterval() As Integer
         Get
@@ -1512,7 +1508,7 @@ Public Class MySettings
 
     Public Property ScriptEngine() As String
         Get
-            Return CType(GetMySetting("ScriptEngine", "XEngine"), String)
+            Return CType(GetMySetting("ScriptEngine", "YEngine"), String)
         End Get
         Set
             SetMySetting("ScriptEngine", Value)
