@@ -330,7 +330,7 @@ Partial Class FormDatabase
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '

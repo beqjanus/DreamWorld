@@ -193,14 +193,14 @@ Partial Class FormDNSName
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormDNSName
         '
@@ -214,7 +214,7 @@ Partial Class FormDNSName
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormDNSName"
         Me.Text = Global.Outworldz.My.Resources.DNS_HG_Name
-        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help)
+        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help_word)
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()

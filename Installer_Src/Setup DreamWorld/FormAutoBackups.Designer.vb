@@ -178,14 +178,14 @@ Partial Class FormAutoBackups
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'ServerTypeToolStripMenuItem
         '
         Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
         Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'BackupToolStripMenuItem
         '

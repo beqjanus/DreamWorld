@@ -127,7 +127,7 @@ namespace OpenSim.Groups
 
             m_debugEnabled = verbose;
 
-            MainConsole.Instance.Output("{0} verbose logging set to {1}", null, Name, m_debugEnabled);
+            MainConsole.Instance.Output("{0} verbose logging set to {1}", Name, m_debugEnabled);
         }
 
         public void RegionLoaded(Scene scene)
@@ -233,7 +233,7 @@ namespace OpenSim.Groups
             if (m_debugEnabled) m_log.DebugFormat("[Groups]: {0} called", System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             client.OnAgentDataUpdateRequest += OnAgentDataUpdateRequest;
-            client.OnRequestAvatarProperties += OnRequestAvatarProperties;
+            //client.OnRequestAvatarProperties += OnRequestAvatarProperties;
         }
 
 
@@ -261,7 +261,7 @@ namespace OpenSim.Groups
             // Used for Notices and Group Invites/Accept/Reject
             sp.ControllingClient.OnInstantMessage -= OnInstantMessage;
         }
-
+        /*
         private void OnRequestAvatarProperties(IClientAPI remoteClient, UUID avatarID)
         {
             if (m_debugEnabled) m_log.DebugFormat("[Groups]: {0} called", System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -269,7 +269,7 @@ namespace OpenSim.Groups
             GroupMembershipData[] avatarGroups = GetProfileListedGroupMemberships(remoteClient, avatarID);
             remoteClient.SendAvatarGroupsReply(avatarID, avatarGroups);
         }
-
+        */
         private void OnClientClosed(UUID AgentId, Scene scene)
         {
             if (m_debugEnabled) m_log.DebugFormat("[GROUPS]: {0} called", System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -281,7 +281,7 @@ namespace OpenSim.Groups
             if (client != null)
             {
                 client.OnAgentDataUpdateRequest -= OnAgentDataUpdateRequest;
-                client.OnRequestAvatarProperties -= OnRequestAvatarProperties;
+                //client.OnRequestAvatarProperties -= OnRequestAvatarProperties;
                 // make child possible not called?
                 client.OnUUIDGroupNameRequest -= HandleUUIDGroupNameRequest;
                 client.OnInstantMessage -= OnInstantMessage;

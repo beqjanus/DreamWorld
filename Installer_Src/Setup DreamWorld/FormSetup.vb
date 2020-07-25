@@ -39,7 +39,7 @@ Public Class Form1
 #Region "Version"
 
     Private _MyVersion As String = "3.59"
-    Private _SimVersion As String = "45B869708510.9.1.1 release and still Snail 2020-01-07)"
+    Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-09)"
     Private _SearchRev = 4  ' the rev of the Search Table
 
 #End Region
@@ -299,7 +299,7 @@ Public Class Form1
         End If
 
         Buttons(StopButton)
-        Print(My.Resources.Grid_address & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        Print(My.Resources.Grid_address_word & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
 
         ' done with boot up
 
@@ -1203,7 +1203,7 @@ Public Class Form1
 
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
-        Log(My.Resources.Info, "Checking port " & CStr(Port))
+        Log(My.Resources.Info_word, "Checking port " & CStr(Port))
         Dim success As Boolean = False
         Dim result As IAsyncResult = Nothing
         Using ClientSocket As New TcpClient
@@ -1219,12 +1219,12 @@ Public Class Form1
             End Try
 
             If success Then
-                Log(My.Resources.Info, " port probe success on port " & CStr(Port))
+                Log(My.Resources.Info_word, " port probe success on port " & CStr(Port))
                 Return True
             End If
 
         End Using
-        Log(My.Resources.Info, " port probe fail on port " & CStr(Port))
+        Log(My.Resources.Info_word, " port probe fail on port " & CStr(Port))
         Return False
 
     End Function
@@ -1505,7 +1505,7 @@ Public Class Form1
             Application.DoEvents()
         Next
         If UUID.Length = 0 Then
-            MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info)
+            MsgBox(My.Resources.No_Regions_Ready, vbInformation, My.Resources.Info_word)
             Return False
         End If
 
@@ -1660,13 +1660,13 @@ Public Class Form1
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
             End If
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort)
-            Print(My.Resources.Grid_TCP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
+            Print(My.Resources.Grid_TCP_is_set_word & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
 
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP) Then
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP)
             End If
             PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort)
-            Print(My.Resources.Grid_UDP_is_set & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
+            Print(My.Resources.Grid_UDP_is_set_word & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
 
             For Each RegionUUID As String In PropRegionClass.RegionUUIDs
                 Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
@@ -1807,7 +1807,7 @@ Public Class Form1
             Return True
         End If
 
-        Log(My.Resources.Info, "Public IP=" & Settings.PublicIP)
+        Log(My.Resources.Info_word, "Public IP=" & Settings.PublicIP)
         TestPublicLoopback()
         If Settings.DiagFailed Then
 
@@ -1977,11 +1977,11 @@ Public Class Form1
     Public Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
-            Logger(My.Resources.Info, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
+            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
         Next
-        Logger(My.Resources.Info, Groupname & " Group is now stopped", "Restart")
+        Logger(My.Resources.Info_word, Groupname & " Group is now stopped", "Restart")
     End Sub
 
     Public Sub ToolBar(visible As Boolean)
@@ -2367,7 +2367,7 @@ Public Class Form1
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
             Dim newlocaldllname = Mid(localdllname, x)
             If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                Log(My.Resources.Info, "Deleting dll " & localdllname)
+                Log(My.Resources.Info_word, "Deleting dll " & localdllname)
                 FileStuff.DeleteFile(localdllname)
             End If
         Next
@@ -2405,39 +2405,39 @@ Public Class Form1
             Logger("Cannot find", BootName, "Restart")
             Return False
         End If
-        Log(My.Resources.Info, "Region: Starting Region " & BootName)
+        Log(My.Resources.Info_word, "Region: Starting Region " & BootName)
 
         If Regionclass.IsBooted(RegionUUID) Then
             Logger("Already Running", BootName, "Restart")
-            Log(My.Resources.Info, "Region " & BootName & " already running")
+            Log(My.Resources.Info_word, "Region " & BootName & " already running")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Logger("Already warming up", BootName, "Restart")
-            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Warming Up")
+            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Warming Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
             Logger("Already booting up", BootName, "Restart")
-            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Booting Up")
+            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Booting Up")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Logger("Cannot boot, shutting down", BootName, "Restart")
-            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Shutting Down")
+            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Shutting Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
 
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Logger("Already Recycling Down", BootName, "Restart")
-            Log(My.Resources.Info, "Region " & BootName & " skipped as it is already Recycling Down")
+            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Recycling Down")
             PropUpdateView = True ' make form refresh
             Return True
         End If
@@ -2445,7 +2445,7 @@ Public Class Form1
         If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
             Logger("Suspended, Resuming it", BootName, "Restart")
             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-            Log(My.Resources.Info, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
             PropUpdateView = True ' make form refresh
             Return True
         End If
@@ -2518,7 +2518,7 @@ Public Class Form1
             If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                Log(My.Resources.Info, GroupName & " skipped as it is Suspended, Resuming it instead")
+                Log(My.Resources.Info_word, GroupName & " skipped as it is Suspended, Resuming it instead")
                 Logger("Suspended, Resuming it instead", GroupName, "Restart")
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -4250,7 +4250,7 @@ Public Class Form1
             End If
 
         Next
-        Log(My.Resources.Info, "Total Enabled Regions=" & CStr(TotalRunningRegions))
+        Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
@@ -4388,7 +4388,7 @@ Public Class Form1
 
         ' Kill process by name
         For Each P As Process In System.Diagnostics.Process.GetProcessesByName(processName)
-            Log(My.Resources.Info, "Stopping process " & processName)
+            Log(My.Resources.Info_word, "Stopping process " & processName)
             Try
                 P.Kill()
 #Disable Warning CA1031
@@ -4502,7 +4502,7 @@ Public Class Form1
 
     Public Sub Print(Value As String)
 
-        Log(My.Resources.Info, Value)
+        Log(My.Resources.Info_word, Value)
         TextBox1.Text = TextBox1.Text & vbCrLf & Value
         Trim()
 
@@ -5248,7 +5248,7 @@ Public Class Form1
         For Each p In Process.GetProcesses
             If p.MainWindowTitle = RobustName() Then
                 PropRobustProcID = p.Id
-                Log(My.Resources.Info, My.Resources.DosBoxRunning)
+                Log(My.Resources.Info_word, My.Resources.DosBoxRunning)
                 RobustIs(True)
 
                 Select Case Settings.ConsoleShow
@@ -5312,7 +5312,7 @@ Public Class Form1
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
         Try
             RobustProcess.Start()
-            Log(My.Resources.Info, My.Resources.Robust_running)
+            Log(My.Resources.Info_word, My.Resources.Robust_running)
 #Disable Warning CA1031
         Catch ex As Exception
 #Enable Warning CA1031
@@ -5372,7 +5372,7 @@ Public Class Form1
         Thread.Sleep(2000)
         _RobustIsStarting = False
 
-        Log(My.Resources.Info, My.Resources.Robust_running)
+        Log(My.Resources.Info_word, My.Resources.Robust_running)
 
         Select Case Settings.ConsoleShow
             Case "True"
@@ -5818,7 +5818,7 @@ Public Class Form1
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
                 .InitialDirectory = """" & PropMyFolder & "/" & """",
-                .Filter = My.Resources.IAR_Load_and_Save & " (*.iar)|*.iar|All Files (*.*)|*.*",
+                .Filter = My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
                 .FilterIndex = 1,
                 .Multiselect = False
             }
@@ -7158,7 +7158,7 @@ Public Class Form1
                     Settings.DNSName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()
-                    MsgBox(My.Resources.NameAlreadySet, vbInformation, My.Resources.Information)
+                    MsgBox(My.Resources.NameAlreadySet, vbInformation, My.Resources.Information_word)
                 End If
             End If
 

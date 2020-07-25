@@ -54,7 +54,7 @@ Partial Class FormLogging
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'LoggingToolStripMenuItem
         '
@@ -111,7 +111,7 @@ Partial Class FormLogging
         Me.RadioInfo.Size = New System.Drawing.Size(86, 17)
         Me.RadioInfo.TabIndex = 2
         Me.RadioInfo.TabStop = True
-        Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info
+        Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info_word
         Me.RadioInfo.UseVisualStyleBackColor = True
         '
         'RadioWarn

@@ -461,14 +461,14 @@ Partial Class Gloebits
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'Gloebits
         '

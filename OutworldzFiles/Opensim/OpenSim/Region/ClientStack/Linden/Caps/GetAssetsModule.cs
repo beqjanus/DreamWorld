@@ -65,14 +65,12 @@ namespace OpenSim.Region.ClientStack.Linden
         {
             public PollServiceAssetEventArgs thepoll;
             public UUID reqID;
-            public Hashtable request;
+            public OSHttpRequest request;
         }
 
         public class APollResponse
         {
-            public Hashtable response;
-            public int bytes;
-            public bool throttle;
+            public OSHttpResponse osresponse;
         }
 
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -228,7 +226,8 @@ namespace OpenSim.Region.ClientStack.Linden
 
         private class PollServiceAssetEventArgs : PollServiceEventArgs
         {
-            private List<Hashtable> requests = new List<Hashtable>();
+            //private List<Hashtable> requests = new List<Hashtable>();
+            private List<OSHttpRequest> requests = new List<OSHttpRequest>();
             private Dictionary<UUID, APollResponse> responses =new Dictionary<UUID, APollResponse>();
             private HashSet<UUID> dropedResponses = new HashSet<UUID>();
 
@@ -239,58 +238,69 @@ namespace OpenSim.Region.ClientStack.Linden
             {
                 m_scene = scene;
 
-                // x is request id, y is userid
-                HasEvents = (x, y) =>
+                HasEvents = (requestID, agentID) =>
                 {
                     lock (responses)
                     {
                         APollResponse response;
-                        if (responses.TryGetValue(x, out response))
+                        if (responses.TryGetValue(requestID, out response))
                         {
                             if (m_presence == null)
                                 m_presence = m_scene.GetScenePresence(pId);
 
                             if (m_presence == null || m_presence.IsDeleted)
                                 return true;
-                            if(response.throttle)
-                                return m_presence.CapCanSendAsset(1, response.bytes);
-                            return m_presence.CapCanSendAsset(2, response.bytes);
+
+                            OSHttpResponse resp = response.osresponse;
+
+                            if(Util.GetTimeStamp() - resp.RequestTS > (resp.RawBufferLen > 2000000 ? 200 : 90))
+                                return m_presence.CapCanSendAsset(2, resp.RawBufferLen);
+
+                            if (resp.Priority > 1)
+                                return m_presence.CapCanSendAsset(1, resp.RawBufferLen);
+                            return m_presence.CapCanSendAsset(2, resp.RawBufferLen);
                         }
                         return false;
                     }
                 };
 
-                Drop = (x, y) =>
+                Drop = (requestID, y) =>
                 {
                     lock (responses)
                     {
-                        responses.Remove(x);
+                        responses.Remove(requestID);
                         lock(dropedResponses)
-                            dropedResponses.Add(x);
+                            dropedResponses.Add(requestID);
                     }
                 };
 
-                GetEvents = (x, y) =>
+                GetEvents = (requestID, y) =>
                 {
                     lock (responses)
                     {
                         try
                         {
-                            return responses[x].response;
+                            OSHttpResponse response = responses[requestID].osresponse;
+                            if (response.Priority < 0)
+                                response.Priority = 0;
+
+                            Hashtable lixo = new Hashtable(1);
+                            lixo["h"] = response;
+                            return lixo;
                         }
                         finally
                         {
-                            responses.Remove(x);
+                            responses.Remove(requestID);
                         }
                     }
                 };
                 // x is request id, y is request data hashtable
-                Request = (x, y) =>
+                Request = (requestID, request) =>
                 {
                     APollRequest reqinfo = new APollRequest();
                     reqinfo.thepoll = this;
-                    reqinfo.reqID = x;
-                    reqinfo.request = y;
+                    reqinfo.reqID = requestID;
+                    reqinfo.request = request;
 
                     m_queue.Add(reqinfo);
                 };
@@ -317,8 +327,6 @@ namespace OpenSim.Region.ClientStack.Linden
 
             public void Process(APollRequest requestinfo)
             {
-                Hashtable curresponse;
-
                 UUID requestID = requestinfo.reqID;
 
                 if(m_scene.ShuttingDown)
@@ -348,8 +356,8 @@ namespace OpenSim.Region.ClientStack.Linden
                     }
 */
                 }
-
-                curresponse = m_getAssetHandler.Handle(requestinfo.request);
+                OSHttpResponse response = new OSHttpResponse(requestinfo.request);
+                m_getAssetHandler.Handle(requestinfo.request, response);
 
                 lock(responses)
                 {
@@ -364,11 +372,8 @@ namespace OpenSim.Region.ClientStack.Linden
 
                     APollResponse preq= new APollResponse()
                     {
-                        bytes = (int)curresponse["int_bytes"],
-                        response = curresponse
+                        osresponse = response
                     };
-                    if(curresponse.Contains("throttle"))
-                        preq.throttle = true;
                     responses[requestID] = preq;
                 }
             }
@@ -391,13 +396,13 @@ namespace OpenSim.Region.ClientStack.Linden
 
             if (m_GetTextureURL == "localhost")
             {
-                string capUrl = "/CAPS/" + UUID.Random() + "/";
+                string capUrl = "/" + UUID.Random();
 
                 // Register this as a poll service
                 PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene);
 
-                args.Type = PollServiceEventArgs.EventType.Texture;
-                MainServer.Instance.AddPollServiceHTTPHandler(capUrl, args);
+                //args.Type = PollServiceEventArgs.EventType.Texture;
+                MainServer.Instance.AddPollServiceHTTPHandler(args);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetTexture", capUrl);
@@ -413,11 +418,11 @@ namespace OpenSim.Region.ClientStack.Linden
             //GetMesh
             if (m_GetMeshURL == "localhost")
             {
-                string capUrl = "/CAPS/" + UUID.Random() + "/";
+                string capUrl = "/" + UUID.Random();
 
                 PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene);
-                args.Type = PollServiceEventArgs.EventType.Mesh;
-                MainServer.Instance.AddPollServiceHTTPHandler(capUrl, args);
+                //args.Type = PollServiceEventArgs.EventType.Mesh;
+                MainServer.Instance.AddPollServiceHTTPHandler(args);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetMesh", capUrl);
@@ -431,11 +436,11 @@ namespace OpenSim.Region.ClientStack.Linden
             //GetMesh2
             if (m_GetMesh2URL == "localhost")
             {
-                string capUrl = "/CAPS/" + UUID.Random() + "/";
+                string capUrl = "/" + UUID.Random();
 
                 PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene);
-                args.Type = PollServiceEventArgs.EventType.Mesh2;
-                MainServer.Instance.AddPollServiceHTTPHandler(capUrl, args);
+                //args.Type = PollServiceEventArgs.EventType.Mesh2;
+                MainServer.Instance.AddPollServiceHTTPHandler(args);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "GetMesh2", capUrl);
@@ -450,11 +455,11 @@ namespace OpenSim.Region.ClientStack.Linden
             //ViewerAsset
             if (m_GetAssetURL == "localhost")
             {
-                string capUrl = "/CAPS/" + UUID.Random() + "/";
+                string capUrl = "/" + UUID.Random();
 
                 PollServiceAssetEventArgs args = new PollServiceAssetEventArgs(capUrl, agentID, m_scene);
-                args.Type = PollServiceEventArgs.EventType.Asset;
-                MainServer.Instance.AddPollServiceHTTPHandler(capUrl, args);
+                //args.Type = PollServiceEventArgs.EventType.Asset;
+                MainServer.Instance.AddPollServiceHTTPHandler(args);
 
                 if (handler != null)
                     handler.RegisterExternalUserCapsHandler(agentID, caps, "ViewerAsset", capUrl);
@@ -471,23 +476,23 @@ namespace OpenSim.Region.ClientStack.Linden
             string capUrl;
             if (m_capsDictTexture.TryGetValue(agentID, out capUrl))
             {
-                MainServer.Instance.RemovePollServiceHTTPHandler("", capUrl);
+                MainServer.Instance.RemovePollServiceHTTPHandler(capUrl);
                 m_capsDictTexture.Remove(agentID);
             }
             if (m_capsDictGetMesh.TryGetValue(agentID, out capUrl))
             {
-                MainServer.Instance.RemovePollServiceHTTPHandler("", capUrl);
+                MainServer.Instance.RemovePollServiceHTTPHandler(capUrl);
                 m_capsDictGetMesh.Remove(agentID);
             }
             if (m_capsDictGetMesh2.TryGetValue(agentID, out capUrl))
             {
-                MainServer.Instance.RemovePollServiceHTTPHandler("", capUrl);
+                MainServer.Instance.RemovePollServiceHTTPHandler(capUrl);
                 m_capsDictGetMesh2.Remove(agentID);
             }
 
             if (m_capsDictGetAsset.TryGetValue(agentID, out capUrl))
             {
-                MainServer.Instance.RemovePollServiceHTTPHandler("", capUrl);
+                MainServer.Instance.RemovePollServiceHTTPHandler(capUrl);
                 m_capsDictGetAsset.Remove(agentID);
             }
         }

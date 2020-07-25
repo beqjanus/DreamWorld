@@ -309,9 +309,6 @@
 	  <Compile Include="Avatar\XmlRpcGroups\IGroupsServicesConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="Avatar\XmlRpcGroups\SimianGroupsServicesConnectorModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Avatar\XmlRpcGroups\XmlRpcGroupsServicesConnectorModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>

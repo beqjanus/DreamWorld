@@ -65,7 +65,7 @@ Define ENABLE_TLS13 "Yes"
 # prevent Apache from glomming onto all bound IP addresses.
 #
 #Listen 12.34.56.78:80
-Listen 8200
+Listen 80
 
 #
 # Dynamic Shared Object (DSO) Support
@@ -245,7 +245,7 @@ ServerAdmin email@somewhere.com
 # If your host doesn't have a registered DNS name, enter its IP address here.
 #
 # changed by Dreamgrid
-ServerName mach.outworldz.net
+ServerName 192.168.2.139
 
 # This fixes a bug with the OS
 AcceptFilter http none
@@ -292,7 +292,7 @@ DocumentRoot "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/htdocs"
 # http://httpd.apache.org/docs/2.4/mod/core.html#options
 # for more information.
 
-Options Includes ExecCGI
+Options Includes ExecCGI FollowSymLinks  SymLinksIfOwnerMatch
     
 #
 # AllowOverride controls what directives may be placed in .htaccess files.
@@ -316,22 +316,21 @@ Require all granted
 # changed by Dreamgrid
 Use VDir "C:/Opensim/Outworldz_Dreamgrid/Outworldzfiles/Apache/htdocs"
 
+
+<VirtualHost  *:80>
+#two minutes for wp to install
+TimeOut 120
 #
 # DirectoryIndex: sets the file that Apache will serve if a directory
 # is requested.
 #
-<IfModule dir_module>
-    DirectoryIndex  index.php index.htm index.html default.htm
-</IfModule>
 
-<VirtualHost  *:8200>
-#two minutes for wp to install
-TimeOut 120
+DirectoryIndex  index.php index.htm index.html default.htm
 
 
 # must be flush aligned left
 # changed by Dreamgrid
-ServerName mach.outworldz.net
+ServerName 192.168.2.139
 
 # in case you want a different URL for your servers Web site yet still have Apache on.
 #Redirect permanent / https://google.com

@@ -95,7 +95,7 @@ Partial Class FormCaches
         Me.CheckBox4.Name = "CheckBox4"
         Me.CheckBox4.Size = New System.Drawing.Size(89, 17)
         Me.CheckBox4.TabIndex = 3
-        Me.CheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache
+        Me.CheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache_word
         Me.CheckBox4.UseVisualStyleBackColor = True
         '
         'CheckBox5
@@ -160,14 +160,14 @@ Partial Class FormCaches
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox2
         '

@@ -66,7 +66,7 @@ Public Class NetServer
 
         If running Then Return
 
-        Log(My.Resources.Info, My.Resources.Starting_DiagPort_Webserver)
+        Log(My.Resources.Info_word, My.Resources.Starting_DiagPort_Webserver)
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -83,7 +83,7 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log(My.Resources.Info, My.Resources.Stopping_Webserver)
+        Log(My.Resources.Info_word, My.Resources.Stopping_Webserver)
         listen = False
 
         WebThread.Abort()

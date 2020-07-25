@@ -154,7 +154,7 @@
   <data name="Not_Forwarded" xml:space="preserve">
     <value>This does not appear to be forwarded to this machine in your router, so Hypergrid is not available. This can possibly be fixed by 'Port Forwards' in your router.  See Help-&gt;Port Forwards.</value>
   </data>
-  <data name="is_Off" xml:space="preserve">
+  <data name="is_Off_word" xml:space="preserve">
     <value>is off</value>
   </data>
   <data name="Load_Local_IARs" xml:space="preserve">
@@ -163,10 +163,10 @@
   <data name="Not_Normal" xml:space="preserve">
     <value>Not normally enforced by Opensim.  Viewer will not show more than 45,000. Setting this here and enabling this in settings will enforce the limit and may return prims!</value>
   </data>
-  <data name="Import" xml:space="preserve">
+  <data name="Import_word" xml:space="preserve">
     <value>Import</value>
   </data>
-  <data name="Help_LoopBack" xml:space="preserve">
+  <data name="Help_On_LoopBack_word" xml:space="preserve">
     <value>Help On LoopBack</value>
   </data>
   <data name="AllowGodsTooltip" xml:space="preserve">
@@ -235,7 +235,7 @@
   <data name="STComment" xml:space="preserve">
     <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
   </data>
-  <data name="Interval" xml:space="preserve">
+  <data name="Interval_word" xml:space="preserve">
     <value>Interval</value>
   </data>
   <data name="How_Many_Avatars" xml:space="preserve">
@@ -295,7 +295,7 @@
   <data name="Enable_word" xml:space="preserve">
     <value>Enable</value>
   </data>
-  <data name="Icons" xml:space="preserve">
+  <data name="Icons_word" xml:space="preserve">
     <value>Icons</value>
   </data>
   <data name="Restart_Pending_word" xml:space="preserve">
@@ -364,7 +364,7 @@
   <data name="RefreshingOAR" xml:space="preserve">
     <value>Refreshing Free Content (OAR)</value>
   </data>
-  <data name="Info" xml:space="preserve">
+  <data name="Info_word" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="document_view1" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -373,7 +373,7 @@
   <data name="High_Water_Level" xml:space="preserve">
     <value>High Water Level</value>
   </data>
-  <data name="Icecast_Started" xml:space="preserve">
+  <data name="Icecast_Started_word" xml:space="preserve">
     <value>Icecast Started</value>
   </data>
   <data name="Voice" xml:space="preserve">
@@ -481,7 +481,7 @@
   <data name="Show_Status_word" xml:space="preserve">
     <value>Show Status</value>
   </data>
-  <data name="Grid_UDP_is_set" xml:space="preserve">
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
     <value>Grid UDP Port is set</value>
   </data>
   <data name="cubes_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -526,7 +526,7 @@
   <data name="Birds_word" xml:space="preserve">
     <value>Birds</value>
   </data>
-  <data name="Ignore_Parcel" xml:space="preserve">
+  <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Ignore Parcel</value>
   </data>
   <data name="Web" xml:space="preserve">
@@ -538,7 +538,7 @@
   <data name="Restart_on_Physics_Crash" xml:space="preserve">
     <value>Restart on Physics Crash</value>
   </data>
-  <data name="JobEngine" xml:space="preserve">
+  <data name="JobEngine_word" xml:space="preserve">
     <value>Job Engine</value>
   </data>
   <data name="check2" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -563,7 +563,7 @@
     <value>About</value>
   </data>
   <data name="ErrorLevel0" xml:space="preserve">
-    <value>0 - (Error) Errors only</value>
+    <value>0 - (Error) Errors only, Requires Restart</value>
   </data>
   <data name="Network_Diagnostics" xml:space="preserve">
     <value>Network Diagnostics</value>
@@ -697,7 +697,7 @@
   <data name="Starting_WebServer_word" xml:space="preserve">
     <value>Starting webserver</value>
   </data>
-  <data name="iceCastServer" xml:space="preserve">
+  <data name="IceCast_Server_word" xml:space="preserve">
     <value>IceCast Server</value>
   </data>
   <data name="Default_Not_enabled" xml:space="preserve">
@@ -706,7 +706,7 @@
   <data name="Web_Download_Link_Word" xml:space="preserve">
     <value>Web Download Link</value>
   </data>
-  <data name="Help" xml:space="preserve">
+  <data name="Help_word" xml:space="preserve">
     <value>Help</value>
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
@@ -728,7 +728,7 @@
     <value>Bullet physics</value>
   </data>
   <data name="Diag_Broken" xml:space="preserve">
-    <value>This port is not working. DreamGrid is not running at a high enough security level,  or blocked by firewall or anti virus, so region icons are disabled.</value>
+    <value>This port is not working. DreamGrid is  blocked by firewall or anti virus, so region icons are disabled.</value>
   </data>
   <data name="Black_word" xml:space="preserve">
     <value>Black</value>
@@ -736,7 +736,7 @@
   <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
     <value>Load Free Avatar Inventory (www)</value>
   </data>
-  <data name="HG_word_NT" xml:space="preserve">
+  <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
   <data name="Take_time" xml:space="preserve">
@@ -775,13 +775,13 @@
   <data name="Server_Client" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\server_CLient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Information" xml:space="preserve">
+  <data name="Information_word" xml:space="preserve">
     <value>Information</value>
   </data>
   <data name="DOS_Box_word" xml:space="preserve">
     <value>DOS Box</value>
   </data>
-  <data name="Http_Port" xml:space="preserve">
+  <data name="Http_Port_word" xml:space="preserve">
     <value>Http Port</value>
   </data>
   <data name="Avatar_Name_word" xml:space="preserve">
@@ -880,7 +880,7 @@
   <data name="Getting_regions_word" xml:space="preserve">
     <value>Getting regions</value>
   </data>
-  <data name="Icecast" xml:space="preserve">
+  <data name="Icecast_word" xml:space="preserve">
     <value>Icecast</value>
   </data>
   <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
@@ -929,7 +929,7 @@
     <value>..\Resources\flag_china.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Disabling_Suitcase" xml:space="preserve">
-    <value>Disabling the Inventory Suitcase exposes all your inventory to other grids. But it is easy to give objects from any location.</value>
+    <value>Disabling the Inventory Suitcase exposes all your inventory to other grids. But it is easy to give objects.</value>
   </data>
   <data name="user1_into" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user1_into.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -943,7 +943,7 @@
   <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
     <value>Region Coordinate Y Is too large</value>
   </data>
-  <data name="Grid_address" xml:space="preserve">
+  <data name="Grid_address_word" xml:space="preserve">
     <value>Grid address</value>
   </data>
   <data name="Apache_running" xml:space="preserve">
@@ -958,7 +958,7 @@
   <data name="DosBoxRunning" xml:space="preserve">
     <value>A DOS Box named Robust is already running</value>
   </data>
-  <data name="Help_IARS" xml:space="preserve">
+  <data name="Help_On_IARS_word" xml:space="preserve">
     <value>Help On IARS</value>
   </data>
   <data name="Terms_of_Service" xml:space="preserve">
@@ -1069,7 +1069,7 @@
   <data name="Help_Console_text" xml:space="preserve">
     <value>Wiki Page on Console Commands</value>
   </data>
-  <data name="Install" xml:space="preserve">
+  <data name="Install_word" xml:space="preserve">
     <value>Install</value>
   </data>
   <data name="Common_Settings_word" xml:space="preserve">
@@ -1210,7 +1210,7 @@
   <data name="Warn_word" xml:space="preserve">
     <value>Warn</value>
   </data>
-  <data name="Help_Troubleshooting" xml:space="preserve">
+  <data name="Help_Troubleshooting_word" xml:space="preserve">
     <value>Help Troubleshooting</value>
   </data>
   <data name="Password_word" xml:space="preserve">
@@ -1246,7 +1246,7 @@
   <data name="Region_Stats" xml:space="preserve">
     <value>Region Stats</value>
   </data>
-  <data name="IAR_Load_and_Save" xml:space="preserve">
+  <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>IAR Load and Save</value>
   </data>
   <data name="Clearing_Image_Cache_word" xml:space="preserve">
@@ -1345,7 +1345,7 @@
   <data name="flag_netherlands" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_netherlands.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Grid_TCP_is_set" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>Grid TCP Port is set</value>
   </data>
   <data name="Sorry_No_Help" xml:space="preserve">
@@ -1459,7 +1459,7 @@
   <data name="GBoids" xml:space="preserve">
     <value>The global Bird settings will apply to this region</value>
   </data>
-  <data name="HomeText" xml:space="preserve">
+  <data name="Home_word" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
@@ -1514,7 +1514,7 @@
     <value>Restart Region</value>
   </data>
   <data name="Disable_Gloebits_word" xml:space="preserve">
-    <value>Disable Gloebits</value>
+    <value>Disable All Gloebits</value>
   </data>
   <data name="Separation" xml:space="preserve">
     <value>Desired Separation (default=5.0)</value>
@@ -2030,7 +2030,7 @@
   <data name="Importtext" xml:space="preserve">
     <value>Import Region INI files</value>
   </data>
-  <data name="Increasing_time" xml:space="preserve">
+  <data name="Increasing_time_to_word" xml:space="preserve">
     <value>Increasing Time to</value>
   </data>
   <data name="Save_Region_OAR_word" xml:space="preserve">
@@ -2093,7 +2093,7 @@
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast is not Enabled.</value>
   </data>
-  <data name="Grid_Server_With_Robust" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Grid Server With Robust</value>
   </data>
   <data name="Waiting_text" xml:space="preserve">
@@ -2111,7 +2111,7 @@
   <data name="SeeYouSoon" xml:space="preserve">
     <value>I'll see you again when I wake up all fresh and new!</value>
   </data>
-  <data name="Keep_for_Days" xml:space="preserve">
+  <data name="Keep_for_Days_word" xml:space="preserve">
     <value>Keep for days</value>
   </data>
   <data name="Help_Forward" xml:space="preserve">
@@ -2147,13 +2147,13 @@
   <data name="Click_Database" xml:space="preserve">
     <value>Click to set up the Database</value>
   </data>
-  <data name="Ignore_Terrain" xml:space="preserve">
+  <data name="Ignore_Terrain_word" xml:space="preserve">
     <value>Ignore Terrain</value>
   </data>
   <data name="Do_you_still_want_to_Stop_word" xml:space="preserve">
     <value>Do you still want to stop?</value>
   </data>
-  <data name="Just_one_region" xml:space="preserve">
+  <data name="Just_one_region_word" xml:space="preserve">
     <value>Just one region</value>
   </data>
   <data name="Export_Permission_word" xml:space="preserve">
@@ -2464,13 +2464,13 @@
     <value>Checking Router</value>
   </data>
   <data name="Disable_Residents" xml:space="preserve">
-    <value>Disable Residents</value>
+    <value>Disable All  Residents</value>
   </data>
   <data name="CPU_Intensive" xml:space="preserve">
     <value>CPU Intensive Backup Started</value>
   </data>
   <data name="ErrorLevel2" xml:space="preserve">
-    <value>2 - (Debug) Cache Activity</value>
+    <value>2 - (Debug) Cache Activity, Requires Restart</value>
   </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>Chat tide info to the region so scripts can move with the tide?</value>
@@ -2508,7 +2508,7 @@
   <data name="Default_Checked_word" xml:space="preserve">
     <value>Default: Checked</value>
   </data>
-  <data name="Image_Cache" xml:space="preserve">
+  <data name="Image_Cache_word" xml:space="preserve">
     <value>Image Cache</value>
   </data>
   <data name="Icecast_failed" xml:space="preserve">
@@ -2563,7 +2563,7 @@
     <value>How close to the edges of things can we get without being worried?</value>
   </data>
   <data name="Disable_Gloebits_text" xml:space="preserve">
-    <value>The global Gloebits will not apply to this region if set.</value>
+    <value>The global saetting  Gloebits will not apply to this region if checked.</value>
   </data>
   <data name="Clearing_Map_tiles_word" xml:space="preserve">
     <value>Clearing Map Tiles</value>
@@ -2647,7 +2647,7 @@
     <value>Dynamic DNS</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
-    <value>1 - (Info)  Hit Rate Stats</value>
+    <value>1 - (Info)  Hit Rate Stats, Requires Restart</value>
   </data>
   <data name="Ready_to_Launch" xml:space="preserve">
     <value>Ready to Launch!</value>
@@ -2694,7 +2694,7 @@
   <data name="Creating_INI_Files_word" xml:space="preserve">
     <value>Creating INI Files</value>
   </data>
-  <data name="Help_Manuals" xml:space="preserve">
+  <data name="Help_Manuals_word" xml:space="preserve">
     <value>Help Manuals</value>
   </data>
   <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
@@ -2829,9 +2829,18 @@
     <value>MAC Address</value>
   </data>
   <data name="Banned_word" xml:space="preserve">
-    <value>Bannedviewe</value>
+    <value>Banned</value>
   </data>
   <data name="Setup_Wordpress" xml:space="preserve">
     <value>Set Up WordPress database</value>
+  </data>
+  <data name="BanList_string" xml:space="preserve">
+    <value>Click to set up Grid, MAC address and IP bans</value>
+  </data>
+  <data name="Ban_List_word" xml:space="preserve">
+    <value>Ban List</value>
+  </data>
+  <data name="Global_Settings_word" xml:space="preserve">
+    <value>Global Settings</value>
   </data>
 </root>

@@ -94,7 +94,7 @@ Partial Class Icecast
         Me.GroupBox1.Size = New System.Drawing.Size(424, 302)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.iceCastServer
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.IceCast_Server_word
         '
         'Label4
         '
@@ -190,14 +190,14 @@ Partial Class Icecast
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'Icecast
         '
@@ -209,7 +209,7 @@ Partial Class Icecast
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Icecast"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Icecast
+        Me.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.icecast_help)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

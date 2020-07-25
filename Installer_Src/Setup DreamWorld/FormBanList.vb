@@ -186,7 +186,7 @@ Public Class FormBanList
             'Create column.
             Dim column1 As DataColumn = New DataColumn()
             column1.DataType = System.Type.GetType("System.String")
-            column1.ColumnName = "Banned"
+            column1.ColumnName = My.Resources.Banned_word
             column1.AutoIncrement = False
             column1.Caption = My.Resources.Banned_word
             column1.ReadOnly = False
@@ -196,7 +196,7 @@ Public Class FormBanList
 
             Dim column2 As DataColumn = New DataColumn()
             column2.DataType = System.Type.GetType("System.String")
-            column2.ColumnName = "Comment"
+            column2.ColumnName = My.Resources.Comment_or_Notes_Word
             column2.AutoIncrement = False
             column2.Caption = My.Resources.Comment_or_Notes_Word
             column2.ReadOnly = False
@@ -234,8 +234,8 @@ Public Class FormBanList
 
             DataGridView1.DataSource = table
 
-            DataGridView1.Columns(0).Width = colsize.ColumnWidth("Banned", 240)
-            DataGridView1.Columns(1).Width = colsize.ColumnWidth("Comment", 500)
+            DataGridView1.Columns(0).Width = colsize.ColumnWidth(My.Resources.Banned_word, 240)
+            DataGridView1.Columns(1).Width = colsize.ColumnWidth(My.Resources.Comment_or_Notes_Word, 500)
 #Disable Warning CA1031 ' Do not catch general exception types
         Catch ex As Exception
 #Enable Warning CA1031 ' Do not catch general exception types

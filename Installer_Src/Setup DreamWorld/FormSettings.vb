@@ -92,8 +92,6 @@ Public Class AdvancedForm
 
         SetScreen()
 
-        BanListButton.Enabled = True
-
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
 
@@ -151,7 +149,7 @@ Public Class AdvancedForm
         Tide.Dispose()
         Tos.Dispose()
         Voice.Dispose()
-        BanListButton.Dispose()
+        Banlist.Dispose()
 
     End Sub
 

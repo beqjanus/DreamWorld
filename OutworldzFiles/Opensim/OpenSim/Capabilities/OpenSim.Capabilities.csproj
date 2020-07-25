@@ -170,9 +170,6 @@
 	  <Compile Include="LLSDInventoryItem.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLSDItemUpdate.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LLSDMapLayer.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -188,16 +185,10 @@
 	  <Compile Include="LLSDMethodString.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="LLSDParcelVoiceInfoResponse.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="LLSDStreamHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDTaskInventoryUploadComplete.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSDTaskScriptUpdate.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDTaskScriptUploadComplete.cs">
@@ -207,9 +198,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="LLSDType.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="LLSDVoiceAccountResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

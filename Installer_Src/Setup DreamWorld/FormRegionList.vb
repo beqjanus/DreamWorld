@@ -928,7 +928,7 @@ Public Class RegionList
                 If Agent.Value.Length > 0 Then
                     Dim item1 As New ListViewItem(Agent.Key, Index)
                     item1.SubItems.Add(Agent.Value)
-                    item1.SubItems.Add(My.Resources.HG_word_NT)
+                    item1.SubItems.Add(My.Resources.Hypergrid_word)
                     AvatarView.Items.AddRange(New ListViewItem() {item1})
                     Index += 1
                 End If
@@ -937,7 +937,7 @@ Public Class RegionList
             If Index = 0 Then
                 Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
                 item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.HG_word_NT)
+                item1.SubItems.Add(My.Resources.Hypergrid_word)
                 AvatarView.Items.AddRange(New ListViewItem() {item1})
             End If
 
@@ -1355,7 +1355,7 @@ Public Class RegionList
                     Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
 
                     If RegionUUID.Length > 0 Then
-                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info)
+                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info_word)
                         ofd.Dispose()
                         Return
                     End If

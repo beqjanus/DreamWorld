@@ -377,3 +377,20 @@ COMMIT;
 BEGIN;
 ALTER TABLE `prims` ADD COLUMN `PhysInertia` TEXT default NULL;
 COMMIT;
+
+:VERSION 37         #----- Add standtarget and sit range
+
+BEGIN;
+ALTER TABLE `prims` ADD COLUMN `standtargetx` float NOT NULL DEFAULT '0.0';
+ALTER TABLE `prims` ADD COLUMN `standtargety` float NOT NULL DEFAULT '0.0';
+ALTER TABLE `prims` ADD COLUMN `standtargetz` float NOT NULL DEFAULT '0.0';
+ALTER TABLE `prims` ADD COLUMN `sitactrange` float NOT NULL DEFAULT '0.0';
+COMMIT;
+
+
+:VERSION 38         #----- Add pseudo CRC and region cache id
+
+BEGIN;
+ALTER TABLE `prims` ADD COLUMN `pseudocrc` integer DEFAULT '0';
+ALTER TABLE `regionsettings` ADD COLUMN `cacheID` char(36) DEFAULT NULL;
+COMMIT;

@@ -152,7 +152,7 @@ Partial Class RegionList
         Me.IconsButton.Name = "IconsButton"
         Me.IconsButton.Size = New System.Drawing.Size(93, 23)
         Me.IconsButton.TabIndex = 18600
-        Me.IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons
+        Me.IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
         Me.ToolTip1.SetToolTip(Me.IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
         Me.IconsButton.UseVisualStyleBackColor = True
         '
@@ -182,7 +182,7 @@ Partial Class RegionList
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(93, 23)
         Me.ImportButton.TabIndex = 18603
-        Me.ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import
+        Me.ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
         Me.ToolTip1.SetToolTip(Me.ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
         Me.ImportButton.UseVisualStyleBackColor = True
         '
@@ -238,14 +238,14 @@ Partial Class RegionList
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'Label1
         '

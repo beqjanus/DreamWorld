@@ -541,26 +541,42 @@ namespace OpenSim.Region.CoreModules.World.Land
                         ParcelFlags.UseEstateVoiceChan);
             }
 
-            // don't allow passes on group owned until we can give money to groups
-            if (!newData.IsGroupOwned && m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId,this, GroupPowers.LandManagePasses, false))
+            if(!m_scene.RegionInfo.EstateSettings.TaxFree)
             {
-                newData.PassHours = args.PassHours;
-                newData.PassPrice = args.PassPrice;
+                // don't allow passes on group owned until we can give money to groups
+                if (!newData.IsGroupOwned && m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId,this, GroupPowers.LandManagePasses, false))
+                {
+                    newData.PassHours = args.PassHours;
+                    newData.PassPrice = args.PassPrice;
 
-                allowedDelta |= (uint)ParcelFlags.UsePassList;
+                    allowedDelta |= (uint)ParcelFlags.UsePassList;
+                }
+
+                if (m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId, this, GroupPowers.LandManageAllowed, false))
+                {
+                    allowedDelta |= (uint)(ParcelFlags.UseAccessGroup |
+                            ParcelFlags.UseAccessList);
+                }
+
+                if (m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId, this, GroupPowers.LandManageBanned, false))
+                {
+                    allowedDelta |= (uint)(ParcelFlags.UseBanList |
+                            ParcelFlags.DenyAnonymous |
+                            ParcelFlags.DenyAgeUnverified);
+                }
             }
 
-            if (m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId, this, GroupPowers.LandManageAllowed, false))
+            // enforce estate age and payinfo limitations
+            if (m_scene.RegionInfo.EstateSettings.DenyMinors)
             {
-                allowedDelta |= (uint)(ParcelFlags.UseAccessGroup |
-                        ParcelFlags.UseAccessList);
+                args.ParcelFlags |= (uint)ParcelFlags.DenyAgeUnverified;
+                allowedDelta |= (uint)ParcelFlags.DenyAgeUnverified;
             }
 
-            if (m_scene.Permissions.CanEditParcelProperties(remote_client.AgentId, this, GroupPowers.LandManageBanned, false))
+            if (m_scene.RegionInfo.EstateSettings.DenyAnonymous)
             {
-                allowedDelta |= (uint)(ParcelFlags.UseBanList |
-                        ParcelFlags.DenyAnonymous |
-                        ParcelFlags.DenyAgeUnverified);
+                args.ParcelFlags |= (uint)ParcelFlags.DenyAnonymous;
+                allowedDelta |= (uint)ParcelFlags.DenyAnonymous;
             }
 
             if (allowedDelta != (uint)ParcelFlags.None)
@@ -598,10 +614,9 @@ namespace OpenSim.Region.CoreModules.World.Land
             UUID previousOwner = LandData.OwnerID;
 
             m_scene.LandChannel.UpdateLandObject(LandData.LocalID, newData);
-//            m_scene.EventManager.TriggerParcelPrimCountUpdate();
-            SendLandUpdateToAvatarsOverMe(true);
-
-            if (sellObjects) SellLandObjects(previousOwner);
+            if (sellObjects)
+                SellLandObjects(previousOwner);
+            m_scene.EventManager.TriggerParcelPrimCountUpdate();
         }
 
         public void DeedToGroup(UUID groupID)
@@ -616,11 +631,13 @@ namespace OpenSim.Region.CoreModules.World.Land
 
             m_scene.LandChannel.UpdateLandObject(LandData.LocalID, newData);
             m_scene.EventManager.TriggerParcelPrimCountUpdate();
-            SendLandUpdateToAvatarsOverMe(true);
         }
 
         public bool IsEitherBannedOrRestricted(UUID avatar)
         {
+            if (m_scene.RegionInfo.EstateSettings.TaxFree) // region access control only
+                return false;
+
             if (IsBannedFromLand(avatar))
             {
                 return true;
@@ -634,6 +651,9 @@ namespace OpenSim.Region.CoreModules.World.Land
 
         public bool CanBeOnThisLand(UUID avatar, float posHeight)
         {
+            if (m_scene.RegionInfo.EstateSettings.TaxFree) // region access control only
+                return true;
+
             if (posHeight < m_scene.LandChannel.BanLineSafeHeight && IsBannedFromLand(avatar))
             {
                 return false;
@@ -691,6 +711,9 @@ namespace OpenSim.Region.CoreModules.World.Land
         {
             ExpireAccessList();
 
+            if (m_scene.RegionInfo.EstateSettings.TaxFree) // region access control only
+                return false;
+
             if (m_scene.Permissions.IsAdministrator(avatar))
                 return false;
 
@@ -718,8 +741,34 @@ namespace OpenSim.Region.CoreModules.World.Land
 
         public bool IsRestrictedFromLand(UUID avatar)
         {
-            if ((LandData.Flags & (uint) ParcelFlags.UseAccessList) == 0)
+            if (m_scene.RegionInfo.EstateSettings.TaxFree) // estate access only
                 return false;
+
+            if ((LandData.Flags & (uint) ParcelFlags.UseAccessList) == 0)
+            {
+                bool adults = m_scene.RegionInfo.EstateSettings.DoDenyMinors &&
+                    (m_scene.RegionInfo.EstateSettings.DenyMinors || ((LandData.Flags & (uint)ParcelFlags.DenyAgeUnverified) != 0));
+                bool anonymous = m_scene.RegionInfo.EstateSettings.DoDenyAnonymous &&
+                    (m_scene.RegionInfo.EstateSettings.DenyAnonymous || ((LandData.Flags & (uint)ParcelFlags.DenyAnonymous) != 0));
+                if(adults || anonymous)
+                {
+                    int userflags;
+                    if(m_scene.TryGetScenePresence(avatar, out ScenePresence snp))
+                    {
+                        if(snp.IsNPC)
+                            return false;
+                        userflags = snp.UserFlags;
+                    }
+                    else
+                        userflags = m_scene.GetUserFlags(avatar);
+
+                    if(adults && ((userflags & 32) == 0))
+                        return true;
+                    if(anonymous && ((userflags & 4) == 0))
+                        return true;
+                }
+                return false;
+            }
 
             if (m_scene.Permissions.IsAdministrator(avatar))
                 return false;
@@ -797,6 +846,9 @@ namespace OpenSim.Region.CoreModules.World.Land
             m_scene.EventManager.TriggerParcelPrimCountUpdate();
             m_scene.ForEachRootScenePresence(delegate(ScenePresence avatar)
             {
+                if (avatar.IsNPC)
+                    return;
+
                 ILandObject over = null;
                 try
                 {
@@ -823,6 +875,49 @@ namespace OpenSim.Region.CoreModules.World.Land
                         avatar.currentParcelUUID = LandData.GlobalID;
                     }
                 }
+            });
+        }
+
+        public void SendLandUpdateToAvatars()
+        {
+            m_scene.ForEachScenePresence(delegate (ScenePresence avatar)
+            {
+                if (avatar.IsNPC)
+                    return;
+
+                if(avatar.IsChildAgent)
+                {
+                    SendLandProperties(-10000, false, LandChannel.LAND_RESULT_SINGLE, avatar.ControllingClient);
+                    return;
+                }
+                ILandObject over = null;
+                try
+                {
+                    over =
+                        m_scene.LandChannel.GetLandObject(Util.Clamp<int>((int)Math.Round(avatar.AbsolutePosition.X), 0, ((int)m_scene.RegionInfo.RegionSizeX - 1)),
+                                                        Util.Clamp<int>((int)Math.Round(avatar.AbsolutePosition.Y), 0, ((int)m_scene.RegionInfo.RegionSizeY - 1)));
+                }
+                catch (Exception)
+                {
+                    m_log.Warn("[LAND]: " + "unable to get land at x: " + Math.Round(avatar.AbsolutePosition.X) + " y: " +
+                            Math.Round(avatar.AbsolutePosition.Y));
+                }
+
+                if (over != null)
+                {
+                    if (over.LandData.LocalID == LandData.LocalID)
+                    {
+                        if (m_scene.RegionInfo.RegionSettings.AllowDamage)
+                            avatar.Invulnerable = false;
+                        else
+                            avatar.Invulnerable = (over.LandData.Flags & (uint)ParcelFlags.AllowDamage) == 0;
+
+                        avatar.currentParcelUUID = LandData.GlobalID;
+                        SendLandProperties(0, true, LandChannel.LAND_RESULT_SINGLE, avatar.ControllingClient);
+                        return;
+                    }
+                }
+                SendLandProperties(-10000, false, LandChannel.LAND_RESULT_SINGLE, avatar.ControllingClient);
             });
         }
 

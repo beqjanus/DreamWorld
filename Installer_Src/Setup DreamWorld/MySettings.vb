@@ -185,7 +185,7 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
-        Form1.Log(My.Resources.Info, "Loading INI " & arg)
+        Form1.Log(My.Resources.Info_word, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -210,7 +210,7 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
+        Form1.Log(My.Resources.Info_word, My.Resources.Loading_Settings)
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
 #Disable Warning CA1031
@@ -324,7 +324,7 @@ Public Class MySettings
 
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        Form1.Log(My.Resources.Info, "Save INI " & INI)
+        Form1.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
 #Disable Warning CA1031
@@ -337,7 +337,7 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        Form1.Log(My.Resources.Info, "Save Settings " & myINI)
+        Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
 #Disable Warning CA1031

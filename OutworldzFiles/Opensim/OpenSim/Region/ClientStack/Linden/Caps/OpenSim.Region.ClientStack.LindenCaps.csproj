@@ -234,6 +234,12 @@
 	  <Compile Include="BunchOfCaps\MeshCost.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="BunchOfCaps\UpdateItemAsset.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="EventQueue\EventQueueGetHandlers.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="EventQueue\EventQueueGetModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>

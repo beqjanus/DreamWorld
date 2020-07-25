@@ -2,14 +2,15 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.59 Release Condidate 7/24/2020
-Add Denial-of-Service protection. 
+V3.59 Release Candidate 7/24/2020
+Opensim updated to the same as OsGrid: Version #b598573 0.9.2.dev 2020-05-09. This includes hundreds of tweaks.
+Enabled built-in Denial-of-Service protection. 
 Added Settable Ban lists for Grids, Viewer type, IP addresses and MAC addresses.
-Saving an oar without a .oar extension now gets .oar added on
+S4ving an oar without a .oar extension now gets .oar added on end.
 RegionList could be shifted one column to the right.
-Create a blank Wordpress database using robust credentials.
-Add manual to show how to install Wordpress. Save WP in Outworldzfile\htdocs\WordPress and load http://localhots/Wordpress in a browser. Use Robust'Credentials.
-FollowSymLinks, SymLinksIfOwnerMatch added to Apache httpd.conf for easier integration of WordPress, and Directory Index was re-ordered.
+Create a blank WordPress database using robust credentials.
+Add manual to show how to install Wordpress. tl;dr: Save WP in Outworldzfile\htdocs\WordPress and load http://localhost/Wordpress in a browser. Use Robust credentials.
+FollowSymLinks added to Apache httpd.conf for easier integration of WordPress, and Directory Index was re-ordered.
 Fixed Restart on Crash to ignore physics engine.
 Removed Scan of Region logs to improve performance. 
 YEngine script is now the default for new DreamGrids.
@@ -38,7 +39,7 @@ Performance: Added back the DoEvents to make UI more responsive.
 Coding: Added example on how to make an addin for Opensim
 Bug Fix: Local Events missing a column.
 
-
+7-1041
 V3.56 Post Fixes 6/18/2020
 New Feature: Updates could destroy added on services such as WordPress or Joomla.  Added a switch to 
 Apache to select "DreamGrid Diva", WordPress, or Joomla/JOpensim or "Other" folder as the home page, 

@@ -109,7 +109,7 @@ Partial Class FormHelp
         Me.DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.DreamgridToolStripMenuItem.Name = "DreamgridToolStripMenuItem"
         Me.DreamgridToolStripMenuItem.Size = New System.Drawing.Size(202, 22)
-        Me.DreamgridToolStripMenuItem.Text = My.Resources.HomeText
+        Me.DreamgridToolStripMenuItem.Text = My.Resources.Home_word
         '
         'TechnicalInfoToolStripMenuItem
         '
@@ -194,7 +194,7 @@ Partial Class FormHelp
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormHelp"
-        Me.Text = My.Resources.Help
+        Me.Text = My.Resources.Help_word
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)

@@ -101,7 +101,7 @@ Partial Class FormDisplacement
         '
         Me.OriginalTererainToolStripMenuItem.Name = "OriginalTererainToolStripMenuItem"
         Me.OriginalTererainToolStripMenuItem.Size = New System.Drawing.Size(176, 26)
-        Me.OriginalTererainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Ignore_Terrain
+        Me.OriginalTererainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Ignore_Terrain_word
         '
         'ParcelsToolStripMenuItem
         '
@@ -123,7 +123,7 @@ Partial Class FormDisplacement
         '
         Me.IgnoreParcelToolStripMenuItem.Name = "IgnoreParcelToolStripMenuItem"
         Me.IgnoreParcelToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
-        Me.IgnoreParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Ignore_Parcel
+        Me.IgnoreParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Ignore_Parcel_word
         '
         'SetOwnerToolStripMenuItem
         '
@@ -137,7 +137,7 @@ Partial Class FormDisplacement
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(77, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormDisplacement
         '
