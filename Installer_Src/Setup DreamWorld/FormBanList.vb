@@ -97,7 +97,7 @@ Public Class FormBanList
                 ' ban MAC Addresses with and without caps and :
                 Dim pattern1 As Regex = New Regex("[0-9a-zA-Z]:")
                 Dim match1 As Match = pattern1.Match(s)
-                If match1.Success Then
+                If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                     MACString += s & " "
                     Continue For
                 End If
@@ -105,13 +105,15 @@ Public Class FormBanList
                 ' ban grid Addresses
                 Dim pattern2 As Regex = New Regex("^http:\/\/\w+:\d+$")
                 Dim match2 As Match = pattern2.Match(s)
-                If match2.Success Then
-                    GridString += s & " "
+                If match2.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                    GridString += s & " "   ' delimiter is a space
                     Continue For
                 End If
 
                 ' none of the above, must be a viewer
-                If s.Length > 0 Then ViewerString += s & "|"
+                If s.Length > 0 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                    ViewerString += s & "|"
+                End If
 
             Next
 
@@ -150,6 +152,8 @@ Public Class FormBanList
             fname.Close()
         End Try
 
+        Application.DoEvents()
+
     End Sub
 
     Public Sub LoadCollectionData() Handles Me.Load
@@ -163,6 +167,7 @@ Public Class FormBanList
     End Sub
 
 #End Region
+
 #Region "Private Subs"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
