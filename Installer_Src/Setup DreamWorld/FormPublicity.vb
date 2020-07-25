@@ -164,26 +164,17 @@ Public Class FormPublicity
                 PictureBox9.Image = Nothing
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
 
+                    FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+                    Dim newBitmap = New Bitmap(PictureBox9.Image)
+                    newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    newBitmap.Dispose()
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
+                    Form1.ErrorLog("Save Photo " & ex.Message)
+                    Return
                 End Try
-
-                FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-
-                Using newBitmap = New Bitmap(PictureBox9.Image)
-                    Try
-                        newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
-                        newBitmap.Dispose()
-#Disable Warning CA1031
-                    Catch ex As Exception
-#Enable Warning CA1031
-
-                        MsgBox(ex.Message)
-                        Return
-                    End Try
-                End Using
 
                 Form1.UploadPhoto()
 
