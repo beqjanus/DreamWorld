@@ -179,6 +179,7 @@ Public Class Form1
     Public Sub Startup()
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
+        Print(My.Resources.Version_word & " " & _SimVersion)
 
         Buttons(BusyButton)
 
@@ -2024,6 +2025,7 @@ Public Class Form1
                 UploadCategory()
                 Dim Myupload As New UploadImage
                 Myupload.PostContentUploadFile()
+
             End If
         End If
 
