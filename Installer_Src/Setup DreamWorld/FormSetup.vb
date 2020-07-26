@@ -4460,16 +4460,15 @@ Public Class Form1
                 Dim files As Array = Nothing
                 Try
                     files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+
+                    For Each FileName As String In files
+                        path.Add("""" & FileName & """")
+                    Next
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
 
                 End Try
-
-                For Each FileName As String In files
-                    path.Add("""" & FileName & """")
-                Next
-
             End If
         End If
         ' Filter distinct elements, and convert back into list.
