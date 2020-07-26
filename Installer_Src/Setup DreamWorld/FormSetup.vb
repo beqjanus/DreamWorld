@@ -4086,7 +4086,7 @@ Public Class Form1
 
     Private Function DoTides() As Boolean
 
-        Print("->Set Tides")
+
         Dim TideData As String = ""
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
         Try
