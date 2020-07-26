@@ -7,6 +7,6 @@
 # 34.206.39.153|This IP from 'junk.com' is banned.
 # 01:23:45:67:89:A|This MAC address is banned. Get MACs from the Robust log.
 # Firestorm-Release 4.6.7.42398|DarkStorm, i.e. Firestorm-Release 4.6.7.42398 has no access.
-# HydraStorm|HydraStorm Copybot
+# HydraStorm|HydraStorm Copybotter
 # SolarStorm|Singularity Solar Storm Copybot
 # |Delete or modify any rules then close this window. Robust will restart if running.

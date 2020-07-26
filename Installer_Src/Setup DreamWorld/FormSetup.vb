@@ -38,7 +38,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.591"
+    Private _MyVersion As String = "3.592"
     Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-22 15:55"
     Private _SearchRev = 5  ' the rev of the Search Table
 
@@ -4088,7 +4088,6 @@ Public Class Form1
 
     Private Function DoTides() As Boolean
 
-
         Dim TideData As String = ""
         Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
         Try
@@ -5293,7 +5292,6 @@ Public Class Form1
         PropRobustProcID = 0
 
         DoSetDefaultSims()
-
 
         Print("Robust " & My.Resources.Starting_word)
 

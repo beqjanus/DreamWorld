@@ -2,6 +2,10 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.592 Release Candidate  for V3.6
+Drop Addins-db-002
+
+V3.591 Release Candidate 
 Oops, some missing files in 3.59.
 Also fixed a missing macro in Opensim.exe.config and robust.exe.config that stopped the "Help->Issue Console Commands->Set Debug Level" from taking effect for all sessions, not just one session.
 
