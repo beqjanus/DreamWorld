@@ -7415,6 +7415,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Sends this region status to the Outworldz Teleport signs.
+        '''</summary>
+        Friend ReadOnly Property Teleport_Tooltip() As String
+            Get
+                Return ResourceManager.GetString("Teleport_Tooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Teleport.
         '''</summary>
         Friend ReadOnly Property Teleport_word() As String
@@ -7500,9 +7509,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Theme set to Custom.
         '''</summary>
-        Friend ReadOnly Property theme_Custom() As String
+        Friend ReadOnly Property Theme_Custom() As String
             Get
-                Return ResourceManager.GetString("theme_Custom", resourceCulture)
+                Return ResourceManager.GetString("Theme_Custom", resourceCulture)
             End Get
         End Property
         

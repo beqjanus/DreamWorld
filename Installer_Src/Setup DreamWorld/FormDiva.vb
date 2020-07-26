@@ -302,7 +302,7 @@ Public Class FormDiva
         If Not initted Then Return
         If CustomButton1.Checked Then
             Form1.CopyWifi("Custom")
-            Form1.Print(My.Resources.theme_Custom)
+            Form1.Print(My.Resources.Theme_Custom)
             Settings.Theme = "Custom"
         End If
 

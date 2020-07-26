@@ -2426,7 +2426,7 @@
   <data name="Loopback_Failed" xml:space="preserve">
     <value>Loopback Test Failed. Web address did not respond.</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
+  <data name="Theme_Custom" xml:space="preserve">
     <value>Theme set to Custom</value>
   </data>
   <data name="One_region" xml:space="preserve">
@@ -2842,5 +2842,8 @@
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>Global Settings</value>
+  </data>
+  <data name="Teleport_Tooltip" xml:space="preserve">
+    <value>Sends this region status to the Outworldz Teleport signs</value>
   </data>
 </root>

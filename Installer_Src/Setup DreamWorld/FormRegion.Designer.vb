@@ -323,7 +323,7 @@ Partial Class FormRegion
         Me.TPCheckBox1.Size = New System.Drawing.Size(110, 17)
         Me.TPCheckBox1.TabIndex = 22
         Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable_word
-        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.GTide)
+        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.Teleport_Tooltip)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
         '
         'MapHelp
