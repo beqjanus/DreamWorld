@@ -1126,7 +1126,7 @@ Partial Class Form1
         '
         Me.ChartWrapper2.AddMarkers = True
         Me.ChartWrapper2.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
+        Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
         Me.ChartWrapper2.Location = New System.Drawing.Point(7, 212)
@@ -1145,7 +1145,7 @@ Partial Class Form1
         Me.ChartWrapper1.AddMarkers = True
         Me.ChartWrapper1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes
+        Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False

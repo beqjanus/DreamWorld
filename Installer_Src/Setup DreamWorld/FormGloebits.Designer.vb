@@ -291,7 +291,7 @@ Partial Class Gloebits
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(49, 20)
         Me.Label14.TabIndex = 8
-        Me.Label14.Text = Global.Outworldz.My.Resources.Resources.Mode
+        Me.Label14.Text = Global.Outworldz.My.Resources.Resources.Mode_word
         '
         'ProductionCreateButton
         '
@@ -422,7 +422,7 @@ Partial Class Gloebits
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(49, 20)
         Me.Label3.TabIndex = 8
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Mode
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Mode_word
         '
         'Label1
         '

@@ -2,8 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+Oops, some missing files in 3.59.
+Also fixed a missing macro in Opensim.exe.config and robust.exe.config that stopped the "Help->Issue Console Commands->Set Debug Level" from taking effect for all sessions, not just one session.
+
+
 V3.59 Release Candidate 7/24/2020
-Opensim updated to the same as OsGrid: Version #b598573 0.9.2.dev 2020-05-09. This includes hundreds of tweaks.
+Opensim updated to the same as OsGrid: Version #b598573 0.9.2.dev. 5-22-10:55 This includes hundreds of tweaks.
 Enabled built-in Denial-of-Service protection. 
 Added Settable Ban lists for Grids, Viewer type, IP addresses and MAC addresses.
 S4ving an oar without a .oar extension now gets .oar added on end.

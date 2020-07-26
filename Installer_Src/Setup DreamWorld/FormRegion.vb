@@ -131,7 +131,6 @@ Public Class FormRegion
         Dim chosen As String
         Chooseform.ShowDialog()
 
-
         Try
             ' Read the chosen sim name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
@@ -163,7 +162,6 @@ Public Class FormRegion
         Name = Name.Trim() ' remove spaces
 
         Form1.PropRegionClass = RegionMaker.Instance()
-
 
         ' NEW REGION
         If Name.Length = 0 Then
@@ -475,7 +473,6 @@ Public Class FormRegion
 
     End Sub
 
-
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
@@ -629,14 +626,11 @@ Public Class FormRegion
 
 #End Region
 
-
-
 #Region "Private Methods"
 
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
         Form1.Help("Permissions")
     End Sub
-
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
@@ -803,7 +797,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
 
     Private Function RegionValidate() As String
 
@@ -1233,7 +1226,6 @@ Public Class FormRegion
 
 #End Region
 
-
 #Region "Radio"
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
@@ -1422,7 +1414,6 @@ Public Class FormRegion
 
     End Sub
 
-
     Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
 
         If Gods_Use_Default.Checked Then
@@ -1467,8 +1458,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
-
 
 #End Region
 

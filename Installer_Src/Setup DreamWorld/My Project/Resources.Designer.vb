@@ -4574,9 +4574,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Message sent.
         '''</summary>
-        Friend ReadOnly Property Message_sent() As String
+        Friend ReadOnly Property Message_sent_word() As String
             Get
-                Return ResourceManager.GetString("Message_sent", resourceCulture)
+                Return ResourceManager.GetString("Message_sent_word", resourceCulture)
             End Get
         End Property
         
@@ -4592,27 +4592,27 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Minutes.
         '''</summary>
-        Friend ReadOnly Property Minutes() As String
+        Friend ReadOnly Property Minutes_word() As String
             Get
-                Return ResourceManager.GetString("Minutes", resourceCulture)
+                Return ResourceManager.GetString("Minutes_word", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Mode.
         '''</summary>
-        Friend ReadOnly Property Mode() As String
+        Friend ReadOnly Property Mode_word() As String
             Get
-                Return ResourceManager.GetString("Mode", resourceCulture)
+                Return ResourceManager.GetString("Mode_word", resourceCulture)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized string similar to Modules.
         '''</summary>
-        Friend ReadOnly Property Modules() As String
+        Friend ReadOnly Property Modules_word() As String
             Get
-                Return ResourceManager.GetString("Modules", resourceCulture)
+                Return ResourceManager.GetString("Modules_word", resourceCulture)
             End Get
         End Property
         
@@ -6071,9 +6071,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Region Specific Settings.
         '''</summary>
-        Friend ReadOnly Property Region_Specific_Settings() As String
+        Friend ReadOnly Property Region_Specific_Settings_word() As String
             Get
-                Return ResourceManager.GetString("Region_Specific_Settings", resourceCulture)
+                Return ResourceManager.GetString("Region_Specific_Settings_word", resourceCulture)
             End Get
         End Property
         

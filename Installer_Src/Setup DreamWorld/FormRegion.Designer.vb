@@ -82,7 +82,7 @@ Partial Class FormRegion
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UUID = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.NameTip = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -413,7 +413,7 @@ Partial Class FormRegion
         Me.DisableGBCheckBox.AutoSize = True
         Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 85)
         Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
-        Me.DisableGBCheckBox.Size = New System.Drawing.Size(102, 17)
+        Me.DisableGBCheckBox.Size = New System.Drawing.Size(116, 17)
         Me.DisableGBCheckBox.TabIndex = 24
         Me.DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Resources.Disable_Gloebits_word
         Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, Global.Outworldz.My.Resources.Resources.Disable_Gloebits_text)
@@ -435,7 +435,7 @@ Partial Class FormRegion
         Me.DisallowResidents.AutoSize = True
         Me.DisallowResidents.Location = New System.Drawing.Point(15, 126)
         Me.DisallowResidents.Name = "DisallowResidents"
-        Me.DisallowResidents.Size = New System.Drawing.Size(111, 17)
+        Me.DisallowResidents.Size = New System.Drawing.Size(128, 17)
         Me.DisallowResidents.TabIndex = 26
         Me.DisallowResidents.Text = Global.Outworldz.My.Resources.Resources.Disable_Residents
         Me.ToolTip1.SetToolTip(Me.DisallowResidents, Global.Outworldz.My.Resources.Resources.Only_Owners)
@@ -743,14 +743,14 @@ Partial Class FormRegion
         Me.UUID.Size = New System.Drawing.Size(215, 20)
         Me.UUID.TabIndex = 15
         '
-        'Label8
+        'NameTip
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 34)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(251, 13)
-        Me.Label8.TabIndex = 25
-        Me.Label8.Text = "Alpha-Numeric plus minus sign and space character"
+        Me.NameTip.AutoSize = True
+        Me.NameTip.Location = New System.Drawing.Point(12, 34)
+        Me.NameTip.Name = "NameTip"
+        Me.NameTip.Size = New System.Drawing.Size(251, 13)
+        Me.NameTip.TabIndex = 25
+        Me.NameTip.Text = My.Resources.AlphaNum
         '
         'GroupBox2
         '
@@ -839,7 +839,7 @@ Partial Class FormRegion
         Me.GroupBox6.Size = New System.Drawing.Size(483, 506)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Region Specific Settings"
+        Me.GroupBox6.Text = My.Resources.Region_Overrides
         '
         'GroupBox8
         '
@@ -851,7 +851,7 @@ Partial Class FormRegion
         Me.GroupBox8.Size = New System.Drawing.Size(236, 99)
         Me.GroupBox8.TabIndex = 1887
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Script Engine"
+        Me.GroupBox8.Text = My.Resources.Script_Engine_word
         '
         'ScriptDefaultButton
         '
@@ -901,7 +901,7 @@ Partial Class FormRegion
         Me.GroupBox7.Size = New System.Drawing.Size(222, 197)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Modules"
+        Me.GroupBox7.Text = My.Resources.Modules_word
         '
         'Label13
         '
@@ -910,7 +910,7 @@ Partial Class FormRegion
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(123, 13)
         Me.Label13.TabIndex = 1884
-        Me.Label13.Text = "Region Specific Settings"
+        Me.Label13.Text = My.Resources.Region_Specific_Settings_word
         '
         'GroupBox3
         '
@@ -922,7 +922,7 @@ Partial Class FormRegion
         Me.GroupBox3.Size = New System.Drawing.Size(231, 101)
         Me.GroupBox3.TabIndex = 1883
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Search"
+        Me.GroupBox3.Text = My.Resources.Search_word
         '
         'Publish
         '
@@ -969,7 +969,7 @@ Partial Class FormRegion
         Me.GroupBox4.Size = New System.Drawing.Size(228, 122)
         Me.GroupBox4.TabIndex = 1882
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
+        Me.GroupBox4.Text = My.Resources.Permissions_word
         '
         'Gods_Use_Default
         '
@@ -995,7 +995,7 @@ Partial Class FormRegion
         Me.MapBox.Size = New System.Drawing.Size(222, 247)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = "Maps"
+        Me.MapBox.Text = My.Resources.Maps_word
         '
         'Maps_Use_Default
         '
@@ -1124,12 +1124,12 @@ Partial Class FormRegion
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Advanced)
         Me.Controls.Add(Me.RegionName)
-        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.NameTip)
         Me.Controls.Add(Me.GroupBox2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormRegion"
-        Me.Text = "Region"
+        Me.Text = My.Resources.Regions_word
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
@@ -1166,7 +1166,7 @@ Partial Class FormRegion
     Friend WithEvents CoordY As TextBox
     Friend WithEvents CoordX As TextBox
     Friend WithEvents RegionName As TextBox
-    Friend WithEvents Label8 As Label
+    Friend WithEvents NameTip As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents RadioButton3 As RadioButton

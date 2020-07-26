@@ -5791,7 +5791,7 @@ Public Class Form1
             If HowManyAreOnline = 0 Then
                 Print(My.Resources.Nobody_Online)
             Else
-                Print(My.Resources.Message_sent & ":" & CStr(HowManyAreOnline) & " regions")
+                Print(My.Resources.Message_sent_word & ":" & CStr(HowManyAreOnline) & " regions")
             End If
         End If
 

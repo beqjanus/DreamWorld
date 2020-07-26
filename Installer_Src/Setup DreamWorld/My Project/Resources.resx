@@ -1654,7 +1654,7 @@
   <data name="Help_Forward_text" xml:space="preserve">
     <value>Web Help For Port Forwarding</value>
   </data>
-  <data name="Message_sent" xml:space="preserve">
+  <data name="Message_sent_word" xml:space="preserve">
     <value>Message sent</value>
   </data>
   <data name="Click_to_load" xml:space="preserve">
@@ -1750,7 +1750,7 @@
   <data name="Diag_Port_word" xml:space="preserve">
     <value>Diagnostics port</value>
   </data>
-  <data name="Minutes" xml:space="preserve">
+  <data name="Minutes_word" xml:space="preserve">
     <value>Minutes</value>
   </data>
   <data name="NVMaxPrim" xml:space="preserve">
@@ -1789,7 +1789,7 @@
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>Check and Repair Database</value>
   </data>
-  <data name="Region_Specific_Settings" xml:space="preserve">
+  <data name="Region_Specific_Settings_word" xml:space="preserve">
     <value>Region Specific Settings</value>
   </data>
   <data name="Free_Account" xml:space="preserve">
@@ -2535,7 +2535,7 @@
   <data name="Delete_word" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Mode" xml:space="preserve">
+  <data name="Mode_word" xml:space="preserve">
     <value>Mode</value>
   </data>
   <data name="Aborted_word" xml:space="preserve">
@@ -2721,7 +2721,7 @@
   <data name="Click_Start_2_Begin" xml:space="preserve">
     <value>Click 'Start' to begin.</value>
   </data>
-  <data name="Modules" xml:space="preserve">
+  <data name="Modules_word" xml:space="preserve">
     <value>Modules</value>
   </data>
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
