@@ -995,7 +995,7 @@ Public Class Form1
 
         If PropKillSource Then
             files.Add("Outworldzfiles\Opensim\.nant")
-            files.Add("Outworldzfiles\Opensim\addon-modules")
+
             files.Add("Outworldzfiles\Opensim\doc")
             files.Add("Outworldzfiles\Opensim\Opensim")
             files.Add("Outworldzfiles\Opensim\Prebuild")
@@ -1004,6 +1004,7 @@ Public Class Form1
 
         End If
 
+        files.Add("Outworldzfiles\Opensim\addin-db-2")
         KillFolder(files)   ' wipe these folders out
         files.Clear() ' now do a list of files to clean up
 
@@ -1013,8 +1014,8 @@ Public Class Form1
         files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
         files.Add("SET_externalIP-Log.txt")
 
-        ' crapload of old DLLS have to be eliminated
-        CleanDLLs() ' drop old opensim dll's
+        ' crap load of old DLLS have to be eliminated
+        CleanDLLs() ' drop old opensim Dll's
 
         If PropKillSource Then
             files.Add("\Outworldzfiles\Opensim\BUILDING.md")
@@ -6780,7 +6781,7 @@ Public Class Form1
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
         TimerBusy += 1
-        If TimerBusy < 10 And TimerBusy > 1 Then
+        If TimerBusy < 60 And TimerBusy > 1 Then
             Diagnostics.Debug.Print("Ticker busy")
             Return
         End If
