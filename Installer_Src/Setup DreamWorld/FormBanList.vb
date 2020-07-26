@@ -95,9 +95,9 @@ Public Class FormBanList
                 End If
 
                 ' ban MAC Addresses with and without caps and :
-                Dim pattern1 As Regex = New Regex("[0-9a-zA-Z]:")
+                Dim pattern1 As Regex = New Regex("[0-9a-zA-Z:]")
                 Dim match1 As Match = pattern1.Match(s)
-                If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                If match1.Success And s.Length = 32 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                     MACString += s & " "
                     Continue For
                 End If
@@ -130,7 +130,7 @@ Public Class FormBanList
 
                 ' Ban Macs
                 Settings.SetIni("LoginService", "DeniedMacs", MACString)
-                Settings.SetIni("GateKeeper", "DeniedMacs", MACString)
+                Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
                 'Ban Viewers
                 Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
@@ -138,6 +138,7 @@ Public Class FormBanList
                 Settings.SaveINI(System.Text.Encoding.UTF8)
 
                 If Form1.IsRobustRunning() Then
+                    Me.Hide()
                     Form1.PropAborting = True
                     Form1.StopRobust()
                     Form1.StartRobust()

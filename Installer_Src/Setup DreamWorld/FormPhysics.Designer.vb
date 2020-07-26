@@ -71,7 +71,7 @@ Partial Class FormPhysics
         '
         'GodHelp
         '
-        Me.GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.GodHelp.Image = Global.Outworldz.My.Resources.about
         Me.GodHelp.Location = New System.Drawing.Point(199, 23)
         Me.GodHelp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GodHelp.Name = "GodHelp"
@@ -88,7 +88,7 @@ Partial Class FormPhysics
         Me.PhysicsSeparate.Size = New System.Drawing.Size(263, 24)
         Me.PhysicsSeparate.TabIndex = 13
         Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.Resources.BP
+        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
         Me.PhysicsSeparate.UseVisualStyleBackColor = True
         '
         'PhysicsNone
@@ -100,7 +100,7 @@ Partial Class FormPhysics
         Me.PhysicsNone.Size = New System.Drawing.Size(72, 24)
         Me.PhysicsNone.TabIndex = 9
         Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = Global.Outworldz.My.Resources.Resources.None
+        Me.PhysicsNone.Text = Global.Outworldz.My.Resources.None
         Me.PhysicsNone.UseVisualStyleBackColor = True
         '
         'PhysicsubODE
@@ -124,7 +124,7 @@ Partial Class FormPhysics
         Me.PhysicsBullet.Size = New System.Drawing.Size(130, 24)
         Me.PhysicsBullet.TabIndex = 12
         Me.PhysicsBullet.TabStop = True
-        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Resources.Bullet_Physics_word
+        Me.PhysicsBullet.Text = Global.Outworldz.My.Resources.Bullet_Physics_word
         Me.PhysicsBullet.UseVisualStyleBackColor = True
         '
         'PhysicsODE
@@ -136,7 +136,7 @@ Partial Class FormPhysics
         Me.PhysicsODE.Size = New System.Drawing.Size(192, 24)
         Me.PhysicsODE.TabIndex = 10
         Me.PhysicsODE.TabStop = True
-        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.Resources.ODE_text
+        Me.PhysicsODE.Text = Global.Outworldz.My.Resources.ODE_text
         Me.PhysicsODE.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -153,17 +153,17 @@ Partial Class FormPhysics
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormPhysics
         '
@@ -176,7 +176,7 @@ Partial Class FormPhysics
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Physics_word
+        Me.Text = Global.Outworldz.My.Resources.Physics_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

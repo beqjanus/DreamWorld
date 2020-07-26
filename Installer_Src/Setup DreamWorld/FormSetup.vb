@@ -2098,7 +2098,7 @@ Public Class Form1
                 .Text = name,
                 .ToolTipText = My.Resources.Click_to_View_this_word,
                 .Size = New Size(269, 26),
-                .Image = My.Resources.Resources.document_view,
+                .Image = My.Resources.document_view,
                 .DisplayStyle = ToolStripItemDisplayStyle.Text
             }
         AddHandler LogMenu.Click, New EventHandler(AddressOf LogViewClick)
@@ -4850,7 +4850,7 @@ Public Class Form1
     Public Function StartIcecast() As Boolean
 
         If Not Settings.SCEnable Then
-            Print(Global.Outworldz.My.Resources.Resources.IceCast_disabled)
+            Print(Global.Outworldz.My.Resources.IceCast_disabled)
             IceCastIs(False)
             Return True
         End If
@@ -5052,7 +5052,7 @@ Public Class Form1
         MysqlInterface.IsRunning = True
         MySqlIs(True)
 
-        Print(Global.Outworldz.My.Resources.Resources.Mysql_is_Running)
+        Print(Global.Outworldz.My.Resources.Mysql_is_Running)
         PropMysqlExited = False
 
         Return True
@@ -5291,7 +5291,8 @@ Public Class Form1
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
 
-        DoRobust()
+        DoSetDefaultSims()
+
 
         Print("Robust " & My.Resources.Starting_word)
 
@@ -5386,7 +5387,7 @@ Public Class Form1
         End Select
 
         RobustIs(True)
-        Print(Global.Outworldz.My.Resources.Resources.Robust_running)
+        Print(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
 
         Return True

@@ -82,7 +82,7 @@ Partial Class Gloebits
         '
         'PictureBox3
         '
-        Me.PictureBox3.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox3.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox3.Location = New System.Drawing.Point(654, 74)
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox3.Name = "PictureBox3"
@@ -97,7 +97,7 @@ Partial Class Gloebits
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(601, 40)
         Me.Button4.TabIndex = 1
-        Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Free_Account
+        Me.Button4.Text = Global.Outworldz.My.Resources.Free_Account
         Me.Button4.UseVisualStyleBackColor = True
         '
         'GroupBox3
@@ -114,7 +114,7 @@ Partial Class Gloebits
         Me.GroupBox3.Size = New System.Drawing.Size(501, 164)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Contact_Info_word
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Contact_Info_word
         '
         'OwnerNameTextbox
         '
@@ -132,7 +132,7 @@ Partial Class Gloebits
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(111, 20)
         Me.Label4.TabIndex = 10
-        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Contact_Name_word
+        Me.Label4.Text = Global.Outworldz.My.Resources.Contact_Name_word
         '
         'ContactEmailTextBox
         '
@@ -150,7 +150,7 @@ Partial Class Gloebits
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(85, 24)
         Me.GloebitsEnabled.TabIndex = 16
-        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Enable_word
         Me.GloebitsEnabled.UseVisualStyleBackColor = True
         '
         'Label5
@@ -161,7 +161,7 @@ Partial Class Gloebits
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(108, 20)
         Me.Label5.TabIndex = 12
-        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Contact_Email_word
+        Me.Label5.Text = Global.Outworldz.My.Resources.Contact_Email_word
         '
         'GroupBox2
         '
@@ -184,7 +184,7 @@ Partial Class Gloebits
         Me.GroupBox2.Size = New System.Drawing.Size(338, 338)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Production_Mode_Word
         '
         'ProductionButton
         '
@@ -195,7 +195,7 @@ Partial Class Gloebits
         Me.ProductionButton.Size = New System.Drawing.Size(154, 24)
         Me.ProductionButton.TabIndex = 8
         Me.ProductionButton.TabStop = True
-        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
+        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Production_Mode_Word
         Me.ProductionButton.UseVisualStyleBackColor = True
         '
         'Label12
@@ -206,7 +206,7 @@ Partial Class Gloebits
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(56, 20)
         Me.Label12.TabIndex = 21
-        Me.Label12.Text = Global.Outworldz.My.Resources.Resources.Secret_word
+        Me.Label12.Text = Global.Outworldz.My.Resources.Secret_word
         '
         'ProdKeyTextBox
         '
@@ -242,7 +242,7 @@ Partial Class Gloebits
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(60, 20)
         Me.Label9.TabIndex = 17
-        Me.Label9.Text = Global.Outworldz.My.Resources.Resources.Step3_word
+        Me.Label9.Text = Global.Outworldz.My.Resources.Step3_word
         '
         'Label10
         '
@@ -261,7 +261,7 @@ Partial Class Gloebits
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(56, 20)
         Me.Label11.TabIndex = 15
-        Me.Label11.Text = Global.Outworldz.My.Resources.Resources.Step1_word
+        Me.Label11.Text = Global.Outworldz.My.Resources.Step1_word
         '
         'ProductionCreateAppButton
         '
@@ -270,7 +270,7 @@ Partial Class Gloebits
         Me.ProductionCreateAppButton.Name = "ProductionCreateAppButton"
         Me.ProductionCreateAppButton.Size = New System.Drawing.Size(226, 40)
         Me.ProductionCreateAppButton.TabIndex = 11
-        Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         Me.ProductionCreateAppButton.UseVisualStyleBackColor = True
         '
         'ProductionReqAppButton
@@ -280,7 +280,7 @@ Partial Class Gloebits
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
         Me.ProductionReqAppButton.Size = New System.Drawing.Size(226, 38)
         Me.ProductionReqAppButton.TabIndex = 10
-        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
         Me.ProductionReqAppButton.UseVisualStyleBackColor = True
         '
         'Label14
@@ -291,7 +291,7 @@ Partial Class Gloebits
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(49, 20)
         Me.Label14.TabIndex = 8
-        Me.Label14.Text = Global.Outworldz.My.Resources.Resources.Mode_word
+        Me.Label14.Text = Global.Outworldz.My.Resources.Mode_word
         '
         'ProductionCreateButton
         '
@@ -300,7 +300,7 @@ Partial Class Gloebits
         Me.ProductionCreateButton.Name = "ProductionCreateButton"
         Me.ProductionCreateButton.Size = New System.Drawing.Size(226, 40)
         Me.ProductionCreateButton.TabIndex = 9
-        Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Resources.Create_Account
+        Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Create_Account
         Me.ProductionCreateButton.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -324,7 +324,7 @@ Partial Class Gloebits
         Me.GroupBox1.Size = New System.Drawing.Size(352, 338)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Sandbox_Mode_word
         '
         'SandboxButton
         '
@@ -335,7 +335,7 @@ Partial Class Gloebits
         Me.SandboxButton.Size = New System.Drawing.Size(141, 24)
         Me.SandboxButton.TabIndex = 2
         Me.SandboxButton.TabStop = True
-        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
+        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Sandbox_Mode_word
         Me.SandboxButton.UseVisualStyleBackColor = True
         '
         'Label8
@@ -346,7 +346,7 @@ Partial Class Gloebits
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(60, 20)
         Me.Label8.TabIndex = 17
-        Me.Label8.Text = Global.Outworldz.My.Resources.Resources.Step3_word
+        Me.Label8.Text = Global.Outworldz.My.Resources.Step3_word
         '
         'Label7
         '
@@ -356,7 +356,7 @@ Partial Class Gloebits
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(56, 20)
         Me.Label7.TabIndex = 16
-        Me.Label7.Text = Global.Outworldz.My.Resources.Resources.Step2_word
+        Me.Label7.Text = Global.Outworldz.My.Resources.Step2_word
         '
         'Label2
         '
@@ -366,7 +366,7 @@ Partial Class Gloebits
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(56, 20)
         Me.Label2.TabIndex = 6
-        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Secret_word
+        Me.Label2.Text = Global.Outworldz.My.Resources.Secret_word
         '
         'Label6
         '
@@ -376,7 +376,7 @@ Partial Class Gloebits
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(56, 20)
         Me.Label6.TabIndex = 15
-        Me.Label6.Text = Global.Outworldz.My.Resources.Resources.Step1_word
+        Me.Label6.Text = Global.Outworldz.My.Resources.Step1_word
         '
         'SandBoxCreateAppButton
         '
@@ -385,7 +385,7 @@ Partial Class Gloebits
         Me.SandBoxCreateAppButton.Name = "SandBoxCreateAppButton"
         Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(226, 40)
         Me.SandBoxCreateAppButton.TabIndex = 5
-        Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         Me.SandBoxCreateAppButton.UseVisualStyleBackColor = True
         '
         'SandKeyTextBox
@@ -403,7 +403,7 @@ Partial Class Gloebits
         Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
         Me.SandBoxReqAppButton.Size = New System.Drawing.Size(226, 38)
         Me.SandBoxReqAppButton.TabIndex = 4
-        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
         Me.SandBoxReqAppButton.UseVisualStyleBackColor = True
         '
         'SandSecretTextBox
@@ -422,7 +422,7 @@ Partial Class Gloebits
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(49, 20)
         Me.Label3.TabIndex = 8
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Mode_word
+        Me.Label3.Text = Global.Outworldz.My.Resources.Mode_word
         '
         'Label1
         '
@@ -441,7 +441,7 @@ Partial Class Gloebits
         Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
         Me.SandBoxSignUpButton.Size = New System.Drawing.Size(226, 40)
         Me.SandBoxSignUpButton.TabIndex = 3
-        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
+        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Create_Sandbox_word
         Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -458,17 +458,17 @@ Partial Class Gloebits
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'Gloebits
         '

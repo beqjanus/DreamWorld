@@ -56,11 +56,11 @@ Partial Class FormPublicity
         Me.GroupBox11.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
-        Me.GroupBox11.Text = Global.Outworldz.My.Resources.Resources.Photo_Word
+        Me.GroupBox11.Text = Global.Outworldz.My.Resources.Photo_Word
         '
         'PublicPhoto
         '
-        Me.PublicPhoto.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PublicPhoto.Image = Global.Outworldz.My.Resources.about
         Me.PublicPhoto.Location = New System.Drawing.Point(261, 18)
         Me.PublicPhoto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PublicPhoto.Name = "PublicPhoto"
@@ -76,12 +76,12 @@ Partial Class FormPublicity
         Me.GDPRCheckBox.Name = "GDPRCheckBox"
         Me.GDPRCheckBox.Size = New System.Drawing.Size(238, 24)
         Me.GDPRCheckBox.TabIndex = 7
-        Me.GDPRCheckBox.Text = Global.Outworldz.My.Resources.Resources.Publish_grid
+        Me.GDPRCheckBox.Text = Global.Outworldz.My.Resources.Publish_grid
         Me.GDPRCheckBox.UseVisualStyleBackColor = True
         '
         'PictureBox9
         '
-        Me.PictureBox9.InitialImage = Global.Outworldz.My.Resources.Resources.ClicktoInsertPhoto
+        Me.PictureBox9.InitialImage = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         Me.PictureBox9.Location = New System.Drawing.Point(9, 64)
         Me.PictureBox9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox9.Name = "PictureBox9"
@@ -106,14 +106,14 @@ Partial Class FormPublicity
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(65, 30)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'GroupBox1
         '
@@ -125,7 +125,7 @@ Partial Class FormPublicity
         Me.GroupBox1.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox1.TabIndex = 1892
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Category_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Category_word
         '
         'CategoryCheckbox
         '
@@ -152,7 +152,7 @@ Partial Class FormPublicity
         Me.GroupBox2.Size = New System.Drawing.Size(332, 282)
         Me.GroupBox2.TabIndex = 1896
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Description_word
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Description_word
         '
         'DescriptionBox
         '
@@ -177,7 +177,7 @@ Partial Class FormPublicity
         Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
+        Me.Text = Global.Outworldz.My.Resources.Publicity_Word
         Me.GroupBox11.ResumeLayout(False)
         Me.GroupBox11.PerformLayout()
         CType(Me.PublicPhoto, System.ComponentModel.ISupportInitialize).EndInit()

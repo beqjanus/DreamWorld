@@ -66,8 +66,8 @@ Partial Class FormRestart
         Me.RestartOnCrash.Name = "RestartOnCrash"
         Me.RestartOnCrash.Size = New System.Drawing.Size(242, 17)
         Me.RestartOnCrash.TabIndex = 1865
-        Me.RestartOnCrash.Text = Global.Outworldz.My.Resources.Resources.Restart_On_Crash
-        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, Global.Outworldz.My.Resources.Resources.Restart_On_Crash)
+        Me.RestartOnCrash.Text = Global.Outworldz.My.Resources.Restart_On_Crash
+        Me.ToolTip1.SetToolTip(Me.RestartOnCrash, Global.Outworldz.My.Resources.Restart_On_Crash)
         Me.RestartOnCrash.UseVisualStyleBackColor = True
         '
         'SequentialCheckBox1
@@ -77,8 +77,8 @@ Partial Class FormRestart
         Me.SequentialCheckBox1.Name = "SequentialCheckBox1"
         Me.SequentialCheckBox1.Size = New System.Drawing.Size(150, 17)
         Me.SequentialCheckBox1.TabIndex = 1864
-        Me.SequentialCheckBox1.Text = Global.Outworldz.My.Resources.Resources.StartSequentially
-        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, Global.Outworldz.My.Resources.Resources.Sequentially_text)
+        Me.SequentialCheckBox1.Text = Global.Outworldz.My.Resources.StartSequentially
+        Me.ToolTip1.SetToolTip(Me.SequentialCheckBox1, Global.Outworldz.My.Resources.Sequentially_text)
         Me.SequentialCheckBox1.UseVisualStyleBackColor = True
         '
         'ARTimerBox
@@ -88,8 +88,8 @@ Partial Class FormRestart
         Me.ARTimerBox.Name = "ARTimerBox"
         Me.ARTimerBox.Size = New System.Drawing.Size(115, 17)
         Me.ARTimerBox.TabIndex = 1863
-        Me.ARTimerBox.Text = Global.Outworldz.My.Resources.Resources.Restart_Periodically_word
-        Me.ToolTip1.SetToolTip(Me.ARTimerBox, Global.Outworldz.My.Resources.Resources.Restart_Periodically_Minutes)
+        Me.ARTimerBox.Text = Global.Outworldz.My.Resources.Restart_Periodically_word
+        Me.ToolTip1.SetToolTip(Me.ARTimerBox, Global.Outworldz.My.Resources.Restart_Periodically_Minutes)
         Me.ARTimerBox.UseVisualStyleBackColor = True
         '
         'Label25
@@ -107,11 +107,11 @@ Partial Class FormRestart
         Me.AutoRestartBox.Name = "AutoRestartBox"
         Me.AutoRestartBox.Size = New System.Drawing.Size(36, 20)
         Me.AutoRestartBox.TabIndex = 47
-        Me.ToolTip1.SetToolTip(Me.AutoRestartBox, Global.Outworldz.My.Resources.Resources.AutorestartBox)
+        Me.ToolTip1.SetToolTip(Me.AutoRestartBox, Global.Outworldz.My.Resources.AutorestartBox)
         '
         'RunOnBoot
         '
-        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.about
         Me.RunOnBoot.Location = New System.Drawing.Point(165, 19)
         Me.RunOnBoot.Name = "RunOnBoot"
         Me.RunOnBoot.Size = New System.Drawing.Size(30, 34)
@@ -133,8 +133,8 @@ Partial Class FormRestart
         Me.AutoStartCheckbox.Name = "AutoStartCheckbox"
         Me.AutoStartCheckbox.Size = New System.Drawing.Size(133, 17)
         Me.AutoStartCheckbox.TabIndex = 45
-        Me.AutoStartCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableOneClickStart_word
-        Me.ToolTip1.SetToolTip(Me.AutoStartCheckbox, Global.Outworldz.My.Resources.Resources.StartLaunch)
+        Me.AutoStartCheckbox.Text = Global.Outworldz.My.Resources.EnableOneClickStart_word
+        Me.ToolTip1.SetToolTip(Me.AutoStartCheckbox, Global.Outworldz.My.Resources.StartLaunch)
         Me.AutoStartCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -151,17 +151,17 @@ Partial Class FormRestart
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormRestart
         '

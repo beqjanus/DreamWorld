@@ -135,7 +135,7 @@ Partial Class FormRegion
         Me.CoordY.Name = "CoordY"
         Me.CoordY.Size = New System.Drawing.Size(38, 20)
         Me.CoordY.TabIndex = 13
-        Me.ToolTip1.SetToolTip(Me.CoordY, Global.Outworldz.My.Resources.Resources.CoordY)
+        Me.ToolTip1.SetToolTip(Me.CoordY, Global.Outworldz.My.Resources.CoordY)
         '
         'CoordX
         '
@@ -143,7 +143,7 @@ Partial Class FormRegion
         Me.CoordX.Name = "CoordX"
         Me.CoordX.Size = New System.Drawing.Size(40, 20)
         Me.CoordX.TabIndex = 12
-        Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Resources.Coordx)
+        Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Coordx)
         '
         'RegionName
         '
@@ -151,7 +151,7 @@ Partial Class FormRegion
         Me.RegionName.Name = "RegionName"
         Me.RegionName.Size = New System.Drawing.Size(144, 20)
         Me.RegionName.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.Region_Name)
+        Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Region_Name)
         '
         'RadioButton4
         '
@@ -207,7 +207,7 @@ Partial Class FormRegion
         Me.MaxAgents.Name = "MaxAgents"
         Me.MaxAgents.Size = New System.Drawing.Size(40, 20)
         Me.MaxAgents.TabIndex = 20
-        Me.ToolTip1.SetToolTip(Me.MaxAgents, Global.Outworldz.My.Resources.Resources.Max_Agents)
+        Me.ToolTip1.SetToolTip(Me.MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
         '
         'Label5
         '
@@ -217,7 +217,7 @@ Partial Class FormRegion
         Me.Label5.Size = New System.Drawing.Size(111, 13)
         Me.Label5.TabIndex = 30
         Me.Label5.Text = "Nonphysical Prim Size"
-        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.Max_NonPhys)
+        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Max_NonPhys)
         '
         'Label9
         '
@@ -227,7 +227,7 @@ Partial Class FormRegion
         Me.Label9.Size = New System.Drawing.Size(115, 13)
         Me.Label9.TabIndex = 31
         Me.Label9.Text = "Physical Prim Max Size"
-        Me.ToolTip1.SetToolTip(Me.Label9, Global.Outworldz.My.Resources.Resources.Max_Phys)
+        Me.ToolTip1.SetToolTip(Me.Label9, Global.Outworldz.My.Resources.Max_Phys)
         '
         'PhysicalPrimMax
         '
@@ -235,7 +235,7 @@ Partial Class FormRegion
         Me.PhysicalPrimMax.Name = "PhysicalPrimMax"
         Me.PhysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.PhysicalPrimMax.TabIndex = 17
-        Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, Global.Outworldz.My.Resources.Resources.Max_Phys)
+        Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, Global.Outworldz.My.Resources.Max_Phys)
         '
         'Label10
         '
@@ -245,7 +245,7 @@ Partial Class FormRegion
         Me.Label10.Size = New System.Drawing.Size(82, 13)
         Me.Label10.TabIndex = 34
         Me.Label10.Text = "Clamp Prim Size"
-        Me.ToolTip1.SetToolTip(Me.Label10, Global.Outworldz.My.Resources.Resources.ClampSize)
+        Me.ToolTip1.SetToolTip(Me.Label10, Global.Outworldz.My.Resources.ClampSize)
         '
         'Label11
         '
@@ -255,7 +255,7 @@ Partial Class FormRegion
         Me.Label11.Size = New System.Drawing.Size(160, 13)
         Me.Label11.TabIndex = 36
         Me.Label11.Text = "Max Number of Prims in a Parcel"
-        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.Viewer_Stops_Counting)
+        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
         '
@@ -263,7 +263,7 @@ Partial Class FormRegion
         Me.MaxPrims.Name = "MaxPrims"
         Me.MaxPrims.Size = New System.Drawing.Size(40, 20)
         Me.MaxPrims.TabIndex = 19
-        Me.ToolTip1.SetToolTip(Me.MaxPrims, Global.Outworldz.My.Resources.Resources.Not_Normal)
+        Me.ToolTip1.SetToolTip(Me.MaxPrims, Global.Outworldz.My.Resources.Not_Normal)
         '
         'NonphysicalPrimMax
         '
@@ -271,7 +271,7 @@ Partial Class FormRegion
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
         Me.NonphysicalPrimMax.Size = New System.Drawing.Size(40, 20)
         Me.NonphysicalPrimMax.TabIndex = 16
-        Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Resources.Normal_Prim)
+        Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Normal_Prim)
         '
         'Label12
         '
@@ -281,7 +281,7 @@ Partial Class FormRegion
         Me.Label12.Size = New System.Drawing.Size(155, 13)
         Me.Label12.TabIndex = 38
         Me.Label12.Text = "Max number of Avatars + NPCs"
-        Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Resources.Max_Agents)
+        Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Max_Agents)
         '
         'ClampPrimSize
         '
@@ -290,7 +290,7 @@ Partial Class FormRegion
         Me.ClampPrimSize.Name = "ClampPrimSize"
         Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
         Me.ClampPrimSize.TabIndex = 18
-        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, Global.Outworldz.My.Resources.Resources.ClampSize)
+        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, Global.Outworldz.My.Resources.ClampSize)
         Me.ClampPrimSize.UseVisualStyleBackColor = True
         '
         'BirdsCheckBox
@@ -300,8 +300,8 @@ Partial Class FormRegion
         Me.BirdsCheckBox.Name = "BirdsCheckBox"
         Me.BirdsCheckBox.Size = New System.Drawing.Size(82, 17)
         Me.BirdsCheckBox.TabIndex = 21
-        Me.BirdsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Bird_Module_word
-        Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, Global.Outworldz.My.Resources.Resources.GBoids)
+        Me.BirdsCheckBox.Text = Global.Outworldz.My.Resources.Bird_Module_word
+        Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
         Me.BirdsCheckBox.UseVisualStyleBackColor = True
         '
         'TidesCheckbox
@@ -311,8 +311,8 @@ Partial Class FormRegion
         Me.TidesCheckbox.Name = "TidesCheckbox"
         Me.TidesCheckbox.Size = New System.Drawing.Size(194, 17)
         Me.TidesCheckbox.TabIndex = 21
-        Me.TidesCheckbox.Text = Global.Outworldz.My.Resources.Resources.Tide_Enable
-        Me.ToolTip1.SetToolTip(Me.TidesCheckbox, Global.Outworldz.My.Resources.Resources.GTide)
+        Me.TidesCheckbox.Text = Global.Outworldz.My.Resources.Tide_Enable
+        Me.ToolTip1.SetToolTip(Me.TidesCheckbox, Global.Outworldz.My.Resources.GTide)
         Me.TidesCheckbox.UseVisualStyleBackColor = True
         '
         'TPCheckBox1
@@ -322,29 +322,29 @@ Partial Class FormRegion
         Me.TPCheckBox1.Name = "TPCheckBox1"
         Me.TPCheckBox1.Size = New System.Drawing.Size(110, 17)
         Me.TPCheckBox1.TabIndex = 22
-        Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable_word
-        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.Teleport_Tooltip)
+        Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
+        Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Teleport_Tooltip)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
         '
         'MapHelp
         '
-        Me.MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.MapHelp.Image = Global.Outworldz.My.Resources.about
         Me.MapHelp.Location = New System.Drawing.Point(165, 50)
         Me.MapHelp.Name = "MapHelp"
         Me.MapHelp.Size = New System.Drawing.Size(23, 25)
         Me.MapHelp.TabIndex = 1857
         Me.MapHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MapHelp, Global.Outworldz.My.Resources.Resources.OverridesMap)
+        Me.ToolTip1.SetToolTip(Me.MapHelp, Global.Outworldz.My.Resources.OverridesMap)
         '
         'GodHelp
         '
-        Me.GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.GodHelp.Image = Global.Outworldz.My.Resources.about
         Me.GodHelp.Location = New System.Drawing.Point(145, 10)
         Me.GodHelp.Name = "GodHelp"
         Me.GodHelp.Size = New System.Drawing.Size(30, 27)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Help_word)
+        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Help_word)
         '
         'AllowGods
         '
@@ -353,8 +353,8 @@ Partial Class FormRegion
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(138, 17)
         Me.AllowGods.TabIndex = 1858
-        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
-        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
+        Me.AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
+        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'ManagerGod
@@ -364,8 +364,8 @@ Partial Class FormRegion
         Me.ManagerGod.Name = "ManagerGod"
         Me.ManagerGod.Size = New System.Drawing.Size(132, 17)
         Me.ManagerGod.TabIndex = 6
-        Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.EstateManagerIsGod_word
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.EMGod)
+        Me.ManagerGod.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.EMGod)
         Me.ManagerGod.UseVisualStyleBackColor = True
         '
         'RegionGod
@@ -375,8 +375,8 @@ Partial Class FormRegion
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(127, 17)
         Me.RegionGod.TabIndex = 1855
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
+        Me.RegionGod.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'SmartStartCheckBox
@@ -386,8 +386,8 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
-        Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
-        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
+        Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
+        Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         '
         'Label14
@@ -398,7 +398,7 @@ Partial Class FormRegion
         Me.Label14.Size = New System.Drawing.Size(131, 13)
         Me.Label14.TabIndex = 41
         Me.Label14.Text = "Script Timer Rate (0.0909)"
-        Me.ToolTip1.SetToolTip(Me.Label14, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
+        Me.ToolTip1.SetToolTip(Me.Label14, Global.Outworldz.My.Resources.Script_Timer_Text)
         '
         'ScriptTimerTextBox
         '
@@ -406,7 +406,7 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
         Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
         Me.ScriptTimerTextBox.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, Global.Outworldz.My.Resources.Resources.STComment)
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, Global.Outworldz.My.Resources.STComment)
         '
         'DisableGBCheckBox
         '
@@ -415,8 +415,8 @@ Partial Class FormRegion
         Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
         Me.DisableGBCheckBox.Size = New System.Drawing.Size(116, 17)
         Me.DisableGBCheckBox.TabIndex = 24
-        Me.DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Resources.Disable_Gloebits_word
-        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, Global.Outworldz.My.Resources.Resources.Disable_Gloebits_text)
+        Me.DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Disable_Gloebits_word
+        Me.ToolTip1.SetToolTip(Me.DisableGBCheckBox, Global.Outworldz.My.Resources.Disable_Gloebits_text)
         Me.DisableGBCheckBox.UseVisualStyleBackColor = True
         '
         'DisallowForeigners
@@ -426,8 +426,8 @@ Partial Class FormRegion
         Me.DisallowForeigners.Name = "DisallowForeigners"
         Me.DisallowForeigners.Size = New System.Drawing.Size(135, 17)
         Me.DisallowForeigners.TabIndex = 25
-        Me.DisallowForeigners.Text = Global.Outworldz.My.Resources.Resources.Disable_Foreigners_word
-        Me.ToolTip1.SetToolTip(Me.DisallowForeigners, Global.Outworldz.My.Resources.Resources.No_HG)
+        Me.DisallowForeigners.Text = Global.Outworldz.My.Resources.Disable_Foreigners_word
+        Me.ToolTip1.SetToolTip(Me.DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
         Me.DisallowForeigners.UseVisualStyleBackColor = True
         '
         'DisallowResidents
@@ -437,8 +437,8 @@ Partial Class FormRegion
         Me.DisallowResidents.Name = "DisallowResidents"
         Me.DisallowResidents.Size = New System.Drawing.Size(128, 17)
         Me.DisallowResidents.TabIndex = 26
-        Me.DisallowResidents.Text = Global.Outworldz.My.Resources.Resources.Disable_Residents
-        Me.ToolTip1.SetToolTip(Me.DisallowResidents, Global.Outworldz.My.Resources.Resources.Only_Owners)
+        Me.DisallowResidents.Text = Global.Outworldz.My.Resources.Disable_Residents
+        Me.ToolTip1.SetToolTip(Me.DisallowResidents, Global.Outworldz.My.Resources.Only_Owners)
         Me.DisallowResidents.UseVisualStyleBackColor = True
         '
         'FrametimeBox
@@ -447,7 +447,7 @@ Partial Class FormRegion
         Me.FrametimeBox.Name = "FrametimeBox"
         Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
         Me.FrametimeBox.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.FrametimeBox, Global.Outworldz.My.Resources.Resources.FrameTime)
+        Me.ToolTip1.SetToolTip(Me.FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
         '
         'SkipAutoCheckBox
         '
@@ -456,8 +456,8 @@ Partial Class FormRegion
         Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
         Me.SkipAutoCheckBox.Size = New System.Drawing.Size(108, 17)
         Me.SkipAutoCheckBox.TabIndex = 27
-        Me.SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Resources.Skip_Autobackup_word
-        Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.Resources.WillNotSave)
+        Me.SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Skip_Autobackup_word
+        Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.WillNotSave)
         Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
         '
         'Label15
@@ -468,7 +468,7 @@ Partial Class FormRegion
         Me.Label15.Size = New System.Drawing.Size(104, 13)
         Me.Label15.TabIndex = 43
         Me.Label15.Text = "Frame Rate (0.0909)"
-        Me.ToolTip1.SetToolTip(Me.Label15, Global.Outworldz.My.Resources.Resources.FRText)
+        Me.ToolTip1.SetToolTip(Me.Label15, Global.Outworldz.My.Resources.FRText)
         '
         'RadioButton8
         '
@@ -625,7 +625,7 @@ Partial Class FormRegion
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics"
-        Me.ToolTip1.SetToolTip(Me.GroupBox1, Global.Outworldz.My.Resources.Resources.Sim_Rate)
+        Me.ToolTip1.SetToolTip(Me.GroupBox1, Global.Outworldz.My.Resources.Sim_Rate)
         '
         'Physics_Default
         '
@@ -635,7 +635,7 @@ Partial Class FormRegion
         Me.Physics_Default.Size = New System.Drawing.Size(81, 17)
         Me.Physics_Default.TabIndex = 137
         Me.Physics_Default.TabStop = True
-        Me.Physics_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
+        Me.Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         Me.Physics_Default.UseVisualStyleBackColor = True
         '
         'PhysicsSeparate
@@ -646,7 +646,7 @@ Partial Class FormRegion
         Me.PhysicsSeparate.Size = New System.Drawing.Size(177, 17)
         Me.PhysicsSeparate.TabIndex = 37
         Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.Resources.BP
+        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
         Me.PhysicsSeparate.UseVisualStyleBackColor = True
         '
         'PhysicsubODE
@@ -801,7 +801,7 @@ Partial Class FormRegion
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(59, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Save_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'DeleteButton
@@ -810,7 +810,7 @@ Partial Class FormRegion
         Me.DeleteButton.Name = "DeleteButton"
         Me.DeleteButton.Size = New System.Drawing.Size(58, 23)
         Me.DeleteButton.TabIndex = 11
-        Me.DeleteButton.Text = Global.Outworldz.My.Resources.Resources.Delete_word
+        Me.DeleteButton.Text = Global.Outworldz.My.Resources.Delete_word
         Me.DeleteButton.UseVisualStyleBackColor = True
         '
         'EnabledCheckBox
@@ -820,7 +820,7 @@ Partial Class FormRegion
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
         Me.EnabledCheckBox.Size = New System.Drawing.Size(65, 17)
         Me.EnabledCheckBox.TabIndex = 2
-        Me.EnabledCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
+        Me.EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
         Me.EnabledCheckBox.UseVisualStyleBackColor = True
         '
         'GroupBox6
@@ -861,7 +861,7 @@ Partial Class FormRegion
         Me.ScriptDefaultButton.Size = New System.Drawing.Size(81, 17)
         Me.ScriptDefaultButton.TabIndex = 1858
         Me.ScriptDefaultButton.TabStop = True
-        Me.ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
+        Me.ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
         Me.ScriptDefaultButton.UseVisualStyleBackColor = True
         '
         'XEngineButton
@@ -932,7 +932,7 @@ Partial Class FormRegion
         Me.Publish.Size = New System.Drawing.Size(175, 17)
         Me.Publish.TabIndex = 1881
         Me.Publish.TabStop = True
-        Me.Publish.Text = Global.Outworldz.My.Resources.Resources.Publish_Items
+        Me.Publish.Text = Global.Outworldz.My.Resources.Publish_Items
         Me.Publish.UseVisualStyleBackColor = True
         '
         'NoPublish
@@ -943,7 +943,7 @@ Partial Class FormRegion
         Me.NoPublish.Size = New System.Drawing.Size(144, 17)
         Me.NoPublish.TabIndex = 1880
         Me.NoPublish.TabStop = True
-        Me.NoPublish.Text = Global.Outworldz.My.Resources.Resources.No_Publish_Items
+        Me.NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
         Me.NoPublish.UseVisualStyleBackColor = True
         '
         'PublishDefault
@@ -954,7 +954,7 @@ Partial Class FormRegion
         Me.PublishDefault.Size = New System.Drawing.Size(81, 17)
         Me.PublishDefault.TabIndex = 1879
         Me.PublishDefault.TabStop = True
-        Me.PublishDefault.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
+        Me.PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
         Me.PublishDefault.UseVisualStyleBackColor = True
         '
         'GroupBox4
@@ -978,7 +978,7 @@ Partial Class FormRegion
         Me.Gods_Use_Default.Name = "Gods_Use_Default"
         Me.Gods_Use_Default.Size = New System.Drawing.Size(82, 17)
         Me.Gods_Use_Default.TabIndex = 1859
-        Me.Gods_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
+        Me.Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         Me.Gods_Use_Default.UseVisualStyleBackColor = True
         '
         'MapBox
@@ -1005,7 +1005,7 @@ Partial Class FormRegion
         Me.Maps_Use_Default.Size = New System.Drawing.Size(81, 17)
         Me.Maps_Use_Default.TabIndex = 1858
         Me.Maps_Use_Default.TabStop = True
-        Me.Maps_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
+        Me.Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         Me.Maps_Use_Default.UseVisualStyleBackColor = True
         '
         'MapPicture
@@ -1026,7 +1026,7 @@ Partial Class FormRegion
         Me.MapNone.Size = New System.Drawing.Size(51, 17)
         Me.MapNone.TabIndex = 7
         Me.MapNone.TabStop = True
-        Me.MapNone.Text = Global.Outworldz.My.Resources.Resources.None
+        Me.MapNone.Text = Global.Outworldz.My.Resources.None
         Me.MapNone.UseVisualStyleBackColor = True
         '
         'MapSimple
@@ -1037,7 +1037,7 @@ Partial Class FormRegion
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
-        Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast_word
+        Me.MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         Me.MapSimple.UseVisualStyleBackColor = True
         '
         'MapBetter
@@ -1048,7 +1048,7 @@ Partial Class FormRegion
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
-        Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better_Prims
+        Me.MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         Me.MapBetter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.MapBetter.UseVisualStyleBackColor = True
         '
@@ -1060,7 +1060,7 @@ Partial Class FormRegion
         Me.MapBest.Size = New System.Drawing.Size(171, 17)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
-        Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best_Prims
+        Me.MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         Me.MapBest.UseVisualStyleBackColor = True
         '
         'MapGood
@@ -1071,7 +1071,7 @@ Partial Class FormRegion
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
-        Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
+        Me.MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
         'GroupBox5
@@ -1088,7 +1088,7 @@ Partial Class FormRegion
         Me.DeregisterButton.Name = "DeregisterButton"
         Me.DeregisterButton.Size = New System.Drawing.Size(75, 23)
         Me.DeregisterButton.TabIndex = 1880
-        Me.DeregisterButton.Text = Global.Outworldz.My.Resources.Resources.Deregister_word
+        Me.DeregisterButton.Text = Global.Outworldz.My.Resources.Deregister_word
         Me.DeregisterButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -1104,10 +1104,10 @@ Partial Class FormRegion
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormRegion
         '

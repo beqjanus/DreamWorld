@@ -79,7 +79,7 @@ Partial Class FormInitialSetup
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(87, 23)
         Me.SaveButton.TabIndex = 5
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'Label1
@@ -102,7 +102,7 @@ Partial Class FormInitialSetup
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.document_view
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.document_view
         Me.PictureBox1.Location = New System.Drawing.Point(169, 71)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.PictureBox1.Name = "PictureBox1"

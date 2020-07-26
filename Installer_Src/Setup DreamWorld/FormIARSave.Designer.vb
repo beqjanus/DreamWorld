@@ -50,7 +50,7 @@ Partial Class FormIARSave
         Me.AviName.Name = "AviName"
         Me.AviName.Size = New System.Drawing.Size(179, 20)
         Me.AviName.TabIndex = 14
-        Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
+        Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Avatar_First_and_Last_Name_word)
         '
         'BackupNameTextBox
         '
@@ -67,7 +67,7 @@ Partial Class FormIARSave
         Me.ObjectNameBox.Size = New System.Drawing.Size(210, 20)
         Me.ObjectNameBox.TabIndex = 12
         Me.ObjectNameBox.Text = "/"
-        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
+        Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Enter_Name)
         '
         'GroupBox1
         '
@@ -95,7 +95,7 @@ Partial Class FormIARSave
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(107, 23)
         Me.Button2.TabIndex = 22
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
+        Me.Button2.Text = Global.Outworldz.My.Resources.Cancel_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
@@ -104,12 +104,12 @@ Partial Class FormIARSave
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(108, 23)
         Me.Button1.TabIndex = 21
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_IAR_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Save_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.folder
         Me.PictureBox1.Location = New System.Drawing.Point(190, 51)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(25, 22)
@@ -175,17 +175,17 @@ Partial Class FormIARSave
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormIARSave
         '

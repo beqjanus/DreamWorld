@@ -69,7 +69,7 @@ Partial Class FormAutoBackups
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(302, 165)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
@@ -77,11 +77,11 @@ Partial Class FormAutoBackups
         Me.PictureBox1.Size = New System.Drawing.Size(46, 34)
         Me.PictureBox1.TabIndex = 1858
         Me.PictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Resources.Click_to_change_the_folder)
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Click_to_change_the_folder)
         '
         'AutoBackupHelp
         '
-        Me.AutoBackupHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.AutoBackupHelp.Image = Global.Outworldz.My.Resources.about
         Me.AutoBackupHelp.Location = New System.Drawing.Point(307, 76)
         Me.AutoBackupHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.AutoBackupHelp.Name = "AutoBackupHelp"
@@ -106,7 +106,7 @@ Partial Class FormAutoBackups
         Me.BaseFolder.Name = "BaseFolder"
         Me.BaseFolder.Size = New System.Drawing.Size(334, 26)
         Me.BaseFolder.TabIndex = 4
-        Me.ToolTip1.SetToolTip(Me.BaseFolder, Global.Outworldz.My.Resources.Resources.Normally_Set)
+        Me.ToolTip1.SetToolTip(Me.BaseFolder, Global.Outworldz.My.Resources.Normally_Set)
         '
         'Label9
         '
@@ -125,7 +125,7 @@ Partial Class FormAutoBackups
         Me.AutoBackupKeepFilesForDays.Name = "AutoBackupKeepFilesForDays"
         Me.AutoBackupKeepFilesForDays.Size = New System.Drawing.Size(68, 26)
         Me.AutoBackupKeepFilesForDays.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.AutoBackupKeepFilesForDays, Global.Outworldz.My.Resources.Resources.How_Long)
+        Me.ToolTip1.SetToolTip(Me.AutoBackupKeepFilesForDays, Global.Outworldz.My.Resources.How_Long)
         '
         'Label8
         '
@@ -147,7 +147,7 @@ Partial Class FormAutoBackups
         Me.AutoBackupInterval.Name = "AutoBackupInterval"
         Me.AutoBackupInterval.Size = New System.Drawing.Size(180, 28)
         Me.AutoBackupInterval.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.AutoBackupInterval, Global.Outworldz.My.Resources.Resources.How_Long_runs)
+        Me.ToolTip1.SetToolTip(Me.AutoBackupInterval, Global.Outworldz.My.Resources.How_Long_runs)
         '
         'AutoBackup
         '
@@ -157,8 +157,8 @@ Partial Class FormAutoBackups
         Me.AutoBackup.Name = "AutoBackup"
         Me.AutoBackup.Size = New System.Drawing.Size(94, 24)
         Me.AutoBackup.TabIndex = 1
-        Me.AutoBackup.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
-        Me.ToolTip1.SetToolTip(Me.AutoBackup, Global.Outworldz.My.Resources.Resources.If_Enabled_Save_Oars)
+        Me.AutoBackup.Text = Global.Outworldz.My.Resources.Enabled_word
+        Me.ToolTip1.SetToolTip(Me.AutoBackup, Global.Outworldz.My.Resources.If_Enabled_Save_Oars)
         Me.AutoBackup.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -175,39 +175,39 @@ Partial Class FormAutoBackups
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ServerTypeToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'ServerTypeToolStripMenuItem
         '
-        Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.ServerTypeToolStripMenuItem.Name = "ServerTypeToolStripMenuItem"
         Me.ServerTypeToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'BackupToolStripMenuItem
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
-        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(105, 29)
-        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
         '
         'FullSQLBackupToolStripMenuItem
         '
-        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(252, 34)
-        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data_Files_word
+        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
         '
         'DataOnlyToolStripMenuItem
         '
-        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(252, 34)
-        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_SQL_file_word
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_SQL_file_word
         '
         'FormAutoBackups
         '

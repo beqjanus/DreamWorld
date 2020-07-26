@@ -60,7 +60,7 @@ Partial Class FormVoice
         '
         'RunOnBoot
         '
-        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.about
         Me.RunOnBoot.Location = New System.Drawing.Point(408, 19)
         Me.RunOnBoot.Margin = New System.Windows.Forms.Padding(4)
         Me.RunOnBoot.Name = "RunOnBoot"
@@ -75,7 +75,7 @@ Partial Class FormVoice
         Me.RequestPassword.Name = "RequestPassword"
         Me.RequestPassword.Size = New System.Drawing.Size(371, 34)
         Me.RequestPassword.TabIndex = 0
-        Me.RequestPassword.Text = Global.Outworldz.My.Resources.Resources.Click_to_Request_Voice_Service
+        Me.RequestPassword.Text = Global.Outworldz.My.Resources.Click_to_Request_Voice_Service
         Me.RequestPassword.UseVisualStyleBackColor = True
         '
         'Label2
@@ -106,7 +106,7 @@ Partial Class FormVoice
         Me.VivoxEnable.Name = "VivoxEnable"
         Me.VivoxEnable.Size = New System.Drawing.Size(85, 24)
         Me.VivoxEnable.TabIndex = 1
-        Me.VivoxEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.VivoxEnable.Text = Global.Outworldz.My.Resources.Enable_word
         Me.VivoxEnable.UseVisualStyleBackColor = True
         '
         'VivoxPassword
@@ -140,17 +140,17 @@ Partial Class FormVoice
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormVoice
         '

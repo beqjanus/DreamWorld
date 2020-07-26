@@ -69,11 +69,11 @@ Partial Class Tides
         Me.GroupBox1.Size = New System.Drawing.Size(283, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Global_Tide_Settings_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Global_Tide_Settings_word
         '
         'RunOnBoot
         '
-        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.about
         Me.RunOnBoot.Location = New System.Drawing.Point(203, 59)
         Me.RunOnBoot.Name = "RunOnBoot"
         Me.RunOnBoot.Size = New System.Drawing.Size(30, 34)
@@ -87,8 +87,8 @@ Partial Class Tides
         Me.TideInfoDebugCheckBox.Name = "TideInfoDebugCheckBox"
         Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(164, 17)
         Me.TideInfoDebugCheckBox.TabIndex = 7
-        Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Resources.Send_Debug_Info
-        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Resources.Provide_Info)
+        Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Send_Debug_Info
+        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Provide_Info)
         Me.TideInfoDebugCheckBox.UseVisualStyleBackColor = True
         '
         'BroadcastTideInfo
@@ -98,8 +98,8 @@ Partial Class Tides
         Me.BroadcastTideInfo.Name = "BroadcastTideInfo"
         Me.BroadcastTideInfo.Size = New System.Drawing.Size(119, 17)
         Me.BroadcastTideInfo.TabIndex = 4
-        Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
-        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Chat)
+        Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Broadcast_Tide_Info
+        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Broadcast_Tide_Chat)
         Me.BroadcastTideInfo.UseVisualStyleBackColor = True
         '
         'Label5
@@ -109,7 +109,7 @@ Partial Class Tides
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(100, 13)
         Me.Label5.TabIndex = 10
-        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Tide_Hi_Lo_Channel_word
+        Me.Label5.Text = Global.Outworldz.My.Resources.Tide_Hi_Lo_Channel_word
         '
         'TideHiLoChannelTextBox
         '
@@ -125,7 +125,7 @@ Partial Class Tides
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(91, 13)
         Me.Label4.TabIndex = 8
-        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Tide_Info_Channel_word
+        Me.Label4.Text = Global.Outworldz.My.Resources.Tide_Info_Channel_word
         '
         'TideInfoChannelTextBox
         '
@@ -141,7 +141,7 @@ Partial Class Tides
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Cycle_Time_in_seconds
+        Me.Label3.Text = Global.Outworldz.My.Resources.Cycle_Time_in_seconds
         '
         'CycleTimeTextBox
         '
@@ -149,7 +149,7 @@ Partial Class Tides
         Me.CycleTimeTextBox.Name = "CycleTimeTextBox"
         Me.CycleTimeTextBox.Size = New System.Drawing.Size(48, 20)
         Me.CycleTimeTextBox.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Resources.Cycle_time_text)
+        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Cycle_time_text)
         '
         'Label2
         '
@@ -158,7 +158,7 @@ Partial Class Tides
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(88, 13)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Low_Water_Level
+        Me.Label2.Text = Global.Outworldz.My.Resources.Low_Water_Level
         '
         'TideLowLevelTextBox
         '
@@ -166,7 +166,7 @@ Partial Class Tides
         Me.TideLowLevelTextBox.Name = "TideLowLevelTextBox"
         Me.TideLowLevelTextBox.Size = New System.Drawing.Size(48, 20)
         Me.TideLowLevelTextBox.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Resources.Low_High)
+        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Low_High)
         '
         'Label1
         '
@@ -175,7 +175,7 @@ Partial Class Tides
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.High_Water_Level
+        Me.Label1.Text = Global.Outworldz.My.Resources.High_Water_Level
         '
         'TideHighLevelTextBox
         '
@@ -183,7 +183,7 @@ Partial Class Tides
         Me.TideHighLevelTextBox.Name = "TideHighLevelTextBox"
         Me.TideHighLevelTextBox.Size = New System.Drawing.Size(48, 20)
         Me.TideHighLevelTextBox.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.Resources.High_Water_Level_text)
+        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.High_Water_Level_text)
         '
         'TideEnabledCheckbox
         '
@@ -192,13 +192,13 @@ Partial Class Tides
         Me.TideEnabledCheckbox.Name = "TideEnabledCheckbox"
         Me.TideEnabledCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.TideEnabledCheckbox.TabIndex = 0
-        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         Me.TideEnabledCheckbox.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
-        Me.ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Tide_Enable
+        Me.ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Tide_Enable
         '
         'MenuStrip2
         '
@@ -214,17 +214,17 @@ Partial Class Tides
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'Tides
         '
@@ -238,7 +238,7 @@ Partial Class Tides
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "Tides"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Tides_word
+        Me.Text = Global.Outworldz.My.Resources.Tides_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()
