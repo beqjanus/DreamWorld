@@ -2832,7 +2832,7 @@
     <value>Banned</value>
   </data>
   <data name="Setup_Wordpress" xml:space="preserve">
-    <value>Set Up WordPress database</value>
+    <value>Setup WordPress database</value>
   </data>
   <data name="BanList_string" xml:space="preserve">
     <value>Click to set up Grid, MAC address and IP bans</value>

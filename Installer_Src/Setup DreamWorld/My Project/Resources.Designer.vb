@@ -6910,7 +6910,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Set Up WordPress database.
+        '''  Looks up a localized string similar to Setup WordPress database.
         '''</summary>
         Friend ReadOnly Property Setup_Wordpress() As String
             Get
