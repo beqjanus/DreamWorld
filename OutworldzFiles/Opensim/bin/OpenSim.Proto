@@ -945,7 +945,7 @@ Enabled=True
 
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.0909090909090909
+MinTimerInterval=0.2
 
 [XEngine]
 
@@ -962,7 +962,7 @@ Enabled=False
 ; IdleTimeout = 60
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
 ;; llSetTimerEvent minimum value. Default 0.5s, 0.05s whould be more reasonable
-MinTimerInterval=0.0909090909090909
+MinTimerInterval=0.2
 
 ;# {Priority} {Enabled:true} {Priority for script engine threads?} {Lowest BelowNormal Normal AboveNormal Highest} BelowNormal
 ;; Thread priority ("Lowest", "BelowNormal", "Normal", "AboveNormal",
