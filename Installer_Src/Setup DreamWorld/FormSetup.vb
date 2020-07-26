@@ -990,7 +990,8 @@ Public Class Form1
         Dim files As New List(Of String) From {
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addins"
+        "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
+        "\Outworldzfiles\Opensim\bin\addin-db-002" ' must be cleared or opensim updates can break.
         }
 
         If PropKillSource Then
@@ -1004,7 +1005,6 @@ Public Class Form1
 
         End If
 
-        files.Add("Outworldzfiles\Opensim\addin-db-2")
         KillFolder(files)   ' wipe these folders out
         files.Clear() ' now do a list of files to clean up
 
@@ -2771,6 +2771,8 @@ Public Class Form1
 
         LoadHelp()        ' Help loads once
 
+        KillOldFiles()  ' wipe out DLL's and other oddities
+
         Print(My.Resources.RefreshingOAR)
         Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
@@ -3795,7 +3797,7 @@ Public Class Form1
 
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> SimVersion Then
-            KillOldFiles()  ' wipe out DLL's
+
             ClrCache.WipeScripts()
             Settings.DeleteScriptsOnStartupLevel() = SimVersion ' we have scripts cleared to proper Opensim Version
             Settings.SaveSettings()
