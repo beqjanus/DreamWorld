@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.59";
+my $v = "3.591";
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
@@ -49,8 +49,7 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/ScriptEngines",
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
-	"$dir/OutworldzFiles/Opensim/bin/bakes",
-	"$dir/OutworldzFiles/Opensim/bin/addin-db-002",
+	"$dir/OutworldzFiles/Opensim/bin/bakes",	
 	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
 	"$dir/OutworldzFiles/Apache/logs/",
 );
@@ -188,7 +187,7 @@ say("Drop mysql files from update");
 DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addin-db-002');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/share');

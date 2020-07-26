@@ -38,9 +38,9 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.59"
-    Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-09)"
-    Private _SearchRev = 4  ' the rev of the Search Table
+    Private _MyVersion As String = "3.591"
+    Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-22 15:55"
+    Private _SearchRev = 5  ' the rev of the Search Table
 
 #End Region
 
@@ -902,7 +902,7 @@ Public Class Form1
 
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
-                Application.DoEvents()
+
             Next
 #Disable Warning CA1031
         Catch ex As Exception
@@ -2391,6 +2391,7 @@ Public Class Form1
         DoOpensimINI()
         DoGloebits()
         DoBirds()
+        DoTides()
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
@@ -2719,7 +2720,7 @@ Public Class Form1
         Application.DoEvents()
         SetLoopback()
         Application.DoEvents()
-        LoadLocalIAROAR() ' refresh the pulldowns.
+        LoadLocalIAROAR() ' refresh the pull downs.
         Application.DoEvents()
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
@@ -6794,15 +6795,19 @@ Public Class Form1
             Return
         End If
 
-        If PropAborting Then Return
+        If PropAborting Then
+            Timer1.Stop()
+            TimerBusy = 0
+            Return
+        End If
 
         ' print hourly marks on console
         If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
 
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
-
             Print(dt & " " & My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & My.Resources.Hours_word)
+
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then

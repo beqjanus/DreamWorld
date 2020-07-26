@@ -1,6 +1,5 @@
 .project
 .settings
-.gitignore
 *.csproj
 *.csproj.user
 *.build
