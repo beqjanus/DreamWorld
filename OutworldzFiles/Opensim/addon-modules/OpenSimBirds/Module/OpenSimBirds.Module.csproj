@@ -23,7 +23,7 @@
 	  </FileUpgradeFlags>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	  <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	  <BaseAddress>285212672</BaseAddress>
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
@@ -44,7 +44,7 @@
 	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	  <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	  <BaseAddress>285212672</BaseAddress>
 	  <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
 	  <ConfigurationOverrideFile>
@@ -89,22 +89,6 @@
 		  <Name>OpenMetaverseTypes</Name>
 		<Private>False</Private>
 	  </Reference>
-	  <Reference Include="OpenSim.Framework" >
-		  <Name>OpenSim.Framework</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="OpenSim.Framework.Console" >
-		  <Name>OpenSim.Framework.Console</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="OpenSim.Region.Framework" >
-		  <Name>OpenSim.Region.Framework</Name>
-		<Private>False</Private>
-	  </Reference>
-	  <Reference Include="OpenSim.Region.ScriptEngine.Shared" >
-		  <Name>OpenSim.Region.ScriptEngine.Shared</Name>
-		<Private>False</Private>
-	  </Reference>
 	  <Reference Include="System" >
 		  <Name>System</Name>
 		<Private>False</Private>
@@ -115,6 +99,30 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\OpenSim\Framework\OpenSim.Framework.csproj">
+		<Name>OpenSim.Framework</Name>
+		<Project>{BCCDBB55-0000-0000-0000-000000000000}</Project>
+		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+		<Private>False</Private>
+	  </ProjectReference>
+	  <ProjectReference Include="..\..\..\OpenSim\Framework\Console\OpenSim.Framework.Console.csproj">
+		<Name>OpenSim.Framework.Console</Name>
+		<Project>{0ED8EBE8-0000-0000-0000-000000000000}</Project>
+		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+		<Private>False</Private>
+	  </ProjectReference>
+	  <ProjectReference Include="..\..\..\OpenSim\Region\Framework\OpenSim.Region.Framework.csproj">
+		<Name>OpenSim.Region.Framework</Name>
+		<Project>{C98F6D97-0000-0000-0000-000000000000}</Project>
+		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+		<Private>False</Private>
+	  </ProjectReference>
+	  <ProjectReference Include="..\..\..\OpenSim\Region\ScriptEngine\Shared\OpenSim.Region.ScriptEngine.Shared.csproj">
+		<Name>OpenSim.Region.ScriptEngine.Shared</Name>
+		<Project>{F93F91AD-0000-0000-0000-000000000000}</Project>
+		<Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+		<Private>False</Private>
+	  </ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Include="BirdsModule\Birds.cs">
@@ -133,6 +141,18 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="BirdsModule\FlowMap.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Debug\.NETFramework,Version=v4.6.AssemblyAttributes.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs">
 		<SubType>Code</SubType>
 	  </Compile>
   </ItemGroup>

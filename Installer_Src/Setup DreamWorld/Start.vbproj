@@ -213,8 +213,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClrCache.vb" />
-    <Compile Include="Crashdetector.vb" />
     <Compile Include="Dump.vb" />
+    <Compile Include="Events.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">
@@ -227,6 +227,12 @@
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
     </Compile>
     <Compile Include="FormBackupCheckboxes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBanList.Designer.vb">
+      <DependentUpon>FormBanList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormBanList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormCaches.designer.vb">
@@ -411,6 +417,7 @@
     </Compile>
     <Compile Include="GlobalAspects.vb" />
     <Compile Include="ExitHandler.vb" />
+    <Compile Include="GlobalSettings.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="IP.vb" />
@@ -483,6 +490,9 @@
     <EmbeddedResource Include="FormBackupCheckboxes.resx">
       <DependentUpon>FormBackupCheckboxes.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBanList.resx">
+      <DependentUpon>FormBanList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaches.resx">
       <DependentUpon>FormCaches.vb</DependentUpon>

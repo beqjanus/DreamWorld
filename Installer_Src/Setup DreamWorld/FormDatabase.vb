@@ -108,18 +108,18 @@ Public Class FormDatabase
 
         'Database
 
-        RegionDbName.Text = Form1.Settings.RegionDBName
-        RegionDBUsername.Text = Form1.Settings.RegionDBUsername
-        RegionMySqlPassword.Text = Form1.Settings.RegionDbPassword
-        RegionServer.Text = Form1.Settings.RegionServer
-        MysqlRegionPort.Text = CStr(Form1.Settings.MySqlRegionDBPort)
+        RegionDbName.Text = Settings.RegionDBName
+        RegionDBUsername.Text = Settings.RegionDBUsername
+        RegionMySqlPassword.Text = Settings.RegionDbPassword
+        RegionServer.Text = Settings.RegionServer
+        MysqlRegionPort.Text = CStr(Settings.MySqlRegionDBPort)
 
         ' Robust DB
-        RobustServer.Text = Form1.Settings.RobustServer
-        RobustDbName.Text = Form1.Settings.RobustDataBaseName
-        RobustDBPassword.Text = Form1.Settings.RobustPassword
-        RobustDBUsername.Text = Form1.Settings.RobustUsername
-        RobustDbPort.Text = Form1.Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
+        RobustServer.Text = Settings.RobustServer
+        RobustDbName.Text = Settings.RobustDataBaseName
+        RobustDBPassword.Text = Settings.RobustPassword
+        RobustDBUsername.Text = Settings.RobustUsername
+        RobustDbPort.Text = Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
         RobustDBPassword.UseSystemPasswordChar = True
 
         SetScreen()
@@ -134,7 +134,7 @@ Public Class FormDatabase
 
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
     End Sub
@@ -152,8 +152,8 @@ Public Class FormDatabase
     Private Sub DatabaseNameUser_TextChanged(sender As Object, e As EventArgs) Handles RegionDbName.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RegionDBName = RegionDbName.Text
-        Form1.Settings.SaveSettings()
+        Settings.RegionDBName = RegionDbName.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -166,15 +166,15 @@ Public Class FormDatabase
     Private Sub DbPassword_TextChanged(sender As Object, e As EventArgs) Handles RegionMySqlPassword.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RegionDbPassword = RegionMySqlPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.RegionDbPassword = RegionMySqlPassword.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub DbUsername_TextChanged(sender As Object, e As EventArgs) Handles RegionDBUsername.TextChanged
         If Not Initted1 Then Return
-        Form1.Settings.RegionDBUsername = RegionDBUsername.Text
-        Form1.Settings.SaveSettings()
+        Settings.RegionDBUsername = RegionDBUsername.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -183,8 +183,8 @@ Public Class FormDatabase
         If Not Initted1 Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         RobustDbPort.Text = digitsOnly.Replace(RobustDbPort.Text, "")
-        Form1.Settings.MySqlRobustDBPort = CInt(RobustDbPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.MySqlRobustDBPort = CInt("0" & RobustDbPort.Text)
+        Settings.SaveSettings()
 
     End Sub
 
@@ -197,39 +197,39 @@ Public Class FormDatabase
     Private Sub RobustPasswordTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBPassword.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RobustPassword = RobustDBPassword.Text
-        Form1.Settings.SaveSettings()
+        Settings.RobustPassword = RobustDBPassword.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RobustServer = RobustServer.Text
-        Form1.Settings.SaveSettings()
+        Settings.RobustServer = RobustServer.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub RobustUsernameTextBox_TextChanged(sender As Object, e As EventArgs) Handles RobustDBUsername.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RobustUsername = RobustDBUsername.Text
-        Form1.Settings.SaveSettings()
+        Settings.RobustUsername = RobustDBUsername.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RegionServer.TextChanged
 
         If Not Initted1 Then Return
-        Form1.Settings.RegionServer = RegionServer.Text
-        Form1.Settings.SaveSettings()
+        Settings.RegionServer = RegionServer.Text
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles RobustDbName.TextChanged
         If Not Initted1 Then Return
-        Form1.Settings.RobustDataBaseName = RobustDbName.Text
-        Form1.Settings.SaveSettings()
+        Settings.RobustDataBaseName = RobustDbName.Text
+        Settings.SaveSettings()
 
     End Sub
 
@@ -239,8 +239,8 @@ Public Class FormDatabase
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MysqlRegionPort.Text = digitsOnly.Replace(MysqlRegionPort.Text, "")
 
-        Form1.Settings.MySqlRegionDBPort = CInt(MysqlRegionPort.Text)
-        Form1.Settings.SaveSettings()
+        Settings.MySqlRegionDBPort = CInt("0" & MysqlRegionPort.Text)
+        Settings.SaveSettings()
 
     End Sub
 

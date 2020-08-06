@@ -131,7 +131,6 @@ Public Class FormRegion
         Dim chosen As String
         Chooseform.ShowDialog()
 
-
         Try
             ' Read the chosen sim name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
@@ -154,7 +153,7 @@ Public Class FormRegion
         '!!! remove for production
         If Debugger.IsAttached = False Then
             SmartStartCheckBox.Enabled = False
-            Form1.Settings.SmartStart = False
+            Settings.SmartStart = False
         End If
 
         Me.Focus()
@@ -163,7 +162,6 @@ Public Class FormRegion
         Name = Name.Trim() ' remove spaces
 
         Form1.PropRegionClass = RegionMaker.Instance()
-
 
         ' NEW REGION
         If Name.Length = 0 Then
@@ -475,11 +473,10 @@ Public Class FormRegion
 
     End Sub
 
-
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " has birds enabled")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " has birds enabled")
         End If
         If Initted1 Then Changed1 = True
 
@@ -489,7 +486,7 @@ Public Class FormRegion
 
         Dim message = RegionValidate()
         If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
+            Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
             If v = vbYes Then
                 Me.Close()
             End If
@@ -497,6 +494,7 @@ Public Class FormRegion
             Form1.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
             RegionMaker.CopyOpensimProto(RegionName.Text)
+            Firewall.SetFirewall()
             Form1.PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
@@ -514,18 +512,18 @@ Public Class FormRegion
 
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
-                If Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
+                If Form1.CheckPort(Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) Then
                     Form1.SequentialPause()
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While Form1.CheckPort(Form1.Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+                While Form1.CheckPort(Settings.PrivateURL, Form1.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                     Form1.Sleep(1000)
                     loopctr -= 1
                 End While
 
                 If loopctr > 0 Then
-                    Form1.ConsoleCommand("Robust", "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
+                    Form1.ConsoleCommand(RobustName(), "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
                     Form1.Print(My.Resources.Region_Removed)
                 End If
             End If
@@ -570,7 +568,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info)
+        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info_word)
         If msg = vbYes Then
             FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
@@ -610,14 +608,14 @@ Public Class FormRegion
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info)
+                    v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
                     If v = vbYes Then
                         Me.Close()
                     End If
                 Else
                     WriteRegion(RegionUUID)
                     RegionMaker.CopyOpensimProto(RegionName.Text)
-
+                    Firewall.SetFirewall()
                     Form1.PropUpdateView() = True
                     Changed1 = False
                 End If
@@ -628,19 +626,16 @@ Public Class FormRegion
 
 #End Region
 
-
-
 #Region "Private Methods"
 
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
         Form1.Help("Permissions")
     End Sub
 
-
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         If MapBest.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Best")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Best")
             MapPicture.Image = My.Resources.Best
         End If
         If Initted1 Then Changed1 = True
@@ -650,7 +645,7 @@ Public Class FormRegion
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         If MapBetter.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Better")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Better")
             MapPicture.Image = My.Resources.Better
         End If
         If Initted1 Then Changed1 = True
@@ -660,7 +655,7 @@ Public Class FormRegion
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         If MapGood.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Good")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Good")
             MapPicture.Image = My.Resources.Good
         End If
         If Initted1 Then Changed1 = True
@@ -676,7 +671,7 @@ Public Class FormRegion
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to None")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to None")
             MapPicture.Image = My.Resources.blankbox
         End If
         If Initted1 Then Changed1 = True
@@ -686,23 +681,23 @@ Public Class FormRegion
     Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
 
         If Maps_Use_Default.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Default")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Default")
             MapNone.Checked = False
             MapSimple.Checked = False
             MapGood.Checked = False
             MapBetter.Checked = False
             MapBest.Checked = False
 
-            If Form1.Settings.MapType = "None" Then
+            If Settings.MapType = "None" Then
                 MapPicture.Image = My.Resources.blankbox
-            ElseIf Form1.Settings.MapType = "Simple" Then
+            ElseIf Settings.MapType = "Simple" Then
                 MapPicture.Image = My.Resources.Simple
-            ElseIf Form1.Settings.MapType = "Good" Then
+            ElseIf Settings.MapType = "Good" Then
                 MapPicture.Image = My.Resources.Good
-            ElseIf Form1.Settings.MapType = "Better" Then
+            ElseIf Settings.MapType = "Better" Then
                 MapPicture.Image = My.Resources.Better
-            ElseIf Form1.Settings.MapType = "Best" Then
-                Form1.Settings.MapType = "Best"
+            ElseIf Settings.MapType = "Best" Then
+                Settings.MapType = "Best"
             End If
         End If
 
@@ -713,7 +708,7 @@ Public Class FormRegion
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         If MapSimple.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Map Is set to Simple")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Simple")
             MapPicture.Image = My.Resources.Simple
         End If
         If Initted1 Then Changed1 = True
@@ -739,7 +734,7 @@ Public Class FormRegion
     Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
 
         If NoPublish.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not set to publish snapshots")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is Not set to publish snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -756,7 +751,7 @@ Public Class FormRegion
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to default")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to default")
             PhysicsubODE.Checked = False
             PhysicsSeparate.Checked = False
         End If
@@ -768,7 +763,7 @@ Public Class FormRegion
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
 
         If PhysicsSeparate.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Bullet in a Thread")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to Bullet in a Thread")
         End If
         If Initted1 Then Changed1 = True
 
@@ -777,7 +772,7 @@ Public Class FormRegion
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
 
         If PhysicsubODE.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Physics Is set to Ubit's ODE")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to Ubit's ODE")
         End If
         If Initted1 Then Changed1 = True
 
@@ -786,9 +781,9 @@ Public Class FormRegion
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
         If Publish.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " is publishing snapshots")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is publishing snapshots")
         Else
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not publishing snapshots")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not publishing snapshots")
         End If
         If Initted1 Then Changed1 = True
 
@@ -797,12 +792,11 @@ Public Class FormRegion
     Private Sub PublishDefault_CheckedChanged(sender As Object, e As EventArgs) Handles PublishDefault.CheckedChanged
 
         If PublishDefault.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " is set to default for snapshots")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is set to default for snapshots")
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
-
 
     Private Function RegionValidate() As String
 
@@ -899,7 +893,7 @@ Public Class FormRegion
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info)
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info_word)
                 Return
             End If
 
@@ -924,7 +918,7 @@ Public Class FormRegion
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
         If SmartStartCheckBox.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " has Smart Start enabled")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " has Smart Start enabled")
         End If
         If Initted1 Then Changed1 = True
 
@@ -945,20 +939,22 @@ Public Class FormRegion
     Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
 
         If TidesCheckbox.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " has tides enabled")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " has tides enabled")
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+
         Form1.Help("Region")
+
     End Sub
 
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " has Teleport Board enabled")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " has Teleport Board enabled")
         End If
         If Initted1 Then Changed1 = True
 
@@ -967,13 +963,13 @@ Public Class FormRegion
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
         If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, My.Resources.Info)
+            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, My.Resources.Info_word)
             If resp = vbYes Then
                 Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, My.Resources.Info)
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, My.Resources.Info_word)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
                     End If
@@ -1109,7 +1105,7 @@ Public Class FormRegion
             Form1.PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
         End If
 
-        Dim Host = Form1.Settings.ExternalHostName
+        Dim Host = Settings.ExternalHostName
 
         If DisallowForeigners.Checked Then
             Form1.PropRegionClass.DisallowForeigners(RegionUUID) = "True"
@@ -1229,7 +1225,6 @@ Public Class FormRegion
     End Sub
 
 #End Region
-
 
 #Region "Radio"
 
@@ -1385,9 +1380,9 @@ Public Class FormRegion
 
         If RegionGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " is allowing Region Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
         Else
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1398,9 +1393,9 @@ Public Class FormRegion
 
         If AllowGods.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
         Else
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1411,25 +1406,24 @@ Public Class FormRegion
 
         If ManagerGod.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is allowing Manager Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is allowing Manager Gods")
         Else
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is Not allowing Manager Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is Not allowing Manager Gods")
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
-
     Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
 
         If Gods_Use_Default.Checked Then
-            Form1.Log(My.Resources.Info, "Region " + Name + " Is set to default for Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
             Gods_Use_Default.Checked = True
         Else
-            Form1.Log(My.Resources.Info, "Region " + Name + " is not allowing Region Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If
 
         If Initted1 Then Changed1 = True
@@ -1464,7 +1458,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
 
 #End Region
 

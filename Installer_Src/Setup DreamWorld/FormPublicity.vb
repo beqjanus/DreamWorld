@@ -66,8 +66,8 @@ Public Class FormPublicity
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 
         If initted Then
-            Form1.Settings.GDPR() = GDPRCheckBox.Checked
-            Form1.Settings.SaveSettings()
+            Settings.GDPR() = GDPRCheckBox.Checked
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -83,13 +83,13 @@ Public Class FormPublicity
             If i.length > 0 Then category += i & ","
         Next
 
-        Form1.Settings.Categories = category
+        Settings.Categories = category
 
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
-        Form1.Settings.Description = tmp
+        Settings.Description = tmp
 
         Form1.UploadCategory()
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -97,7 +97,7 @@ Public Class FormPublicity
 
         SetScreen()
 
-        GDPRCheckBox.Checked = Form1.Settings.GDPR()
+        GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
@@ -107,11 +107,11 @@ Public Class FormPublicity
 
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
-        Dim tmp = Form1.Settings.Description
+        Dim tmp = Settings.Description
         tmp = tmp.Replace("<br>", vbCrLf)
         DescriptionBox.Text = tmp
 
-        Dim cats = Form1.Settings.Categories.Split(",")
+        Dim cats = Settings.Categories.Split(",")
 
         For Each itemname In cats
             Dim Index = CategoryCheckbox.FindStringExact(itemname)
@@ -164,25 +164,17 @@ Public Class FormPublicity
                 PictureBox9.Image = Nothing
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
 
+                    FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+                    Dim newBitmap = New Bitmap(PictureBox9.Image)
+                    newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    newBitmap.Dispose()
+#Disable Warning CA1031
+                Catch ex As Exception
+#Enable Warning CA1031
+                    Form1.ErrorLog("Save Photo " & ex.Message)
+                    Return
                 End Try
-
-                FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-
-                Using newBitmap = New Bitmap(PictureBox9.Image)
-                    Try
-                        newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
-#Disable Warning CA1031
-                    Catch ex As exception
-#Enable Warning CA1031
-
-                        MsgBox(ex.Message)
-                        Return
-                    End Try
-                End Using
 
                 Form1.UploadPhoto()
 

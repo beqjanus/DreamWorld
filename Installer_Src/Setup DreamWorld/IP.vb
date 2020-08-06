@@ -14,8 +14,8 @@
         Dim Quad1, Quad2 As Integer
 
         Try
-            Quad1 = CInt(CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
-            Quad2 = CInt(CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad1 = CInt("0" & CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad2 = CInt("0" & CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
 #Disable Warning CA1031
         Catch ex As Exception
 #Enable Warning CA1031

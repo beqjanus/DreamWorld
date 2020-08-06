@@ -65,11 +65,6 @@
 	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Reference Include="HttpServer_OpenSim" >
-		  <Name>HttpServer_OpenSim</Name>
-		<HintPath>..\..\..\..\..\bin\HttpServer_OpenSim.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
 	  <Reference Include="log4net" >
 		  <Name>log4net</Name>
 		<HintPath>..\..\..\..\..\bin\log4net.dll</HintPath>

@@ -57,7 +57,7 @@
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         SetScreen()
 
-        Select Case Form1.Settings.ServerType
+        Select Case Settings.ServerType
             Case "Robust"
                 GridServerButton.Checked = True
             Case "Region"
@@ -77,12 +77,12 @@
 
     Private Sub SaveAll()
 
-        Form1.Settings.ServerType = ServerType
-        Form1.Settings.BaseHostName = BaseHostName
-        Form1.Settings.DNSName = DNSName
+        Settings.ServerType = ServerType
+        Settings.BaseHostName = BaseHostName
+        Settings.DNSName = DNSName
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
         Changed = False ' do not trigger the save a second time
 
     End Sub

@@ -84,13 +84,12 @@ Public Class MySettings
             Density() = 0.5
             ConsoleUser() = My.Settings.ConsoleUser
             ConsolePass() = My.Settings.ConsolePass
-            CoordX() = CInt(My.Settings.CoordX)
-            CoordY() = CInt(My.Settings.CoordY)
-
+            CoordX() = CInt("0" & My.Settings.CoordX)
+            CoordY() = CInt("0" & My.Settings.CoordY)
 
             DiagFailed() = My.Settings.DiagFailed
 
-            DiagnosticPort() = CInt(My.Settings.DiagnosticPort)
+            DiagnosticPort() = CInt("0" & My.Settings.DiagnosticPort)
             DNSName() = My.Settings.DnsName
 
             EnableHypergrid() = My.Settings.EnableHypergrid
@@ -104,7 +103,7 @@ Public Class MySettings
             GloebitsMode() = My.Settings.GloebitsMode
             GloebitsEnable() = My.Settings.GloebitsEnable
 
-            HttpPort() = CInt(My.Settings.HttpPort)
+            HttpPort() = CInt("0" & My.Settings.HttpPort)
 
             KeepForDays() = My.Settings.KeepForDays
 
@@ -117,7 +116,7 @@ Public Class MySettings
 
             Password() = My.Settings.Password
             Physics() = My.Settings.Physics
-            PrivatePort() = CInt(My.Settings.PrivatePort)
+            PrivatePort() = CInt("0" & My.Settings.PrivatePort)
             PublicIP() = My.Settings.PublicIP
 
             AllowGridGods() = CType(My.Settings.allow_grid_gods, Boolean)
@@ -186,7 +185,7 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
-        Form1.Log(My.Resources.Info, "Loading INI " & arg)
+        Form1.Log(My.Resources.Info_word, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -211,7 +210,7 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        Form1.Log(My.Resources.Info, My.Resources.Loading_Settings)
+        Form1.Log(My.Resources.Info_word, My.Resources.Loading_Settings)
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
 #Disable Warning CA1031
@@ -234,7 +233,7 @@ Public Class MySettings
         Try
             Data(section)(key) = value ' replace it
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
@@ -249,7 +248,7 @@ Public Class MySettings
         Try
             MyData(section)(key) = value ' replace it
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Form1.ErrorLog(ex.Message)
         End Try
@@ -323,13 +322,13 @@ Public Class MySettings
 
     End Function
 
-    Public Sub SaveINI(encoding As Object)
+    Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        Form1.Log(My.Resources.Info, "Save INI " & INI)
+        Form1.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
@@ -338,11 +337,11 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        Form1.Log(My.Resources.Info, "Save Settings " & myINI)
+        Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
@@ -381,7 +380,7 @@ Public Class MySettings
     Public Property AdminEmail() As String
         Get
             Dim mail As String = GetMySetting("AdminEmail")
-            If mail.length = 0 Then mail = "not@set.yet"
+            If mail.Length = 0 Then mail = "not@set.yet"
             Return CType(mail, String)
         End Get
         Set
@@ -467,6 +466,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("AutoRestartEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property FirstXMLRegionPort() As Integer
+        Get
+            Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
+        End Get
+        Set
+            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1500,7 +1508,7 @@ Public Class MySettings
 
     Public Property ScriptEngine() As String
         Get
-            Return CType(GetMySetting("ScriptEngine", "XEngine"), String)
+            Return CType(GetMySetting("ScriptEngine", "YEngine"), String)
         End Get
         Set
             SetMySetting("ScriptEngine", Value)
@@ -1637,7 +1645,7 @@ Public Class MySettings
 
     Public Property SmtpPort() As Integer
         Get
-            Return CInt(GetMySetting("SmtpPort", "587"))
+            Return CInt("0" & GetMySetting("SmtpPort", "587"))
         End Get
         Set
             SetMySetting("SmtpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

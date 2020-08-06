@@ -235,8 +235,8 @@ Public Class FormDisplacement
                     PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.None
                 End If
 
-                PictureBox.ErrorImage = Global.Outworldz.My.Resources.Resources.water
-                PictureBox.InitialImage = Global.Outworldz.My.Resources.Resources.water
+                PictureBox.ErrorImage = Global.Outworldz.My.Resources.water
+                PictureBox.InitialImage = Global.Outworldz.My.Resources.water
 
                 If map Then
                     ' make an image of the region with X,Y text on it.

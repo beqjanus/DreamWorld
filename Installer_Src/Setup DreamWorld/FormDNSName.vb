@@ -68,10 +68,10 @@ Public Class FormDNSName
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
         Me.Text = My.Resources.Dynamic_DNS_word
-        DNSNameBox.Text = Form1.Settings.DNSName
-        UniqueId.Text = Form1.Settings.MachineID()
-        EnableHypergrid.Checked = Form1.Settings.EnableHypergrid
-        SuitcaseCheckbox.Checked = Form1.Settings.Suitcase
+        DNSNameBox.Text = Settings.DNSName
+        UniqueId.Text = Settings.MachineID()
+        EnableHypergrid.Checked = Settings.EnableHypergrid
+        SuitcaseCheckbox.Checked = Settings.Suitcase
         NextNameButton.Enabled = True
 
         Form1.HelpOnce("DNS")
@@ -102,7 +102,7 @@ Public Class FormDNSName
     Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.EnableHypergrid = EnableHypergrid.Checked
+        Settings.EnableHypergrid = EnableHypergrid.Checked
         changed = True
 
     End Sub
@@ -119,7 +119,7 @@ Public Class FormDNSName
         Dim newname = Form1.GetNewDnsName()
         NextNameButton.Text = My.Resources.Next1
         If newname.Length = 0 Then
-            MsgBox(My.Resources.Please_enter, vbInformation, My.Resources.Info)
+            MsgBox(My.Resources.Please_enter, vbInformation, My.Resources.Info_word)
             NextNameButton.Enabled = False
         Else
             NextNameButton.Enabled = True
@@ -130,27 +130,26 @@ Public Class FormDNSName
 
     End Sub
 
-
     Private Sub SaveAll()
 
         NextNameButton.Text = My.Resources.Saving_word
         Dim address As System.Net.IPAddress = Nothing
 
         If DNSNameBox.Text.Length = 0 Then
-            Form1.Settings.PublicIP = IP()
+            Settings.PublicIP = IP()
         Else
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    Form1.Settings.PublicIP = IP()
+                    Settings.PublicIP = IP()
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                 End If
-                Form1.Settings.DNSName = DNSNameBox.Text
+                Settings.DNSName = DNSNameBox.Text
             Catch ex As ArgumentNullException
             End Try
         End If
 
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
         changed = False ' suppress prompts
         Form1.PropViewedSettings = True
         Me.Close()
@@ -166,7 +165,7 @@ Public Class FormDNSName
     Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.Suitcase() = SuitcaseCheckbox.Checked
+        Settings.Suitcase() = SuitcaseCheckbox.Checked
 
         If Not SuitcaseCheckbox.Checked Then
             MsgBox(My.Resources.Disabling_Suitcase)
@@ -175,7 +174,6 @@ Public Class FormDNSName
 
     End Sub
 
-
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
         NextNameButton.Text = My.Resources.Busy_word
@@ -183,17 +181,17 @@ Public Class FormDNSName
 
         Dim address As System.Net.IPAddress = Nothing
         If DNSNameBox.Text.Length = 0 Then
-            Form1.Settings.PublicIP = IP()
+            Settings.PublicIP = IP()
         Else
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP(), vbInformation, My.Resources.Info)
+                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP(), vbInformation, My.Resources.Info_word)
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
                     Else
-                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & IP, vbInformation, My.Resources.Info)
+                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & IP, vbInformation, My.Resources.Info_word)
                     End If
                 End If
             Catch ex As ArgumentNullException
@@ -203,7 +201,6 @@ Public Class FormDNSName
         NextNameButton.Text = My.Resources.Next1
 
     End Sub
-
 
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
@@ -224,7 +221,7 @@ Public Class FormDNSName
     Private Sub UniqueId_TextChanged_1(sender As Object, e As EventArgs) Handles UniqueId.TextChanged
 
         If Not initted Then Return
-        Form1.Settings.MachineID() = UniqueId.Text
+        Settings.MachineID() = UniqueId.Text
         changed = True
 
     End Sub

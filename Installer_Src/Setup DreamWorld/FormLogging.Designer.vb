@@ -51,17 +51,17 @@ Partial Class FormLogging
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoggingToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'LoggingToolStripMenuItem
         '
-        Me.LoggingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        Me.LoggingToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         Me.LoggingToolStripMenuItem.Name = "LoggingToolStripMenuItem"
         Me.LoggingToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.LoggingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Logging_word
+        Me.LoggingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Logging_word
         '
         'GroupBox1
         '
@@ -79,7 +79,7 @@ Partial Class FormLogging
         Me.GroupBox1.Size = New System.Drawing.Size(120, 202)
         Me.GroupBox1.TabIndex = 186742
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Logging_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Logging_word
         '
         'RadioOff
         '
@@ -100,7 +100,7 @@ Partial Class FormLogging
         Me.RadioDebug.Size = New System.Drawing.Size(57, 17)
         Me.RadioDebug.TabIndex = 1
         Me.RadioDebug.TabStop = True
-        Me.RadioDebug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
+        Me.RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
         Me.RadioDebug.UseVisualStyleBackColor = True
         '
         'RadioInfo
@@ -111,7 +111,7 @@ Partial Class FormLogging
         Me.RadioInfo.Size = New System.Drawing.Size(86, 17)
         Me.RadioInfo.TabIndex = 2
         Me.RadioInfo.TabStop = True
-        Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info
+        Me.RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
         Me.RadioInfo.UseVisualStyleBackColor = True
         '
         'RadioWarn
@@ -122,7 +122,7 @@ Partial Class FormLogging
         Me.RadioWarn.Size = New System.Drawing.Size(51, 17)
         Me.RadioWarn.TabIndex = 3
         Me.RadioWarn.TabStop = True
-        Me.RadioWarn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
+        Me.RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
         Me.RadioWarn.UseVisualStyleBackColor = True
         '
         'RadioError
@@ -133,7 +133,7 @@ Partial Class FormLogging
         Me.RadioError.Size = New System.Drawing.Size(47, 17)
         Me.RadioError.TabIndex = 4
         Me.RadioError.TabStop = True
-        Me.RadioError.Text = Global.Outworldz.My.Resources.Resources.Error_word
+        Me.RadioError.Text = Global.Outworldz.My.Resources.Error_word
         Me.RadioError.UseVisualStyleBackColor = True
         '
         'RadioFatal
@@ -144,7 +144,7 @@ Partial Class FormLogging
         Me.RadioFatal.Size = New System.Drawing.Size(48, 17)
         Me.RadioFatal.TabIndex = 5
         Me.RadioFatal.TabStop = True
-        Me.RadioFatal.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
+        Me.RadioFatal.Text = Global.Outworldz.My.Resources.Fatal_word
         Me.RadioFatal.UseVisualStyleBackColor = True
         '
         'RadioAll
@@ -155,7 +155,7 @@ Partial Class FormLogging
         Me.RadioAll.Size = New System.Drawing.Size(36, 17)
         Me.RadioAll.TabIndex = 6
         Me.RadioAll.TabStop = True
-        Me.RadioAll.Text = Global.Outworldz.My.Resources.Resources.All_word
+        Me.RadioAll.Text = Global.Outworldz.My.Resources.All_word
         Me.RadioAll.UseVisualStyleBackColor = True
         '
         'FormLogging
@@ -166,7 +166,7 @@ Partial Class FormLogging
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "FormLogging"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Logging_word
+        Me.Text = Global.Outworldz.My.Resources.Logging_word
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)

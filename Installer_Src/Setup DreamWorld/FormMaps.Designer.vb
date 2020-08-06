@@ -72,7 +72,7 @@ Partial Class FormMaps
         Me.MapBox.Size = New System.Drawing.Size(171, 294)
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
-        Me.MapBox.Text = Global.Outworldz.My.Resources.Resources.Maps_word
+        Me.MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         '
         'ViewMap
         '
@@ -80,13 +80,13 @@ Partial Class FormMaps
         Me.ViewMap.Name = "ViewMap"
         Me.ViewMap.Size = New System.Drawing.Size(143, 23)
         Me.ViewMap.TabIndex = 1858
-        Me.ViewMap.Text = Global.Outworldz.My.Resources.Resources.DelMaps
-        Me.ToolTip1.SetToolTip(Me.ViewMap, Global.Outworldz.My.Resources.Resources.Regen_Map)
+        Me.ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
+        Me.ToolTip1.SetToolTip(Me.ViewMap, Global.Outworldz.My.Resources.Regen_Map)
         Me.ViewMap.UseVisualStyleBackColor = True
         '
         'MapHelp
         '
-        Me.MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.MapHelp.Image = Global.Outworldz.My.Resources.about
         Me.MapHelp.Location = New System.Drawing.Point(112, 17)
         Me.MapHelp.Name = "MapHelp"
         Me.MapHelp.Size = New System.Drawing.Size(28, 27)
@@ -111,7 +111,7 @@ Partial Class FormMaps
         Me.MapNone.Size = New System.Drawing.Size(51, 17)
         Me.MapNone.TabIndex = 7
         Me.MapNone.TabStop = True
-        Me.MapNone.Text = Global.Outworldz.My.Resources.Resources.None
+        Me.MapNone.Text = Global.Outworldz.My.Resources.None
         Me.MapNone.UseVisualStyleBackColor = True
         '
         'MapSimple
@@ -122,7 +122,7 @@ Partial Class FormMaps
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
-        Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast_word
+        Me.MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         Me.MapSimple.UseVisualStyleBackColor = True
         '
         'MapBetter
@@ -133,7 +133,7 @@ Partial Class FormMaps
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
-        Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better_Prims
+        Me.MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         Me.MapBetter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.MapBetter.UseVisualStyleBackColor = True
         '
@@ -145,7 +145,7 @@ Partial Class FormMaps
         Me.MapBest.Size = New System.Drawing.Size(171, 17)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
-        Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best_Prims
+        Me.MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         Me.MapBest.UseVisualStyleBackColor = True
         '
         'MapGood
@@ -156,7 +156,7 @@ Partial Class FormMaps
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
-        Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
+        Me.MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
         'Button2
@@ -165,8 +165,8 @@ Partial Class FormMaps
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(141, 23)
         Me.Button2.TabIndex = 1859
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.View_Maps
-        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.WifiMap)
+        Me.Button2.Text = Global.Outworldz.My.Resources.View_Maps
+        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.WifiMap)
         Me.Button2.UseVisualStyleBackColor = True
         '
         'LargeMapButton
@@ -175,7 +175,7 @@ Partial Class FormMaps
         Me.LargeMapButton.Name = "LargeMapButton"
         Me.LargeMapButton.Size = New System.Drawing.Size(140, 23)
         Me.LargeMapButton.TabIndex = 1860
-        Me.LargeMapButton.Text = Global.Outworldz.My.Resources.Resources.LargeMap
+        Me.LargeMapButton.Text = Global.Outworldz.My.Resources.LargeMap
         Me.LargeMapButton.UseVisualStyleBackColor = True
         '
         'SmallMapButton
@@ -184,7 +184,7 @@ Partial Class FormMaps
         Me.SmallMapButton.Name = "SmallMapButton"
         Me.SmallMapButton.Size = New System.Drawing.Size(141, 23)
         Me.SmallMapButton.TabIndex = 1867
-        Me.SmallMapButton.Text = Global.Outworldz.My.Resources.Resources.Small_Map
+        Me.SmallMapButton.Text = Global.Outworldz.My.Resources.Small_Map
         Me.SmallMapButton.UseVisualStyleBackColor = True
         '
         'GroupBox2
@@ -215,7 +215,7 @@ Partial Class FormMaps
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
         Me.Label5.TabIndex = 1876
-        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.RenderMin
+        Me.Label5.Text = Global.Outworldz.My.Resources.RenderMin
         '
         'Label4
         '
@@ -224,7 +224,7 @@ Partial Class FormMaps
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 13)
         Me.Label4.TabIndex = 1875
-        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.RenderMax
+        Me.Label4.Text = Global.Outworldz.My.Resources.RenderMax
         '
         'RenderMinH
         '
@@ -240,7 +240,7 @@ Partial Class FormMaps
         Me.RenderMaxH.Name = "RenderMaxH"
         Me.RenderMaxH.Size = New System.Drawing.Size(39, 20)
         Me.RenderMaxH.TabIndex = 1873
-        Me.ToolTip1.SetToolTip(Me.RenderMaxH, Global.Outworldz.My.Resources.Resources.Max4096)
+        Me.ToolTip1.SetToolTip(Me.RenderMaxH, Global.Outworldz.My.Resources.Max4096)
         '
         'MapYStart
         '
@@ -248,7 +248,7 @@ Partial Class FormMaps
         Me.MapYStart.Name = "MapYStart"
         Me.MapYStart.Size = New System.Drawing.Size(39, 20)
         Me.MapYStart.TabIndex = 1872
-        Me.ToolTip1.SetToolTip(Me.MapYStart, Global.Outworldz.My.Resources.Resources.CenterMap)
+        Me.ToolTip1.SetToolTip(Me.MapYStart, Global.Outworldz.My.Resources.CenterMap)
         '
         'MapXStart
         '
@@ -256,7 +256,7 @@ Partial Class FormMaps
         Me.MapXStart.Name = "MapXStart"
         Me.MapXStart.Size = New System.Drawing.Size(39, 20)
         Me.MapXStart.TabIndex = 1871
-        Me.ToolTip1.SetToolTip(Me.MapXStart, Global.Outworldz.My.Resources.Resources.CenterMap)
+        Me.ToolTip1.SetToolTip(Me.MapXStart, Global.Outworldz.My.Resources.CenterMap)
         '
         'Label3
         '
@@ -283,7 +283,7 @@ Partial Class FormMaps
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 1868
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Map_Center_Location_word
+        Me.Label1.Text = Global.Outworldz.My.Resources.Map_Center_Location_word
         '
         'MenuStrip2
         '
@@ -299,17 +299,17 @@ Partial Class FormMaps
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormMaps
         '
@@ -323,7 +323,7 @@ Partial Class FormMaps
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormMaps"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Maps_word
+        Me.Text = Global.Outworldz.My.Resources.Maps_word
         Me.MapBox.ResumeLayout(False)
         Me.MapBox.PerformLayout()
         CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()

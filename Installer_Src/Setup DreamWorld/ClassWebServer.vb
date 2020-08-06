@@ -58,19 +58,20 @@ Public Class NetServer
 
     Public Sub StartServer(pathinfo As String, Settings As MySettings)
 
+        If Settings Is Nothing Then Return
         ' stash some globs
         Setting = Settings
-        MyPort = CStr(Form1.Settings.DiagnosticPort)
+        MyPort = CStr(Settings.DiagnosticPort)
         PropMyFolder = pathinfo
 
         If running Then Return
 
-        Log(My.Resources.Info, My.Resources.Starting_DiagPort_Webserver)
+        Log(My.Resources.Info_word, My.Resources.Starting_DiagPort_Webserver)
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
             Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -82,7 +83,7 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log(My.Resources.Info, My.Resources.Stopping_Webserver)
+        Log(My.Resources.Info_word, My.Resources.Stopping_Webserver)
         listen = False
 
         WebThread.Abort()

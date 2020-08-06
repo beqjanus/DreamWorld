@@ -31,6 +31,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime;
 using System.Text;
 using System.Threading;
 using System.Timers;
@@ -1254,23 +1255,14 @@ namespace OpenSim.Region.Framework.Scenes
             ISimulatorFeaturesModule fm = RequestModuleInterface<ISimulatorFeaturesModule>();
             if (fm != null)
             {
-                OSD openSimExtras;
-                OSDMap openSimExtrasMap;
-
-                if (!fm.TryGetFeature("OpenSimExtras", out openSimExtras))
-                    openSimExtras = new OSDMap();
-
                 float statisticsFPSfactor = 1.0f;
                 if(Normalized55FPS)
                     statisticsFPSfactor = 55.0f * FrameTime;
 
-                openSimExtrasMap = (OSDMap)openSimExtras;
-                openSimExtrasMap["SimulatorFPS"] = OSD.FromReal(1.0f / FrameTime);
-                openSimExtrasMap["SimulatorFPSFactor"] = OSD.FromReal(statisticsFPSfactor);
-                openSimExtrasMap["SimulatorFPSWarnPercent"] = OSD.FromInteger(FrameTimeWarnPercent);
-                openSimExtrasMap["SimulatorFPSCritPercent"] = OSD.FromInteger(FrameTimeCritPercent);
-
-                fm.AddFeature("OpenSimExtras", openSimExtrasMap);
+                fm.AddOpenSimExtraFeature("SimulatorFPS", OSD.FromReal(1.0f / FrameTime));
+                fm.AddOpenSimExtraFeature("SimulatorFPSFactor", OSD.FromReal(statisticsFPSfactor));
+                fm.AddOpenSimExtraFeature("SimulatorFPSWarnPercent", OSD.FromInteger(FrameTimeWarnPercent));
+                fm.AddOpenSimExtraFeature("SimulatorFPSCritPercent", OSD.FromInteger(FrameTimeCritPercent));
             }
         }
 
@@ -2770,8 +2762,13 @@ namespace OpenSim.Region.Framework.Scenes
 
             SceneObjectPart[] partList = group.Parts;
 
-            foreach (SceneObjectPart part in partList)
+            for(int i = 0; i < partList.Length; ++i)
             {
+                SceneObjectPart part = partList[i];
+
+                if (removeScripts)
+                    part.Inventory.SendReleaseScriptsControl();
+
                 if (part.KeyframeMotion != null)
                 {
                     part.KeyframeMotion.Delete();
@@ -2798,7 +2795,7 @@ namespace OpenSim.Region.Framework.Scenes
 
             // use this to mean also full delete
             if (removeScripts)
-                group.Clear();
+                group.Dispose();
             partList = null;
             // m_log.DebugFormat("[SCENE]: Exit DeleteSceneObject() for {0} {1}", group.Name, group.UUID);
         }
@@ -3797,7 +3794,7 @@ namespace OpenSim.Region.Framework.Scenes
                         m_sceneGraph.RemoveScenePresence(agentID);
                         m_clientManager.Remove(agentID);
 
-                        avatar.Close();
+                        avatar.Dispose();
                     }
                     catch (Exception e)
                     {
@@ -5192,7 +5189,7 @@ Label_GroupsDone:
         /// <param name="action"></param>
         public void ForEachRootScenePresence(Action<ScenePresence> action)
         {
-            m_sceneGraph.ForEachAvatar(action);
+            m_sceneGraph.ForEachRootScenePresence(action);
         }
 
         /// <summary>
@@ -6027,6 +6024,12 @@ Environment.Exit(1);
         {
             RegenerateMaptile();
 
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.Default;
+
             // We need to propagate the new image UUID to the grid service
             // so that all simulators can retrieve it
             string error = GridService.RegisterRegion(RegionInfo.ScopeID, new GridRegion(RegionInfo));
@@ -6282,71 +6285,6 @@ Environment.Exit(1);
             }
         }
 
-        /// This method deals with movement when an avatar is automatically moving (but this is distinct from the
-        /// autopilot that moves an avatar to a sit target!.
-        /// </summary>
-        /// <remarks>
-        /// This is not intended as a permament location for this method.
-        /// </remarks>
-        /// <param name="presence"></param>
-/* move to target is now done on presence update
-        private void HandleOnSignificantClientMovement(ScenePresence presence)
-        {
-            if (presence.MovingToTarget)
-            {
-                double distanceToTarget = Util.GetDistanceTo(presence.AbsolutePosition, presence.MoveToPositionTarget);
-//                            m_log.DebugFormat(
-//                                "[SCENE]: Abs pos of {0} is {1}, target {2}, distance {3}",
-//                                presence.Name, presence.AbsolutePosition, presence.MoveToPositionTarget, distanceToTarget);
-
-                // Check the error term of the current position in relation to the target position
-                if (distanceToTarget <= ScenePresence.SIGNIFICANT_MOVEMENT)
-                {
-                    // We are close enough to the target
-//                        m_log.DebugFormat("[SCENEE]: Stopping autopilot of  {0}", presence.Name);
-
-                    presence.Velocity = Vector3.Zero;
-                    presence.AbsolutePosition = presence.MoveToPositionTarget;
-                    presence.ResetMoveToTarget();
-
-                    if (presence.Flying)
-                    {
-                        // A horrible hack to stop the avatar dead in its tracks rather than having them overshoot
-                        // the target if flying.
-                        // We really need to be more subtle (slow the avatar as it approaches the target) or at
-                        // least be able to set collision status once, rather than 5 times to give it enough
-                        // weighting so that that PhysicsActor thinks it really is colliding.
-                        for (int i = 0; i < 5; i++)
-                            presence.IsColliding = true;
-
-                        if (presence.LandAtTarget)
-                            presence.Flying = false;
-
-//                            Vector3 targetPos = presence.MoveToPositionTarget;
-//                            float terrainHeight = (float)presence.Scene.Heightmap[(int)targetPos.X, (int)targetPos.Y];
-//                            if (targetPos.Z - terrainHeight < 0.2)
-//                            {
-//                                presence.Flying = false;
-//                            }
-                    }
-
-//                        m_log.DebugFormat(
-//                            "[SCENE]: AgentControlFlags {0}, MovementFlag {1} for {2}",
-//                            presence.AgentControlFlags, presence.MovementFlag, presence.Name);
-                }
-                else
-                {
-//                        m_log.DebugFormat(
-//                            "[SCENE]: Updating npc {0} at {1} for next movement to {2}",
-//                            presence.Name, presence.AbsolutePosition, presence.MoveToPositionTarget);
-
-                    Vector3 agent_control_v3 = new Vector3();
-                    presence.HandleMoveToTargetUpdate(1, ref agent_control_v3);
-                    presence.AddNewMovement(agent_control_v3);
-                }
-            }
-        }
-*/
         // manage and select spawn points in sequence
         public int SpawnPoint()
         {

@@ -48,7 +48,7 @@ Partial Class FormFsAssets
         Me.EnableFsAssetsCheckbox.Name = "EnableFsAssetsCheckbox"
         Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(85, 24)
         Me.EnableFsAssetsCheckbox.TabIndex = 43
-        Me.EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         Me.EnableFsAssetsCheckbox.UseVisualStyleBackColor = True
         '
         'b
@@ -67,7 +67,7 @@ Partial Class FormFsAssets
         Me.b.Size = New System.Drawing.Size(420, 233)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
-        Me.b.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
+        Me.b.Text = Global.Outworldz.My.Resources.FSassets_Server_word
         '
         'SaveButton
         '
@@ -76,7 +76,7 @@ Partial Class FormFsAssets
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(151, 35)
         Me.SaveButton.TabIndex = 1893
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ShowStatsCheckBox
@@ -87,7 +87,7 @@ Partial Class FormFsAssets
         Me.ShowStatsCheckBox.Name = "ShowStatsCheckBox"
         Me.ShowStatsCheckBox.Size = New System.Drawing.Size(195, 24)
         Me.ShowStatsCheckBox.TabIndex = 1892
-        Me.ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Show_Stats
+        Me.ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Show_Stats
         Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
         '
         'Label6
@@ -98,11 +98,11 @@ Partial Class FormFsAssets
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(93, 20)
         Me.Label6.TabIndex = 1888
-        Me.Label6.Text = Global.Outworldz.My.Resources.Resources.Data_Folder_word
+        Me.Label6.Text = Global.Outworldz.My.Resources.Data_Folder_word
         '
         'PictureBox2
         '
-        Me.PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.folder
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox2.Location = New System.Drawing.Point(335, 125)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -113,7 +113,7 @@ Partial Class FormFsAssets
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox1.Location = New System.Drawing.Point(239, 43)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.PictureBox1.Name = "PictureBox1"
@@ -143,17 +143,17 @@ Partial Class FormFsAssets
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormFsAssets
         '
@@ -164,7 +164,7 @@ Partial Class FormFsAssets
         Me.Controls.Add(Me.b)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormFsAssets"
-        Me.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
+        Me.Text = Global.Outworldz.My.Resources.FSassets_Server_word
         Me.b.ResumeLayout(False)
         Me.b.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()

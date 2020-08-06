@@ -64,7 +64,7 @@ Public Module MysqlInterface
 
     Public Sub DeleteRegionlist()
 
-        Using osconnection As MySqlConnection = New MySqlConnection(Form1.Settings.OSSearchConnectionString())
+        Using osconnection As MySqlConnection = New MySqlConnection(Settings.OSSearchConnectionString())
             Try
                 osconnection.Open()
                 Dim stm As String = "delete from hostsregister"
@@ -82,7 +82,7 @@ Public Module MysqlInterface
 
     Public Sub DeleteSearchDatabase()
 
-        Using osconnection As MySqlConnection = New MySqlConnection(Form1.Settings.OSSearchConnectionString())
+        Using osconnection As MySqlConnection = New MySqlConnection(Settings.OSSearchConnectionString())
             Try
                 osconnection.Open()
                 Dim stm As String = "DROP DATABASE ossearch;"
@@ -106,7 +106,7 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Form1.Settings.MySqlRobustDBPort, Integer))
+        Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
             Form1.Print(My.Resources.Deregister_All)
@@ -119,14 +119,14 @@ Public Module MysqlInterface
     ''' <returns>Name as string</returns>
     Public Function EstateName(UUID As String) As String
 
-        If Form1.Settings.RegionMySqlConnection.Length = 0 Then Return ""
+        If Settings.RegionMySqlConnection.Length = 0 Then Return ""
 
-        'Debug.Print(Form1.Settings.RegionMySqlConnection)
+        'Debug.Print(Settings.RegionMySqlConnection)
         Dim name As String = ""
         Dim Val As String = ""
 
         Try
-            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
                 Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
@@ -149,7 +149,7 @@ Public Module MysqlInterface
 
         Try
             Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
-            Using MysqlConn As New MySqlConnection(Form1.Settings.RegionMySqlConnection)
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
                 Using cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
@@ -178,9 +178,9 @@ Public Module MysqlInterface
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
-        If Form1.Settings.ServerType <> "Robust" Then Return Dict
+        If Settings.ServerType <> "Robust" Then Return Dict
 
-        Using NewSQLConn As New MySqlConnection(Form1.Settings.RobustMysqlConnection)
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
 
             Try
@@ -218,7 +218,7 @@ Public Module MysqlInterface
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
-        Using NewSQLConn As New MySqlConnection(Form1.Settings.RobustMysqlConnection)
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()
                 Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
@@ -257,7 +257,7 @@ Public Module MysqlInterface
 
     Public Function IsMySqlRunning() As Boolean
 
-        Dim Mysql = CheckPort("127.0.0.1", Form1.Settings.MySqlRegionDBPort)
+        Dim Mysql = CheckPort("127.0.0.1", Settings.MySqlRegionDBPort)
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: {0}", version)
@@ -269,7 +269,7 @@ Public Module MysqlInterface
     End Function
 
     Public Function QueryString(SQL As String) As String
-        Using MysqlConn = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
+        Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
                 Dim v As String
@@ -292,7 +292,7 @@ Public Module MysqlInterface
 
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
-        Dim MysqlConn = New MySqlConnection(Form1.Settings.RobustMysqlConnection)
+        Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
         Try
             MysqlConn.Open()
 

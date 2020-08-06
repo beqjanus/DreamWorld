@@ -259,45 +259,6 @@
 	  <Compile Include="Properties\AssemblyInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="SimianGrid\SimianActivityDetector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianAssetServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianAuthenticationServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianAvatarServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianExternalCapsModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianFriendsServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianGrid.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianGridMaptileModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianGridServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianInventoryServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianPresenceServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianProfiles.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="SimianGrid\SimianUserAccountServiceConnector.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="Simulation\SimulationServiceConnector.cs">
 		<SubType>Code</SubType>
 	  </Compile>

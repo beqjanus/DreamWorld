@@ -189,7 +189,6 @@ namespace OpenSim.Region.ClientStack.LindenUDP
         private int m_defaultRTO = 1000; // 1sec is the recommendation in the RFC
         private int m_maxRTO = 3000;
         private int m_minRTO = 250;
-        public bool m_deliverPackets = true;
 
         private float m_burstTime;
         private int m_maxRate;
@@ -543,17 +542,12 @@ namespace OpenSim.Region.ClientStack.LindenUDP
         /// </returns>
         public bool EnqueueOutgoing(OutgoingPacket packet)
         {
-            return EnqueueOutgoing(packet, false);
-        }
-
-        public bool EnqueueOutgoing(OutgoingPacket packet, bool highPriority)
-        {
             int category = (int)packet.Category;
 
             if (category >= 0 && category < m_packetOutboxes.Length)
             {
                 DoubleLocklessQueue<OutgoingPacket> queue = m_packetOutboxes[category];
-                queue.Enqueue(packet, highPriority);
+                queue.Enqueue(packet, false);
                 return true;
             }
             else

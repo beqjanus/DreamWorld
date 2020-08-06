@@ -47,14 +47,14 @@ Partial Class FormFlotsamCache
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(163, 29)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(29, 27)
         Me.PictureBox1.TabIndex = 1870
         Me.PictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Resources.Click_to_change_the_folder)
+        Me.ToolTip1.SetToolTip(Me.PictureBox1, Global.Outworldz.My.Resources.Click_to_change_the_folder)
         '
         'GroupBox1
         '
@@ -83,7 +83,7 @@ Partial Class FormFlotsamCache
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(129, 23)
         Me.Button1.TabIndex = 1871
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Cache_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Clear_Cache_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CacheSizeLabel
@@ -186,17 +186,17 @@ Partial Class FormFlotsamCache
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormFlotsamCache
         '

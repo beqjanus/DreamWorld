@@ -66,7 +66,7 @@ Public Class FormApache
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
 
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
         Form1.PropViewedSettings = True
 
@@ -76,11 +76,11 @@ Public Class FormApache
 
         SetScreen()
 
-        ApacheCheckbox.Checked = Form1.Settings.ApacheEnable
-        ApachePort.Text = CType(Form1.Settings.ApachePort, String)
-        ApacheServiceCheckBox.Checked = Form1.Settings.ApacheService
+        ApacheCheckbox.Checked = Settings.ApacheEnable
+        ApachePort.Text = CType(Settings.ApachePort, String)
+        ApacheServiceCheckBox.Checked = Settings.ApacheService
 
-        If Form1.Settings.SearchLocal Then
+        If Settings.SearchLocal Then
             LocalSearchCheckBox.Checked = True
             AllGridSearchCheckBox.Checked = False
         Else
@@ -91,19 +91,19 @@ Public Class FormApache
         '''' set the other bvox and the radios for Different CMS systems. 
         ''' This is used to redirect all access to apache / to the folder listed below
         ''' 
-        If Form1.Settings.CMS = "DreamGrid" Then
+        If Settings.CMS = "DreamGrid" Then
             EnableDiva.Checked = True
-        ElseIf Form1.Settings.CMS = "Wordpress" Then
+        ElseIf Settings.CMS = "Wordpress" Then
             EnableWP.Checked = True
-        ElseIf Form1.Settings.CMS = "JOpensim" Then
+        ElseIf Settings.CMS = "JOpensim" Then
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
-            Other.Text = Form1.Settings.CMS
+            Other.Text = Settings.CMS
         End If
 
-        EnableSearchCheckBox.Checked = Form1.Settings.SearchEnabled
-        EventsCheckBox.Checked = Form1.Settings.EventTimerEnabled
+        EnableSearchCheckBox.Checked = Settings.SearchEnabled
+        EventsCheckBox.Checked = Settings.EventTimerEnabled
         Form1.HelpOnce("Apache")
         initted = True
 
@@ -115,7 +115,7 @@ Public Class FormApache
 
     Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
         If AllGridSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = False
+            Settings.SearchLocal = False
             LocalSearchCheckBox.Checked = False
         End If
     End Sub
@@ -123,7 +123,7 @@ Public Class FormApache
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.ApacheEnable = ApacheCheckbox.Checked
+        Settings.ApacheEnable = ApacheCheckbox.Checked
 
     End Sub
 
@@ -134,7 +134,7 @@ Public Class FormApache
         Dim digitsOnly As Regex = New Regex("[^\d]")
         ApachePort.Text = digitsOnly.Replace(ApachePort.Text, "")
         If ApachePort.Text.Length > 0 Then
-            Form1.Settings.ApachePort = CType(ApachePort.Text, Integer)
+            Settings.ApachePort = CType(ApachePort.Text, Integer)
         End If
 
     End Sub
@@ -142,7 +142,7 @@ Public Class FormApache
     Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.ApacheService = ApacheServiceCheckBox.Checked
+        Settings.ApacheService = ApacheServiceCheckBox.Checked
 
     End Sub
 
@@ -152,7 +152,7 @@ Public Class FormApache
 
     Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
         If LocalSearchCheckBox.Checked Then
-            Form1.Settings.SearchLocal = True
+            Settings.SearchLocal = True
             AllGridSearchCheckBox.Checked = False
         End If
     End Sub
@@ -214,42 +214,42 @@ Public Class FormApache
     Private Sub EnableSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.SearchEnabled = EnableSearchCheckBox.Checked
+        Settings.SearchEnabled = EnableSearchCheckBox.Checked
 
     End Sub
 
     Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.EventTimerEnabled = EventsCheckBox.Checked
+        Settings.EventTimerEnabled = EventsCheckBox.Checked
 
     End Sub
 
     Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
 
         If Not initted Then Return
-        If EnableDiva.Checked Then Form1.Settings.CMS = "DreamGrid"
+        If EnableDiva.Checked Then Settings.CMS = "DreamGrid"
 
     End Sub
 
     Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
 
         If Not initted Then Return
-        If EnableWP.Checked Then Form1.Settings.CMS = "Wordpress"
+        If EnableWP.Checked Then Settings.CMS = "Wordpress"
 
     End Sub
 
     Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
 
         If Not initted Then Return
-        If EnableJOpensim.Checked Then Form1.Settings.CMS = "JOpensim"
+        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
 
     End Sub
 
     Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
 
         If Not initted Then Return
-        If EnableOther.Checked Then Other.Text = Form1.Settings.CMS
+        If EnableOther.Checked Then Other.Text = Settings.CMS
 
     End Sub
 
@@ -262,7 +262,7 @@ Public Class FormApache
             EnableOther.Checked = False
             EnableDiva.Checked = True
         End If
-        Form1.Settings.CMS = Other.Text
+        Settings.CMS = Other.Text
 
     End Sub
 

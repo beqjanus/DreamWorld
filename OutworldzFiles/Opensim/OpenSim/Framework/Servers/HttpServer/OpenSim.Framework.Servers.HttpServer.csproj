@@ -65,11 +65,6 @@
 	  <Prefer32Bit>False</Prefer32Bit>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Reference Include="HttpServer_OpenSim" >
-		  <Name>HttpServer_OpenSim</Name>
-		<HintPath>..\..\..\..\bin\HttpServer_OpenSim.dll</HintPath>
-		<Private>False</Private>
-	  </Reference>
 	  <Reference Include="log4net" >
 		  <Name>log4net</Name>
 		<HintPath>..\..\..\..\bin\log4net.dll</HintPath>
@@ -176,9 +171,6 @@
 	  <Compile Include="OSHttpResponse.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="OSHttpStatusCodes.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="PollServiceEventArgs.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -209,6 +201,18 @@
 	  <Compile Include="RestStreamHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="SimpleBaseRequestHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SimpleBinaryHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SimpleOSDMapHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="SimpleStreamHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="WebsocketServerHandler.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -231,6 +235,99 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Interfaces\IStreamHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\BadRequestException.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\BodyEventArgs.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ClientAcceptedEventArgs.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ContextTimeoutManager.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ExceptionEventArgs.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ExceptionHandler.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ForbiddenException.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HeaderEventArgs.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpClientContext.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpContextFactory.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpException.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpInput.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpInputItem.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpListener.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpParam.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpRequest.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpRequestParser.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\HttpResponse.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\IHttpClientContext.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\IHttpRequest.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\IHttpRequestParser.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\IHttpResponse.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ILogWriter.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\InternalServerException.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\NotFoundException.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\RequestCookie.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\RequestCookies.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\RequestLineEventArgs.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ResponseCookie.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\ResponseCookies.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="OSHttpServer\UnauthorizedException.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="Properties\AssemblyInfo.cs">

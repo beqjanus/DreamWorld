@@ -58,7 +58,7 @@ Partial Class FormPermissions
         Me.GroupBox4.Size = New System.Drawing.Size(231, 118)
         Me.GroupBox4.TabIndex = 49
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
+        Me.GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word
         '
         'AllowGods
         '
@@ -67,19 +67,19 @@ Partial Class FormPermissions
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(133, 17)
         Me.AllowGods.TabIndex = 14
-        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
-        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
+        Me.AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
+        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
         Me.AllowGods.UseVisualStyleBackColor = True
         '
         'GodHelp
         '
-        Me.GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.GodHelp.Image = Global.Outworldz.My.Resources.about
         Me.GodHelp.Location = New System.Drawing.Point(77, 6)
         Me.GodHelp.Name = "GodHelp"
         Me.GodHelp.Size = New System.Drawing.Size(27, 23)
         Me.GodHelp.TabIndex = 1857
         Me.GodHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Resources.Help_Godmodes)
+        Me.ToolTip1.SetToolTip(Me.GodHelp, Global.Outworldz.My.Resources.Help_Godmodes)
         '
         'ManagerGod
         '
@@ -88,8 +88,8 @@ Partial Class FormPermissions
         Me.ManagerGod.Name = "ManagerGod"
         Me.ManagerGod.Size = New System.Drawing.Size(141, 17)
         Me.ManagerGod.TabIndex = 16
-        Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.Region_manager_god
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.Region_Manager_is_God)
+        Me.ManagerGod.Text = Global.Outworldz.My.Resources.Region_manager_god
+        Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Region_Manager_is_God)
         Me.ManagerGod.UseVisualStyleBackColor = True
         '
         'RegionGod
@@ -99,8 +99,8 @@ Partial Class FormPermissions
         Me.RegionGod.Name = "RegionGod"
         Me.RegionGod.Size = New System.Drawing.Size(146, 17)
         Me.RegionGod.TabIndex = 15
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
+        Me.RegionGod.Text = Global.Outworldz.My.Resources.Allow_Region_Owner_Gods_word
+        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
         Me.RegionGod.UseVisualStyleBackColor = True
         '
         'LimitsBox
@@ -111,7 +111,7 @@ Partial Class FormPermissions
         Me.LimitsBox.Size = New System.Drawing.Size(233, 49)
         Me.LimitsBox.TabIndex = 1861
         Me.LimitsBox.TabStop = False
-        Me.LimitsBox.Text = Global.Outworldz.My.Resources.Resources.Prim_Limits
+        Me.LimitsBox.Text = Global.Outworldz.My.Resources.Prim_Limits
         '
         'EnableMaxPrims
         '
@@ -120,8 +120,8 @@ Partial Class FormPermissions
         Me.EnableMaxPrims.Name = "EnableMaxPrims"
         Me.EnableMaxPrims.Size = New System.Drawing.Size(144, 17)
         Me.EnableMaxPrims.TabIndex = 19
-        Me.EnableMaxPrims.Text = Global.Outworldz.My.Resources.Resources.Max_Prims
-        Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, Global.Outworldz.My.Resources.Resources.Max_PrimLimit)
+        Me.EnableMaxPrims.Text = Global.Outworldz.My.Resources.Max_Prims
+        Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, Global.Outworldz.My.Resources.Max_PrimLimit)
         Me.EnableMaxPrims.UseVisualStyleBackColor = True
         '
         'Clouds
@@ -132,7 +132,7 @@ Partial Class FormPermissions
         Me.Clouds.Size = New System.Drawing.Size(59, 17)
         Me.Clouds.TabIndex = 17
         Me.Clouds.Text = "Enable"
-        Me.ToolTip1.SetToolTip(Me.Clouds, Global.Outworldz.My.Resources.Resources.Allow_cloud)
+        Me.ToolTip1.SetToolTip(Me.Clouds, Global.Outworldz.My.Resources.Allow_cloud)
         Me.Clouds.UseVisualStyleBackColor = True
         '
         'OutBoundPermissionsCheckbox
@@ -142,8 +142,8 @@ Partial Class FormPermissions
         Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
         Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(122, 17)
         Me.OutBoundPermissionsCheckbox.TabIndex = 18
-        Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
-        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
+        Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Allow_Items_to_leave_word
+        Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Allow_objects)
         Me.OutBoundPermissionsCheckbox.UseVisualStyleBackColor = True
         '
         'GroupBox7
@@ -155,7 +155,7 @@ Partial Class FormPermissions
         Me.GroupBox7.Size = New System.Drawing.Size(226, 56)
         Me.GroupBox7.TabIndex = 1863
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = Global.Outworldz.My.Resources.Resources.Clouds_word
+        Me.GroupBox7.Text = Global.Outworldz.My.Resources.Clouds_word
         '
         'DomainUpDown1
         '
@@ -189,10 +189,10 @@ Partial Class FormPermissions
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'GroupBox1
         '
@@ -202,7 +202,7 @@ Partial Class FormPermissions
         Me.GroupBox1.Size = New System.Drawing.Size(231, 45)
         Me.GroupBox1.TabIndex = 1864
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Export_Permission_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Export_Permission_word
         '
         'FormPermissions
         '
@@ -217,7 +217,7 @@ Partial Class FormPermissions
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPermissions"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
+        Me.Text = Global.Outworldz.My.Resources.Permissions_word
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         CType(Me.GodHelp, System.ComponentModel.ISupportInitialize).EndInit()

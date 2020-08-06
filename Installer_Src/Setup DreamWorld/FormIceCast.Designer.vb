@@ -53,7 +53,7 @@ Partial Class Icecast
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
         Me.ShoutcastEnable.Size = New System.Drawing.Size(85, 24)
         Me.ShoutcastEnable.TabIndex = 0
-        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Enable_word
         Me.ShoutcastEnable.UseVisualStyleBackColor = True
         '
         'ShoutcastPassword
@@ -72,7 +72,7 @@ Partial Class Icecast
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(78, 20)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Password_word
+        Me.Label1.Text = Global.Outworldz.My.Resources.Password_word
         '
         'GroupBox1
         '
@@ -94,7 +94,7 @@ Partial Class Icecast
         Me.GroupBox1.Size = New System.Drawing.Size(424, 302)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.iceCastServer
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.IceCast_Server_word
         '
         'Label4
         '
@@ -104,7 +104,7 @@ Partial Class Icecast
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(51, 20)
         Me.Label4.TabIndex = 1861
-        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.port2
+        Me.Label4.Text = Global.Outworldz.My.Resources.port2
         '
         'ShoutcastPort1
         '
@@ -116,7 +116,7 @@ Partial Class Icecast
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox1.Location = New System.Drawing.Point(180, 17)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
@@ -130,7 +130,7 @@ Partial Class Icecast
         Me.LoadURL.Name = "LoadURL"
         Me.LoadURL.Size = New System.Drawing.Size(225, 44)
         Me.LoadURL.TabIndex = 6
-        Me.LoadURL.Text = Global.Outworldz.My.Resources.Resources.Admin_Web_Page_word
+        Me.LoadURL.Text = Global.Outworldz.My.Resources.Admin_Web_Page_word
         Me.LoadURL.UseVisualStyleBackColor = True
         '
         'Label3
@@ -141,7 +141,7 @@ Partial Class Icecast
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 20)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Admin_Password_word
+        Me.Label3.Text = Global.Outworldz.My.Resources.Admin_Password_word
         '
         'AdminPassword
         '
@@ -159,7 +159,7 @@ Partial Class Icecast
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 20)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.Port1
+        Me.Label2.Text = Global.Outworldz.My.Resources.Port1
         '
         'ShoutcastPort
         '
@@ -187,17 +187,17 @@ Partial Class Icecast
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'Icecast
         '
@@ -209,8 +209,8 @@ Partial Class Icecast
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Icecast"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Icecast
-        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.icecast_help)
+        Me.Text = Global.Outworldz.My.Resources.Icecast_word
+        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.icecast_help)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

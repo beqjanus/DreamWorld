@@ -48,30 +48,30 @@ Public Class FormPermissions
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        EnableMaxPrims.Checked = Form1.Settings.Primlimits()
+        EnableMaxPrims.Checked = Settings.Primlimits()
 
         'gods
-        AllowGods.Checked = Form1.Settings.AllowGridGods
-        RegionGod.Checked = Form1.Settings.RegionOwnerIsGod
-        ManagerGod.Checked = Form1.Settings.RegionManagerIsGod
-        Clouds.Checked = Form1.Settings.Clouds
+        AllowGods.Checked = Settings.AllowGridGods
+        RegionGod.Checked = Settings.RegionOwnerIsGod
+        ManagerGod.Checked = Settings.RegionManagerIsGod
+        Clouds.Checked = Settings.Clouds
 
-        Dim var As Double = Form1.Settings.Density
+        Dim var As Double = Settings.Density
 
         If var = -1 Then var = 5
 
-        Dim v As Integer = CInt(var * 10)
+        Dim v As Integer = CInt("0" & (var * 10))
         If (var > 9) Then v = 9
         If (var < 0) Then v = 0
         DomainUpDown1.SelectedIndex = v
 
-        OutBoundPermissionsCheckbox.Checked = Form1.Settings.OutBoundPermissions
+        OutBoundPermissionsCheckbox.Checked = Settings.OutBoundPermissions
 
         SetScreen()
         Form1.HelpOnce("Permissions")
@@ -101,16 +101,16 @@ Public Class FormPermissions
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.AllowGridGods = AllowGods.Checked
-        Form1.Settings.SaveSettings()
+        Settings.AllowGridGods = AllowGods.Checked
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles Clouds.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.Clouds = Clouds.Checked
-        Form1.Settings.SaveSettings()
+        Settings.Clouds = Clouds.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -129,8 +129,8 @@ Public Class FormPermissions
             If (var < 0) Then var = 0
             Debug.Print(var.ToString(Globalization.CultureInfo.InvariantCulture))
 
-            Form1.Settings.Density = var
-            Form1.Settings.SaveSettings()
+            Settings.Density = var
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -138,8 +138,8 @@ Public Class FormPermissions
     Private Sub EnableMaxPrims_CheckedChanged(sender As Object, e As EventArgs) Handles EnableMaxPrims.CheckedChanged
 
         If initted Then
-            Form1.Settings.Primlimits() = EnableMaxPrims.Checked
-            Form1.Settings.SaveSettings()
+            Settings.Primlimits() = EnableMaxPrims.Checked
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -147,16 +147,16 @@ Public Class FormPermissions
     Private Sub HGExportCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles OutBoundPermissionsCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
-        Form1.Settings.SaveSettings()
+        Settings.OutBoundPermissions = OutBoundPermissionsCheckbox.Checked
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub ManagerGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.RegionManagerIsGod = ManagerGod.Checked
-        Form1.Settings.SaveSettings()
+        Settings.RegionManagerIsGod = ManagerGod.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -169,8 +169,8 @@ Public Class FormPermissions
     Private Sub RegionGod_CheckedChanged_1(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
         If Not initted Then Return
-        Form1.Settings.RegionOwnerIsGod = RegionGod.Checked
-        Form1.Settings.SaveSettings()
+        Settings.RegionOwnerIsGod = RegionGod.Checked
+        Settings.SaveSettings()
 
     End Sub
 

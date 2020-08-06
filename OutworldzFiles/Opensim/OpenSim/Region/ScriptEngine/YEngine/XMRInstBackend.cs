@@ -78,6 +78,16 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             inst.Die();
         }
 
+        public void SetLSLTimer(double time)
+        {
+            m_timer = time;
+        }
+
+        public double getLSLTimer()
+        {
+            return(m_timer);
+        }
+
         /**
          * @brief Seat avatar on prim.
          * @param owner = true: owner of prim script is running in
@@ -218,6 +228,10 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             // do not do llResetScript on entry
             if(eventCode == ScriptEventCode.state_entry && stateCode == 0)
                 return;
+
+            if (m_XMRLSLApi != null)
+                m_XMRLSLApi.llResetTime();
+
             // do clear the events queue on reset
             ClearQueue();
             //ClearQueueExceptLinkMessages();
@@ -260,8 +274,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             {
                  // Say how long to sleep.
                 m_SleepUntil = DateTime.UtcNow + TimeSpan.FromMilliseconds(ms);
-
-                 // Don't wake on any events.
+                // Don't wake on any events.
                 m_SleepEventMask1 = 0;
                 m_SleepEventMask2 = 0;
             }
@@ -595,7 +608,8 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             AsyncCommandManager.RemoveScript(m_Engine, m_LocalID, m_ItemID);
             m_XMRLSLApi.acm.TimerPlugin.CreateFromData(m_LocalID, m_ItemID, UUID.Zero, timers);
 
-             // Tell whoever cares which event handlers the new state has.
+            // Tell whoever cares which event handlers the new state has.
+            m_Part.RemoveScriptTargets(m_ItemID);
             m_Part.SetScriptEvents(m_ItemID, GetStateEventFlags(stateCode));
 
             // keep link messages

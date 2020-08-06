@@ -75,7 +75,7 @@ Partial Class FormBackupCheckboxes
         Me.SettingsBox.Name = "SettingsBox"
         Me.SettingsBox.Size = New System.Drawing.Size(104, 17)
         Me.SettingsBox.TabIndex = 11
-        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
+        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         Me.SettingsBox.UseVisualStyleBackColor = True
         '
         'Button1
@@ -84,7 +84,7 @@ Partial Class FormBackupCheckboxes
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Backup_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CustomCheckBox
@@ -96,7 +96,7 @@ Partial Class FormBackupCheckboxes
         Me.CustomCheckBox.Name = "CustomCheckBox"
         Me.CustomCheckBox.Size = New System.Drawing.Size(160, 17)
         Me.CustomCheckBox.TabIndex = 9
-        Me.CustomCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Custom
+        Me.CustomCheckBox.Text = Global.Outworldz.My.Resources.Backup_Custom
         Me.CustomCheckBox.UseVisualStyleBackColor = True
         '
         'FSAssetsCheckBox
@@ -108,7 +108,7 @@ Partial Class FormBackupCheckboxes
         Me.FSAssetsCheckBox.Name = "FSAssetsCheckBox"
         Me.FSAssetsCheckBox.Size = New System.Drawing.Size(139, 17)
         Me.FSAssetsCheckBox.TabIndex = 8
-        Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
+        Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Backup_FSAssets
         Me.FSAssetsCheckBox.UseVisualStyleBackColor = True
         '
         'MySqlCheckBox
@@ -120,7 +120,7 @@ Partial Class FormBackupCheckboxes
         Me.MySqlCheckBox.Name = "MySqlCheckBox"
         Me.MySqlCheckBox.Size = New System.Drawing.Size(148, 17)
         Me.MySqlCheckBox.TabIndex = 7
-        Me.MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
+        Me.MySqlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         Me.MySqlCheckBox.UseVisualStyleBackColor = True
         '
         'RegionCheckBox
@@ -132,7 +132,7 @@ Partial Class FormBackupCheckboxes
         Me.RegionCheckBox.Name = "RegionCheckBox"
         Me.RegionCheckBox.Size = New System.Drawing.Size(138, 17)
         Me.RegionCheckBox.TabIndex = 6
-        Me.RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
+        Me.RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         Me.RegionCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -149,17 +149,17 @@ Partial Class FormBackupCheckboxes
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormBackupCheckboxes
         '

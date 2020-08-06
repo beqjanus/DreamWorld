@@ -1,0 +1,12 @@
+﻿# Examples are below.|You can ban a viewer, an IP and/or a MAC address.
+# Imprudence 1.1.2.0|Example: Agent using the viewer Imprudence 1.1.2.0 is banned.
+# Imprudence|All Imprudence agents have no access.
+# Imprudence 1.1|Imprudence 1.1 has no access.
+# Imprudence 1.1.2|Imprudence 1.1.2 will have no access.
+# Firestorm 4|Firestorm 5 and 6 are allowed.
+# 34.206.39.153|This IP from 'junk.com' is banned.
+# 01:23:45:67:89:A|This MAC address is banned. Get MACs from the Robust log.
+# Firestorm-Release 4.6.7.42398|DarkStorm, i.e. Firestorm-Release 4.6.7.42398 has no access.
+# HydraStorm|HydraStorm Copybotter
+# SolarStorm|Singularity Solar Storm Copybot
+# |Delete or modify any rules then close this window. Robust will restart if running.

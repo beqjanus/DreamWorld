@@ -29,6 +29,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Text;
 
 using log4net;
@@ -126,38 +127,33 @@ namespace OpenSim.Region.ClientStack.Linden
 
         public void RegisterCaps(UUID agentID, Caps caps)
         {
-            string capUrl = "/CAPS/" + UUID.Random() + "/";
-
-            caps.RegisterHandler(
-                "EstateAccess",
-                new RestHTTPHandler(
-                    "GET",
-                    capUrl,
-                    httpMethod => ProcessRequest(httpMethod, agentID, caps),
-                    "EstateAccess",
-                    agentID.ToString())); ;
+            caps.RegisterSimpleHandler("EstateAccess",
+                new SimpleStreamHandler("/" + UUID.Random(),
+                delegate(IOSHttpRequest request, IOSHttpResponse response)
+                {
+                    ProcessRequest(request, response, agentID);
+                }));
         }
 
-        public Hashtable ProcessRequest(Hashtable request, UUID AgentId, Caps cap)
+        public void ProcessRequest(IOSHttpRequest request, IOSHttpResponse response, UUID AgentId)
         {
-            Hashtable responsedata = new Hashtable();
-            responsedata["int_response_code"] = 200; //501; //410; //404;
-            responsedata["content_type"] = "text/plain";
-
-            ScenePresence avatar;
-            if (!m_scene.TryGetScenePresence(AgentId, out avatar))
+            if(request.HttpMethod != "GET")
             {
-                responsedata["str_response_string"] = "<llsd><array /></llsd>"; ;
-                responsedata["keepalive"] = false;
-                return responsedata;
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                return;
             }
 
-            if (m_scene.RegionInfo == null 
-                || m_scene.RegionInfo.EstateSettings == null
-                ||!m_scene.Permissions.CanIssueEstateCommand(AgentId, false))
+            ScenePresence avatar;
+            if (!m_scene.TryGetScenePresence(AgentId, out avatar) || m_scene.RegionInfo == null || m_scene.RegionInfo.EstateSettings == null)
             {
-                responsedata["str_response_string"] = "<llsd><array /></llsd>"; ;
-                return responsedata;
+                response.StatusCode = (int)HttpStatusCode.Gone;
+                return;
+            }
+
+            if (!m_scene.Permissions.CanIssueEstateCommand(AgentId, false))
+            {
+                response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return;
             }
 
             EstateSettings regionSettings = m_scene.RegionInfo.EstateSettings;
@@ -183,6 +179,8 @@ namespace OpenSim.Region.ClientStack.Linden
                 }
                 LLSDxmlEncode.AddEndArray(sb);
             }
+            else
+                LLSDxmlEncode.AddEmptyArray("AllowedAgents", sb);
 
             if (groups != null && groups.Length > 0)
             {
@@ -198,6 +196,8 @@ namespace OpenSim.Region.ClientStack.Linden
                 }
                 LLSDxmlEncode.AddEndArray(sb);
             }
+            else
+                LLSDxmlEncode.AddEmptyArray("AllowedGroups", sb);
 
             if (EstateBans != null && EstateBans.Length > 0)
             {
@@ -220,6 +220,8 @@ namespace OpenSim.Region.ClientStack.Linden
                 }
                 LLSDxmlEncode.AddEndArray(sb);
             }
+            else
+                LLSDxmlEncode.AddEmptyArray("BannedAgents", sb);
 
             if (managers != null && managers.Length > 0)
             {
@@ -232,11 +234,13 @@ namespace OpenSim.Region.ClientStack.Linden
                 }
                 LLSDxmlEncode.AddEndArray(sb);
             }
+            else
+                LLSDxmlEncode.AddEmptyArray("Managers", sb);
 
             LLSDxmlEncode.AddEndMap(sb);
-            responsedata["str_response_string"] = LLSDxmlEncode.End(sb);
 
-            return responsedata;
+            response.RawBuffer = Util.UTF8.GetBytes(LLSDxmlEncode.End(sb));
+            response.StatusCode = (int)HttpStatusCode.OK;
         }
     }
 }

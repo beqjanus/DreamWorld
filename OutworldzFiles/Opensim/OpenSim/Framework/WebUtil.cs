@@ -33,6 +33,8 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Reflection;
 using System.Text;
 using System.Web;
@@ -92,6 +94,19 @@ namespace OpenSim.Framework
         /// </remarks>
         public const int MaxRequestDiagLength = 200;
 
+
+        public static bool ValidateServerCertificateNoChecks(
+            object sender,
+            X509Certificate certificate,
+            X509Chain chain,
+            SslPolicyErrors sslPolicyErrors)
+        {
+            sslPolicyErrors &= ~SslPolicyErrors.RemoteCertificateChainErrors;
+            sslPolicyErrors &= ~SslPolicyErrors.RemoteCertificateNameMismatch;
+            if (sslPolicyErrors == SslPolicyErrors.None)
+                return true;
+            return false;
+        }
         #region JSONRequest
 
         /// <summary>
@@ -567,25 +582,36 @@ namespace OpenSim.Framework
 
         /// <summary>
         /// Convert a NameValueCollection into a query string. This is the
-        /// inverse of HttpUtility.ParseQueryString()
+        /// not exactly the inverse of HttpUtility.ParseQueryString()
         /// </summary>
         /// <param name="parameters">Collection of key/value pairs to convert</param>
         /// <returns>A query string with URL-escaped values</returns>
         public static string BuildQueryString(NameValueCollection parameters)
         {
-            List<string> items = new List<string>(parameters.Count);
+            if (parameters.Count == 0)
+                return string.Empty;
 
+            StringBuilder sb = new StringBuilder(4096);
             foreach (string key in parameters.Keys)
             {
                 string[] values = parameters.GetValues(key);
                 if (values != null)
                 {
                     foreach (string value in values)
-                        items.Add(String.Concat(key, "=", HttpUtility.UrlEncode(value ?? String.Empty)));
+                    {
+                        sb.Append(key);
+                        sb.Append("=");
+                        if(!string.IsNullOrWhiteSpace(value))
+                            sb.Append(HttpUtility.UrlEncode(value));
+                        sb.Append("&");
+                    }
                 }
             }
 
-            return String.Join("&", items.ToArray());
+            if(sb.Length > 1)
+                sb.Length--;
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -1082,9 +1108,7 @@ namespace OpenSim.Framework
 
     public class SynchronousRestObjectRequester
     {
-        private static readonly ILog m_log =
-            LogManager.GetLogger(
-            MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Perform a synchronous REST request.

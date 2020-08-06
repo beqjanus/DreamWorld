@@ -71,7 +71,9 @@ Public Class ScreenPos
 
 #Region "Public Methods"
 
-    Public Function ColumnWidth(name As String, size As Integer) As Integer
+    Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
+
+        If name Is Nothing Then Return 0
 
         If Data Is Nothing Then
             Return size
@@ -81,7 +83,7 @@ Public Class ScreenPos
         If w = 0 Then
             Return size
         End If
-
+        Diagnostics.Debug.Print(name & "_width" & w.ToString(Globalization.CultureInfo.CurrentCulture))
         Return w
 
     End Function

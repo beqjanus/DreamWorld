@@ -94,10 +94,10 @@ Public Class FormBackupCheckboxes
 
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
-        If Form1.Settings.BackupFolder = "AutoBackup" Then
-            Dest = Form1.Settings.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
+        If Settings.BackupFolder = "AutoBackup" Then
+            Dest = Settings.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
         Else
-            Dest = Form1.Settings.BackupFolder + "\" + Foldername
+            Dest = Settings.BackupFolder + "\" + Foldername
         End If
 
         If RegionCheckBox.Checked Then
@@ -110,7 +110,7 @@ Public Class FormBackupCheckboxes
             End Try
 
             PrintStatus(My.Resources.Backup_Regions)
-            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
             Application.DoEvents()
         End If
 
@@ -123,7 +123,7 @@ Public Class FormBackupCheckboxes
 #Enable Warning CA1031
             End Try
             PrintStatus(My.Resources.Backup_MySQL_Phrase)
-            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
             Application.DoEvents()
         End If
 
@@ -137,10 +137,10 @@ Public Class FormBackupCheckboxes
             End Try
 
             Dim folder As String = "./fsassets"
-            If Form1.Settings.BaseDirectory = "./fsassets" Then
-                folder = Form1.Settings.OpensimBinPath & "bin\FSAssets"
+            If Settings.BaseDirectory = "./fsassets" Then
+                folder = Settings.OpensimBinPath & "bin\FSAssets"
             Else
-                folder = Form1.Settings.BaseDirectory
+                folder = Settings.BaseDirectory
             End If
 
             PrintStatus("Backing up FSAssets Folder")
@@ -158,14 +158,14 @@ Public Class FormBackupCheckboxes
 #Enable Warning CA1031
             End Try
             PrintStatus("Backing up Wifi Folders")
-            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-            FileStuff.CopyFolder(Form1.Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
             Application.DoEvents()
         End If
 
         If SettingsBox.Checked Then
             PrintStatus(My.Resources.Backing_up_Settings_word)
-            FileStuff.CopyFile(Form1.Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
+            FileStuff.CopyFile(Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
         PrintStatus(My.Resources.Finished_with_backup_word & Dest)
         DialogResult = DialogResult.OK
@@ -194,7 +194,7 @@ Public Class FormBackupCheckboxes
         MySqlCheckBox.Enabled = True
         MySqlCheckBox.Checked = True
 
-        If Form1.Settings.FsAssetsEnabled Then
+        If Settings.FsAssetsEnabled Then
             FSAssetsCheckBox.Enabled = True
             FSAssetsCheckBox.Checked = True
         Else

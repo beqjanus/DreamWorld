@@ -85,7 +85,7 @@ Partial Class FormScripts
         Me.LSLCheckbox.Name = "LSLCheckbox"
         Me.LSLCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.LSLCheckbox.TabIndex = 210
-        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         Me.LSLCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -102,17 +102,17 @@ Partial Class FormScripts
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormScripts
         '
@@ -123,7 +123,7 @@ Partial Class FormScripts
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormScripts"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
+        Me.Text = Global.Outworldz.My.Resources.Scripts_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)

@@ -12,7 +12,6 @@
 \Outworldzfiles\opensim\bin\DotNetOpenId.dll
 \Outworldzfiles\opensim\bin\DotNetOpenMail.dll
 \Outworldzfiles\opensim\bin\Gloebit.dll
-\Outworldzfiles\opensim\bin\HttpServer_OpenSim.dll
 \Outworldzfiles\opensim\bin\ICSharpCode.SharpZipLib.dll
 \Outworldzfiles\opensim\bin\Ionic.Zip.dll
 \Outworldzfiles\opensim\bin\log4net.dll

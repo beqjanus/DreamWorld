@@ -26,7 +26,6 @@ Public Class FormRestart
 
 #Region "Private Fields"
 
-
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
     Dim initted As Boolean = False
@@ -46,49 +45,35 @@ Public Class FormRestart
 
 #End Region
 
-#Region "Private Methods"
+#Region "Load and Close"
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.Settings.AutoRestartEnabled = ARTimerBox.Checked
-        Form1.Settings.Autostart = AutoStartCheckbox.Checked
+        Settings.AutoRestartEnabled = ARTimerBox.Checked
+        Settings.Autostart = AutoStartCheckbox.Checked
         Try
-            Form1.Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
+            Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
-            Form1.Settings.AutoRestartInterval = 0
+            Settings.AutoRestartInterval = 0
         End Try
 
-        Form1.Settings.RestartOnCrash = RestartOnCrash.Checked
-        Form1.Settings.RestartonPhysics = RestartOnPhysicsCrash.Checked
-        Form1.Settings.Sequential = SequentialCheckBox1.Checked
+        Settings.RestartOnCrash = RestartOnCrash.Checked
+        Settings.Sequential = SequentialCheckBox1.Checked
 
         Form1.PropViewedSettings = True
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        AutoRestartBox.Text = Form1.Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
-
-        ARTimerBox.Checked = Form1.Settings.AutoRestartEnabled
-
-        AutoStartCheckbox.Checked = Form1.Settings.Autostart
-        SequentialCheckBox1.Checked = Form1.Settings.Sequential
-
-        ' Restart on Physics crash is only good for Bullet  in a thread as if it crashed any other way, 
-        ' it will restart under AutoRestart
-
-        Debug.Print(Form1.Settings.Physics)
-        If Form1.Settings.Physics <> 4 Then
-            RestartOnPhysicsCrash.Enabled = False
-            RestartOnCrash.Checked = False
-        Else
-            RestartOnPhysicsCrash.Checked = Form1.Settings.RestartonPhysics
-            RestartOnCrash.Checked = True
-        End If
+        AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
+        ARTimerBox.Checked = Settings.AutoRestartEnabled
+        AutoStartCheckbox.Checked = Settings.Autostart
+        SequentialCheckBox1.Checked = Settings.Sequential
+        RestartOnCrash.Checked = Settings.RestartOnCrash
 
         SetScreen()
         Form1.HelpOnce("Restart")
@@ -96,6 +81,10 @@ Public Class FormRestart
         initted = True ' suppress the install of the startup on formload
 
     End Sub
+
+#End Region
+
+#Region "SetScreen"
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -120,18 +109,17 @@ Public Class FormRestart
 
         If Not initted Then Return
         If ARTimerBox.Checked Then
-            Dim BTime As Int16 = CType(Form1.Settings.AutobackupInterval, Int16)
-            If Form1.Settings.AutoBackup And Form1.Settings.AutoRestartInterval > 0 And Form1.Settings.AutoRestartInterval < BTime Then
-                Form1.Settings.AutoRestartInterval = BTime + 30
+            Dim BTime As Int16 = CType(Settings.AutobackupInterval, Int16)
+            If Settings.AutoBackup And Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
+                Settings.AutoRestartInterval = BTime + 30
                 AutoRestartBox.Text = (BTime + 30).ToString(Globalization.CultureInfo.InvariantCulture)
-                MsgBox(My.Resources.Increasing_time & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
+                MsgBox(My.Resources.Increasing_time_to_word & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
             End If
-
         Else
-            Form1.Settings.AutoRestartEnabled = False
-            Form1.Settings.AutoRestartInterval = 0
+            Settings.AutoRestartEnabled = False
+            Settings.AutoRestartInterval = 0
         End If
-        Form1.Settings.SaveSettings()
+        Settings.SaveSettings()
 
     End Sub
 
@@ -143,21 +131,17 @@ Public Class FormRestart
 
     End Sub
 
-
-
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
         Form1.Help("Restart")
 
     End Sub
 
-
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
 
         Form1.Help("Restart")
 
     End Sub
-
 
 #End Region
 

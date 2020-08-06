@@ -126,7 +126,7 @@ Public Class Choice
 
         Dim selectedRowCount = DataGridView.Rows.GetRowCount(DataGridViewElementStates.Selected)
         If selectedRowCount > 1 Then
-            MsgBox(My.Resources.Please_select_only_one_row, vbInformation, My.Resources.Info)
+            MsgBox(My.Resources.Please_select_only_one_row, vbInformation, My.Resources.Info_word)
         End If
         If selectedRowCount = 1 Then
             DialogResult = DialogResult.OK

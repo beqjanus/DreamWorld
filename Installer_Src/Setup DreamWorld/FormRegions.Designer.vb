@@ -70,7 +70,7 @@ Partial Class FormRegions
         Me.GroupBox2.Size = New System.Drawing.Size(316, 510)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Region
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Region
         '
         'SmartStartEnabled
         '
@@ -80,7 +80,7 @@ Partial Class FormRegions
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(180, 24)
         Me.SmartStartEnabled.TabIndex = 1867
-        Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_Enable_word
+        Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         Me.SmartStartEnabled.UseVisualStyleBackColor = True
         '
         'Button1
@@ -90,7 +90,7 @@ Partial Class FormRegions
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(259, 34)
         Me.Button1.TabIndex = 1866
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.ClearReg
+        Me.Button1.Text = Global.Outworldz.My.Resources.ClearReg
         Me.Button1.UseVisualStyleBackColor = True
         '
         'NormalizeButton1
@@ -100,7 +100,7 @@ Partial Class FormRegions
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(278, 34)
         Me.NormalizeButton1.TabIndex = 1865
-        Me.NormalizeButton1.Text = Global.Outworldz.My.Resources.Resources.NormalizeRegions
+        Me.NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         Me.NormalizeButton1.UseVisualStyleBackColor = True
         '
         'Z
@@ -145,7 +145,7 @@ Partial Class FormRegions
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(92, 20)
         Me.Label1.TabIndex = 1860
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.EditRegion
+        Me.Label1.Text = Global.Outworldz.My.Resources.EditRegion
         '
         'RegionButton
         '
@@ -154,14 +154,14 @@ Partial Class FormRegions
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(263, 34)
         Me.RegionButton.TabIndex = 4
-        Me.RegionButton.Text = Global.Outworldz.My.Resources.Resources.Configger
+        Me.RegionButton.Text = Global.Outworldz.My.Resources.Configger
         Me.RegionButton.UseVisualStyleBackColor = True
         '
         'RegionBox
         '
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
-        Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
+        Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         Me.RegionBox.Location = New System.Drawing.Point(4, 366)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(4)
         Me.RegionBox.MaxDropDownItems = 15
@@ -172,7 +172,7 @@ Partial Class FormRegions
         '
         'RegionHelp
         '
-        Me.RegionHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RegionHelp.Image = Global.Outworldz.My.Resources.about
         Me.RegionHelp.Location = New System.Drawing.Point(102, 47)
         Me.RegionHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.RegionHelp.Name = "RegionHelp"
@@ -188,7 +188,7 @@ Partial Class FormRegions
         Me.WelcomeRegion.Name = "WelcomeRegion"
         Me.WelcomeRegion.Size = New System.Drawing.Size(109, 20)
         Me.WelcomeRegion.TabIndex = 32
-        Me.WelcomeRegion.Text = Global.Outworldz.My.Resources.Resources.Default_Region_word
+        Me.WelcomeRegion.Text = Global.Outworldz.My.Resources.Default_Region_word
         '
         'WelcomeBox1
         '
@@ -217,7 +217,7 @@ Partial Class FormRegions
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(278, 34)
         Me.AddRegion.TabIndex = 2
-        Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
+        Me.AddRegion.Text = Global.Outworldz.My.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -234,17 +234,17 @@ Partial Class FormRegions
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(85, 29)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormRegions
         '
@@ -258,7 +258,7 @@ Partial Class FormRegions
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Region
+        Me.Text = Global.Outworldz.My.Resources.Region
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()

@@ -2,15 +2,52 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.592 Release Candidate  for V3.6
+Drop Addins-db-002
+
+V3.591 Release Candidate 
+Oops, some missing files in 3.59.
+Also fixed a missing macro in Opensim.exe.config and robust.exe.config that stopped the "Help->Issue Console Commands->Set Debug Level" from taking effect for all sessions, not just one session.
+
+
+V3.59 Release Candidate 7/24/2020
+Opensim updated to the same as OsGrid: Version #b598573 0.9.2.dev. 5-22-10:55 This includes hundreds of tweaks.
+Enabled built-in Denial-of-Service protection. 
+Added Settable Ban lists for Grids, Viewer type, IP addresses and MAC addresses.
+S4ving an oar without a .oar extension now gets .oar added on end.
+RegionList could be shifted one column to the right.
+Create a blank WordPress database using robust credentials.
+Add manual to show how to install Wordpress. tl;dr: Save WP in Outworldzfile\htdocs\WordPress and load http://localhost/Wordpress in a browser. Use Robust credentials.
+FollowSymLinks added to Apache httpd.conf for easier integration of WordPress, and Directory Index was re-ordered.
+Fixed Restart on Crash to ignore physics engine.
+Removed Scan of Region logs to improve performance. 
+YEngine script is now the default for new DreamGrids.
+
+
+V3.58 Post Fixes 7/14/2020
+When more than one grid is run on a PC do not shut off wrong Robust.
+Region Form remembers the column widths in Details mode.
+OsGrid complained about 2 economy modules.
+Viewers complained that items are not available even when suitcase is off. This is a visual reminder to local users that their inventories are unavailable while they are traveling, and available when they return. Now should warn only if you enable suitcase, and off if you disable the suitcase. 
+OsGrid alias added to match the latest OsGrid specs.
+Map button disabled except when this is a grid.
+Adding a region did not add a hole in the firewall.
+PHP warns in Apache log now suppressed.
+Fix black on black text in White Theme when authorizing a user.
+Added a pose stand patch to Opensimulator by Lotek. This adds all poses in the Firestorm floater, so the floater works in Opensimulator, making the need for 3rd party pose stands/HUDs obsolete. His alert sound patch adds the alert sound that Firestorm uses to signify radar alerts and keyword alerts.
+Added XMLRPC port to each Region for third party tools to control Opensim. 
+http://opensimulator.org/wiki/RemoteAdmin:RemoteAdmin_Examples
+Stopped a recursive timer tick from happening on slow machines which again delayed startup of Regions.
+
 V3.57 Post Fixes 7/6/2020
 Bug Fix:Console = None works again.
-Performance: Skip huge folders with no dlls in updates 
-Bug Fix:Fix timer reentrant issue that shut down the icons.  
+Performance: Skip huge folders with no Dlls in updates 
+Bug Fix:  timer reentrant issue that shut down the icons.  
 Performance: Added back the DoEvents to make UI more responsive.
 Coding: Added example on how to make an addin for Opensim
-Bug Fix: Race condition of very fast machines could cause it to hang on boot.
 Bug Fix: Local Events missing a column.
 
+7-1041
 V3.56 Post Fixes 6/18/2020
 New Feature: Updates could destroy added on services such as WordPress or Joomla.  Added a switch to 
 Apache to select "DreamGrid Diva", WordPress, or Joomla/JOpensim or "Other" folder as the home page, 

@@ -10,6 +10,7 @@ Public Class FormOAR
 #Region "JSON"
 
 #Disable Warning CA1034
+
     Public Class JSONresult
 
         Private _cache As Image
@@ -245,7 +246,7 @@ Public Class FormOAR
                 End Using
             End Using
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Form1.Log("Warn", ex.Message)
@@ -263,7 +264,7 @@ Public Class FormOAR
                 Return client.DownloadString(url)
             End Using
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Form1.Log("Warn", ex.Message)
@@ -281,7 +282,7 @@ Public Class FormOAR
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Form1.Log("Error", ex.Message)
@@ -402,7 +403,7 @@ Public Class FormOAR
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Form1.Log(My.Resources.Error_word, ex.Message)
@@ -423,7 +424,7 @@ Public Class FormOAR
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
 
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -441,7 +442,6 @@ Public Class FormOAR
         Return json
 
     End Function
-
 
 #End Region
 
@@ -542,6 +542,7 @@ Public Class FormOAR
         Return json
 
     End Function
+
 #End Region
 
 #Region "Search"
@@ -552,7 +553,7 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyPress
+    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
 
         Search()
 
@@ -563,7 +564,7 @@ Public Class FormOAR
 
         If searchterm.Length > 0 Then
             Erase SearchArray
-            ' search thru search and 
+            ' search thru search and
             For Each item In json
                 If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                     Dim l As Integer

@@ -81,7 +81,7 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Size = New System.Drawing.Size(277, 210)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
-        Me.StandaloneGroup.Text = Global.Outworldz.My.Resources.Resources.Region_Database
+        Me.StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
         '
         'ClearRegionTable
         '
@@ -89,7 +89,7 @@ Partial Class FormDatabase
         Me.ClearRegionTable.Name = "ClearRegionTable"
         Me.ClearRegionTable.Size = New System.Drawing.Size(107, 23)
         Me.ClearRegionTable.TabIndex = 1886
-        Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.Resources.ClearRegion
+        Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.ClearRegion
         Me.ClearRegionTable.UseVisualStyleBackColor = True
         '
         'MysqlRegionPort
@@ -107,7 +107,7 @@ Partial Class FormDatabase
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(64, 13)
         Me.Label2.TabIndex = 42
-        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.MySqlPort_word
+        Me.Label2.Text = Global.Outworldz.My.Resources.MySqlPort_word
         '
         'Label1
         '
@@ -116,7 +116,7 @@ Partial Class FormDatabase
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(75, 13)
         Me.Label1.TabIndex = 45
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.Region_Server_word
+        Me.Label1.Text = Global.Outworldz.My.Resources.Region_Server_word
         '
         'RegionServer
         '
@@ -124,7 +124,7 @@ Partial Class FormDatabase
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(107, 20)
         Me.RegionServer.TabIndex = 46
-        Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Region_ServerName)
         '
         'Label22
         '
@@ -133,7 +133,7 @@ Partial Class FormDatabase
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(53, 13)
         Me.Label22.TabIndex = 17
-        Me.Label22.Text = Global.Outworldz.My.Resources.Resources.Password_word
+        Me.Label22.Text = Global.Outworldz.My.Resources.Password_word
         '
         'Label20
         '
@@ -142,7 +142,8 @@ Partial Class FormDatabase
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(35, 13)
         Me.Label20.TabIndex = 13
-        Me.Label20.Text = GetType(Outworldz.My.Resources.Resources).Name
+        Me.Label20.Text = Outworldz.My.Resources.About_word
+
         '
         'RegionDbName
         '
@@ -150,7 +151,7 @@ Partial Class FormDatabase
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(107, 20)
         Me.RegionDbName.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'RegionDBUsername
         '
@@ -158,7 +159,7 @@ Partial Class FormDatabase
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RegionDBUsername.TabIndex = 43
-        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'Label21
         '
@@ -167,7 +168,7 @@ Partial Class FormDatabase
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(60, 13)
         Me.Label21.TabIndex = 16
-        Me.Label21.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
+        Me.Label21.Text = Global.Outworldz.My.Resources.User_Name_word
         '
         'RegionMySqlPassword
         '
@@ -175,7 +176,7 @@ Partial Class FormDatabase
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(107, 20)
         Me.RegionMySqlPassword.TabIndex = 44
-        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
         'GridGroup
@@ -207,7 +208,7 @@ Partial Class FormDatabase
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 13)
         Me.Label3.TabIndex = 1885
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Assets_as_Files_word
+        Me.Label3.Text = Global.Outworldz.My.Resources.Assets_as_Files_word
         '
         'Button1
         '
@@ -215,7 +216,7 @@ Partial Class FormDatabase
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(107, 23)
         Me.Button1.TabIndex = 1884
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.FSassets_Server_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
@@ -224,11 +225,11 @@ Partial Class FormDatabase
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(107, 20)
         Me.RobustServer.TabIndex = 37
-        Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Region_ServerName)
         '
         'DBHelp
         '
-        Me.DBHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DBHelp.Image = Global.Outworldz.My.Resources.about
         Me.DBHelp.Location = New System.Drawing.Point(183, 12)
         Me.DBHelp.Name = "DBHelp"
         Me.DBHelp.Size = New System.Drawing.Size(28, 21)
@@ -251,7 +252,7 @@ Partial Class FormDatabase
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(35, 13)
         Me.Dbnameindex.TabIndex = 35
-        Me.Dbnameindex.Text = GetType(Outworldz.My.Resources.Resources).Name
+        Me.Dbnameindex.Text = My.Resources.DBName_word
         '
         'Label9
         '
@@ -260,7 +261,7 @@ Partial Class FormDatabase
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 13)
         Me.Label9.TabIndex = 35
-        Me.Label9.Text = Global.Outworldz.My.Resources.Resources.Password_word
+        Me.Label9.Text = Global.Outworldz.My.Resources.Password_word
         '
         'RobustDbPort
         '
@@ -268,7 +269,7 @@ Partial Class FormDatabase
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
         Me.RobustDbPort.TabIndex = 41
-        Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.Resources.MySQL_Port_Default)
+        Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.MySQL_Port_Default)
         '
         'RobustDbName
         '
@@ -276,7 +277,7 @@ Partial Class FormDatabase
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
         Me.RobustDbName.TabIndex = 38
-        Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'Label15
         '
@@ -285,7 +286,7 @@ Partial Class FormDatabase
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(60, 13)
         Me.Label15.TabIndex = 34
-        Me.Label15.Text = Global.Outworldz.My.Resources.Resources.User_Name_word
+        Me.Label15.Text = Global.Outworldz.My.Resources.User_Name_word
         '
         'Label8
         '
@@ -294,7 +295,7 @@ Partial Class FormDatabase
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(64, 13)
         Me.Label8.TabIndex = 32
-        Me.Label8.Text = Global.Outworldz.My.Resources.Resources.MySqlPort_word
+        Me.Label8.Text = Global.Outworldz.My.Resources.MySqlPort_word
         '
         'RobustDBPassword
         '
@@ -302,7 +303,7 @@ Partial Class FormDatabase
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBPassword.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Do_NotChange)
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
         'RobustDBUsername
@@ -311,7 +312,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBUsername.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'MenuStrip2
         '
@@ -327,39 +328,39 @@ Partial Class FormDatabase
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Region_Database
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Database_Setup_word
         '
         'BackupToolStripMenuItem
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
-        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(78, 24)
-        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
         '
         'FullSQLBackupToolStripMenuItem
         '
-        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data_Files_word
+        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
         '
         'DataOnlyToolStripMenuItem
         '
-        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_Backup_file_word
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_Backup_file_word
         '
         'FormDatabase
         '
@@ -372,7 +373,7 @@ Partial Class FormDatabase
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Database_word
+        Me.Text = Global.Outworldz.My.Resources.Database_word
         Me.StandaloneGroup.ResumeLayout(False)
         Me.StandaloneGroup.PerformLayout()
         Me.GridGroup.ResumeLayout(False)
