@@ -126,8 +126,9 @@ namespace OpenSim.Framework.Capabilities
             None =          0,
             SentSeeds =     1,
 
-            ObjectAnim = 0x10,
-            AdvEnv     = 0x20
+            ObjectAnim =    0x100,
+            WLEnv =         0x200,
+            AdvEnv =        0x400
         }
 
         public CapsFlags Flags { get; set;}
@@ -157,12 +158,7 @@ namespace OpenSim.Framework.Capabilities
 
         ~Caps()
         {
-            Flags = CapsFlags.None;
-            if (m_capsActive!= null)
-            {
-                m_capsActive.Dispose();
-                m_capsActive = null;
-            }
+            Dispose(false);
         }
         
         public void Dispose()
@@ -171,7 +167,7 @@ namespace OpenSim.Framework.Capabilities
             GC.SuppressFinalize(this);
         }
 
-        public void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             Flags = CapsFlags.None;
             if (m_capsActive != null)
@@ -294,9 +290,6 @@ namespace OpenSim.Framework.Capabilities
                             port = MainServer.Instance.SSLPort;
                             protocol = "https";
                         }
-    //
-    //            caps.RegisterHandler("FetchInventoryDescendents2", String.Format("{0}://{1}:{2}{3}", protocol, hostName, port, capUrl));
-
                         caps[kvp.Key] = string.Format("{0}://{1}:{2}{3}", protocol, hostName, port, kvp.Value.Url);
                 }
             }
@@ -310,7 +303,7 @@ namespace OpenSim.Framework.Capabilities
                 caps[kvp.Key] = kvp.Value;
             }
 
-            Flags |= CapsFlags.SentSeeds;
+
             return caps;
         }
 

@@ -114,8 +114,8 @@ namespace OpenSim
                 }
 
                 string asyncCallMethodStr = startupConfig.GetString("async_call_method", String.Empty);
-                FireAndForgetMethod asyncCallMethod;
-                if (!String.IsNullOrEmpty(asyncCallMethodStr) && Utils.EnumTryParse<FireAndForgetMethod>(asyncCallMethodStr, out asyncCallMethod))
+                if (!String.IsNullOrEmpty(asyncCallMethodStr) &&
+                        Utils.EnumTryParse<FireAndForgetMethod>(asyncCallMethodStr, out FireAndForgetMethod asyncCallMethod))
                     Util.FireAndForgetMethod = asyncCallMethod;
 
                 stpMinThreads = startupConfig.GetInt("MinPoolThreads", 2 );
@@ -266,9 +266,11 @@ namespace OpenSim
             // Start timer script (run a script every xx seconds)
             if (m_timedScript != "disabled")
             {
-                m_scriptTimer = new System.Timers.Timer();
-                m_scriptTimer.Enabled = true;
-                m_scriptTimer.Interval = m_timeInterval*1000;
+                m_scriptTimer = new System.Timers.Timer()
+                {
+                    Enabled = true,
+                    Interval = m_timeInterval*1000,
+                };
                 m_scriptTimer.Elapsed += RunAutoTimerScript;
             }
         }
@@ -784,8 +786,7 @@ namespace OpenSim
                 regInfo = new RegionInfo(regionName, regionFile, false, ConfigSource.Source, regionName);
             }
 
-            Scene existingScene;
-            if (SceneManager.TryGetScene(regInfo.RegionID, out existingScene))
+            if (SceneManager.TryGetScene(regInfo.RegionID, out Scene existingScene))
             {
                 MainConsole.Instance.Output(
                     "ERROR: Cannot create region {0} with ID {1}, this ID is already assigned to region {2}",
@@ -795,8 +796,7 @@ namespace OpenSim
             }
 
             bool changed = PopulateRegionEstateInfo(regInfo);
-            IScene scene;
-            CreateRegion(regInfo, true, out scene);
+            CreateRegion(regInfo, true, out IScene scene);
 
             if (changed)
                 m_estateDataService.StoreEstateSettings(regInfo.EstateSettings);
@@ -848,7 +848,8 @@ namespace OpenSim
                     break;
 
                 case "restart":
-                    SceneManager.RestartCurrentScene();
+                    MainConsole.Instance.Output("Restart command disabled, because currently it is unreliable.");
+                    //SceneManager.RestartCurrentScene();
                     break;
             }
         }
@@ -1064,28 +1065,33 @@ namespace OpenSim
 
         private void HandleShowCircuits()
         {
-            ConsoleDisplayTable cdt = new ConsoleDisplayTable();
-            cdt.AddColumn("Region", 20);
-            cdt.AddColumn("Avatar name", 24);
-            cdt.AddColumn("Type", 5);
-            cdt.AddColumn("Code", 10);
-            cdt.AddColumn("IP", 16);
-            cdt.AddColumn("Viewer Name", 24);
-
             SceneManager.ForEachScene(
                 s =>
                 {
-                    foreach (AgentCircuitData aCircuit in s.AuthenticateHandler.GetAgentCircuits().Values)
-                        cdt.AddRow(
-                            s.Name,
+                    ICollection<AgentCircuitData> circuits = s.AuthenticateHandler.GetAgentCircuits().Values;
+                    int n = circuits.Count;
+
+                    MainConsole.Instance.Output("- Circuits in region {0}: {1}", s.Name, n);
+                    if(n > 0)
+                    {
+                        ConsoleDisplayTable cdt = new ConsoleDisplayTable();
+                        cdt.AddColumn("Avatar name", 24);
+                        cdt.AddColumn("Type", 5);
+                        cdt.AddColumn("Code", 10);
+                        cdt.AddColumn("IP", 16);
+                        cdt.AddColumn("Viewer Name", 24);
+
+                        foreach (AgentCircuitData aCircuit in circuits)
+                            cdt.AddRow(
                             aCircuit.Name,
                             aCircuit.child ? "child" : "root",
                             aCircuit.circuitcode.ToString(),
                             aCircuit.IPAddress != null ? aCircuit.IPAddress.ToString() : "not set",
                             Util.GetViewerName(aCircuit));
-                });
 
-            MainConsole.Instance.Output(cdt.ToString());
+                        MainConsole.Instance.Output(cdt.ToString());
+                    }
+                });
         }
 
         private void HandleShowConnections()
@@ -1278,13 +1284,11 @@ namespace OpenSim
         protected void CreateEstateCommand(string module, string[] args)
         {
             string response = null;
-            UUID userID;
-
             if (args.Length == 2)
             {
                 response = "No user specified.";
             }
-            else if (!UUID.TryParse(args[2], out userID))
+            else if (!UUID.TryParse(args[2], out UUID userID))
             {
                 response = String.Format("{0} is not a valid UUID", args[2]);
             }
@@ -1340,8 +1344,7 @@ namespace OpenSim
             }
             else
             {
-                int estateId;
-                if (!int.TryParse(args[3], out estateId))
+                if (!int.TryParse(args[3], out int estateId))
                 {
                     response = String.Format("\"{0}\" is not a valid ID for an Estate", args[3]);
                 }
@@ -1362,8 +1365,7 @@ namespace OpenSim
                         if (args.Length == 5)
                         {
                             // attempt to get account by UUID
-                            UUID u;
-                            if (UUID.TryParse(s1, out u))
+                            if (UUID.TryParse(s1, out UUID u))
                             {
                                 account = scene.UserAccountService.GetUserAccount(scopeID, u);
                                 if (account == null)
@@ -1413,8 +1415,7 @@ namespace OpenSim
             }
             else
             {
-                int estateId;
-                if (!int.TryParse(args[3], out estateId))
+                if (!int.TryParse(args[3], out int estateId))
                 {
                     response = String.Format("\"{0}\" is not a valid ID for an Estate", args[3]);
                 }

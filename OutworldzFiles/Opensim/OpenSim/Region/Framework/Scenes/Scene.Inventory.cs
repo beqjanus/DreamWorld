@@ -339,7 +339,7 @@ namespace OpenSim.Region.Framework.Scenes
                         return UUID.Zero;
                     }
 
-                    avatar.ControllingClient.SendAlertMessage("gesture updated");
+                    avatar.ControllingClient.SendAlertMessage("Gesture updated");
                     break;
                 }
                 case InventoryType.Settings:
@@ -350,7 +350,7 @@ namespace OpenSim.Region.Framework.Scenes
                         return UUID.Zero;
                     }
 
-                    avatar.ControllingClient.SendAlertMessage("getting updated");
+                    avatar.ControllingClient.SendAlertMessage("Setting updated");
                     break;
                 }
             }
@@ -2597,8 +2597,8 @@ namespace OpenSim.Region.Framework.Scenes
         /// <param name="vel">The velocity of the rezzed object.</param>
         /// <param name="param"></param>
         /// <returns>The SceneObjectGroup(s) rezzed, or null if rez was unsuccessful</returns>
-        public virtual List<SceneObjectGroup> RezObject(
-            SceneObjectPart sourcePart, TaskInventoryItem item, Vector3 pos, Quaternion? rot, Vector3 vel, int param, bool atRoot)
+        public virtual List<SceneObjectGroup> RezObject(SceneObjectPart sourcePart, TaskInventoryItem item,
+                Vector3 pos, Quaternion? rot, Vector3 vel, int param, bool atRoot, bool rezSelected = false)
         {
             if (null == item)
                 return null;
@@ -2698,7 +2698,13 @@ namespace OpenSim.Region.Framework.Scenes
 
                 group.RezzerID = sourcePart.UUID;
 
-                if( i == 0)
+                if (rezSelected)
+                {
+                    group.IsSelected = true;
+                    group.RootPart.CreateSelected = true;
+                }
+
+                if ( i == 0)
                     AddNewSceneObject(group, true, curpos, rot, vel);
                 else
                 {
@@ -2709,6 +2715,7 @@ namespace OpenSim.Region.Framework.Scenes
                     }
                     AddNewSceneObject(group, true, curpos, crot, vel);
                 }
+
 
                 // We can only call this after adding the scene object, since the scene object references the scene
                 // to find out if scripts should be activated at all.
