@@ -6,8 +6,8 @@ This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases
 V3.61 Post fixes
 Opensim is Dev Master for EEP testing #af9bd993bb71ed1d6 2020-08-11 09:33:41
 Altered mechanism for reading OSSL section of OpenSim.ini to use config-include/osslDefaultEnable.ini which then loads config-include/osslEnable.ini overrides.
-Add osReplaceAgentEnvironment, osSetParcelMusicURL  to oslEnable
-Add sound Used by Firestorm keyword chat alert, user younger than x days alert etc 
+Add osReplaceAgentEnvironment, osSetParcelMusicURL to oslEnable
+Add sounds used by Firestorm keyword chat alert, user younger than x days alert, etc. 
 Add default clouds, rainbow and Halo textures.
 
 
