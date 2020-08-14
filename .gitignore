@@ -152,3 +152,4 @@ Makefile.local
 bin/.version
 compile.bat
 
+Outworldzfiles/banlist.txt
