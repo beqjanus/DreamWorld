@@ -185,13 +185,13 @@ Public Class FormDNSName
         Else
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " + IP(), vbInformation, My.Resources.Info_word)
+                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " & IP(), vbInformation, My.Resources.Info_word)
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
                     Else
-                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & IP, vbInformation, My.Resources.Info_word)
+                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " & IP, vbInformation, My.Resources.Info_word)
                     End If
                 End If
             Catch ex As ArgumentNullException

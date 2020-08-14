@@ -142,7 +142,8 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         void osRegionNotice(string msg);
         void osRegionNotice(LSL_Key agentID, string msg);
         bool osConsoleCommand(string Command);
-        void osSetParcelMediaURL(string url);
+        void osSetParcelMusicURL(LSL_String url);
+        void osSetParcelMediaURL(LSL_String url);
         void osSetPrimFloatOnWater(int floatYN);
         void osSetParcelSIPAddress(string SIPAddress);
 
@@ -249,7 +250,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         void osSetRegionWaterHeight(double height);
         void osSetRegionSunSettings(bool useEstateSun, bool sunFixed, double sunHour);
         void osSetEstateSunSettings(bool sunFixed, double sunHour);
-        double osGetCurrentSunHour();
+        LSL_Float osGetCurrentSunHour();
         double osGetSunParam(string param);
         double osSunGetParam(string param); // Deprecated
         void osSetSunParam(string param, double value);
@@ -337,13 +338,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         /// <returns>TRUE if the key belongs to an npc in the scene.  FALSE otherwise.</returns>
         LSL_Integer osIsNpc(LSL_Key npc);
 
-        key         osNpcCreate(string user, string name, vector position, string notecard);
-        key         osNpcCreate(string user, string name, vector position, string notecard, int options);
-        LSL_Key     osNpcSaveAppearance(key npc, string notecard);
-        void        osNpcLoadAppearance(key npc, string notecard);
-        vector      osNpcGetPos(key npc);
-        void        osNpcMoveTo(key npc, vector position);
-        void        osNpcMoveToTarget(key npc, vector target, int options);
+        key     osNpcCreate(string user, string name, vector position, string notecard);
+        key     osNpcCreate(string user, string name, vector position, string notecard, int options);
+        LSL_Key osNpcSaveAppearance(key npc, LSL_String notecard);
+        LSL_Key osNpcSaveAppearance(key npc, LSL_String notecard, LSL_Integer includeHuds);
+        void    osNpcLoadAppearance(key npc, string notecard);
+        vector  osNpcGetPos(key npc);
+        void    osNpcMoveTo(key npc, vector position);
+        void    osNpcMoveToTarget(key npc, vector target, int options);
 
         /// <summary>
         /// Get the owner of the NPC
@@ -352,27 +354,30 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         /// <returns>
         /// The owner of the NPC for an owned NPC.  The NPC's agent id for an unowned NPC.  UUID.Zero if the key is not an npc.
         /// </returns>
-        LSL_Key     osNpcGetOwner(key npc);
+        LSL_Key  osNpcGetOwner(key npc);
 
-        rotation    osNpcGetRot(key npc);
-        void        osNpcSetRot(LSL_Key npc, rotation rot);
-        void        osNpcStopMoveToTarget(LSL_Key npc);
-        void        osNpcSetProfileAbout(LSL_Key npc, string about);
-        void        osNpcSetProfileImage(LSL_Key npc, string image);
-        void        osNpcSay(key npc, string message);
-        void        osNpcSay(key npc, int channel, string message);
-        void        osNpcSayTo(LSL_Key npc, LSL_Key target, int channel, string msg);
-        void        osNpcShout(key npc, int channel, string message);
-        void        osNpcSit(key npc, key target, int options);
-        void        osNpcStand(LSL_Key npc);
-        void        osNpcRemove(key npc);
-        void        osNpcPlayAnimation(LSL_Key npc, string animation);
-        void        osNpcStopAnimation(LSL_Key npc, string animation);
-        void        osNpcTouch(LSL_Key npcLSL_Key, LSL_Key object_key, LSL_Integer link_num);
-        void        osNpcWhisper(key npc, int channel, string message);
+        rotation osNpcGetRot(key npc);
 
-        LSL_Key     osOwnerSaveAppearance(string notecard);
-        LSL_Key     osAgentSaveAppearance(key agentId, string notecard);
+        void osNpcSetRot(LSL_Key npc, rotation rot);
+        void osNpcStopMoveToTarget(LSL_Key npc);
+        void osNpcSetProfileAbout(LSL_Key npc, string about);
+        void osNpcSetProfileImage(LSL_Key npc, string image);
+        void osNpcSay(key npc, string message);
+        void osNpcSay(key npc, int channel, string message);
+        void osNpcSayTo(LSL_Key npc, LSL_Key target, int channel, string msg);
+        void osNpcShout(key npc, int channel, string message);
+        void osNpcSit(key npc, key target, int options);
+        void osNpcStand(LSL_Key npc);
+        void osNpcRemove(key npc);
+        void osNpcPlayAnimation(LSL_Key npc, string animation);
+        void osNpcStopAnimation(LSL_Key npc, string animation);
+        void osNpcTouch(LSL_Key npcLSL_Key, LSL_Key object_key, LSL_Integer link_num);
+        void osNpcWhisper(key npc, int channel, string message);
+
+        LSL_Key osOwnerSaveAppearance(LSL_String notecard);
+        LSL_Key osOwnerSaveAppearance(LSL_String notecard, LSL_Integer includeHuds);
+        LSL_Key osAgentSaveAppearance(key agentId, LSL_String notecard);
+        LSL_Key osAgentSaveAppearance(key agentId, LSL_String notecard, LSL_Integer includeHuds);
 
         key osGetGender(LSL_Key rawAvatarId);
         key osGetMapTexture();
@@ -569,5 +574,16 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         vector osGetStandTarget();
         vector osGetLinkStandTarget(LSL_Integer linkNumber);
         LSL_Integer osClearObjectAnimations();
+
+        LSL_Float osGetApparentTime();
+        LSL_String osGetApparentTimeString(LSL_Integer format24);
+        LSL_Float osGetApparentRegionTime();
+        LSL_String osGetApparentRegionTimeString(LSL_Integer format24);
+
+        LSL_Integer osReplaceAgentEnvironment(LSL_Key agentkey, LSL_Integer transition, LSL_String daycycle);
+        LSL_Integer osReplaceParcelEnvironment(LSL_Integer transition, LSL_String daycycle);
+        LSL_Integer osReplaceRegionEnvironment(LSL_Integer transition, LSL_String daycycle,
+           LSL_Float daylen, LSL_Float dayoffset, LSL_Float altitude1, LSL_Float altitude2, LSL_Float altitude3);
+        LSL_Integer osResetEnvironment(LSL_Integer parcelOrRegion, LSL_Integer transition);
     }
 }

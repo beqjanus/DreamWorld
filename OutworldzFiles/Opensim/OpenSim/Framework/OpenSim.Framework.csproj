@@ -284,6 +284,12 @@
 	  <Compile Include="EventData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="ExpiringCacheOS.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ExpiringKey.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="ExtraPhysicsData.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -533,7 +539,19 @@
 	  <Compile Include="VersionInfo.cs">
 		<SubType>Code</SubType>
 	  </Compile>
+	  <Compile Include="ViewerDaycycle.cs">
+		<SubType>Code</SubType>
+	  </Compile>
 	  <Compile Include="ViewerEffectEventHandlerArg.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ViewerEnvironment.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ViewerSky.cs">
+		<SubType>Code</SubType>
+	  </Compile>
+	  <Compile Include="ViewerWater.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="WearableCacheItem.cs">
