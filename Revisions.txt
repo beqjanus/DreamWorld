@@ -2,6 +2,10 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.62 Post Fixes
+Added Audio and Video examples on how to play region-wide audio loops and how to play videos
+Update license files to exactly match names in OAR folder. Add 6 new OARS.
+
 
 V3.61 Post fixes
 Opensim is Dev Master for EEP testing #af9bd993bb71ed1d6 2020-08-11 09:33:41

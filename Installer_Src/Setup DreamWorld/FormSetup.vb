@@ -38,7 +38,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.61"
+    Private _MyVersion As String = "3.62"
     Private _SearchRev = 5
     Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-22 15:55"
     ' the rev of the Search Table
@@ -401,6 +401,15 @@ Public Class Form1
         End Get
         Set(value As FormOAR)
             _ContentOAR = value
+        End Set
+    End Property
+
+    Public Property Cpu1 As PerformanceCounter
+        Get
+            Return cpu
+        End Get
+        Set(value As PerformanceCounter)
+            cpu = value
         End Set
     End Property
 
@@ -823,15 +832,6 @@ Public Class Form1
         End Get
         Set(value As Integer)
             _timerBusy1 = value
-        End Set
-    End Property
-
-    Public Property Cpu1 As PerformanceCounter
-        Get
-            Return cpu
-        End Get
-        Set(value As PerformanceCounter)
-            cpu = value
         End Set
     End Property
 

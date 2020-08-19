@@ -5,7 +5,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 
-my $v = "3.61";
+my $v = "3.62";
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
@@ -68,6 +68,8 @@ unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/PHP5/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
 unlink "$dir/OutworldzFiles/PHPLog.log" ;
 unlink "$dir/OutworldzFiles/Restart.log" ;
@@ -153,6 +155,7 @@ JustDelete('\\Opensim\\Zip');
 
 my @files =   `cmd /c dir /b `;
 
+# Just do files, dirs are explicitly copied over
 foreach my $file (@files) {
 	chomp $file;
 	next if -d "$dir/$file";
@@ -162,7 +165,7 @@ foreach my $file (@files) {
 
 say("Adding folders");
 
-
+# just dirs
 ProcessDir ('MSFT_Runtimes');
 ProcessDir ('Licenses_to_Content');
 ProcessDir ('OutworldzFiles\\Apache');
@@ -283,7 +286,7 @@ sub ProcessDir
 {
 	my $file = shift;
 	
-	my $x = `xcopy /E /I \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
+	my $x = `xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
 	$x =~ s/\n//g;
 	if ($x =~ /File\(s\) copied/) {
 		print "$file ok\n";
