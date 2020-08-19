@@ -763,9 +763,6 @@
 	  <Compile Include="World\LightShare\EnvironmentModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
-	  <Compile Include="World\LightShare\LightShareModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
 	  <Compile Include="World\Media\Moap\MoapModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
@@ -797,9 +794,6 @@
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Sound\SoundModule.cs">
-		<SubType>Code</SubType>
-	  </Compile>
-	  <Compile Include="World\Sun\SunModule.cs">
 		<SubType>Code</SubType>
 	  </Compile>
 	  <Compile Include="World\Terrain\ITerrainFloodEffect.cs">

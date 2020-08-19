@@ -205,7 +205,6 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
        LSL_Integer llGetStartParameter();
        LSL_Integer llGetStatus(int status);
         LSL_String llGetSubString(string src, int start, int end);
-        LSL_Vector llGetSunDirection();
         LSL_String llGetTexture(int face);
         LSL_Vector llGetTextureOffset(int face);
          LSL_Float llGetTextureRot(int side);
@@ -427,6 +426,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
        LSL_Integer llTarget(LSL_Vector position, double range);
               void llTargetOmega(LSL_Vector axis, double spinrate, double gain);
               void llTargetRemove(int number);
+              void llTargetedEmail(LSL_Integer target, LSL_String subject, LSL_String message);
               void llTeleportAgentHome(string agent);
               void llTeleportAgent(string agent, string simname, LSL_Vector pos, LSL_Vector lookAt);
               void llTeleportAgentGlobalCoords(string agent, LSL_Vector global, LSL_Vector pos, LSL_Vector lookAt);
@@ -461,5 +461,19 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         LSL_String llList2Json(LSL_String type, LSL_List values);
         LSL_String llJsonSetValue(LSL_String json, LSL_List specifiers, LSL_String value);
         LSL_String llJsonValueType(LSL_String json, LSL_List specifiers);
+
+
+        LSL_Integer llGetDayLength();
+        LSL_Integer llGetRegionDayLength();
+        LSL_Integer llGetDayOffset();
+        LSL_Integer llGetRegionDayOffset();
+        LSL_Vector llGetSunDirection();
+        LSL_Vector llGetRegionSunDirection();
+        LSL_Vector llGetMoonDirection();
+        LSL_Vector llGetRegionMoonDirection();
+        LSL_Rotation llGetSunRotation();
+        LSL_Rotation llGetRegionSunRotation();
+        LSL_Rotation llGetMoonRotation();
+        LSL_Rotation llGetRegionMoonRotation();
     }
 }

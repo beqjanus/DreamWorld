@@ -48,6 +48,8 @@ OutworldzFiles/opensim/bin/bakes/*
 Outworldzfiles/opensim/bin/Robust.HG.ini.bak
 Outworldzfiles/Settings.ini
 Outworldzfiles/Settings.bak
+Outworldzfiles/Mysql/Data
+
 Installer_Src/Setup Dreamworld/bin/*
 **/teleports.htm
 
@@ -152,3 +154,4 @@ Makefile.local
 bin/.version
 compile.bat
 
+Outworldzfiles/banlist.txt
