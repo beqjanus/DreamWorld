@@ -1038,7 +1038,7 @@ namespace OpenSim.Region.Framework.Scenes
 
             if(Scene.PositionIsInCurrentRegion(targetPosition))
             {
-                if(Scene.InTeleportTargetsCoolDown(UUID, sourceID, 1.0)) 
+                if(Scene.InTeleportTargetsCoolDown(UUID, sourceID, 1000)) 
                 {
                     inTransit = false;
                     return -2;
@@ -1085,7 +1085,7 @@ namespace OpenSim.Region.Framework.Scenes
                 return 1;
             }
 
-            if(Scene.InTeleportTargetsCoolDown(UUID, sourceID, 20.0)) 
+            if(Scene.InTeleportTargetsCoolDown(UUID, sourceID, 20000)) 
             {
                 inTransit = false;
                 return -1;
@@ -5228,6 +5228,44 @@ namespace OpenSim.Region.Framework.Scenes
             return time;
         }
 
+        public bool ScriptsMemory(out int memory)
+        {
+            memory = 0;
+            IScriptModule[] engines = Scene.RequestModuleInterfaces<IScriptModule>();
+            if (engines.Length == 0) // No engine at all
+                return false;
+
+            // get all the scripts in all parts
+            SceneObjectPart[] parts = m_parts.GetArray();
+            List<TaskInventoryItem> scripts = new List<TaskInventoryItem>();
+            for (int i = 0; i < parts.Length; i++)
+            {
+                scripts.AddRange(parts[i].Inventory.GetInventoryItems(InventoryType.LSL));
+            }
+
+            if (scripts.Count == 0)
+                return false;
+
+            // extract the UUIDs
+            List<UUID> ids = new List<UUID>(scripts.Count);
+            foreach (TaskInventoryItem script in scripts)
+            {
+                if (!ids.Contains(script.ItemID))
+                {
+                    ids.Add(script.ItemID);
+                }
+            }
+            // Offer the list of script UUIDs to each engine found and accumulate the memory
+            foreach (IScriptModule e in engines)
+            {
+                if (e != null)
+                {
+                    memory += e.GetScriptsMemory(ids);
+                }
+            }
+            return true;
+        }
+
         /// <summary>
         /// Returns a count of the number of running scripts in this groups parts.
         /// </summary>
@@ -5253,6 +5291,20 @@ namespace OpenSim.Region.Framework.Scenes
         {
             lock (m_sittingAvatars)
                 return new List<ScenePresence>(m_sittingAvatars);
+        }
+
+        public bool HasSittingAvatar(UUID avatarID)
+        {
+            // locked O(n) :(
+            lock (m_sittingAvatars)
+            {
+                for(int i = 0; i < m_sittingAvatars.Count; ++i)
+                {
+                    if(m_sittingAvatars[i].UUID == avatarID)
+                        return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
