@@ -38,10 +38,9 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.62"
-    Private _SearchRev = 5
-    Private _SimVersion As String = "#b598573 0.9.2.dev 2020-05-22 15:55"
-    ' the rev of the Search Table
+    Private _MyVersion As String = "3.63"
+    Private _SearchRev = 5 ' the rev of the Search Table
+    Private _SimVersion As String = "#0ee1e3b2d939 0.9.2.dev 2020-08-24 16:36:57 several changes to land handling"
 
 #End Region
 
@@ -347,10 +346,8 @@ Public Class Form1
 
     Public Enum SHOWWINDOWENUM As Integer
         SWHIDE = 0
-        SWSHOWNORMAL = 1
         SWNORMAL = 1
         SWSHOWMINIMIZED = 2
-        SWSHOWMAXIMIZED = 3
         SWMAXIMIZE = 3
         SWSHOWNOACTIVATE = 4
         SWSHOW = 5
@@ -360,7 +357,7 @@ Public Class Form1
         SWRESTORE = 9
         SWSHOWDEFAULT = 10
         SWFORCEMINIMIZE = 11
-        SWMAX = 11
+
     End Enum
 
 #End Region
