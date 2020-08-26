@@ -24,10 +24,10 @@ Public Class FormBackupCheckboxes
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
-
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -55,7 +55,6 @@ Public Class FormBackupCheckboxes
 #End Region
 
 #Region "Private Methods"
-
 
     Private Shared Sub CpyFile(From As String, Dest As String)
 
@@ -180,7 +179,6 @@ Public Class FormBackupCheckboxes
     End Sub
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
 
         Form1.HelpOnce("Backup Manually")
 

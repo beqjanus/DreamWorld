@@ -469,15 +469,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirstXMLRegionPort() As Integer
-        Get
-            Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
-        End Get
-        Set
-            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property AutoRestartInterval() As Integer
         Get
             Return Val("0".ToUpperInvariant & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
@@ -757,6 +748,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CMS() As String
+        Get
+            Return CType(GetMySetting("CMS", "DreamGrid"), String)
+        End Get
+        Set
+            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property ConsolePass() As String
         Get
             Return CType(GetMySetting("ConsolePass"), String)
@@ -904,6 +904,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property FirstXMLRegionPort() As Integer
+        Get
+            Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
+        End Get
+        Set
+            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1398,15 +1407,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CMS() As String
-        Get
-            Return CType(GetMySetting("CMS", "DreamGrid"), String)
-        End Get
-        Set
-            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property RestartonPhysics() As Boolean
         Get
             Return CType(GetMySetting("RestartonPhysics", "False"), Boolean)
@@ -1615,6 +1615,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SkipUpdateCheck() As Single
+        Get
+            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+        End Get
+        Set
+            SetMySetting("SkipUpdateCheck", CStr(Value))
+        End Set
+    End Property
+
     Public Property SmartStart() As Boolean
         Get
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
@@ -1772,19 +1781,10 @@ Public Class MySettings
 
     Public Property UPnPEnabled() As Boolean
         Get
-            Return CType(GetMySetting("UPnPEnabled", "False"), Boolean)
+            Return CType(GetMySetting("UPnPEnabled", "True"), Boolean)
         End Get
         Set
             SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property SkipUpdateCheck() As Single
-        Get
-            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
-        End Get
-        Set
-            SetMySetting("SkipUpdateCheck", CStr(Value))
         End Set
     End Property
 

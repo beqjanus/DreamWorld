@@ -27,6 +27,11 @@ Imports System.Runtime.InteropServices
 Public Class UPnp
     Implements IDisposable
 
+    ''' <summary>
+    ''' https://www.vbforums.com/showthread.php?666272-VB-NET-and-UPnP
+    ''' </summary>
+    '''
+
 #Region "Private Fields"
 
     Private CacheIP As String = ""
@@ -48,8 +53,9 @@ Public Class UPnp
         'Create the new NAT Class
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
+
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
             Form1.ErrorLog(ex.Message)
 #Enable Warning CA1031
         End Try
@@ -57,6 +63,7 @@ Public Class UPnp
         'generate the static mappings
         GetStaticMappings()
         GetDynamicMappings()
+        Print()
 
     End Sub
 
@@ -129,11 +136,16 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As MyProtocol, ByVal desc As String)
 
+        If Exists(port, prot) Then Return
+        If Not IsPrivateIP(localIP) Then Return
+        If Not staticEnabled Then Return
+
         Try
             ' Okay, continue on
-            staticMapping.Add(port, CStr(prot), port, localIP, True, desc + ":" + CStr(port))
+            staticMapping.Add(port, "TCP", port, localIP, True, desc & ":" & CStr(port))
 #Disable Warning CA1031
-        Catch
+        Catch ex As Exception
+            Debug.Print(ex.Message)
 #Enable Warning CA1031
         End Try
 
@@ -144,6 +156,9 @@ Public Class UPnp
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub Dispose() Implements IDisposable.Dispose
+        Marshal.ReleaseComObject(staticMapping)
+        Marshal.ReleaseComObject(dynamicMapping)
+        Marshal.ReleaseComObject(UPnpnat)
         Dispose(True)
         GC.SuppressFinalize(Me)
     End Sub
@@ -156,17 +171,19 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public Function Exists(ByVal port As Integer, ByVal prot As MyProtocol) As Boolean
         Try
+            'Dim x = staticMapping.Count
+
             ' Begin checking
             For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
-
                 ' Compare
                 If mapping.ExternalPort.Equals(port) AndAlso mapping.Protocol = prot.ToString() Then
+                    Debug.Print("Port Exists")
                     Return True
                 End If
-
             Next
 #Disable Warning CA1031
-        Catch
+        Catch ex As Exception
+            Debug.Print(ex.Message)
 #Enable Warning CA1031
         End Try
 
@@ -218,7 +235,8 @@ Public Class UPnp
         Try
             staticMapping.Remove(port, prot.ToString)
 #Disable Warning CA1031
-        Catch
+        Catch ex As Exception
+            Debug.Print(ex.Message)
 #Enable Warning CA1031
         End Try
     End Sub
@@ -265,8 +283,12 @@ Public Class UPnp
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
+            Debug.Print("No Dynamic UPNP")
             dynamicEnabled = False
+            Return
         End Try
+        Debug.Print("Dynamic UPNP available")
+
     End Sub
 
     ''' <summary>
@@ -275,19 +297,58 @@ Public Class UPnp
     ''' <remarks></remarks>
     Private Sub GetStaticMappings()
         Try
-
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
                 staticEnabled = False
+                Debug.Print("No Static UPNP")
                 Return
             End If
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
+            Debug.Print("No Static UPNP")
             staticEnabled = False
+            Return
         End Try
+        Debug.Print("Static UPNP available")
     End Sub
 
 #End Region
+
+    ''' <summary>
+    ''' Prints out some debugging information to use.
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function Print() As List(Of String)
+
+        ' Return list
+        Dim L As New List(Of String)
+
+        Try
+            ' Loop through all the data after a check
+            If staticEnabled Then
+                For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
+
+                    ' Add some initial data
+                    L.Add("--------------------------------------")
+
+                    'Grab the rest
+                    L.Add(String.Format("IP: {0}", mapping.InternalClient))
+                    L.Add(String.Format("Port: {0}", mapping.InternalPort))
+                    L.Add(String.Format("Description: {0}", mapping.Description))
+
+                Next
+            End If
+        Catch
+        End Try
+
+        'Finisher
+        L.Add("--------------------------------------")
+
+        ' Give it back
+        Return L
+
+    End Function
 
 End Class

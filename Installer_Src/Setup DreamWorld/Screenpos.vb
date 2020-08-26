@@ -28,11 +28,10 @@ Public Class ScreenPos
 
 #Region "Private Fields"
 
+    ReadOnly parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
     Dim gName As String
     Dim myINI As String
-
-    Dim parser As FileIniDataParser
 
 #End Region
 
@@ -154,7 +153,6 @@ Public Class ScreenPos
         End Try
         Return New List(Of Integer) From {100, 100}
 
-
     End Function
 
     Public Sub LoadXYIni()
@@ -169,7 +167,7 @@ Public Class ScreenPos
 
     End Sub
 
-    Public Sub putSize(name As String, size As Integer)
+    Public Sub PutSize(name As String, size As Integer)
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
@@ -289,6 +287,5 @@ Public Class ScreenPos
     End Property
 
 #End Region
-
 
 End Class

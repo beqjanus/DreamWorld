@@ -38,9 +38,9 @@ Public Class Form1
 
 #Region "Version"
 
-    Private _MyVersion As String = "3.63"
-    Private _SearchRev = 5 ' the rev of the Search Table
-    Private _SimVersion As String = "#e9b4bca0899f13eab 0.9.2.dev 2020-08-25"
+    Private ReadOnly _MyVersion As String = "3.63"
+    Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
+    Private ReadOnly _SimVersion As String = "#e9b4bca0899f13eab 0.9.2.dev 2020-08-25"
 
 #End Region
 
@@ -58,68 +58,70 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private WithEvents UpdateProcess As New Process()
+    Private ReadOnly _exitList As New Dictionary(Of String, String)
+    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
+    Private ReadOnly D As New Dictionary(Of String, String)
+    Private ReadOnly ExitInterval As Integer = 1
+
+    ' seconds per poll interval in Exitlist
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+
+    Private ReadOnly MyCPUCollection As New List(Of Double)
+    Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As AdvancedForm
-    Private _ApacheCrashCounter As Integer = 0
-    Private _ApacheExited As Boolean = False
-    Private _ApacheProcessID As Integer = 0
-    Private _ApacheUninstalling As Boolean = False
-    Private _BootedList As New List(Of String)
+    Private _ApacheCrashCounter As Integer
+    Private _ApacheExited As Boolean
+    Private _ApacheProcessID As Integer
+    Private _ApacheUninstalling As Boolean
+    Private _bootedList As New List(Of String)
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CPUMAX As Single = 90
     Private _CurSlashDir As String
-    Private _debugOn As Boolean = False
+    Private _debugOn As Boolean
     Private _DNS_is_registered = False
-    Private _DNSSTimer As Integer = 0
+    Private _DNSSTimer As Integer
     Private _Domain As String = "http://outworldz.com"
-    Private _ExitHandlerIsBusy As Boolean = False
-    Private _exitList As New Dictionary(Of String, String)
-    Private _ForceMerge As Boolean = False
-    Private _ForceParcel As Boolean = False
+    Private _ExitHandlerIsBusy As Boolean
+    Private _ForceMerge As Boolean
+    Private _ForceParcel As Boolean
     Private _ForceTerrain As Boolean = True
-    Private _IcecastCrashCounter As Integer = 0
-    Private _IceCastExited As Boolean = False
-    Private _IcecastProcID As Integer = 0
-    Private _Initted As Boolean = False
+    Private _IcecastCrashCounter As Integer
+    Private _IceCastExited As Boolean
+    Private _IcecastProcID As Integer
+    Private _Initted As Boolean
     Private _IPv4Address As String
-    Private _IsRunning As Boolean = False
-    Private _KillSource As Boolean = False
-    Private _MaxPortUsed As Integer = 0
-    Private _MaxXMLPortUsed As Integer = 0
+    Private _IsRunning As Boolean
+    Private _KillSource As Boolean
+    Private _MaxPortUsed As Integer
+    Private _MaxXMLPortUsed As Integer
     Private _myFolder As String
-
-    Private _MysqlCrashCounter As Integer = 0
-    Private _MysqlExited As Boolean = False
+    Private _MysqlCrashCounter As Integer
+    Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
     Private _OpensimBinPath As String
-    Private _PropAborting As Boolean = False
+    Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _regionForm As RegionList
-    Private _regionHandles As New Dictionary(Of Integer, String)
-    Private _RestartApache As Boolean = False
-    Private _RestartMysql As Boolean = False
+    Private _RestartApache As Boolean
+    Private _RestartMysql As Boolean
     Private _RestartRobust As Boolean
-    Private _RobustCrashCounter As Integer = 0
-    Private _RobustExited As Boolean = False
-    Private _RobustIsStarting As Boolean = False
-    Private _RobustProcID As Integer = 0
+    Private _RobustCrashCounter As Integer
+    Private _RobustExited As Boolean
+    Private _RobustIsStarting As Boolean
+    Private _RobustProcID As Integer
     Private _SelectedBox As String = ""
     Private _speed As Double = 50
     Private _StopMysql As Boolean = True
-    Private _timerBusy1 As Integer = 0
+    Private _timerBusy1 As Integer
     Private _UpdateView As Boolean = True
     Private _UserName As String = ""
-    Private _viewedSettings As Boolean = False
-    Private D As New Dictionary(Of String, String)
-    Private ExitInterval As Integer = 1 ' seconds per poll interval in Exitlist
-    Private Handler As New EventHandler(AddressOf Resize_page)
-    Private MyCPUCollection As New List(Of Double)
-    Private MyRAMCollection As New List(Of Double)
-    Private speed As Double = 0
-    Private speed1 As Double = 0
-    Private speed2 As Double = 0
-    Private speed3 As Double = 0
-    Private Update_version As String = Nothing
+    Private _viewedSettings As Boolean
+    Private speed As Double
+    Private speed1 As Double
+    Private speed2 As Double
+    Private speed3 As Double
+    Private Update_version As String
     Private ws As NetServer
 
 #End Region
@@ -374,12 +376,11 @@ Public Class Form1
     End Property
 
     Public Property BootedList As List(Of String)
-#Enable Warning CA2227 ' Collection properties should be read only
         Get
-            Return _BootedList
+            Return _bootedList
         End Get
         Set(value As List(Of String))
-            _BootedList = value
+            _bootedList = value
         End Set
     End Property
 
@@ -641,13 +642,10 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropMyVersion As String
+    Public ReadOnly Property PropMyVersion As String
         Get
             Return _MyVersion
         End Get
-        Set(value As String)
-            _MyVersion = value
-        End Set
     End Property
 
     Public Property PropOpensimBinPath As String
@@ -746,13 +744,10 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropSimVersion As String
+    Public ReadOnly Property PropSimVersion As String
         Get
             Return _SimVersion
         End Get
-        Set(value As String)
-            _SimVersion = value
-        End Set
     End Property
 
     Public Property PropStopMysql As Boolean
@@ -773,7 +768,7 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropUseIcons As Boolean = False
+    Public Property PropUseIcons As Boolean
 
     Public Property PropUserName As String
         Get
@@ -812,13 +807,11 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property SimVersion As String
+    Public ReadOnly Property SimVersion As String
         Get
             Return _SimVersion
         End Get
-        Set(value As String)
-            _SimVersion = value
-        End Set
+
     End Property
 
 #Disable Warning CA2227 ' Collection properties should be read only
@@ -838,8 +831,11 @@ Public Class Form1
 
     Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
         If dll Is Nothing Then Return False
+        If tofind Is Nothing Then Return False
         For Each filename In dll
-            If tofind.ToUpper(Globalization.CultureInfo.InvariantCulture) = filename.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
+            If tofind.ToUpper(Globalization.CultureInfo.InvariantCulture) = filename.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+                Return True
+            End If
         Next
         Return False
     End Function
@@ -1489,11 +1485,11 @@ Public Class Form1
                 Print(My.Resources.Icecast_is_Set & ":" & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
 
-            If Settings.ApachePort > 0 Then
+            If Settings.ApacheEnable Then
                 If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Settings.ApachePort, UPnp.MyProtocol.TCP)
                 End If
-                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
+                PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Apache TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
                 Print(My.Resources.Apache_is_Set & ":" & Settings.ApachePort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
 
@@ -2068,9 +2064,12 @@ Public Class Form1
                 Try
                     pUpdate.Start()
                     pUpdate.WaitForExit()
+
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
+                Finally
+                    pUpdate.Dispose()
                 End Try
             End Try
 
@@ -2400,7 +2399,7 @@ Public Class Form1
         Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
         Dim GroupName = Regionclass.GroupName(RegionUUID)
 
-        If RegionUUID = "" Then
+        If String.IsNullOrEmpty(RegionUUID) Then
             ErrorLog("Cannot find " & BootName & " to boot!")
             Logger("Cannot find", BootName, "Restart")
             Return False
@@ -2601,6 +2600,28 @@ Public Class Form1
         Return False
 
     End Function
+
+    Private Shared Sub SetQuickEditOff()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
+            .FileName = "powershell.exe",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .Verb = "runas"
+        }
+        Using PowerShell As Process = New Process With {
+             .StartInfo = pi
+            }
+
+            Try
+                PowerShell.Start()
+#Disable Warning CA1031
+            Catch
+#Enable Warning CA1031
+
+            End Try
+        End Using
+
+    End Sub
 
     ''' <summary>Deletes old log files</summary>
     Private Sub ClearLogFiles()
@@ -2867,28 +2888,6 @@ Public Class Form1
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
-
-    End Sub
-
-    Private Sub SetQuickEditOff()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
-            .FileName = "powershell.exe",
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .Verb = "runas"
-        }
-        Using PowerShell As Process = New Process With {
-             .StartInfo = pi
-            }
-
-            Try
-                PowerShell.Start()
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
-
-            End Try
-        End Using
 
     End Sub
 
@@ -4469,7 +4468,7 @@ Public Class Form1
 
             If name = "MySQL" Or AllLogs Then
                 Dim MysqlLog As String = PropMyFolder & "\OutworldzFiles\mysql\data"
-                Dim files As Array = Nothing
+                Dim files As Array
                 Try
                     files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
 
@@ -6221,7 +6220,7 @@ Public Class Form1
 
         ' Call the ShowDialog method to show the dialogbox.
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
+        openFileDialog1.Dispose()
         ' Process input if the user clicked OK.
         If UserClickedOK = DialogResult.OK Then
             Dim thing = openFileDialog1.FileName
@@ -6258,9 +6257,12 @@ Public Class Form1
 
                     Try
                         pMySqlRestore.Start()
+                        pMySqlRestore.WaitForExit()
 #Disable Warning CA1031
                     Catch
 #Enable Warning CA1031
+                    Finally
+                        pMySqlRestore.Dispose()
                     End Try
 
                     Print(My.Resources.Do_Not_Interrupt_word)
@@ -6923,6 +6925,8 @@ Public Class Form1
 
                 Dim BackupForm As New FormBackupCheckboxes
                 Dim ret = BackupForm.ShowDialog()
+                BackupForm.Dispose()
+
                 If ret = DialogResult.OK Then
                     UpdaterGo("DreamGrid-V" & Update_version & ".zip")
                     Return
@@ -7186,6 +7190,12 @@ Public Class Form1
 
     End Function
 
+    Private Shared Function Stripqq(input As String) As String
+
+        Return Replace(input, """", "")
+
+    End Function
+
     ''' <summary>Set up all INI files</summary>
     ''' <returns>true if it fails</returns>
     Private Function SetIniData() As Boolean
@@ -7209,12 +7219,6 @@ Public Class Form1
         If DoIceCast() Then Return True
 
         Return False
-
-    End Function
-
-    Private Function Stripqq(input As String) As String
-
-        Return Replace(input, """", "")
 
     End Function
 

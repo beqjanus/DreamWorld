@@ -27,15 +27,15 @@ Public Class FormDNSName
 
 #Region "Private Fields"
 
-    Dim changed As Boolean = False
-    Dim initted As Boolean = False
+    Dim changed As Boolean
+    Dim initted As Boolean
 
 #End Region
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
