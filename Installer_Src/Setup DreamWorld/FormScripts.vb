@@ -1,12 +1,10 @@
 ﻿Public Class FormScripts
 
-
-
 #Region "Private Fields"
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 

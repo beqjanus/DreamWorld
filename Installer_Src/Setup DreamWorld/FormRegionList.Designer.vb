@@ -6,6 +6,8 @@ Partial Class RegionList
     <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
+            colsize.Dispose()
+
             If disposing AndAlso components IsNot Nothing Then
                 components.Dispose()
             End If
@@ -230,7 +232,7 @@ Partial Class RegionList
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(723, 30)
         Me.MenuStrip1.TabIndex = 18598
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '

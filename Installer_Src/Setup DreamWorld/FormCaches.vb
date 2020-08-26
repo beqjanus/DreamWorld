@@ -26,7 +26,7 @@ Public Class FormCaches
 
 #Region "Private Fields"
 
-    Private gInitted As Boolean = False
+    Private gInitted As Boolean
 
 #End Region
 
@@ -156,6 +156,8 @@ Public Class FormCaches
             folder = CacheFolder.Text
         End If
 
+        CacheFolder.Text = folder
+
         ViewerCacheCheckbox.Checked = Settings.SupportViewerObjectsCache
 
         gInitted = True
@@ -191,7 +193,6 @@ Public Class FormCaches
             End If
         End If
 
-
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
@@ -206,8 +207,6 @@ Public Class FormCaches
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
-
-
 
 #End Region
 

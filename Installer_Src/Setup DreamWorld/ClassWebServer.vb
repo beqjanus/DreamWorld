@@ -35,7 +35,7 @@ Public Class NetServer
     Private MyPort As String
     Private PropMyFolder As String
     Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
-    Private running As Boolean = False
+    Private running As Boolean
     Dim Setting As MySettings
     Private WebThread As Thread
 
@@ -232,7 +232,7 @@ Public Class NetServer
             Try
                 listener.Start() ' Throws Exception
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 Log(My.Resources.Error_word, ex.Message)
                 Return

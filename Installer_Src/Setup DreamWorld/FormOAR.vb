@@ -4,8 +4,8 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
+    Dim TimerBusy As Boolean
     Dim WebThread As Thread
-    Dim TimerBusy As Boolean = False
 
 #Region "JSON"
 
@@ -106,8 +106,8 @@ Public Class FormOAR
 
 #Region "Private Fields"
 
-    Private _initted As Boolean = False
-    Private _type As String = Nothing
+    Private _initted As Boolean
+    Private _type As String
 
     Private imgSize As Integer = 256
     Private initSize As Integer = 512
@@ -126,8 +126,6 @@ Public Class FormOAR
 #Region "Draw"
 
     Public Sub Redraw(json As JSONresult())
-
-        Dim gdTextColumn As New DataGridViewTextBoxColumn
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
@@ -178,7 +176,7 @@ Public Class FormOAR
         Dim rowcounter = 0
         If json IsNot Nothing Then
             Dim cnt = json.Length
-            Me.Text = CStr(cnt) & " Items"
+            Me.Text = CStr(cnt) & " " & My.Resources.Items_word
 
             For Each item In json
                 Application.DoEvents()
@@ -200,11 +198,13 @@ Public Class FormOAR
                 column += 1
             End While
         End If
-
-        While column < NumColumns And column > 0
-            DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
-            column += 1
-        End While
+        Try
+            While column < NumColumns And column > 0
+                DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
+                column += 1
+            End While
+        Catch ex As Exception
+        End Try
 
         DataGridView.PerformLayout()
         DataGridView.Show()
@@ -256,9 +256,8 @@ Public Class FormOAR
 
     End Function
 
-    Private Function GetTextFromURL(ByVal url As Uri) As String
+    Private Shared Function GetTextFromURL(ByVal url As Uri) As String
 
-        Dim retVal As String = Nothing
         Try
             Using client As WebClient = New WebClient()
                 Return client.DownloadString(url)
@@ -553,9 +552,10 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Search()
+        Timer1.Interval = 1
+        Timer1.Start()
 
     End Sub
 
@@ -582,10 +582,9 @@ Public Class FormOAR
         End If
     End Sub
 
-    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
+    Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
 
-        Timer1.Interval = 1
-        Timer1.Start()
+        Search()
 
     End Sub
 

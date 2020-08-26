@@ -31,8 +31,8 @@ Public Class FormRegionPopup
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -146,15 +146,12 @@ Public Class FormRegionPopup
             End If
         End If
 
-
-        Dim isRegionRunning As Boolean = False
         For Each p In Process.GetProcesses
             If p.MainWindowTitle = GroupBox1.Text Then
-                isRegionRunning = True
+
                 Exit For
             End If
         Next
-
 
         BringToFront()
 

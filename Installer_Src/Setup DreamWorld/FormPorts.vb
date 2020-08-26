@@ -24,8 +24,6 @@ Imports System.Text.RegularExpressions
 
 Public Class FormPorts
 
-
-
 #Region "Private Fields"
 
     Dim initted As Boolean
@@ -34,8 +32,8 @@ Public Class FormPorts
 
 #Region "FormPos"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -62,8 +60,6 @@ Public Class FormPorts
     End Sub
 
 #End Region
-
-
 
 #Region "Private Methods"
 
@@ -94,6 +90,16 @@ Public Class FormPorts
         HTTPPort.Text = CStr(Settings.HttpPort)
 
         ExternalHostName.Text = Settings.OverrideName
+
+        If Settings.ServerType <> "Robust" Then
+            Label1.Visible = True
+            ExternalHostName.Visible = True
+        Else
+            Label1.Visible = False
+            ExternalHostName.Visible = False
+            Label1.Visible = True
+            ExternalHostName.Text = ""
+        End If
 
         Form1.HelpOnce("Ports")
         initted = True
@@ -148,12 +154,10 @@ Public Class FormPorts
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
+        MaxP.Text = My.Resources.Highest_Used_word & " " & +Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
+        MaxX.Text = My.Resources.Highest_Used_word & " " & +Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
@@ -181,12 +185,6 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
-
-        Form1.Help("Ports")
-
-    End Sub
-
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
 
         If Not initted Then Return
@@ -198,16 +196,18 @@ Public Class FormPorts
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
+        MaxP.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
-
+        MaxX.Text = My.Resources.Highest_Used_word & " " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
+    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
+
+        Form1.Help("Ports")
+
+    End Sub
 
 #End Region
 

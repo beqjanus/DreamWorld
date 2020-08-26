@@ -76,7 +76,7 @@ Partial Class FormScripts
         Me.GroupBox8.Size = New System.Drawing.Size(255, 48)
         Me.GroupBox8.TabIndex = 1863
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Allow LSL to contact the server"
+        Me.GroupBox8.Text = My.Resources.Allow_LSL
         '
         'LSLCheckbox
         '

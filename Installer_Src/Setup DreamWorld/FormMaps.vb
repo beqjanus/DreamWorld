@@ -26,8 +26,8 @@ Public Class FormMaps
 
 #Region "Private Fields"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
 #End Region
 

@@ -20,7 +20,9 @@ Partial Class TosForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Control.set_Text(System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TosForm))
         Me.ShowToHGUsersCheckbox = New System.Windows.Forms.CheckBox()
@@ -78,7 +80,7 @@ Partial Class TosForm
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(317, 13)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = "The TOS module shows your users and/or visitors this HTML text."
+        Me.Label1.Text = My.Resources.TOS
         '
         'Button1
         '

@@ -97,7 +97,7 @@ Partial Class FormOAR
         Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
         Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(90, 24)
-        Me.RefreshToolStripMenuItem.Text = "Refresh"
+        Me.RefreshToolStripMenuItem.Text = My.Resources.Refresh_word
         '
         'FormOAR
         '

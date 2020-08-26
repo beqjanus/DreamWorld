@@ -4,7 +4,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormBanList
 
-    Dim Saveneeded As Boolean = False
+    Dim Saveneeded As Boolean
 
 #Region "ScreenSize"
 
@@ -55,6 +55,16 @@ Public Class FormBanList
 #End Region
 
 #Region "Start Stop"
+
+    Public Sub LoadCollectionData() Handles Me.Load
+
+        SetScreen()
+        GetData()
+        BringToFront()
+
+        Form1.HelpOnce("BanList")
+
+    End Sub
 
     Private Sub Q() Handles Me.Closing
 
@@ -157,23 +167,36 @@ Public Class FormBanList
 
     End Sub
 
-    Public Sub LoadCollectionData() Handles Me.Load
-
-        SetScreen()
-        GetData()
-        BringToFront()
-
-        Form1.HelpOnce("BanList")
-
-    End Sub
-
 #End Region
 
 #Region "Private Subs"
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+    Private Sub DataGridView1_CellContentAdded(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserAddedRow
 
-        Form1.Help("BanList")
+        Saveneeded = True
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
+
+        Saveneeded = True
+
+    End Sub
+
+    Private Sub DataGridView1_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+
+        Dim w As String = e.Column.Width.ToString(Globalization.CultureInfo.InvariantCulture)
+        Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
+
+        colsize.PutSize(name, w)
+        Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
+        colsize.SaveFormSettings()
+
+    End Sub
+
+    Private Sub DataGridView1_Delrow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
+
+        Saveneeded = True
 
     End Sub
 
@@ -245,32 +268,9 @@ Public Class FormBanList
 
     End Sub
 
-    Private Sub DataGridView1_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        Dim w As String = e.Column.Width.ToString(Globalization.CultureInfo.InvariantCulture)
-        Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
-
-        colsize.putSize(name, w)
-        Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
-        colsize.SaveFormSettings()
-
-    End Sub
-
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
-
-        Saveneeded = True
-
-    End Sub
-
-    Private Sub DataGridView1_CellContentAdded(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserAddedRow
-
-        Saveneeded = True
-
-    End Sub
-
-    Private Sub DataGridView1_Delrow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
-
-        Saveneeded = True
+        Form1.Help("BanList")
 
     End Sub
 

@@ -55,7 +55,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Size = New System.Drawing.Size(323, 226)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
+        Me.GroupBox1.Text = My.Resources.Physics_Engine
         '
         'PhysicsHybrid
         '

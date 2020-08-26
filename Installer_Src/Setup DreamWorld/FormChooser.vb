@@ -26,8 +26,8 @@ Public Class Choice
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -156,9 +156,6 @@ Public Class Choice
         OKButton1.Enabled = True
         DialogResult = DialogResult.OK
     End Sub
-
-
-
 
 #End Region
 

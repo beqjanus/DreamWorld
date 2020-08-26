@@ -356,7 +356,7 @@ Public Class RegionList
         AddHandler Me.ListView1.ColumnClick, AddressOf ColumnClick
 
         AvatarView.Columns.Add(My.Resources.Agents_word, 150, HorizontalAlignment.Center)
-        AvatarView.Columns.Add(My.Resources.Region, 150, HorizontalAlignment.Center)
+        AvatarView.Columns.Add(My.Resources.Region_word, 150, HorizontalAlignment.Center)
         AvatarView.Columns.Add(My.Resources.Type_word, 80, HorizontalAlignment.Center)
 
         ' index to display icons
@@ -392,6 +392,7 @@ Public Class RegionList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Private Sub ShowTitle()
 
         Dim TotalSize As Integer

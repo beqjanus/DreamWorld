@@ -33,6 +33,13 @@ Public Module Firewall
 
     End Function
 
+    Public Sub BlockIP(Ip As String)
+
+        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
+        Write(Command)
+
+    End Sub
+
     Function DeleteFirewallRules() As String
 
         Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
@@ -59,6 +66,15 @@ Public Module Firewall
         Return Command
 
     End Function
+
+    Public Sub ReleaseIp(Ip As String)
+
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & "" & vbCrLf
+        Write(Command)
+
+        Write(Command)
+
+    End Sub
 
     Sub SetFirewall()
 
@@ -103,22 +119,6 @@ Public Module Firewall
             End Try
 
         End Using
-
-    End Sub
-
-    Public Sub BlockIP(Ip As String)
-
-        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
-        Write(Command)
-
-    End Sub
-
-    Public Sub ReleaseIp(Ip As String)
-
-        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & "" & vbCrLf
-        Write(Command)
-
-        Write(Command)
 
     End Sub
 

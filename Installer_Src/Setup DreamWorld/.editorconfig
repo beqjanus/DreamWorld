@@ -2,3 +2,12 @@
 
 # CA1031: Modify 'Init' to catch a more specific allowed exception type, or rethrow the exception.
 dotnet_diagnostic.CA1031.severity = silent
+
+# IDE0044: Add readonly modifier
+dotnet_style_readonly_field = true:silent
+
+# CA1063: Implement IDisposable Correctly
+dotnet_diagnostic.CA1063.severity = silent
+
+# CA2000: Dispose objects before losing scope
+dotnet_diagnostic.CA2000.severity = silent

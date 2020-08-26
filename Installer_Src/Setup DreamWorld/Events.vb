@@ -4,7 +4,6 @@ Imports MySql.Data.MySqlClient
 
 Module Events
 
-
     Public Sub GetEvents()
 
         If Not Settings.EventTimerEnabled Then Return
@@ -54,8 +53,7 @@ Module Events
 
     End Sub
 
-
-
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
 
         If D Is Nothing Then Return

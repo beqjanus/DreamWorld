@@ -26,7 +26,7 @@ Public Class FormApache
 
 #Region "Private Fields"
 
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 
@@ -65,7 +65,6 @@ Public Class FormApache
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-
         Settings.SaveSettings()
 
         Form1.PropViewedSettings = True
@@ -80,17 +79,10 @@ Public Class FormApache
         ApachePort.Text = CType(Settings.ApachePort, String)
         ApacheServiceCheckBox.Checked = Settings.ApacheService
 
-        If Settings.SearchLocal Then
-            LocalSearchCheckBox.Checked = True
-            AllGridSearchCheckBox.Checked = False
-        Else
-            LocalSearchCheckBox.Checked = False
-            AllGridSearchCheckBox.Checked = True
-        End If
 
-        '''' set the other bvox and the radios for Different CMS systems. 
+        '''' set the other bvox and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
-        ''' 
+        '''
         If Settings.CMS = "DreamGrid" Then
             EnableDiva.Checked = True
         ElseIf Settings.CMS = "Wordpress" Then
@@ -113,12 +105,35 @@ Public Class FormApache
 
 #Region "Clickers"
 
-    Private Sub AllGridSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles AllGridSearchCheckBox.CheckedChanged
-        If AllGridSearchCheckBox.Checked Then
-            Settings.SearchLocal = False
-            LocalSearchCheckBox.Checked = False
-        End If
+    Private Shared Sub RemoveApache()
+
+        Using ApacheProcess As New Process()
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+            Try
+                ApacheProcess.Start()
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+            Form1.Sleep(1000)
+            ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
+            Try
+                ApacheProcess.Start()
+#Disable Warning CA1031
+            Catch ex As Exception
+#Enable Warning CA1031
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+            Form1.Print(My.Resources.Apache_has_been_removed)
+        End Using
+
     End Sub
+
+
 
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
@@ -150,43 +165,64 @@ Public Class FormApache
         Form1.Help("Apache")
     End Sub
 
-    Private Sub LocalSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles LocalSearchCheckBox.CheckedChanged
-        If LocalSearchCheckBox.Checked Then
-            Settings.SearchLocal = True
-            AllGridSearchCheckBox.Checked = False
+    Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
+
+        If Not initted Then Return
+        If EnableDiva.Checked Then Settings.CMS = "DreamGrid"
+
+    End Sub
+
+    Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
+
+        If Not initted Then Return
+        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
+
+    End Sub
+
+    Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
+
+        If Not initted Then Return
+        If EnableOther.Checked Then Other.Text = Settings.CMS
+
+    End Sub
+
+    Private Sub EnableSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SearchEnabled = EnableSearchCheckBox.Checked
+
+    End Sub
+
+    Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
+
+        If Not initted Then Return
+        If EnableWP.Checked Then Settings.CMS = "Wordpress"
+
+    End Sub
+
+    Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.EventTimerEnabled = EventsCheckBox.Checked
+
+    End Sub
+
+
+    Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
+
+        If Not initted Then Return
+        If Other.Text.Length > 0 Then
+            EnableOther.Checked = True
+        Else
+            EnableOther.Checked = False
+            EnableDiva.Checked = True
         End If
+        Settings.CMS = Other.Text
+
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Form1.Help("Apache")
-    End Sub
-
-    Private Sub RemoveApache()
-
-        Using ApacheProcess As New Process()
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-            Try
-                ApacheProcess.Start()
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-            Form1.Sleep(1000)
-            ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
-            Try
-                ApacheProcess.Start()
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-            Form1.Print(My.Resources.Apache_has_been_removed)
-        End Using
-
     End Sub
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
@@ -210,63 +246,6 @@ Public Class FormApache
         InstallProcess.Dispose()
 
     End Sub
-
-    Private Sub EnableSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.SearchEnabled = EnableSearchCheckBox.Checked
-
-    End Sub
-
-    Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.EventTimerEnabled = EventsCheckBox.Checked
-
-    End Sub
-
-    Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
-
-        If Not initted Then Return
-        If EnableDiva.Checked Then Settings.CMS = "DreamGrid"
-
-    End Sub
-
-    Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
-
-        If Not initted Then Return
-        If EnableWP.Checked Then Settings.CMS = "Wordpress"
-
-    End Sub
-
-    Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
-
-        If Not initted Then Return
-        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
-
-    End Sub
-
-    Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
-
-        If Not initted Then Return
-        If EnableOther.Checked Then Other.Text = Settings.CMS
-
-    End Sub
-
-    Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
-
-        If Not initted Then Return
-        If Other.Text.Length > 0 Then
-            EnableOther.Checked = True
-        Else
-            EnableOther.Checked = False
-            EnableDiva.Checked = True
-        End If
-        Settings.CMS = Other.Text
-
-    End Sub
-
-
 
 #End Region
 

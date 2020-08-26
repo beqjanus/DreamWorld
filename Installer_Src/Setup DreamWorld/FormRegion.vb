@@ -31,10 +31,10 @@ Public Class FormRegion
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
     ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
-    Dim isNew As Boolean = False
+    Dim isNew As Boolean
 
     Dim oldname As String = ""
     Dim RName As String
@@ -384,9 +384,9 @@ Public Class FormRegion
 
             ' if none selected, turn default on. This updates old code to new GodDefault global
 
-            If Form1.PropRegionClass.AllowGods(RegionUUID) = "" And
-                 Form1.PropRegionClass.RegionGod(RegionUUID) = "" And
-                Form1.PropRegionClass.ManagerGod(RegionUUID) = "" Then
+            If Form1.PropRegionClass.AllowGods(RegionUUID).Length = 0 And
+                 Form1.PropRegionClass.RegionGod(RegionUUID).Length = 0 And
+                Form1.PropRegionClass.ManagerGod(RegionUUID).Length = 0 Then
                 Gods_Use_Default.Checked = True
             End If
         End If
@@ -874,13 +874,13 @@ Public Class FormRegion
         End Try
         Try
             If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
-                Message = My.Resources.NVMaxAgaents
+                Message = My.Resources.NVMaxAgents
                 Return Message
             End If
 #Disable Warning CA1031
         Catch ex As Exception
 #Enable Warning CA1031
-            Message = My.Resources.NVMaxAgaents
+            Message = My.Resources.NVMaxAgents
             Return Message
         End Try
         Return ""
@@ -951,6 +951,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
@@ -1376,11 +1377,11 @@ Public Class FormRegion
 
 #Region "Gods"
 
-    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
+    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
-        If RegionGod.Checked Then
+        If AllowGods.Checked Then
             Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
         Else
             Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If
@@ -1389,11 +1390,14 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
+    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
 
-        If AllowGods.Checked Then
-            Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
+        If Gods_Use_Default.Checked Then
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
+            AllowGods.Checked = False
+            RegionGod.Checked = False
+            ManagerGod.Checked = False
+            Gods_Use_Default.Checked = True
         Else
             Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If
@@ -1414,14 +1418,11 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
+    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
-        If Gods_Use_Default.Checked Then
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
-            Gods_Use_Default.Checked = True
+        If RegionGod.Checked Then
+            Gods_Use_Default.Checked = False
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
         Else
             Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If

@@ -17,7 +17,6 @@
                 Dim SliceStart As Integer = i * LineLength
                 ReturnValue.Add(Text.Substring(SliceStart, LineLength))
             Next
-
         Else
             Dim CurrentLine As New System.Text.StringBuilder
             For Each Word As String In Words
@@ -41,7 +40,7 @@
                         For LineNumber = 1 To RemainingSlices
                             If LineNumber = RemainingSlices Then
                                 'this is the last slice
-                                CurrentLine.Append(Word & " 
+                                CurrentLine.Append(Word & "
 ")
                             Else
                                 ' this is not the last slice

@@ -335,6 +335,8 @@ Public Class MySettings
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveSettings()
 
         Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
@@ -1521,15 +1523,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SearchEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property SearchLocal() As Boolean
-        Get
-            Return CType(GetMySetting("SearchLocal", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("SearchLocal", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 

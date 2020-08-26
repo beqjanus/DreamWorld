@@ -216,7 +216,7 @@ Partial Class FormRegion
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(111, 13)
         Me.Label5.TabIndex = 30
-        Me.Label5.Text = "Nonphysical Prim Size"
+        Me.Label5.Text = My.Resources.Nonphysical_Prim
         Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Max_NonPhys)
         '
         'Label9
@@ -226,7 +226,7 @@ Partial Class FormRegion
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(115, 13)
         Me.Label9.TabIndex = 31
-        Me.Label9.Text = "Physical Prim Max Size"
+        Me.Label9.Text = My.Resources.Physical_Prim
         Me.ToolTip1.SetToolTip(Me.Label9, Global.Outworldz.My.Resources.Max_Phys)
         '
         'PhysicalPrimMax
@@ -244,7 +244,7 @@ Partial Class FormRegion
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(82, 13)
         Me.Label10.TabIndex = 34
-        Me.Label10.Text = "Clamp Prim Size"
+        Me.Label10.Text = My.Resources.Clamp_Prim_Size_word
         Me.ToolTip1.SetToolTip(Me.Label10, Global.Outworldz.My.Resources.ClampSize)
         '
         'Label11
@@ -254,7 +254,7 @@ Partial Class FormRegion
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(160, 13)
         Me.Label11.TabIndex = 36
-        Me.Label11.Text = "Max Number of Prims in a Parcel"
+        Me.Label11.Text = My.Resources.Max_NumPrims
         Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
@@ -280,7 +280,7 @@ Partial Class FormRegion
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(155, 13)
         Me.Label12.TabIndex = 38
-        Me.Label12.Text = "Max number of Avatars + NPCs"
+        Me.Label12.Text = My.Resources.Max_Avatars
         Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Max_Agents)
         '
         'ClampPrimSize
@@ -397,7 +397,7 @@ Partial Class FormRegion
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(131, 13)
         Me.Label14.TabIndex = 41
-        Me.Label14.Text = "Script Timer Rate (0.0909)"
+        Me.Label14.Text = My.Resources.Script_Timer_Rate
         Me.ToolTip1.SetToolTip(Me.Label14, Global.Outworldz.My.Resources.Script_Timer_Text)
         '
         'ScriptTimerTextBox
@@ -467,7 +467,7 @@ Partial Class FormRegion
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(104, 13)
         Me.Label15.TabIndex = 43
-        Me.Label15.Text = "Frame Rate (0.0909)"
+        Me.Label15.Text = My.Resources.FrameRate
         Me.ToolTip1.SetToolTip(Me.Label15, Global.Outworldz.My.Resources.FRText)
         '
         'RadioButton8
@@ -624,7 +624,7 @@ Partial Class FormRegion
         Me.GroupBox1.Size = New System.Drawing.Size(228, 92)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics"
+        Me.GroupBox1.Text = My.Resources.Physics_word
         Me.ToolTip1.SetToolTip(Me.GroupBox1, Global.Outworldz.My.Resources.Sim_Rate)
         '
         'Physics_Default
@@ -698,7 +698,7 @@ Partial Class FormRegion
         Me.Advanced.Size = New System.Drawing.Size(306, 284)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
-        Me.Advanced.Text = "Region"
+        Me.Advanced.Text = My.Resources.Region_word
         '
         'Label16
         '
@@ -707,7 +707,7 @@ Partial Class FormRegion
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(63, 13)
         Me.Label16.TabIndex = 44
-        Me.Label16.Text = "Region Port"
+        Me.Label16.Text = My.Resources.Region_Port_word
         '
         'Label6
         '
@@ -777,7 +777,7 @@ Partial Class FormRegion
         Me.GroupBox2.Size = New System.Drawing.Size(297, 114)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Sim Size"
+        Me.GroupBox2.Text = My.Resources.Sim_Size_word
         '
         'Label3
         '

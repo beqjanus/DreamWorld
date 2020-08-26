@@ -31,8 +31,6 @@ Partial Class FormApache
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
         Me.EventsCheckBox = New System.Windows.Forms.CheckBox()
         Me.EnableSearchCheckBox = New System.Windows.Forms.CheckBox()
-        Me.AllGridSearchCheckBox = New System.Windows.Forms.CheckBox()
-        Me.LocalSearchCheckBox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,7 +69,7 @@ Partial Class FormApache
         Me.X86Button.Name = "X86Button"
         Me.X86Button.Size = New System.Drawing.Size(199, 24)
         Me.X86Button.TabIndex = 186740
-        Me.X86Button.Text = Global.Outworldz.My.Resources.InstallRuntime
+        Me.X86Button.Text = Global.Outworldz.My.Resources.Resources.InstallRuntime
         Me.X86Button.UseVisualStyleBackColor = True
         '
         'ApachePort
@@ -88,7 +86,7 @@ Partial Class FormApache
         Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
         Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(110, 17)
         Me.ApacheServiceCheckBox.TabIndex = 1868
-        Me.ApacheServiceCheckBox.Text = Global.Outworldz.My.Resources.Run_as_a_Service_word
+        Me.ApacheServiceCheckBox.Text = Global.Outworldz.My.Resources.Resources.Run_as_a_Service_word
         Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
         '
         'Label3
@@ -102,7 +100,7 @@ Partial Class FormApache
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.about
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.PictureBox1.Location = New System.Drawing.Point(173, 101)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(21, 20)
@@ -116,17 +114,17 @@ Partial Class FormApache
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
         Me.ApacheCheckbox.Size = New System.Drawing.Size(157, 17)
         Me.ApacheCheckbox.TabIndex = 1866
-        Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.EnableApache
+        Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
         '
         'EventsCheckBox
         '
         Me.EventsCheckBox.AutoSize = True
-        Me.EventsCheckBox.Location = New System.Drawing.Point(14, 102)
+        Me.EventsCheckBox.Location = New System.Drawing.Point(14, 54)
         Me.EventsCheckBox.Name = "EventsCheckBox"
         Me.EventsCheckBox.Size = New System.Drawing.Size(95, 17)
         Me.EventsCheckBox.TabIndex = 186745
-        Me.EventsCheckBox.Text = Global.Outworldz.My.Resources.Enable_Events_word
+        Me.EventsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Events_word
         Me.EventsCheckBox.UseVisualStyleBackColor = True
         '
         'EnableSearchCheckBox
@@ -136,28 +134,8 @@ Partial Class FormApache
         Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
         Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
         Me.EnableSearchCheckBox.TabIndex = 186744
-        Me.EnableSearchCheckBox.Text = Global.Outworldz.My.Resources.Enable_Search_word
+        Me.EnableSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Search_word
         Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
-        '
-        'AllGridSearchCheckBox
-        '
-        Me.AllGridSearchCheckBox.AutoSize = True
-        Me.AllGridSearchCheckBox.Location = New System.Drawing.Point(14, 78)
-        Me.AllGridSearchCheckBox.Name = "AllGridSearchCheckBox"
-        Me.AllGridSearchCheckBox.Size = New System.Drawing.Size(101, 17)
-        Me.AllGridSearchCheckBox.TabIndex = 186743
-        Me.AllGridSearchCheckBox.Text = Global.Outworldz.My.Resources.Search_All_Grids_word
-        Me.AllGridSearchCheckBox.UseVisualStyleBackColor = True
-        '
-        'LocalSearchCheckBox
-        '
-        Me.LocalSearchCheckBox.AutoSize = True
-        Me.LocalSearchCheckBox.Location = New System.Drawing.Point(14, 54)
-        Me.LocalSearchCheckBox.Name = "LocalSearchCheckBox"
-        Me.LocalSearchCheckBox.Size = New System.Drawing.Size(89, 17)
-        Me.LocalSearchCheckBox.TabIndex = 186742
-        Me.LocalSearchCheckBox.Text = Global.Outworldz.My.Resources.Local_Search
-        Me.LocalSearchCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
@@ -168,29 +146,26 @@ Partial Class FormApache
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(574, 26)
         Me.MenuStrip1.TabIndex = 186740
-        Me.MenuStrip1.Text = "MenuStrip1"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApacheToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'ApacheToolStripMenuItem
         '
-        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
+        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
-        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(114, 22)
-        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
+        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.EventsCheckBox)
-        Me.GroupBox1.Controls.Add(Me.AllGridSearchCheckBox)
         Me.GroupBox1.Controls.Add(Me.EnableSearchCheckBox)
-        Me.GroupBox1.Controls.Add(Me.LocalSearchCheckBox)
         Me.GroupBox1.Location = New System.Drawing.Point(235, 29)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox1.Name = "GroupBox1"
@@ -214,7 +189,7 @@ Partial Class FormApache
         Me.GroupBox3.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox3.TabIndex = 186742
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "CMS"
+        Me.GroupBox3.Text = "Content Manager"
         '
         'Other
         '
@@ -228,9 +203,9 @@ Partial Class FormApache
         Me.EnableOther.AutoSize = True
         Me.EnableOther.Location = New System.Drawing.Point(14, 102)
         Me.EnableOther.Name = "EnableOther"
-        Me.EnableOther.Size = New System.Drawing.Size(90, 17)
+        Me.EnableOther.Size = New System.Drawing.Size(87, 17)
         Me.EnableOther.TabIndex = 186745
-        Me.EnableOther.Text = "Enable Other:"
+        Me.EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
         Me.EnableOther.UseVisualStyleBackColor = True
         '
         'EnableJOpensim
@@ -248,9 +223,9 @@ Partial Class FormApache
         Me.EnableDiva.AutoSize = True
         Me.EnableDiva.Location = New System.Drawing.Point(14, 31)
         Me.EnableDiva.Name = "EnableDiva"
-        Me.EnableDiva.Size = New System.Drawing.Size(113, 17)
+        Me.EnableDiva.Size = New System.Drawing.Size(83, 17)
         Me.EnableDiva.TabIndex = 186744
-        Me.EnableDiva.Text = "Enable Diva Panel"
+        Me.EnableDiva.Text = "Enable Diva"
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
         'EnableWP
@@ -258,9 +233,9 @@ Partial Class FormApache
         Me.EnableWP.AutoSize = True
         Me.EnableWP.Location = New System.Drawing.Point(14, 54)
         Me.EnableWP.Name = "EnableWP"
-        Me.EnableWP.Size = New System.Drawing.Size(112, 17)
+        Me.EnableWP.Size = New System.Drawing.Size(115, 17)
         Me.EnableWP.TabIndex = 186742
-        Me.EnableWP.Text = "Enable Wordpress"
+        Me.EnableWP.Text = "Enable  Wordpress"
         Me.EnableWP.UseVisualStyleBackColor = True
         '
         'FormApache
@@ -274,7 +249,7 @@ Partial Class FormApache
         Me.Controls.Add(Me.GroupBox2)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormApache"
-        Me.Text = "Apache Webserver"
+        Me.Text = "Webserver + Search and Map"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -292,8 +267,6 @@ Partial Class FormApache
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents EventsCheckBox As CheckBox
     Friend WithEvents EnableSearchCheckBox As CheckBox
-    Friend WithEvents AllGridSearchCheckBox As CheckBox
-    Friend WithEvents LocalSearchCheckBox As CheckBox
     Friend WithEvents X86Button As Button
     Friend WithEvents ApachePort As TextBox
     Friend WithEvents ApacheServiceCheckBox As CheckBox

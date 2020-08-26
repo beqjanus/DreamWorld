@@ -2,7 +2,7 @@
 
 #Region "Private Fields"
 
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 
@@ -40,6 +40,8 @@
 #Region "Start/Stop"
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
+
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
 
         Settings.SaveSettings()
 

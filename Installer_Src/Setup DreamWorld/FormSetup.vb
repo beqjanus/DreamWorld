@@ -32,7 +32,6 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
-Imports MySql.Data.MySqlClient
 
 Public Class Form1
 
@@ -58,6 +57,9 @@ Public Class Form1
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private WithEvents UpdateProcess As New Process()
+#Disable Warning CA1051 ' Do not declare visible instance fields
+    Public BootedList As New List(Of String)
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly D As New Dictionary(Of String, String)
@@ -73,7 +75,8 @@ Public Class Form1
     Private _ApacheExited As Boolean
     Private _ApacheProcessID As Integer
     Private _ApacheUninstalling As Boolean
-    Private _bootedList As New List(Of String)
+#Disable Warning CA1051 ' Do not declare visible instance fields
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CPUMAX As Single = 90
@@ -372,15 +375,6 @@ Public Class Form1
         End Get
         Set(value As AdvancedForm)
             _Adv = value
-        End Set
-    End Property
-
-    Public Property BootedList As List(Of String)
-        Get
-            Return _bootedList
-        End Get
-        Set(value As List(Of String))
-            _bootedList = value
         End Set
     End Property
 
@@ -1470,7 +1464,10 @@ Public Class Form1
 
         Log("UPnP", "Local IP seems to be " & PropMyUPnpMap.LocalIP)
 
+
+
         Try
+
             If Settings.SCEnable Then
                 'Icecast 8100-8101
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.TCP) Then
@@ -1949,7 +1946,9 @@ Public Class Form1
 
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
 
-        SendMsg("all")
+        Settings.LogLevel = "All"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
 
     End Sub
 
@@ -3390,28 +3389,18 @@ Public Class Form1
 
         Select Case Settings.ServerType
             Case "Robust"
+
+                Settings.SetIni("Search", "SearchURL", "https://hyperica.com/Search/query.php")
+                Settings.SetIni("Search", "SimulatorFeatures", "https://hyperica.com/Search/query.php")
+                Settings.SetIni("SimulatorFeatures", "SearchServerURI", "https://hyperica.com/Search/query.php")
+
                 If Settings.SearchEnabled Then
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
-                    If Settings.SearchLocal Then
-                        Settings.SetIni("DataSnapshot", "data_services", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/register.php")
-                        Settings.SetIni("Search", "SearchURL", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
-
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "${Const|BaseURL}:" & CStr(Settings.ApachePort) & "/Search/query.php")
-                    Else
-                        Settings.SetIni("DataSnapshot", "data_services", "https://hyperica.com/Search/register.php")
-                        Settings.SetIni("Search", "SearchURL", "https://hyperica.com/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "https://hyperica.com/Search/query.php")
-
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "https://hyperica.com/Search/query.php")
-                    End If
+                    Settings.SetIni("DataSnapshot", "data_services", "https://hyperica.com/Search/register.php")
                 Else
                     Settings.SetIni("DataSnapshot", "index_sims", "False")
                     Settings.SetIni("DataSnapshot", "data_services", "")
-                    Settings.SetIni("Search", "SearchURL", "")
-                    Settings.SetIni("Search", "SimulatorFeatures", "")
-                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                 End If
 
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
@@ -3913,16 +3902,7 @@ Public Class Form1
             Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
             Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-            If Settings.SearchEnabled Then
-                If Settings.SearchLocal Then
-                    Settings.SetIni("LoginService", "SearchURL", "${Const|BaseURL}:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Search/query.php")
-                Else
-                    Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
-                End If
-            Else
-                Settings.SetIni("LoginService", "SearchURL", "")
-            End If
-
+            Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
             Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
             'FSASSETS
@@ -5673,7 +5653,11 @@ Public Class Form1
     End Sub
 
     Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
-        SendMsg("debug")
+
+        Settings.LogLevel = "DEBUG"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub DiagnosticsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiagnosticsToolStripMenuItem.Click
@@ -5693,11 +5677,19 @@ Public Class Form1
     End Sub
 
     Private Sub ErrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ErrorToolStripMenuItem.Click
-        SendMsg("error")
+
+        Settings.LogLevel = "ERROR"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
-        SendMsg("fatal")
+
+        Settings.LogLevel = "FATAL"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub HelpClick(sender As ToolStripMenuItem, e As EventArgs)
@@ -5737,6 +5729,7 @@ Public Class Form1
         If sender.Text = "Web Download Link" Then
             Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
             Try
+                Process.Start(webAddress)
 #Disable Warning CA1031
             Catch
 #Enable Warning CA1031
@@ -5764,7 +5757,11 @@ Public Class Form1
     End Sub
 
     Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
-        SendMsg("info")
+
+        Settings.LogLevel = "INFO"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
@@ -6126,28 +6123,12 @@ Public Class Form1
 
     End Sub
 
-    Private Sub OarClick(sender As ToolStripMenuItem)
-
-        If sender.Text = "Web Download Link" Then
-            Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
-            Try
-                Process.Start(webAddress)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
-            End Try
-            Return
-        End If
-
-        Dim File As String = Mid(CStr(sender.Text), 1, InStr(sender.Text, "|") - 2)
-        File = PropDomain() & "/Outworldz_Installer/OAR/" & File 'make a real URL
-        LoadOARContent(File)
-        sender.Checked = True
-
-    End Sub
-
     Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
-        SendMsg("off")
+
+        Settings.LogLevel = "OFF"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
@@ -6530,7 +6511,11 @@ Public Class Form1
     End Sub
 
     Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
-        SendMsg("warn")
+
+        Settings.LogLevel = "WARN"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
     End Sub
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
@@ -6696,7 +6681,7 @@ Public Class Form1
 
     Private Sub RunDataSnapshot()
 
-        If Not Settings.SearchLocal Then Return
+        If Not Settings.SearchEnabled Then Return
         Diagnostics.Debug.Print("Scanning Data snapshot")
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 

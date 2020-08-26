@@ -51,14 +51,14 @@ Module FileStuff
                 End If
 
                 Try
-                        CopyFile(fileSystemInfo.FullName, destinationFileName, True)
+                    CopyFile(fileSystemInfo.FullName, destinationFileName, True)
 #Disable Warning CA1031
                 Catch ex As Exception
 #Enable Warning CA1031
                 End Try
-                Else
-                    ' Recursively call the method to copy all the nested folders
-                    If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
+            Else
+                ' Recursively call the method to copy all the nested folders
+                If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
 #Disable Warning CA1031

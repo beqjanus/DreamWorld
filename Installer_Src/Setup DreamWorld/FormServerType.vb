@@ -3,19 +3,19 @@
 #Region "Private Fields"
 
     Dim BaseHostName As String = ""
-    Dim Changed As Boolean = False
+    Dim Changed As Boolean
     Dim DNSName As String = ""
-    Dim initted As Boolean = False
+    Dim initted As Boolean
     Dim ServerType As String = ""
 
 #End Region
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
-
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get

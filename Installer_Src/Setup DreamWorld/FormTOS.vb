@@ -55,8 +55,6 @@ Public Class TosForm
 
 #End Region
 
-
-
 #Region "Private Methods"
 
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click

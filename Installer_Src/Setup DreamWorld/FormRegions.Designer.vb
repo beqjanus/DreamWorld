@@ -70,7 +70,7 @@ Partial Class FormRegions
         Me.GroupBox2.Size = New System.Drawing.Size(316, 510)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Region
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Region_word
         '
         'SmartStartEnabled
         '
@@ -135,7 +135,7 @@ Partial Class FormRegions
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(169, 20)
         Me.Label2.TabIndex = 1861
-        Me.Label2.Text = "New User Home X,Y,Z"
+        Me.Label2.Text = My.Resources.New_User_Home
         '
         'Label1
         '
@@ -258,7 +258,7 @@ Partial Class FormRegions
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
-        Me.Text = Global.Outworldz.My.Resources.Region
+        Me.Text = Global.Outworldz.My.Resources.Region_word
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.RegionHelp, System.ComponentModel.ISupportInitialize).EndInit()

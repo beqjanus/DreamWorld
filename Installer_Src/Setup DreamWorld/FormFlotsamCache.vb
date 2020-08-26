@@ -24,7 +24,7 @@ Public Class FormFlotsamCache
 
 #Region "Private Fields"
 
-    Private gInitted As Boolean = False
+    Private gInitted As Boolean
 
 #End Region
 

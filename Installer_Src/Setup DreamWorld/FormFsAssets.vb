@@ -24,8 +24,8 @@ Public Class FormFsAssets
 
 #Region "Declarations"
 
-    Dim _changed As Boolean = False
-    Dim initted As Boolean = False
+    Dim _changed As Boolean
+    Dim initted As Boolean
 
 #End Region
 
@@ -155,7 +155,6 @@ Public Class FormFsAssets
                 Changed = True
             End If
         End If
-
 
     End Sub
 

@@ -24,7 +24,7 @@ Public Class Gloebits
 
 #Region "Globals"
 
-    Dim Initted As Boolean = False
+    Dim Initted As Boolean
 
 #End Region
 

@@ -55,7 +55,6 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
-
     Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
@@ -179,22 +178,6 @@ Public Class FormDisplacement
 
 #End Region
 
-    Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
-
-        Return photo
-        '
-        'Dim bmp = photo
-        Dim newImage As New Bitmap(256, 256)
-        Using drawFont As Font = New Font("Arial", 12)
-            Using gr As Graphics = Graphics.FromImage(newImage)
-                gr.DrawImageUnscaled(photo, 0, 0, photo.Width, photo.Height)
-                gr.DrawString(item, drawFont, Brushes.White, 10, 20)
-            End Using
-        End Using
-
-        Return newImage
-    End Function
-
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
         'map-1-1000-1000-objects
@@ -241,12 +224,11 @@ Public Class FormDisplacement
                 If map Then
                     ' make an image of the region with X,Y text on it.
                     Dim str = CStr(X * 256) & "," & CStr(Y * 256)
-                    PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
+                    PictureBox.Image = MakePhotoOfRegion(RegionUUID, X, Y)
                     PictureBox.Tag = "<" & str & ",0>"
                 Else
                     PictureBox.Image = MakePhotoOfRegion(RegionUUID, X, Y)
                 End If
-
 
                 Dim X1 = OffsetX + (X * 256)
                 Dim Y1 = OffsetY + StartAt - (Y * 256)
@@ -267,6 +249,5 @@ Public Class FormDisplacement
         Next
 
     End Sub
-
 
 End Class

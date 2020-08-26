@@ -26,7 +26,7 @@ Imports MySql.Data.MySqlClient
 
 Public Module MysqlInterface
 
-    Private _IsRunning As Boolean = False
+    Private _IsRunning As Boolean
 
     Sub New()
         'nothing
@@ -117,6 +117,7 @@ Public Module MysqlInterface
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function EstateName(UUID As String) As String
 
         If Settings.RegionMySqlConnection.Length = 0 Then Return ""
@@ -241,7 +242,7 @@ Public Module MysqlInterface
                     End Using
                 End Using
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
@@ -268,6 +269,7 @@ Public Module MysqlInterface
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
         Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
             Try
@@ -280,7 +282,7 @@ Public Module MysqlInterface
                 End Using
                 Return v
 #Disable Warning CA1031
-            Catch ex As exception
+            Catch ex As Exception
 #Enable Warning CA1031
                 Debug.Print(ex.Message)
             End Try
@@ -290,6 +292,8 @@ Public Module MysqlInterface
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
@@ -299,9 +303,8 @@ Public Module MysqlInterface
             Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
             Using cmd As New MySqlCommand(stm, MysqlConn)
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
                         Debug.Print("Region Name = {0}", reader.GetString(0))
                         Val = reader.GetString(0)

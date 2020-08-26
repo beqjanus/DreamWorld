@@ -30,13 +30,17 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
+#Disable Warning CA1051 ' Do not declare visible instance fields
+    Public WebserverList As New List(Of String)
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New ArrayList()
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
     Private _RegionListIsInititalized As Boolean
-    Private _webserverList As New List(Of String)
+#Disable Warning CA1051 ' Do not declare visible instance fields
+#Enable Warning CA1051 ' Do not declare visible instance fields
     Dim json As New JSONresult
 
     Public Enum REGIONTIMER As Integer
@@ -133,6 +137,7 @@ Public Class RegionMaker
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Public Sub CheckPost()
 
         If WebserverList.Count = 0 Then Return
@@ -347,6 +352,7 @@ Public Class RegionMaker
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Function GetAllRegions() As Integer
         Try
             Backup.Clear()
@@ -1054,16 +1060,6 @@ Public Class RegionMaker
 
 #Region "Options"
 
-    Public Property WebserverList As List(Of String)
-#Enable Warning CA2227 ' Collection properties should be read only
-        Get
-            Return _webserverList
-        End Get
-        Set(value As List(Of String))
-            _webserverList = value
-        End Set
-    End Property
-
     Public Property AllowGods(RegionUUID As String) As String
         Get
             If RegionUUID Is Nothing Then Return ""
@@ -1355,6 +1351,7 @@ Public Class RegionMaker
         Next
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub DebugRegions(RegionUUID As String)
 
         Form1.Log("RegionUUID", CStr(RegionUUID) & vbCrLf &

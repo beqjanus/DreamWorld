@@ -29,6 +29,7 @@ Public Class UploadImage
 
 #Region "Public Methods"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Shared Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
         If Data <> "1" Then
@@ -37,6 +38,7 @@ Public Class UploadImage
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Shared Sub UploadError(ByVal Data As String)
         ' Your Upload failure Routine Goes here
         Form1.ErrorLog("Upload Error:" + Data)
@@ -62,7 +64,7 @@ Public Class UploadImage
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             Form1.Log(My.Resources.Error_word, ex.Message)
@@ -84,7 +86,7 @@ Public Class UploadImage
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
 #Disable Warning CA1031
-        Catch ex As exception
+        Catch ex As Exception
 #Enable Warning CA1031
 
             UploadError(ex.Message)

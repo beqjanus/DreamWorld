@@ -24,12 +24,10 @@ Imports System.Text.RegularExpressions
 
 Public Class BirdForm
 
-
-
 #Region "Private Fields"
 
-    Dim changed As Boolean = False
-    Dim initted As Boolean = False
+    Dim changed As Boolean
+    Dim initted As Boolean
 
 #End Region
 
@@ -63,8 +61,6 @@ Public Class BirdForm
     End Sub
 
 #End Region
-
-
 
 #Region "Private Methods"
 

@@ -57,7 +57,7 @@ Partial Class FormRestart
         Me.AutoStart.Size = New System.Drawing.Size(261, 178)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
-        Me.AutoStart.Text = "Automatic Startup"
+        Me.AutoStart.Text = My.Resources.Auto_Startup_word
         '
         'RestartOnCrash
         '
@@ -99,7 +99,7 @@ Partial Class FormRestart
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(130, 13)
         Me.Label25.TabIndex = 1862
-        Me.Label25.Text = "Restart Interval in Minutes"
+        Me.Label25.Text = My.Resources.Restart_Interval
         '
         'AutoRestartBox
         '

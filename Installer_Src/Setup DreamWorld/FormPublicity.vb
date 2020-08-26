@@ -20,14 +20,13 @@
 
 #End Region
 
-Imports System.Net
 Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
 
 #Region "GLobals"
 
-    Private initted As Boolean = False
+    Private initted As Boolean
 
 #End Region
 
