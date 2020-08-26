@@ -19,7 +19,6 @@ ru
 sv
 zh-cn
 zh-tw
-/OutworldzFiles/Opensim/bin/*.pdb
 OutworldzFiles/AutoBackup/*
 baretail.udm
 *.pid
