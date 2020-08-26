@@ -35,8 +35,7 @@ Public Class UPnp
 #Region "Private Fields"
 
     Private CacheIP As String = ""
-    Private dynamicEnabled As Boolean = True
-    Dim dynamicMapping As NATUPNPLib.IDynamicPortMappingCollection
+
     Private staticEnabled As Boolean = True
     Dim staticMapping As NATUPNPLib.IStaticPortMappingCollection
     Dim UPnpnat As NATUPNPLib.UPnPNAT
@@ -62,8 +61,6 @@ Public Class UPnp
 
         'generate the static mappings
         GetStaticMappings()
-        GetDynamicMappings()
-        Print()
 
     End Sub
 
@@ -101,7 +98,7 @@ Public Class UPnp
     ''' <remarks></remarks>
     Public ReadOnly Property UPnpEnabled As Boolean
         Get
-            Return staticEnabled = True OrElse dynamicEnabled = True
+            Return staticEnabled = True
         End Get
     End Property
 
@@ -134,33 +131,43 @@ Public Class UPnp
     ''' <param name="prot">The protocol of the port [TCP/UDP]</param>
     ''' <param name="desc">A small description of the port.</param>
     ''' <remarks></remarks>
-    Public Sub Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As MyProtocol, ByVal desc As String)
+    Public Function Add(ByVal localIP As String, ByVal port As Integer, ByVal prot As MyProtocol, ByVal desc As String) As Boolean
 
-        If Exists(port, prot) Then Return
-        If Not IsPrivateIP(localIP) Then Return
-        If Not staticEnabled Then Return
+        If Not IsPrivateIP(localIP) Then Return False
+        If Not staticEnabled Then Return False
+
+        Dim protocol As String
+        If prot = UPnp.MyProtocol.TCP Then
+            protocol = "TCP"
+        Else
+            protocol = "UDP"
+        End If
 
         Try
             ' Okay, continue on
-            staticMapping.Add(port, "TCP", port, localIP, True, desc & ":" & CStr(port))
+            staticMapping.Add(port, protocol, port, localIP, True, desc & ":" & CStr(port))
 #Disable Warning CA1031
         Catch ex As Exception
             Debug.Print(ex.Message)
+            Form1.Print("Cannot add port " & CStr(port) & " to router")
+            Return False
 #Enable Warning CA1031
         End Try
+        Return True
 
-    End Sub
+    End Function
 
     ''' <summary>
     ''' Dispose!
     ''' </summary>
     ''' <remarks></remarks>
+    <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")>
     Public Sub Dispose() Implements IDisposable.Dispose
         Marshal.ReleaseComObject(staticMapping)
-        Marshal.ReleaseComObject(dynamicMapping)
         Marshal.ReleaseComObject(UPnpnat)
         Dispose(True)
         GC.SuppressFinalize(Me)
+        Return
     End Sub
 
     ''' <summary>
@@ -258,7 +265,6 @@ Public Class UPnp
     Protected Overridable Sub Dispose(disposing As Boolean)
         Try
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
-            If dynamicMapping IsNot Nothing Then Marshal.ReleaseComObject(dynamicMapping)
             Marshal.ReleaseComObject(UPnpnat)
 #Disable Warning CA1031
         Catch
@@ -271,27 +277,6 @@ Public Class UPnp
 #Region "Private Methods"
 
     ''' <summary>
-    ''' Returns all dynamic port mappings
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub GetDynamicMappings()
-        Try
-            dynamicMapping = UPnpnat.DynamicPortMappingCollection()
-            If dynamicMapping Is Nothing Then
-                dynamicEnabled = False
-            End If
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
-            Debug.Print("No Dynamic UPNP")
-            dynamicEnabled = False
-            Return
-        End Try
-        Debug.Print("Dynamic UPNP available")
-
-    End Sub
-
-    ''' <summary>
     ''' Returns all static port mappings
     ''' </summary>
     ''' <remarks></remarks>
@@ -300,6 +285,7 @@ Public Class UPnp
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
                 staticEnabled = False
+                Form1.Log("WARN", "UPNP is not available")
                 Debug.Print("No Static UPNP")
                 Return
             End If
@@ -307,48 +293,14 @@ Public Class UPnp
         Catch
 #Enable Warning CA1031
             Debug.Print("No Static UPNP")
+            Form1.Log("WARN", "UPNP is not available")
             staticEnabled = False
             Return
         End Try
         Debug.Print("Static UPNP available")
+        Form1.Log("INFO", "UPNP is available")
     End Sub
 
 #End Region
-
-    ''' <summary>
-    ''' Prints out some debugging information to use.
-    ''' </summary>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function Print() As List(Of String)
-
-        ' Return list
-        Dim L As New List(Of String)
-
-        Try
-            ' Loop through all the data after a check
-            If staticEnabled Then
-                For Each mapping As NATUPNPLib.IStaticPortMapping In staticMapping
-
-                    ' Add some initial data
-                    L.Add("--------------------------------------")
-
-                    'Grab the rest
-                    L.Add(String.Format("IP: {0}", mapping.InternalClient))
-                    L.Add(String.Format("Port: {0}", mapping.InternalPort))
-                    L.Add(String.Format("Description: {0}", mapping.Description))
-
-                Next
-            End If
-        Catch
-        End Try
-
-        'Finisher
-        L.Add("--------------------------------------")
-
-        ' Give it back
-        Return L
-
-    End Function
 
 End Class
