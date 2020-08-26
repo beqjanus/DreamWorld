@@ -169,7 +169,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             m_regionSizeY = (int)m_scene.RegionInfo.RegionSizeY;
             m_landIDList = new int[m_regionSizeX / LandUnit, m_regionSizeY / LandUnit];
 
-            //m_landChannel = new LandChannel(scene, this);
+            m_scene.LandChannel = this;
 
             m_scene.EventManager.OnObjectAddedToScene += EventManagerOnParcelPrimCountAdd;
             m_scene.EventManager.OnParcelPrimCountAdd += EventManagerOnParcelPrimCountAdd;
@@ -189,12 +189,6 @@ namespace OpenSim.Region.CoreModules.World.Land
             m_scene.EventManager.OnIncomingLandDataFromStorage += EventManagerOnIncomingLandDataFromStorage;
             m_scene.EventManager.OnSetAllowForcefulBan += EventManagerOnSetAllowedForcefulBan;
             m_scene.EventManager.OnRegisterCaps += EventManagerOnRegisterCaps;
-
-            lock (m_scene)
-            {
-                //m_scene.LandChannel = m_landChannel;
-                m_scene.LandChannel = this;
-            }
 
             RegisterCommands();
         }
@@ -950,10 +944,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             }
             if(Util.ParseFakeParcelID(fakeID, out ulong rhandle, out uint x, out uint y) && rhandle == m_regionHandler)
             {
-                ILandObject ret = GetLandObjectClipedXY(x, y);
-                if(ret != null)
-                    m_landFakeIDs[fakeID] = ret.LandData.LocalID;
-                return ret;
+                return GetLandObjectClipedXY(x, y);
             }
             return null;
         }
@@ -991,13 +982,13 @@ namespace OpenSim.Region.CoreModules.World.Land
         public ILandObject GetLandObjectClipedXY(float x, float y)
         {
             //do clip inline
-            int avx = (int)x;
+            int avx = (int)(Math.Round(x));
             if (avx < 0)
                 avx = 0;
             else if (avx >= m_regionSizeX)
                 avx = m_regionSizeX - 1;
 
-            int avy = (int)y;
+            int avy = (int)(Math.Round(y));
             if (avy < 0)
                 avy = 0;
             else if (avy >= m_regionSizeY)
@@ -2216,7 +2207,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                 return;
             }
 
-            //m_log.DebugFormat("[LAND MANAGEMENT MODULE]: Got parcelID {0}", parcelID);
+            //m_log.DebugFormat("[LAND MANAGEMENT MODULE]: Got parcelID {0} {1}", parcelID, parcelID == UUID.Zero ? args.ToString() :"");
             StringBuilder sb = LLSDxmlEncode.Start();
                 LLSDxmlEncode.AddMap(sb);
                   LLSDxmlEncode.AddElem("parcel_id", parcelID,sb);
@@ -2249,7 +2240,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                     // for this region or for somewhere else?
                     if (extLandData.RegionHandle == m_scene.RegionInfo.RegionHandle)
                     {
-                        ILandObject extLandObject = GetLandObjectClipedXY(extLandData.X, extLandData.Y);
+                        ILandObject extLandObject = GetLandObjectByfakeID(parcelID);
                         if (extLandObject == null)
                             break;
 
@@ -2286,9 +2277,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                 else
                 {
                     // most likely still cached from building the extLandData entry
-                    uint x = 0, y = 0;
-                    Util.RegionHandleToWorldLoc(data.RegionHandle, out x, out y);
-                    info = m_scene.GridService.GetRegionByPosition(m_scene.RegionInfo.ScopeID, (int)x, (int)y);
+                    info = m_scene.GridService.GetRegionByHandle(m_scene.RegionInfo.ScopeID, data.RegionHandle);
                 }
                 // we need to transfer the fake parcelID, not the one in landData, so the viewer can match it to the landmark.
                 //m_log.DebugFormat("[LAND MANAGEMENT MODULE]: got parcelinfo for parcel {0} in region {1}; sending...",
@@ -2726,6 +2715,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             cdt.AddColumn("Starts", ConsoleDisplayUtil.VectorSize);
             cdt.AddColumn("Ends", ConsoleDisplayUtil.VectorSize);
             cdt.AddColumn("Owner", ConsoleDisplayUtil.UserNameSize);
+            cdt.AddColumn("fakeID", 38);
 
             lock (m_landList)
             {
@@ -2743,7 +2733,7 @@ namespace OpenSim.Region.CoreModules.World.Land
                         ownerName = m_userManager.GetUserName(ld.OwnerID);
                     }
                     cdt.AddRow(
-                        ld.Name, ld.LocalID, ld.Area, lo.StartPoint, lo.EndPoint, ownerName);
+                        ld.Name, ld.LocalID, ld.Area, lo.StartPoint, lo.EndPoint, ownerName, lo.FakeID);
                 }
             }
 
@@ -2757,6 +2747,7 @@ namespace OpenSim.Region.CoreModules.World.Land
             ConsoleDisplayList cdl = new ConsoleDisplayList();
             cdl.AddRow("Parcel name", ld.Name);
             cdl.AddRow("Local ID", ld.LocalID);
+            cdl.AddRow("Fake ID", ld.FakeID);
             cdl.AddRow("Description", ld.Description);
             cdl.AddRow("Snapshot ID", ld.SnapshotID);
             cdl.AddRow("Area", ld.Area);
