@@ -2,6 +2,13 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.63 Post Fixes
+Opensim updated to #e9b4bca0899f13eab 0.9.2.dev 2020-08-25. This fixes a glitch in EPP that showed a missing UUID.  Also fixes a repeated debug log that occurs when the suitcase is on and a visitor arrives.
+UPNP for new grids is on by default.  And it works. This should make it a lot easier for nooblets.
+Add firewall manual on how fw.bat works.
+Fixed Unicode support in Events on Hyperica.com
+
+
 V3.62 Post Fixes
 Added Audio and Video examples on how to play region-wide audio loops and how to play videos
 Update license files to exactly match names in OAR folder. Add 6 new OARS.
