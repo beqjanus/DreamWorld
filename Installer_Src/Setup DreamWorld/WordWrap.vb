@@ -40,18 +40,17 @@
                         For LineNumber = 1 To RemainingSlices
                             If LineNumber = RemainingSlices Then
                                 'this is the last slice
-                                CurrentLine.Append(Word & "
-")
+                                CurrentLine.Append(Word & " ")
                             Else
                                 ' this is not the last slice
-                                ' hack off a slice that is one                                 line long, add that slice
-                                ' to the output as a line and                                 start a new line
+                                ' hack off a slice that is one  line long, add that slice
+                                ' to the output as a line and  start a new line
                                 Slice = Word.Substring(0, LineLength)
                                 CurrentLine.Append(Slice)
                                 ReturnValue.Add(CurrentLine.ToString)
                                 CurrentLine = New System.Text.StringBuilder
 
-                                ' Remove the slice from the                                 Word
+                                ' Remove the slice from the Word
                                 Word = Word.Substring(Slice.Length, Word.Length - Slice.Length)
                             End If
                         Next
