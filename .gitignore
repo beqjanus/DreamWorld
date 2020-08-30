@@ -19,6 +19,7 @@ ru
 sv
 zh-cn
 zh-tw
+.build
 OutworldzFiles/AutoBackup/*
 baretail.udm
 *.pid

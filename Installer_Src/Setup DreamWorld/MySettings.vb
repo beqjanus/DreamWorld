@@ -183,6 +183,7 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
         Form1.Log(My.Resources.Info_word, "Loading INI " & arg)
@@ -322,6 +323,8 @@ Public Class MySettings
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
         Form1.Log(My.Resources.Info_word, "Save INI " & INI)

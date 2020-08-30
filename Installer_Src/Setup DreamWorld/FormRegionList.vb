@@ -256,6 +256,7 @@ Public Class RegionList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ListView+ColumnHeaderCollection.Add(System.String,System.Int32,System.Windows.Forms.HorizontalAlignment)")>
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ViewBusy = True
@@ -436,6 +437,8 @@ Public Class RegionList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ListViewItem+ListViewSubItemCollection.Add(System.String)")>
     Private Sub ShowRegions()
 
         Try
@@ -860,6 +863,8 @@ Public Class RegionList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ListViewItem+ListViewSubItemCollection.Add(System.String)")>
     Private Sub ShowAvatars()
         Try
             ViewBusy = True
@@ -1320,11 +1325,12 @@ Public Class RegionList
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
-        Dim ofd As New OpenFileDialog
-        ofd.InitialDirectory = "c:\"
-        ofd.Filter = My.Resources.INI_Filter
-        ofd.FilterIndex = 2
-        ofd.RestoreDirectory = True
+        Dim ofd As New OpenFileDialog With {
+            .InitialDirectory = "c:\",
+            .Filter = My.Resources.INI_Filter,
+            .FilterIndex = 2,
+            .RestoreDirectory = True
+        }
 
         If ofd.ShowDialog = DialogResult.OK Then
             If ofd.CheckFileExists Then

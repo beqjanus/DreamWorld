@@ -20,6 +20,9 @@ Partial Class FormRegion
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -657,7 +660,7 @@ Partial Class FormRegion
         Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
         Me.PhysicsubODE.TabIndex = 35
         Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
+        Me.PhysicsubODE.Text = My.Resources.UBODE_words '"Ubit Open Dynamic Engine"
         Me.PhysicsubODE.UseVisualStyleBackColor = True
         '
         'RegionPort
@@ -872,7 +875,7 @@ Partial Class FormRegion
         Me.XEngineButton.Size = New System.Drawing.Size(65, 17)
         Me.XEngineButton.TabIndex = 7
         Me.XEngineButton.TabStop = True
-        Me.XEngineButton.Text = "XEngine"
+        Me.XEngineButton.Text = My.Resources.XEngine_word
         Me.XEngineButton.UseVisualStyleBackColor = True
         '
         'YEngineButton
@@ -883,7 +886,7 @@ Partial Class FormRegion
         Me.YEngineButton.Size = New System.Drawing.Size(65, 17)
         Me.YEngineButton.TabIndex = 9
         Me.YEngineButton.TabStop = True
-        Me.YEngineButton.Text = "YEngine"
+        Me.YEngineButton.Text = My.Resources.Y_Engine_word
         Me.YEngineButton.UseVisualStyleBackColor = True
         '
         'GroupBox7
@@ -1100,7 +1103,7 @@ Partial Class FormRegion
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(809, 26)
         Me.MenuStrip2.TabIndex = 1888
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '

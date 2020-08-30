@@ -345,7 +345,7 @@ Partial Class BirdForm
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(519, 33)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '

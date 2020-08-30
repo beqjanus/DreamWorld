@@ -125,6 +125,7 @@ Public Class FormOAR
 
 #Region "Draw"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Redraw(json As JSONresult())
 
         Dim gdImageColumn As New DataGridViewImageColumn

@@ -280,6 +280,7 @@ Public Class UPnp
     ''' Returns all static port mappings
     ''' </summary>
     ''' <remarks></remarks>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub GetStaticMappings()
         Try
             staticMapping = UPnpnat.StaticPortMappingCollection()

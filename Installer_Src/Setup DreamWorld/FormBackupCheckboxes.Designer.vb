@@ -52,7 +52,7 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Size = New System.Drawing.Size(601, 203)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Backup"
+        Me.GroupBox1.Text = My.Resources.Backup_word
         '
         'TextBox1
         '
@@ -144,7 +144,7 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(642, 30)
         Me.MenuStrip1.TabIndex = 18602
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
@@ -170,7 +170,7 @@ Partial Class FormBackupCheckboxes
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormBackupCheckboxes"
-        Me.Text = "System Backup"
+        Me.Text = My.Resources.System_Backup_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

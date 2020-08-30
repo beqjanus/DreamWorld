@@ -66,6 +66,7 @@ Public Class FormBanList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub Q() Handles Me.Closing
 
         If Saveneeded = False Then Return
@@ -208,23 +209,25 @@ Public Class FormBanList
             Dim table As DataTable = New DataTable
 
             'Create column.
-            Dim column1 As DataColumn = New DataColumn()
-            column1.DataType = System.Type.GetType("System.String")
-            column1.ColumnName = My.Resources.Banned_word
-            column1.AutoIncrement = False
-            column1.Caption = My.Resources.Banned_word
-            column1.ReadOnly = False
-            column1.Unique = False
+            Dim column1 As DataColumn = New DataColumn With {
+                .DataType = System.Type.GetType("System.String"),
+                .ColumnName = My.Resources.Banned_word,
+                .AutoIncrement = False,
+                .Caption = My.Resources.Banned_word,
+                .ReadOnly = False,
+                .Unique = False
+            }
             ' Add the column to the table.
             table.Columns.Add(column1)
 
-            Dim column2 As DataColumn = New DataColumn()
-            column2.DataType = System.Type.GetType("System.String")
-            column2.ColumnName = My.Resources.Comment_or_Notes_Word
-            column2.AutoIncrement = False
-            column2.Caption = My.Resources.Comment_or_Notes_Word
-            column2.ReadOnly = False
-            column2.Unique = False
+            Dim column2 As DataColumn = New DataColumn With {
+                .DataType = System.Type.GetType("System.String"),
+                .ColumnName = My.Resources.Comment_or_Notes_Word,
+                .AutoIncrement = False,
+                .Caption = My.Resources.Comment_or_Notes_Word,
+                .ReadOnly = False,
+                .Unique = False
+            }
             ' Add the column to the table.
             table.Columns.Add(column2)
 

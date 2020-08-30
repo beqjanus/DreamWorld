@@ -161,7 +161,7 @@ Public Class FormAutoBackups
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
             Settings.SaveSettings()
         End If
-        ' TODO:  Implement PropViewedSettings as a dictionary
+        ' TODO:  Implement PropViewedSettings as a dictionary in a module we can prompt for restart with
         Form1.PropViewedSettings = True
     End Sub
 

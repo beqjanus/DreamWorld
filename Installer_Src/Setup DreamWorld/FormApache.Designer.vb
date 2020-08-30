@@ -20,7 +20,8 @@ Partial Class FormApache
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.X86Button = New System.Windows.Forms.Button()
@@ -61,7 +62,7 @@ Partial Class FormApache
         Me.GroupBox2.Size = New System.Drawing.Size(220, 162)
         Me.GroupBox2.TabIndex = 186739
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Webserver + Search and Map"
+        Me.GroupBox2.Text = My.Resources.webserver_Search_map 'Webserver + Search and Map"
         '
         'X86Button
         '
@@ -96,7 +97,7 @@ Partial Class FormApache
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(115, 13)
         Me.Label3.TabIndex = 186737
-        Me.Label3.Text = "Web Port (80, or 8000)"
+        Me.Label3.Text = My.Resources.Web_Port  '"Web Port (80, or 8000)"
         '
         'PictureBox1
         '
@@ -173,7 +174,7 @@ Partial Class FormApache
         Me.GroupBox1.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox1.TabIndex = 186741
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Search"
+        Me.GroupBox1.Text = My.Resources.Search_word
         '
         'GroupBox3
         '
@@ -189,7 +190,7 @@ Partial Class FormApache
         Me.GroupBox3.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox3.TabIndex = 186742
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Content Manager"
+        Me.GroupBox3.Text = My.Resources.Content_Manager_Word
         '
         'Other
         '
@@ -215,7 +216,7 @@ Partial Class FormApache
         Me.EnableJOpensim.Name = "EnableJOpensim"
         Me.EnableJOpensim.Size = New System.Drawing.Size(107, 17)
         Me.EnableJOpensim.TabIndex = 186743
-        Me.EnableJOpensim.Text = "Enable JOpensim"
+        Me.EnableJOpensim.Text = My.Resources.Enable_word & " JOpensim"
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
         'EnableDiva
@@ -225,7 +226,7 @@ Partial Class FormApache
         Me.EnableDiva.Name = "EnableDiva"
         Me.EnableDiva.Size = New System.Drawing.Size(83, 17)
         Me.EnableDiva.TabIndex = 186744
-        Me.EnableDiva.Text = "Enable Diva"
+        Me.EnableDiva.Text = My.Resources.Enable_word & " Diva"
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
         'EnableWP
@@ -249,7 +250,7 @@ Partial Class FormApache
         Me.Controls.Add(Me.GroupBox2)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormApache"
-        Me.Text = "Webserver + Search and Map"
+        Me.Text = My.Resources.webserver_Search_map
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -65,7 +65,7 @@ Partial Class FormAutoBackups
         Me.GroupBox3.Size = New System.Drawing.Size(380, 276)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Auto Backup"
+        Me.GroupBox3.Text = My.Resources.Auto_Backup_word
         '
         'PictureBox1
         '
@@ -97,7 +97,7 @@ Partial Class FormAutoBackups
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(112, 20)
         Me.Label6.TabIndex = 16
-        Me.Label6.Text = "Backup Folder"
+        Me.Label6.Text = My.Resources.Backup_Folder
         '
         'BaseFolder
         '
@@ -116,7 +116,7 @@ Partial Class FormAutoBackups
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(106, 20)
         Me.Label9.TabIndex = 14
-        Me.Label9.Text = "Keep for days"
+        Me.Label9.Text = My.Resources.Keep_for_Days_word
         '
         'AutoBackupKeepFilesForDays
         '
@@ -135,7 +135,7 @@ Partial Class FormAutoBackups
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(61, 20)
         Me.Label8.TabIndex = 12
-        Me.Label8.Text = "Interval"
+        Me.Label8.Text = My.Resources.Interval_word
         '
         'AutoBackupInterval
         '
@@ -170,7 +170,7 @@ Partial Class FormAutoBackups
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(417, 33)
         Me.MenuStrip2.TabIndex = 18601
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -220,7 +220,7 @@ Partial Class FormAutoBackups
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormAutoBackups"
-        Me.Text = "Auto Backup"
+        Me.Text = My.Resources.Auto_Backup_word
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

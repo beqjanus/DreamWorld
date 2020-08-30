@@ -20,7 +20,9 @@ Partial Class FormIARSave
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.TextBox.set_Text(System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -87,7 +89,7 @@ Partial Class FormIARSave
         Me.GroupBox1.Size = New System.Drawing.Size(369, 198)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Save Inventory IAR"
+        Me.GroupBox1.Text = My.Resources.Save_Inventory_IAR_word '"Save Inventory IAR"
         '
         'Button2
         '

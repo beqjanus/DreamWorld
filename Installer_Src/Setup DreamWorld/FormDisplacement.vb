@@ -55,6 +55,7 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
@@ -210,8 +211,9 @@ Public Class FormDisplacement
                 Dim OffsetX = 20
 
                 Dim Name = "PictureBox" & CStr(X) & CStr(Y)
-                Dim PictureBox As New PictureBox()
-                PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                Dim PictureBox As New PictureBox With {
+                    .BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                }
                 If map Then
                     PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
                 Else

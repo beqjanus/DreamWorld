@@ -70,17 +70,18 @@ Public Class FormPorts
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         SetScreen()
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = "Highest used: " + Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
 
-        MaxX.Text = "Highest used: " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxX.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -143,6 +144,7 @@ Public Class FormPorts
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     Private Sub FirstRegionPort_TextChanged_1(sender As Object, e As EventArgs) Handles FirstRegionPort.TextChanged
 
         If Not initted Then Return
@@ -185,6 +187,7 @@ Public Class FormPorts
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
 
         If Not initted Then Return

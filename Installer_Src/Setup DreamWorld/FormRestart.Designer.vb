@@ -146,7 +146,7 @@ Partial Class FormRestart
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(292, 26)
         Me.MenuStrip2.TabIndex = 1889
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -173,7 +173,7 @@ Partial Class FormRestart
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormRestart"
-        Me.Text = "Restart"
+        Me.Text = My.Resources.Restart_word
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

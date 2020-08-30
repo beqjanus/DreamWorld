@@ -65,7 +65,7 @@ Partial Class FormOAR
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(8, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(1124, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '

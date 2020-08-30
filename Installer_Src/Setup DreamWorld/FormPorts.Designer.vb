@@ -20,7 +20,8 @@ Partial Class FormPorts
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
@@ -91,7 +92,7 @@ Partial Class FormPorts
         Me.MaxXLabel.Name = "MaxXLabel"
         Me.MaxXLabel.Size = New System.Drawing.Size(108, 13)
         Me.MaxXLabel.TabIndex = 1866
-        Me.MaxXLabel.Text = "XMLRPC Port Start #"
+        Me.MaxXLabel.Text = My.Resources.XMLRP_start '"XMLRPC Port Start #"
         '
         'FirstXMLRegionPort
         '
@@ -225,7 +226,7 @@ Partial Class FormPorts
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(309, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = My.Resources._0
         '
         'ToolStripMenuItem30
         '

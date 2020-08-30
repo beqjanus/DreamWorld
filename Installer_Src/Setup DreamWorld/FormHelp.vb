@@ -46,6 +46,7 @@ Public Class FormHelp
 
 #Region "Public Methods"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub Init(Webpage As String)
 
         SetScreen(Webpage)

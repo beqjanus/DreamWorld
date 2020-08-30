@@ -117,6 +117,7 @@ Public Module MysqlInterface
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function EstateName(UUID As String) As String
 
@@ -176,6 +177,7 @@ Public Module MysqlInterface
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
@@ -209,6 +211,7 @@ Public Module MysqlInterface
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         ' griduse table column UserID

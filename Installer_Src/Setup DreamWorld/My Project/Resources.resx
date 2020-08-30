@@ -2867,4 +2867,94 @@
   <data name="webserver_Search_map" xml:space="preserve">
     <value>Webserver + Search and Map</value>
   </data>
+  <data name="Current_Size" xml:space="preserve">
+    <value>Current Size on Disk</value>
+  </data>
+  <data name="UBODE_words" xml:space="preserve">
+    <value>Ubit Open Dynamic Engine</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="XMLRP_start" xml:space="preserve">
+    <value>XMLRPC Port Start #</value>
+  </data>
+  <data name="X_Engine_word" xml:space="preserve">
+    <value>X Engine</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Y_Engine_word" xml:space="preserve">
+    <value>Y Engine</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Basque_word" xml:space="preserve">
+    <value>Basque</value>
+  </data>
+  <data name="Catalan" xml:space="preserve">
+    <value>Catalan</value>
+  </data>
+  <data name="Chinese_Simplifed" xml:space="preserve">
+    <value>Chinese Simplifed</value>
+  </data>
+  <data name="Chinese_Traditional" xml:space="preserve">
+    <value>Chinese Traditional</value>
+  </data>
+  <data name="Content_Manager_Word" xml:space="preserve">
+    <value>Content Manager</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>Czech</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Dutch</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>Finnish</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>Greek</value>
+  </data>
+  <data name="Group_word" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Hebrew" xml:space="preserve">
+    <value>Hebrew</value>
+  </data>
+  <data name="Icelandic" xml:space="preserve">
+    <value>Icelandic</value>
+  </data>
+  <data name="Irish" xml:space="preserve">
+    <value>Irish</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>Polish</value>
+  </data>
+  <data name="Portguese" xml:space="preserve">
+    <value>Portguese</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>Swedish</value>
+  </data>
 </root>

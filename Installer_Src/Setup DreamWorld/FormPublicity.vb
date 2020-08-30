@@ -144,6 +144,7 @@ Public Class FormPublicity
         Form1.Help("Publicity")
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = My.Resources.picfilter,

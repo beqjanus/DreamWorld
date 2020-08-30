@@ -84,6 +84,7 @@ Public Module Firewall
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub Write(cmd As String)
 
         Try
