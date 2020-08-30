@@ -130,7 +130,7 @@ Public Class FormBanList
 
             If Settings.ServerType = "Robust" Then
                 ' Robust Process only
-                If Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Robust.HG.ini.proto", ";") Then
+                If Settings.LoadIni(Form1.PropOpensimBinPath & "Robust.HG.ini.proto", ";") Then
                     MsgBox(My.Resources.Error_word)
                     Return
                 End If

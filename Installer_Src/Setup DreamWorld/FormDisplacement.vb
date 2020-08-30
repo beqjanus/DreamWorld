@@ -186,7 +186,7 @@ Public Class FormDisplacement
         Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.PropOpensimBinPath & "bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Dim RegionPhoto = Form1.PropOpensimBinPath & "maptiles\00000000-0000-0000-0000-000000000000\" & place
         Debug.Print(RegionPhoto)
         'RegionPhoto = "E:\Outworldz Dreamgrid\OutworldzFiles\Opensim\bin\maptiles\00000000-0000-0000-0000-000000000000\Anthony-ward-grid.jpg"
         Dim Pic As Image

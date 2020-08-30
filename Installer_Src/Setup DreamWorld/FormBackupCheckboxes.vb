@@ -137,7 +137,7 @@ Public Class FormBackupCheckboxes
 
             Dim folder As String = "./fsassets"
             If Settings.BaseDirectory = "./fsassets" Then
-                folder = Settings.OpensimBinPath & "bin\FSAssets"
+                folder = Settings.OpensimBinPath & "\FSAssets"
             Else
                 folder = Settings.BaseDirectory
             End If

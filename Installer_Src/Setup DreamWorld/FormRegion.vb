@@ -571,7 +571,7 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info_word)
         If msg = vbYes Then
-            FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+            FileStuff.DeleteFile(Form1.PropOpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
 #Disable Warning CA1031
@@ -1037,7 +1037,7 @@ Public Class FormRegion
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
-                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
+                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region")
 #Disable Warning CA1031
                 Catch ex As Exception
 #Enable Warning CA1031
@@ -1046,9 +1046,9 @@ Public Class FormRegion
                 End Try
             End If
 
-            Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Filepath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
+            Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Filepath = Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "Regions\" + NewGroup
 
         End If
 

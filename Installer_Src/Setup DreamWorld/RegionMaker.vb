@@ -367,7 +367,7 @@ Public Class RegionMaker
             Dim folders() As String
             Dim regionfolders() As String
             Dim RegionUUID As String = ""
-            folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "bin\Regions")
+            folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "\Regions")
             For Each FolderName As String In folders
 
                 regionfolders = Directory.GetDirectories(FolderName)
@@ -597,7 +597,7 @@ Public Class RegionMaker
         Dim fname As String = RegionList(RegionUUID)._FolderPath
 
         If (fname.Length = 0) Then
-            Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "bin\Regions\" + name + "\Region\"
+            Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
@@ -1808,7 +1808,7 @@ Public Class RegionMaker
     Public Shared Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
 
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Form1.PropOpensimBinPath & "Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
 

@@ -1368,10 +1368,10 @@ Public Class RegionList
 
                     If dirpathname.Length = 0 Then dirpathname = filename
 
-                    Dim NewFilepath = Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\"
+                    Dim NewFilepath = Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region\"
                     If Not Directory.Exists(NewFilepath) Then
                         Try
-                            Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region")
+                            Directory.CreateDirectory(Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region")
 #Disable Warning CA1031
                         Catch
 #Enable Warning CA1031
@@ -1379,7 +1379,7 @@ Public Class RegionList
                         End Try
                     End If
 
-                    File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "bin\Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                    File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
                 Else
                     Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                 End If

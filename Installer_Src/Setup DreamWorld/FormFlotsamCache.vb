@@ -46,7 +46,7 @@ Public Class FormFlotsamCache
         Dim fsize As Double
         Dim folder As String
         If CacheFolder.Text = ".\assetcache" Then
-            folder = Settings.OpensimBinPath & "bin/assetcache"
+            folder = Settings.OpensimBinPath & "/assetcache"
         Else
             folder = CacheFolder.Text
         End If

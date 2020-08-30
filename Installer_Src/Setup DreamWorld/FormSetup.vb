@@ -279,13 +279,13 @@ Public Class Form1
 
         If Settings.BirdsModuleStartup Then
             Try
-                My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.bak", PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
+                My.Computer.FileSystem.CopyFile(PropOpensimBinPath & "OpenSimBirds.Module.bak", PropOpensimBinPath & "OpenSimBirds.Module.dll")
 #Disable Warning CA1031
             Catch
 #Enable Warning CA1031
             End Try
         Else
-            FileStuff.DeleteFile(PropOpensimBinPath & "\bin\OpenSimBirds.Module.dll")
+            FileStuff.DeleteFile(PropOpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
 
         If Not StartRobust() Then
@@ -1188,7 +1188,7 @@ Public Class Form1
     Public Sub CopyWifi(Page As String)
         Try
             System.IO.Directory.Delete(PropOpensimBinPath & "WifiPages", True)
-            System.IO.Directory.Delete(PropOpensimBinPath & "bin\WifiPages", True)
+            System.IO.Directory.Delete(PropOpensimBinPath & "WifiPages", True)
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
@@ -1197,7 +1197,7 @@ Public Class Form1
 
         Try
             My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "WifiPages-" & Page, PropOpensimBinPath & "WifiPages", True)
-            My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\WifiPages-" & Page, PropOpensimBinPath & "\bin\WifiPages", True)
+            My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "WifiPages-" & Page, PropOpensimBinPath & "\WifiPages", True)
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
@@ -1210,8 +1210,8 @@ Public Class Form1
 
         Print("->Set Library")
         Try
-            System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Clothing Library (small).iar")
-            System.IO.File.Delete(PropOpensimBinPath & "bin\Library\Objects Library (small).iar")
+            System.IO.File.Delete(PropOpensimBinPath & "Library\Clothing Library (small).iar")
+            System.IO.File.Delete(PropOpensimBinPath & "Library\Objects Library (small).iar")
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
@@ -1289,21 +1289,21 @@ Public Class Form1
         ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
         Select Case Settings.ServerType
             Case "Robust"
-                Settings.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
-                Return PropOpensimBinPath & "bin\Opensim.proto"
+                Settings.LoadIni(PropOpensimBinPath & "Opensim.proto", ";")
+                Return PropOpensimBinPath & "Opensim.proto"
             Case "Region"
-                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimRegion.proto", ";")
-                Return PropOpensimBinPath & "bin\OpensimRegion.proto"
+                Settings.LoadIni(PropOpensimBinPath & "OpensimRegion.proto", ";")
+                Return PropOpensimBinPath & "OpensimRegion.proto"
             Case "OsGrid"
-                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimOsGrid.proto", ";")
-                Return PropOpensimBinPath & "bin\OpensimOsGrid.proto"
+                Settings.LoadIni(PropOpensimBinPath & "OpensimOsGrid.proto", ";")
+                Return PropOpensimBinPath & "OpensimOsGrid.proto"
             Case "Metro"
-                Settings.LoadIni(PropOpensimBinPath & "bin\OpensimMetro.proto", ";")
-                Return PropOpensimBinPath & "bin\OpensimMetro.proto"
+                Settings.LoadIni(PropOpensimBinPath & "OpensimMetro.proto", ";")
+                Return PropOpensimBinPath & "OpensimMetro.proto"
         End Select
         ' just in case...
-        Settings.LoadIni(PropOpensimBinPath & "bin\Opensim.proto", ";")
-        Return PropOpensimBinPath & "bin\Opensim.proto"
+        Settings.LoadIni(PropOpensimBinPath & "Opensim.proto", ";")
+        Return PropOpensimBinPath & "Opensim.proto"
 
     End Function
 
@@ -2186,7 +2186,7 @@ Public Class Form1
     Private Sub CleanDLLs()
 
         Dim dlls As List(Of String) = GetDlls(PropMyFolder & "/dlls.txt")
-        Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath & "bin")
+        Dim localdlls As List(Of String) = GetFilesRecursive(PropOpensimBinPath)
         For Each localdllname In localdlls
             Application.DoEvents()
             Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
@@ -2730,7 +2730,7 @@ Public Class Form1
         End If
 
         PropCurSlashDir = PropMyFolder.Replace("\", "/")    ' because MySQL uses Unix like slashes, that's why
-        PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\"
+        PropOpensimBinPath() = PropMyFolder & "\OutworldzFiles\Opensim\bin\"
 
         If Not System.IO.File.Exists(PropMyFolder & "\OutworldzFiles\Settings.ini") Then
             Print(My.Resources.Install_Icon)
@@ -3262,7 +3262,7 @@ Public Class Form1
 
         If Not Settings.BirdsModuleStartup Then Return False
         Print("->Set Birds")
-        Dim BirdFile = PropOpensimBinPath & "bin\addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
+        Dim BirdFile = PropOpensimBinPath & "addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
         Try
             System.IO.File.Delete(BirdFile)
 #Disable Warning CA1031
@@ -3324,7 +3324,7 @@ Public Class Form1
     Public Function DoGloebits() As Boolean
 
         'Gloebits.ini
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Gloebit.ini", ";") Then Return True
+        If Settings.LoadIni(PropOpensimBinPath & "Gloebit.ini", ";") Then Return True
         'Print("->Set Gloebits")
         If Settings.GloebitsEnable Then
             Settings.SetIni("Gloebit", "Enabled", "True")
@@ -3740,7 +3740,7 @@ Public Class Form1
         Dim Output As String = ""
 
         Try
-            reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+            reader = System.IO.File.OpenText(PropOpensimBinPath & "config-include\GridCommon.ini")
             'now loop through each line
             Dim skip As Boolean = False
             While reader.Peek <> -1
@@ -3762,9 +3762,9 @@ Public Class Form1
             'close the reader
             reader.Close()
 
-            FileStuff.DeleteFile(PropOpensimBinPath & "bin\config-include\GridCommon.ini")
+            FileStuff.DeleteFile(PropOpensimBinPath & "config-include\GridCommon.ini")
 
-            Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\config-include\Gridcommon.ini")
+            Using outputFile As New StreamWriter(PropOpensimBinPath & "config-include\Gridcommon.ini")
                 outputFile.Write(Output)
             End Using
 #Disable Warning CA1031
@@ -3780,7 +3780,7 @@ Public Class Form1
 
     Private Function DoFlotsamINI() As Boolean
 
-        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\FlotsamCache.ini", ";") Then Return True
+        If Settings.LoadIni(PropOpensimBinPath & "config-include\FlotsamCache.ini", ";") Then Return True
         Print("->Set Flotsam Cache")
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
@@ -3801,7 +3801,7 @@ Public Class Form1
         Select Case Settings.ServerType
             Case "Robust"
                 Try
-                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "Library.proto", PropOpensimBinPath & "Library", True)
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
@@ -3809,7 +3809,7 @@ Public Class Form1
                 GridCommon = "Gridcommon-GridServer.ini"
             Case "Region"
                 Try
-                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "bin\Library.proto", PropOpensimBinPath & "bin\Library", True)
+                    My.Computer.FileSystem.CopyDirectory(PropOpensimBinPath & "Library.proto", PropOpensimBinPath & "Library", True)
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
@@ -3823,9 +3823,9 @@ Public Class Form1
         End Select
 
         ' Put that gridcommon.ini file in place
-        FileStuff.CopyFile(PropOpensimBinPath & "bin\config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "bin\config-include\GridCommon.ini"), True)
+        FileStuff.CopyFile(PropOpensimBinPath & "config-include\" & GridCommon, IO.Path.Combine(PropOpensimBinPath, "\config-include\GridCommon.ini"), True)
 
-        If Settings.LoadIni(PropOpensimBinPath & "bin\config-include\GridCommon.ini", ";") Then Return True
+        If Settings.LoadIni(PropOpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
@@ -3907,7 +3907,7 @@ Public Class Form1
         Print("->Set Robust")
         If Settings.ServerType = "Robust" Then
             ' Robust Process
-            If Settings.LoadIni(PropOpensimBinPath & "bin\Robust.HG.ini", ";") Then
+            If Settings.LoadIni(PropOpensimBinPath & "Robust.HG.ini", ";") Then
                 Return True
             End If
 
@@ -3975,7 +3975,7 @@ Public Class Form1
 
             Dim DefaultName = Settings.WelcomeRegion
 
-            FileStuff.DeleteFile(PropOpensimBinPath & "bin\Robust.HG.ini")
+            FileStuff.DeleteFile(PropOpensimBinPath & "Robust.HG.ini")
 
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is
             ' enabled Region_Name = FallbackRegion if not a SmartStart
@@ -4001,8 +4001,8 @@ Public Class Form1
             Next
 
             Dim skip As Boolean = False
-            Using outputFile As New StreamWriter(PropOpensimBinPath & "bin\Robust.HG.ini")
-                reader = System.IO.File.OpenText(PropOpensimBinPath & "bin\Robust.HG.ini.proto")
+            Using outputFile As New StreamWriter(PropOpensimBinPath & "Robust.HG.ini")
+                reader = System.IO.File.OpenText(PropOpensimBinPath & "Robust.HG.ini.proto")
                 'now loop through each line
                 While reader.Peek <> -1
                     line = reader.ReadLine()
@@ -4096,7 +4096,7 @@ Public Class Form1
     Private Function DoTides() As Boolean
 
         Dim TideData As String = ""
-        Dim TideFile = PropOpensimBinPath & "bin\addon-modules\OpenSimTide\config\OpenSimTide.ini"
+        Dim TideFile = PropOpensimBinPath & "addon-modules\OpenSimTide\config\OpenSimTide.ini"
         Try
             System.IO.File.Delete(TideFile)
 #Disable Warning CA1031
@@ -4181,7 +4181,7 @@ Public Class Form1
 
     Private Function DoWifi() As Boolean
 
-        If Settings.LoadIni(PropOpensimBinPath & "bin\Wifi.ini", ";") Then Return True
+        If Settings.LoadIni(PropOpensimBinPath & "Wifi.ini", ";") Then Return True
 
         Print("->Set Diva Wifi page")
 
@@ -4459,10 +4459,10 @@ Public Class Form1
         If name.StartsWith("Region ", StringComparison.InvariantCultureIgnoreCase) Then
             name = Replace(name, "Region ", "", 1, 1)
             name = PropRegionClass.GroupName(PropRegionClass.FindRegionByName(name))
-            path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
+            path.Add("""" & PropOpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
         Else
             If name = "All Logs" Then AllLogs = True
-            If name = "Robust" Or AllLogs Then path.Add("""" & PropOpensimBinPath & "bin\Robust.log" & """")
+            If name = "Robust" Or AllLogs Then path.Add("""" & PropOpensimBinPath & "Robust.log" & """")
             If name = "Outworldz" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Outworldz.log" & """")
             If name = "Error" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Error.log" & """")
             If name = "UPnP" Or AllLogs Then path.Add("""" & PropMyFolder & "\Outworldzfiles\Upnp.log" & """")
@@ -4473,7 +4473,7 @@ Public Class Form1
             If AllLogs Then
                 For Each UUID As String In PropRegionClass.RegionUUIDs
                     name = PropRegionClass.GroupName(UUID)
-                    path.Add("""" & PropOpensimBinPath & "bin\Regions\" & name & "\Opensim.log" & """")
+                    path.Add("""" & PropOpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
                     Application.DoEvents()
                 Next
             End If
@@ -5290,10 +5290,10 @@ Public Class Form1
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        RobustProcess.StartInfo.FileName = PropOpensimBinPath & "bin\robust.exe"
+        RobustProcess.StartInfo.FileName = PropOpensimBinPath & "robust.exe"
 
         RobustProcess.StartInfo.CreateNoWindow = False
-        RobustProcess.StartInfo.WorkingDirectory = PropOpensimBinPath & "bin"
+        RobustProcess.StartInfo.WorkingDirectory = PropOpensimBinPath
 
         Select Case Settings.ConsoleShow
             Case "True"
@@ -5345,7 +5345,7 @@ Public Class Form1
                 Buttons(StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, My.Resources.Error_word)
                 If (yesno = vbYes) Then
-                    Dim Log As String = """" & PropOpensimBinPath & "bin\Robust.log" & """"
+                    Dim Log As String = """" & PropOpensimBinPath & "Robust.log" & """"
                     Try
                         System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe " & Log)
 #Disable Warning CA1031
@@ -5422,7 +5422,7 @@ Public Class Form1
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, My.Resources.Error_word)
         If (yesno = vbYes) Then
-            Dim MysqlLog As String = PropOpensimBinPath & "bin\Robust.log"
+            Dim MysqlLog As String = PropOpensimBinPath & "Robust.log"
             Try
                 System.Diagnostics.Process.Start(PropMyFolder & "\baretail.exe", """" & MysqlLog & """")
 #Disable Warning CA1031
@@ -6689,7 +6689,7 @@ Public Class Form1
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
-        Dim HTMLFILE = PropOpensimBinPath & "bin\data\teleports.htm"
+        Dim HTMLFILE = PropOpensimBinPath & "data\teleports.htm"
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
 

@@ -86,9 +86,9 @@ Module Clear_Cache
 
             Form1.Print(My.Resources.Clearing_Bake_Cache_word)
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "bin\bakes\") Then
+            If Directory.Exists(Form1.PropOpensimBinPath & "bakes\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
@@ -113,9 +113,9 @@ Module Clear_Cache
 
             Form1.Print(My.Resources.Clearing_Image_Cache_word)
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\") Then
+            If Directory.Exists(Form1.PropOpensimBinPath & "j2kDecodeCache\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
@@ -140,9 +140,9 @@ Module Clear_Cache
             Form1.Print(My.Resources.Clearing_Mesh_Cache_word)
 
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "bin\MeshCache\") Then
+            If Directory.Exists(Form1.PropOpensimBinPath & "MeshCache\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "bin\j2kDecodeCache\")
+                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
 #Disable Warning CA1031
                 Catch
 #Enable Warning CA1031
@@ -166,8 +166,8 @@ Module Clear_Cache
             If Not Form1.PropOpensimIsRunning() Then
                 Dim ctr As Integer = 0
                 Dim folders() = Nothing
-                If Directory.Exists(Form1.PropOpensimBinPath & "bin\ScriptEngines\") Then
-                    folders = Directory.GetFiles(Form1.PropOpensimBinPath & "bin\ScriptEngines\", "*", SearchOption.AllDirectories)
+                If Directory.Exists(Form1.PropOpensimBinPath & "ScriptEngines\") Then
+                    folders = Directory.GetFiles(Form1.PropOpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
                     If folders IsNot Nothing Then
                         Form1.Print(My.Resources.Clearing_Script)
 

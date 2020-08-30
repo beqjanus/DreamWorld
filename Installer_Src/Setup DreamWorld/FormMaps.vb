@@ -49,7 +49,7 @@ Public Class FormMaps
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
 
         Form1.Print(My.Resources.Clearing_Map_tiles_word)
-        Dim f As String = Form1.PropOpensimBinPath & "bin\Maptiles\00000000-0000-0000-0000-000000000000"
+        Dim f As String = Form1.PropOpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
         Try
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
