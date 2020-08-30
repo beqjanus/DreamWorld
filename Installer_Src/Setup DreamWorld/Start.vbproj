@@ -822,7 +822,6 @@
     <None Include="Resources\flag_poland.png" />
     <None Include="Resources\flag_portugal.png" />
     <None Include="Resources\catalan.png" />
-    <None Include="Resources\250px-Flag_of_the_Basque_Country.svg.png" />
     <None Include="Resources\flag_sweden.png" />
     <None Include="Resources\flag_spain.png" />
     <None Include="Resources\flag_russia.png" />

@@ -1580,7 +1580,7 @@ Public Class Form1
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
-                    Dim ctr = 600 ' 1 minute max to start a region
+                    Dim ctr = 1200 ' 2 minute max to start a region
 
                     While True
 
@@ -7317,9 +7317,11 @@ Public Class Form1
 
 #Region "RestartAndHelpMenu"
 
-    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
-        Settings.Language = "ar"
+    Private Sub BrazilToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BrazilToolStripMenuItem.Click
+
+        Settings.Language = "pt-BR"
         Language(sender, e)
+
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click

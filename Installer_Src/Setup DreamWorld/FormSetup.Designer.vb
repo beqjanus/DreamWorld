@@ -38,7 +38,6 @@ Partial Class Form1
         Me.mnuHideAllways = New System.Windows.Forms.ToolStripMenuItem()
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PortgueseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BasqueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CatalanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CzechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -54,10 +53,11 @@ Partial Class Form1
         Me.IrishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NorwegianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PolishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PortgueseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RussianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SpanishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SwedishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ArabicToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BrazilToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdvancedSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowHyperGridAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -242,7 +242,7 @@ Partial Class Form1
         '
         'LanguageToolStripMenuItem
         '
-        Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnglishToolStripMenuItem, Me.ArabicToolStripMenuItem, Me.BasqueToolStripMenuItem, Me.CatalanToolStripMenuItem, Me.CzechToolStripMenuItem, Me.ChineseSimplifedToolStripMenuItem, Me.ChineseTraditionalToolStripMenuItem, Me.DutchToolStripMenuItem, Me.FrenchToolStripMenuItem, Me.FinnishToolStripMenuItem, Me.GermanToolStripMenuItem, Me.GreekToolStripMenuItem, Me.HebrewToolStripMenuItem, Me.IcelandicToolStripMenuItem, Me.IrishToolStripMenuItem, Me.NorwegianToolStripMenuItem, Me.PolishToolStripMenuItem, Me.PortgueseToolStripMenuItem, Me.RussianToolStripMenuItem, Me.SpanishToolStripMenuItem, Me.SwedishToolStripMenuItem})
+        Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EnglishToolStripMenuItem, Me.BasqueToolStripMenuItem, Me.BrazilToolStripMenuItem, Me.CatalanToolStripMenuItem, Me.CzechToolStripMenuItem, Me.ChineseSimplifedToolStripMenuItem, Me.ChineseTraditionalToolStripMenuItem, Me.DutchToolStripMenuItem, Me.FrenchToolStripMenuItem, Me.FinnishToolStripMenuItem, Me.GermanToolStripMenuItem, Me.GreekToolStripMenuItem, Me.HebrewToolStripMenuItem, Me.IcelandicToolStripMenuItem, Me.IrishToolStripMenuItem, Me.NorwegianToolStripMenuItem, Me.PolishToolStripMenuItem, Me.PortgueseToolStripMenuItem, Me.RussianToolStripMenuItem, Me.SpanishToolStripMenuItem, Me.SwedishToolStripMenuItem})
         Me.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
         Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
@@ -254,13 +254,6 @@ Partial Class Form1
         Me.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem"
         Me.EnglishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.EnglishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.English
-        '
-        'PortgueseToolStripMenuItem
-        '
-        Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
-        Me.PortgueseToolStripMenuItem.Name = "PortgueseToolStripMenuItem"
-        Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Portguese
         '
         'BasqueToolStripMenuItem
         '
@@ -367,6 +360,13 @@ Partial Class Form1
         Me.PolishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.PolishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Polish
         '
+        'PortgueseToolStripMenuItem
+        '
+        Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
+        Me.PortgueseToolStripMenuItem.Name = "PortgueseToolStripMenuItem"
+        Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Portguese
+        '
         'RussianToolStripMenuItem
         '
         Me.RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_russia1
@@ -388,14 +388,12 @@ Partial Class Form1
         Me.SwedishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.SwedishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Swedish
         '
-        'ArabicToolStripMenuItem
+        'BrazilToolStripMenuItem
         '
-        Me.ArabicToolStripMenuItem.Checked = True
-        Me.ArabicToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_saudi_arabia
-        Me.ArabicToolStripMenuItem.Name = "ArabicToolStripMenuItem"
-        Me.ArabicToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.ArabicToolStripMenuItem.Text = "Arabic"
+        Me.BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
+        Me.BrazilToolStripMenuItem.Name = "BrazilToolStripMenuItem"
+        Me.BrazilToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.BrazilToolStripMenuItem.Text = "Brazil"
         '
         'AdvancedSettingsToolStripMenuItem
         '
@@ -1372,5 +1370,5 @@ Partial Class Form1
     Friend WithEvents LoadLocalOARSToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalIARsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents ArabicToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BrazilToolStripMenuItem As ToolStripMenuItem
 End Class
