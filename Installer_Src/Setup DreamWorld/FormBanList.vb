@@ -201,6 +201,7 @@ Public Class FormBanList
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub GetData()
 
         Try
