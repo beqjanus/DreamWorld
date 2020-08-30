@@ -41,7 +41,7 @@ Module Clear_Cache
             Dim folders() = Nothing
             Dim Flotsam As String = Settings.CacheFolder
             If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
-                Flotsam = Settings.OpensimBinPath & "bin\assetcache"
+                Flotsam = Settings.OpensimBinPath & "assetcache"
             End If
             If Directory.Exists(Flotsam) Then
                 folders = Directory.GetDirectories(Flotsam, "*", SearchOption.TopDirectoryOnly)

@@ -150,14 +150,15 @@ Public Class FormCaches
         CacheTimeout.Text = Settings.CacheTimeout
         LogLevelBox.SelectedIndex = CType(Settings.CacheLogLevel, Integer)
 
-        Dim folder As String
-        If CacheFolder.Text = ".\assetcache" Then
-            folder = Settings.OpensimBinPath & "bin/assetcache"
-        Else
-            folder = CacheFolder.Text
+        Dim tmp = CacheFolder.Text
+        If tmp = ".\assetcache" Then
+            tmp = Settings.OpensimBinPath & "assetcache"
         End If
 
-        CacheFolder.Text = folder
+        If Not IO.Directory.Exists(tmp) Then
+            MsgBox(My.Resources.No_Locate_FSassets & tmp & My.Resources.Reset_To_Default, vbInformation)
+            CacheFolder.Text = ".\assetcache"
+        End If
 
         ViewerCacheCheckbox.Checked = Settings.SupportViewerObjectsCache
 
