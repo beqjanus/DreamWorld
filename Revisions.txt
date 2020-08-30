@@ -2,6 +2,9 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.65 Post Fixes (Bleeding edge Opensim)
+Fixed a glitch that caused immediate crash in 3.64
+
 V3.64 Post Fixes (Bleeding edge Opensim)
 Add 100+ translations.
 Add Brazilian Portuguese.
