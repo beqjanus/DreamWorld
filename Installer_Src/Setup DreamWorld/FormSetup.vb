@@ -2551,7 +2551,7 @@ Public Class Form1
             End If
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "bin\Regions\" & GroupName)
+        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
 
         Dim myProcess As Process = GetNewProcess()
@@ -2560,9 +2560,9 @@ Public Class Form1
 
         myProcess.EnableRaisingEvents = True
         myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath() & "bin"
+        myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
-        myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "bin\OpenSim.exe" & """"
+        myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
 
         Select Case Settings.ConsoleShow
@@ -2576,10 +2576,10 @@ Public Class Form1
 
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\Opensim.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\Regions\" & GroupName & "\PID.pid")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpensimConsole.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "bin\regions\" & GroupName & "\OpenSimStats.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
+        FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
 
         SequentialPause()   ' wait for previous region to give us some CPU
         Logger("Booting", GroupName, "Restart")
@@ -7316,6 +7316,11 @@ Public Class Form1
 #End Region
 
 #Region "RestartAndHelpMenu"
+
+    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
+        Settings.Language = "ar"
+        Language(sender, e)
+    End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 

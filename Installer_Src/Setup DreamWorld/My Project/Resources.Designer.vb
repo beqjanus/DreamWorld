@@ -3115,6 +3115,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flag_saudi_arabia() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_saudi_arabia", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flag_spain() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_spain", resourceCulture)
@@ -5223,6 +5233,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cannot locate FSasset folder:.
+        '''</summary>
+        Friend ReadOnly Property No_Locate_FSassets() As String
+            Get
+                Return ResourceManager.GetString("No_Locate_FSassets", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do not publish this region.
         '''</summary>
         Friend ReadOnly Property No_Publish_Items() As String
@@ -6408,6 +6427,15 @@ Namespace My.Resources
         Friend ReadOnly Property Reserve_Password() As String
             Get
                 Return ResourceManager.GetString("Reserve_Password", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to . Reset to default.
+        '''</summary>
+        Friend ReadOnly Property Reset_To_Default() As String
+            Get
+                Return ResourceManager.GetString("Reset_To_Default", resourceCulture)
             End Get
         End Property
         
