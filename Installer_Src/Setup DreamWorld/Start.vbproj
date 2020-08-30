@@ -810,6 +810,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\flag_brazil.png" />
     <None Include="Resources\flag_saudi_arabia.png" />
     <None Include="Resources\basque.png" />
     <None Include="Resources\view1.png" />
