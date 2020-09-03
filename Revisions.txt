@@ -2,6 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.66 Post Fixes (Bleeding edge Opensim)
+
+Added http://YourGrid:regionPort/diva/addinexample which lets you save anything people take as a CSV file in bin with  as POST.  See Help\LSL_Scripting.rtf
+
+Opensim updated to #9a32266382de3a953 0.9.2.dev 2020-09-02 15:40:42. This mainly adds back in EEP defaults. See http://opensimulator.org/viewgit/?a=shortlog&p=opensim
+
 V3.65 Post Fixes (Bleeding edge Opensim)
 Fixed a glitch that caused immediate crash in 3.64
 

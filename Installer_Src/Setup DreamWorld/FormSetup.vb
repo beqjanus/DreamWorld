@@ -37,7 +37,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.65"
+    Private ReadOnly _MyVersion As String = "3.66"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
     Private ReadOnly _SimVersion As String = "#7dc50c93b82f22da8a9 0.9.2.dev 2020-08-26"
 
@@ -1527,7 +1527,7 @@ Public Class Form1
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
             End If
             If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
-                Print(My.Resources.Grid_TCP_is_set_word & ":TCP:" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
+                Print(My.Resources.Grid_TCP_is_set_word & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
             Application.DoEvents()
 
@@ -1536,7 +1536,7 @@ Public Class Form1
                 PropMyUPnpMap.Remove(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP)
             End If
             If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP, "Opensim UDP Grid " & Settings.HttpPort) Then
-                Print(My.Resources.Grid_UDP_is_set_word & ":UDP:" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
+                Print(My.Resources.Grid_UDP_is_set_word & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
 
             Application.DoEvents()
@@ -5485,7 +5485,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port

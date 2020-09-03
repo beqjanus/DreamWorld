@@ -29,6 +29,7 @@ namespace Diva.AddinExample
 
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private bool m_Enabled;
+        private string m_Password;
 
         private static string AssemblyDirectory
         {
@@ -39,9 +40,27 @@ namespace Diva.AddinExample
             }
         }
 
-        #endregion
+        #endregion Class and Instance Members
 
         #region ISharedRegionModule
+
+        public string Name
+        {
+            get { return "Diva Addin Example"; }
+        }
+
+        public Type ReplaceableInterface
+        {
+            get { return null; }
+        }
+
+        public void AddRegion(Scene scene)
+        {
+        }
+
+        public void Close()
+        {
+        }
 
         public void Initialise(IConfigSource config)
         {
@@ -59,6 +78,7 @@ namespace Diva.AddinExample
             }
 
             m_Enabled = cnf.GetBoolean("enabled", m_Enabled);
+            m_Password = cnf.GetString("password", m_Password);
 
             if (m_Enabled)
             {
@@ -71,8 +91,9 @@ namespace Diva.AddinExample
                     using (TextWriter tr = new StreamWriter(pathToCsvFile))
                     using (var writer = new CsvWriter(tr))
                     {
-                        writer.WriteField("First Name");
-                        writer.WriteField("Last Name");
+                        writer.WriteField("Date");
+                        writer.WriteField("Name");
+                        writer.WriteField("Region");
                         writer.NextRecord();
                     }
                 }
@@ -82,27 +103,21 @@ namespace Diva.AddinExample
             }
         }
 
-        public string Name
+        public void PostInitialise()
         {
-            get { return "Diva Addin Example"; }
         }
 
-        public Type ReplaceableInterface
+        public void RegionLoaded(Scene scene)
         {
-            get { return null; }
         }
 
-        public void PostInitialise() { }
+        public void RemoveRegion(Scene scene)
+        {
+        }
 
-        public void AddRegion(Scene scene) { }
+        #endregion ISharedRegionModule
 
-        public void RegionLoaded(Scene scene) { }
-
-        public void RemoveRegion(Scene scene) { }
-
-        public void Close() { }
-
-        #endregion
+        #region Private Methods
 
         private void LoadConfiguration(IConfigSource config)
         {
@@ -119,21 +134,31 @@ namespace Diva.AddinExample
                 m_log.ErrorFormat("[Diva.AddinExample]: PLEASE EDIT {0} BEFORE RUNNING THIS ADDIN", configPath);
                 throw new Exception("Addin must be configured prior to running");
             }
-
         }
 
+        #endregion Private Methods
     }
 
     public class FormUploadGetHandler : BaseStreamHandler
     {
+        #region Private Fields
+
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private string m_pathToFile;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public FormUploadGetHandler(string file) :
             base("GET", "/diva/addinexample")
         {
             m_pathToFile = file;
         }
+
+        #endregion Public Constructors
+
+        #region Protected Methods
 
         protected override byte[] ProcessRequest(string path, Stream requestData,
                 IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
@@ -148,18 +173,30 @@ namespace Diva.AddinExample
             httpResponse.ContentType = "text/html";
             return Encoding.UTF8.GetBytes(html);
         }
+
+        #endregion Protected Methods
     }
 
     public class FormUploadPostHandler : BaseStreamHandler
     {
+        #region Private Fields
+
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private string m_PathToFile;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public FormUploadPostHandler(string path) :
             base("POST", "/diva/addinexample")
         {
             m_PathToFile = path;
         }
+
+        #endregion Public Constructors
+
+        #region Protected Methods
 
         protected override byte[] ProcessRequest(string path, Stream requestData,
                 IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
@@ -173,32 +210,38 @@ namespace Diva.AddinExample
             // Here the data on the stream is transformed into a nice dictionary of keys & values
             Dictionary<string, object> postdata = ServerUtils.ParseQueryString(body);
 
-            string firstname = string.Empty, lastname = string.Empty;
-            if (postdata.ContainsKey("firstname") && !string.IsNullOrEmpty(postdata["firstname"].ToString()))
-                firstname = postdata["firstname"].ToString();
-            if (postdata.ContainsKey("lastname") && !string.IsNullOrEmpty(postdata["lastname"].ToString()))
-                lastname = postdata["lastname"].ToString();
+            string avatarname = string.Empty, regionname = string.Empty;
+            if (postdata.ContainsKey("name") && !string.IsNullOrEmpty(postdata["name"].ToString()))
+                avatarname = postdata["name"].ToString();
+            if (postdata.ContainsKey("region") && !string.IsNullOrEmpty(postdata["region"].ToString()))
+                regionname = postdata["region"].ToString();
 
-            AddToCSVFile(firstname, lastname);
+            AddToCSVFile(avatarname, regionname);
 
-            string result = "Thanks, your name has been recorded.";
+            string result = "Thanks, your visit has been recorded.";
             httpResponse.ContentType = "text/html";
             httpResponse.StatusCode = 200;
 
             return Encoding.UTF8.GetBytes(result);
-
         }
 
-        private void AddToCSVFile(string first, string last)
+        #endregion Protected Methods
+
+        #region Private Methods
+
+        private void AddToCSVFile(string avatar, string region)
         {
+            string d = DateTime.Now.ToString("G");
             using (TextWriter tr = new StreamWriter(m_PathToFile, true))
             using (var writer = new CsvWriter(tr))
             {
-                writer.WriteField(first);
-                writer.WriteField(last);
+                writer.WriteField(d);
+                writer.WriteField(avatar);
+                writer.WriteField(region);
                 writer.NextRecord();
             }
         }
-    }
 
+        #endregion Private Methods
+    }
 }
