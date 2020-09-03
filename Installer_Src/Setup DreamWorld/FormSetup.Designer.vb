@@ -23,6 +23,8 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolStripItem.set_Text(System.String)")>
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -39,6 +41,7 @@ Partial Class Form1
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BasqueToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BrazilToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CatalanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CzechToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChineseSimplifedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,7 +60,6 @@ Partial Class Form1
         Me.RussianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SpanishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SwedishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BrazilToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdvancedSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ShowHyperGridAddressToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -262,6 +264,13 @@ Partial Class Form1
         Me.BasqueToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.BasqueToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Basque_word
         '
+        'BrazilToolStripMenuItem
+        '
+        Me.BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
+        Me.BrazilToolStripMenuItem.Name = "BrazilToolStripMenuItem"
+        Me.BrazilToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.BrazilToolStripMenuItem.Text = "Brazil"
+        '
         'CatalanToolStripMenuItem
         '
         Me.CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_catalan
@@ -365,7 +374,7 @@ Partial Class Form1
         Me.PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
         Me.PortgueseToolStripMenuItem.Name = "PortgueseToolStripMenuItem"
         Me.PortgueseToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Portguese
+        Me.PortgueseToolStripMenuItem.Text = My.Resources.Portuguese
         '
         'RussianToolStripMenuItem
         '
@@ -387,13 +396,6 @@ Partial Class Form1
         Me.SwedishToolStripMenuItem.Name = "SwedishToolStripMenuItem"
         Me.SwedishToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.SwedishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Swedish
-        '
-        'BrazilToolStripMenuItem
-        '
-        Me.BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
-        Me.BrazilToolStripMenuItem.Name = "BrazilToolStripMenuItem"
-        Me.BrazilToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.BrazilToolStripMenuItem.Text = "Brazil"
         '
         'AdvancedSettingsToolStripMenuItem
         '
@@ -809,7 +811,7 @@ Partial Class Form1
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(693, 26)
         Me.MenuStrip1.TabIndex = 21
-        Me.MenuStrip1.Text = "0"
+        Me.MenuStrip1.Text = My.Resources._0
         '
         'MnuContent
         '
@@ -959,7 +961,7 @@ Partial Class Form1
         Me.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.MysqlToolStripMenuItem.Name = "MysqlToolStripMenuItem"
         Me.MysqlToolStripMenuItem.Size = New System.Drawing.Size(71, 24)
-        Me.MysqlToolStripMenuItem.Text = "Mysql"
+        Me.MysqlToolStripMenuItem.Text = My.Resources.Mysql_Word
         '
         'HelpToolStripMenuItem1
         '
@@ -981,7 +983,7 @@ Partial Class Form1
         Me.RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RobustToolStripMenuItem.Name = "RobustToolStripMenuItem"
         Me.RobustToolStripMenuItem.Size = New System.Drawing.Size(76, 24)
-        Me.RobustToolStripMenuItem.Text = "Robust"
+        Me.RobustToolStripMenuItem.Text = My.Resources.Robust_word
         '
         'HelpToolStripMenuItem2
         '
@@ -1074,7 +1076,8 @@ Partial Class Form1
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(13, 13)
         Me.AvatarLabel.TabIndex = 32
-        Me.AvatarLabel.Text = "0"
+        Me.AvatarLabel.Text = My.Resources._0
+        '
         '
         'AviLabel
         '
@@ -1083,7 +1086,7 @@ Partial Class Form1
         Me.AviLabel.Name = "AviLabel"
         Me.AviLabel.Size = New System.Drawing.Size(43, 13)
         Me.AviLabel.TabIndex = 34
-        Me.AviLabel.Text = "Avatars"
+        Me.AviLabel.Text = My.Resources.Avatars_word
         '
         'PercentCPU
         '
@@ -1092,7 +1095,8 @@ Partial Class Form1
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 13)
         Me.PercentCPU.TabIndex = 35
-        Me.PercentCPU.Text = "0"
+        Me.PercentCPU.Text = My.Resources._0
+        '
         '
         'PercentRAM
         '
@@ -1101,7 +1105,7 @@ Partial Class Form1
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(13, 13)
         Me.PercentRAM.TabIndex = 37
-        Me.PercentRAM.Text = "0"
+        Me.PercentRAM.Text = My.Resources._0
         '
         'BusyButton
         '

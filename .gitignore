@@ -75,6 +75,10 @@ Thumbs.db
 **/obj/*
 **/Release/*
 **/Debug/*
+**/addin-db-002/*
+**/bin/Regions/
+**/config.php
+/OutworldzFiles/PHP7/databaseinfo.php
 
 
 # Ignore .user and .suo files as these are user preference specific

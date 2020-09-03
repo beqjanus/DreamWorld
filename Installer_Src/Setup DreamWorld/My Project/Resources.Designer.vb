@@ -4961,6 +4961,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Mysql.
+        '''</summary>
+        Friend ReadOnly Property Mysql_Word() As String
+            Get
+                Return ResourceManager.GetString("Mysql_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to MySQL Port.
         '''</summary>
         Friend ReadOnly Property MySqlPort_word() As String
@@ -5841,20 +5850,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Portguese.
-        '''</summary>
-        Friend ReadOnly Property Portguese() As String
-            Get
-                Return ResourceManager.GetString("Portguese", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Ports.
         '''</summary>
         Friend ReadOnly Property Ports() As String
             Get
                 Return ResourceManager.GetString("Ports", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Portuguese.
+        '''</summary>
+        Friend ReadOnly Property Portuguese() As String
+            Get
+                Return ResourceManager.GetString("Portuguese", resourceCulture)
             End Get
         End Property
         

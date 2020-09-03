@@ -52,7 +52,7 @@ Partial Class Choice
         'Group
         '
         Me.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Group.HeaderText = "Group"
+        Me.Group.HeaderText = My.Resources.Group_word
         Me.Group.MaxInputLength = 50
         Me.Group.MinimumWidth = 8
         Me.Group.Name = My.Resources.Group_word

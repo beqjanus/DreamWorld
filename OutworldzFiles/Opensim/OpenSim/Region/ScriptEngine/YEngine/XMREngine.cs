@@ -87,14 +87,10 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         private string m_ScriptBasePath;
         private bool m_Enabled = false;
         public bool m_StartProcessing = false;
-        private Dictionary<UUID, ArrayList> m_ScriptErrors =
-                new Dictionary<UUID, ArrayList>();
-        private Dictionary<UUID, List<UUID>> m_ObjectItemList =
-                new Dictionary<UUID, List<UUID>>();
-        private Dictionary<UUID, XMRInstance[]> m_ObjectInstArray =
-                new Dictionary<UUID, XMRInstance[]>();
-        public Dictionary<string, FieldInfo> m_XMRInstanceApiCtxFieldInfos =
-                new Dictionary<string, FieldInfo>();
+        private Dictionary<UUID, ArrayList> m_ScriptErrors = new Dictionary<UUID, ArrayList>();
+        private Dictionary<UUID, List<UUID>> m_ObjectItemList =  new Dictionary<UUID, List<UUID>>();
+        private Dictionary<UUID, XMRInstance[]> m_ObjectInstArray = new Dictionary<UUID, XMRInstance[]>();
+        public Dictionary<string, FieldInfo> m_XMRInstanceApiCtxFieldInfos = new Dictionary<string, FieldInfo>();
         public int m_StackSize;
         private int m_HeapSize;
         private Thread m_SleepThread = null;
@@ -941,7 +937,7 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                 if(!m_ObjectInstArray.TryGetValue(partUUID, out objInstArray))
                     return false;
 
-                if(objInstArray == null)
+                if (objInstArray == null)
                 {
                     objInstArray = RebuildObjectInstArray(partUUID);
                     m_ObjectInstArray[partUUID] = objInstArray;
@@ -951,7 +947,8 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             // Post event to all script instances in the object.
             if(objInstArray.Length <= 0)
                 return false;
-            foreach(XMRInstance inst in objInstArray)
+
+            foreach (XMRInstance inst in objInstArray)
                 inst.PostEvent(parms);
 
             return true;
@@ -1217,9 +1214,6 @@ namespace OpenSim.Region.ScriptEngine.Yengine
             if (script.StartsWith("//MRM:"))
                 return;
 
-            SceneObjectPart part = m_Scene.GetSceneObjectPart(localID);
-            TaskInventoryItem item = part.Inventory.GetInventoryItem(itemID);
-
             if(!m_LateInit)
             {
                 m_LateInit = true;
@@ -1283,6 +1277,9 @@ namespace OpenSim.Region.ScriptEngine.Yengine
 
             if(!string.IsNullOrEmpty(langsrt) && langsrt !="lsl")
                 return;
+
+            SceneObjectPart part = m_Scene.GetSceneObjectPart(localID);
+            TaskInventoryItem item = part.Inventory.GetInventoryItem(itemID);
 
             // Put on object/instance lists.
             XMRInstance instance = (XMRInstance)Activator.CreateInstance(ScriptCodeGen.xmrInstSuperType);
@@ -1414,6 +1411,10 @@ namespace OpenSim.Region.ScriptEngine.Yengine
                 if(!instance.m_Running)
                     instance.EmptyEventQueues();
             }
+            // Declare which events the script's current state can handle.
+            int eventMask = instance.GetStateEventFlags(instance.stateCode);
+            instance.m_Part.SetScriptEvents(instance.m_ItemID, eventMask);
+
             QueueToStart(instance);
         }
 
@@ -1991,19 +1992,17 @@ namespace OpenSim.Region.ScriptEngine.Yengine
         private XMRInstance[] RebuildObjectInstArray(UUID partUUID)
         {
             List<UUID> itemIDList = m_ObjectItemList[partUUID];
-            int n = 0;
-            foreach(UUID itemID in itemIDList)
+            XMRInstance[] a = new XMRInstance[itemIDList.Count];
+            if(itemIDList.Count > 0)
             {
-                if(m_InstancesDict.ContainsKey(itemID))
-                    n++;
-            }
-
-            XMRInstance[] a = new XMRInstance[n];
-            n = 0;
-            foreach(UUID itemID in itemIDList)
-            {
-                if(m_InstancesDict.TryGetValue(itemID, out a[n]))
-                    n++;
+                int n = 0;
+                foreach (UUID itemID in itemIDList)
+                {
+                    if (m_InstancesDict.TryGetValue(itemID, out a[n]))
+                        n++;
+                }
+                if(n < itemIDList.Count)
+                    Array.Resize(ref a, n);
             }
             m_ObjectInstArray[partUUID] = a;
             return a;

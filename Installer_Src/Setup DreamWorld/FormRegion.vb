@@ -148,6 +148,7 @@ Public Class FormRegion
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Init(Name As String)
 
         '!!! remove for production
@@ -189,7 +190,7 @@ Public Class FormRegion
             RegionUUID = Form1.PropRegionClass.FindRegionByName(Name)
             Oldname1 = Form1.PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
             EnabledCheckBox.Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
-            Me.Text = Name & " Region" ' on screen
+            Me.Text = Name & " " & My.Resources.Region_word ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
             NonphysicalPrimMax.Text = CStr(Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID))

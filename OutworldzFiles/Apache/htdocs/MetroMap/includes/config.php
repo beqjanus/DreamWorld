@@ -1,7 +1,7 @@
 <?php 
 /* General Domain */
 $CONF_domain        = "192.168.2.133"; 
-$CONF_port          = "5002"; 
+$CONF_port          = "8002"; 
 $CONF_sim_domain    = "http://192.168.2.133/";
 $CONF_install_path  = "/Metromap";   // Installation path 
 /* MySQL Database */ 
@@ -11,8 +11,8 @@ $CONF_db_user       = "robustuser";  // login
 $CONF_db_pass       = "robustpassword";  // password 
 $CONF_db_database   = "robust";     // Name Of Robust Server 
 /* The Coordinates Of the Grid-Center */ 
-$CONF_center_coord_x = "2667";		// the Center-X-Coordinate 
-$CONF_center_coord_y = "2665";		// the Center-Y-Coordinate 
+$CONF_center_coord_x = "4051";		// the Center-X-Coordinate 
+$CONF_center_coord_y = "4047";		// the Center-Y-Coordinate 
 // style-sheet items
 $CONF_style_sheet     = "/css/stylesheet.css";          //Link To your StyleSheet
 $CONF_HOME            = "DreamGrid";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder

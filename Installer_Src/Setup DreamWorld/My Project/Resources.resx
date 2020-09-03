@@ -1575,8 +1575,8 @@
   <data name="Scripts_word" xml:space="preserve">
     <value>Scripts</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portuguese</value>
   </data>
   <data name="Click_Voice" xml:space="preserve">
     <value>Click to set up Vivox Voice</value>
@@ -2968,5 +2968,9 @@
   </data>
   <data name="flag_brazil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_brazil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>Mysql</value>
+    <comment>new</comment>
   </data>
 </root>
