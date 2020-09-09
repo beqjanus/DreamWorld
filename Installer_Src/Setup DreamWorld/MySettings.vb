@@ -300,21 +300,12 @@ Public Class MySettings
 
     End Function
 
-    Public Function GetMyIni(section As String, key As String, Optional D As String = "") As String
-
-        Dim R = Stripqq(MyData(section)(key))
-        If R = Nothing Then R = D
-        Return R
-
-    End Function
-
     Public Function GetMySetting(key As String, Optional D As String = "") As String
 
         Try
-            Dim value = GetMyIni("Data", key, D)
-#Disable Warning CA1062 ' Validate arguments of public methods
+            Dim value = Stripqq(MyData("Data")(key))
+            If value = Nothing Then value = D
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
-#Enable Warning CA1062 ' Validate arguments of public methods
 #Disable Warning CA1031
         Catch
 #Enable Warning CA1031
