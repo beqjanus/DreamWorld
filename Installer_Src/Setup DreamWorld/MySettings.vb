@@ -1308,7 +1308,7 @@ Public Class MySettings
 
     Public Property RegionDBName() As String
         Get
-            Return GetMySetting("RegionDBName")
+            Return GetMySetting("RegionDBName", "opensim")
         End Get
         Set
             SetMySetting("RegionDBName", Value)
@@ -1317,7 +1317,7 @@ Public Class MySettings
 
     Public Property RegionDbPassword() As String
         Get
-            Return GetMySetting("RegionDbPassword")
+            Return GetMySetting("RegionDbPassword", "opensimpassword")
         End Get
         Set
             SetMySetting("RegionDbPassword", Value)
@@ -1326,7 +1326,7 @@ Public Class MySettings
 
     Public Property RegionDBUsername() As String
         Get
-            Return GetMySetting("RegionDBUsername")
+            Return GetMySetting("RegionDBUsername", "opensimuser")
         End Get
         Set
             SetMySetting("RegionDBUsername", Value)

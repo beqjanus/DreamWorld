@@ -145,7 +145,7 @@ Partial Class FormDatabase
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(35, 13)
         Me.Label20.TabIndex = 13
-        Me.Label20.Text = Outworldz.My.Resources.About_word
+        Me.Label20.Text = Outworldz.My.Resources.Region_Database
 
         '
         'RegionDbName

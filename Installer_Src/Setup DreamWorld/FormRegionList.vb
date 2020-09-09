@@ -52,6 +52,15 @@ Public Class RegionList
 
 #Region "Properties"
 
+    Public Shared Property FormExists1 As Boolean
+        Get
+            Return _FormExists
+        End Get
+        Set(value As Boolean)
+            _FormExists = value
+        End Set
+    End Property
+
     ' property exposing FormExists
     Public Shared ReadOnly Property InstanceExists() As Boolean
         Get
@@ -123,15 +132,6 @@ Public Class RegionList
         End Set
     End Property
 
-    Public Shared Property FormExists1 As Boolean
-        Get
-            Return _FormExists
-        End Get
-        Set(value As Boolean)
-            _FormExists = value
-        End Set
-    End Property
-
     Shared Property PropUpdateView() As Boolean
         Get
             Return Form1.PropUpdateView
@@ -159,23 +159,30 @@ Public Class RegionList
     Private Sub SetScreen()
 
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
-        Dim hw As List(Of Integer) = ScreenPosition.GetHW()
-        '1106, 460
-        If hw.Item(0) = 0 Then
+        Try
+            ScreenPosition = New ScreenPos(MyBase.Name)
+            AddHandler ResizeEnd, Handler
+            Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+            Me.Left = xy.Item(0)
+            Me.Top = xy.Item(1)
+            Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+            '1106, 460
+            If hw.Item(0) = 0 Then
+                Me.Height = 460
+            Else
+                Me.Height = hw.Item(0)
+            End If
+            If hw.Item(1) = 0 Then
+                Me.Width = 1106
+            Else
+                Me.Width = hw.Item(1)
+            End If
+        Catch ex As Exception
             Me.Height = 460
-        Else
-            Me.Height = hw.Item(0)
-        End If
-        If hw.Item(1) = 0 Then
             Me.Width = 1106
-        Else
-            Me.Width = hw.Item(1)
-        End If
+            Me.Left = 100
+            Me.Top = 100
+        End Try
 
     End Sub
 
