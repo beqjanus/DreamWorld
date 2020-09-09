@@ -98,12 +98,16 @@ Public Class ScreenPos
         SaveFormSettings()
         If Value = 0 Then Return False
         Return True
+
     End Function
 
     Public Function GetHW() As List(Of Integer)
 
         If Data Is Nothing Then
-            Return New List(Of Integer)
+            Dim array = New List(Of Integer)
+            array.Add(100)
+            array.Add(100)
+            Return array
         End If
         Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
         Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_W"), Integer)
@@ -121,7 +125,10 @@ Public Class ScreenPos
     Public Function GetXY() As List(Of Integer)
 
         If Data Is Nothing Then
-            Return New List(Of Integer)
+            Dim array = New List(Of Integer)
+            array.Add(100)
+            array.Add(100)
+            Return array
         End If
         Try
             Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
