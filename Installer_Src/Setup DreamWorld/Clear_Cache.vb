@@ -63,9 +63,10 @@ Module Clear_Cache
             Dim files() = Nothing
             Try
                 files = IO.Directory.GetFiles(Flotsam)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+
+            Catch ex As Exception
+
+                BreakPoint.Show(ex.Message)
             End Try
 
             ctr = 0
@@ -86,12 +87,13 @@ Module Clear_Cache
 
             Form1.Print(My.Resources.Clearing_Bake_Cache_word)
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "bakes\") Then
+            If Directory.Exists(Settings.OpensimBinPath & "bakes\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
+                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
+
+                Catch ex As Exception
+
+                    BreakPoint.Show(ex.Message)
                 End Try
             End If
 
@@ -113,12 +115,13 @@ Module Clear_Cache
 
             Form1.Print(My.Resources.Clearing_Image_Cache_word)
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "j2kDecodeCache\") Then
+            If Directory.Exists(Settings.OpensimBinPath & "j2kDecodeCache\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
+                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
+
+                Catch ex As Exception
+
+                    BreakPoint.Show(ex.Message)
                 End Try
             End If
 
@@ -140,12 +143,13 @@ Module Clear_Cache
             Form1.Print(My.Resources.Clearing_Mesh_Cache_word)
 
             Dim files() = Nothing
-            If Directory.Exists(Form1.PropOpensimBinPath & "MeshCache\") Then
+            If Directory.Exists(Settings.OpensimBinPath & "MeshCache\") Then
                 Try
-                    files = IO.Directory.GetFiles(Form1.PropOpensimBinPath & "j2kDecodeCache\")
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
+                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
+
+                Catch ex As Exception
+
+                    BreakPoint.Show(ex.Message)
                 End Try
             End If
 
@@ -166,8 +170,8 @@ Module Clear_Cache
             If Not Form1.PropOpensimIsRunning() Then
                 Dim ctr As Integer = 0
                 Dim folders() = Nothing
-                If Directory.Exists(Form1.PropOpensimBinPath & "ScriptEngines\") Then
-                    folders = Directory.GetFiles(Form1.PropOpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
+                If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
+                    folders = Directory.GetFiles(Settings.OpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
                     If folders IsNot Nothing Then
                         Form1.Print(My.Resources.Clearing_Script)
 

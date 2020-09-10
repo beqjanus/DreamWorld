@@ -5,18 +5,13 @@ namespace UPnPPortForwardManager
     // This required a reference to the COM NATUPnP 1.0 Type Library to be added to the project.
     public static class UPnPNATHelper
     {
+        #region Private Fields
+
         private static NATUPNPLib.UPnPNATClass _UPnPNat = null;
-        private static NATUPNPLib.UPnPNATClass UPnPNat
-        {
-            get
-            {
-                if (_UPnPNat == null)
-                {
-                    _UPnPNat = new NATUPNPLib.UPnPNATClass();
-                }
-                return _UPnPNat;
-            }
-        }
+
+        #endregion Private Fields
+
+        #region Public Properties
 
         /// <summary>
         /// Gets a IStaticPortMappingCollection that contains all the current IStaticPortMapping's
@@ -29,6 +24,25 @@ namespace UPnPPortForwardManager
             }
         }
 
+        #endregion Public Properties
+
+        #region Private Properties
+
+        private static NATUPNPLib.UPnPNATClass UPnPNat
+        {
+            get
+            {
+                if (_UPnPNat == null)
+                {
+                    _UPnPNat = new NATUPNPLib.UPnPNATClass();
+                }
+                return _UPnPNat;
+            }
+        }
+
+        #endregion Private Properties
+
+        #region Public Methods
 
         /// <summary>
         /// Adds a new Static Port Mapping
@@ -53,17 +67,17 @@ namespace UPnPPortForwardManager
         /// </param>
         /// <returns>The IStaticPortMapping that was added.</returns>
         public static NATUPNPLib.IStaticPortMapping Add(
-            int externalPort, 
-            string protocol, 
-            int internalPort, 
-            string internalClient, 
-            bool enabled, 
+            int externalPort,
+            string protocol,
+            int internalPort,
+            string internalClient,
+            bool enabled,
             string description
             )
         {
             if (string.IsNullOrEmpty(protocol))
             {
-                throw new ArgumentException("Protocol must be specified. Accepted values are UPD or TCP.", "protocol");
+                throw new ArgumentException("Protocol must be specified. Accepted values are UDP or TCP.", "protocol");
             }
             else if (!(protocol.ToLower() == "udp" || protocol.ToLower() == "tcp"))
             {
@@ -78,10 +92,10 @@ namespace UPnPPortForwardManager
             {
                 return UPnPNat.StaticPortMappingCollection.Add(externalPort, protocol, internalPort, internalClient, enabled, description);
             }
-            catch {
+            catch
+            {
                 throw new ArgumentException("Oops", "UPNP");
             }
-
         }
 
         /// <summary>
@@ -100,15 +114,16 @@ namespace UPnPPortForwardManager
         {
             if (string.IsNullOrEmpty(protocol))
             {
-                throw new ArgumentException("Protocol must be specified. Accepted values are UPD or TCP.", "protocol");
+                throw new ArgumentException("Protocol must be specified. Accepted values are UDP or TCP.", "protocol");
             }
             else if (!(protocol.ToLower() == "udp" || protocol.ToLower() == "tcp"))
             {
-                throw new ArgumentException("Invalid Protocol. Accepted values are UPD or TCP.", "protocol");
+                throw new ArgumentException("Invalid Protocol. Accepted values are UDP or TCP.", "protocol");
             }
 
             UPnPNat.StaticPortMappingCollection.Remove(externalPort, protocol);
         }
 
+        #endregion Public Methods
     }
 }

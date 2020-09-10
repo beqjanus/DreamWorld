@@ -46,7 +46,7 @@ Public Class ScreenPos
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        MyINI1 = Form1.PropMyFolder + "\OutworldzFiles\XYSettings.ini"
+        MyINI1 = Settings.CurrentDirectory + "\OutworldzFiles\XYSettings.ini"
 
         If File.Exists(MyINI1) Then
             LoadXYIni()
@@ -56,9 +56,10 @@ Public Class ScreenPos
                 Using outputFile As New StreamWriter(MyINI1, True)
                     outputFile.WriteLine(contents)
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
 
             LoadXYIni()
@@ -104,9 +105,10 @@ Public Class ScreenPos
     Public Function GetHW() As List(Of Integer)
 
         If Data Is Nothing Then
-            Dim array = New List(Of Integer)
-            array.Add(100)
-            array.Add(100)
+            Dim array = New List(Of Integer) From {
+                100,
+                100
+            }
             Return array
         End If
         Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
@@ -125,9 +127,10 @@ Public Class ScreenPos
     Public Function GetXY() As List(Of Integer)
 
         If Data Is Nothing Then
-            Dim array = New List(Of Integer)
-            array.Add(100)
-            array.Add(100)
+            Dim array = New List(Of Integer) From {
+                100,
+                100
+            }
             Return array
         End If
         Try
@@ -153,10 +156,11 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
             Form1.Logger("Resize", ex.Message, "Error")
+            BreakPoint.Show(ex.Message)
         End Try
         Return New List(Of Integer) From {100, 100}
 
@@ -166,9 +170,10 @@ Public Class ScreenPos
 
         Try
             Data = parser.ReadFile(MyINI1, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
 
@@ -194,9 +199,10 @@ Public Class ScreenPos
         If Data Is Nothing Then Return
         Try
             parser.WriteFile(MyINI1, Data, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -233,9 +239,10 @@ Public Class ScreenPos
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 

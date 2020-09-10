@@ -52,11 +52,10 @@ Public Class UPnp
         'Create the new NAT Class
         Try
             UPnpnat = New NATUPNPLib.UPnPNAT
-
-#Disable Warning CA1031
         Catch ex As Exception
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
-#Enable Warning CA1031
+
         End Try
 
         'generate the static mappings
@@ -146,12 +145,11 @@ Public Class UPnp
         Try
             ' Okay, continue on
             staticMapping.Add(port, protocol, port, localIP, True, desc & ":" & CStr(port))
-#Disable Warning CA1031
         Catch ex As Exception
-            Debug.Print(ex.Message)
+            BreakPoint.Show(ex.Message)
             Form1.Print("Cannot add port " & CStr(port) & " to router")
             Return False
-#Enable Warning CA1031
+
         End Try
         Return True
 
@@ -188,10 +186,8 @@ Public Class UPnp
                     Return True
                 End If
             Next
-#Disable Warning CA1031
         Catch ex As Exception
-            Debug.Print(ex.Message)
-#Enable Warning CA1031
+            ' no break
         End Try
 
         'Nothing!
@@ -215,9 +211,9 @@ Public Class UPnp
                         Dim EndPoint As IPEndPoint = TryCast(sock.LocalEndPoint, IPEndPoint)
                         LIP = EndPoint.Address.ToString()
                     End Using
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
+                Catch ex As Exception
+
+                    BreakPoint.Show(ex.Message)
                     LIP = LocalIPForced()
 
                     If LIP.Length = 0 Then
@@ -228,9 +224,9 @@ Public Class UPnp
             Else
                 LIP = CacheIP
             End If
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
         Return LIP
 
@@ -241,10 +237,9 @@ Public Class UPnp
 
         Try
             staticMapping.Remove(port, prot.ToString)
-#Disable Warning CA1031
         Catch ex As Exception
-            Debug.Print(ex.Message)
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
+
         End Try
     End Sub
 
@@ -266,9 +261,9 @@ Public Class UPnp
         Try
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             Marshal.ReleaseComObject(UPnpnat)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -290,10 +285,9 @@ Public Class UPnp
                 Debug.Print("No Static UPNP")
                 Return
             End If
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
-            Debug.Print("No Static UPNP")
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log("WARN", "UPNP is not available")
             staticEnabled = False
             Return

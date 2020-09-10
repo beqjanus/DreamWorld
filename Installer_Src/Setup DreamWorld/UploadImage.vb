@@ -49,7 +49,7 @@ Public Class UploadImage
         Try
             Dim URL = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
 
-            Dim File = Form1.PropMyFolder & "\OutworldzFiles\Photo.png"
+            Dim File = Settings.CurrentDirectory & "\OutworldzFiles\Photo.png"
             Dim params As New Specialized.NameValueCollection From {
                 {"MachineID", Settings.MachineID()},
                 {"DnsName", Settings.PublicIP}
@@ -63,10 +63,9 @@ Public Class UploadImage
 
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
 
@@ -85,10 +84,9 @@ Public Class UploadImage
         Dim reqStream As Stream
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             UploadError(ex.Message)
             Return
         End Try
@@ -146,9 +144,9 @@ Public Class UploadImage
             Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
             sw.Flush() : sw.Close()
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         r_State.Request.BeginGetResponse(AddressOf ResponseAvailable, r_State)
@@ -161,12 +159,15 @@ Public Class UploadImage
         Dim sData As String = String.Empty
         Try
             webResp = CType(r_State.Request.EndGetResponse(ar), HttpWebResponse)
-        Catch wex As WebException
-            webResp = CType(wex.Response, HttpWebResponse)
+        Catch ex As WebException
+            webResp = CType(ex.Response, HttpWebResponse)
+            BreakPoint.Show(ex.Message)
         Catch ex As InvalidOperationException
             webResp = Nothing
+            BreakPoint.Show(ex.Message)
         Catch ex As ArgumentException
             webResp = Nothing
+            BreakPoint.Show(ex.Message)
         End Try
 
         If webResp IsNot Nothing Then

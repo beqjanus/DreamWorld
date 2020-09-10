@@ -145,7 +145,8 @@ Public Class FormDNSName
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                 End If
                 Settings.DNSName = DNSNameBox.Text
-            Catch ex As ArgumentNullException
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
             End Try
         End If
 
@@ -194,7 +195,8 @@ Public Class FormDNSName
                         MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " & IP, vbInformation, My.Resources.Info_word)
                     End If
                 End If
-            Catch ex As ArgumentNullException
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
             End Try
         End If
 

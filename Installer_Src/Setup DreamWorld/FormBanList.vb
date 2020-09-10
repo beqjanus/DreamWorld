@@ -74,7 +74,7 @@ Public Class FormBanList
         Dim MACString As String = ""
         Dim ViewerString As String = ""
         Dim GridString As String = ""
-        Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Form1.PropMyFolder & "/Outworldzfiles/BanList.txt", False)
+        Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt", False)
         Try
 
             For Each row As DataGridViewRow In DataGridView1.Rows
@@ -130,7 +130,7 @@ Public Class FormBanList
 
             If Settings.ServerType = "Robust" Then
                 ' Robust Process only
-                If Settings.LoadIni(Form1.PropOpensimBinPath & "Robust.HG.ini.proto", ";") Then
+                If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini.proto", ";") Then
                     MsgBox(My.Resources.Error_word)
                     Return
                 End If
@@ -156,9 +156,10 @@ Public Class FormBanList
                     Form1.PropAborting = False
                 End If
             End If
-#Disable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Ban List:" & ex.Message)
         Finally
             fname.Close()
@@ -237,10 +238,10 @@ Public Class FormBanList
             table.Locale = CultureInfo.InvariantCulture
 
             Dim filename As String
-            If System.IO.File.Exists(Form1.PropMyFolder & "/Outworldzfiles/BanList.txt") Then
-                filename = Form1.PropMyFolder & "/Outworldzfiles/BanList.txt"
+            If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
+                filename = Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt"
             Else
-                filename = Form1.PropMyFolder & "/Outworldzfiles/Opensim/BanListProto.txt"
+                filename = Settings.CurrentDirectory & "/Outworldzfiles/Opensim/BanListProto.txt"
             End If
 
             Dim line As String
@@ -264,9 +265,10 @@ Public Class FormBanList
 
             DataGridView1.Columns(0).Width = colsize.ColumnWidth(My.Resources.Banned_word, 240)
             DataGridView1.Columns(1).Width = colsize.ColumnWidth(My.Resources.Comment_or_Notes_Word, 500)
-#Disable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Banlist:" & ex.Message)
         End Try
 

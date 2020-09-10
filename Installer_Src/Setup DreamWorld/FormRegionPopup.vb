@@ -170,10 +170,11 @@ Public Class FormRegionPopup
 
         Try
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(_RegionName)
-            System.Diagnostics.Process.Start(Form1.PropMyFolder & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
-#Disable Warning CA1031
+            System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Form1.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -184,9 +185,10 @@ Public Class FormRegionPopup
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

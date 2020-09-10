@@ -105,9 +105,10 @@ Public Class AdvancedForm
         Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
+
         End Try
 
     End Sub

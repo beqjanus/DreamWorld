@@ -49,13 +49,14 @@ Public Class FormMaps
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
 
         Form1.Print(My.Resources.Clearing_Map_tiles_word)
-        Dim f As String = Form1.PropOpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
+        Dim f As String = Settings.OpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
         Try
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
         Form1.Print(My.Resources.Maps_Erased)
 
@@ -65,9 +66,10 @@ Public Class FormMaps
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/Metromap/index.php"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
+
         End Try
     End Sub
 
@@ -80,9 +82,10 @@ Public Class FormMaps
 
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -103,9 +106,10 @@ Public Class FormMaps
         Dim webAddress As String = "http://" + Settings.PublicIP & ":" & Settings.ApachePort & "/Metromap/indexmax.php"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

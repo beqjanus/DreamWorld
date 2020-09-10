@@ -112,9 +112,11 @@ Public Class FormRegion
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return value
@@ -137,9 +139,10 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             chosen = ""
         End Try
 
@@ -467,9 +470,10 @@ Public Class FormRegion
 
             Initted1 = True
             Form1.HelpOnce("Region")
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
@@ -572,12 +576,13 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info_word)
         If msg = vbYes Then
-            FileStuff.DeleteFile(Form1.PropOpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+            FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
         End If
 
@@ -856,9 +861,10 @@ Public Class FormRegion
                 Message = My.Resources.NVNonPhysPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Message = My.Resources.NVNonPhysPrim
             Return Message
         End Try
@@ -868,9 +874,10 @@ Public Class FormRegion
                 Message = My.Resources.NVPhysPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Message = My.Resources.NVPhysPrim
             Return Message
         End Try
@@ -880,9 +887,10 @@ Public Class FormRegion
                 Message = My.Resources.NVMaxPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Message = My.Resources.NVMaxPrim
             Return Message
         End Try
@@ -891,9 +899,10 @@ Public Class FormRegion
                 Message = My.Resources.NVMaxAgents
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Message = My.Resources.NVMaxAgents
             Return Message
         End Try
@@ -1013,9 +1022,10 @@ Public Class FormRegion
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
                 Form1.Print(My.Resources.Aborted_word)
                 Return
             End Try
@@ -1038,18 +1048,19 @@ Public Class FormRegion
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
-                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region")
-#Disable Warning CA1031
+                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
+
                 Catch ex As Exception
-#Enable Warning CA1031
+
+                    BreakPoint.Show(ex.Message)
                     Form1.Print(My.Resources.Aborted_word)
                     Return
                 End Try
             End If
 
-            Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Filepath = Form1.PropOpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "Regions\" + NewGroup
+            Form1.PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Filepath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Form1.PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
 
         End If
 
@@ -1228,9 +1239,10 @@ Public Class FormRegion
             Using outputFile As New StreamWriter(Filepath, False)
                 outputFile.Write(Region)
             End Using
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
